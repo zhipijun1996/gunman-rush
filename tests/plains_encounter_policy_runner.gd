@@ -74,7 +74,7 @@ func advance(count:int=1) -> void:
 		var requests:Array=[]
 		for action:Dictionary in controller.router._queue:requests.append({"type":str(action.type),"direction":[action.direction.x,action.direction.y]})
 		await physics_frame;await process_frame;ticks+=1
-		frames.append({"tick":ticks,"position":[motor.global_position.x,motor.global_position.y],"grounded":motor.is_on_floor(),"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"axis":controller.router.axis,"requests":requests,"enemy_position":[enemy.global_position.x,enemy.global_position.y],"enemy_health":actor.health.current,"enemy_state":str(actor.attack_behavior.state) if actor.attack_behavior!=null else "patrol","actor_processing":actor.is_physics_processing(),"projectile_count":actor.attack_behavior._projectiles.filter(func(p):return is_instance_valid(p) and not p.spent).size() if actor.attack_behavior!=null else 0})
+		frames.append({"tick":ticks,"position":[motor.global_position.x,motor.global_position.y],"grounded":motor.is_on_floor(),"energy":controller.actor_resources.stamina.current,"charges":controller.action_resources.shot_charges,"focus_active":controller.air_focus_ability.active,"health":controller.actor_resources.health.current,"axis":controller.router.axis,"requests":requests,"enemy_position":[enemy.global_position.x,enemy.global_position.y],"enemy_health":actor.health.current,"enemy_state":str(actor.attack_behavior.state) if actor.attack_behavior!=null else "patrol","actor_processing":actor.is_physics_processing(),"projectile_count":actor.attack_behavior._projectiles.filter(func(p):return is_instance_valid(p) and not p.spent).size() if actor.attack_behavior!=null else 0})
 func count_kind(kind:String) -> int:return events.filter(func(e:Dictionary):return e.kind==kind).size()
 func wait_ready() -> void:
 	for unused:int in 90:
@@ -87,7 +87,9 @@ func snapshot_case(id:String,extra:Dictionary={}) -> void:
 	for id_value:StringName in controller.actor_resources.stamina._receipts:
 		var value:Dictionary=controller.actor_resources.stamina._receipts[id_value];var result:ActorResourceResult=value.result
 		receipts.append({"event_id":str(id_value),"status":int(result.status),"operation":str(result.operation),"amount_applied":result.amount_applied,"requested_amount":value.amount,"current":result.snapshot.current})
-	var row:Dictionary={"id":id,"scope":"normally_scheduled_real_physics_fixture_not_formal_region","frames":frames.duplicate(true),"events":events.duplicate(true),"receipts":receipts,"enemy_terminal":actor.health.terminal,"enemy_health":actor.health.current,"player_health":controller.actor_resources.health.current,"motor_id":motor.get_instance_id(),"session":controller.session_id};row.merge(extra);cases.append(row)
+	var definition:=controller.shot_energy.definition
+	var shot_policy:={"path":definition.resource_path,"sha256":FileAccess.get_sha256(definition.resource_path),"shooting_consumes_energy":definition.shooting_consumes_energy,"max_air_shots":motor.tuning.max_air_shots,"initial_energy":controller.actor_resources.stamina.capacity}
+	var row:Dictionary={"shot_policy":shot_policy,"id":id,"scope":"normally_scheduled_real_physics_fixture_not_formal_region","frames":frames.duplicate(true),"events":events.duplicate(true),"receipts":receipts,"enemy_terminal":actor.health.terminal,"enemy_health":actor.health.current,"player_health":controller.actor_resources.health.current,"motor_id":motor.get_instance_id(),"session":controller.session_id};row.merge(extra);cases.append(row)
 func guards() -> void:
 	await fixture("charger",true)
 	await fire(Vector2.RIGHT);await advance(40)
@@ -101,10 +103,21 @@ func guards() -> void:
 	await fixture("charger")
 	for unused:int in 5:
 		await wait_ready();await fire(Vector2.UP)
-	verify(is_zero_approx(controller.actor_resources.stamina.current),"five legal shots actually consume initial energy")
-	await wait_ready();controller.router.request_action(&"jump");await advance(2)
-	var before:=count_kind("shot");await fire(Vector2.UP)
-	verify(not motor.is_on_floor() and count_kind("shot")==before and events.any(func(e:Dictionary):return e.kind=="rejected" and e.reason=="energy"),"real airborne low energy rejects without injection")
+	if controller.shot_energy.definition.shooting_consumes_energy:
+		verify(is_zero_approx(controller.actor_resources.stamina.current),"five legal shots actually consume initial energy")
+		await wait_ready();controller.router.request_action(&"jump");await advance(2)
+		var before:=count_kind("shot");await fire(Vector2.UP)
+		verify(not motor.is_on_floor() and count_kind("shot")==before and events.any(func(e:Dictionary):return e.kind=="rejected" and e.reason=="energy"),"real airborne low energy rejects without injection")
+	else:
+		verify(controller.actor_resources.stamina.current==controller.actor_resources.stamina.capacity and count_kind("shot")==5,"five real ground shots preserve current time energy")
+		verify(motor.tuning.max_air_shots==1,"current base fixture has one air shot")
+		await wait_ready();controller.router.request_action(&"jump");await advance(2)
+		var before:=count_kind("shot");await fire(Vector2.DOWN)
+		verify(not motor.is_on_floor() and count_kind("shot")==before+1 and controller.action_resources.shot_charges==0,"free real airborne shot consumes the sole air charge")
+		await advance(int(ceil(motor.tuning.shot_cooldown*Engine.physics_ticks_per_second))+1)
+		await fire(Vector2.UP)
+		verify(not motor.is_on_floor() and count_kind("shot")==before+1 and events.any(func(e:Dictionary):return e.kind=="rejected" and e.reason=="empty"),"second airborne shot refuses empty charge, not time energy")
+		verify(controller.actor_resources.stamina.current==controller.actor_resources.stamina.capacity,"airborne free shots preserve time energy")
 	snapshot_case("air_energy_rejected")
 func kills_and_states() -> void:
 	for behavior:String in ["patrol","charger","diver","hopper","sentry","fan_sentry"]:
@@ -244,23 +257,49 @@ func _drive_reward_entry_inner(driver: RewardTrace, state: Dictionary) -> void:
 	state.entry_energy=driver.controller.actor_resources.stamina.current
 	state.entry_guard=driver.runtime_snapshot(true).enemies.filter(func(e:Dictionary):return e.id==driver.guard_id)
 	if entry_low:
-		# Spend through accepted real Router shots, never write stamina. Ground
-		# regeneration/cooldown remain active and every receipt is observed.
-		driver.critical_traversal+=1
-		for unused:int in 8:
-			if driver.controller.actor_resources.stamina.current<20:break
-			while driver.controller.shoot_ability.cooldown_remaining>0:
+		if not driver.controller.shot_energy.definition.shooting_consumes_energy:
+			driver.critical_traversal+=1
+			state.focus_setup={"policy_path":driver.controller.shot_energy.definition.resource_path,"policy_sha256":FileAccess.get_sha256(driver.controller.shot_energy.definition.resource_path),"initial":driver.controller.actor_resources.stamina.current,"transactions":[],"input":"actual_router_jumpheld_and_airborne_aim","step_scale":Engine.time_scale}
+			var focus_observer:Callable=func(result:ActorResourceResult):state.focus_setup.transactions.append({"tick":driver.trace_ticks+1,"operation":str(result.operation),"amount":result.amount_applied,"current":result.snapshot.current,"capacity":result.snapshot.capacity,"epoch":result.snapshot.epoch,"session_id":driver.controller.session_id,"grounded":driver.controller._was_grounded,"aiming":driver.controller.router.aim_engaged,"focus_active":driver.controller.air_focus_ability.active,"real_delta":driver.controller.get_physics_process_delta_time()/float(state.focus_setup.step_scale),"focus_air_before":driver.controller.air_focus_ability.air_time_used})
+			driver.controller.actor_resources.stamina.changed.connect(focus_observer)
+			driver.controller.router.set_move_axis(0)
+			driver.controller.router.set_aim(driver.controller.router.current_device,Vector2.UP,true)
+			driver.controller.router.set_jump_held(&"entry_low_time",true)
+			for unused:int in 240:
+				state.focus_setup.step_scale=Engine.time_scale
+				await driver.tick()
+				if driver.is_trace_cancelled():return
+				if driver.controller.actor_resources.stamina.current<=15:break
+			driver.controller.router.set_aim(driver.controller.router.current_device,Vector2.UP,false)
+			driver.controller.router.set_jump_held(&"entry_low_time",false)
+			for unused:int in 180:
+				state.focus_setup.step_scale=Engine.time_scale
+				await driver.tick()
+				if driver.is_trace_cancelled():return
+				if driver.motor.is_on_floor():break
+			state.focus_setup.released=not driver.controller.router.aim_engaged and not driver.controller.air_focus_ability.active
+			driver.controller.actor_resources.stamina.changed.disconnect(focus_observer)
+			state.low_tick=driver.trace_ticks
+			state.low_energy=driver.controller.actor_resources.stamina.current
+			driver.critical_traversal-=1
+		else:
+			# Spend through accepted real Router shots, never write stamina. Ground
+			# regeneration/cooldown remain active and every receipt is observed.
+			driver.critical_traversal+=1
+			for unused:int in 8:
+				if driver.controller.actor_resources.stamina.current<20:break
+				while driver.controller.shoot_ability.cooldown_remaining>0:
+					await driver.tick()
+					if driver.is_trace_cancelled(): return
+				driver.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 				await driver.tick()
 				if driver.is_trace_cancelled(): return
-			driver.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
-			await driver.tick()
-			if driver.is_trace_cancelled(): return
-			var returned_to_bank: bool = await driver.move_to(float(state.entry_position[0]),120)
-			if driver.is_trace_cancelled(): return
-			if not returned_to_bank:break
-		state.low_tick=driver.trace_ticks
-		state.low_energy=driver.controller.actor_resources.stamina.current
-		driver.critical_traversal-=1
+				var returned_to_bank: bool = await driver.move_to(float(state.entry_position[0]),120)
+				if driver.is_trace_cancelled(): return
+				if not returned_to_bank:break
+			state.low_tick=driver.trace_ticks
+			state.low_energy=driver.controller.actor_resources.stamina.current
+			driver.critical_traversal-=1
 	state.trial_start_tick=driver.trace_ticks
 	var trial_result: bool = await driver.deep_trial(goal)
 	if driver.is_trace_cancelled(): return

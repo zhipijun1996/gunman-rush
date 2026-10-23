@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=289 setup_ms=27
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f93cd6fbf4b8be98e00af8ada184f4ad44d3c047f2a6ce0c5d56e43ecb745b7d","map_index":1,"region":"plains","seed":"enemy-feedback-01-formal"}
+CORPSE_SAVE_BEFORE plains/enemy/tutorial pose={"face":1.0,"frame":7,"position":[-649.700012207031,18.108434677124],"support":{"body":"Platform1","kind":"module","module":"tutorial_recoil"},"support_anchor":[70.2999877929688,-20.0],"version":1} support=/root/@Node2D@2/@Node2D@97/@Node2D@98/tutorial_recoil/Platform1 settled=true
+CORPSE_SAVE_BEFORE plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept pose={"face":1.0,"frame":7,"position":[2498.87255859375,529.846130371094],"support":{"body":"bell_ferry","kind":"module","module":"plains_passage_area_1_2_area_2_2_0"},"support_anchor":[51.40576171875,-12.0],"version":1} support=/root/@Node2D@2/@Node2D@97/@Node2D@98/plains_passage_area_1_2_area_2_2_0/bell_ferry settled=true
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=289 setup_ms=25
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"f93cd6fbf4b8be98e00af8ada184f4ad44d3c047f2a6ce0c5d56e43ecb745b7d","map_index":1,"region":"plains","seed":"enemy-feedback-01-formal"}
+CORPSE_SAVE_AFTER plains/enemy/tutorial position=(-649.7, 18.10843) status=saved_support_contact visible=true
+CORPSE_SAVE_AFTER plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept position=(2507.406, 529.8461) status=saved_support_contact visible=true
+FAIL: formal reload retains actual corpse pixel position, not airborne Motor position
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"confirm":2,"death":1,"hurt":3,"impact":4,"land":3,"shot":4,"step":3,"warning":1},"service":"GameAudio"}],"released":true,"seconds":0.081}
+ENEMY_FEEDBACK_01_FORMAL checks=72 failures=1
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/workspace/worklines/enemy-save-integration/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

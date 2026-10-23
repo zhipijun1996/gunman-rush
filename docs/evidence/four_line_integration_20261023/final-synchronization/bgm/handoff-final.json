@@ -1,0 +1,488 @@
+{
+  "status": "passed",
+  "root_cause": "SceneTreeTimer(.2) expires on accumulated frame delta before200ms of real MP3 mixing. Real250ms main-thread work before same-frame seek+timer reproduces0.083–0.142ms wait and loop0 on all five fresh backends; original independent local89/0 also retained. No MP3/config/runtime defect demonstrated.",
+  "change": "Retain .2seconds intent; wait until real monotonic deadline while yielding process_frame. Preserve all48 original check call lines producing89runtime assertions, original360native/480Harness and1s teardown bounds. File hashes read before seek so telemetry cannot extend the assertion deadline.",
+  "patch": "/workspace/scratch/bgm-seek-current-20261023/bgm-wall-clock-final.patch",
+  "patch_sha256": "270dda1428d8f193e976c16f3b0b12144e9c0b2e5565f7790ec95aa7e059215f",
+  "source_identity": {
+    "head": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+    "tracked_clean": true,
+    "root_runner_sha256": "cd21d79f1e4d6830e6329d55171cbb20f560f197ff561160fad848a8106e6f1b",
+    "canonical_candidate_sha256": "35e5a5fa661dccb44c8b254e1c332a5ce37f7a9b79c9e193d0dba134953a3256",
+    "executed_external_sha256": "8757d1fda0341c80747a854037ac5e06599a29d410c4dc36625da1fe2c416eda",
+    "runtime_music_sha256": "3ec485d7fc65f9a1f1c440a7dfe04b2d8b7f0bafd9473cea507ea4f5c9937fdb",
+    "external_difference": "Output directory only; report writes scratch absolute path; all89originalchecks unchanged."
+  },
+  "baseline_native": {
+    "checks": 89,
+    "failures": 0,
+    "report": "/workspace/scratch/bgm-seek-current-20261023/original-output/report.json",
+    "log": "/workspace/scratch/bgm-seek-current-20261023/original-native.log",
+    "userdata_scope": "Earlier private player-workline env, separate from root; all final candidate and controls explicitly scratch-owned XDG/GUNMAN."
+  },
+  "candidate_native": {
+    "checks": 89,
+    "failures": 0,
+    "report": "/workspace/scratch/bgm-seek-current-20261023/candidate-final-output/report.json",
+    "report_sha256": "660f4830c014effff94ca2363d8029583400333e5bca72a53c6aaa1f7be685f3",
+    "log": "/workspace/scratch/bgm-seek-current-20261023/candidate-final-native.log",
+    "five_real_tracks": [
+      {
+        "actual_wall_usec": 200335,
+        "after": {
+          "backend_position": 0.138639455782313,
+          "loop_count": 1,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5004208,
+          "playing": true,
+          "position": 0.138639450073242,
+          "process_frame": 352,
+          "since_mix": 0.051133,
+          "to_next_mix": 0.0417468185941043
+        },
+        "before": {
+          "backend_position": 2.13913832199546,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 4698094,
+          "playing": true,
+          "position": 2.13913822174072,
+          "process_frame": 321,
+          "since_mix": 0.024092,
+          "to_next_mix": 0.0687868185941043
+        },
+        "configured_loop": true,
+        "import_sha256": "5c7d03090e3c92f8fceb444b4f21a43d27c3ebd4f3d19afe4872ab3c65c8713e",
+        "length": 176.535507202148,
+        "queued": {
+          "backend_position": 176.488390022676,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 4803873,
+          "playing": true,
+          "position": 176.488388061523,
+          "process_frame": 321,
+          "since_mix": 0.036821,
+          "to_next_mix": 0.0560588185941043
+        },
+        "seek_target": 176.485507202148,
+        "source_sha256": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+        "stream": "res://assets/audio/bgm/the_kindred_hearth.mp3",
+        "track": "home"
+      },
+      {
+        "actual_wall_usec": 200294,
+        "after": {
+          "backend_position": 0.138639455782313,
+          "loop_count": 1,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5363863,
+          "playing": true,
+          "position": 0.138639450073242,
+          "process_frame": 391,
+          "since_mix": 0.038315,
+          "to_next_mix": 0.0545648185941043
+        },
+        "before": {
+          "backend_position": 0.0957823129251701,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5068012,
+          "playing": true,
+          "position": 0.0957823097705841,
+          "process_frame": 360,
+          "since_mix": 0.021867,
+          "to_next_mix": 0.0710128185941043
+        },
+        "configured_loop": true,
+        "import_sha256": "82957d2a2995f25869bef3bfc6ae60527a46a1f5671bc8166cfbaafc6b0bd550",
+        "length": 157.727340698242,
+        "queued": {
+          "backend_position": 157.68022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5163569,
+          "playing": true,
+          "position": 157.680221557617,
+          "process_frame": 360,
+          "since_mix": 0.024295,
+          "to_next_mix": 0.0685838185941043
+        },
+        "seek_target": 157.677340698242,
+        "source_sha256": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+        "stream": "res://assets/audio/bgm/where_the_path_bends.mp3",
+        "track": "plains"
+      },
+      {
+        "actual_wall_usec": 200289,
+        "after": {
+          "backend_position": 0.231519274376417,
+          "loop_count": 1,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5711669,
+          "playing": true,
+          "position": 0.231519266963005,
+          "process_frame": 428,
+          "since_mix": 0.013449,
+          "to_next_mix": 0.0794308185941043
+        },
+        "before": {
+          "backend_position": 0.00290249433106576,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5414171,
+          "playing": true,
+          "position": 0.00290249427780509,
+          "process_frame": 397,
+          "since_mix": 0.088623,
+          "to_next_mix": 0.00425681859410432
+        },
+        "configured_loop": true,
+        "import_sha256": "a885159f9ced29e42e68d158893d16117aa08c00c846f89c01bdc51c5fc76414",
+        "length": 159.817138671875,
+        "queued": {
+          "backend_position": 159.770022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5511380,
+          "playing": true,
+          "position": 159.77001953125,
+          "process_frame": 397,
+          "since_mix": 0.092654,
+          "to_next_mix": 0.00022581859410431
+        },
+        "seek_target": 159.767138671875,
+        "source_sha256": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+        "stream": "res://assets/audio/bgm/across_the_wooden_sails.mp3",
+        "track": "plains_boss"
+      },
+      {
+        "actual_wall_usec": 200302,
+        "after": {
+          "backend_position": 0.138639455782313,
+          "loop_count": 1,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 6068738,
+          "playing": true,
+          "position": 0.138639450073242,
+          "process_frame": 466,
+          "since_mix": 0.091139,
+          "to_next_mix": 0.00174081859410431
+        },
+        "before": {
+          "backend_position": 0.00290249433106576,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5768540,
+          "playing": true,
+          "position": 0.00290249427780509,
+          "process_frame": 435,
+          "since_mix": 0.070321,
+          "to_next_mix": 0.0225588185941043
+        },
+        "configured_loop": true,
+        "import_sha256": "f29dfc48af8b12193021441bb0277a52551a486f49ec8b9a8865bf09f19470a4",
+        "length": 158.406524658203,
+        "queued": {
+          "backend_position": 158.359410430839,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 5868436,
+          "playing": true,
+          "position": 158.359405517578,
+          "process_frame": 435,
+          "since_mix": 0.077066,
+          "to_next_mix": 0.0158138185941043
+        },
+        "seek_target": 158.356524658203,
+        "source_sha256": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+        "stream": "res://assets/audio/bgm/vines_beneath_the_canopy.mp3",
+        "track": "forest"
+      },
+      {
+        "actual_wall_usec": 200338,
+        "after": {
+          "backend_position": 0.138662131519274,
+          "loop_count": 1,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 6424206,
+          "playing": true,
+          "position": 0.138662129640579,
+          "process_frame": 503,
+          "since_mix": 0.074076,
+          "to_next_mix": 0.0188038185941043
+        },
+        "before": {
+          "backend_position": 0.0957823129251701,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 6119410,
+          "playing": true,
+          "position": 0.0957823097705841,
+          "process_frame": 472,
+          "since_mix": 0.048638,
+          "to_next_mix": 0.0442418185941043
+        },
+        "configured_loop": true,
+        "import_sha256": "5c3c5b3bc0e7cf0415910ce1fbd359ef6f699fe21e2a5a07da914b68aae5753e",
+        "length": 160.914291381836,
+        "queued": {
+          "backend_position": 160.867188208617,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 6223868,
+          "playing": true,
+          "position": 160.8671875,
+          "process_frame": 472,
+          "since_mix": 0.059953,
+          "to_next_mix": 0.0329258185941043
+        },
+        "seek_target": 160.864291381836,
+        "source_sha256": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992",
+        "stream": "res://assets/audio/bgm/beyond_the_knotted_vines.mp3",
+        "track": "forest_boss"
+      }
+    ]
+  },
+  "causal_original_timer_probe": {
+    "file": "/workspace/scratch/bgm-seek-current-20261023/longframe-probe.json",
+    "log": "/workspace/scratch/bgm-seek-current-20261023/longframe-probe-isolated.log",
+    "fresh_backend_baselines_all_zero": true,
+    "longframe_rows": [
+      {
+        "after": {
+          "backend_position": 176.488390022676,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2220120,
+          "playing": true,
+          "position": 176.488388061523,
+          "since_mix": 0.058463,
+          "to_next_mix": 0.0344168185941043
+        },
+        "before": {
+          "backend_position": 0.281541950113379,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2112812,
+          "playing": true,
+          "position": 0.28154194355011,
+          "since_mix": 0.044264,
+          "to_next_mix": 0.0486158185941043
+        },
+        "id": "home",
+        "length": 176.535507202148,
+        "mode": "pre_seek_longframe",
+        "path": "res://assets/audio/bgm/the_kindred_hearth.mp3",
+        "process_delta_after_timer": 0.132372,
+        "process_delta_before_seek": 0.006906,
+        "queued": {
+          "backend_position": 176.488390022676,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2220031,
+          "playing": true,
+          "position": 176.488388061523,
+          "since_mix": 0.058375,
+          "to_next_mix": 0.0345048185941043
+        },
+        "shutdown_1s": true,
+        "source_sha256": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+        "timer_elapsed_usec": 83
+      },
+      {
+        "after": {
+          "backend_position": 157.68022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2679844,
+          "playing": true,
+          "position": 157.680221557617,
+          "since_mix": 0.053011,
+          "to_next_mix": 0.0398678185941043
+        },
+        "before": {
+          "backend_position": 0.281541950113379,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2582794,
+          "playing": true,
+          "position": 0.28154194355011,
+          "since_mix": 0.049024,
+          "to_next_mix": 0.0438558185941043
+        },
+        "id": "plains",
+        "length": 157.727340698242,
+        "mode": "pre_seek_longframe",
+        "path": "res://assets/audio/bgm/where_the_path_bends.mp3",
+        "process_delta_after_timer": 0.137283666666667,
+        "process_delta_before_seek": 0.006906,
+        "queued": {
+          "backend_position": 157.68022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 2679748,
+          "playing": true,
+          "position": 157.680221557617,
+          "since_mix": 0.052919,
+          "to_next_mix": 0.0399608185941043
+        },
+        "shutdown_1s": true,
+        "source_sha256": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+        "timer_elapsed_usec": 87
+      },
+      {
+        "after": {
+          "backend_position": 159.770022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3149154,
+          "playing": true,
+          "position": 159.77001953125,
+          "since_mix": 0.057122,
+          "to_next_mix": 0.0357578185941043
+        },
+        "before": {
+          "backend_position": 0.281541950113379,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3048563,
+          "playing": true,
+          "position": 0.28154194355011,
+          "since_mix": 0.04959,
+          "to_next_mix": 0.0432898185941043
+        },
+        "id": "plains_boss",
+        "length": 159.817138671875,
+        "mode": "pre_seek_longframe",
+        "path": "res://assets/audio/bgm/across_the_wooden_sails.mp3",
+        "process_delta_after_timer": 0.137915428571428,
+        "process_delta_before_seek": 0.00666666666666667,
+        "queued": {
+          "backend_position": 159.770022675737,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3149057,
+          "playing": true,
+          "position": 159.77001953125,
+          "since_mix": 0.057029,
+          "to_next_mix": 0.0358508185941043
+        },
+        "shutdown_1s": true,
+        "source_sha256": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+        "timer_elapsed_usec": 85
+      },
+      {
+        "after": {
+          "backend_position": 158.359410430839,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3607332,
+          "playing": true,
+          "position": 158.359405517578,
+          "since_mix": 0.050079,
+          "to_next_mix": 0.0428008185941043
+        },
+        "before": {
+          "backend_position": 0.281541950113379,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3511145,
+          "playing": true,
+          "position": 0.28154194355011,
+          "since_mix": 0.046981,
+          "to_next_mix": 0.0458988185941043
+        },
+        "id": "forest",
+        "length": 158.406524658203,
+        "mode": "pre_seek_longframe",
+        "path": "res://assets/audio/bgm/vines_beneath_the_canopy.mp3",
+        "process_delta_after_timer": 0.137919666666667,
+        "process_delta_before_seek": 0.006901,
+        "queued": {
+          "backend_position": 158.359410430839,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3607237,
+          "playing": true,
+          "position": 158.359405517578,
+          "since_mix": 0.049987,
+          "to_next_mix": 0.0428928185941043
+        },
+        "shutdown_1s": true,
+        "source_sha256": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+        "timer_elapsed_usec": 88
+      },
+      {
+        "after": {
+          "backend_position": 160.867188208617,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 4079958,
+          "playing": true,
+          "position": 160.8671875,
+          "since_mix": 0.057468,
+          "to_next_mix": 0.0354118185941043
+        },
+        "before": {
+          "backend_position": 0.281541950113379,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 3982952,
+          "playing": true,
+          "position": 0.28154194355011,
+          "since_mix": 0.053528,
+          "to_next_mix": 0.0393518185941043
+        },
+        "id": "forest_boss",
+        "length": 160.914291381836,
+        "mode": "pre_seek_longframe",
+        "path": "res://assets/audio/bgm/beyond_the_knotted_vines.mp3",
+        "process_delta_after_timer": 0.137113666666667,
+        "process_delta_before_seek": 0.006901,
+        "queued": {
+          "backend_position": 160.867188208617,
+          "loop_count": 0,
+          "mix_rate": 44100.0,
+          "monotonic_usec": 4079794,
+          "playing": true,
+          "position": 160.8671875,
+          "since_mix": 0.057313,
+          "to_next_mix": 0.0355668185941043
+        },
+        "shutdown_1s": true,
+        "source_sha256": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992",
+        "timer_elapsed_usec": 142
+      }
+    ]
+  },
+  "strict_controls": {
+    "file": "/workspace/scratch/bgm-seek-current-20261023/wall-clock-controls-final.json",
+    "sha256": "97dec33719bb483510b2eb3b0870e4243d2acf4288d298719509641467925b0f",
+    "counts": {
+      "longframe_looping_pass": 5,
+      "nonlooping_rejected": 5,
+      "paused_rejected": 5
+    },
+    "all_fresh_baseline_zero": true,
+    "same_compiled_candidate_helper": true,
+    "all_actual_wall_at_least200ms": true,
+    "all_released_within1s": true,
+    "scope": "Nonlooping uses private duplicate of imported AudioStreamMP3; original file/config/resource remains unchanged."
+  },
+  "commands": {
+    "native": "timeout 360 /workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 --headless --audio-driver Dummy --path /workspace/integration-four --script /workspace/scratch/bgm-seek-current-20261023/runner-candidate-final-external.gd",
+    "controls": "timeout 30 /workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64 --headless --audio-driver Dummy --path /workspace/integration-four --script /workspace/scratch/bgm-seek-current-20261023/wall-clock-controls-final.gd",
+    "workdir": "/workspace/worklines/player-default-integration",
+    "env_file": "/workspace/scratch/integration-four-20261023/player-default-env.sh",
+    "overrides": {
+      "GUNMAN_DATA_HOME": "/workspace/scratch/bgm-seek-current-20261023/userdata",
+      "XDG_DATA_HOME": "/workspace/scratch/bgm-seek-current-20261023/userdata",
+      "XDG_CONFIG_HOME": "/workspace/scratch/bgm-seek-current-20261023/config",
+      "XDG_CACHE_HOME": "/workspace/scratch/bgm-seek-current-20261023/cache"
+    }
+  },
+  "limitations": "Directed native proof against read-only rootHEAD resources via external script; no fullCI/push/Web/listening/device claim; root owns fresh integrated source run. Godot timings include MP3 decoder frame offset and real Dummy mix clocks, never a fake loop count.",
+  "frozen": true,
+  "all_owned_native_engines_ended": true
+}

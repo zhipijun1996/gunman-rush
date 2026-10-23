@@ -72,10 +72,14 @@ var _status_label: Label
 var _hud: Label
 var _hint: Label
 var _resources_hud: ActorResourcesHud
+var _region_ui_positions: Dictionary = {}
+var _demo_hud: DemoGameHud
+var _ui_run_report: Dictionary = {}
 var _actions: HBoxContainer
 var _pause_button: Button
 var _boss_status: Label
 var _windkeeper_hud: WindkeeperHud
+var _music: GameMusic
 var _shown_actions := ""
 var exit_modal: EXIT_MODAL
 var _offered_exit: StringName = &""
@@ -103,7 +107,12 @@ func _ready() -> void:
 	if plains_places_candidate_requested: plains_environment_candidate_requested = true
 	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	add_child(GameAudio.new())
+	var sound_effects := PlayerWeaponFeelAudioV2.new()
+	add_child(sound_effects)
+	_music = GameMusic.new()
+	_music.volume_source = sound_effects
+	add_child(_music)
+	_music.request_track(&"home")
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
 	var backdrop := UnderworldParallax.new()
@@ -302,6 +311,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
+	_demo_hud.bind(controller)
 	_resources_hud.set_region_compact(connected_region)
 	_gold_claimed = false
 	_sequence = 0
@@ -525,6 +535,11 @@ func _load_stage() -> void:
 			_run_camera.response_time.y = float(random_stage.generated.golden_manifest.camera.response_y)
 		_run_camera.configure(player, random_stage.bounds)
 	controller.return_to_segment(stage.spawn)
+	if _uses_shared_region_pixel_presentation():
+		var presentation:=load("res://scripts/underworld_plains/underworld_presentation.gd") as Script
+		presentation.attach(stage,stage,player)
+		if _uses_pixel_plains_presentation():
+			(get_node("PixelPlainsParallax") as UnderworldParallax).configure(_run_camera,stage.bounds,(stage as PlainsRegionStage).generated.manifest)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
@@ -1035,11 +1050,13 @@ func open_region_map() -> bool:
 func close_region_map() -> void:
 	if not is_instance_valid(map_modal) or not map_modal.opened: return
 	map_modal.close()
+	get_viewport().gui_release_focus()
 	if is_instance_valid(controller): controller.router.clear("map_close")
 	_resume_exit_input()
 	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
 
 func toggle_pause() -> void:
+	if is_instance_valid(progression_modal) and progression_modal.opened: return
 	if _forest_reader_open(): return
 	if is_instance_valid(shop_modal) and shop_modal.opened: return
 	if is_instance_valid(map_modal) and map_modal.opened: return
@@ -1067,6 +1084,7 @@ func _resume_from_menu() -> void:
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller):
 		return
 	controller.router.clear("menu_resume")
+	get_viewport().gui_release_focus()
 	get_tree().paused = false
 	_shown_actions = ""
 
@@ -1096,6 +1114,11 @@ func _build_description() -> String:
 	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(names) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _input(event: InputEvent) -> void:
+	# Presentation entry only; reuse the existing pause/cancellation boundary.
+	if event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_START and menu.visible_panel.is_empty():
+		toggle_pause()
+		get_viewport().set_input_as_handled()
+		return
 	if _forest_reader_open():
 		if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE:
 			(stage as ThornForestRegionStage).discoveries.close()
@@ -1221,6 +1244,8 @@ func _run_ended(result: DemoRunResult) -> void:
 		_status += " / " + generation_failure
 	if not settled:
 		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
+	_ui_run_report = {"success": result.reason in [&"biome_complete", &"success"], "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.item_ids().size(), meta.snapshot().get("notes", 0)]}
+	if not settled: _ui_run_report.summary += "\n保存摘要失败 · 已存入音符保持原值"
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
 	controller.active = false
@@ -1229,6 +1254,7 @@ func _run_ended(result: DemoRunResult) -> void:
 func _cleanup_run() -> void:
 	get_tree().paused = false
 	_resources_hud.unbind()
+	_demo_hud.unbind()
 	build.clear()
 	wallet.balance = 0
 	for object: Node in [stage, policy, player, _run_camera]:
@@ -1245,8 +1271,13 @@ func _cleanup_run() -> void:
 	director.return_home()
 	campaign = RunCampaignProgression.new()
 	_show_home()
+	if not _ui_run_report.is_empty():
+		home_scene.set_input_blocked(true)
+		menu.show_run_end(_ui_run_report)
+		_ui_run_report = {}
 
 func _hide_run_hud() -> void:
+	_demo_hud.hide()
 	_hud_frame.hide()
 	_boss_status.hide()
 	_resources_hud.hide()
@@ -1273,6 +1304,7 @@ func _show_home() -> void:
 	menu.hide_home()
 	if not is_instance_valid(home_scene):
 		home_scene = HomeScene.new()
+		home_scene.avatar_selection_id = avatar_selection_id
 		home_scene.process_mode = Node.PROCESS_MODE_PAUSABLE
 		add_child(home_scene)
 		home_scene.controller.router.reconfigure(_session_input)
@@ -1297,6 +1329,9 @@ func _open_home_function(id: StringName) -> void:
 		return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
+	if id == &"character":
+		var avatars := get_meta("avatar_presentation") as AvatarPresentation
+		menu.set_avatar_options(avatars.selection_options(), avatars.selected_id)
 	menu.show_home_panel(id)
 
 func _open_home_navigation() -> void:
@@ -1312,7 +1347,27 @@ func _close_home_panel() -> void:
 		get_tree().paused = false
 		home_scene.set_input_blocked(false)
 
+func _sync_music() -> void:
+	if not is_instance_valid(_music): return
+	var track: StringName = &"home"
+	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(controller) and not controller.actor_resources.health.terminal:
+		var forest := active_region_id == &"thorn_forest"
+		track = &"forest" if forest else &"plains"
+		if not _stage_pending and is_instance_valid(stage) and is_instance_valid(stage.boss):
+			var encounter := stage.boss.get_node_or_null("Encounter") as BossEncounter
+			if encounter != null and encounter.active and not encounter.health.terminal:
+				track = &"forest_boss" if forest else &"plains_boss"
+	_music.request_track(track)
+	_music.set_menu_paused(get_tree().paused)
+
 func _process(_delta: float) -> void:
+	_sync_music()
+	# UI-only visibility: the appearance selector belongs to playable consumers,
+	# and must not float above full-screen menus or the title illustration.
+	var avatar := get_meta("avatar_presentation", null) as Node
+	if is_instance_valid(avatar):
+		var selector := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
+		if selector != null: selector.visible = false # Selection belongs to the Home Timeweaver.
 	_boss_status.hide()
 	var shown_boss: WindkeeperEncounter = null
 	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(stage.boss):
@@ -1358,7 +1413,6 @@ func _process(_delta: float) -> void:
 		_hud_frame.size = Vector2(320, 140)
 		_debug_button.position=Vector2(250,8)
 		_resources_hud.set_region_compact(true)
-		_layout_region_hud()
 	else:
 		_hud.show()
 		_hud_frame.position=Vector2(12,8)
@@ -1374,6 +1428,16 @@ func _process(_delta: float) -> void:
 	_actions.position.y = 268 if debug_hud else 178
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
+	# Retain legacy debug consumers; normal play uses the task-owned read-only HUD.
+	_demo_hud.visible = not debug_hud
+	_demo_hud.present_context("%s · %s/2 · %s" % [_region_name(), director.region_map_index, (stage as PlainsRegionStage).visited_area] if connected_region else "试玩 · 房间 %s/%s" % [director.stage_index, director.profile.stages_per_biome], wallet.balance, int(meta.snapshot().get("notes", 0)), _reduced_effects)
+	if not debug_hud: _demo_hud.present_touch_menu(overlay)
+	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2())
+	if connected_region and not debug_hud: _layout_region_hud()
+	_hud_frame.visible = debug_hud
+	_resources_hud.visible = debug_hud
+	_title.visible = debug_hud
+	_hud.visible = debug_hud
 
 func _layout_region_hud() -> void:
 	# Only two stable edge layouts. Read visible actors and projectiles, never
@@ -1416,6 +1480,9 @@ func _layout_region_hud() -> void:
 	var best:=Vector2(12,8)
 	var score:=INF
 	for candidate:Vector2 in hud_candidates:
+		# Compact resource labels extend beyond the old fixed bottom slot.
+		# Score the real in-viewport panel position, including its full height.
+		candidate=candidate.clamp(viewport.position+Vector2(8,8),viewport.end-_hud_frame.size-Vector2(8,8))
 		var bounds:=Rect2(candidate,_hud_frame.size).grow(5)
 		if touch_regions.any(func(region: Rect2):return region.intersects(bounds)):continue
 		var overlap:=0.0
@@ -1430,12 +1497,34 @@ func _layout_region_hud() -> void:
 	_hud.position=Vector2(22,30 if plains_environment_candidate_requested else 29)+shift
 	_resources_hud.position=shift+Vector2(0,8 if plains_environment_candidate_requested else 0)
 	if stage is PlainsRegionStage:
+		var cards: Array[Control] = _demo_hud.region_layout_controls()
+		var card_reservations: Array[Rect2] = []
+		for card: Control in cards: card_reservations.append(card.get_global_rect())
+		var navigation_reserved: Array[Rect2] = touch_regions.duplicate()
+		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
-			map.position = _clear_ui_edge(map.position,Vector2(160,32),([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,touch_regions)
-		_pause_button.position = _clear_ui_edge(_pause_button.position,Vector2(108,45),[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,touch_regions)
+			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
+			_region_ui_positions["map"]=map.position
+			touch_regions.append(map.get_global_rect())
+			navigation_reserved.append(map.get_global_rect())
+		if _pause_button.is_visible_in_tree():
+			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
+			_region_ui_positions["pause"]=_pause_button.position
+			touch_regions.append(_pause_button.get_global_rect())
+		for index: int in cards.size():
+			var card: Control=cards[index]
+			var extent:=card.size*card.scale
+			var reserved: Array[Rect2]=touch_regions.duplicate()
+			for other: Control in cards:
+				if other!=card:reserved.append(other.get_global_rect())
+			var key: String="card_"+str(index)
+			card.position=_clear_ui_edge(_region_ui_positions.get(key,card.position),extent,[card.position,Vector2(24,18),Vector2(24,viewport.end.y-extent.y-24),Vector2(viewport.end.x-extent.x-24,18),Vector2(viewport.end.x-extent.x-24,viewport.end.y-extent.y-24),Vector2(24,(viewport.size.y-extent.y)*.5),Vector2(viewport.end.x-extent.x-24,(viewport.size.y-extent.y)*.5)],blockers,critical_count,reserved)
+			_region_ui_positions[key]=card.position
 		if is_instance_valid(item_toast._root):
-			item_toast._root.position = _clear_ui_edge(item_toast._root.position,item_toast._root.size,([Vector2(300,125),Vector2(300,392),Vector2(300,260),Vector2(350,24)] if overlay.enabled else [Vector2(300,615),Vector2(300,125),Vector2(350,24),Vector2(300,392),Vector2(300,260)]),blockers,critical_count,touch_regions)
+			var toast_reserved: Array[Rect2]=touch_regions.duplicate()
+			for card: Control in cards:toast_reserved.append(card.get_global_rect())
+			item_toast._root.position = _clear_ui_edge(item_toast._root.position,item_toast._root.size,([Vector2(300,125),Vector2(300,392),Vector2(300,260),Vector2(350,24)] if overlay.enabled else [Vector2(300,615),Vector2(300,125),Vector2(350,24),Vector2(300,392),Vector2(300,260)]),blockers,critical_count,toast_reserved)
 
 func _region_touch_regions() -> Array[Rect2]:
 	var regions: Array[Rect2]=[]
@@ -1453,11 +1542,13 @@ func _region_touch_regions() -> Array[Rect2]:
 	return regions
 
 func _clear_ui_edge(current: Vector2, extent: Vector2, candidates: Array, blockers: Array[Rect2], critical_count: int=1, reserved: Array[Rect2]=[]) -> Vector2:
-	var best := current
+	var viewport:=get_viewport_rect()
+	var best := current.clamp(viewport.position+Vector2(8,8),(viewport.end-extent-Vector2(8,8)).max(viewport.position+Vector2(8,8)))
 	var cost := INF
 	var choices: Array = [current]
 	choices.append_array(candidates)
 	for at: Vector2 in choices:
+		at=at.clamp(viewport.position+Vector2(8,8),(viewport.end-extent-Vector2(8,8)).max(viewport.position+Vector2(8,8)))
 		if reserved.any(func(region: Rect2):return region.intersects(Rect2(at,extent).grow(8))):continue
 		var overlap := 0.0
 		for index: int in blockers.size(): overlap += Rect2(at,extent).grow(8).intersection(blockers[index]).get_area()*(1000000.0 if index==0 else 1000.0 if index<critical_count else 1.0)
@@ -1569,6 +1660,9 @@ func _make_ui() -> void:
 	_boss_status.add_theme_constant_override("shadow_offset_y", 2)
 	_resources_hud = ActorResourcesHud.new()
 	_canvas.add_child(_resources_hud)
+	_demo_hud = DemoGameHud.new()
+	_canvas.add_child(_demo_hud)
+	_demo_hud.debug_requested.connect(func() -> void: debug_hud = not debug_hud)
 	_pause_button = Button.new()
 	_pause_button.text = "MENU"
 	_pause_button.focus_mode = Control.FOCUS_NONE
@@ -1609,8 +1703,13 @@ func _make_ui() -> void:
 	progression_modal.region_selected.connect(_select_next_region)
 	progression_modal.finish_requested.connect(_finish_campaign_boundary)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
+	menu.requested_avatar.connect(func(id: String) -> void:
+		if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME: return
+		var avatars := get_meta("avatar_presentation") as AvatarPresentation
+		if avatars.select_avatar(id): menu.set_avatar_options(avatars.selection_options(), avatars.selected_id))
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
+	menu.requested_player_presentation.connect(_open_player_presentation)
 	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_windchime.connect(_open_windchime)
 	menu.requested_pixel_plains.connect(_open_pixel_plains)
@@ -1619,6 +1718,7 @@ func _make_ui() -> void:
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)
+	menu.requested_retry.connect(func() -> void: start_plains(menu._plains_seed()))
 	menu.settings_changed.connect(apply_input_settings)
 	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
 		_reduced_effects = reduced
@@ -1900,6 +2000,7 @@ func _confirm_generated_exit() -> bool:
 	return _enter_generated_exit(chosen)
 
 func _resume_exit_input() -> void:
+	get_viewport().gui_release_focus()
 	if is_instance_valid(player):
 		var keyboard := player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
 		keyboard.observe_current_key_neutral()
@@ -2159,6 +2260,21 @@ func _region_purchase() -> bool:
 func _region_shop_id() -> StringName:
 	return StringName(_region_prefix()+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
 
+func _open_player_presentation() -> void:
+	if director.state != DemoRunDirector.State.HOME: return
+	# The author retained this body/weapon work as a development candidate.
+	# Keep it reachable from the shipped menu without replacing formal actors.
+	get_tree().paused = false
+	if is_instance_valid(home_scene): home_scene.set_input_blocked(true)
+	_open_player_presentation_scene.call_deferred()
+
+func _open_player_presentation_scene() -> void:
+	var error := get_tree().change_scene_to_file("res://scenes/dev/player_presentation_01/weapon_feel_v2.tscn")
+	if error != OK:
+		push_error("Player presentation sample could not be opened: " + str(error))
+		menu.show_home()
+		if is_instance_valid(home_scene): home_scene.set_input_blocked(false)
+
 func _open_action_studio() -> void:
 	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_action_studio): return
 	_remove_home_scene()
@@ -2278,22 +2394,22 @@ func _sync_region_presentation(home := false) -> void:
 	var plains := not home and _uses_pixel_plains_presentation()
 	var pixel := not home and _uses_shared_region_pixel_presentation()
 	var parallax := get_node("PixelPlainsParallax") as PixelPlainsParallax
-	parallax.visible = plains or home
+	# Home owns its own configured instance; avoid drawing six duplicate planes.
+	parallax.visible = plains
 	(get_node("PlainsBackground") as PlainsBackground).visible = not pixel and not home
 	if plains: parallax.origin = stage.spawn
 	var avatar := get_meta("avatar_presentation",null) as Node
 	if is_instance_valid(avatar):
 		var selector_layer := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
-		if selector_layer != null: selector_layer.visible = not pixel
+		if selector_layer != null: selector_layer.visible = false
 	if home or not is_instance_valid(player): return
 	var visual := player.get_node_or_null("PixelPlainsActor") as PixelPlainsActor
 	if pixel and visual == null:
-		visual = UnderworldPlayer.new()
-		visual.name = "PixelPlainsActor"
-		visual.motor = player
-		visual.controller = controller
+		visual = PlayerPresentationRuntime.make_body(player, controller, "PixelPlainsActor", avatar_selection_id)
 		player.add_child(visual)
 	elif not pixel and visual != null:
+		PlayerPresentationRuntime._remove(player, "MotionFeel")
+		PlayerPresentationRuntime._remove(player, "WeaponFeel")
 		player.remove_child(visual)
 		visual.queue_free()
 	var courier := player.get_node("CourierVisual") as CanvasItem
@@ -2307,7 +2423,7 @@ func _sync_region_presentation(home := false) -> void:
 			if not pixel: courier.hide()
 	# The source-art selector is session-only; rebind after pixel disposal so a
 	# deliberate alternate avatar can be restored on non-pixel consumers.
-	if not pixel and is_instance_valid(avatar): avatar.call("bind_player",player)
+	if is_instance_valid(avatar): avatar.call("bind_player",player)
 
 # Local discoveries use the shared post-damage action queue, just like caches.
 func _forest_reader_open() -> bool:

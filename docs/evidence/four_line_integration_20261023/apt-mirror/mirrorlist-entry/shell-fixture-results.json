@@ -1,0 +1,38 @@
+{
+  "scope": "actual shell/sed temporary source fixtures only; no apt, sudo privileges, network or Godot",
+  "fixtures": [
+    {
+      "fixture": "traditional_and_deb822",
+      "exit_code": 0,
+      "actual_shell_and_sed": true,
+      "no_real_sudo_or_system_source_write": true
+    },
+    {
+      "fixture": "unknown_host_or_nonexact_path_unchanged",
+      "exit_code": 0,
+      "actual_shell_and_sed": true,
+      "no_real_sudo_or_system_source_write": true
+    },
+    {
+      "fixture": "both_sources_absent",
+      "exit_code": 0,
+      "actual_shell_and_sed": true,
+      "no_real_sudo_or_system_source_write": true
+    },
+    {
+      "fixture": "one_source_absent",
+      "exit_code": 0,
+      "actual_shell_and_sed": true,
+      "no_real_sudo_or_system_source_write": true
+    },
+    {
+      "fixture": "official_source_idempotent",
+      "exit_code": 0,
+      "actual_shell_and_sed": true,
+      "no_real_sudo_or_system_source_write": true
+    }
+  ],
+  "suite_components_signed_by_exact": true,
+  "traditional_signed_by_options_exact": true,
+  "unknown_hosts_and_nonexact_paths_unchanged": true
+}

@@ -1,5 +1,10 @@
 """Impact routing counterexamples against the real existing check inventory."""
 import copy
+import contextlib
+import hashlib
+import io
+import types
+from unittest.mock import patch
 import json
 from pathlib import Path
 import sys
@@ -8,6 +13,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
+import production_plan
 from production_plan import make_plan, run_commands, validate_policy
 
 
@@ -154,6 +160,90 @@ class ProductionPlanTests(unittest.TestCase):
             self.assertEqual(results[0]["exit_code"], 0)
             self.assertEqual(source.read_text(), "changed")
 
+
+    def test_early_boundary_is_only_selected_with_its_real_parent(self):
+        docs = self.plan(["docs/handoff.md"])
+        self.assertEqual(docs["precheck_commands"], [])
+        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        self.assertEqual(full["precheck_commands"], [["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"]])
+        self.assertIn("plains-encounter-policy", full["checks"])
+        policy = copy.deepcopy(self.policy)
+        policy["early_python_checks"][0]["parent_check"] = "not-a-real-check"
+        with self.assertRaisesRegex(ValueError, "early Python"):
+            self.plan(["docs/handoff.md"], policy=policy)
+
+    def test_physical_lanes_require_the_exact_original_full_set(self):
+        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        self.assertEqual(full["ci_route"], "full_lanes")
+        self.assertEqual(set(full["checks"]), set(self.manifest["profiles"]["full"]))
+        parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
+        self.assertFalse(set(parallel) & set(serial))
+        self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (142,89,53))
+        for name in full["checks"]:
+            self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
+        for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
+            scoped = self.plan(paths,stage)
+            self.assertEqual(scoped["ci_route"], "selected_commands")
+            self.assertEqual(scoped["ci_lane_checks"], {})
+        manifest = copy.deepcopy(self.manifest)
+        manifest["profiles"]["docs"].append("not-in-full")
+        manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
+        with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
+        self.assertEqual(with_extra["ci_route"],"selected_commands")
+
+    def exercise_main(self, script, action="--precheck-only", verbose=False):
+        directory = tempfile.TemporaryDirectory(); self.addCleanup(directory.cleanup)
+        root=Path(directory.name)
+        (root/"tests").mkdir(); (root/"tools").mkdir()
+        (root/"source.txt").write_text("frozen")
+        (root/"tests/portable.py").write_text(script)
+        (root/"tools/harness.py").write_text("from pathlib import Path; Path('engine-started').touch()")
+        policy=copy.deepcopy(self.policy)
+        policy["early_python_checks"][0]["argv"]=["python3","-S","tests/portable.py"]
+        policy_path=root/"policy.json"; policy_path.write_text(json.dumps(policy))
+        def metadata():
+            return {"working_files":{"source.txt":hashlib.sha256((root/"source.txt").read_bytes()).hexdigest()}}
+        harness=types.SimpleNamespace(load_manifest=lambda:self.manifest,
+                    changed_paths=lambda base:["scripts/demo/demo_app.gd"],git_metadata=metadata,
+                    MANIFEST=ROOT/"tools/harness/profiles.json")
+        stdout=io.StringIO(); output=root/"build/plan.json"
+        with patch.object(production_plan,"ROOT",root), patch.object(production_plan,"POLICY",policy_path), patch.object(production_plan,"git",return_value="frozen-source"), patch.dict(sys.modules,{"harness":harness}), contextlib.redirect_stdout(stdout):
+            argv=["--stage","integration",action,"--output",str(output)]
+            if verbose: argv.append("--verbose-plan")
+            try:
+                result=production_plan.main(argv)
+            except RuntimeError as error:
+                result=error
+        return root,result,stdout.getvalue(),json.loads(output.read_text()),json.loads(output.with_name("plan.execution.json").read_text()) if output.with_name("plan.execution.json").exists() else None
+
+    def test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full(self):
+        root,code,stdout,plan,receipt=self.exercise_main("import sys; assert not sys.flags.no_site == 0")
+        self.assertEqual(code,0)
+        self.assertFalse((root/"engine-started").exists())
+        self.assertEqual(receipt["approval_scope"],"precheck_only")
+        self.assertEqual(receipt["status"],"selected_prechecks_succeeded")
+        self.assertEqual(len(receipt["steps"]),1)
+        self.assertIn("path_reasons",plan)
+        self.assertNotIn('"path_reasons"',stdout)
+        self.assertIn("Complete plan artifact:",stdout)
+        self.assertLess(len(stdout),2000)
+        _,code,verbose,_,_=self.exercise_main("pass",verbose=True)
+        self.assertEqual(code,0)
+        self.assertIn('"path_reasons"',verbose)
+
+    def test_precheck_failure_stops_actual_planned_harness_execution(self):
+        root,code,_,_,receipt=self.exercise_main("raise SystemExit(19)",action="--execute")
+        self.assertEqual(code,19)
+        self.assertFalse((root/"engine-started").exists())
+        self.assertEqual(receipt["status"],"failed_or_interrupted")
+        self.assertEqual(len(receipt["steps"]),1)
+
+    def test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt(self):
+        root,result,_,_,receipt=self.exercise_main("from pathlib import Path; Path('source.txt').write_text('changed')")
+        self.assertIsInstance(result,RuntimeError)
+        self.assertEqual(receipt["status"],"failed_or_interrupted")
+        self.assertFalse((root/"engine-started").exists())
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

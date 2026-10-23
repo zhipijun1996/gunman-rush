@@ -1,0 +1,19 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "version": "feedback-sample-v8-r2",
+  "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+  "quote": "这音效怪怪的。然后每个怪物应该有自己的受击死亡帧动画，感觉单纯消失好像不如开始尸体更有感觉。只是之前的应该是死亡动画帧没有做才不够好看。",
+  "meaning": "Rework custom death sound; implement species-specific hurt/death frame art and retain a drawn corpse, initially two existing samples in both chains.",
+  "accepted_current_candidate": false,
+  "supersedes": [
+    "v5-v7 burst-and-disappear policy",
+    "v7 custom physical death WAV candidate"
+  ],
+  "not_acceptance_of": [
+    "newly rendered frame animation",
+    "existing default sound fallback",
+    "full locomotion frames",
+    "overall art/feel",
+    "device performance"
+  ]
+}

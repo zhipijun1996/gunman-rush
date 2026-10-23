@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "stage": "integration",
+  "plan": "/workspace/integration-four/build/ci-gate-canonical-precheck.json",
+  "source_commit": "17cd85f8692179f0c7f9ab53b3b3d88f4ca1f95b",
+  "status": "selected_prechecks_succeeded",
+  "approval_scope": "precheck_only",
+  "steps": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-S",
+        "tests/test_plains_encounter_policy_boundary.py",
+        "-v"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "device_acceptance": "unverified",
+  "player_acceptance": "unverified"
+}

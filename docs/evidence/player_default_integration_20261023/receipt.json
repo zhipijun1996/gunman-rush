@@ -1,0 +1,51 @@
+{
+  "source_commit": "908ac83a3e2b1668171e0cb676ebcb2ce60f4145",
+  "base_commit": "f38c6087e17efdd60f08965c65e50627a6fc7057",
+  "adopted_author_head": "b1069762731e0cdb39f003f2dd2474ba5d8de058",
+  "command": [
+    "python3",
+    "tools/run_player_default_integration_tests.py"
+  ],
+  "exit_code": 0,
+  "completion_marker": "PLAYER DEFAULT INTEGRATION: checks=235 failures=0",
+  "wrapper_marker": "PASS: Formal default player, Timeweaver selection and feedback lifecycle",
+  "environment": "Godot4.7.2 Standard/headless/fixed60/Dummy; private worktree/env",
+  "runtime_changed_files": [
+    {
+      "path": "resources/art/avatars.json",
+      "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65",
+      "bytes": 841
+    },
+    {
+      "path": "scripts/art/avatar_presentation.gd",
+      "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437",
+      "bytes": 12057
+    },
+    {
+      "path": "scripts/art/player_presentation_runtime.gd",
+      "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91",
+      "bytes": 3917
+    },
+    {
+      "path": "scripts/art/player_presentation_runtime.gd.uid",
+      "sha256": "b12a91c43fdba407e9ebd69ca6ff30930a0a488ecf7eee48ec92c60693c5cdbf",
+      "bytes": 20
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "9638704d92fd2e0f95fe2470417119ee67f7b7cc2aa0858a74bf779be46d1808",
+      "bytes": 129667
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "1a8052e270fa7f4d6723295c70a44c9b6cf2a7fab2059988c92f8dd1d414ea1e",
+      "bytes": 10222
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256": "fa3d28e29bf35af37bd47cbbeb6801ca7f99ca37b5be8be51eeda24f089d51cb",
+      "bytes": 43354
+    }
+  ],
+  "scope": "Actual main scene/Home/Timeweaver native callback selection, both current region map1 consumers, accepted input, actual policy terminal death/retry, original and V2 audio lifecycle. No full CI, browser GUI, visual/listening/device acceptance."
+}

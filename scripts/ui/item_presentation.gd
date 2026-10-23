@@ -3,7 +3,7 @@ class_name ItemPresentation
 extends RefCounted
 const EXTRA_KEYS:=[&"stabilizer",&"braid",&"hammer",&"brakes",&"cooling",&"bandage"]
 const KEYS:=[&"barrel",&"heart",&"magazine",&"coil",&"boots",&"echo",&"grip",&"map",&"energy"]
-const NAMES:={&"max_jumps":"跳跃次数 / Jumps",&"max_air_shots":"空中弹药 / Air rounds",&"projectile_damage":"射击伤害 / Damage",&"shot_burst_speed":"反冲速度 / Recoil",&"recoil_impulse":"反冲 / Recoil",&"max_health":"生命上限 / Max HP",&"shot_energy_cost":"每发精力 / Shot cost",&"hit_energy_recovery":"命中回能 / Hit energy",&"ground_recoil_multiplier":"地面反冲 / Ground recoil",&"ground_deceleration":"地面减速 / Braking",&"shot_cooldown":"开枪间隔 / Shot interval",&"ground_energy_recovery":"落地回能 / Ground energy",&"shot_energy_delay":"回能等待 / Recovery delay"}
+const NAMES:={&"focus_rearm_stamina":"慢时再启能量 / Rearm energy",&"focus_stamina_drain":"慢时耗能 / Time drain",&"focus_stamina_recovery":"接地回能 / Time recovery",&"max_jumps":"跳跃次数 / Jumps",&"max_air_shots":"空中弹药 / Air rounds",&"projectile_damage":"射击伤害 / Damage",&"shot_burst_speed":"反冲速度 / Recoil",&"recoil_impulse":"反冲 / Recoil",&"max_health":"生命上限 / Max HP",&"shot_energy_cost":"每发精力 / Shot cost",&"hit_energy_recovery":"命中回能 / Hit energy",&"ground_recoil_multiplier":"地面反冲 / Ground recoil",&"ground_deceleration":"地面减速 / Braking",&"shot_cooldown":"开枪间隔 / Shot interval",&"ground_energy_recovery":"落地回能 / Ground energy",&"shot_energy_delay":"回能等待 / Recovery delay"}
 static func icon(key: StringName) -> Texture2D:
 	return UnderworldUI.icon(key)
 

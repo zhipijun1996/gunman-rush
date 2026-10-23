@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v8",
+  "version": "creative-v13",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
-    "supplemental_authority_sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+    "supplemental_authority_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "6840ac76c8b45d9e14d92ed1542066ae9a8750870c70212f12db00d3e18b32de",
+    "registry_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -81,7 +81,8 @@
       "source": "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
       "reference_path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
       "reference_sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
-    }
+    },
+    "selected_fine_grid": "Fine1wu shared grid per style-v5; region identity comes from materials/ecology, not a different pixel scale. Human/devices remain unverified."
   },
   "motion_audio": {
     "bible_sections": "12",
@@ -119,7 +120,7 @@
     },
     {
       "path": "docs/design/player_actions/README.md",
-      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+      "sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
     },
     {
       "path": "docs/world_regions.json",
@@ -127,11 +128,11 @@
     },
     {
       "path": "docs/controls_contract.md",
-      "sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70"
+      "sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
     },
     {
       "path": "config/player_tuning.json",
-      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
     },
     {
       "path": "resources/player/traversal.tres",
@@ -156,11 +157,55 @@
     {
       "path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
       "sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+      "sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+      "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+      "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+      "sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
     }
   ],
   "historical_direction": {
     "path": "docs/creative_direction/archive/creative-v7/thorn_forest.json",
     "sha256": "ba717b942c1847fb8e71df3eba38e088f36da08229fed52633a1220ebfa467ed",
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
+  },
+  "revision_impact": {
+    "task_id": "FOUR-LINE-INTEGRATION-01",
+    "revision": "Foreground CPU technical-consumer rebind only",
+    "previous_direction": {
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+      "sha256": "3fe9f26a2eaba441f2fd7eee6900969cb6cbbb1a058c64b2aae732b2233b71ca",
+      "version": "creative-v12"
+    },
+    "changed_authorities": [
+      {
+        "path": "docs/creative_direction/bibles/registry.json",
+        "old_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4",
+        "new_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74"
+      },
+      {
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+        "old_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
+        "new_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
+      }
+    ],
+    "preserved": [
+      "Complete previous direction snapshot, source quotes, original Bible and all visual specifications unchanged",
+      "Other35 runtime references unchanged; prior historical snapshots retained"
+    ],
+    "impact": "Automatic early refresh removed; sticky admission/entered-view/retirement timing is not claimed equivalent. Per-protection geometry snapshot and disjoint-mask skip retain mask semantics. No aesthetic/device/G5 acceptance.",
+    "validation_status": "Pending exact current authority checks; runtime evidence recorded separately, no art/player/device acceptance."
   }
 }

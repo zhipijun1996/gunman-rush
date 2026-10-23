@@ -1,0 +1,56 @@
+{
+  "status": "scratch_candidate_not_applied",
+  "source_for_actual_precheck": "9fb476593d70e18ccb5bdaba7644ddca1f91c4fa",
+  "checks": {
+    "original_plus_candidate_planner_tests": "21/21",
+    "original_portable_boundary_python_no_site": "24/24",
+    "existing_lane_protocol_unit_tests": "11/11 (pure Python, tiny simulated identities, no native)",
+    "final_gate_actual_bash_truth_table": "75 cases:2 permitted/73 rejected",
+    "actual_no_selected_precheck": "base HEAD:33docs,0prechecks,no_selected_prechecks,scope precheck_only"
+  },
+  "limitations": [
+    "No native checks or GitHub run triggered",
+    "No timing benchmark; full parallel lane jobs1 can be slower than prior jobs2 span; matrix wall advantage is not guaranteed",
+    "GitHub scheduler itself not locally executed; final gate bash truth table and unchanged collector counterexamples checked",
+    "Repeated sparse input materialization adds actual cost",
+    "Actionlint not available; YAML and emitted bash/inline Python syntax checked"
+  ],
+  "files": {
+    ".github/workflows/production.yml": {
+      "original_sha256": "d4a8bda2af9f3d288c179dfb53d4979532e2ac45fad1ba2d806ceb1645272a63",
+      "candidate_sha256": "21d652303605fd030166d3adb2a225c5306dbe9fe2a3b12ed31d371a359f2c86"
+    },
+    "tools/production_plan.py": {
+      "original_sha256": "ee44e527ec5ef0b73e39b5bdadde6f3664f97c0999038244ee31a15b48976ce5",
+      "candidate_sha256": "c94603da777a8fb43c18793939d172c4370c6800d5481cb2badd4c66aafe2e86"
+    },
+    "config/production_impact.json": {
+      "original_sha256": "df7bc31b31997b595e1adced27da45dd177e8ddf170b74f2513f85ea083c111c",
+      "candidate_sha256": "af7be9db6098f4dd2ca77fbc23e274c205a4fde6a63c695459bf66171b3eb5f1"
+    },
+    "tests/test_production_plan.py": {
+      "original_sha256": "dd2e92537fde05e6908f6f8cf906e23b589431dc8962d0c9d920f8086e5ff9c5",
+      "candidate_sha256": "90b3652b2ba5882d53becd5054464405fff55e01612acfaf547de77dff079487"
+    }
+  },
+  "logs": {
+    "unit-tests.log": "63323e395635001ed78248151f6ecc707c7e816b8d39533da17d4e9c97fb6c75",
+    "actual-precheck.log": "e3794f459cb8ac16c54127234bf540ecbe3d0878423fa874b94d592a6fa2979e",
+    "actual-precheck-plan.json": "3b8fbc10ac5852574e1cb7f01426ff3e8dfa1aa705ebd4f3ad57087d0bafe4c6",
+    "actual-precheck-plan.execution.json": "6637174c6f762e7c353e4b93c5078e689fce789cb3c6b04936147b3f903b9f95",
+    "lane-guard-tests.log": "f7cf9e4fa3c066033eb7a61a019f785054384be168f26f7dcd369db05690bf8e",
+    "workflow-control-flow.json": "7f4c155b1c49c5eea407b0526f1f3bae1913bad4e152ab912c998b90362e4317",
+    "actual-precheck-final.json": "7412e14b81138522336a530997d0e793d6dcdd0c7b283c825f69de68ec06a13f",
+    "actual-precheck-final.execution.json": "763af383edd1bb62659cbf854b4e389d3243ffaff591c583f71fe45f166b5e8c",
+    "actual-no-selected-precheck.json": "2ef2fee90889fb338d74d8ca8867be0c7709a5707383632573e3b89793ad6777",
+    "actual-no-selected-precheck.execution.json": "809069b6c6d2bfdc3659d7b023c9fa3b479637335fbd3b04e5efbd91f2ac7202",
+    "actual-source-identity.json": "a4774268583482993fb8273a21ce56a4f95f990fb79720a4ec275dc4ffbac791"
+  },
+  "original_planner_test_methods_exact_AST_retained": 16,
+  "actual_source_identity": {
+    "root_head": "9fb476593d70e18ccb5bdaba7644ddca1f91c4fa",
+    "candidate_planner_sha256": "c94603da777a8fb43c18793939d172c4370c6800d5481cb2badd4c66aafe2e86",
+    "candidate_policy_sha256": "af7be9db6098f4dd2ca77fbc23e274c205a4fde6a63c695459bf66171b3eb5f1",
+    "scope": "actual precheck only, not Harness/profile/native approval"
+  }
+}

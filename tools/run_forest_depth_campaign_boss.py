@@ -370,7 +370,7 @@ def validate_canopy(data):
     require(len(additions)==1 and close(after_gold['capacity'],before_gold['capacity']+additions[0]),'Actual item-declared maxHP delta required')
     boundary=data['before_boundary'];home=data['after_boundary']
     require(boundary['double'] is True and 'double_jump' in boundary['abilities'] and boundary['phase']==3 and boundary['map']==2 and boundary['manifest_compatible'] is True,'Real D ability/compatible run boundary required')
-    require(any('Next regions are in development' in row for row in data['boundary_ui_text']),'Truthful current development boundary text required')
+    require(any(all(meaning in row for meaning in ('后续地区尚在制作','返回家园结束本局','清除本局能力、金币和道具','已存入的音符保留')) for row in data['boundary_ui_text']),'Truthful current development boundary text required')
     outputs=boundary['manifest']['stages'][-1]['outputs']
     require(outputs['reward_claim']['item']=='forest_heart_gold' and outputs['core_ability_reward']['ability']=='double_jump','Real reward/core manifest receipts required')
     require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['abilities']==[],'Actual HOME clears run')

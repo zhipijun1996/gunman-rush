@@ -1,0 +1,294 @@
+{
+  "generated_utc": "2026-10-23T13:03:40.817230+00:00",
+  "root_head": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "root_status": "",
+  "patch": "/workspace/scratch/forest-bible-current-20261023/bible-held-jump-current.patch",
+  "patch_sha256": "86b6540471205c4c48e5b8ee224dc89fa3e8f389bae9fa241e8528eb45a03fdb",
+  "candidate": "/workspace/scratch/forest-bible-current-20261023/overlay/tests/forest_bible_world_air_case.gd",
+  "candidate_sha256": "eaad4b8a3a4dfd6e75250e919610c0442dfd83ce40278d9900fd7009a48dfabd",
+  "changed_files": [
+    "tests/forest_bible_world_air_case.gd"
+  ],
+  "original_sha256": "8697759846b46cf0865d684174764d01da3fdabc5c80bc6bb16390af8d690c95",
+  "runtime_or_geometry_changes": false,
+  "common_air_chain_changed": false,
+  "trace_changed": false,
+  "budgets": {
+    "import": 90,
+    "native": 240,
+    "harness": 360
+  },
+  "scope": "four current actual formal spawn-to-camp v15 consumers; no old two-shot replay; real input only",
+  "wrappers": [
+    {
+      "label": "map1-connection-final",
+      "receipt": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-connection-final/receipt.json",
+      "receipt_sha256": "8a1f8bc396dcddeecfebb7d4135b53d324212e6ddb698915b32edfb398aa08d0",
+      "trace": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-connection-final/trace.json",
+      "trace_sha256": "5b4974258be057742ef1e7e4c3e24a0d8e3bfbd97ca7f7a48dc34fc73a179f41",
+      "log": "/workspace/scratch/forest-bible-current-20261023/map1-connection-final.log",
+      "log_sha256": "26b2a1eb544c74037dc9335aaa73d5c9c2735ba675c5ce117d594154e3a6b6ed",
+      "elapsed_seconds": 52.21423274400149,
+      "source_stable": true,
+      "completed": 24,
+      "itinerary_count": 24,
+      "frames": 2368,
+      "failures": [],
+      "initial_policy": {
+        "definition_path": "res://resources/player/demo_ui_01/time_energy_v2.tres",
+        "definition_sha256": "77787e12f0ab042e955ed962fd9d5fdbd0d9e1d656cea548429fc3a0f67bb2d7",
+        "max_air_shots": 1,
+        "shooting_consumes_energy": false
+      },
+      "max_observed_shot_charges": 1,
+      "held_chain_proofs": [
+        {
+          "leg": 6,
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "J"
+            }
+          ],
+          "departure_tick": 468,
+          "first_ground_tick": 584,
+          "first_ground_position": [
+            -1718.17272949219,
+            1279.92407226562
+          ],
+          "first_ground_supports": [
+            "thorn_mouth__entry",
+            "lower_fork__crown"
+          ],
+          "intended_support": "thorn_mouth__entry",
+          "continuous_airborne_to_original_support": true,
+          "lower_relaunch_used": false,
+          "apex_y": 1276.38806152344
+        }
+      ],
+      "exact_command": "python3 /workspace/scratch/forest-bible-current-20261023/overlay/tools/run_forest_bible_world_motor.py --output=/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-connection-final --route=bible_connection_journey --seed=forest-depth-hollow-00 --map=1",
+      "canonical_check_id": "forest-bible-world-connection-map1",
+      "route": "bible_connection_journey",
+      "map_index": 1,
+      "seed": "forest-depth-hollow-00",
+      "source_count": 4139,
+      "sources_before_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0",
+      "sources_after_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0"
+    },
+    {
+      "label": "map1-backbranch-final",
+      "receipt": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-backbranch-final/receipt.json",
+      "receipt_sha256": "50020b0b1cb6153417afca5da0cca725e6f995b289aa61c74c39596bc8d7ffc6",
+      "trace": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-backbranch-final/trace.json",
+      "trace_sha256": "3bb0b5f6f382f250663579a9517a968c72f124af8ace4841d418e4d6199ab155",
+      "log": "/workspace/scratch/forest-bible-current-20261023/map1-backbranch-final.log",
+      "log_sha256": "c9ec304c4a0d49baf89a7b9fd79caa54911496a2c05c36f246fc920e0c019754",
+      "elapsed_seconds": 62.00058904699836,
+      "source_stable": true,
+      "completed": 32,
+      "itinerary_count": 32,
+      "frames": 3075,
+      "failures": [],
+      "initial_policy": {
+        "definition_path": "res://resources/player/demo_ui_01/time_energy_v2.tres",
+        "definition_sha256": "77787e12f0ab042e955ed962fd9d5fdbd0d9e1d656cea548429fc3a0f67bb2d7",
+        "max_air_shots": 1,
+        "shooting_consumes_energy": false
+      },
+      "max_observed_shot_charges": 1,
+      "held_chain_proofs": [
+        {
+          "leg": 6,
+          "source_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "executed_program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "HANG",
+              "anchor": "a"
+            },
+            {
+              "action": "J"
+            }
+          ],
+          "departure_tick": 468,
+          "first_ground_tick": 584,
+          "first_ground_position": [
+            -1718.17272949219,
+            1279.92407226562
+          ],
+          "first_ground_supports": [
+            "thorn_mouth__entry",
+            "lower_fork__crown"
+          ],
+          "intended_support": "thorn_mouth__entry",
+          "continuous_airborne_to_original_support": true,
+          "lower_relaunch_used": false,
+          "apex_y": 1276.38806152344
+        }
+      ],
+      "exact_command": "python3 /workspace/scratch/forest-bible-current-20261023/overlay/tools/run_forest_bible_world_motor.py --output=/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-backbranch-final --route=bible_backbranch_journey --seed=forest-depth-hollow-00 --map=1",
+      "canonical_check_id": "forest-bible-world-backbranch-map1",
+      "route": "bible_backbranch_journey",
+      "map_index": 1,
+      "seed": "forest-depth-hollow-00",
+      "source_count": 4139,
+      "sources_before_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0",
+      "sources_after_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0"
+    },
+    {
+      "label": "map2-connection-final",
+      "receipt": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-connection-final/receipt.json",
+      "receipt_sha256": "df008a1ee1ef7adcc46e7a0040c91698ae7627891b522d827bfb1396b34ba9aa",
+      "trace": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-connection-final/trace.json",
+      "trace_sha256": "f7fee52092fd6b5eacfd13622dd65af9db14d997fbe5ccdce4b3873c4db7207a",
+      "log": "/workspace/scratch/forest-bible-current-20261023/map2-connection-final.log",
+      "log_sha256": "a22c4b80a005c6cbd30bd74e7bd7283eb7a7e39c53b3ce69f2be2e525c2b6346",
+      "elapsed_seconds": 70.22847508399718,
+      "source_stable": true,
+      "completed": 35,
+      "itinerary_count": 35,
+      "frames": 3577,
+      "failures": [],
+      "initial_policy": {
+        "definition_path": "res://resources/player/demo_ui_01/time_energy_v2.tres",
+        "definition_sha256": "77787e12f0ab042e955ed962fd9d5fdbd0d9e1d656cea548429fc3a0f67bb2d7",
+        "max_air_shots": 1,
+        "shooting_consumes_energy": false
+      },
+      "max_observed_shot_charges": 1,
+      "held_chain_proofs": [],
+      "exact_command": "python3 /workspace/scratch/forest-bible-current-20261023/overlay/tools/run_forest_bible_world_motor.py --output=/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-connection-final --route=bible_connection_journey --seed=forest-depth-hollow-00 --map=2",
+      "canonical_check_id": "forest-bible-world-connection",
+      "route": "bible_connection_journey",
+      "map_index": 2,
+      "seed": "forest-depth-hollow-00",
+      "source_count": 4139,
+      "sources_before_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0",
+      "sources_after_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0"
+    },
+    {
+      "label": "map2-backbranch-final",
+      "receipt": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-backbranch-final/receipt.json",
+      "receipt_sha256": "96d185d5d8f4d4b4c124d38388e610eeb200e4729d23fcb5ad7b93be64af74e0",
+      "trace": "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-backbranch-final/trace.json",
+      "trace_sha256": "a235df5d219139cca072493f16ba36dd7126a0500f221e78a72d0879609937ce",
+      "log": "/workspace/scratch/forest-bible-current-20261023/map2-backbranch-final.log",
+      "log_sha256": "a043397b109093d4f4a55efa514914fa072db5fab45b1954626c0e5266e19a56",
+      "elapsed_seconds": 82.23256594600389,
+      "source_stable": true,
+      "completed": 43,
+      "itinerary_count": 43,
+      "frames": 4283,
+      "failures": [],
+      "initial_policy": {
+        "definition_path": "res://resources/player/demo_ui_01/time_energy_v2.tres",
+        "definition_sha256": "77787e12f0ab042e955ed962fd9d5fdbd0d9e1d656cea548429fc3a0f67bb2d7",
+        "max_air_shots": 1,
+        "shooting_consumes_energy": false
+      },
+      "max_observed_shot_charges": 1,
+      "held_chain_proofs": [],
+      "exact_command": "python3 /workspace/scratch/forest-bible-current-20261023/overlay/tools/run_forest_bible_world_motor.py --output=/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-backbranch-final --route=bible_backbranch_journey --seed=forest-depth-hollow-00 --map=2",
+      "canonical_check_id": "forest-bible-world-backbranch",
+      "route": "bible_backbranch_journey",
+      "map_index": 2,
+      "seed": "forest-depth-hollow-00",
+      "source_count": 4139,
+      "sources_before_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0",
+      "sources_after_sha256": "595f741b8f8ae705e00b349d62d1679ccc292bf24d3da40364ea21ae0b6a83a0"
+    }
+  ],
+  "original_failure": {
+    "trace": "/workspace/scratch/forest-bible-current-20261023/original-map1-trace.json",
+    "trace_sha256": "cb2ba4e5533c41ac0e609d15e807a7e5b6a3f39b39a4d1f6d6ee85c167929d47",
+    "log": "/workspace/scratch/forest-bible-current-20261023/original-map1-native.log",
+    "failures": [
+      "air_chain_bounded_phase/air_chain_receive",
+      "incomplete_actual_itinerary",
+      "actual_camp_not_reached"
+    ],
+    "completed": 6,
+    "itinerary_count": 24,
+    "original_itinerary_preserved": true
+  },
+  "active_godot_pids": [],
+  "all_native_ended": true,
+  "candidate_frozen": true,
+  "minimum_archive_files": [
+    "/workspace/scratch/forest-bible-current-20261023/bible-held-jump-current.patch",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/tests/forest_bible_world_air_case.gd",
+    "/workspace/scratch/forest-bible-current-20261023/handoff-final.json",
+    "/workspace/scratch/forest-bible-current-20261023/cache-move-receipt.json",
+    "/workspace/scratch/forest-bible-current-20261023/original-map1-trace.json",
+    "/workspace/scratch/forest-bible-current-20261023/original-map1-native.log",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-connection-final/trace.json",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-connection-final/receipt.json",
+    "/workspace/scratch/forest-bible-current-20261023/map1-connection-final.log",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-backbranch-final/trace.json",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map1-backbranch-final/receipt.json",
+    "/workspace/scratch/forest-bible-current-20261023/map1-backbranch-final.log",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-connection-final/trace.json",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-connection-final/receipt.json",
+    "/workspace/scratch/forest-bible-current-20261023/map2-connection-final.log",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-backbranch-final/trace.json",
+    "/workspace/scratch/forest-bible-current-20261023/overlay/build/map2-backbranch-final/receipt.json",
+    "/workspace/scratch/forest-bible-current-20261023/map2-backbranch-final.log"
+  ],
+  "all_source_guards_ended": true,
+  "ready_for_parent_apply": true
+}

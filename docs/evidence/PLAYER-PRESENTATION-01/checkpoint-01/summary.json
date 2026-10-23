@@ -1,0 +1,196 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "content_version": "checkpoint-01",
+  "runtime_base_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "driver_sha256": "9f855fb3a442f82de07c90a0e9fab2dfe9d033476710e48b106650ac45864fb3",
+  "capture_git_state": "baseline plus uncommitted task driver and initial quality record; exact working files and before/after full materialized inventory retained in ZIP capture-receipt.json; no production changes",
+  "capture_source_stable": true,
+  "protected_references": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "before_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "current_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "proposed_change": "read-only configurable layered presentation consumer; no pixel replacement",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "before_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "current_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "before_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "current_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "before_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "current_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    }
+  ],
+  "conditions": {
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "renderer": "GL compatibility / llvmpipe / Xvfb",
+    "audio": "MovieMaker real engine audio export; Dummy backend; stereo48kHz; not listened",
+    "persistence": false,
+    "seed": "player-presentation-01/baseline-01",
+    "consumer_entry": "actual DemoApp, normal home or formal plains start; no actor position writes; home selection API fixture, not GUI click proof"
+  },
+  "videos": [
+    {
+      "path": "home.mp4",
+      "sha256": "3a8c150165b93d8e96f61c58d627fc75f9c30640f230f4a00c3aab57d67c1d18",
+      "bytes": 1367850,
+      "frames": 729,
+      "duration_seconds": 12.15,
+      "scope": "continuous unmodified production baseline; not before-after improvement"
+    },
+    {
+      "path": "plains.mp4",
+      "sha256": "9d61ef2b75ab4b50b5f2af619fdfc0ed9d0bb0b623eea9ff96ec4bed2be4a2c6",
+      "bytes": 5170197,
+      "frames": 729,
+      "duration_seconds": 12.15,
+      "scope": "continuous unmodified production baseline; not before-after improvement"
+    }
+  ],
+  "baseline_headless": {
+    "home": {
+      "samples": 720,
+      "shots": 12,
+      "hp": [
+        5.0
+      ],
+      "body_states": {
+        "idle": 282,
+        "run": 438
+      },
+      "status": "passed",
+      "selected_moving_states": {
+        "courier": {
+          "moving_samples": 154,
+          "courier_states": [
+            "idle",
+            "recoil"
+          ]
+        },
+        "p1_traveller": {
+          "moving_samples": 142,
+          "courier_states": [
+            "recoil"
+          ]
+        },
+        "p1_girl": {
+          "moving_samples": 142,
+          "courier_states": [
+            "recoil"
+          ]
+        }
+      }
+    },
+    "plains": {
+      "samples": 720,
+      "shots": 8,
+      "hp": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "body_states": {
+        "fall": 457,
+        "hurt": 57,
+        "idle": 7,
+        "run": 199
+      },
+      "status": "passed"
+    }
+  },
+  "rendered": {
+    "home": {
+      "samples": 720,
+      "shots": 12,
+      "hp": [
+        5.0
+      ],
+      "body_states": {
+        "idle": 282,
+        "run": 438
+      },
+      "status": "passed",
+      "selected_moving_states": {
+        "courier": {
+          "moving_samples": 154,
+          "courier_states": [
+            "idle",
+            "recoil"
+          ]
+        },
+        "p1_traveller": {
+          "moving_samples": 142,
+          "courier_states": [
+            "recoil"
+          ]
+        },
+        "p1_girl": {
+          "moving_samples": 142,
+          "courier_states": [
+            "recoil"
+          ]
+        }
+      }
+    },
+    "plains": {
+      "samples": 720,
+      "shots": 8,
+      "hp": [
+        2.0,
+        3.0,
+        4.0,
+        5.0
+      ],
+      "body_states": {
+        "fall": 457,
+        "hurt": 57,
+        "idle": 7,
+        "run": 199
+      },
+      "status": "passed"
+    }
+  },
+  "checks": {
+    "underworld-player-animation": "passed;607 assertions;583 actual Motor frames;7 states;baseline only",
+    "docs": "failed; sparse historical evidence/archive links missing; original native log retained",
+    "development_plan": "full escalation for unknown task driver; plan only, not executed; coordinator mapping/full integration pending",
+    "quality_record": "record consistency passed;task/content complete=false;no content approval",
+    "quality_diff": "passed;actual final diff scope/guard check;semantic review still required",
+    "global_quality": "failed;sparse historical references/asset evidence missing;no task-index mismatch"
+  },
+  "preview": "not_built_or_deployed;first audit checkpoint only;new improved Preview remains a milestone obligation",
+  "after": "not_implemented",
+  "full_playback_review": "unverified;only extracted native frames/contact sheets inspected",
+  "audio_listening": "unverified",
+  "user_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "existing_remote_m1": {
+    "head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
+    "scope": "read-only reference only;not executed or independently accepted here",
+    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md"
+  }
+}

@@ -64,6 +64,8 @@ func woven_layout() -> bool:
 func admission_evidence() -> Dictionary:
 	return {}
 func _ready() -> void:
+	# Headless defaults to a 64px dummy window; use the project's actual UI device size.
+	if DisplayServer.get_name()=="headless": get_window().size=Vector2i(int(ProjectSettings.get_setting("display/window/size/viewport_width",1280)),int(ProjectSettings.get_setting("display/window/size/viewport_height",720)))
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	process_physics_priority=-100
 	begin.call_deferred()
@@ -190,7 +192,7 @@ func _hook_event(state: StringName) -> void:
 	last_hook=String(state)
 	event(String(state),{"target":String(target.name) if is_instance_valid(target) else ""})
 	# Legacy relay misses need the same actual endpoint evidence as air chains.
-	events[-1].merge({"hook_tip":pair(controller.traversal.hook_tip),"hook_used_at_event":controller.traversal.hook_used})
+	events[-1].merge({"hook_tip":pair(controller.traversal.hook_tip),"hook_used_at_event":controller.traversal.hook_used,"can_air_jump_at_event":controller.jump_ability.can_air_jump(),"used_jumps_at_event":controller.jump_ability.used_jumps})
 func set_phase(next: String) -> void:
 	event("phase",{"from":phase,"to":next});phase=next;age=0;stable=0;jump_released=false
 func fail(reason: String) -> void:
@@ -821,7 +823,7 @@ func _process(_delta: float) -> void:
 		if modal_age==4:
 			for button: Button in app.reward_modal.find_children("*","Button",true,false):
 				if button.visible and not button.disabled:
-					modal_button=button;modal_point=button.get_global_rect().get_center();send_pointer(true);break
+					modal_button=button;modal_point=button.get_global_transform_with_canvas()*(button.size/2);send_pointer(true);break
 		elif modal_age==5 and is_instance_valid(modal_button): send_pointer(false)
 		if modal_age>90: fail("actual_cache_pointer_timeout")
 	else:
@@ -832,8 +834,8 @@ func _process(_delta: float) -> void:
 func send_pointer(pressed: bool) -> void:
 	var e:=InputEventMouseButton.new();e.button_index=MOUSE_BUTTON_LEFT;e.pressed=pressed;e.position=modal_point;e.global_position=modal_point
 	get_viewport().push_input(e,true)
-	var rect:=modal_button.get_global_rect()
-	pointer_events.append({"kind":"mouse_button_press" if pressed else "mouse_button_release","position":pair(modal_point),"button_text":modal_button.text,"rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
+	var rect: Rect2=modal_button.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,modal_button.size)
+	pointer_events.append({"kind":"mouse_button_press" if pressed else "mouse_button_release","position":pair(modal_point),"button_text":modal_button.text,"rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"raw_canvas_rect":[modal_button.get_global_rect().position.x,modal_button.get_global_rect().position.y,modal_button.get_global_rect().size.x,modal_button.get_global_rect().size.y],"viewport_size":pair(get_viewport().get_visible_rect().size),"window_size":pair(Vector2(get_window().size)),"screen_scale":pair(get_viewport().get_screen_transform().get_scale()),"canvas_origin":pair(modal_button.get_canvas_transform().origin),"canvas_scale":pair(modal_button.get_canvas_transform().get_scale())})
 	movie_stamp(pointer_events[-1])
 func observe() -> void:
 	if not initialized or finished or not is_instance_valid(player) or tick<1: return
@@ -848,6 +850,8 @@ func observe() -> void:
 		if behavior!=null and behavior.has_method("depth_snapshot"): deep=behavior.call("depth_snapshot")
 		enemies.append({"id":stage.enemy_manifest[i].id,"position":pair(motor.global_position),"health":actor.health.current,"terminal":actor.health.terminal,"state":String(behavior.state) if behavior else "none","state_time":behavior.state_time if behavior else 0.0,"cooldown":behavior.cooldown if behavior else 0.0,"depth_state":deep,"stable_id":String(actor.definition.stable_id),"body_size":pair(actor.definition.collision_size),"patrol_radius":actor.definition.patrol_half_width})
 	frames.append({"tick":tick,"leg":leg_index,"phase":phase,"position":pair(player.global_position),"velocity":pair(player.velocity),"grounded":player.is_on_floor(),"supports":supports(),"motor_steps":player.motion_steps-before_steps,"axis":controller.router.axis,"hook_state":String(controller.traversal.state),"hook_used":controller.traversal.hook_used,"shots":controller.action_resources.shot_charges,"energy":controller.actor_resources.stamina.current,"health":controller.actor_resources.health.current,"actor_epoch":app.lifetime.actor_epoch,"stage_epoch":app.lifetime.stage_epoch,"enemies":enemies})
+	frames[-1].jump_state={"enabled":controller.jump_ability.enabled,"maximum":controller.jump_ability.maximum_jumps(),"used":controller.jump_ability.used_jumps,"can_air_jump":controller.jump_ability.can_air_jump()}
+	frames[-1].focus={"shared":controller.air_focus_ability.stamina_state==controller.actor_resources.stamina,"aiming":controller.router.aim_engaged,"active":controller.air_focus_ability.active,"available":controller.active and controller.router.has_application_focus and not get_tree().paused and not controller.traversal.busy(),"time_scale":Engine.time_scale}
 	frames[-1].shot_economy={"owner_id":player.get_instance_id(),"session_id":controller.session_id,"weapon_epoch":controller.shoot_ability.weapon_epoch,"hits":controller.shot_energy._hits.duplicate(true),"combat_packets":controller.combat_energy._packets.duplicate(true)}
 	movie_stamp(frames[-1])
 	var cavity_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind)=="hollow_cavity"
@@ -855,6 +859,7 @@ func observe() -> void:
 		cavity_sample=str(itinerary[int(completed[-1].leg)].kind)=="hollow_cavity"
 	if cavity_sample:
 		frames[-1].merge({"body":[player.global_position.x-12,player.global_position.y-18,24,36],"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"shot_energy_delay":controller.shot_energy._delay,"burst_remaining":player.recoil_burst_remaining,"burst_velocity":pair(player.recoil_velocity)})
+		frames[-1].pending_air_grants=controller.received_resource_grants.map(func(grant: Dictionary) -> Dictionary: return {"amount":int(grant.amount),"session_id":int(grant.session_id)})
 	var air_chain_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind) in ["airborne_chain","hanging_chain"]
 	if not air_chain_sample and not completed.is_empty() and int(completed[-1].tick)==tick:
 		air_chain_sample=str(itinerary[int(completed[-1].leg)].kind) in ["airborne_chain","hanging_chain"]
@@ -864,7 +869,7 @@ func observe() -> void:
 	if finish_pending: finished=true
 func snapshot() -> Dictionary:
 	if not is_instance_valid(controller): return {}
-	return {"position":pair(player.global_position),"health":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"shots":controller.action_resources.shot_charges,"hook_enabled":controller.traversal.hook_enabled,"double_enabled":controller.traversal.double_enabled,"wall_enabled":controller.traversal.wall_enabled,"weapon":String(controller.shoot_ability.weapon.id),"tier":controller.shoot_ability.weapon.tier,"config":{"tuning":FileAccess.get_sha256("res://config/player_tuning.json"),"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres")}}
+	return {"position":pair(player.global_position),"health":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"shots":controller.action_resources.shot_charges,"hook_enabled":controller.traversal.hook_enabled,"double_enabled":controller.traversal.double_enabled,"wall_enabled":controller.traversal.wall_enabled,"weapon":String(controller.shoot_ability.weapon.id),"tier":controller.shoot_ability.weapon.tier,"shot_policy":{"definition_path":controller.shot_energy.definition.resource_path,"definition_sha256":FileAccess.get_sha256(controller.shot_energy.definition.resource_path),"shooting_consumes_energy":controller.shot_energy.definition.shooting_consumes_energy,"max_air_shots":player.tuning.max_air_shots},"config":{"tuning":FileAccess.get_sha256("res://config/player_tuning.json"),"traversal":FileAccess.get_sha256("res://resources/player/traversal.tres")}}
 
 
 # Shared actual cross-branch movement. Candidate probes and recorded regions

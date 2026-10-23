@@ -26,6 +26,7 @@ class ThreadAblationPolicy extends FrameDamagePolicy:
 		return super.submit(request)
 var comparison_frames: Array[Dictionary] = []
 var comparison_id := ""
+var _step_time_scale := 1.0
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	assertions += 1
@@ -33,6 +34,7 @@ func check(ok: bool, label: String) -> void:
 	if not ok: failures += 1
 func frames(count: int) -> void:
 	for i: int in count:
+		_step_time_scale=Engine.time_scale
 		await physics_frame
 		await process_frame
 		tick+=1
@@ -80,6 +82,8 @@ func fixture(at: Vector2 = Vector2(-30,282), geometry: Dictionary = {}) -> void:
 	controller.enable_shot_energy()
 	controller.traversal.grant(&"grapple")
 	controller.shoot_ability.shot_fired.connect(_shot)
+	controller.actor_resources.stamina.changed.connect(func(result: ActorResourceResult):
+		events.append({"kind":"time_energy_changed","comparison":comparison_id,"tick":tick+1,"operation":str(result.operation),"amount":result.amount_applied,"current":result.snapshot.current,"capacity":result.snapshot.capacity,"epoch":result.snapshot.epoch,"session_id":controller.session_id,"controller_tick":controller._tick,"grounded":controller._was_grounded,"aiming":controller.router.aim_engaged,"focus_active":controller.air_focus_ability.active,"focus_air_time_before":controller.air_focus_ability.air_time_used,"real_delta":controller.get_physics_process_delta_time()/_step_time_scale}))
 	life=DemoLifetime.new()
 	policy=ThreadAblationPolicy.new()
 	policy.lifetime=life
@@ -138,6 +142,13 @@ func cross_with_fixed_ring(actor: EnemyActor) -> bool:
 	controller.router.set_move_axis(0)
 	await frames(25)
 	return caught_fixed and player.global_position.x>200 and actor.health.current==actor.health.capacity and controller.actor_resources.health.current==controller.actor_resources.health.capacity
+func _shot_policy() -> Dictionary:
+	var definition:=controller.shot_energy.definition
+	return {"definition_path":definition.resource_path,"definition_sha256":FileAccess.get_sha256(definition.resource_path),"shooting_consumes_energy":definition.shooting_consumes_energy,"max_air_shots":controller.motor.tuning.max_air_shots}
+
+func _focus_snapshot() -> Dictionary:
+	return {"shared":controller.air_focus_ability.stamina_state==controller.actor_resources.stamina,"aiming":controller.router.aim_engaged,"active":controller.air_focus_ability.active,"available":controller.active and controller.router.has_application_focus and not paused and not controller.traversal.busy(),"time_scale":Engine.time_scale}
+
 func _comparison_frame() -> Dictionary:
 	var actors: Array = []
 	for actor: EnemyActor in enemies:
@@ -147,7 +158,7 @@ func _comparison_frame() -> Dictionary:
 		var ray:=PhysicsRayQueryParameters2D.create(player.global_position,player.global_position+Vector2(0,24),1,[player.get_rid()])
 		var support:=player.get_world_2d().direct_space_state.intersect_ray(ray)
 		if not support.is_empty(): support_id=str((support.collider as Node).get_meta("ecology_support_id","root_floor"))
-	return {"support_id":support_id,"normal_velocity":[player.normal_velocity.x,player.normal_velocity.y],"recoil_velocity":[player.recoil_velocity.x,player.recoil_velocity.y],"burst_remaining":player.recoil_burst_remaining,"shot_cost":controller.shot_energy.shot_energy_cost,"contact_remaining":controller.traversal._contact_remaining,"comparison":comparison_id,"tick":tick,"position":[player.global_position.x,player.global_position.y],"grounded":player.is_on_floor(),"hp":controller.actor_resources.health.current,"stamina":controller.actor_resources.stamina.current,"shot_charges":controller.action_resources.shot_charges,"H_state":String(controller.traversal.state),"H_target":str(controller.traversal.hook_target.name) if is_instance_valid(controller.traversal.hook_target) else "","actors":actors}
+	return {"shot_policy":_shot_policy(),"focus":_focus_snapshot(),"stamina_capacity":controller.actor_resources.stamina.capacity,"controller_tick":controller._tick,"resource_epoch":controller.actor_resources.stamina.epoch,"session_id":controller.session_id,"support_id":support_id,"normal_velocity":[player.normal_velocity.x,player.normal_velocity.y],"recoil_velocity":[player.recoil_velocity.x,player.recoil_velocity.y],"burst_remaining":player.recoil_burst_remaining,"shot_cost":controller.shot_energy.shot_energy_cost,"contact_remaining":controller.traversal._contact_remaining,"comparison":comparison_id,"tick":tick,"position":[player.global_position.x,player.global_position.y],"grounded":player.is_on_floor(),"hp":controller.actor_resources.health.current,"stamina":controller.actor_resources.stamina.current,"shot_charges":controller.action_resources.shot_charges,"H_state":String(controller.traversal.state),"H_target":str(controller.traversal.hook_target.name) if is_instance_valid(controller.traversal.hook_target) else "","actors":actors}
 
 func _walk_to_entry(entry: Vector2) -> bool:
 	for i: int in 180:
@@ -161,14 +172,20 @@ func _walk_to_entry(entry: Vector2) -> bool:
 	controller.router.set_move_axis(0)
 	return false
 
-func _consume_misses_and_return(entry: Vector2) -> bool:
-	var cost:=controller.shot_energy.shot_energy_cost
-	for shot: int in 7:
-		if controller.actor_resources.stamina.current>=cost and controller.actor_resources.stamina.current<=cost*2: return true
-		controller.router.request_action(&"shoot_release",Vector2.LEFT)
-		await frames(int(ceil(player.tuning.shot_burst_duration*float(Engine.physics_ticks_per_second)))+1)
-		if not await _walk_to_entry(entry): return false
-	return false
+func _consume_focus_and_return(entry: Vector2) -> bool:
+	# Current time energy is spent only by actual airborne focus, never by misses.
+	var target:=controller.actor_resources.stamina.capacity*.25
+	controller.router.set_move_axis(0)
+	controller.router.set_aim(controller.router.current_device,Vector2.UP,true)
+	controller.router.set_jump_held(&"low_time_energy_setup",true)
+	for focus_tick: int in 240:
+		await frames(1)
+		if controller.actor_resources.stamina.current<=target:break
+	controller.router.set_aim(controller.router.current_device,Vector2.UP,false)
+	controller.router.set_jump_held(&"low_time_energy_setup",false)
+	if not await _walk_to_entry(entry):return false
+	var capacity:=controller.actor_resources.stamina.capacity
+	return controller.actor_resources.stamina.current>=capacity*.2 and controller.actor_resources.stamina.current<=capacity*.4
 
 func _phase_ready(spider: EnemyActor, lantern: EnemyActor, phase: String) -> bool:
 	if phase=="fresh": return true
@@ -216,7 +233,7 @@ func run_combination(layout: String, strategy: String, legacy := false, variant:
 			await shoot_to_death(secondary)
 			setup_ok=setup_ok and secondary.health.terminal and await _walk_to_entry(entry)
 		if bool(variant.get("low_resource",false)):
-			setup_ok=setup_ok and await _consume_misses_and_return(entry)
+			setup_ok=setup_ok and await _consume_focus_and_return(entry)
 	var setup_state:=_comparison_frame()
 	comparison_id=str(variant.id) if not variant.is_empty() else layout+"/"+("legacy/" if legacy else "depth/")+strategy
 	var exit_x: float=float(geometry.exit.position[0]) if not geometry.is_empty() else 450.0

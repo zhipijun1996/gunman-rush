@@ -1,0 +1,33 @@
+{
+  "status": "ACCEPT",
+  "reviewed_commit": "77eca16a4170643301e105b25bfaed55135837f1",
+  "source_commit": "77eca16a4170643301e105b25bfaed55135837f1",
+  "parent_commit": "88a08a53f8293385f13e0165f0154889417c04bf",
+  "scope": "Only exact Git adoption of2previously reviewed official APT mirror source-rewrite candidates; no new mirror/network/CI performance approval.",
+  "actual_source_sha256": {
+    ".github/workflows/production.yml": "a957448382892d9b07ce093bdd171336ab0eba94fc943448595968384c65aefd",
+    ".github/workflows/environment.yml": "acb85a19d487cfcc5e63ce6cc45f5d1bbc67d383ab9b7dc1dca208d73184bc8f"
+  },
+  "adoption_checks": [
+    "Actual delta contains exactly2workflow files; their committed/worktreeSHA match previously independently reviewed candidate bytes.",
+    "Removing4production and2environment inserted rewrite blocks reproduces exact88a08parent workflow bytes. Thus original keyrings/GPG/suites/components/TLS/APTflags/retries/timeouts/profiles/commands/assertions/gates remain unchanged.",
+    "No other source/runtime/config/asset files changed."
+  ],
+  "inherited_optional_candidate_review": {
+    "path": "/workspace/scratch/apt-official-mirror-independent/independent-review.json",
+    "sha256": "bac3484d5b1dfa2ff89ca15e184eb2ff3d8ed9bc338ea130a96395b11a9474e8",
+    "boundary": "Original8ca6optional/unadopted pre-review preserved as originally issued; current report separately reviews actual77e adoption."
+  },
+  "parent_reported_trigger": {
+    "run_id": 39980267178,
+    "job_id": 120510070655,
+    "result": "parallel media install hit original5minute timeout before native with repeated slow Azure package requests; same-class real failure prompted adoption.",
+    "old_serial_boundary": "Old serial still running at parent report time; neither overalloldrun nor new77eCI marked passed."
+  },
+  "parent_reported_lint": "Officialactionlint1.7.7 against both actual77eworkflows exit0; no reviewer rerun requested.",
+  "unverified": [
+    "Actual newofficialmirror package installation/availability/throughput in GitHub.",
+    "Newsubmitted-head fullCI/Release/main publishing and G5/player/device quality."
+  ],
+  "reviewer_actions": "Read-only gitparent/twofiledelta/commitandworktreeSHA/reconstruction; no root edits, fixture/check/native/APT/CI execution."
+}

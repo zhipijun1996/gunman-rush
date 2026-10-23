@@ -77,6 +77,10 @@ func check_region_presentation(region: StringName) -> void:
 	var errors: Array[String] = load("res://tests/parallel_region_presentation_tests.gd").presentation_errors(app,region)
 	check(errors.is_empty(),"actual shared presentation: %s" % [errors])
 func run() -> void:
+	var before:=DisplayServer.window_get_size()
+	DisplayServer.window_set_size(Vector2i(1280,720))
+	root.size=Vector2i(1280,720)
+	print("FOREST_CAMPAIGN_WINDOW ",JSON.stringify({"physical_before":[before.x,before.y],"physical":[DisplayServer.window_get_size().x,DisplayServer.window_get_size().y],"viewport":[root.size.x,root.size.y],"screen_scale":[root.get_screen_transform().get_scale().x,root.get_screen_transform().get_scale().y]}))
 	app=DemoApp.new()
 	app.meta_persistence_enabled=false
 	root.add_child(app)

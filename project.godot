@@ -6,6 +6,12 @@ config/name="Gunman Rush"
 run/main_scene="res://scenes/demo/demo.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
+[autoload]
+GameTypography="*res://scripts/ui/demo_ui_01/game_typography.gd"
+
+[gui]
+theme/custom_font="res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf"
+
 [display]
 window/size/viewport_width=1280
 window/size/viewport_height=720

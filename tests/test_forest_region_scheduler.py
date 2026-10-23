@@ -144,7 +144,58 @@ class RegionSchedulerTests(unittest.TestCase):
         self.assertEqual(json.loads((self.folder/'state.json').read_text())['active'],0)
 
     def test_more_than_two_workers_refused(self):
-        with self.assertRaises(ValueError):region.schedule_cases([],lambda *_:None,lambda *_:None,3)
+        for workers in (3,5):
+            with self.subTest(workers=workers),self.assertRaises(ValueError):region.schedule_cases([],lambda *_:None,lambda *_:None,workers)
+
+
+class FourProcessSchedulerTests(unittest.TestCase):
+    setUp=RegionSchedulerTests.setUp
+    tearDown=RegionSchedulerTests.tearDown
+    def four_worker(self,fail=False,exception=False):
+        script=self.folder/'four.py'
+        script.write_text(FIXTURE.replace('time.sleep(delay)',"""
+# A bounded real-process barrier proves four children are live simultaneously.
+end=time.monotonic()+2
+while True:
+ with (folder/'state.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  count=len(json.loads((folder/'state.json').read_text())['started'])
+  fcntl.flock(lock,fcntl.LOCK_UN)
+ if count>=4:break
+ if time.monotonic()>end:raise RuntimeError('four_process_barrier_timeout')
+ time.sleep(.002)
+time.sleep(delay)
+"""))
+        def run(i,case):
+            result=REAL_RUN([sys.executable,str(script),str(self.folder),str(i),'.01' if i==1 else '.12','nonzero' if fail and i==1 else 'ok'],capture_output=True,timeout=3)
+            if exception and i==1:raise RuntimeError('after real child exited')
+            return {'status':'passed' if result.returncode==0 else 'failed','exit_code':result.returncode,'case':case}
+        return run
+
+    def assert_four_finished(self):
+        state=json.loads((self.folder/'state.json').read_text())
+        self.assertEqual(state['peak'],4);self.assertEqual(state['active'],0)
+        self.assertEqual(sorted(state['started']),[0,1,2,3])
+        self.assertEqual(sorted(state['finished']),[0,1,2,3])
+        for path in self.folder.glob('pid-*'):
+            with self.assertRaises(ProcessLookupError):os.kill(int(path.read_text()),0)
+
+    def test_four_actual_children_and_all_receipts(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(4)],self.four_worker(),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertTrue(all(r['status']=='passed' for r in rows.values()))
+        self.assert_four_finished()
+
+    def test_four_failure_stops_submission_and_reaps_all_active(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(8)],self.four_worker(fail=True),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertEqual(rows[1]['exit_code'],3)
+        self.assert_four_finished()
+
+    def test_four_worker_exception_reaps_all_active(self):
+        rows=region.schedule_cases([('seed',1,str(i)) for i in range(8)],self.four_worker(exception=True),lambda *_:None,4)
+        self.assertEqual(sorted(rows),[0,1,2,3]);self.assertEqual(rows[1]['status'],'failed')
+        self.assertIn('case_worker_exception/RuntimeError',rows[1]['errors'][0])
+        self.assert_four_finished()
+
 
 
 if __name__=='__main__':unittest.main()

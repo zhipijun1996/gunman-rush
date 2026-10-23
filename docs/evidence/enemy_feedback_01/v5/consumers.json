@@ -1,0 +1,68 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+  "consumers": [
+    {
+      "id": "original_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "original_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "default_plains_app",
+      "discovery": "actual start_plains runtime inventory, kills/drop/reload",
+      "output": "behavior"
+    },
+    {
+      "id": "forest_retained_charger",
+      "discovery": "source installer inventory; affected Integration required",
+      "output": "behavior"
+    },
+    {
+      "id": "action_studio_selected",
+      "discovery": "source ordinary actor consumer; existing actor-actions regression",
+      "output": "behavior"
+    }
+  ],
+  "runtime_inventory_source": "fresh independent native370/formal62 under v5 spent policy; old Atlas GPU32 explicitly exercises original visual branch; natural forest/ActionStudio visual gaps retained",
+  "observed_cases": [
+    {
+      "chain": "EnemyPresentation",
+      "definition": "res://resources/enemies/plains_charger.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual",
+      "definition": "res://resources/enemies/plains_charger.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "EnemyPresentation",
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    },
+    {
+      "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual",
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "accepted_count": 3,
+      "death_count": 1
+    }
+  ]
+}

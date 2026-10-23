@@ -27,6 +27,8 @@ func check(value: bool, label: String) -> void:
 	if not value: failures+=1;printerr("FAIL: "+label)
 func run() -> void:
 	var map_hashes: Dictionary = {}
+	var scenery_spec: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(UnderworldScenery.BUILD_PATH)).decor
+	var source_regions: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://"+str(scenery_spec.regions_metadata))).regions
 	for number: int in 10:
 		for map_index: int in [1,2]:
 			var seed_text := "underworld-formal/"+str(number)
@@ -55,11 +57,27 @@ func run() -> void:
 				var actual := Rect2(sprite.global_position,sprite.texture.get_size()*sprite.global_scale)
 				var b: Array=item.display_bounds
 				check(actual.is_equal_approx(Rect2(b[0],b[1],b[2],b[3])),"actual grounded node equals metadata")
-				var foot := Vector2(actual.get_center().x,actual.end.y)
-				var hit := app.player.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(foot-Vector2(0,1),foot+Vector2(0,3),1))
+				# The last visible source row is now shallowly planted in soil.
+				# Derive it from the actual Sprite transform and original asset
+				# region, then find the real surface above that rendered base.
+				# AABB.end can be inside the ground and is not the support line.
+				var source: Dictionary=source_regions[str(item.asset_id)]
+				var render_foot: Vector2=(sprite as Sprite2D).to_global(Vector2(source.foot[0],source.foot[1]))
+				var hit := app.player.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(render_foot-Vector2(0,12),render_foot+Vector2(0,3),1))
 				var valid := not hit.is_empty() and hit.collider is StaticBody2D
-				check(valid,"actual grounded bottom-center ray reaches static solid")
-				rays.append({"identity":item.identity,"hit_static":valid,"height":actual.size.y})
+				check(valid,"actual source-root ray reaches static solid above planted render base")
+				if valid:
+					var surface: Vector2=hit.position
+					var inset:=render_foot.y-surface.y
+					check(inset>=0.0 and inset<=8.0,"render base stays within one-quarter tile of the real surface, never floating or deeply buried")
+					check(absf(surface.y-float(item.foot[1]))<.01,"independent collision hit matches unchanged logical support foot")
+					var recorded_render: Array=item.render_root
+					check(render_foot.is_equal_approx(Vector2(recorded_render[0],recorded_render[1])),"recorded render root matches real source transform")
+					for edge_x: float in [actual.position.x+1,actual.end.x-1]:
+						var support_hit:=app.player.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(Vector2(edge_x,surface.y-1),Vector2(edge_x,surface.y+3),1))
+						check(not support_hit.is_empty() and support_hit.collider is StaticBody2D,"both actual display-span ends have static support")
+					rays.append({"identity":item.identity,"hit_static":valid,"height":actual.size.y,"render_foot":[render_foot.x,render_foot.y],"surface_foot":[surface.x,surface.y],"visible_base_inset_wu":inset})
+				else:rays.append({"identity":item.identity,"hit_static":false,"height":actual.size.y})
 				for keepout: Rect2 in scenery.protected_regions:check(not actual.grow(8).intersects(keepout),"actual foreground retains whole keepout")
 			var local := scenery.get_node_or_null("PlainsRegionComposition") as UnderworldLocalComposition
 			if local!=null:

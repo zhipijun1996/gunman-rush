@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "asset_id": "INTEGRATION-ENEMY-FEEDBACK-01-FRAMES-V8-UNDERWORLD-CHARGER",
+  "task_id": "ENEMY-FEEDBACK-01",
+  "content_version": "enemy-feedback-01-frames-v8-source-registration-20261023",
+  "source_path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+  "source_sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6",
+  "runtime_paths": [
+    "assets/enemy_feedback_01/frames_v8/underworld_charger.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "prompt_or_reference": "prompt_verbatim=not_exposed; original reference assets/underworld_plains/actors/charger.png; original provenance retains only an explicitly non-verbatim reconstructed brief",
+  "processing": "Generated PNG retained byte-identical, including embedded metadata. EnemyFeedback01Frames slices the eight integer regions and uses manifest anchors/basis; no raster editing, rescaling each pose, repainting or regeneration was performed by this registration.",
+  "usage_scope": "Actual two-skin charger/diver hurt and death-frame consumer through scripts/enemies/enemy_feedback_01_frames.gd, EnemyPresentation and UnderworldEnemy. Source registration only; material continuity, complete locomotion animation, visual/player/device acceptance are not granted.",
+  "license_status": "unknown",
+  "license_source": "Original generation provenance records unknown/not_exposed output licensing. Repository reference SHA verified locally; existing reference-source rights are retained. No separate generated-output license instrument or blanket CC0 claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/enemy_feedback_01_frames.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.provenance.json",
+      "sha256": "1665e3cd69be26b0cfe2f0f5834c5fba8c1be3a43a386072a0cd639b81d96b68",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/underworld_plains/actors/charger.png",
+      "sha256": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+      "role": "reference"
+    }
+  ],
+  "source_registration_limitations": {
+    "model": "not_exposed",
+    "verbatim_prompt": "not_exposed",
+    "original_visual_status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified",
+    "generation_provenance_unchanged": true
+  }
+}

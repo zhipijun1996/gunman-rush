@@ -1,0 +1,60 @@
+{
+  "scope": "current Demo integration efficiency, not full release approval",
+  "user_direction": "暂时可以不考虑旧存档旧特性兼容。",
+  "historical_checks_deferred": [
+    "aim-save-compat",
+    "root-bell-tests",
+    "forest-region-matrix",
+    "forest-formal-combat",
+    "plains-action-golden"
+  ],
+  "current_replacements": [
+    "root-bell-current",
+    "plains-redesign-golden",
+    "plains-redesign-spatial",
+    "plains-experience-golden",
+    "forest-campaign",
+    "forest-traversal",
+    "forest-depth-region",
+    "forest-depth-enemies",
+    "forest-depth-guardian",
+    "forest-depth-queen"
+  ],
+  "observed_failed_runs": [
+    {
+      "check": "generated-consumers",
+      "report": "20261023T054334.510346Z",
+      "seconds": 124.66
+    },
+    {
+      "check": "generated-consumers",
+      "report": "20261023T062122.446374Z",
+      "seconds": 128.705
+    },
+    {
+      "check": "root-bell-ecology",
+      "report": "20261023T060844.368716Z",
+      "seconds": 300.486
+    }
+  ],
+  "causes": [
+    "Historical-version fixtures were incorrectly treated as current integration blockers",
+    "Shared rule/interface differences surfaced late in serial wrappers, requiring repeated prefixes",
+    "Repeated import and broad per-check dependency digests increase work; local disk limits prevented two full isolated lanes"
+  ],
+  "implemented": [
+    "Preserve historical definitions behind explicit manual profile; do not mark unexecuted checks passed",
+    "Use original runner in isolation to diagnose current failures before wrapper verification",
+    "Restore current production source without unrequested old-save compatibility",
+    "Keep current quality and original time/assertion budgets"
+  ],
+  "deferred_efficiency_work": [
+    "Same-lane/same-snapshot verified import receipt, with invalidation and failure tests",
+    "Refine real dependency closures before narrowing affected-check routing; unknown remains conservative"
+  ],
+  "reviewers": [
+    "/root/audit_ci",
+    "/root/independent_review"
+  ],
+  "final_current_ci": "pending"
+}

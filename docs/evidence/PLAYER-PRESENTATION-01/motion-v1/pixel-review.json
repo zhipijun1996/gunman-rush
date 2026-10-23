@@ -1,0 +1,569 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-v1-pixel-review-01",
+  "reviewer": "/root/audit_review",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "reviewed_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+  "verdict": "UNVERIFIED",
+  "scope": "Independent native still-frame sequence review of candidate OFF/ON actual formal Plains footage; 60 actual extracted frames viewed. Limited direction/scale observations only; continuous animation/feel not accepted.",
+  "method": "view_image(detail=original) for every before/after001..030 PNG, plus read-only raw trace comparison. No Godot execution, full-speed playback, audio listening, synthetic reconstruction or physical-device measurement by reviewer.",
+  "capture_receipt": {
+    "path": "build/player_presentation_01/motion-v1/capture-first/report.json",
+    "sha256": "67ac12bb98fd182d07dd47ad499cd36ea8d046615653116d65649bb7fb3c66cb",
+    "reported_source_stable": true,
+    "reported_status": "passed",
+    "baseline": "Same task dev consumer with candidate disabled: inherited original renderer and formal gameplay",
+    "source_metadata": {
+      "working_files": {},
+      "commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+      "git_status": "",
+      "diff": "",
+      "untracked": ""
+    }
+  },
+  "trace_cross_check": {
+    "method": "Reviewer independently compared the exact field list in report over all corresponding raw rows, and compared accepted event arrays. Not reviewer gameplay execution.",
+    "fields": [
+      "sample",
+      "position",
+      "normal_velocity",
+      "velocity",
+      "recoil",
+      "motion_steps",
+      "hp",
+      "terminal",
+      "energy",
+      "muzzle",
+      "body_state",
+      "body_facing",
+      "camera",
+      "manifest_hash",
+      "session",
+      "weapon_epoch"
+    ],
+    "actual_field_count": 16,
+    "samples": [
+      1080,
+      1080
+    ],
+    "differences": [],
+    "accepted_events_equal": true,
+    "accepted_jumps": 2,
+    "accepted_land_events": 3,
+    "hp_change": {
+      "sample": 981,
+      "before": 5,
+      "after": 4
+    },
+    "correction": "The report contains16 compared fields, not18. Equality does not establish all gameplay fields or all weapons/routes."
+  },
+  "findings": [
+    {
+      "id": "PIX-1",
+      "status": "observed_directional_gain_only",
+      "scope": "fall scarf",
+      "evidence": [
+        "after-009(video395)",
+        "after-012(video557)",
+        "after-013(video565)",
+        "before/after015..030(video860..980)"
+      ],
+      "observation": "Candidate scarf clearly rises above/behind the hood during descent, compared with the mostly sideways original. Long-fall extracted sequence contains repeated small scarf shape changes instead of the original held fall pose. This responds visibly to the requested upward relative-wind direction.",
+      "limitation": "Only extracted positions viewed; no full-speed loop seam, flutter timing, wind responsiveness across all motion states, or user preference accepted."
+    },
+    {
+      "id": "PIX-2",
+      "status": "bounded_observation_no_final_acceptance",
+      "scope": "idle scale/feet/style",
+      "evidence": [
+        "before/after001..006(video90,106,121,136,151,166)"
+      ],
+      "observation": "Native game scale and feet/platform contact are broadly retained in these idle samples; no conspicuous root floating or clipping into platform observed. Orange-brown hood/scarf and dark silhouette remain in the active family. Candidate torso/boots are fuller and face rounder; scarf changes are modest.",
+      "limitation": "No claim of smooth breathing or final shared-style approval; alternative appearance consumers not shown."
+    },
+    {
+      "id": "PIX-3",
+      "status": "REWORK",
+      "scope": "visual hand/weapon/body attachment",
+      "evidence": [
+        "after001..006",
+        "before/after009",
+        "before/after012..013",
+        "before/after015..030"
+      ],
+      "observation": "Fixed authoritative weapon line remains high near upper chest/lower face while the generated body hand is lower; in several candidate poses the small weapon line blends into the torso contour instead of reading as a clearly gripped weapon. Exact muzzle equality preserves authority but does not establish convincing shoulder/hand/barrel attachment.",
+      "kind": "Independent pixel judgement at actual game scale; no arbitrary numerical detachment distance asserted.",
+      "minimum_rework": "Task-only pure visual attachment/arm silhouette reconciliation with the fixed authoritative muzzle, then same-condition native frame/continuous re-review. Do not repair by moving gameplay arm/muzzle or changing Motor."
+    },
+    {
+      "id": "PIX-4",
+      "status": "REWORK",
+      "scope": "takeoff/landing dust readability",
+      "evidence": [
+        "before/after007(video365)",
+        "before/after010(video405)",
+        "before/after011(video530)",
+        "before/after014(video575)"
+      ],
+      "observation": "Dust is very restrained and was not reliably distinguishable as a deliberate takeoff/contact cue from the platform edge and surrounding pixels in these native-scale samples. Trace confirms particles exist after accepted events, but that is not sufficient to sign visible feedback improvement.",
+      "limitation": "Peak may lie between selected frames and full-speed perceptual read has not been reviewed; this finding is failure to establish the promised read, not a claim that rendering never occurred.",
+      "minimum_rework": "Review the actual peak at normal size/speed; if it remains indistinct, adjust bounded cosmetic contrast/spread/direction without obscuring feet or changing jump/land timing. Keep current weak result as evidence."
+    },
+    {
+      "id": "PIX-5",
+      "status": "UNVERIFIED",
+      "scope": "old/new silhouette transitions and gait",
+      "evidence": [
+        "before/after007..014"
+      ],
+      "observation": "Rise and landing still use old body poses; candidate fall is more tucked and fuller than those old poses. These stills expose the shape change but cannot establish whether it pops at normal speed. No actual run sequence was included in this extraction set.",
+      "limitation": "Do not state walking complaint resolved. Both generated run-art attempts remain rejected, old run pixels remain, and distance phase alone is not gait-art acceptance."
+    }
+  ],
+  "technical_vs_visual": "The source/trace evidence supports a bounded cosmetic comparison on this scripted route. It does not cancel PIX-3/PIX-4 or upgrade this review to full visual ACCEPT.",
+  "viewed_frame_index": {
+    "path": "build/player_presentation_01/motion-v1/capture-first/frames/index.json",
+    "sha256": "fab64755b3759e7a06931e657b99cf54548b5532759cd18a6b27142bb6a279e9",
+    "mapping_note": "Video-frame indices and seconds only. Trace Engine.get_frames_drawn is not assumed equal to AVI index; no fabricated physics-to-video timestamp mapping."
+  },
+  "viewed_frames": [
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-001.png",
+      "sha256": "f79eec039223575845982c5ed0f5cf461c0da186f06db015cccf8cc8642bf3f6",
+      "video_frame_zero_based": 90,
+      "video_seconds": 1.5,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-002.png",
+      "sha256": "9492507ad87e2b5755bc2d5215d6a028c925afd78929405ada30acaba9aca5ea",
+      "video_frame_zero_based": 106,
+      "video_seconds": 1.7666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-003.png",
+      "sha256": "978773b1a35096a69d3a965246e01376f936054d7a6bff1333a5e03fcfd4ebae",
+      "video_frame_zero_based": 121,
+      "video_seconds": 2.0166666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-004.png",
+      "sha256": "fe86ef2e8f4ead128c248a96871b8e4d7e4a028d009876f964255b3ece70e527",
+      "video_frame_zero_based": 136,
+      "video_seconds": 2.2666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-005.png",
+      "sha256": "df07b9fdd7df70d8ee207452b59cd471fd63ffd0334925a8ec7fe289c64dba8e",
+      "video_frame_zero_based": 151,
+      "video_seconds": 2.5166666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-006.png",
+      "sha256": "575ed9f3f89fb0906157632056cd34e24074a6865585a6e4b5e5ce56722357af",
+      "video_frame_zero_based": 166,
+      "video_seconds": 2.7666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-007.png",
+      "sha256": "fe7364cae3178d8e8f0e45921045985eec1ac669bf4a9ed655da4a4768b69458",
+      "video_frame_zero_based": 365,
+      "video_seconds": 6.083333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-008.png",
+      "sha256": "3067dc99e458eafb22f99836ff87ba2a4ef309dba24c876a9d4927f6ce27eb1c",
+      "video_frame_zero_based": 375,
+      "video_seconds": 6.25,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-009.png",
+      "sha256": "999983f2882651ba31230282ecdf55a162075bf3c12302ee707b0ed5c9d6fa28",
+      "video_frame_zero_based": 395,
+      "video_seconds": 6.583333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-010.png",
+      "sha256": "b0650333d26fb7427e9aa200889d1e9e9a45ffaab7011eeeccae4ffd6d4c5eb5",
+      "video_frame_zero_based": 405,
+      "video_seconds": 6.75,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-011.png",
+      "sha256": "f06af7d5efe71227224d9c77dbd5e604cdad4aa553e7972f57a5122c06bd722a",
+      "video_frame_zero_based": 530,
+      "video_seconds": 8.833333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-012.png",
+      "sha256": "9edf341e68abe224b4e1d001e7cd439557269071a0770a943f040412ec99e3a4",
+      "video_frame_zero_based": 557,
+      "video_seconds": 9.283333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-013.png",
+      "sha256": "5bc1fe2cd958a2783fffd93dc5f885e30021e1d6da3ef6631d4a448765506ad8",
+      "video_frame_zero_based": 565,
+      "video_seconds": 9.416666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-014.png",
+      "sha256": "b2c968c93409dd2ae140f877917a073c4ab38eeba11b743126eed037d37c363d",
+      "video_frame_zero_based": 575,
+      "video_seconds": 9.583333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-015.png",
+      "sha256": "0815eed0a22f358d781fa18896f783a2c0af48129ff74f8467e133586a9b87a3",
+      "video_frame_zero_based": 860,
+      "video_seconds": 14.333333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-016.png",
+      "sha256": "7ff0cbd17392c35db366c417ca188d80b69fd90f02732921c7adb78f67213d69",
+      "video_frame_zero_based": 868,
+      "video_seconds": 14.466666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-017.png",
+      "sha256": "80b8ba65b057694ccbc549188c43e45fe7233de0c2d17e0c9891b4fc38d36c1d",
+      "video_frame_zero_based": 876,
+      "video_seconds": 14.6,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-018.png",
+      "sha256": "47dfe7969259a2ee5cfa0e8c5ef741c3aa83e10d734b94261ee2fb47e1970e53",
+      "video_frame_zero_based": 884,
+      "video_seconds": 14.733333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-019.png",
+      "sha256": "ece7671d48f1778923e0617af059f9a3f6bd5c8d6dea555cc2eae5ac7fa71afa",
+      "video_frame_zero_based": 892,
+      "video_seconds": 14.866666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-020.png",
+      "sha256": "68084b1ba467d59de39dde423abd306a436a7f9290aed91b8cff772030d2048d",
+      "video_frame_zero_based": 900,
+      "video_seconds": 15.0,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-021.png",
+      "sha256": "cc985c85187ee6210ebcdcf7c3a84a83741354c24c528549d6b0f14468e1c0d6",
+      "video_frame_zero_based": 908,
+      "video_seconds": 15.133333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-022.png",
+      "sha256": "ddd5a509808ee969a44f75602387ec60452c9f964d99c598ac8743adb58e12ab",
+      "video_frame_zero_based": 916,
+      "video_seconds": 15.266666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-023.png",
+      "sha256": "9c7641802bf46a22111f1ae8bd401c147f90315da8bdb29e2f2c43a55fe09425",
+      "video_frame_zero_based": 924,
+      "video_seconds": 15.4,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-024.png",
+      "sha256": "5f4277db0832e32fa69e1ca1040908d01211ccffa949d11495034bc7babdf69f",
+      "video_frame_zero_based": 932,
+      "video_seconds": 15.533333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-025.png",
+      "sha256": "1b6875e29ab77a7adf4656d32865260b2b2fb3b1b91e8696225d77e44d7b09c3",
+      "video_frame_zero_based": 940,
+      "video_seconds": 15.666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-026.png",
+      "sha256": "a41da6bfacbb435e5e7a0ed2f1a0b371b3d01f64ce0e62fac048b3839ed37716",
+      "video_frame_zero_based": 948,
+      "video_seconds": 15.8,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-027.png",
+      "sha256": "ad043f54d2008a16f93c8140440e9e1fb2edbb14b38e7d3d9a9b3a58dd7c476d",
+      "video_frame_zero_based": 956,
+      "video_seconds": 15.933333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-028.png",
+      "sha256": "245dd6334f04ee03da240276898123c76026c67c970a1874174214001161b9a5",
+      "video_frame_zero_based": 964,
+      "video_seconds": 16.066666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-029.png",
+      "sha256": "7a9a456064ef0978bf7f0e5bb4e8bc02deb77b6ee168e5133bf66388f83beeda",
+      "video_frame_zero_based": 972,
+      "video_seconds": 16.2,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/before-030.png",
+      "sha256": "3a9a5a22fc555b6d46fbe29875b5aa6006cc0db4ee839e9e2d2b8a3843cf152a",
+      "video_frame_zero_based": 980,
+      "video_seconds": 16.333333333333332,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-001.png",
+      "sha256": "4c2dfef901819743f6f6871451018d3d3cfceba812ce036b0c98078cb8febd85",
+      "video_frame_zero_based": 90,
+      "video_seconds": 1.5,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-002.png",
+      "sha256": "68bb50bfcc7bb3169a44eb8f2607a75bb42b21edadfa881433a788c53e609ce8",
+      "video_frame_zero_based": 106,
+      "video_seconds": 1.7666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-003.png",
+      "sha256": "218e28a88289534151e19019bc491f7f38ff614b83cdba05e467e1e589a731b0",
+      "video_frame_zero_based": 121,
+      "video_seconds": 2.0166666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-004.png",
+      "sha256": "8592398a3a957df49426399f5b04eb5bdfc3ed60d1a1d0747481300f9d995e38",
+      "video_frame_zero_based": 136,
+      "video_seconds": 2.2666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-005.png",
+      "sha256": "1714345b5af677f4dc578677e70d7bd4194a466c8cbe995aa591ffea0b40f8e6",
+      "video_frame_zero_based": 151,
+      "video_seconds": 2.5166666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-006.png",
+      "sha256": "b9b53174ba8446930be9c5fe5e3521f676c89057c01ac79f32ed6db82da47654",
+      "video_frame_zero_based": 166,
+      "video_seconds": 2.7666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-007.png",
+      "sha256": "44be1b551c3bc5331c6b2e10e551cc87e149d464fe948d9fbb6be9f4f8f25601",
+      "video_frame_zero_based": 365,
+      "video_seconds": 6.083333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-008.png",
+      "sha256": "5c14847ccaa62ee29d54510757bf3f6771ab0f19dcb09a1a696dea35a1567634",
+      "video_frame_zero_based": 375,
+      "video_seconds": 6.25,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-009.png",
+      "sha256": "5ae0a4230b99869206bfb1298c17cb2bca474e185cefeaf32b0b193515a7f1ed",
+      "video_frame_zero_based": 395,
+      "video_seconds": 6.583333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-010.png",
+      "sha256": "09a59df7caece547fc7b4a27da084bd15acca3f23ef97d3df0faef194621010f",
+      "video_frame_zero_based": 405,
+      "video_seconds": 6.75,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-011.png",
+      "sha256": "9d0a7dcf93cc34aa5b56db48ea01c7ba703d498e367a328076c8d7cf00cee0fd",
+      "video_frame_zero_based": 530,
+      "video_seconds": 8.833333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-012.png",
+      "sha256": "f281364063a208164e129e46a5ceb98bbc5a159d7dca5218e02e0fbfcd26e0ed",
+      "video_frame_zero_based": 557,
+      "video_seconds": 9.283333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-013.png",
+      "sha256": "2cc055b64b00e85332f1deacfbb605e204343c659c95a45c6a2b23debbdcdd18",
+      "video_frame_zero_based": 565,
+      "video_seconds": 9.416666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-014.png",
+      "sha256": "e94d357fa0d1084c157eb54b9d9120c4090b8720cc2f18057b810f8848b78789",
+      "video_frame_zero_based": 575,
+      "video_seconds": 9.583333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-015.png",
+      "sha256": "b8a285e3213b5f085afa183aadd9cc5b74dd433f69ed177992602c70b96bc0c3",
+      "video_frame_zero_based": 860,
+      "video_seconds": 14.333333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-016.png",
+      "sha256": "b58fa66f5a213c608ffd903c0f9fb05778be59825b3d26af278aa027761f23cf",
+      "video_frame_zero_based": 868,
+      "video_seconds": 14.466666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-017.png",
+      "sha256": "7c12ff09a4f9484f2bcc1a77253f5b96290988e45d6adb3143533352e731aef0",
+      "video_frame_zero_based": 876,
+      "video_seconds": 14.6,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-018.png",
+      "sha256": "ecb905237cbac91b781f821b6dbb8006080150eae6e61801c773f5a181819359",
+      "video_frame_zero_based": 884,
+      "video_seconds": 14.733333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-019.png",
+      "sha256": "8491a07bf5ee33baf6d5595e25dec6893778f393a13adb712f8dc967f037592b",
+      "video_frame_zero_based": 892,
+      "video_seconds": 14.866666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-020.png",
+      "sha256": "5a15126400ba238f224fe39a18801a09b904e483dee012a58d677a5f4db5ba64",
+      "video_frame_zero_based": 900,
+      "video_seconds": 15.0,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-021.png",
+      "sha256": "45b48a19b516ced840569449aece0aa4b9911d6307575a070e2a88867c610e73",
+      "video_frame_zero_based": 908,
+      "video_seconds": 15.133333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-022.png",
+      "sha256": "8bc099deb411b2ada153687224643b4c14841ae7b9c41284309904eed4aa9847",
+      "video_frame_zero_based": 916,
+      "video_seconds": 15.266666666666667,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-023.png",
+      "sha256": "4a742f763eea2fa5b678d2f42110703077d8283fd92aa360b5ee503cb0702da9",
+      "video_frame_zero_based": 924,
+      "video_seconds": 15.4,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-024.png",
+      "sha256": "bab4649db6131c3f0fc5f63875f204a775aad4ffc9a4c167aa059963fbb946e0",
+      "video_frame_zero_based": 932,
+      "video_seconds": 15.533333333333333,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-025.png",
+      "sha256": "5b106c0f20fa158a8d17b004de2a94dbd7b6d010294fc51667d4ae36881a6c28",
+      "video_frame_zero_based": 940,
+      "video_seconds": 15.666666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-026.png",
+      "sha256": "f273015664c555a029015e5216c0caccf181a6bb2436cba85ccd67a8f2cfbd72",
+      "video_frame_zero_based": 948,
+      "video_seconds": 15.8,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-027.png",
+      "sha256": "36a8f611909058171305ca99aacc514c2ae914c2ad72b90861e281e006cac273",
+      "video_frame_zero_based": 956,
+      "video_seconds": 15.933333333333334,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-028.png",
+      "sha256": "7a6dcce2b8a341c3f71500c4ba862ef4a98f1e8a787952afa6f6d7212f84bc72",
+      "video_frame_zero_based": 964,
+      "video_seconds": 16.066666666666666,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-029.png",
+      "sha256": "98cbab7c9cfedfa19efd46fe7529fb7f58afeca05bd7074d6daf94aab97d434c",
+      "video_frame_zero_based": 972,
+      "video_seconds": 16.2,
+      "viewed_at": "native1280x720 via view_image original"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/frames/after-030.png",
+      "sha256": "503ef9c3cc11dc006d1a3998415658a02889628f1bf5ba73bdc26207ffaaf524",
+      "video_frame_zero_based": 980,
+      "video_seconds": 16.333333333333332,
+      "viewed_at": "native1280x720 via view_image original"
+    }
+  ],
+  "not_reviewed": [
+    "Full-speed continuous playback of either18.2s MP4",
+    "Audio listening/synchronization",
+    "Run gait sequence/idle-run turning",
+    "Weapon firing/recoil/hurt-to-death full milestone chain",
+    "Home three appearance animation",
+    "All15 weapons/nine modes/six skills",
+    "Physical-device performance and input feel",
+    "Web/browser pointer/touch operation",
+    "Shared style production adoption or coordinator integration"
+  ],
+  "user_acceptance": "unverified",
+  "audio_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "recommendation": "Retain experimental development candidate and real comparison as a reviewable checkpoint with explicit REWORK findings. Do not promote as completed player presentation, resolved walking quality or final visual acceptance."
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "asset_id": "demo-bgm-vines-beneath-the-canopy",
+  "content_version": "user-bgm-v1-20261023",
+  "source_path": "assets/audio/bgm/vines_beneath_the_canopy.mp3",
+  "source_sha256": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+  "runtime_paths": [
+    "assets/audio/bgm/vines_beneath_the_canopy.mp3"
+  ],
+  "tool": "User-provided MP3 attachment; byte-preserving local copy",
+  "model": "not_applicable; no model invoked",
+  "prompt_or_reference": "4-森林-vines_beneath_the_canopy.mp3; assets/audio/bgm/provenance.json",
+  "processing": "Byte-identical copies; ASCII filenames only. No resampling, normalization, trimming, music generation or changes to MP3 data. Godot AudioStreamMP3 loop from offset 0; no authored loop seam provided.",
+  "usage_scope": "forest exploration via app-local GameMusic; original SFX pool unchanged",
+  "license_status": "restricted",
+  "license_source": "The user supplied these five MP3s and explicitly requested their BGM integration in this game. Scope: this game and its playable Demo. No broader redistribution license or authorship is inferred. Author and separate license were not supplied.",
+  "visual_status": "not_applicable",
+  "audio_listening_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/audio/bgm/provenance.json",
+      "sha256": "69bfa28647bae046cf9891b70749d15257d81735ab2b2e239cadd73498005792",
+      "role": "source_contract"
+    }
+  ],
+  "consumer_files": [
+    "scripts/audio/game_music.gd",
+    "scripts/demo/demo_app.gd"
+  ]
+}

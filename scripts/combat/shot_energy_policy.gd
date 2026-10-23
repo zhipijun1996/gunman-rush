@@ -19,13 +19,17 @@ func configure(actor: PlayerController, config: ShotEnergyDefinition) -> bool:
 	hit_energy_recovery=config.hit_energy_recovery
 	ground_energy_recovery=config.ground_recovery
 	shot_energy_delay=config.recovery_delay
-	return actor.actor_resources.stamina.configure(config)
+	if config.shooting_consumes_energy:
+		return actor.actor_resources.stamina.configure(config)
+	# AirFocus is the sole owner of time-energy consumption and regeneration.
+	return true
 
 func can_fire() -> bool:
-	return is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and controller.actor_resources.stamina.current+1e-9>=shot_energy_cost
+	return is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and (not definition.shooting_consumes_energy or controller.actor_resources.stamina.current+1e-9>=shot_energy_cost)
 
 func consume(shot_id: int) -> bool:
 	if not can_fire(): return false
+	if not definition.shooting_consumes_energy: return true
 	var state:=controller.actor_resources.stamina
 	var event:=StringName("shot/%s/%s" % [controller.session_id,shot_id])
 	var result:=state.try_consume(ActorResourceRequest.new(event,state.epoch,shot_energy_cost,state.get_instance_id()))
@@ -34,6 +38,7 @@ func consume(shot_id: int) -> bool:
 	return true
 
 func advance(delta: float, grounded: bool) -> void:
+	if not definition.shooting_consumes_energy: return
 	if not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal or not is_finite(delta) or delta<=0: return
 	var recovery_delta:=maxf(0.0,delta-_delay)
 	_delay=maxf(0.0,_delay-delta)
@@ -46,6 +51,10 @@ func on_hit(expected_session: int, shot_id: int, airborne: bool) -> void:
 	var key:="%s/%s" % [expected_session,shot_id]
 	if _hits.has(key): return
 	_hits[key]=true
+	if not definition.shooting_consumes_energy:
+		# Committed airborne damage still returns a round, without touching time.
+		if airborne: controller.queue_grant(1,expected_session)
+		return
 	var state:=controller.actor_resources.stamina
 	var result:=state.grant(ActorResourceRequest.new(StringName("hit/"+key),state.epoch,hit_energy_recovery,state.get_instance_id()))
 	if result.status!=ActorResourceResult.Status.APPLIED: return

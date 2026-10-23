@@ -1,0 +1,17 @@
+{
+  "status": "ACCEPT",
+  "scope": "Bounded profile selection/inputs/marker candidate only.",
+  "candidate_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "checks": [
+    "All existing check dictionaries except plains-encounter-policy identical, including autonomy frozen definition.",
+    "Current encounter argv/600s/serial unchanged; only unused historical3 inputs removed and exact current marker updated.",
+    "New manual with-legacy definition equals original encounter definition plus --with-legacy, preserving600s/inputs/original marker.",
+    "All normal profile order/prefixes preserved except removal of previously confirmed frozen-v9 autonomy check.",
+    "legacy-compat has15 unique IDs; both newly manual IDs retained with explicit historical scope."
+  ],
+  "inherits": [
+    "plains-autonomy-legacy-scope-review.json",
+    "plains-encounter-final-tail-review.json"
+  ],
+  "unverified": "Candidate not yet adopted/fresh full Harness or CI; current production proof is not replaced by manual historical results."
+}

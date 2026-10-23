@@ -1,0 +1,127 @@
+{
+  "scope": "ONE actual diagnostic case09, private v15 inherited trace timings, not full80/Harness/CI/player approval",
+  "source_commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+  "original_script_sha256": {
+    "tests/forest_depth_region_runner.gd": "42e9225ea843df1fa509aa7f5408d0c94b6a64b2524e8875fd87f70254a247ec",
+    "tests/forest_bible_region_auto_trace.gd": "8421e03a3e3d58952960bebaeaa851ddb3fa19334965819ac9d80015e9a0ae50",
+    "tests/forest_depth_region_trace.gd": "8403496832154fd5460b14adf75e1f70724a0b3b8dfc22cb30136b8b3a69da24"
+  },
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "build/forest-profile-a380/instrumented_runner.gd",
+    "--",
+    "--seed=forest-depth-hollow-00",
+    "--map=2",
+    "--route=growth",
+    "--output=res://build/forest-profile-fourth/capture.json"
+  ],
+  "allowed_affinity_before": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_child_affinity": [
+    0,
+    1
+  ],
+  "os_cpu_count": 5,
+  "cpu_condition": "Two selected allowed logical CPUs; local workspace condition, not GitHub runner benchmark",
+  "cgroup_before": {
+    "cpu.max": "400000 100000\n",
+    "cpu.stat": "usage_usec 14807862490\nuser_usec 13756238936\nsystem_usec 1051623553\nnice_usec 32000\nnr_periods 184767\nnr_throttled 7159\nthrottled_usec 164949111\nnr_bursts 0\nburst_usec 0\n",
+    "memory.max": "17179869184\n"
+  },
+  "timeout_seconds": 240,
+  "status": "completed",
+  "pid": 176320,
+  "exit_code": 0,
+  "wall_seconds": 15.798859367001569,
+  "cpu_user_seconds": 15.292182,
+  "cpu_system_seconds": 0.557184,
+  "max_child_rss_kib": 1237780,
+  "cgroup_after": {
+    "cpu.max": "400000 100000\n",
+    "cpu.stat": "usage_usec 14823798908\nuser_usec 13771565875\nsystem_usec 1052233033\nnice_usec 32000\nnr_periods 184925\nnr_throttled 7159\nthrottled_usec 164949111\nnr_bursts 0\nburst_usec 0\n",
+    "memory.max": "17179869184\n"
+  },
+  "phase_rows": [
+    {
+      "elapsed_usec": 7996,
+      "phase": "run_start"
+    },
+    {
+      "elapsed_usec": 8095,
+      "phase": "created_trace"
+    },
+    {
+      "elapsed_usec": 2683238,
+      "phase": "setup_done"
+    },
+    {
+      "elapsed_usec": 13181363,
+      "phase": "route_finished"
+    },
+    {
+      "elapsed_usec": 13181450,
+      "phase": "seal_copy_start"
+    },
+    {
+      "elapsed_usec": 13415162,
+      "phase": "seal_copy_done"
+    },
+    {
+      "elapsed_usec": 13415267,
+      "phase": "admission_start"
+    },
+    {
+      "elapsed_usec": 13416548,
+      "phase": "admission_done"
+    },
+    {
+      "elapsed_usec": 13416562,
+      "phase": "audio_teardown_start"
+    },
+    {
+      "elapsed_usec": 13566733,
+      "phase": "audio_teardown_done"
+    },
+    {
+      "elapsed_usec": 13824813,
+      "phase": "json_start"
+    },
+    {
+      "elapsed_usec": 14516351,
+      "phase": "json_done"
+    },
+    {
+      "elapsed_usec": 14543059,
+      "phase": "write_done"
+    }
+  ],
+  "trace_rows": [
+    {
+      "begin_usec_including_original_await": 2673173,
+      "events": 466,
+      "observe_calls": 3889,
+      "observe_usec": 361641,
+      "physics_driver_calls": 3821,
+      "physics_driver_usec": 161455,
+      "process_driver_calls": 3896,
+      "process_driver_usec": 26710,
+      "recorded_frames": 3810,
+      "requests": 524
+    }
+  ],
+  "native_log_sha256": "1defd28ed00d9c43986aa466b72036504775cd4a7836a529e513391d819d1561",
+  "capture_bytes": 24514447,
+  "tracked_git_status_after": " M scripts/underworld_plains/underworld_foreground.gd\n"
+}

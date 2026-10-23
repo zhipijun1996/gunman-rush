@@ -1,0 +1,117 @@
+{
+  "status": "failed",
+  "source_commit": "cab958912e222337a8d4260bb5111324fc9f1f5d",
+  "source_equal": true,
+  "reward_run_count": 14,
+  "reward_validator_refusals": 32,
+  "native_tamper_rejected": [
+    "remove_committed",
+    "remove_input",
+    "remove_return",
+    "fake_claim",
+    "fake_ui_rejection"
+  ],
+  "native_runs": [
+    {
+      "output": "build/verification/plains-encounter/run_dm58z4e1/native.json",
+      "exit_code": 0,
+      "seconds": 3.195,
+      "data_keys": [
+        "artifact_kind",
+        "assertions",
+        "cases",
+        "engine",
+        "failures",
+        "post_capture_cleanup",
+        "schema_version",
+        "scope"
+      ],
+      "counts": {
+        "assertions": 55,
+        "failures": 0
+      },
+      "cases": 14
+    },
+    {
+      "output": "build/verification/plains-encounter/run_dm58z4e1/recovery.json",
+      "exit_code": 0,
+      "seconds": 14.616,
+      "data_keys": [
+        "artifact_kind",
+        "assertions",
+        "cases",
+        "engine",
+        "failures",
+        "post_capture_cleanup",
+        "schema_version",
+        "scope"
+      ],
+      "counts": {
+        "assertions": 17,
+        "failures": 0
+      },
+      "cases": 1
+    },
+    {
+      "output": "build/verification/plains-encounter/run_dm58z4e1/recovery_heart.json",
+      "exit_code": 0,
+      "seconds": 16.527,
+      "data_keys": [
+        "artifact_kind",
+        "assertions",
+        "cases",
+        "engine",
+        "failures",
+        "post_capture_cleanup",
+        "schema_version",
+        "scope"
+      ],
+      "counts": {
+        "assertions": 20,
+        "failures": 0
+      },
+      "cases": 1
+    },
+    {
+      "output": "build/verification/plains-encounter/run_dm58z4e1/recovery_note.json",
+      "exit_code": 0,
+      "seconds": 14.816,
+      "data_keys": [
+        "artifact_kind",
+        "assertions",
+        "cases",
+        "engine",
+        "failures",
+        "post_capture_cleanup",
+        "schema_version",
+        "scope"
+      ],
+      "counts": {
+        "assertions": 17,
+        "failures": 0
+      },
+      "cases": 1
+    }
+  ],
+  "historical_boundary": {
+    "status": "not_run",
+    "scope": "optional immutable historical comparison; not current gameplay acceptance",
+    "reason": "not requested; use --with-legacy"
+  },
+  "current_cases_count": 4,
+  "cancellation_keys": [
+    "schema_version",
+    "status",
+    "scope",
+    "argv",
+    "source_before",
+    "verifier_before",
+    "timeout_seconds",
+    "exit_code",
+    "source_after",
+    "verifier_after",
+    "capture_sha256",
+    "log_sha256",
+    "elapsed_seconds"
+  ]
+}

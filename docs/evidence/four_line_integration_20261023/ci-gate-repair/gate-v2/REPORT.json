@@ -1,0 +1,24 @@
+{
+  "old_workflow_path": "/workspace/scratch/production-ci-candidate/.github/workflows/production.yml",
+  "old_workflow_sha256": "21d652303605fd030166d3adb2a225c5306dbe9fe2a3b12ed31d371a359f2c86",
+  "new_workflow_path": "/workspace/scratch/production-ci-candidate/artifact-rerun-v2/.github/workflows/production.yml",
+  "new_workflow_sha256": "e4ed776b26bc92a3ed7757bc0439bd70c8cbdca1330293f5eeec56460421cd02",
+  "acceptance_artifacts_overwrite": [
+    "production-context-${{ github.run_id }}",
+    "production-validated-foundry",
+    "production-phase-proof-${{ matrix.lane }}"
+  ],
+  "unchanged_other_source_sha256": {
+    "tools/production_plan.py": "c94603da777a8fb43c18793939d172c4370c6800d5481cb2badd4c66aafe2e86",
+    "config/production_impact.json": "af7be9db6098f4dd2ca77fbc23e274c205a4fde6a63c695459bf66171b3eb5f1",
+    "tests/test_production_plan.py": "90b3652b2ba5882d53becd5054464405fff55e01612acfaf547de77dff079487"
+  },
+  "non_artifact_workflow_fields_equal": true,
+  "scope": "Artifact naming and overwrite only; previous candidate and evidence retained",
+  "finite_rerun_check": {
+    "exit_code": 0,
+    "report": "/workspace/scratch/production-ci-candidate/artifact-rerun-v2/artifact-rerun-check.json",
+    "sha256": "2fb4aade6851b038869cdf3a0d3c65d8d3934b2313c8d3a860d43754e676e2ed",
+    "scope": "actual emitted name/overwrite selection in scoped local store; no GitHub rerun claimed"
+  }
+}

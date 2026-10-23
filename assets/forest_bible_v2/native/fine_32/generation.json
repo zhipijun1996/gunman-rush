@@ -1,0 +1,24 @@
+{
+  "task": "FINE-SPACE-05",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "call_count": 1,
+  "generation_wall_seconds": 40.2,
+  "prompt": "Create ONE functional pixel-art terrain construction master for the SAME game family as the attached references. Reference1 is the ACTUALLY CONSUMED original moss-and-dark-bark forest source sheet; reference2 is the selected higher-density terrain construction master, showing the precision and calm pixel cluster scale to match. Keep the original near-black mood, moss hue and understated material; make this FOREST BARK AND ROOT substrate, not stone.\n\nThis is a reusable 2D SIDE-VIEW SOLID PLATFORM material, not a painting, not a screenshot, not a freestanding decorative tree. Two isolated cross-section sample forms on a TRANSPARENT RGBA square canvas, no text:\nLEFT about two thirds of width: one large rectangular solid ancient bark/root block, with a nearly flat horizontal top carrying a THIN restrained dark olive moss rim, tiny delicate moss tips and occasional short root ends entering the bark. Side and bottom edges expose worn CHARCOAL BARK, with a few subtle fibrous breaks and tiny rounded splinters, no green outlining the side/bottom. The shape has all four OUTER corners and straight repeating stretches of all four edges.\nRIGHT about one third: one smaller rectangular block of the SAME material with a single clearly rectangular TRANSPARENT HOLE cut from its center, giving four readable CONCAVE corners. All four hole edges straight enough for modular extraction. The lower ledge of the hole has the same thin living moss growing upward. The ceiling and vertical walls of the hole are bare fibrous dark bark.\n\nBoth blocks: about85percent calm deep black-blue/charcoal-violet bark mass and15percent low-contrast, interrupted, organically branching fine fibrous grain close to the edges. Use broad quiet patches; a few short branching grain marks imply grown ancient wood, not machined planks. Muted umber only in tiny inner edge clusters, NOT an overall brown/orange wall. No rows of long vertical columns, no repeated diagonal slashes, no horizontal brick seams, no polished cobblestones, no pebble fields, no giant highly outlined roots filling the whole body. Sidewalls and undersides should have slight grown-root asymmetry while remaining modular. Small crisp clusters on a 256x256 logical pixel canvas shown enlarged4x nearest-neighbor, deliberate2-to5-pixel groups, very sparse1pixel accents. No blur, gradients, paint strokes or glow. The moss rim must stay thinner and darker than reference2's thick grassy lip: the original forest figures and lights must remain focal.\n\nOnly bark, moss and tiny supported root details. Entire solid interiors opaque dark pixels; only outside air and the rectangular hole transparent. No backdrop, sky, trees above the block, plants or branches floating free, lamps, copper objects, runes, hazards/thorns, platforms drawn in perspective, masonry, labels, tilesheet grid, frames, additional little pieces or orange alternate family. Preserve enough transparent separation to crop left and right independently. An exact-layout copy of reference1 is NOT needed; make the complete material edge/corner samples like reference2, but with genuine dark living bark/roots rather than recolored stone.",
+  "references": [
+    "assets/forest_bible_v2/native/bark_source_v2.png",
+    "assets/authored_terrain_study/master_original.png"
+  ],
+  "raw_master": "bark_master_original.png",
+  "raw_path": "/workspace/generated_images/exec-a3a9f46a-24d8-470d-a119-a79d8fac9ef0.png",
+  "requested_canvas": "square",
+  "actual_dimensions": [
+    1774,
+    887
+  ],
+  "material": "dark living bark/root substrate with olive moss; not rejected v3 brown material and not recolored plains stone",
+  "processing": "Godot builder measured outer/inner source crops, nearest organization into canonical source_regions47, 32px per32wu,3top banks; no code-drawn art",
+  "status": "candidate_pending_real_forest_composition_review",
+  "rights": "AI edit referencing existing repository sources. Original source/license records retained; no third-party license asserted."
+}

@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Weapon sample requires the already initialized original Runtime
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://scripts/dev/player_presentation_01/weapon_feel.gd:24)
+       [1] _ready (res://scripts/dev/player_presentation_01/weapon_feel_v2.gd:12)
+       [2] attach (res://scripts/art/player_presentation_runtime.gd:80)
+       [3] _ready (res://scripts/demo/home_scene.gd:67)
+       [4] _show_home (res://scripts/demo/demo_app.gd:1302)
+       [5] run (res://tests/player_default_integration.gd:95)
+SCRIPT ERROR: Invalid access to property or key 'presentation' on a base object of type 'Nil'.
+          at: audit (res://tests/player_default_integration.gd:34)
+          GDScript backtrace (most recent call first):
+              [0] audit (res://tests/player_default_integration.gd:34)
+              [1] run (res://tests/player_default_integration.gd:101)
+              [2] frames (res://tests/player_default_integration.gd:18)
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/workspace/worklines/player-default-integration/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

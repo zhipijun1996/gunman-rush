@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-forest-ecology",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/forest_bible_v2/native/fine_32/ecology_master_original.png",
+  "source_sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+  "runtime_paths": [
+    "assets/forest_bible_v2/native/fine_32/lantern.png",
+    "assets/forest_bible_v2/native/fine_32/swing_pod.png",
+    "assets/forest_bible_v2/native/fine_32/seed_sentry.png",
+    "assets/forest_bible_v2/native/fine_32/crossbranch.png"
+  ],
+  "runtime_file_sha256": {
+    "assets/forest_bible_v2/native/fine_32/lantern.png": "9e07b6364e693bfb60a48e4bf994b9bd041aa7c5efa75648df586c8621d42e33",
+    "assets/forest_bible_v2/native/fine_32/swing_pod.png": "203e9899c30ce2020831a8b1bce70e59860757f54ad74ff75b21197168d1c5d8",
+    "assets/forest_bible_v2/native/fine_32/seed_sentry.png": "af931307394854be2d51da5efa05d574b4dacd6bf0c5a58d710ad1abf989534a",
+    "assets/forest_bible_v2/native/fine_32/crossbranch.png": "61572653091d2452c61c4d343b22f41c69fa31ab3bd362cdbb3a616efe733b0c"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 1,
+  "prompt_or_reference": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+  "processing": "New same-family four-body remaster sheet, measured alpha128 islands, nearest-resized to48x40/36x44/44x52/48x48; original normalized opaque extents, world bounds, functional colors and pose timings retained. Rendered on1wu output grid with0.75wu source texels; this is not a2wu native-scale clamp.",
+  "usage_scope": "Four formal Forest ecology bodies. Same behavior, collision and attack timings. Fine wings use corresponding source bands; fine grid still permits deliberate multi-pixel clusters.",
+  "consumer_scripts": [
+    "scripts/presentation/forest_bible_actor_presentation.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/ecology_generation.json",
+      "sha256": "a60cbc803325b0556fc1e36b7aa29c9f17d96d975057793a024984e81c66c448",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/forest_lantern_v1.png",
+      "sha256": "363ba3cab7edc0bf6bbc9525e46639b208f85112b53d055bc64204bce416fadc",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/forest_swing_pod_v1.png",
+      "sha256": "929132739bc22e87864b9723c5cae076cfb52bf329ece69c93f8046ee8c769ea",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/forest_seed_sentry_v1.png",
+      "sha256": "29624d4f49d0b09e41c7e4be38be1c6e3e4ec52800244efc4fbef886114ab361",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/forest_crossbranch_v1.png",
+      "sha256": "768fb230af5095c2fe402898866ed2586684fe42ec3345917756ed2c28dd7616",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/ecology_build.json",
+      "sha256": "d075670edc815e4a5ba292b3e3e924ee98c8cc46a520de647c342ca67b451baf",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_formal_forest_detail.gd",
+      "sha256": "b2594f842e2e25e35aa71f04d0e80737699c18c49d31762de779aa4e7d28c60b",
+      "role": "processing_record"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "INTEGRATION-ENEMY-FEEDBACK-01-FRAME-CONTRACTS",
+  "task_id": "ENEMY-FEEDBACK-01",
+  "content_version": "enemy-feedback-01-frames-v8-contract-registration-20261023",
+  "source_path": "assets/enemy_feedback_01/frames_v8/manifest.json",
+  "source_sha256": "ade5988d8743f618699f6d520dfdbfef281bd1ce84ca7ee49a40cfc2ad671e85",
+  "runtime_paths": [
+    "assets/enemy_feedback_01/frames_v8/manifest.json"
+  ],
+  "tool": "Repository authored region/anchor measurement and metadata assembly",
+  "model": "not_applicable: this registration did not invoke a model; image model remains not_exposed in individual source records",
+  "prompt_or_reference": "The four original frame PNGs and their unchanged provenance records under assets/enemy_feedback_01/frames_v8/",
+  "processing": "Existing manifest maps four concrete skin/species texture names to eight source regions, anchors and basis sizes. Existing alpha-region and PNG-chunk audits are preserved as original processing records, not regenerated or relabelled as new runtime tests.",
+  "usage_scope": "Actual EnemyFeedback01Frames manifest consumer. Metadata registration does not certify integration, source anatomy, playback quality or complete animation coverage.",
+  "license_status": "unknown",
+  "license_source": "Project-authored metadata references generated frame outputs with unknown/not_exposed separate output licensing; the individual source registrations retain this limitation.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/enemy_feedback_01_frames.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/alpha_region_audit.json",
+      "sha256": "c238b8b3a88f0eef31b003455529662946460d80007d87227ab6809bced6e712",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/png_chunk_audit.json",
+      "sha256": "f5702d191a32ed45d9e2f5d7937cde1ec91ac737604ab822cc6ee9f6fd422a2a",
+      "role": "processing_record"
+    }
+  ]
+}

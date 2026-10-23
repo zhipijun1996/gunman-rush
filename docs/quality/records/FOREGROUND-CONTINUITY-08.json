@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREGROUND-CONTINUITY-08",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "500d6f570f048dc423967606bd93ccb5a707e3ab",
+  "reviewed_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+  "content_version": "foreground-continuity-08",
+  "owner": "root",
+  "purpose": "修复前景可见物件替换与硬阈值导致的跨帧闪现",
+  "player_experience": "固定前景连续移入移出，危险前淡化，稳定安全后恢复",
+  "constraints": [
+    "Fine32px/32wu shared style-v5 unchanged",
+    "No physics, gameplay RNG, route, resource or save edits",
+    "Strict local pixel keepout within original protection rects+3wu wind margin; dynamic early fading",
+    "Rapid iteration: no full CI per user"
+  ],
+  "affected_paths": [
+    "scripts/underworld_plains/underworld_foreground.gd",
+    "shaders/underworld_foreground.gdshader",
+    "tools/verify_foreground_continuity.gd",
+    "tools/capture_foreground_continuity.gd",
+    "tools/capture_foreground_continuity_movie.gd"
+  ],
+  "deliverables": [
+    "Six actual formal positioned stills (no strict cross-version A/B)",
+    "24.233s real Godot motion clip and public observational review page"
+  ],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "固定前景物件＋离屏回收＋提前淡化＋稳定后恢复",
+      "basis": "用户原话完整选择此前建议；实现细节由本轮验证，不代签最终美术认可",
+      "evidence_id": "request"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Only rapid affected checks this round; full gates and final approval not certified",
+      "evidence": [
+        "temporal",
+        "pixels",
+        "formal"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "User selected this bounded fix direction; scoped spec documented",
+      "evidence": [
+        "spec",
+        "request"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual GPU targeted temporal and mask checks passed; no fullCI claim",
+      "evidence": [
+        "engine",
+        "temporal",
+        "pixels",
+        "recovery"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Bounded real consumers/captures passed; complete inventory, whole motion and combinations not certified",
+      "evidence": [
+        "formal",
+        "temporal"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "User/device/full motion-combat approval not established; independent review pending",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Bounded real consumers/captures passed; complete inventory, whole motion and combinations not certified",
+      "evidence": [
+        "formal",
+        "temporal"
+      ]
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No audio, physics, attacks, generation or gameplay rules changed; functional visual keepout verified separately",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "No audio, physics, attacks, generation or gameplay rules changed; functional visual keepout verified separately",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "User/device/full motion-combat approval not established; independent review pending",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent limited technical/still review; whole motion/art remains unverified",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "User/device/full motion-combat approval not established; independent review pending",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "User/device/full motion-combat approval not established; independent review pending",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "temporal-stability",
+      "scenario": "Home camera out-and-back with fixed residents",
+      "method": "Actual GPU506 receipt samples with identity and offscreen assertions",
+      "expected": "No in-view identity/size swaps or recycling; transition timer once perframe",
+      "failure": "Any assertion fails",
+      "gate": "G2",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "0 failures",
+      "evidence": [
+        "engine",
+        "temporal"
+      ]
+    },
+    {
+      "id": "mask-and-recovery",
+      "scenario": "Actual dynamic collision guard at existing visible foreground pixel",
+      "method": "GPU strict mask diff and delay/recovery receipt",
+      "expected": "Zero changed strict pixels; hold0 then gradual recovery",
+      "failure": "Occlusion or immediate opaque recovery",
+      "gate": "G3",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "387080 strict pixels zero error, delayed alpha recovery",
+      "evidence": [
+        "pixels",
+        "recovery"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "temporal",
+      "path": "docs/evidence/foreground_continuity_08/continuity.json",
+      "sha256": "68fce67efe8780b4e53d3a1aad1f7ba07070be9dc00a759ffd46be670b32b877",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual Home fixed-fps GPU diagnostic",
+      "observed": "506 samples; 23 fixed identities; zero assertions failed"
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/foreground_continuity_08/pixel_audit.json",
+      "sha256": "52135a1d196b2420ebf39b0dbe3a80bdffa1ef69840322f0b2e02d49ca2d23e1",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "GPU with/without foreground RGB difference",
+      "observed": "387080 strict pixels unchanged; 1262 nonzero foreground samples"
+    },
+    {
+      "id": "recovery",
+      "path": "docs/evidence/foreground_continuity_08/recovery_audit.json",
+      "sha256": "49c1b055492c86b4a7e9315f54b91c18179d9f9b9622a8d41c83049a0bbc8960",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual dynamic collision guard removal",
+      "observed": "0.183s alpha0; 0.85s alpha0.72857"
+    },
+    {
+      "id": "formal",
+      "path": "docs/evidence/foreground_continuity_08/capture.json",
+      "sha256": "b753be2b1a1953fb79d398615b5ad5f844f8130438a1495cfc0816aaa472326f",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual Home and Plains positioned captures",
+      "observed": "six windows two maps two seeds failures0"
+    },
+    {
+      "id": "home",
+      "path": "docs/evidence/foreground_continuity_08/home.png",
+      "sha256": "3db73a056f042400a776ff38a09fa6451b77288f0789493421834a20710fb170",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual Godot1280x720",
+      "observed": "positioned formal still, not traversal"
+    },
+    {
+      "id": "plains1",
+      "path": "docs/evidence/foreground_continuity_08/08_m1.png",
+      "sha256": "9b431fb5ea99eb6b3b3e276a697b28092fcb1e6e87accc0fa202db0d099e06cc",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual Godot1280x720",
+      "observed": "positioned formal still, not traversal"
+    },
+    {
+      "id": "plains2",
+      "path": "docs/evidence/foreground_continuity_08/08_m2.png",
+      "sha256": "a43243bd394ed8cab55a4d57a5f7d208c8cd5afc9c97051d5a042d2ef2eae252",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "actual Godot1280x720",
+      "observed": "positioned formal still, not traversal"
+    },
+    {
+      "id": "spec",
+      "path": "docs/evidence/foreground_continuity_08/README.md",
+      "sha256": "6050d4d1de8e102772a91a72c83693a1e82f2cbdb7d49216d8306e5146e863c7",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "bounded affected foreground verification",
+      "observed": "fixed residents and functional visual protection scope"
+    },
+    {
+      "id": "request",
+      "path": "docs/evidence/foreground_continuity_08/user_request.json",
+      "sha256": "a4bb82012f9e2c3da7075672a1fb61ec723e5137ad1bb584b2b8e8ac2480342f",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "bounded affected foreground verification",
+      "observed": "User chose implementation direction only",
+      "source": "current conversation",
+      "quote": "固定前景物件＋离屏回收＋提前淡化＋稳定后恢复",
+      "accepted": true,
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "engine",
+      "path": "docs/evidence/foreground_continuity_08/continuity-engine.log",
+      "sha256": "685345a98fd2a3b100c493e5be9ed21f25baa5c93c93376a7eea83604de5c09d",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "bounded affected foreground verification",
+      "observed": "FOREGROUND_CONTINUITY_DONE failures=0 samples=506 identities=23",
+      "command": "DISPLAY=:102 LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=2 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --script tools/verify_foreground_continuity.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Xorg102 llvmpipe softwareGPU1280x720"
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/foreground_continuity_08/independent_review.md",
+      "sha256": "6ca0d12a6450ca82e5e796b86fbbcd052007d46b8de620ae42835b2a2ff40077",
+      "kind": "review",
+      "producer": "density_art_review",
+      "reviewer": "density_art_review",
+      "implementers": [
+        "root",
+        "formal_grounding"
+      ],
+      "independent": true,
+      "independence_basis": "Different agent; only report write permission; implementation read-only; independently recalculated GPU pixel mask",
+      "verdict": "ACCEPT",
+      "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+      "content_version": "foreground-continuity-08",
+      "method": "source + actual1280x720 images + receipt and independent GPU difference recalculation",
+      "observed": "Scoped technical and three final stills ACCEPT; full motion/combat/art/device UNVERIFIED"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Full combat combinations and all warning/projectile/panel transitions",
+    "Whole-region normal player traversal and long backtracking",
+    "User composition acceptance and mobile device performance",
+    "Full CI/Harness intentionally not run"
+  ],
+  "branch": "art/formal-fine-depth",
+  "user_override": "继续快速实机迭代，不跑完整CI；仅本次动态连续性/像素保护/正式消费者",
+  "skills": [
+    "animation-vfx",
+    "visual-director"
+  ],
+  "delivery": {
+    "review_url": "https://zhipijun1996.github.io/gunman-rush-previews/reviews/FOREGROUND-CONTINUITY-08/6befe56/",
+    "source_commit": "6befe56b8802ac2472264b866deac1d7efdf649f",
+    "hosting_commit": "f71d956af28ef5db7c164df934ceed4a34ace258",
+    "media_commit": "f52982c66e9b856c57c7041cc54d87392e290a4e",
+    "pages_run": 39887917620,
+    "status": "verified_public_video_not_playable_web",
+    "full_game_ci_run": false
+  }
+}

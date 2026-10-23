@@ -1,0 +1,140 @@
+{
+  "source": {
+    "working_files": {},
+    "commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "results": [
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722412.912761,
+      "ended_at_unix": 1792722433.482771,
+      "duration_seconds": 20.57,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/contract_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/verification/demo-ui-r3/frozen-ui/native"
+      ],
+      "check_token": "4307e5fd4e724248b2e28a0c0e60c6b5",
+      "id": "contract"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722433.482863,
+      "ended_at_unix": 1792722446.4941082,
+      "duration_seconds": 13.011,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/r2_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/verification/demo-ui-r3/frozen-ui/title-font"
+      ],
+      "check_token": "d070f0949b5f43a28448059c6f693bbb",
+      "id": "title-font"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722446.494238,
+      "ended_at_unix": 1792722461.9125593,
+      "duration_seconds": 15.418,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/plains_experience_energy_runner.gd"
+      ],
+      "check_token": "e3f1a000b10f415db012f0283b7694b4",
+      "id": "old-energy"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722461.912678,
+      "ended_at_unix": 1792722467.948134,
+      "duration_seconds": 6.035,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/plains_region_lifecycle_runner.gd"
+      ],
+      "check_token": "ccb3b3bf24084127bae7b5d9a59fc5fe",
+      "id": "region-lifecycle"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722467.948174,
+      "ended_at_unix": 1792722483.7759905,
+      "duration_seconds": 15.828,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "check_token": "07e6e9b442ff44028f63f75de37fd7da",
+      "id": "underworld-ui"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722483.7760375,
+      "ended_at_unix": 1792722487.9599013,
+      "duration_seconds": 4.184,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/cloud_preview_runner.gd"
+      ],
+      "check_token": "e64d4d0415aa40bb80bcb60c6f1c9eed",
+      "id": "cloud-preview"
+    }
+  ],
+  "scope": "Focused current native UI and original historical/system checks; real device and Integration/Release separate."
+}

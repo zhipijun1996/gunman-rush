@@ -1,0 +1,224 @@
+{
+  "status": "passed",
+  "verification_kind": "offline full original wrapper mutation replay; NOT fresh native",
+  "native_reexecuted": false,
+  "source_native_receipt": "/workspace/scratch/plains-experience-current-20261023/overlay/build/plains_redesign/experience/run_e5ndonlg/receipt.json",
+  "raw_source_sha256": {
+    "positive.json": "2d7cd04c6ca61a6f55f6cd9bc5e7eb3eff6f69f1a2d9929af7d028a374292fb1",
+    "deleted_island.json": "4233a68926c1cf0a31fe84cbd73738596de85524e3dcec09d96e4b1675f3481b",
+    "receipt.json": "4743d08f1b524b1effb6a436e76b4c92883df8b89b863c26a2c1a8ad66691356"
+  },
+  "raw_source_unchanged": true,
+  "reader_before_sha256": "c98c77f88823381eec73a128a29d980fc11d3acdb5e2c58723c9e316b07d2f2a",
+  "reader_after_sha256": "db0603abfbe3013628518856b8703f68876210cb21404b38df0d28b40b26efb9",
+  "observer_sha256": "c10708274f33d1c14606bdedd4729ab396995385219fafde475691c04fb57b84",
+  "delta_patch_sha256": "3fbd0b7928b2be855866dd8d4940c7844e3bc8d2fed2e893cad015bc0551387f",
+  "positive_valid": true,
+  "negative_valid": true,
+  "original42_plus_previous6_plus_coherent1": [
+    {
+      "case": "empty_frames",
+      "refused": true
+    },
+    {
+      "case": "missing_stop",
+      "refused": true
+    },
+    {
+      "case": "missing_restart",
+      "refused": true
+    },
+    {
+      "case": "missing_island",
+      "refused": true
+    },
+    {
+      "case": "forged_island",
+      "refused": true
+    },
+    {
+      "case": "missing_shot",
+      "refused": true
+    },
+    {
+      "case": "wrong_sightline",
+      "refused": true
+    },
+    {
+      "case": "empty_return",
+      "refused": true
+    },
+    {
+      "case": "teleport",
+      "refused": true
+    },
+    {
+      "case": "missing_upper_return",
+      "refused": true
+    },
+    {
+      "case": "forged_tolerance",
+      "refused": true
+    },
+    {
+      "case": "missing_tolerance_corner",
+      "refused": true
+    },
+    {
+      "case": "missing_tolerance_release",
+      "refused": true
+    },
+    {
+      "case": "old_definition",
+      "refused": true
+    },
+    {
+      "case": "missing_walk_hazard",
+      "refused": true
+    },
+    {
+      "case": "remove_jump_receipts",
+      "refused": true
+    },
+    {
+      "case": "remove_landing_receipts",
+      "refused": true
+    },
+    {
+      "case": "remove_drop_inputs",
+      "refused": true
+    },
+    {
+      "case": "callback_at_tick_zero",
+      "refused": true
+    },
+    {
+      "case": "remove_remote_health",
+      "refused": true
+    },
+    {
+      "case": "jump_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "jump_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "landing_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "landing_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "duplicate_jump",
+      "refused": true
+    },
+    {
+      "case": "duplicate_landing",
+      "refused": true
+    },
+    {
+      "case": "duplicate_drop",
+      "refused": true
+    },
+    {
+      "case": "drop_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "drop_after_reboard",
+      "refused": true
+    },
+    {
+      "case": "callback_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "callback_at_start_bank",
+      "refused": true
+    },
+    {
+      "case": "callback_after_restart",
+      "refused": true
+    },
+    {
+      "case": "duplicate_callback",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_id",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "duplicate_health",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_amount",
+      "refused": true
+    },
+    {
+      "case": "impact_wrong_direction",
+      "refused": true
+    },
+    {
+      "case": "remove_impact",
+      "refused": true
+    },
+    {
+      "case": "missing_resource_recovery",
+      "refused": true
+    },
+    {
+      "case": "shot_resource_wrong_id",
+      "refused": true
+    },
+    {
+      "case": "restart_motion_lie",
+      "refused": true
+    },
+    {
+      "case": "forged_policy",
+      "refused": true
+    },
+    {
+      "case": "forged_focus_shared",
+      "refused": true
+    },
+    {
+      "case": "forged_hp",
+      "refused": true
+    },
+    {
+      "case": "forged_projectile_owner",
+      "refused": true
+    },
+    {
+      "case": "forged_projectile_impact",
+      "refused": true
+    },
+    {
+      "case": "forged_air_charge",
+      "refused": true
+    },
+    {
+      "case": "coherent_forged_recovery",
+      "refused": true
+    }
+  ],
+  "coherent_probe": {
+    "prior_accepted": true,
+    "candidate_refused": true,
+    "tick": 2,
+    "amount": 0.1,
+    "all_subsequent_frame_and_shot_energy_consistent": true
+  },
+  "paid_predicates": "No changes to paid branch; current manual free branch now forbids every energy transaction."
+}

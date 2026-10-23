@@ -1,0 +1,145 @@
+{
+  "reviewer": "independent_review (not implementation author)",
+  "verdict": "ACCEPT",
+  "approval_scope": "Exact E2 bounded source integration and pipeline/direction validation. This is not a complete PR Integration, main Release, G5, player or device approval.",
+  "reviewed_at_utc": "2026-10-23T05:14:13.781183+00:00",
+  "reviewed_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+  "source_sha256": {
+    "tools/underworld_pipeline.py": "4bacf26c5f9059987701e91c0f1e75d9d3f14a009db2788d247f940d6c9794be",
+    "tests/test_underworld_pipeline.py": "bf921e14ec31baef082a6fdd0ce1650823c8e5232a465964f7ea66c07d53303f"
+  },
+  "runtime_equivalence": {
+    "baseline_B": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "game_runtime_diff_B_to_E2": [],
+    "meaning": "No changes to game scripts, scenes, actual resources/assets, config, exports or workflows after B. QA validators/tests and versioned metadata changed and are reviewed separately."
+  },
+  "inherited_bounded_reviews": {
+    "B": "independent-final-B.json: actual B fresh 7 consumers /1266 checks, plus B-source shared5 receipt; no relabeling as E2 fresh game runs.",
+    "F_web_gpu": "Actual fbb417c PCK build7f88f353bfb4 and GL evidence retain original source identity; independent actual PCK bytes closure remains separately recorded.",
+    "D": "direction-authority-review.json approves exact D creative-v10 3-source rebind, complete old v9 snapshots, strict v7/36-reference fixtures and independent full-direction/10/32 runs. D→E2 changes only pipeline validator/tests and quality metadata; D direction/validator source remains unchanged.",
+    "metadata": "metadata-review.json and documentation-policy-review.json preserve licenses, source histories, exact asset union, real scenery changes and user-authorized strict one-round policy. They do not grant new aesthetic acceptance."
+  },
+  "pipeline_scope_and_boundaries": [
+    "External prompt resolution is finite to the two actual provenance files. Consumed output/image identity and original PNG SHA choose the specific retained prompt file; arbitrary sibling or injected inline prompt cannot substitute. Unknown/missing prompt placeholders fail. No prompt or asset was created by this repair.",
+    "Hazard/mechanism runtime JSON loaders are verified within their actual named functions and literal/const inputs, with comments and unrelated functions excluded. Selected fine manifest must explicitly retain exact original legacy recipe lineage. Original legacy recipe checks still run.",
+    "Fine hazard atlas now executes the original root/tip and alpha-continuity rules at actual128x32 as well as legacy64x16. Zero/mismatched depths and cleared tip/root alpha bands are rejected.",
+    "Home slot loop must reach the actual _build_slot and the exact building image/region/foot/root/height arguments must reach this HomeWorld _place. Wrong root, disconnected call, misleading suffix and other._place are rejected. Shared CONTACT source-foot math is verified.",
+    "Modern modal shell must actually extend Control and install a real Theme in _ready; each modal must construct/install that shell. Map root directly creates Control and assigns its theme. Names or CanvasLayer are insufficient.",
+    "Fine carrier uses the one actual Godot center-nearest reconstruction. Independently reconstructed PNG is byte-exact; Pillow differs at184pixels. No two-algorithm OR, pixel tolerance or budget relaxation was introduced."
+  ],
+  "resolved_review_findings": {
+    "fine_hazard_skip": "Original candidate skipped fine root/alpha checks due hard-coded64x16 inner condition; fixed and deliberate corruptions now fail.",
+    "home_argument_gap": "Original candidate accepted Vector2.ZERO building root; actual argument bridge is now required.",
+    "shell_type_gap": "Original candidate accepted CanvasLayer shell; explicit Control check now required.",
+    "call_token_gap": "First E version still matched _unrelated_place by substring. E targeted failed exit1 is retained; E2 uses negative alphanumeric/underscore/dot token boundary and independently rejects other._place."
+  },
+  "guard_preservation": {
+    "original_test_methods": 125,
+    "original_method_AST_all_identical": true,
+    "total_methods": 152,
+    "added_methods": 27,
+    "old_profile_timeout_seconds": 180,
+    "profile_budgets_unchanged": true,
+    "suite_actual_seconds": 72.399,
+    "runtime_assets_definitions_unchanged": true,
+    "note": "Finite source-level adapter, not a general GDScript parser or proof of arbitrary reachability. Actual game/GPU consumers remain separate evidence."
+  },
+  "independent_validation": {
+    "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+    "before": {
+      "tools/underworld_pipeline.py": "4bacf26c5f9059987701e91c0f1e75d9d3f14a009db2788d247f940d6c9794be",
+      "tests/test_underworld_pipeline.py": "bf921e14ec31baef082a6fdd0ce1650823c8e5232a465964f7ea66c07d53303f"
+    },
+    "after": {
+      "tools/underworld_pipeline.py": "4bacf26c5f9059987701e91c0f1e75d9d3f14a009db2788d247f940d6c9794be",
+      "tests/test_underworld_pipeline.py": "bf921e14ec31baef082a6fdd0ce1650823c8e5232a465964f7ea66c07d53303f"
+    },
+    "source_stable": true,
+    "argv": [
+      "python",
+      "tests/test_underworld_pipeline.py",
+      "UnderworldPipelineTest.test_selected_fine_hazard_root_and_tip_dimensions_required",
+      "UnderworldPipelineTest.test_selected_fine_hazard_empty_root_or_tip_alpha_rejected",
+      "UnderworldPipelineTest.test_home_build_slot_must_pass_actual_asset_and_root_parameters",
+      "UnderworldPipelineTest.test_home_build_slot_cannot_disconnect_actual_place_call",
+      "UnderworldPipelineTest.test_ui_modal_shell_must_be_an_actual_control"
+    ],
+    "exit_code": 0,
+    "tests": 5,
+    "seconds": 6.518974533000801,
+    "log": "/workspace/scratch/integration-four-20261023/independent-E2-targeted.log",
+    "log_sha256": "eeafe73ab770eb90ab154cfe5e708f8332376e9bea84ba2c7f7909ed33c36909",
+    "actual_source_baseline": {
+      "passed": true,
+      "checks": 1022,
+      "failures": 0
+    },
+    "extra_other_object_place": {
+      "rejected": true,
+      "failing_codes": [
+        "home.actual_asset_slots"
+      ],
+      "scope": "In-memory real HomeWorld building call substitution; no production write."
+    }
+  },
+  "producer_complete_exact_source_runs": {
+    "receipt": "/workspace/scratch/integration-four-20261023/verified-E2/receipt.json",
+    "receipt_sha256": "9956377cd5f02c714330ae2fbff0ea0942de4d381fb0862bbb22ed08d6bd06c4",
+    "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+    "passed": true,
+    "runs": [
+      {
+        "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+        "command": [
+          "python3",
+          "tests/test_underworld_pipeline.py"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 72.399,
+        "log": "test_underworld_pipeline.log",
+        "log_sha256": "2307f20eb18c0248e2c00dc9586dd5dd87e00d1250afb05ffbc56f446b146c4f"
+      },
+      {
+        "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+        "command": [
+          "python3",
+          "tests/test_region_creative_direction.py"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 0.708,
+        "log": "test_region_creative_direction.log",
+        "log_sha256": "16a3fabe1790e904b9202a36d290f864956ad5155d14994e8686e78120deec3d"
+      },
+      {
+        "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+        "command": [
+          "python3",
+          "tests/test_region_bible.py"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 1.875,
+        "log": "test_region_bible.log",
+        "log_sha256": "c171a2728a2ca1e4b81fc6f7b159dd406f9442438a6a86acd22d16d10d0af3c2"
+      }
+    ],
+    "actual_counts": [
+      152,
+      10,
+      32
+    ],
+    "attribution": "Full original-path suites were run by root and their raw outputs independently inspected. Reviewer reran only5focused new methods plus in-memory other-object rejection; no repeat of full152."
+  },
+  "failure_preservation": [
+    "D complete docs failed actual underworld-pipeline baseline, recorded9 predicates and0unit execution; repaired pipeline suite is a new result, not a rewritten old pass.",
+    "Old3authority drift failure, stale creative-v8 and old v4/16px fixture failures retain original identity.",
+    "E scratch/full targeted1fail from disconnected-place test remains failed; independent-E-targeted.json/log retain source8c173dff and exit1.",
+    "Earlier native audio exit leaks and source-drift interrupted runs remain preserved under their own sources.",
+    "Initial canceled remote CI remains canceled, never complete/pass. Future wrapper-head PR CI is not signed here."
+  ],
+  "remaining_requirements": [
+    "Run the unique fresh exact-wrapper-head PR Integration and required main/manual Release gates; no complete CI verdict is issued by these local suites.",
+    "Do not relabel B1266, fbbWeb/GPU or D independent unit receipts as E2 fresh engine or future wrapper-source runs.",
+    "Full natural routes, whole-map art, human aesthetics/control feel/fun and physical mobile/controller/device acceptance remain unverified."
+  ],
+  "review_method": "Read exact source and finite actual consumers; independently reproduced/reported4 real guard gaps, reran5new tests and extra token rejection at E2, verified original125ASTs, exact carrier pixels and source equivalence. No game engine, full CI, source edits or historical hydration."
+}

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ShotEnergyDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/resources/definitions/shot_energy_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+resource_id = &"time_energy_v2"
+definition_version = 2
+capacity = 100.0
+initial_current = 100.0
+clock_domain = 1
+regeneration_policy_id = &"air_focus_ground_only"
+consumption_policy_ids = Array[StringName]([&"airborne_slow_time"])
+shooting_consumes_energy = false

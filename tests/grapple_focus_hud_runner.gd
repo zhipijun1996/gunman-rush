@@ -22,7 +22,7 @@ func run() -> void:
 	fixture.tree = self
 	await fixture.fixture(Vector2(80, -1000))
 	var actor: PlayerController = fixture.controller
-	check(actor.enable_shot_energy(), "formal shot energy enabled")
+	check(actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres")), "explicit historical D079 split focus/shot fixture enabled")
 	check(actor.traversal.grant(&"grapple"), "H granted through real traversal ability")
 	actor.set_physics_process(true)
 	await frames()

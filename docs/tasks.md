@@ -1,5 +1,38 @@
 # 开发任务
 
+## 2026-10-23 原场景预算内调度修复（最新）
+
+四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
+
+## 2026-10-23 四线集成调度（最新）
+
+`FOUR-LINE-INTEGRATION-01`保持review：四线／默认人物／织时匠／5原MP3已接入；当前实现17cd追加必要CI门禁修复，原97／1／44失败保留。原定向21／24／115和限定独审分源记录，下一精确head的142完整合流／main合并／Release仍待实际执行。[门禁来源](evidence/four_line_integration_20261023/ci-gate-repair/README.md)。黄金暂停，G5与真机仍未签。
+
+## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
+
+本会话01–08轮17笔提交已完整累积在`art/formal-fine-depth`，最后运行源6befe56、上轮交付head42f673c。[归整索引](art_session_20261023.md)记录各轮采用/替代关系、正式消费者、历史证据/视频、未验与恢复；本轮仅文档/skills，不合main、不新开触发Integration的PR。修正六份skills当前入口的旧v4/16px指向，增加[共享执行说明](quality/art_consistency_workflow.md)和现有Asset Specification像素字段，区分全局规格/区域身份/资产接口；不修改原Bible/style-v4/v5、运行参数或素材。仅定向文档/记录核对，不跑完整CI或重导出/发布。Git最新head与远端一致性以收口证据为准；跨区品质、用户与真机仍不代签。其他工作区须先取得本分支提交，不假定main已含。
+
+
+## 2026-10-23 FOREGROUND-CONTINUITY-08 固定前景与稳定恢复
+
+用户明确选择固定前景物件＋离屏回收＋提前淡化＋稳定后恢复。`art/formal-fine-depth`运行源6befe56：固定世界身份/尺寸/风相位，完整框+4wu离屏才回收；动态危险64wu提前淡化，安全0.3秒后渐入；常驻HUD/边缘使用即时局部strict mask，保留全部保护。实际Home506采样/23身份失败0、GPU387080保护像素差0及非零前景贡献、六正式定位窗（Home/两图×两Seed）失败0。原首版常驻HUD全抹草叶失败另存。完整CI未跑，不合main；用户/真机/完整战斗仍review。[证据与命令](evidence/foreground_continuity_08/README.md)。[24秒实机视频/截图](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FOREGROUND-CONTINUITY-08/6befe56/)已公开验证播放与完整字节，Pages39887917620 success；观察页，不是可玩Web更新。
+
+
+## 2026-10-23 SPATIAL-RHYTHM-07 沿途疏密与留白
+
+用户否定06中景均匀满铺，要求有的地方多、有的地方空旷，前进不断变化。运行源f554e6b、art/formal-fine-depth：低草坡连续底景与独立世界锚定风车/钟塔组分离，缩小地标并留无建筑窗口；Home焦点归还人物/功能屋，06前景完整保护不变。正式30张（29个Underworld窗口：25组景/4无建筑；Forest独立背景不冒充空段），旧景层450/0。真实24.283秒电影：4s家园输入+20s图一8400wu连续镜头诊断，不代表正常行走/通关。独立看11图确认局部改善，草坡密度、侧肩雾化与正常节奏/设备/用户仍review。完整CI未跑，不合main。[证据/恢复](evidence/spatial_rhythm_07/README.md)；[公开连续视频/对照页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/)已验证完整字节、实际浏览器播放及全图加载，Pages39882280474 success；仅观察评审，不是可玩Web。
+
+
+## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
+
+用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。
+
+
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05：review，art/formal-fine-depth。细粒度已按用户选择接入正式家园/平原及共享森林表现；房屋树根接地、暖光/三层景深/稀疏前景已实机，技术范围与公开影片见[evidence](evidence/fine_space_05/README.md)。源码efd7843，Web524396d0cd10本地入口通过，公开可玩站容量/权限blocked；森林根台造型、前景贡献及用户/真机仍未签，不标done、不跑全CI或默认合main。
+
+
 2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
 
 
@@ -37,10 +70,19 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
-| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
-| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |
-| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；Bible／共享母版不变，先比较再推广 |
+| FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
+| ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
+| DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| DEPTH-FRAME-06 | 中景地标与前景 | — | review | [原记录](quality/records/DEPTH-FRAME-06.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FINE-SPACE-05 | 正式细粒度与共享空间表现 | — | review | [原记录](quality/records/FINE-SPACE-05.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FOREGROUND-CONTINUITY-08 | 固定前景与稳定恢复 | — | review | [原记录](quality/records/FOREGROUND-CONTINUITY-08.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| LIGHT-STUDY-01 | 光色实验 | — | review | [原记录](quality/records/LIGHT-STUDY-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| PIXEL-LIGHT-STUDY-02 | 像素对齐与局部灯光实验 | — | review | [原记录](quality/records/PIXEL-LIGHT-STUDY-02.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| SPATIAL-RHYTHM-07 | 沿途疏密与留白 | — | review | [原记录](quality/records/SPATIAL-RHYTHM-07.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | done | v3 done；A1完整146项证据已保到Git树；此前提效基线，不代签四线组合 |
+| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [原记录](quality/records/PLAYER-PRESENTATION-01.json)；动作候选已汇入集成树，新默认／织时匠换装正在适配，用户／设备未验 |
+| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | review | [原记录](quality/records/ENEMY-FEEDBACK-01.json)；两表现链已汇入集成树，保存修复另验，视觉／完整集成未完成 |
+| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | 用户已暂停；本次不合入68bd037，保持未启动／未验 |
 | CLOUD-PRODUCTION-01 | Cloud生产与交付机制 | — | review | [入口](cloud_production.md)；真实交付与完整门槛分别留证 |
 | CLOUD-PREVIEW-01 | 显式开发入口与录屏样例 | CLOUD-PRODUCTION-01 | review | 仅开发bootstrap；不改变默认游戏，不签品质或真机 |
 | MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | done | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；已合PR102至main 9c349f44，全部开发head祖先闭包成立；原树不变，docs29通过，基线全CI成功，新main CI执行中 |
@@ -540,3 +582,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | 晨光草石/风车枢纽/反冲探索，BGM待用户后引入；[质量记录](quality/records/PLAINS-BIBLE-V2-01.json) |
 
 | FOREST-EXPLORATION-02 | 实机反馈：森林双图差异、多难度分支奖励、平缓教学及钩索可见/固定点起跳 | — | in_progress | [质量记录](quality/records/FOREST-EXPLORATION-02.json) |
+
+| HIGH-DENSITY-TERRAIN-03 | 高分辨率地形对齐与克制材质实验 | PIXEL-LIGHT-STUDY-02 | review | 原生32px/32wu、20实机静态图与独审；岩纹重复/地区特色未定稿，默认入口不改，无CI |
+
+| TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |

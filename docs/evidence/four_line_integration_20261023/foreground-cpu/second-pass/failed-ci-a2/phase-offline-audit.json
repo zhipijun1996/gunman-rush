@@ -1,0 +1,952 @@
+{
+  "run_id": 40011980788,
+  "head": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+  "scope": "failure retained; source/phase receipts only, not full acceptance",
+  "lanes": {
+    "parallel": {
+      "commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+      "status": "passed",
+      "lane": "parallel",
+      "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+      "manifest_exact_source_match": true,
+      "expected_lane_count": 89,
+      "actual_count": 89,
+      "status_counts": {
+        "passed": 89
+      },
+      "all_recorded_passed_exit_zero": true,
+      "all_recorded_fresh": true,
+      "source_inventory_before_after_equal": true,
+      "toolchain_before_after_equal": true,
+      "exact_ordered_complete_lane": true,
+      "remaining_unexecuted": [],
+      "wall_seconds": 1661.379,
+      "checks": [
+        {
+          "id": "docs",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.298,
+          "started": 1792784988.2221644,
+          "ended": 1792784988.5202003
+        },
+        {
+          "id": "world",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.09,
+          "started": 1792784989.3675623,
+          "ended": 1792784989.4574153
+        },
+        {
+          "id": "world-design-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.44,
+          "started": 1792784990.3127367,
+          "ended": 1792784990.7529206
+        },
+        {
+          "id": "structure",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.14,
+          "started": 1792784991.6057448,
+          "ended": 1792784991.7461724
+        },
+        {
+          "id": "harness-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 10.613,
+          "started": 1792784992.6022532,
+          "ended": 1792785003.2148237
+        },
+        {
+          "id": "quality-drills",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.093,
+          "started": 1792785004.0663457,
+          "ended": 1792785004.1597042
+        },
+        {
+          "id": "quality-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.092,
+          "started": 1792785005.0146492,
+          "ended": 1792785006.1063066
+        },
+        {
+          "id": "quality",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.844,
+          "started": 1792785006.9565632,
+          "ended": 1792785008.8004737
+        },
+        {
+          "id": "core",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 81.353,
+          "started": 1792785009.6674128,
+          "ended": 1792785091.020862
+        },
+        {
+          "id": "generated-consumers",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 144.144,
+          "started": 1792785091.9079294,
+          "ended": 1792785236.0521817
+        },
+        {
+          "id": "region",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 183.109,
+          "started": 1792785236.9150147,
+          "ended": 1792785420.0238106
+        },
+        {
+          "id": "art-art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.189,
+          "started": 1792785420.8921905,
+          "ended": 1792785421.0814333
+        },
+        {
+          "id": "art-painterly_pack",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.139,
+          "started": 1792785421.9217787,
+          "ended": 1792785422.0609412
+        },
+        {
+          "id": "art-plains_v3",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.139,
+          "started": 1792785422.9017713,
+          "ended": 1792785423.0409677
+        },
+        {
+          "id": "art-meadow_enemy_art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.189,
+          "started": 1792785423.8787093,
+          "ended": 1792785424.0678077
+        },
+        {
+          "id": "art-plains_ground_art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.139,
+          "started": 1792785424.9126499,
+          "ended": 1792785425.0515394
+        },
+        {
+          "id": "art-windkeeper_art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.189,
+          "started": 1792785425.8978524,
+          "ended": 1792785426.087001
+        },
+        {
+          "id": "art-plains_spatial_art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.14,
+          "started": 1792785426.931481,
+          "ended": 1792785427.071087
+        },
+        {
+          "id": "art-plains_item_art",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.19,
+          "started": 1792785427.9115753,
+          "ended": 1792785428.1012022
+        },
+        {
+          "id": "web-cache",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.29,
+          "started": 1792785428.9416623,
+          "ended": 1792785429.2313168
+        },
+        {
+          "id": "production-loop-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 51.145,
+          "started": 1792785430.0699604,
+          "ended": 1792785481.2146754
+        },
+        {
+          "id": "quality-review-engine",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.568,
+          "started": 1792785482.0787234,
+          "ended": 1792785493.6468625
+        },
+        {
+          "id": "terrain-tile-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.089,
+          "started": 1792785494.4841974,
+          "ended": 1792785494.5729566
+        },
+        {
+          "id": "terrain-production",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.115,
+          "started": 1792785495.4282415,
+          "ended": 1792785506.5435054
+        },
+        {
+          "id": "consumer-coverage-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.089,
+          "started": 1792785507.4058218,
+          "ended": 1792785507.4948525
+        },
+        {
+          "id": "wood-platforms",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.115,
+          "started": 1792785508.3537843,
+          "ended": 1792785519.4691818
+        },
+        {
+          "id": "actor-actions",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 39.932,
+          "started": 1792785520.3460493,
+          "ended": 1792785560.2779038
+        },
+        {
+          "id": "grapple-feel",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 40.493,
+          "started": 1792785561.1578119,
+          "ended": 1792785601.6510372
+        },
+        {
+          "id": "forest-interwoven-contract",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 13.422,
+          "started": 1792785602.5461864,
+          "ended": 1792785615.9684045
+        },
+        {
+          "id": "forest-player-aim",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 19.037,
+          "started": 1792785616.8612866,
+          "ended": 1792785635.8979936
+        },
+        {
+          "id": "all-weapons",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 45.6,
+          "started": 1792785636.7848098,
+          "ended": 1792785682.3850248
+        },
+        {
+          "id": "studio-input",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.122,
+          "started": 1792785683.2723567,
+          "ended": 1792785694.3939354
+        },
+        {
+          "id": "weapon-feel",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 27.357,
+          "started": 1792785695.2891822,
+          "ended": 1792785722.6459079
+        },
+        {
+          "id": "action-budget",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 111.114,
+          "started": 1792785723.537896,
+          "ended": 1792785834.6516154
+        },
+        {
+          "id": "capture-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.089,
+          "started": 1792785835.5199664,
+          "ended": 1792785835.6085327
+        },
+        {
+          "id": "level-design-contracts",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 6.364,
+          "started": 1792785836.4438488,
+          "ended": 1792785842.80814
+        },
+        {
+          "id": "mechanism-comparisons",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.139,
+          "started": 1792785843.6472178,
+          "ended": 1792785843.7857761
+        },
+        {
+          "id": "level-design-analysis",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.439,
+          "started": 1792785844.6264818,
+          "ended": 1792785845.0655785
+        },
+        {
+          "id": "level-design-routing",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 4.499,
+          "started": 1792785845.9138188,
+          "ended": 1792785850.4129183
+        },
+        {
+          "id": "level-design-golden-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.84,
+          "started": 1792785851.2663126,
+          "ended": 1792785852.106331
+        },
+        {
+          "id": "level-region-context",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.539,
+          "started": 1792785852.9482348,
+          "ended": 1792785853.487565
+        },
+        {
+          "id": "level-experience",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 4.749,
+          "started": 1792785854.3282733,
+          "ended": 1792785859.076909
+        },
+        {
+          "id": "level-formal-receipts",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 2.845,
+          "started": 1792785859.9161785,
+          "ended": 1792785862.7611978
+        },
+        {
+          "id": "plains-redesign-golden",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 33.754,
+          "started": 1792785863.6267824,
+          "ended": 1792785897.3808587
+        },
+        {
+          "id": "visual-director-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 17.077,
+          "started": 1792785898.720372,
+          "ended": 1792785915.7971847
+        },
+        {
+          "id": "visual-director-space",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 69.306,
+          "started": 1792785916.6249478,
+          "ended": 1792785985.9312227
+        },
+        {
+          "id": "directed-space-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 72.409,
+          "started": 1792785986.7592812,
+          "ended": 1792786059.1686907
+        },
+        {
+          "id": "root-bell-current",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 35.871,
+          "started": 1792786060.0487373,
+          "ended": 1792786095.9195743
+        },
+        {
+          "id": "root-bell-spaces",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 42.234,
+          "started": 1792786096.842822,
+          "ended": 1792786139.076499
+        },
+        {
+          "id": "root-bell-ecology",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 50.253,
+          "started": 1792786139.9943337,
+          "ended": 1792786190.2472637
+        },
+        {
+          "id": "web-resource-contract-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.59,
+          "started": 1792786191.1755164,
+          "ended": 1792786191.7652235
+        },
+        {
+          "id": "runtime-raw-export-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.188,
+          "started": 1792786192.608196,
+          "ended": 1792786192.7966943
+        },
+        {
+          "id": "asset-family-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.138,
+          "started": 1792786193.6032987,
+          "ended": 1792786193.7417367
+        },
+        {
+          "id": "connected-family-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 5.4,
+          "started": 1792786194.6018066,
+          "ended": 1792786200.002099
+        },
+        {
+          "id": "forest-depth-guardian",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 10.362,
+          "started": 1792786200.9055283,
+          "ended": 1792786211.2677221
+        },
+        {
+          "id": "forest-depth-guardian-tolerance",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 9.16,
+          "started": 1792786212.167805,
+          "ended": 1792786221.327623
+        },
+        {
+          "id": "forest-depth-enemies",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.114,
+          "started": 1792786222.2297003,
+          "ended": 1792786233.3434749
+        },
+        {
+          "id": "forest-depth-versions",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 24.145,
+          "started": 1792786234.2849271,
+          "ended": 1792786258.4294932
+        },
+        {
+          "id": "forest-depth-restore",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 23.392,
+          "started": 1792786259.3450124,
+          "ended": 1792786282.7366152
+        },
+        {
+          "id": "forest-depth-campaign-guardian",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 24.745,
+          "started": 1792786283.742735,
+          "ended": 1792786308.4882064
+        },
+        {
+          "id": "forest-depth-crossbranch-lifecycle",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 10.964,
+          "started": 1792786309.467752,
+          "ended": 1792786320.4314365
+        },
+        {
+          "id": "forest-depth-queen-canopy",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 10.111,
+          "started": 1792786321.347958,
+          "ended": 1792786331.4592793
+        },
+        {
+          "id": "forest-depth-campaign-canopy",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 25.755,
+          "started": 1792786332.3812082,
+          "ended": 1792786358.1366367
+        },
+        {
+          "id": "forest-vertical-shortcut",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 17.431,
+          "started": 1792786359.146079,
+          "ended": 1792786376.5769083
+        },
+        {
+          "id": "blob47-foundation",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.743,
+          "started": 1792786377.4913943,
+          "ended": 1792786379.2338936
+        },
+        {
+          "id": "creative-direction",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.143,
+          "started": 1792786380.0881448,
+          "ended": 1792786380.2308972
+        },
+        {
+          "id": "creative-direction-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.542,
+          "started": 1792786381.0979676,
+          "ended": 1792786382.6399975
+        },
+        {
+          "id": "visual-director-terrain",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 8.979,
+          "started": 1792786383.5210755,
+          "ended": 1792786392.5002513
+        },
+        {
+          "id": "parallel-region-presentation",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 30.119,
+          "started": 1792786393.3627687,
+          "ended": 1792786423.4814827
+        },
+        {
+          "id": "underworld-pipeline",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 90.323,
+          "started": 1792786424.334533,
+          "ended": 1792786514.6572819
+        },
+        {
+          "id": "forest-region-scheduler-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.945,
+          "started": 1792786515.483144,
+          "ended": 1792786517.4286184
+        },
+        {
+          "id": "underworld-home-guard-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.138,
+          "started": 1792786518.2491457,
+          "ended": 1792786518.3875222
+        },
+        {
+          "id": "region-bible-contract",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.139,
+          "started": 1792786519.2790766,
+          "ended": 1792786519.417703
+        },
+        {
+          "id": "region-bible-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 4.149,
+          "started": 1792786520.675309,
+          "ended": 1792786524.8242047
+        },
+        {
+          "id": "forest-bible-reader-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.645,
+          "started": 1792786525.6737847,
+          "ended": 1792786527.3190508
+        },
+        {
+          "id": "forest-bible-av-reader-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.79,
+          "started": 1792786528.1647685,
+          "ended": 1792786528.9544294
+        },
+        {
+          "id": "harness-artifact-archive-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 2.194,
+          "started": 1792786529.8078883,
+          "ended": 1792786532.0017798
+        },
+        {
+          "id": "cloud-production-planner-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.24,
+          "started": 1792786532.8680308,
+          "ended": 1792786533.108414
+        },
+        {
+          "id": "cloud-delivery-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 2.444,
+          "started": 1792786534.0265539,
+          "ended": 1792786536.4702065
+        },
+        {
+          "id": "cloud-inputs-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 2.997,
+          "started": 1792786537.3794537,
+          "ended": 1792786540.3765602
+        },
+        {
+          "id": "portable-frozen-assets",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.742,
+          "started": 1792786541.1942651,
+          "ended": 1792786541.9366715
+        },
+        {
+          "id": "demo-ui-time-energy",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 7.86,
+          "started": 1792786542.8359203,
+          "ended": 1792786550.6957033
+        },
+        {
+          "id": "enemy-feedback-native",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 8.162,
+          "started": 1792786551.6750855,
+          "ended": 1792786559.8369782
+        },
+        {
+          "id": "enemy-feedback-formal",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 13.827,
+          "started": 1792786560.7916389,
+          "ended": 1792786574.6182492
+        },
+        {
+          "id": "enemy-feedback-support",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 8.314,
+          "started": 1792786575.567856,
+          "ended": 1792786583.8815598
+        },
+        {
+          "id": "enemy-corpse-save",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 14.28,
+          "started": 1792786584.865873,
+          "ended": 1792786599.1454265
+        },
+        {
+          "id": "enemy-corpse-snapshot",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 7.76,
+          "started": 1792786600.0936902,
+          "ended": 1792786607.853329
+        },
+        {
+          "id": "bgm-integration",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 19.241,
+          "started": 1792786608.7932358,
+          "ended": 1792786628.0346987
+        },
+        {
+          "id": "player-default-integration",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 9.416,
+          "started": 1792786628.9938133,
+          "ended": 1792786638.410027
+        }
+      ]
+    },
+    "serial": {
+      "commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+      "status": "failed",
+      "lane": "serial",
+      "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+      "manifest_exact_source_match": true,
+      "expected_lane_count": 53,
+      "actual_count": 18,
+      "status_counts": {
+        "passed": 17,
+        "timeout": 1
+      },
+      "all_recorded_passed_exit_zero": true,
+      "all_recorded_fresh": true,
+      "source_inventory_before_after_equal": true,
+      "toolchain_before_after_equal": true,
+      "exact_ordered_complete_lane": false,
+      "remaining_unexecuted": [
+        "windchime-plains",
+        "pixel-plains",
+        "pixel-formal",
+        "style-exploration",
+        "underworld-scenery",
+        "underworld-hazards",
+        "underworld-terrain",
+        "underworld-formal-terrain",
+        "underworld-formal",
+        "underworld-raw-export",
+        "underworld-player-animation",
+        "underworld-mechanisms",
+        "underworld-home",
+        "underworld-ui",
+        "underworld-damage-feedback",
+        "underworld-projectile-vfx",
+        "underworld-world-objects",
+        "underworld-continuous-bosses",
+        "forest-camera-stability",
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-bible-weaver-tests",
+        "forest-bible-discoveries-tests",
+        "forest-bible-integration-tests",
+        "forest-bible-world-contract",
+        "forest-bible-world-connection",
+        "forest-bible-world-backbranch",
+        "forest-bible-ambience",
+        "forest-bible-app-discoveries",
+        "forest-practice-bell-restore",
+        "forest-bible-world-connection-map1",
+        "forest-bible-world-backbranch-map1",
+        "forest-bible-world-spiral",
+        "forest-bible-versions",
+        "cloud-preview-runtime"
+      ],
+      "wall_seconds": 1779.3,
+      "checks": [
+        {
+          "id": "environment",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 0.16,
+          "started": 1792784971.1312208,
+          "ended": 1792784971.2915857
+        },
+        {
+          "id": "web-build",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 90.553,
+          "started": 1792784972.419829,
+          "ended": 1792785062.9725754
+        },
+        {
+          "id": "web-bundle",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.503,
+          "started": 1792785064.1368318,
+          "ended": 1792785065.6395202
+        },
+        {
+          "id": "level-design-runtime",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 28.879,
+          "started": 1792785066.7786524,
+          "ended": 1792785095.65752
+        },
+        {
+          "id": "level-design-golden",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 25.61,
+          "started": 1792785096.80516,
+          "ended": 1792785122.4155402
+        },
+        {
+          "id": "level-formal-runtime",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 24.708,
+          "started": 1792785123.547687,
+          "ended": 1792785148.255787
+        },
+        {
+          "id": "plains-redesign-spatial",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 136.965,
+          "started": 1792785149.387812,
+          "ended": 1792785286.3527675
+        },
+        {
+          "id": "plains-experience-golden",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 77.424,
+          "started": 1792785287.5050297,
+          "ended": 1792785364.9294052
+        },
+        {
+          "id": "plains-encounter-policy",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 413.419,
+          "started": 1792785366.1973183,
+          "ended": 1792785779.6158414
+        },
+        {
+          "id": "plains-redesign-scene",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 247.587,
+          "started": 1792785780.8710556,
+          "ended": 1792786028.4580956
+        },
+        {
+          "id": "terrain-family-tests",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 45.835,
+          "started": 1792786030.393034,
+          "ended": 1792786076.2276323
+        },
+        {
+          "id": "forest-h-slice",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 12.784,
+          "started": 1792786077.3519294,
+          "ended": 1792786090.1363916
+        },
+        {
+          "id": "forest-ecology",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 2.958,
+          "started": 1792786091.3718789,
+          "ended": 1792786094.3302522
+        },
+        {
+          "id": "forest-progression",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 1.353,
+          "started": 1792786095.7019713,
+          "ended": 1792786097.0544827
+        },
+        {
+          "id": "forest-campaign",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 11.231,
+          "started": 1792786098.414829,
+          "ended": 1792786109.6453502
+        },
+        {
+          "id": "forest-debug",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 9.58,
+          "started": 1792786111.0120025,
+          "ended": 1792786120.5918255
+        },
+        {
+          "id": "forest-traversal",
+          "status": "passed",
+          "exit_code": 0,
+          "seconds": 8.421,
+          "started": 1792786121.9745872,
+          "ended": 1792786130.395148
+        },
+        {
+          "id": "forest-depth-region",
+          "status": "timeout",
+          "exit_code": null,
+          "seconds": 600.176,
+          "started": 1792786131.7836347,
+          "ended": 1792786731.9598272
+        }
+      ]
+    }
+  },
+  "forest_completed_case_records": {
+    "count": 68,
+    "status_counts": {
+      "passed": 68
+    },
+    "mean_case_seconds": 33.653460924308845,
+    "minimum_case_seconds": 26.691589300000032,
+    "maximum_case_seconds": 56.43756802500002,
+    "unique_seed_map_route": 68
+  }
+}

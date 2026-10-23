@@ -71,7 +71,7 @@ func _armour_hit(_point: Vector2) -> void:
 
 func _core_damage(result: ActorResourceResult) -> void:
 	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
-		var hit_label := "命中 −%s / HIT" if is_instance_valid(encounter) and (encounter.definition as WindkeeperDefinition).continuous_combat else "核心命中 −%s / CORE HIT"
+		var hit_label := "命中 -%s / HIT" if is_instance_valid(encounter) and (encounter.definition as WindkeeperDefinition).continuous_combat else "核心命中 -%s / CORE HIT"
 		_hit_hint = hit_label % snappedf(absf(result.amount_applied),.01)
 		_hint_age = 0.8
 

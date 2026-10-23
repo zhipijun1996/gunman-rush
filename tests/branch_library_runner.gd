@@ -40,6 +40,7 @@ func fixture(id: String, mirrored: bool, phase: float) -> void:
 	world.add_child(motor)
 	if id in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
 		motor.tuning.max_jumps = 2 # Later ability fixture; excluded from single-jump plains.
+		motor.tuning.max_air_shots = 2 # Explicit historical/later 2-shot fixture, not current R3 tuning.
 	controller = motor.get_node("Controller") as PlayerController
 	controller.set_physics_process(false)
 	motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
@@ -84,12 +85,46 @@ func finish(label: String, endpoint: Vector2, expected_shots: int) -> void:
 	check(module.scale == Vector2.ONE, label + " reflection preserves positive physics-node scale")
 	print("BRANCH LIBRARY TRACE: %s ticks=%d shots=%d" % [label, trace_ticks, shots])
 
+func current_one_shot_admission() -> void:
+	var tuning_hash := FileAccess.get_sha256("res://config/player_tuning.json")
+	var current := PlayerTuning.load_default()
+	check(current != null and current.max_air_shots == 1, "current R3 config retains the authorized one airborne shot")
+	var profile := RunProfile.formal()
+	check(profile.is_valid(true), "current admission uses the actual formal RunProfile")
+	var catalog := RandomStageGenerator.new()
+	for id: String in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]:
+		var definition := catalog.definition_for(id)
+		check(definition != null and definition.is_valid(), id + " actual authored module remains valid")
+		check(not definition.supports(current), id + " is excluded by current one-shot module capability")
+		check(not definition.entry_port.supports(current), id + " entry rejects current one-shot capability")
+		var two_jump_one_shot := PlayerTuning.load_default()
+		two_jump_one_shot.max_jumps = definition.min_jumps
+		check(two_jump_one_shot.max_air_shots == current.max_air_shots and not definition.supports(two_jump_one_shot), id + " even authored jump capability cannot bypass the one-shot exclusion")
+		check(not definition.entry_port.supports(two_jump_one_shot), id + " two-jump one-shot entry is independently rejected")
+	# Actual current formal generator/manifests, using the real profile's map count.
+	# These are admission checks, not a claim that configuration proves traversal.
+	var generator := PlainsRegionGenerator.new()
+	for map_index: int in range(1, profile.stages_per_biome + 1):
+		var seed_value := PlainsRegionCampaign.seed_for("branch-library-current-one-shot", map_index)
+		var generated := generator.generate(seed_value, current, false, "", "intro" if map_index == 1 else "advanced")
+		check(generated.ok, "current one-shot formal map %s produces an actual Manifest" % map_index)
+		if not generated.ok: continue
+		var manifest: Dictionary = generated.manifest
+		check(not manifest.nodes.is_empty() and generator.validate(manifest, current), "current one-shot formal map %s passes original Manifest validation" % map_index)
+		var incompatible: Array[String] = []
+		for node: Dictionary in manifest.nodes:
+			if str(node.module_id) in ["plains_recoil_chasm", "plains_recoil_chasm_wide"]: incompatible.append(str(node.module_id))
+		check(incompatible.is_empty(), "current one-shot actual formal map %s excludes both two-shot chasm modules" % map_index)
+		print("BRANCH CURRENT ADMISSION: map=", map_index, " seed=", seed_value, " hash=", manifest.manifest_hash, " forbidden=", incompatible.size(), " max_air_shots=", current.max_air_shots)
+	check(FileAccess.get_sha256("res://config/player_tuning.json") == tuning_hash and PlayerTuning.load_default().max_air_shots == current.max_air_shots, "historical capability checks never rewrite current one-shot configuration")
+
 func _run() -> void:
 	if "--verify-failure-exit" in OS.get_cmdline_user_args():
 		check(false, "intentional nonzero exit proof")
 		print("BRANCH LIBRARY: %d assertions, %d failures" % [assertions, failures])
 		quit(1)
 		return
+	current_one_shot_admission()
 	for id: String in IDS:
 		for mirrored: bool in [false, true]:
 			var phases: Array = [0.0, 0.25, 0.5, 0.75] if id in DYNAMIC else [0.0]

@@ -1,0 +1,43 @@
+{
+  "bell": {
+    "collision_source": "ShotLatch.setup existing RectangleShape2D28x34, unchanged",
+    "provenance": "assets/underworld_plains/actors/actors_build.json",
+    "sampling": "uniform fit preserving source aspect",
+    "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2",
+    "texture": "res://assets/underworld_plains/actors/bell.png",
+    "visual_bound_wu": [
+      28.0,
+      34.0
+    ]
+  },
+  "carrier": {
+    "bottom_px": 4,
+    "builder": "tools/build_formal_fine.gd",
+    "left_px": 16,
+    "middle_width_px": 32,
+    "middle_x_px": 80,
+    "operation": "Original2172x724 AI master, same measured RGBA crop[70,272,2105,504], direct nearest192x22 sample. Not an upscale of96x11. Physical cap/top/bottom dimensions unchanged.",
+    "pixel_world_scale": 1,
+    "prompt_layout_limit": "Requested logical96x16 not returned exactly; measured slab aspect retained in96x11. Runtime independent cap/body repetition supports authored rectangles.",
+    "right_px": 16,
+    "sha256": "3176c1d319c216b418e695368dccaad74210563275ee77e7d58725805923be39",
+    "size_px": [
+      192,
+      22
+    ],
+    "source": "assets/underworld_plains/mechanisms/source_carrier.png",
+    "source_sha256": "b65c4ad5d4cdd30e2b5beae19ad081891badc84806a29560e68ba99ca54beacf",
+    "texture": "res://assets/underworld_plains/mechanisms/carrier_fine.png",
+    "top_px": 4
+  },
+  "consumers": [
+    "ModuleMovingPlatform.UnderworldCarrierPaint",
+    "UnderworldTerrain.draw_moving",
+    "ShotLatch main/sequence/access bell and gate/support"
+  ],
+  "generation_record": "assets/underworld_plains/mechanisms/generation_call.json",
+  "legacy_build": "assets/underworld_plains/mechanisms/mechanisms_build.json",
+  "physics_mutation": false,
+  "schema": "underworld-mechanisms-v2-fine",
+  "task_id": "FINE-SPACE-05"
+}

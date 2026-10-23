@@ -1,0 +1,569 @@
+--- a/.github/workflows/production.yml
++++ b/.github/workflows/production.yml
+@@ -28,13 +28,11 @@
+   cancel-in-progress: true
+ 
+ jobs:
+-  affected:
++  prepare:
+     runs-on: ubuntu-latest
+     timeout-minutes: 120
+     defaults:
+       run:
+-        # Explicit bash enables GitHub's -e -o pipefail wrapper, so tee cannot
+-        # turn a failed selector, import, test or export into a successful step.
+         shell: bash
+     env:
+       PRODUCTION_STAGE: ${{ github.event_name == 'pull_request' && 'integration' || inputs.stage }}
+@@ -45,8 +43,6 @@
+         with:
+           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+           fetch-depth: 0
+-          # checkout enables blob filtering for sparse inputs. Keep ancestry for
+-          # base...HEAD, then hydrate only the selected preflight's real inputs.
+           sparse-checkout: |
+             /*
+             !/docs/evidence/
+@@ -100,6 +96,8 @@
+               print(Path('build/verification/production-ci/inputs.log').read_text())
+           raise SystemExit(result.returncode)
+           PY
++      - name: Fail fast on selected portable Python subchecks before engine or Foundry work
++        run: python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --precheck-only --jobs 2 --output build/verification/production-ci/prechecks-plan.json 2>&1 | tee build/verification/production-ci/prechecks.log
+       - name: Validate PR quality and guard changes against its actual base
+         if: github.event_name == 'pull_request'
+         run: python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
+@@ -145,7 +143,7 @@
+           python3 tools/test_frozen_assets.py 2>&1 | tee build/verification/production-ci/frozen-assets.log
+           python3 tools/foundry.py build --count 24 --promote 2>&1 | tee build/verification/production-ci/foundry-build.log
+           bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd 2>&1 | tee build/verification/production-ci/foundry-stamp.log
+-      - name: Execute selected original Harness checks, including the full docs profile once
++      - name: Freeze the prepared execution plan and restore all its selected inputs
+         run: |
+           # Re-plan after the original export preparation: its real resource
+           # changes remain visible and may conservatively upgrade to full.
+@@ -166,7 +164,37 @@
+               print(Path('build/verification/production-ci/pre-execution-inputs.log').read_text())
+           raise SystemExit(result.returncode)
+           PY
+-          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 2 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
++      - name: Choose only exact full-profile work for physical lanes
++        id: route
++        run: |
++          python3 - <<'PYCODE'
++          import json, os
++          from pathlib import Path
++          plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
++          manifest=json.loads(Path('tools/harness/profiles.json').read_text())
++          if plan['ci_route']=='full_lanes' and set(plan['checks'])!=set(manifest['profiles']['full']):
++              raise SystemExit('Full lane routing requires the exact original full check set')
++          with open(os.environ['GITHUB_OUTPUT'],'a') as output:
++              output.write('ci_route='+plan['ci_route']+'\n')
++          print('Selected route:',plan['ci_route'],'checks:',len(plan['checks']))
++          PYCODE
++      - name: Execute affected checks without upgrading them to full or Web
++        if: steps.route.outputs.ci_route != 'full_lanes'
++        run: python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 2 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
++      - uses: actions/upload-artifact@v4
++        if: steps.route.outputs.ci_route == 'full_lanes'
++        with:
++          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          path: build/verification/production-ci/pre-execution-plan.json
++          if-no-files-found: error
++          retention-days: 14
++      - uses: actions/upload-artifact@v4
++        if: steps.route.outputs.ci_route == 'full_lanes'
++        with:
++          name: production-validated-foundry
++          path: resources/foundry/
++          if-no-files-found: error
++          retention-days: 14
+       - name: Preserve plans, actual failures, per-check logs and original receipts
+         if: always()
+         uses: actions/upload-artifact@v4
+@@ -180,3 +208,277 @@
+             ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+           if-no-files-found: error
+           retention-days: 14
++    outputs:
++      ci_route: ${{ steps.route.outputs.ci_route }}
++      needs_engine: ${{ steps.impact.outputs.needs_engine }}
++      needs_web: ${{ steps.impact.outputs.needs_web }}
++  full_checks:
++    needs: prepare
++    if: needs.prepare.outputs.ci_route == 'full_lanes'
++    runs-on: ubuntu-latest
++    timeout-minutes: 90
++    defaults:
++      run:
++        shell: bash
++    strategy:
++      fail-fast: false
++      matrix:
++        lane:
++          - parallel
++          - serial
++    env:
++      LIBGL_ALWAYS_SOFTWARE: '1'
++    steps:
++      - uses: actions/checkout@v4
++        with:
++          ref: ${{ github.event.pull_request.head.sha || github.sha }}
++          fetch-depth: 0
++          sparse-checkout: |
++            /*
++            !/docs/evidence/
++          sparse-checkout-cone-mode: false
++          persist-credentials: false
++      - uses: actions/setup-python@v5
++        with:
++          python-version: '3.12'
++          cache: pip
++          cache-dependency-path: tools/requirements_art.txt
++      - uses: actions/setup-node@v4
++        with:
++          node-version: '22'
++      - name: Select the existing external toolchain location
++        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          path: build/verification/production-ci/
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-validated-foundry
++          path: resources/foundry/
++      - name: Restore the exact selected prepared input closure
++        run: |
++          python3 - <<'PYCODE'
++          import json, subprocess, sys
++          from pathlib import Path
++          plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
++          manifest=json.loads(Path('tools/harness/profiles.json').read_text())
++          if (plan['ci_route']!='full_lanes' or set(plan['checks'])!=set(manifest['profiles']['full'])
++                  or plan['source_commit']!=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()):
++              raise SystemExit('Not the same-source exact full plan')
++          command=[sys.executable,'tools/cloud_inputs.py','--materialize','--output','build/verification/production-ci/lane-inputs.json']
++          for check in plan['checks']: command.extend(['--check',check])
++          with Path('build/verification/production-ci/lane-inputs.log').open('w') as log:
++              result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
++          if result.returncode: print(Path('build/verification/production-ci/lane-inputs.log').read_text())
++          raise SystemExit(result.returncode)
++          PYCODE
++      - name: Install media dependencies required by existing docs and readers
++        timeout-minutes: 5
++        run: |
++          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
++            sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/media-install.log
++            sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log
++          fi
++          python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt 2>&1 | tee build/verification/production-ci/python-install.log
++      - uses: actions/cache/restore@v4
++        id: toolchain
++        with:
++          path: |
++            ${{ runner.temp }}/gunman-toolchains/godot
++            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
++          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
++      - name: Install and verify the repository locked Standard engine and templates
++        timeout-minutes: 15
++        run: |
++          bash tools/cloud_setup.sh --godot-only 2>&1 | tee build/verification/production-ci/toolchain.log
++          if ! command -v Xvfb >/dev/null; then
++            sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/display-install.log
++            sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends xvfb xauth 2>&1 | tee -a build/verification/production-ci/display-install.log
++          fi
++      - name: Execute one original fresh full-profile lane
++        run: python3 tools/harness.py --profile full --release --jobs 1 --lane ${{ matrix.lane }}
++      - name: Collect the unique original phase report and check stdout logs
++        if: always()
++        env:
++          HARNESS_LANE: ${{ matrix.lane }}
++        run: |
++          python3 - <<'PYCODE'
++          import json
++          import os
++          from pathlib import Path
++          import shutil
++          import stat
++          ROOT = Path.cwd().resolve()
++          def no_links(path):
++              path = path if path.is_absolute() else ROOT / path
++              if not path.is_relative_to(ROOT) or '..' in path.relative_to(ROOT).parts:
++                  raise SystemExit('Proof path is outside repository root')
++              current = ROOT
++              for component in path.relative_to(ROOT).parts:
++                  current = current / component
++                  if current.is_symlink():
++                      raise SystemExit('Proof path or repository ancestor is a symlink')
++              return path
++          def regular(path):
++              path = no_links(path)
++              if not stat.S_ISREG(path.lstat().st_mode):
++                  raise SystemExit('Original proof input must be a regular file')
++              return path
++          no_links(Path('build/verification/harness'))
++          reports = list(Path('build/verification/harness').glob('*/report.json'))
++          if len(reports) != 1:
++              raise SystemExit('Expected exactly one original Harness phase report')
++          report = regular(reports[0])
++          proof = no_links(Path('build/verification/ci-lane-proof') / os.environ['HARNESS_LANE'])
++          proof.mkdir(parents=True, exist_ok=False)
++          shutil.copy2(report, proof / 'report.json')
++          seen = set()
++          for check in json.loads(report.read_text())['checks']:
++              relative = Path(check['log'])
++              if relative.is_absolute() or '..' in relative.parts or relative in seen or relative == Path('report.json'):
++                  raise SystemExit('Invalid or repeated original check log path')
++              seen.add(relative)
++              source = regular(report.parent / relative)
++              target = no_links(proof / relative)
++              target.parent.mkdir(parents=True, exist_ok=True)
++              shutil.copy2(source, target)
++          PYCODE
++      - name: Show failed Harness checks without requiring artifact download
++        if: failure()
++        run: |
++          python3 - <<'PY'
++          import json
++          from pathlib import Path
++          reports = sorted(Path('build/verification/harness').glob('*/report.json'))
++          if reports:
++              report = reports[-1]
++              for check in json.loads(report.read_text()).get('checks', []):
++                  if check.get('status') not in {'failed', 'timeout'}:
++                      continue
++                  log = (report.parent / check['log']).resolve()
++                  tail = ''
++                  if log.is_relative_to(report.parent.resolve()) and log.is_file():
++                      tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
++                  print('Failed check:', check['id'], check['status'])
++                  print(tail)
++                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
++                  detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
++                  print('::error title=Harness ' + check['id'] + '::' + detail)
++          PY
++      - uses: actions/upload-artifact@v4
++        if: always()
++        with:
++          name: production-phase-proof-${{ matrix.lane }}
++          path: build/verification/ci-lane-proof/${{ matrix.lane }}/
++          if-no-files-found: error
++          retention-days: 14
++      - uses: actions/upload-artifact@v4
++        if: always()
++        with:
++          name: production-lane-${{ matrix.lane }}
++          path: |
++            build/verification/
++          if-no-files-found: error
++          retention-days: 14
++  affected:
++    needs:
++      - prepare
++      - full_checks
++    if: always()
++    runs-on: ubuntu-latest
++    timeout-minutes: 30
++    defaults:
++      run:
++        shell: bash
++    steps:
++      - name: Require prepare and any selected full lanes to have succeeded
++        env:
++          PREPARE_RESULT: ${{ needs.prepare.result }}
++          LANES_RESULT: ${{ needs.full_checks.result }}
++          CI_ROUTE: ${{ needs.prepare.outputs.ci_route }}
++        run: |
++          test "$PREPARE_RESULT" = success
++          if [ "$CI_ROUTE" = full_lanes ]; then
++            test "$LANES_RESULT" = success
++          else
++            test "$CI_ROUTE" = selected_commands
++            test "$LANES_RESULT" = skipped
++          fi
++      - uses: actions/checkout@v4
++        with:
++          ref: ${{ github.event.pull_request.head.sha || github.sha }}
++          fetch-depth: 0
++          sparse-checkout: |
++            /*
++            !/docs/evidence/
++          sparse-checkout-cone-mode: false
++          persist-credentials: false
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/setup-python@v5
++        with:
++          python-version: '3.12'
++          cache: pip
++          cache-dependency-path: tools/requirements_art.txt
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          path: build/verification/production-ci/
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-validated-foundry
++          path: resources/foundry/
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - name: Restore the exact selected prepared input closure
++        run: |
++          python3 - <<'PYCODE'
++          import json, subprocess, sys
++          from pathlib import Path
++          plan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
++          manifest=json.loads(Path('tools/harness/profiles.json').read_text())
++          if (plan['ci_route']!='full_lanes' or set(plan['checks'])!=set(manifest['profiles']['full'])
++                  or plan['source_commit']!=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()):
++              raise SystemExit('Not the same-source exact full plan')
++          command=[sys.executable,'tools/cloud_inputs.py','--materialize','--output','build/verification/production-ci/lane-inputs.json']
++          for check in plan['checks']: command.extend(['--check',check])
++          with Path('build/verification/production-ci/lane-inputs.log').open('w') as log:
++              result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
++          if result.returncode: print(Path('build/verification/production-ci/lane-inputs.log').read_text())
++          raise SystemExit(result.returncode)
++          PYCODE
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-phase-proof-parallel
++          path: build/verification/ci-lane-proof/parallel/
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/download-artifact@v4
++        with:
++          name: production-phase-proof-serial
++          path: build/verification/ci-lane-proof/serial/
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - name: Verify exact same-source complete fresh check coverage and original logs
++        run: |
++          python3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile full
++          python3 - <<'PY'
++          import json
++          from pathlib import Path
++          reports = list(Path('build/verification/harness').glob('*/report.json'))
++          if len(reports) != 1:
++              raise SystemExit('Expected exactly one merged Harness report')
++          report = json.loads(reports[0].read_text())
++          if report.get('status') != 'passed' or report.get('partial') is not False or report.get('approval_scope') != 'selected_profiles_technical':
++              raise SystemExit('Merged report did not verify complete technical coverage')
++          PY
++        if: needs.prepare.outputs.ci_route == 'full_lanes'
++      - uses: actions/upload-artifact@v4
++        if: always() && needs.prepare.outputs.ci_route == 'full_lanes'
++        with:
++          name: production-merged-proof
++          path: |
++            build/verification/harness/
++            build/verification/production-ci/
++          if-no-files-found: warn
++          retention-days: 14
+--- a/tools/production_plan.py
++++ b/tools/production_plan.py
+@@ -39,6 +39,15 @@
+         if not manifest["profiles"].get(profile):
+             raise ValueError("Missing existing Harness profile: " + profile)
+     domain_closure(domains, list(domains))
++    seen = set()
++    for check in policy.get("early_python_checks", []):
++        parent, argv = check.get("parent_check"), check.get("argv")
++        if (parent not in manifest["checks"] or parent in seen or not isinstance(argv, list)
++                or len(argv) < 3 or argv[:2] != ["python3", "-S"]
++                or any(not isinstance(arg, str) or not arg for arg in argv)
++                or not safe_path(argv[2]).startswith("tests/") or not argv[2].endswith(".py")):
++            raise ValueError("Invalid explicit early Python check")
++        seen.add(parent)
+ 
+ 
+ def domain_closure(domains, requested):
+@@ -103,11 +112,19 @@
+     if stage == "release":
+         checks = []
+         commands = [["python3", "tools/deliver.py", "--jobs", str(jobs)]]
++    checks = unique(checks)
++    prechecks = [item["argv"][:] for item in policy.get("early_python_checks", [])
++                 if item["parent_check"] in checks]
++    lane_checks = {lane: [name for name in manifest["profiles"]["full"] if bool(manifest["checks"][name].get("serial", False)) == (lane == "serial")]
++                   for lane in ("parallel", "serial")}
++    exact_full = (stage == "integration" and full and set(checks) == set(manifest["profiles"]["full"]))
+     return {
+         "schema_version": 1, "stage": stage, "status": "planned", "approval_scope": "plan_only",
+         "changed_paths": paths, "path_reasons": matches, "domains": closure,
+         "escalations": escalations, "selection": "original_release_delivery" if stage == "release" else ("full" if full else "affected_checks"),
+-        "checks": unique(checks), "commands": commands,
++        "checks": checks, "commands": commands, "precheck_commands": prechecks,
++        "ci_route": "full_lanes" if exact_full else "selected_commands",
++        "ci_lane_checks": lane_checks if exact_full else {},
+         "additional_commands": [["python3", "tests/test_production_plan.py"]] if "planner" in closure and stage != "release" else [],
+         "release_follow_up": ["Run the existing exact-SHA CI release and deploy jobs.", "Verify the published build using tools/verify_published_build.py with the actual URL, build ID and source commit.", "Report independent review, player acceptance and real devices separately."] if stage == "release" else [],
+         "manual_checks": policy["manual_checks"],
+@@ -139,6 +156,8 @@
+     action = parser.add_mutually_exclusive_group()
+     action.add_argument("--plan", action="store_true", help="Default: record selection, never test success")
+     action.add_argument("--execute", action="store_true", help="Execute selected Development/Integration checks through the original Harness")
++    action.add_argument("--precheck-only", action="store_true", help="Only selected explicit portable Python subchecks; never a Harness/profile approval")
++    parser.add_argument("--verbose-plan", action="store_true", help="Print complete JSON; the full plan artifact is always written")
+     parser.add_argument("--output", type=Path)
+     parser.add_argument("--jobs", type=int, default=1, choices=range(1, 9))
+     args = parser.parse_args(argv)
+@@ -160,9 +179,16 @@
+     output.parent.mkdir(parents=True, exist_ok=True)
+     with output.open("x") as stream:
+         stream.write(json.dumps(plan, ensure_ascii=False, indent=2) + "\n")
+-    print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
+-    print("Production plan: " + str(output), flush=True)
+-    if not args.execute:
++    if args.verbose_plan:
++        print(json.dumps(plan, ensure_ascii=False, indent=2), flush=True)
++    else:
++        print("Production plan: " + json.dumps({"source_commit": head_sha, "stage": args.stage,
++              "selection": plan["selection"], "ci_route": plan["ci_route"],
++              "changed_paths": len(plan["changed_paths"]), "checks": len(plan["checks"]),
++              "prechecks": len(plan["precheck_commands"]), "escalations": len(plan["escalations"]),
++              "escalation_sample": plan["escalations"][:3]}, ensure_ascii=False), flush=True)
++    print("Complete plan artifact: " + str(output), flush=True)
++    if not (args.execute or args.precheck_only):
+         return 0
+     if args.stage == "release":
+         print("Release is plan-only here: execute tools/deliver.py and the existing exact-SHA release/deployment workflow; a Harness full run alone is not release acceptance.", file=sys.stderr)
+@@ -173,12 +199,17 @@
+         if harness.git_metadata() != source_metadata:
+             raise RuntimeError("Source/Git changed during planned verification; create a fresh plan")
+     try:
+-        exit_code = run_commands(plan["additional_commands"] + plan["commands"], ROOT, results, source_guard)
++        commands = plan["precheck_commands"]
++        if not args.precheck_only:
++            commands = commands + plan["additional_commands"] + plan["commands"]
++        exit_code = run_commands(commands, ROOT, results, source_guard)
+         return exit_code
+     finally:
+         # Separate execution receipt; never turn a plan into a test result.
+         receipt = {"schema_version": 1, "stage": args.stage, "plan": str(output), "source_commit": head_sha,
+-                   "status": "selected_commands_succeeded" if exit_code == 0 else "failed_or_interrupted",
++                   "status": (("selected_prechecks_succeeded" if plan["precheck_commands"] else "no_selected_prechecks")
++                              if args.precheck_only else "selected_commands_succeeded") if exit_code == 0 else "failed_or_interrupted",
++                   "approval_scope": "precheck_only" if args.precheck_only else "selected_commands",
+                    "steps": results, "device_acceptance": "unverified", "player_acceptance": "unverified"}
+         receipt_path = output.with_name(output.stem + ".execution.json")
+         with receipt_path.open("x") as stream:
+--- a/config/production_impact.json
++++ b/config/production_impact.json
+@@ -21,5 +21,6 @@
+     {"id": "web-contracts", "paths": ["tools/web/*", "tools/verify_web_*.py", "tools/check_web_*.py", "tools/test_web_*.mjs", "tests/test_web_bundle.py", "tests/test_runtime_raw_export.py"], "domain": "web", "reason": "Web loader and export contracts require real export and bundle verification at integration."}
+   ],
+   "always_full": ["project.godot", "export_presets.cfg", "config/*", "resources/*", "scenes/*", "scripts/player/*", "scripts/core/*", "scripts/generation/*", "scripts/save/*", ".github/workflows/*", "tools/harness.py", "tools/harness/*"],
++  "early_python_checks": [{"parent_check": "plains-encounter-policy", "argv": ["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"], "reason": "Original24 portable boundary cases before engine work; original parent wrapper still runs all its cases and native consumers."}],
+   "manual_checks": ["GUI and real device/player acceptance remain unverified unless separately exercised.", "A changed shared API, dynamic loader or undeclared dependency requires full integration even if its file has a development mapping.", "Check inputs are cache invalidation inventories, not complete test dependency graphs."]
+ }
+--- a/tests/test_production_plan.py
++++ b/tests/test_production_plan.py
+@@ -1,5 +1,10 @@
+ """Impact routing counterexamples against the real existing check inventory."""
+ import copy
++import contextlib
++import hashlib
++import io
++import types
++from unittest.mock import patch
+ import json
+ from pathlib import Path
+ import sys
+@@ -8,6 +13,7 @@
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT / "tools"))
++import production_plan
+ from production_plan import make_plan, run_commands, validate_policy
+ 
+ 
+@@ -155,5 +161,89 @@
+             self.assertEqual(source.read_text(), "changed")
+ 
+ 
++    def test_early_boundary_is_only_selected_with_its_real_parent(self):
++        docs = self.plan(["docs/handoff.md"])
++        self.assertEqual(docs["precheck_commands"], [])
++        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
++        self.assertEqual(full["precheck_commands"], [["python3", "-S", "tests/test_plains_encounter_policy_boundary.py", "-v"]])
++        self.assertIn("plains-encounter-policy", full["checks"])
++        policy = copy.deepcopy(self.policy)
++        policy["early_python_checks"][0]["parent_check"] = "not-a-real-check"
++        with self.assertRaisesRegex(ValueError, "early Python"):
++            self.plan(["docs/handoff.md"], policy=policy)
++
++    def test_physical_lanes_require_the_exact_original_full_set(self):
++        full = self.plan(["scripts/demo/demo_app.gd"], "integration")
++        self.assertEqual(full["ci_route"], "full_lanes")
++        self.assertEqual(set(full["checks"]), set(self.manifest["profiles"]["full"]))
++        parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
++        self.assertFalse(set(parallel) & set(serial))
++        self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
++        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (142,89,53))
++        for name in full["checks"]:
++            self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
++        for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
++            scoped = self.plan(paths,stage)
++            self.assertEqual(scoped["ci_route"], "selected_commands")
++            self.assertEqual(scoped["ci_lane_checks"], {})
++        manifest = copy.deepcopy(self.manifest)
++        manifest["profiles"]["docs"].append("not-in-full")
++        manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
++        with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
++        self.assertEqual(with_extra["ci_route"],"selected_commands")
++
++    def exercise_main(self, script, action="--precheck-only", verbose=False):
++        directory = tempfile.TemporaryDirectory(); self.addCleanup(directory.cleanup)
++        root=Path(directory.name)
++        (root/"tests").mkdir(); (root/"tools").mkdir()
++        (root/"source.txt").write_text("frozen")
++        (root/"tests/portable.py").write_text(script)
++        (root/"tools/harness.py").write_text("from pathlib import Path; Path('engine-started').touch()")
++        policy=copy.deepcopy(self.policy)
++        policy["early_python_checks"][0]["argv"]=["python3","-S","tests/portable.py"]
++        policy_path=root/"policy.json"; policy_path.write_text(json.dumps(policy))
++        def metadata():
++            return {"working_files":{"source.txt":hashlib.sha256((root/"source.txt").read_bytes()).hexdigest()}}
++        harness=types.SimpleNamespace(load_manifest=lambda:self.manifest,
++                    changed_paths=lambda base:["scripts/demo/demo_app.gd"],git_metadata=metadata,
++                    MANIFEST=ROOT/"tools/harness/profiles.json")
++        stdout=io.StringIO(); output=root/"build/plan.json"
++        with patch.object(production_plan,"ROOT",root), patch.object(production_plan,"POLICY",policy_path), patch.object(production_plan,"git",return_value="frozen-source"), patch.dict(sys.modules,{"harness":harness}), contextlib.redirect_stdout(stdout):
++            argv=["--stage","integration",action,"--output",str(output)]
++            if verbose: argv.append("--verbose-plan")
++            try:
++                result=production_plan.main(argv)
++            except RuntimeError as error:
++                result=error
++        return root,result,stdout.getvalue(),json.loads(output.read_text()),json.loads(output.with_name("plan.execution.json").read_text()) if output.with_name("plan.execution.json").exists() else None
++
++    def test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full(self):
++        root,code,stdout,plan,receipt=self.exercise_main("import sys; assert not sys.flags.no_site == 0")
++        self.assertEqual(code,0)
++        self.assertFalse((root/"engine-started").exists())
++        self.assertEqual(receipt["approval_scope"],"precheck_only")
++        self.assertEqual(receipt["status"],"selected_prechecks_succeeded")
++        self.assertEqual(len(receipt["steps"]),1)
++        self.assertIn("path_reasons",plan)
++        self.assertNotIn('"path_reasons"',stdout)
++        self.assertIn("Complete plan artifact:",stdout)
++        self.assertLess(len(stdout),2000)
++        _,code,verbose,_,_=self.exercise_main("pass",verbose=True)
++        self.assertEqual(code,0)
++        self.assertIn('"path_reasons"',verbose)
++
++    def test_precheck_failure_stops_actual_planned_harness_execution(self):
++        root,code,_,_,receipt=self.exercise_main("raise SystemExit(19)",action="--execute")
++        self.assertEqual(code,19)
++        self.assertFalse((root/"engine-started").exists())
++        self.assertEqual(receipt["status"],"failed_or_interrupted")
++        self.assertEqual(len(receipt["steps"]),1)
++
++    def test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt(self):
++        root,result,_,_,receipt=self.exercise_main("from pathlib import Path; Path('source.txt').write_text('changed')")
++        self.assertIsInstance(result,RuntimeError)
++        self.assertEqual(receipt["status"],"failed_or_interrupted")
++        self.assertFalse((root/"engine-started").exists())
++
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)

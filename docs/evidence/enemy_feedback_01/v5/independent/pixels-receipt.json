@@ -1,0 +1,19 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tests/enemy_feedback_01_pixels.gd"
+  ],
+  "display": ":0",
+  "software_gl": true,
+  "exit_code": 0
+}

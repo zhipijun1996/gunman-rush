@@ -1,0 +1,86 @@
+{
+  "status": "ACCEPT",
+  "reviewed_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
+  "implementation_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
+  "previous_implementation_commit": "9a9eb8637e78d827af92f939466b485931e5bc17",
+  "scope": "Independent bounded technical source/integration review of final current-policy readers, actual GUI tests and HUD layout production delta. This is not a full Integration/Release or player approval.",
+  "actual_source_sha256": {
+    "tools/run_plains_redesign_scene_tests.py": "c82ce11693987540193711ce5eb08599ce4e11b5a9d6a23e5fd90a3118fd617f",
+    "tests/plains_redesign_scene_runner.gd": "71545b9e8327cea633a5d9bca34d5a29fedb76aceea7110bee930cca00a4a848",
+    "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+    "scripts/demo/demo_app.gd": "088c0c1457a958ca175087a970010db2fe23098cf18f6a3f9475d5e4349e62cd",
+    "tests/plains_encounter_policy_runner.gd": "8fa7c8a40ce6b95170bf4957a544c37a6767b26012770ffd43e830e9dbebe6e4",
+    "tools/level_experience.py": "5d27c70b4a613a96c637659688c2292240de76ca29f0737be3f17360e1e101df",
+    "tools/run_plains_encounter_policy_tests.py": "44490d3cc43aef786888602ca6c265f6945fa40fba059a1307d020b8bb62820f",
+    "tools/run_forest_depth_campaign_boss.py": "4ca3757930d2b5e92aec314b1edd2e01c6673ff9161892ee81d1f2877f47183d",
+    "tests/parallel_region_presentation_tests.gd": "ba33964653982e09810deafd9035453cdb416639d782d667a292ad5417c9b12f",
+    "tests/forest_campaign_runner.gd": "4a798fcc4457826c742038fd144056daf705bad62e30acadc6c7a5e2a3ca14c2",
+    "tests/menu_scroll_touch_tests.gd": "e3bedeaaa2d68df889e1eb4fd8935a5a6a59c564594f9160ace1bf08d1d41b78",
+    "tools/run_plains_experience_golden_tests.py": "db0603abfbe3013628518856b8703f68876210cb21404b38df0d28b40b26efb9",
+    "tests/plains_experience_golden_runner.gd": "c10708274f33d1c14606bdedd4729ab396995385219fafde475691c04fb57b84"
+  },
+  "profile_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "source_identity": {
+    "all13_implementation_files_exact": true,
+    "S2_delta": "Only scene wrapper post-merge elapsed guard; all production App/HUD and other12 reviewed source files equal S.",
+    "working_tree_boundary": "Implementation files equal frozen commit. Subsequent evidence/quality metadata overlay is outside implementation acceptance.",
+    "scene_native_evidence": "Original cab958912e222337a8d4260bb5111324fc9f1f5d baseline plus exact4 overrides recorded by handoff-final; not S/S2 fresh native.",
+    "scene_S2_evidence": "Actual original partition function executed offline with retained real native outputs, only child outcome/clock injected; no engine rerun or relabeling."
+  },
+  "scene_review": {
+    "resolved_previous_findings": [
+      "Actual HUD enemy12 occlusion fixed by finite left/right middle edge candidates, verified by complete8case real native zeroissues.",
+      "Fallback best initialized with viewport clamp; every candidate also clamped, including no-legal-slot fallback."
+    ],
+    "production": "Explicit HUD controls interface, no HUD reflection into App. App performs avoidance after actual HUD/navigation sizing using scaled extents, cached stable positions and mutual reservations. Touch location respects real movement-pad reservation. No input/controller/geometry gameplay rule changed.",
+    "fixture": "Real reward offer/claim AirMagazine raises cap1→2 without injecting charge, grounded rearm then two accepted same-flight shots; other7 casescap1, strict apex/settled/physical and source-foot grounding preserved.",
+    "partition": "Exactly2 native children, ordered indices0..3 and4..7; all8unique, legacy compatibility once and generation corpus once,8cleanup receipts. Shared parent180s deadline passes remaining time to each child; missing marker/nonzero/timeout/wrong coverage fail. S2 checks elapsed after JSON merge/write before declaring result. Original10native negative cases and900s wrapper budget remain.",
+    "evidence": {
+      "independent_native_bytes_and_predicates": "/workspace/scratch/integration-four-20261023/scene-final-independent-proof.json",
+      "real_positive_assertions": [
+        46,
+        48
+      ],
+      "real_positive_failures": 0,
+      "real_parent_seconds": 133.3856937620003,
+      "aggregate_budget_seconds": 180,
+      "real_negative_validated": 10,
+      "raw_refusals": 15,
+      "original_R3_log": "/workspace/scratch/plains-scene-current-20261023/r3-hud-energy.log",
+      "R3_result": "140/0 logged; no reviewer engine rerun.",
+      "deadline_fault_injection": "/workspace/scratch/integration-four-20261023/final-plains/deadline-fault-injection.json",
+      "fault_results": "Old-S postmerge181 false acceptance reproduced and preserved; S2 normal accepts,181/nonzero/missingmarker/timeout/missingcoverage reject."
+    },
+    "receipt_limit": "Outer positive command is an unexecuted generic placeholder; exact executed commands/tokens/times are the nested actual_native_partitions records. Review uses those actual records. Auxiliary case_wall is not performance evidence."
+  },
+  "versioned_authority": {
+    "style": "New style-v9-hud-layout has36 references; only App SHA changes, other35 exact. Originalv7 retained byte-for-byte. All other style/pixel/size/selection specification keys preserved.",
+    "directions": "Both creative-v12 retain direction_id/selection/Bible/quotes/other authorities. Full original creative-v10 snapshots are byte-for-byte original source. Registry and supplemental bindings update to exact new style; no old compatibility proposal or user art acceptance inferred.",
+    "fixture_updates": "32Bible/10creative tests retain original checks and add App-drift/oldv7 stale-binding rejection. No validator/budget relaxation."
+  },
+  "inherited_bounded_reviews": [
+    "plains-experience-current-closure-review.json",
+    "plains-encounter-current-bounded-review.json",
+    "plains-encounter-final-tail-review.json",
+    "canopy-parallel-current-review.json",
+    "final-plains-profile-review.json"
+  ],
+  "profiles": "Exact reviewed profile candidate1f0de8;15 unique manual legacy IDs. Current encounter original600s/serial retained with current marker and unused3historical inputs removed; manual clone retains original inputs/marker plus explicit flag. Frozen-v9 autonomy moved manual, current mandatory consumers retained.",
+  "observed_local_engineering_logs": {
+    "directory": "/workspace/scratch/integration-four-20261023/final-plains",
+    "bible": "32tests OK",
+    "creative": "10tests OK",
+    "full_direction_contract": "PASS2 versioned directions",
+    "shared_reader": "29tests OK",
+    "planner": "16tests OK",
+    "cloud_inputs": "21tests OK",
+    "check_docs": "PASS33required documents, local links,279 task dependencies and tuning; this is not a claim of33fresh Harness profile checks."
+  },
+  "failure_preservation": "Previous scene timeouts/real HUD occlusion/interimREJECT, experience coherentgrant rejection, encounter full2/full3 failed mutation records and original source identities remain. Partial/offline evidence is not marked fresh complete.",
+  "unverified": [
+    "Fresh complete Integration CI on final submitted head and actual Web export/browser validation of current HUD changes.",
+    "Release/main deployment/Windows or physical PC/touch/controller device quality.",
+    "Player/art/aesthetic/G5 approval and commercial-demo completeness."
+  ],
+  "reviewer_actions": "Read exact committed source diff/candidate hashes, versioned references and logs; independently validated original8scene output bytes/positive predicates/coverage and prior focused Python counterexamples. Read actual deadline fault-injection script/result. No source edits, hydration, engine or new full CI."
+}

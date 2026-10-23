@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T091118.948439Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "root-bell-current",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--current-g1"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "ecc58104059d687e542b4dbeecc3c857dd9871f190f641e8c1880a01f75eddfa",
+      "log": "root-bell-current.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792746682.3272545,
+      "ended_at_unix": 1792746714.1328135,
+      "duration_seconds": 31.806,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_formal.py",
+        "--current-g1"
+      ],
+      "check_token": "6b55cf35605b42248d2bd5d71c46c8a4",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T091118.948439Z/artifacts/root-bell-current",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "6a2665e4bc485a2612699af98a01f7b4ccaf9b9d09dcb6740e3d47141742926c",
+  "working_files": {},
+  "commit": "ca371639209e7dbe5a4a5e4c034bcf2613a36d23",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 37.901,
+  "jobs": 1,
+  "release": true
+}

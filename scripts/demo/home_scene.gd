@@ -7,7 +7,8 @@ const FLOOR_Y := 432.0
 var world: UnderworldHomeWorld
 var parallax: UnderworldParallax
 var reserved_id := ""
-const FUNCTION_NAMES := {"character":"衣装守护者 / Character","upgrade":"维修工坊 / Permanent upgrades","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
+const FUNCTION_NAMES := {"character":"织时匠 / Timeweaver","upgrade":"维修工坊 / Permanent upgrades","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
+var avatar_selection_id := "courier"
 var player: PlayerMotor
 var controller: PlayerController
 var camera: Camera2D
@@ -17,13 +18,21 @@ var _status: Label
 var _prompt: Label
 var _controls: HBoxContainer
 var overlay: TouchOverlay
-var _resource_hud: ActorResourcesHud
+var _resource_hud: DemoGameHud
 var _hud: CanvasLayer
 
 func _ready() -> void:
 	world=UnderworldHomeWorld.new()
 	add_child(world)
 	world.configure(FLOOR_Y)
+	# Rename the live service label without changing its authored id or geometry.
+	for slot: Dictionary in world.specification.slots:
+		if str(slot.id) == "character":
+			slot.label = FUNCTION_NAMES["character"]
+			var service_label := world.slot_nodes.get("character") as Label
+			if service_label != null:
+				service_label.text = "织时匠"
+				service_label.set_meta("home_slot", slot.duplicate(true))
 	var width:=float(world.specification.world_width)
 	_ground(Rect2(-100,FLOOR_Y,width+200,640))
 	_ground(Rect2(-28,-400,28,1100))
@@ -53,21 +62,18 @@ func _ready() -> void:
 	player.get_node("CourierVisual").hide()
 	player.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	player.get_node("PlayerFeedback").hide()
-	var art:=UnderworldPlayer.new()
-	art.motor=player
-	art.controller=controller
-	art.name="UnderworldPlayer"
+	var art := PlayerPresentationRuntime.make_body(player, controller, "UnderworldPlayer", avatar_selection_id)
 	player.add_child(art)
+	PlayerPresentationRuntime.attach(player)
 	_hud = CanvasLayer.new()
 	_hud.layer = 10
 	add_child(_hud)
-	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(340,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
 	var top := HBoxContainer.new()
 	top.theme = preload("res://scripts/ui/menu_theme.gd").create_theme()
 	top.position = Vector2(370, 16)
 	top.size = Vector2(886, 52)
 	_hud.add_child(top)
-	_resource_hud=ActorResourcesHud.new();_resource_hud.position=Vector2(2,0);_hud.add_child(_resource_hud);_resource_hud.bind(controller.actor_resources,controller.air_focus_ability,controller);_resource_hud.set_region_compact(true)
+	_resource_hud=DemoGameHud.new();_hud.add_child(_resource_hud);_resource_hud.bind(controller)
 	_status = Label.new()
 	_status.add_theme_font_size_override("font_size", 18)
 	_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.06, 0.95))
@@ -108,6 +114,10 @@ func _ready() -> void:
 	controller.router.touch_enabled = OS.has_feature("android") or OS.has_feature("ios") or DisplayServer.is_touchscreen_available()
 	set_meta_state({"notes": 0})
 	UnderworldUI.style_canvas(_hud)
+	# Load the optional presentation at the composition root; avoid a static
+	# HomeScene -> presentation -> scenery -> stage -> DemoApp class cycle.
+	var presentation:=load("res://scripts/underworld_plains/underworld_presentation.gd") as Script
+	presentation.attach(self,world,player)
 
 func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	var body := StaticBody2D.new()
@@ -124,6 +134,7 @@ func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	add_child(body)
 
 func set_meta_state(snapshot: Dictionary) -> void:
+	if _resource_hud != null: _resource_hud.present_context("风铃聚落 / HOME", 0, int(snapshot.get("notes", 0)))
 	if _status != null:
 		_status.text = "风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % snapshot.get("notes", 0)
 

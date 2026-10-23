@@ -1,0 +1,31 @@
+{
+  "command": [
+    "python3",
+    "tools/harness.py",
+    "--check",
+    "actor-actions",
+    "--check",
+    "underworld-damage-feedback",
+    "--check",
+    "underworld-formal",
+    "--check",
+    "forest-bible-integration-tests",
+    "--release",
+    "--jobs",
+    "1"
+  ],
+  "exit": 0,
+  "seconds": 63.32332458699966,
+  "tail": [
+    "{\"profiles\": [], \"changed_paths\": [], \"checks\": [\"actor-actions\", \"underworld-damage-feedback\", \"underworld-formal\", \"forest-bible-integration-tests\"]}",
+    "Running actor-actions (fresh); log: build/verification/harness/20261023T012016.428056Z/actor-actions.log",
+    "actor-actions: passed",
+    "Running underworld-damage-feedback (fresh); log: build/verification/harness/20261023T012016.428056Z/underworld-damage-feedback.log",
+    "underworld-damage-feedback: passed",
+    "Running underworld-formal (fresh); log: build/verification/harness/20261023T012016.428056Z/underworld-formal.log",
+    "underworld-formal: passed",
+    "Running forest-bible-integration-tests (fresh); log: build/verification/harness/20261023T012016.428056Z/forest-bible-integration-tests.log",
+    "forest-bible-integration-tests: passed",
+    "Evidence: build/verification/harness/20261023T012016.428056Z/report.json"
+  ]
+}

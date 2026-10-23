@@ -1,0 +1,243 @@
+extends CanvasLayer
+const MAX_PROTECTION := 64
+const WIND_MARGIN := 3.0
+const PARALLAX := Vector2(1.15,1.12)
+const PREBUILD_MARGIN := 96.0
+const ROOT_GUARD := 12.0
+var _world: Node
+var _actor: PlayerMotor
+var _seed := "fixture"
+var _assets: Array[Dictionary] = []
+var _tracked: Dictionary = {}
+var _trail_fields: Dictionary = {}
+var _custom_draw_scripts: Dictionary = {}
+var _fixed_world: Array[Rect2] = []
+var _protect: Array[Rect2] = []
+var _dynamic_protect: Array[Rect2] = []
+var _static_protect: Array[Rect2] = []
+var _source_counts: Dictionary = {}
+var _protection_viewport := Rect2()
+var _protection_canvas := Transform2D.IDENTITY
+var _overflow := false
+var _spec_cache_key: Array = []
+var _spec_cache_found: Array[Dictionary] = []
+func state() -> Dictionary:
+	return {"protect":_protect.duplicate(),"dynamic":_dynamic_protect.duplicate(),"static":_static_protect.duplicate(),"counts":_source_counts.duplicate(),"overflow":_overflow}
+func configure(world: Node,actor: PlayerMotor,assets: Array) -> void:
+	_world=world;_actor=actor;_assets.assign(assets)
+func track(node: Node) -> void:
+	_tracked[node.get_instance_id()]=weakref(node)
+func fixed(rect: Rect2) -> void:
+	_fixed_world.append(rect)
+
+const DYNAMIC_SOURCES := {"player":true,"muzzle":true,"aim_ray":true,"actual_grapple_guide":true,"actual_grapple_rope":true,"actual_actor_or_danger":true,"enemy_and_warning":true,"actual_attack_goal_path":true,"actual_attack_goal_warning":true,"actual_sentry_warning_ray":true,"projectile_and_actual_trail":true}
+func _visible(item: CanvasItem) -> bool:
+	if not item.is_inside_tree() or not item.is_visible_in_tree():return false
+	var ancestor: Node=item.get_parent()
+	while ancestor!=null:
+		if ancestor is CanvasLayer and not (ancestor as CanvasLayer).visible:return false
+		ancestor=ancestor.get_parent()
+	return true
+
+func _drawn_control(item: Control) -> bool:
+	if item is Container and not item is PanelContainer:return false
+	if item is Label:return not (item as Label).text.is_empty()
+	if item is RichTextLabel:return not (item as RichTextLabel).text.is_empty()
+	if item is TextureRect:return (item as TextureRect).texture!=null
+	if item is ColorRect:return (item as ColorRect).color.a>.02
+	if item is BaseButton or item is Range or item is Panel or item is PanelContainer or item is LineEdit or item is TextEdit or item is ItemList or item is PlainsRegionMap:return true
+	var script:=item.get_script() as Script
+	if script==null:return false
+	var key:=script.resource_path
+	if not _custom_draw_scripts.has(key):
+		var custom:=false
+		for method: Dictionary in script.get_script_method_list():
+			if str(method.name)=="_draw":custom=true;break
+		_custom_draw_scripts[key]=custom
+	return bool(_custom_draw_scripts[key])
+
+func _add(rect: Rect2,source: String) -> void:
+	if not rect.has_area() or not rect.intersects(_protection_viewport):return
+	_source_counts[source]=int(_source_counts.get(source,0))+1
+	var next:=rect.intersection(_protection_viewport)
+	# Preserve source semantics before union merging: a permanent UI or terrain
+	# border must not turn a small local mask into permanent whole-object fading.
+	if source in ["player","muzzle","aim_ray","actual_grapple_guide","actual_grapple_rope","actual_actor_or_danger","enemy_and_warning","actual_attack_goal_path","actual_attack_goal_warning","actual_sentry_warning_ray","projectile_and_actual_trail"] or source.begins_with("actual_moving_"):
+		_dynamic_protect.append(next)
+	else:_static_protect.append(next)
+	for i: int in range(_protect.size()-1,-1,-1):
+		var existing:=_protect[i]
+		if existing.encloses(next):return
+		if next.encloses(existing):_protect.remove_at(i);continue
+		if existing.intersects(next):
+			var merged:=existing.merge(next)
+			if merged.get_area()<1.25*(existing.get_area()+next.get_area()):next=merged;_protect.remove_at(i)
+	_protect.append(next)
+	if _protect.size()>MAX_PROTECTION:_overflow=true
+
+func _world_rect(rect: Rect2,source: String) -> void:
+	_add(_protection_canvas*rect,source)
+
+func _touch_protection(overlay: TouchOverlay) -> void:
+	if not overlay.enabled:return
+	var transform:=overlay.get_global_transform_with_canvas()
+	var circles: Array[Vector3]=[Vector3(overlay.left_center.x,overlay.left_center.y,overlay.radius),Vector3(overlay.right_center.x,overlay.right_center.y,overlay.radius),Vector3(overlay.jump_center.x,overlay.jump_center.y,overlay.jump_radius)]
+	if overlay.router.grapple_available:circles.append(Vector3(overlay.hook_center.x,overlay.hook_center.y,overlay.hook_radius))
+	if overlay.router.weapon_context_available:circles.append(Vector3(overlay.context_center.x,overlay.context_center.y,overlay.hook_radius*.8))
+	if overlay.router.weapon_skill_available:circles.append(Vector3(overlay.skill_center.x,overlay.skill_center.y,overlay.hook_radius*.8))
+	for circle: Vector3 in circles:
+		var radius:=Vector2.ONE*circle.z
+		_add((transform*Rect2(Vector2(circle.x,circle.y)-radius,radius*2)).grow(8),"actual_touch_hud")
+	_add((transform*(overlay.get("_pause_rect") as Rect2)).grow(8),"actual_touch_hud")
+	if not overlay.hide_reset_button:_add((transform*(overlay.get("_reset_rect") as Rect2)).grow(8),"actual_touch_hud")
+
+func _protection() -> void:
+	var viewport:=get_viewport()
+	_protection_viewport=viewport.get_visible_rect()
+	_protection_canvas=viewport.get_canvas_transform()
+	_protect.clear();_dynamic_protect.clear();_static_protect.clear();_source_counts.clear();_overflow=false
+	for rect: Rect2 in _fixed_world:_world_rect(rect,"actual_static_geometry_and_functions")
+	_world_rect(Rect2(_actor.global_position-Vector2(50,60),Vector2(100,120)),"player")
+	var controller:=_actor.get_node_or_null("Controller") as PlayerController
+	var courier:=_actor.get_node_or_null("CourierVisual") as CourierVisual
+	if controller!=null and courier!=null and courier.is_node_ready():
+		var muzzle:=courier.visible_muzzle_position()
+		_world_rect(Rect2(muzzle-Vector2(22,22),Vector2(44,44)),"muzzle")
+		if not controller.router.aim_direction.is_zero_approx():
+			var finish:=muzzle+controller.router.aim_direction.normalized()*220.0
+			_world_rect(Rect2(muzzle.min(finish),muzzle.max(finish)-muzzle.min(finish)).grow(18),"aim_ray")
+	if controller!=null and controller.traversal!=null:
+		var traversal:=controller.traversal
+		var origin:=_actor.global_position+Vector2(0,-6)
+		if traversal.guide_active:
+			_world_rect(Rect2(origin.min(traversal.guide_point),origin.max(traversal.guide_point)-origin.min(traversal.guide_point)).grow(18),"actual_grapple_guide")
+		if traversal.state in [&"hook_cast",&"hook_fly",&"hook_hang",&"hook_pull",&"hook_kick",&"hook_miss",&"hook_retract",&"hook_contact_kick"]:
+			_world_rect(Rect2(origin.min(traversal.hook_tip),origin.max(traversal.hook_tip)-origin.min(traversal.hook_tip)).grow(18),"actual_grapple_rope")
+	for reference: WeakRef in _tracked.values():
+		var node:=reference.get_ref() as Node
+		if node==null or not node.is_inside_tree():continue
+		if node is Control:
+			var control:=node as Control
+			if not _visible(control):continue
+			if control is TouchOverlay:_touch_protection(control as TouchOverlay)
+			elif _drawn_control(control):_add((control.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,control.size)).grow(8),"actual_visible_ui")
+		elif node is CollisionShape2D:
+			var collision:=node as CollisionShape2D
+			if collision.disabled or collision.shape==null or not _visible(collision):continue
+			var parent:=collision.get_parent() as CollisionObject2D
+			if parent==null or parent.collision_layer==0:continue
+			var rect: Rect2=collision.get_global_transform_with_canvas()*collision.shape.get_rect()
+			if parent is StaticBody2D or parent is AnimatableBody2D:
+				var edge_source:="actual_moving_platform_edge" if parent is AnimatableBody2D else "actual_platform_edge"
+				if maxf(rect.size.x,rect.size.y)>180:
+					_add(Rect2(rect.position,Vector2(rect.size.x,1)).grow(10),edge_source)
+					_add(Rect2(Vector2(rect.position.x,rect.end.y),Vector2(rect.size.x,1)).grow(10),edge_source)
+					_add(Rect2(rect.position,Vector2(1,rect.size.y)).grow(10),edge_source)
+					_add(Rect2(Vector2(rect.end.x,rect.position.y),Vector2(1,rect.size.y)).grow(10),edge_source)
+				else:_add(rect.grow(18),"actual_moving_platform" if parent is AnimatableBody2D else "actual_mechanism_or_platform")
+			else:_add(rect.grow(44),"actual_actor_or_danger")
+		elif node is EnemyActor:
+			var enemy:=node as EnemyActor
+			if enemy.health.terminal or not is_instance_valid(enemy.motor) or not _visible(enemy.motor):continue
+			var zone:=Rect2(enemy.motor.global_position-Vector2(100,100),Vector2(200,200))
+			_world_rect(zone,"enemy_and_warning")
+			_enemy_warning_protection(enemy)
+		elif node is Node2D:
+			var projectile:=node as Node2D
+			if not _visible(projectile):continue
+			var path_bounds:=Rect2(projectile.global_position-Vector2(28,28),Vector2(56,56))
+			for field: String in _trail_fields.get(projectile.get_instance_id(),[]):
+				var points: Variant=projectile.get(field)
+				if points is Array or points is PackedVector2Array:
+					for point: Variant in points:
+						if point is Vector2:path_bounds=path_bounds.merge(Rect2(point-Vector2(24,24),Vector2(48,48)))
+			_world_rect(path_bounds,"projectile_and_actual_trail")
+	if _world is PlainsRegionStage:
+		var stage:=_world as PlainsRegionStage
+		_world_rect(stage.boss_arena.grow(32),"boss_arena_and_warnings")
+		for pickup: Dictionary in stage.pickups:
+			if bool(pickup.get("claimed",false)):continue
+			var point: Vector2=pickup.position
+			_world_rect(Rect2(point-Vector2(45,45),Vector2(90,90)),"actual_unclaimed_reward")
+
+func _enemy_warning_protection(enemy: EnemyActor) -> void:
+	var behavior:=enemy.attack_behavior
+	if behavior==null or behavior.state not in [&"telegraph",&"attack"]:return
+	var origin:=enemy.motor.global_position
+	var kind:=enemy.definition.behavior_id
+	if kind in [&"diver",&"hopper",&"root_bell"]:
+		var goal:=behavior.attack_goal
+		_world_rect(Rect2(origin.min(goal),origin.max(goal)-origin.min(goal)).grow(18),"actual_attack_goal_path")
+		if kind==&"root_bell":
+			var pulse:=enemy.definition.pulse_size
+			_world_rect(Rect2(goal-Vector2(pulse.x*.5,pulse.y),pulse).grow(18),"actual_attack_goal_warning")
+		else:_world_rect(Rect2(goal-Vector2(24,24),Vector2(48,48)),"actual_attack_goal_warning")
+	elif kind in [&"sentry",&"fan_sentry"]:
+		for angle: float in ([-.18,0.0,.18] if kind==&"fan_sentry" else [0.0]):
+			var direction:=behavior.locked_direction.rotated(angle)
+			var a:=origin+direction*25.0
+			var b:=origin+direction*90.0
+			_world_rect(Rect2(a.min(b),a.max(b)-a.min(b)).grow(12),"actual_sentry_warning_ray")
+
+func _roll(category: String,x: int,y: int) -> int:
+	# Avalanche the string hash: neighboring world cells must not become a
+	# repeated diagonal sequence after the small placement moduli below.
+	var value: int=(_seed+":"+category+":"+str(x)+":"+str(y)).hash()
+	value=((value^(value>>16))*0x45d9f3b)&0xffffffff
+	value=((value^(value>>16))*0x45d9f3b)&0xffffffff
+	return posmod(value^(value>>16),1000000)
+
+func _object_spec(id: String,kind: String,at: Vector2,roll: int) -> Dictionary:
+	# All identity properties come from the cell, never from the current camera,
+	# protection, admission order, or a fallback-size search.
+	var branch:=kind=="branch"
+	var asset: Dictionary=_assets[(3 if roll%2==1 else 4) if branch else roll%3]
+	var source_size: Vector2=asset.sample_size
+	var display_scale: float=(320.0+float((roll/193)%49))/source_size.x if branch else (148.0+float((roll/97)%29))/source_size.y
+	return {"id":id,"asset":asset,"kind":kind,"anchor_world":at,"display_scale":display_scale,"wind_phase":float(_roll(id,0,0)%1000)*.01}
+
+func _project(spec: Dictionary,center: Vector2,size: Vector2) -> Dictionary:
+	var asset: Dictionary=spec.asset
+	var screen: Vector2=(spec.anchor_world-center)*PARALLAX+size*.5
+	var attachment: Vector2=asset.sample_attachment*float(spec.display_scale)
+	var position: Vector2=(screen-attachment).round()
+	var anchor:=position+attachment
+	var bounds:=Rect2(position,(asset.sample_size as Vector2)*float(spec.display_scale))
+	var clearance: float=size.y
+	if str(spec.kind)=="branch":
+		clearance=-anchor.x if str(asset.id)=="branch_left" else anchor.x-size.x
+	else:clearance=anchor.y-size.y
+	return {"position":position,"attachment":anchor,"bounds":bounds,"root_clearance":clearance}
+
+func _specifications(center: Vector2,size: Vector2) -> Array[Dictionary]:
+	var found: Array[Dictionary]=[]
+	var buffer:=Rect2(Vector2.ZERO,size).grow(PREBUILD_MARGIN)
+	var home_floor: Variant=null
+	if _world.get_script()!=null and str(_world.get_script().resource_path).ends_with("underworld_home_world.gd"):
+		home_floor=_world.get("floor_y")
+	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-420)/520),ceili((center.x+size.x*.5/PARALLAX.x+420)/520)+1):
+		if home_floor!=null:
+			var roll:=_roll("home_grass",x,0)
+			if roll%100<72:
+				var at:=Vector2(x*520+roll%380,float(home_floor)+236+(roll/480)%19)
+				found.append(_object_spec("home_grass/%d"%x,"grass",at,roll))
+			continue
+		for y: int in range(floori((center.y+size.y*.5/PARALLAX.y-280)/144),ceili((center.y+size.y*.5/PARALLAX.y+280)/144)+1):
+			var roll:=_roll("grass",x,y)
+			if roll%100>=62:continue
+			var at:=Vector2(x*520+70+roll%380,y*144+24+(roll/480)%96)
+			found.append(_object_spec("grass/%d/%d"%[x,y],"grass",at,roll))
+	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-460)/320),ceili((center.x+size.x*.5/PARALLAX.x+460)/320)+1):
+		for y: int in range(floori((center.y-size.y*.5/PARALLAX.y-360)/112),ceili((center.y+size.y*.5/PARALLAX.y+160)/112)+1):
+			var roll:=_roll("branch",x,y)
+			if roll%100>=48:continue
+			var at:=Vector2(x*320+40+roll%240,y*112+18+(roll/1200)%76)
+			found.append(_object_spec("branch/%d/%d"%[x,y],"branch",at,roll))
+	var relevant: Array[Dictionary]=[]
+	for spec: Dictionary in found:
+		var projected:=_project(spec,center,size)
+		if float(projected.root_clearance)>=ROOT_GUARD and buffer.intersects(projected.bounds):relevant.append(spec)
+	# This order is only used to admit new objects. Residents are never ranked
+	# again, evicted in favour of a candidate, resized, or assigned another asset.
+	relevant.sort_custom(func(a:Dictionary,b:Dictionary)->bool:return str(a.id)<str(b.id))
+	return relevant

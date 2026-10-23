@@ -1,0 +1,341 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "review": "weapon-v1 UI font/layout and local exported-Web DOM smoke review",
+  "reviewer": {
+    "identity": "/root/audit_review",
+    "role": "independent review child agent;not implementation author",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md"
+  },
+  "reviewed_at_utc": "2026-10-22T18:53:08.018503+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Only current CJK picker/layout at1280x720 and recorded local-export DOM interactions. No whole-Web/network-clean,hearing,physical-device,user or full workline approval.",
+  "source": {
+    "ui_font_commit": "2fc73ded1bc5fc8ed67e26133fe82bb0b7f67d42",
+    "final_ui_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+    "final_web_build": "b01ee2694450",
+    "final_ui_file": "scripts/dev/player_presentation_01/weapon_preview.gd",
+    "final_ui_file_sha256": "e599730f0304b6a30699b6adb2e46ee995fd62b371304f94498fdbfc147a2f5a",
+    "diff_from_native_movie_source": [
+      "scripts/dev/player_presentation_01/weapon_preview.gd"
+    ],
+    "change_description": "2fc adds existing DemoMenu theme/foundry_notes.otf font and first moves panel to(16,612).3a moves panel to(350,90) and shortens its English title to avoid virtual controls. All changes in the one task preview file.",
+    "all_other_ten_engineering_review_file_sha_unchanged": true
+  },
+  "native_evidence_preserved": {
+    "native_movie_source_still": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+    "native_report_source_observed": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+    "previous_runtime_review": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/runtime-review.json",
+    "previous_runtime_review_sha256": "a1a78db3f1b27daa5ae97e3f9c7589fbed96bbb958f761104531bba7c97670b1",
+    "rule": "UI source/build does not retroactively replace source5a1c640 in old movies,traces or28-field comparisons. Previous weapon pixel/audio UNVERIFIED findings remain unchanged."
+  },
+  "method": {
+    "reviewer_browser_execution": false,
+    "browser_execution": "Author recorded actual local exported-Web browser DOM keyboard,pointer,touch events;reviewer inspected driver/report/console and actual screenshots.",
+    "images": "Ten final screenshot PNGs viewed with view_image(detail=original),each1280x720;five earlier failure screenshots also viewed. No images synthesized or edited.",
+    "read_only_validation": "Checked git diffs,all delivered screenshot hashes against report,driver hash against actual driver file,and unchanged engineering source hashes except intended task preview UI.",
+    "audio_listening": false,
+    "physical_device_run": false,
+    "public_deployment_validation": false,
+    "write_scope": "Only this ui-review.json written."
+  },
+  "failure_chain": [
+    {
+      "source": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "build": "03c7f67c4924",
+      "report": "build/player_presentation_01/weapon-v1/browser-first/report.json",
+      "status": "failed",
+      "facts": "Old marker detector found0 complete candidates. Reviewer also actually saw Chinese tofu boxes throughout the popup in popup-3.png. This was a real font defect in addition to detector failure."
+    },
+    {
+      "source": "2fc73ded1bc5fc8ed67e26133fe82bb0b7f67d42",
+      "build": "78443f361b81",
+      "report": "build/player_presentation_01/weapon-v1/browser-font/report.json",
+      "status": "failed",
+      "facts": "Report stopped at Fifteen actual radio components missing:0. Chinese glyphs were already fixed in actual screenshots;do not reinterpret marker failure as continued font failure. Bottom-left panel visibly covered lower part of virtual joystick;layout issue reported for repair."
+    },
+    {
+      "source": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+      "build": "b01ee2694450",
+      "report": "build/player_presentation_01/weapon-v1/browser-layout/report.json",
+      "status": "passed",
+      "facts": "Final relocated panel and complete Chinese popup observed;author DOM test reached all15 pointer choices,touch choice,diagonal stick drag,formal Plains restart,Home return and sample reentry. Earlier failures retained separately."
+    }
+  ],
+  "final_browser_report": {
+    "path": "build/player_presentation_01/weapon-v1/browser-layout/report.json",
+    "sha256": "dbd5d7d1f7e557b86454a44c32fd3a22d603144272cc066139efdbd9bb91166e",
+    "status": "passed",
+    "errors_array": [],
+    "build_info": {
+      "build_id": "b01ee2694450",
+      "pack": "index.b01ee2694450.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "5c7591b33c0f",
+      "pack_bytes": 143522456,
+      "download_bytes": 145692344,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0"
+    },
+    "driver_path": "/workspace/scratch/weapon_layout_browser.py",
+    "driver_sha256_reported": "29df4625659917cdc1776831191f302fe43b7ae657e99e0ac27b020b67a9dcbb",
+    "driver_sha_matches_actual": true,
+    "all_screenshot_sha_match": true,
+    "selection_console_sequence": [
+      "triple_machine_gun",
+      "sustained_laser",
+      "shadow_shuriken",
+      "fan_shuriken",
+      "remote_boomerang",
+      "recoil_bomb",
+      "magnetic_mine",
+      "collapse_singularity",
+      "machine_storm",
+      "laser_cannon",
+      "blade_bloom",
+      "moon_boomerang",
+      "magnetic_storm",
+      "star_collapse",
+      "pulse_gun",
+      "remote_boomerang"
+    ],
+    "distinct_pointer_loadout_count": 15,
+    "final_additional_DOMtouch_selection": "remote_boomerang",
+    "audio_context_after_space": [
+      "running"
+    ]
+  },
+  "console_limits": {
+    "actual_console_levels": {
+      "error": 1,
+      "log": 35,
+      "warning": 1
+    },
+    "retained_non_log_entries": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "type": "warning",
+        "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "classification": "One generic404 is still in raw console;the report supplies no URL-specific failed-response capture,so source is unknown and is not guessed to be favicon. One autoplay warning precedes the real Space gesture;AudioContext later running supports unlock only. errors[] is the driver exception/pageerror list,not a claim of zero console/network errors.",
+    "network_clean_verdict": "UNVERIFIED"
+  },
+  "accepted_observations": [
+    {
+      "area": "CJK and popup completeness",
+      "evidence": [
+        "01-idle-on.png",
+        "popup-3.png",
+        "touch-popup-open.png",
+        "touch-popup-selection.png"
+      ],
+      "observation": "Readable Chinese equipment names without tofu. All15 popup rows,including finalLv.3坍缩奇点,fit within the1280x720 viewport. Final popup approximatelyx370..802,y188..650;opening button above it remains separate."
+    },
+    {
+      "area": "Controls/layout repair",
+      "evidence": [
+        "01-idle-on.png",
+        "touch-move-before.png",
+        "touch-move-after.png"
+      ],
+      "observation": "Panel now occupies upper central sky area and no longer covers the left joystick. Both virtual stick regions remain exposed in these frames. Actual visible hero moves left in the recorded diagonal DOM touch sequence. Independent reproduction of the driver red-pixel ROI proxy gives mean x161.31527 before,x115.56792 after,left45.74735px.",
+      "limits": "One DOM touch trajectory at one viewport;not every thumb start region,direction,browser orientation or physical touch device.",
+      "independent_touch_measurement": {
+        "roi": "x0..449,y425..489;red>65,red>green*1.65,red>blue*1.8",
+        "frames": [
+          {
+            "file": "touch-move-before.png",
+            "red_pixel_count": 609,
+            "mean_x": 161.3152709359606
+          },
+          {
+            "file": "touch-move-after.png",
+            "red_pixel_count": 611,
+            "mean_x": 115.56792144026187
+          }
+        ],
+        "left_pixel_delta": 45.74734949569873,
+        "limit": "Declared red-pixel screenshot proxy,not exact Motor/world position or per-pixel character segmentation;visual screenshot independently confirms left movement."
+      }
+    },
+    {
+      "area": "Selection",
+      "evidence": [
+        "all-loadouts-pointer.png",
+        "touch-popup-open.png",
+        "touch-popup-selection.png"
+      ],
+      "observation": "Driver verifies fresh original-equipment selection console messages for all15 pointer selections and a subsequent DOM touch remote_boomerang selection. Final touch label visibly readsLv.2遥控回旋刃."
+    },
+    {
+      "area": "Entry and return",
+      "evidence": [
+        "06-pointer-restart.png",
+        "07-home-full-game.png",
+        "08-home-drop-reentry.png"
+      ],
+      "observation": "Restart screenshot shows actual formal Plains and candidate UI;Home/full-game screenshot removes practice targets and task picker;HOME DROP reentry shows the candidate picker and two practice targets restored. Real readiness console messages support those transitions."
+    }
+  ],
+  "author_development_regression": {
+    "font_ui_lifecycle": "1039samples3175checks0errors",
+    "final_layout_ui_lifecycle": "1039samples3175checks0errors",
+    "limits": "Inspected author logs;reviewer did not rerun Godot. Existing original source game logic and old media were not re-certified by these UI-only tests."
+  },
+  "package_receipt": {
+    "path": "build/player_presentation_01/weapon-v1/package-weapon-v3-receipt.json",
+    "sha256": "8189ebba857201c01c38e1aed4eeb211d94a0361b3bc6455a5c7a06a679f0f0a",
+    "reported_status": "passed",
+    "scope": "Package receipt reports extraction and complete PCK reconstruction/bytes checked for source3a/buildb01;this review independently signs only shown local browser/UI evidence,not public hosting."
+  },
+  "evidence_sha256": {
+    "build/player_presentation_01/weapon-v1/browser-first/report.json": "ca29a84b7cd7fde3152c61482f9076d4e8a940ca6c9db94494a0dfeef59c869f",
+    "build/player_presentation_01/weapon-v1/browser-font/report.json": "e6cad7119e676f5ffe779e16f86fdb2e5e73a1aa560ef868aba8f675f95daef1",
+    "build/player_presentation_01/weapon-v1/browser-layout/report.json": "dbd5d7d1f7e557b86454a44c32fd3a22d603144272cc066139efdbd9bb91166e",
+    "build/player_presentation_01/weapon-v1/ui-font-lifecycle.log": "57c8df815a99a1bd45955bcb6db0747d6012e2708d82bafe263752f6a15d5929",
+    "build/player_presentation_01/weapon-v1/ui-font-lifecycle.json": "88f3c67d8a06dbb66cdfbeaef7dff1780f327f563e162c7170e647167c418255",
+    "build/player_presentation_01/weapon-v1/ui-layout-lifecycle.log": "a41cc22830e9f80ef905c7bbf6c9fe9cff411de68cc42fd92c9f47c586a9ddf2",
+    "build/player_presentation_01/weapon-v1/ui-layout-lifecycle.json": "df4c3361f422f61c9f6bd7a8b40712278ad6098716df665a7b1e978ed8e4df29",
+    "build/player_presentation_01/weapon-v1/package-weapon-v3-receipt.json": "8189ebba857201c01c38e1aed4eeb211d94a0361b3bc6455a5c7a06a679f0f0a"
+  },
+  "final_images_actually_viewed": [
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/01-idle-on.png",
+      "sha256": "51edad8298c1e63c9486838ede03cfb43f60fb467fec42f88ed274373c0354fc",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/popup-3.png",
+      "sha256": "b50c4136fcf3152eaab4ef36716e0248cf2c9eb6aac7262cfb15a5df0dc2fe4e",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/touch-popup-open.png",
+      "sha256": "f90efdbcc039ec1777f9eb96481da27020a7614661732c10108fca3d01712689",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/touch-popup-selection.png",
+      "sha256": "5e1844e9de8c4d3a237505035224446daa688bb457bc164512b016f25b2f9c5d",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/touch-move-before.png",
+      "sha256": "c16f97793f5a11de82c8d81be9cd069cb1e157a12ee3b295781e75b3561d43d8",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/touch-move-after.png",
+      "sha256": "87fc80c66f38520d2e534a94354cbec43781757783c3a76b177160730bcb8e3a",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/all-loadouts-pointer.png",
+      "sha256": "1f7590a552774faed4f272cf3aad7a7531fe0451dc55c71f81392f93ab2cad0f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/06-pointer-restart.png",
+      "sha256": "36690f911b708e3181baae5f3e868f6c0e228adb792bbf15dc486aa741fdb1c8",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/07-home-full-game.png",
+      "sha256": "22ff174984bfb3b0cc9f3dfc48f1c8b9b3796b12b4ea54b6f1f58a5cb770fce6",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-layout/08-home-drop-reentry.png",
+      "sha256": "8fe8e76d037dc4522ce43db1feadc04e656f56351ee3548b67410289d165f88f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "earlier_images_actually_viewed": [
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-first/popup-3.png",
+      "sha256": "725b2952c8f915c3e8c0f1ac1aa2e2076fbeb1fd8200dca503be6f2b26d2d472",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-font/01-idle-on.png",
+      "sha256": "bae3699046b475534ce79ce719f9871c2fdc5076f6b12d16cb24d0f3b7244816",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-font/05-original-off.png",
+      "sha256": "d1583ba5c3609d5e1a96ecababc66510cd4a8c587ede9daa5d038fc199d58686",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-font/popup-0.png",
+      "sha256": "af2863e6588590e839cbf09d60f6e9b4f18b0012b28cbd6730194276bfe968d3",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/browser-font/popup-14.png",
+      "sha256": "5aeb1336570f84b6de42855f275db80d7473ca20f70d0c04793a89a54010b848",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "remaining_unverified": [
+    "Unknown-URL console404 and comprehensive network-error classification",
+    "Public website availability or hosted final build;local exported browser smoke is not public delivery",
+    "Audio listening,loudness,weapon identity and audiovisual quality;AudioContext running is not hearing approval",
+    "Different viewport/orientation/browser and physical-device touch/performance",
+    "All previous weapon accent readability and body grip/run-art pending findings",
+    "Full affected production integration,player taste/feel and complete PLAYER-PRESENTATION-01 acceptance"
+  ]
+}

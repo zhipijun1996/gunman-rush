@@ -2,7 +2,7 @@ extends SceneTree
 func _initialize() -> void: run.call_deferred()
 func run() -> void:
 	var suite := preload("res://tests/root_bell_formal_tests.gd").new()
-	var result := suite.audit()
+	var result := suite.audit("--current-g1" in OS.get_cmdline_user_args())
 	result["physical_negatives"] = suite.physical_negatives()
 	result["legacy_live_loader_compatibility"] = await suite.compatibility(self)
 	if not result.physical_negatives.failures.is_empty() or not result.legacy_live_loader_compatibility.passed:result.failures.append("physical_negative_or_legacy_loader")

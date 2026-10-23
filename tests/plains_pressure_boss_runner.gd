@@ -81,10 +81,12 @@ func run() -> void:
 	check(controller.actor_resources.health.current<5,"real ring wave damages grounded target")
 	await fixture(true,Vector2(390,582))
 	encounter._enter(&"ring_warning",.01)
+	var default_budget:=PlayerTuning.load_default()
+	var before_dodge:=Vector2i(controller.motor.tuning.max_jumps,controller.motor.tuning.max_air_shots)
 	controller.router.set_jump_held(&"ring_dodge",true)
 	await frames(70)
 	check(controller.actor_resources.health.current==5,"unchanged one held jump clears ring wave")
-	check(controller.motor.tuning.max_jumps==1 and controller.motor.tuning.max_air_shots==2,"mini dodge preserves original action budget")
+	check(default_budget.max_jumps==1 and default_budget.max_air_shots==1 and before_dodge==Vector2i(default_budget.max_jumps,default_budget.max_air_shots) and Vector2i(controller.motor.tuning.max_jumps,controller.motor.tuning.max_air_shots)==before_dodge,"mini dodge preserves the actual current one-jump one-shot action budget")
 	await fixture(true)
 	mini=encounter as BellstriderEncounter
 	mini.direction=-1;mini._enter(&"roll_warning",.01)
@@ -337,11 +339,20 @@ func check_current_formal_background() -> void:
 	background.queue_free()
 	app.add_child(current_background)
 	check(app.get_node("PixelPlainsParallax")==current_background,"historical renderer fixture returns the exact required default owner")
+	var run_stage: WeakRef=weakref(stage)
+	var run_camera: WeakRef=weakref(camera)
+	var run_scenery: WeakRef=weakref(stage.get_node("PixelRegionScenery"))
 	app.abandon_run()
 	for attempt: int in 8:
-		if app.director.state==DemoRunDirector.State.HOME and is_instance_valid(app.home_scene):break
+		if app.director.state==DemoRunDirector.State.HOME and is_instance_valid(app.home_scene) and run_stage.get_ref()==null and run_camera.get_ref()==null and run_scenery.get_ref()==null:break
 		await process_frame
-	check(app.director.state==DemoRunDirector.State.HOME and current_background.visible,"actual Run exit restores the default Home background owner")
+	var home:=app.home_scene
+	var home_owner_ok:=is_instance_valid(home) and home.is_visible_in_tree() and home.parallax is UnderworldParallax and home.parallax.get_parent()==home and home.parallax.visible and home.parallax._explicit_camera==home.camera and home.parallax.panels.size()==9
+	if home_owner_ok:
+		for panel: Sprite2D in home.parallax.panels:
+			home_owner_ok=home_owner_ok and panel.is_visible_in_tree()
+	var run_owners_released:=app.stage==null and app._run_camera==null and run_stage.get_ref()==null and run_camera.get_ref()==null and run_scenery.get_ref()==null
+	check(app.director.state==DemoRunDirector.State.HOME and home_owner_ok and not current_background.visible and not app.get_node("PlainsBackground").visible and run_owners_released,"actual Run exit restores its visible Home-owned Underworld background, hides App fallbacks and releases Run owners")
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):
 		failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	viewport.free()

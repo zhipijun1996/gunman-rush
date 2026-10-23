@@ -39,6 +39,7 @@ def validate(data):
     require(admission['replaced']==1 and admission['id']==identity and admission['version']=='root-bell-encounter-v3','Wrong actual admission')
     floor=admission['physical_facts']['floor_xywh'];home=admission['physical_facts']['home']
     require(floor[2]>=560 and admission['physical_facts']['reasons']==[],'Physical admission invalid')
+    free_policy=legacy.current_free_profile(data)
     frames=data['frames'];require(len(frames)==data['tick_count'] and len(frames)>100,'Missing true native trace')
     for i,frame in enumerate(frames):
         require(frame['tick']==i+1 and frame['root_bell'].get('id')==identity,'Missing/gapped actual root frame')
@@ -82,7 +83,10 @@ def validate(data):
             require(len(damage)==1 and len(shots)==1 and shots[0]['tick']<damage[0]['tick'],'No actual projectile→committed HP chain')
             hit=damage[0];tick=hit['tick'];require(frames[tick-2]['root_bell']['hp']-frames[tick-1]['root_bell']['hp']==hit['amount'],'HP delta not actual committed hit')
             require(hit['event_id'].endswith(':'+str(shots[0]['shot_id'])),'Hit not bound to accepted projectile identity')
-            require(any(r.get('amount_applied',0)<0 and r.get('operation')=='consume' and case['start_tick']<=r['tick']<=hit['tick'] for r in data['resource_receipts']),'Shot lacks actual resource spend receipt')
+            if free_policy:
+                require(not any(case['start_tick']<=r['tick']<=case['end_tick'] and not r.get('continuous',False) for r in data['resource_receipts']),'Free projectile fabricated a weapon-energy receipt')
+            else:
+                require(any(r.get('amount_applied',0)<0 and r.get('operation')=='consume' and case['start_tick']<=r['tick']<=hit['tick'] for r in data['resource_receipts']),'Shot lacks actual resource spend receipt')
             require(any(f['root_bell']['state']=='telegraph' for f in observed),'No warning before shot')
             if 'interrupt' in case['id']:
                 require(any(e['kind']=='root_interrupted' and e['tick']==hit['tick'] for e in events) and frames[hit['tick']-1]['root_bell']['state']=='recovery','No true HP interruption/recovery')
@@ -122,10 +126,17 @@ def validate(data):
         require(last<near_ticks[-1], 'Live reverse ports did not precede supported near destination')
     depletion=next(c for c in cases if c['id']=='low_resource_input_depletion')
     df=frames[depletion['start_tick']-1:depletion['end_tick']]
-    require(depletion['end_tick']+1==live['start_tick'] and df[-1]['shot_energy']<data['initial_capability']['shot_energy']['shot_energy_cost'],'Live crossing lacked actual low incoming energy')
-    spent=[r for r in data['resource_receipts'] if depletion['start_tick']<=r['tick']<=depletion['end_tick'] and r['operation']=='consume']
-    require(spent and all(r['amount_applied']<0 for r in spent),'Resource depletion lacks real formal shot debits')
-    require(not any(e['kind']=='energy_recovered' and depletion['start_tick']<=e['tick']<=depletion['end_tick'] for e in events),'Depletion used enemy grants')
+    if free_policy:
+        require(depletion['profile']=='air_focus_v2' and depletion['end_tick']+1==live['start_tick'] and df[-1]['shot_energy']<data['initial_capability']['tuning']['focus_rearm_stamina'],'Live crossing lacks actual low incoming time energy')
+        require(any(e['kind']=='jump_accepted' and depletion['start_tick']<=e['tick']<=depletion['end_tick'] for e in events),'Time depletion lacks actual Router jump')
+        require(not any(e['kind']=='shot_accepted' and depletion['start_tick']<=e['tick']<=depletion['end_tick'] for e in events),'Current time depletion used shooting')
+        spent=[r for r in data['resource_receipts'] if depletion['start_tick']<=r['tick']<=depletion['end_tick'] and r['operation']=='consume']
+        require(spent and all(r['continuous'] is True and r['amount_applied']<0 and r['aim_engaged'] is True and r['grounded_before'] is False for r in spent),'Time depletion lacks real airborne focus changed results')
+    else:
+        require(depletion['end_tick']+1==live['start_tick'] and df[-1]['shot_energy']<data['initial_capability']['shot_energy']['shot_energy_cost'],'Live crossing lacked actual low incoming energy')
+        spent=[r for r in data['resource_receipts'] if depletion['start_tick']<=r['tick']<=depletion['end_tick'] and r['operation']=='consume']
+        require(spent and all(r['amount_applied']<0 for r in spent),'Resource depletion lacks real formal shot debits')
+        require(not any(e['kind']=='energy_recovered' and depletion['start_tick']<=e['tick']<=depletion['end_tick'] for e in events),'Depletion used enemy grants')
     legacy.strict_semantics(data, inactive_ticks=inactive_ticks(data))
     return {'cases':len(cases),'frames':len(frames),'root_pulses':len(root_events),'scope':'One actual formal map2 pilot; not full campaign/player/device/visual admission'}
 
@@ -139,6 +150,18 @@ def tamper(data):
     bad=copy.deepcopy(data);bad['resource_receipts']=[];mutations.append(('erase_resource_chain',bad))
     bad=copy.deepcopy(data);c=next(c for c in bad['root_bell_cases'] if c['id']=='alive_full_connection_return');bad['frames'][c['start_tick']]['root_bell']['hp']=0;mutations.append(('kill_during_live_route',bad))
     bad=copy.deepcopy(data);c=next(c for c in bad['root_bell_cases'] if c['id']=='low_resource_input_depletion');bad['frames'][c['end_tick']-1]['shot_energy']=100;mutations.append(('forge_low_resource',bad))
+    if legacy.current_free_profile(data):
+        bad=copy.deepcopy(data)
+        for container in [bad['events']]+[f['accepted_events'] for f in bad['frames']]:
+            for e in container:
+                if e['kind']=='shot_accepted':e.update(packet_id=999,session_id=999,resource_epoch=999)
+        mutations.append(('coherent_foreign_projectile_lifetime',bad))
+        bad=copy.deepcopy(data);bad['initial_capability']['shot_energy'].pop('definition_path');mutations.append(('erase_current_profile_authority',bad))
+        bad=copy.deepcopy(data)
+        for r in bad['resource_receipts']:
+            if r['operation']=='consume':r['aim_engaged']=False
+        mutations.append(('erase_actual_focus_input',bad))
+        bad=copy.deepcopy(data);bad['events']=[e for e in bad['events'] if e['kind']!='time_energy_changed'];mutations.append(('erase_time_energy_events',bad))
     refused=[]
     for label,bad in mutations:
         try:validate(bad)

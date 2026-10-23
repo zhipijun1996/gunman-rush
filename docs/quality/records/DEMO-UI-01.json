@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "task_id": "DEMO-UI-01",
+  "task_type": "ui_feedback",
+  "workflow": "review",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+  "content_version": "clockwork-ui-r3",
+  "owner": "/root",
+  "purpose": "Apply user-directed time-energy-only slow motion and frameless portrait/heart/resonance HUD",
+  "player_experience": "Read real health and airborne actions at a glance; time energy drains only during actual slow aim",
+  "constraints": [
+    "Latest user explicitly authorizes time-energy and default one-air-shot rule changes",
+    "No Motor/damage/topology/save/RNG/ability grant changes",
+    "Historical rule assertions remain version-bound; original budgets retained",
+    "Central status owned by controller; Integration/Release pending",
+    "User aesthetics and physical-device acceptance unverified"
+  ],
+  "affected_paths": [
+    "assets/manifest.json",
+    "assets/ui/demo_ui_01/r2/fonts/LICENSES/ark-pixel/OFL.txt",
+    "assets/ui/demo_ui_01/r2/fonts/LICENSES/cubic-11/OFL.txt",
+    "assets/ui/demo_ui_01/r2/fonts/LICENSES/galmuri/LICENSE.txt",
+    "assets/ui/demo_ui_01/r2/fonts/OFL.txt",
+    "assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf",
+    "assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf.import",
+    "assets/ui/demo_ui_01/r2/fonts/source.json",
+    "assets/ui/demo_ui_01/r2/generation_record.json",
+    "assets/ui/demo_ui_01/r2/title_impression.png",
+    "assets/ui/demo_ui_01/r2/title_impression.png.import",
+    "assets/ui/demo_ui_01/r2/title_logo.png",
+    "assets/ui/demo_ui_01/r2/title_logo.png.import",
+    "config/foundry_capabilities.json",
+    "config/player_tuning.json",
+    "export_presets.cfg",
+    "project.godot",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/items/braided_cord.tres",
+    "resources/items/cooling_fin.tres",
+    "resources/items/echo_gold.tres",
+    "resources/items/echo_magazine.tres",
+    "resources/items/efficient_grip.tres",
+    "resources/items/quick_hammer.tres",
+    "resources/player/demo_ui_01/time_energy_v2.tres",
+    "scripts/builds/build_modifier.gd",
+    "scripts/builds/build_state.gd",
+    "scripts/combat/shot_energy_policy.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/demo/action_studio.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/home_scene.gd",
+    "scripts/demo/module_energy_trial.gd",
+    "scripts/dev/cloud_preview.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/resources/definitions/shot_energy_definition.gd",
+    "scripts/ui/actor_resources_hud.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/demo_ui_01/clockwork_theme.gd",
+    "scripts/ui/demo_ui_01/clockwork_theme.gd.uid",
+    "scripts/ui/demo_ui_01/game_hud.gd",
+    "scripts/ui/demo_ui_01/game_hud.gd.uid",
+    "scripts/ui/demo_ui_01/game_typography.gd",
+    "scripts/ui/demo_ui_01/game_typography.gd.uid",
+    "scripts/ui/demo_ui_01/heart_strip.gd",
+    "scripts/ui/demo_ui_01/heart_strip.gd.uid",
+    "scripts/ui/demo_ui_01/menu_clock.gd",
+    "scripts/ui/demo_ui_01/menu_clock.gd.uid",
+    "scripts/ui/demo_ui_01/menu_input.gd",
+    "scripts/ui/demo_ui_01/menu_input.gd.uid",
+    "scripts/ui/demo_ui_01/modal_metrics.gd",
+    "scripts/ui/demo_ui_01/modal_metrics.gd.uid",
+    "scripts/ui/demo_ui_01/modal_shell.gd",
+    "scripts/ui/demo_ui_01/modal_shell.gd.uid",
+    "scripts/ui/demo_ui_01/preview_affordance.gd",
+    "scripts/ui/demo_ui_01/preview_affordance.gd.uid",
+    "scripts/ui/demo_ui_01/r3_ability_icon.gd",
+    "scripts/ui/demo_ui_01/r3_ability_icon.gd.uid",
+    "scripts/ui/demo_ui_01/r3_resonance_line.gd",
+    "scripts/ui/demo_ui_01/r3_resonance_line.gd.uid",
+    "scripts/ui/demo_ui_01/r3_time_energy_ring.gd",
+    "scripts/ui/demo_ui_01/r3_time_energy_ring.gd.uid",
+    "scripts/ui/demo_ui_01/resource_track.gd",
+    "scripts/ui/demo_ui_01/resource_track.gd.uid",
+    "scripts/ui/demo_ui_01/title_backdrop.gd",
+    "scripts/ui/demo_ui_01/title_backdrop.gd.uid",
+    "scripts/ui/item_presentation.gd",
+    "scripts/ui/item_shop_modal.gd",
+    "scripts/ui/menu_theme.gd",
+    "scripts/ui/plains_region_map.gd",
+    "scripts/ui/plains_region_map_modal.gd",
+    "scripts/ui/region_progression_modal.gd",
+    "scripts/ui/stage_exit_modal.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "scripts/ui/windkeeper_hud.gd",
+    "tests/actor_actions_runner.gd",
+    "tests/combat_tests.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/demo_ui_01/contract_runner.gd.uid",
+    "tests/demo_ui_01/legacy_runner.gd",
+    "tests/demo_ui_01/legacy_runner.gd.uid",
+    "tests/demo_ui_01/movie_runner.gd",
+    "tests/demo_ui_01/movie_runner.gd.uid",
+    "tests/demo_ui_01/r2_runner.gd",
+    "tests/demo_ui_01/r2_runner.gd.uid",
+    "tests/demo_ui_01/r3_d079_original.gd",
+    "tests/demo_ui_01/r3_d079_original.gd.uid",
+    "tests/demo_ui_01/r3_energy_runner.gd",
+    "tests/demo_ui_01/r3_energy_runner.gd.uid",
+    "tests/demo_ui_01/r3_movie_runner.gd",
+    "tests/demo_ui_01/r3_movie_runner.gd.uid",
+    "tests/demo_ui_01/r3_readme.md",
+    "tests/demo_ui_01/smoke_capture.gd",
+    "tests/demo_ui_01/smoke_capture.gd.uid",
+    "tests/fixtures/demo_ui_01_r3/braided_cord_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/cooling_fin_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/echo_gold_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/history.json",
+    "tests/foundry_lab_runner.gd",
+    "tests/grapple_focus_hud_runner.gd",
+    "tests/plains_experience_energy_runner.gd",
+    "tests/plains_region_runner.gd",
+    "tests/random_stage_tests.gd",
+    "tests/underworld_plains/test_underworld_ui.gd",
+    "tools/demo_ui_01/run_time_energy.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "Independent real Godot Web Preview",
+    "Real Godot before/after movie",
+    "Task checkpoint and scoped quality evidence"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "User-directed portrait/hearts/resonance frameless HUD, one-round baseline and time-energy-only actual slow aim ring",
+      "status": "proposed",
+      "basis": "Implementation follows latest explicit task instructions; delivered visual candidate has not received user aesthetic acceptance."
+    },
+    {
+      "decision": "R2 title/font/rounded UI retained",
+      "status": "proposed",
+      "basis": "Visual user acceptance of implemented candidate remains pending"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit user choices implemented in real consumer scope",
+      "evidence": [
+        "r3-design"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Current source-bound targeted Harness and actual UI/resource consumers pass",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "User/device/complete Integration/Release not established",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "User/device/complete Integration/Release not established",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "User/device/complete Integration/Release not established",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "User/device/complete Integration/Release not established",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Latest user direction has a concrete implemented scope",
+      "evidence": [
+        "r3-design"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Current targeted checks, public GUI and complete deployed bytes verified",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy",
+        "r3-web",
+        "r3-bytes"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different read-only reviewer limited ACCEPT for R3 implementation and evidence",
+      "evidence": [
+        "r3-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "r3-real-direction",
+      "scenario": "Latest user time energy and HUD feedback",
+      "method": "Real native Controls and official resources",
+      "expected": "No fake owner, no weapon/background frame, portrait/heart/resonance/current availability",
+      "failure": "Incorrect rules or fabricated state",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Actual implementation scope and independent inspection",
+      "evidence": [
+        "r3-design",
+        "r3-review"
+      ]
+    },
+    {
+      "id": "r3-current-runtime",
+      "scenario": "Shooting, slow aim, one-round, items and UI lifecycle",
+      "method": "Current140 plus original version-bound system/HUD checks and public GUI",
+      "expected": "All selected current checks clean under original budgets",
+      "failure": "Any assertion, engine or source stability failure",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Source-bound current targeted checks and public byte verification",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy",
+        "r3-web",
+        "r3-bytes"
+      ]
+    },
+    {
+      "id": "r3-independent",
+      "scenario": "D/H edge cases, growth layout and actor-following ring",
+      "method": "Different read-only reviewer actual pixels, sources and sampled continuous video",
+      "expected": "Findings close on the exact current version",
+      "failure": "Unclosed mandatory review finding",
+      "gate": "G1",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "review-01 rejection preserved, review-02 limited ACCEPT",
+      "evidence": [
+        "r3-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "r3-design",
+      "path": "docs/worklines/demo_ui_01/r3/scope.md",
+      "sha256": "b9a5bba695dbb7589c6bc0975ac89bd71e74197d2384d3874eb01047d53f41d7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Explicit latest user resource and HUD requirements; minimal shared changes"
+    },
+    {
+      "id": "r3-harness",
+      "path": "docs/evidence/demo_ui_01/r3/harness-report.json",
+      "sha256": "7f0274ddbfccd50c6630ae20ab030c9196f6ca3c455ea44651250a6f0956fb03",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Six targeted original Harness groups passed; not Integration/Release",
+      "command": "python3 tools/harness.py --check core --check actor-actions --check all-weapons --check action-budget --check grapple-feel --check demo-ui-time-energy --jobs 1",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; Linux; serial headless"
+    },
+    {
+      "id": "r3-ui",
+      "path": "docs/evidence/demo_ui_01/r3/ui-report.json",
+      "sha256": "9a8540329fd78645550c0d0b5783881b2f19d822e6085e02a744a78a91e86278",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Six frozen UI/system consumer groups passed source-stable",
+      "command": "python3 /workspace/scratch/demo_ui_r3_frozen_ui.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2; native llvmpipe DISPLAY99 and headless"
+    },
+    {
+      "id": "r3-energy",
+      "path": "docs/evidence/demo_ui_01/r3/energy.json",
+      "sha256": "feb6a2896a3d9746fdaa744f294b0d01068afe4f4c94b4dff88ef9e0180392fa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Current policy140 checks0failures, actual shot/beam/focus/item/refill/ring boundaries"
+    },
+    {
+      "id": "r3-web",
+      "path": "docs/evidence/demo_ui_01/r3/browser-public/report.json",
+      "sha256": "6e3273ca63a8a44b36c967e6e7809a4b82c2785e29cc35298581a3a9fc49de93",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Public desktop10 and DOM mobile11 checks, engine errors empty; real devices separate"
+    },
+    {
+      "id": "r3-bytes",
+      "path": "docs/evidence/demo_ui_01/r3/public-bytes.json",
+      "sha256": "defda312f5e93089b3b5a66f22bfbd7c9928099e4f8c756e325827f392a1e642",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Full public PCK/HTML/movie SHA matches, main build metadata unchanged"
+    },
+    {
+      "id": "r3-movie",
+      "path": "docs/evidence/demo_ui_01/r3/movie-report.json",
+      "sha256": "b32c7cf18b3d57e3b38fe3d9be4d958e78628ec95b1b81c468b5611501193580",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Actual 29.621333sec source-attributed R2/R3 comparison; after injury/heal/shot/ring observed"
+    },
+    {
+      "id": "r3-review",
+      "path": "docs/evidence/demo_ui_01/r3/independent/review-02.md",
+      "sha256": "696fafc428ea2073ee7487a73a63dd6288ef1eb0f7552d336183e11ef85c6adb",
+      "kind": "review",
+      "producer": "/root/ui_audit",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Limited ACCEPT; actual pixels and 0.25sec sampled film, no device/user/full Integration claim",
+      "reviewer": "/root/ui_audit",
+      "implementers": [
+        "/root",
+        "/root/menus"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only agent for R3; changed only reports, no R3 production/test implementation",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "R3 aesthetics/readability/player feel require user feedback",
+    "Physical touch/gamepad and actual-device performance unverified",
+    "Full Integration/Release remains controller-owned; production planner selected full conservatively for shared config; targeted Development only executed",
+    "Global static quality actually fails sparse historical evidence and missing controller-owned DEMO-UI-01 task row; no central files edited or whole history restored",
+    "Movie uses official-policy damage/heal fixtures, not natural combat; reviewer sampled at4fps, did not play full original speed or listen",
+    "Public UI21 checks and extra ring pixels do not sign complete region traversal or device experience"
+  ],
+  "test_change_justification": "New current-time-energy Harness check supplements every original check/budget. Old D079 energy and two-round motion/resource tests bind explicit legacy Definition/caps/items; original assertions retained. Current v2 separately verifies zero-energy shooting, real slow aim, one-round cap, five migrated items, real hook/damage refill and ring lifecycle. Native UI adds a growth-number readability assertion. Initial test driver preload dependency cycle and missing adapter failures retained; current driver uses load and observes teardown."
+}

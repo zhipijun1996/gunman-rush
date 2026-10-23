@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "scope": "Two current-only tools; legacy fixtures intentionally not run",
+  "candidate_files": {
+    "run_root_bell_formal.py": "e7c881f233a3b8de81f293d40ea73a4e9ab640f0658c35306588fdf62df9a62e",
+    "run_plains_redesign_golden_tests.py": "48897f08894d19fc11c236831858adef384b1bf4502e7b768ee6d84ff31251e6"
+  },
+  "patch_sha256": "09eea4d4e255ed56cc87b66aea1cd839385d584a250bc016967ce539dd3ff580",
+  "root_bell": {
+    "command": "python3 tools/run_root_bell_formal.py --current-g1",
+    "marker": "ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11",
+    "report": "/workspace/scratch/current-scope-tools-20261023/overlay/build/root_bell/formal_v2/1792737054675986108/report.json",
+    "not_run": [
+      "legacy_native165",
+      "archived_authority"
+    ],
+    "observed": {
+      "maps": 40,
+      "versioned_run_positive_cases": 5,
+      "versioned_run_refusals": 9,
+      "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"
+    },
+    "native165_directory_present": false,
+    "source_stable": true,
+    "native_budget_seconds_unchanged": 120
+  },
+  "golden": {
+    "command": "python3 tools/run_plains_redesign_golden_tests.py",
+    "report": "/workspace/scratch/current-scope-tools-20261023/overlay/build/plains_redesign/golden/run_g11k0_3r/receipt.json",
+    "not_run": [
+      "historical_d079_64_case_matrix",
+      "historical_d079_deleted_bank_negative",
+      "historical_d079_11_validator_refusals"
+    ],
+    "native_runs": [
+      {
+        "historical_d079": false,
+        "expected_rejection": false,
+        "exit": 0,
+        "duration_seconds": 26.587,
+        "validated": true
+      },
+      {
+        "historical_d079": false,
+        "expected_rejection": true,
+        "exit": 1,
+        "duration_seconds": 1.338,
+        "validated": true
+      }
+    ],
+    "current_assertions": 3172,
+    "failures": 0,
+    "matrix_cases": 64,
+    "current_validator_refusals": 5,
+    "source_stable": true,
+    "native_budget_seconds_unchanged": 180,
+    "outer_budget_seconds_unchanged": 240
+  },
+  "explicit_legacy_options_preserved": [
+    "python3 tools/run_root_bell_formal.py --g1",
+    "python3 tools/run_plains_redesign_golden_tests.py --with-legacy"
+  ],
+  "legacy_options_executed_this_run": false,
+  "root_tree_written": false
+}

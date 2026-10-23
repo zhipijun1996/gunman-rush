@@ -1,0 +1,56 @@
+{
+  "status": "ACCEPT",
+  "review_scope": "Bounded current free-shot encounter fixture/shared-reader adaptation and explicit optional historical comparison; static plus existing-capture Python replay.",
+  "observed_root_commit": "cab958912e222337a8d4260bb5111324fc9f1f5d",
+  "candidate_files": {
+    "tests/plains_encounter_policy_runner.gd": "8fa7c8a40ce6b95170bf4957a544c37a6767b26012770ffd43e830e9dbebe6e4",
+    "tools/level_experience.py": "5d27c70b4a613a96c637659688c2292240de76ca29f0737be3f17360e1e101df",
+    "tools/run_plains_encounter_policy_tests.py": "d6a9230661de0b9c35e02f4ade6687d48b6f9b0c913340c3bf840d37b97f77d9"
+  },
+  "candidate_patch_sha256": "b9f7de560039c69909c73f73aee161b004a6d86ea23ca544938d509d2319b745",
+  "independent_python_checks": {
+    "baseline": {
+      "accepted": true
+    },
+    "coherent_shot_energy_after_42": {
+      "accepted": false,
+      "reason": "Free accepted projectile has paid receipt or wrong actual session/epoch/frame energy"
+    },
+    "coherent_cap_tuning_2": {
+      "accepted": false,
+      "reason": "Current time/air budget differs from actual config"
+    },
+    "low_baseline": {
+      "accepted": true
+    },
+    "foreign_focus_session": {
+      "accepted": false,
+      "reason": "Current focus transaction time/session/epoch/balance differs"
+    }
+  },
+  "reviewed_guards": [
+    "Current policy path/version/SHA and source player config hash; relevant air/focus rates/duration/physics values independently match source configuration.",
+    "Free shot energy_after reconciles with actual frame and same-tick focus delta; no eventful shot/hit receipts accepted.",
+    "Focus transactions limited to explicit natural_low entry-to-low window, source-bound policy, entry balance, release, native clock/session/epoch/grounded/capacity; per-frame consumption/recovery formulas replayed.",
+    "Original projectile event owner/session/event identity, source/damage-kind/health and modal/reward/final-ledger checks remain present.",
+    "Paid consumption/refund/fatal-batch exception/bounds remain in paid branch.",
+    "Original actual input/geometry/AI/HP/reward checks and timeout budgets retained. Current low setup uses real Router jump/aim and changed signals."
+  ],
+  "scope_handling": {
+    "historical_checks_AST_unchanged": true,
+    "default_history": "Explicit not_run; current marker differs and old fixtures are not required inputs.",
+    "manual_history": "--with-legacy preserves original function/marker; not executed by reviewer.",
+    "mutation_noops": "Current forged paid receipt is a real change; original invented_energy setter uses actual low capture rather than unchanged full-energy baseline, with explicit bad!=positive assertion."
+  },
+  "evidence": {
+    "author_offline_receipt": "/workspace/scratch/plains-encounter-free/final-offline-replay.json",
+    "offline": "11 full2 reward capture positives and10 focused author mutations; independently two actual positives and3 corruptions above.",
+    "native": "Earlier external current55/0 and actual low10/0; reviewer did not rerun engine.",
+    "full_current_wrapper": "Final-source full3 pending at review. Prior full2 invented_energy failure preserved."
+  },
+  "unverified": [
+    "Fresh combined root source and full final wrapper result.",
+    "Integration/Release CI and player/art/device approval."
+  ],
+  "reviewer_actions": "Read-only sources/captures and in-memory Python predicates; no source change, engine, history hydration or full suite."
+}

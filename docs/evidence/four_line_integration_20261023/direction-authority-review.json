@@ -1,0 +1,132 @@
+{
+  "reviewer": "independent_review (not implementation author)",
+  "verdict": "ACCEPT",
+  "scope": "ExactD versioned3authority rebind and2focused test-fixture migrations only. Newcomplete-docs failure remains blocking a full-profile claim.",
+  "reviewed_at_utc": "2026-10-23T04:50:26.873113+00:00",
+  "reviewed_commit": "d43f61cc83ff153b2964322aaf50369dd57f6d34",
+  "comparison_base": "addda5f1b0d5662ffce7d2fb063fc54d0f549740",
+  "exact_source_sha256": {
+    "tests/test_region_bible.py": "99daeed060ca97888052dad3ab335625f09611e9097965d9bafd36ae51e28eba",
+    "tests/test_region_creative_direction.py": "080e4f24e1a85b7772b99cdbd9b2ed45c3ae86c251fba32584d9201ff51a4197",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "docs/creative_direction/windchime_plains.json": "0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
+    "docs/creative_direction/thorn_forest.json": "ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438"
+  },
+  "runtime_equivalent_to_B": true,
+  "directions": [
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
+      "previous_snapshot": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v9.json",
+      "snapshot_sha256": "f6d4116b54ccfef45b7539bebb16dcda763465597077cceafb6b61124d1e0bdc",
+      "snapshot_matches_original_full_bytes": true,
+      "only_changed_authority_paths": [
+        "docs/design/player_actions/README.md",
+        "docs/controls_contract.md",
+        "config/player_tuning.json"
+      ],
+      "all_current_refs_sha_match": true
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438",
+      "previous_snapshot": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v9.json",
+      "snapshot_sha256": "0a7778677f711fd80cd3235adc247d96af415741b45ea43453c32918b2508919",
+      "snapshot_matches_original_full_bytes": true,
+      "only_changed_authority_paths": [
+        "docs/design/player_actions/README.md",
+        "docs/controls_contract.md",
+        "config/player_tuning.json"
+      ],
+      "all_current_refs_sha_match": true
+    }
+  ],
+  "direction_invariants": [
+    "Creative-v9 complete snapshots preserve exact oldbytes andoldrefs. Originalhistorical_direction chain remains unchanged.",
+    "Onlyversion creative-v10,3newauthoritySHA values andexplicitrevision_impact differ. Selecteddirection,originalBible/userquote/selection andotherauthorityrefs remain unchanged.",
+    "Actual2→1base ammo effect and sharedtime-energy policy are tied tooriginalUI R3authorization andD084. No inventednewselection or oldroute-proof acceptance."
+  ],
+  "test_fixture_review": {
+    "creative10": "Same assertEqual nowexpects actualcurrent creative-v10 instead ofstale creative-v8; no call/phase/G2 assertion removed.",
+    "bible32": "Currentstrictpixel32/32,v7,36refs replaces obsoletev4/16pixel/16refs fixture. Mutatedcurrentfine shader,atlas,source,TileSet plusnewfactory/PNG/avatarcatalog paths retainactual0call andrestoreblock assertions.",
+    "previous_style_chain": "Exactall20v6refs must be presentinv7; oldv2terrain not falselydeclaredcurrent afterexplicitv5globalstyle change. v2/v3refusals retained andv4/v5/v6stale bindingrefusals added.",
+    "unchanged_negative_scopes": "ExistingoriginalBibleSHA,Underworldbodydependencyclosure,missing-role,mission/G0/resume/call/restore rejection assertions retained. Original validator tools/region_creative_direction.py is byte-identical toaddda5f; budgets unchanged."
+  },
+  "independent_executions": {
+    "before": {
+      "tests/test_region_bible.py": "99daeed060ca97888052dad3ab335625f09611e9097965d9bafd36ae51e28eba",
+      "tests/test_region_creative_direction.py": "080e4f24e1a85b7772b99cdbd9b2ed45c3ae86c251fba32584d9201ff51a4197",
+      "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+      "docs/creative_direction/windchime_plains.json": "0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
+      "docs/creative_direction/thorn_forest.json": "ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438"
+    },
+    "after": {
+      "tests/test_region_bible.py": "99daeed060ca97888052dad3ab335625f09611e9097965d9bafd36ae51e28eba",
+      "tests/test_region_creative_direction.py": "080e4f24e1a85b7772b99cdbd9b2ed45c3ae86c251fba32584d9201ff51a4197",
+      "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+      "docs/creative_direction/windchime_plains.json": "0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
+      "docs/creative_direction/thorn_forest.json": "ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438"
+    },
+    "source_stable": true,
+    "results": [
+      {
+        "name": "direction-full",
+        "argv": [
+          "python",
+          "tools/region_creative_direction.py",
+          "--directory",
+          "docs/creative_direction"
+        ],
+        "exit_code": 0,
+        "seconds": 0.06387484300012147,
+        "log": "/workspace/scratch/integration-four-20261023/independent-v10-direction-full.log",
+        "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73"
+      },
+      {
+        "name": "creative-units",
+        "argv": [
+          "python",
+          "tests/test_region_creative_direction.py"
+        ],
+        "exit_code": 0,
+        "seconds": 0.720627845999843,
+        "log": "/workspace/scratch/integration-four-20261023/independent-v10-creative-units.log",
+        "sha256": "68565eb799438040f43159088faca002951b892b650e139d6a5abd528fa5e7f9"
+      },
+      {
+        "name": "bible-units",
+        "argv": [
+          "python",
+          "tests/test_region_bible.py"
+        ],
+        "exit_code": 0,
+        "seconds": 1.8785544459997254,
+        "log": "/workspace/scratch/integration-four-20261023/independent-v10-bible-units.log",
+        "sha256": "4e07a4f0d38d76965224ceaf757876d6589e51bf1ff62924ed498e9591c0c240"
+      }
+    ]
+  },
+  "actual_source_stable_during_independent_runs": true,
+  "preserved_failures": [
+    "creative-authority-drift-failure.log: original3authority errors beforeversioned rebind.",
+    "creative-old-v8-expectation-failure.log: stalev8 assertion failed,not rewritten.",
+    "old-v4-bible-fixture-failure.log:32ran/2failed/1error fromobsolete16pixel/version/path fixture retained.",
+    "InitialremoteCI reportedcancelled remainscancelled,notpass; no newremoteCI result signed."
+  ],
+  "current_full_docs_status": {
+    "report": "/workspace/integration-four/build/verification/harness/20261023T044751.963669Z/report.json",
+    "report_sha256": "41d6afd14770656fada0a726cc1f7e10501a2141479dd56dddd5f25a58599309",
+    "source_commit": "d43f61cc83ff153b2964322aaf50369dd57f6d34",
+    "status": "failed",
+    "failed_check": "underworld-pipeline",
+    "actual_failure": "setUpClass failed before anypipeline unit:9baseline predicates(two generationprompt,actualhazard/mechanismJSONreads,Home slots,4rootUItheme references).",
+    "required_next_step": "Keeprawfailure andcompare each predicate against actualFine/UI consumers. Do not remove assertions/validatorrequirements or fabricateprompt evidence. Needseparatefixreview andfresh requiredscope.",
+    "complete_docs_pass": false
+  },
+  "prior_runtime_evidence": "B1266runtimeproof andfbbWeb/GPU retainoriginalsourceidentities. Staticruntimeequivalence doesnotconvert them into Dfreshgame runs.",
+  "review_method": "ReadexactDdelta/snapshots; independentlyrun originalfull direction validator,10creative units and32Bible units in tempfixtures; recordedbefore/afterhashes stable. Noengine,fullCI,hydration orintegrationtreewrite.",
+  "limits": [
+    "Not acompleteIntegration/docs/Release pass.",
+    "No currentroute/gameplayart/G5/player/physicaldevice acceptance."
+  ]
+}

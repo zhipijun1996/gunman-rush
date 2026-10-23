@@ -19,6 +19,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 	var events: Array[Dictionary] = []
 	var phrase := "initial"
 	var manifest: Dictionary
+	var policy_binding: Dictionary = {}
 	func point(v: Vector2) -> Array: return [v.x, v.y]
 	func support() -> Array:
 		var result: Array = []
@@ -41,7 +42,10 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 		if is_instance_valid(shot_latch_encounter):
 			for latch: ShotLatch in shot_latch_encounter.latches:
 				latches.append({"open":latch.is_open,"open_count":latch.open_count,"sequence_step":latch.sequence_step,"pending_id":latch._pending.get("id",""),"seen":latch._seen.keys(),"gate_disabled":latch.gate_shape.disabled,"clock":latch._clock,"motion_running":latch.motion_target.motion_running if latch.motion_mode else false,"motion_clock":latch.motion_target.motion_clock if latch.motion_mode else 0.0,"platform_position":point(latch.motion_target.global_position) if latch.motion_mode else []})
-		return {"tick":trace_ticks,"phrase":phrase,"position":point(motor.global_position),"normal_velocity":point(motor.normal_velocity),"recoil_velocity":point(motor.recoil_velocity),"recoil_remaining":motor.recoil_burst_remaining,"grounded":motor.is_on_floor(),"support":support(),"collisions":collisions,"energy":controller.actor_resources.stamina.current,"energy_capacity":controller.actor_resources.stamina.capacity,"shot_charges":controller.action_resources.shot_charges,"max_air_shots":motor.tuning.max_air_shots,"max_jumps":motor.tuning.max_jumps,"hook_enabled":controller.traversal.hook_enabled,"wall_enabled":controller.traversal.wall_enabled,"shot_cost":controller.shot_energy.shot_energy_cost,"used_jumps":controller.jump_ability.used_jumps,"cooldown":controller.shoot_ability.cooldown_remaining,"shot_cooldown":motor.tuning.shot_cooldown,"weapon":str(controller.shoot_ability.weapon.id),"session_id":controller.session_id,"motor_id":motor.get_instance_id(),"move_axis":controller.router.axis,"hazards":hazards,"safe":safe_trace,"continuous":continuous_trace,"latches":latches}
+		if policy_binding.is_empty():
+			var definition: ShotEnergyDefinition = controller.shot_energy.definition
+			policy_binding={"definition_path":definition.resource_path,"definition_sha256":FileAccess.get_sha256(definition.resource_path),"shooting_consumes_energy":definition.shooting_consumes_energy}
+		return {"shot_policy":policy_binding,"health":controller.actor_resources.health.current,"focus":{"shared":controller.air_focus_ability.stamina_state==controller.actor_resources.stamina,"aiming":controller.router.aim_engaged,"active":controller.air_focus_ability.active,"automatic_process":controller.is_physics_processing()},"tick":trace_ticks,"phrase":phrase,"position":point(motor.global_position),"normal_velocity":point(motor.normal_velocity),"recoil_velocity":point(motor.recoil_velocity),"recoil_remaining":motor.recoil_burst_remaining,"grounded":motor.is_on_floor(),"support":support(),"collisions":collisions,"energy":controller.actor_resources.stamina.current,"energy_capacity":controller.actor_resources.stamina.capacity,"shot_charges":controller.action_resources.shot_charges,"max_air_shots":motor.tuning.max_air_shots,"max_jumps":motor.tuning.max_jumps,"hook_enabled":controller.traversal.hook_enabled,"wall_enabled":controller.traversal.wall_enabled,"shot_cost":controller.shot_energy.shot_energy_cost,"used_jumps":controller.jump_ability.used_jumps,"cooldown":controller.shoot_ability.cooldown_remaining,"shot_cooldown":motor.tuning.shot_cooldown,"weapon":str(controller.shoot_ability.weapon.id),"session_id":controller.session_id,"motor_id":motor.get_instance_id(),"move_axis":controller.router.axis,"hazards":hazards,"safe":safe_trace,"continuous":continuous_trace,"latches":latches}
 	func record(kind: String, extra: Dictionary = {}) -> void:
 		var event := {"tick":trace_ticks+1,"phrase":phrase,"kind":kind,"position":point(motor.global_position)}
 		event.merge(extra)
@@ -93,6 +97,14 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 		controller.landed.connect(func(): record("accepted_landing"))
 		controller.shoot_ability.shot_fired.connect(func(direction: Vector2,id: int):
 			shots += 1
+			var matches: Array[PlayerProjectile] = []
+			for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
+				if is_instance_valid(projectile) and not projectile.spent and projectile.shot_id==id: matches.append(projectile)
+			check.call(matches.size()==1,"unique actual emitted projectile")
+			if matches.size()==1:
+				var projectile: PlayerProjectile=matches[0]
+				record("actual_projectile_spawned",{"shot_id":projectile.shot_id,"packet":projectile.energy_receipt_id,"owner_id":projectile.owner_id,"session_id":projectile.session_id,"airborne":projectile.fired_airborne,"direction":point(projectile.direction)})
+				projectile.impacted.connect(func(p: Vector2,d: Vector2):record("actual_projectile_impact",{"shot_id":id,"impact":point(p),"direction":point(d)}))
 			record("accepted_shot",{"shot_id":id,"direction":point(direction),"energy":controller.actor_resources.stamina.current,"charges":controller.action_resources.shot_charges,"recoil_remaining":motor.recoil_burst_remaining}))
 		controller.shoot_ability.shot_rejected.connect(func(reason: StringName): record("rejected_shot",{"reason":str(reason)}))
 		controller.shoot_ability.projectile_impacted.connect(func(p: Vector2,d: Vector2): record("projectile_impact",{"impact":point(p),"direction":point(d)}))

@@ -17,6 +17,9 @@ ROOT=Path(__file__).resolve().parents[1]
 NATIVE_ARCHIVE=ROOT/'docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip'
 HISTORICAL_TUNING=ROOT/'tests/fixtures/root_bell/pre_focus_15_player_tuning.json'
 HISTORICAL_TUNING_SHA='e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058'
+# Reader-only exact 9-file closure: original baseline + pinned delta, no runtime.
+HISTORICAL_AUTHORITY=ROOT/'tests/fixtures/root_bell/historical_authority_v2.zip'
+HISTORICAL_AUTHORITY_SHA='583530183764fd0c9dc6d2f124d30110bbf6ca8501737775059499e15a1cbfea'
 
 def require_historical_tuning(raw, source_inventory, capture):
     expected=source_inventory['config/player_tuning.json']
@@ -49,14 +52,19 @@ def prepare_historical_authority(out, archive, capture):
             required.add('resources/generation/modules/'+capture['manifest']['nodes'][index]['module_id']+'.tres')
         directory=out/'historical_authority'
         directory.mkdir()
+        frozen_bytes=HISTORICAL_AUTHORITY.read_bytes()
+        rf.require(hashlib.sha256(frozen_bytes).hexdigest()==HISTORICAL_AUTHORITY_SHA,
+                   'Historical authority fixture ZIP changed')
+        with zipfile.ZipFile(io.BytesIO(frozen_bytes)) as frozen:
+            rf.require(set(frozen.namelist())==required and len(frozen.namelist())==len(required),
+                       'Historical authority fixture closure differs from required original inputs')
+            frozen_sources={name:frozen.read(name) for name in required}
         copied={}
         for name in sorted(required):
-            if name=='config/player_tuning.json':
-                data=raw;origin='exact historical tuning fixture'
-            elif name in manifest['changed_source_sha256']:
-                data=delta.read(name);origin='pinned original source delta ZIP'
-            else:
-                data=(ROOT/name).read_bytes();origin='current file byte-identical to pinned original inventory'
+            data=frozen_sources[name]
+            origin=('exact historical tuning fixture' if name=='config/player_tuning.json' else
+                    'pinned original source delta ZIP' if name in manifest['changed_source_sha256'] else
+                    'exact Git baseline '+manifest['baseline_commit'])
             actual=hashlib.sha256(data).hexdigest()
             rf.require(actual==inventory[name],'Historical authority source mismatch '+name)
             path=directory/name
@@ -66,6 +74,7 @@ def prepare_historical_authority(out, archive, capture):
     return directory,{'scope':'Historical Python reader authority only; NO current runtime/native proof',
                       'directory':str(directory.relative_to(ROOT)),
                       'original_delta_zip_sha256':hashlib.sha256(delta_bytes).hexdigest(),
+                      'historical_authority_fixture_sha256':HISTORICAL_AUTHORITY_SHA,
                       'original_source_inventory_sha256':hashlib.sha256(json.dumps(inventory,sort_keys=True).encode()).hexdigest(),
                       'files':copied},inventory
 
@@ -146,9 +155,26 @@ def main():
     current_root=rf.ROOT
     try:rf.validate(base)
     except ValueError as error:
-        rf.require(str(error)=='Actual tuning mismatch focus_time_scale','Current authority rejected for an unexpected reason: '+str(error))
+        rf.require(str(error)=='Not weakest formal capability','Current authority rejected for an unexpected reason: '+str(error))
         current_refusal={'refused':True,'reason':str(error)}
     else:raise ValueError('Current authority accepted historical focus/config identity')
+    # Explicitly synthetic rejection probe only: align both the effective cap
+    # and its tuning field to the current one-shot policy, so the independent
+    # historical .2 focus versus current .15 mismatch remains reachable.
+    current_tuning=json.loads((ROOT/'config/player_tuning.json').read_bytes())
+    rf.require(current_tuning['max_air_shots']==1 and all(base[c]['air_shot_flight_cap']==2 and base[c]['tuning']['max_air_shots']==2 for c in ('initial_capability','final_capability')),
+               'Current/historical one-shot capability contrast changed')
+    focus_probe=copy.deepcopy(base)
+    focus_fields=[]
+    for capability in ('initial_capability','final_capability'):
+        focus_probe[capability]['air_shot_flight_cap']=current_tuning['max_air_shots']
+        focus_probe[capability]['tuning']['max_air_shots']=current_tuning['max_air_shots']
+        focus_fields.extend([capability+'.air_shot_flight_cap',capability+'.tuning.max_air_shots'])
+    try:rf.validate(focus_probe)
+    except ValueError as error:
+        rf.require(str(error)=='Actual tuning mismatch focus_time_scale','Independent old-focus rejection changed: '+str(error))
+        current_refusal['independent_focus_probe']={'scope':'Explicit synthetic deep-copy rejection only, NOT native','modified_fields':focus_fields,'refused':True,'reason':str(error)}
+    else:raise ValueError('Current authority accepted synthetic old-focus mismatch')
     altered_tuning=json.loads(HISTORICAL_TUNING.read_bytes());altered_tuning['focus_time_scale']=.15
     try:require_historical_tuning(json.dumps(altered_tuning).encode(),original_inventory,base)
     except ValueError as error:tuning_refusal={'refused':True,'reason':str(error)}

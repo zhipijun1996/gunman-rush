@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "patch": "/workspace/scratch/plains-scene-current-20261023/scene-current-final.patch",
+  "patch_sha256": "26adb99a84f94a8bf76c4899644badbe655b7a2e10f7e7d26d84756acf8f0376",
+  "file_sha256": {
+    "tools/run_plains_redesign_scene_tests.py": "c4b0ccd6168692c8289cd1f57f6c84785caa253ff921da556cac16ce9f532a7c",
+    "tests/plains_redesign_scene_runner.gd": "71545b9e8327cea633a5d9bca34d5a29fedb76aceea7110bee930cca00a4a848",
+    "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+    "scripts/demo/demo_app.gd": "088c0c1457a958ca175087a970010db2fe23098cf18f6a3f9475d5e4349e62cd"
+  },
+  "native_receipt": "/workspace/scratch/plains-scene-current-20261023/overlay/build/plains_redesign/scene/run_nc89i53z/receipt.json",
+  "native_receipt_sha256": "bd840b2c3df1c550645bcca5df52d017be4eb13f3655019833d4d770fb7f1625",
+  "candidate_source_guard": "/workspace/scratch/plains-scene-current-20261023/candidate-source-guard-v3.json",
+  "effective_source_identity": {
+    "inherited_root_source_inventory": "/workspace/scratch/plains-scene-current-20261023/overlay/build/plains_redesign/scene/run_nc89i53z/source_snapshot.json",
+    "owned_candidate_overrides": {
+      "tools/run_plains_redesign_scene_tests.py": "c4b0ccd6168692c8289cd1f57f6c84785caa253ff921da556cac16ce9f532a7c",
+      "tests/plains_redesign_scene_runner.gd": "71545b9e8327cea633a5d9bca34d5a29fedb76aceea7110bee930cca00a4a848",
+      "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+      "scripts/demo/demo_app.gd": "088c0c1457a958ca175087a970010db2fe23098cf18f6a3f9475d5e4349e62cd"
+    },
+    "root_head": "cab958912e222337a8d4260bb5111324fc9f1f5d",
+    "root_tracked_clean": true
+  },
+  "complete_native": {
+    "positive_cases": 8,
+    "positive_assertions": 94,
+    "positive_failures": 0,
+    "real_negative_cases": 10,
+    "all_real_negative_validated": true,
+    "raw_counterexamples": {
+      "empty_routes": true,
+      "empty_trajectory": true,
+      "movie_presence_not_completion": true,
+      "no_visual_observations": true,
+      "false_projection": true,
+      "deleted_actual_outer_connection": true,
+      "restored_duplicate_high": true,
+      "missing_actual_legacy_compatibility": true,
+      "disabled_touch_geometry": true,
+      "restored_touch_ui_overlap": true,
+      "substituted_vertical_lift_for_horizontal_boat": true,
+      "missing_actual_closed_cycle": true,
+      "missing_actual_magazine": true,
+      "forged_base_cap_two": true,
+      "magazine_rearm_without_ground": true
+    },
+    "all_native_cleanup_validated": true,
+    "positive_aggregate_budget_seconds": 180,
+    "positive_aggregate_seconds": 133.3856937620003,
+    "whole_wrapper_seconds": 226.59176870400188,
+    "wrapper_profile_budget_seconds": 900,
+    "whole_wrapper_budget_unchanged": true
+  },
+  "hud_regression": {
+    "original_runner": "tests/demo_ui_01/r3_energy_runner.gd",
+    "checks": 140,
+    "failures": 0,
+    "log": "/workspace/scratch/plains-scene-current-20261023/r3-hud-energy.log"
+  },
+  "timing_scope": "Auxiliary guard-v3 case_wall is NOT valid per-case timing: it sees the assembled positive log. Use positive-partitions.json actual harness started_at_unix/ended_at_unix/duration_seconds for parallel proof, and guard-v2 original sequential first5 real wall. Native receipt nested actual_native_partitions contains the exact two executed commands; outer command is original generic argv placeholder.",
+  "scope": "Actual Air Magazine reward fixture only extra_upward_recoil; other seven cases current base1. Physical Window1280, actual HUD cards/map/pause, actual planted source-root foot checks, original visual and collision guards/counterexamples. Production HUD layout only. Native proof is not rendered/Web/device/aesthetic approval. Root owns style version/rebinding and final fresh Web/CI.",
+  "all_engines_ended": true,
+  "frozen": true,
+  "command": "source /workspace/scratch/integration-four-20261023/player-default-env.sh\nPYTHONDONTWRITEBYTECODE=1 python3 /workspace/scratch/plains-scene-current-20261023/overlay/tools/run_plains_redesign_scene_tests.py",
+  "workdir": "/workspace/worklines/player-default-integration",
+  "marker": "PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated"
+}

@@ -1,5 +1,9 @@
 # Underworld 风铃平原：Tile 与场景生产流程
 
+## 2026-10-22 粒度更新
+
+用户已明确选择细粒度，当前共享标准为[style-v5](creative_direction/bibles/style-continuity-20261022-v5.json)：原生32px/32wu、世界表现1wu采样；保留47邻接与精确边界合同。以下旧16px数值只作历史/旧消费者说明，不能当作新生产目标。正式接入与限制见[FINE-SPACE-05](evidence/fine_space_05/README.md)。
+
 任务 `UNDERWORLD-PLAINS-01`。用户选择 Underworld，并要求三个独立景深、完整平原迁移，以及与平台材质融合的伤害 Tile。本文件是当前生产方法；本轮实际消费者、验证和未验范围以 production manifest、运行回执和任务质量记录为准。
 
 ## 参考开放素材：提取规则，不只抽颜色

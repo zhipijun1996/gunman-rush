@@ -1,0 +1,17 @@
+{
+  "task": "FINE-SPACE-05",
+  "tool": "image_gen.imagegen",
+  "call_count": 1,
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "generation_wall_seconds": 37.5,
+  "prompt": "Create a precise finer-resolution EDIT of this actual production thorn/root SPRITE ATLAS (reference1), in the visual family of the attached actual forest gameplay screenshot(reference2). This is functional game texture production, not concept art.\n\nPreserve the EXACT overall atlas aspect ratio256:96, all occupied sprite positions, proportions and orientations. Think of target native resolution512x192, shown large with clear crisp pixels. Every original source pixel may become2x2 logical pixels but refine it with real smaller pixel clusters, slender wood fibers and precise tiny pale thorns; don't simply nearest-upscale. Keep the same branches, spike directions, lengths, sizes and root endpoints. Transparent background outside all sprite silhouettes. No filled backdrop or fake checkerboard. Do not rearrange, add pieces, delete branches, connect the separated sprites or introduce a new terrain block. The reference is sparse and mostly transparent; preserve that spacing.\n\nThe atlas contains a top row of long ROOTED THORN RUNS: left first128x40 target sprite with upward pale thorn tips above a horizontal woody stem; next128x36 and128x32 with downward tips hanging from a top woody stem; then a shorter96x40 upward run. Lower left contains two shorter96x36 and96x32 downward runs. Next is a vertical56x52 left-facing thorn branch. The remaining bottom-right sprites are bare woody connection pieces: a short stem32x16, one long bent elbow160x112, and a shorter elbow48x60. Their thin winding root profiles MUST stay separate and have no pale dangerous tips. Use the exact ORIGINAL atlas positioning as the authority over the verbal size descriptions.\n\nDraw the same deeply weathered dark umber root wood, restrained moss-green scars, muted warm upper-left edge and cool dark underside. Dangerous thorns use small PALE GRAY-GREEN sharp tips clearly distinct from brown root wood, as in the original. No bright gold metal, no white glow, no extra dense needles. Reduce coarse jaggedness and antler-like blocks with finer native pixel edges and more delicate local fibers while retaining the existing readable silhouettes and exact shape extent. Wooden stems retain opacity and their root connection line; avoid interior transparent breaks or fuzzy halos. Top/down/left lighting should remain upper-left in world, not be blindly mirrored. Preserve dark/quiet regions so gameplay foreground remains legible. The target is a faithful fine-pixel remaster of the old source atlas, with unchanged source layout and hazard semantics, ready to normalize to512x192. No text, icons, outlines around atlas cells, grid lines, numbers or shadows outside sprites.",
+  "references": [
+    "assets/forest_bible_v2/native/thorn_briar_atlas_v2.png",
+    "/workspace/gunman-space-before/build/space_before/forest.png"
+  ],
+  "raw_candidate": "thorn_refine_rejected.png",
+  "status": "rejected_not_consumed",
+  "reason": "Occupied source positions and upward/downward semantics shifted; diffuse alpha halos. Preserve original native silhouette/ports/pale pigment instead and sample actual retained highres wood fiber at1wu.",
+  "accepted_detail_method": "tools/build_formal_forest_detail.gd uses old validated alpha/ports with real original thorn study luma, native scale1; this is a material-detail upgrade, not a new contour family."
+}

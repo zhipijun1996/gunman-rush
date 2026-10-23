@@ -3,16 +3,17 @@
 [ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
 [sub_resource type="Resource" id="Effect"]
 script = ExtResource("2")
-stat_id = &"shot_energy_cost"
+stat_id = &"focus_stamina_drain"
 operation = 2
 value = 0.8
 [resource]
 script = ExtResource("1")
 stable_id = &"efficient_grip"
+definition_version = 2
 display_name = "省力握柄 / Efficient Grip"
 rarity = 0
 modifiers = Array[ExtResource("2")]([SubResource("Effect")])
 duplicate_policy = 1
 stack_limit = 3
 icon_key = &"grip"
-description = "每发精力消耗降低，失误后保留更多续航。"
+description = "空中瞄准慢时的时间能量消耗降低20%。"

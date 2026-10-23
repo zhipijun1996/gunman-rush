@@ -1,0 +1,104 @@
+{
+  "status": "ACCEPT",
+  "scope": "Single Bible-specific test-driver held-jump input correction; four actual current formal consumers; not production gameplay/geometry or whole CI approval.",
+  "reviewed_base_commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "candidate_sha256": "eaad4b8a3a4dfd6e75250e919610c0442dfd83ce40278d9900fd7009a48dfabd",
+  "patch_sha256": "86b6540471205c4c48e5b8ee224dc89fa3e8f389bae9fa241e8528eb45a03fdb",
+  "handoff_sha256": "e09b79f5d27cdbf0f1ae1d9be374aeecc1de0f97c84519875bb06202d56a41e0",
+  "changed_files": [
+    "tests/forest_bible_world_air_case.gd"
+  ],
+  "reviewed_change": "Only Bible hanging_chain firstR at launch age6, actualtime_energy_v2 free/base1 andpulse tier1 keeps the real jump-held input. The common age6 tap-release remains unchanged for all other consumers/policies. Original first-shot completion still releases jump through the unchanged base driver. No position/resource writes, capability grant, geometry/goal/margins or phase400 changes.",
+  "independent_source_checks": [
+    "Common air-chain driver, Bible trace, motor runner and original wrapper bytes equal12f6 baseline.",
+    "Original90s import/240s native/360s Harness budgets preserved.",
+    "Four receipts/trace/log hashes and exact candidate source hash verified; allsourcebefore/after dictionaries equal, real strict logs clean."
+  ],
+  "actual_consumers": [
+    {
+      "id": "forest-bible-world-connection-map1",
+      "map": 1,
+      "route": "bible_connection_journey",
+      "legs": 24,
+      "completed": 24,
+      "frames": 2368,
+      "elapsed_seconds": 52.21423274400149,
+      "source_stable": true,
+      "trace_sha256": "5b4974258be057742ef1e7e4c3e24a0d8e3bfbd97ca7f7a48dc34fc73a179f41",
+      "receipt_sha256": "8a1f8bc396dcddeecfebb7d4135b53d324212e6ddb698915b32edfb398aa08d0"
+    },
+    {
+      "id": "forest-bible-world-backbranch-map1",
+      "map": 1,
+      "route": "bible_backbranch_journey",
+      "legs": 32,
+      "completed": 32,
+      "frames": 3075,
+      "elapsed_seconds": 62.00058904699836,
+      "source_stable": true,
+      "trace_sha256": "3bb0b5f6f382f250663579a9517a968c72f124af8ace4841d418e4d6199ab155",
+      "receipt_sha256": "50020b0b1cb6153417afca5da0cca725e6f995b289aa61c74c39596bc8d7ffc6"
+    },
+    {
+      "id": "forest-bible-world-connection",
+      "map": 2,
+      "route": "bible_connection_journey",
+      "legs": 35,
+      "completed": 35,
+      "frames": 3577,
+      "elapsed_seconds": 70.22847508399718,
+      "source_stable": true,
+      "trace_sha256": "f7fee52092fd6b5eacfd13622dd65af9db14d997fbe5ccdce4b3873c4db7207a",
+      "receipt_sha256": "df008a1ee1ef7adcc46e7a0040c91698ae7627891b522d827bfb1396b34ba9aa"
+    },
+    {
+      "id": "forest-bible-world-backbranch",
+      "map": 2,
+      "route": "bible_backbranch_journey",
+      "legs": 43,
+      "completed": 43,
+      "frames": 4283,
+      "elapsed_seconds": 82.23256594600389,
+      "source_stable": true,
+      "trace_sha256": "a235df5d219139cca072493f16ba36dd7126a0500f221e78a72d0879609937ce",
+      "receipt_sha256": "96d185d5d8f4d4b4c124d38388e610eeb200e4729d23fcb5ad7b93be64af74e0"
+    }
+  ],
+  "map1_continuity": {
+    "departure_tick": 468,
+    "held_tick": 474,
+    "source_program": [
+      "R",
+      "HANG",
+      "R"
+    ],
+    "actual_program": [
+      "R",
+      "HANG",
+      "J"
+    ],
+    "real_jump_substitution_tick": 561,
+    "anchor_jump": true,
+    "airborne_ticks": "469..583",
+    "airborne_frames": 115,
+    "first_ground_tick": 584,
+    "first_ground_supports": [
+      "thorn_mouth__entry",
+      "lower_fork__crown"
+    ],
+    "first_ground_position": [
+      -1718.17272949219,
+      1279.92407226562
+    ],
+    "original_goal_support_present": true,
+    "lower_ground_relaunch_used": false,
+    "meaning": "Both support labels are reported. Original thorn_mouth__entry is reached after uninterrupted flight; lower_fork__crown is a coincident same-height contact, not an intermediate relaunch."
+  },
+  "evidence_identity": "Actual unchanged original wrappers on external overlay inheriting12f6 with exactly this candidate source override; not a future root implementation/CI run. Diagnostic earlier held-map1 output with empty source_program is not used as final program evidence.",
+  "failure_preservation": "Original missed-connection/tap-only failures remain; no old R/HANG/R claim is relabeled as passed. Actual R/HANG/J and held input are explicitly recorded.",
+  "unverified": [
+    "Fresh integrated-source complete Harness/Integration/Release CI.",
+    "Broader forest routes or device/player/FUN/G5 approval."
+  ],
+  "reviewer_actions": "Read one-file diff and common code; independently verified4raw receipt/trace/log hashes, source closure equality, route completeness, capabilities and map1 continuous flight/event data. No engine rerun, source modification or broad history hydration."
+}

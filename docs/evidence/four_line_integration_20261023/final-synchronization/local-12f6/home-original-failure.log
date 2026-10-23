@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Actual visible UI button ENTER HOME
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] click (res://tests/underworld_plains/test_underworld_home_terraces.gd:24)
+       [2] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:47)
+       [3] frames (res://tests/underworld_plains/test_underworld_home_terraces.gd:15)
+ERROR: Actual TITLE pointer enters current default Home
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:50)
+       [2] frames (res://tests/underworld_plains/test_underworld_home_terraces.gd:15)
+Traceback (most recent call last):
+  File "/workspace/integration-four/tools/run_underworld_home_terrace_tests.py", line 148, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/workspace/integration-four/tools/run_underworld_home_terrace_tests.py", line 145, in main
+    if failure: raise failure
+                ^^^^^^^^^^^^^
+  File "/workspace/integration-four/tools/run_underworld_home_terrace_tests.py", line 125, in main
+    output = run_engine(command, 240 if args.capture else 150)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/integration-four/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

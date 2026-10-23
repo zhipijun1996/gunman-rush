@@ -1,0 +1,43 @@
+{
+  "status": "ACCEPT",
+  "scope": "Optional two-workflow APT official-mirror fallback candidate pre-review only; candidate remains not adopted.",
+  "reviewed_base_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+  "candidate_files": {
+    ".github/workflows/production.yml": "a957448382892d9b07ce093bdd171336ab0eba94fc943448595968384c65aefd",
+    ".github/workflows/environment.yml": "acb85a19d487cfcc5e63ce6cc45f5d1bbc67d383ab9b7dc1dca208d73184bc8f"
+  },
+  "patch_sha256": "bc2619d4d8277762b707c210bf95c195b9926df43b123f512772f8c33e8c3c7c",
+  "source_checks": [
+    "Independently removed only6inserted source-rewrite blocks and reproduced exact original workflow bytes:production4/environment2. All other commands, packages, suites/components, GPG/Signed-By, TLS settings, original APT flags/retries, timeouts, assertions and CI gates remain unchanged.",
+    "Only existing /etc/apt/sources.list and /etc/apt/sources.list.d/ubuntu.sources are targeted before existing package-install update blocks. No additional repositories, permissions, remote scripts or TLS/GPG bypasses introduced.",
+    "sed matches only whitespace/start-delimited http(s)://azure.archive.ubuntu.com/ubuntu with path/whitespace/end boundary and replaces official base with https://archive.ubuntu.com/ubuntu. Lookalike host/prefix/port/suffix tokens remain untouched.",
+    "Loop terminates: each successful substitution removes an Azure match and introduces none; repeated pass resolves adjacent whitespace-delimited URIs and is idempotent. Actual8temporary-file cases confirm termination."
+  ],
+  "independent_validation": {
+    "receipt": "/workspace/scratch/apt-official-mirror-independent/temporary-source-cases.json",
+    "actual_sed_temp_files": 8,
+    "all_exact_expected": true,
+    "all_idempotent": true,
+    "cases": [
+      "legacyHTTP",
+      "HTTPS trailing slash with Signed-By",
+      "deb822multiURI and unchanged suites/components/keyring",
+      "lookalike host/port/path suffixes",
+      "existing official/security URI unchanged",
+      "adjacent3Azure URIs",
+      "exactURIatEOF",
+      "emptyfile"
+    ],
+    "sudo_executed": false,
+    "apt_executed": false,
+    "real_etc_modified": false,
+    "native_or_CI_executed": false
+  },
+  "observed_producer_validation": "REPORT records officialactionlint1.7.7exit0 for both candidate workflows; reviewer did not rerun network/APT or CI.",
+  "current_state": "Root reports8ca6 run39969481754attempt2 already passed prepare media installation. This candidate does not change that result and remains optional/unadopted; reconsider only after another actual same-class failure as requested.",
+  "unverified": [
+    "Official mirror availability/throughput/package installation in GitHub environment; no network or APT executed.",
+    "Final adopted-source CI/Release if candidate is later selected."
+  ],
+  "reviewer_actions": "Read2candidateworkflow diff/COPYINDEX/REPORT, verifiedSHA and exactnoninserted-byte equality to8ca6, ranGNU sed against8temporary files with2secondpercase timeout and repeat-idempotence. No root/realAPT-source writes, sudo, apt, native or CI."
+}

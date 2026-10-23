@@ -1,5 +1,6 @@
 extends RefCounted
-func audit() -> Dictionary:
+func audit(current_only := false) -> Dictionary:
+	if current_only:return _audit_current()
 	var rows: Array = []
 	var failures: Array = []
 	var original_rows: Array = JSON.parse_string(FileAccess.get_file_as_string("res://docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json")).rows
@@ -46,6 +47,31 @@ func audit() -> Dictionary:
 			if original.manifest.enemies.size()!=candidate.manifest.enemies.size(): failures.append("enemy_budget")
 			if not current_validated or not v2.validate(candidate.manifest,PlayerTuning.load_default()):failures.append("version_replay")
 	return {"rows":rows,"failures":failures,"historical_tuning_sha256":FileAccess.get_sha256(historical_path),"historical_tuning_values":historical_values,"historical_focus_time_scale":historical_tuning.focus_time_scale,"scope":"40 currentcampaign manifests plus exact immutable historical corpus replay with original .2 tuning; legacy_default_byte_equal describes historical replay only; eligibility, not traversal"}
+
+func _audit_current() -> Dictionary:
+	var rows: Array = []
+	var failures: Array = []
+	var tuning := PlayerTuning.load_default()
+	var current_hash := FileAccess.get_sha256("res://config/player_tuning.json")
+	for i: int in 20:
+		for map_index: int in [1,2]:
+			var root := "v3-root-bell-pilot-%s" % i
+			var seed := PlainsRegionCampaign.seed_for(root,map_index)
+			var difficulty := "intro" if map_index==1 else "advanced"
+			var base := PlainsRegionGenerator.new()
+			var original := base.generate(seed,tuning,false,"",difficulty)
+			var v2 := PlainsRegionGenerator.new()
+			v2.root_bell_mode="v2"
+			var candidate := v2.generate(seed,tuning,false,"",difficulty)
+			if not original.ok or not candidate.ok:
+				failures.append("generation_failed/%s/%s"%[i,map_index]);continue
+			var base_valid := base.validate(original.manifest,tuning)
+			var candidate_valid := v2.validate(candidate.manifest,tuning)
+			if not base_valid or not candidate_valid:failures.append("version_replay")
+			if original.manifest.player_tuning_hash!=current_hash or candidate.manifest.player_tuning_hash!=current_hash:failures.append("current_tuning_identity/%s/%s"%[i,map_index])
+			if original.manifest.enemies.size()!=candidate.manifest.enemies.size():failures.append("enemy_budget")
+			rows.append({"root_seed":root,"map_index":map_index,"actual_seed":seed,"legacy_hash":original.manifest.manifest_hash,"candidate_hash":candidate.manifest.manifest_hash,"current_tuning_hash":original.manifest.player_tuning_hash,"candidate_tuning_hash":candidate.manifest.player_tuning_hash,"current_tuning_focus_scale":tuning.focus_time_scale,"current_tuning_max_air_shots":tuning.max_air_shots,"current_default_validated":base_valid,"current_candidate_validated":candidate_valid,"content_version":candidate.manifest.version,"candidate":candidate.manifest.root_bell_admission,"default_gate":PlainsRootBellEncounterV2.PRODUCTION_ADMITTED})
+	return {"rows":rows,"failures":failures,"current_only":true,"not_run":["historical_raw_manifest_byte_comparison"],"scope":"40 currentcampaign manifests and actual current configuration; eligibility, not traversal"}
 
 func physical_negatives() -> Dictionary:
 	var generated := PlainsRegionGenerator.new().generate("v3-root-bell-pilot-1/plains/map_2",PlayerTuning.load_default(),false,"","advanced")

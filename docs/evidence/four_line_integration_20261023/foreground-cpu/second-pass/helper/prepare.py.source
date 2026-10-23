@@ -1,0 +1,44 @@
+from pathlib import Path
+import hashlib,json,subprocess
+r=Path('/workspace/integration-four');o=Path(__file__).parent;base='a2f7ad441b8218681ce3c245be95d4d3ab44a78f';p='scripts/underworld_plains/underworld_foreground.gd'
+src={'old':subprocess.check_output(['git','show',base+':'+p],cwd=r,text=True),'new':(r/p).read_text()};assert hashlib.sha256(src['new'].encode()).hexdigest()=='4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa'
+def fn(s,n):
+ start=s.index('func '+n+'(');end=s.find('\nfunc ',start+1)
+ return s[start:end if end>=0 else len(s)].rstrip()+'\n'
+functions=['_visible','_drawn_control','_add','_world_rect','_touch_protection','_protection','_enemy_warning_protection','_roll','_object_spec','_project','_specifications']
+prefix='''extends CanvasLayer
+const MAX_PROTECTION := 64
+const WIND_MARGIN := 3.0
+const PARALLAX := Vector2(1.15,1.12)
+const PREBUILD_MARGIN := 96.0
+const ROOT_GUARD := 12.0
+var _world: Node
+var _actor: PlayerMotor
+var _seed := "fixture"
+var _assets: Array[Dictionary] = []
+var _tracked: Dictionary = {}
+var _trail_fields: Dictionary = {}
+var _custom_draw_scripts: Dictionary = {}
+var _fixed_world: Array[Rect2] = []
+var _protect: Array[Rect2] = []
+var _dynamic_protect: Array[Rect2] = []
+var _static_protect: Array[Rect2] = []
+var _source_counts: Dictionary = {}
+var _protection_viewport := Rect2()
+var _protection_canvas := Transform2D.IDENTITY
+var _overflow := false
+var _spec_cache_key: Array = []
+var _spec_cache_found: Array[Dictionary] = []
+func state() -> Dictionary:
+	return {"protect":_protect.duplicate(),"dynamic":_dynamic_protect.duplicate(),"static":_static_protect.duplicate(),"counts":_source_counts.duplicate(),"overflow":_overflow}
+func configure(world: Node,actor: PlayerMotor,assets: Array) -> void:
+	_world=world;_actor=actor;_assets.assign(assets)
+func track(node: Node) -> void:
+	_tracked[node.get_instance_id()]=weakref(node)
+func fixed(rect: Rect2) -> void:
+	_fixed_world.append(rect)
+'''
+manifest={'base_commit':base,'scope':'Actual helper bodies extracted into minimal CanvasLayer; real Control/CollisionShape nodes and pure specification fixtures; no gameplay or performance claim','functions':functions,'source_sha256':{},'helper_sha256':{}}
+for label,s in src.items():
+ body=prefix+'\n'+next(line for line in src['new'].splitlines() if line.startswith('const DYNAMIC_SOURCES'))+'\n'+'\n'.join(fn(s,n) for n in functions);(o/(label+'_helper.gd')).write_text(body);manifest['source_sha256'][label]=hashlib.sha256(s.encode()).hexdigest();manifest['helper_sha256'][label]=hashlib.sha256(body.encode()).hexdigest()
+(o/'extraction.json').write_text(json.dumps(manifest,indent=2)+'\n')

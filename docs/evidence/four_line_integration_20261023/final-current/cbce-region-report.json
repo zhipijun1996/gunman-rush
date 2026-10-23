@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T074908.740380Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "input_digest": "7520ac7222da7176984d38d448ae468cdf84b312aebfd15a6fa8570651c203e4",
+      "log": "region.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792741751.6984208,
+      "ended_at_unix": 1792741917.6466205,
+      "duration_seconds": 165.948,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "check_token": "be17a25dfa1548119be706eb3318e25b",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T074908.740380Z/artifacts/region",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "576d20c2feaf3a673f17d25b93696f425cd92da361ce878767c76afac9a304f5",
+  "working_files": {},
+  "commit": "cbce53f145a128bd8ecd328e4c60a7b1f449b27d",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 171.672,
+  "jobs": 1,
+  "release": true
+}

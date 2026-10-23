@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "asset_id": "INTEGRATION-ENEMY-FEEDBACK-01-FRAMES-V8-LEGACY-DIVER",
+  "task_id": "ENEMY-FEEDBACK-01",
+  "content_version": "enemy-feedback-01-frames-v8-source-registration-20261023",
+  "source_path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+  "source_sha256": "ed78d58c362d258ba0e3388922da118b70ae71ceba2816d52d16ae5a130cf562",
+  "runtime_paths": [
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "prompt_or_reference": "assets/enemy_feedback_01/frames_v8/legacy_diver.generation-result.json contains the retained verbatim prompt; source reference assets/plains_v4/spatial/actors.png",
+  "processing": "Generated PNG retained byte-identical, including embedded metadata. EnemyFeedback01Frames slices the eight integer regions and uses manifest anchors/basis; no raster editing, rescaling each pose, repainting or regeneration was performed by this registration.",
+  "usage_scope": "Actual two-skin charger/diver hurt and death-frame consumer through scripts/enemies/enemy_feedback_01_frames.gd, EnemyPresentation and UnderworldEnemy. Source registration only; material continuity, complete locomotion animation, visual/player/device acceptance are not granted.",
+  "license_status": "unknown",
+  "license_source": "Original generation provenance records unknown/not_exposed output licensing. Repository reference SHA verified locally; existing reference-source rights are retained. No separate generated-output license instrument or blanket CC0 claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/enemy_feedback_01_frames.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_diver.provenance.json",
+      "sha256": "e8a9b28fed42cf0567f4a3d7b1f402374b539aae7816fdd8150bb6f1701ea892",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "role": "reference"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_diver.generation-result.json",
+      "sha256": "1268fb29ab4b1f85dca1d62a2ecac174afae9c1127e77c2c1123b7cc010bf89d",
+      "role": "generation_record"
+    }
+  ],
+  "source_registration_limitations": {
+    "model": "not_exposed",
+    "verbatim_prompt": "retained in assets/enemy_feedback_01/frames_v8/legacy_diver.generation-result.json",
+    "original_visual_status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified",
+    "generation_provenance_unchanged": true
+  }
+}

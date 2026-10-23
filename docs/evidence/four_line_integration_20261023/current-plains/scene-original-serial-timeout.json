@@ -1,0 +1,50 @@
+{
+  "case_wall": [
+    {
+      "case_index": 0,
+      "completion_seconds_from_native_log_start": 31.657310973998392,
+      "case_seconds_approx": 31.657310973998392,
+      "marker": "FORMAL ROUTE: strategy=fast outcome=route_target_reached ticks=4314 enemies=14 returns=0 shots=18"
+    },
+    {
+      "case_index": 1,
+      "completion_seconds_from_native_log_start": 61.715487986999506,
+      "case_seconds_approx": 30.058177013001114,
+      "marker": "FORMAL ROUTE: strategy=growth outcome=route_target_reached ticks=3951 enemies=21 returns=0 shots=29"
+    },
+    {
+      "case_index": 2,
+      "completion_seconds_from_native_log_start": 94.36894886599839,
+      "case_seconds_approx": 32.653460878998885,
+      "marker": "FORMAL ROUTE: strategy=return outcome=route_target_reached ticks=4473 enemies=21 returns=0 shots=28"
+    },
+    {
+      "case_index": 3,
+      "completion_seconds_from_native_log_start": 127.82873098799973,
+      "case_seconds_approx": 33.45978212200134,
+      "marker": "FORMAL ROUTE: strategy=fast outcome=route_target_reached ticks=4415 enemies=21 returns=0 shots=30"
+    },
+    {
+      "case_index": 4,
+      "completion_seconds_from_native_log_start": 175.72059718599849,
+      "case_seconds_approx": 47.89186619799875,
+      "marker": "FORMAL ROUTE: strategy=fast outcome=route_target_reached ticks=6528 enemies=21 returns=0 shots=39"
+    }
+  ],
+  "native_wrapper_exit": 1,
+  "seconds": 184.7368786980005,
+  "candidate_source_before": {
+    "tools/run_plains_redesign_scene_tests.py": "d5bd0048c88d46e3c6470e588ad98416f089b04e8916caadaa3b18e606b95fde",
+    "tests/plains_redesign_scene_runner.gd": "b1c9bfbe3509f8fea5fc482d8beab368883dbacd9bde6a6f6cd36be2f515a9de",
+    "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+    "scripts/demo/demo_app.gd": "6c3ed4c8481ae3700163bc2cff3f530723d93690b0b944fbd1e53098e38693bc"
+  },
+  "candidate_source_after": {
+    "tools/run_plains_redesign_scene_tests.py": "d5bd0048c88d46e3c6470e588ad98416f089b04e8916caadaa3b18e606b95fde",
+    "tests/plains_redesign_scene_runner.gd": "b1c9bfbe3509f8fea5fc482d8beab368883dbacd9bde6a6f6cd36be2f515a9de",
+    "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+    "scripts/demo/demo_app.gd": "6c3ed4c8481ae3700163bc2cff3f530723d93690b0b944fbd1e53098e38693bc"
+  },
+  "candidate_source_stable": true,
+  "scope": "Original complete wrapper, original 90s import and 180s per-native budgets; normal process/physics/UI; actual Air Magazine reward only elective case; no rendering/device/aesthetic acceptance"
+}

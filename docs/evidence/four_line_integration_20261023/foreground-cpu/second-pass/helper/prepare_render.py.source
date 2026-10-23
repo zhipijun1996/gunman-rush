@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,hashlib,subprocess
+r=Path('/workspace/integration-four');o=Path(__file__).parent;base='a2f7ad441b8218681ce3c245be95d4d3ab44a78f';p='scripts/underworld_plains/underworld_foreground.gd';src={'old':subprocess.check_output(['git','show',base+':'+p],cwd=r,text=True),'new':(r/p).read_text()};assert hashlib.sha256(src['new'].encode()).hexdigest()=='4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa'
+def fn(s,n):
+ start=s.index('func '+n+'(');end=s.find('\nfunc ',start+1)
+ return s[start:end if end>=0 else len(s)].rstrip()+'\n'
+fields='''var _residents: Dictionary = {}
+var _retired: Array[Dictionary] = []
+var _protect: Array[Rect2] = []
+var _dynamic_protect: Array[Rect2] = []
+var _source_counts: Dictionary = {}
+var _overflow := false
+var _wind_time := 0.0
+var _seed := "pure-render-fixture"
+var _last: Dictionary = {}
+var _receipt_pending := false
+var _receipt_center := Vector2.ZERO
+var _receipt_size := Vector2.ZERO
+var _receipt_layer := 0
+var _advance_frame := -1
+var _advance_count := 0
+var _build: Dictionary = {"master_sha256":"pure-fixture-master"}
+func configure(residents: Dictionary,protect: Array,dynamic: Array,phase: int) -> void:
+	_residents=residents
+	_protect.assign(protect);_dynamic_protect.assign(dynamic)
+	_source_counts={"player":phase+1,"actual_static_geometry_and_functions":protect.size()}
+	_overflow=protect.size()>64
+	_wind_time=phase*.125;_advance_frame=100+phase;_advance_count=phase
+	_retired.assign([{"id":"retired-fixture","frame":phase}])
+func rendered_state() -> Array:
+	var result: Array=[]
+	for resident: Dictionary in _residents.values():
+		var sprite:=resident.sprite as Sprite2D
+		var material:=sprite.material as ShaderMaterial
+		var uniforms: Dictionary={}
+		for key: String in ["protection_rects","protection_count","protection_overflow","mask_soft_margin","root_visibility","wind_time"]:uniforms[key]=material.get_shader_parameter(key)
+		result.append({"id":resident.id,"position":sprite.position,"modulate":sprite.modulate,"visible":sprite.visible,"mask_rect_count":resident.mask_rect_count,"uniforms":uniforms})
+	return result
+'''
+manifest={'base_commit':base,'scope':'Actual old/new render/receipt bodies. Synthetic resident/protection inputs, real Sprite2D/ShaderMaterial shared between paired runs so actual instance ids match. No full refresh/gameplay/GPU proof.','source_sha256':{},'helper_sha256':{}}
+for label,s in src.items():
+ names=['_render_receipt','receipt'];
+ if 'func _materialize_receipt(' in s:names.insert(1,'_materialize_receipt')
+ body='extends CanvasLayer\n'+'\n'.join(l for l in s.splitlines() if l.startswith('const '))+'\n'+fields+'\n'+'\n'.join(fn(s,n) for n in names);(o/(label+'_render_helper.gd')).write_text(body)
+ manifest['source_sha256'][label]=hashlib.sha256(s.encode()).hexdigest();manifest['helper_sha256'][label]=hashlib.sha256(body.encode()).hexdigest()
+(o/'render-extraction.json').write_text(json.dumps(manifest,indent=2)+'\n')

@@ -41,7 +41,7 @@ func run() -> void:
 	if actual_stage != null:
 		check(actual_stage.generated.manifest.areas.size() in [20,23] and actual_stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
 		check(actual_stage.boss != null,"Boss exists from start without seven exits")
-		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 2,"base action resources preserved")
+		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 1,"current user-confirmed base one-round action resources preserved")
 		check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json())) != null,"formal region manifest JSON roundtrip")
 	app.abandon_run()
 	for i: int in 3: await physics_frame
@@ -219,7 +219,7 @@ func fixture_baseline(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 	if actual_stage != null:
 		check(actual_stage.generated.manifest.areas.size() in [20,23] and actual_stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
 		check(actual_stage.boss != null,"Boss exists from start without seven exits")
-		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 2,"base action resources preserved")
+		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 1,"current user-confirmed base one-round action resources preserved")
 		check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json())) != null,"formal region manifest JSON roundtrip")
 	app.abandon_run()
 	for i: int in 3: await physics_frame

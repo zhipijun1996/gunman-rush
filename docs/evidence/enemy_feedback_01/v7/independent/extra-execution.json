@@ -1,0 +1,59 @@
+[
+  {
+    "name": "interface-unit",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--audio-driver",
+      "Dummy",
+      "--max-fps",
+      "60",
+      "--script",
+      "build/enemy-feedback-01/v7-review/interface-unit.gd"
+    ],
+    "exit": 0,
+    "seconds": 0.8667585259972839,
+    "errors": [],
+    "tail": [
+      "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "",
+      "V7 INTERFACE UNIT: 31 checks, 0 failures"
+    ]
+  },
+  {
+    "name": "affected-harness",
+    "command": [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "actor-actions",
+      "--check",
+      "underworld-damage-feedback",
+      "--check",
+      "underworld-formal",
+      "--check",
+      "forest-bible-integration-tests",
+      "--release",
+      "--jobs",
+      "1"
+    ],
+    "exit": 0,
+    "seconds": 61.35469898299925,
+    "errors": [],
+    "tail": [
+      "{\"profiles\": [], \"changed_paths\": [], \"checks\": [\"actor-actions\", \"underworld-damage-feedback\", \"underworld-formal\", \"forest-bible-integration-tests\"]}",
+      "Running actor-actions (fresh); log: build/verification/harness/20261023T002601.233775Z/actor-actions.log",
+      "actor-actions: passed",
+      "Running underworld-damage-feedback (fresh); log: build/verification/harness/20261023T002601.233775Z/underworld-damage-feedback.log",
+      "underworld-damage-feedback: passed",
+      "Running underworld-formal (fresh); log: build/verification/harness/20261023T002601.233775Z/underworld-formal.log",
+      "underworld-formal: passed",
+      "Running forest-bible-integration-tests (fresh); log: build/verification/harness/20261023T002601.233775Z/forest-bible-integration-tests.log",
+      "forest-bible-integration-tests: passed",
+      "Evidence: build/verification/harness/20261023T002601.233775Z/report.json"
+    ]
+  }
+]

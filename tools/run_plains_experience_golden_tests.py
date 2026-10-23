@@ -8,9 +8,49 @@ def sources():
     return level_formal.source_files(extra_paths=['tools/run_plains_experience_golden_tests.py',
         'tools/run_plains_redesign_spatial_tests.py','tools/harness/profiles.json'])
 
+def paid_policy(frame):
+    policy=frame['shot_policy']
+    path=policy['definition_path']; assert path.startswith('res://')
+    raw=(REPO/path[6:]).read_bytes()
+    assert policy['definition_sha256']==hashlib.sha256(raw).hexdigest()
+    # The actual configured resource, never the dormant numeric cost, chooses the contract.
+    configured_free=bool(re.search(rb'^shooting_consumes_energy\s*=\s*false\s*$',raw,re.M))
+    assert policy['shooting_consumes_energy'] is (not configured_free)
+    if configured_free:
+        assert path=='res://resources/player/demo_ui_01/time_energy_v2.tres'
+        assert frame['max_air_shots']==json.loads((REPO/'config/player_tuning.json').read_text())['max_air_shots']==1
+    return not configured_free
+
+def shot_ledger(events, shot, before, after):
+    transactions=[e for e in events if e['kind']=='energy_transaction' and e['event_id']==f"shot/{before['session_id']}/{shot['shot_id']}"]
+    if paid_policy(after):
+        assert len(transactions)==1
+        tx=transactions[0];assert tx['tick']==shot['tick'] and tx['operation']=='consume' and tx['status']==0
+        assert tx['amount']==-after['shot_cost'] and tx['current']==shot['energy']==after['energy']
+    else:
+        assert not transactions and shot['energy']==before['energy']==after['energy']
+        assert shot['charges']==(before['shot_charges'] if before['grounded'] else before['shot_charges']-1)
+        spawned=[e for e in events if e['kind']=='actual_projectile_spawned' and e['shot_id']==shot['shot_id']]
+        impacts=[e for e in events if e['kind']=='actual_projectile_impact' and e['shot_id']==shot['shot_id']]
+        assert len(spawned)==len(impacts)==1
+        spawn,impact=spawned[0],impacts[0]
+        assert spawn['tick']==shot['tick']<impact['tick'] and spawn['packet']>0
+        assert (spawn['owner_id'],spawn['session_id'])==(before['motor_id'],before['session_id'])
+        assert spawn['airborne'] is (not before['grounded'])
+        assert math.dist(spawn['direction'],shot['direction'])<.00001 and math.dist(impact['direction'],shot['direction'])<.00001
+
+
 def actor_causality(frames, events):
     """Actor signals and Router causes must exactly cover observed floor transitions."""
     assert frames and len({f['tick'] for f in frames})==len(frames)
+    paid=paid_policy(frames[0])
+    for f in frames:
+        assert f['shot_policy']==frames[0]['shot_policy']
+        if not paid:
+            assert f['focus']=={'shared':True,'aiming':False,'active':False,'automatic_process':False}
+            assert f['health']==frames[0]['health']>0
+    if not paid and frames[0]['focus']['automatic_process'] is False:
+        assert not any(e['kind']=='energy_transaction' for e in events), 'manual current fixture has no native energy transaction owner'
     by_tick={f['tick']:f for f in frames}
     lo,hi=min(by_tick),max(by_tick)
     assert sorted(by_tick)==list(range(lo,hi+1))
@@ -31,9 +71,18 @@ def actor_causality(frames, events):
             assert tx['status']==0
             if tx['amount']>0:
                 assert tx['operation']=='grant' and tx['event_id']=='' and tx['amount']<=max_recovery+.00001 and by_tick[t-1]['grounded']
-            else:assert tx['operation']=='consume' and tx['event_id'].startswith('shot/')
+            else:
+                assert paid, 'unfocused current fixture has no debit owner'
+                assert tx['operation']=='consume' and tx['event_id'].startswith('shot/')
             balance+=tx['amount'];assert abs(balance-tx['current'])<.00001
         assert abs(balance-by_tick[t]['energy'])<.00001
+        if not paid:
+            before,after=by_tick[t-1],by_tick[t]
+            fired=[e for e in events if e['kind']=='accepted_shot' and e['tick']==t]
+            # This fixture has no grant source; only real supported landing/ground
+            # resets a round. Every actual emitted shot leaves one flight charge less.
+            expected=after['max_air_shots'] if after['grounded'] else before['shot_charges']-len(fired)
+            assert after['shot_charges']==expected and 0<=expected<=1
     jumps=[e for e in events if e['kind']=='accepted_jump']
     lands=[e for e in events if e['kind']=='accepted_landing']
     drops=[e for e in events if e['kind']=='input_request' and e['action']=='drop_through']
@@ -72,9 +121,7 @@ def encounter_causality(observation):
         assert len(req)==1 and math.dist(req[0]['direction'],shot['direction'])<.00001
         assert math.dist(impact['direction'],shot['direction'])<.00001 and t<impact['tick']
         transactions=[e for e in es if e['kind']=='energy_transaction' and e['event_id']==f"shot/{identity[1]}/{shot['shot_id']}"]
-        assert len(transactions)==1
-        tx=transactions[0];assert tx['tick']==t and tx['operation']=='consume' and tx['status']==0
-        assert tx['amount']==-after['shot_cost'] and tx['current']==shot['energy']==after['energy']
+        shot_ledger(es,shot,before,after)
         assert shot['recoil_remaining']>0 and after['recoil_remaining']>0
     assert not any(e['kind']=='energy_transaction' and e['event_id'].startswith('hit/') for e in es)
     def supported(event):
@@ -155,7 +202,10 @@ def valid(data, negative=False):
             for e in shots:
                 assert any(q['kind']=='input_request' and q['action']=='shoot_release' and q['tick']==e['tick'] for q in es)
                 transactions=[q for q in es if q['kind']=='energy_transaction' and q['event_id']==f"shot/{identity[1]}/{e['shot_id']}"]
-                assert len(transactions)==1 and transactions[0]['amount']==-fs[0]['shot_cost'] and transactions[0]['status']==0
+                if paid_policy(fs[0]):
+                    assert len(transactions)==1 and transactions[0]['amount']==-fs[0]['shot_cost'] and transactions[0]['status']==0
+                else:
+                    shot_ledger(es,e,fs[e['tick']-1],fs[e['tick']])
                 assert math.dist(e['position'],fs[e['tick']-1]['position'])<.001
             if o['kind']=='remote':
                 assert len(shots)==2 and len(commits)==1 and shots[0]['tick']<shots[1]['tick']<=commits[0]['tick']
@@ -249,8 +299,17 @@ def causal_mutations(data):
         elif name=='impact_wrong_direction':pick(rs,'projectile_impact')['direction']=[1,0]
         elif name=='remove_impact':remote['events']=[e for e in rs if e['kind']!='projectile_impact']
         elif name=='missing_resource_recovery':
-            o=next(o for o in bad['observations'] if o['low']);event=next(e for e in o['events'] if e['kind']=='energy_transaction' and e['amount']>0);o['events'].remove(event)
-        elif name=='shot_resource_wrong_id':next(e for e in es if e['kind']=='energy_transaction' and e['operation']=='consume')['event_id']='shot/unrelated'
+            o=next(o for o in bad['observations'] if o['low'])
+            if paid_policy(o['frames'][0]):
+                event=next(e for e in o['events'] if e['kind']=='energy_transaction' and e['amount']>0);o['events'].remove(event)
+            else:
+                # The manual, unfocused fixture never advances AirFocus. A claimed
+                # recovery therefore has no native receipt; reject forged balance.
+                o['frames'][10]['energy']+=1
+        elif name=='shot_resource_wrong_id':
+            if paid_policy(creek['frames'][0]):next(e for e in es if e['kind']=='energy_transaction' and e['operation']=='consume')['event_id']='shot/unrelated'
+            else:
+                shot=pick(es,'accepted_shot');es.append({'kind':'energy_transaction','tick':shot['tick'],'position':shot['position'].copy(),'event_id':'shot/unrelated','operation':'consume','amount':-creek['frames'][0]['shot_cost'],'current':shot['energy'],'status':0})
         elif name=='restart_motion_lie':
             t=[e for e in es if e['kind']=='latch_committed'][-1]['tick'];creek['frames'][t]['latches'][0]['motion_running']=False
         # Plausible timestamp sorting must not rescue a wrong causal stage.
@@ -293,6 +352,24 @@ def main():
         for name,corrupt in causal_mutations(data):
             refused=not valid(corrupt);refusals.append({'case':name,'refused':refused})
             if not refused:raise RuntimeError('Accepted missing/misbound causal evidence '+name)
+        for name in ['forged_policy','forged_focus_shared','forged_hp','forged_projectile_owner','forged_projectile_impact','forged_air_charge','coherent_forged_recovery']:
+            bad=copy.deepcopy(data);o=bad['observations'][0]
+            if name=='forged_policy':o['frames'][0]['shot_policy']['shooting_consumes_energy']=True
+            elif name=='forged_focus_shared':o['frames'][10]['focus']['shared']=False
+            elif name=='forged_hp':o['frames'][10]['health']-=1
+            elif name=='forged_projectile_owner':next(e for e in o['events'] if e['kind']=='actual_projectile_spawned')['owner_id']+=1
+            elif name=='forged_projectile_impact':next(e for e in o['events'] if e['kind']=='actual_projectile_impact')['shot_id']+=100
+            elif name=='forged_air_charge':next(f for f in o['frames'][4:] if not f['grounded'])['shot_charges']=0
+            else:
+                o=next(o for o in bad['observations'] if o['kind']=='remote' and o['low'])
+                t=2;amount=.1
+                for frame in o['frames'][t:]:frame['energy']+=amount
+                for event in o['events']:
+                    if event['kind']=='accepted_shot' and event['tick']>=t:event['energy']+=amount
+                o['events'].append({'kind':'energy_transaction','tick':t,'phrase':o['frames'][t-1]['phrase'],'position':o['frames'][t-1]['position'].copy(),'event_id':'','operation':'grant','amount':amount,'current':o['frames'][t]['energy'],'status':0})
+                o['events'].sort(key=lambda e:e['tick'])
+            refused=not valid(bad);refusals.append({'case':name,'refused':refused})
+            if not refused:raise RuntimeError('Accepted false current-policy proof '+name)
         (folder/'validator_refusals.json').write_text(json.dumps(refusals,indent=2)+'\n')
         receipt['source_after']=sources();assert before==receipt['source_after'],'changed source during native proof'
         receipt['status']='passed';print('PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated')

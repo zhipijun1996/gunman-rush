@@ -75,7 +75,7 @@
         "tools/run_plains_region_tests.py"
       ],
       "timeout_seconds": 1500,
-      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "success_pattern": "^PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27$",
       "weight_seconds": 269.363,
       "cacheable": true,
       "inputs": [
@@ -662,7 +662,7 @@
         "tools/run_plains_encounter_policy_tests.py"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "success_pattern": "^PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -673,10 +673,7 @@
         "tools",
         "tests",
         "project.godot",
-        "export_presets.cfg",
-        "docs/evidence/plains_redesign/frozen_v9",
-        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
-        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+        "export_presets.cfg"
       ]
     },
     "plains-redesign-scene": {
@@ -1267,7 +1264,8 @@
       "weight_seconds": 120,
       "artifact_paths": [
         "build/forest_depth/region"
-      ]
+      ],
+      "serial": true
     },
     "forest-depth-campaign-guardian": {
       "argv": [
@@ -3246,6 +3244,289 @@
       "inputs": [
         "docs/evidence/plains_redesign/frozen_v9/"
       ]
+    },
+    "demo-ui-time-energy": {
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: current time energy, one-round baseline and actor-following HUD$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/demo-ui-r3/energy.json"
+      ]
+    },
+    "enemy-feedback-native": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01 checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 40,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-formal": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-support": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_FEEDBACK_01_SUPPORT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-save": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-snapshot": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_CORPSE_SNAPSHOT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "bgm-integration": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^BGM INTEGRATION: [1-9]\\d* checks, 0 failures$",
+      "weight_seconds": 60,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/bgm-integration"
+      ]
+    },
+    "player-default-integration": {
+      "argv": [
+        "python3",
+        "tools/run_player_default_integration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Formal default player, Timeweaver selection and feedback lifecycle$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/player-default-integration"
+      ]
+    },
+    "root-bell-current": {
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--current-g1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11$",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/root_bell/formal_v2"
+      ],
+      "inputs": [
+        "project.godot",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "tools/run_root_bell_formal.py",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
+    },
+    "region-with-legacy-fixtures": {
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py",
+        "--with-legacy-fixtures"
+      ],
+      "timeout_seconds": 1500,
+      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "plains-encounter-policy-with-legacy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py",
+        "--with-legacy"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+      ]
     }
   },
   "profiles": {
@@ -3339,7 +3620,6 @@
       "grapple-feel",
       "forest-interwoven-contract",
       "forest-player-aim",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3356,8 +3636,6 @@
       "level-experience",
       "level-formal-receipts",
       "level-formal-runtime",
-      "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -3367,7 +3645,7 @@
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3377,25 +3655,16 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
-      "forest-region-matrix",
-      "forest-formal-combat",
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
       "forest-depth-versions",
       "forest-depth-restore",
-      "forest-depth-queen",
-      "forest-depth-cavity",
-      "forest-depth-cavity-controls",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
-      "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition",
-      "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain",
       "forest-vertical-shortcut",
       "blob47-foundation",
       "windchime-plains",
@@ -3447,7 +3716,15 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration"
     ],
     "art": [
       "docs",
@@ -3472,7 +3749,6 @@
       "wood-platforms",
       "actor-actions",
       "grapple-feel",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3486,14 +3762,12 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3631,7 +3905,6 @@
       "grapple-feel",
       "forest-interwoven-contract",
       "forest-player-aim",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3648,8 +3921,6 @@
       "level-experience",
       "level-formal-receipts",
       "level-formal-runtime",
-      "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -3659,7 +3930,7 @@
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3672,25 +3943,16 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
-      "forest-region-matrix",
-      "forest-formal-combat",
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
       "forest-depth-versions",
       "forest-depth-restore",
-      "forest-depth-queen",
-      "forest-depth-cavity",
-      "forest-depth-cavity-controls",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
-      "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition",
-      "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain",
       "forest-vertical-shortcut",
       "blob47-foundation",
       "windchime-plains",
@@ -3743,7 +4005,15 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration"
     ],
     "creative-feedback": [
       "docs",
@@ -3834,6 +4104,23 @@
       "cloud-delivery-tests",
       "cloud-inputs-tests",
       "portable-frozen-assets"
+    ],
+    "legacy-compat": [
+      "aim-save-compat",
+      "root-bell-tests",
+      "forest-region-matrix",
+      "forest-formal-combat",
+      "plains-action-golden",
+      "forest-depth-queen",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-air-chain",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "region-with-legacy-fixtures",
+      "plains-autonomy-golden",
+      "plains-encounter-policy-with-legacy"
     ]
   }
 }

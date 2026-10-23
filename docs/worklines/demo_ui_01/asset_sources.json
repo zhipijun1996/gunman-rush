@@ -1,0 +1,81 @@
+{
+  "task_id": "DEMO-UI-01",
+  "content_version": "clockwork-ui-r2",
+  "previous_sources": {
+    "task_id": "DEMO-UI-01",
+    "new_raster_assets": [],
+    "native_ui": {
+      "method": "Godot Control/Container/Theme/StyleBoxFlat and native CanvasItem heart/clock primitives",
+      "author": "DEMO-UI-01 implementation",
+      "usage": "UI only; no environment or character artwork generated"
+    },
+    "font": {
+      "path": "assets/fonts/foundry_notes.otf",
+      "license": "assets/fonts/OFL.txt",
+      "source": "Existing repository Noto Sans SC subset",
+      "glyph_count": 7543,
+      "new_chinese_glyphs_initial_check": "Observed final actual UI CJK literal check:313 characters,0missing; original raw report archive blocked by environment unavailability. See delivery.md."
+    },
+    "title_backdrop": {
+      "path": "assets/underworld_plains/backgrounds/far.png",
+      "source": "Existing repository Underworld family; reused without modification",
+      "license": "Existing image_gen original; source reference has Asouris broad publisher use permission, not CC0. See assets/underworld_plains/backgrounds/generation_record.json and assets/style_exploration/underworld/source/licenses.",
+      "generation_record": "assets/underworld_plains/backgrounds/far_generation.json"
+    },
+    "cost": {
+      "image_generation_calls": 0,
+      "model_token_cost": "not_exposed"
+    },
+    "historical_version": "R1, rejected by user for appearance on 2026-10-23"
+  },
+  "new_raster_assets": [
+    {
+      "path": "assets/ui/demo_ui_01/r2/title_logo.png",
+      "sha256": "a0c3e3007079dc341611c3f83273f46e9c772b672ddbb329887445dc608d0ada",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "generation_date": "2026-10-23",
+      "source": "New generation from task-specific text, no referenced image",
+      "prompt_summary": "New original pixel-art aged brass broken clock emblem, wind chime, moss, pendulum and exact DISORDER CLOCK lettering; isolated transparent background.",
+      "transparent_background": true,
+      "post_processing": "none; original returned PNG preserved byte-for-byte",
+      "license": "Generated for this project under image generation service terms; no third-party artwork supplied as reference. Not represented as CC0.",
+      "consumer": "scripts/ui/demo_ui_01/title_backdrop.gd",
+      "scope": "Title-only impression/emblem, never a gameplay background or screenshot UI",
+      "user_approval": "pending actual UI feedback"
+    },
+    {
+      "path": "assets/ui/demo_ui_01/r2/title_impression.png",
+      "sha256": "b5f83e7c379ea0f3964eed76f74afaec89c7c215e9e514a9d33f1e33e6041fa9",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "generation_date": "2026-10-23",
+      "source": "New generation from task-specific text, no referenced image",
+      "prompt_summary": "New original wide title impression: indigo dusk and amber horizon, ruined clock/bell towers, mossy mechanical plains, hanging wind chimes. No UI, words, characters or interactive elements.",
+      "transparent_background": false,
+      "post_processing": "none; original returned PNG preserved byte-for-byte",
+      "license": "Generated for this project under image generation service terms; no third-party artwork supplied as reference. Not represented as CC0.",
+      "consumer": "scripts/ui/demo_ui_01/title_backdrop.gd",
+      "scope": "Title-only impression/emblem, never a gameplay background or screenshot UI",
+      "user_approval": "pending actual UI feedback"
+    }
+  ],
+  "font": {
+    "family": "Fusion Pixel 12px proportional Simplified Chinese",
+    "release": "2026.10.16",
+    "source": "https://github.com/TakWolf/fusion-pixel-font/releases/download/2026.10.16/fusion-pixel-font-12px-proportional-otf-v2026.10.16.zip",
+    "zip_sha256": "7d9b1897858348c96254c6b9a8b06e0c5476a71851f46ad7ed6e987adb33661e",
+    "license_url": "https://github.com/TakWolf/fusion-pixel-font/blob/2026.10.16/OFL.txt",
+    "license": "Exact release OFL.txt plus original LICENSES/ dependencies retained",
+    "scope": "DEMO-UI-01 R2 unified game typography",
+    "font_sha256": "db40edf0cc1e446bfe1ce75d5abb4d7c499ace96379b8a0f5f761bd3de8335eb"
+  },
+  "native_ui": {
+    "method": "Interactive Godot Controls/Containers/Theme; rounded layered StyleBoxFlat; native heart and calibrated track drawing",
+    "scope": "Presentation only, no character/enemy/environment or gameplay rules changed"
+  },
+  "cost": {
+    "image_generation_calls": 2,
+    "model_token_cost": "not_exposed"
+  }
+}

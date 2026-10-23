@@ -4,6 +4,9 @@ var assertions := 0
 var failures := 0
 var output := ""
 var mutation := ""
+var positive_shard := -1
+var current_case_index := -1
+var scene_case_indices: Array[int] = []
 var frame_dir := ""
 var capture_pending := false
 var screenshots: Array = []
@@ -108,6 +111,7 @@ class SceneTrace extends "res://tests/level_formal_trace.gd":
 		for unused: int in count:
 			await super.tick()
 			if is_trace_cancelled(): return
+			observed_frames[-1]["max_air_shots"]=motor.tuning.max_air_shots
 			if observer.is_valid() and (observe_every_tick or trace_ticks % 6 == 0 or not observed_frames[-1].accepted_events.is_empty()):
 				_sample_after_process.call_deferred()
 				await presentation_sampled
@@ -121,8 +125,10 @@ class SceneTrace extends "res://tests/level_formal_trace.gd":
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="): output=arg.trim_prefix("--output=")
+		if arg.begins_with("--positive-shard="):positive_shard=int(arg.trim_prefix("--positive-shard="))
 		if arg.begins_with("--mutation="): mutation=arg.trim_prefix("--mutation=")
 		if arg.begins_with("--screens-dir="): frame_dir=arg.trim_prefix("--screens-dir=")
+	DisplayServer.window_set_size(Vector2i(1280,720))
 	root.size=Vector2i(1280,720)
 	run.call_deferred()
 func check(ok: bool, label: String) -> void:
@@ -138,7 +144,11 @@ func project_rect(r: Rect2) -> Rect2:
 func display_regions() -> Array[Dictionary]:
 	var rows: Array[Dictionary]=[]
 	for control: Control in [app._hud_frame,app._debug_button,app._pause_button,(app.stage as PlainsRegionStage).map_view]:
-		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"info" if control==app._debug_button else "control","bounds":rect_values(control.get_global_rect())})
+		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"info" if control==app._debug_button else "pause" if control==app._pause_button else "map" if control==(app.stage as PlainsRegionStage).map_view else "debug_hud","bounds":rect_values(control.get_global_rect())})
+	# The official HUD is a transparent full-viewport Control. Observe its
+	# actual visible resource card and chrome, never its empty root rectangle.
+	for control: Control in [app._demo_hud._rows,app._demo_hud._wallet_plate,app._demo_hud._location_plate,app._demo_hud._touch_menu]:
+		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"hud_resources" if control==app._demo_hud._rows else "touch_menu" if control==app._demo_hud._touch_menu else "hud_chrome","bounds":rect_values(control.get_global_rect())})
 	if is_instance_valid(app.item_toast._root) and app.item_toast._root.is_visible_in_tree(): rows.append({"path":str(app.item_toast._root.get_path()),"bounds":rect_values(app.item_toast._root.get_global_rect())})
 	return rows
 func touch_conflicts(regions: Array[Dictionary]) -> Array[String]:
@@ -146,6 +156,8 @@ func touch_conflicts(regions: Array[Dictionary]) -> Array[String]:
 	for reserved: Rect2 in app._region_touch_regions():
 		for ui: Dictionary in regions:
 			var values: Array=ui.bounds
+			# The current HUD paints this same pause input consumer, not an obstacle.
+			if ui.get("kind")=="touch_menu" and reserved==app.overlay._pause_rect and Rect2(values[0],values[1],values[2],values[3]).is_equal_approx(reserved):continue
 			if reserved.intersects(Rect2(values[0],values[1],values[2],values[3])):issues.append("actual touch control occluded by "+str(ui.path))
 	return issues
 func foreground(node: Node, rows: Array[Dictionary]) -> void:
@@ -220,6 +232,13 @@ func landmark_issues() -> Array[String]:
 			var declared:=Rect2(item.display_bounds[0],item.display_bounds[1],item.display_bounds[2],item.display_bounds[3])
 			if not bounds.is_equal_approx(declared):result.append("landmark actual sprite differs from plan")
 			var foot:=Vector2(bounds.get_center().x,bounds.end.y)
+			if item.has("source_foot"):
+				var source: Array=item.source_foot
+				var actual_root: Vector2=sprite.global_transform*Vector2(source[0],source[1])
+				var declared_root:=Vector2(item.render_root[0],item.render_root[1])
+				var logical_foot:=Vector2(item.foot[0],item.foot[1])
+				if actual_root.distance_to(declared_root)>.01 or (absf(actual_root.x-logical_foot.x)>.501 or absf(actual_root.y-logical_foot.y-float(item.ground_inset_wu))>.01):result.append("landmark actual measured root differs from grounded contact")
+				foot=actual_root-Vector2(0,item.ground_inset_wu)
 			var hit:=app.player.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(foot-Vector2(0,1),foot+Vector2(0,3),1))
 			if hit.is_empty() or not hit.collider is StaticBody2D:result.append("landmark has no real solid immediately under foot")
 	return result
@@ -262,11 +281,12 @@ func apply_mutation(trace) -> void:
 						sprite.position.y-=20;mutation_receipt={"path":str(sprite.get_path()),"actual_offset_y":-20};mutation_applied=true;return
 	if chosen.is_empty():return
 	if mutation=="info_actor":
+		app._hud_frame.show();app._debug_button.show()
 		app._debug_button.global_position=project_rect(chosen.world).position
 		mutation_receipt={"path":str(app._debug_button.get_path()),"actual_global_bounds":rect_values(app._debug_button.get_global_rect()),"actual_parent":str(app._debug_button.get_parent().get_path())}
 	elif mutation=="hud_actor":
-		app._hud_frame.position=project_rect(chosen.world).position
-		mutation_receipt={"path":str(app._hud_frame.get_path()),"actual_bounds":rect_values(app._hud_frame.get_global_rect())}
+		app._demo_hud._rows.global_position=project_rect(chosen.world).position
+		mutation_receipt={"path":str(app._demo_hud._rows.get_path()),"actual_bounds":rect_values(app._demo_hud._rows.get_global_rect()),"scope":"actual visible resource card deliberately occludes actor"}
 	elif mutation=="heading_actor":
 		var label:=Label.new();label.text="DELIBERATE ROUTE PARAGRAPH";label.position=chosen.world.position;app.stage.add_child(label)
 		mutation_receipt={"path":str(label.get_path()),"actual_bounds":rect_values(project_rect(Rect2(label.global_position,label.get_combined_minimum_size())))}
@@ -286,7 +306,11 @@ func observe(trace) -> Dictionary:
 	var issues:=issues_for(rows,regions)
 	issues.append_array(landmark_issues())
 	issues.append_array(touch_conflicts(display_regions()))
+	var first_issue: bool=current_issues.is_empty() and not issues.is_empty()
 	if not issues.is_empty():current_issues.append_array(issues)
+	if first_issue and not output.is_empty():
+		var diagnostic:=FileAccess.open(output+".case-"+str(cases.size())+"-first-issue.json",FileAccess.WRITE)
+		if diagnostic!=null:diagnostic.store_string(JSON.stringify({"status":"diagnostic_failure_not_acceptance","tick":trace.trace_ticks,"issues":issues,"ui":regions,"targets":rows.map(func(row:Dictionary):return {"id":row.id,"world":rect_values(row.world),"screen":rect_values(project_rect(row.world)),"mandatory":row.mandatory})}));diagnostic.close()
 	if not frame_dir.is_empty() and trace.trace_ticks in [600,720,840,960,1440,1920,2400,3000] and not capture_pending: capture_screen.call_deferred(trace.trace_ticks)
 	return {"tick":trace.trace_ticks,"edge":trace.current_edge,"position":pair(app.player.global_position),"grounded":app.player.is_on_floor(),"camera_center":pair(app._run_camera.get_screen_center_position()),"zoom":pair(app._run_camera.zoom),"touch_regions":app._region_touch_regions().map(func(r:Rect2):return rect_values(r)),"ui":regions,"targets":rows.map(func(row:Dictionary):return {"id":row.id,"world":rect_values(row.world),"screen":rect_values(project_rect(row.world)),"mandatory":row.mandatory}),"issues":issues}
 func capture_screen(request_tick: int) -> void:
@@ -340,10 +364,11 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		observe(trace)
 		check(current_issues.is_empty(),"deliberate real scene mutation rejected: "+mutation)
 	check(JSON.stringify(app.stage.generated.manifest)==manifest_before,"presentation observation does not mutate actual manifest")
-	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true),"landing_combat":trace.landing_combat.duplicate(true)}).duplicate(true)
+	var frozen_case: Dictionary = ({"scene_case_index":current_case_index,"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true),"landing_combat":trace.landing_combat.duplicate(true)}).duplicate(true)
 	cases.append(frozen_case)
 	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
 	var cleanup: Dictionary = await unwind_scene_execution(trace,execution)
+	cleanup["scene_case_index"] = current_case_index
 	cleanup["sealed_case_sha256"] = sealed_hash
 	cleanup["case_sha256_after_unwind"] = JSON.stringify(frozen_case).sha256_text()
 	check(cleanup.ok and cleanup.sealed_case_sha256==cleanup.case_sha256_after_unwind,"sealed scene payload preserved and actual route execution ended without post-terminal effects")
@@ -482,11 +507,26 @@ func extra_upward_recoil(trace) -> bool:
 	trace.current_edge="elective_extra_upward_recoil"
 	trace.observe_every_tick=true
 	app.overlay.set_enabled(true);app.overlay.update_layout()
-	# Combined real toast/overlay/recoil state. No item/build grant.
+	# Current Air Magazine build fixture: a real reward claim enables the
+	# extra same-flight shot. Other scene cases retain the current base cap.
 	app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
 	var approached: bool = await trace.move_to(well.position.x+265)
 	if trace.is_trace_cancelled(): return false
 	if not approached:return false
+	var before_grant:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"grounded":trace.motor.is_on_floor(),"items":app.build.item_ids()}
+	var offer: RewardOffer=app.rewards.create_offer(&"scene_extra_magazine",[DemoApp.SHOT_ITEM,DemoApp.JUMP_ITEM],&"scene_extra_magazine_fixture")
+	if offer==null:return false
+	var request:=RewardClaimRequest.new()
+	request.token=app.lifetime.token();request.offer_id=offer.offer_id;request.option_id=DemoApp.SHOT_ITEM.stable_id;request.claim_id=&"scene_extra_magazine_claim"
+	var claim: EconomyReceipt=app.rewards.claim(request)
+	check(claim.accepted() and claim.item_id==DemoApp.SHOT_ITEM.stable_id,"actual Air Magazine reward accepted by official build service")
+	var after_claim:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"items":app.build.item_ids()}
+	check(before_grant.max_air_shots==1 and after_claim.max_air_shots==2 and after_claim.shots==before_grant.shots,"real magazine increases capacity without injecting a round")
+	trace.controller.router.set_move_axis(0)
+	await trace.tick()
+	if trace.is_trace_cancelled(): return false
+	var after_rearm:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"grounded":trace.motor.is_on_floor()}
+	check(after_rearm.grounded and after_rearm.shots==2,"actual grounded frame rearms magazine capacity")
 	trace.critical_traversal+=1
 	var latch: ShotLatch=trace.shot_latch_encounter.for_module(well)
 	var first_event: int=trace.events.size()
@@ -516,7 +556,7 @@ func extra_upward_recoil(trace) -> bool:
 	var accepted: Array=[]
 	for event: Dictionary in trace.events.slice(first_event):
 		if event.kind=="shot_accepted":accepted.append(event)
-	var scope:={"second_request_tick":second_tick,"accepted_shots":accepted,"apex_world_y":apex,"well_origin":pair(well.global_position),"settled":settled,"limitation":"Actor always mandatory. Distant old bank recorded throughout elective ascent but may leave finite view; canonical complete well arc remains separately mandatory."}
+	var scope:={"build_scope":"actual current Air Magazine reward fixture; base cap remains one","source_program":"base_one_jump>bell_shot>unreachable_same_flight_down_shot","executed_program":"official_magazine_reward>ground_rearm>jump>bell_shot>same_flight_down_shot>land","item_path":"res://resources/items/shot_purple.tres","item_sha256":FileAccess.get_sha256("res://resources/items/shot_purple.tres"),"reward_offer":str(offer.offer_id),"claim_status":claim.status,"claim_event":str(claim.event_id),"claim_item":str(claim.item_id),"before_grant":before_grant,"after_claim":after_claim,"after_rearm":after_rearm,"second_request_tick":second_tick,"accepted_shots":accepted,"apex_world_y":apex,"well_origin":pair(well.global_position),"settled":settled,"limitation":"Actor always mandatory. Distant old bank recorded throughout elective ascent but may leave finite view; canonical complete well arc remains separately mandatory."}
 	elective_receipts.append(scope)
 	check(accepted.size()==2 and accepted[1].tick>=second_tick,"elective second upward recoil uses two accepted real shots")
 	check(apex<well.position.y-100,"elective actual ascent exceeds canonical well observation band")
@@ -544,33 +584,41 @@ func legacy_compatibility() -> void:
 	check(legacy._debug_button.position==Vector2(434,10),"nonregion debug INFO original position")
 	legacy.free();await process_frame
 
+func positive_case(index: int, map_index: int, strategy: String, custom: String="", seed_value: String="level-design-v2-baseline") -> void:
+	if positive_shard>=0 and (positive_shard>3 or index not in [[0,1],[2,7],[3,6],[4,5]][positive_shard]):return
+	current_case_index=index
+	scene_case_indices.append(index)
+	await run_case(map_index,strategy,custom,seed_value)
+
 func run() -> void:
+	# Deferred startup follows the headless dummy-window initialization.
+	root.size=Vector2i(1280,720)
 	if not mutation.is_empty():await run_case(1,"growth" if mutation=="foreground_ferry" else "fast")
 	else:
-		await legacy_compatibility()
-		await run_case(1,"fast")
-		await run_case(2,"growth")
-		await run_case(2,"return","main_then_high")
-		await run_case(2,"fast","outer_return")
-		await run_case(2,"fast","outer_upper_alternative")
-		await run_case(1,"fast","extra_upward_recoil")
-		await run_case(1,"fast","touch_geometry")
-		var selected := ""
-		var corpus: Array = []
-		for index: int in 10:
-			var candidate := "level-design-v2-baseline" if index==0 else "level-design-v2-baseline/%02d" % index
-			var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(candidate,2),PlayerTuning.load_default(),false,"","advanced")
-			var high: Dictionary=generated.manifest.rewards.filter(func(r:Dictionary):return r.tier=="high")[0]
-			corpus.append({"seed":candidate,"variant":high.variant,"action_signature":high.action_signature,"stream_positions":generated.manifest.stream_positions})
-			if int(high.variant)==0 and selected.is_empty():selected=candidate
-		check(not selected.is_empty(),"canonical corpus retains rolled0 distinct challenge")
-		if not selected.is_empty():await run_case(2,"return","main_then_high",selected)
-		cases.append({"generation_corpus":corpus})
-
+		if positive_shard<0 or positive_shard==0:await legacy_compatibility()
+		await positive_case(0,1,"fast")
+		await positive_case(1,2,"growth")
+		await positive_case(2,2,"return","main_then_high")
+		await positive_case(3,2,"fast","outer_return")
+		await positive_case(4,2,"fast","outer_upper_alternative")
+		await positive_case(5,1,"fast","extra_upward_recoil")
+		await positive_case(6,1,"fast","touch_geometry")
+		if positive_shard<0 or positive_shard==1:
+			var selected := ""
+			var corpus: Array = []
+			for index: int in 10:
+				var candidate := "level-design-v2-baseline" if index==0 else "level-design-v2-baseline/%02d" % index
+				var generated := PlainsRegionGenerator.new().generate(PlainsRegionCampaign.seed_for(candidate,2),PlayerTuning.load_default(),false,"","advanced")
+				var high: Dictionary=generated.manifest.rewards.filter(func(r:Dictionary):return r.tier=="high")[0]
+				corpus.append({"seed":candidate,"variant":high.variant,"action_signature":high.action_signature,"stream_positions":generated.manifest.stream_positions})
+				if int(high.variant)==0 and selected.is_empty():selected=candidate
+			check(not selected.is_empty(),"canonical corpus retains rolled0 distinct challenge")
+			if not selected.is_empty():await positive_case(7,2,"return","main_then_high",selected)
+			cases.append({"generation_corpus":corpus})
 	if output.is_empty() or FileAccess.file_exists(output):printerr("unique output required");quit(2);return
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file:=FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"scope":"normally scheduled formal consumer; privileged frozen route policy, projection proxy not human perception/device/aesthetics","assertions":assertions,"failures":failures,"mutation":mutation,"legacy_ui":legacy_ui,"screenshots":screenshots,"cases":cases,"post_capture_cleanup":cleanup_receipts})+"\n");file.close()
+	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"positive_shard":positive_shard,"scene_case_indices":scene_case_indices,"window_size":pair(Vector2(root.size)),"screen_scale":pair(root.get_screen_transform().get_scale()),"viewport_size":pair(root.get_visible_rect().size),"scope":"normally scheduled formal consumer; privileged frozen route policy, projection proxy not human perception/device/aesthetics","assertions":assertions,"failures":failures,"mutation":mutation,"legacy_ui":legacy_ui,"screenshots":screenshots,"cases":cases,"post_capture_cleanup":cleanup_receipts})+"\n");file.close()
 	print("PLAINS REDESIGN SCENE NATIVE: %d assertions, %d failures" % [assertions,failures])
 	quit(0 if failures==0 else 1)
 

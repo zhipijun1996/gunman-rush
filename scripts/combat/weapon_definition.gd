@@ -26,6 +26,8 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var catch_radius := 24.0
 @export var catch_speed := 900.0
 @export var fuse_seconds := 0.16
+## Magnetic mines count from spawn, including flight and attachment; zero for other modes.
+@export_range(0.0,30.0,0.05) var mine_fuse_seconds := 0.0
 @export var blast_radius := 145.0
 @export var blast_speed := 1050.0
 @export var hold_seconds := 0.42
@@ -55,6 +57,8 @@ enum Mode { PULSE, MACHINE, LASER, SHURIKEN, FAN, BOOMERANG, BOMB, MINE, SINGULA
 @export var chain_range := 120.0
 func is_valid() -> bool:
 	if tier < 1 or tier > 3 or id.is_empty(): return false
+	if not is_finite(mine_fuse_seconds) or mine_fuse_seconds<0 or mine_fuse_seconds>30:return false
+	if mode==Mode.MINE and (mine_fuse_seconds<=0 or mine_fuse_seconds>entity_lifetime):return false
 	var allowed := {&"pulse_gun":Mode.PULSE,&"triple_machine_gun":Mode.MACHINE,&"shadow_shuriken":Mode.SHURIKEN,&"recoil_bomb":Mode.BOMB,&"sustained_laser":Mode.LASER,&"fan_shuriken":Mode.FAN,&"remote_boomerang":Mode.BOOMERANG,&"magnetic_mine":Mode.MINE,&"collapse_singularity":Mode.SINGULARITY,&"machine_storm":Mode.MACHINE,&"laser_cannon":Mode.LASER,&"blade_bloom":Mode.FAN,&"moon_boomerang":Mode.BOOMERANG,&"magnetic_storm":Mode.MINE,&"star_collapse":Mode.SINGULARITY}
 	if not allowed.has(id) or int(allowed[id])!=mode:return false
 	for value: float in [interval,burst_duration,recoil_scale,damage,projectile_speed,range_limit,entity_lifetime,flash_speed,flash_duration,second_flash_delay,second_flash_duration,return_speed,catch_radius,blast_radius,hold_seconds,beam_tick,skill_cost]:

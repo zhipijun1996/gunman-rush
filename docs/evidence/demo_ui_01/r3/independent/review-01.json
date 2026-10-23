@@ -1,0 +1,151 @@
+{
+  "review_id": "DEMO-UI-01-R3-independent-01",
+  "created_utc": "2026-10-23T02:12:18.188072+00:00",
+  "reviewer": "/root/ui_audit",
+  "implementers": [
+    "/root",
+    "/root/menus"
+  ],
+  "independent_for_r3": true,
+  "reviewed_head": "2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62",
+  "content_version": "R3 working tree and ui-first capture; source was not frozen during review",
+  "production_edits": false,
+  "godot_executed_by_reviewer": false,
+  "verdict": "REJECT",
+  "verdict_scope": "ui-first original pixels and availability source before corrections; current corrected working tree UNVERIFIED until recapture/retest",
+  "findings": [
+    {
+      "id": "R3-I01",
+      "severity": "P2",
+      "subject": "D availability flight cap",
+      "observed": "can_air_jump advertised D with maximum>1, old flight_cap=1 and used_jumps=0",
+      "status": "source_corrected_pending_runtime",
+      "source_correction": "flight_cap > 1 && used_jumps < flight_cap"
+    },
+    {
+      "id": "R3-I02",
+      "severity": "P2",
+      "subject": "Grounded H availability",
+      "observed": "HUD !hook_used hid H after grounded miss/retract even though request_hook accepts grounded recast",
+      "status": "source_corrected_pending_runtime",
+      "source_correction": "is_on_floor() || !hook_used"
+    },
+    {
+      "id": "R3-I03",
+      "severity": "P2",
+      "subject": "Growth HP count wraps into 3 lines",
+      "evidence": "build/verification/demo-ui-r3/ui-first/max-growth.png",
+      "observed": "4.25/13.5 appears as 4.25, /13., 5 beside heart rows",
+      "status": "source_corrected_pending_pixels",
+      "source_correction": "Health label autowrap OFF; shrink begin; fresh growth capture needed"
+    }
+  ],
+  "viewed_images": [
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/formal-hud.png",
+      "sha256": "be16c99fd76f53f37c18b37d8a221a821dcaf54606bce89ab9bf2451d0d461eb",
+      "rendered_viewport_pixels": [
+        1280,
+        720
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/touch-hud-844x390.png",
+      "sha256": "0b3389dc924df54c16219d4ef5fe113b13bd553bec5122f9beb634f5e8731600",
+      "rendered_viewport_pixels": [
+        693,
+        390
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/hurt.png",
+      "sha256": "6a9e72c3b39e316b0fe5833ba6184de98d410aacf23c82665a680099acbd03b2",
+      "rendered_viewport_pixels": [
+        1280,
+        720
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/pause-844x390.png",
+      "sha256": "1a34dd86441483a9106c1dc9d2f046260026aa6198aa4c4f903126c288c0e0e6",
+      "rendered_viewport_pixels": [
+        693,
+        390
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/pause-960x540.png",
+      "sha256": "f33de2701085cd8da46825b5f8f7f56f485c75509d00c180b0b25f29628a8507",
+      "rendered_viewport_pixels": [
+        960,
+        540
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/pause-1920x720.png",
+      "sha256": "f7ac875d39907b308b8b573cc37ccf8a9e576ca51a838697212fa08655180f0f",
+      "rendered_viewport_pixels": [
+        1280,
+        720
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/pause-720x1280.png",
+      "sha256": "5e32203745ff990a21aa2f96c14ef6630a3c948ad3002ab1672090c902f19c75",
+      "rendered_viewport_pixels": [
+        720,
+        405
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/max-growth.png",
+      "sha256": "1f8dba5cf04161d38a7cfcbf49ee3133227a39b083d720e4a63287c35410ffe9",
+      "rendered_viewport_pixels": [
+        1280,
+        720
+      ],
+      "actually_viewed": true
+    },
+    {
+      "path": "build/verification/demo-ui-r3/ui-first/run-end.png",
+      "sha256": "f3675496bb02b4fd44c24b167d36e28bd872b4c738331e42567a56316a259fcc",
+      "rendered_viewport_pixels": [
+        1280,
+        720
+      ],
+      "actually_viewed": true
+    }
+  ],
+  "source_sha256": {
+    "scripts/player/jump_ability.gd": "ce74d3feef2abf016a3091ded588551bd2a7b7a974d0c8736111622218f788de",
+    "scripts/player/player_controller.gd": "ed9f5693388c11e7337996491b1f8cbff31e00f2bd080c0b11c9ebe5214e4129",
+    "scripts/combat/shot_energy_policy.gd": "d1abb19e0441cda5dc58ca6dd2d46ad2ca3dee6cab0b666dd69039ea681b9990",
+    "scripts/combat/weapon_action_runtime.gd": "36a3c4e6b0cfcde2926429b7ee93965b4da82a3068725d463ec257f766f18c70",
+    "scripts/builds/build_state.gd": "9c55c73f4f4247f49d6f9c716c0847a235021d4f78ab32f0a3dc5693dfa64f17",
+    "scripts/builds/build_modifier.gd": "69cf535d5e0774b6d1e32220e83c6785cd9a0484e9121169d3d66ee1c94e74ca",
+    "scripts/ui/demo_ui_01/game_hud.gd": "a9541e68d93f6759d62f4c698a4d648302bfce904c876d2362ec0d8274a30cba",
+    "scripts/ui/demo_ui_01/heart_strip.gd": "3cb5f461897fc931e4a9ef225f436482e4206519527b6d5cd41159da568efa2f",
+    "scripts/ui/demo_ui_01/r3_time_energy_ring.gd": "2740109db8658213130030a0eabe49e54741f766defb72c28b61cf7617f3fcce"
+  },
+  "history_archives": {
+    "checked_against": "git show 2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62:original",
+    "matched": 6,
+    "total": 6
+  },
+  "unverified": [
+    "No Godot execution or native input by independent reviewer in this assignment",
+    "Current corrected-source runtime including D old-flightcap and H grounded recast",
+    "Real slow-time ring pixels and continuous lifecycle sequence",
+    "Complete OS window and letterbox/safe-area pixels: supplied PNGs are render viewport captures",
+    "User visual/experience acceptance",
+    "Physical phone/controller validation",
+    "Audio/continuous normal-speed gameplay"
+  ]
+}

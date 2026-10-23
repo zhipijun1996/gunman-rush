@@ -1,5 +1,30 @@
 # 项目工作规则
 
+当前共享画风技术绑定为 [style-v10](docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json)，两区方向creative-v13；仅重绑前景CPU修复的Presentation，其他35引用、像素规格及旧v9/v12原件保留。原自动早刷新取消，前景原晚刷新负责每帧更新；显式refresh仍即时，不能把此优化宣称居民逐帧等价或用户视觉认可。见[实际前后验证](docs/evidence/four_line_integration_20261023/foreground-cpu/README.md)。下文v9/v12为此前HUD修订的历史来源。
+
+## 2026-10-23 当前 Demo 优先与兼容延期（最新）
+
+用户明确：“暂时可以不考虑旧存档旧特性兼容。”本轮只为当前 Demo 的真实运行与交付守门；旧存档迁移、冻结历史版本回放暂不作为合入／发布前提。原断言与检查保留，`legacy-compat` 为显式手动 profile；未执行记延期／未验证，不能记通过。`root-bell-current` 保留当前正式40图、物理及准入拒绝验证；Golden 默认验证当前64图，历史使用 `--with-legacy`。此范围选择覆盖下文同主题旧兼容要求，不豁免当前保存、玩法、资源、导出及实际试玩回归。
+
+共享玩法规则（如弹药/时间能量）即便由UI反馈触发，也按System Engineering交接：先明确当前契约，并验证真实平原/森林消费者，再推广；不能只改局部UI测试，把跨区冲突留到最后。headless交互测试显式使用项目窗口尺寸，不能把64×64默认窗口当目标设备。
+
+定位失败先单独运行相关 runner；修复后再执行所属检查。相同输入的已通过证据按 Harness digest 复用，不因无关文档修改重跑；最终冻结源码再集中执行合入 CI。生产线交付须同时指出共享接口变化及受影响的正式消费者，避免把规则冲突留到集成时才发现。
+
+当前 CI 修复见 [Harness](docs/harness.md#ci前置检查与完整双通道)：选中的有限纯 Python 子守门在输入恢复后、引擎和 Foundry 前执行；完整 Integration 复用原物理双通道与合流验证，局部仍跑原相关检查。完整本地工作区通过不能替代稀疏 CI 输入闭包证明；前置检查、部分通道和完整通过须分别记录。具体新流程的远端结果以 Actions 为准，不把本地门禁演练记作 CI 通过。
+
+收缩必需输入前须贯穿Python入口、Godot runner和实际audit核实范围，并真实运行同一scope；顶层参数不代表底层已停止历史回放。内部启动多个Godot进程的重检查使用独占Harness调度，避免嵌套并发争CPU；保全部场景、原断言和预算。
+
+## 2026-10-23 四线集成与用户提供BGM（最新）
+
+用户已明确授权人物、怪物、细粒度美术和UI四条新线整理合入main，并提供家园、平原／平原Boss、森林／森林Boss五首原MP3接入。旧“BGM待用户提供”是历史状态，本轮授权使用这些原文件，不生成或替换为其他音乐；来源与原字节见assets/audio/bgm/provenance.json。Bible原文和最初选择快照保留，当前音乐交付以本轮记录为准。
+
+共享画风沿用用户选择的native32px/32wu与1wu采样。当前[style-v9 HUD绑定](docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json)保留v7其他35引用，仅绑定本轮实际HUD避敌布局的DemoApp改动；两区方向为creative-v12，原v7及v10方向原件保留。v7保留v6全部20引用，按最新默认人物授权追加实际正式适配与动作资源；v6仅重绑尸体保存消费者，旧v5/v6不回写，独审与组合回归单列。黄金切片已由用户暂停，不合入旧plains-golden工作线。用户最新指定新版人物默认，正式Home／平原／森林接入新motion与武器反馈；家园character服务改名“织时匠”，保持id／位置，在同一游戏会话更换新／经典外观，刷新后默认新外观；开发样板入口保留作对照。正式共享改动按实际回归；不把合并称全部角色或商业品质验收。
+
+
+## 2026-10-22 最新用户选择：统一细粒度
+
+用户原话：“细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。”共享规范现为 [style-v5](docs/creative_direction/bibles/style-continuity-20261022-v5.json)：正式地形原生32px/32wu，世界表现1wu采样/nearest，47邻接和精确边界/物理语义保留；从高分母版整理细源，不能放大旧16px冒充。家园、平原及森林共享消费者同步；材质/生态/光色表达区域差异。新采用暖光、清透空气透视和稀疏前景，以正式合屏评价。旧v4的16px描述属于历史，原文、许可与原Bible字节保持不动。用户确认的是粒度方向，不是新内容最终美术或真机认可。实际范围与剩余问题见 [FINE-SPACE-05](docs/evidence/fine_space_05/README.md)。
+
 ## 2026-10-22 商业 Demo 多 Cloud 生产
 
 本轮生产／交付入口为[cloud_production](docs/cloud_production.md)，新工作线使用[简短模板](docs/templates/cloud_workline.md)。沿用原Harness、质量记录、生产租约和检查点，不另造验收体系。四模式按阶段选择并可切换：Fast Iteration、System Engineering、Long Production、Creative Exploration；不固定一个Codex只能做一个区域，不强制所有任务短周期拆分。

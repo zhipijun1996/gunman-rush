@@ -1,4 +1,6 @@
 extends SceneTree
+## D079 historical policy fixtures; current App/lab below consume formal v2.
+## Exact original and item bytes: tests/fixtures/demo_ui_01_r3/history.json.
 ## Fixture placement only; damage, projectiles, refunds and locomotion are real.
 var assertions:=0
 var failures:=0
@@ -22,7 +24,10 @@ func fixture(automatic: bool=false) -> void:
 	player=preload("res://scenes/player/player.tscn").instantiate();player.position=Vector2(200,100);world.add_child(player)
 	actor=player.get_node("Controller");actor.set_physics_process(automatic)
 	player.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
-	check(actor.enable_shot_energy(),"formal shot policy configures")
+	# Historical D079 explicitly had two air rounds and shot energy costs.
+	player.tuning.max_air_shots = 2
+	actor.action_resources.reset()
+	check(actor.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres")),"explicit D079 historical shot policy configures")
 	life=DemoLifetime.new();policy=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy)
 	policy.register_target(&"player",actor.actor_resources.health,true)
 	target=StaticBody2D.new();target.position=Vector2(200,550);target.collision_layer=4;world.add_child(target)
@@ -119,11 +124,11 @@ func run() -> void:
 	check(actor.actor_resources.stamina.current==80 and actor.received_resource_grants.is_empty(),"old actor epoch cannot refund after segment return")
 	await fixture()
 	var build:=BuildState.new();build.configure(actor)
-	var grip:=preload("res://resources/items/efficient_grip.tres")
+	var grip:=preload("res://tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres")
 	check(build.add_item(&"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"grip actually reduces energy cost from base")
 	check(build.add_item(&"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"same source is idempotent")
 	check(build.remove_source(&"grip") and actor.shot_energy.shot_energy_cost==20,"removing source restores base cost")
-	check(build.add_item(&"echo",preload("res://resources/items/echo_magazine.tres")) and actor.shot_energy.hit_energy_recovery==25,"echo item actually increases committed-hit recovery")
+	check(build.add_item(&"echo",preload("res://tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres")) and actor.shot_energy.hit_energy_recovery==25,"echo item actually increases committed-hit recovery")
 	check(build.add_item(&"hp",preload("res://resources/items/region_health_purple.tres")) and actor.actor_resources.health.capacity==6.5 and actor.actor_resources.health.current==5,"HP item changes capacity without fake healing")
 	check(player.tuning.max_jumps==1 and player.tuning.max_air_shots==2,"new energy items preserve baseline action caps")
 	var menu:=DemoMenu.new();world.add_child(menu)
@@ -166,7 +171,7 @@ func run() -> void:
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("energy-formal-preview"),"default formal consumer starts with new resource")
 	await frames(4)
-	check(app.controller.shot_energy!=null and app.controller.actor_resources.stamina.current<=100,"actual App owns formal energy")
+	check(app.controller.shot_energy!=null and not app.controller.shot_energy.definition.shooting_consumes_energy and app.controller.air_focus_ability.stamina_state==app.controller.actor_resources.stamina and app.controller.motor.tuning.max_air_shots==1,"actual App owns formal v2 shared time energy and one-round baseline")
 	# Explicit shop interaction fixture, not a claim of GUI exploration.
 	app.player.position=(app.stage as PlainsRegionStage).merchant_position
 	var coins_before:=app.wallet.balance
@@ -179,14 +184,14 @@ func run() -> void:
 		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	app.free()
 	var lab:=ModuleLab.new();root.add_child(lab);lab.request_module(&"energy_trial");await frames(8)
-	check(lab.module_id==&"energy_trial" and lab.controller.shot_energy!=null and is_instance_valid(lab.energy_trial),"explicit development practice uses real shot economy")
+	check(lab.module_id==&"energy_trial" and lab.controller.shot_energy!=null and not lab.controller.shot_energy.definition.shooting_consumes_energy and lab.controller.air_focus_ability.stamina_state==lab.controller.actor_resources.stamina and is_instance_valid(lab.energy_trial),"explicit development practice uses current shared time-energy policy")
 	lab.energy_trial.show_choice();check(paused and lab.energy_trial.modal.opened,"real practice reward opens shared item cards")
 	lab.energy_trial._choose(&"efficient_grip")
-	check(not paused and lab.energy_trial.claimed and lab.controller.shot_energy.shot_energy_cost==16,"shared reward service commits actual displayed item effect")
+	check(not paused and lab.energy_trial.claimed and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"shared reward service commits actual displayed item effect")
 	lab.energy_trial._choose(&"efficient_grip")
-	check(lab.controller.shot_energy.shot_energy_cost==16,"duplicate practice claim never reapplies effect")
+	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"duplicate practice claim never reapplies effect")
 	lab.restart_module();await frames(8)
-	check(lab.controller.shot_energy.shot_energy_cost==20 and lab.energy_trial.build.item_ids().is_empty(),"new practice attempt discards local fixture reward")
+	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,45.0) and lab.energy_trial.build.item_ids().is_empty(),"new practice attempt discards local fixture reward")
 	lab.free()
 	# Continuous locomotion: no resetting rounds, energy or position between shots.
 	await fixture(true)

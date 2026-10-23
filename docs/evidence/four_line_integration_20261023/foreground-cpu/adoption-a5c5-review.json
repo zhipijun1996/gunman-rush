@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewed_commit": "a5c5bcd72eef7b387e23d3b292da59dd6221fe82",
+  "source_commit": "a5c5bcd72eef7b387e23d3b292da59dd6221fe82",
+  "parent_commit": "a38040c294aa541ed707bc50c55cf3769ecd7852",
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root",
+    "/root/production_docs"
+  ],
+  "review_scope": "Bounded independent technical adoption review of exactly two foreground CPU runtime changes. Full80 and final CI remain pending.",
+  "actual_files_sha256": {
+    "scripts/underworld_plains/underworld_presentation.gd": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+    "scripts/underworld_plains/underworld_foreground.gd": "01f7b37dacc0f06036bf585df546bfd583532b92206895ba971fe7d434a7fbd0"
+  },
+  "findings": [],
+  "source_review": {
+    "actual_git_delta_exactly_two_frozen_candidate_files": true,
+    "public_refresh_default_true_ready_and_explicit_manual_refresh_retained": true,
+    "automatic_presentation_process_skips_early_foreground_only": true,
+    "foreground_ALWAYS_priority2000_own_late_process_retained": true,
+    "alpha_wind_safe_duration_once_per_frame_pause_and_delta_guards": "unchanged",
+    "resident_identity_size_seed_creation_retirement_rules_and_capacities": "unchanged algorithms",
+    "no_gameplay_physics_manifest_or_budget_changes": true,
+    "per_protection_viewport_and_canvas_snapshot": "Fresh synchronous samples at every _protection entry, private _add/_world_rect actual production calls are within that pass; no cross-pass cache.",
+    "exposed_regions_skip": "Every region remains a subset of initial clipped bounds; disjoint strict masks cannot cut a region. Original intersecting order, four strips, area filtering, 64-fragment fallback and GPU masks retained."
+  },
+  "explicit_behavior_change": {
+    "population_equivalence_claim": false,
+    "description": "Old automatic early refresh(0) did not advance alpha/wind but could set sticky admission/entered_view or retire residents before final priority2000 refresh. Removing it can change admission/retirement history and which residents reserve slots. This is a real visual scheduling change, not proof of frame-identical population.",
+    "bounded_acceptance_basis": "Late actual-frame protection and original continuity/identity/retirement/manual refresh/pause safeguards retained and exercised by unchanged actual GPU suite. Rendering and artistic quality remain unapproved.",
+    "manual_refresh_while_foreground_processing_disabled": "Explicit default-true refresh still forces protection update; normal automatic Presentation ticks no longer do so."
+  },
+  "pure_helper_differential": {
+    "author": "/root/independent_review",
+    "executor": "/root",
+    "status": "passed",
+    "checks": 718,
+    "failures": [],
+    "report": "/workspace/scratch/foreground-helper-independent/result.json",
+    "sha256": "b228ae53575523a2fc2bc7946fb5103196ee930881fe344453c77ddcd21aef04",
+    "script": "/workspace/scratch/foreground-helper-independent/check.gd",
+    "script_sha256": "70016261a7c24e5416e5b0219e7fc9c382df05cd140d5673cdb8526e2c1f2b1f",
+    "extraction": {
+      "base_commit": "a38040c294aa541ed707bc50c55cf3769ecd7852",
+      "helper_sha256": {
+        "new": "ead241b66d717a568552d74810e5d9896f78ef9baf4ddf32e09c18e416a58e78",
+        "old": "f98c136c6bdba622ce8cfbc57499fc366df52af2f4aaef4067407893291e2e1d"
+      },
+      "root": "/workspace/integration-four",
+      "scope": "Actual extracted helper bodies, minimal CanvasLayer context; no gameplay or runtime foreground refresh/admission claim",
+      "source_sha256": {
+        "new": "01f7b37dacc0f06036bf585df546bfd583532b92206895ba971fe7d434a7fbd0",
+        "old": "0720a2a307c497e1b65bdef3f44d72fc62da32b01298cf80bbd4941b215ad9ed"
+      }
+    },
+    "covered": "Actual extracted old/new _add/_world_rect/_exposed_regions and protection-entry snapshots; empty, edge touch, containing, disjoint, deterministic250-mask scenarios, three actual viewport transforms, clipping/classification/counts/merge/overflow, original55-region fragmentation fallback. Minimal CanvasLayer context, no gameplay or performance claim."
+  },
+  "unchanged_original_GPU_suite": {
+    "command_subject": "tools/verify_foreground_continuity.gd",
+    "reports": [
+      {
+        "file": "/workspace/integration-four/build/fg-cpu-before/check.json",
+        "sha256": "bec7bdb343a327f83ccf6c3cb91ee99673e3fe91d6da75e37fca0eea2dbfbc6c",
+        "failures": [],
+        "samples": 506,
+        "identities": 23,
+        "actual_foreground_pixel_samples": 246
+      },
+      {
+        "file": "/workspace/integration-four/build/fg-cpu-after/check.json",
+        "sha256": "bec7bdb343a327f83ccf6c3cb91ee99673e3fe91d6da75e37fca0eea2dbfbc6c",
+        "failures": [],
+        "samples": 506,
+        "identities": 23,
+        "actual_foreground_pixel_samples": 246
+      }
+    ],
+    "scope": "Actual Home formal consumer, camera reversal/identity/complete offscreen retirement, manual refresh clock, real collision local mask, recovery hold and pause; not full forest population equivalence or user aesthetic acceptance."
+  },
+  "representative_local_diagnostic": {
+    "before": {
+      "report": "/workspace/integration-four/build/forest-profile-a380/diagnostic-report.json",
+      "sha256": "88fac32ea823002b0cb7c34716669aa12fc420c3419209f7431358ff52c09999",
+      "wall_seconds": 29.328602258996398
+    },
+    "after": {
+      "report": "/workspace/integration-four/build/forest-profile-candidate/diagnostic-report.json",
+      "sha256": "f1ee6e13bfce70a88d133d3e3b9a5cd4710584175afb167b59fee3ff3d3424fc",
+      "wall_seconds": 18.704511096002534
+    },
+    "comparison": {
+      "report": "/workspace/integration-four/build/forest-profile-candidate/semantic-comparison.json",
+      "sha256": "1dcb948c321215b9a518fea9951a0469301d2533f12dc9a495c4500b6d458ae1",
+      "selected_exact": {
+        "manifest": true,
+        "itinerary": true,
+        "completed_legs": true,
+        "requests": true,
+        "modal_frames": true,
+        "pointer_events": true,
+        "claim_before": true,
+        "claim_after": true,
+        "claimed_ids": true,
+        "visited_areas": true,
+        "gate_saved_open": true,
+        "gate_shape_disabled": true,
+        "initial_snapshot": true,
+        "final_snapshot": true,
+        "audio_released": true
+      },
+      "frames": [
+        3810,
+        3810
+      ],
+      "event_kind_tick_leg_exact": true
+    },
+    "source_identity": "Diagnostic reports identify a380 plus exact candidate two-file working overlay and instrumented runner; they are not a clean-a5 canonical80 run. Exact adopted runtime bytes have been verified separately.",
+    "condition": "One identical case09 under local two-selected-core affinity; not GitHub benchmark or whole80 speed estimate.",
+    "all_visual_residency_frames_equivalent": false
+  },
+  "not_reviewed_or_unverified": [
+    "Canonical complete forest80 after this adoption",
+    "Final GitHub Actions/complete Integration and Release",
+    "Pending metadata/style versioned rebind adoption and its original32/10 checks",
+    "Web/GUI and physical devices",
+    "User aesthetic/game feel/G5 acceptance"
+  ],
+  "approval_boundary": "ACCEPT these two technical changes within the stated evidence and semantic tradeoff. Original80/240/90/600 budgets and existing assertions are untouched. Original a380 CI timeout remains failed; this report does not relabel it or authorize main merge without remaining gates.",
+  "reviewer_actions": "Read-only actual Git/source/evidence review; wrote only scratch helper fixture and this report. Parent executed helpers/native checks; reviewer did not start Godot or edit root."
+}

@@ -31,9 +31,11 @@ func _run() -> void:
 	await frames(4)
 	check(not home.player.is_on_floor() and home.player.velocity.y<0,"Home actual jump uses common controller")
 	var shots:int=home.controller.shoot_ability._shot_serial
+	var charges:int=home.controller.action_resources.shot_charges
+	energy=home.controller.actor_resources.stamina.current
 	home.controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await frames(2)
-	check(home.controller.shoot_ability._shot_serial==shots+1 and home.controller.actor_resources.stamina.current<energy,"Home actual airborne shot spends the same shot energy")
+	check(home.controller.shoot_ability._shot_serial==shots+1 and charges>0 and home.controller.action_resources.shot_charges==charges-1 and is_equal_approx(home.controller.actor_resources.stamina.current,energy),"Home actual airborne shot consumes one air charge without spending time energy")
 	await frames(90)
 	check(home.player.is_on_floor(),"Home same airborne recoil returns to safe real floor")
 	var upgrade_foot:=home.slot_world_foot(&"upgrade")
@@ -84,8 +86,36 @@ func _run() -> void:
 	(buttons[0] as Button).pressed.emit()
 	(buttons[0] as Button).pressed.emit()
 	check(purchases[0] == 1, "Same confirmation cannot submit permanent purchase twice")
-	menu.show_home_panel(&"character")
-	check(menu._content.find_children("*", "Button", true, false).size() == 1, "No fake character purchase/select action")
+	# The real Timeweaver offers free production appearances through the App callback.
+	var avatars := app.get_meta("avatar_presentation") as AvatarPresentation
+	var notes_before := int(app.meta.snapshot().notes)
+	var original_body := PlayerPresentationRuntime.current_body(home.player)
+	var original_body_id := original_body.get_instance_id()
+	var selections: Array[String] = []
+	menu.requested_avatar.connect(func(id: String) -> void: selections.append(id))
+	home.requested_interaction.emit(&"character")
+	var picker := menu._content.find_child("TimeweaverAppearance",true,false) as OptionButton
+	var options := avatars.selection_options()
+	check(picker!=null and picker.item_count==2 and options.size()==2 and str(options[0].id)=="courier" and str(options[1].id)=="courier_classic", "Timeweaver exposes exactly the two real production appearances")
+	check(menu.visible_panel==&"home_function" and home.input_blocked and original_body is PlayerMotionCandidateVisual and app.avatar_selection_id=="courier", "Actual Home service opens with the current new body selected")
+	if picker!=null:
+		check(picker.selected==0 and picker.get_item_text(0)==str(options[0].display_name) and picker.get_item_text(1)==str(options[1].display_name) and not picker.is_item_disabled(0) and not picker.is_item_disabled(1), "Real appearance control labels and enabled options match the actual catalog")
+		picker.select(1)
+		picker.item_selected.emit(1)
+	await frames(2)
+	var selected_body := PlayerPresentationRuntime.current_body(home.player)
+	check(selections==["courier_classic"] and app.avatar_selection_id=="courier_classic" and avatars.selected_id=="courier_classic", "One real picker callback accepts exactly one appearance selection")
+	check(selected_body!=null and selected_body.visible and selected_body is UnderworldPlayer and not selected_body is PlayerMotionCandidateVisual and selected_body.get_instance_id()!=original_body_id, "Accepted classic selection replaces the actual visible Home body")
+	check(int(app.meta.snapshot().notes)==notes_before and purchases[0]==1, "Appearance selection spends no notes and submits no fake purchase")
+	buttons = menu._content.find_children("*", "Button", true, false).filter(func(node: Node) -> bool: return not node is OptionButton)
+	check(buttons.size()==1 and (buttons[0] as Button).text=="BACK TO HOME", "Appearance panel retains only Back besides the real selector; no fake purchase button")
+	if buttons.size()==1: (buttons[0] as Button).pressed.emit()
+	check(menu.visible_panel.is_empty() and not home.input_blocked and home.controller.active, "Timeweaver Back restores real Home input")
+	home.requested_interaction.emit(&"character")
+	var cancel := InputEventAction.new()
+	cancel.action=&"ui_cancel"; cancel.pressed=true
+	menu._unhandled_input(cancel)
+	check(menu.visible_panel.is_empty() and not home.input_blocked and home.controller.active and app.avatar_selection_id=="courier_classic" and selections.size()==1 and int(app.meta.snapshot().notes)==notes_before, "Timeweaver cancel restores Home without selecting again or spending notes")
 	menu.show_home_panel(&"achievements")
 	check(menu._content.find_children("*", "Button", true, false).size() == 1, "No fake achievement reward claim")
 	menu.show_pause("fixture build")
