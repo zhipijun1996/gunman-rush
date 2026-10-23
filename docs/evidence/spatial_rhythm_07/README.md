@@ -33,6 +33,6 @@
 
 ## 交付
 
-[视频与对照图页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/)。真实MP4为24.283333秒/1280×720/60fps，17236480字节，独立不可变媒体提交 `5f2d1e4c018c57e8e58bba49fbbe93d0c058ba13`，与公开完整字节匹配且Chromium已实际播放超过1秒。宿主80bf5e7，精确重建939101176字节，小于900MiB；页面部署与公开浏览器收据待最后补录。
+[视频与对照图页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/)。真实MP4为24.283333秒/1280×720/60fps，17236480字节，独立不可变媒体提交 `5f2d1e4c018c57e8e58bba49fbbe93d0c058ba13`，与公开完整字节匹配且Chromium已实际播放超过1秒。宿主80bf5e7，精确重建939101176字节，小于900MiB；Pages39882280474实际success；公开index/build-info与三张PNG完整字节匹配本地，Chromium实际在评审页播放视频至1.22秒，全部图片加载、errors=[]。见[公开字节](public-review.json)和[浏览器收据](public-browser.json)。不签完整影片/音轨、可玩Web或设备体验。
 
 为保留现有站点，视频放在独立媒体分支，Pages只增加约4.5MB图文与轨迹；没有删除历史或放宽容量预算。Release上传尝试401被拒，未作为已发布资产；原始rawURL首次在push前查询404被短时缓存，稳定内容版本query重新实际验证成功。页面更新前先fetch/rebase保留并行UI/武器入口。

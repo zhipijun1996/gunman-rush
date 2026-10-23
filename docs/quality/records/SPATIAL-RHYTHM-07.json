@@ -135,7 +135,7 @@
     {
       "id": "spec",
       "path": "docs/evidence/spatial_rhythm_07/README.md",
-      "sha256": "a5bc4d6f52381d64b9dc71f4cc234b392eccccc24ef4d17815aad4b443718a88",
+      "sha256": "cca60f53461bc7228bc8f3db0efe1e9b47c90c7df3ee3ceeece684859e0f75c7",
       "kind": "spec",
       "producer": "root",
       "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
@@ -218,6 +218,28 @@
       "content_version": "spatial-rhythm-07",
       "method": "Chromium actually plays immutable remote MP4 over1s",
       "observed": "Chromium actually plays immutable remote MP4 over1s"
+    },
+    {
+      "id": "public_review",
+      "path": "docs/evidence/spatial_rhythm_07/public-review.json",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "Complete public byte match or actual Chromium review-page playback, scoped observational only",
+      "observed": "Passed scoped public evidence; no interactive/game/device acceptance",
+      "sha256": "d2ccc75a60cbbad51d8386e26333b5142278ca1ead0c623254b8af2f6fb81b76"
+    },
+    {
+      "id": "public_browser",
+      "path": "docs/evidence/spatial_rhythm_07/public-browser.json",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "Complete public byte match or actual Chromium review-page playback, scoped observational only",
+      "observed": "Passed scoped public evidence; no interactive/game/device acceptance",
+      "sha256": "935123663f28d480fd8db29cad87bf41f6a02f133fb6eadddd9bf07e8cc16dbd"
     }
   ],
   "consumer_coverage": null,
@@ -244,6 +266,8 @@
     "main_merge": "not_performed",
     "scope": "observational media, no updated playable Web",
     "host_commit": "80bf5e7a72bf4a8cdf7eb41c23bb119dfc3ecfcd",
-    "media_status": "Complete immutable bytes matched; Chromium actual playback >1s"
+    "media_status": "Complete immutable bytes matched; Chromium actual playback >1s",
+    "pages_run": 39882280474,
+    "publication": "Pages success; complete selected public files match; actual Chromium playback and all images loaded"
   }
 }
