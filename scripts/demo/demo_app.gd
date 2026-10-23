@@ -78,6 +78,7 @@ var _actions: HBoxContainer
 var _pause_button: Button
 var _boss_status: Label
 var _windkeeper_hud: WindkeeperHud
+var _music: GameMusic
 var _shown_actions := ""
 var exit_modal: EXIT_MODAL
 var _offered_exit: StringName = &""
@@ -105,7 +106,12 @@ func _ready() -> void:
 	if plains_places_candidate_requested: plains_environment_candidate_requested = true
 	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	add_child(GameAudio.new())
+	var sound_effects := GameAudio.new()
+	add_child(sound_effects)
+	_music = GameMusic.new()
+	_music.volume_source = sound_effects
+	add_child(_music)
+	_music.request_track(&"home")
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
 	var backdrop := UnderworldParallax.new()
@@ -1336,7 +1342,21 @@ func _close_home_panel() -> void:
 		get_tree().paused = false
 		home_scene.set_input_blocked(false)
 
+func _sync_music() -> void:
+	if not is_instance_valid(_music): return
+	var track: StringName = &"home"
+	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(controller) and not controller.actor_resources.health.terminal:
+		var forest := active_region_id == &"thorn_forest"
+		track = &"forest" if forest else &"plains"
+		if not _stage_pending and is_instance_valid(stage) and is_instance_valid(stage.boss):
+			var encounter := stage.boss.get_node_or_null("Encounter") as BossEncounter
+			if encounter != null and encounter.active and not encounter.health.terminal:
+				track = &"forest_boss" if forest else &"plains_boss"
+	_music.request_track(track)
+	_music.set_menu_paused(get_tree().paused)
+
 func _process(_delta: float) -> void:
+	_sync_music()
 	# UI-only visibility: the appearance selector belongs to playable consumers,
 	# and must not float above full-screen menus or the title illustration.
 	var avatar := get_meta("avatar_presentation", null) as Node
