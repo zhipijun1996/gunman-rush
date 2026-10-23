@@ -1,5 +1,10 @@
 # 开发任务
 
+## 2026-10-23 SPATIAL-RHYTHM-07 沿途疏密与留白
+
+用户否定06中景均匀满铺，要求有的地方多、有的地方空旷，前进不断变化。运行源f554e6b、art/formal-fine-depth：低草坡连续底景与独立世界锚定风车/钟塔组分离，缩小地标并留无建筑窗口；Home焦点归还人物/功能屋，06前景完整保护不变。正式30张（29个Underworld窗口：25组景/4无建筑；Forest独立背景不冒充空段），旧景层450/0。真实24.283秒电影：4s家园输入+20s图一8400wu连续镜头诊断，不代表正常行走/通关。独立看11图确认局部改善，草坡密度、侧肩雾化与正常节奏/设备/用户仍review。完整CI未跑，不合main。[证据/恢复](evidence/spatial_rhythm_07/README.md)；公开媒体字节和浏览器已验证，评审页发布以收据为准。
+
+
 ## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
 
 用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。

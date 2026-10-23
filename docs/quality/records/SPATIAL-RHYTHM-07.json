@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "task_id": "SPATIAL-RHYTHM-07",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "17080176146c28510559a814c9c3c9f7a7470855",
+  "reviewed_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+  "content_version": "spatial-rhythm-07",
+  "owner": "root",
+  "purpose": "用户否定中景满铺喧宾夺主，改为沿前进方向聚落与开阔草坡交替",
+  "player_experience": "走过风车聚落、持续空旷谷地、再见稀疏钟塔；主角/地形始终是首要信息",
+  "constraints": [
+    "Fine32px/32wu shared style-v5 unchanged",
+    "No physics, gameplay RNG, route, resource or save edits",
+    "Preserve full foreground bounds+wind functional/UI keepout",
+    "Rapid iteration: no full CI per user"
+  ],
+  "affected_paths": [
+    "scripts/underworld_plains/underworld_parallax.gd",
+    "scripts/underworld_plains/underworld_landmark_sequence.gd",
+    "scripts/underworld_plains/underworld_parallax_edge.gdshader",
+    "assets/underworld_plains/scenery_build.json",
+    "assets/underworld_plains/backgrounds/spatial_rhythm_07",
+    "tools/capture_spatial_rhythm.gd",
+    "tools/capture_spatial_rhythm_movie.gd"
+  ],
+  "deliverables": [
+    "Actual Home/Plains before-after positioned PNGs",
+    "Real Godot motion clip and public observational review page"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "Continuous low quiet ridge plus world-anchored local windmill/tower groups, unoccupied intervals, no zone opacity switching",
+      "basis": "用户要求层次分明、有的地方多有的地方空旷、前进过程中不断变化"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "450 existing checks and30 formal captures without engine/script/shader failures; scoped only",
+      "evidence": [
+        "scenery",
+        "capture"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Local static/source review complete, whole dynamic/user visual acceptance outstanding",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting new scoped actual evidence; no inherited acceptance",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/evidence/spatial_rhythm_07/README.md",
+      "sha256": "a5bc4d6f52381d64b9dc71f4cc234b392eccccc24ef4d17815aad4b443718a88",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "User feedback and scoped spatial design",
+      "observed": "User feedback and scoped spatial design"
+    },
+    {
+      "id": "capture",
+      "path": "docs/evidence/spatial_rhythm_07/capture.json",
+      "sha256": "a3667bfec3d0e8f84a0e3ba19eac8613859c15674f237f3a5f757e272e24f8bc",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "Actual 30 formal positioned captures; 29 Underworld backdrop windows, Forest not counted as open",
+      "observed": "Actual 30 formal positioned captures; 29 Underworld backdrop windows, Forest not counted as open"
+    },
+    {
+      "id": "scenery",
+      "path": "docs/evidence/spatial_rhythm_07/scenery-check.log",
+      "sha256": "144630835718448797de275f6304b4ed65942a130fc01eafc2bf47c897f16015",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "450 checks zero failures",
+      "observed": "450 checks zero failures",
+      "command": "bash tools/godot.sh --headless --path . --script tests/underworld_plains/test_underworld_scenery.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/spatial_rhythm_07/independent_review.md",
+      "sha256": "34f87624935a7372b7ad16cf58b00c1422a3781bcf20a21ebeba75075785bd09",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "11 actual final images and crop/anchor/source code review; local improvement with remaining visual/dynamic limitations",
+      "observed": "11 actual final images and crop/anchor/source code review; local improvement with remaining visual/dynamic limitations",
+      "reviewer": "density_art_review",
+      "implementers": [
+        "root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate agent read images and implementation; wrote only report",
+      "verdict": "UNVERIFIED"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/spatial_rhythm_07/movie_trace.json",
+      "sha256": "912ed45c868afd8389bc3b6c7745ce17cef9e1659338cc54ed0a6c0e7e18ffda",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "4s Home Router input then20s continuous camera diagnostic; not traversal",
+      "observed": "4s Home Router input then20s continuous camera diagnostic; not traversal"
+    },
+    {
+      "id": "public_movie",
+      "path": "docs/evidence/spatial_rhythm_07/public-video.json",
+      "sha256": "3dceaddc1a33f69b0b39cd15c684d24593976c51de501cc9b0cf2e1f9b8b015f",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "Complete immutable public MP4 bytes match local",
+      "observed": "Complete immutable public MP4 bytes match local"
+    },
+    {
+      "id": "browser_movie",
+      "path": "docs/evidence/spatial_rhythm_07/public-media-browser.json",
+      "sha256": "7ee4355a7d4fed6efc5653e192f2809c979203e17ec487d9cd09119f09e5464e",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+      "content_version": "spatial-rhythm-07",
+      "method": "Chromium actually plays immutable remote MP4 over1s",
+      "observed": "Chromium actually plays immutable remote MP4 over1s"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Normal player traversal pacing and full return trip",
+    "Meadow texture density and source shoulder haze",
+    "Whole video/audio review and mobile device performance",
+    "Full CI/Harness deliberately not run per user",
+    "Player composition acceptance"
+  ],
+  "branch": "art/formal-fine-depth",
+  "user_override": "用户继续局部视觉实验，原快速迭代/不跑各种CI指令保持；仅受影响实机、景层/遮挡与来源验证",
+  "skills": [
+    "art-director",
+    "scene-composer",
+    "visual-director",
+    "animation-vfx"
+  ],
+  "delivery": {
+    "review_url": "https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/",
+    "video_url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush-previews/5f2d1e4c018c57e8e58bba49fbbe93d0c058ba13/review-media/SPATIAL-RHYTHM-07/f554e6b/spatial_rhythm_07.mp4?v=f554e6b",
+    "media_commit": "5f2d1e4c018c57e8e58bba49fbbe93d0c058ba13",
+    "game_ci": "not_run_per_user",
+    "main_merge": "not_performed",
+    "scope": "observational media, no updated playable Web",
+    "host_commit": "80bf5e7a72bf4a8cdf7eb41c23bb119dfc3ecfcd",
+    "media_status": "Complete immutable bytes matched; Chromium actual playback >1s"
+  }
+}
