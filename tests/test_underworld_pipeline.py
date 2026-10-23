@@ -11,8 +11,10 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from underworld_pipeline import ROOT, DEFAULT_MANIFEST, audit, canonical_mask
+import underworld_pipeline as pipeline
 
 
 class UnderworldPipelineTest(unittest.TestCase):
@@ -482,6 +484,141 @@ class UnderworldPipelineTest(unittest.TestCase):
         result = audit(text_overrides={path: duplicated})
         self.assertFalse(result['passed'])
         self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
+
+
+    def test_background_external_prompt_binding_is_actual(self):
+        files=self.baseline['measurements']['files']
+        self.assertEqual(files['assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt']['sha256'],'3517682f0d026f5523288122114ec9cab6ee80a547212b07d930d0effee7f250')
+        self.assertEqual(files['assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt']['sha256'],'34187153448f598aa8289e0553317b2175a4504dae48590fedbcff6a82a9edc7')
+
+    def test_background_sky_cannot_use_sibling_prompt(self):
+        self.reject_json('assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json',lambda v:v.update(prompt_files=['ridge_prompt.txt']),'background.0.generation_record.prompt_output_binding')
+
+    def test_background_inline_text_cannot_bypass_external_binding(self):
+        self.reject_json('assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json',lambda v:v.update(prompt='invented prompt',prompt_files=['ridge_prompt.txt']),'background.0.generation_record.prompt_output_binding')
+
+    def test_background_exact_consumed_output_required(self):
+        self.reject_json('assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json',lambda v:v['outputs'].pop('morning_sky'),'background.0.generation_record.prompt_output_binding')
+
+    def test_background_wrong_output_image_rejected(self):
+        self.reject_json('assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json',lambda v:v['outputs']['morning_sky'].update(image='assets/underworld_plains/backgrounds/parallax_fine_space_05/ridge_landmarks.png'),'background.0.generation_record.prompt_output_binding')
+
+    def test_background_external_output_sha_required(self):
+        self.reject_json('assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json',lambda v:v['outputs']['morning_sky'].update(sha256='0'*64),'background.0.generation_record.prompt_output.sha256')
+        self.reject_json('assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json',lambda v:v.update(source_sha256='0'*64),'background.1.generation_record.prompt_output.sha256')
+
+    def test_background_wrong_single_prompt_pointer_rejected(self):
+        self.reject_json('assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json',lambda v:v.update(prompt_file='missing.txt'),'background.1.generation_record.prompt_output_binding')
+
+    def test_background_empty_or_unknown_external_prompt_rejected(self):
+        for index,path in enumerate(['assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt','assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt']):
+            for value in ['', 'unknown']:
+                with self.subTest(index=index,value=value):
+                    self.reject_text(path,(ROOT/path).read_text(),value,f'background.{index}.generation_record.prompt')
+
+    def test_selected_loaders_require_actual_paths(self):
+        self.reject_text('scripts/underworld_plains/underworld_hazard_tiles.gd','res://assets/underworld_plains/hazards/hazard_fine_build.json','res://assets/underworld_plains/hazards/hazard_build.json','hazards.read_by_runtime')
+        self.reject_text('scripts/underworld_plains/underworld_terrain.gd','res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json','res://assets/underworld_plains/mechanisms/mechanisms_build.json','mechanisms.read_by_runtime')
+
+    def test_selected_loaders_cannot_be_a_comment_or_other_function(self):
+        for path,expression,key in [
+            ('scripts/underworld_plains/underworld_hazard_tiles.gd','JSON.parse_string(FileAccess.get_file_as_string(SPEC_PATH))','hazards'),
+            ('scripts/underworld_plains/underworld_terrain.gd','JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_fine_build.json"))','mechanisms')]:
+            with self.subTest(key=key):
+                source=(ROOT/path).read_text()
+                self.assertIn(expression,source)
+                moved=source.replace(expression,'{}')+'\nstatic func unused_loader():\n\treturn '+expression+'\n'
+                for wrong in [moved,source.replace(expression,'{} # '+expression)]:
+                    result=audit(text_overrides={path:wrong})
+                    self.assertIn(key+'.read_by_runtime',{c['code'] for c in result['checks'] if not c['passed']})
+
+    def test_selected_builds_must_retain_exact_legacy_lineage(self):
+        for key,path in [('hazards','assets/underworld_plains/hazards/hazard_fine_build.json'),('mechanisms','assets/underworld_plains/mechanisms/mechanisms_fine_build.json')]:
+            with self.subTest(key=key):
+                self.reject_json(path,lambda v:v.update(legacy_build='assets/underworld_plains/home/home_build.json'),key+'.read_by_runtime')
+
+    def test_selected_hazard_danger_and_world_units_preserved(self):
+        path='assets/underworld_plains/hazards/hazard_fine_build.json'
+        self.reject_json(path,lambda v:v['semantics'].update(collision_mutation=True),'hazards.selected.preserve_collision')
+        self.reject_json(path,lambda v:v['semantics'].update(damage_source='invented'),'hazards.selected.damage_source')
+        self.reject_json(path,lambda v:v['world'].update(embedded_root_depth=80),'hazards.selected.inherited.world')
+
+    def test_selected_hazard_actual_atlas_hash_required(self):
+        self.reject_json('assets/underworld_plains/hazards/hazard_fine_build.json',lambda v:v['atlas'].update(sha256='0'*64),'hazards.selected.atlas.sha256')
+
+    def test_selected_mechanism_pixels_and_physics_required(self):
+        path='assets/underworld_plains/mechanisms/mechanisms_fine_build.json'
+        self.reject_json(path,lambda v:v['carrier'].update(sha256='0'*64),'mechanisms.selected.carrier.image.sha256')
+        self.reject_json(path,lambda v:v.update(physics_mutation=True),'mechanisms.selected.physics_unchanged')
+        self.reject_json(path,lambda v:v['carrier'].update(left_px=1),'mechanisms.selected.inherited.left_px')
+
+    def test_selected_mechanism_actual_builder_nearest_required(self):
+        self.reject_text('tools/build_formal_fine.gd','image.resize(192,22,Image.INTERPOLATE_NEAREST)','image.resize(192,22,Image.INTERPOLATE_BILINEAR)','mechanisms.selected.builder_nearest')
+
+    def test_home_actual_grounding_call_required(self):
+        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','sprite.position=CONTACT.origin(root,Vector2(foot[0],foot[1]),factor,contact_depth)','sprite.position=CONTACT.origin(Vector2.ZERO,Vector2(foot[0],foot[1]),factor,contact_depth)','home.actual_asset_slots')
+
+    def test_home_shared_grounding_must_retain_source_foot(self):
+        self.reject_text('scripts/underworld_plains/grounded_contact.gd','foot+Vector2(0,inset)-source_foot*scale_value','foot+Vector2(0,inset)+source_foot*scale_value','home.actual_asset_slots')
+
+    def test_home_real_slot_loop_cannot_be_disconnected(self):
+        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','\t\t_build_slot(entry)','\t\tpass','home.actual_asset_slots')
+
+    def test_ui_modal_root_requires_actual_shell_install(self):
+        for path,name in [('item_shop_modal.gd','ItemShopModal'),('stage_reward_modal.gd','StageRewardModal'),('stage_exit_modal.gd','StageExitModal')]:
+            with self.subTest(name=name):
+                self.reject_text('scripts/ui/'+path,'_shell = DemoUiModalShell.new()','_shell = Control.new()','ui.root.'+name+'.actual_theme')
+
+    def test_ui_shell_requires_real_ready_theme_injection(self):
+        path='scripts/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
+        result=audit(text_overrides={path:source.replace('theme = DemoClockworkTheme.create_theme()','theme = null')})
+        failures={c['code'] for c in result['checks'] if not c['passed']}
+        self.assertTrue({'ui.root.'+name+'.actual_theme' for name in ['ItemShopModal','StageRewardModal','StageExitModal']}<=failures)
+
+    def test_ui_map_requires_actual_control_theme_assignment(self):
+        self.reject_text('scripts/ui/plains_region_map_modal.gd','_root.theme = DemoClockworkTheme.create_theme()','_root.theme = null','ui.root.PlainsRegionMapModal.actual_theme')
+
+    def test_ui_theme_factory_cannot_only_be_a_name(self):
+        self.reject_text('scripts/ui/demo_ui_01/clockwork_theme.gd','result.default_font = FONT','result.default_font = null','ui.root.PlainsRegionMapModal.actual_theme')
+
+    def test_selected_fine_hazard_root_and_tip_dimensions_required(self):
+        for values in [{'embedded_root_px':0},{'external_depth_px':0},{'embedded_root_px':9}]:
+            with self.subTest(values=values):
+                self.reject_json('assets/underworld_plains/hazards/hazard_fine_build.json',lambda v,change=values:v['atlas'].update(change),'hazards.selected.root_and_tip')
+
+    def test_selected_fine_hazard_empty_root_or_tip_alpha_rejected(self):
+        original_image = pipeline.Audit.image
+        for band in [(0,0,128,24),(0,24,128,32)]:
+            with self.subTest(band=band):
+                def corrupted_image(a, spec, code):
+                    image = original_image(a, spec, code)
+                    if isinstance(spec,dict) and spec.get('path')=='assets/underworld_plains/hazards/hazard_surface_fine.png':
+                        # Explicit corrupt-decoder fixture after the real source
+                        # was read: only this selected atlas' alpha band changes.
+                        image=image.copy()
+                        image.paste((0,0,0,0),band)
+                    return image
+                with patch.object(pipeline.Audit,'image',corrupted_image):
+                    result=audit()
+                self.assertFalse(result['passed'])
+                self.assertIn('hazards.selected.material_continuity',{c['code'] for c in result['checks'] if not c['passed']})
+
+    def test_home_build_slot_must_pass_actual_asset_and_root_parameters(self):
+        path='scripts/underworld_plains/underworld_home_world.gd'
+        for old,new in [('building.region,building.foot,root,float(entry.building_height)','building.region,building.foot,Vector2.ZERO,float(entry.building_height)'),('str(building.image),building.region','"wrong.png",building.region'),('building.region,building.foot','building.region,[0,0]'),('root,float(entry.building_height)','root,1.0'),('var root:=Vector2(x,float(entry.get("y",floor_y)))','var root:=Vector2.ZERO')]:
+            with self.subTest(old=old):
+                self.reject_text(path,old,new,'home.actual_asset_slots')
+
+    def test_home_build_slot_cannot_disconnect_actual_place_call(self):
+        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','_place(str(entry.id)+"_building"','_unrelated_place(str(entry.id)+"_building"','home.actual_asset_slots')
+
+    def test_ui_modal_shell_must_be_an_actual_control(self):
+        path='scripts/ui/demo_ui_01/modal_shell.gd';source=(ROOT/path).read_text()
+        self.assertIn('extends Control',source)
+        result=audit(text_overrides={path:source.replace('extends Control','extends CanvasLayer')})
+        self.assertFalse(result['passed'])
+        failures={c['code'] for c in result['checks'] if not c['passed']}
+        self.assertTrue({'ui.root.'+name+'.actual_theme' for name in ['ItemShopModal','StageRewardModal','StageExitModal']}<=failures)
 
 
 if __name__ == '__main__':
