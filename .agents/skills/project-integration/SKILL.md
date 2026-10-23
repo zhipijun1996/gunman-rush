@@ -66,3 +66,9 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 选定输入入口见[Harness](../../../docs/harness.md#稀疏检出与选定输入预检)：`tools/cloud_inputs.py --check ID`／`--profile NAME`默认只计划，`--materialize`显式物化，结果以实际收据为准。执行选定check／profile前先预检所需输入、精确版本、SHA和预计物化量；缺件明确阻塞，显式物化后再验证，不把预检当测试通过。复用原 `required_input_preflight` 语义，不由检查名称猜测动态依赖。sparse工作区当前先用 `--jobs 1`；只有本轮隔离修复及相关消费者真实复验通过后，才在已验证scope启用 `--jobs > 1`，不能沿旧建议先全checkout放大历史下载。
 
 归档先在新目录恢复并核原路径／字节SHA，再跑原消费者与精确commit守门；闭包未证明则保留原件。禁止以远程URL直接替换旧quality依赖，不rewrite历史、不强推；本轮源码历史证据及资源实际删除0项。
+
+## 当前 Demo 的集成成本边界（2026-10-23）
+
+用户已明确暂不考虑旧存档/旧特性兼容：历史回放按显式 `legacy-compat` 手动执行，延期不记通过；默认检查保护当前真实消费者。不要在内容合并时顺带恢复已不要求的历史行为。共享机制发生变更，生产线先交代当前接口和消费者，避免沿过期fixture修改正式玩法。
+
+wrapper失败先用其原runner单独定位/复验，保原断言、预算与严格退出检查；通过后再执行所属wrapper。完整集成在源码冻结后集中执行，过程中不修改源集。Development用已有`--reuse`仅复用digest完全一致、确有归档的证明；最终CI fresh。检查已通过而依赖未变，不因无关任务再手动从头执行。退出泄漏、实际当前保存、资源/UID/接口与导出问题仍需修复。

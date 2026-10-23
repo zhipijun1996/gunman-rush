@@ -3,6 +3,7 @@
 Each run has a new directory; failures and original traces are never overwritten.
 This is a development fixture, not formal region/visual/device admission.
 """
+import argparse
 import hashlib
 import itertools
 import json
@@ -292,13 +293,19 @@ def validate_current_rejections(data):
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--with-legacy',action='store_true',help='Also execute historical D079 64-case matrix and its original refusals')
+    args=parser.parse_args()
     base = REPO/'build/plains_redesign/golden'
     base.mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix='run_',dir=base))
     before = sources()
     report = {'status':'failed','source_before':before,'source_after':None,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),'runs':[],'scope':'G0/G1 development fixture; production_pool=false; enemy/visual/device/player proof unverified'}
+    report['with_legacy']=args.with_legacy
+    report['not_run']=[] if args.with_legacy else ['historical_d079_64_case_matrix','historical_d079_deleted_bank_negative','historical_d079_11_validator_refusals']
+    report['scope']='Current R3 one-shot/free-shot 64-case development fixture'+(' plus explicit historical D079 regression' if args.with_legacy else '; legacy not executed')+'; production_pool=false; formal region/enemy/visual/device proof unverified'
     try:
-        for historical, negative in itertools.product((True,False),(False,True)):
+        for historical, negative in itertools.product((True,False) if args.with_legacy else (False,),(False,True)):
             name=('historical_d079_' if historical else 'current_r3_')+('deleted_bank_negative' if negative else 'positive')
             output=folder/(name+'.json'); log=folder/(name+'.log')
             command=['bash',str(REPO/'tools/godot.sh'),'--headless','--fixed-fps','60','--path',str(REPO),'--script','tests/plains_redesign_golden_runner.gd','--','--output='+str(output)]

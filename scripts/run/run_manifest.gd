@@ -3,48 +3,6 @@ extends RefCounted
 
 const SCHEMA_VERSION := 1
 const FOREST_GENERATOR := preload("res://scripts/generation/thorn_forest_region_generator.gd")
-# Exact unmodified .15/two-shot baseline recorded by dbc6ba08; metadata only.
-const LEGACY_TWO_SHOT_TUNING := {
-	"air_acceleration": 19800.0,
-	"air_focus_enabled": true,
-	"coyote_time": 0.1,
-	"drop_through_duration": 0.2,
-	"drop_through_speed": 80.0,
-	"focus_max_air_duration": 2.0,
-	"focus_rearm_stamina": 15.0,
-	"focus_stamina_capacity": 100.0,
-	"focus_stamina_drain": 45.0,
-	"focus_stamina_recovery": 30.0,
-	"focus_time_scale": 0.15,
-	"gravity": 2600.0,
-	"ground_acceleration": 19800.0,
-	"ground_deceleration": 19800.0,
-	"ground_recoil_multiplier": 0.55,
-	"ground_speed": 260.0,
-	"jump_buffer": 0.1,
-	"jump_hold_duration": 0.13,
-	"jump_min_hold_duration": 0.1,
-	"jump_release_speed": 0.0,
-	"jump_speeds": [
-		-666.0,
-		-599.4
-	],
-	"max_air_shots": 2,
-	"max_jumps": 1,
-	"max_normal_fall_speed": 800.0,
-	"physics_hz": null,
-	"projectile_damage": 1.0,
-	"projectile_lifetime": 2.0,
-	"projectile_radius": 3.0,
-	"projectile_speed": 1200.0,
-	"recoil_impulse": 520.0,
-	"recoil_mode": "shot_burst",
-	"recoil_tau": 0.16,
-	"shot_burst_duration": 0.14,
-	"shot_burst_speed": 1100.0,
-	"shot_cooldown": 0.25,
-	"variable_jump_enabled": true
-}
 var _data: Dictionary = {}
 
 func _init(seed := "0", profile: RunProfile = null) -> void:
@@ -212,26 +170,14 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 	if not capability is Dictionary:return null
 	var items:Variant=capability.get("items",[])
 	if not items is Array:return null
+	var tuning:=PlayerTuning.load_default()
 	var stored: Variant=output.get("stage_tuning")
 	var keys: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
 	if not stored is Dictionary or stored.size()!=keys.size():return null
-	var fingerprint: String=str(output.get("generated_layout",{}).get("player_tuning_hash",""))
-	var bases: Array[PlayerTuning]=[PlayerTuning.load_default()]
-	if fingerprint in [PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH,PlainsRegionGenerator.PRE_SINGLE_SHOT_TUNING_HASH]:
-		for historical_focus: float in [0.15,0.2] if fingerprint==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH else [0.15]:
-			var legacy:=PlayerTuning.load_default()
-			for key: String in LEGACY_TWO_SHOT_TUNING:
-				if key=="physics_hz":continue # Existing snapshot convention: no Resource property.
-				if key=="jump_speeds":legacy.jump_speeds.assign(LEGACY_TWO_SHOT_TUNING[key])
-				else:legacy.set(key,LEGACY_TWO_SHOT_TUNING[key])
-			legacy.focus_time_scale=historical_focus
-			bases.append(legacy)
-	for base: PlayerTuning in bases:
-		var resolved:=_region_tuning_from_base(base,items,stored,keys,capability)
-		if resolved!=null:return resolved
-	return null
-
-static func _region_tuning_from_base(tuning:PlayerTuning,items:Array,stored:Dictionary,keys:Dictionary,capability:Dictionary)->PlayerTuning:
+	# Keep immutable saved metadata at .2; runtime always loads current .15.
+	# The sole historical exception is bound to the exact pre-change config.
+	if output.get("generated_layout",{}).get("player_tuning_hash")==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH and stored.get("focus_time_scale")==0.2:
+		tuning.focus_time_scale=0.2
 	var build:=BuildState.new()
 	for stat:StringName in BuildState.STATS:
 		build._base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
@@ -253,7 +199,6 @@ static func _region_tuning_from_base(tuning:PlayerTuning,items:Array,stored:Dict
 	var checker:=RandomStageGenerator.new()
 	for key: String in keys:
 		if not stored.has(key) or not checker._same_data(stored[key],tuning.get(key)):return null
-	if not checker._same_data(capability.get("max_jumps"),tuning.max_jumps) or not checker._same_data(capability.get("max_air_shots"),tuning.max_air_shots):return null
 	return tuning
 
 static func _campaign_compatible(data: Dictionary) -> bool:

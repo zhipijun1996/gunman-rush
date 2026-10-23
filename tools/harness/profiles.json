@@ -3455,26 +3455,33 @@
         "build/player-default-integration"
       ]
     },
-    "aim-save-history-profiles": {
+    "root-bell-current": {
       "argv": [
         "python3",
-        "tools/run_aim_save_history_profiles_tests.py"
+        "tools/run_root_bell_formal.py",
+        "--current-g1"
       ],
-      "timeout_seconds": 120,
-      "success_pattern": "^PASS: Finite historical tuning profiles and current-rule App map restore$",
-      "weight_seconds": 20,
-      "cacheable": false,
+      "timeout_seconds": 360,
+      "success_pattern": "^ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11$",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/root_bell/formal_v2"
+      ],
       "inputs": [
+        "project.godot",
+        "tests/root_bell*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "tools/run_root_bell_formal.py",
         "scripts",
         "scenes",
         "resources",
-        "assets",
         "config",
-        "tools",
-        "tests",
-        "project.godot",
-        "export_presets.cfg",
-        "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+        "assets",
+        "tests"
       ]
     }
   },
@@ -3569,7 +3576,6 @@
       "grapple-feel",
       "forest-interwoven-contract",
       "forest-player-aim",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3587,7 +3593,6 @@
       "level-formal-receipts",
       "level-formal-runtime",
       "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -3597,7 +3602,7 @@
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3607,8 +3612,6 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
-      "forest-region-matrix",
-      "forest-formal-combat",
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
@@ -3685,8 +3688,7 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration",
-      "aim-save-history-profiles"
+      "player-default-integration"
     ],
     "art": [
       "docs",
@@ -3711,7 +3713,6 @@
       "wood-platforms",
       "actor-actions",
       "grapple-feel",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3726,13 +3727,12 @@
       "level-experience",
       "level-formal-receipts",
       "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3870,7 +3870,6 @@
       "grapple-feel",
       "forest-interwoven-contract",
       "forest-player-aim",
-      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -3888,7 +3887,6 @@
       "level-formal-receipts",
       "level-formal-runtime",
       "plains-autonomy-golden",
-      "plains-action-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -3898,7 +3896,7 @@
       "visual-director-space",
       "directed-space-tests",
       "terrain-family-tests",
-      "root-bell-tests",
+      "root-bell-current",
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
@@ -3911,8 +3909,6 @@
       "forest-campaign",
       "forest-debug",
       "forest-traversal",
-      "forest-region-matrix",
-      "forest-formal-combat",
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
@@ -3990,8 +3986,7 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration",
-      "aim-save-history-profiles"
+      "player-default-integration"
     ],
     "creative-feedback": [
       "docs",
@@ -4082,6 +4077,13 @@
       "cloud-delivery-tests",
       "cloud-inputs-tests",
       "portable-frozen-assets"
+    ],
+    "legacy-compat": [
+      "aim-save-compat",
+      "root-bell-tests",
+      "forest-region-matrix",
+      "forest-formal-combat",
+      "plains-action-golden"
     ]
   }
 }

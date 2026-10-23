@@ -8,6 +8,7 @@ var _case_start := 0
 var _case_name := ""
 var _root_home := Vector2.ZERO
 var _floor_y := 0.0
+var _step_time_scale := 1.0
 
 func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "kill_from_bank_v1") -> bool:
 	if not super.attach(application,selected_strategy,wait_ticks,selected_policy):return false
@@ -25,6 +26,15 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 			behavior.connect("pulse_committed",func(id: StringName,point: Vector2):event("root_pulse",{"enemy":root_id,"event_id":str(id),"point":SNAPSHOT.pair(point)}))
 		if behavior.has_signal("warning_interrupted"):
 			behavior.connect("warning_interrupted",func():event("root_interrupted",{"enemy":root_id,"hp":root_actor.health.current}))
+	if not controller.shot_energy.definition.shooting_consumes_energy:
+		# Continuous resource changes have no transaction id; observe real results,
+		# not fabricated shot receipts or inferred deltas from adjacent frames.
+		controller.actor_resources.stamina.changed.connect(func(result: ActorResourceResult):
+			if _observation_sealed: return
+			var receipt := {"tick":trace_ticks+1,"event_id":str(result.event_id),"operation":str(result.operation),"status":int(result.status),"amount_applied":result.amount_applied,"current":result.snapshot.current,"capacity":result.snapshot.capacity,"epoch":result.snapshot.epoch,"session_id":controller.session_id,"continuous":true,"controller_tick":controller._tick,"grounded_before":controller._was_grounded,"aim_engaged":controller.router.aim_engaged,"focus_active":controller.air_focus_ability.active,"focus_air_time_before":controller.air_focus_ability.air_time_used,"actor_active":controller.active,"real_delta":controller.get_physics_process_delta_time()/_step_time_scale}
+			var index := resource_receipts.size()
+			resource_receipts.append(receipt)
+			event("time_energy_changed",{"receipt_index":index,"receipt":receipt.duplicate(true)}))
 	return true # Legacy source can use this same observer and its ordinary policy.
 
 func root_snapshot() -> Dictionary:
@@ -38,8 +48,10 @@ func root_snapshot() -> Dictionary:
 
 func tick(count: int = 1) -> void:
 	for unused: int in count:
+		_step_time_scale = Engine.time_scale
 		await super.tick(1)
 		if not observed_frames.is_empty():observed_frames[-1]["root_bell"] = root_snapshot()
+		if not observed_frames.is_empty():observed_frames[-1]["time_energy_input"] = {"aim_engaged":controller.router.aim_engaged,"focus_active":controller.air_focus_ability.active,"focus_air_time":controller.air_focus_ability.air_time_used}
 
 func begin_case(id: String) -> void:
 	_case_name = id
@@ -107,15 +119,29 @@ func run_route() -> void:
 		if not end_case(ok and controller.actor_resources.health.current==before_hp and root_actor.health.current>0,{"direction":-1,"phase_wait":delay}):finish(false,"root_return_failed");return
 	begin_case("low_resource_input_depletion")
 	if not await move_to(_root_home.x-240,120):end_case(false);finish(false,"deplete_bank_failed");return
-	# Deliberate harmless misses spend actual energy through the formal weapon.
-	# This probes a poor incoming resource phase without assigning any resource.
-	for unused: int in 8:
-		if not controller.shot_energy.can_fire():break
-		while controller.shoot_ability.cooldown_remaining>0:await tick()
-		controller.router.request_action(&"shoot_release",Vector2.UP)
-		await tick(1)
-	var exhausted := not controller.shot_energy.can_fire()
-	if not end_case(exhausted,{"energy":controller.actor_resources.stamina.current,"cost":controller.shot_energy.shot_energy_cost,"scope":"real_accepted_misses; no_resource_assignment"}):finish(false,"depletion_failed");return
+	if controller.shot_energy.definition.shooting_consumes_energy:
+		# Explicit historical v1 weapon-energy protocol; retain all eight misses.
+		# Deliberate harmless misses spend actual energy through the formal weapon.
+		# This probes a poor incoming resource phase without assigning any resource.
+		for unused: int in 8:
+			if not controller.shot_energy.can_fire():break
+			while controller.shoot_ability.cooldown_remaining>0:await tick()
+			controller.router.request_action(&"shoot_release",Vector2.UP)
+			await tick(1)
+		var exhausted := not controller.shot_energy.can_fire()
+		if not end_case(exhausted,{"energy":controller.actor_resources.stamina.current,"cost":controller.shot_energy.shot_energy_cost,"scope":"real_accepted_misses; no_resource_assignment"}):finish(false,"depletion_failed");return
+	else:
+		# Current v2: only real airborne aim drains time energy. Never fire or set it.
+		controller.router.set_move_axis(0)
+		controller.router.set_aim(controller.router.current_device,Vector2.UP,true)
+		controller.router.set_jump_held(&"root_focus_depletion",true)
+		for unused: int in 240:
+			await tick()
+			if controller.actor_resources.stamina.current<controller.motor.tuning.focus_rearm_stamina:break
+		controller.router.set_aim(controller.router.current_device,Vector2.UP,false)
+		controller.router.set_jump_held(&"root_focus_depletion",false)
+		var depleted := controller.actor_resources.stamina.current<controller.motor.tuning.focus_rearm_stamina
+		if not end_case(depleted,{"energy":controller.actor_resources.stamina.current,"cost":controller.motor.tuning.focus_rearm_stamina,"profile":"air_focus_v2","scope":"real_router_jump_and_airborne_aim; no_shot_or_resource_assignment"}):finish(false,"depletion_failed");return
 	begin_case("alive_full_connection_return")
 	var alive_hp := controller.actor_resources.health.current
 	var alive_ok := await alive_connection_return(edge)

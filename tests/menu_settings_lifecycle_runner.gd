@@ -49,6 +49,8 @@ func run() -> void:
 	check(font.base_font == ThemeDB.fallback_font and font.fallbacks == [preload("res://assets/fonts/foundry_notes.otf")], "Leaf keeps the exact original base font and fallback")
 	check(theme.default_font_size == original.default_font_size and theme.get_color("font_color", "Label") == original.get_color("font_color", "Label"), "Leaf and public menu themes preserve font size and styling")
 	check(await audio.shutdown(), "Real audio playback releases before teardown")
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	var app_ref: WeakRef = weakref(app)
 	var menu_ref: WeakRef = weakref(menu)
 	var audio_ref: WeakRef = weakref(audio)
