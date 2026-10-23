@@ -22,11 +22,17 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def native_runtime_failed(exit_code, log):
     # Both native phases redirect stderr; the outer Harness cannot inspect it.
     return exit_code != 0 or bool(re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use at exit', log))
-def validate_admission_audit(data):
+def validate_admission_audit(data, current_only=False):
     rows=data.get('rows',[])
     require(isinstance(rows,list) and len(rows)==40 and data.get('failures')==[],'Formal admission map audit failed/incomplete')
     expected_rows={(f'v3-root-bell-pilot-{i}',map_index) for i in range(20) for map_index in (1,2)}
-    require({(row.get('root_seed'),row.get('map_index')) for row in rows}==expected_rows and all(row.get('legacy_default_byte_equal') is True for row in rows),'Formal map/legacy-byte inventory incomplete')
+    require({(row.get('root_seed'),row.get('map_index')) for row in rows}==expected_rows,'Formal map inventory incomplete')
+    if current_only:
+        require(data.get('current_only') is True and data.get('not_run')==['historical_raw_manifest_byte_comparison'],'Current admission scope missing or claims historical execution')
+        tuning=json.loads((ROOT/'config/player_tuning.json').read_text())
+        require(all('legacy_default_byte_equal' not in row and row.get('current_default_validated') is True and row.get('current_candidate_validated') is True and row.get('current_tuning_hash')==row.get('candidate_tuning_hash')==sha(ROOT/'config/player_tuning.json') and row.get('current_tuning_focus_scale')==tuning['focus_time_scale'] and row.get('current_tuning_max_air_shots')==tuning['max_air_shots'] and re.fullmatch(r'[0-9a-f]{64}',str(row.get('candidate_hash',''))) for row in rows),'Current configuration/hash/whole-manifest validation missing')
+    else:
+        require(all(row.get('legacy_default_byte_equal') is True for row in rows),'Formal map/legacy-byte inventory incomplete')
     for row in rows:
         require(type(row.get('map_index')) is int and row['map_index'] in (1,2),'Invalid actual campaign map index type')
         candidate=row.get('candidate',{})
@@ -56,10 +62,13 @@ def validate_admission_audit(data):
     require(len(bad)==len(expected_bad) and {c.get('mutation') for c in bad}==expected_bad and all(c.get('refused') is True for c in bad),'Versioned replay refusal inventory incomplete')
     return {'maps':40,'versioned_run_positive_cases':len(cases),'versioned_run_refusals':len(bad),'scope':replay['scope']}
 
-def sources():
+def sources(current_only=False):
     result=visual_director.sources()
-    for name in ('tools/run_root_bell_formal.py','tools/test_root_bell_formal_verifier.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py','docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json'):
+    for name in ('tools/run_root_bell_formal.py','tools/test_root_bell_formal_verifier.py','tools/root_bell_formal_capture.gd','tests/root_bell_formal_trace.gd','tools/run_root_bell_tests.py'):
         result[name]=sha(ROOT/name)
+    if not current_only:
+        legacy="docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+        result[legacy]=sha(ROOT/legacy)
     return result
 
 # Resource/event verification shared by native capture and explicitly offline
@@ -399,16 +408,16 @@ def main():
     require(not (args.current_g1 and (args.g1 or args.movie or args.default)), '--current-g1 is a distinct current-admission-only scope')
     folder=(ROOT/(args.output_dir or 'build/root_bell/formal_v2/'+str(time.time_ns()))).resolve()
     require(folder.is_relative_to(ROOT/'build/root_bell') and not folder.exists(),'Use a NEW build/root_bell directory; old failures/success immutable')
-    folder.mkdir(parents=True);before=sources();report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
+    folder.mkdir(parents=True);before=sources(current_only=args.current_g1);report={'status':'failed','scope':'Actual formal pilot, no independent/content acceptance','source_before':before,'started_epoch':time.time(),'movie_requested':args.movie,'default_requested':args.default}
     if args.g1:report['scope']='Actual original165 fixtures plus formal40/versioned RunManifest audit; not input-only campaign traversal, commercial or device acceptance'
     if args.current_g1:
         report['scope']='Current formal40 admission and original physical/versioned replay verification only; native165 and archived authority not executed'
-        report['not_run']=['legacy_native165','archived_authority']
+        report['not_run']=['legacy_native165','archived_authority','historical_raw_manifest_byte_comparison']
     (folder/'invocation.json').write_text(json.dumps(report,indent=2)+'\n');display=None
     try:
         env=os.environ.copy();env['LP_NUM_THREADS']='1';env['LIBGL_ALWAYS_SOFTWARE']='1'
         if args.current_g1:
-            command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
+            command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--',*(['--current-g1'] if args.current_g1 else []),'--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
         elif args.g1:
             command=['python3','tools/run_root_bell_tests.py','--output-dir',str((folder/'native165').relative_to(ROOT))]
         else:
@@ -426,7 +435,7 @@ def main():
         if args.g1 or args.current_g1:
             if args.g1:
                 native=json.loads((folder/'native165/report.json').read_text());require(native['status']=='passed' and native['assertions']==165,'Actual old165 suite failed');report['observed']={'native_assertions':165,'content_refusals':len(native['validator_erasure_rejections']),'receipt_refusals':len(native['receipt_mutation_refusals'])}
-            audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--','--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
+            audit_command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/root_bell_formal_runner.gd','--',*(['--current-g1'] if args.current_g1 else []),'--output=res://'+str((folder/'admission_audit.json').relative_to(ROOT))]
             if args.current_g1:
                 audit_actual=actual
                 audit_log_path=folder/'runtime.log'
@@ -436,16 +445,16 @@ def main():
             audit_log=audit_log_path.read_text()
             require(not native_runtime_failed(audit_actual.returncode,audit_log) and 'ROOT BELL V2 AUDIT: rows=40 eligible=1 failures=0' in audit_log,'Actual formal admission audit failed/incomplete or leaked resources')
             audit=json.loads((folder/'admission_audit.json').read_text())
-            report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(audit_log_path),'observed':validate_admission_audit(audit),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
+            report['formal_admission_audit']={'command':audit_command,'exit_code':audit_actual.returncode,'audit_sha256':sha(folder/'admission_audit.json'),'log_sha256':sha(audit_log_path),'observed':validate_admission_audit(audit,current_only=args.current_g1),'exit_diagnostics':[line for line in audit_log.splitlines() if 'ObjectDB' in line or 'resources still in use' in line]}
             if args.current_g1: report['observed']=report['formal_admission_audit']['observed']
             refusals=[]
             for label,key in [('missing_run_replay','run_manifest_replay'),('missing_physical_negatives','physical_negatives'),('missing_legacy_loader','legacy_live_loader_compatibility')]:
                 bad=copy.deepcopy(audit);bad.pop(key)
-                try:validate_admission_audit(bad)
+                try:validate_admission_audit(bad,current_only=args.current_g1)
                 except ValueError:refusals.append(label)
                 else:raise ValueError('Admission consumer accepted '+label)
             bad=copy.deepcopy(audit);bad['run_manifest_replay']['negatives'].pop()
-            try:validate_admission_audit(bad)
+            try:validate_admission_audit(bad,current_only=args.current_g1)
             except ValueError:refusals.append('missing_version_refusal')
             else:raise ValueError('Admission consumer accepted missing version refusal')
             # Retain each independently observed false acceptance as a live G1
@@ -461,13 +470,13 @@ def main():
             ]
             for label,mutate in mutations:
                 bad=copy.deepcopy(audit);mutate(bad)
-                try:validate_admission_audit(bad)
+                try:validate_admission_audit(bad,current_only=args.current_g1)
                 except ValueError:refusals.append(label)
                 else:raise ValueError('Admission consumer accepted '+label)
             report['formal_admission_mutation_refusals']={'scope':'Actual Python receipt mutations, not additional native runs','refused':refusals}
         else:
             data=json.loads((folder/'capture.json').read_text());require(data['root_bell_admission_scope'].startswith('default admitted') if args.default else data['root_bell_admission_scope'].startswith('explicit encounter-v2'),'Requested/default pilot scope mismatch');report['observed']=validate(data);report['tamper_refusals']=tamper(data);require(re.search(r'LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=route_target_reached, capture_errors=0',(folder/'runtime.log').read_text()),'Missing actual formal completion');report['capture_sha256']=sha(folder/'capture.json')
-        report['source_after']=sources();require(report['source_after']==before,'Source drift during native proof')
+        report['source_after']=sources(current_only=args.current_g1);require(report['source_after']==before,'Source drift during native proof')
         if args.movie:
             with (folder/'encode.log').open('w') as log:subprocess.run(['flock',LOCK,'ffmpeg','-n','-threads','1','-i',str(folder/'gameplay.avi'),'-c:v','libx264','-threads','1','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(folder/'gameplay.mp4')],env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=180)
             report['movie_sha256']=sha(folder/'gameplay.mp4')
