@@ -17,6 +17,7 @@ const FADE_OUT_SECONDS := .18
 const FADE_IN_SECONDS := .7
 const MAX_ALPHA := .9
 const MAX_RESIDENTS := 64
+const DYNAMIC_SOURCES := {"player":true,"muzzle":true,"aim_ray":true,"actual_grapple_guide":true,"actual_grapple_rope":true,"actual_actor_or_danger":true,"enemy_and_warning":true,"actual_attack_goal_path":true,"actual_attack_goal_warning":true,"actual_sentry_warning_ray":true,"projectile_and_actual_trail":true}
 const MASTER := "res://assets/underworld_plains/foreground_fine_05/master_original.png"
 var _world: Node
 var _actor: PlayerMotor
@@ -40,7 +41,13 @@ var _protection_canvas := Transform2D.IDENTITY
 var _overflow := false
 var _wind_time := 0.0
 var _last: Dictionary = {}
+var _receipt_pending := false
+var _receipt_center := Vector2.ZERO
+var _receipt_size := Vector2.ZERO
+var _receipt_layer := 0
 var _build: Dictionary = {}
+var _spec_cache_key: Array = []
+var _spec_cache_found: Array[Dictionary] = []
 
 static func attach(owner: Node,world: Node,actor: PlayerMotor) -> UnderworldForeground:
 	var item:=UnderworldForeground.new()
@@ -50,6 +57,8 @@ static func attach(owner: Node,world: Node,actor: PlayerMotor) -> UnderworldFore
 	return item
 
 func _ready() -> void:
+	_spec_cache_key.clear()
+	_spec_cache_found.clear()
 	layer=1
 	follow_viewport_enabled=false
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -161,7 +170,7 @@ func _add(rect: Rect2,source: String) -> void:
 	var next:=rect.intersection(_protection_viewport)
 	# Preserve source semantics before union merging: a permanent UI or terrain
 	# border must not turn a small local mask into permanent whole-object fading.
-	if source in ["player","muzzle","aim_ray","actual_grapple_guide","actual_grapple_rope","actual_actor_or_danger","enemy_and_warning","actual_attack_goal_path","actual_attack_goal_warning","actual_sentry_warning_ray","projectile_and_actual_trail"] or source.begins_with("actual_moving_"):
+	if DYNAMIC_SOURCES.has(source) or source.begins_with("actual_moving_"):
 		_dynamic_protect.append(next)
 	else:_static_protect.append(next)
 	for i: int in range(_protect.size()-1,-1,-1):
@@ -175,7 +184,9 @@ func _add(rect: Rect2,source: String) -> void:
 	if _protect.size()>MAX_PROTECTION:_overflow=true
 
 func _world_rect(rect: Rect2,source: String) -> void:
-	_add(_protection_canvas*rect,source)
+	var projected:=_protection_canvas*rect
+	if not projected.has_area() or not projected.intersects(_protection_viewport):return
+	_add(projected,source)
 
 func _touch_protection(overlay: TouchOverlay) -> void:
 	if not overlay.enabled:return
@@ -217,15 +228,21 @@ func _protection() -> void:
 		if node==null or not node.is_inside_tree():continue
 		if node is Control:
 			var control:=node as Control
-			if not _visible(control):continue
-			if control is TouchOverlay:_touch_protection(control as TouchOverlay)
-			elif _drawn_control(control):_add((control.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,control.size)).grow(8),"actual_visible_ui")
+			if not control.is_visible_in_tree():continue
+			if control is TouchOverlay:
+				if _visible(control):_touch_protection(control as TouchOverlay)
+			else:
+				var rect: Rect2=(control.get_global_transform_with_canvas()*Rect2(Vector2.ZERO,control.size)).grow(8)
+				if not rect.intersects(_protection_viewport) or not _visible(control):continue
+				if _drawn_control(control):_add(rect,"actual_visible_ui")
 		elif node is CollisionShape2D:
 			var collision:=node as CollisionShape2D
-			if collision.disabled or collision.shape==null or not _visible(collision):continue
+			if collision.disabled or collision.shape==null or not collision.is_visible_in_tree():continue
 			var parent:=collision.get_parent() as CollisionObject2D
 			if parent==null or parent.collision_layer==0:continue
 			var rect: Rect2=collision.get_global_transform_with_canvas()*collision.shape.get_rect()
+			# Every emitted platform edge or danger mask is inside this envelope.
+			if not rect.grow(44).intersects(_protection_viewport) or not _visible(collision):continue
 			if parent is StaticBody2D or parent is AnimatableBody2D:
 				var edge_source:="actual_moving_platform_edge" if parent is AnimatableBody2D else "actual_platform_edge"
 				if maxf(rect.size.x,rect.size.y)>180:
@@ -314,24 +331,36 @@ func _specifications(center: Vector2,size: Vector2) -> Array[Dictionary]:
 	var home_floor: Variant=null
 	if _world.get_script()!=null and str(_world.get_script().resource_path).ends_with("underworld_home_world.gd"):
 		home_floor=_world.get("floor_y")
-	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-420)/520),ceili((center.x+size.x*.5/PARALLAX.x+420)/520)+1):
-		if home_floor!=null:
-			var roll:=_roll("home_grass",x,0)
-			if roll%100<72:
-				var at:=Vector2(x*520+roll%380,float(home_floor)+236+(roll/480)%19)
-				found.append(_object_spec("home_grass/%d"%x,"grass",at,roll))
-			continue
-		for y: int in range(floori((center.y+size.y*.5/PARALLAX.y-280)/144),ceili((center.y+size.y*.5/PARALLAX.y+280)/144)+1):
-			var roll:=_roll("grass",x,y)
-			if roll%100>=62:continue
-			var at:=Vector2(x*520+70+roll%380,y*144+24+(roll/480)%96)
-			found.append(_object_spec("grass/%d/%d"%[x,y],"grass",at,roll))
-	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-460)/320),ceili((center.x+size.x*.5/PARALLAX.x+460)/320)+1):
-		for y: int in range(floori((center.y-size.y*.5/PARALLAX.y-360)/112),ceili((center.y+size.y*.5/PARALLAX.y+160)/112)+1):
-			var roll:=_roll("branch",x,y)
-			if roll%100>=48:continue
-			var at:=Vector2(x*320+40+roll%240,y*112+18+(roll/1200)%76)
-			found.append(_object_spec("branch/%d/%d"%[x,y],"branch",at,roll))
+	# Cache only deterministic cell candidates, never projected/visible/admitted state.
+	var cells: Array[int]=[
+		floori((center.x-size.x*.5/PARALLAX.x-420)/520),ceili((center.x+size.x*.5/PARALLAX.x+420)/520)+1,
+		floori((center.y+size.y*.5/PARALLAX.y-280)/144),ceili((center.y+size.y*.5/PARALLAX.y+280)/144)+1,
+		floori((center.x-size.x*.5/PARALLAX.x-460)/320),ceili((center.x+size.x*.5/PARALLAX.x+460)/320)+1,
+		floori((center.y-size.y*.5/PARALLAX.y-360)/112),ceili((center.y+size.y*.5/PARALLAX.y+160)/112)+1]
+	var key: Array=[cells,_seed,home_floor,_world.get_instance_id()]
+	if key==_spec_cache_key:
+		found=_spec_cache_found
+	else:
+		for x: int in range(cells[0],cells[1]):
+			if home_floor!=null:
+				var roll:=_roll("home_grass",x,0)
+				if roll%100<72:
+					var at:=Vector2(x*520+roll%380,float(home_floor)+236+(roll/480)%19)
+					found.append(_object_spec("home_grass/%d"%x,"grass",at,roll))
+				continue
+			for y: int in range(cells[2],cells[3]):
+				var roll:=_roll("grass",x,y)
+				if roll%100>=62:continue
+				var at:=Vector2(x*520+70+roll%380,y*144+24+(roll/480)%96)
+				found.append(_object_spec("grass/%d/%d"%[x,y],"grass",at,roll))
+		for x: int in range(cells[4],cells[5]):
+			for y: int in range(cells[6],cells[7]):
+				var roll:=_roll("branch",x,y)
+				if roll%100>=48:continue
+				var at:=Vector2(x*320+40+roll%240,y*112+18+(roll/1200)%76)
+				found.append(_object_spec("branch/%d/%d"%[x,y],"branch",at,roll))
+		_spec_cache_key=key
+		_spec_cache_found=found
 	var relevant: Array[Dictionary]=[]
 	for spec: Dictionary in found:
 		var projected:=_project(spec,center,size)
@@ -489,20 +518,22 @@ func _refresh(delta: float) -> void:
 
 func _render_receipt(center: Vector2,size: Vector2) -> void:
 	var view:=Rect2(Vector2.ZERO,size)
-	var visible_items: Array[Dictionary]=[]
-	var residents: Array[Dictionary]=[]
-	var rejected: Array[Dictionary]=[]
-	var grass_count:=0
-	var branch_count:=0
+	# Grow each protection rectangle once per synchronous render, preserving order.
+	var strict_masks: Array[Rect2]=[]
+	var soft_masks: Array[Rect2]=[]
+	for rect: Rect2 in _protect:
+		var strict:=rect.grow(WIND_MARGIN)
+		strict_masks.append(strict)
+		soft_masks.append(strict.grow(MASK_SOFT_MARGIN))
 	for resident: Dictionary in _residents.values():
 		var sprite:=resident.sprite as Sprite2D
 		var bounds: Rect2=resident.bounds
-		var asset: Dictionary=resident.asset
 		var material:=sprite.material as ShaderMaterial
 		var masks:=PackedVector4Array()
-		for rect: Rect2 in _protect:
-			var strict:=rect.grow(WIND_MARGIN)
-			if strict.grow(MASK_SOFT_MARGIN).intersects(bounds.grow(WIND_MARGIN)):
+		var wind_bounds:=bounds.grow(WIND_MARGIN)
+		for i: int in strict_masks.size():
+			var strict:=strict_masks[i]
+			if soft_masks[i].intersects(wind_bounds):
 				masks.append(Vector4(strict.position.x,strict.position.y,strict.end.x,strict.end.y))
 		resident.mask_rect_count=masks.size()
 		masks.resize(MAX_PROTECTION)
@@ -514,12 +545,31 @@ func _render_receipt(center: Vector2,size: Vector2) -> void:
 		material.set_shader_parameter("wind_time",_wind_time)
 		sprite.position=resident.position
 		sprite.modulate=Color(1,1,1,float(resident.alpha))
-		sprite.visible=bool(resident.admitted) and not _overflow and float(resident.alpha)>0.0 and float(resident.root_gate)>0.0 and bounds.grow(WIND_MARGIN).intersects(view)
+		sprite.visible=bool(resident.admitted) and not _overflow and float(resident.alpha)>0.0 and float(resident.root_gate)>0.0 and wind_bounds.intersects(view)
+		resident["drawn"]=sprite.visible
+	# Rendering and admission always run. Only the diagnostic dictionary is lazy;
+	# these resident/protection values change together inside the next refresh.
+	_receipt_center=center
+	_receipt_size=size
+	_receipt_layer=layer
+	_receipt_pending=true
+
+func _materialize_receipt() -> void:
+	var center:=_receipt_center
+	var size:=_receipt_size
+	var visible_items: Array[Dictionary]=[]
+	var residents: Array[Dictionary]=[]
+	var rejected: Array[Dictionary]=[]
+	var grass_count:=0
+	var branch_count:=0
+	for resident: Dictionary in _residents.values():
+		var bounds: Rect2=resident.bounds
+		var asset: Dictionary=resident.asset
 		var anchor: Vector2=resident.attachment
 		var at: Vector2=resident.anchor_world
-		var item: Dictionary={"id":resident.id,"resident_id":resident.id,"instance_id":resident.instance_id,"asset":asset.id,"bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"attachment":[anchor.x,anchor.y],"world_anchor":[at.x,at.y],"opacity":float(resident.alpha)*float(resident.root_gate),"alpha":resident.alpha,"target_alpha":resident.target_alpha,"safe_time":resident.safe_time,"admitted":resident.admitted,"entered_view":resident.entered_view,"root_clearance":resident.root_clearance,"root_gate":resident.root_gate,"protection_clearance":resident.protection_clearance,"unmasked_bounds_area":resident.unmasked_bounds_area,"mask_rect_count":resident.mask_rect_count,"display_scale":resident.display_scale,"wind_phase":resident.wind_phase,"raw_crop":asset.raw_crop,"source":MASTER,"collision":false,"drawn":sprite.visible}
+		var item: Dictionary={"id":resident.id,"resident_id":resident.id,"instance_id":resident.instance_id,"asset":asset.id,"bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"attachment":[anchor.x,anchor.y],"world_anchor":[at.x,at.y],"opacity":float(resident.alpha)*float(resident.root_gate),"alpha":resident.alpha,"target_alpha":resident.target_alpha,"safe_time":resident.safe_time,"admitted":resident.admitted,"entered_view":resident.entered_view,"root_clearance":resident.root_clearance,"root_gate":resident.root_gate,"protection_clearance":resident.protection_clearance,"unmasked_bounds_area":resident.unmasked_bounds_area,"mask_rect_count":resident.mask_rect_count,"display_scale":resident.display_scale,"wind_phase":resident.wind_phase,"raw_crop":asset.raw_crop,"source":MASTER,"collision":false,"drawn":resident.drawn}
 		residents.append(item)
-		if sprite.visible:
+		if bool(resident.drawn):
 			visible_items.append(item.duplicate())
 			if str(resident.kind)=="branch":branch_count+=1
 			else:grass_count+=1
@@ -528,7 +578,10 @@ func _render_receipt(center: Vector2,size: Vector2) -> void:
 	for rect: Rect2 in _protect:rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
 	var dynamic_rectangles: Array=[]
 	for rect: Rect2 in _dynamic_protect:dynamic_rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
-	_last={"schema":"underworld-foreground-runtime-v1","revision":"FOREGROUND-CONTINUITY-08","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":0.0,"layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"residents":residents,"resident_count":_residents.size(),"retired":_retired.duplicate(true),"advance_frame":_advance_frame,"advance_count":_advance_count,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"anticipation_rectangles":dynamic_rectangles,"overflow_hidden":_overflow,"live_warning_hidden":false,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time,"mask_policy":{"strict_inside":true,"wind_margin":WIND_MARGIN,"soft_margin":MASK_SOFT_MARGIN,"anticipation_margin":ANTICIPATION_MARGIN,"safe_delay":SAFE_DELAY,"fade_in_seconds":FADE_IN_SECONDS,"fade_out_seconds":FADE_OUT_SECONDS,"per_item_filtered":true,"anticipation_sources":"grass_dynamic_exposed_bounds_branch_all_protection_complete_bounds","grass_anticipation":"dynamic_only_over_exposed_bounds","branch_anticipation":"all_protection_over_complete_bounds_plus_wind","static_protection":"strict_local_mask_with_branch_whole_fade","retire_margin":RETIRE_MARGIN,"root_guard":ROOT_GUARD,"root_fade_distance":ROOT_FADE_DISTANCE}}
+	_last={"schema":"underworld-foreground-runtime-v1","revision":"FOREGROUND-CONTINUITY-08","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":0.0,"layer":_receipt_layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"residents":residents,"resident_count":_residents.size(),"retired":_retired.duplicate(true),"advance_frame":_advance_frame,"advance_count":_advance_count,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"anticipation_rectangles":dynamic_rectangles,"overflow_hidden":_overflow,"live_warning_hidden":false,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time,"mask_policy":{"strict_inside":true,"wind_margin":WIND_MARGIN,"soft_margin":MASK_SOFT_MARGIN,"anticipation_margin":ANTICIPATION_MARGIN,"safe_delay":SAFE_DELAY,"fade_in_seconds":FADE_IN_SECONDS,"fade_out_seconds":FADE_OUT_SECONDS,"per_item_filtered":true,"anticipation_sources":"grass_dynamic_exposed_bounds_branch_all_protection_complete_bounds","grass_anticipation":"dynamic_only_over_exposed_bounds","branch_anticipation":"all_protection_over_complete_bounds_plus_wind","static_protection":"strict_local_mask_with_branch_whole_fade","retire_margin":RETIRE_MARGIN,"root_guard":ROOT_GUARD,"root_fade_distance":ROOT_FADE_DISTANCE}}
 
 func receipt() -> Dictionary:
+	if _receipt_pending:
+		_materialize_receipt()
+		_receipt_pending=false
 	return _last.duplicate(true)
