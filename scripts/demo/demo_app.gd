@@ -72,6 +72,7 @@ var _status_label: Label
 var _hud: Label
 var _hint: Label
 var _resources_hud: ActorResourcesHud
+var _region_ui_positions: Dictionary = {}
 var _demo_hud: DemoGameHud
 var _ui_run_report: Dictionary = {}
 var _actions: HBoxContainer
@@ -1412,7 +1413,6 @@ func _process(_delta: float) -> void:
 		_hud_frame.size = Vector2(320, 140)
 		_debug_button.position=Vector2(250,8)
 		_resources_hud.set_region_compact(true)
-		_layout_region_hud()
 	else:
 		_hud.show()
 		_hud_frame.position=Vector2(12,8)
@@ -1433,6 +1433,7 @@ func _process(_delta: float) -> void:
 	_demo_hud.present_context("%s · %s/2 · %s" % [_region_name(), director.region_map_index, (stage as PlainsRegionStage).visited_area] if connected_region else "试玩 · 房间 %s/%s" % [director.stage_index, director.profile.stages_per_biome], wallet.balance, int(meta.snapshot().get("notes", 0)), _reduced_effects)
 	if not debug_hud: _demo_hud.present_touch_menu(overlay)
 	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2())
+	if connected_region and not debug_hud: _layout_region_hud()
 	_hud_frame.visible = debug_hud
 	_resources_hud.visible = debug_hud
 	_title.visible = debug_hud
@@ -1496,12 +1497,34 @@ func _layout_region_hud() -> void:
 	_hud.position=Vector2(22,30 if plains_environment_candidate_requested else 29)+shift
 	_resources_hud.position=shift+Vector2(0,8 if plains_environment_candidate_requested else 0)
 	if stage is PlainsRegionStage:
+		var cards: Array[Control] = _demo_hud.region_layout_controls()
+		var card_reservations: Array[Rect2] = []
+		for card: Control in cards: card_reservations.append(card.get_global_rect())
+		var navigation_reserved: Array[Rect2] = touch_regions.duplicate()
+		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
-			map.position = _clear_ui_edge(map.position,Vector2(160,32),([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,touch_regions)
-		_pause_button.position = _clear_ui_edge(_pause_button.position,Vector2(108,45),[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,touch_regions)
+			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
+			_region_ui_positions["map"]=map.position
+			touch_regions.append(map.get_global_rect())
+			navigation_reserved.append(map.get_global_rect())
+		if _pause_button.is_visible_in_tree():
+			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
+			_region_ui_positions["pause"]=_pause_button.position
+			touch_regions.append(_pause_button.get_global_rect())
+		for index: int in cards.size():
+			var card: Control=cards[index]
+			var extent:=card.size*card.scale
+			var reserved: Array[Rect2]=touch_regions.duplicate()
+			for other: Control in cards:
+				if other!=card:reserved.append(other.get_global_rect())
+			var key: String="card_"+str(index)
+			card.position=_clear_ui_edge(_region_ui_positions.get(key,card.position),extent,[card.position,Vector2(24,18),Vector2(24,viewport.end.y-extent.y-24),Vector2(viewport.end.x-extent.x-24,18),Vector2(viewport.end.x-extent.x-24,viewport.end.y-extent.y-24),Vector2(24,(viewport.size.y-extent.y)*.5),Vector2(viewport.end.x-extent.x-24,(viewport.size.y-extent.y)*.5)],blockers,critical_count,reserved)
+			_region_ui_positions[key]=card.position
 		if is_instance_valid(item_toast._root):
-			item_toast._root.position = _clear_ui_edge(item_toast._root.position,item_toast._root.size,([Vector2(300,125),Vector2(300,392),Vector2(300,260),Vector2(350,24)] if overlay.enabled else [Vector2(300,615),Vector2(300,125),Vector2(350,24),Vector2(300,392),Vector2(300,260)]),blockers,critical_count,touch_regions)
+			var toast_reserved: Array[Rect2]=touch_regions.duplicate()
+			for card: Control in cards:toast_reserved.append(card.get_global_rect())
+			item_toast._root.position = _clear_ui_edge(item_toast._root.position,item_toast._root.size,([Vector2(300,125),Vector2(300,392),Vector2(300,260),Vector2(350,24)] if overlay.enabled else [Vector2(300,615),Vector2(300,125),Vector2(350,24),Vector2(300,392),Vector2(300,260)]),blockers,critical_count,toast_reserved)
 
 func _region_touch_regions() -> Array[Rect2]:
 	var regions: Array[Rect2]=[]
@@ -1519,11 +1542,13 @@ func _region_touch_regions() -> Array[Rect2]:
 	return regions
 
 func _clear_ui_edge(current: Vector2, extent: Vector2, candidates: Array, blockers: Array[Rect2], critical_count: int=1, reserved: Array[Rect2]=[]) -> Vector2:
-	var best := current
+	var viewport:=get_viewport_rect()
+	var best := current.clamp(viewport.position+Vector2(8,8),(viewport.end-extent-Vector2(8,8)).max(viewport.position+Vector2(8,8)))
 	var cost := INF
 	var choices: Array = [current]
 	choices.append_array(candidates)
 	for at: Vector2 in choices:
+		at=at.clamp(viewport.position+Vector2(8,8),(viewport.end-extent-Vector2(8,8)).max(viewport.position+Vector2(8,8)))
 		if reserved.any(func(region: Rect2):return region.intersects(Rect2(at,extent).grow(8))):continue
 		var overlap := 0.0
 		for index: int in blockers.size(): overlap += Rect2(at,extent).grow(8).intersection(blockers[index]).get_area()*(1000000.0 if index==0 else 1000.0 if index<critical_count else 1.0)

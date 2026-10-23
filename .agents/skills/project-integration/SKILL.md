@@ -74,3 +74,7 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 wrapper失败先用其原runner单独定位/复验，保原断言、预算与严格退出检查；通过后再执行所属wrapper。完整集成在源码冻结后集中执行，过程中不修改源集。Development用已有`--reuse`仅复用digest完全一致、确有归档的证明；最终CI fresh。检查已通过而依赖未变，不因无关任务再手动从头执行。退出泄漏、实际当前保存、资源/UID/接口与导出问题仍需修复。
 
 收缩必需输入前须贯穿Python入口、Godot runner和实际audit核实范围，并真实运行同一scope；顶层参数不代表底层已停止历史回放。内部启动多个Godot进程的重检查使用独占Harness调度，避免嵌套并发争CPU；保全部场景、原断言和预算。
+
+GUI专项在deferred run入口设置实际Window/viewport尺寸并记录screen scale，避免初始化设置被headless默认64覆盖；DisplayServer的headless零值另列，不能当真机尺寸。HUD遮挡检查取实际可见控件，透明布局根和同一个触控菜单的自交不能冒称遮挡；真实角色／敌人／机关／其他UI重叠继续拒绝。
+
+资源策略变化后，正例与反例都要绑定实际配置；篡改必须实际改变数据，不能用删除本来不存在的扣费回执充当拒绝测试。多个彼此独立的native场景可在原聚合硬时限内并行，但须保全部场景、唯一完整覆盖、原断言、退出／日志／清理检查和可追溯子进程证据，不把每个分片另给全额时限。

@@ -4,6 +4,7 @@ Native fixtures are labelled fixtures. Four paired formal captures and a live
 normal-failure/retry retain failures; a captured route failure is not a pass.
 """
 from __future__ import annotations
+import argparse
 import copy
 import hashlib
 import json
@@ -290,7 +291,14 @@ def validate_native(data, recovery=False, reward_resource=""):
         require((bool(inputs) or any(f.get("axis")!=0 for f in frames)) and all(any(a.get("type")=="shoot_release" for a in frames[e["tick"]-1]["requests"]) for e in shots),"accepted shot without actual Router input")
         ids={s.get("event_id") for s in shots}
         require(len(ids)==len(shots) and all(e.get("event_id") in ids for e in committed),"damage not bound to actual accepted projectile")
-        require(all(any(r["event_id"]==f"shot/{row['session']}/{s['shot_id']}" and r["status"]==0 and r["operation"]=="consume" and r["amount_applied"]==-r["requested_amount"] for r in receipts) for s in shots),"missing APPLIED actual shot consumption")
+        policy=row.get("shot_policy",{})
+        free=policy.get("path")=="res://resources/player/demo_ui_01/time_energy_v2.tres"
+        if free:
+            require(policy.get("sha256")==formal.file_hash(ROOT/policy["path"][6:]) and policy.get("shooting_consumes_energy") is False and type(policy.get("max_air_shots")) is int and policy.get("max_air_shots")==read(ROOT/"config/player_tuning.json")["max_air_shots"] and policy.get("initial_energy")==read(ROOT/"config/player_tuning.json")["focus_stamina_capacity"],"wrong current free-policy provenance")
+            require(not any(r["event_id"].startswith("shot/") for r in receipts),"free shot created paid energy receipt")
+            require(all(f.get("focus_active") is False and f["energy"]==policy["initial_energy"] and type(f.get("charges")) is int and 0<=f["charges"]<=policy["max_air_shots"] for f in frames),"free fixture time energy or charge bounds drift")
+        else:
+            require(all(any(r["event_id"]==f"shot/{row['session']}/{s['shot_id']}" and r["status"]==0 and r["operation"]=="consume" and r["amount_applied"]==-r["requested_amount"] for r in receipts) for s in shots),"missing APPLIED actual shot consumption")
         if row["id"].startswith("kill_and_dead_"):
             require(row.get("enemy_terminal") is True and row.get("enemy_health")==0 and len(committed)==3 and committed[-1].get("lethal") is True,"metadata-only enemy kill")
             require(len(shots)>len(committed) and shots[-1]["tick"]>committed[-1]["tick"],"missing actual post-death shot")
@@ -301,7 +309,10 @@ def validate_native(data, recovery=False, reward_resource=""):
         elif row["id"]=="cooldown_rejected":
             require(len(shots)==1 and any(e.get("kind")=="rejected" and e.get("reason")=="cooldown" for e in events),"real cooldown did not reject")
         elif row["id"]=="air_energy_rejected":
-            require(len(shots)==5 and frames[-1]["energy"]==0 and not frames[-1]["grounded"] and any(e.get("kind")=="rejected" and e.get("reason")=="energy" for e in events),"no actual zero-energy air rejection")
+            if free:
+                require(len(shots)==6 and all(frames[e["tick"]-1]["grounded"] for e in shots[:5]) and not frames[shots[-1]["tick"]-1]["grounded"] and frames[shots[-1]["tick"]-1]["charges"]==0 and not frames[-1]["grounded"] and frames[-1]["charges"]==0 and any(e.get("kind")=="rejected" and e.get("reason")=="empty" and e["tick"]>shots[-1]["tick"] for e in events),"current one-air-shot cause ledger missing")
+            else:
+                require(len(shots)==5 and frames[-1]["energy"]==0 and not frames[-1]["grounded"] and any(e.get("kind")=="rejected" and e.get("reason")=="energy" for e in events),"no actual zero-energy air rejection")
         else:
             states={e.get("state") for e in events if e.get("kind")=="enemy_state"}
             require({"telegraph","attack","recovery"}<=states and row.get("enemy_health",0)>0 and row.get("observed_recovery") is True,"bait was not actual living AI phase")
@@ -336,7 +347,11 @@ def validate_reward_entry(data, sources):
     require(all(e["tick"]==f["tick"] for f in frames for e in f["accepted_events"]),"wrong event frame")
     require(not any(e["kind"] in ["segment_returned","died","run_ended"] for e in events),"failure/teleport cannot sign reward completion")
     cap=row["initial_capability"];energy=cap["shot_energy"];previous=energy["current"]
-    require(cap["effective_max_jumps"]==1 and cap["air_shot_flight_cap"]==2 and cap["equipped_weapon"]["id"]=="pulse_gun" and cap["equipped_weapon"]["tier"]==1 and set(cap["granted_actions"])=={"jump","shot_recoil"},"unsupported reward ability")
+    free=energy.get("definition_path")=="res://resources/player/demo_ui_01/time_energy_v2.tres"
+    if free:
+        require(energy.get("shooting_consumes_energy") is False and energy.get("definition_sha256")==formal.file_hash(ROOT/energy["definition_path"][6:]) and cap["config_hashes"]["player_tuning"]==formal.file_hash(ROOT/"config/player_tuning.json"),"reward current policy/config identity missing")
+    expected_air=read(ROOT/"config/player_tuning.json")["max_air_shots"] if free else 2
+    require(cap["effective_max_jumps"]==1 and cap["air_shot_flight_cap"]==expected_air and cap["equipped_weapon"]["id"]=="pulse_gun" and cap["equipped_weapon"]["tier"]==1 and set(cap["granted_actions"])=={"jump","shot_recoil"},"unsupported reward ability")
     require(0<state["entry_tick"]<=state["trial_start_tick"]<state["trial_end_tick"]<=len(frames),"invalid entry/trial interval")
     require(math.dist(frames[state["entry_tick"]-1]["position"],state["entry_position"])<.01 and frames[state["entry_tick"]-1]["grounded"],"entry not an actual grounded frame")
     require(abs(frames[state["entry_tick"]-1]["shot_energy"]-state["entry_energy"])<.001,"entry energy invented")
@@ -360,7 +375,8 @@ def validate_reward_entry(data, sources):
         require(len(frame.get("reward_guard",[]))==(1 if declared_guard else 0),"declared live guard missing from actual body observation")
         require(frame["health"]==frames[0]["health"] and frame["recovery_count"]==0,"forced contact/damage or recovery")
         tick=frame["tick"];receipts=[r for r in row["resource_receipts"] if r["tick"]==tick]
-        unexplained=frame["shot_energy"]-previous-sum(r["amount_applied"] for r in receipts)
+        focus_transactions=[tx for tx in state.get("focus_setup",{}).get("transactions",[]) if tx["tick"]==tick] if free else []
+        unexplained=frame["shot_energy"]-previous-sum(r["amount_applied"] for r in receipts)-sum(tx["amount"] for tx in focus_transactions)
         require(-.001<=unexplained<=energy["ground_energy_recovery"]/cap["physics_hz"]+.001,"resource injection or missing spend")
         if unexplained>.001:require(frame["grounded"] or (tick>1 and frames[tick-2]["grounded"]),"airborne regeneration invented")
         previous=frame["shot_energy"]
@@ -464,7 +480,23 @@ def validate_reward_entry(data, sources):
         require(not any(e["kind"]=="damage_committed" and e.get("target")==row["guard_id"] and e["tick"]>dead[0]["tick"] for e in events),"dead target required for more refunds")
     if row["natural_low"]:
         low=state.get("low_tick",0);require(state["entry_tick"]<low<=state["trial_start_tick"] and frames[low-1]["shot_energy"]==state["low_energy"]<energy["shot_energy_cost"],"low-resource boundary fabricated")
-        require(any(e["kind"]=="shot_accepted" and state["entry_tick"]<e["tick"]<=low for e in events),"no naturally accepted low-resource input")
+        if state.get("focus_setup"):
+            setup=state["focus_setup"];path="res://resources/player/demo_ui_01/time_energy_v2.tres"
+            require(setup.get("policy_path")==path and setup.get("policy_sha256")==formal.file_hash(ROOT/path[6:]) and setup.get("input")=="actual_router_jumpheld_and_airborne_aim" and setup.get("released") is True,"low-focus actual policy/input/release evidence missing")
+            balance=setup["initial"];consumes=[]
+            for tx in setup.get("transactions",[]):
+                require(state["entry_tick"]<tx["tick"]<=low and tx["operation"] in ("consume","grant") and math.isfinite(tx["amount"]) and abs(balance+tx["amount"]-tx["current"])<.001,"low-focus transaction sequence invented")
+                if tx["amount"]<0:
+                    tuning=read(ROOT/"config/player_tuning.json")
+                    expected=min(balance,tuning["focus_stamina_drain"]*min(tx["real_delta"],max(0,tuning["focus_max_air_duration"]-tx["focus_air_before"])))
+                    require(abs(-tx["amount"]-expected)<.001 and frames[tx["tick"]-1]["grounded"] is False,"low-focus drain differs from actual duration/config/frame")
+                    require(tx["operation"]=="consume" and not tx["grounded"] and tx["aiming"] and tx["focus_active"],"low time energy spent outside actual airborne focus")
+                    consumes.append(tx)
+                else:require(tx["grounded"] and tx["operation"]=="grant","low-focus positive credit is not ground recovery")
+                balance=tx["current"]
+            require(consumes and abs(balance-state["low_energy"])<.001,"low-focus energy does not reconcile to real receipts")
+        else:
+            require(any(e["kind"]=="shot_accepted" and state["entry_tick"]<e["tick"]<=low for e in events),"no naturally accepted low-resource input")
     return True
 
 def native_run(folder, recovery=False, reward_resource=""):
@@ -677,8 +709,19 @@ def reward_entry_checks(folder):
       "missing_shot_consumption":lambda r:r.update(resource_receipts=[q for q in r["resource_receipts"] if q["operation"]!="consume"]),
       "missing_actual_modal_input":lambda r:r.update(events=[e for e in r["events"] if e["kind"]!="reward_modal_submission"])}
     rejected=[];sample=honest["reward_bypass0"];sources=formal.source_files()
+    current_free=sample["cases"][0]["initial_capability"]["shot_energy"].get("shooting_consumes_energy") is False
+    if current_free:
+        def forged_paid_receipt(row):
+            shot=next(e for e in row["events"] if e["kind"]=="shot_accepted")
+            policy=row["initial_capability"]["shot_energy"];cost=policy["shot_energy_cost"]
+            row["resource_receipts"].append({"event_id":f"shot/{shot['session_id']}/{shot['packet_id']}","operation":"consume","status":0,"amount_applied":-cost,"requested_amount":cost,"current":shot["energy_after"],"capacity":policy["capacity"],"tick":shot["tick"],"session_id":shot["session_id"],"epoch":shot["resource_epoch"]})
+        mutations["missing_shot_consumption"]=forged_paid_receipt # Current violation: paid receipt where there must be none.
     for name,mutation in mutations.items():
-        bad=copy.deepcopy(sample);mutation(bad["cases"][0])
+        # Setting100 is a real unearned gain on this actual15-energy route;
+        # on the free full-energy route that old mutation would be a no-op.
+        positive=honest["reward_low"] if current_free and name=="invented_energy" else sample
+        bad=copy.deepcopy(positive);mutation(bad["cases"][0])
+        require(bad!=positive,"Causal counterexample did not actually change current evidence: "+name)
         try:validate_reward_entry(bad,sources)
         except (ValueError,KeyError,TypeError):rejected.append(name)
         else:raise ValueError("reward causal counterexample accepted: "+name)
@@ -744,9 +787,16 @@ def policy_tamper_checks(capture):
                "missing_driver_dependency":lambda d:d["policy_basis"]["driver_sources"].pop(next(iter(d["policy_basis"]["driver_sources"]))),
                "missing_core_dependency":lambda d:d["policy_basis"]["core_invariants"].pop("res://scripts/player/player_motor.gd"),
                "unknown_mode":lambda d:d.update(encounter_policy="all_fun_pass")}
+    if capture["initial_capability"]["shot_energy"].get("shooting_consumes_energy") is False:
+        def forged_paid_receipt(data):
+            shot=next(e for e in data["events"] if e["kind"]=="shot_accepted")
+            policy=data["initial_capability"]["shot_energy"];cost=policy["shot_energy_cost"]
+            data["resource_receipts"].append({"event_id":f"shot/{shot['session_id']}/{shot['packet_id']}","operation":"consume","status":0,"amount_applied":-cost,"requested_amount":cost,"current":shot["energy_after"],"capacity":policy["capacity"],"tick":shot["tick"],"session_id":shot["session_id"],"epoch":shot["resource_epoch"]})
+        mutations["missing_shot_receipt"]=forged_paid_receipt # Free policy must reject any paid receipt.
     rejected=[]
     for name,mutate in mutations.items():
         bad=copy.deepcopy(capture);mutate(bad)
+        require(bad!=capture,"Causal counterexample did not actually change current evidence: "+name)
         try:experience.validate_capture(bad)
         except (ValueError,KeyError):rejected.append(name)
         else:raise ValueError("causal tamper accepted: "+name)
@@ -781,9 +831,14 @@ def claim_tamper_checks(capture):
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--with-legacy",action="store_true",help="Also run the original frozen historical comparison; default records it not_run")
+    args=parser.parse_args()
     base=ROOT/"build/verification/plains-encounter";base.mkdir(parents=True,exist_ok=True)
     folder=Path(tempfile.mkdtemp(prefix="run_",dir=base));before=formal.source_files()
-    verifier_sources={p:formal.file_hash(ROOT/p) for p in ["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py","tests/test_plains_encounter_policy_boundary.py","tools/run_formal_trace_cancel_tests.py","tests/formal_trace_cancel_runner.gd",HISTORICAL_MANIFEST,str(Path(HISTORICAL_MANIFEST).parent/"delta.tar.gz")]}
+    verifier_paths=["tools/run_plains_encounter_policy_tests.py","tools/level_experience.py","tests/test_plains_encounter_policy_boundary.py","tools/run_formal_trace_cancel_tests.py","tests/formal_trace_cancel_runner.gd"]
+    if args.with_legacy:verifier_paths.extend([HISTORICAL_MANIFEST,str(Path(HISTORICAL_MANIFEST).parent/"delta.tar.gz")])
+    verifier_sources={p:formal.file_hash(ROOT/p) for p in verifier_paths}
     receipt={"schema_version":1,"status":"failed","source_before":before,"source_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),"scope":"technical actual-input fixtures/live recovery/paired old-new observation; not all routes, device or subjective acceptance","runs":[],"verifier_sources":verifier_sources}
     try:
         subprocess.run([sys.executable,str(ROOT/"tests/test_plains_encounter_policy_boundary.py"),"-v"],cwd=ROOT,check=True)
@@ -810,7 +865,10 @@ def main():
         receipt["native_tamper_rejected"]=rejected
         env=os.environ.copy()
         env["GUNMAN_TOOLCHAIN_ROOT"]=str(Path(os.environ.get("GUNMAN_TOOLCHAIN_ROOT",ROOT.parent/"toolchains")).resolve())
-        receipt["historical_boundary"]=historical_checks(folder,env)
+        if args.with_legacy:
+            receipt["historical_boundary"]=historical_checks(folder,env)
+        else:
+            receipt["historical_boundary"]={"status":"not_run","scope":"optional immutable historical comparison; not current gameplay acceptance","reason":"not requested; use --with-legacy"}
         # Current full135-core consumers are separate from immutable history.
         cohorts={"after":[]}
         for i,(seed,map_index,strategy) in enumerate(CASES):
@@ -833,7 +891,7 @@ def main():
         write(folder/"same_source_after_report.json",same_source_after)
         write(folder/"comparison.json",experience.compare(same_source_before,same_source_after))
         receipt["same_source_repeat"]=repeated
-        receipt["comparison_scope"]="Historical four-case transition strictly rejected; four current-source cases plus independent current-source return replay compared, not content improvement"
+        receipt["comparison_scope"]=("Historical four-case transition strictly rejected; " if args.with_legacy else "Historical comparison not_run; ")+"four current-source cases plus independent current-source return replay compared, not content improvement"
         capture=next(read(ROOT/p) for p in cohorts["after"] if any(e["kind"]=="shot_accepted" for e in read(ROOT/p)["events"]))
         receipt["causal_tamper_rejected"]=policy_tamper_checks(capture)
         growth=next(read(ROOT/p) for p in cohorts["after"] if read(ROOT/p)["strategy"]=="growth")
@@ -847,7 +905,7 @@ def main():
         require(before==formal.source_files(),"source drift during actual specialty")
         require(verifier_sources=={p:formal.file_hash(ROOT/p) for p in verifier_sources},"verifier source drift")
         receipt.update(status="passed",source_after=formal.source_files())
-        print("PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated")
+        print("PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated" if args.with_legacy else "PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run")
         return 0
     finally:
         receipt.setdefault("source_after",formal.source_files());write(folder/"receipt.json",receipt)

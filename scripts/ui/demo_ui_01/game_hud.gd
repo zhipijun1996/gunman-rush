@@ -284,7 +284,21 @@ func present_touch_menu(overlay: TouchOverlay) -> void:
 	var factor := _rows.scale.x
 	_location_plate.custom_minimum_size.x = 200.0 / maxf(0.01, factor * scale)
 	_location_plate.size = _location_plate.custom_minimum_size
-	_location_plate.position = Vector2(safe.position.x + 24.0 / scale, safe.end.y - 160.0 / scale)
+	# Place the actual location text above the current (possibly floating) pad.
+	# The transparent HUD root and a fixed distance from the bottom cannot
+	# describe the real input reservation on every viewport/device.
+	var label_height := maxf(_location_plate.size.y, _location_plate.get_combined_minimum_size().y) * factor
+	var location_y := overlay.left_center.y - overlay.radius - 10.0 / scale - label_height
+	_location_plate.visible = _location_plate.visible and location_y >= safe.position.y + 18.0 / scale
+	_location_plate.position = Vector2(safe.position.x + 24.0 / scale, maxf(safe.position.y, location_y))
+
+func region_layout_controls() -> Array[Control]:
+	# App owns gameplay avoidance; expose only the actual visible card owners.
+	# Touch pause is the overlay's own reserved control and stays in that slot.
+	var controls: Array[Control]=[]
+	for card: Control in [_rows,_wallet_plate,_location_plate]:
+		if card.is_visible_in_tree():controls.append(card)
+	return controls
 
 func present_navigation(map_button: Control, pause_button: Button, touch_menu_rect: Rect2 = Rect2()) -> void:
 	# Retain the original map/pause consumers and callbacks; adapt their hit areas.

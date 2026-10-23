@@ -662,7 +662,7 @@
         "tools/run_plains_encounter_policy_tests.py"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "success_pattern": "^PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -673,10 +673,7 @@
         "tools",
         "tests",
         "project.godot",
-        "export_presets.cfg",
-        "docs/evidence/plains_redesign/frozen_v9",
-        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
-        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+        "export_presets.cfg"
       ]
     },
     "plains-redesign-scene": {
@@ -3506,6 +3503,30 @@
         "project.godot",
         "export_presets.cfg"
       ]
+    },
+    "plains-encounter-policy-with-legacy": {
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py",
+        "--with-legacy"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+      ]
     }
   },
   "profiles": {
@@ -3615,7 +3636,6 @@
       "level-experience",
       "level-formal-receipts",
       "level-formal-runtime",
-      "plains-autonomy-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -3742,7 +3762,6 @@
       "level-region-context",
       "level-experience",
       "level-formal-receipts",
-      "plains-autonomy-golden",
       "plains-redesign-scene",
       "visual-director-tests",
       "visual-director-space",
@@ -3902,7 +3921,6 @@
       "level-experience",
       "level-formal-receipts",
       "level-formal-runtime",
-      "plains-autonomy-golden",
       "plains-redesign-golden",
       "plains-redesign-spatial",
       "plains-experience-golden",
@@ -4100,7 +4118,9 @@
       "forest-air-chain",
       "forest-depth-cavity",
       "forest-depth-cavity-controls",
-      "region-with-legacy-fixtures"
+      "region-with-legacy-fixtures",
+      "plains-autonomy-golden",
+      "plains-encounter-policy-with-legacy"
     ]
   }
 }

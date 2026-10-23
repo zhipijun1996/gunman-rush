@@ -1,5 +1,6 @@
 """Actual formal composition routes and actual-node visibility counterexamples."""
 import gzip
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
 import math
@@ -19,6 +20,29 @@ MUTATIONS = ("hud_actor", "foreground_actor", "foreground_landing", "foreground_
 
 def rect_intersects(a, b):
     return a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]
+
+
+def elective_build_errors(case):
+    try:
+        r,=case['elective_receipts'];fs={f['tick']:f for f in case['frames']}
+        before,claim,rearm=r['before_grant'],r['after_claim'],r['after_rearm']
+        assert r['item_path']=='res://resources/items/shot_purple.tres'
+        assert r['item_sha256']==hashlib.sha256((REPO/r['item_path'][6:]).read_bytes()).hexdigest()
+        assert r['claim_status']==0 and r['claim_item']=='shot_purple' and r['claim_event']=='scene_extra_magazine_claim' and r['reward_offer']=='scene_extra_magazine'
+        assert before['max_air_shots']==1 and before['shots']==1 and before['grounded'] and 'shot_purple' not in before['items']
+        assert claim['tick']==before['tick'] and claim['max_air_shots']==2 and claim['shots']==before['shots'] and claim['items'].count('shot_purple')==1
+        assert rearm['tick']==before['tick']+1 and rearm['grounded'] and rearm['shots']==rearm['max_air_shots']==2
+        f=fs[rearm['tick']];assert f['grounded'] and f['shots']==2 and f['max_air_shots']==2 and any(hit['normal'][1]<-.7 for hit in f['collisions'])
+        assert all(f['max_air_shots']==(1 if t<=before['tick'] else 2) for t,f in fs.items())
+        a,b=r['accepted_shots'];assert rearm['tick']<a['tick']<b['tick'] and a['fired_airborne'] and b['fired_airborne']
+        assert a['owner_id']==b['owner_id'] and a['session_id']==b['session_id'] and a['shot_id']!=b['shot_id']
+        assert fs[a['tick']]['shots']==1 and fs[b['tick']]['shots']==0 and all(not fs[t]['grounded'] for t in range(a['tick'],b['tick']+1))
+        assert any(e['kind']=='jump_accepted' and rearm['tick']<e['tick']<a['tick'] for e in case['events'])
+        assert all(any(e==shot for e in fs[shot['tick']]['accepted_events']) for shot in (a,b))
+        assert r['executed_program']=='official_magazine_reward>ground_rearm>jump>bell_shot>same_flight_down_shot>land'
+        return []
+    except (KeyError,ValueError,TypeError,AssertionError,IndexError):
+        return ['missing or forged real magazine reward / grounded rearm causality']
 
 
 def errors(data):
@@ -53,9 +77,10 @@ def errors(data):
             if frame["position"] != frames[tick - 1]["position"]:
                 problems.append("presentation sample not bound to actual Motor frame"); break
             center, zoom = frame["camera_center"], frame["zoom"]
-            if not any(ui.get("kind")=="info" for ui in frame.get("ui",[])):problems.append("actual INFO global inventory absent")
+            if not any(ui.get("kind")=="info" for ui in frame.get("ui",[])):
+                if not {"hud_resources","map"}.issubset({ui.get("kind") for ui in frame.get("ui",[])}) or not any(ui.get("kind") in {"pause","touch_menu"} for ui in frame.get("ui",[])):problems.append("actual current HUD/map/pause inventory absent")
             for reserved in frame.get("touch_regions", []):
-                if any(rect_intersects(reserved, ui["bounds"]) for ui in frame.get("ui", [])):
+                if any(rect_intersects(reserved, ui["bounds"]) and not (ui.get("kind")=="touch_menu" and all(abs(a-b)<.001 for a,b in zip(reserved,ui["bounds"]))) for ui in frame.get("ui", [])):
                     problems.append("actual enabled touch control overlapped by UI"); break
             for target in frame.get("targets", []):
                 coverage.add(target["id"])
@@ -71,9 +96,12 @@ def errors(data):
         if case.get("custom") == "touch_geometry" and not any(frame.get("touch_regions") for frame in visual):
             problems.append("touch geometry fixture did not enable real overlay")
         if case.get("custom") == "extra_upward_recoil":
+            problems.extend(elective_build_errors(case))
             receipts = case.get("elective_receipts", [])
             if len(receipts) != 1 or len(receipts[0].get("accepted_shots", [])) != 2 or not receipts[0].get("settled") or receipts[0]["apex_world_y"] >= receipts[0]["well_origin"][1] - 100:
                 problems.append("missing legal actual extra upward recoil evidence")
+        elif any(f.get("max_air_shots")!=1 for f in frames):
+            problems.append("ordinary scene case changed current base ammunition")
         manifest = case.get("manifest", {})
         nodes = {n["id"]: n for n in manifest.get("nodes", [])}
         high = next((r for r in manifest.get("rewards", []) if r.get("tier") == "high"), {})
@@ -127,6 +155,44 @@ def errors(data):
     return problems
 
 
+def run_positive(folder, env):
+    """The same eight independent App cases, inside one shared 180s deadline.
+
+    The unchanged sequential producer needed 175.72s for its first five cases.
+    Two native workers partition the ordered case list; neither receives a new
+    180s allowance after the parent deadline. Legacy and corpus run once.
+    """
+    started=time.monotonic();deadline=started+180
+    def one(shard):
+        output=folder/f'positive-shard-{shard}.json';log=folder/f'positive-shard-{shard}.log'
+        argv=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/plains_redesign_scene_runner.gd','--','--output='+str(output),'--positive-shard='+str(shard)]
+        process=harness.run_check({'argv':argv,'timeout_seconds':max(.001,deadline-time.monotonic()),'success_pattern':r'^PLAINS REDESIGN SCENE NATIVE: [1-9]\d* assertions, 0 failures$'},log,REPO,env)
+        return {'shard':shard,'command':argv,'process':process,'output':str(output.relative_to(REPO)),'output_sha256':level_formal.file_hash(output) if output.exists() else None,'log_sha256':level_formal.file_hash(log),'data':json.loads(output.read_text()) if output.exists() else {}}
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        parts=list(workers.map(one,(0,1)))
+    within=time.monotonic()<=deadline
+    for part,indices in zip(parts,([0,1,2,3],[4,5,6,7])):
+        data=part['data']
+        if part['process']['status']!='passed' or data.get('positive_shard')!=part['shard'] or data.get('scene_case_indices')!=indices:
+            within=False
+    data=dict(parts[0]['data']);routes=[];extras=[];cleanups=[]
+    for part in parts:
+        for case in part['data'].get('cases',[]):
+            (routes if 'frames' in case else extras).append(case)
+        cleanups.extend(part['data'].get('post_capture_cleanup',[]))
+    if sorted(c.get('scene_case_index',-1) for c in routes)!=list(range(8)) or len(extras)!=1:within=False
+    data['cases']=sorted(routes,key=lambda c:c['scene_case_index'])+extras
+    data['post_capture_cleanup']=sorted(cleanups,key=lambda c:c['scene_case_index'])
+    data['assertions']=sum(p['data'].get('assertions',0) for p in parts)
+    data['failures']=sum(p['data'].get('failures',1) for p in parts)
+    data['positive_shard']='merged_actual_independent_native_cases'
+    (folder/'positive.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
+    (folder/'positive.log').write_text('\n'.join((folder/f'positive-shard-{i}.log').read_text() for i in (0,1)))
+    proof={'scope':'two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained','aggregate_budget_seconds':180,'aggregate_seconds':time.monotonic()-started,'within_aggregate_deadline':within,'native_runs':[{k:v for k,v in p.items() if k!='data'} for p in parts]}
+    (folder/'positive-partitions.json').write_text(json.dumps(proof,indent=2)+'\n')
+    return {'status':'passed' if within else 'failed','exit_code':0 if within else 1,'actual_native_partitions':proof}
+
+
 def main():
     base = REPO / "build/plains_redesign/scene"
     base.mkdir(parents=True, exist_ok=True)
@@ -146,7 +212,7 @@ def main():
             output, log = folder / (name + ".json"), folder / (name + ".log")
             argv = ["bash", "tools/godot.sh", "--headless", "--fixed-fps", "60", "--path", ".", "--script", "tests/plains_redesign_scene_runner.gd", "--", "--output=" + str(output)]
             if mutation: argv.append("--mutation=" + mutation)
-            process = harness.run_check({"argv": argv, "timeout_seconds": 180, "success_pattern": r"^PLAINS REDESIGN SCENE NATIVE: [1-9]\d* assertions, 0 failures$"}, log, REPO, env)
+            process = run_positive(folder,env) if not mutation else harness.run_check({"argv": argv, "timeout_seconds": 180, "success_pattern": r"^PLAINS REDESIGN SCENE NATIVE: [1-9]\d* assertions, 0 failures$"}, log, REPO, env)
             text = log.read_text()
             data = json.loads(output.read_text()) if output.exists() else {}
             malformed = re.search(r"SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit", text, re.M)
@@ -180,6 +246,9 @@ def main():
         broken = copy.deepcopy(positive); c=next(c for c in broken["cases"] if c.get("custom")=="touch_geometry"); v=c["visual_frames"][0]; v["ui"][0]["bounds"] = v["touch_regions"][0]; mutations["restored_touch_ui_overlap"] = broken
         broken = copy.deepcopy(positive); c=next(c for c in broken["cases"] if c.get("custom")=="outer_return"); c["route_comparison"]["ferry_contacts"][0]["collider"]="unrelated/well_lift"; mutations["substituted_vertical_lift_for_horizontal_boat"] = broken
         broken = copy.deepcopy(positive); c=next(c for c in broken["cases"] if c.get("custom")=="outer_upper_alternative"); c["route_comparison"]["cycle_return"]={}; mutations["missing_actual_closed_cycle"] = broken
+        broken = copy.deepcopy(positive); c=next(c for c in broken['cases'] if c.get('custom')=='extra_upward_recoil'); c['elective_receipts'][0]['after_claim']['items']=[]; mutations['missing_actual_magazine']=broken
+        broken = copy.deepcopy(positive); c=next(c for c in broken['cases'] if c.get('custom')=='extra_upward_recoil'); c['elective_receipts'][0]['before_grant']['max_air_shots']=2; mutations['forged_base_cap_two']=broken
+        broken = copy.deepcopy(positive); c=next(c for c in broken['cases'] if c.get('custom')=='extra_upward_recoil'); r=c['elective_receipts'][0]; c['frames'][r['after_rearm']['tick']-1]['grounded']=False; mutations['magazine_rearm_without_ground']=broken
         report["acceptance_counterexamples"] = {name: bool(errors(data)) for name, data in mutations.items()}
         if not all(report["acceptance_counterexamples"].values()): raise RuntimeError("scene acceptance silently accepted corrupted evidence")
         if before != level_formal.source_files() or wrapper_sha != level_formal.file_hash(Path(__file__)):

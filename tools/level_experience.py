@@ -180,6 +180,39 @@ def validate_policy_capture(capture):
         indexed[key]=receipt
     shots={}
     energy=capture["initial_capability"]["shot_energy"]
+    free=energy.get("shooting_consumes_energy") is False
+    if free:
+        policy="res://resources/player/demo_ui_01/time_energy_v2.tres"
+        cap=capture["initial_capability"]
+        if energy.get("definition_path")!=policy or energy.get("definition_version")!=2 or energy.get("definition_sha256")!=sha(ROOT/policy[6:]) or cap.get("config_hashes",{}).get("shot_energy")!=energy["definition_sha256"] or cap.get("config_hashes",{}).get("player_tuning")!=sha(ROOT/"config/player_tuning.json"):
+            raise ValueError("Current free-shot policy/config provenance differs from actual source")
+        if receipts:raise ValueError("Current time energy cannot contain paid-shot/hit or invented eventful receipts")
+        frames=capture["frames"];tuning=cap["tuning"];previous=energy["current"];focus_deltas={}
+        actual_tuning=read(ROOT/"config/player_tuning.json")
+        if type(tuning.get("max_air_shots")) is not int or any(tuning.get(key)!=actual_tuning[key] for key in ("max_air_shots","focus_stamina_drain","focus_stamina_recovery","focus_max_air_duration")) or cap.get("physics_hz")!=actual_tuning["physics_hz"]:raise ValueError("Current time/air budget differs from actual config")
+        setup=capture.get("state",{}).get("focus_setup",{})
+        changes=setup.get("transactions",[])
+        if setup:
+            state=capture.get("state",{})
+            if capture.get("natural_low") is not True or setup.get("input")!="actual_router_jumpheld_and_airborne_aim" or setup.get("policy_path")!=policy or setup.get("policy_sha256")!=energy["definition_sha256"] or setup.get("released") is not True or not changes or any(not state.get("entry_tick",0)<tx.get("tick",-1)<=state.get("low_tick",0) for tx in changes):raise ValueError("Current focus ledger is outside the actual low-entry input window")
+            if not math.isclose(setup.get("initial",-1),frames[state["entry_tick"]-1]["shot_energy"],abs_tol=.001):raise ValueError("Current focus initial state differs from actual entry frame")
+        if type(cap.get("air_shot_flight_cap")) is not int or cap["air_shot_flight_cap"]!=tuning["max_air_shots"]:raise ValueError("Current air-charge budget differs from actual tuning")
+        for frame in frames:
+            tick=frame["tick"];balance=previous;transactions=[tx for tx in changes if tx["tick"]==tick]
+            if not 0<=frame["shots"]<=cap["air_shot_flight_cap"]:raise ValueError("Current air-charge capacity exceeded")
+            for tx in transactions:
+                if tx["epoch"]!=frame["resource_epoch"] or tx["session_id"]!=frame["session_id"] or tx["grounded"]!=frame["grounded"] or tx["capacity"]!=energy["capacity"] or not math.isclose(balance+tx["amount"],tx["current"],abs_tol=.001):raise ValueError("Current focus transaction time/session/epoch/balance differs")
+                if not 0<tx["real_delta"]<=1/cap["physics_hz"]+.00001:raise ValueError("Current focus transaction delta outside native clock")
+                if tx["amount"]<0:
+                    expected=min(balance,tuning["focus_stamina_drain"]*min(tx["real_delta"],max(0,tuning["focus_max_air_duration"]-tx["focus_air_before"])))
+                    if tx["operation"]!="consume" or tx["grounded"] or not tx["aiming"] or not tx["focus_active"] or not math.isclose(-tx["amount"],expected,abs_tol=.001):raise ValueError("Current time energy lacks actual airborne-focus consumption")
+                elif tx["operation"]!="grant" or not tx["grounded"] or not math.isclose(tx["amount"],min(energy["capacity"]-balance,tuning["focus_stamina_recovery"]*tx["real_delta"]),abs_tol=.001):raise ValueError("Current time credit is not actual grounded-focus recovery")
+                balance=tx["current"]
+            if not transactions and frame["grounded"]:balance=min(energy["capacity"],balance+tuning["focus_stamina_recovery"]/cap["physics_hz"])
+            if not math.isclose(balance,frame["shot_energy"],abs_tol=.001):raise ValueError("Current time-energy frame differs from genuine focus/ground ledger")
+            focus_deltas[tick]=balance-previous
+            previous=frame["shot_energy"]
+        if any(type(tx.get("tick")) is not int or not 1<=tx["tick"]<=capture["tick_count"] for tx in changes):raise ValueError("Current focus transaction outside capture")
     for event in capture["events"]:
         if event["kind"]!="shot_accepted":continue
         required=("owner_id","session_id","shot_id","packet_id","resource_epoch","event_id","projectile_direction","energy_after")
@@ -190,9 +223,13 @@ def validate_policy_capture(capture):
         if event["projectile_direction"]!=event["direction"]:raise ValueError("Accepted/projectile aim mismatch")
         rid=f"shot/{event['session_id']}/{event['packet_id']}"
         consumption=[r for r in receipts if r["event_id"]==rid]
-        if len(consumption)!=1 or consumption[0]["operation"]!="consume" or not math.isclose(consumption[0]["amount_applied"],-energy["shot_energy_cost"],abs_tol=1e-6) or consumption[0]["requested_amount"]!=energy["shot_energy_cost"]:raise ValueError("Accepted shot missing APPLIED energy consumption")
-        consumed=consumption[0]
-        if consumed["tick"]!=event["tick"] or consumed["epoch"]!=event["resource_epoch"] or consumed["session_id"]!=event["session_id"] or not math.isclose(consumed["current"],event["energy_after"],abs_tol=1e-6):raise ValueError("Shot receipt has wrong actual time/session/epoch/balance")
+        if free:
+            frame=capture["frames"][event["tick"]-1]
+            if consumption or event["session_id"]!=frame["session_id"] or event["resource_epoch"]!=frame["resource_epoch"] or not 0<=event["energy_after"]<=energy["capacity"] or not math.isclose(event["energy_after"]+focus_deltas[event["tick"]],frame["shot_energy"],abs_tol=.001):raise ValueError("Free accepted projectile has paid receipt or wrong actual session/epoch/frame energy")
+        else:
+            if len(consumption)!=1 or consumption[0]["operation"]!="consume" or not math.isclose(consumption[0]["amount_applied"],-energy["shot_energy_cost"],abs_tol=1e-6) or consumption[0]["requested_amount"]!=energy["shot_energy_cost"]:raise ValueError("Accepted shot missing APPLIED energy consumption")
+            consumed=consumption[0]
+            if consumed["tick"]!=event["tick"] or consumed["epoch"]!=event["resource_epoch"] or consumed["session_id"]!=event["session_id"] or not math.isclose(consumed["current"],event["energy_after"],abs_tol=1e-6):raise ValueError("Shot receipt has wrong actual time/session/epoch/balance")
         shots[eid]=event
     for event in capture["events"]:
         if event["kind"]!="damage_committed":continue
@@ -204,6 +241,9 @@ def validate_policy_capture(capture):
             if event["source"]!=f"player_projectile:{shot['owner_id']}" or event["damage_kind"]!=0:raise ValueError("Committed hit source differs from accepted owner")
             hit_id=f"hit/{shot['session_id']}/{shot['packet_id']}"
             refunds=[r for r in receipts if r["event_id"]==hit_id]
+            if free:
+                if refunds:raise ValueError("Free committed projectile invented a time-energy refund")
+                continue # Actual projectile/owner/kind/health checks above still apply.
             # Fatal batches invalidate the actor before refunds; never fabricate it.
             fatal_same_tick=any(e["kind"]=="damage_committed" and e.get("target")=="player" and e.get("lethal") is True and e["tick"]==event["tick"] and e.get("actor_epoch")==event.get("actor_epoch") for e in capture["events"])
             ended_same_tick=any(e["kind"]=="run_ended" and e.get("reason")=="failure" and e["tick"]==event["tick"] for e in capture["events"])
