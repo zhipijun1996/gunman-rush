@@ -1,5 +1,11 @@
 # 最新交接：探索场所原型 v18
 
+## 2026-10-23 AI-LEVEL-DESIGN-01 / AI-LEVEL-PILOT-01
+
+分支 `feature/ai-level-design-v1`；main基线 e9ab0e0，最新开发验证基线 a074a70，实际覆盖层由完整runtime inventory绑定。入口：[体系v1](ai_level_design_v1/README.md)、[独审](ai_level_design_v1/independent_review.md)。新增契约/批量AI初审/有限关系基因搜索/原生Motor证据与设计图导出，复用原消费者；Macro可选、正式入口/旧模块池未改，默认不合main。
+
+下一步先依据强替代实证重想一个有价值的玩法家族，不扩数量。高台/上冠的一跳取奖推翻三跳必要性；根盆删冗余cycle同几何可走；回望路线两轮失败后停止。先真实邻接/关键因果/容错，再做区域美术与真人试玩。完整旧docs/quality因稀疏历史缺件未通过，不能忽略或重签；需完整集成/Release时按原preflight物化所需输入。复现：`python3 tools/harness.py --profile ai-level-pilot-feedback --jobs 1`，分析与搜索命令见体系README。技术、AI判断、用户/真机保持分开。
+
 ## 2026-10-22 总控与提效生产基线（最新）
 
 当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。

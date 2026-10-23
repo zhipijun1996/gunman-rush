@@ -116,6 +116,60 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(plan["additional_commands"], [["python3", "tests/test_production_plan.py"]])
         self.assertEqual(self.plan(["config/unregistered_visual_config.json"])["selection"], "full")
 
+    def test_offline_content_changes_only_select_pure_content_check(self):
+        for stage in ("development", "integration"):
+            plan = self.plan(["tools/level_content.py", "tools/level_content_contract.py"], stage)
+            self.assertEqual(plan["selection"], "affected_checks")
+            self.assertIn("ai-level-content", plan["checks"])
+            self.assertNotIn("ai-level-pilot", plan["checks"])
+            self.assertNotIn("web-build", plan["checks"])
+
+    def test_isolated_pilot_catalogue_has_exact_consumer_and_dependency_closure(self):
+        for stage in ("development", "integration"):
+            plan = self.plan(["config/level_pilot_candidates.json"], stage)
+            self.assertEqual(plan["selection"], "affected_checks")
+            self.assertEqual(plan["domains"], ["ai_level_content", "ai_level_pilot"])
+            self.assertIn("ai-level-content", plan["checks"])
+            self.assertIn("ai-level-pilot", plan["checks"])
+            self.assertNotIn("web-build", plan["checks"])
+
+    def test_candidate_config_exception_does_not_cover_nearby_or_shared_paths(self):
+        for path in ("config/level_pilot_candidates_extra.json", "config/pilot/player_tuning.json",
+                     "config/player_tuning.json", "config/input_profile.json"):
+            with self.subTest(path=path):
+                self.assertEqual(self.plan([path])["selection"], "full")
+        # A policy rule can map an existing shared path, but cannot declare its
+        # own broad bypass of the audited exact experiment consumer.
+        policy = copy.deepcopy(self.policy)
+        rule = next(r for r in policy["rules"] if r["id"] == "ai-level-pilot")
+        rule["paths"].extend(["config/*", "config/player_tuning.json"])
+        rule["reviewed_exact_config"] = True
+        self.assertEqual(self.plan(["config/player_tuning.json"], policy=policy)["selection"], "full")
+        self.assertEqual(self.plan(["config/new_shared.json"], policy=policy)["selection"], "full")
+
+    def test_exact_pilot_path_without_reviewed_rule_identity_fails_closed(self):
+        for field, value in (("id", "wrong-experiment"), ("domain", "process")):
+            policy = copy.deepcopy(self.policy)
+            rule = next(r for r in policy["rules"] if r["id"] == "ai-level-pilot")
+            rule[field] = value
+            self.assertEqual(self.plan(["config/level_pilot_candidates.json"], policy=policy)["selection"], "full")
+
+    def test_shared_runtime_change_with_pilot_catalogue_escalates_full(self):
+        paths = ["config/level_pilot_candidates.json", "scripts/generation/platforming_module.gd"]
+        self.assertEqual(self.plan(paths)["selection"], "full")
+        self.assertTrue(set(self.manifest["profiles"]["full"]).issubset(self.plan(paths)["checks"]))
+
+    def test_new_checks_keep_release_profiles_and_use_unique_bounded_pilot_output(self):
+        for profile in ("core", "gameplay", "full"):
+            self.assertIn("ai-level-content", self.manifest["profiles"][profile])
+            self.assertIn("ai-level-pilot", self.manifest["profiles"][profile])
+        pilot = self.manifest["checks"]["ai-level-pilot"]
+        self.assertTrue(pilot["serial"])
+        self.assertIn("build/verification/ai-level-pilot/{check_token}", pilot["argv"])
+        self.assertLessEqual(pilot["timeout_seconds"], 960)
+        self.assertEqual(self.plan(["config/level_pilot_candidates.json"], "release")["selection"],
+                         "original_release_delivery")
+
     def test_release_names_original_delivery_and_does_not_certify_full_profile(self):
         plan = self.plan(["docs/handoff.md"], "release")
         self.assertEqual(plan["commands"], [["python3", "tools/deliver.py", "--jobs", "1"]])

@@ -1,5 +1,11 @@
 # 当前状态
 
+## 2026-10-23 AI关卡设计体系v1（本轮隔离实验）
+
+`feature/ai-level-design-v1` 从main e9ab0e0独立开发，另在最新开发 a074a70 真实验证单发/时间能量，未改正式入口或模块池。[体系与可复现命令](ai_level_design_v1/README.md)。177参考来源已核，能力138 partial/39 unspecified；AI初审9份深入、168份有限，不能签177趣味认可。
+
+四层统一sidecar已实现，Macro为可选跨模块体验合同。离线有限关系基因搜索、真实Motor、多策略反证、同关系8wu对照及缓存/失败回流已接原Harness。新样本不冒称优秀：高台/上冠可先走近再一跳取同奖位，根盆存在冗余回原岸，回望候选停止待重构。完整Map邻接/新H机制/正式领奖/最终美术/真人设备仍未验；完整历史文档守门受稀疏缺件阻塞，不能按专项通过重签全Release。早期v1/v2缺完整源字节的限制明确保留。
+
 ## 2026-10-22 总控与提效生产基线（最新）
 
 当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。

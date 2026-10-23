@@ -3246,6 +3246,72 @@
       "inputs": [
         "docs/evidence/plains_redesign/frozen_v9/"
       ]
+    },
+    "ai-level-content": {
+      "argv": [
+        "python3",
+        "tools/run_level_content_tests.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^PASS: AI level content / [1-9]\\d* contract and pipeline counterexamples$",
+      "weight_seconds": 1,
+      "inputs": [
+        "tools/level_content.py",
+        "tools/level_content_contract.py",
+        "tools/level_content_pilot.py",
+        "tools/run_level_content_tests.py",
+        "tools/run_tests.py",
+        "tests/test_level_content_contract.py",
+        "tests/test_level_content_pipeline.py",
+        "docs/ai_level_design_v1/content.schema.json",
+        "tools/level_content_search.py",
+        "tools/level_content_export.py",
+        "tools/level_content_report.py",
+        "tools/level_content_evidence.py"
+      ],
+      "cacheable": true
+    },
+    "ai-level-pilot": {
+      "argv": [
+        "python3",
+        "tools/run_level_content_tests.py",
+        "--pilot",
+        "--output",
+        "build/verification/ai-level-pilot/{check_token}"
+      ],
+      "timeout_seconds": 960,
+      "success_pattern": "^PASS: AI level pilot / 9 bounded conditions; player and fun unverified$",
+      "weight_seconds": 240,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "shaders",
+        "addons",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/level_content.py",
+        "tools/level_content_contract.py",
+        "tools/level_content_pilot.py",
+        "tools/run_level_content_tests.py",
+        "tools/level_pilot_validate.gd",
+        "tests/branch_module_driver.gd",
+        "tests/plains_exploration_motion.gd",
+        "tests/plains_interactive_motion.gd",
+        "tests/audio_teardown.gd",
+        "tools/level_content_search.py",
+        "tools/level_content_export.py",
+        "tools/level_content_report.py",
+        "tools/level_content_evidence.py"
+      ],
+      "artifact_paths": [
+        "build/verification/ai-level-pilot"
+      ],
+      "cacheable": true
     }
   },
   "profiles": {
@@ -3314,7 +3380,9 @@
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "ai-level-content",
+      "ai-level-pilot"
     ],
     "gameplay": [
       "docs",
@@ -3447,7 +3515,9 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "ai-level-content",
+      "ai-level-pilot"
     ],
     "art": [
       "docs",
@@ -3743,7 +3813,9 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "ai-level-content",
+      "ai-level-pilot"
     ],
     "creative-feedback": [
       "docs",
@@ -3834,6 +3906,13 @@
       "cloud-delivery-tests",
       "cloud-inputs-tests",
       "portable-frozen-assets"
+    ],
+    "ai-level-content-feedback": [
+      "ai-level-content"
+    ],
+    "ai-level-pilot-feedback": [
+      "ai-level-content",
+      "ai-level-pilot"
     ]
   }
 }
