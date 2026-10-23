@@ -1,0 +1,32 @@
+[
+  {
+    "command": [
+      "python3",
+      "tools/capture_enemy_feedback_01_remains.py",
+      "--output",
+      "build/enemy_feedback_01/v8/movie",
+      "--variant",
+      "after",
+      "--expect-remains",
+      "--compare-trace",
+      "build/enemy_feedback_01/v8-first-review/v7-before-trace.json"
+    ],
+    "exit_code": 0,
+    "seconds": 40.366436475997034
+  },
+  {
+    "command": [
+      "python3",
+      "tools/capture_enemy_feedback_01_remains.py",
+      "--output",
+      "build/enemy_feedback_01/v8/movie-legacy",
+      "--variant",
+      "after",
+      "--expect-remains",
+      "--chain",
+      "legacy"
+    ],
+    "exit_code": 0,
+    "seconds": 38.31633997600147
+  }
+]

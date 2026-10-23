@@ -1,0 +1,400 @@
+{
+	"actual_deaths": [
+		{
+			"accepted_contexts": [
+				{
+					"amount": 1.0,
+					"attack_id": 1,
+					"damage_type": "projectile",
+					"event_id": "117104969635:1:1",
+					"fired_airborne": false,
+					"hit_direction": "(0.999917, 0.012861)",
+					"hit_point": "(349.0303, 363.4971)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 1,
+					"skill_attack": false,
+					"source_actor_id": 117104969635,
+					"source_faction": "player",
+					"target_actor_id": 118380038086,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 2,
+					"damage_type": "projectile",
+					"event_id": "117104969635:1:2",
+					"fired_airborne": true,
+					"hit_direction": "(0.999941, 0.01088)",
+					"hit_point": "(386.2856, 364.5243)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 2,
+					"skill_attack": false,
+					"source_actor_id": 117104969635,
+					"source_faction": "player",
+					"target_actor_id": 118380038086,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 3,
+					"damage_type": "projectile",
+					"event_id": "117104969635:1:3",
+					"fired_airborne": false,
+					"hit_direction": "(0.999989, 0.004627)",
+					"hit_point": "(348.5403, 363.3796)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 3,
+					"skill_attack": false,
+					"source_actor_id": 117104969635,
+					"source_faction": "player",
+					"target_actor_id": 118380038086,
+					"target_epoch": 1
+				}
+			],
+			"chain": "original",
+			"death_voice_pause": {
+				"can_process_while_paused": false,
+				"playing": false,
+				"process_mode": 1,
+				"stream": "res://assets/audio/kenney/enemy_defeat.ogg",
+				"stream_paused": true
+			},
+			"default_defeat": "res://assets/audio/kenney/enemy_defeat.ogg",
+			"default_shot": "res://assets/audio/kenney/shot.ogg",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"no_task_audio_metadata": true,
+			"played": {
+				"denied": 1,
+				"enemy_defeat": 1,
+				"hurt": 2,
+				"impact": 3,
+				"land": 3,
+				"shot": 3
+			},
+			"scope": "actual Router/projectile/Actor cue and original pooled stream; no subjective listening certification",
+			"shots": [
+				{
+					"direction": "(0.999917, 0.012861)",
+					"id": 1,
+					"muzzle": "(216.5392, 361.7931)",
+					"physics_tick": 19
+				},
+				{
+					"direction": "(0.999941, 0.01088)",
+					"id": 2,
+					"muzzle": "(130.5957, 361.742)",
+					"physics_tick": 35
+				},
+				{
+					"direction": "(0.999989, 0.004627)",
+					"id": 3,
+					"muzzle": "(-22.16091, 361.664)",
+					"physics_tick": 88
+				}
+			]
+		},
+		{
+			"accepted_contexts": [
+				{
+					"amount": 1.0,
+					"attack_id": 1,
+					"damage_type": "projectile",
+					"event_id": "139066345502:1:1",
+					"fired_airborne": false,
+					"hit_direction": "(0.999899, 0.014233)",
+					"hit_point": "(332.5416, 359.5511)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 1,
+					"skill_attack": false,
+					"source_actor_id": 139066345502,
+					"source_faction": "player",
+					"target_actor_id": 139838097439,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 2,
+					"damage_type": "projectile",
+					"event_id": "139066345502:1:2",
+					"fired_airborne": true,
+					"hit_direction": "(0.999928, 0.011983)",
+					"hit_point": "(369.7446, 364.5084)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 2,
+					"skill_attack": false,
+					"source_actor_id": 139066345502,
+					"source_faction": "player",
+					"target_actor_id": 139838097439,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 3,
+					"damage_type": "projectile",
+					"event_id": "139066345502:1:3",
+					"fired_airborne": false,
+					"hit_direction": "(0.99999, 0.004465)",
+					"hit_point": "(363.5437, 363.3801)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 3,
+					"skill_attack": false,
+					"source_actor_id": 139066345502,
+					"source_faction": "player",
+					"target_actor_id": 139838097439,
+					"target_epoch": 1
+				}
+			],
+			"chain": "underworld",
+			"death_voice_pause": {
+				"can_process_while_paused": false,
+				"playing": false,
+				"process_mode": 1,
+				"stream": "res://assets/audio/kenney/enemy_defeat.ogg",
+				"stream_paused": true
+			},
+			"default_defeat": "res://assets/audio/kenney/enemy_defeat.ogg",
+			"default_shot": "res://assets/audio/kenney/shot.ogg",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"no_task_audio_metadata": true,
+			"played": {
+				"denied": 1,
+				"enemy_defeat": 1,
+				"hurt": 2,
+				"impact": 3,
+				"land": 3,
+				"shot": 3
+			},
+			"scope": "actual Router/projectile/Actor cue and original pooled stream; no subjective listening certification",
+			"shots": [
+				{
+					"direction": "(0.999899, 0.014233)",
+					"id": 1,
+					"muzzle": "(216.4966, 357.8993)",
+					"physics_tick": 139
+				},
+				{
+					"direction": "(0.999928, 0.011983)",
+					"id": 2,
+					"muzzle": "(130.5996, 361.6426)",
+					"physics_tick": 155
+				},
+				{
+					"direction": "(0.99999, 0.004465)",
+					"id": 3,
+					"muzzle": "(-22.15771, 361.658)",
+					"physics_tick": 207
+				}
+			]
+		},
+		{
+			"accepted_contexts": [
+				{
+					"amount": 1.0,
+					"attack_id": 1,
+					"damage_type": "projectile",
+					"event_id": "162017576809:1:1",
+					"fired_airborne": false,
+					"hit_direction": "(0.999876, 0.01577)",
+					"hit_point": "(314.4323, 359.7197)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 1,
+					"skill_attack": false,
+					"source_actor_id": 162017576809,
+					"source_faction": "player",
+					"target_actor_id": 162789328867,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 2,
+					"damage_type": "projectile",
+					"event_id": "162017576809:1:2",
+					"fired_airborne": true,
+					"hit_direction": "(0.999908, 0.01359)",
+					"hit_point": "(335.353, 364.3198)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 2,
+					"skill_attack": false,
+					"source_actor_id": 162017576809,
+					"source_faction": "player",
+					"target_actor_id": 162789328867,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 3,
+					"damage_type": "projectile",
+					"event_id": "162017576809:1:3",
+					"fired_airborne": false,
+					"hit_direction": "(0.999992, 0.004067)",
+					"hit_point": "(387.4546, 363.3169)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 3,
+					"skill_attack": false,
+					"source_actor_id": 162017576809,
+					"source_faction": "player",
+					"target_actor_id": 162789328867,
+					"target_epoch": 1
+				}
+			],
+			"chain": "original",
+			"death_voice_pause": {
+				"can_process_while_paused": false,
+				"playing": false,
+				"process_mode": 1,
+				"stream": "res://assets/audio/kenney/enemy_defeat.ogg",
+				"stream_paused": true
+			},
+			"default_defeat": "res://assets/audio/kenney/enemy_defeat.ogg",
+			"default_shot": "res://assets/audio/kenney/shot.ogg",
+			"definition": "res://resources/enemies/plains_diver.tres",
+			"no_task_audio_metadata": true,
+			"played": {
+				"denied": 1,
+				"enemy_defeat": 1,
+				"hurt": 2,
+				"impact": 3,
+				"land": 3,
+				"shot": 3
+			},
+			"scope": "actual Router/projectile/Actor cue and original pooled stream; no subjective listening certification",
+			"shots": [
+				{
+					"direction": "(0.999876, 0.01577)",
+					"id": 1,
+					"muzzle": "(216.5127, 358.1754)",
+					"physics_tick": 254
+				},
+				{
+					"direction": "(0.999908, 0.01359)",
+					"id": 2,
+					"muzzle": "(130.6043, 361.5371)",
+					"physics_tick": 270
+				},
+				{
+					"direction": "(0.999992, 0.004067)",
+					"id": 3,
+					"muzzle": "(-22.15348, 361.6512)",
+					"physics_tick": 322
+				}
+			]
+		},
+		{
+			"accepted_contexts": [
+				{
+					"amount": 1.0,
+					"attack_id": 1,
+					"damage_type": "projectile",
+					"event_id": "179885311903:1:1",
+					"fired_airborne": false,
+					"hit_direction": "(0.999875, 0.015807)",
+					"hit_point": "(315.0047, 359.4808)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 1,
+					"skill_attack": false,
+					"source_actor_id": 179885311903,
+					"source_faction": "player",
+					"target_actor_id": 180657063892,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 2,
+					"damage_type": "projectile",
+					"event_id": "179885311903:1:2",
+					"fired_airborne": true,
+					"hit_direction": "(0.999908, 0.01356)",
+					"hit_point": "(336.7592, 364.3294)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 2,
+					"skill_attack": false,
+					"source_actor_id": 179885311903,
+					"source_faction": "player",
+					"target_actor_id": 180657063892,
+					"target_epoch": 1
+				},
+				{
+					"amount": 1.0,
+					"attack_id": 3,
+					"damage_type": "projectile",
+					"event_id": "179885311903:1:3",
+					"fired_airborne": false,
+					"hit_direction": "(0.999993, 0.003654)",
+					"hit_point": "(384.4075, 363.1322)",
+					"on_committed": "null::on_weapon_damage",
+					"session_id": 1,
+					"shot_id": 3,
+					"skill_attack": false,
+					"source_actor_id": 179885311903,
+					"source_faction": "player",
+					"target_actor_id": 180657063892,
+					"target_epoch": 1
+				}
+			],
+			"chain": "underworld",
+			"death_voice_pause": {
+				"can_process_while_paused": false,
+				"playing": false,
+				"process_mode": 1,
+				"stream": "res://assets/audio/kenney/enemy_defeat.ogg",
+				"stream_paused": true
+			},
+			"default_defeat": "res://assets/audio/kenney/enemy_defeat.ogg",
+			"default_shot": "res://assets/audio/kenney/shot.ogg",
+			"definition": "res://resources/enemies/plains_diver.tres",
+			"no_task_audio_metadata": true,
+			"played": {
+				"denied": 1,
+				"enemy_defeat": 1,
+				"hurt": 2,
+				"impact": 3,
+				"land": 3,
+				"shot": 3
+			},
+			"scope": "actual Router/projectile/Actor cue and original pooled stream; no subjective listening certification",
+			"shots": [
+				{
+					"direction": "(0.999875, 0.015807)",
+					"id": 1,
+					"muzzle": "(216.4994, 357.9235)",
+					"physics_tick": 374
+				},
+				{
+					"direction": "(0.999908, 0.01356)",
+					"id": 2,
+					"muzzle": "(130.6042, 361.5336)",
+					"physics_tick": 390
+				},
+				{
+					"direction": "(0.999993, 0.003654)",
+					"id": 3,
+					"muzzle": "(-22.15434, 361.6464)",
+					"physics_tick": 442
+				}
+			]
+		}
+	],
+	"changed_expectation": "Latest user explicitly rejected custom death sound: verify original default once; v7 custom metadata ownership assertions remain historical evidence only.",
+	"checks": 278,
+	"failures": [],
+	"revision": "frames_persistent_corpse_and_original_audio_v8",
+	"scope": "four real Router/projectile deaths across two species and both chains; default stream/pool/pause/restore/unload; listening quality unverified",
+	"source_sha256": {
+		"res://assets/audio/kenney/enemy_defeat.ogg": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+		"res://scripts/audio/game_audio.gd": "a0c2fe69b14a498b133f08bb29351e0f263eccd3a5fcacdd1108ca8ae866775b",
+		"res://scripts/enemies/enemy_actor.gd": "637af3b6e6b0d96e925a78187780854b6cafe9521b7f7eb2565b53fd1eb4bf60",
+		"res://tests/enemy_feedback_01_death_audio.gd": "2e02c60bb21282aec610b36b10ed829b71082b554e83984f3ea9c84972494239"
+	},
+	"task": "ENEMY-FEEDBACK-01"
+}

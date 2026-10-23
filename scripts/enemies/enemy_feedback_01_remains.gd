@@ -1,34 +1,52 @@
 class_name EnemyFeedback01Remains
 extends Node2D
-## The task's one death leaf, reused for v6 burst-and-disappear.
-## Stage-owned, host/health-epoch lifetime; never writes gameplay or parent clocks.
-const FLASH_HOLD := .045
-const DURATION := .55
-const CREAM := Color("fff2b3")
-const BRASS := Color("d7a85a")
+## Stage-owned authored D1-D4 handoff. Cosmetic support queries never move Actor.
+## Current-stage weak support is reused; no new save schema or nearest-floor snap.
+const DEATH_SECONDS := EnemyFeedback01Frames.DEATH_SECONDS
+const FRAME_SECONDS := DEATH_SECONDS / 4.0
+const FLOOR_REACH := 2048.0
+const GRAVITY := 720.0
+const VOID_SECONDS := 4.0
+const CONTACT_SLOP := 2.0
 var active := false
-var settled := false # Completed visual receipt, not a physical resting body.
+var settled := false
 var restored := false
 var age := 0.0
 var accepted_starts := 0
 var phase: StringName = &"inactive"
 var source: Texture2D
 var bounds := Rect2()
+var frame_index := 4
+var restore_support_status: StringName = &"not_restored"
+var restore_support_verified := false
 var flash_material := ShaderMaterial.new()
 var _sample: EnemyFeedback01
 var _receiver: Damageable
 var _health: HealthState
+var _motor: Node2D
 var _host: Node2D
 var _view: Callable
+var _frames: EnemyFeedback01Frames
 var _aerial := false
+var _face := 1.0
 var _epoch := -1
 var _last_serial := -1
 var _begun := false
 var _disposed := false
-var _layers: Array[Dictionary] = []
-var _pieces: Array[Dictionary] = []
-var _fragment_texture: Texture2D
-var _uv_origin := Vector2.ZERO
+var _restore_pending := false
+var _landed := false
+var _finished_death := false
+var _velocity_y := 0.0
+var _fall_age := 0.0
+var _fall_start_y := 0.0
+var _contact_age := 0.0
+var _support: WeakRef
+var _support_anchor := Vector2.ZERO
+var _floor_point := Vector2.ZERO
+var _has_floor := false
+var _frame_foot := 0.0
+var _saved_collision_foot := Vector2.ZERO
+var _feet: Dictionary = {}
 
 func _init() -> void:
 	flash_material.shader = preload("res://scripts/enemies/enemy_feedback_01_flash.gdshader")
@@ -37,10 +55,11 @@ func _init() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
-func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, _motor: Node2D, host: Node2D, aerial: bool, view: Callable) -> void:
+func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, motor: Node2D, host: Node2D, aerial: bool, view: Callable) -> void:
 	_sample = state
 	_receiver = receiver
 	_health = health
+	_motor = motor
 	_host = host
 	_aerial = aerial
 	_view = view
@@ -48,174 +67,258 @@ func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, _mo
 	_receiver.damaged.connect(_committed)
 	_health.changed.connect(_initialized)
 	_host.tree_exiting.connect(dispose)
-	if health.terminal: _restore_spent()
+	if health.terminal:
+		_restore_static()
+		_restore_pending = true
 
 func _capture() -> void:
 	var data: Dictionary = _view.call()
-	# Capture the current body, never the old canonical corpse/death frame.
-	source = data.texture
-	_fragment_texture = source
-	_uv_origin = Vector2.ZERO
-	if source is AtlasTexture:
-		var atlas := source as AtlasTexture
-		_fragment_texture = atlas.atlas
-		_uv_origin = atlas.region.position
-	bounds = data.bounds
-	global_transform = data.transform
+	_frames = data.frames as EnemyFeedback01Frames
+	# Host supplies its actual world bottom-center and facing. The helper bounds
+	# are already body-sized and bottom-centered; do not scale or turn a live PNG.
+	var pose: Transform2D = data.transform
+	global_position = pose.origin
+	_saved_collision_foot = data.contact_foot
+	global_rotation = 0.0
+	global_scale = Vector2.ONE
+	_face = float(data.face)
 	flash_material.set_shader_parameter("readable_material", 1.0 if data.get("readable_material", false) else 0.0)
 	flash_material.set_shader_parameter("copper_wings", 1.0 if _aerial else 0.0)
 	flash_material.set_shader_parameter("lifeless", 0.0)
-	_layers.clear()
-	for layer: Dictionary in data.get("layers", []):
-		_layers.append({"texture": layer.texture, "bounds": layer.bounds, "pose": global_transform.affine_inverse() * (layer.transform as Transform2D), "alpha": layer.alpha})
-	_pieces.clear()
-	var image := source.get_image()
-	var size := source.get_size()
-	var cell := Vector2(maxf(2, ceilf(size.x / 10)), maxf(2, ceilf(size.y / 8)))
-	var index := 0
-	for y: int in ceili(size.y / cell.y):
-		for x: int in ceili(size.x / cell.x):
-			var region := Rect2(Vector2(x, y) * cell, cell).intersection(Rect2(Vector2.ZERO, size))
-			var opaque := false
-			for iy: int in range(int(region.position.y), int(region.end.y)):
-				for ix: int in range(int(region.position.x), int(region.end.x)):
-					if image.get_pixel(ix, iy).a > .5:
-						opaque = true
-						break
-				if opaque: break
-			if not opaque: continue
-			var piece := Rect2(bounds.position + region.position / size * bounds.size, region.size / size * bounds.size)
-			var axis := (piece.get_center() - bounds.get_center()).normalized()
-			if axis.is_zero_approx(): axis = Vector2.UP
-			axis = axis.rotated((float((index * 7) % 11) / 10 - .5) * .6)
-			var speed := 98.0 + float((index * 13) % 71)
-			if _aerial: speed *= 1.12
-			var cut := .08 * float(index % 3)
-			var shape := PackedVector2Array([Vector2(-.5, -.22), Vector2(-.15+cut, -.5), Vector2(.5, -.12+cut), Vector2(.28-cut, .5), Vector2(-.34, .30)])
-			_pieces.append({"region": region, "bounds": piece, "shape": shape, "velocity": axis * speed + Vector2(0, -16), "life": .20 + float((index * 5) % 7) * .024, "spin": (float(index % 5) - 2) * 2.4})
-			index += 1
+	_support = null
+	_has_floor = false
+	_landed = false
+	_velocity_y = 0.0
+	_fall_age = 0.0
+	_fall_start_y = global_position.y
+	_contact_age = 0.0
+	_feet.clear()
+
+func _set_frame(index: int) -> void:
+	frame_index = index
+	source = _frames.texture(index)
+	bounds = _frames.bounds(index)
+	var uv_rect := Vector4(0, 0, 1, 1)
+	if source is AtlasTexture:
+		var atlas := source as AtlasTexture
+		var size := atlas.atlas.get_size()
+		uv_rect = Vector4(atlas.region.position.x/size.x, atlas.region.position.y/size.y, atlas.region.size.x/size.x, atlas.region.size.y/size.y)
+	flash_material.set_shader_parameter("frame_uv_rect", uv_rect)
+	flash_material.set_shader_parameter("authored_palette", 1.0)
+	if not _feet.has(index):
+		var image := source.get_image()
+		var bottom := 0.0
+		for y: int in range(image.get_height() - 1, -1, -1):
+			var found := false
+			for x: int in image.get_width():
+				if image.get_pixel(x, y).a >= .5:
+					bottom = bounds.position.y + float(y + 1) / float(image.get_height()) * bounds.size.y
+					found = true
+					break
+			if found: break
+		_feet[index] = bottom
+	_frame_foot = float(_feet[index])
+
+func _find_support(reach: float = FLOOR_REACH, previous_foot_y: float = INF) -> Dictionary:
+	# A single vertical center ray finds the first real standable surface below
+	# this body. Side ledges, overhead floors and a departed ferry are no fallback.
+	var foot := global_position + Vector2(0, _frame_foot)
+	var from := foot - Vector2(0, CONTACT_SLOP)
+	# Authored limb changes can move the pixel foot across a thin surface even
+	# before gravity advances. Sweep from the previous foot as well as this one.
+	if is_finite(previous_foot_y): from.y = minf(from.y, previous_foot_y-CONTACT_SLOP)
+	var query := PhysicsRayQueryParameters2D.create(from, foot + Vector2(0, reach), 1)
+	query.collide_with_areas = false
+	if _motor is CollisionObject2D: query.exclude = [(_motor as CollisionObject2D).get_rid()]
+	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP) < .65: return {}
+	return hit
+
+func _attach_support(hit: Dictionary) -> void:
+	_floor_point = hit.position
+	_has_floor = true
+	_landed = true
+	_velocity_y = 0.0
+	_contact_age = 0.0
+	_support = null
+	if hit.collider is Node2D:
+		var support := hit.collider as Node2D
+		_support = weakref(support)
+		_support_anchor = support.to_local(_floor_point)
+	global_position = _floor_point - Vector2(0, _frame_foot)
+
+func _follow_support() -> void:
+	if not _landed or _support == null: return
+	var support := _support.get_ref() as Node2D
+	if is_instance_valid(support) and not support.is_queued_for_deletion():
+		_floor_point = support.to_global(_support_anchor)
+		global_position = _floor_point - Vector2(0, _frame_foot)
+		return
+	# Support lifetime is not extended by the cosmetic leaf. A completed D4 can
+	# fall from removed geometry, keeping D4 and its original accepted receipt.
+	_support = null
+	_has_floor = false
+	_landed = false
+	settled = false
+	_velocity_y = 0.0
+	_fall_age = 0.0
+	_fall_start_y = global_position.y
+	phase = &"falling"
 
 func _committed(context: Dictionary) -> void:
-	if _disposed or _begun or not _health.terminal or not _sample.death_active: return
+	if _disposed or _begun or _sample == null or _health == null or not _health.terminal or not _sample.death_active: return
+	if _epoch != _health.epoch or _sample.epoch() != _epoch: return
 	if _sample.last_event_id != StringName(context.get("event_id", "")) or context.get("target_epoch", -1) != _epoch or _last_serial == _sample.impact_serial: return
+	# EnemyFeedback01 records APPLIED damage only. The local damaged event must
+	# match that exact lethal result; generic contact or a replay cannot start it.
 	_last_serial = _sample.impact_serial
 	_begun = true
 	_capture()
+	_set_frame(4)
+	# The legacy flyer art extends below its collision feet. When its drawn
+	# lower edge already crosses a real floor, confirm that surface from the
+	# actual Motor center before starting the visual fall; never miss the top
+	# because the ray starts inside it. This is not used for saved-dead restore.
+	var foot := global_position + Vector2(0, _frame_foot)
+	if foot.y > _motor.global_position.y:
+		var query := PhysicsRayQueryParameters2D.create(_motor.global_position, foot + Vector2(0, CONTACT_SLOP), 1)
+		query.collide_with_areas = false
+		if _motor is CollisionObject2D: query.exclude = [(_motor as CollisionObject2D).get_rid()]
+		var contact := get_world_2d().direct_space_state.intersect_ray(query)
+		if not contact.is_empty() and (contact.normal as Vector2).dot(Vector2.UP) >= .65 and foot.y >= (contact.position as Vector2).y:
+			_attach_support(contact)
+	_finished_death = false
 	active = true
 	visible = true
 	restored = false
+	restore_support_status = &"not_restored"
+	restore_support_verified = false
 	settled = false
-	age = 0
-	phase = &"flash"
+	age = 0.0
+	phase = &"falling"
 	accepted_starts += 1
 	flash_material.set_shader_parameter("hit_flash", _sample.flash_strength())
 	queue_redraw()
 
 func _initialized(result: ActorResourceResult) -> void:
-	if result == null or result.operation != &"initialize" or result.snapshot.epoch != _health.epoch: return
+	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != _health.epoch: return
 	_epoch = _health.epoch
 	_begun = false
 	active = false
 	visible = false
 	settled = false
 	restored = false
-	age = 0
+	restore_support_status = &"not_restored"
+	restore_support_verified = false
+	age = 0.0
 	phase = &"inactive"
-	_layers.clear()
-	_pieces.clear()
+	_support = null
+	_frames = null
+	_feet.clear()
+	source = null
+	bounds = Rect2()
+	_landed = false
+	_finished_death = false
+	_restore_pending = false
 	flash_material.set_shader_parameter("hit_flash", 0.0)
-	if _health.terminal: _restore_spent()
+	flash_material.set_shader_parameter("authored_palette", 0.0)
+	flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
+	if _health.terminal:
+		_restore_static()
+		_restore_pending = true
 	queue_redraw()
 
-func _restore_spent() -> void:
-	# The latest user request replaces persistent bodies with disappearance.
-	# Reconstruct only the spent receipt: never recapture, burst, flash or drop.
+func _restore_static() -> void:
+	_capture()
+	_set_frame(7)
+	_finished_death = true
 	_begun = true
+	active = true
 	restored = true
 	settled = true
-	active = false
-	visible = false
-	age = 0
-	phase = &"spent"
-	flash_material.set_shader_parameter("hit_flash", 0.0)
-
-func _process(delta: float) -> void:
-	if _disposed or not active or get_tree().paused: return
-	if _epoch != _health.epoch: return
-	age = minf(DURATION, age + delta)
-	if age >= DURATION:
-		active = false
-		visible = false
-		settled = true
-		phase = &"spent"
-		_pieces.clear()
-		_layers.clear()
-		flash_material.set_shader_parameter("hit_flash", 0.0)
+	age = 0.0
+	phase = &"resting"
+	# A dead save has no death trajectory/support-local pose. Only an existing
+	# contact at its saved foot is defensible; a distant downward ray is not a
+	# license to teleport D4 to a guessed floor. Missing support remains explicit.
+	# Art may extend below the Motor's feet (legacy flyer). Saved collision
+	# contact is an actual current-stage surface claim; visual atlas padding is
+	# not. Verify only its +/-2wu band, never search a distant floor for restore.
+	var query := PhysicsRayQueryParameters2D.create(_saved_collision_foot-Vector2(0, CONTACT_SLOP), _saved_collision_foot+Vector2(0, CONTACT_SLOP), 1)
+	query.collide_with_areas = false
+	if _motor is CollisionObject2D: query.exclude = [(_motor as CollisionObject2D).get_rid()]
+	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	if not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP) < .65: hit = {}
+	if not hit.is_empty():
+		_attach_support(hit)
+		restore_support_verified = true
+		restore_support_status = &"current_stage_contact"
 	else:
-		phase = &"flash" if age < FLASH_HOLD else &"burst" if age < .25 else &"tail"
-		# Ordinary hit flash stays unchanged. Only this lethal handoff returns
-		# quickly to its own material, avoiding a white checkerboard of fragments.
-		var death_flash := clampf((.08 - age) / (.08-FLASH_HOLD), 0, 1)
-		flash_material.set_shader_parameter("hit_flash", _sample.flash_strength() * death_flash)
+		restore_support_verified = false
+		restore_support_status = &"missing_saved_support"
+	visible = _has_floor
+	flash_material.set_shader_parameter("hit_flash", 0.0)
+	flash_material.set_shader_parameter("lifeless", 0.0)
+	queue_redraw()
+
+func _physics_process(delta: float) -> void:
+	if _disposed or not active or get_tree().paused or _epoch != _health.epoch: return
+	if restored and _restore_pending:
+		# Actor.restore initializes HP before Stage applies its saved position and
+		# facing. Reconcile exactly once after assembly, still D4 with zero replay.
+		_restore_pending = false
+		_restore_static()
+		return
+	_follow_support()
+	if settled: return
+	if not restored: age = minf(DEATH_SECONDS, age + delta)
+	var previous_foot_y := global_position.y + _frame_foot
+	var index := 7 if restored or _finished_death else 4 + mini(3, floori(age / FRAME_SECONDS))
+	if not _landed and not _finished_death and not restored: index = mini(index, 6)
+	_set_frame(index)
+	if _landed: global_position = _floor_point - Vector2(0, _frame_foot)
+	if not _landed:
+		var hit := _find_support(FLOOR_REACH, previous_foot_y)
+		_velocity_y += GRAVITY * delta
+		var next_y := global_position.y + _velocity_y * delta
+		if not hit.is_empty() and next_y + _frame_foot >= (hit.position as Vector2).y:
+			_attach_support(hit)
+		else:
+			global_position.y = next_y
+			_fall_age += delta
+			if global_position.y > _fall_start_y + FLOOR_REACH or _fall_age >= VOID_SECONDS:
+				visible = false
+				active = false
+				phase = &"void"
+				flash_material.set_shader_parameter("hit_flash", 0.0)
+				queue_redraw()
+				return
+	else:
+		_contact_age += delta
+	# D3 holds during a long airborne fall. Only genuine support contact enables
+	# D4; authored frame pixels supply the collapse, with no sprite rotation.
+	if _landed and age >= FRAME_SECONDS * 3.0:
+		_set_frame(7)
+		global_position = _floor_point - Vector2(0, _frame_foot)
+	if frame_index == 7: _finished_death = true
+	if _landed:
+		phase = &"settling"
+		if frame_index == 7 and _contact_age >= FRAME_SECONDS and (restored or age >= DEATH_SECONDS):
+			settled = true
+			phase = &"resting"
+	else:
+		phase = &"falling"
+	flash_material.set_shader_parameter("hit_flash", 0.0 if restored else _sample.flash_strength())
+	# Authored D1-D4 already carry their corpse palette/closed eyes. Never grey
+	# or darken these new source pixels with the former whole-body material pass.
+	flash_material.set_shader_parameter("lifeless", 0.0)
 	queue_redraw()
 
 func _draw() -> void:
 	if not active or source == null: return
-	if age < FLASH_HOLD:
-		if _layers.is_empty(): draw_texture_rect(source, bounds, false)
-		else:
-			for layer: Dictionary in _layers:
-				draw_set_transform_matrix(layer.pose)
-				draw_texture_rect(layer.texture, layer.bounds, false, Color(1, 1, 1, float(layer.alpha)))
-			draw_set_transform_matrix(Transform2D.IDENTITY)
-		return
-	var t := age - FLASH_HOLD
-	# Texture-bearing chips preserve each skin, with a single outward impulse.
-	# No flipped whole sprite, floor probing, full-screen flash or fireball art.
-	for piece: Dictionary in _pieces:
-		var progress := t / float(piece.life)
-		if progress >= 1: continue
-		var rect: Rect2 = piece.bounds
-		var center := rect.get_center() + (piece.velocity as Vector2) * t * (1-.35*progress) + Vector2(0, 95*t*t)
-		draw_set_transform(center, float(piece.spin) * t)
-		var shrink := lerpf(.78, .20, progress * progress)
-		var points := PackedVector2Array()
-		var uvs := PackedVector2Array()
-		var region: Rect2 = piece.region
-		for corner: Vector2 in piece.shape:
-			points.append(corner * rect.size * shrink)
-			uvs.append((_uv_origin + region.position + (corner+Vector2(.5,.5))*region.size) / _fragment_texture.get_size())
-		draw_polygon(points, PackedColorArray([Color(1, 1, 1, pow(1-progress, .65))]), uvs, _fragment_texture)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2(_face, 1))
+	draw_texture_rect(source, bounds, false)
 	draw_set_transform_matrix(Transform2D.IDENTITY)
-	var center := bounds.get_center()
-	var pressure := 1-clampf(t/.13, 0, 1)
-	if pressure > 0:
-		var radius := lerpf(5, 43 if _aerial else 38, 1-pressure)
-		for arc: int in 3:
-			var start := float(arc) * TAU/3 + .18
-			draw_arc(center, radius, start, start+.75, 7, Color(CREAM, pressure * .85), 1.5, false)
-	# One sharp pressure silhouette precedes the wider fragments. It collapses
-	# rapidly instead of adding a lasting glow that masks the living enemy.
-	var impulse := 1-clampf(t/.085, 0, 1)
-	if impulse > 0:
-		for spoke: int in 8:
-			var axis := Vector2.RIGHT.rotated(float(spoke)*TAU/8+.19)
-			var side := axis.orthogonal()
-			var length := (34 if spoke%2 == 0 else 24) * (.75+.25*impulse)
-			var root := center + axis*3
-			var tip := center + axis*length
-			var width := 2.4*impulse
-			draw_colored_polygon(PackedVector2Array([root-side*width, tip, root+side*width]), Color(CREAM, impulse*.9))
-	for i: int in 24:
-		var life := .26 + float(i%5)*.035
-		var progress := t/life
-		if progress >= 1: continue
-		var axis := Vector2.RIGHT.rotated(float(i)*2.399963 + .17)
-		var speed := 120 + float((i*11)%86)
-		var point := center + axis*speed*t*(1-.25*progress) + Vector2(0, 55*t*t)
-		var color := CREAM if progress < .25 and i%3 == 0 else BRASS
-		color.a = pow(1-progress, 1.4)
-		draw_line(point-axis*(7 if progress < .4 else 2), point, color, 1.5 if progress < .25 else 1.0, false)
 
 func dispose() -> void:
 	if _disposed: return
@@ -226,12 +329,13 @@ func dispose() -> void:
 	_sample = null
 	_receiver = null
 	_health = null
+	_motor = null
 	_host = null
 	_view = Callable()
-	_layers.clear()
-	_pieces.clear()
+	_frames = null
+	_feet.clear()
+	_support = null
 	source = null
-	_fragment_texture = null
 	active = false
 	visible = false
 	queue_free()

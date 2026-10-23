@@ -11,16 +11,24 @@ var _weight := Vector2.ONE
 var _lean := 0.0
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
-var feedback_death_audio: EnemyFeedback01DeathAudio
 var feedback_sample: EnemyFeedback01
+var feedback_frames: EnemyFeedback01Frames
+var feedback_frame_index := -1
+var feedback_anchor := Vector2.ZERO
+var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
-		feedback_death_audio = EnemyFeedback01DeathAudio.new()
-		feedback_death_audio.configure(actor)
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+		feedback_frames = EnemyFeedback01Frames.new(&"legacy", actor.definition.stable_id, _feedback_body_size())
+		feedback_frames.horizontal_offset = feedback_anchor.x
+		feedback_body = EnemyFeedback01Body.new()
+		feedback_body.name = "AcceptedHitBody"
+		feedback_body.show_behind_parent = true
+		feedback_body.visible = false
+		add_child(feedback_body)
 		feedback_particles = EnemyFeedback01Particles.new()
 		feedback_particles.name = "AcceptedHitChips"
 		feedback_particles.z_index = 1
@@ -37,7 +45,6 @@ func _ready() -> void:
 		actor.health.changed.connect(_health_changed)
 	queue_redraw()
 func _exit_tree() -> void:
-	if feedback_death_audio != null: feedback_death_audio.dispose()
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)
@@ -47,6 +54,7 @@ func _feedback_initialized(result: ActorResourceResult) -> void:
 	_hurt_time = 0
 	_death_time = 0
 	feedback_particles.clear_for_epoch()
+	_sync_feedback_body()
 	queue_redraw()
 func _process(delta: float) -> void:
 	if get_tree().paused: return
@@ -55,6 +63,7 @@ func _process(delta: float) -> void:
 		feedback_sample.advance(delta)
 		_hurt_time = feedback_sample.hurt_remaining
 		_death_time = feedback_sample.death_elapsed
+		_sync_feedback_body()
 	else:
 		if actor.health.terminal: _death_time += delta
 		_hurt_time = maxf(0, _hurt_time - delta)
@@ -110,8 +119,10 @@ func _draw() -> void:
 			var alpha := maxf(0, 1.0 - _death_time / EnemyFeedback01.DEATH_SECONDS) if feedback_sample != null else maxf(0, 1.0 - _death_time * 1.6)
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, alpha))
 
-	if ForestBibleActors.draw_enemy_body(self, actor, _clock): return
-	if actor.definition.aerial:
+	if feedback_frame_index >= 0:
+		pass # The body child owns this authored hurt frame; retain HP/telegraphs.
+	elif ForestBibleActors.draw_enemy_body(self, actor, _clock): return
+	elif actor.definition.aerial:
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
 		var tilt := _lean + sin(_clock*2)*.035 + (feedback_sample.tilt() if feedback_sample != null else 0.0)
 		draw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))
@@ -146,6 +157,9 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 
 func _remains_view() -> Dictionary:
 	var facing := float(actor.brain.direction)
+	if feedback_frames != null:
+		var bob := sin(_clock*7)*1.2 if actor.definition.aerial else 0.0
+		return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, _size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(facing, 1), 0, Vector2(0, feedback_anchor.y+bob)), "face": facing, "angle": global_rotation, "readable_material": false}
 	if actor.definition.aerial:
 		var texture := AtlasTexture.new()
 		texture.atlas = preload("res://assets/plains_v4/spatial/actors.png")
@@ -180,6 +194,35 @@ func _remains_view() -> Dictionary:
 	primary.rest_texture = canonical.texture
 	primary.rest_size = (canonical.bounds as Rect2).size * global_scale.abs()
 	return primary
+
+func _feedback_body_size() -> Vector2:
+	if actor.definition.aerial:
+		var source := AtlasTexture.new()
+		source.atlas = preload("res://assets/plains_v4/spatial/actors.png")
+		source.region = Rect2(935, 570, 580, 445)
+		var size := _size*1.45
+		var air_visible := EnemyFeedback01Frames.visible_bounds(source, Rect2(-size.x*.6, -size.y*.65, size.x*1.2, size.y*1.3))
+		# Original region faces left, while the new authored frames face right.
+		feedback_anchor = Vector2(-air_visible.get_center().x, air_visible.end.y)
+		return air_visible.size
+	var folder := "res://assets/plains_v3/enemies/meadow_actions/"
+	if _action_manifest.is_empty(): _action_manifest = JSON.parse_string(FileAccess.get_file_as_string(folder + "manifest.json"))
+	var data: Dictionary = _action_manifest.species.beetle
+	var frame := _remains_named_frame(data, "idle_a")
+	var visible_body := EnemyFeedback01Frames.visible_bounds(frame.texture, frame.bounds)
+	feedback_anchor = Vector2(visible_body.get_center().x, visible_body.end.y)
+	return visible_body.size
+
+func _sync_feedback_body() -> void:
+	feedback_frame_index = feedback_frames.hurt_index(feedback_sample)
+	feedback_body.visible = feedback_frame_index >= 0 and not actor.health.terminal
+	if not feedback_body.visible:
+		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0)
+		feedback_body.flash_material.set_shader_parameter("authored_palette", 0.0)
+		feedback_body.flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
+		return
+	var bob := sin(_clock*7)*1.2 if actor.definition.aerial else 0.0
+	feedback_body.present(feedback_frames.texture(feedback_frame_index), feedback_frames.bounds(feedback_frame_index), Vector2(0, feedback_anchor.y+bob), 0, Vector2(float(actor.brain.direction), 1), Color.WHITE, feedback_sample.flash_strength())
 
 func _remains_named_frame(data: Dictionary, id: String) -> Dictionary:
 	for frame: Dictionary in data.frames:

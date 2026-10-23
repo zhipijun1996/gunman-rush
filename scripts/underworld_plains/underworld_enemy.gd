@@ -3,18 +3,24 @@ extends PixelPlainsEnemy
 ## Genuine new body art. Original state-based telegraphs remain authoritative.
 var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var accepted_hurt_count := 0
-var feedback_death_audio: EnemyFeedback01DeathAudio
 var feedback_sample: EnemyFeedback01
+var feedback_frames: EnemyFeedback01Frames
+var feedback_frame_index := -1
+var feedback_anchor := Vector2.ZERO
 var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 
 func _ready() -> void:
 	if EnemyFeedback01.supports(actor.definition):
-		feedback_death_audio = EnemyFeedback01DeathAudio.new()
-		feedback_death_audio.configure(actor)
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+		var original: Texture2D = SPRITES["aerial" if actor.definition.aerial else String(actor.definition.behavior_id)]
+		var dimensions := _original_body_size(original)
+		var visible_body := EnemyFeedback01Frames.visible_bounds(original, Rect2(-dimensions.x*.5, actor.definition.collision_size.y*.5-dimensions.y, dimensions.x, dimensions.y))
+		feedback_anchor = Vector2(visible_body.get_center().x, visible_body.end.y)
+		feedback_frames = EnemyFeedback01Frames.new(&"underworld", actor.definition.stable_id, visible_body.size)
+		feedback_frames.horizontal_offset = feedback_anchor.x
 		feedback_body = EnemyFeedback01Body.new()
 		feedback_body.configure_underworld_palette(actor.definition.aerial)
 		feedback_body.name = "AcceptedHitBody"
@@ -50,11 +56,24 @@ func _process(delta: float) -> void:
 		_sync_feedback_body()
 
 func _sync_feedback_body() -> void:
+	feedback_frame_index = feedback_frames.hurt_index(feedback_sample)
 	feedback_body.visible = not actor.health.terminal
 	if not feedback_body.visible:
 		# Keep the accepted flash receipt, while the sibling now owns the pixels.
 		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0 if feedback_sample.restored_terminal else feedback_sample.flash_strength())
+		feedback_body.flash_material.set_shader_parameter("authored_palette", 0.0)
+		feedback_body.flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
 		return
+	if feedback_frame_index >= 0:
+		# The new poses use the same shell/stone/brass family as this live body.
+		feedback_body.configure_underworld_palette(actor.definition.aerial)
+		var hurt_state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+		var hurt_dip := 3.0 if hurt_state == &"telegraph" else 1.0 if hurt_state == &"recovery" else 0.0
+		var hurt_flutter := 2 * roundf(sin(_clock * 12)) if actor.definition.aerial else 0.0
+		var anchor := Vector2(0, feedback_anchor.y+hurt_dip+hurt_flutter)
+		feedback_body.present(feedback_frames.texture(feedback_frame_index), feedback_frames.bounds(feedback_frame_index), anchor, 0, Vector2(float(actor.brain.direction), 1), Color.WHITE, feedback_sample.flash_strength())
+		return
+	feedback_body.configure_underworld_palette(actor.definition.aerial)
 	var behavior := String(actor.definition.behavior_id)
 	var source: Texture2D = SPRITES["aerial" if actor.definition.aerial else behavior]
 	var size := actor.definition.collision_size
@@ -73,20 +92,19 @@ func _sync_feedback_body() -> void:
 	var origin := Vector2(0, dip + flutter + floor_y * (1 - pose.y))
 	feedback_body.present(source, Rect2(-width*.5, floor_y-height, width, height), origin, feedback_sample.tilt(), Vector2(float(actor.brain.direction)*pose.x, pose.y), feedback_sample.tint(), feedback_sample.flash_strength())
 
-func _remains_view() -> Dictionary:
-	var face := float(actor.brain.direction)
-	var texture: Texture2D = SPRITES["aerial" if actor.definition.aerial else String(actor.definition.behavior_id)]
+func _original_body_size(texture: Texture2D) -> Vector2:
 	var size := actor.definition.collision_size
 	var width := maxf(size.x + 8, 28)
 	var height := width * texture.get_height() / texture.get_width()
 	if height > size.y + 14:
 		width *= (size.y + 14) / height
 		height = size.y + 14
-	var rest_size := Vector2(width, height) * global_scale.abs()
-	if feedback_body.source != null:
-		return {"texture": feedback_body.source, "bounds": feedback_body.destination, "transform": feedback_body.global_transform, "face": face, "angle": global_rotation + feedback_body.rotation, "rest_size": rest_size, "readable_material": true, "rest_angle": 1.65 if actor.definition.aerial else 2.65}
-	# A saved terminal instance has no live body frame to hand off.
-	return {"texture": texture, "bounds": Rect2(-width*.5, size.y*.5-height, width, height), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2.ZERO), "face": face, "angle": global_rotation, "readable_material": true, "rest_angle": 1.65 if actor.definition.aerial else 2.65}
+	return Vector2(width, height)
+
+func _remains_view() -> Dictionary:
+	var face := float(actor.brain.direction)
+	var flutter := 2 * roundf(sin(_clock * 12)) if actor.definition.aerial else 0.0
+	return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, actor.definition.collision_size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2(0, feedback_anchor.y+flutter)), "face": face, "angle": global_rotation, "readable_material": true}
 
 func _feedback_initialized(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
@@ -98,7 +116,6 @@ func _feedback_initialized(result: ActorResourceResult) -> void:
 	queue_redraw()
 
 func _exit_tree() -> void:
-	if feedback_death_audio != null: feedback_death_audio.dispose()
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)

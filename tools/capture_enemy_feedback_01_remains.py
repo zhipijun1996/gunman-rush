@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Record v3 corpse landing and a 3.5-second stationary hold in real Godot."""
+"""Record accepted death and a 3.5-second corpse hold in a named rendering chain."""
 import argparse
 import hashlib
 import json
@@ -39,6 +39,7 @@ def main():
     parser.add_argument("--variant", choices=("before", "after"), required=True,
                         help="Label only. Run unchanged driver against the intended source externally.")
     parser.add_argument("--seed", default="enemy-feedback-01-remains")
+    parser.add_argument("--chain", choices=("underworld", "legacy"), default="underworld")
     parser.add_argument("--expect-remains", action="store_true",
                         help="Require a visible, settled, stationary final 3.5s per case; validation only.")
     parser.add_argument("--compare-trace", type=Path)
@@ -47,9 +48,9 @@ def main():
     folder = args.output.resolve()
     folder.mkdir(parents=True, exist_ok=False)
     source = harness.git_metadata()
-    report = {"task": "ENEMY-FEEDBACK-01", "version": "v3-remains-review", "variant": args.variant, "seed": args.seed,
+    report = {"task": "ENEMY-FEEDBACK-01", "version": "v8-authored-frames", "variant": args.variant, "seed": args.seed, "chain": args.chain,
               "status": "running", "source": source, "driver_sha256": digest(ROOT / "tools/enemy_feedback_01_remains_capture.gd"),
-              "scope": "Two explicit Underworld spawn fixtures with actual AI, nonlethal/lethal shots and a long corpse hold; no campaign/device claim.",
+              "scope": "Two explicit spawn fixtures in the named rendering chain with actual AI, nonlethal/lethal shots and a long corpse hold; no campaign/device claim.",
               "conditions": {"resolution": [1280, 720], "fps": 60, "playback_speed": 1,
                              "camera": {"center": [575, 440], "zoom": 2.5}, "case_frames": 780, "total_trace_frames": 1560,
                              "definitions": ["resources/enemies/plains_charger.tres", "resources/enemies/plains_diver.tres"],
@@ -82,7 +83,7 @@ def main():
         trace_path = folder / (args.variant + ".json")
         command = ["bash", "tools/godot.sh", "--path", ".", "--rendering-method", "gl_compatibility",
                    "--write-movie", str(avi), "--fixed-fps", "60", "--script", "tools/enemy_feedback_01_remains_capture.gd",
-                   "--", "--variant=" + args.variant, "--seed=" + args.seed, "--trace=" + str(trace_path)]
+                   "--", "--variant=" + args.variant, "--seed=" + args.seed, "--trace=" + str(trace_path), "--chain=" + args.chain]
         if args.expect_remains:
             command.append("--expect-remains")
         if args.expect_disappear:

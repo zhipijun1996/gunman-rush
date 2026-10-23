@@ -23,6 +23,14 @@ func present(texture: Texture2D, bounds: Rect2, offset: Vector2, angle: float, p
 	scale = pose
 	body_tint = tint
 	flash_material.set_shader_parameter("hit_flash", flash)
+	# AtlasTexture uses UVs in the underlying complete atlas, not 0..1 per cell.
+	var uv_rect := Vector4(0, 0, 1, 1)
+	if texture is AtlasTexture:
+		var atlas := texture as AtlasTexture
+		var atlas_size := atlas.atlas.get_size()
+		uv_rect = Vector4(atlas.region.position.x/atlas_size.x, atlas.region.position.y/atlas_size.y, atlas.region.size.x/atlas_size.x, atlas.region.size.y/atlas_size.y)
+	flash_material.set_shader_parameter("frame_uv_rect", uv_rect)
+	flash_material.set_shader_parameter("authored_palette", 1.0 if texture is AtlasTexture else 0.0)
 	queue_redraw()
 
 func _draw() -> void:

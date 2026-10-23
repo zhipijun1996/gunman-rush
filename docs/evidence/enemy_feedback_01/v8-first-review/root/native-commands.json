@@ -1,0 +1,60 @@
+[
+  {
+    "name": "native",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_feedback_01_tests.gd"
+    ],
+    "exit_code": 1,
+    "seconds": 20.83205170900328
+  },
+  {
+    "name": "formal",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_feedback_01_formal.gd"
+    ],
+    "exit_code": 1,
+    "seconds": 19.17310972300038
+  },
+  {
+    "name": "support",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_feedback_01_support.gd"
+    ],
+    "exit_code": 0,
+    "seconds": 23.136024157000065
+  },
+  {
+    "name": "audio",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--max-fps",
+      "60",
+      "--script",
+      "tests/enemy_feedback_01_death_audio.gd"
+    ],
+    "exit_code": 0,
+    "seconds": 9.849546484998427
+  }
+]

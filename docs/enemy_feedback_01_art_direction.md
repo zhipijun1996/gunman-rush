@@ -126,3 +126,15 @@ after.mp4 b7faf7a276ef310616ea0a77e32b9916edf18c3c53e1078a5b7614e92ea91bad
 本次没有获得Team Cherry一手公开的具体hit-stop/震动时长参数；网络搜索中出现的反编译与二手分析数值不作为本项目参数权威，不照抄。全局顿帧、time_scale、额外击退、镜头震动和武器音效仍不由此美术建议扩入生产写集。
 
 优先顺序：先让活体主面和死体姿态分开，再放大同族像素受击层；后续仍须逐帧资产真正解决行走、转向、翼拍、俯冲、恢复和死亡。只提亮、只转尸体或只加更多粒子，都不能单独完成这次用户反馈。
+
+
+## v8：实际专属hurt／death帧
+
+按最新用户要求重回保尸体：新增4套独立原PNG，共32姿态，来源／参考／region／anchor／alpha和PNG chunk审计在assets/enemy_feedback_01/frames_v8。Underworld两图逐字生成prompt未完整保存；Legacy两图保留真实prompt。PIL.info不显示caBX不代表PNG无元数据；实际块存在，未独立验签，不据此推断缺失prompt或许可。
+
+Frames按H4可见主体统一尺寸，不按每姿态独立缩放；Remains按每帧真实alpha脚底落在实测支撑，不翻整张原图。新atlas不叠加readable_material或lifeless压暗。旧live艺术与新H1/D1、H4与旧live的衔接必须看真实片，不用静图或hash代签丝滑。当前两样板正式默认scale1；非单位transform、斜坡和旋转平台轮廓接地未验证。完整locomotion仍未补齐。
+
+
+## v8首独审REWORK后的材质／比例校正
+
+真实邻帧确认旧live与新H4色调／比例跳变，故前述“完整新图关闭readable_material”不作为当前修订结论。固定整套Vector2按同alpha阈值匹配原live实际主体，保留其既有长宽显示；新Underworld帧沿同一个壳／青石／铜族映射，但只为新图使用r-g区分苔甲与铜、固定输入范围校正，并以Atlas局部UV计算光照。Legacy不重着色。原PNG及原live材质分支字节不改；H1/H4/D4和接回必须重新实片独审，未凭矩形或luma签视觉通过。

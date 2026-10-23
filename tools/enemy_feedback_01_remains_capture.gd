@@ -1,5 +1,5 @@
 extends SceneTree
-## v3 review: two 13-second explicit fixtures with real accepted projectile hits.
+## Two 13-second explicit fixtures with real accepted projectile hits.
 ## Variant/expect_remains affect reporting only, never simulation or feedback.
 const CASE_FRAMES := 780
 const TOTAL_FRAMES := CASE_FRAMES * 2
@@ -11,6 +11,7 @@ var variant := "after"
 var seed_label := "enemy-feedback-01-remains"
 var expect_remains := false
 var expect_disappear := false
+var rendering_chain := "underworld"
 var world: Node2D
 var fixture: Node2D
 var controller: PlayerController
@@ -32,6 +33,7 @@ func _initialize() -> void:
 		if argument.begins_with("--seed="): seed_label = argument.trim_prefix("--seed=")
 		if argument == "--expect-remains": expect_remains = true
 		if argument == "--expect-disappear": expect_disappear = true
+		if argument.begins_with("--chain="): rendering_chain = argument.trim_prefix("--chain=")
 	start.call_deferred()
 
 func label_at(text_value: String, point: Vector2, size: int) -> Label:
@@ -95,25 +97,26 @@ func make_case(index: int) -> void:
 	actor = enemy.get_node("Actor") as EnemyActor
 	actor.definition = load(DEFINITIONS[index]) as EnemyDefinition
 	fixture.add_child(enemy)
-	var installation := INSTALLER.install(fixture)
-	if installation.enemies != 1 or enemy.get_node_or_null("Presentation") == null:
-		push_error("Formal installer did not produce a presentation in case %s" % index)
-		quit(1)
-		return
+	if rendering_chain == "underworld":
+		var installation := INSTALLER.install(fixture)
+		if installation.enemies != 1 or enemy.get_node_or_null("Presentation") == null:
+			push_error("Formal installer did not produce a presentation in case %s" % index)
+			quit(1)
+			return
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = DemoLifetime.new()
 	fixture.add_child(policy)
 	if not policy.bind_damageable(&"remains_capture_enemy", actor.damageable, actor.health): failures.append("damage binding failed")
 	actor.bind_encounter(controller, policy, policy.lifetime, &"remains_capture_enemy", [])
 	var id := index
-	cases.append({"case": index, "definition": String(actor.definition.stable_id), "chain": "UnderworldEnemy via installer", "events": [], "inputs": [], "shots": [], "deaths": 0})
+	cases.append({"case": index, "definition": String(actor.definition.stable_id), "chain": rendering_chain, "events": [], "inputs": [], "shots": [], "deaths": 0})
 	actor.health.changed.connect(func(result: ActorResourceResult) -> void:
 		if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
 			cases[id].events.append({"frame": frame, "event_id": String(result.event_id), "amount": result.amount_applied, "HP": result.snapshot.current, "epoch": result.snapshot.epoch, "terminal": result.snapshot.terminal}))
 	actor.defeated.connect(func(_defeated: EnemyActor) -> void: cases[id].deaths += 1)
 	controller.shoot_ability.shot_fired.connect(func(direction: Vector2, shot_id: int) -> void:
 		cases[id].shots.append({"frame": frame, "shot_id": shot_id, "direction": [direction.x, direction.y]}))
-	heading.text = "%s / 2   UNDERWORLD INSTALLER   -   %s" % [index + 1, "AERIAL DIVER" if index == 1 else "GROUND CHARGER"]
+	heading.text = "%s / 2   %s   -   %s" % [index + 1, rendering_chain.to_upper(), "AERIAL DIVER" if index == 1 else "GROUND CHARGER"]
 	await process_frame
 
 func optional_property(node: Object, names: Array[StringName]) -> Variant:
@@ -146,6 +149,7 @@ func remains_receipts() -> Array[Dictionary]:
 			ancestor = ancestor.get_parent()
 		var settled: Variant = optional_property(body, [&"settled", &"_settled"])
 		output.append({"path": String(fixture.get_path_to(body)), "visible": body.visible, "visible_in_tree": body.is_visible_in_tree(), "effective_alpha": effective_alpha,
+			"frame_index": optional_property(body, [&"frame_index"]),
 			"position": [body.global_position.x, body.global_position.y], "rotation": body.global_rotation, "scale": [body.global_scale.x, body.global_scale.y],
 			"settled": settled if settled is bool else null, "settled_source": "component property" if settled is bool else "not exposed; see stable-transform observation"})
 	return output
@@ -170,6 +174,7 @@ func drive() -> void:
 		"player_position": [controller.motor.position.x, controller.motor.position.y], "player_velocity": [controller.motor.velocity.x, controller.motor.velocity.y],
 		"enemy_position": [enemy.position.x, enemy.position.y], "enemy_velocity": [enemy.velocity.x, enemy.velocity.y], "HP": actor.health.current,
 		"state": String(actor.attack_behavior.state) if actor.attack_behavior != null else "patrol", "remains": remains,
+		"hurt_frame_index": optional_property(presentation, [&"feedback_frame_index"]),
 		"presentation_visible": presentation.visible, "presentation_alpha": presentation.modulate.a})
 	if local_frame == CASE_FRAMES:
 		busy = true
@@ -233,8 +238,8 @@ func finish() -> void:
 		push_error("Cannot write enemy remains trace")
 		quit(1)
 		return
-	file.store_string(JSON.stringify({"task": "ENEMY-FEEDBACK-01", "version": "v3-remains-review", "variant": variant, "seed": seed_label,
-		"scope": "two explicit Underworld spawn fixtures; actual Router/Shoot/projectile/policy/HP; long settled-remains observation; no campaign/device claim",
+	file.store_string(JSON.stringify({"task": "ENEMY-FEEDBACK-01", "version": "v8-authored-frames", "variant": variant, "seed": seed_label, "chain": rendering_chain,
+		"scope": "two explicit " + rendering_chain + " spawn fixtures; actual Router/Shoot/projectile/policy/HP; long settled-remains observation; no campaign/device claim",
 		"expect_remains": expect_remains, "expect_disappear": expect_disappear, "frames": rows, "cases": cases, "audio_counts": audio_counts, "failures": failures, "audio_released": released}))
 	file.close()
 	world.free()
