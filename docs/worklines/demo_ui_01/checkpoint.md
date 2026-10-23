@@ -56,3 +56,12 @@ Web/影片运行源1d1d8368ffd03de38e59fbd1140d44c5ba95c403，build7127eaf8cef7�
 托管33023e2，Pages39880510414实际成功；站点预计934577261bytes，约8.7MiB余量，保留其他工作线。旧R1原包超过GitHub100MiB导致首次push拒绝，使用精确gzip分片归档并成功重建后恢复发布，没有强推。独审只限定准入静态/导出方向，用户、设备、动态音轨和Integration/Release未代签；源分支skip-ci按本轮Development边界延后全量集成。
 
 中央tasks/current_state/handoff由总控维护，本线不改；本文件和PR为接入请求/可恢复检查点。下一步直接收用户对字体、按钮比例、标题氛围和HUD的实际反馈。
+
+
+## R3 · 时间能量与无框 HUD 公开检查点
+
+运行源8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96，build5e9adddb1662；PR105继续独立草稿。用户明确授权射击免耗能/仅实际空中慢时消耗、系统基础一发；头像+右心+下共鸣、D/H真实资格图标、人物周围时间能量环已接入。五旧道具迁移真实focus参数与v2定义，历史耗能/两发断言显式fixture保留。
+
+6组原Harness、6组冻结UI、地区baseline1274/0、公开桌面10+模拟手机11均通过；Current能源140单列0fail且无退出错误。独审原三项拒绝修复后限定ACCEPT；29.621333秒真实影片/source-stable，公开PCK/页面/影片完整SHA一致、main前后相同。公开链接、失败和范围见delivery.md。
+
+托管981883a/Pages39890389002成功，最终925761724/943718400bytes；本线旧R2/3重复影片可恢复归档，其他新增FOREGROUND-CONTINUITY页面并发合入保留。全静态quality因稀疏旧证据/中央任务无DEMOUI行实际失败，保留原件，不越权写中央状态。用户/实体设备/全Integration/Release均未代签。

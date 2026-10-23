@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "DEMO-UI-01",
   "task_type": "ui_feedback",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62",
+  "reviewed_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
   "content_version": "clockwork-ui-r3",
   "owner": "/root",
   "purpose": "Apply user-directed time-energy-only slow motion and frameless portrait/heart/resonance HUD",
@@ -174,8 +174,11 @@
     "tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres",
     "tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres",
     "tests/fixtures/demo_ui_01_r3/history.json",
+    "tests/foundry_lab_runner.gd",
     "tests/grapple_focus_hud_runner.gd",
     "tests/plains_experience_energy_runner.gd",
+    "tests/plains_region_runner.gd",
+    "tests/random_stage_tests.gd",
     "tests/underworld_plains/test_underworld_ui.gd",
     "tools/demo_ui_01/run_time_energy.py",
     "tools/harness/profiles.json"
@@ -187,146 +190,283 @@
   ],
   "creative_decisions": [
     {
-      "decision": "User-directed R2 pixel family, rounded dimensional copper controls, scenic title and large right clock emblem",
+      "decision": "User-directed portrait/hearts/resonance frameless HUD, one-round baseline and time-energy-only actual slow aim ring",
       "status": "proposed",
-      "basis": "User requested exact changes; R1 visual rejection retained; R2 actual feedback pending"
+      "basis": "Implementation follows latest explicit task instructions; delivered visual candidate has not received user aesthetic acceptance."
+    },
+    {
+      "decision": "R2 title/font/rounded UI retained",
+      "status": "proposed",
+      "basis": "Visual user acceptance of implemented candidate remains pending"
     }
   ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
-      "evidence": []
+      "status": "passed",
+      "reason": "Explicit user choices implemented in real consumer scope",
+      "evidence": [
+        "r3-design"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current source-bound targeted Harness and actual UI/resource consumers pass",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "reason": "User/device/complete Integration/Release not established",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "reason": "User/device/complete Integration/Release not established",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "reason": "User/device/complete Integration/Release not established",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "reason": "User/device/complete Integration/Release not established",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
-      "evidence": []
+      "status": "passed",
+      "reason": "Latest user direction has a concrete implemented scope",
+      "evidence": [
+        "r3-design"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current targeted checks, public GUI and complete deployed bytes verified",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy",
+        "r3-web",
+        "r3-bytes"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
-      "evidence": []
+      "status": "passed",
+      "reason": "Different read-only reviewer limited ACCEPT for R3 implementation and evidence",
+      "evidence": [
+        "r3-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "reason": "Scoped technical candidate; user/real device/full content acceptance separate",
       "evidence": []
     }
   },
   "criteria": [
     {
-      "id": "r2-native-direction",
-      "scenario": "User-rejected R1 title, menus and real HUD",
-      "method": "Native implementation with exact four title actions, one font family and real official data",
-      "expected": "Operable complete candidate follows explicit requested appearance and lifecycle",
-      "failure": "Screenshot-only buttons, missing glyphs, fake save/attributes or input leaks",
+      "id": "r3-real-direction",
+      "scenario": "Latest user time energy and HUD feedback",
+      "method": "Real native Controls and official resources",
+      "expected": "No fake owner, no weapon/background frame, portrait/heart/resonance/current availability",
+      "failure": "Incorrect rules or fabricated state",
       "gate": "G0",
       "dimension": "design",
-      "status": "unverified",
-      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual implementation scope and independent inspection",
+      "evidence": [
+        "r3-design",
+        "r3-review"
+      ]
     },
     {
-      "id": "r2-native-regression",
-      "scenario": "Real title/menu/HUD/return/death/map/native focus consumers",
-      "method": "Clean frozen relevant original Harness and R2 native event checks",
-      "expected": "838 checks and222 asset records without failures, script/lifecycle errors or fabricated resources",
-      "failure": "Any actual consumer assertion or engine failure",
+      "id": "r3-current-runtime",
+      "scenario": "Shooting, slow aim, one-round, items and UI lifecycle",
+      "method": "Current140 plus original version-bound system/HUD checks and public GUI",
+      "expected": "All selected current checks clean under original budgets",
+      "failure": "Any assertion, engine or source stability failure",
       "gate": "G1",
       "dimension": "technical",
-      "status": "unverified",
-      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
-      "evidence": []
+      "status": "passed",
+      "reason": "Source-bound current targeted checks and public byte verification",
+      "evidence": [
+        "r3-harness",
+        "r3-ui",
+        "r3-energy",
+        "r3-web",
+        "r3-bytes"
+      ]
     },
     {
-      "id": "r2-independent-static",
-      "scenario": "Source-equivalent native and exported UI golden pixels",
-      "method": "Different read-only agent inspected actual images and frozen source/evidence",
-      "expected": "Explicit scoped verdict, exact viewed scope and preserved user/device/dynamic limits",
-      "failure": "Self-review, unviewed artifact or unsupported blanket acceptance",
-      "gate": "G4",
+      "id": "r3-independent",
+      "scenario": "D/H edge cases, growth layout and actor-following ring",
+      "method": "Different read-only reviewer actual pixels, sources and sampled continuous video",
+      "expected": "Findings close on the exact current version",
+      "failure": "Unclosed mandatory review finding",
+      "gate": "G1",
       "dimension": "independent_review",
-      "status": "unverified",
-      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
-      "evidence": []
+      "status": "passed",
+      "reason": "review-01 rejection preserved, review-02 limited ACCEPT",
+      "evidence": [
+        "r3-review"
+      ]
     }
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "r3-design",
+      "path": "docs/worklines/demo_ui_01/r3/scope.md",
+      "sha256": "b9a5bba695dbb7589c6bc0975ac89bd71e74197d2384d3874eb01047d53f41d7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Explicit latest user resource and HUD requirements; minimal shared changes"
+    },
+    {
+      "id": "r3-harness",
+      "path": "docs/evidence/demo_ui_01/r3/harness-report.json",
+      "sha256": "7f0274ddbfccd50c6630ae20ab030c9196f6ca3c455ea44651250a6f0956fb03",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Six targeted original Harness groups passed; not Integration/Release",
+      "command": "python3 tools/harness.py --check core --check actor-actions --check all-weapons --check action-budget --check grapple-feel --check demo-ui-time-energy --jobs 1",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; Linux; serial headless"
+    },
+    {
+      "id": "r3-ui",
+      "path": "docs/evidence/demo_ui_01/r3/ui-report.json",
+      "sha256": "9a8540329fd78645550c0d0b5783881b2f19d822e6085e02a744a78a91e86278",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Six frozen UI/system consumer groups passed source-stable",
+      "command": "python3 /workspace/scratch/demo_ui_r3_frozen_ui.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2; native llvmpipe DISPLAY99 and headless"
+    },
+    {
+      "id": "r3-energy",
+      "path": "docs/evidence/demo_ui_01/r3/energy.json",
+      "sha256": "feb6a2896a3d9746fdaa744f294b0d01068afe4f4c94b4dff88ef9e0180392fa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Current policy140 checks0failures, actual shot/beam/focus/item/refill/ring boundaries"
+    },
+    {
+      "id": "r3-web",
+      "path": "docs/evidence/demo_ui_01/r3/browser-public/report.json",
+      "sha256": "6e3273ca63a8a44b36c967e6e7809a4b82c2785e29cc35298581a3a9fc49de93",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Public desktop10 and DOM mobile11 checks, engine errors empty; real devices separate"
+    },
+    {
+      "id": "r3-bytes",
+      "path": "docs/evidence/demo_ui_01/r3/public-bytes.json",
+      "sha256": "defda312f5e93089b3b5a66f22bfbd7c9928099e4f8c756e325827f392a1e642",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Full public PCK/HTML/movie SHA matches, main build metadata unchanged"
+    },
+    {
+      "id": "r3-movie",
+      "path": "docs/evidence/demo_ui_01/r3/movie-report.json",
+      "sha256": "b32c7cf18b3d57e3b38fe3d9be4d958e78628ec95b1b81c468b5611501193580",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Actual 29.621333sec source-attributed R2/R3 comparison; after injury/heal/shot/ring observed"
+    },
+    {
+      "id": "r3-review",
+      "path": "docs/evidence/demo_ui_01/r3/independent/review-02.md",
+      "sha256": "696fafc428ea2073ee7487a73a63dd6288ef1eb0f7552d336183e11ef85c6adb",
+      "kind": "review",
+      "producer": "/root/ui_audit",
+      "source_commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+      "content_version": "clockwork-ui-r3",
+      "method": "Actual source-bound execution/inspection with explicit limited scope",
+      "observed": "Limited ACCEPT; actual pixels and 0.25sec sampled film, no device/user/full Integration claim",
+      "reviewer": "/root/ui_audit",
+      "implementers": [
+        "/root",
+        "/root/menus"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only agent for R3; changed only reports, no R3 production/test implementation",
+      "verdict": "ACCEPT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "R3 aesthetic and physical-device acceptance pending",
-    "Full Integration/Release deferred to controller; Development planner conservatively selects full for shared configuration, not claimed executed",
-    "Actual browser/mobile emulation and movie pending",
-    "R2 and earlier failures retained; archived historical tests do not sign current v2 rules"
+    "R3 aesthetics/readability/player feel require user feedback",
+    "Physical touch/gamepad and actual-device performance unverified",
+    "Full Integration/Release remains controller-owned; production planner selected full conservatively for shared config; targeted Development only executed",
+    "Global static quality actually fails sparse historical evidence and missing controller-owned DEMO-UI-01 task row; no central files edited or whole history restored",
+    "Movie uses official-policy damage/heal fixtures, not natural combat; reviewer sampled at4fps, did not play full original speed or listen",
+    "Public UI21 checks and extra ring pixels do not sign complete region traversal or device experience"
   ],
   "test_change_justification": "New current-time-energy Harness check supplements every original check/budget. Old D079 energy and two-round motion/resource tests bind explicit legacy Definition/caps/items; original assertions retained. Current v2 separately verifies zero-energy shooting, real slow aim, one-round cap, five migrated items, real hook/damage refill and ring lifecycle. Native UI adds a growth-number readability assertion. Initial test driver preload dependency cycle and missing adapter failures retained; current driver uses load and observes teardown."
 }
