@@ -1,0 +1,258 @@
+{
+  "scope": "Six real wrapper-main scheduling tests with tiny Python subprocesses; preceding consumers and payload validators explicitly simulated, no Godot/native approval",
+  "cases": [
+    {
+      "mode": "success",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 2,
+      "launched": [
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/after/case_0/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/after/case_1/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/after/case_2/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline/01",
+          "map_index": 1,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/after/case_3/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/current_repeat/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_9j71jxvh/bait/capture.json",
+          "max_ticks": 10000,
+          "policy": "bait_then_bypass_v1"
+        }
+      ],
+      "completed_order": [
+        "build/verification/plains-encounter/run_9j71jxvh/after/case_1/capture.json",
+        "build/verification/plains-encounter/run_9j71jxvh/after/case_2/capture.json",
+        "build/verification/plains-encounter/run_9j71jxvh/after/case_0/capture.json",
+        "build/verification/plains-encounter/run_9j71jxvh/after/case_3/capture.json",
+        "build/verification/plains-encounter/run_9j71jxvh/current_repeat/capture.json",
+        "build/verification/plains-encounter/run_9j71jxvh/bait/capture.json"
+      ],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.2588774480027496,
+      "wrapper_return": 0,
+      "wrapper_exception": null,
+      "receipt_status": "passed"
+    },
+    {
+      "mode": "false",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 2,
+      "launched": [
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_6bgmk2ev/after/case_0/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_6bgmk2ev/after/case_1/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "target": "build/verification/plains-encounter/run_6bgmk2ev/after/case_2/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        }
+      ],
+      "completed_order": [
+        "build/verification/plains-encounter/run_6bgmk2ev/after/case_0/capture.json",
+        "build/verification/plains-encounter/run_6bgmk2ev/after/case_1/capture.json",
+        "build/verification/plains-encounter/run_6bgmk2ev/after/case_2/capture.json"
+      ],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.24726813199958997,
+      "wrapper_return": null,
+      "wrapper_exception": "ValueError: actual current formal capture rejected: {'captured': False, 'capture': 'build/verification/plains-encounter/run_6bgmk2ev/after/case_0/capture.json'}",
+      "receipt_status": "failed"
+    },
+    {
+      "mode": "exception",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 2,
+      "launched": [
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_03yy6p3v/after/case_0/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_03yy6p3v/after/case_1/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "target": "build/verification/plains-encounter/run_03yy6p3v/after/case_2/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        }
+      ],
+      "completed_order": [
+        "build/verification/plains-encounter/run_03yy6p3v/after/case_0/capture.json",
+        "build/verification/plains-encounter/run_03yy6p3v/after/case_1/capture.json",
+        "build/verification/plains-encounter/run_03yy6p3v/after/case_2/capture.json"
+      ],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.24830271600512788,
+      "wrapper_return": null,
+      "wrapper_exception": "RuntimeError: simulated capture exception",
+      "receipt_status": "failed"
+    },
+    {
+      "mode": "validation",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 2,
+      "launched": [
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_6uc7j5en/after/case_0/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_6uc7j5en/after/case_1/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "target": "build/verification/plains-encounter/run_6uc7j5en/after/case_2/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        }
+      ],
+      "completed_order": [
+        "build/verification/plains-encounter/run_6uc7j5en/after/case_0/capture.json",
+        "build/verification/plains-encounter/run_6uc7j5en/after/case_1/capture.json",
+        "build/verification/plains-encounter/run_6uc7j5en/after/case_2/capture.json"
+      ],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.28015573599986965,
+      "wrapper_return": null,
+      "wrapper_exception": "ValueError: simulated validation rejection",
+      "receipt_status": "failed"
+    },
+    {
+      "mode": "timeout",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 2,
+      "launched": [
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "target": "build/verification/plains-encounter/run_099ih54_/after/case_0/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_099ih54_/after/case_1/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "target": "build/verification/plains-encounter/run_099ih54_/after/case_2/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        },
+        {
+          "seed": "level-design-v2-baseline/01",
+          "map_index": 1,
+          "strategy": "fast",
+          "target": "build/verification/plains-encounter/run_099ih54_/after/case_3/capture.json",
+          "max_ticks": 15000,
+          "policy": "kill_from_bank_v1"
+        }
+      ],
+      "completed_order": [
+        "build/verification/plains-encounter/run_099ih54_/after/case_1/capture.json",
+        "build/verification/plains-encounter/run_099ih54_/after/case_0/capture.json",
+        "build/verification/plains-encounter/run_099ih54_/after/case_2/capture.json",
+        "build/verification/plains-encounter/run_099ih54_/after/case_3/capture.json"
+      ],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.4675263819954125,
+      "wrapper_return": null,
+      "wrapper_exception": "ValueError: actual current formal capture rejected: {'captured': False, 'capture': 'build/verification/plains-encounter/run_099ih54_/after/case_0/capture.json', 'fake_reason': 'bounded child timeout'}",
+      "receipt_status": "failed"
+    },
+    {
+      "mode": "incomplete",
+      "status": "passed scheduling assertions only",
+      "peak_workers": 0,
+      "launched": [],
+      "completed_order": [],
+      "all_children_reaped": true,
+      "elapsed_seconds": 0.0010280249989591539,
+      "wrapper_return": null,
+      "wrapper_exception": "ValueError: current capture matrix/unique destinations changed",
+      "receipt_status": "failed"
+    }
+  ]
+}

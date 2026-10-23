@@ -1,0 +1,94 @@
+{
+  "scope": "two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained",
+  "aggregate_budget_seconds": 180,
+  "aggregate_seconds": 130.15983567699732,
+  "within_aggregate_deadline": true,
+  "native_runs": [
+    {
+      "shard": 0,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/workspace/integration-four/build/plains_redesign/scene/run_n51dduom/positive-shard-0.json",
+        "--positive-shard=0"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792768873.01412,
+        "ended_at_unix": 1792769002.5696497,
+        "duration_seconds": 129.556,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/workspace/integration-four/build/plains_redesign/scene/run_n51dduom/positive-shard-0.json",
+          "--positive-shard=0"
+        ],
+        "check_token": "1312a3bb726749cb8986a909acac182f"
+      },
+      "output": "build/plains_redesign/scene/run_n51dduom/positive-shard-0.json",
+      "output_sha256": "28b6b8f4664b1d2b9539b08c4092f7c2ae8508e55d11d45ada2ab48e78c2280f",
+      "log_sha256": "bfd86baacac85683599ed9cf5e51cf331476dab64c14dbd9f9bcd81a2fe4a7fc"
+    },
+    {
+      "shard": 1,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/workspace/integration-four/build/plains_redesign/scene/run_n51dduom/positive-shard-1.json",
+        "--positive-shard=1"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792768873.0143435,
+        "ended_at_unix": 1792768970.4985592,
+        "duration_seconds": 97.484,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/workspace/integration-four/build/plains_redesign/scene/run_n51dduom/positive-shard-1.json",
+          "--positive-shard=1"
+        ],
+        "check_token": "1e999a99773745d29f33af019e95275d"
+      },
+      "output": "build/plains_redesign/scene/run_n51dduom/positive-shard-1.json",
+      "output_sha256": "7c2e5923ed0841a908dc470782d9ab435d570424d338cb33beef8aae36f5d4d4",
+      "log_sha256": "0e4ba6e469c2e4d356daa0a52d2d12d9eef58ac93e26d9593168d379e31a2015"
+    }
+  ]
+}

@@ -1,3 +1,9 @@
+## 2026-10-23 原专项预算内调度修复（最新）
+
+实现163ad已冻结。8ca6远端serial实际8通过／1超时／44未跑：最后bait到573秒才启动，因整个600秒上限被终止，不能说bait死锁。现将六个独立当前采集有界双worker调度，原场景／验证／反例／240与600秒预算全保；独审限定ACCEPT。精确163ad原Harness本地两核条件fresh通过308.524秒，source稳定；精确8ca6场景专项亦通过，native130.160秒在原180秒内。实际完整CI／main／Release仍待下一精确head结果。
+
+[原失败、审查与准确专项证据](evidence/four_line_integration_20261023/encounter-scheduling/README.md)。a074开发Preview游戏内容不变，不重建或重签旧包；APT和Git链接存在性原型未采纳。以下为历史时点。
+
 ## 2026-10-23 CI 门禁收口（最新）
 
 本次实现17cd：输入修复9fb原23／115／24通过；门禁前置／双物理通道／精确合流／失败产物重跑已独审，canonical21／24／Actionlint通过。原54573 CI真实97／1／44保留，不再反复启动旧流程。只推最后metadata head启动新流程；最终affected和原142完整合流通过后，按用户既有授权普通合PR106/main，再核原Release。当前尚未合main。源、失败、审计和未验见[门禁证据](evidence/four_line_integration_20261023/ci-gate-repair/README.md)，a074开发Preview身份保持独立。以下为历史时点。

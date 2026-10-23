@@ -1,0 +1,51 @@
+{
+  "status": "ACCEPT",
+  "scope": "Single-wrapper bounded scheduling change; no native, performance or full CI approval.",
+  "reviewed_base_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+  "candidate_file": "tools/run_plains_encounter_policy_tests.py",
+  "candidate_sha256": "d6a6162a9e224a1feddf55d81486ea8e93efb443d4d134c97937e049d37a4ee0",
+  "patch_sha256": "d3e6329bcd13675adce53e78be48625520e3e2f43f5d64f59160363ac93254b2",
+  "reviewed_changes": [
+    "Only six existing independent current producers are scheduled using max_workers2: four originalCASES, a separate same-source repeat and live nonkillbait. Exactly6unique output paths enforced; seeds/map/strategy/max_ticks/policy values unchanged.",
+    "Future results are consumed in originalCASE→repeat→bait order. Each accepted producer and original payload validation/report/comparison/tamper/nonkill proof must still succeed before final receipt can pass. Repeat remains a distinct engine invocation/output, not a copy or self-comparison.",
+    "capture_one already supports bounded parallel batch use: invocation/log/capture paths are local per target, source inventories are local read-only data, App meta persistence disabled and no shared policy/tuning mutation. Existing per-capture source and payload/log/identity checks remain.",
+    "On observed failure or exception finally cancels not-yet-started futures; executor waits in-flight producers before unwinding. Those producers retain unchanged240s timeout and original2sTERM/5sKILL processgroup cleanup.",
+    "Original sixteen nonmain functions andCASES assignment AST independently exact. Original validators/guards/comparison calls retained; author retention record states26main guard occurrences preserved. No geometry/ability/resource assertions, capture flags, one240s or parent600s budgets changed."
+  ],
+  "independent_tests": {
+    "receipt": "/workspace/scratch/plains-current-capture-scheduling-independent/scheduling-results.json",
+    "verification": "Executed actual candidate main with deliberately simulated earlier native/payload validators and tiny real Python subprocess capture substitutes; scheduling only.",
+    "cases": 6,
+    "modes": [
+      "success",
+      "false",
+      "exception",
+      "validation",
+      "timeout",
+      "incomplete"
+    ],
+    "max_workers_at_most2": true,
+    "all_real_child_processes_reaped": true,
+    "success": "Six exact unique requests with out-of-order completion still original result order and distinct repeat.",
+    "failure_cases": "capturedFalse,workerException,validatorRejection,childTimeout,incompleteCASE all remain failed; pending work cancelled where available.",
+    "elapsed_seconds": [
+      0.2573557659998187,
+      0.24740405800548615,
+      0.24734627100406215,
+      0.24825126599898795,
+      0.4672271500021452,
+      0.0010291819999110885
+    ],
+    "Godot_executed": false
+  },
+  "original_failure_boundary": {
+    "audit": "/workspace/scratch/ci-pr106-8ca6-attempt2/plains-timeout-audit.md",
+    "meaning": "Original full check exhausted600s after earlier complete work and lastbait started about573s. Lastbait incomplete and no final successmarker/aggregate receipt; timeout remains failure, not evidence of a bait deadlock or native success."
+  },
+  "limitations": [
+    "No actual candidate native run or guarantee of fitting600s under real CPU/IO contention yet; root owns exactsource validation.",
+    "Cancellation/join checks cover Python-observed failures. Abrupt outer Harness600s termination behavior is unchanged and is not newly certified as a global process-lifecycle repair.",
+    "No full Integration/Release/Web/player/device/FUN/G5 approval."
+  ],
+  "reviewer_actions": "Read onefile diff and unchanged capture_one/source inventory/lifecycle implementation; independently checked16AST+CASE equality and ran6small-Python-process scheduler controls with reviewer output path. No root write, native or CI."
+}

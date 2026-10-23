@@ -1,5 +1,9 @@
 # 2026-10-23 四条工作线集成
 
+## 2026-10-23 最后专项调度修复
+
+原8ca6 CI serial8pass／1timeout／44notrun保持失败。163ad只将六独立current采集限双worker，原断言、路径、参数、240/600预算均不变；原Harness fresh专项本地两核308.524秒通过，独审限定ACCEPT。scene同条件在原native180秒内130.160秒通过，来源8ca6单列。下一精确远端完整142／main／Release不预签；[准确来源与证据](../evidence/four_line_integration_20261023/encounter-scheduling/README.md)。
+
 ## 2026-10-23 CI 门禁修复（最新）
 
 实现17cd已冻结：原97通过／1失败／44未执行的CI保留；缺件为两个便携工具fixture共977249B，原24测试与native未改。现在选中便携自测前置引擎／Foundry，精确full142复用原两物理通道与合流，局部保持相关检查；最终affected完整成功才绿，失败job的产物重跑已修。本地精确17cd planner21／无引擎24及Actionlint通过，独审限定ACCEPT；远端新流程／性能／main合并仍待实际结果。

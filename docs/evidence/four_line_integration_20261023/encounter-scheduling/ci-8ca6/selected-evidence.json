@@ -1,0 +1,811 @@
+{
+  "zip": "/workspace/scratch/ci-pr106-8ca6-attempt2/serial.zip",
+  "zip_sha256": "1e104f9fc94bb8ac99f76ff37056e6d34301ea8f917dbd2c35efaf10751aa5e8",
+  "read_policy": "only report, invocation/receipt and small logs; no capture payload/media extraction",
+  "entries": [
+    {
+      "path": "plains-encounter/run_elv06x16/after/case_0/capture.invocation.json",
+      "bytes": 572671,
+      "zip_mtime": "2026-10-23T15:11:14",
+      "receipt": {
+        "status": "accepted",
+        "errors": [],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "phase_wait_ticks": 0,
+          "max_ticks": 15000,
+          "encounter_policy": "kill_from_bank_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline",
+          "--strategy=return",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/after/case_0/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/after/case_0/capture.json",
+        "exit_code": 0,
+        "wall_seconds": 29.328744940999968
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/after/case_1/capture.invocation.json",
+      "bytes": 572667,
+      "zip_mtime": "2026-10-23T15:12:00",
+      "receipt": {
+        "status": "accepted",
+        "errors": [],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "phase_wait_ticks": 0,
+          "max_ticks": 15000,
+          "encounter_policy": "kill_from_bank_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline",
+          "--strategy=fast",
+          "--map-index=2",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/after/case_1/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/after/case_1/capture.json",
+        "exit_code": 0,
+        "wall_seconds": 44.032317852999995
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/after/case_2/capture.invocation.json",
+      "bytes": 572671,
+      "zip_mtime": "2026-10-23T15:12:58",
+      "receipt": {
+        "status": "accepted",
+        "errors": [],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "phase_wait_ticks": 0,
+          "max_ticks": 15000,
+          "encounter_policy": "kill_from_bank_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline",
+          "--strategy=growth",
+          "--map-index=2",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/after/case_2/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/after/case_2/capture.json",
+        "exit_code": 0,
+        "wall_seconds": 58.392941359999895
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/after/case_3/capture.invocation.json",
+      "bytes": 572672,
+      "zip_mtime": "2026-10-23T15:13:30",
+      "receipt": {
+        "status": "accepted",
+        "errors": [],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline/01",
+          "map_index": 1,
+          "strategy": "fast",
+          "phase_wait_ticks": 0,
+          "max_ticks": 15000,
+          "encounter_policy": "kill_from_bank_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline/01",
+          "--strategy=fast",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/after/case_3/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/after/case_3/capture.json",
+        "exit_code": 0,
+        "wall_seconds": 32.15486888800001
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/bait/capture.invocation.json",
+      "bytes": 382053,
+      "zip_mtime": "2026-10-23T15:14:14",
+      "receipt": {
+        "status": "running",
+        "errors": [
+          "capture has not completed"
+        ],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "fast",
+          "phase_wait_ticks": 0,
+          "max_ticks": 10000,
+          "encounter_policy": "bait_then_bypass_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline",
+          "--strategy=fast",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=10000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/bait/capture.json",
+          "--encounter-policy=bait_then_bypass_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/bait/capture.json"
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/bait/capture.log",
+      "bytes": 591,
+      "zip_mtime": "2026-10-23T15:14:18",
+      "markers": [],
+      "diagnostics": [],
+      "last_lines": [
+        "TERRAIN STUDY: solids=81 pieces=325 setup_ms=56",
+        "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"5065fdad8278e7a3c6cad94669bfba33557d3cc0cdf4c2c91283a9e91c91f771\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"level-design-v2-baseline\"}"
+      ]
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/cancellation/receipt.json",
+      "bytes": 382074,
+      "zip_mtime": "2026-10-23T15:05:06",
+      "receipt": {
+        "status": "passed",
+        "exit_code": 0
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/current_repeat/capture.invocation.json",
+      "bytes": 572675,
+      "zip_mtime": "2026-10-23T15:14:06",
+      "receipt": {
+        "status": "accepted",
+        "errors": [],
+        "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "request": {
+          "source_commit": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "phase_wait_ticks": 0,
+          "max_ticks": 15000,
+          "encounter_policy": "kill_from_bank_v1"
+        },
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tools/level_formal_capture.gd",
+          "--",
+          "--source-commit=8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+          "--seed=level-design-v2-baseline",
+          "--strategy=return",
+          "--map-index=1",
+          "--phase-wait-ticks=0",
+          "--max-ticks=15000",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/current_repeat/capture.json",
+          "--encounter-policy=kill_from_bank_v1"
+        ],
+        "capture": "build/verification/plains-encounter/run_elv06x16/current_repeat/capture.json",
+        "exit_code": 0,
+        "wall_seconds": 31.609375850999868
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/native.log",
+      "bytes": 134,
+      "zip_mtime": "2026-10-23T15:09:34",
+      "markers": [
+        "PLAINS ENCOUNTER POLICY: 55 assertions, 0 failures, 14 cases"
+      ],
+      "diagnostics": [],
+      "last_lines": [
+        "",
+        "PLAINS ENCOUNTER POLICY: 55 assertions, 0 failures, 14 cases"
+      ]
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/recovery.log",
+      "bytes": 651,
+      "zip_mtime": "2026-10-23T15:09:56",
+      "markers": [
+        "PLAINS ENCOUNTER POLICY: 17 assertions, 0 failures, 1 cases"
+      ],
+      "diagnostics": [],
+      "last_lines": [
+        "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"5065fdad8278e7a3c6cad94669bfba33557d3cc0cdf4c2c91283a9e91c91f771\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"level-design-v2-baseline\"}",
+        "PLAINS ENCOUNTER POLICY: 17 assertions, 0 failures, 1 cases"
+      ]
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/recovery_heart.log",
+      "bytes": 652,
+      "zip_mtime": "2026-10-23T15:10:22",
+      "markers": [
+        "PLAINS ENCOUNTER POLICY: 20 assertions, 0 failures, 1 cases"
+      ],
+      "diagnostics": [],
+      "last_lines": [
+        "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"11f3b89d15613d666e7dccc5bf1c2c20be93a69ce5697ebf34ba12dbb0f70953\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"level-design-v2-baseline/05\"}",
+        "PLAINS ENCOUNTER POLICY: 20 assertions, 0 failures, 1 cases"
+      ]
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/recovery_note.log",
+      "bytes": 651,
+      "zip_mtime": "2026-10-23T15:10:44",
+      "markers": [
+        "PLAINS ENCOUNTER POLICY: 17 assertions, 0 failures, 1 cases"
+      ],
+      "diagnostics": [],
+      "last_lines": [
+        "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"5065fdad8278e7a3c6cad94669bfba33557d3cc0cdf4c2c91283a9e91c91f771\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"level-design-v2-baseline\"}",
+        "PLAINS ENCOUNTER POLICY: 17 assertions, 0 failures, 1 cases"
+      ]
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_bypass0.receipt.json",
+      "bytes": 381693,
+      "zip_mtime": "2026-10-23T15:06:02",
+      "receipt": {
+        "name": "reward_bypass0",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_bypass0.json",
+          "--entry-policy=bait_then_bypass_v1"
+        ],
+        "exit_code": 0,
+        "started": 1792767937.386403,
+        "ended": 1792767963.299157
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_bypass100.receipt.json",
+      "bytes": 381727,
+      "zip_mtime": "2026-10-23T15:06:04",
+      "receipt": {
+        "name": "reward_bypass100",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_bypass100.json",
+          "--entry-policy=bait_then_bypass_v1",
+          "--entry-phase=100"
+        ],
+        "exit_code": 0,
+        "started": 1792767938.6202636,
+        "ended": 1792767965.561482
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_dead_low2.receipt.json",
+      "bytes": 381732,
+      "zip_mtime": "2026-10-23T15:07:56",
+      "receipt": {
+        "name": "reward_dead_low2",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_dead_low2.json",
+          "--entry-map=2",
+          "--entry-tier=region_top",
+          "--entry-low"
+        ],
+        "exit_code": 0,
+        "started": 1792768028.5251434,
+        "ended": 1792768077.6582732
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_high2.receipt.json",
+      "bytes": 381666,
+      "zip_mtime": "2026-10-23T15:07:06",
+      "receipt": {
+        "name": "reward_high2",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_high2.json",
+          "--entry-map=2"
+        ],
+        "exit_code": 0,
+        "started": 1792767993.6174297,
+        "ended": 1792768026.7513514
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_kill0.receipt.json",
+      "bytes": 381644,
+      "zip_mtime": "2026-10-23T15:05:36",
+      "receipt": {
+        "name": "reward_kill0",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_kill0.json"
+        ],
+        "exit_code": 0,
+        "started": 1792767908.3648045,
+        "ended": 1792767937.015712
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_kill100.receipt.json",
+      "bytes": 381678,
+      "zip_mtime": "2026-10-23T15:05:38",
+      "receipt": {
+        "name": "reward_kill100",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_kill100.json",
+          "--entry-phase=100"
+        ],
+        "exit_code": 0,
+        "started": 1792767908.3635073,
+        "ended": 1792767938.2473047
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_low.receipt.json",
+      "bytes": 381656,
+      "zip_mtime": "2026-10-23T15:06:32",
+      "receipt": {
+        "name": "reward_low",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_low.json",
+          "--entry-low"
+        ],
+        "exit_code": 0,
+        "started": 1792767963.6737237,
+        "ended": 1792767993.2464142
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_original_conflict_bypass.receipt.json",
+      "bytes": 381791,
+      "zip_mtime": "2026-10-23T15:08:56",
+      "receipt": {
+        "name": "reward_original_conflict_bypass",
+        "expected_physical_failure": true,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_original_conflict_bypass.json",
+          "--restore-unsafe-entry",
+          "--entry-policy=bait_then_bypass_v1"
+        ],
+        "exit_code": 1,
+        "started": 1792768122.5573676,
+        "ended": 1792768135.917357
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_original_conflict_kill.receipt.json",
+      "bytes": 381741,
+      "zip_mtime": "2026-10-23T15:08:42",
+      "receipt": {
+        "name": "reward_original_conflict_kill",
+        "expected_physical_failure": true,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_original_conflict_kill.json",
+          "--restore-unsafe-entry"
+        ],
+        "exit_code": 1,
+        "started": 1792768108.6755836,
+        "ended": 1792768122.189148
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_original_return_conflict.receipt.json",
+      "bytes": 381792,
+      "zip_mtime": "2026-10-23T15:09:20",
+      "receipt": {
+        "name": "reward_original_return_conflict",
+        "expected_physical_failure": "return",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_original_return_conflict.json",
+          "--entry-seed=two-map-corpus/2",
+          "--restore-unsafe-return"
+        ],
+        "exit_code": 1,
+        "started": 1792768136.5392325,
+        "ended": 1792768160.3487659
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_top1.receipt.json",
+      "bytes": 381672,
+      "zip_mtime": "2026-10-23T15:07:08",
+      "receipt": {
+        "name": "reward_top1",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_top1.json",
+          "--entry-tier=region_top"
+        ],
+        "exit_code": 0,
+        "started": 1792767965.9363556,
+        "ended": 1792768028.1567423
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_top2.receipt.json",
+      "bytes": 381691,
+      "zip_mtime": "2026-10-23T15:07:54",
+      "receipt": {
+        "name": "reward_top2",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_top2.json",
+          "--entry-map=2",
+          "--entry-tier=region_top"
+        ],
+        "exit_code": 0,
+        "started": 1792768027.1203036,
+        "ended": 1792768074.52607
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_worst_return.receipt.json",
+      "bytes": 381708,
+      "zip_mtime": "2026-10-23T15:08:28",
+      "receipt": {
+        "name": "reward_worst_return",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_worst_return.json",
+          "--entry-seed=two-map-corpus/2"
+        ],
+        "exit_code": 0,
+        "started": 1792768075.08914,
+        "ended": 1792768108.3091185
+      }
+    },
+    {
+      "path": "plains-encounter/run_elv06x16/reward_worst_return_bypass.receipt.json",
+      "bytes": 381779,
+      "zip_mtime": "2026-10-23T15:08:26",
+      "receipt": {
+        "name": "reward_worst_return_bypass",
+        "expected_physical_failure": false,
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--reward-entry",
+          "--output=res://build/verification/plains-encounter/run_elv06x16/reward_worst_return_bypass.json",
+          "--entry-seed=two-map-corpus/2",
+          "--entry-policy=bait_then_bypass_v1"
+        ],
+        "exit_code": 0,
+        "started": 1792768078.0284574,
+        "ended": 1792768106.824742
+      }
+    }
+  ],
+  "harness": {
+    "id": "plains-encounter-policy",
+    "argv": [
+      "python3",
+      "tools/run_plains_encounter_policy_tests.py"
+    ],
+    "status": "timeout",
+    "timeout_seconds": 600,
+    "started_at_unix": 1792767880.6489758,
+    "ended_at_unix": 1792768480.7018228,
+    "duration_seconds": 600.053,
+    "failure_reason": "timeout",
+    "success_pattern": "^PLAINS ENCOUNTER CURRENT POLICY: actual live input and causal counterexamples validated; historical comparison not_run$"
+  },
+  "comparison.json": {
+    "schema_version": 1,
+    "artifact_kind": "level_experience_comparison",
+    "verdict": "REVIEW",
+    "cases": [
+      {
+        "case": {
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "phase_wait_ticks": 0
+        },
+        "before_source": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "after_source": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+        "manifest_changed": false,
+        "actual_action_changed": false,
+        "outcome": [
+          "route_target_reached",
+          "route_target_reached"
+        ],
+        "stats_delta": {
+          "ticks": 0,
+          "seconds": 0.0,
+          "player_damage_events": 0,
+          "non_player_damage_events": 0,
+          "unknown_target_damage_events": 0,
+          "observed_enemies": 0,
+          "reached_edges": 0,
+          "low_interaction_candidates": 0,
+          "textured_prop_nodes": 0
+        },
+        "event_delta": {
+          "jump_accepted": 0,
+          "landed": 0,
+          "reward_modal_submission": 0,
+          "shot_accepted": 0,
+          "damage_committed": 0
+        }
+      }
+    ],
+    "before_fingerprint": "804892673785885759fdbc753d2dcb90ba9613c471083538e71e2c5bef204f8b",
+    "after_fingerprint": "7ffd9561adb7b9363603f26821dc73e14b96bab36948473db0ad142b8cd7c5c5",
+    "limits": "Differences are measured effects; subjective fun and visual appeal still require review/player evidence"
+  },
+  "reward_validator_refusals.json": [
+    "coherent_erase_declared_guard",
+    "duplicate_jump",
+    "duplicate_landing",
+    "wrong_preview_time",
+    "wrong_preview_position",
+    "wrong_preview_serial",
+    "fake_entry_guard_state",
+    "coherent_missing_jump",
+    "coherent_missing_landing",
+    "fake_module_ports",
+    "missing_ascent_jump",
+    "missing_landing_events",
+    "missing_reward_transaction",
+    "wrong_reward_frame",
+    "empty_return",
+    "missing_second_module",
+    "missing_guard_observations",
+    "guard_dead_in_bypass",
+    "unsupported_ability",
+    "invented_energy",
+    "missing_shot_consumption",
+    "missing_actual_modal_input",
+    "unknown_guard_id_coherent_erasure",
+    "other_declared_guard_id_coherent_erasure",
+    "wrong_entrance_bank_coherent_identity",
+    "duplicate_challenge_entrance",
+    "missing_challenge_entrance",
+    "missing_entrance_area",
+    "duplicate_entrance_guard_declaration",
+    "wrong_entrance_guard_area",
+    "coherent_wrong_grounded_entry_bank",
+    "unknown_reward_tier"
+  ],
+  "missing": {
+    "bait/capture.json": true
+  },
+  "aggregate_receipt_exists": false
+}
