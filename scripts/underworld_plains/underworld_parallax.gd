@@ -10,19 +10,29 @@ var _explicit_camera: Camera2D
 var _measured: Array[Dictionary] = []
 var _wind_seconds := 0.0
 var _phase_offset := 0.0
+var _landmarks: UnderworldLandmarkSequence
+var _landmark_seed := ""
+var _home_landmarks := false
 
 func configure(camera: Camera2D, _bounds: Rect2 = Rect2(), world_manifest: Dictionary = {}) -> void:
 	_explicit_camera = camera
 	var key := str(world_manifest.get("manifest_hash",world_manifest.get("seed","")))
 	_phase_offset = float(posmod(key.hash(),512)) if not key.is_empty() else 0.0
+	_landmark_seed=key
+	_home_landmarks=world_manifest.is_empty()
 
 func _ready() -> void:
 	layer = -100
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	layer_specs = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)).backgrounds
+	var build: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH))
+	layer_specs = build.backgrounds
 	surface = Node2D.new()
 	add_child(surface)
 	for spec: Dictionary in layer_specs:
+		if str(spec.id)=="middle" and build.has("landmark_sequence"):
+			_landmarks=UnderworldLandmarkSequence.new()
+			surface.add_child(_landmarks)
+			_landmarks.setup(build.landmark_sequence)
 		var texture := load("res://" + str(spec.image)) as Texture2D
 		layer_textures.append(texture)
 		# Read source bytes once during setup. Evidence generation must never
@@ -96,6 +106,8 @@ func _update() -> void:
 		var limit := size.y * float(spec.get("vertical_limit_ratio",.20))
 		if opaque: limit = minf(limit,maxf(1.0,height-size.y))
 		var vertical := _soft_drift(drift.y,limit)
+		if str(spec.id)=="middle" and is_instance_valid(_landmarks):
+			_landmarks.update_view(center,size,vertical,_landmark_seed,_home_landmarks)
 		var y := roundf(size.y * float(spec.bottom_ratio) - height - vertical)
 		if opaque: y = minf(y,0.0)
 		var extended_pixels := maxi(texture.get_height(),ceili((size.y-y)/factor)+2)
@@ -115,4 +127,6 @@ func _update() -> void:
 		_measured.append({"layer": spec.id, "texture_path": texture.resource_path, "texture_sha256": layer_hashes[i], "hash_method": "source_build_sha256_native_bytes_checked_when_available", "camera_coefficient": spec.camera_factor, "unwrapped_offset": [-drift.x, -drift.y], "screen_position": [panels[i * 3].position.x, y], "display_size": [width, extended_pixels*factor], "source_display_size":[width,height], "repeat_stride": stride, "vertical_clamped": false, "vertical_policy":"smooth_bounded_drift_with_bottom_source_row_extension", "vertical_applied":vertical, "bottom_source_extension_px":extended_pixels-texture.get_height(), "pixel_world_units":1, "repetition": spec.repetition, "cloud_phase_source_px":cloud_phase, "seed_phase":_phase_offset, "strips": strips, "visible": visible})
 
 func measured_nodes() -> Array[Dictionary]:
-	return _measured.duplicate(true)
+	var result: Array[Dictionary]=_measured.duplicate(true)
+	if result.size()>1 and is_instance_valid(_landmarks):result[1]["local_landmarks"]=_landmarks.measured.duplicate(true)
+	return result

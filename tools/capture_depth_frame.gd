@@ -3,6 +3,7 @@ extends SceneTree
 var app: DemoApp
 var output := "res://build/depth_frame_06/captures"
 var quick := false
+var task_id := "DEPTH-FRAME-06"
 var rows: Array[Dictionary]=[]
 var failures: Array[String]=[]
 
@@ -107,7 +108,7 @@ func run_capture() -> void:
 	await new_app("thorn_forest",1,"fine-space-05/baseline")
 	if app.stage is PlainsRegionStage:await capture("forest",app.stage.spawn)
 	else:check(false,"shared forest renderer remains live")
-	FileAccess.open(output+"/capture.json",FileAccess.WRITE).store_string(JSON.stringify({"task":"DEPTH-FRAME-06","scope":"real formal App positioned stills across seeds/maps; not human traversal/motion/device/art acceptance","failures":failures,"captures":rows},"  "))
+	FileAccess.open(output+"/capture.json",FileAccess.WRITE).store_string(JSON.stringify({"task":task_id,"scope":"real formal App positioned stills across seeds/maps; not human traversal/motion/device/art acceptance","failures":failures,"captures":rows},"  "))
 	app.abandon_run();await load("res://tests/audio_teardown.gd").drain_world(app)
 	app.free()
 	for i: int in 4:await process_frame

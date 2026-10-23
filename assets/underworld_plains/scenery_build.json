@@ -24,26 +24,26 @@
     },
     {
       "id": "middle",
-      "image": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png",
+      "image": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png",
       "camera_factor": [
         0.105,
         0.055
       ],
-      "role": "large_windmill_hamlet_clock_belltower_ensembles_and_broken_viaduct_in_deep_ravine",
-      "generation_record": "assets/underworld_plains/backgrounds/depth_frame_06/provenance.json",
+      "role": "low_quiet_meadow_ridge_with_separate_local_landmark_ensembles",
+      "generation_record": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json",
       "minimum_height_ratio": 0.85,
       "width_ratio": 1.2,
       "bottom_ratio": 1.1,
       "repetition": "overlapping_alpha_edge_fade",
       "edge_fraction": 0.035,
       "opacity": 1.0,
-      "fog_shadow": "2c4658",
-      "fog_highlight": "8a9ca7",
+      "fog_shadow": "304b60",
+      "fog_highlight": "8399a7",
       "readability_policy": "native fine architectural material detail retained within a desaturated cool atmospheric blend; no playable green rim, no interaction markers",
       "vertical_limit_ratio": 0.26,
-      "source_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
-      "composition_phase_wu": 70,
-      "source_detail_retention": 0.42
+      "source_sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
+      "composition_phase_wu": 0,
+      "source_detail_retention": 0.12
     },
     {
       "id": "near",
@@ -182,5 +182,48 @@
     "scripts/underworld_plains/underworld_parallax.gd",
     "scripts/underworld_plains/underworld_scenery.gd"
   ],
-  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained"
+  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained",
+  "landmark_sequence": {
+    "task_id": "SPATIAL-RHYTHM-07",
+    "image": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png",
+    "source_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
+    "camera_factor_x": 0.24,
+    "world_cell_wu": 4000,
+    "anchor_offset_wu": -1200,
+    "cycle": [
+      "windmills",
+      "open",
+      "clocktower",
+      "open",
+      "open"
+    ],
+    "home_policy": "one smaller distant windmill group; no clocktower behind Home facilities",
+    "groups": {
+      "windmills": {
+        "crop": [
+          0,
+          180,
+          660,
+          761
+        ],
+        "width_wu": 390
+      },
+      "clocktower": {
+        "crop": [
+          700,
+          180,
+          440,
+          761
+        ],
+        "width_wu": 260
+      }
+    },
+    "fog_shadow": "3c5568",
+    "fog_highlight": "8e9eaa",
+    "source_detail_retention": 0.22,
+    "bottom_ratio": 1.03,
+    "edge_fraction": 0.14,
+    "support": "painted complete ridge shoulders buried behind quiet continuous meadow base; no collision/standing edge",
+    "progression": "world anchored; no camera-zone opacity switching; same anchors on return; art hash separate from gameplay RNG"
+  }
 }
