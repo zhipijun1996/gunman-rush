@@ -1,8 +1,11 @@
 class_name PlayerWeaponFeelAudioV2
 extends PlayerWeaponFeelAudio
-## Actual licensed game samples; original twelve voices and user volume remain.
+## Licensed game samples plus CC0 recorded timer beep; same twelve voices/volume.
+const TIMER_BEEP := preload("res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav")
 func _ready() -> void:
-	weapon_clips=preload("res://resources/player_presentation_01/weapon_sound_data_v2.gd").CLIPS
+	weapon_clips=preload("res://resources/player_presentation_01/weapon_sound_data_v2.gd").CLIPS.duplicate()
+	# A timer keeps one stable tone; only the actual entity age speeds its cadence.
+	weapon_clips[&"mine_beep"]=[TIMER_BEEP,TIMER_BEEP,TIMER_BEEP]
 	super._ready()
 
 func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, sustained := false) -> bool:
