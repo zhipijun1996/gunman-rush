@@ -1332,6 +1332,12 @@ func _close_home_panel() -> void:
 		home_scene.set_input_blocked(false)
 
 func _process(_delta: float) -> void:
+	# UI-only visibility: the appearance selector belongs to playable consumers,
+	# and must not float above full-screen menus or the title illustration.
+	var avatar := get_meta("avatar_presentation", null) as Node
+	if is_instance_valid(avatar):
+		var selector := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
+		if selector != null: selector.visible = menu.visible_panel.is_empty() and not _uses_shared_region_pixel_presentation()
 	_boss_status.hide()
 	var shown_boss: WindkeeperEncounter = null
 	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(stage.boss):

@@ -18,7 +18,7 @@ func frames(n: int = 4) -> void:
 	for i: int in n: await process_frame
 func button(owner: Node, prefix: String) -> Button:
 	for node: Node in owner.find_children("*", "Button", true, false):
-		if node.text.begins_with(prefix): return node
+		if node.text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null, "requested pointer control exists")

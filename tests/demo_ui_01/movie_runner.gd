@@ -1,5 +1,6 @@
 extends SceneTree
-## Same driver against the recorded baseline and the candidate. Damage/heal are explicit UI fixtures.
+## Real native R2 recording. Prior R1 recording and its original driver stay
+## separately attributed; damage/heal are explicit official-policy UI fixtures.
 var app: Variant
 var frame := 0
 var trace: Array[Dictionary] = []
@@ -17,7 +18,7 @@ func frames(count: int) -> void:
 		trace.append({"video_frame":frame,"phase":app.menu.visible_panel if is_instance_valid(app) else "disposed","hp":actor.actor_resources.health.current if actor else -1,"energy":actor.actor_resources.stamina.current if actor else -1,"shots":actor.action_resources.shot_charges if actor else -1,"shot_serial":actor.shoot_ability._shot_serial if actor else -1})
 func button(owner: Node, prefix: String) -> Button:
 	for child: Node in owner.find_children("*","Button",true,false):
-		if child.text.begins_with(prefix): return child
+		if child.text.begins_with(prefix) or str(child.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return child
 	return null
 func click(target: Control) -> void:
 	assert(target != null)
@@ -62,7 +63,7 @@ func run() -> void:
 	await click(app.stage.map_view)
 	await frames(120)
 	await click(button(app.map_modal._root,"CLOSE MAP"))
-	await frames(maxi(1,900-frame))
+	await frames(maxi(1,880-frame))
 	var had_damage := false
 	var had_heal := false
 	var had_shot := false

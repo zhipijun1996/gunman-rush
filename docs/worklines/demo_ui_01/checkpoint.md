@@ -38,3 +38,13 @@ scripts/dev/cloud_preview.gd 仅在 task_id == DEMO-UI-01 时挂接任务专属 
 运行源码 `df5207ccc920f5d48813412a27d9d72dc79510ab`，Web `5ae16004975a`，后续恢复文档不改变运行包。[试玩](https://zhipijun1996.github.io/gunman-rush-previews/previews/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/5ae16004975a/) · [真实视频](https://zhipijun1996.github.io/gunman-rush-previews/deliveries/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/93b03ef086fc/comparison.mp4)。完整范围、33行DemoApp接入、108×48触屏MENU几何、550+44+21实际观察、环境断连造成的未提交回执和恢复办法见[delivery.md](delivery.md)。
 
 当前Draft评审候选；用户美术、实体设备、完整Integration／Release未签。原始550项／浏览器／失败归档受环境unavailable阻塞，不把会话摘要冒充原件。电影原始report／trace已从独立托管仓精确恢复。main不合并、不覆盖正式试玩。
+
+## R2 · 用户五项外观反馈返工（2026-10-23）
+
+原R1已被用户拒绝，不能再将旧技术通过写作美术认可。真实恢复305个历史原件，74,926,067-byte归档逐文件校验，旧“环境不可用，原件未提交”阻塞现已解除；历史原文另存。
+
+本轮实现统一Fusion Pixel字体、圆角厚边共享Theme、独立生成背景/钟徽、四个标题主入口、诚实的单成长记录选择、暂停/行囊分页与禁用装备占位、小心槽/精力舱/弹匣HUD。角色/怪物/环境和玩法规则只读。实际源与交付以delivery.md最终新地址为准。
+
+旧FontFile替换曾因导入字形缓存产生方框并在持久引用版本触发native崩溃；保留失败日志，改为前后clear_cache后真实晚加载字体与场景验证通过。R2专用原生滚轮测试最初缺release，导致BACK被旧捕获占用；补齐真实按/放事件后223项含截图检查通过。初次手机标题裁切、位置牌遮摇杆均保失败像素并在最终方向修正。
+
+最新方向专项：146项正式UI检查、223项R2标题/字体/进度/分页/尺寸检查均0失败。此为冻结前快检，冻结后将按当前实际消费者运行必要专项与Web/视频验证；不扩展成完整CI或Windows导出。独审记录在docs/evidence/demo_ui_01/r2/，用户与实体设备仍待验。

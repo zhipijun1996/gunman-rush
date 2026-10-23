@@ -27,12 +27,12 @@ signal settings_changed(values: Dictionary)
 signal menu_opened
 signal presentation_changed(reduced_effects: bool, muted: bool)
 
-const INK := UnderworldUI.INK
-const CARD := UnderworldUI.PANEL
-const TEAL := UnderworldUI.MOSS
-const GOLD := UnderworldUI.BRASS
-const TEXT := UnderworldUI.TEXT
-const MUTED := UnderworldUI.MUTED
+const INK := DemoClockworkTheme.INK
+const CARD := DemoClockworkTheme.PANEL
+const TEAL := DemoClockworkTheme.TEAL
+const GOLD := DemoClockworkTheme.BRASS
+const TEXT := DemoClockworkTheme.PAPER
+const MUTED := DemoClockworkTheme.MUTED
 const SCROLL_TOUCH_ADAPTER := preload("res://scripts/ui/menu_scroll_touch_adapter.gd")
 
 var visible_panel: StringName = &""
@@ -100,36 +100,81 @@ func set_meta_state(snapshot: Dictionary) -> void:
 func show_title() -> void:
 	_home_overlay = false
 	_begin(&"title", false)
-	_label(_content, "A  W I N D C H I M E  T A L E", 13, GOLD)
-	_space(_content, 4)
-	_title_label = _label(_content, "失序之钟", 64, TEXT)
-	_label(_content, "THE CLOCK UNBOUND", 18, GOLD)
-	_space(_content, 6)
+	_title_label = _label(_content, "失序之钟", 36, TEXT)
 	_label(_content, "风铃未息，旅途再启。", 18, MUTED)
-	_label(_content, "瞄准 · 松手 · 借反冲跃起", 14, MUTED)
 	_space(_content, 8)
-	var primary := _button(_content, "风铃平原 / WIND CHIME PLAINS   →", func() -> void:
-		_hide()
-		requested_plains.emit("level-design-v2-baseline/08"))
+	var primary := _button(_content, "开始游戏", _start_title_adventure)
 	primary.name = "BeginAdventure"
+	primary.set_meta(&"ui_legacy_prefix", "风铃平原")
+	primary.set_meta(&"focus_key", "title_start")
 	primary.theme_type_variation = &"PrimaryButton"
-	primary.custom_minimum_size.y = 58
-	primary.add_theme_font_size_override("font_size", 20)
-	_button(_content, "地区选择 / REGIONS", show_region_select)
-	_button(_content, "ENTER HOME / 返回家园", func() -> void:
-		_hide()
-		requested_enter_home.emit())
-	_title_secondary = GridContainer.new()
-	_title_secondary.columns = 2 if get_viewport().get_visible_rect().size.x >= 500 else 1
-	_title_secondary.add_theme_constant_override("h_separation", 12)
-	_title_secondary.add_theme_constant_override("v_separation", 8)
-	_content.add_child(_title_secondary)
-	_button(_title_secondary, "SETTINGS / 设置", func() -> void: show_settings(false))
-	_button(_title_secondary, "HOW TO PLAY / 操作", func() -> void: show_help(false))
-	_space(_content, 8)
-	var workshop := _button(_content, "DEVELOPMENT DEMOS / 开发入口", func() -> void: show_home(_summary))
-	workshop.add_theme_font_size_override("font_size", 13)
+	primary.custom_minimum_size.y = 62
+	primary.add_theme_font_size_override("font_size", 24)
+	var continue_button := _button(_content, "继续游戏（选择存档）", show_continue)
+	continue_button.name = "ContinueAdventure"
+	continue_button.set_meta(&"focus_key", "title_continue")
+	continue_button.custom_minimum_size.y = 62
+	var settings_button := _button(_content, "设定", func() -> void: show_settings(false))
+	settings_button.name = "TitleSettings"
+	settings_button.set_meta(&"ui_legacy_prefix", "SETTINGS")
+	settings_button.set_meta(&"focus_key", "title_settings")
+	settings_button.custom_minimum_size.y = 62
+	var tutorial_button := _button(_content, "新手教程", func() -> void: show_help(false))
+	tutorial_button.name = "TitleTutorial"
+	tutorial_button.set_meta(&"ui_legacy_prefix", "HOW TO PLAY")
+	tutorial_button.set_meta(&"focus_key", "title_tutorial")
+	tutorial_button.custom_minimum_size.y = 62
+	_space(_content, 6)
+	var workshop := _button(_content, "开发入口", func() -> void: show_home(_summary))
+	workshop.name = "DevelopmentEntries"
+	workshop.set_meta(&"ui_legacy_prefix", "DEVELOPMENT DEMOS")
+	workshop.add_theme_font_size_override("font_size", 18)
 	workshop.custom_minimum_size.y = 48
+	_focus_first()
+
+func _start_title_adventure() -> void:
+	_hide()
+	requested_plains.emit("level-design-v2-baseline/08")
+
+func show_continue() -> void:
+	_home_overlay = false
+	_begin(&"continue", false)
+	_title("选择存档", "选择已有成长记录，回到家园开始新的冒险。")
+	var status := str(_meta_state.get("save_status", ""))
+	var revision := int(_meta_state.get("profile_revision", 0))
+	var memory_only := status == "memory_only"
+	var saved := revision > 0 and status in ["loaded", "recovered_backup", "saved"]
+	var current_session := memory_only and revision > 0
+	if memory_only:
+		_label(_content, "当前试玩仅保留本次会话的成长，关闭或刷新网页后不会保存。", 17, GOLD)
+	if saved or current_session:
+		_label(_content, "当前试玩会话" if memory_only else "本地成长记录", 23, TEXT)
+		_label(_content, "音符 %s  ·  %s %s" % [_meta_state.get("notes", 0), "会话记录" if memory_only else "记录版本", revision], 18, GOLD)
+		_label(_content, "冒险完成 %s 次  ·  地区通关 %s 次\n未完成的冒险 %s 次" % [_meta_state.get("completed_runs", 0), _meta_state.get("completed_biomes", 0), _meta_state.get("failed_runs", 0)], 17, TEXT)
+		var upgrades: Dictionary = _meta_state.get("upgrades", {})
+		var growth := PackedStringArray()
+		var upgrade_ids := upgrades.keys()
+		upgrade_ids.sort()
+		for upgrade_id: Variant in upgrade_ids:
+			var level := int(upgrades[upgrade_id])
+			if level <= 0: continue
+			growth.append("%s %s 级" % ["永久生命" if str(upgrade_id) == "vitality" else str(upgrade_id), level])
+		_label(_content, "永久成长：" + ("、".join(growth) if not growth.is_empty() else "尚未获得"), 17, TEXT)
+		_label(_content, "此记录只保存永久成长，不保存冒险中的位置、金币或物品。选择后返回家园，不会接续上一局。", 17, MUTED)
+		var choose := _button(_content, "选择此进度 · 返回家园", func() -> void:
+			_hide()
+			requested_enter_home.emit())
+		choose.name = "ChooseExistingProfile"
+		choose.set_meta(&"focus_key", "continue_local")
+		choose.theme_type_variation = &"PrimaryButton"
+	else:
+		var empty := status in ["", "new_profile", "memory_only"] and revision == 0
+		_label(_content, "尚无可继续的成长记录" if empty else "本地成长记录暂不可用", 23, TEXT)
+		_label(_content, "完成一次冒险或获得音符后，可在这里查看成长记录。" if empty else "现有记录未能读取。请返回标题页，稍后再试。", 17, MUTED)
+		if empty:
+			var begin := _button(_content, "开始新的冒险", _start_title_adventure)
+			begin.theme_type_variation = &"PrimaryButton"
+	_button(_content, "返回标题", show_title)
 	_focus_first()
 
 func show_region_select() -> void:
@@ -148,7 +193,7 @@ func show_region_select() -> void:
 		_button(_content, "THORN FOREST / MAP %s · 开发试玩" % map_index, func() -> void:
 			_hide()
 			requested_debug_region.emit(&"thorn_forest", selected_map, _plains_seed()))
-	_button(_content, "BACK / 返回", show_title)
+	_button(_content, "BACK / 返回", func() -> void: show_home(_summary))
 	_focus_first()
 
 func show_run_end(report: Dictionary) -> void:
@@ -252,6 +297,18 @@ func show_home(summary: String = "") -> void:
 	_button(rail, "LEVEL FOUNDRY", func() -> void:
 		_hide()
 		requested_foundry.emit())
+	_button(rail, "风格实验室", func() -> void:
+		_hide()
+		requested_style_lab.emit()).set_meta(&"ui_legacy_prefix", "WINDCHIME PLAINS / FIVE STYLE LAB")
+	_button(rail, "像素材质研究", func() -> void:
+		_hide()
+		requested_pixel_plains.emit()).set_meta(&"ui_legacy_prefix", "PIXEL MATERIAL / SMALL STUDY")
+	_button(rail, "旧47格实验室", func() -> void:
+		_hide()
+		requested_foundation.emit()).set_meta(&"ui_legacy_prefix", "47 TILE / LEGACY TECH LAB")
+	_button(rail, "风铃美术实验室", func() -> void:
+		_hide()
+		requested_windchime.emit())
 	_space(rail, 18)
 	_label(rail, "PLAYABLE DEMO", 12, GOLD)
 	var body := VBoxContainer.new()
@@ -265,6 +322,7 @@ func show_home(summary: String = "") -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
+	_button(body, "地区试玩", show_region_select).set_meta(&"ui_legacy_prefix", "地区选择")
 	_button(body, "DEBUG / SELECT REGION + MAP", show_debug_regions)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", _start_quick_demo)
@@ -320,19 +378,24 @@ func show_pause(build_description: String = "", items: Array[ItemDefinition] = [
 	_build = build_description
 	_build_items=items
 	_begin(&"pause", true)
-	_title("片刻停驻", "PAUSED / 钟摆停下，旅途仍在。")
+	_title("片刻停驻", "钟摆停下，旅途仍在。")
+	_pause_navigation(&"pause")
 	var resume := _button(_content, "RESUME / 继续旅途", close_panel)
 	resume.theme_type_variation = &"PrimaryButton"
-	_button(_content, "SETTINGS", func() -> void: show_settings(true))
-	_button(_content, "CONTROLS", func() -> void: show_help(true))
-	_button(_content, "YOUR BUILD / 行囊", func() -> void: show_build(_build))
+	var actions := GridContainer.new()
+	actions.columns = 2
+	actions.add_theme_constant_override("h_separation", 12)
+	_content.add_child(actions)
+	_button(actions, "SETTINGS", func() -> void: show_settings(true))
+	_button(actions, "CONTROLS", func() -> void: show_help(true))
 	_button(_content, "RETURN TO HOME", _confirm_home)
+	if not _focus_history.has(&"pause"): _focus_history[&"pause"] = "RESUME / 继续旅途"
 	_focus_first()
 
 func show_settings(in_run: bool = false) -> void:
 	if visible_panel not in [&"settings", &"help"]: _return_panel = visible_panel
 	_begin(&"settings", in_run)
-	_title("设置", "INPUT & PRESENTATION / 输入参数选择 APPLY 后生效；仅保存于当前会话。")
+	_title("设定", "输入参数选择应用后生效；仅保存于当前会话。")
 	_sliders.clear()
 	_label(_content, "Touch movement", 16, TEXT)
 	_movement_mode = OptionButton.new()
@@ -392,7 +455,12 @@ func show_settings(in_run: bool = false) -> void:
 func show_help(in_run: bool = false) -> void:
 	if visible_panel not in [&"settings", &"help"]: _return_panel = visible_panel
 	_begin(&"help", in_run)
-	_title("借一枪之力", "CONTROLS / 瞄准危险，反冲会带你去相反的方向。")
+	_title("新手教程", "瞄准危险，反冲会带你去相反的方向。")
+	if not in_run:
+		_label(_content, "先了解操作，再从风铃平原入口练习。练习将开始一局新的冒险。", 17, MUTED)
+		var practice := _button(_content, "开始平原练习（新冒险）", _start_title_adventure)
+		practice.name = "BeginBasicTutorial"
+		practice.theme_type_variation = &"PrimaryButton"
 	_label(_content, "键鼠 / KEYBOARD + MOUSE", 19, GOLD)
 	_label(_content, "A / D 移动，Space 跳跃。按住鼠标左键瞄准，松手射击。W 交互，S 下穿单向平台；方向键上 / 下观察。已获得钩索时，右键或 E 按住瞄准，松开发钩。", 17, TEXT)
 	_label(_content, "触屏 / TOUCH", 19, GOLD)
@@ -409,7 +477,8 @@ func show_help(in_run: bool = false) -> void:
 func show_build(text: String) -> void:
 	_build = text
 	_begin(&"build", true)
-	_title("旅途行囊", "YOUR BUILD / 本局已获得的物品与真实属性。")
+	_title("旅途行囊", "本局已获得的物品与真实属性。")
+	_pause_navigation(&"build")
 	_label(_content, text if not text.is_empty() else "No items yet. Look for marked caches on optional routes.", 20, TEXT)
 	var unique: Dictionary={}
 	for item: ItemDefinition in _build_items:
@@ -421,7 +490,27 @@ func show_build(text: String) -> void:
 		for entry: Dictionary in unique.values():
 			var card:=ItemCard.new();card.item=entry.item;card.count=entry.count;cards.add_child(card)
 	_button(_content, "BACK", _back)
+	if not _focus_history.has(&"build"): _focus_history[&"build"] = "行囊"
 	_focus_first()
+
+func _pause_navigation(active_page: StringName) -> void:
+	var navigation := HBoxContainer.new()
+	navigation.add_theme_constant_override("separation", 10)
+	_content.add_child(navigation)
+	var pause_tab := _button(navigation, "暂停", func() -> void: show_pause(_build, _build_items))
+	pause_tab.name = "PausePage"
+	pause_tab.toggle_mode = true
+	pause_tab.button_pressed = active_page == &"pause"
+	var build_tab := _button(navigation, "行囊", func() -> void: show_build(_build))
+	build_tab.name = "BuildPage"
+	build_tab.set_meta(&"ui_legacy_prefix", "YOUR BUILD")
+	build_tab.toggle_mode = true
+	build_tab.button_pressed = active_page == &"build"
+	var equipment := _button(navigation, "装备", Callable())
+	equipment.name = "EquipmentNotImplemented"
+	equipment.disabled = true
+	equipment.tooltip_text = "装备分页尚未开放。"
+	_label(_content, "装备分页尚未开放；当前可查看本局行囊。", 14, MUTED)
 
 func close_panel() -> void:
 	if _in_run:
@@ -433,8 +522,10 @@ func close_panel() -> void:
 		show_title()
 
 func _back() -> void:
-	if visible_panel == &"regions":
+	if visible_panel == &"continue":
 		show_title()
+	elif visible_panel == &"regions":
+		show_home(_summary)
 	elif visible_panel == &"debug_regions":
 		show_home(_summary)
 	elif not _in_run and _return_panel == &"home" and not _home_overlay:
@@ -498,7 +589,7 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(backdrop)
-	if not in_run and not _home_overlay:
+	if not in_run and not _home_overlay and panel != &"title":
 		var painted := TextureRect.new()
 		painted.texture = load("res://assets/underworld_plains/backgrounds/far.png")
 		painted.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -520,9 +611,10 @@ func _begin(panel: StringName, in_run: bool) -> void:
 		veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_root.add_child(veil)
 	if panel == &"title":
-		_clock = preload("res://scripts/ui/demo_ui_01/menu_clock.gd").new()
-		_clock.reduced_effects = _reduced_effects
-		_root.add_child(_clock)
+		var title_backdrop := preload("res://scripts/ui/demo_ui_01/title_backdrop.gd").new()
+		title_backdrop.name = "TitleBackdrop"
+		title_backdrop.reduced_effects = _reduced_effects
+		_root.add_child(title_backdrop)
 	_margin = MarginContainer.new()
 	_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.add_child(_margin)
@@ -550,7 +642,7 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	_scroll.add_child(_padding)
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_content.add_theme_constant_override("separation", 6 if panel == &"title" else 12)
+	_content.add_theme_constant_override("separation", 12)
 	_padding.add_child(_content)
 	if panel != &"title":
 		var ribbon := HBoxContainer.new()
@@ -563,7 +655,7 @@ func _begin(panel: StringName, in_run: bool) -> void:
 		seal.custom_minimum_size = Vector2(26, 26)
 		seal.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		ribbon.add_child(seal)
-		var ribbon_title := _label(ribbon, "失序之钟  /  THE CLOCK UNBOUND", 13, GOLD)
+		var ribbon_title := _label(ribbon, "失序之钟", 14, GOLD)
 		ribbon_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_footer = Label.new()
 	_footer.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -609,14 +701,15 @@ func _layout_menu() -> void:
 	_margin.add_theme_constant_override("margin_bottom", top + roundi(viewport.y - safe.end.y))
 	var frame_inset := _frame.get_theme_stylebox("panel").get_minimum_size()
 	var available_width := maxf(120, safe.size.x - side * 2 - frame_inset.x)
-	var width := available_width if compact else minf(550 if title_page else 790, available_width)
+	var width := available_width if compact else minf(360 if title_page else 640 if visible_panel in [&"pause", &"build"] else 790, available_width)
+	if title_page: width = minf(available_width, 360.0 / minf(1.0, pixel_scale))
 	var footer_reserve := 38.0 / pixel_scale if compact else 18.0
 	var height := maxf(100, safe.size.y - top * 2 - footer_reserve - frame_inset.y)
 	_scroll.custom_minimum_size = Vector2(width, minf(640, height))
 	_scroll.size = _scroll.custom_minimum_size
 	var padding := 0 if title_page else (26 if physical_size.x >= 900 else 16)
 	for edge: String in ["left", "right", "top", "bottom"]: _padding.add_theme_constant_override("margin_" + edge, padding)
-	if is_instance_valid(_title_label): _title_label.set_meta(&"ui_base_font_size", 64 if physical_size.x >= 900 else 48)
+	if is_instance_valid(_title_label): _title_label.set_meta(&"ui_base_font_size", 36 if title_page else 24)
 	if is_instance_valid(_title_secondary): _title_secondary.columns = 2 if physical_size.x >= 500 else 1
 	if is_instance_valid(_home_shell): _home_shell.columns = 2 if physical_size.x >= 900 else 1
 	_apply_physical_metrics(pixel_scale, compact)
@@ -663,7 +756,7 @@ func _apply_physical_metrics(pixel_scale: float, compact: bool) -> void:
 				popup.add_theme_font_size_override("font_size", font_size)
 				var font_height := popup.get_theme_font("font").get_height(font_size)
 				popup.add_theme_constant_override("v_separation", maxi(8, ceili(48.0 / pixel_scale - font_height)))
-	_content.add_theme_constant_override("separation", ceili((6.0 if visible_panel == &"title" else 12.0) / pixel_scale) if compact else (6 if visible_panel == &"title" else 12))
+	_content.add_theme_constant_override("separation", ceili((6.0 if visible_panel == &"title" else 12.0) / pixel_scale) if compact else 12)
 
 func _process(_delta: float) -> void:
 	if not visible_panel.is_empty() and (get_viewport().get_visible_rect().size != _last_viewport or get_viewport().get_screen_transform() != _last_screen_transform or get_window().size != _last_window_size or _menu_device != _last_layout_device):
@@ -787,7 +880,7 @@ func _restore_focus(generation: int) -> void:
 	# pre-layout rectangle can open a long page at its bottom with focus offscreen.
 	await get_tree().process_frame
 	if generation == _page_generation and is_instance_valid(target) and is_instance_valid(_scroll):
-		if wanted.is_empty(): _scroll.scroll_vertical = 0
+		if wanted.is_empty() or (visible_panel == &"title" and target.name == "BeginAdventure"): _scroll.scroll_vertical = 0
 		else: _scroll.ensure_control_visible(target)
 
 func _unhandled_input(event: InputEvent) -> void:

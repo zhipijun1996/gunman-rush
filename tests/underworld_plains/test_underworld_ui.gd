@@ -14,7 +14,7 @@ func frames(count := 3) -> void:
 	for i: int in count: await process_frame
 func button(parent: Node, prefix: String) -> Button:
 	for node: Node in parent.find_children("*","Button",true,false):
-		if (node as Button).text.begins_with(prefix): return node
+		if (node as Button).text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null,"actual requested button exists")

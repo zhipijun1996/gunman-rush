@@ -1,16 +1,16 @@
 class_name DemoClockworkTheme
 extends RefCounted
 ## Native, reusable UI materials. All illustration remains independently interactive.
-const FONT := preload("res://assets/fonts/foundry_notes.otf")
-const INK := Color("101e21")
-const PANEL := Color("192b2c")
-const RAISED := Color("29403c")
-const PAPER := Color("f0e6cb")
-const BRASS := Color("d6b477")
-const EDGE := Color("647167")
-const MUTED := Color("adbaaa")
-const TEAL := Color("88c6b6")
-const CORAL := Color("ed8e7b")
+const FONT := preload("res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proportional-zh_hans.otf")
+const INK := Color("111b20")
+const PANEL := Color("253538")
+const RAISED := Color("3b4e4c")
+const PAPER := Color("f6e8bf")
+const BRASS := Color("d8b16b")
+const EDGE := Color("8c8467")
+const MUTED := Color("bcbba1")
+const TEAL := Color("8dbda4")
+const CORAL := Color("d97860")
 
 static func plate(fill: Color, border: Color, padding: int = 16) -> StyleBoxFlat:
 	var result := StyleBoxFlat.new()
@@ -18,14 +18,17 @@ static func plate(fill: Color, border: Color, padding: int = 16) -> StyleBoxFlat
 	result.border_color = border
 	result.set_border_width_all(1)
 	result.set_content_margin_all(padding)
-	result.set_corner_radius_all(2)
+	result.set_corner_radius_all(12)
+	result.shadow_color = Color(0.02, 0.035, 0.045, 0.72)
+	result.shadow_size = 4
+	result.shadow_offset = Vector2(0, 3)
 	result.anti_aliasing = false
 	return result
 
 static func create_theme() -> Theme:
 	var result := Theme.new()
 	result.default_font = FONT
-	result.default_font_size = 18
+	result.default_font_size = 24
 	result.set_color("font_color", "Label", PAPER)
 	result.set_color("font_shadow_color", "Label", INK)
 	result.set_constant("shadow_offset_x", "Label", 1)
@@ -33,13 +36,18 @@ static func create_theme() -> Theme:
 	result.set_stylebox("panel", "PanelContainer", plate(PANEL, EDGE, 24))
 	result.set_stylebox("panel", "Panel", plate(PANEL, EDGE))
 	for kind: String in ["Button", "OptionButton", "MenuButton", "CheckButton"]:
-		var normal := plate(UnderworldUI.INK, Color("5f6a5b"))
-		normal.border_width_bottom = 3
+		var normal := plate(Color("293a3b"), Color("807b60"))
+		normal.border_width_top = 2
+		normal.border_width_left = 2
+		normal.border_width_right = 2
+		normal.border_width_bottom = 5
 		result.set_stylebox("normal", kind, normal)
 		result.set_stylebox("hover", kind, plate(RAISED, BRASS))
-		result.set_stylebox("pressed", kind, plate(INK, TEAL))
+		result.set_stylebox("pressed", kind, plate(INK, TEAL, 16))
 		result.set_stylebox("disabled", kind, plate(Color("1b292a"), Color("394640")))
 		var focus := plate(Color.TRANSPARENT, BRASS, 0)
+		focus.draw_center = false
+		focus.shadow_size = 0
 		focus.set_border_width_all(2)
 		focus.expand_margin_left = 3
 		focus.expand_margin_top = 3
@@ -50,13 +58,23 @@ static func create_theme() -> Theme:
 			result.set_color(state, kind, PAPER)
 		result.set_color("font_disabled_color", kind, Color("819184"))
 		result.set_color("icon_normal_color", kind, BRASS)
-		result.set_font_size("font_size", kind, 18)
+		result.set_font_size("font_size", kind, 24)
 	result.set_type_variation("PrimaryButton", "Button")
-	result.set_stylebox("normal", "PrimaryButton", plate(BRASS, PAPER, 16))
+	var primary := plate(Color("c3a366"), Color("ead096"), 16)
+	primary.border_width_top = 2
+	primary.border_width_bottom = 5
+	result.set_stylebox("normal", "PrimaryButton", primary)
 	result.set_stylebox("hover", "PrimaryButton", plate(PAPER, BRASS, 16))
 	result.set_stylebox("pressed", "PrimaryButton", plate(TEAL, PAPER, 16))
 	for state: String in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_hover_pressed_color"]:
 		result.set_color(state, "PrimaryButton", INK)
+	result.set_type_variation("CompactButton", "Button")
+	result.set_font_size("font_size", "CompactButton", 18)
+	for state: String in ["normal", "hover", "pressed", "disabled"]:
+		var compact := result.get_stylebox(state, "Button").duplicate() as StyleBoxFlat
+		compact.set_content_margin_all(8)
+		compact.set_corner_radius_all(8)
+		result.set_stylebox(state, "CompactButton", compact)
 	result.set_stylebox("normal", "LineEdit", plate(INK, EDGE, 14))
 	result.set_stylebox("focus", "LineEdit", plate(INK, BRASS, 14))
 	result.set_color("font_color", "LineEdit", PAPER)
@@ -86,7 +104,7 @@ static func label(text: String, size: int = 16, color: Color = PAPER) -> Label:
 	result.add_theme_font_size_override("font_size", size)
 	result.add_theme_color_override("font_color", color)
 	result.add_theme_color_override("font_outline_color", INK)
-	result.add_theme_constant_override("outline_size", 4)
+	result.add_theme_constant_override("outline_size", 2)
 	result.add_theme_color_override("font_shadow_color", Color(INK, 0.9))
 	result.add_theme_constant_override("shadow_offset_y", 2)
 	return result
