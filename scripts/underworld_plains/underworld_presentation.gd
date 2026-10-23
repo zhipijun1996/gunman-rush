@@ -137,9 +137,9 @@ func install_occluders(node: Node) -> void:
 
 func _process(delta: float) -> void:
 	_clock+=delta
-	refresh()
+	refresh(false)
 
-func refresh() -> void:
+func refresh(update_foreground: bool=true) -> void:
 	var camera:=get_viewport().get_camera_2d()
 	var center:=camera.get_screen_center_position() if camera!=null else Vector2.ZERO
 	var size:=get_viewport_rect().size/(camera.zoom if camera!=null else Vector2.ONE)
@@ -155,7 +155,7 @@ func refresh() -> void:
 	for ref: WeakRef in _latches:
 		var latch:=ref.get_ref() as CanvasItem
 		if latch!=null and view.has_point((latch as Node2D).to_global((latch as ShotLatch).bell_position)): latch.queue_redraw()
-	if is_instance_valid(foreground): foreground.call("refresh")
+	if update_foreground and is_instance_valid(foreground): foreground.call("refresh")
 
 func receipt() -> Dictionary:
 	var lights: Array[Dictionary]=[]
