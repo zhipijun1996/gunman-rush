@@ -1,0 +1,130 @@
+{
+  "task": "DEMO-UI-01",
+  "status": "passed",
+  "source_metadata": {
+    "working_files": {},
+    "commit": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "scope": "Actual Godot MovieWriter. R1 rejected UI compared with R2. Real native pointer; explicit official damage/heal fixtures and real jump/aim/release costs. Not natural combat/device performance proof.",
+  "baseline": "Exact prior R1 after.mp4 and trace reused byte-for-byte with original source/driver attribution; no relabeling.",
+  "conditions": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "renderer": "gl_compatibility llvmpipe",
+    "seed": "level-design-v2-baseline/08",
+    "persistence": false,
+    "driver_sha256": "f5fcff58ca0eff86932c844c6dda214112637338aa8098bd42220bdfba457b92"
+  },
+  "comparison_differences": [
+    "R1 and R2 native layouts and actual pointer positions differ.",
+    "New driver accepts stable original-action metadata for requested Chinese labels, and ends at880 rather than900 frames; only final idle padding shortened by20frames. Original R1 driver is separately attributed."
+  ],
+  "captures": [
+    {
+      "variant": "before",
+      "execution": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792698448.955865,
+        "ended_at_unix": 1792698518.2690156,
+        "duration_seconds": 69.313,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--path",
+          ".",
+          "--rendering-method",
+          "gl_compatibility",
+          "--write-movie",
+          "/workspace/ui-workline/build/verification/demo-ui-film-v6/after.avi",
+          "--fixed-fps",
+          "60",
+          "--script",
+          "/workspace/ui-workline/tests/demo_ui_01/movie_runner.gd",
+          "--",
+          "--trace=/workspace/ui-workline/build/verification/demo-ui-film-v6/after.json"
+        ],
+        "check_token": "a60c6e91b838420c8b5ca0999d527eba"
+      },
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/ui-workline/build/verification/demo-ui-film-v6/after.avi",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "/workspace/ui-workline/tests/demo_ui_01/movie_runner.gd",
+        "--",
+        "--trace=/workspace/ui-workline/build/verification/demo-ui-film-v6/after.json"
+      ],
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "mp4_sha256": "fc037d10c264cd26db1664b1e33bc27b26b89af27da1a78600d931ef5627ae08",
+      "trace_sha256": "a61f32f9fbc573066081703c01b250bc083fcbf6f0b3516c5811a13dfde693a0",
+      "avi_sha256": "e62be6f286bc56f25639c18bbe07d351f6ceb53f4679c0581b994399c51b2230",
+      "reuse_from": "build/verification/demo-ui-film-v6/report.json after record",
+      "original_driver_sha256": "336e207cb5b395e046396625b246c095dc19ac234ed424ecc61807716c32bd0f"
+    },
+    {
+      "variant": "after",
+      "source_commit": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
+      "execution": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792715402.6156542,
+        "ended_at_unix": 1792715443.0344808,
+        "duration_seconds": 40.419,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--path",
+          ".",
+          "--rendering-method",
+          "gl_compatibility",
+          "--write-movie",
+          "/workspace/ui-workline/build/verification/demo-ui-r2/film-v2/after.avi",
+          "--fixed-fps",
+          "60",
+          "--script",
+          "tests/demo_ui_01/movie_runner.gd",
+          "--",
+          "--trace=/workspace/ui-workline/build/verification/demo-ui-r2/film-v2/after.json"
+        ],
+        "check_token": "710d916c786e4afe8118b146d1eee619"
+      },
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/ui-workline/build/verification/demo-ui-r2/film-v2/after.avi",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/demo_ui_01/movie_runner.gd",
+        "--",
+        "--trace=/workspace/ui-workline/build/verification/demo-ui-r2/film-v2/after.json"
+      ],
+      "mp4_sha256": "d69d4cf52b02554ac969e6d7a47b432a1fe35ae7baab37f2df5421f5985858dd",
+      "trace_sha256": "496d49d417b12134875bdaa5f22607ff02b80c31ca045dc442c05e2baba03b3d",
+      "avi_sha256": "ffc128ab54338686bc8400ae4c7d1f618c6a8c3685bb5b878e27f449b6b1ca85"
+    }
+  ],
+  "comparison_sha256": "4df0009a01755edb7492825954582a996c0faeb53b990822c1b773c8be0a9523"
+}

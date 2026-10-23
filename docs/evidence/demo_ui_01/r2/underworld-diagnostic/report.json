@@ -1,0 +1,31 @@
+{
+  "schema": "underworld-ui-helper-diagnosis-v1",
+  "source_head": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
+  "original_test_sha256": "4a682799caf66d43b3392ab6ae5c9ab2468c20c30de91c7904bfb4f2e5a64deb",
+  "original_test_unmodified": true,
+  "production_modified": false,
+  "budget_seconds": 180,
+  "runs": [
+    {
+      "script": "build/verification/demo-ui-r2/underworld-diagnostic/diagnostic.gd",
+      "mode": "headless",
+      "exit_code": 1,
+      "checks": 260,
+      "failures": 2,
+      "log": "build/verification/demo-ui-r2/underworld-diagnostic/headless.log",
+      "assertions_unchanged": true
+    },
+    {
+      "script": "build/verification/demo-ui-r2/underworld-diagnostic/diagnostic-settle.gd",
+      "mode": "headless",
+      "exit_code": 0,
+      "checks": 260,
+      "failures": 0,
+      "log": "build/verification/demo-ui-r2/underworld-diagnostic/headless-settle.log",
+      "assertions_unchanged": true
+    }
+  ],
+  "observed_failure": "First actual run SETTINGS/BACK was visible at y555 before ensure_control_visible, then deferred initial focus reset moved it to y1234 during the four post-ensure frames; click point y1266 missed. YOUR BUILD lookup then failed because menu remained in settings.",
+  "fix_scope": "Proposed test helper only: four existing-kind process frames before ensure_control_visible; retain original four post-ensure frames, actual Input.parse_input_event mouse route, assertions and 180-second budget.",
+  "scope_limit": "Only copied original test was run. Not a fresh original Harness pass, GPU pixel or user acceptance result. Native diagnostic unnecessary after exact headless failure/fix reproduced; independent native R2/contract results owned by root."
+}

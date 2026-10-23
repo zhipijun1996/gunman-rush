@@ -1,0 +1,199 @@
+{
+  "task": "DEMO-UI-01",
+  "content_version": "clockwork-ui-r2",
+  "source": {
+    "working_files": {},
+    "commit": "171d0426c20a8d95ad67fc6a6b7859767a097aef",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "scope": "Focused UI Development checks only. Dynamic Control inventory affects observed assertion counts; original assertions and budgets remain. No Integration/Release/device approval.",
+  "results": [
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715228.3134615,
+      "ended_at_unix": 1792715262.0154612,
+      "duration_seconds": 33.702,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/contract_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/verification/demo-ui-r2/frozen/native"
+      ],
+      "check_token": "9007ea13bc9b4e6b94ec1f577fd11ff7",
+      "id": "ui-contract"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715262.0155575,
+      "ended_at_unix": 1792715275.418026,
+      "duration_seconds": 13.402,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/demo_ui_01/r2_runner.gd",
+        "--",
+        "--capture",
+        "--output=res://build/verification/demo-ui-r2/frozen/r2"
+      ],
+      "check_token": "1411c3b54ee649fe93f15a3b89efa8c5",
+      "id": "r2"
+    },
+    {
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792715275.4180808,
+      "ended_at_unix": 1792715289.4130507,
+      "duration_seconds": 13.995,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "check_token": "456cb413c7864c5c83567bfbb110da64",
+      "id": "underworld-ui"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715289.4131646,
+      "ended_at_unix": 1792715293.274,
+      "duration_seconds": 3.861,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/cloud_preview_runner.gd"
+      ],
+      "check_token": "0571279f30fb420ead165fb947d9328f",
+      "id": "preview"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715293.274056,
+      "ended_at_unix": 1792715294.6369617,
+      "duration_seconds": 1.363,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/demo_ui_01/legacy_runner.gd"
+      ],
+      "check_token": "ea2ce2560f7e4ea98a6c38c4b87df855",
+      "id": "legacy"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715294.6370099,
+      "ended_at_unix": 1792715297.9493797,
+      "duration_seconds": 3.312,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/menu_settings_lifecycle_runner.gd"
+      ],
+      "check_token": "bbe782b5e2e24cee8df667cba3c5df02",
+      "id": "settings"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715297.9494267,
+      "ended_at_unix": 1792715298.8620517,
+      "duration_seconds": 0.913,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--headless",
+        "--script",
+        "tests/grapple_focus_hud_runner.gd"
+      ],
+      "check_token": "dd42c6c1dab646afb95ef24a9ac10491",
+      "id": "focus"
+    },
+    {
+      "status": "failed",
+      "exit_code": 0,
+      "failure_reason": "missing_completion",
+      "started_at_unix": 1792715298.862096,
+      "ended_at_unix": 1792715304.657009,
+      "duration_seconds": 5.795,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--path",
+        ".",
+        "--audio-driver",
+        "Dummy",
+        "--rendering-method",
+        "gl_compatibility",
+        "--script",
+        "tests/menu_scroll_touch_tests.gd"
+      ],
+      "check_token": "a48cdf35d2934d80b7f9c22cff1c3f19",
+      "id": "menu-scroll"
+    },
+    {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792715304.657054,
+      "ended_at_unix": 1792715304.863228,
+      "duration_seconds": 0.206,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_art.py"
+      ],
+      "check_token": "8e130ea7575640a6add5174fecbd3242",
+      "id": "art"
+    }
+  ]
+}
