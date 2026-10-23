@@ -1,0 +1,33 @@
+{
+  "status": "fallback_candidate_not_adopted",
+  "source_head": "8ca6b1373ea65c2cfcf897a1d3c30be680c44a6d",
+  "scope": "Exact Azure APT URI replacement only before existing APT update blocks; no installation performed locally",
+  "files": {
+    ".github/workflows/production.yml": {
+      "original_sha256": "e4ed776b26bc92a3ed7757bc0439bd70c8cbdca1330293f5eeec56460421cd02",
+      "candidate_sha256": "a957448382892d9b07ce093bdd171336ab0eba94fc943448595968384c65aefd",
+      "original_bytes_exact_after_removing_inserted_lines": true,
+      "inserted_blocks": 4
+    },
+    ".github/workflows/environment.yml": {
+      "original_sha256": "29d647e1828a3e696f57c74d876d82ec54b88ad7cf316cc05bfd8fcbabc1d71f",
+      "candidate_sha256": "acb85a19d487cfcc5e63ce6cc45f5d1bbc67d383ab9b7dc1dca208d73184bc8f",
+      "original_bytes_exact_after_removing_inserted_lines": true,
+      "inserted_blocks": 2
+    }
+  },
+  "verification": {
+    "actual_temporary_shell_fixtures": "5/5 passed; no real sudo or apt",
+    "suite_components_signed_by_unchanged": true,
+    "official_actionlint_version": "1.7.7",
+    "actionlint_exit_code": 0,
+    "scope": "both actual candidate workflows; not CI execution",
+    "fixture_report_sha256": "d2c9d9755ccd850d678b0324284a80740541d1a9858f478e33f68d93f72e02d9",
+    "actionlint_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actionlint_argv": [
+      "/workspace/toolchains/actionlint/1.7.7/actionlint",
+      "/workspace/scratch/apt-official-mirror-fallback-not-adopted/.github/workflows/production.yml",
+      "/workspace/scratch/apt-official-mirror-fallback-not-adopted/.github/workflows/environment.yml"
+    ]
+  }
+}

@@ -1,5 +1,11 @@
 # 2026-10-23 四条工作线集成
 
+## 2026-10-23 Ubuntu依赖镜像修复（最新）
+
+实现77eca16已冻结：88a08的parallel在原生测试前因Azure下载过慢触发原五分钟安装上限，serial状态单列，不冒称整轮通过。现仅将两workflow六处精确Azure URI改为Ubuntu官方HTTPS；GPG／套件／APT参数／原预算／检查与合流全保，精确Git采纳独审及官方Actionlint通过。本地163ad原专项308.524秒的通过保持原源；新镜像实际CI及main／Release仍待结果。
+
+[真实失败、原日志及有限修复证据](../evidence/four_line_integration_20261023/apt-mirror/README.md)。游戏源和a074开发Preview不变；Git存在性与批处理候选未采纳。以下为历史时点。
+
 ## 2026-10-23 最后专项调度修复
 
 原8ca6 CI serial8pass／1timeout／44notrun保持失败。163ad只将六独立current采集限双worker，原断言、路径、参数、240/600预算均不变；原Harness fresh专项本地两核308.524秒通过，独审限定ACCEPT。scene同条件在原native180秒内130.160秒通过，来源8ca6单列。下一精确远端完整142／main／Release不预签；[准确来源与证据](../evidence/four_line_integration_20261023/encounter-scheduling/README.md)。

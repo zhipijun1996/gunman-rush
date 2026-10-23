@@ -1,0 +1,64 @@
+--- a/.github/workflows/production.yml
++++ b/.github/workflows/production.yml
+@@ -105,6 +105,9 @@
+         timeout-minutes: 5
+         run: |
+           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/media-install.log
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log
+           fi
+@@ -125,6 +128,9 @@
+         run: |
+           bash tools/cloud_setup.sh --godot-only 2>&1 | tee build/verification/production-ci/toolchain.log
+           if ! command -v Xvfb >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/display-install.log
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends xvfb xauth 2>&1 | tee -a build/verification/production-ci/display-install.log
+           fi
+@@ -279,6 +285,9 @@
+         timeout-minutes: 5
+         run: |
+           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/media-install.log
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log
+           fi
+@@ -295,6 +304,9 @@
+         run: |
+           bash tools/cloud_setup.sh --godot-only 2>&1 | tee build/verification/production-ci/toolchain.log
+           if ! command -v Xvfb >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/display-install.log
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends xvfb xauth 2>&1 | tee -a build/verification/production-ci/display-install.log
+           fi
+--- a/.github/workflows/environment.yml
++++ b/.github/workflows/environment.yml
+@@ -140,6 +140,9 @@
+         timeout-minutes: 5
+         run: |
+           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg
+           fi
+@@ -431,6 +434,9 @@
+         timeout-minutes: 5
+         run: |
+           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
++            for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
++              if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi
++            done
+             sudo apt-get -o Acquire::Retries=1 update
+             sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg
+           fi
