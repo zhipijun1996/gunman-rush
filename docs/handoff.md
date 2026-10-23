@@ -1,8 +1,6 @@
-## 2026-10-23 四线集成下一步（最新）
+## 2026-10-23 CI 门禁收口（最新）
 
-实现a861已冻结，四文件采纳独审通过。精确原Harness BGM89/0、家园181/0通过；森林四原wrapper候选24/24、32/32、35/35、43/43通过。后续不再扩大提效／历史兼容范围；推一次最终文档head触发原PR106 Integration，绿后正常合main并核自动Release。失败、源身份、最新可玩Preview及1.864GB输入提效候选见[当前集成](integration/four_lines_20261023.md)和[收口证据](evidence/four_line_integration_20261023/final-synchronization/README.md)。当前main／正式新发布仍未完成，G5未签。
-
-以下为历史检查点。
+本次实现17cd：输入修复9fb原23／115／24通过；门禁前置／双物理通道／精确合流／失败产物重跑已独审，canonical21／24／Actionlint通过。原54573 CI真实97／1／44保留，不再反复启动旧流程。只推最后metadata head启动新流程；最终affected和原142完整合流通过后，按用户既有授权普通合PR106/main，再核原Release。当前尚未合main。源、失败、审计和未验见[门禁证据](evidence/four_line_integration_20261023/ci-gate-repair/README.md)，a074开发Preview身份保持独立。以下为历史时点。
 
 ## 2026-10-23 当前 HUD 与资源契约集成（冻结检查点）
 

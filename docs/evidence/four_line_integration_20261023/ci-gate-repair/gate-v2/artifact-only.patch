@@ -1,0 +1,63 @@
+--- candidate-v1/.github/workflows/production.yml
++++ candidate-v2/.github/workflows/production.yml
+@@ -184,7 +184,8 @@
+       - uses: actions/upload-artifact@v4
+         if: steps.route.outputs.ci_route == 'full_lanes'
+         with:
+-          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          name: production-context-${{ github.run_id }}
++          overwrite: true
+           path: build/verification/production-ci/pre-execution-plan.json
+           if-no-files-found: error
+           retention-days: 14
+@@ -192,6 +193,7 @@
+         if: steps.route.outputs.ci_route == 'full_lanes'
+         with:
+           name: production-validated-foundry
++          overwrite: true
+           path: resources/foundry/
+           if-no-files-found: error
+           retention-days: 14
+@@ -250,7 +252,7 @@
+         run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+       - uses: actions/download-artifact@v4
+         with:
+-          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          name: production-context-${{ github.run_id }}
+           path: build/verification/production-ci/
+       - uses: actions/download-artifact@v4
+         with:
+@@ -370,13 +372,14 @@
+         if: always()
+         with:
+           name: production-phase-proof-${{ matrix.lane }}
++          overwrite: true
+           path: build/verification/ci-lane-proof/${{ matrix.lane }}/
+           if-no-files-found: error
+           retention-days: 14
+       - uses: actions/upload-artifact@v4
+         if: always()
+         with:
+-          name: production-lane-${{ matrix.lane }}
++          name: production-lane-${{ matrix.lane }}-${{ github.run_id }}-${{ github.run_attempt }}
+           path: |
+             build/verification/
+           if-no-files-found: error
+@@ -423,7 +426,7 @@
+         if: needs.prepare.outputs.ci_route == 'full_lanes'
+       - uses: actions/download-artifact@v4
+         with:
+-          name: production-context-${{ github.run_id }}-${{ github.run_attempt }}
++          name: production-context-${{ github.run_id }}
+           path: build/verification/production-ci/
+         if: needs.prepare.outputs.ci_route == 'full_lanes'
+       - uses: actions/download-artifact@v4
+@@ -476,7 +479,7 @@
+       - uses: actions/upload-artifact@v4
+         if: always() && needs.prepare.outputs.ci_route == 'full_lanes'
+         with:
+-          name: production-merged-proof
++          name: production-merged-proof-${{ github.run_id }}-${{ github.run_attempt }}
+           path: |
+             build/verification/harness/
+             build/verification/production-ci/

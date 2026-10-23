@@ -1,0 +1,1215 @@
+{
+  "plains-redesign-scene": {
+    "argv": [
+      "python3",
+      "tools/run_plains_redesign_scene_tests.py"
+    ],
+    "timeout_seconds": 900,
+    "success_pattern": "^PLAINS REDESIGN SCENE: actual composition and visibility counterexamples validated$",
+    "serial": true,
+    "artifact_paths": [
+      "build/plains_redesign/scene"
+    ]
+  },
+  "terrain-family-tests": {
+    "argv": [
+      "python3",
+      "tools/run_plains_terrain_family_tests.py",
+      "--all-maps"
+    ],
+    "timeout_seconds": 720,
+    "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+    "weight_seconds": 35,
+    "serial": true,
+    "inputs": [
+      "project.godot",
+      "tools/run_plains_terrain_family_tests.py",
+      "tools/production_loop.py",
+      "tests/plains_terrain_family*",
+      "scripts/**",
+      "scenes/**",
+      "resources/**",
+      "config/**",
+      "assets/**",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets",
+      "tests"
+    ]
+  },
+  "forest-h-slice": {
+    "argv": [
+      "python3",
+      "tools/run_forest_h_slice_tests.py"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: frozen historical H-only route positive and actual removed-anchor/no-H negatives; default short hook not covered$",
+    "weight_seconds": 20,
+    "serial": true
+  },
+  "forest-ecology": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_ecology_runner.gd"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^FOREST ECOLOGY: [1-9]\\d* assertions, 0 failures$",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config",
+      "tests",
+      "assets"
+    ],
+    "cacheable": true
+  },
+  "forest-progression": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_progression_runner.gd"
+    ],
+    "timeout_seconds": 90,
+    "success_pattern": "^FOREST PROGRESSION: [1-9]\\d* assertions / 0 failures$",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config",
+      "tests",
+      "assets"
+    ],
+    "cacheable": true
+  },
+  "forest-campaign": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_campaign_runner.gd"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^FOREST CAMPAIGN: [1-9]\\d* assertions / 0 failures$",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config",
+      "tests",
+      "assets"
+    ],
+    "cacheable": true
+  },
+  "forest-debug": {
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_progression_debug_runner.gd"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^FOREST DEBUG: [1-9]\\d* assertions / 0 failures$",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config",
+      "tests",
+      "assets"
+    ],
+    "cacheable": true
+  },
+  "forest-traversal": {
+    "argv": [
+      "python3",
+      "tools/run_forest_region_tests.py",
+      "--skip-import"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASSED: real_short_H_golden_not_whole_region$",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "resources",
+      "scenes",
+      "config",
+      "tests",
+      "assets",
+      "tools/run_forest_region_tests.py"
+    ],
+    "cacheable": true
+  },
+  "forest-depth-region": {
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_region.py",
+      "--corpus",
+      "--output",
+      "build/forest_depth/region/harness-matrix/harness-{check_token}"
+    ],
+    "timeout_seconds": 600,
+    "success_pattern": "^FOREST DEPTH REGION: passed",
+    "weight_seconds": 120,
+    "artifact_paths": [
+      "build/forest_depth/region"
+    ],
+    "serial": true
+  },
+  "windchime-plains": {
+    "argv": [
+      "python3",
+      "tools/run_windchime_tests.py"
+    ],
+    "timeout_seconds": 200,
+    "success_pattern": "^PASS: windchime tiles",
+    "weight_seconds": 20,
+    "serial": true
+  },
+  "pixel-plains": {
+    "argv": [
+      "python3",
+      "tools/run_pixel_plains_tests.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASS: pixel plains actual",
+    "weight_seconds": 20,
+    "serial": true
+  },
+  "pixel-formal": {
+    "argv": [
+      "python3",
+      "tools/run_pixel_formal_tests.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASS: current formal pixel",
+    "weight_seconds": 20,
+    "serial": true
+  },
+  "style-exploration": {
+    "argv": [
+      "python3",
+      "tools/run_style_exploration_tests.py"
+    ],
+    "timeout_seconds": 240,
+    "success_pattern": "^Validated runtime evidence:",
+    "weight_seconds": 8,
+    "serial": true
+  },
+  "underworld-scenery": {
+    "argv": [
+      "python3",
+      "tools/underworld_pipeline.py",
+      "runtime",
+      "--suite",
+      "scenery"
+    ],
+    "timeout_seconds": 150,
+    "success_pattern": "^PASS: Underworld scenery runtime; strict engine teardown$",
+    "weight_seconds": 2,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts/underworld_plains",
+      "tests/underworld_plains/test_underworld_scenery.gd",
+      "project.godot",
+      "tools/underworld_pipeline.py",
+      "tools/run_tests.py",
+      "tests/underworld_plains/test_underworld_identity_population.gd"
+    ]
+  },
+  "underworld-hazards": {
+    "argv": [
+      "python3",
+      "tools/underworld_pipeline.py",
+      "runtime",
+      "--suite",
+      "hazards"
+    ],
+    "timeout_seconds": 150,
+    "success_pattern": "^PASS: Underworld hazards runtime; strict engine teardown$",
+    "weight_seconds": 3,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts/underworld_plains",
+      "scripts/generation/platforming_module.gd",
+      "scripts/demo/plains_region_stage.gd",
+      "tests/underworld_plains/test_underworld_hazards.gd",
+      "project.godot",
+      "tools/underworld_pipeline.py",
+      "tools/run_tests.py"
+    ]
+  },
+  "underworld-terrain": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_terrain_tests.py"
+    ],
+    "timeout_seconds": 150,
+    "success_pattern": "^PASS: Underworld source-native exact terrain geometry$",
+    "weight_seconds": 2,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_terrain_tests.py"
+    ]
+  },
+  "underworld-formal-terrain": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_formal_terrain_tests.py"
+    ],
+    "timeout_seconds": 270,
+    "success_pattern": "^PASS: Underworld 20 formal Stage geometries and actual Boss-break refresh$",
+    "weight_seconds": 40,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_formal_terrain_tests.py"
+    ]
+  },
+  "underworld-formal": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_formal_tests.py"
+    ],
+    "timeout_seconds": 150,
+    "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+    "weight_seconds": 3,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_formal_tests.py"
+    ]
+  },
+  "underworld-raw-export": {
+    "argv": [
+      "python3",
+      "tests/test_underworld_raw_export.py"
+    ],
+    "timeout_seconds": 120,
+    "success_pattern": "^OK$",
+    "weight_seconds": 5,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "addons/runtime_raw_export",
+      "export_presets.cfg",
+      "assets/underworld_plains",
+      "assets/manifest.json",
+      "tests/test_underworld_raw_export.py",
+      "tests/underworld_raw_export_runner.gd",
+      "tools/underworld_delivery.py",
+      "tools/run_tests.py"
+    ]
+  },
+  "underworld-player-animation": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_player_animation_tests.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASS: Underworld generated player body frames, actual left/right Motor, anchors and accepted lifecycle$",
+    "weight_seconds": 15,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_player_animation_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_player_animation"
+    ]
+  },
+  "underworld-mechanisms": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_mechanism_tests.py"
+    ],
+    "timeout_seconds": 240,
+    "success_pattern": "^PASS: Underworld mechanisms",
+    "weight_seconds": 20,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_mechanism_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_plains/mechanisms"
+    ]
+  },
+  "underworld-home": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_home_terrace_tests.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^UNDERWORLD HOME TERRACE CHECK: [1-9][0-9]* assertions,0 failures; twelve actual stations, original App business and basic input route$",
+    "weight_seconds": 45,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_home_tests.py",
+      "tools/run_underworld_home_terrace_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_r3/home"
+    ]
+  },
+  "underworld-ui": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_ui_tests.py"
+    ],
+    "timeout_seconds": 300,
+    "success_pattern": "^PASS: Underworld UI actual native mouse paths",
+    "weight_seconds": 25,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "assets/underworld_plains",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_ui_tests.py",
+      "assets/fonts",
+      "assets/underworld_plains/terrain/source.png",
+      "assets/underworld_plains/actors/bell.png"
+    ],
+    "artifact_paths": [
+      "build/underworld_plains/ui_rework"
+    ]
+  },
+  "underworld-damage-feedback": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_damage_r3_tests.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASS: accepted R3 hurt/feedback",
+    "weight_seconds": 45,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets/underworld_plains",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_damage_r3_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_r3/damage"
+    ]
+  },
+  "underworld-projectile-vfx": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_projectile_tests.py"
+    ],
+    "timeout_seconds": 300,
+    "success_pattern": "^PASS: all 15 equipped weapon variants",
+    "weight_seconds": 45,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets/underworld_plains",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_projectile_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_r3/projectiles"
+    ]
+  },
+  "underworld-world-objects": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_r3_object_tests.py"
+    ],
+    "timeout_seconds": 240,
+    "success_pattern": "^PASS: Underworld R3 objects actual consumers",
+    "weight_seconds": 45,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets/underworld_plains",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_r3_object_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_r3/objects"
+    ]
+  },
+  "underworld-continuous-bosses": {
+    "argv": [
+      "python3",
+      "tools/run_underworld_r3_boss_tests.py",
+      "--full-fights"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: Underworld R3 Boss continuous damage, actual contact, lifecycle and two full actual-App battles$",
+    "weight_seconds": 45,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets/underworld_plains",
+      "tests/underworld_plains",
+      "tests/audio_teardown.gd",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/run_underworld_r3_boss_tests.py"
+    ],
+    "artifact_paths": [
+      "build/underworld_r3/boss"
+    ]
+  },
+  "forest-camera-stability": {
+    "argv": [
+      "python3",
+      "tools/run_forest_camera_stability.py"
+    ],
+    "timeout_seconds": 90,
+    "success_pattern": "^FOREST CAMERA STABILITY: [1-9]\\d* assertions, 0 failures$",
+    "weight_seconds": 6,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts/generation/stage_camera_rig.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/player",
+      "scripts/input",
+      "scenes/player",
+      "config",
+      "tests/forest_camera_stability_runner.gd",
+      "tools/run_forest_camera_stability.py",
+      "tools/run_tests.py"
+    ],
+    "artifact_paths": [
+      "build/forest_revision04/camera"
+    ]
+  },
+  "forest-hazard-records": {
+    "argv": [
+      "python3",
+      "tools/run_forest_hazard_records_tests.py"
+    ],
+    "timeout_seconds": 120,
+    "success_pattern": "^FOREST HAZARD RECORDS: [1-9]\\d* checks / 0 failures$",
+    "weight_seconds": 6,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts/generation",
+      "scenes",
+      "resources",
+      "config",
+      "tests/forest_hazard_records_runner.gd",
+      "tools/run_forest_hazard_records_tests.py",
+      "tools/run_tests.py"
+    ],
+    "artifact_paths": [
+      "build/forest_revision04/hazard-records.json"
+    ]
+  },
+  "forest-fruit-contract": {
+    "argv": [
+      "python3",
+      "tools/run_forest_fruit_contract.py",
+      "--output",
+      "build/forest_fruit_routes04/harness-{check_token}"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "^PASS: v14 candidate contracts; no Motor or visual acceptance claim$",
+    "weight_seconds": 25,
+    "serial": true,
+    "cacheable": false,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "assets",
+      "tests/forest_fruit_contract_runner.gd",
+      "tools/run_forest_fruit_contract.py",
+      "tools/run_tests.py"
+    ],
+    "artifact_paths": [
+      "build/forest_fruit_routes04"
+    ]
+  },
+  "forest-bible-weaver-tests": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_weaver.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0",
+    "serial": true,
+    "inputs": [
+      "scripts/enemies/forest_bible_weaver_behavior.gd",
+      "scripts/enemies/forest_bible_weaver_definition.gd",
+      "resources/enemies/forest_bible_weaver.tres",
+      "scenes/enemies/forest_bible_weaver.tscn",
+      "tests/forest_bible_weaver_runner.gd",
+      "tools/run_forest_bible_weaver.py",
+      "scripts/enemies/forest_thread_spider_behavior.gd",
+      "scripts/enemies/forest_enemy_definition.gd",
+      "resources/enemies/forest_thread_spider.tres",
+      "scenes/enemies/forest_thread_spider.tscn",
+      "scripts/enemies/enemy_attack_behavior.gd",
+      "scripts/enemies/enemy_actor.gd",
+      "scripts/enemies/enemy_motor.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/damage/frame_damage_policy.gd",
+      "tests/forest_depth_enemy_runner.gd",
+      "tests/audio_teardown.gd",
+      "tools/run_tests.py",
+      "tools/godot.sh"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/ecology/native"
+    ],
+    "weight_seconds": 15
+  },
+  "forest-bible-discoveries-tests": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_discoveries.py"
+    ],
+    "timeout_seconds": 240,
+    "success_pattern": "^PASS: Forest Bible optional reader",
+    "serial": true,
+    "inputs": [
+      "tools/run_forest_bible_discoveries.py",
+      "tests/forest_bible_discoveries_tests.gd",
+      "scripts/world/forest_bible_discoveries.gd",
+      "scripts/world/forest_bible_discovery_catalog.gd",
+      "resources/items/forest_old_badge.tres",
+      "resources/items/forest_spiral_core.tres",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/demo/demo_app.gd",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "scripts/run/plains_region_state.gd",
+      "scripts/run/demo_lifetime.gd",
+      "scripts/run/demo_token.gd",
+      "scripts/resources/state/health_state.gd",
+      "scripts/shops/run_wallet.gd",
+      "scripts/rewards/reward_service.gd",
+      "scripts/builds/build_state.gd"
+    ],
+    "weight_seconds": 10
+  },
+  "forest-bible-integration-tests": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_integration.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+    "serial": true,
+    "inputs": [
+      "scripts/enemies/forest_bible_weaver_behavior.gd",
+      "scripts/enemies/forest_bible_weaver_definition.gd",
+      "resources/enemies/forest_bible_weaver.tres",
+      "scenes/enemies/forest_bible_weaver.tscn",
+      "tests/forest_bible_weaver_runner.gd",
+      "tools/run_forest_bible_weaver.py",
+      "scripts/enemies/forest_thread_spider_behavior.gd",
+      "scripts/enemies/forest_enemy_definition.gd",
+      "resources/enemies/forest_thread_spider.tres",
+      "scenes/enemies/forest_thread_spider.tscn",
+      "scripts/enemies/enemy_attack_behavior.gd",
+      "scripts/enemies/enemy_actor.gd",
+      "scripts/enemies/enemy_motor.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/damage/frame_damage_policy.gd",
+      "tests/forest_depth_enemy_runner.gd",
+      "tests/audio_teardown.gd",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tests/forest_bible_integration_runner.gd",
+      "tools/run_forest_bible_integration.py",
+      "scripts/generation/thorn_forest_region_generator.gd",
+      "scripts/generation/thorn_forest_region_v2_v15.gd",
+      "scripts/generation/forest_bible_v2_layout.gd",
+      "scripts/generation/thorn_forest_region_assembler.gd",
+      "scripts/run/plains_region_state.gd",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "project.godot",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/ecology/integration"
+    ],
+    "weight_seconds": 15
+  },
+  "forest-bible-world-contract": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_world_contract.py",
+      "--output",
+      "build/region_bible_v2/world-contract/{check_token}"
+    ],
+    "timeout_seconds": 210,
+    "success_pattern": "^PASS: actual20 v15 producer/replay contracts",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_contract.py",
+      "tests/forest_bible_world_contract_runner.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/world-contract"
+    ],
+    "weight_seconds": 20
+  },
+  "forest-bible-world-connection": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_world_motor.py",
+      "--output",
+      "build/region_bible_v2/forest-bible-world-connection/{check_token}",
+      "--route",
+      "bible_connection_journey",
+      "--seed",
+      "forest-depth-hollow-00",
+      "--map",
+      "2"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: exact formal v15 journey",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_motor.py",
+      "tests/forest_bible_world_motor_runner.gd",
+      "tests/forest_bible_world_trace.gd",
+      "tests/forest_bible_world_air_case.gd",
+      "tests/audio_teardown.gd",
+      "tests/forest_depth_air_chain_case.gd",
+      "tests/forest_player_aim_trace.gd",
+      "tests/forest_depth_region_trace.gd",
+      "tests/forest_depth_grove_combat_case.gd",
+      "tests/forest_interwoven_crown_combat_case.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-world-connection"
+    ],
+    "weight_seconds": 60
+  },
+  "forest-bible-world-backbranch": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_world_motor.py",
+      "--output",
+      "build/region_bible_v2/forest-bible-world-backbranch/{check_token}",
+      "--route",
+      "bible_backbranch_journey",
+      "--seed",
+      "forest-depth-hollow-00",
+      "--map",
+      "2"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: exact formal v15 journey",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_motor.py",
+      "tests/forest_bible_world_motor_runner.gd",
+      "tests/forest_bible_world_trace.gd",
+      "tests/forest_bible_world_air_case.gd",
+      "tests/audio_teardown.gd",
+      "tests/forest_depth_air_chain_case.gd",
+      "tests/forest_player_aim_trace.gd",
+      "tests/forest_depth_region_trace.gd",
+      "tests/forest_depth_grove_combat_case.gd",
+      "tests/forest_interwoven_crown_combat_case.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-world-backbranch"
+    ],
+    "weight_seconds": 60
+  },
+  "forest-bible-ambience": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_ambience.py",
+      "--output-dir",
+      "build/region_bible_v2/ambience/harness/{check_token}"
+    ],
+    "timeout_seconds": 210,
+    "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+    "serial": true,
+    "inputs": [
+      "tests/forest_bible_ambience_runner.gd",
+      "tools/run_forest_bible_ambience.py",
+      "scripts/presentation/forest_bible_ambience.gd",
+      "scripts/audio/game_audio.gd",
+      "tools/generate_forest_bible_sfx.py",
+      "assets/forest_bible_v2/audio/provenance.json",
+      "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "assets/forest_bible_v2/audio/forest_fruit.wav",
+      "assets/forest_bible_v2/audio/forest_web.wav",
+      "assets/forest_bible_v2/audio/forest_wind.wav",
+      "assets/audio/kenney/armour.ogg",
+      "assets/audio/kenney/bell.ogg",
+      "assets/audio/kenney/boss_impact.ogg",
+      "assets/audio/kenney/click.ogg",
+      "assets/audio/kenney/coin.ogg",
+      "assets/audio/kenney/confirm.ogg",
+      "assets/audio/kenney/core.ogg",
+      "assets/audio/kenney/death.ogg",
+      "assets/audio/kenney/denied.ogg",
+      "assets/audio/kenney/door.ogg",
+      "assets/audio/kenney/enemy_defeat.ogg",
+      "assets/audio/kenney/enemy_shot.ogg",
+      "assets/audio/kenney/focus_end.ogg",
+      "assets/audio/kenney/focus_start.ogg",
+      "assets/audio/kenney/heal.ogg",
+      "assets/audio/kenney/hurt.ogg",
+      "assets/audio/kenney/impact.ogg",
+      "assets/audio/kenney/jump.ogg",
+      "assets/audio/kenney/land.ogg",
+      "assets/audio/kenney/note.ogg",
+      "assets/audio/kenney/roar.ogg",
+      "assets/audio/kenney/shot.ogg",
+      "assets/audio/kenney/step.ogg",
+      "assets/audio/kenney/victory.ogg",
+      "assets/audio/kenney/warning.ogg"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/ambience/harness"
+    ],
+    "weight_seconds": 5
+  },
+  "forest-bible-app-discoveries": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_app_discoveries.py"
+    ],
+    "timeout_seconds": 180,
+    "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+    "serial": true,
+    "inputs": [
+      "scripts/enemies/forest_bible_weaver_behavior.gd",
+      "scripts/enemies/forest_bible_weaver_definition.gd",
+      "resources/enemies/forest_bible_weaver.tres",
+      "scenes/enemies/forest_bible_weaver.tscn",
+      "tests/forest_bible_weaver_runner.gd",
+      "tools/run_forest_bible_weaver.py",
+      "scripts/enemies/forest_thread_spider_behavior.gd",
+      "scripts/enemies/forest_enemy_definition.gd",
+      "resources/enemies/forest_thread_spider.tres",
+      "scenes/enemies/forest_thread_spider.tscn",
+      "scripts/enemies/enemy_attack_behavior.gd",
+      "scripts/enemies/enemy_actor.gd",
+      "scripts/enemies/enemy_motor.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/damage/frame_damage_policy.gd",
+      "tests/forest_depth_enemy_runner.gd",
+      "tests/audio_teardown.gd",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tests/forest_bible_integration_runner.gd",
+      "tools/run_forest_bible_integration.py",
+      "scripts/generation/thorn_forest_region_generator.gd",
+      "scripts/generation/thorn_forest_region_v2_v15.gd",
+      "scripts/generation/forest_bible_v2_layout.gd",
+      "scripts/generation/thorn_forest_region_assembler.gd",
+      "scripts/run/plains_region_state.gd",
+      "tests/forest_bible_app_discoveries_runner.gd",
+      "tools/run_forest_bible_app_discoveries.py",
+      "scripts/world/forest_bible_discoveries.gd",
+      "scripts/world/forest_bible_discovery_catalog.gd",
+      "resources/items/forest_old_badge.tres",
+      "scripts/ui/stage_reward_modal.gd",
+      "scripts/ui/item_card.gd",
+      "scripts/rewards/reward_service.gd",
+      "scripts/shops/run_wallet.gd",
+      "scripts/input/keyboard_mouse_adapter.gd",
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "project.godot",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/discoveries/app"
+    ],
+    "weight_seconds": 15
+  },
+  "forest-practice-bell-restore": {
+    "argv": [
+      "python3",
+      "tools/run_forest_practice_bell_restore.py",
+      "--output-dir",
+      "build/region_bible_v2/practice-bell/harness/{check_token}"
+    ],
+    "timeout_seconds": 120,
+    "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "project.godot",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/practice-bell/harness"
+    ],
+    "weight_seconds": 15
+  },
+  "forest-bible-world-connection-map1": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_world_motor.py",
+      "--output",
+      "build/region_bible_v2/forest-bible-world-connection-map1/{check_token}",
+      "--route",
+      "bible_connection_journey",
+      "--seed",
+      "forest-depth-hollow-00",
+      "--map",
+      "1"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: exact formal v15 journey",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_motor.py",
+      "tests/forest_bible_world_motor_runner.gd",
+      "tests/forest_bible_world_trace.gd",
+      "tests/forest_bible_world_air_case.gd",
+      "tests/audio_teardown.gd",
+      "tests/forest_depth_air_chain_case.gd",
+      "tests/forest_player_aim_trace.gd",
+      "tests/forest_depth_region_trace.gd",
+      "tests/forest_depth_grove_combat_case.gd",
+      "tests/forest_interwoven_crown_combat_case.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-world-connection-map1"
+    ],
+    "weight_seconds": 60
+  },
+  "forest-bible-world-backbranch-map1": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_world_motor.py",
+      "--output",
+      "build/region_bible_v2/forest-bible-world-backbranch-map1/{check_token}",
+      "--route",
+      "bible_backbranch_journey",
+      "--seed",
+      "forest-depth-hollow-00",
+      "--map",
+      "1"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: exact formal v15 journey",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_motor.py",
+      "tests/forest_bible_world_motor_runner.gd",
+      "tests/forest_bible_world_trace.gd",
+      "tests/forest_bible_world_air_case.gd",
+      "tests/audio_teardown.gd",
+      "tests/forest_depth_air_chain_case.gd",
+      "tests/forest_player_aim_trace.gd",
+      "tests/forest_depth_region_trace.gd",
+      "tests/forest_depth_grove_combat_case.gd",
+      "tests/forest_interwoven_crown_combat_case.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-world-backbranch-map1"
+    ],
+    "weight_seconds": 60
+  },
+  "forest-bible-world-spiral": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_spiral_motor.py",
+      "--output",
+      "build/region_bible_v2/forest-bible-world-spiral/{check_token}",
+      "--mode",
+      "full",
+      "--seed",
+      "forest-depth-hollow-00"
+    ],
+    "timeout_seconds": 360,
+    "success_pattern": "^PASS: full_formal_spawn_F08_reader_and_other_exit",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "project.godot",
+      "tools/run_tests.py",
+      "tools/godot.sh",
+      "tools/run_forest_bible_world_motor.py",
+      "tests/forest_bible_world_motor_runner.gd",
+      "tests/forest_bible_world_trace.gd",
+      "tests/forest_bible_world_air_case.gd",
+      "tests/audio_teardown.gd",
+      "tests/forest_depth_air_chain_case.gd",
+      "tests/forest_player_aim_trace.gd",
+      "tests/forest_depth_region_trace.gd",
+      "tests/forest_depth_grove_combat_case.gd",
+      "tests/forest_interwoven_crown_combat_case.gd",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "tools/forest_bible_world_sources.py",
+      "tools/run_forest_bible_spiral_motor.py",
+      "tests/forest_bible_spiral_motor_runner.gd",
+      "tests/forest_bible_spiral_trace.gd"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-world-spiral"
+    ],
+    "weight_seconds": 60
+  },
+  "forest-bible-versions": {
+    "argv": [
+      "python3",
+      "tools/run_forest_bible_versions.py",
+      "--output-dir",
+      "build/region_bible_v2/forest-bible-versions/{check_token}"
+    ],
+    "timeout_seconds": 210,
+    "success_pattern": "^FOREST BIBLE VERSIONS: 56 assertions, 0 failures",
+    "serial": true,
+    "inputs": [
+      "scripts",
+      "scenes",
+      "resources",
+      "config",
+      "shaders",
+      "assets",
+      "tests",
+      "tools",
+      "project.godot",
+      "tools/forest_bible_world_sources.py",
+      "tests/forest_depth_trace_strategy.gd",
+      "tests/forest_bible_versions_runner.gd",
+      "tools/run_forest_bible_versions.py"
+    ],
+    "artifact_paths": [
+      "build/region_bible_v2/forest-bible-versions"
+    ],
+    "weight_seconds": 20
+  },
+  "cloud-preview-runtime": {
+    "argv": [
+      "python3",
+      "tools/run_audio_lifecycle_tests.py",
+      "--script",
+      "tests/cloud_preview_runner.gd",
+      "--marker",
+      "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+      "--timeout",
+      "90",
+      "--output",
+      "build/cloud_preview/{check_token}"
+    ],
+    "timeout_seconds": 120,
+    "success_pattern": "\"status\": \"passed\"",
+    "serial": true,
+    "artifact_paths": [
+      "build/cloud_preview"
+    ]
+  }
+}

@@ -2,7 +2,7 @@
 
 ## 2026-10-23 四线集成调度（最新）
 
-`FOUR-LINE-INTEGRATION-01`保持review：实现a861冻结，原Harness BGM89/0、家园181/0及森林四路线候选通过、四文件采纳独审ACCEPT；下一最终PR106 Integration、main合并／Release待实际执行。最新可玩Preview与失败来源见[当前集成](integration/four_lines_20261023.md)。黄金68bd037暂停，人工／设备边界保留。
+`FOUR-LINE-INTEGRATION-01`保持review：四线／默认人物／织时匠／5原MP3已接入；当前实现17cd追加必要CI门禁修复，原97／1／44失败保留。原定向21／24／115和限定独审分源记录，下一精确head的142完整合流／main合并／Release仍待实际执行。[门禁来源](evidence/four_line_integration_20261023/ci-gate-repair/README.md)。黄金暂停，G5与真机仍未签。
 
 ## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
 

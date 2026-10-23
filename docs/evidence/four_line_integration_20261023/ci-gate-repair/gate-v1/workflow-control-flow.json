@@ -1,0 +1,628 @@
+{
+  "actual_bash_gate_cases": [
+    {
+      "prepare": "success",
+      "lanes": "success",
+      "route": "full_lanes",
+      "exit_code": 0,
+      "expected_success": true
+    },
+    {
+      "prepare": "success",
+      "lanes": "success",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "success",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "failure",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "failure",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "failure",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "cancelled",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "cancelled",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "cancelled",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "skipped",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "skipped",
+      "route": "selected_commands",
+      "exit_code": 0,
+      "expected_success": true
+    },
+    {
+      "prepare": "success",
+      "lanes": "skipped",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "success",
+      "lanes": "",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "success",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "success",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "success",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "failure",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "failure",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "failure",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "cancelled",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "cancelled",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "cancelled",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "skipped",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "skipped",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "skipped",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "failure",
+      "lanes": "",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "success",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "success",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "success",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "failure",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "failure",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "failure",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "cancelled",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "cancelled",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "cancelled",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "skipped",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "skipped",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "skipped",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "cancelled",
+      "lanes": "",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "success",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "success",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "success",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "failure",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "failure",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "failure",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "cancelled",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "cancelled",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "cancelled",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "skipped",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "skipped",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "skipped",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "skipped",
+      "lanes": "",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "success",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "success",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "success",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "failure",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "failure",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "failure",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "cancelled",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "cancelled",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "cancelled",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "skipped",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "skipped",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "skipped",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "",
+      "route": "full_lanes",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "",
+      "route": "selected_commands",
+      "exit_code": 1,
+      "expected_success": false
+    },
+    {
+      "prepare": "",
+      "lanes": "",
+      "route": "",
+      "exit_code": 1,
+      "expected_success": false
+    }
+  ],
+  "case_count": 75,
+  "accepted": 2,
+  "scripts_bash_syntax_checked": [
+    [
+      "prepare",
+      "Select the existing external toolchain location"
+    ],
+    [
+      "prepare",
+      "Exercise selection positive and negative cases"
+    ],
+    [
+      "prepare",
+      "Plan actual changed paths before installing an engine"
+    ],
+    [
+      "prepare",
+      "Materialize selected original inputs without checking out all historical media"
+    ],
+    [
+      "prepare",
+      "Fail fast on selected portable Python subchecks before engine or Foundry work"
+    ],
+    [
+      "prepare",
+      "Validate PR quality and guard changes against its actual base"
+    ],
+    [
+      "prepare",
+      "Install media dependencies required by existing docs and readers"
+    ],
+    [
+      "prepare",
+      "Exercise real media delivery checks after installing ffmpeg and ffprobe"
+    ],
+    [
+      "prepare",
+      "Install and verify the repository locked Standard engine and templates"
+    ],
+    [
+      "prepare",
+      "Prepare the existing validated Foundry export dependency when needed"
+    ],
+    [
+      "prepare",
+      "Freeze the prepared execution plan and restore all its selected inputs"
+    ],
+    [
+      "prepare",
+      "Choose only exact full-profile work for physical lanes"
+    ],
+    [
+      "prepare",
+      "Execute affected checks without upgrading them to full or Web"
+    ],
+    [
+      "full_checks",
+      "Select the existing external toolchain location"
+    ],
+    [
+      "full_checks",
+      "Restore the exact selected prepared input closure"
+    ],
+    [
+      "full_checks",
+      "Install media dependencies required by existing docs and readers"
+    ],
+    [
+      "full_checks",
+      "Install and verify the repository locked Standard engine and templates"
+    ],
+    [
+      "full_checks",
+      "Execute one original fresh full-profile lane"
+    ],
+    [
+      "full_checks",
+      "Collect the unique original phase report and check stdout logs"
+    ],
+    [
+      "full_checks",
+      "Show failed Harness checks without requiring artifact download"
+    ],
+    [
+      "affected",
+      "Require prepare and any selected full lanes to have succeeded"
+    ],
+    [
+      "affected",
+      "Restore the exact selected prepared input closure"
+    ],
+    [
+      "affected",
+      "Verify exact same-source complete fresh check coverage and original logs"
+    ]
+  ],
+  "proof_collector_exact_copy": true,
+  "original_verify_command_only_profile_changed": true,
+  "yaml_and_shell_checks_only_not_GitHub_execution": true
+}

@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "scope": "actual committed endpoint bytes, temporary real sparse Git; availability only, no native/gameplay PASS",
+  "root_commit": "54573a8e9400d790f58656efde2dd812cc00d8ba",
+  "fixture_commit": "42f045ed57f3b867a9f4c3f359c9744960687334",
+  "selected_commands": {
+    "plains-encounter-policy": [
+      "python3",
+      "tools/run_plains_encounter_policy_tests.py"
+    ],
+    "plains-encounter-policy-with-legacy": [
+      "python3",
+      "tools/run_plains_encounter_policy_tests.py",
+      "--with-legacy"
+    ]
+  },
+  "plans": {
+    "plains-encounter-policy": [
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json"
+    ],
+    "plains-encounter-policy-with-legacy": [
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json"
+    ]
+  },
+  "materialized": [
+    {
+      "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+      "size": 233289,
+      "blob": "2fdcf254093518db8678e682be551a2fc8e51868",
+      "sha256": "955f6713bdcdb9ec298add02321923a6d5007b9f773f5f42fe0d2e611c7150bb"
+    },
+    {
+      "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+      "size": 743960,
+      "blob": "38122fec4f757687a2d5b26848e403524ab0bc2b",
+      "sha256": "fcd2a891ec4bdace56c2c2422773bf45d3afc50b28bacba4613006bf0dfe40f1"
+    }
+  ],
+  "materialized_bytes": 977249,
+  "unrelated_history_absent": true,
+  "sparse_patterns_unchanged": true,
+  "source_status_unchanged": true,
+  "tests_executed": false
+}
