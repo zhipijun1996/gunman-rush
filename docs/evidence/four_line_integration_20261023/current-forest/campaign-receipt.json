@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    "/workspace/integration-four",
+    "--script",
+    "/workspace/scratch/integration-four-20261023/campaign-map-current-budget/runtime_runner.gd"
+  ],
+  "timeout_seconds": 90,
+  "exit_code": 0,
+  "elapsed_seconds": 17.900221349000276,
+  "clean_exit": true,
+  "original_assertions_passed": true,
+  "files_sha256": {
+    "plains_campaign_map_runner.gd": "095ae85ebe57cb2765cd7a0d1c2666ba6d83b48c544d4e9a76f6feb35fb5cdf2",
+    "runtime_runner.gd": "eff286625bed43d5e046097cce5ba4631ce947ba1c4d54c549ce5f691775448b",
+    "campaign.patch": "387d35f6f4b05572e443bd3ab86767adfd454b7d18e4925e162c641be01e590d",
+    "runtime01.log": "738a9621c4760f0a6a41a52fd7a809c21af72d59328626ed3b3054be63f6d627"
+  },
+  "source_sha256": "78e1e9f4ab7b30627d788528daba6ed2da23e5797fba5ffb3b973b20d26a240a",
+  "runtime_only_change": "corpus output paths relocated to scratch; canonical patch retains original output paths"
+}

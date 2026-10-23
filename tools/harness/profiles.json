@@ -75,7 +75,7 @@
         "tools/run_plains_region_tests.py"
       ],
       "timeout_seconds": 1500,
-      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "success_pattern": "^PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27$",
       "weight_seconds": 269.363,
       "cacheable": true,
       "inputs": [
@@ -3483,6 +3483,28 @@
         "assets",
         "tests"
       ]
+    },
+    "region-with-legacy-fixtures": {
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py",
+        "--with-legacy-fixtures"
+      ],
+      "timeout_seconds": 1500,
+      "success_pattern": "^PLAINS REGION SUITES: 15 suites passed$",
+      "weight_seconds": 269.363,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ]
     }
   },
   "profiles": {
@@ -3617,18 +3639,11 @@
       "forest-depth-enemies",
       "forest-depth-versions",
       "forest-depth-restore",
-      "forest-depth-queen",
-      "forest-depth-cavity",
-      "forest-depth-cavity-controls",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
-      "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition",
-      "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain",
       "forest-vertical-shortcut",
       "blob47-foundation",
       "windchime-plains",
@@ -3914,18 +3929,11 @@
       "forest-depth-enemies",
       "forest-depth-versions",
       "forest-depth-restore",
-      "forest-depth-queen",
-      "forest-depth-cavity",
-      "forest-depth-cavity-controls",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
-      "forest-depth-campaign-queen",
-      "forest-depth-ecology-expedition",
-      "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain",
       "forest-vertical-shortcut",
       "blob47-foundation",
       "windchime-plains",
@@ -4083,7 +4091,15 @@
       "root-bell-tests",
       "forest-region-matrix",
       "forest-formal-combat",
-      "plains-action-golden"
+      "plains-action-golden",
+      "forest-depth-queen",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-air-chain",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "region-with-legacy-fixtures"
     ]
   }
 }

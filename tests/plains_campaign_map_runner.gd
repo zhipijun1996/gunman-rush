@@ -85,13 +85,15 @@ func run() -> void:
 	var build_before:=app.build.item_ids().duplicate()
 	var coins_before:=app.wallet.balance
 	var player_id:=app.player.get_instance_id()
+	var default_tuning:=PlayerTuning.load_default()
+	var action_budget_before:=Vector2i(app.controller.motor.tuning.max_jumps,app.controller.motor.tuning.max_air_shots)
 	check(await load("res://tests/plains_campaign_fixture.gd").second_map(app,self),"mini victory confirmation enters second random whole map")
 	var second:=app.stage as PlainsRegionStage
 	var boss:=second.boss.get_node("Encounter") as WindkeeperEncounter
 	check(second.generated.manifest.seed==PlainsRegionCampaign.seed_for(app.director.seed,2) and second.generated.manifest.manifest_hash!=first_hash,"second map has independently reproducible generation")
 	check(second.generated.manifest.difficulty=="advanced" and boss.health.capacity==36 and (boss.definition as WindkeeperDefinition).storm_profile,"second map retains full three-phase region Boss")
 	check(app.player.get_instance_id()==player_id and app.build.item_ids()==build_before and app.wallet.balance>=coins_before+12,"map transition keeps actor/build/coins and pays mini reward once")
-	check(app.controller.actor_resources.health==health and app.controller.motor.tuning.max_jumps==1 and app.controller.motor.tuning.max_air_shots==2,"health identity and action resources survive transition")
+	check(app.controller.actor_resources.health==health and default_tuning.max_jumps==1 and default_tuning.max_air_shots==1 and action_budget_before==Vector2i(default_tuning.max_jumps,default_tuning.max_air_shots) and Vector2i(app.controller.motor.tuning.max_jumps,app.controller.motor.tuning.max_air_shots)==action_budget_before and not app.controller.shot_energy.definition.shooting_consumes_energy,"health identity and action resources survive transition")
 	check(app.meta.snapshot().completed_biomes==0 and not app._gold_claimed,"mini Boss neither completes region nor awards gold/major ability")
 	check(app._region_shop_id()!=first_shop and app.shop.quote(first_shop).stock==0 and app.shop.quote(app._region_shop_id()).stock==1,"map 2 merchant is a new bounded instance; old stock stays exhausted")
 	check(second.chests[0].id!=first_chest_id and not second.chests[0].claimed,"map 2 cache does not reuse first-map reward-service IDs")

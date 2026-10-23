@@ -2,6 +2,10 @@
 
 ## 2026-10-23 当前 Demo 集成范围与提效修正（最新）
 
+当前森林v15的fast/growth已在同一候选源分别真实完成28/28、23/23段；旧双发程序改用合法挂点跳脱/已有钩索再接近，实际执行与原来源程序分开记录，不称旧RHR通过。原几何、目标、HP/碰撞、事件身份和时间能量回放继续严格验证。headless鼠标使用项目实际1280×720窗口，修复64×64默认物理窗口导致的新UI过大。敌人低能量样板用真实AirFocus消耗，不再以免费射击伪造耗能。候选证明限实际两条路线，完整80例仍由当前正式检查执行。
+
+另将固定旧Queen/v7战役、v10 expedition/root-entry及旧双发/射击扣20的air/cavity三微场景延期至manuallegacy；它们未作为当前通过。当前geometry仅按实际经过实例验证，不声称fast替代完整cavity微场景验收。平原region默认保全部15个current suites（含原150种子/50自动族与实际App baseline、lifecycle/Boss），27个旧独立v10整图走法通过`--with-legacy-fixtures`手动恢复；完整28清单/原断言/1500秒预算保留，默认明确not_run27。当前RootBell40/spaces40/ecology/currentGolden64及森林v15正式路线仍为守门。
+
 用户明确“暂时可以不考虑旧存档旧特性兼容”，并指出本次集成过慢。本轮撤回额外旧存档兼容开发，当前画风/方向恢复 style-v7/creative-v10。旧失败保留，历史检查改为显式手动 `legacy-compat`，未跑标延期，不能标通过；当前保存、真实玩法、资源、音画、导出及公开版本校验继续执行。
 
 已定位的浪费：共享 wrapper 后段失败引发整段重跑（generated-consumers 两次约125/129秒）；生态路线退出清理错误耗尽300秒；当前1发免费射击与历史2发耗能fixture混用，引发无关历史修复。修复先单runner复验，最终冻结后一次集中CI，按依赖复用已有证明。当前Root Bell保留40图/物理/11准入反例，Golden默认当前64图；旧165/历史64不冒称通过。另将纯旧版本的 `forest-region-matrix`、`forest-formal-combat`、`plains-action-golden` 移至同一手动profile；当前森林与新版平原专项保留。菜单/BGM退出清理是当前问题，须修复而非忽略。

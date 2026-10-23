@@ -5,12 +5,14 @@ var step_index := 0
 var step_started := -1
 var instance_data: Dictionary = {}
 var program: Array = []
+var source_program: Array = []
 var entry_support := ""
 var exit_support := ""
 var start := Vector2.ZERO
 var goal := Vector2.ZERO
 var rest_anchor_id := ""
 var hang_started := -1
+var receiver_side_cast_started := false
 func drive(trace: Node, leg: Dictionary) -> void:
 	if active_leg != int(trace.leg_index):
 		active_leg = int(trace.leg_index)
@@ -23,6 +25,7 @@ func drive(trace: Node, leg: Dictionary) -> void:
 			return
 		var raw: Dictionary = instance_data.local_geometry
 		program = leg.get("action_program",raw.get("action_program",[])).duplicate(true)
+		source_program=program.duplicate(true)
 		if program.is_empty() or not raw.has("spawn") or not raw.has("goal"):
 			trace.fail("air_chain_missing_program_or_ports")
 			return
@@ -67,6 +70,18 @@ func drive(trace: Node, leg: Dictionary) -> void:
 					_advance(trace)
 			elif trace.controller.traversal.state in [&"hook_miss",&"hook_retract"]:trace.fail("rest_branch_actual_hook_failed")
 		elif str(action.action) == "H":
+			if action.has("current_receiver_side") and not receiver_side_cast_started:
+				var target_id:=_target(action)
+				var target: Node2D=trace.stage.assembler.hook_targets.get(target_id)
+				if not is_instance_valid(target):trace.fail("current_receiver_side_anchor_missing");return
+				var side: float=float(action.current_receiver_side)
+				trace.controller.router.set_move_axis(side)
+				if (trace.player.global_position.x-target.global_position.x)*side>4:
+					trace.controller.router.set_move_axis(0)
+					trace.event("current_receiver_side_rehook",{"step":step_index,"target":target_id,"side":side,"shots":trace.controller.action_resources.shot_charges,"can_air_jump":trace.controller.jump_ability.can_air_jump()})
+					if not trace.hook(target_id):return
+					receiver_side_cast_started=true;step_started=int(trace.tick)
+				return
 			if trace.controller.traversal.state in [&"hook_miss",&"hook_retract"]:
 				trace.jump(false)
 				trace.fail("air_chain_actual_H_failed/"+str(step_index))
@@ -81,6 +96,11 @@ func drive(trace: Node, leg: Dictionary) -> void:
 				if actual.kind=="hook_kick" and str(actual.get("target",""))==target: restored=true
 			if contact and restored and trace.controller.traversal.state==&"free" and trace.age>20:
 				trace.event("air_chain_H_completed",{"step":step_index,"target":target,"grounded":trace.player.is_on_floor(),"hook_used":trace.controller.traversal.hook_used,"hook_tip":trace.pair(trace.controller.traversal.hook_tip)})
+				_advance(trace)
+		elif str(action.action)=="J":
+			var accepted: bool=trace.events.any(func(e:Dictionary)->bool:return int(e.tick)>=step_started and int(e.leg)==active_leg and e.kind=="jumped")
+			if accepted and not trace.player.is_on_floor():
+				trace.event("current_anchor_jump_completed",{"step":step_index,"shots":trace.controller.action_resources.shot_charges,"grounded":trace.player.is_on_floor()})
 				_advance(trace)
 		else:
 			var accepted := false
@@ -100,6 +120,21 @@ func _target(action: Dictionary) -> String:
 	return rest_anchor_id if str(action.action)=="HANG" else str(instance_data.anchor_id_map.get(str(action.get("anchor","")),""))
 func _submit(trace: Node) -> void:
 	var action: Dictionary = program[step_index]
+	var free_base: bool=trace.controller.shot_energy!=null and trace.controller.shot_energy.definition.resource_path=="res://resources/player/demo_ui_01/time_energy_v2.tres" and not trace.controller.shot_energy.definition.shooting_consumes_energy and trace.player.tuning.max_air_shots==1 and trace.controller.shoot_ability.weapon.id==&"pulse_gun" and trace.controller.shoot_ability.weapon.tier==1
+	if str(action.action)=="R" and trace.controller.action_resources.shot_charges==0 and free_base:
+		var anchor_jump: bool=trace.controller.traversal.state==&"hook_hang" and trace.controller.traversal.hook_target is GrappleAnchor and trace.controller.jump_ability.enabled and trace.controller.jump_ability.maximum_jumps()>0
+		var air_jump: bool=trace.controller.jump_ability.can_air_jump()
+		var receiver_rehook: bool=step_index>0 and step_index==program.size()-1 and absf(float(action.direction[0]))>.9 and str(program[step_index-1].action)=="H" and trace.controller.traversal.hook_target is GrappleAnchor and not trace.controller.traversal.hook_used
+		var replacement: String="J" if anchor_jump or air_jump else "H" if receiver_rehook else ""
+		if not replacement.is_empty():
+			program[step_index]={"action":replacement}
+			if replacement=="H":
+				var target: Node2D=trace.controller.traversal.hook_target
+				program[step_index].anchor=str(program[step_index-1].anchor)
+				program[step_index].current_receiver_side=signf(goal.x-target.global_position.x)
+				receiver_side_cast_started=false
+			trace.event("current_input_substitution",{"step":step_index,"source_action":"R","executed_action":replacement,"source_program":source_program.duplicate(true),"executed_program":program.duplicate(true),"max_air_shots":trace.player.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"anchor_jump":anchor_jump,"can_air_jump":air_jump,"hook_state":String(trace.controller.traversal.state)})
+			action=program[step_index]
 	step_started = int(trace.tick)
 	trace.controller.router.set_move_axis(0)
 	if str(action.action) in ["H","HANG"]:
@@ -107,7 +142,15 @@ func _submit(trace: Node) -> void:
 		if target.is_empty():
 			trace.fail("air_chain_missing_anchor_mapping/"+str(step_index))
 			return
-		if not trace.hook(target): return
+		if action.has("current_receiver_side"):
+			trace.controller.router.set_move_axis(float(action.current_receiver_side))
+		else:
+			if not trace.hook(target): return
+	elif str(action.action)=="J":
+		if trace.controller.traversal.state!=&"hook_hang" and not trace.controller.jump_ability.can_air_jump():
+			trace.fail("current_jump_requires_real_ability_qualification");return
+		trace.event("current_anchor_jump_requested",{"step":step_index,"hook_state":String(trace.controller.traversal.state),"shots":trace.controller.action_resources.shot_charges})
+		trace.jump(true)
 	elif str(action.action)=="R":
 		var aim: Array = action.get("direction",[])
 		if aim.size()!=2:

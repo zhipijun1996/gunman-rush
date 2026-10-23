@@ -7,6 +7,7 @@ the original matrix16 first. Every requested case still enters the actual App.
 """
 import argparse
 import contextlib
+import copy
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import fcntl
 import hashlib
@@ -149,6 +150,116 @@ def validate_upper_noH(data):
     check(len(frames)>=12 and all(f.get('grounded') is True and support in f.get('supports',[]) and f['position'][0]-12>=rect[0]-.1 and f['position'][0]+12<=rect[0]+rect[2]+.1 and abs(f['position'][1]+18-rect[1])<1 and math.dist(f['position'],goal)<8 for f in frames[-12:]),'control_actual_E_twelve_full_body_support_missing')
     return errors
 
+def current_free_policy(data):
+    policy=data.get('initial_snapshot',{}).get('shot_policy',{})
+    path='resources/player/demo_ui_01/time_energy_v2.tres'
+    return (policy.get('definition_path')=='res://'+path and policy.get('definition_sha256')==sha(ROOT/path)
+            and policy.get('shooting_consumes_energy') is False
+            and policy.get('max_air_shots')==json.loads((ROOT/'config/player_tuning.json').read_text())['max_air_shots']==1
+            and 'shooting_consumes_energy = false' in (ROOT/path).read_text())
+
+def actual_current_projectile_rounds(data,frame,previous,events,dt,target_gain):
+    """Derive round/H restoration from real entity, HP and both hit ledgers.
+
+    These are damage-proof records, not invented focus-energy credit events.
+    Current free shots never emit the old ShotEnergyPolicy.energy_recovered cue.
+    """
+    tick=frame.get('tick');before=previous.get('shot_economy',{});after=frame.get('shot_economy',{})
+    hits=[e for e in events if e.get('tick')==tick and e.get('kind')=='committed_damage' and str(e.get('source','')).startswith('player_projectile:')]
+    errors=[]
+    def need(ok):
+        if not ok:errors.append('current_actual_projectile_round_evidence')
+        return ok
+    need(not any(e.get('tick')==tick and e.get('kind')=='actual_shot_energy_credit' for e in events))
+    if not need(all(isinstance(v,dict) and all(k in v for k in ('owner_id','session_id','weapon_epoch','hits','combat_packets')) for v in (before,after))):return [],errors
+    if not need(all(type(after[k]) is int and after[k]>0 and before[k]==after[k] for k in ('owner_id','session_id')) and before['weapon_epoch']==after['weapon_epoch']):return [],errors
+    if not need(all(isinstance(v.get(k),dict) for v in (before,after) for k in ('hits','combat_packets'))):return [],errors
+    if not need(all(after[k].get(key)==value for k in ('hits','combat_packets') for key,value in before[k].items())):return [],errors
+    added=set(after['hits'])-set(before['hits']);owner=after['owner_id'];session=after['session_id'];rows=[];matched=set()
+    for key in added:
+        spawns=[e for e in events if e.get('kind')=='actual_projectile_spawned' and str(e.get('session_id'))+'/'+str(e.get('packet'))==key and e.get('owner_id')==owner]
+        if not need(len(spawns)==1 and after['hits'].get(key) is True):continue
+        spawn=spawns[0];serial=spawn.get('serial')
+        fired=[e for e in events if e.get('kind')=='shot_fired' and e.get('serial')==serial and e.get('tick')==spawn.get('tick')]
+        policy=[e for e in hits if e.get('event_id')==f'{owner}:{session}:{serial}' and e.get('source')==f'player_projectile:{owner}']
+        if not need(len(fired)==len(policy)==1 and spawn['tick']<=tick and 0<=(tick-spawn['tick'])*dt<spawn.get('lifetime',0) and type(spawn.get('fired_airborne')) is bool):continue
+        spawn_frames=[f for f in data['frames'] if f['tick']==spawn['tick']]
+        if not need(spawn.get('direction')==fired[0].get('aim') and len(spawn_frames)==1 and all(spawn_frames[0].get('shot_economy',{}).get(k)==spawn.get(k) for k in ('owner_id','session_id','weapon_epoch')) and after['weapon_epoch']==spawn['weapon_epoch']):continue
+        hit=policy[0];target=hit.get('target');old=[e for e in previous.get('enemies',[]) if e.get('id')==target];new=[e for e in frame.get('enemies',[]) if e.get('id')==target]
+        if not need(len(old)==len(new)==1 and hit.get('damage_kind')==0 and type(hit.get('amount')) in (int,float) and hit['amount']>0 and abs(old[0]['health']-new[0]['health']-hit['amount'])<.001 and abs(new[0]['health']-hit.get('health_after',-1))<.001 and bool(hit.get('lethal'))==(new[0]['health']<=0)):continue
+        if not need(key not in before['combat_packets'] and abs(after['combat_packets'].get(key,-1)-target_gain)<.001):continue
+        matched.add(hit['event_id']);rows.append({'tick':tick,'fired_airborne':spawn['fired_airborne'],'damage_event':hit})
+    need(len(rows)==len(added)==len(hits) and len(matched)==len(hits))
+    need(set(after['combat_packets'])-set(before['combat_packets'])==added)
+    return rows,list(dict.fromkeys(errors))
+
+def current_executed_air_chain_program(data,source_program,actual,by,actual_anchors,anchors,goal):
+    program=copy.deepcopy(source_program);errors=[];seen=set()
+    for event in actual:
+        if event.get('kind')!='current_input_substitution':continue
+        step=event.get('step');old=by.get(event['tick']-1,{})
+        valid=(current_free_policy(data) and type(step) is int and 0<=step<len(program) and step not in seen
+               and source_program[step].get('action')=='R' and event.get('source_action')=='R'
+               and event.get('source_program')==source_program and event.get('shots')==old.get('shots')==0
+               and event.get('max_air_shots')==1 and old.get('grounded') is False)
+        replacement=event.get('executed_action')
+        if valid and replacement=='J':
+            anchor_jump=old.get('hook_state')=='hook_hang' and old.get('jump_state',{}).get('enabled') is True and old['jump_state'].get('maximum',0)>0
+            air_jump=old.get('jump_state',{}).get('can_air_jump') is True
+            valid=(anchor_jump or air_jump) and event.get('anchor_jump') is anchor_jump and event.get('can_air_jump') is air_jump
+            program[step]={'action':'J'}
+        elif valid and replacement=='H':
+            valid=step==len(program)-1 and step>0 and program[step-1].get('action')=='H' and old.get('hook_used') is False and abs(source_program[step].get('direction',[0,0])[0])>.9
+            anchor=program[step-1].get('anchor');target=actual_anchors.get(anchors.get(anchor),{}).get('position')
+            if target:
+                side=1 if goal[0]>target[0] else -1 if goal[0]<target[0] else 0
+                valid=valid and side!=0
+                program[step]={'action':'H','anchor':anchor,'current_receiver_side':side}
+            else:valid=False
+        else:valid=False
+        if not valid or event.get('executed_program')!=program:errors.append('current_air_chain_substitution_not_real_qualified_input')
+        seen.add(step)
+    return program,errors
+
+def validate_current_air_chain_resources(data,leg,completion,frames,events,tuning,entry,full):
+    errors=[]
+    def need(ok,reason):
+        if not ok:errors.append(reason)
+    by={f['tick']:f for f in frames};start,end=completion['start_tick'],completion['tick'];previous=by.get(start-1)
+    if not previous:return ['current_air_chain_initial_frame_missing']
+    capacity=tuning['focus_stamina_capacity'];recover=tuning['focus_stamina_recovery'];dt=1/tuning['physics_hz']
+    gain_source=(ROOT/'resources/player/combat_energy.tres').read_text();gain_def=(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text()
+    found=re.search(r'(?m)^target_gain\s*=\s*([\d.]+)',gain_source) or re.search(r'@export var target_gain\s*:?=\s*([\d.]+)',gain_def)
+    if not found:return ['current_combat_gain_authority_missing']
+    gain=float(found.group(1));energy=previous['energy'];charges=previous['shots'];hook_used=previous['hook_used']
+    for f in frames:
+        tick=f['tick']
+        if not start<=tick<=end:continue
+        old=by[tick-1];focus=f.get('focus',{})
+        need(focus.get('shared') is True and focus.get('aiming') is False and focus.get('active') is False and focus.get('time_scale')==1,'current_air_chain_actual_unfocused_shared_AirFocus')
+        if f['grounded'] and focus.get('available') is True:energy=min(capacity,energy+recover*dt)
+        pending=old.get('pending_air_grants',[])
+        need(isinstance(pending,list) and all(isinstance(g,dict) and g.get('amount')==1 and g.get('session_id')==old.get('shot_economy',{}).get('session_id') for g in pending),'current_air_chain_pending_round_identity')
+        charges=min(tuning['max_air_shots'],charges+len(pending))
+        fired=[e for e in events if e.get('tick')==tick and e.get('kind')=='shot_fired']
+        for shot in fired:
+            spawns=[e for e in events if e.get('kind')=='actual_projectile_spawned' and e.get('tick')==tick and e.get('serial')==shot.get('serial')]
+            need(len(spawns)==1,'current_air_chain_actual_shot_spawn')
+            if len(spawns)==1 and spawns[0]['fired_airborne']:charges-=1
+        rounds,round_errors=actual_current_projectile_rounds(data,f,old,events,dt,gain);errors.extend(round_errors)
+        expected_pending=[{'amount':1,'session_id':f['shot_economy']['session_id']} for proof in rounds if proof['fired_airborne']]
+        need(f.get('pending_air_grants',[])==expected_pending,'current_air_chain_actual_damage_queued_round_phase')
+        for event in events:
+            if event.get('tick')!=tick:continue
+            if event.get('kind')=='hook_cast':hook_used=True
+            elif event.get('kind') in ('hook_kick','hook_hang'):hook_used=False
+            elif any(proof['damage_event'] is event and proof['fired_airborne'] and not f['grounded'] for proof in rounds):hook_used=False
+        if f['grounded']:charges=tuning['max_air_shots'];hook_used=False
+        need(f.get('hook_used') is hook_used,'current_air_chain_H_token_requires_real_cause')
+        need(0<=f['energy']<=capacity and abs(f['energy']-energy)<.001 and f.get('shot_energy_delay')==0,'current_air_chain_free_shot_and_ground_focus_energy')
+        need(0<=charges<=tuning['max_air_shots'] and f['shots']==charges,'current_air_chain_one_round_and_landing_ledger')
+    return list(dict.fromkeys(errors))
+
 def actual_projectile_energy_credits(data,frame,previous,events,dt,target_gain):
     """Require independent emitted-entity, Policy, HP, and both resource ledgers.
 
@@ -156,6 +267,7 @@ def actual_projectile_energy_credits(data,frame,previous,events,dt,target_gain):
     these actual observations fails closed; a claimed credit alone adds nothing.
     Air-round grants remain subject to the original separate charges replay.
     """
+    if current_free_policy(data):return actual_current_projectile_rounds(data,frame,previous,events,dt,target_gain)
     tick=frame['tick'];credits=[e for e in events if e.get('tick')==tick and e.get('kind')=='actual_shot_energy_credit']
     hits=[e for e in events if e.get('tick')==tick and e.get('kind')=='committed_damage' and str(e.get('source','')).startswith('player_projectile:')]
     if not credits and not hits:return [],[]
@@ -860,9 +972,18 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     departures=[e for e in actual if e.get('kind')=='air_chain_departure' and e.get('geometry_instance')==instance['id']]
     arrivals=[e for e in actual if e.get('kind')=='air_chain_arrival' and e.get('geometry_instance')==instance['id']]
     jumps=[e for e in actual if e.get('kind')=='jumped']
-    need(len(departures)==len(arrivals)==len(jumps)==1,'air_chain_unique_departure_jump_arrival')
+    source_program=program
+    substitutions=[e for e in actual if e.get('kind')=='current_input_substitution']
+    if substitutions:
+        program,adaptation_errors=current_executed_air_chain_program(data,source_program,actual,by,actual_anchors,anchors,world(factory['goal']));errors.extend(adaptation_errors)
+        need(len(departures)==len(arrivals)==1 and len(jumps)==1+sum(a['action']=='J' for a in program),'current_air_chain_unique_real_jump_sequence')
+    else:
+        need(len(departures)==len(arrivals)==len(jumps)==1,'air_chain_unique_departure_jump_arrival')
     if departures:
-        d=departures[0];need(d.get('entry_support')==entry and d.get('program')==program,'air_chain_actual_departure_identity')
+        d=departures[0]
+        if substitutions:need(d.get('entry_support')==entry and d.get('program')==source_program,'current_air_chain_departure_keeps_original_source_program')
+        else:
+            need(d.get('entry_support')==entry and d.get('program')==program,'air_chain_actual_departure_identity')
         need(all(by.get(t) and full(by[t],entry) for t in range(d['tick']-12,d['tick'])),'air_chain_observation_entry_fullsupport12')
         need(near(d.get('position'),world(factory['spawn']),.2),'air_chain_actual_takeoff_position')
     need(all(by.get(t) and full(by[t],exit) for t in range(end-11,end+1)),'air_chain_exit_fullsupport12')
@@ -905,7 +1026,11 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     # A direct success requires the entire ordered H/R sequence before the first
     # real landing. Phase labels and self-reported step counters are not proof.
     accepted=[e for e in actual if e.get('kind') in (('hook_contact_kick','shot_fired','hook_hang') if hanging else ('hook_contact_kick','shot_fired'))]
-    need([('H' if e['kind']=='hook_contact_kick' else 'HANG' if e['kind']=='hook_hang' else 'R') for e in accepted]==[p['action'] for p in program],'air_chain_accepted_action_sequence')
+    if substitutions:
+        accepted=[e for e in actual if e in accepted or (e.get('kind')=='jumped' and e is not jumps[0])]
+        need([('H' if e['kind']=='hook_contact_kick' else 'HANG' if e['kind']=='hook_hang' else 'J' if e['kind']=='jumped' else 'R') for e in accepted]==[p['action'] for p in program],'current_air_chain_actual_qualified_action_sequence')
+    else:
+        need([('H' if e['kind']=='hook_contact_kick' else 'HANG' if e['kind']=='hook_hang' else 'R') for e in accepted]==[p['action'] for p in program],'air_chain_accepted_action_sequence')
     if takeoff and first_floor:need(all(takeoff<=e['tick']<first_floor for e in accepted),'air_chain_action_outside_air_window')
     casts=[e for e in actual if e.get('kind')=='hook_cast'];shots=[e for e in actual if e.get('kind')=='shot_fired'];need(len(casts)==sum(p['action'] in ('H','HANG') for p in program),'air_chain_actual_H_count')
     states=('hook_cast','hook_fly','hook_pull','hook_contact_kick','hook_kick','free')
@@ -914,7 +1039,11 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         if action['action']=='HANG':
             if h_index>=len(casts):need(False,'hang_chain_cast_missing');continue
             cast=casts[h_index];next_cast=casts[h_index+1]['tick'] if h_index+1<len(casts) else end+1;h_index+=1
-            if interwoven:
+            if substitutions and any(a['action']=='J' for a in program):
+                jump_departures=[e for e in jumps[1:] if e['tick']>accepted_event['tick']]
+                need(len(jump_departures)==1,'current_hang_chain_unique_actual_anchor_jump_departure')
+                if len(jump_departures)==1:next_cast=jump_departures[0]['tick']
+            elif interwoven:
                 recoil_departures=[e for e in shots if e.get('tick',-1)>accepted_event['tick']]
                 need(len(recoil_departures)==1,'hang_chain_interwoven_unique_recoil_departure')
                 if len(recoil_departures)==1:next_cast=recoil_departures[0]['tick']
@@ -945,6 +1074,13 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
             need(len(departures)==1 and departures[0].get('held_frames',0)>=18 and departures[0].get('grounded') is False,'hang_chain_actual_departure_intent')
             if interwoven:need(len(departures)==1 and departures[0].get('tick')==next_cast,'hang_chain_interwoven_departure_at_recoil')
             last_end=held['tick']+17
+        elif action['action']=='J':
+            tick=accepted_event['tick'];previous=by.get(tick-1,{});frame=by.get(tick,{})
+            anchor=previous.get('hook_state')=='hook_hang' and previous.get('jump_state',{}).get('enabled') is True and previous['jump_state'].get('maximum',0)>0
+            need(accepted_event.get('kind')=='jumped' and tick>last_end and (anchor or previous.get('jump_state',{}).get('can_air_jump') is True),'current_air_chain_actual_jump_qualification')
+            need(any(r.get('kind')=='jump_held' and r.get('held') is True and r['tick']==tick for r in inputs),'current_air_chain_jump_has_real_router_intent')
+            need(frame.get('grounded') is False and frame.get('velocity',[0,0])[1]<0 and frame.get('jump_state',{}).get('used',0)>=1 and frame.get('shots')==previous.get('shots')==0,'current_air_chain_actual_anchor_ascent_without_round_grant')
+            last_end=tick
         elif action['action']=='R':
             shot=accepted_event;tick=shot['tick'];aim=action['direction'];length=math.hypot(*aim);aim=[n/length for n in aim]
             need(shot.get('kind')=='shot_fired' and near(shot.get('aim'),aim,.001) and tick>last_end,'air_chain_R_actual_order_direction')
@@ -969,6 +1105,9 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
             if len(chain)!=6:continue
             c,fly,pull,contact,kick,free=chain;need([e['tick'] for e in chain]==sorted(set(e['tick'] for e in chain)) and c['tick']>last_end,'air_chain_H_state_order')
             need(contact is accepted_event and all(e.get('target')==target for e in chain[2:]),'air_chain_H_actual_mapped_target')
+            if 'current_receiver_side' in action:
+                side=action['current_receiver_side'];approach=[e for e in actual if e.get('kind')=='current_receiver_side_rehook' and e['tick']==c['tick'] and e.get('target')==target]
+                need(len(approach)==1 and approach[0].get('side')==side and xy(anchor) and (c['position'][0]-anchor[0])*side>4,'current_air_chain_real_receiver_side_rehook_origin')
             origin=[c['position'][0],c['position'][1]-6]
             need(xy(anchor) and math.dist(origin,anchor)<=number('hook_range')+12.01,'air_chain_H_real_origin_range')
             aim=[anchor[k]-origin[k] for k in (0,1)] if xy(anchor) else [0,0];length=math.hypot(*aim);aim=[v/length for v in aim] if length else [0,0]
@@ -995,6 +1134,8 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
                 candidates=[by.get(e['tick'],{}).get('position'),by.get(e['tick']-1,{}).get('position')]
                 need(any(near(e.get('position'),p,.25) for p in candidates),'air_chain_H_event_actual_body')
             last_end=free['tick']
+    if current_free_policy(data):
+        return errors+validate_current_air_chain_resources(data,leg,completion,frames,events,tuning,entry,full)
     # Real per-tick shot/energy ledger. The observation shore gives a genuine
     # resource phase; a previous leg need not have this new optional vocabulary.
     previous=by.get(start-1)
@@ -1170,6 +1311,7 @@ def validate(data):
     if initial.get('config')!=final.get('config') or final.get('health',0)<=0:fail('changed_runtime_or_player_dead')
     if any(final.get(k)!=initial.get(k) for k in ('hook_enabled','double_enabled','wall_enabled','weapon','tier')):fail('capability_or_single_weapon_changed')
     if data.get('audio_released') is not True:fail('strict_audio_release')
+    if manifest.get('layout_version')==BIBLE_LAYOUT and (not current_free_policy(data) or initial.get('shot_policy')!=final.get('shot_policy')):fail('current_actual_free_base_policy_missing_or_changed')
     try:
         expected=expected_itinerary(manifest,data['route'])
         if not expected or data.get('itinerary')!=expected:fail('itinerary_not_actual_manifest')
