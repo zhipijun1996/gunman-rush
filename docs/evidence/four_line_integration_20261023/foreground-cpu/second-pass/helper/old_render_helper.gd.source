@@ -1,0 +1,96 @@
+extends CanvasLayer
+const BUILD := "res://assets/underworld_plains/foreground_fine_05/foreground_build.json"
+const ART_SHADER := preload("res://shaders/underworld_foreground.gdshader")
+const MAX_PROTECTION := 64
+const WIND_MARGIN := 3.0
+const RETIRE_MARGIN := 4.0 # Includes one extra unit for rounded camera projection.
+const PARALLAX := Vector2(1.15,1.12)
+const PREBUILD_MARGIN := 96.0
+const ANTICIPATION_MARGIN := 64.0
+const MASK_SOFT_MARGIN := 24.0
+const ROOT_GUARD := 12.0
+const ROOT_FADE_DISTANCE := 64.0
+const SAFE_DELAY := .3
+const FADE_OUT_SECONDS := .18
+const FADE_IN_SECONDS := .7
+const MAX_ALPHA := .9
+const MAX_RESIDENTS := 64
+const MASTER := "res://assets/underworld_plains/foreground_fine_05/master_original.png"
+var _residents: Dictionary = {}
+var _retired: Array[Dictionary] = []
+var _protect: Array[Rect2] = []
+var _dynamic_protect: Array[Rect2] = []
+var _source_counts: Dictionary = {}
+var _overflow := false
+var _wind_time := 0.0
+var _seed := "pure-render-fixture"
+var _last: Dictionary = {}
+var _receipt_pending := false
+var _receipt_center := Vector2.ZERO
+var _receipt_size := Vector2.ZERO
+var _receipt_layer := 0
+var _advance_frame := -1
+var _advance_count := 0
+var _build: Dictionary = {"master_sha256":"pure-fixture-master"}
+func configure(residents: Dictionary,protect: Array,dynamic: Array,phase: int) -> void:
+	_residents=residents
+	_protect.assign(protect);_dynamic_protect.assign(dynamic)
+	_source_counts={"player":phase+1,"actual_static_geometry_and_functions":protect.size()}
+	_overflow=protect.size()>64
+	_wind_time=phase*.125;_advance_frame=100+phase;_advance_count=phase
+	_retired.assign([{"id":"retired-fixture","frame":phase}])
+func rendered_state() -> Array:
+	var result: Array=[]
+	for resident: Dictionary in _residents.values():
+		var sprite:=resident.sprite as Sprite2D
+		var material:=sprite.material as ShaderMaterial
+		var uniforms: Dictionary={}
+		for key: String in ["protection_rects","protection_count","protection_overflow","mask_soft_margin","root_visibility","wind_time"]:uniforms[key]=material.get_shader_parameter(key)
+		result.append({"id":resident.id,"position":sprite.position,"modulate":sprite.modulate,"visible":sprite.visible,"mask_rect_count":resident.mask_rect_count,"uniforms":uniforms})
+	return result
+
+func _render_receipt(center: Vector2,size: Vector2) -> void:
+	var view:=Rect2(Vector2.ZERO,size)
+	var visible_items: Array[Dictionary]=[]
+	var residents: Array[Dictionary]=[]
+	var rejected: Array[Dictionary]=[]
+	var grass_count:=0
+	var branch_count:=0
+	for resident: Dictionary in _residents.values():
+		var sprite:=resident.sprite as Sprite2D
+		var bounds: Rect2=resident.bounds
+		var asset: Dictionary=resident.asset
+		var material:=sprite.material as ShaderMaterial
+		var masks:=PackedVector4Array()
+		for rect: Rect2 in _protect:
+			var strict:=rect.grow(WIND_MARGIN)
+			if strict.grow(MASK_SOFT_MARGIN).intersects(bounds.grow(WIND_MARGIN)):
+				masks.append(Vector4(strict.position.x,strict.position.y,strict.end.x,strict.end.y))
+		resident.mask_rect_count=masks.size()
+		masks.resize(MAX_PROTECTION)
+		material.set_shader_parameter("protection_rects",masks)
+		material.set_shader_parameter("protection_count",mini(int(resident.mask_rect_count),MAX_PROTECTION))
+		material.set_shader_parameter("protection_overflow",_overflow)
+		material.set_shader_parameter("mask_soft_margin",MASK_SOFT_MARGIN)
+		material.set_shader_parameter("root_visibility",float(resident.root_gate))
+		material.set_shader_parameter("wind_time",_wind_time)
+		sprite.position=resident.position
+		sprite.modulate=Color(1,1,1,float(resident.alpha))
+		sprite.visible=bool(resident.admitted) and not _overflow and float(resident.alpha)>0.0 and float(resident.root_gate)>0.0 and bounds.grow(WIND_MARGIN).intersects(view)
+		var anchor: Vector2=resident.attachment
+		var at: Vector2=resident.anchor_world
+		var item: Dictionary={"id":resident.id,"resident_id":resident.id,"instance_id":resident.instance_id,"asset":asset.id,"bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"attachment":[anchor.x,anchor.y],"world_anchor":[at.x,at.y],"opacity":float(resident.alpha)*float(resident.root_gate),"alpha":resident.alpha,"target_alpha":resident.target_alpha,"safe_time":resident.safe_time,"admitted":resident.admitted,"entered_view":resident.entered_view,"root_clearance":resident.root_clearance,"root_gate":resident.root_gate,"protection_clearance":resident.protection_clearance,"unmasked_bounds_area":resident.unmasked_bounds_area,"mask_rect_count":resident.mask_rect_count,"display_scale":resident.display_scale,"wind_phase":resident.wind_phase,"raw_crop":asset.raw_crop,"source":MASTER,"collision":false,"drawn":sprite.visible}
+		residents.append(item)
+		if sprite.visible:
+			visible_items.append(item.duplicate())
+			if str(resident.kind)=="branch":branch_count+=1
+			else:grass_count+=1
+		elif not bool(resident.admitted):rejected.append({"id":resident.id,"reason":"waiting_for_safe_admission_or_resident_budget"})
+	var rectangles: Array=[]
+	for rect: Rect2 in _protect:rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
+	var dynamic_rectangles: Array=[]
+	for rect: Rect2 in _dynamic_protect:dynamic_rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
+	_last={"schema":"underworld-foreground-runtime-v1","revision":"FOREGROUND-CONTINUITY-08","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":0.0,"layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"residents":residents,"resident_count":_residents.size(),"retired":_retired.duplicate(true),"advance_frame":_advance_frame,"advance_count":_advance_count,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"anticipation_rectangles":dynamic_rectangles,"overflow_hidden":_overflow,"live_warning_hidden":false,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time,"mask_policy":{"strict_inside":true,"wind_margin":WIND_MARGIN,"soft_margin":MASK_SOFT_MARGIN,"anticipation_margin":ANTICIPATION_MARGIN,"safe_delay":SAFE_DELAY,"fade_in_seconds":FADE_IN_SECONDS,"fade_out_seconds":FADE_OUT_SECONDS,"per_item_filtered":true,"anticipation_sources":"grass_dynamic_exposed_bounds_branch_all_protection_complete_bounds","grass_anticipation":"dynamic_only_over_exposed_bounds","branch_anticipation":"all_protection_over_complete_bounds_plus_wind","static_protection":"strict_local_mask_with_branch_whole_fade","retire_margin":RETIRE_MARGIN,"root_guard":ROOT_GUARD,"root_fade_distance":ROOT_FADE_DISTANCE}}
+
+func receipt() -> Dictionary:
+	return _last.duplicate(true)

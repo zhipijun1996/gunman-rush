@@ -1,0 +1,114 @@
+extends SceneTree
+var checks: int=0
+var failures: Array[String]=[]
+var output: String="/workspace/scratch/foreground-second-helper-independent/result.json"
+var contexts: Array[Node]=[]
+var hit_keys: int=0
+var changed_keys: int=0
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+	run.call_deferred()
+func need(ok: bool,label: String) -> void:
+	checks+=1
+	if not ok:failures.append(label)
+func compare_protection(label: String) -> void:
+	contexts[0].call("_protection");contexts[1].call("_protection")
+	need(contexts[0].call("state")==contexts[1].call("state"),"protection exact ordered output "+label)
+func control(parent: Node,kind: String,at: Vector2,extent: Vector2,shown: bool=true) -> Control:
+	var c: Control
+	match kind:
+		"label":
+			var label:=Label.new();label.text="real visible label";c=label
+		"empty_label":c=Label.new()
+		"container":c=Container.new()
+		"panel":c=Panel.new()
+		"clear":
+			var clear:=ColorRect.new();clear.color=Color(1,1,1,0);c=clear
+		_:
+			var paint:=ColorRect.new();paint.color=Color.WHITE;c=paint
+	parent.add_child(c);c.position=at;c.size=extent;c.visible=shown
+	for context: Node in contexts:context.call("track",c)
+	return c
+func collider(parent: Node,kind: int,at: Vector2,extent: Vector2,disabled: bool=false,layer_value: int=1,shown: bool=true) -> CollisionShape2D:
+	var body: CollisionObject2D
+	match kind:
+		0:body=StaticBody2D.new()
+		1:body=AnimatableBody2D.new()
+		2:body=CharacterBody2D.new()
+		_:body=Area2D.new()
+	body.collision_layer=layer_value;parent.add_child(body);body.position=at;body.visible=shown
+	var collision:=CollisionShape2D.new();var shape:=RectangleShape2D.new();shape.size=extent
+	collision.shape=shape;collision.disabled=disabled;body.add_child(collision)
+	for context: Node in contexts:context.call("track",collision)
+	return collision
+func specification_pair(world: Node,seed_value: String,center: Vector2,size: Vector2,label: String) -> void:
+	var prior: Array=contexts[1].get("_spec_cache_key").duplicate(true)
+	for context: Node in contexts:context.set("_world",world);context.set("_seed",seed_value)
+	var a: Array=contexts[0].call("_specifications",center,size)
+	var b: Array=contexts[1].call("_specifications",center,size)
+	need(a==b,"spec ordered complete dictionaries "+label)
+	if prior==contexts[1].get("_spec_cache_key"):hit_keys+=1
+	else:changed_keys+=1
+	# Actual _create_resident is unchanged and duplicates before top-level writes.
+	# Mimic only that supported consumer mutation; no cached spec/asset mutation.
+	for spec: Dictionary in b:
+		var resident: Dictionary=spec.duplicate();resident.merge({"alpha":.8,"admitted":true,"position":Vector2(17,23)},true)
+	need(contexts[1].call("_specifications",center,size)==a,"resident top-level duplicate leaves cache immutable "+label)
+func run() -> void:
+	root.size=Vector2i(1280,720)
+	var old_script: Script=load("/workspace/scratch/foreground-second-helper-independent/old_helper.gd")
+	var new_script: Script=load("/workspace/scratch/foreground-second-helper-independent/new_helper.gd")
+	contexts=[old_script.new(),new_script.new()]
+	for context: Node in contexts:root.add_child(context)
+	var world:=Node2D.new();root.add_child(world)
+	var actor:=PlayerMotor.new();world.add_child(actor);actor.position=Vector2(100,100)
+	var assets: Array[Dictionary]=[]
+	for i: int in 5:assets.append({"id":("branch_left" if i==3 else "branch_right") if i>=3 else "grass%d"%i,"sample_size":Vector2(800+i*20,900+i*10),"sample_attachment":Vector2(400,890)})
+	for context: Node in contexts:context.call("configure",world,actor,assets)
+	var hidden_layer:=CanvasLayer.new();root.add_child(hidden_layer);hidden_layer.visible=false
+	for at: Vector2 in [Vector2(0,0),Vector2(1279,719),Vector2(1288,10),Vector2(-28,30),Vector2(-1000,-1000),Vector2(2000,1800)]:
+		for kind: String in ["label","empty_label","container","panel","clear","paint"]:control(world,kind,at,Vector2(20,20))
+	control(hidden_layer,"panel",Vector2(100,100),Vector2(100,60))
+	var hidden_control:=control(world,"panel",Vector2(200,100),Vector2(80,80),false)
+	for kind: int in 4:
+		for at: Vector2 in [Vector2(20,40),Vector2(1270,700),Vector2(1310,300),Vector2(1324,400),Vector2(-43,250),Vector2(-1000,0)]:
+			for extent: Vector2 in [Vector2(14,14),Vector2(400,20),Vector2(20,400)]:collider(world,kind,at,extent)
+	collider(world,0,Vector2(100,100),Vector2(40,40),true)
+	collider(world,1,Vector2(100,100),Vector2(40,40),false,0)
+	collider(world,2,Vector2(100,100),Vector2(40,40),false,1,false)
+	collider(hidden_layer,0,Vector2(100,100),Vector2(40,40))
+	for context: Node in contexts:
+		context.call("fixed",Rect2(-100,-100,60,60));context.call("fixed",Rect2(1279,300,50,20))
+	var transforms: Array[Transform2D]=[Transform2D.IDENTITY,Transform2D(Vector2(1.4,.2),Vector2(-.3,.8),Vector2(100,-50)),Transform2D(-.43,Vector2(.8,1.5),.1,Vector2(-700,250))]
+	for transform: Transform2D in transforms:
+		root.canvas_transform=transform
+		compare_protection("all actual trees")
+		hidden_layer.visible=true;hidden_control.visible=true;compare_protection("same-pass visibility changed")
+		hidden_layer.visible=false;hidden_control.visible=false
+	# Explicit emitted-boundary checks and mutable parent state within same context.
+	root.canvas_transform=Transform2D.IDENTITY
+	var edge:=collider(world,2,Vector2(1324,200),Vector2(0.1,0.1))
+	for x: float in [1323.9,1324.0,1324.1,1325.0,-44.0,-43.9]:
+		(edge.get_parent() as Node2D).position.x=x;compare_protection("grow44 edge %.2f"%x)
+	# Pure enumeration cache: fresh instances and floor changes are real world objects.
+	var home:=UnderworldHomeWorld.new();root.add_child(home)
+	var home2:=UnderworldHomeWorld.new();root.add_child(home2)
+	var normal2:=Node2D.new();root.add_child(normal2)
+	var centers: Array[Vector2]=[Vector2.ZERO,Vector2(.01,.01),Vector2(519.999,143.999),Vector2(520,144),Vector2(520.001,144.001),Vector2(-520,-144),Vector2(1600,800),Vector2(1600.1,800.1)]
+	for target: Node in [world,home,home2,normal2]:
+		for size: Vector2 in [Vector2(1280,720),Vector2(640,360)]:
+			for seed_value: String in ["fixed-seed-A","fixed-seed-B"]:
+				for center: Vector2 in centers:
+					specification_pair(target,seed_value,center,size,"grid/seed/world")
+					specification_pair(target,seed_value,center+Vector2(.0001,.0001),size,"same-cell subpixel")
+	for floor_value: float in [432.0,500.0,-20.0,432.0]:
+		home.floor_y=floor_value;specification_pair(home,"fixed-seed-A",Vector2(640,310),Vector2(1280,720),"home floor change")
+	need(hit_keys>0 and changed_keys>0,"cache hit and key invalidation paths exercised")
+	var report:={"scope":"Actual old/new extracted helper bodies with actual Control/CollisionShape tree and minimal5asset enumeration fixture. No gameplay/GPU/performance/full80 approval.","checks":checks,"failures":failures,"cache_hit_keys":hit_keys,"cache_changed_keys":changed_keys,"source_extraction":JSON.parse_string(FileAccess.get_file_as_string("/workspace/scratch/foreground-second-helper-independent/extraction.json"))}
+	FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	for context: Node in contexts:context.free()
+	contexts.clear();home.free();home2.free();normal2.free();hidden_layer.free();world.free();old_script=null;new_script=null
+	print("FOREGROUND_SECOND_HELPER_DIFFERENTIAL checks=%d failures=%d"%[checks,failures.size()])
+	finish.call_deferred()
+func finish() -> void:quit(0 if failures.is_empty() else 1)

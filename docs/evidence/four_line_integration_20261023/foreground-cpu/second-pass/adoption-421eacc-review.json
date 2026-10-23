@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewed_commit": "421eacc19a838723aabe898af4565435958735b6",
+  "source_commit": "421eacc19a838723aabe898af4565435958735b6",
+  "parent_commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root",
+    "/root/production_docs"
+  ],
+  "scope": "Bounded independent adoption review of one foreground CPU runtime file, actual helper/render differentials, original GPU continuity and exact-head fresh canonical80. Not full CI/main/Release/G5 approval.",
+  "findings": [],
+  "actual_file_sha256": {
+    "scripts/underworld_plains/underworld_foreground.gd": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa"
+  },
+  "source_preservation": {
+    "git_exactly_one_runtime_file": true,
+    "original_functions": 29,
+    "current_functions": 30,
+    "original_function_names_all_retained": true,
+    "entire_unchanged_function_bodies": 22,
+    "unchanged_function_names": [
+      "attach",
+      "_exit_tree",
+      "_process",
+      "_inventory",
+      "_observe",
+      "_forget",
+      "_rebuild_static",
+      "_collect_edges",
+      "_visible",
+      "_drawn_control",
+      "_touch_protection",
+      "_enemy_warning_protection",
+      "_roll",
+      "_object_spec",
+      "_project",
+      "_create_resident",
+      "_retire",
+      "_exposed_regions",
+      "_distance_to_rectangles",
+      "_sync_residents",
+      "refresh",
+      "_refresh"
+    ],
+    "added_function": "_materialize_receipt",
+    "Presentation_Bible_36references_profiles_tests_budgets_geometry_and_gameplay_files": "unchanged"
+  },
+  "technical_review": {
+    "offscreen_culling": "Only moves existing rejection earlier: world projection uses exact original _add predicates; nonTouch Control uses exact original grow8 projected rectangle; CollisionShape grow44 conservatively encloses every original grow18/grow44 or large-edge grow10 emitted mask. Shape/layer/visibility rules and emitted order/counts/merge remain. Touch dispatch and helper semantics retained.",
+    "dynamic_sources": "Dictionary contains exactly original11 source strings; actual_moving_ prefix retained.",
+    "candidate_cache": "Single replacement entry stores deterministic enumerated candidates only, keyed by exact8 half-open cell endpoints,seed,home floor including null,and world instance ID. _ready clears it. _project/buffer/root filtering/sort/admission still run per call. Existing _create_resident duplicates spec before top-level writes; no actual consumer mutates cached spec asset data. Private runtime asset mutation/hot reload is not a supported cache invalidation API.",
+    "rendering": "Every sprite/material/mask update remains per render. Same ordered strict/soft rectangles are grown once per pass; per-resident mask order,count,resize64,overflow,wind and root visibility retained.",
+    "lazy_diagnostic": "Only large diagnostic construction is delayed until receipt(). Most recent completed render saves drawn,center,size,layer; receipt does not re-read Sprite visibility,viewport/camera/layer or run refresh/admission/clock. Source mutable resident/protection state is owned by refresh; each completed render marks pending. Return remains deepduplicate. _refresh/_sync_residents/_process/advance/pause/retirement algorithms are unchanged."
+  },
+  "actual_helper_differentials": {
+    "protection_and_specs": {
+      "report": "/workspace/scratch/foreground-second-helper-independent/result-final.json",
+      "sha256": "b4067d07ce2a9b84ab34f54b362582adf92880b97c2b72d4758ddbe7475bc25c",
+      "checks": 533,
+      "failures": [],
+      "cache_hit_keys": 192,
+      "cache_changed_keys": 68,
+      "source_sha256": {
+        "new": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa",
+        "old": "01f7b37dacc0f06036bf585df546bfd583532b92206895ba971fe7d434a7fbd0"
+      },
+      "scope": "Actual extracted functions, real Control/CollisionShape/hiddenCanvasLayer/Static/Animatable/Character/Area fixtures, viewport transforms,edge culling; five-asset pure enumeration with normal/Home/seed/floor/world/cell changes."
+    },
+    "render_and_lazy_receipt": {
+      "report": "/workspace/scratch/foreground-second-helper-independent/render-result.json",
+      "sha256": "763dea47a51c01f29a7c801b25bd5bbc23f5b162ba933e0e2ce365e7c18198ad",
+      "checks": 33,
+      "failures": [],
+      "source_sha256": {
+        "new": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa",
+        "old": "01f7b37dacc0f06036bf585df546bfd583532b92206895ba971fe7d434a7fbd0"
+      },
+      "scope": "Actual extracted render/receipt/materializer bodies, real shared Sprite2D/ShaderMaterial; all6 uniforms and sprite state, complete diagnostics, multiple unread renders,overflow,deep-copy isolation,stop-process external visibility/position/viewport/layer changes,pause/repeated reads and next render. Full public refresh is exercised by original GPU suite, not simulated by this fixture."
+    },
+    "authors_and_execution": "Reviewer wrote extraction/differential scratch fixtures and review suggestions; root implemented adopted runtime and executed all Godot checks. Reviewer did not write adopted production source or launch native."
+  },
+  "exact_head_original_GPU_suite": {
+    "run": "/workspace/integration-four/build/fg-cpu-second-final/run.json",
+    "run_sha256": "e6e2391cf44a7ef2f83ca0198de419be833f253cce09b34409f74b181e992e93",
+    "report": "/workspace/integration-four/build/fg-cpu-second-final/check.json",
+    "report_sha256": "bec7bdb343a327f83ccf6c3cb91ee99673e3fe91d6da75e37fca0eea2dbfbc6c",
+    "commit": "421eacc19a838723aabe898af4565435958735b6",
+    "clean_before": true,
+    "source_sha_before_after": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa",
+    "exit_code": 0,
+    "wall_seconds": 26.010676395999326,
+    "samples": 506,
+    "identities": 23,
+    "actual_foreground_pixel_samples": 246,
+    "failures": [],
+    "engine_error_or_leak": false,
+    "scope": "Unchanged actual Home original suite; camera reversal,stable identity,complete offscreen retirement,manual refresh no clock advance,real guard pixels,recovery hold and pause. Not all-region art acceptance."
+  },
+  "exact_head_fresh_original_forest80": {
+    "harness_report": "/workspace/integration-four/build/verification/harness/20261023T204602.466005Z/report.json",
+    "harness_report_sha256": "af1119b3a17ed7a0f6d8d40d395970e3d556d0f150c75135403fea360c0b1e6c",
+    "commit": "421eacc19a838723aabe898af4565435958735b6",
+    "status": "passed",
+    "working_files": {},
+    "git_status": "",
+    "fresh_no_reuse": true,
+    "targeted_checks": true,
+    "Harness_wall_seconds": 461.667,
+    "check_duration_seconds": 451.045,
+    "check_timeout_seconds": 600,
+    "case_timeout_seconds": 240,
+    "import_timeout_seconds": 90,
+    "jobs": 1,
+    "release_flag": true,
+    "case_workers": 4,
+    "actual_condition": "Root selected two allowed logical CPUs [0,1]; local condition, not GitHub benchmark.",
+    "wrapper_receipt": "/workspace/integration-four/build/fg-second-canonical/forest80-receipt.json",
+    "wrapper_receipt_sha256": "c2d5694d6e7b33c33f733123fa181b7ef847ac109c5e5c68b79d300ce54b35a2",
+    "requested_cases": 80,
+    "actual_runs": 80,
+    "all_passed_exit0_errors_empty": true,
+    "completed_indices_exact_0_to79": true,
+    "not_executed": [],
+    "source_before_equals_after": true,
+    "source_stable": true,
+    "scope": "actual_v2_routes_not_boss_or_fullrelease"
+  },
+  "gameplay_capture_preservation": {
+    "evidence": "/workspace/scratch/foreground-second-helper-independent/canonical80-independent-receipt-summary.json",
+    "sha256": "8f531e8a642da8dd7422adbbf4d0ac146feba87033a7706ff84e3775dd6de83c",
+    "independently_compared_original_receipts": true,
+    "old_source": "1d013d7047b62a9cfe06e9fe8471a44d30796512",
+    "new_source": "421eacc19a838723aabe898af4565435958735b6",
+    "same80_unique_seed_map_route_keys_and_capture_sha256": true,
+    "note": "Receipt digest comparison; reviewer did not re-decompress the entire canonical80 tar. Root separately preserved and verified all raw archive members. No FG-pixel/resident equivalence or cross-condition timing inference."
+  },
+  "representative_diagnostic": {
+    "before_seconds": 18.704511096002534,
+    "after_seconds": 15.798859367001569,
+    "scope": "One same-case09 local diagnostic, a2 parent plus precise FG working overlay and original instrumented runner, not a clean421 benchmark or fullCI performance promise.",
+    "independently_streamed_raw_archives": "/workspace/scratch/foreground-second-helper-independent/raw-capture-comparison.json",
+    "archive_comparison_sha256": "5c34c80523ff0a69e2db1b6f7985586554ee6659e4dec9d2c3647a974a9a5254",
+    "raw_bytes_each": 24514447,
+    "raw_sha256_each": "8b699bfebebf8ad05087f3e2163435d29598566ecf911675efe18f68c4de1a21",
+    "all_visual_residency_equivalence_claim": false
+  },
+  "previous_failures": "Earlier CI forest80 outer600 timeouts remain failed evidence. Local421 result is new targeted evidence, not relabeling old runs.",
+  "unverified_or_not_signed": [
+    "Subsequent35 checks currently running and their eventual source-bound result",
+    "Fresh GitHub Actions/full142 Integration for this source",
+    "main merge and complete Release/export/Web/Windows",
+    "Full region aesthetic/game feel/listening/physical devices/G5",
+    "GitHub performance or statistical timing headroom"
+  ],
+  "reviewer_actions": "Read-only exact Git/runtime/evidence inspection, scratch-only extraction fixtures, streamed two diagnostic archives and compared80 original receipt digests. No native run, root edits, history hydration or suite rerun."
+}

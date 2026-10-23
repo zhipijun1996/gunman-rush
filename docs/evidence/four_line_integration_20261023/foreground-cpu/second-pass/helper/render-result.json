@@ -1,0 +1,17 @@
+{
+  "checks": 33,
+  "extraction": {
+    "base_commit": "a2f7ad441b8218681ce3c245be95d4d3ab44a78f",
+    "helper_sha256": {
+      "new": "2e87e8c6dccbdea20d2506f00e2b73b2ed56c103d69040262eb34e4db4abd4ec",
+      "old": "c019177c8fc6849a23df7ed140bc7dccdfc4e7affac24e2ef0867c9fec11888d"
+    },
+    "scope": "Actual old/new render/receipt bodies. Synthetic resident/protection inputs, real Sprite2D/ShaderMaterial shared between paired runs so actual instance ids match. No full refresh/gameplay/GPU proof.",
+    "source_sha256": {
+      "new": "4d6cca23231061073d2e589f299b334fc0d46a50d10b09fcd1acacdfd19742fa",
+      "old": "01f7b37dacc0f06036bf585df546bfd583532b92206895ba971fe7d434a7fbd0"
+    }
+  },
+  "failures": [],
+  "scope": "Actual old/new render and receipt helper bodies with synthetic resident state and real shared Sprite2D/ShaderMaterial. Shader uniforms and complete dictionaries compared. Full public _refresh/process/gameplay is not simulated; original FG suite remains required."
+}
