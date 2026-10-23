@@ -1,0 +1,1279 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "status": "packaged",
+  "source_runtime": "73556539d4337065eb73537ce2fc2c03d7729c18",
+  "before_runtime": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+  "before_immutable_path": "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4",
+  "after_seconds": 14,
+  "comparison_seconds": 20,
+  "scope": "Actual consecutive MovieMaker frame/audio excerpts; factual footer only; no game redraw, interpolation, playback speed change, sound substitution or review/user claim.",
+  "segments": {
+    "after.mp4": [
+      {
+        "version": "V6",
+        "source_seconds": [
+          0,
+          7
+        ]
+      },
+      {
+        "version": "V6",
+        "source_seconds": [
+          13,
+          20
+        ]
+      }
+    ],
+    "comparison.mp4": [
+      {
+        "version": "V5",
+        "case": "ground",
+        "source_seconds": [
+          0.5,
+          5.5
+        ]
+      },
+      {
+        "version": "V6",
+        "case": "ground",
+        "source_seconds": [
+          0.5,
+          5.5
+        ]
+      },
+      {
+        "version": "V5",
+        "case": "aerial",
+        "source_seconds": [
+          13.5,
+          18.5
+        ]
+      },
+      {
+        "version": "V6",
+        "case": "aerial",
+        "source_seconds": [
+          13.5,
+          18.5
+        ]
+      }
+    ]
+  },
+  "raw_inputs": {
+    "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/movie/after.mp4": {
+      "bytes": 1401810,
+      "sha256": "d32ecd6c97682acc82ba03c8bcdee87ce603211487c8169b9c4c57c0d8096ae5"
+    },
+    "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/movie/after.json": {
+      "bytes": 816326,
+      "sha256": "81a0b9976f693c7bb8e6bf32fe44b9d103669ec2f2c551fdfa2990acca147c51"
+    },
+    "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/movie/report.json": {
+      "bytes": 7804,
+      "sha256": "24d60b0ced674111d40e7b780d1aab36d364c5d288179949b3e5d68e29d2a259"
+    },
+    "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/movie/after.log": {
+      "bytes": 1041,
+      "sha256": "d0795e41334468368b60cb43e7746b2e7eff1f993a818bae2fb97ad12b934dfb"
+    },
+    "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4": {
+      "bytes": 1374447,
+      "sha256": "18d14745a67582cfb58f6338b8c055286a7691a0bd4727f5b4b0a8eac7c1688a"
+    },
+    "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-report.json": {
+      "bytes": 7926,
+      "sha256": "e58fa66f1e11c6a500e61396190ea888cf3a463f042adbdb0071211c848c73bc"
+    }
+  },
+  "packager": {
+    "path": "/workspace/scratch/package_enemy_feedback_v6.py",
+    "sha256": "de8e78d4f52c0549c9c61af1d935c7ee9bccc5c28f7144548b6cf79569c7b6a2"
+  },
+  "commands": [
+    [
+      "ffmpeg",
+      "-nostdin",
+      "-n",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4",
+      "-filter_complex",
+      "[0:v]split=2[v0][v1];[0:a]asplit=2[a0][a1];[v0]trim=start=0:end=7,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p0];[a0]atrim=start=0:end=7,asetpts=PTS-STARTPTS[s0];[v1]trim=start=13:end=20,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p1];[a1]atrim=start=13:end=20,asetpts=PTS-STARTPTS[s1];[p0][s0][p1][s1]concat=n=2:v=1:a=1[joined_v][a];[joined_v]settb=expr=1/60,setpts=N[v]",
+      "-map",
+      "[v]",
+      "-map",
+      "[a]",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-threads",
+      "2",
+      "-r",
+      "60",
+      "-fps_mode",
+      "cfr",
+      "-enc_time_base",
+      "1:60",
+      "-c:a",
+      "aac",
+      "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-nostdin",
+      "-n",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4",
+      "-i",
+      "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4",
+      "-filter_complex",
+      "[0:v]split=2[b0][b1];[0:a]asplit=2[ba0][ba1];[1:v]split=2[c0][c1];[1:a]asplit=2[ca0][ca1];[b0]trim=start=0.5:end=5.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V5 | runtime 3c5338552b2f7ac275203c4bbf1003e29520a312:x=54:y=641:fontsize=19:fontcolor=white[v0];[ba0]atrim=start=0.5:end=5.5,asetpts=PTS-STARTPTS[a0];[c0]trim=start=0.5:end=5.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[v1];[ca0]atrim=start=0.5:end=5.5,asetpts=PTS-STARTPTS[a1];[b1]trim=start=13.5:end=18.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V5 | runtime 3c5338552b2f7ac275203c4bbf1003e29520a312:x=54:y=641:fontsize=19:fontcolor=white[v2];[ba1]atrim=start=13.5:end=18.5,asetpts=PTS-STARTPTS[a2];[c1]trim=start=13.5:end=18.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[v3];[ca1]atrim=start=13.5:end=18.5,asetpts=PTS-STARTPTS[a3];[v0][a0][v1][a1][v2][a2][v3][a3]concat=n=4:v=1:a=1[joined_v][a];[joined_v]settb=expr=1/60,setpts=N[v]",
+      "-map",
+      "[v]",
+      "-map",
+      "[a]",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-threads",
+      "2",
+      "-r",
+      "60",
+      "-fps_mode",
+      "cfr",
+      "-enc_time_base",
+      "1:60",
+      "-c:a",
+      "aac",
+      "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4"
+    ]
+  ],
+  "executions": [
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-first-rejected/after.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.09033345599891618,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 62,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"40000000/665873\",\n            \"time_base\": \"1/1000000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 13983333,\n            \"duration\": \"13.983333\",\n            \"bit_rate\": \"543611\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"840\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 672000,\n            \"duration\": \"14.000000\",\n            \"bit_rate\": \"66741\",\n            \"nb_frames\": \"658\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-first-rejected/after.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"14.000000\",\n        \"size\": \"1095462\",\n        \"bit_rate\": \"625978\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-third-rejected/after.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.074776336994546,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 32,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"50400/839\",\n            \"time_base\": \"1/15360\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 214784,\n            \"duration\": \"13.983333\",\n            \"bit_rate\": \"543681\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"840\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 672240,\n            \"duration\": \"14.005000\",\n            \"bit_rate\": \"66741\",\n            \"nb_frames\": \"658\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-third-rejected/after.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"14.005000\",\n        \"size\": \"1093977\",\n        \"bit_rate\": \"624906\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.07543465899652801,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 32,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"60/1\",\n            \"time_base\": \"1/15360\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 401408,\n            \"duration\": \"26.133333\",\n            \"bit_rate\": \"370080\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"1568\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 1254384,\n            \"duration\": \"26.133000\",\n            \"bit_rate\": \"37444\",\n            \"nb_frames\": \"1226\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"26.133333\",\n        \"size\": \"1374447\",\n        \"bit_rate\": \"420749\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.063593877996027,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 32,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"60/1\",\n            \"time_base\": \"1/15360\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 401408,\n            \"duration\": \"26.133333\",\n            \"bit_rate\": \"378457\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"1568\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 1254384,\n            \"duration\": \"26.133000\",\n            \"bit_rate\": \"37444\",\n            \"nb_frames\": \"1226\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"26.133333\",\n        \"size\": \"1401810\",\n        \"bit_rate\": \"429125\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-i",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4",
+        "-filter_complex",
+        "[0:v]split=2[v0][v1];[0:a]asplit=2[a0][a1];[v0]trim=start=0:end=7,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p0];[a0]atrim=start=0:end=7,asetpts=PTS-STARTPTS[s0];[v1]trim=start=13:end=20,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p1];[a1]atrim=start=13:end=20,asetpts=PTS-STARTPTS[s1];[p0][s0][p1][s1]concat=n=2:v=1:a=1[joined_v][a];[joined_v]settb=expr=1/60,setpts=N[v]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "18",
+        "-pix_fmt",
+        "yuv420p",
+        "-threads",
+        "2",
+        "-r",
+        "60",
+        "-fps_mode",
+        "cfr",
+        "-enc_time_base",
+        "1:60",
+        "-c:a",
+        "aac",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 3.010587785996904,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-n",
+        "-v",
+        "error",
+        "-i",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4",
+        "-i",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4",
+        "-filter_complex",
+        "[0:v]split=2[b0][b1];[0:a]asplit=2[ba0][ba1];[1:v]split=2[c0][c1];[1:a]asplit=2[ca0][ca1];[b0]trim=start=0.5:end=5.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V5 | runtime 3c5338552b2f7ac275203c4bbf1003e29520a312:x=54:y=641:fontsize=19:fontcolor=white[v0];[ba0]atrim=start=0.5:end=5.5,asetpts=PTS-STARTPTS[a0];[c0]trim=start=0.5:end=5.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[v1];[ca0]atrim=start=0.5:end=5.5,asetpts=PTS-STARTPTS[a1];[b1]trim=start=13.5:end=18.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V5 | runtime 3c5338552b2f7ac275203c4bbf1003e29520a312:x=54:y=641:fontsize=19:fontcolor=white[v2];[ba1]atrim=start=13.5:end=18.5,asetpts=PTS-STARTPTS[a2];[c1]trim=start=13.5:end=18.5,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[v3];[ca1]atrim=start=13.5:end=18.5,asetpts=PTS-STARTPTS[a3];[v0][a0][v1][a1][v2][a2][v3][a3]concat=n=4:v=1:a=1[joined_v][a];[joined_v]settb=expr=1/60,setpts=N[v]",
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+        "-c:v",
+        "libx264",
+        "-crf",
+        "18",
+        "-pix_fmt",
+        "yuv420p",
+        "-threads",
+        "2",
+        "-r",
+        "60",
+        "-fps_mode",
+        "cfr",
+        "-enc_time_base",
+        "1:60",
+        "-c:a",
+        "aac",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 4.689119620998099,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.07227996900473954,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 32,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"60/1\",\n            \"time_base\": \"1/15360\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 215040,\n            \"duration\": \"14.000000\",\n            \"bit_rate\": \"543034\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"840\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 672240,\n            \"duration\": \"14.005000\",\n            \"bit_rate\": \"66741\",\n            \"nb_frames\": \"658\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"14.005000\",\n        \"size\": \"1093969\",\n        \"bit_rate\": \"624901\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4"
+      ],
+      "exit_code": 0,
+      "seconds": 0.072637917000975,
+      "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"h264\",\n            \"codec_long_name\": \"H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\",\n            \"profile\": \"High\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"avc1\",\n            \"codec_tag\": \"0x31637661\",\n            \"width\": 1280,\n            \"height\": 720,\n            \"coded_width\": 1280,\n            \"coded_height\": 720,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 2,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"16:9\",\n            \"pix_fmt\": \"yuvj420p\",\n            \"level\": 32,\n            \"color_range\": \"pc\",\n            \"color_space\": \"bt470bg\",\n            \"chroma_location\": \"center\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"is_avc\": \"true\",\n            \"nal_length_size\": \"4\",\n            \"id\": \"0x1\",\n            \"r_frame_rate\": \"60/1\",\n            \"avg_frame_rate\": \"60/1\",\n            \"time_base\": \"1/15360\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 307200,\n            \"duration\": \"20.000000\",\n            \"bit_rate\": \"599966\",\n            \"bits_per_raw_sample\": \"8\",\n            \"nb_frames\": \"1200\",\n            \"extradata_size\": 51,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"VideoHandler\",\n                \"vendor_id\": \"[0][0][0][0]\",\n                \"encoder\": \"Lavc61.19.101 libx264\"\n            }\n        },\n        {\n            \"index\": 1,\n            \"codec_name\": \"aac\",\n            \"codec_long_name\": \"AAC (Advanced Audio Coding)\",\n            \"profile\": \"LC\",\n            \"codec_type\": \"audio\",\n            \"codec_tag_string\": \"mp4a\",\n            \"codec_tag\": \"0x6134706d\",\n            \"sample_fmt\": \"fltp\",\n            \"sample_rate\": \"48000\",\n            \"channels\": 2,\n            \"channel_layout\": \"stereo\",\n            \"bits_per_sample\": 0,\n            \"initial_padding\": 0,\n            \"id\": \"0x2\",\n            \"r_frame_rate\": \"0/0\",\n            \"avg_frame_rate\": \"0/0\",\n            \"time_base\": \"1/48000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"duration_ts\": 960000,\n            \"duration\": \"20.000000\",\n            \"bit_rate\": \"87617\",\n            \"nb_frames\": \"939\",\n            \"extradata_size\": 5,\n            \"disposition\": {\n                \"default\": 1,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"language\": \"und\",\n                \"handler_name\": \"SoundHandler\",\n                \"vendor_id\": \"[0][0][0][0]\"\n            }\n        }\n    ],\n    \"format\": {\n        \"filename\": \"/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4\",\n        \"nb_streams\": 2,\n        \"nb_programs\": 0,\n        \"nb_stream_groups\": 0,\n        \"format_name\": \"mov,mp4,m4a,3gp,3g2,mj2\",\n        \"format_long_name\": \"QuickTime / MOV\",\n        \"start_time\": \"0.000000\",\n        \"duration\": \"20.000000\",\n        \"size\": \"1756594\",\n        \"bit_rate\": \"702637\",\n        \"probe_score\": 100,\n        \"tags\": {\n            \"major_brand\": \"isom\",\n            \"minor_version\": \"512\",\n            \"compatible_brands\": \"isomiso2avc1mp41\",\n            \"encoder\": \"Lavf61.7.103\"\n        }\n    }\n}\n",
+      "stderr": ""
+    }
+  ],
+  "files": {
+    "after-raw.mp4": {
+      "bytes": 1401810,
+      "sha256": "d32ecd6c97682acc82ba03c8bcdee87ce603211487c8169b9c4c57c0d8096ae5"
+    },
+    "after-report.json": {
+      "bytes": 7804,
+      "sha256": "24d60b0ced674111d40e7b780d1aab36d364c5d288179949b3e5d68e29d2a259"
+    },
+    "after.json.gz": {
+      "bytes": 20318,
+      "sha256": "e90fad0675a4d8ff13e7ab332cd54f4a20dafbba813ed530351bc53cf5e333f1"
+    },
+    "after.mp4": {
+      "bytes": 1093969,
+      "sha256": "f701338eb857f9f99693c56b6cc2ace5b0dea2902eafa2b4a90c36fed32ef3d8"
+    },
+    "comparison.mp4": {
+      "bytes": 1756594,
+      "sha256": "3b36d1737063633da8b832701adbd879c0e50d39859ed160e2c2c01228b3b89e"
+    },
+    "native.log": {
+      "bytes": 1041,
+      "sha256": "d0795e41334468368b60cb43e7746b2e7eff1f993a818bae2fb97ad12b934dfb"
+    },
+    "packaging-first-rejected-recipe.json": {
+      "bytes": 35312,
+      "sha256": "1356aa39fba3ea8dea1ca126fae0ebd7d3235c27c345351a173be6bdb102d257"
+    },
+    "packaging-notes.md": {
+      "bytes": 1773,
+      "sha256": "6c0da73a852d1eb1c7391f7a77d070cfe0672d2ca22998135b9f192adbf776d7"
+    },
+    "packaging-second-rejected-recipe.json": {
+      "bytes": 37357,
+      "sha256": "0c5999f6a4f63b410ea7f1a4a43a5446f9e180a31f177ceaf4d1c82c00699ac2"
+    },
+    "packaging-third-rejected-recipe.json": {
+      "bytes": 47563,
+      "sha256": "dac15f34a7e59d65c54c04dc19c333983af9b14a300d142c4204515282e850ff"
+    }
+  },
+  "input_bytes_stable": true,
+  "prior_failure": {
+    "directory": "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-first-rejected",
+    "recipe": {
+      "bytes": 35312,
+      "sha256": "1356aa39fba3ea8dea1ca126fae0ebd7d3235c27c345351a173be6bdb102d257"
+    },
+    "error": "Unexpected movie geometry, timing or stereo audio: 14.0s",
+    "status": "failed; retained, not relabeled",
+    "actual_after_probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 62,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "40000000/665873",
+          "time_base": "1/1000000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 13983333,
+          "duration": "13.983333",
+          "bit_rate": "543611",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "840",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 672000,
+          "duration": "14.000000",
+          "bit_rate": "66741",
+          "nb_frames": "658",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-first-rejected/after.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.000000",
+        "size": "1095462",
+        "bit_rate": "625978",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "after_mp4": {
+      "bytes": 1095462,
+      "sha256": "1300669737b43f94b51d07069a41f0121ca7b29e2e73a4e303f8eed8c9ca1476"
+    }
+  },
+  "second_prior_failure": {
+    "directory": "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-second-rejected",
+    "recipe": {
+      "bytes": 37357,
+      "sha256": "0c5999f6a4f63b410ea7f1a4a43a5446f9e180a31f177ceaf4d1c82c00699ac2"
+    },
+    "error": "Command failed with exit 234: ffmpeg -nostdin -n -v error -i /workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4 -filter_complex '[0:v]split=2[v0][v1];[0:a]asplit=2[a0][a1];[v0]trim=start=0:end=7,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p0];[a0]atrim=start=0:end=7,asetpts=PTS-STARTPTS[s0];[v1]trim=start=13:end=20,setpts=PTS-STARTPTS,drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V6 | runtime 73556539d4337065eb73537ce2fc2c03d7729c18:x=54:y=641:fontsize=19:fontcolor=white[p1];[a1]atrim=start=13:end=20,asetpts=PTS-STARTPTS[s1];[p0][s0][p1][s1]concat=n=2:v=1:a=1[joined_v][a];[joined_v]settb=expr=1/60,setpts=N[v]' -map '[v]' -map '[a]' -c:v libx264 -crf 18 -pix_fmt yuv420p -threads 2 -r 60 -fps_mode passthrough -enc_time_base 1:60 -c:a aac /workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4",
+    "status": "failed; retained, not relabeled"
+  },
+  "third_prior_failure": {
+    "directory": "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-third-rejected",
+    "recipe": {
+      "bytes": 47563,
+      "sha256": "dac15f34a7e59d65c54c04dc19c333983af9b14a300d142c4204515282e850ff"
+    },
+    "error": "Unexpected movie geometry, timing or stereo audio: 14.005s",
+    "status": "failed; retained, not relabeled",
+    "actual_after_probe": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 32,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "50400/839",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 214784,
+          "duration": "13.983333",
+          "bit_rate": "543681",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "840",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 672240,
+          "duration": "14.005000",
+          "bit_rate": "66741",
+          "nb_frames": "658",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/build/enemy-feedback-01/v6/package-third-rejected/after.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.005000",
+        "size": "1093977",
+        "bit_rate": "624906",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    }
+  },
+  "final_timing_contract": {
+    "filter_time_base": "1/60",
+    "filter_pts": "N",
+    "encoder_time_base": "1:60",
+    "fps_mode": "cfr",
+    "output_rate": "60/1",
+    "expected_frame_counts": [
+      840,
+      1200
+    ],
+    "interpolation_filter": false,
+    "scope": "assign final packet duration on exact original 1/60 frame lattice"
+  },
+  "trace_archive": {
+    "gzip_mtime": 0,
+    "restored_sha256": "81a0b9976f693c7bb8e6bf32fe44b9d103669ec2f2c551fdfa2990acca147c51",
+    "matches_raw": true
+  },
+  "input_probes": {
+    "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 32,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 401408,
+          "duration": "26.133333",
+          "bit_rate": "370080",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "1568",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 1254384,
+          "duration": "26.133000",
+          "bit_rate": "37444",
+          "nb_frames": "1226",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v5/movies/after-raw.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "26.133333",
+        "size": "1374447",
+        "bit_rate": "420749",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 32,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 401408,
+          "duration": "26.133333",
+          "bit_rate": "378457",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "1568",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 1254384,
+          "duration": "26.133000",
+          "bit_rate": "37444",
+          "nb_frames": "1226",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after-raw.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "26.133333",
+        "size": "1401810",
+        "bit_rate": "429125",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    }
+  },
+  "output_probes": {
+    "after.mp4": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 32,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 215040,
+          "duration": "14.000000",
+          "bit_rate": "543034",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "840",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 672240,
+          "duration": "14.005000",
+          "bit_rate": "66741",
+          "nb_frames": "658",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/after.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "14.005000",
+        "size": "1093969",
+        "bit_rate": "624901",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    },
+    "comparison.mp4": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "width": 1280,
+          "height": 720,
+          "coded_width": 1280,
+          "coded_height": 720,
+          "closed_captions": 0,
+          "film_grain": 0,
+          "has_b_frames": 2,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuvj420p",
+          "level": 32,
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "chroma_location": "center",
+          "field_order": "progressive",
+          "refs": 1,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "60/1",
+          "avg_frame_rate": "60/1",
+          "time_base": "1/15360",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 307200,
+          "duration": "20.000000",
+          "bit_rate": "599966",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "1200",
+          "extradata_size": 51,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "vendor_id": "[0][0][0][0]",
+            "encoder": "Lavc61.19.101 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "sample_fmt": "fltp",
+          "sample_rate": "48000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/48000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 960000,
+          "duration": "20.000000",
+          "bit_rate": "87617",
+          "nb_frames": "939",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler",
+            "vendor_id": "[0][0][0][0]"
+          }
+        }
+      ],
+      "format": {
+        "filename": "/workspace/gunman-rush-work/docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "20.000000",
+        "size": "1756594",
+        "bit_rate": "702637",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf61.7.103"
+        }
+      }
+    }
+  },
+  "seconds": 8.177427319002163
+}

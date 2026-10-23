@@ -1,6 +1,6 @@
 class_name EnemyFeedback01Remains
 extends Node2D
-## The task's one death leaf, reused for v5 burst-and-disappear.
+## The task's one death leaf, reused for v6 burst-and-disappear.
 ## Stage-owned, host/health-epoch lifetime; never writes gameplay or parent clocks.
 const FLASH_HOLD := .045
 const DURATION := .55
@@ -88,7 +88,7 @@ func _capture() -> void:
 			var axis := (piece.get_center() - bounds.get_center()).normalized()
 			if axis.is_zero_approx(): axis = Vector2.UP
 			axis = axis.rotated((float((index * 7) % 11) / 10 - .5) * .6)
-			var speed := 62.0 + float((index * 13) % 49)
+			var speed := 98.0 + float((index * 13) % 71)
 			if _aerial: speed *= 1.12
 			var cut := .08 * float(index % 3)
 			var shape := PackedVector2Array([Vector2(-.5, -.22), Vector2(-.15+cut, -.5), Vector2(.5, -.12+cut), Vector2(.28-cut, .5), Vector2(-.34, .30)])
@@ -178,7 +178,7 @@ func _draw() -> void:
 		var rect: Rect2 = piece.bounds
 		var center := rect.get_center() + (piece.velocity as Vector2) * t * (1-.35*progress) + Vector2(0, 95*t*t)
 		draw_set_transform(center, float(piece.spin) * t)
-		var shrink := lerpf(.72, .20, progress * progress)
+		var shrink := lerpf(.78, .20, progress * progress)
 		var points := PackedVector2Array()
 		var uvs := PackedVector2Array()
 		var region: Rect2 = piece.region
@@ -190,20 +190,32 @@ func _draw() -> void:
 	var center := bounds.get_center()
 	var pressure := 1-clampf(t/.13, 0, 1)
 	if pressure > 0:
-		var radius := lerpf(4, 25 if _aerial else 22, 1-pressure)
+		var radius := lerpf(5, 43 if _aerial else 38, 1-pressure)
 		for arc: int in 3:
 			var start := float(arc) * TAU/3 + .18
-			draw_arc(center, radius, start, start+.75, 7, Color(CREAM, pressure * .8), 1, false)
-	for i: int in 16:
+			draw_arc(center, radius, start, start+.75, 7, Color(CREAM, pressure * .85), 1.5, false)
+	# One sharp pressure silhouette precedes the wider fragments. It collapses
+	# rapidly instead of adding a lasting glow that masks the living enemy.
+	var impulse := 1-clampf(t/.085, 0, 1)
+	if impulse > 0:
+		for spoke: int in 8:
+			var axis := Vector2.RIGHT.rotated(float(spoke)*TAU/8+.19)
+			var side := axis.orthogonal()
+			var length := (34 if spoke%2 == 0 else 24) * (.75+.25*impulse)
+			var root := center + axis*3
+			var tip := center + axis*length
+			var width := 2.4*impulse
+			draw_colored_polygon(PackedVector2Array([root-side*width, tip, root+side*width]), Color(CREAM, impulse*.9))
+	for i: int in 24:
 		var life := .26 + float(i%5)*.035
 		var progress := t/life
 		if progress >= 1: continue
 		var axis := Vector2.RIGHT.rotated(float(i)*2.399963 + .17)
-		var speed := 75 + float((i*11)%61)
+		var speed := 120 + float((i*11)%86)
 		var point := center + axis*speed*t*(1-.25*progress) + Vector2(0, 55*t*t)
 		var color := CREAM if progress < .25 and i%3 == 0 else BRASS
 		color.a = pow(1-progress, 1.4)
-		draw_line(point-axis*(3 if progress < .4 else 1), point, color, 1, false)
+		draw_line(point-axis*(7 if progress < .4 else 2), point, color, 1.5 if progress < .25 else 1.0, false)
 
 func dispose() -> void:
 	if _disposed: return
