@@ -1,9 +1,8 @@
-## 2026-10-23 四线集成（合入前冻结检查点）
+## 2026-10-23 四线集成下一步（最新）
 
-## 2026-10-23 稀疏输入修复检查点
+实现a861已冻结，四文件采纳独审通过。精确原Harness BGM89/0、家园181/0通过；森林四原wrapper候选24/24、32/32、35/35、43/43通过。后续不再扩大提效／历史兼容范围；推一次最终文档head触发原PR106 Integration，绿后正常合main并核自动Release。失败、源身份、最新可玩Preview及1.864GB输入提效候选见[当前集成](integration/four_lines_20261023.md)和[收口证据](evidence/four_line_integration_20261023/final-synchronization/README.md)。当前main／正式新发布仍未完成，G5未签。
 
-精确 a074a709 的 [Integration 39941212514](https://github.com/zhipijun1996/gunman-rush/actions/runs/39941212514) 失败：实际执行71项，70通过、1项因两份历史方向快照缺文件失败；后续未执行，不计通过。现在补齐该动态读取的两个原件输入，保留原断言、预算、digest和全部运行内容。真实临时稀疏Git恢复回归通过，未恢复无关证据；原方向10项、输入22项、production loop115项通过。下一精确head CI、main合并与正式发布仍待完成。[原始失败报告及准确来源](evidence/four_line_integration_20261023/ci-a074/identity.json)。
-
+以下为历史检查点。
 
 ## 2026-10-23 当前 HUD 与资源契约集成（冻结检查点）
 

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T125021.660783Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "forest-bible-world-spiral",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/{check_token}",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "e8d686211a67f1b781f13ca674c5f6485e2dd2aad4089476848c786e28f22fde",
+      "log": "forest-bible-world-spiral.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792759824.729317,
+      "ended_at_unix": 1792759895.0164301,
+      "duration_seconds": 70.287,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/27dc8631ef814c00ba32439d3dbfaaeb",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "check_token": "27dc8631ef814c00ba32439d3dbfaaeb",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T125021.660783Z/artifacts/forest-bible-world-spiral",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-versions",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "cc9a787cb182c3403d5aa23c57a913026532548245a400c49e536b7ec6937fd4",
+      "log": "forest-bible-versions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792759896.2007568,
+      "ended_at_unix": 1792759916.239792,
+      "duration_seconds": 20.039,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/de6eacb8dea944368bd2c20f9bb39c92"
+      ],
+      "check_token": "de6eacb8dea944368bd2c20f9bb39c92",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T125021.660783Z/artifacts/forest-bible-versions",
+      "reused": false
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "6f6f8025789495904a00586540054af291dc8ba44f8dfaa8cf5647cf838d375e",
+      "log": "cloud-preview-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792759917.3481424,
+      "ended_at_unix": 1792759920.8175802,
+      "duration_seconds": 3.469,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/61125e0836a943c193da9863d9f9327a"
+      ],
+      "check_token": "61125e0836a943c193da9863d9f9327a",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T125021.660783Z/artifacts/cloud-preview-runtime",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "working_files": {},
+  "commit": "12f6cb006d7119598e3235f4ca4f7323e4c9d092",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 101.909,
+  "jobs": 1,
+  "release": true
+}

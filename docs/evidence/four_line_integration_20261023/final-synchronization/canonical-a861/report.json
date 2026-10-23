@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T130534.251607Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "bgm-integration",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "8694fbf2a44bda3d573469a864bac1be48b3de158461e1459ca635dec6ab17b6",
+      "log": "bgm-integration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792760737.3252442,
+      "ended_at_unix": 1792760754.362559,
+      "duration_seconds": 17.037,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "check_token": "52b4724ae2dc4420b50b370c04969df8",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T130534.251607Z/artifacts/bgm-integration",
+      "reused": false
+    },
+    {
+      "id": "underworld-home",
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "ada9155a8fa69e1e6adbf6213fad7e6c70da7fc9e8f0d8753b17fbb1a112092f",
+      "log": "underworld-home.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792760755.4900901,
+      "ended_at_unix": 1792760767.3166354,
+      "duration_seconds": 11.827,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "check_token": "3be1c2e145864570bac7a40cc6674f1f",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T130534.251607Z/artifacts/underworld-home",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "working_files": {},
+  "commit": "a861406e699e95553b56a7f1a53edbafe4da7cfd",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 35.785,
+  "jobs": 1,
+  "release": true
+}

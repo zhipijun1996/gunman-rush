@@ -1,8 +1,10 @@
 # 当前状态
 
-## 2026-10-23 稀疏输入修复检查点
+## 2026-10-23 当前验证收口（最新）
 
-精确 a074a709 的 [Integration 39941212514](https://github.com/zhipijun1996/gunman-rush/actions/runs/39941212514) 失败：实际执行71项，70通过、1项因两份历史方向快照缺文件失败；后续未执行，不计通过。现在补齐该动态读取的两个原件输入，保留原断言、预算、digest和全部运行内容。真实临时稀疏Git恢复回归通过，未恢复无关证据；原方向10项、输入22项、production loop115项通过。下一精确head CI、main合并与正式发布仍待完成。[原始失败报告及准确来源](evidence/four_line_integration_20261023/ci-a074/identity.json)。
+实现冻结于 `a861406e699e95553b56a7f1a53edbafe4da7cfd`。12f6 CI实际88通过／BGM失败／53未执行；补跑其中50项实际47通过、家园和图一两路线失败。现仅修四个测试文件：真实200ms音频等待、当前标题到家园的真实点击、森林跳跃松键时机；原预算／目标／资源不变，运行代码未再修改。BGM89/0、家园181/0在精确a861原Harness fresh通过；森林两图四条原wrapper24/24、32/32、35/35、43/43在明确候选覆盖源通过，连续腾空及原目标保留。三专项及最终采纳独审限定ACCEPT，不替代下一最终PR CI或G5。
+
+最新[可玩开发Preview](https://zhipijun1996.github.io/gunman-rush-previews/previews/FOUR-LINE-INTEGRATION-01/a074a709ffa64c1382d73d2dab6dcff673222728/d38c8a407473/)为a074／d38c8a407473，完整公开包与真实浏览器已核；后续测试修改不改签旧包。main尚未合并，正式站仍旧版。下一步只推一次冻结head，完成原Integration后按用户既有授权普通合main，再核main自动Release。[失败／证明／独审／提效审计](evidence/four_line_integration_20261023/final-synchronization/README.md)保留准确来源。以下为历史时点，不代表最新结果。
 
 
 ## 2026-10-23 当前 HUD 与资源契约集成（冻结检查点）

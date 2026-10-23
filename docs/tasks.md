@@ -2,7 +2,7 @@
 
 ## 2026-10-23 四线集成调度（最新）
 
-`FOUR-LINE-INTEGRATION-01`进入review：四线、新默认人物／织时匠与5首原MP3已正式接入，冻结B的7项1266检查及原5共享专项通过；当前等待最终PR Integration和main自动Release，不预签发布。黄金68bd037暂停；原作者内容、审美／手感／实体设备边界保留。[来源与验证](integration/four_lines_20261023.md)。
+`FOUR-LINE-INTEGRATION-01`保持review：实现a861冻结，原Harness BGM89/0、家园181/0及森林四路线候选通过、四文件采纳独审ACCEPT；下一最终PR106 Integration、main合并／Release待实际执行。最新可玩Preview与失败来源见[当前集成](integration/four_lines_20261023.md)。黄金68bd037暂停，人工／设备边界保留。
 
 ## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
 
