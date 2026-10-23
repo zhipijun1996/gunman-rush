@@ -12,7 +12,7 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
 
-所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261022-v4.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+所有后续region create/optimize及缺Bible的proposed先读[当前共享画风与用户细粒度选择：style-v5](../../../docs/creative_direction/bibles/style-continuity-20261022-v5.json)：地形原生32px/32wu、世界表现1wu采样/nearest，保留Underworld家族、47邻接/精确边界与光照材质语言；区域特色来自形体、材料、生态、色光与构图。旧v4/16px只用于原版本复现，不能覆盖当前入口。worker绑定当前参考与实际消费者SHA；漂移按已有影响分析/重绑规则处理，不能只刷新hash。新地区先做跨区实际黄金对照再扩产；hash不签视觉。不同项目或用户明确另选全局画风时重新声明规格，不把本项目32px当通用数值。普通物理、global动作和无关文档不新增美术门。
 
 ## 触发与边界
 
@@ -111,3 +111,7 @@ Underworld机关复用同一功能铃图及accepted事件反馈；平台材质�
 连续采证须等待真实异步Stage就绪，初始fixture满足实际AI激活/LOS/支撑；用原Input或Router驱动并标明，反冲补偿不能改位置/AI/TTL。受伤进入、命中点残影、安全点淡入、身体hurt退出及闪烁退出分别采实际连续像素。有声轨与音量测量不代替听音，软件MovieMaker耗时不代替设备FPS。实例与失败见[本轮实证](../../../docs/underworld_feedback_r3.md)。
 
 历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。
+
+## 本会话实证回流（2026-10-23）
+
+[本轮前景经验](../../../docs/quality/art_consistency_workflow.md#空间与运动)：物件身份与可见度分离，完整离屏才回收，提前淡化、稳定后恢复；暂停和重复refresh不重复推进时钟。保留即时功能保护，但长枝被局部遮罩切成悬叶时应整枝提前避让，草叶局部遮罩另审。64wu/0.3秒是当前候选参数，不是新地区通用常数；必须以非零实际像素及连续画面验证。

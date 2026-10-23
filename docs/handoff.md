@@ -1,5 +1,10 @@
 ## 2026-10-23 SPATIAL-RHYTHM-07 沿途疏密与留白
 
+## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
+
+本会话01–08轮17笔提交已完整累积在`art/formal-fine-depth`，最后运行源6befe56、上轮交付head42f673c。[归整索引](art_session_20261023.md)记录各轮采用/替代关系、正式消费者、历史证据/视频、未验与恢复；本轮仅文档/skills，不合main、不新开触发Integration的PR。修正六份skills当前入口的旧v4/16px指向，增加[共享执行说明](quality/art_consistency_workflow.md)和现有Asset Specification像素字段，区分全局规格/区域身份/资产接口；不修改原Bible/style-v4/v5、运行参数或素材。仅定向文档/记录核对，不跑完整CI或重导出/发布。Git最新head与远端一致性以收口证据为准；跨区品质、用户与真机仍不代签。其他工作区须先取得本分支提交，不假定main已含。
+
+
 ## 2026-10-23 FOREGROUND-CONTINUITY-08 固定前景与稳定恢复
 
 用户明确选择固定前景物件＋离屏回收＋提前淡化＋稳定后恢复。`art/formal-fine-depth`运行源6befe56：固定世界身份/尺寸/风相位，完整框+4wu离屏才回收；动态危险64wu提前淡化，安全0.3秒后渐入；常驻HUD/边缘使用即时局部strict mask，保留全部保护。实际Home506采样/23身份失败0、GPU387080保护像素差0及非零前景贡献、六正式定位窗（Home/两图×两Seed）失败0。原首版常驻HUD全抹草叶失败另存。完整CI未跑，不合main；用户/真机/完整战斗仍review。[证据与命令](evidence/foreground_continuity_08/README.md)。[24秒实机视频/截图](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FOREGROUND-CONTINUITY-08/6befe56/)已公开验证播放与完整字节，Pages39887917620 success；观察页，不是可玩Web更新。
