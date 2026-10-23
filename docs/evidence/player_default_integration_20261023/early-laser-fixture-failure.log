@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"plains","seed":"player-default-integration"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=268 setup_ms=25
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"ccc9bbc8a2499f48c017c2f2267eb9e74c2f291dd3f64e0d9f93cc6eb836d6fa","map_index":1,"region":"plains","seed":"player-default-integration"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"player-default-integration"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"3e909356cf7481f30db3d4ac6ca88adb371929c79088ba60a740faff6959fc8e","map_index":1,"region":"thorn_forest","seed":"player-default-integration/thorn_forest/map_1"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"plains","seed":"player-default-integration"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=268 setup_ms=25
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"ccc9bbc8a2499f48c017c2f2267eb9e74c2f291dd3f64e0d9f93cc6eb836d6fa","map_index":1,"region":"plains","seed":"player-default-integration"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"player-default-integration"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"3e909356cf7481f30db3d4ac6ca88adb371929c79088ba60a740faff6959fc8e","map_index":1,"region":"thorn_forest","seed":"player-default-integration/thorn_forest/map_1"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=80 pieces=310 setup_ms=28
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"8028ec870bb2ab6fac7c1dc6ce3545b98bbf9ac2fcce18a25402e3a176facbef","map_index":1,"region":"plains","seed":"plains-82b4ab565fb615147702bc1fe5cacd9a"}
+FAIL: accepted real beam owns exactly one continuous audio voice
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"death":5,"hurt":4,"jump":1,"land":4,"motion_jump":1,"motion_land":1,"shot":1,"step":6,"weapon_pulse":6},"service":"GameAudio"}],"released":true,"seconds":0.044}
+PLAYER DEFAULT INTEGRATION: checks=234 failures=1
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/workspace/worklines/player-default-integration/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1
