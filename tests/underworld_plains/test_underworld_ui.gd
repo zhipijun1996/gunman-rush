@@ -21,6 +21,9 @@ func click(target: Control) -> void:
 	if target == null: return
 	check(target.is_visible_in_tree(),"actual pointer target is visible, not an old hidden control")
 	if not target.is_visible_in_tree(): return
+	# Let deferred initial focus settle before scrolling a later button into
+	# view; otherwise its pending restore can undo this helper's scroll.
+	await frames(4)
 	var parent := target.get_parent()
 	while parent != null:
 		if parent is ScrollContainer: parent.ensure_control_visible(target)
