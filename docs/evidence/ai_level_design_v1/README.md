@@ -17,3 +17,7 @@
 最终独审：[限定技术 ACCEPT、内容设计 REVISE](../../ai_level_design_v1/independent_review.md)。完整源码设计与命令见 [体系说明](../../ai_level_design_v1/README.md)。
 
 最终冻结后原 Harness `ai-level-pilot --release` 实际重跑 exit 0，原九条件通过；[重跑外层收据](harness-pilot-retry.json)与[首次拒绝](harness-pilot-first-failure.json)分开保留。质量记录一致性检查 exit 0，任务仍为 review。
+
+恢复物化范围也属于证据：原实验使用 sparse 工作树，必须按各 `runtime_source` 清单物化运行文件，再应用文本覆盖。完整检出会多出未测文件，严格旧缓存会拒绝复用；可重新运行生成新的完整源收据，不能把旧收据重签。引擎二进制亦须与索引 identity 一致。
+
+公开托管已完成并匿名逐成员 SHA/长度核对，Chromium 实测 54 案例、177 条参考、筛选/滑块和 27.6 秒视频解码正常，无页面异常；见 [发布收据](public-delivery.json)。源码草稿 [PR #107](https://github.com/zhipijun1996/gunman-rush/pull/107)。独立质量工作树补足原资产后，针对实际 PR base 的 [quality diff](quality-diff.log) 通过。本 PR 因共享 Harness 注册变更正确升级 full（[原影响计划](development-plan.json)），整套 PR CI 尚待完成，不由局部通过代签。
