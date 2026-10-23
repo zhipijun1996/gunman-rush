@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T040726.430841Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "enemy-corpse-snapshot",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "b1c77ef2c0395abccc661c8e70b6b84bef00136cc12c6d2e55240de02195e4e4",
+      "log": "enemy-corpse-snapshot.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792728447.4165812,
+      "ended_at_unix": 1792728454.3036067,
+      "duration_seconds": 6.887,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "check_token": "4e25fdfd8a4342c1a24dea8078441c5e",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040726.430841Z/artifacts/enemy-corpse-snapshot",
+      "reused": false
+    },
+    {
+      "id": "bgm-integration",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "f0bdc27451d40c02ddecd7c7e15e7e2dc0f32ad1f9f7402006ccad7ab6ae6a08",
+      "log": "bgm-integration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792728454.6700656,
+      "ended_at_unix": 1792728470.8817625,
+      "duration_seconds": 16.212,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "check_token": "a085deffdb8b43669e1330c0be8403fe",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040726.430841Z/artifacts/bgm-integration",
+      "reused": false
+    },
+    {
+      "id": "player-default-integration",
+      "argv": [
+        "python3",
+        "tools/run_player_default_integration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "6efc96def6657cbc9b3456cab83e30c9687a2c0267defa892e23607324a6356d",
+      "log": "player-default-integration.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792728471.2489018,
+      "ended_at_unix": 1792728479.4866095,
+      "duration_seconds": 8.238,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_player_default_integration_tests.py"
+      ],
+      "check_token": "44d1285812f24513bcd9fb2afff3800e",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040726.430841Z/artifacts/player-default-integration",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d376cb1993f0ead934644376eab237bb9b8db16c6c68e19cb5483e72cf98d4ee",
+  "working_files": {},
+  "commit": "c33a8a2a161e11a2439a1713065af93b428f13de",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 33.707,
+  "jobs": 1,
+  "release": true
+}

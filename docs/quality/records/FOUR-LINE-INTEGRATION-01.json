@@ -2309,6 +2309,7 @@
     "shaders/underworld_foreground.gdshader",
     "shaders/underworld_foreground.gdshader.uid",
     "tests/actor_actions_runner.gd",
+    "tests/audio_teardown.gd",
     "tests/bgm_integration/README.md",
     "tests/bgm_integration/runner.gd",
     "tests/bgm_integration/runner.gd.uid",
@@ -2600,5 +2601,6 @@
     "Formal Web/Windows exports, real public deployment metadata and downloads",
     "Author-specific unresolved art/animation/feel/fun and all G5 player/device acceptance",
     "The old corpse strict66/1 failure remains historical; repaired66/0 does not certify every combined consumer"
-  ]
+  ],
+  "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression."
 }

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T040603.037079Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "enemy-feedback-native",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "154cc585e9e46c908e16ca124ce4d0074abafe2e088d4e1348e1a284c3c9d68a",
+      "log": "enemy-feedback-native.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792728363.9891608,
+      "ended_at_unix": 1792728370.7867444,
+      "duration_seconds": 6.798,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "check_token": "06d8da3fd264445c9115d4c0550c2d62",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040603.037079Z/artifacts/enemy-feedback-native",
+      "reused": false
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "37d287e7bbbd44b863701ce5d5a7199a022e1c3b29d472ef8c007fa5993686f8",
+      "log": "enemy-feedback-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792728371.160632,
+      "ended_at_unix": 1792728383.5574417,
+      "duration_seconds": 12.397,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "check_token": "9bb4877d08794952b9108704660b341e",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040603.037079Z/artifacts/enemy-feedback-formal",
+      "reused": false
+    },
+    {
+      "id": "enemy-feedback-support",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "e8c717b954adff78058a8b45e1344efb5bf5219a033b015587c57efd53c8c966",
+      "log": "enemy-feedback-support.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792728383.9338675,
+      "ended_at_unix": 1792728390.7257652,
+      "duration_seconds": 6.792,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "check_token": "5f0b26380e314ccbb642fa31014ef6d1",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040603.037079Z/artifacts/enemy-feedback-support",
+      "reused": false
+    },
+    {
+      "id": "enemy-corpse-save",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "a5da841392e73edeb76a27e88e42638a6492dc3417f44cbd3132cc472c6c176c",
+      "log": "enemy-corpse-save.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792728391.1021178,
+      "ended_at_unix": 1792728403.4011807,
+      "duration_seconds": 12.299,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "check_token": "1746b2f2eae14e9baa7f4b10621b7938",
+      "artifact_directory": "/workspace/integration-four/build/verification/harness/20261023T040603.037079Z/artifacts/enemy-corpse-save",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d376cb1993f0ead934644376eab237bb9b8db16c6c68e19cb5483e72cf98d4ee",
+  "working_files": {},
+  "commit": "c33a8a2a161e11a2439a1713065af93b428f13de",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 41.035,
+  "jobs": 1,
+  "release": true
+}

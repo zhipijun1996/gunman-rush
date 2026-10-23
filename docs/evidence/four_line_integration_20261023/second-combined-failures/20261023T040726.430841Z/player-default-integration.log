@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"plains","seed":"player-default-integration"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=268 setup_ms=25
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"ccc9bbc8a2499f48c017c2f2267eb9e74c2f291dd3f64e0d9f93cc6eb836d6fa","map_index":1,"region":"plains","seed":"player-default-integration"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"player-default-integration"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"3e909356cf7481f30db3d4ac6ca88adb371929c79088ba60a740faff6959fc8e","map_index":1,"region":"thorn_forest","seed":"player-default-integration/thorn_forest/map_1"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"plains","seed":"player-default-integration"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=268 setup_ms=26
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"ccc9bbc8a2499f48c017c2f2267eb9e74c2f291dd3f64e0d9f93cc6eb836d6fa","map_index":1,"region":"plains","seed":"player-default-integration"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"player-default-integration"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"3e909356cf7481f30db3d4ac6ca88adb371929c79088ba60a740faff6959fc8e","map_index":1,"region":"thorn_forest","seed":"player-default-integration/thorn_forest/map_1"}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=268 setup_ms=25
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"d19af130ebf49376b4b13472469419b72a97503e17350fe6bbcbf8f1b0e275fb","map_index":1,"region":"plains","seed":"plains-7e0de2fdc5b64ef7b51fd13a23ef4865"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"death":5,"hurt":4,"jump":1,"land":4,"motion_jump":1,"motion_land":1,"shot":1,"step":6,"weapon_ion_loop":1,"weapon_ion_start":1,"weapon_ion_tail":1,"weapon_pulse":6},"service":"GameAudio"}],"released":true,"seconds":0.055}
+PLAYER DEFAULT INTEGRATION: checks=235 failures=0
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+Traceback (most recent call last):
+  File "/workspace/integration-four/tools/run_player_default_integration_tests.py", line 16, in <module>
+    main()
+  File "/workspace/integration-four/tools/run_player_default_integration_tests.py", line 8, in main
+    output = run_engine(["--headless", "--fixed-fps", "60", "--audio-driver", "Dummy",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/integration-four/tools/run_tests.py", line 47, in run_engine
+    raise RuntimeError("Godot leaked ObjectDB instances or live resources at exit")
+RuntimeError: Godot leaked ObjectDB instances or live resources at exit

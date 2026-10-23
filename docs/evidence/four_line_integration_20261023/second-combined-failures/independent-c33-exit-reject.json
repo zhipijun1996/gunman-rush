@@ -1,0 +1,50 @@
+{
+  "reviewer": "independent_review",
+  "verdict": "REJECT",
+  "scope": "Currentc33 combined runtime approval blocked by actual strict teardown failure; static save/style findings do not override it.",
+  "reviewed_at_utc": "2026-10-23T04:08:26.796886+00:00",
+  "source_commit": "c33a8a2a161e11a2439a1713065af93b428f13de",
+  "report": "/workspace/integration-four/build/verification/harness/20261023T040603.037079Z/report.json",
+  "report_sha256": "dae3af87f35a49bc38fe0b1e6455d4460d88a1df3f2d511fc75472e16ab0fb11",
+  "actual_results": [
+    {
+      "id": "enemy-feedback-native",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null
+    },
+    {
+      "id": "enemy-feedback-support",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null
+    },
+    {
+      "id": "enemy-corpse-save",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit"
+    }
+  ],
+  "finding": {
+    "id": "C33-CORPSE-SAVE-EXIT-LEAK",
+    "severity": "blocking combined technical acceptance",
+    "raw_check_marker": "ENEMY_FEEDBACK_01_FORMAL checks=72 failures=0",
+    "strict_rejection": "4ObjectDB instances leaked;2resources still in use at exit. run_engine rejected as designed.",
+    "location": "enemy-corpse-save.log end",
+    "log_sha256": "a311b5cd01145c0dc49e87b7eb8e37ae952a6a4c767d94934c7e9646c5985fef",
+    "cause_status": "UNVERIFIED until actual verbose resource identities. NewGameMusic omitted by oldGameAudio-only drain is a concrete candidate,not confirmed root cause.",
+    "required_followup": "Identify actual objects,fix correct ownership/release or genuine all-service bounded teardown,retain original assertions/timeout/error rejection,rerun affected original checks at exact new frozen source."
+  },
+  "limits": [
+    "No runtime/test rerun by reviewer.",
+    "Only first4checks executed before failure; remaining checks not implied passed.",
+    "No artistic,user or device verdict."
+  ]
+}
