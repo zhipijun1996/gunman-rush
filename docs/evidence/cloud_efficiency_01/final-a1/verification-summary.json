@@ -1,0 +1,64 @@
+{
+  "purpose": "Actual CI evidence fact check, not independent implementation review or player/device acceptance",
+  "run_id": 39771696574,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39771696574",
+  "job_id": 119800548038,
+  "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "artifact": {
+    "id": 12426861148,
+    "name": "production-impact-39771696574-1",
+    "bytes": 109047334,
+    "sha256": "433db99588b6263276e98375c7afc903fbbce6d9682d301d9e8d11e5630b57ac",
+    "expires_at": "2026-11-05T12:39:19Z",
+    "archive": "/workspace/scratch/ci-a1-final/production-impact-a1-final.zip"
+  },
+  "report": {
+    "path": "/workspace/scratch/ci-a1-final/extracted/gunman-rush/gunman-rush/build/verification/harness/20261022T114531.060890Z/report.json",
+    "sha256": "bd7d5e599846dff954825ff96ca11ef3c187f25b60447466d03afdca6dc5cfbe",
+    "status": "passed",
+    "checks": 146,
+    "status_counts": {
+      "passed": 146
+    },
+    "wall_seconds": 3227.131,
+    "jobs": 2,
+    "targeted_checks": true,
+    "profiles": []
+  },
+  "plan": {
+    "path": "/workspace/scratch/ci-a1-final/extracted/gunman-rush/gunman-rush/build/verification/production-ci/execution-plan.json",
+    "sha256": "990fe58769793413c8087c93c1c67a7d6e285bb20a01ef200fab8d3f08a225a9",
+    "stage": "integration",
+    "selection": "full"
+  },
+  "execution_receipt": {
+    "path": "/workspace/scratch/ci-a1-final/extracted/gunman-rush/gunman-rush/build/verification/production-ci/execution-plan.execution.json",
+    "sha256": "91e7f9c3a59233b03f322776f0ecfaf6d2b52c3996b5490f8f2f5de71089c12a",
+    "steps": 2,
+    "status": "selected_commands_succeeded"
+  },
+  "assertions": {
+    "api_exact_head": true,
+    "api_run_job_success": true,
+    "archive_size_and_digest": true,
+    "report_exact_head": true,
+    "report_manifest": true,
+    "plan_exact_head_manifest": true,
+    "expected146_exact_order": true,
+    "expected146_unique": true,
+    "plan146_exact_order": true,
+    "all_actually_passed": true,
+    "all_fresh": true,
+    "all_execution_tokens": true,
+    "selection_receipt_success": true,
+    "clean_recorded_source": true,
+    "jobs2_fresh_release_semantics": true,
+    "no_player_device_acceptance_claim": true
+  },
+  "all_assertions_passed": true,
+  "missing": [],
+  "unexpected": [],
+  "failed_checks": [],
+  "reused_checks": []
+}

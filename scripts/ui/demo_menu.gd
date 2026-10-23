@@ -14,6 +14,7 @@ signal requested_forest_places(map_index: int, seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
+signal requested_player_presentation
 signal requested_foundation
 signal requested_windchime
 signal requested_pixel_plains
@@ -280,6 +281,9 @@ func show_home(summary: String = "") -> void:
 	action_button.clip_text = false
 	for style: String in ["normal","hover","pressed","focus"]:
 		action_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))
+	_button(rail, "主角音画样板", func() -> void:
+		_hide()
+		requested_player_presentation.emit())
 	_button(rail, "HOME", func() -> void:
 		if _home_overlay:
 			_close_home_overlay()

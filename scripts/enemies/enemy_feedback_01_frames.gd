@@ -3,7 +3,15 @@ extends RefCounted
 ## Authored, species/skin-specific poses. No authority over damage or locomotion.
 ## The unchanged generated PNGs are sliced using audited, integer pixel regions.
 const DEATH_SECONDS := .48
-const ROOT := "res://assets/enemy_feedback_01/frames_v8/"
+const MANIFEST_PATH := "res://assets/enemy_feedback_01/frames_v8/manifest.json"
+# Explicit resources keep Godot's export and the existing asset-consumer audit
+# aligned with the same finite species/skin set used by the authored manifest.
+const TEXTURES := {
+	"underworld_charger.png": preload("res://assets/enemy_feedback_01/frames_v8/underworld_charger.png"),
+	"underworld_diver.png": preload("res://assets/enemy_feedback_01/frames_v8/underworld_diver.png"),
+	"legacy_charger.png": preload("res://assets/enemy_feedback_01/frames_v8/legacy_charger.png"),
+	"legacy_diver.png": preload("res://assets/enemy_feedback_01/frames_v8/legacy_diver.png"),
+}
 var _textures: Array[Texture2D] = []
 var _bounds: Array[Rect2] = []
 var key: String
@@ -31,9 +39,12 @@ static func visible_bounds(texture: Texture2D, destination: Rect2) -> Rect2:
 
 func _init(style: StringName, id: StringName, body_size: Vector2) -> void:
 	key = String(style) + ("_diver" if id == &"plains_diver" else "_charger")
-	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROOT + "manifest.json"))
+	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST_PATH))
 	var data: Dictionary = manifest.frames[key]
-	var atlas: Texture2D = load(ROOT + str(data.texture)) as Texture2D
+	var atlas: Texture2D = TEXTURES.get(str(data.texture)) as Texture2D
+	if atlas == null:
+		push_error("Unknown enemy feedback frame texture: " + str(data.texture))
+		return
 	var basis := Vector2(float(data.basis_px[0]), float(data.basis_px[1]))
 	# One fixed scale vector for the entire clip, matching the original actual
 	# body extent (including legacy flyer's existing aspect). Never resize poses

@@ -1656,6 +1656,7 @@ func _make_ui() -> void:
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
+	menu.requested_player_presentation.connect(_open_player_presentation)
 	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_windchime.connect(_open_windchime)
 	menu.requested_pixel_plains.connect(_open_pixel_plains)
@@ -2205,6 +2206,21 @@ func _region_purchase() -> bool:
 
 func _region_shop_id() -> StringName:
 	return StringName(_region_prefix()+"shop/"+str((stage as PlainsRegionStage).generated.manifest.merchant_id))
+
+func _open_player_presentation() -> void:
+	if director.state != DemoRunDirector.State.HOME: return
+	# The author retained this body/weapon work as a development candidate.
+	# Keep it reachable from the shipped menu without replacing formal actors.
+	get_tree().paused = false
+	if is_instance_valid(home_scene): home_scene.set_input_blocked(true)
+	_open_player_presentation_scene.call_deferred()
+
+func _open_player_presentation_scene() -> void:
+	var error := get_tree().change_scene_to_file("res://scenes/dev/player_presentation_01/weapon_feel_v2.tscn")
+	if error != OK:
+		push_error("Player presentation sample could not be opened: " + str(error))
+		menu.show_home()
+		if is_instance_valid(home_scene): home_scene.set_input_blocked(false)
 
 func _open_action_studio() -> void:
 	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_action_studio): return

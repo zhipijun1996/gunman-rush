@@ -1,0 +1,67 @@
+{
+  "reviewer": "independent_review (not author)",
+  "verdict": "ACCEPT",
+  "scope": "FinalA1 source and release-guard preservation only; CI verdict explicitly pending.",
+  "reviewed_at_utc": "2026-10-22T12:36:01.366823+00:00",
+  "reviewed_head": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+  "worktree_clean": true,
+  "source_equivalence": {
+    "comparison": "1c0332e3960bc3582473d364a66aeb804bcabb76..a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+    "changed_files": 58,
+    "only_cloud_efficiency_evidence_and_quality_card": true,
+    "runtime_tools_tests_configs_workflows_unchanged": true
+  },
+  "guard_comparison": {
+    "main_baseline": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+    "original_checks": 158,
+    "all_original_noninput_fields_equal": true,
+    "original_profile_prefixes_equal": true,
+    "input_metadata_changed_checks": [
+      "production-loop-tests",
+      "level-design-routing",
+      "plains-autonomy-golden",
+      "plains-action-golden",
+      "plains-encounter-policy",
+      "visual-director-tests",
+      "root-bell-tests",
+      "aim-save-compat"
+    ],
+    "meaning": "All158 original argv,success patterns,timeouts,weights,serial/cache properties and original profile sequence prefixes are retained.8 necessary input declarations have separately reviewed actual consumers and exact original fixture recovery. Existing registered test files only gained lines; no original assertion was deleted. Original run_tests/test_runner consumers are unchanged."
+  },
+  "release_workflow": {
+    "path": ".github/workflows/environment.yml",
+    "sha256": "29d647e1828a3e696f57c74d876d82ec54b88ad7cf316cc05bfd8fcbabc1d71f",
+    "diff_from_original_main": "Only trigger changed from all pushes+PR to main pushes plus unchanged workflow_dispatch. All original jobs and checks/deployment guards remain byte-identical.",
+    "full_guards": [
+      "gameplay+art fresh disjoint lane checks at jobs1",
+      "original lane-proof verifier",
+      "web profile --release and original Web/Windows exports",
+      "original main/public-playtest deployment validation"
+    ],
+    "production_workflow": "PR-only automatic Integration with exact PR head; original full main/manual Release preserved.",
+    "note": "Source inspection of guards does not establish a successful full Release run."
+  },
+  "current_source_hashes": {
+    "tools/harness.py": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+    "tools/production_loop.py": "a27811684a0866bc1a04023a232a2b4b0edc4af0ecb5e4916006746223461ba5",
+    "tools/cloud_inputs.py": "f8ff9edb12d0f54338b29ee935f6d7f84d2fbd1b06bfa09ea6ad19b34a03308a",
+    "tools/harness/profiles.json": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+    ".github/workflows/production.yml": "d4a8bda2af9f3d288c179dfb53d4979532e2ac45fad1ba2d806ceb1645272a63"
+  },
+  "prior_local_acceptance": "local-v2-review.json signs actual1c0332e+recorded overlay docs33. FinalA1 contains the same code, but no earlier local receipt is relabeled as anA1fresh full CI result.",
+  "ci": {
+    "run_id": 39771696574,
+    "status": "UNVERIFIED_PENDING_FINAL_ARTIFACT",
+    "required_review": [
+      "Actual GitHub API head SHA equalsA1 and workflow conclusion success.",
+      "Original plan/execution/profile selection contains exact expected146 unique check IDs.",
+      "Every selected check is actually fresh/pass/exit0 with no reuse or omission.",
+      "Artifact source metadata,manifest and actual prepared source overlay agree; original serial consumers executed."
+    ]
+  },
+  "review_method": "Read source Git trees and exact check dictionaries/workflows; no tests,engine,hydration or repository edits.",
+  "limits": [
+    "CI conclusion remains pending.",
+    "Human/player quality,real devices and complete main Release are not signed."
+  ]
+}
