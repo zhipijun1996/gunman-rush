@@ -491,6 +491,13 @@ def required_input_preflight(task):
         for lesson in ledger.get("lessons", []):
             for ref in lesson.get("evidence", []):
                 require(ref.get("path"), "docs/quality/level_lessons.json")
+    # Direction regression deliberately loads these preserved pre-HUD snapshots
+    # to reject them against current authority. Their dynamically assembled paths
+    # are real selected inputs even when docs/evidence stays sparse.
+    if "tests/test_region_creative_direction.py" in commands:
+        for region in ("windchime_plains", "thorn_forest"):
+            require("docs/evidence/four_line_integration_20261023/direction-history/"
+                    + region + "-v10-before-hud-layout.json", "selected direction historical refusal")
     # Godot editor imports create repository-visible sidecars even when a worker
     # only intended to run a selected native check. Detect this before spending
     # a call, using an explicit native input contract rather than runner names.

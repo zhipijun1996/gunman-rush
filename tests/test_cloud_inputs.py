@@ -107,6 +107,34 @@ class CloudInputsTests(unittest.TestCase):
         self.assertEqual(plan['checks'], ['historical'])
         self.assertEqual([row['path'] for row in plan['inputs']], [self.proof])
 
+    def test_direction_refusal_snapshots_hydrate_without_unrelated_evidence(self):
+        snapshots = ['docs/evidence/four_line_integration_20261023/direction-history/'
+                     + region + '-v10-before-hud-layout.json'
+                     for region in ('windchime_plains', 'thorn_forest')]
+        for name in snapshots:
+            path = self.source / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('{"version":"creative-v10"}\n')
+        runner = self.source / 'tests/test_region_creative_direction.py'
+        runner.parent.mkdir(exist_ok=True)
+        runner.write_text('print("direction fixture")\n')
+        manifest = copy.deepcopy(self.manifest)
+        manifest['checks']['direction'] = {'argv': ['python3', runner.relative_to(self.source).as_posix()],
+                                           'timeout_seconds': 10, 'success_pattern': '^direction fixture$'}
+        (self.source / 'tools/harness/profiles.json').write_text(json.dumps(manifest))
+        self.git(self.source, 'add', '.')
+        self.git(self.source, 'commit', '-qm', 'direction snapshot inputs')
+        self.git(self.target, 'fetch', '-q', 'origin')
+        self.git(self.target, 'merge', '-q', '--ff-only', 'FETCH_HEAD')
+        plan = inputs.make_plan(self.target, checks=['direction'])
+        self.assertEqual({row['path'] for row in plan['inputs']}, set(snapshots))
+        report = inputs.materialize(self.target, checks=['direction'])
+        self.assertEqual(report['status'], 'ready')
+        self.assertEqual({row['path'] for row in report['materialized']}, set(snapshots))
+        for name in snapshots:
+            self.assertEqual((self.target / name).read_bytes(), (self.source / name).read_bytes())
+        self.assertFalse((self.target / self.unrelated).exists())
+
     def test_missing_quality_index_hydrates_then_reveals_actual_evidence_edge(self):
         self.set_sparse('/*\n!/docs/evidence/**\n!/docs/quality/records/**\n')
         plan = inputs.make_plan(self.target, checks=['quality'])

@@ -1,5 +1,10 @@
 # 当前状态
 
+## 2026-10-23 稀疏输入修复检查点
+
+精确 a074a709 的 [Integration 39941212514](https://github.com/zhipijun1996/gunman-rush/actions/runs/39941212514) 失败：实际执行71项，70通过、1项因两份历史方向快照缺文件失败；后续未执行，不计通过。现在补齐该动态读取的两个原件输入，保留原断言、预算、digest和全部运行内容。真实临时稀疏Git恢复回归通过，未恢复无关证据；原方向10项、输入22项、production loop115项通过。下一精确head CI、main合并与正式发布仍待完成。[原始失败报告及准确来源](evidence/four_line_integration_20261023/ci-a074/identity.json)。
+
+
 ## 2026-10-23 当前 HUD 与资源契约集成（冻结检查点）
 
 实现 `cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f` 已冻结。8场景94/0＋10真实负例＋15篡改拒绝通过；双引擎总133.386秒，原180/900预算不变。实际新HUD避敌／触控修复、当前免费一发验证和15项手动历史分流已接入；HUD专用style-v9／creative-v12保旧原件及其他35引用。encounter full3仍为失败，最终尾段证据不冒称fresh完整；下一精确PR CI、main与正式新Web尚未完成。见[准确来源、当前证明与试玩边界](integration/four_lines_20261023.md)。以下段落保留各历史检查点，不代表最新运行或发布状态。
