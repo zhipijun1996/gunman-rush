@@ -4,6 +4,11 @@ uniform vec2 attachment;
 uniform vec2 art_size;
 uniform float source_to_world = 1.0;
 uniform bool branch = false;
+uniform int protection_count = 0;
+uniform vec4 protection_rects[64];
+uniform bool protection_overflow = false;
+uniform float mask_soft_margin = 24.0;
+uniform float root_visibility = 1.0;
 uniform float wind_time = 0.0;
 uniform float wind_phase = 0.0;
 uniform vec4 depth_shadow : source_color = vec4(.025,.055,.066,1.0);
@@ -31,5 +36,18 @@ void fragment() {
 	// Keep the blue-green near-plane silhouette on bright air, but preserve
 	// enough leaf light to read its shape over the dark foreground rock.
 	vec3 pigment=mix(depth_shadow.rgb,depth_highlight.rgb,clamp(luma*2.8,0.0,1.0));
-	COLOR=vec4(pigment,art.a)*item_tint;
+	// Screen pixels share the same coordinates as actual Control/canvas
+	// rectangles. Uploaded strict rectangles already include 3wu wind margin.
+	// A sudden HUD/projectile never waits for the slower object fade to finish.
+	vec2 screen_point=SCREEN_UV/SCREEN_PIXEL_SIZE;
+	float protection=protection_overflow ? 0.0 : 1.0;
+	for(int i=0;i<64;i++) {
+		if(i>=protection_count) break;
+		vec4 rect=protection_rects[i];
+		vec2 outside=max(max(rect.xy-screen_point,screen_point-rect.zw),vec2(0.0));
+		float distance_to_rect=length(outside);
+		// Interior and boundary have exactly distance zero and alpha zero.
+		protection=min(protection,smoothstep(0.0,max(mask_soft_margin,.001),distance_to_rect));
+	}
+	COLOR=vec4(pigment,art.a*protection*root_visibility)*item_tint;
 }
