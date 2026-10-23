@@ -1,5 +1,10 @@
 # ENEMY-FEEDBACK-01 · System Engineering
 
+## 2026-10-23 最新：正式死亡链的实体爆裂声（v7）
+
+用户要求“怪物死亡应该增加一个音效”，本轮只解除两个样板的死亡声暂缓；枪声/普通命中声保持原样。沿原EnemyActor→GameAudio.enemy_defeat唯一触发，为两条表现链配置任务短裂/躯体/碎屑声；最小逐origin音色接口见[具体写集与合同](enemy_feedback_01_audio_interface.md)。没有再接第二次死亡演出，原池/节流/暂停/restore规则保留。实际源码0e37e04528b4f71af75e74c5370d656e1e122588；新声实弹影片、失败与验证见[v7检查点](evidence/enemy_feedback_01/v7/README.md)，仍未合main。
+
+
 ## 2026-10-22 最新：更强命中与死亡爆裂（v6）
 
 按用户“爆炸和受击的特效可以再夸张一点。增加玩家打击反馈感”，仅加强两个任务leaf的短接触尖芒、飞溅空间与分层死亡压力轮廓；普通body flash保留，演出时长/3并发burst/80纹理片上限/0.55秒spent合同不变。玩家/相机/全局时钟/音效和任何玩法所有权不扩。两种对象与两套继承链均需独立实弹验证。当前源73556539d4337065eb73537ce2fc2c03d7729c18，媒体、实测与未完成范围以[v6检查点](evidence/enemy_feedback_01/v6/README.md)为准；未合main。

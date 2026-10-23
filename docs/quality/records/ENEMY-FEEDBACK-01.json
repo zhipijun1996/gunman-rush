@@ -4,23 +4,31 @@
   "task_type": "animation",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-  "content_version": "feedback-sample-v6",
+  "reviewed_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+  "content_version": "feedback-sample-v7",
   "owner": "/root",
   "purpose": "Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.",
-  "player_experience": "Stronger accepted-hit directional fans and through-stroke; short eight-spoke death impulse, wider original-texture shards and fine trails. Same finite lifetimes and silent spent restore. Visual player hit feedback only; no player/camera/audio/time/physics changes.",
+  "player_experience": "The two samples use a short physical crack/body/debris death sound through the original sole enemy_defeat cue. V6 visual feedback stays. No extra cue or gameplay change; gun/hit sounds remain deferred.",
   "constraints": [
-    "Only plains_charger and plains_diver; no AI/damage/collision/reward/Boss/config/audio/shared-parent or source-PNG changes",
+    "Only plains_charger/diver; readonly AI/damage/collision/reward/Boss/config/parent clocks/source PNGs. Audio scope is task death WAV and per-origin timbre routing in existing GameAudio, authorized by latest user request.",
     "EnemyActor, Definitions, ForestBibleActors and official scenes remain controller-owned",
     "Observe accepted HealthState damage; no new signal; separate both inheritance chains",
     "No main merge; full Integration remains required before controller integration",
-    "Latest user direction supersedes persistent corpses for the two samples; do not claim the old moving-support save defect was repaired. No Actor/Stage/save-schema or shared clock/camera/audio edits."
+    "Persistent corpse save defect remains superseded, not repaired. No Actor/Stage/save-schema/shared-clock/camera edits; default audio assets and all other cue behavior remain unchanged."
   ],
   "affected_paths": [
+    "assets/audio/enemy_feedback_01/README.md",
+    "assets/audio/enemy_feedback_01/death_burst.wav",
+    "assets/audio/enemy_feedback_01/death_burst.wav.import",
+    "assets/audio/enemy_feedback_01/provenance.json",
+    "docs/enemy_feedback_01_audio_interface.md",
+    "scripts/audio/game_audio.gd",
     "scripts/enemies/enemy_feedback_01.gd",
     "scripts/enemies/enemy_feedback_01.gd.uid",
     "scripts/enemies/enemy_feedback_01_body.gd",
     "scripts/enemies/enemy_feedback_01_body.gd.uid",
+    "scripts/enemies/enemy_feedback_01_death_audio.gd",
+    "scripts/enemies/enemy_feedback_01_death_audio.gd.uid",
     "scripts/enemies/enemy_feedback_01_flash.gdshader",
     "scripts/enemies/enemy_feedback_01_flash.gdshader.uid",
     "scripts/enemies/enemy_feedback_01_particles.gd",
@@ -29,14 +37,21 @@
     "scripts/enemies/enemy_feedback_01_remains.gd.uid",
     "scripts/enemies/enemy_presentation.gd",
     "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_feedback_01_death_audio.gd",
+    "tests/enemy_feedback_01_death_audio.gd.uid",
     "tests/enemy_feedback_01_formal.gd",
     "tests/enemy_feedback_01_formal.gd.uid",
+    "tests/enemy_feedback_01_particle_extent.gd",
+    "tests/enemy_feedback_01_particle_extent.gd.uid",
     "tests/enemy_feedback_01_pixels.gd",
     "tests/enemy_feedback_01_pixels.gd.uid",
     "tests/enemy_feedback_01_support.gd",
     "tests/enemy_feedback_01_support.gd.uid",
     "tests/enemy_feedback_01_tests.gd",
     "tests/enemy_feedback_01_tests.gd.uid",
+    "tests/enemy_feedback_01_v6_extent.gd",
+    "tests/enemy_feedback_01_v6_extent.gd.uid",
+    "tools/build_enemy_feedback_01_death_audio.py",
     "tools/capture_enemy_feedback_01.py",
     "tools/capture_enemy_feedback_01_remains.py",
     "tools/enemy_feedback_01_audio_candidates.py",
@@ -45,18 +60,16 @@
     "tools/enemy_feedback_01_capture.gd",
     "tools/enemy_feedback_01_capture.gd.uid",
     "tools/enemy_feedback_01_remains_capture.gd",
-    "tools/enemy_feedback_01_remains_capture.gd.uid",
-    "tests/enemy_feedback_01_particle_extent.gd",
-    "tests/enemy_feedback_01_particle_extent.gd.uid",
-    "tests/enemy_feedback_01_v6_extent.gd",
-    "tests/enemy_feedback_01_v6_extent.gd.uid"
+    "tools/enemy_feedback_01_remains_capture.gd.uid"
   ],
   "deliverables": [
-    "docs/evidence/enemy_feedback_01/v6/README.md",
-    "docs/evidence/enemy_feedback_01/v6/movies/after.mp4",
-    "docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4",
-    "docs/evidence/enemy_feedback_01/v6/runtime-source.bundle",
-    "docs/evidence/enemy_feedback_01/v6/review.md"
+    "docs/evidence/enemy_feedback_01/v7/README.md",
+    "docs/evidence/enemy_feedback_01/v7/movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v7/movies/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/v7/runtime-source.bundle",
+    "docs/evidence/enemy_feedback_01/v7/review.md",
+    "assets/audio/enemy_feedback_01/death_burst.wav",
+    "docs/enemy_feedback_01_audio_interface.md"
   ],
   "creative_decisions": [
     {
@@ -72,8 +85,8 @@
     },
     {
       "status": "proposed",
-      "decision": "More exaggerated accepted hit and kill visual feedback on the same two samples.",
-      "basis": "User explicitly requests a stronger effect; this authorizes iteration but does not accept the new result.",
+      "decision": "Physical short death burst timbre for the two samples via original defeat cue",
+      "basis": "Latest user explicitly requested monster death audio; candidate sound is not yet user-approved.",
       "evidence_id": "user_feedback"
     },
     {
@@ -86,23 +99,24 @@
   "gates": {
     "G0": {
       "status": "passed",
-      "reason": "Latest stronger-VFX request, bounded layers, two-chain reuse and unchanged shared gameplay ownership documented.",
+      "reason": "New death-audio authorization and concrete per-origin existing-cue interface/ownership recorded.",
       "evidence": [
         "spec"
       ]
     },
     "G1": {
       "status": "passed",
-      "reason": "Current independent native370/0, support141/0, GPU162/0, default App62/0; matched GPU extent442/0 per version across both chains. Historical tests are not relabeled as current.",
+      "reason": "Current native370/0, normal-clock death_audio247/0, formal62/0, audio_lifecycle37/0, GPU162/0, shared-interface UNIT31/0; original failures retained.",
       "evidence": [
         "native",
-        "support",
-        "pixels",
         "formal",
+        "pixels",
         "native_trace",
         "pixel_trace",
-        "extent_command",
-        "extent_runtime"
+        "audio_command",
+        "audio_trace",
+        "audio_lifecycle",
+        "audio_unit"
       ]
     },
     "G2": {
@@ -149,16 +163,17 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "Current real-projectile lifecycle/GPU/default-App evidence plus both-chain same-age visibility-only measurements; no new gameplay result authority.",
+      "reason": "Current native370/0, normal-clock death_audio247/0, formal62/0, audio_lifecycle37/0, GPU162/0, shared-interface UNIT31/0; original failures retained.",
       "evidence": [
         "native",
-        "support",
-        "pixels",
         "formal",
+        "pixels",
         "native_trace",
         "pixel_trace",
-        "extent_command",
-        "extent_runtime"
+        "audio_command",
+        "audio_trace",
+        "audio_lifecycle",
+        "audio_unit"
       ]
     },
     "formal_integration": {
@@ -190,11 +205,13 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "New larger contact/death layers actually sampled and independently reviewed; overall feel/user acceptance and deferred audio remain unverified.",
+      "reason": "Existing sole defeat cue selects actual new task WAV on both chains; subjective sound and mix/device acceptance remain unverified.",
       "evidence": [
+        "audio_trace",
+        "audio_mix",
         "video",
-        "user_feedback",
-        "review"
+        "review",
+        "user_feedback"
       ]
     },
     "gameplay": {
@@ -214,7 +231,7 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Separate read-only reviewer independently exercised frozen735 runtime and inspected actual matched pixels; judgment limited to recorded scope.",
+      "reason": "Separate reviewer freshly executes current audio/lifecycle/real-HP/default-App/visible consumers and shared-interface unit, limited technical ACCEPT.",
       "evidence": [
         "review"
       ]
@@ -279,14 +296,14 @@
     },
     {
       "id": "media",
-      "scenario": "Two real engine burst-and-disappear cases",
+      "scenario": "Two real projectile deaths with new timbre",
       "method": "Compare identical gameplay trace and sampled neighboring pixels",
-      "expected": "Stronger bounded directional hit fan and distinct larger lethal burst with original material shards",
+      "expected": "Actual original defeat cue accompanies unchanged v6 explosion/disappear",
       "failure": "Fake hit or recurring terminal performance",
       "gate": "G2",
       "dimension": "animation",
       "status": "unverified",
-      "reason": "Actual735 footage and identical gameplay causal projections; candidate still awaits user feel judgment.",
+      "reason": "Frozen0e37 real source and causal equality; user listening/feel acceptance remains unverified.",
       "evidence": [
         "video",
         "comparison",
@@ -317,7 +334,7 @@
       "gate": "G2",
       "dimension": "audio_vfx",
       "status": "not_applicable",
-      "reason": "Sound work remains explicitly deferred.",
+      "reason": "Gun and ordinary-hit redesign remain deferred; current death sound is covered by its separate actual-stream criterion.",
       "evidence": [
         "user_feedback"
       ]
@@ -331,7 +348,7 @@
       "gate": "G1",
       "dimension": "technical",
       "status": "passed",
-      "reason": "Current162 original GPU assertions plus442 matched extent assertions per version; real hits/deaths on both actual render chains.",
+      "reason": "Current actual GPU162/0 confirms selected ready hooks preserve visible flash/death/epoch behavior; no v7 size change claimed.",
       "evidence": [
         "pixels",
         "pixel_trace"
@@ -360,8 +377,8 @@
       "failure": "Unbounded active burst, phantom floor/body or replay",
       "gate": "G1",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "141 independent edge assertions under burst contract; no persistent-support-save claim.",
+      "status": "unverified",
+      "reason": "Exact141 support-edge matrix not rerun in v7; current native/formal still cover spent restore and disposal. V6 source retains historical edge proof.",
       "evidence": [
         "support",
         "support_trace"
@@ -375,11 +392,27 @@
       "failure": "Fake event, source drift, actual-age mismatch or clipped envelope",
       "gate": "G1",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "442/0 per version with current vs3c actual same-age measurements; aesthetic acceptance remains separate.",
+      "status": "not_applicable",
+      "reason": "V6 measured larger envelope is historical and unchanged; this audio iteration does not relabel the old comparison as fresh.",
       "evidence": [
-        "extent_command",
         "extent_runtime"
+      ]
+    },
+    {
+      "id": "actual_death_audio",
+      "scenario": "Two species and both chains receive three real Router bullets",
+      "method": "Actual pooled stream identity, existing cue counts and resource/pause/restore/owner receipts; normal wall clock",
+      "expected": "Nonlethal zero death starts; one existing enemy_defeat using task WAV at lethal; no replay on reject/restore/unload",
+      "failure": "Second cue, incorrect/default stream for selected target, replay, owner/reference leak or shared audio default/pool change",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Independent current247/0 plus UNIT31/0 and original lifecycle37/0; failed offline mode retained, not cleared for success.",
+      "evidence": [
+        "audio_command",
+        "audio_trace",
+        "audio_lifecycle",
+        "audio_unit"
       ]
     }
   ],
@@ -387,13 +420,13 @@
     {
       "id": "spec",
       "path": "docs/enemy_feedback_01.md",
-      "sha256": "46ad9311d89aaada0490a6eb011152338e17f6e5f755b3a611a913202a464b55",
+      "sha256": "79ad76f36d6bb04ec4e4cfc9bcd67386c5f5f62ac6748cb270563dbab84aa6d7",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "Current stronger hit/death layers, same two consumers and readonly gameplay/shared ownership."
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "Latest death-audio request, sole existing trigger, two-chain stream configuration and bounded shared-interface ownership."
     },
     {
       "id": "art_advice",
@@ -408,13 +441,13 @@
     },
     {
       "id": "native",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/native.log",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/native.log",
       "sha256": "1bf3561dbb42fa93a2b95f7c99c00a20788198e5f4fd7591e4d02215e244f052",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Independent370 assertions,0 failures; both actual scene/installer chains.",
       "command": "bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_tests.gd",
       "exit_code": 0,
@@ -422,13 +455,13 @@
     },
     {
       "id": "formal",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/formal.log",
-      "sha256": "c668ba10cdfc49abf9ae6e3831bc15c5913fe7f0ba8c06588fedfb28f3cd3e89",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/formal.log",
+      "sha256": "a2e05503e5d6b6ff4bc52d188f060614fcf622208790330bdfaada0a613c5ea7",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Independent62/0 new spent/drop/reload contract; old corpse-save failure superseded, not repaired.",
       "command": "bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_formal.gd",
       "exit_code": 0,
@@ -436,13 +469,13 @@
     },
     {
       "id": "pixels",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/pixels.log",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/pixels.log",
       "sha256": "07cb64e12616ffc9ca831265006363ac0a5230ec04479bb460abec41cc04fc1d",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Independent162/0: ordinary flash/palette alpha retained; real death onset/fragment pixels, paused identical and owned-layer cancel/expiry zero.",
       "command": "bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --script res://tests/enemy_feedback_01_pixels.gd",
       "exit_code": 0,
@@ -464,13 +497,13 @@
     },
     {
       "id": "native_trace",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/native-runtime.json",
-      "sha256": "d19ec8a2d48af10bb55e11b0d8e5c37ebc276e2151c7d87b7eb4903db7a3659b",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/native-runtime.json",
+      "sha256": "50e160b05d89992c9edffb5c49421ceb14c756253d38223f4e290778bdb0df5d",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Two species/both chains, actual HP/death/restore/unload transactions.",
       "consumers": [
         "original_charger",
@@ -481,13 +514,13 @@
     },
     {
       "id": "formal_trace",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/formal-runtime.json",
-      "sha256": "51fac944519bf170db1192c62fc84872b389aa43f41bd49300466a07bd95f0a0",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/formal-runtime.json",
+      "sha256": "2dafee8bae3e00fecf8121b55b9f46c0db8a3347247eec9d92c43a74dd0d22b3",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Actual default App real kills/drop/reload62/0 under spent policy; no old corpse support-save repair claim.",
       "consumers": [
         "default_plains_app"
@@ -510,36 +543,36 @@
     },
     {
       "id": "pixel_trace",
-      "path": "docs/evidence/enemy_feedback_01/v6/independent/pixels/report.json",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/pixels/report.json",
       "sha256": "3c0e1102e046da212ec00f6a44a629bab44a15db96507f87422adfbe9fce079b",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Actual ordinary flash and death onset/fragment GPU pixels; pause stable, owned layer zero at expiry/epoch cancellation."
     },
     {
       "id": "consumers",
-      "path": "docs/evidence/enemy_feedback_01/v6/consumers.json",
-      "sha256": "dab32e962efe79a7b37877938e0d40f3b83c3e5e1714b09b5815088a65966d8e",
+      "path": "docs/evidence/enemy_feedback_01/v7/consumers.json",
+      "sha256": "c08150ea52038447b96d1a239fa8bf0b5ad1c9d7602351def22d7c9059354e97",
       "kind": "runtime_trace",
       "producer": "/root",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
       "observed": "Five real consumers re-observed under v5 policy; forest/ActionStudio visual gaps retained."
     },
     {
       "id": "review",
-      "path": "docs/evidence/enemy_feedback_01/v6/review.md",
-      "sha256": "12b38fdc784ebdd76f20e0a3f61ce8a84ef7e747fee909578976e5afd39f1c2f",
+      "path": "docs/evidence/enemy_feedback_01/v7/review.md",
+      "sha256": "ea29fd3221e743476d3d40756894f5f94081afba24f540a7fe84b85ab196f2d2",
       "kind": "review",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "Independent current scoped technical/death candidate judgment; not final art/feel/device acceptance.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "Current limited technical ACCEPT; no listening/device/whole-task approval.",
       "reviewer": "/root/feedback_review",
       "implementers": [
         "/root",
@@ -552,63 +585,63 @@
     },
     {
       "id": "video",
-      "path": "docs/evidence/enemy_feedback_01/v6/movies/after.mp4",
-      "sha256": "f701338eb857f9f99693c56b6cc2ace5b0dea2902eafa2b4a90c36fed32ef3d8",
+      "path": "docs/evidence/enemy_feedback_01/v7/movies/after.mp4",
+      "sha256": "ecb683604f515e87035df2d89f8091c9b3a95e7da735e92727ffcba23e426102",
       "kind": "video",
       "producer": "/root",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "14sec at normal speed, two continuous7sec real735 samples, original audio and factual footer."
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "14sec continuous real0e37 excerpts, normal60fps with actual stereo audio; no listening claim."
     },
     {
       "id": "comparison",
-      "path": "docs/evidence/enemy_feedback_01/v6/movies/comparison.mp4",
-      "sha256": "3b36d1737063633da8b832701adbd879c0e50d39859ed160e2c2c01228b3b89e",
+      "path": "docs/evidence/enemy_feedback_01/v7/movies/comparison.mp4",
+      "sha256": "a50cd8b778d4792e69c29f77e1af816fc56ba88c53782318e37f84bdfc815bb0",
       "kind": "video",
       "producer": "/root",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "20sec matched5sec excerpts per species: v5 thenv6; actual causal projections equal, original speed/audio."
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "20sec matched v6/v7 excerpts with original audio; visual geometry unchanged, game causality equal."
     },
     {
       "id": "capture",
-      "path": "docs/evidence/enemy_feedback_01/v6/movies/after-report.json",
-      "sha256": "24d60b0ced674111d40e7b780d1aab36d364c5d288179949b3e5d68e29d2a259",
+      "path": "docs/evidence/enemy_feedback_01/v7/movies/after-report.json",
+      "sha256": "73945dfc5cc1a100a78282b4ff78aec8fee688d0a02c6b893a9dbb5a8614beb6",
       "kind": "runtime_trace",
       "producer": "/root",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "Frozen735 actual26sec/1560frames; six HP commits/two deaths; visible accepted starts and210 hidden tail frames; gameplay/input/event projections equal v5."
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "Frozen0e37 source stable,1560 gameplay projections and actual inputs/events equal v6, six HP commits/two deaths."
     },
     {
       "id": "affected",
-      "path": "docs/evidence/enemy_feedback_01/v6/affected/report.json",
-      "sha256": "67caf19c6a1c1a83dd4d6569da884226ba01303c69d8bbc70f82b9327fb3e1cc",
+      "path": "docs/evidence/enemy_feedback_01/v7/affected/report.json",
+      "sha256": "a64b4e2c38226169060ccf54fe284132c3146f0ce02b542ec00e8c0f9728dda0",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "Four original targeted Harness checks freshly rerun on735; not complete affected Integration.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "Four original Harness checks fresh passed;13 inner forest ERROR lines match expected malformed-save refusals, not hidden. Not full Integration.",
       "command": "python3 tools/harness.py --check underworld-damage-feedback --check underworld-formal --check actor-actions --check forest-bible-integration-tests --release --jobs 1",
       "exit_code": 0,
-      "environment": "Isolated clean735 worktree, original Harness, Godot4.7.2 Standard"
+      "environment": "Isolated clean0e37 worktree, original Harness, Godot4.7.2 Standard"
     },
     {
       "id": "user_feedback",
-      "path": "docs/evidence/enemy_feedback_01/v6/user-feedback.json",
-      "sha256": "fae363d91ade0f8fb4b8d6c8a628dcea87ef6f88b91b0b34cf574ae0d8b5eaf5",
+      "path": "docs/evidence/enemy_feedback_01/v7/user-feedback.json",
+      "sha256": "6b06e1a5342df34a4e1214fd2abc649f67fe1fd1b8aeda1aa00d9d76b10ded2c",
       "kind": "user_feedback",
       "producer": "user",
-      "source_commit": "73556539d4337065eb73537ce2fc2c03d7729c18",
-      "content_version": "feedback-sample-v6",
-      "method": "Actual v6 artifact, with original command/source, failure boundaries and reviewed scope documented in current README/review.",
-      "observed": "User requests stronger hit/death visual feedback; not approval of produced v6.",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual current v7 artifact; recorded command/source, independent scope, raw failures and audio clock limits in README/review.",
+      "observed": "Death audio newly authorized, current timbre not user-approved.",
       "source": "Current user conversation",
-      "quote": "爆炸和受击的特效可以再夸张一点。增加玩家打击反馈感",
+      "quote": "怪物死亡应该增加一个音效",
       "accepted": false,
       "covers": [
         "audio_vfx",
@@ -700,6 +733,67 @@
       "method": "Pair exact species/chain/kind/requestedframes and actual ages; independently sampled off/on GPU screenshots and source guards.",
       "observed": "Actual changed pixels and world envelope comparison; no subjective impact or device signoff.",
       "sha256": "6affde7cc0c21b9d11d891e0481af362d91c2f1297d384c0badd9d74796c05f2"
+    },
+    {
+      "id": "audio_command",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/death-audio.log",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual artifact from frozen0e37; not subjective listening or physical-device acceptance.",
+      "observed": "Real death sound247/0",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --max-fps 60 --script tests/enemy_feedback_01_death_audio.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; death audio uses normal wall-clock maxfps60, no fixed-fps.",
+      "sha256": "5e1425b61407f6d9ff567aa96abcc3572a2a15f99f0f109912abf3e6b4c5ef95"
+    },
+    {
+      "id": "audio_trace",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/death_audio_runtime.json",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual artifact from frozen0e37; not subjective listening or physical-device acceptance.",
+      "observed": "Four real pooled task-WAV death receipts",
+      "sha256": "92e6774ed363c74fd41bca156d4eb58b79f0eefdcbef8562a790f66ba754a23c"
+    },
+    {
+      "id": "audio_lifecycle",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/audio-lifecycle.log",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual artifact from frozen0e37; not subjective listening or physical-device acceptance.",
+      "observed": "Original lifecycle37/0 with actual mixer release",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script tests/audio_lifecycle_runner.gd --marker \"^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$\" --output build/enemy-feedback-01/v7-review/audio-lifecycle",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; death audio uses normal wall-clock maxfps60, no fixed-fps.",
+      "sha256": "1ec6241a36e5c6ec00ff0accac1a27f208beaef6a3cdd5bc5c0a45918b23326a"
+    },
+    {
+      "id": "audio_unit",
+      "path": "docs/evidence/enemy_feedback_01/v7/independent/interface-unit.json",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual artifact from frozen0e37; not subjective listening or physical-device acceptance.",
+      "observed": "Shared interface UNIT31/0; not a formal hit",
+      "sha256": "e534e3a66e7d78b39bfb3105d4240fd5d88908b761ad7d83799a8df1b74f9d34"
+    },
+    {
+      "id": "audio_mix",
+      "path": "docs/evidence/enemy_feedback_01/v7/mix-measurement.json",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "0e37e04528b4f71af75e74c5370d656e1e122588",
+      "content_version": "feedback-sample-v7",
+      "method": "Actual artifact from frozen0e37; not subjective listening or physical-device acceptance.",
+      "observed": "Full decoded stereo mix peak/fullscale comparison",
+      "sha256": "18bd55cfc4f6b885768b34ea19a2baaed1d3c56bdc27e3c0c77a8ee877ee34be"
     }
   ],
   "consumer_coverage": {
@@ -770,16 +864,17 @@
   },
   "unverified_items": [
     "Complete affected146-check Integration and exact forest/ActionStudio visual consumers remain unverified; draft only, no main merge",
-    "Original body art/full locomotion frame atlases remain unfinished; v5 death is procedural burst rather than newly drawn death art",
-    "Current v5 burst candidate/user feel/Hollow Knight fidelity and formal art-golden scene not accepted",
+    "Original body art/full locomotion frame atlases remain unfinished; current v7 death is procedural burst rather than newly drawn death art",
+    "Current current v7 burst candidate/user feel/Hollow Knight fidelity and formal art-golden scene not accepted",
     "Physical device performance/real GUI experience not measured; software MovieMaker is not device FPS",
-    "Audio remains deferred to character/equipped weapon; shared camera/time interfaces untouched",
-    "Same-instance inherited parent resurrection visibility remains outside this readonly-parent slice; actual official stage reload is separately covered"
+    "Same-instance inherited parent resurrection visibility remains outside this readonly-parent slice; actual official stage reload is separately covered",
+    "Gun and ordinary hit sound redesign remains deferred; current death sound listening/mix taste/device unverified",
+    "Full same-frame multi-enemy audio is not expanded: original55ms cue cooldown and12 voice budget remain; offline fixed-fps239/16 stays failed"
   ],
   "skills": [
     "animation-vfx",
     "game-quality-gate",
     "art-director"
   ],
-  "production_snapshot": "07e9976f5aa8094fb344ad883e19c99cc9edb9ecf3f460881ef16d527b8125c8"
+  "production_snapshot": "710cb29de9323dd3bc4244b4fad7902495fe29120c60bfea1c967684b4c9d1dd"
 }

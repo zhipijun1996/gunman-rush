@@ -1,0 +1,303 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "inherited" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/enemies/enemy_feedback_01_death_audio.gd:25)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/enemies/enemy_presentation.gd:0)
+ERROR: Failed to load script "res://scripts/enemies/enemy_presentation.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: metadata_ownership_cases (res://tests/enemy_feedback_01_death_audio.gd:20)
+          GDScript backtrace (most recent call first):
+              [0] metadata_ownership_cases (res://tests/enemy_feedback_01_death_audio.gd:20)
+              [1] run (res://tests/enemy_feedback_01_death_audio.gd:166)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:92)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [3] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+FAIL: selected existing enemy owns shared feedback component
+FAIL: both selected inheritance chains own accepted-contact pixel particles
+FAIL: both selected inheritance chains own lifecycle-bound remains consumer
+FAIL: selected actual rendering chain configures task defeat timbre on its EnemyActor
+SCRIPT ERROR: Invalid access to property or key 'accepted_hit_count' on a base object of type 'Nil'.
+          at: rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+          GDScript backtrace (most recent call first):
+              [0] rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+              [1] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:107)
+              [2] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: actual EnemyActor terminal transition plays exactly one existing enemy_defeat cue
+FAIL: existing bounded voice pool plays task WAV with unchanged enemy_defeat cue ID
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:313)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [3] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [4] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: restored terminal snapshot recognized in selected chain
+SCRIPT ERROR: Invalid access to property or key 'active' on a base object of type 'Nil'.
+          at: restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+          GDScript backtrace (most recent call first):
+              [0] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: duplicate, old epoch and saved-dead instances cannot replay task defeat audio
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:135)
+              [3] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:135)
+              [3] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: formal installer retains task per-origin timbre after presentation replacement
+FAIL: old original-chain helper relinquishes Actor reference during actual installer replacement
+FAIL: dead presentation replacement never invokes a second defeat cue
+ERROR: The object does not have any 'meta' values with the key 'audio_cue_stream_overrides'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+          GDScript backtrace (most recent call first):
+              [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:92)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [3] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+              [4] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] setup (res://tests/enemy_feedback_01_tests.gd:102)
+              [3] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [4] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+              [5] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:114)
+              [2] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] setup (res://tests/enemy_feedback_01_tests.gd:115)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: both actual selected Underworld instances own body-only flash consumers
+SCRIPT ERROR: Invalid access to property or key 'flash_material' on a base object of type 'Nil'.
+          at: setup (res://tests/enemy_feedback_01_tests.gd:119)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://tests/enemy_feedback_01_tests.gd:119)
+              [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: selected actual rendering chain configures task defeat timbre on its EnemyActor
+FAIL: real shot voices keep original shot stream despite unrelated per-origin metadata
+SCRIPT ERROR: Invalid access to property or key 'accepted_hit_count' on a base object of type 'Nil'.
+          at: rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+          GDScript backtrace (most recent call first):
+              [0] rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+              [1] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:107)
+              [2] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: actual EnemyActor terminal transition plays exactly one existing enemy_defeat cue
+FAIL: existing bounded voice pool plays task WAV with unchanged enemy_defeat cue ID
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:313)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [3] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [4] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:316)
+              [3] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [4] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [5] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: restored terminal snapshot recognized in selected chain
+SCRIPT ERROR: Invalid access to property or key 'active' on a base object of type 'Nil'.
+          at: restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+          GDScript backtrace (most recent call first):
+              [0] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: duplicate, old epoch and saved-dead instances cannot replay task defeat audio
+FAIL: formal installer retains task per-origin timbre after presentation replacement
+FAIL: dead presentation replacement never invokes a second defeat cue
+ERROR: The object does not have any 'meta' values with the key 'audio_cue_stream_overrides'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+       [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+          GDScript backtrace (most recent call first):
+              [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+              [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:92)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [3] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+              [4] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+              [5] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: selected existing enemy owns shared feedback component
+FAIL: both selected inheritance chains own accepted-contact pixel particles
+FAIL: both selected inheritance chains own lifecycle-bound remains consumer
+FAIL: selected actual rendering chain configures task defeat timbre on its EnemyActor
+FAIL: real shot voices keep original shot stream despite unrelated per-origin metadata
+SCRIPT ERROR: Invalid access to property or key 'accepted_hit_count' on a base object of type 'Nil'.
+          at: rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+          GDScript backtrace (most recent call first):
+              [0] rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+              [1] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:107)
+              [2] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: actual EnemyActor terminal transition plays exactly one existing enemy_defeat cue
+FAIL: existing bounded voice pool plays task WAV with unchanged enemy_defeat cue ID
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:313)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [3] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [4] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: restored terminal snapshot recognized in selected chain
+SCRIPT ERROR: Invalid access to property or key 'active' on a base object of type 'Nil'.
+          at: restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+          GDScript backtrace (most recent call first):
+              [0] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: duplicate, old epoch and saved-dead instances cannot replay task defeat audio
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:135)
+              [3] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:135)
+              [3] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: formal installer retains task per-origin timbre after presentation replacement
+FAIL: old original-chain helper relinquishes Actor reference during actual installer replacement
+FAIL: dead presentation replacement never invokes a second defeat cue
+ERROR: The object does not have any 'meta' values with the key 'audio_cue_stream_overrides'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+          GDScript backtrace (most recent call first):
+              [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:92)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [3] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+              [4] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] setup (res://tests/enemy_feedback_01_tests.gd:102)
+              [3] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:90)
+              [4] run (res://tests/enemy_feedback_01_death_audio.gd:169)
+              [5] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] setup (res://tests/enemy_feedback_01_tests.gd:114)
+              [2] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] setup (res://tests/enemy_feedback_01_tests.gd:115)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: both actual selected Underworld instances own body-only flash consumers
+SCRIPT ERROR: Invalid access to property or key 'flash_material' on a base object of type 'Nil'.
+          at: setup (res://tests/enemy_feedback_01_tests.gd:119)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://tests/enemy_feedback_01_tests.gd:119)
+              [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: selected actual rendering chain configures task defeat timbre on its EnemyActor
+FAIL: real shot voices keep original shot stream despite unrelated per-origin metadata
+SCRIPT ERROR: Invalid access to property or key 'accepted_hit_count' on a base object of type 'Nil'.
+          at: rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+          GDScript backtrace (most recent call first):
+              [0] rejection_cases (res://tests/enemy_feedback_01_tests.gd:148)
+              [1] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:107)
+              [2] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [3] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: actual EnemyActor terminal transition plays exactly one existing enemy_defeat cue
+FAIL: existing bounded voice pool plays task WAV with unchanged enemy_defeat cue ID
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: EnemyPresentation._ready (res://scripts/enemies/enemy_presentation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/enemies/enemy_presentation.gd:21)
+              [1] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:313)
+              [2] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [3] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [4] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.
+          at: UnderworldEnemy._ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://scripts/underworld_plains/underworld_enemy.gd:14)
+              [1] install (res://scripts/underworld_plains/underworld_actor_installer.gd:18)
+              [2] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:316)
+              [3] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:129)
+              [4] shoot_until_health_changes (res://tests/enemy_feedback_01_tests.gd:143)
+              [5] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+FAIL: restored terminal snapshot recognized in selected chain
+SCRIPT ERROR: Invalid access to property or key 'active' on a base object of type 'Nil'.
+          at: restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+          GDScript backtrace (most recent call first):
+              [0] restored_corpse_case (res://tests/enemy_feedback_01_tests.gd:333)
+FAIL: duplicate, old epoch and saved-dead instances cannot replay task defeat audio
+FAIL: formal installer retains task per-origin timbre after presentation replacement
+FAIL: dead presentation replacement never invokes a second defeat cue
+ERROR: The object does not have any 'meta' values with the key 'audio_cue_stream_overrides'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+       [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+          GDScript backtrace (most recent call first):
+              [0] real_death_case (res://tests/enemy_feedback_01_death_audio.gd:149)
+              [1] ticks (res://tests/enemy_feedback_01_tests.gd:57)
+ENEMY_FEEDBACK_01_DEATH_AUDIO checks=126 failures=41
+WARNING: 32 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 8 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

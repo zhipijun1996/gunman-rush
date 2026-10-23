@@ -11,12 +11,15 @@ var _weight := Vector2.ONE
 var _lean := 0.0
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
+var feedback_death_audio: EnemyFeedback01DeathAudio
 var feedback_sample: EnemyFeedback01
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
+		feedback_death_audio = EnemyFeedback01DeathAudio.new()
+		feedback_death_audio.configure(actor)
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		feedback_particles = EnemyFeedback01Particles.new()
 		feedback_particles.name = "AcceptedHitChips"
@@ -34,6 +37,7 @@ func _ready() -> void:
 		actor.health.changed.connect(_health_changed)
 	queue_redraw()
 func _exit_tree() -> void:
+	if feedback_death_audio != null: feedback_death_audio.dispose()
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)

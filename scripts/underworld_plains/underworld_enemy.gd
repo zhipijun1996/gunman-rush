@@ -3,6 +3,7 @@ extends PixelPlainsEnemy
 ## Genuine new body art. Original state-based telegraphs remain authoritative.
 var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var accepted_hurt_count := 0
+var feedback_death_audio: EnemyFeedback01DeathAudio
 var feedback_sample: EnemyFeedback01
 var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
@@ -10,6 +11,8 @@ var feedback_remains: EnemyFeedback01Remains
 
 func _ready() -> void:
 	if EnemyFeedback01.supports(actor.definition):
+		feedback_death_audio = EnemyFeedback01DeathAudio.new()
+		feedback_death_audio.configure(actor)
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		feedback_body = EnemyFeedback01Body.new()
@@ -95,6 +98,7 @@ func _feedback_initialized(result: ActorResourceResult) -> void:
 	queue_redraw()
 
 func _exit_tree() -> void:
+	if feedback_death_audio != null: feedback_death_audio.dispose()
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
