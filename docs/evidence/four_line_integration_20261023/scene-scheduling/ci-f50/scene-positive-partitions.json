@@ -1,0 +1,94 @@
+{
+  "scope": "two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained",
+  "aggregate_budget_seconds": 180,
+  "aggregate_seconds": 180.3826926060001,
+  "within_aggregate_deadline": false,
+  "native_runs": [
+    {
+      "shard": 0,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/home/runner/work/gunman-rush/gunman-rush/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-0.json",
+        "--positive-shard=0"
+      ],
+      "process": {
+        "status": "timeout",
+        "exit_code": null,
+        "failure_reason": "timeout",
+        "started_at_unix": 1792775258.657147,
+        "ended_at_unix": 1792775438.7572389,
+        "duration_seconds": 180.1,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/home/runner/work/gunman-rush/gunman-rush/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-0.json",
+          "--positive-shard=0"
+        ],
+        "check_token": "ba8e2e403da044079fdad58924f8055b"
+      },
+      "output": "build/plains_redesign/scene/run_i3y6e_ln/positive-shard-0.json",
+      "output_sha256": null,
+      "log_sha256": "66f44effac47fa128cba2135d1c2204574a60f0d8781cd1019cfcc7c7977e644"
+    },
+    {
+      "shard": 1,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/home/runner/work/gunman-rush/gunman-rush/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-1.json",
+        "--positive-shard=1"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792775258.6574833,
+        "ended_at_unix": 1792775416.9483733,
+        "duration_seconds": 158.291,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/home/runner/work/gunman-rush/gunman-rush/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-1.json",
+          "--positive-shard=1"
+        ],
+        "check_token": "586a2b49c4384622983777f44844c622"
+      },
+      "output": "build/plains_redesign/scene/run_i3y6e_ln/positive-shard-1.json",
+      "output_sha256": "72f2bb7ea0be5c5cfbc4798e55acc7e8d0834cea1e0a4e5be51aa49e450ab89c",
+      "log_sha256": "5a3b27df19c7db7844c4dc5949d51733491f5b38cbf2635380012f21bc256183"
+    }
+  ]
+}

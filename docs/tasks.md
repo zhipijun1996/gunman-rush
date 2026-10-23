@@ -1,5 +1,9 @@
 # 开发任务
 
+## 2026-10-23 原场景预算内调度修复（最新）
+
+四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
+
 ## 2026-10-23 四线集成调度（最新）
 
 `FOUR-LINE-INTEGRATION-01`保持review：四线／默认人物／织时匠／5原MP3已接入；当前实现17cd追加必要CI门禁修复，原97／1／44失败保留。原定向21／24／115和限定独审分源记录，下一精确head的142完整合流／main合并／Release仍待实际执行。[门禁来源](evidence/four_line_integration_20261023/ci-gate-repair/README.md)。黄金暂停，G5与真机仍未签。

@@ -1,0 +1,156 @@
+{
+  "source": "f50fe78630fd98339186349f4ea91d92540d6c5b",
+  "run": 39987409483,
+  "selected": [
+    {
+      "path": "harness/20261023T165217.820605Z/artifacts/plains-redesign-scene/build/plains_redesign/scene/run_i3y6e_ln/positive-partitions.json",
+      "size": 3064,
+      "sha256": "e480780fce40d070039a97b9d7f1cfea1449cd76e06624049999340e149a248b",
+      "mtime": "2026-10-23T17:10:38"
+    },
+    {
+      "path": "harness/20261023T165217.820605Z/artifacts/plains-redesign-scene/build/plains_redesign/scene/run_i3y6e_ln/receipt.json",
+      "size": 195703,
+      "sha256": "f23b2ae3ae1ed6c1ba2eb674180d9705fc65c4875b811cee8885b0a4cee2f306",
+      "mtime": "2026-10-23T17:10:38"
+    },
+    {
+      "path": "harness/20261023T165217.820605Z/artifacts/plains-redesign-scene/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-0.log",
+      "size": 5385,
+      "sha256": "66f44effac47fa128cba2135d1c2204574a60f0d8781cd1019cfcc7c7977e644",
+      "mtime": "2026-10-23T17:10:18"
+    },
+    {
+      "path": "harness/20261023T165217.820605Z/artifacts/plains-redesign-scene/build/plains_redesign/scene/run_i3y6e_ln/positive-shard-1.log",
+      "size": 5405,
+      "sha256": "5a3b27df19c7db7844c4dc5949d51733491f5b38cbf2635380012f21bc256183",
+      "mtime": "2026-10-23T17:10:16"
+    }
+  ],
+  "harness": [
+    {
+      "id": "plains-encounter-policy",
+      "timeout_seconds": 600,
+      "status": "passed",
+      "failure_reason": null,
+      "started_at_unix": 1792774750.317181,
+      "ended_at_unix": 1792775250.6090045,
+      "duration_seconds": 500.292
+    },
+    {
+      "id": "plains-redesign-scene",
+      "timeout_seconds": 900,
+      "status": "failed",
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792775251.8363354,
+      "ended_at_unix": 1792775439.7016978,
+      "duration_seconds": 187.865
+    }
+  ],
+  "inner_archive_sha256": "d4ec1ee93c8a5789aea2f65aacb67b58511b2c0b60cec2112d74258037454017",
+  "shard1": {
+    "member": "build/plains_redesign/scene/run_i3y6e_ln/positive-shard-1.json",
+    "sha256": "72f2bb7ea0be5c5cfbc4798e55acc7e8d0834cea1e0a4e5be51aa49e450ab89c",
+    "bytes": 23384984,
+    "assertions": 48,
+    "failures": 0,
+    "indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "legacy_ui": {},
+    "cases": [
+      {
+        "custom": "outer_upper_alternative",
+        "finished": true,
+        "issues": [],
+        "map": 2,
+        "outcome": "route_target_reached",
+        "scene_case_index": 4,
+        "seed": "level-design-v2-baseline",
+        "strategy": "fast",
+        "ticks": 6528
+      },
+      {
+        "custom": "extra_upward_recoil",
+        "finished": true,
+        "issues": [],
+        "map": 1,
+        "outcome": "route_target_reached",
+        "scene_case_index": 5,
+        "seed": "level-design-v2-baseline",
+        "strategy": "fast",
+        "ticks": 822
+      },
+      {
+        "custom": "touch_geometry",
+        "finished": true,
+        "issues": [],
+        "map": 1,
+        "outcome": "route_target_reached",
+        "scene_case_index": 6,
+        "seed": "level-design-v2-baseline",
+        "strategy": "fast",
+        "ticks": 1315
+      },
+      {
+        "custom": "main_then_high",
+        "finished": true,
+        "issues": [],
+        "map": 2,
+        "outcome": "route_target_reached",
+        "scene_case_index": 7,
+        "seed": "level-design-v2-baseline/01",
+        "strategy": "return",
+        "ticks": 3907
+      }
+    ],
+    "visual_samples": {
+      "4": 1197,
+      "5": 352,
+      "6": 1315,
+      "7": 719
+    },
+    "corpus_count": 10,
+    "cleanup": [
+      {
+        "audio_released": true,
+        "driver_released": true,
+        "execution_done": true,
+        "observers_disconnected": 32,
+        "ok": true,
+        "requested": true,
+        "scene_case_index": 4
+      },
+      {
+        "audio_released": true,
+        "driver_released": true,
+        "execution_done": true,
+        "observers_disconnected": 25,
+        "ok": true,
+        "requested": true,
+        "scene_case_index": 5
+      },
+      {
+        "audio_released": true,
+        "driver_released": true,
+        "execution_done": true,
+        "observers_disconnected": 25,
+        "ok": true,
+        "requested": true,
+        "scene_case_index": 6
+      },
+      {
+        "audio_released": true,
+        "driver_released": true,
+        "execution_done": true,
+        "observers_disconnected": 29,
+        "ok": true,
+        "requested": true,
+        "scene_case_index": 7
+      }
+    ]
+  }
+}

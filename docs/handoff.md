@@ -1,5 +1,9 @@
 ## 2026-10-23 实际Ubuntu镜像入口补齐（最新）
 
+## 2026-10-23 原场景预算内调度修复（最新）
+
+四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
+
 7ab4仅补两workflow六处实际mirrorlist入口。f57的安装虽通过，下载仍走Azure：日志显示file:/etc/apt/apt-mirrors.txt，原两sources只是引用它；此前切源成功的表述已纠正。现在追加此已观测文件，原sed／GPG／套件／APT／预算／断言／合流全保；真实临时三文件与原五组、精确Git独审、官方Actionlint通过。下一CI须看到实际官方HTTPS获取URL；main／Release仍未完成，游戏源／a074Preview不变。
 
 [准确日志节选与限定修复](evidence/four_line_integration_20261023/apt-mirror/mirrorlist-entry/README.md)。本地163ad原专项308.524秒通过保持其原源，未追加原生重跑。以下为历史时点。

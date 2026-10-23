@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "reviewed_commit": "1dab6cea2ca4a430d0ea901b313d9cbec5963032",
+  "source_commit": "1dab6cea2ca4a430d0ea901b313d9cbec5963032",
+  "parent_commit": "f50fe78630fd98339186349f4ea91d92540d6c5b",
+  "scope": "Independent bounded review of the exact two-file scene scheduler adoption and its original targeted local Harness result. No production runtime change.",
+  "findings": [],
+  "actual_files_sha256": {
+    "tools/run_plains_redesign_scene_tests.py": "76d8fe240b9bc487fc5576516fbd5197aa97eb3e7ccf7dcc22aecb6eadd80d1b",
+    "tests/plains_redesign_scene_runner.gd": "9068349adf64601cae03549ddff6f972da28517b2b2e617f857aef56b0767694"
+  },
+  "source_preservation": {
+    "git_exact_two_candidate_files": true,
+    "Python_entire_module_outside_run_positive_exact_AST_parent": true,
+    "GD_reverse_three_dispatch_predicates_restores_exact_parent_bytes": true,
+    "original_eight_cases_inputs_assertions_unsharded_mode": "retained",
+    "original_main_errors_Mutations_cleanup_and_source_guards": "unchanged",
+    "groups": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        5
+      ]
+    ],
+    "workers_max": 4,
+    "legacy_UI": "once, shard0",
+    "ten_seed_corpus": "once, shard1",
+    "budget": "Original aggregate180 includes merge; each child gets shared remaining deadline. Negative180 and Harness900 retained.",
+    "failure_behavior": "Nonzero/missing marker/child timeout/aggregate overrun/wrong identity/missing or duplicate case or cleanup/legacy or corpus coverage failure cannot pass; executor joins active workers."
+  },
+  "independent_small_process_controls": {
+    "status": "passed",
+    "count": 11,
+    "evidence": "/workspace/scratch/plains-scene-four-groups-independent/fault-controls-independent.json",
+    "sha256": "90c713dd3c7f5e2f50214a71a07842e5f5630883ae1c78a95bdcc8d33a776015",
+    "scope": "Reviewer executed actual candidate run_positive plus original run_check using tiny Python children; no Godot. Success plus ten failure controls. All workers joined."
+  },
+  "exact_head_local_original_Harness": {
+    "report": "/workspace/integration-four/build/verification/harness/20261023T172129.511122Z/report.json",
+    "sha256": "f8c69bc2595b95c7d074d8da98172b2e5bc11441e8ca10bf599e54cc07d74454",
+    "commit": "1dab6cea2ca4a430d0ea901b313d9cbec5963032",
+    "fresh": true,
+    "clean_source": true,
+    "working_files": {},
+    "status": "passed",
+    "check": "plains-redesign-scene",
+    "check_exit_code": 0,
+    "check_duration_seconds": 222.886,
+    "Harness_wall_seconds": 229.189,
+    "jobs": 1,
+    "release_flag": true,
+    "note": "One targeted original check, under parent-recorded local two-core affinity. Release flag does not imply complete Release coverage."
+  },
+  "native_evidence": {
+    "receipt": "/workspace/integration-four/build/plains_redesign/scene/run_ir696g_l/receipt.json",
+    "sha256": "9dcddd10761d15b795a884da4b2cd5a2c3173f6a3372fae7d4d0986ed25fa115",
+    "source_commit": "1dab6cea2ca4a430d0ea901b313d9cbec5963032",
+    "producer_sha256": "76d8fe240b9bc487fc5576516fbd5197aa97eb3e7ccf7dcc22aecb6eadd80d1b",
+    "status": "passed",
+    "wrapper_end_source_and_producer_guards": "passed unchanged code; receipt passed is assigned only after full before/after comparison",
+    "positive_assertions": 94,
+    "positive_failures": 0,
+    "positive_aggregate_seconds": 129.26232668500597,
+    "budget_seconds": 180,
+    "all_four_native_runs_passed_exit0": true,
+    "eight_unique_ordered_merged_routes_and_cleanup_records": true,
+    "part_output_and_log_SHA_independently_verified": true,
+    "original_real_negative_runs": 10,
+    "all_negative_runs_rejected_with_exit1_and_validated_cleanup": true,
+    "raw_acceptance_counterexamples_refused": 15,
+    "positive_errors": [],
+    "all_11_run_output_log_SHA_independently_verified": true,
+    "command_identity": "Nested actual_native_partitions.native_runs stores actual argv/token/timing. Generic outer positive argv remains an unexecuted placeholder. No case timing inferred from assembled logs."
+  },
+  "historical_failure_boundary": "Original f50 CI positive180 timeout remains failed. This exact-head local source-bound run does not relabel old evidence.",
+  "unverified": [
+    "Fresh GitHub Actions for this source",
+    "Full Integration and Release",
+    "Web/GUI export and user/player/device/art/G5 acceptance",
+    "GitHub or cross-host performance"
+  ],
+  "reviewer_actions": "Read-only Git/source/evidence review and 11 tiny-process controls. No native rerun, root edits or budget changes."
+}
