@@ -17,6 +17,8 @@
     "无用户/真机反馈，不宣称最终动作/审美/手感完成"
   ],
   "affected_paths": [
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/player-creator/SKILL.md",
     "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
     "assets/player_presentation_01/feel_audio_v1/heavy_0.wav.import",
     "assets/player_presentation_01/feel_audio_v1/heavy_1.wav",
@@ -228,6 +230,8 @@
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/rejected-run-v2.png",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-pixel-review.json",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-review.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/checks.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/review.json",
     "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/README.md",
     "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/consumer-inventory-weapon-v1.json",
     "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/engineering-review.json",
@@ -312,6 +316,7 @@
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-WALL-1.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-WALL-2.json",
     "docs/quality/records/PLAYER-PRESENTATION-01.json",
+    "docs/templates/player_design.md",
     "docs/worklines/PLAYER-PRESENTATION-01/",
     "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-01.md",
     "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-contract.json",
@@ -327,6 +332,9 @@
     "docs/worklines/PLAYER-PRESENTATION-01/motion-handoff-02.md",
     "docs/worklines/PLAYER-PRESENTATION-01/motion-source-record.json",
     "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md",
+    "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md",
+    "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json",
+    "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md",
     "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
     "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
     "docs/worklines/PLAYER-PRESENTATION-01/weapon-checkpoint-04.md",
@@ -1279,13 +1287,14 @@
     "用户质疑旧V2磁雷电台提示不是清晰滴滴：新mine-beep-v3用Freesound536420实际电子timer CC0公共HQMP3首声85ms，原pitch/固定音色；初步接入，正在专项/采片，不重标旧325电影为新版。",
     "本轮mine-beep-v3响应用户对旧radio提示质疑；网上CC0 timer滴声实际接入开发分支，只有音色变更，未听音/用户/真机，不以来源标题/频谱签听感",
     "旧public325电影及build6952试玩包仍旧radio滴声；新版4e真实电影和源码单独标识，本次没有重建/上线新Web，不冒充旧包已更新",
-    "新增binding反例first错误期望3个audio service、second延迟持有同tick替换叶产生freed错误均保留；third立即观察预赋audio服务纠正测试，未改生产生命周期逻辑"
+    "新增binding反例first错误期望3个audio service、second延迟持有同tick替换叶产生freed错误均保留；third立即观察预赋audio服务纠正测试，未改生产生命周期逻辑",
+    "本次收口仅文档与skills：外观/玩法分流、复用外观合同和音效语义；未制作/验收第二个完整新外观，不宣称批量稳定性或通用Avatar加载器已经实现。"
   ],
   "checkpoint": {
     "status": "development_candidate_shared_adoption_pending",
     "implementation_status": "mine_beep_v3_source_candidate_limited_verified",
     "runtime_files_changed": true,
-    "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
+    "central_index_owner": "Coordinator;this line keeps its own truthful in_progress record and session summary,does not edit central index or main",
     "independent_scope": "Independent source/provenance/rebuild/livebinding/lifecycle limitedACCEPT;hearing/fullspeed/user/device/fullIntegrationUNVERIFIED",
     "skills": [
       "player-creator",
@@ -1306,7 +1315,12 @@
     "previous_public_movie_host_commit": "b543242d28bb9c10aa375b002b081970d3929210",
     "latest_media": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-comparison.mp4",
     "web_source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
-    "web_delivery_status": "Previous6952 package contains old beep;not rebuilt/deployed for this narrow audio correction"
+    "web_delivery_status": "Previous6952 package contains old beep;not rebuilt/deployed for this narrow audio correction",
+    "session_summary": "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md",
+    "session_inventory": "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json",
+    "reuse_notes": "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md",
+    "skills_update_scope": "Three docs only:player-creator appearance/mechanics routing,animation-vfx anchor/audio semantics,existing player_design appearance contract;new full appearance pipeline not yet validated",
+    "session_implementation_handoff": "631f437a3404e98cdf017d6a2709ed6399533a7a"
   },
   "production_snapshot": "4e5102af9abd16d322656375e94886a95deae38a",
   "baseline_consumer_coverage": {

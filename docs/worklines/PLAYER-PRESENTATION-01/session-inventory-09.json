@@ -1,0 +1,3381 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "scope": "Complete cumulative23-commit session implementation before this docs/skills-only closeout;no pending source edits swept in",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "implementation_handoff_commit": "631f437a3404e98cdf017d6a2709ed6399533a7a",
+  "latest_runtime_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+  "latest_export_source": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+  "latest_export_build": "6952e7d0d356",
+  "branch": "feature/player-presentation-01-motion-candidate",
+  "commits": [
+    {
+      "commit": "817721d735d709251ddd4da60fa268b7fae795fe",
+      "subject": "Document player presentation baseline audit and game-feel methods"
+    },
+    {
+      "commit": "aed2786870b4a37ae2123eca40fbe6ac83ab072f",
+      "subject": "Preserve baseline movies, raw traces and bounded independent review"
+    },
+    {
+      "commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+      "subject": "feat(player): add isolated idle scarf and grounded motion candidate"
+    },
+    {
+      "commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+      "subject": "refine(player): improve accepted foot dust visibility after pixel review"
+    },
+    {
+      "commit": "f7d7e796c3ae3ab3989e8c2f40e4cc7f14d5b8c6",
+      "subject": "docs(player): preserve motion footage preview verification and scoped reviews"
+    },
+    {
+      "commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "subject": "feat(player): add isolated accepted landing sound and high-fall recovery sample"
+    },
+    {
+      "commit": "2ce5f6693495161b97449e99e48f2a8fbdcbfe65",
+      "subject": "docs(player): bind high-fall audio movies and isolated preview evidence"
+    },
+    {
+      "commit": "616fe0bbf07da2b14c65d9c86ff50e0570e1087b",
+      "subject": "docs(player): record provenance for each runtime motion audio variant"
+    },
+    {
+      "commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "subject": "feat(player): add isolated weapon sound and projectile detail candidate"
+    },
+    {
+      "commit": "2fc73ded1bc5fc8ed67e26133fe82bb0b7f67d42",
+      "subject": "fix(preview): use existing CJK theme for weapon picker"
+    },
+    {
+      "commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+      "subject": "fix(preview): place weapon picker clear of touch controls"
+    },
+    {
+      "commit": "0acdb7c9aa8927c033e54eb7e4dffce73d3096f7",
+      "subject": "docs(player): bind weapon candidate media package and scoped reviews"
+    },
+    {
+      "commit": "0509837065558260f45408ca36ec8839d991f509",
+      "subject": "docs(player): store exact weapon evidence closure in sparse checkout"
+    },
+    {
+      "commit": "fc55deee38fd6530bd14586d8fb5ecbf0af59026",
+      "subject": "feat(player): add sampled weapon feedback and bounded remote mine fuse"
+    },
+    {
+      "commit": "388ce5008ad2e0809cab6aa5d9c2fb1f632912d0",
+      "subject": "fix(player): follow drawn catch hand and refresh verified development export data"
+    },
+    {
+      "commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+      "subject": "build(player): retain regenerated validated Foundry export basis"
+    },
+    {
+      "commit": "9bb20d206c42149c15648fd3cb300e29d5ff522c",
+      "subject": "docs(player): preserve weapon V2 evidence and scoped review"
+    },
+    {
+      "commit": "59f43fdc36076003b1e7c96e6e2edea1ee566756",
+      "subject": "fix(player): use recorded CC0 timer beep for mine countdown"
+    },
+    {
+      "commit": "589ea097f1bc6f746e67f04a01edaf81a846655b",
+      "subject": "test(player): verify live timer beep bindings and audio lifecycle"
+    },
+    {
+      "commit": "6f470df4f3eb6030ca02904d9a4b20652da246dc",
+      "subject": "test(player): audit timer service shared by actual presentation leaves"
+    },
+    {
+      "commit": "4e5102af9abd16d322656375e94886a95deae38a",
+      "subject": "test(player): inspect transient presentation bindings before replacement"
+    },
+    {
+      "commit": "e23476341d553f8df6d1ba00e527d84753e51c8e",
+      "subject": "docs(player): deliver real timer beep comparison and provenance review"
+    },
+    {
+      "commit": "631f437a3404e98cdf017d6a2709ed6399533a7a",
+      "subject": "docs(player): verify public timer audio and real movie downloads"
+    }
+  ],
+  "file_count": 459,
+  "category_counts": {
+    "task_assets": 154,
+    "evidence": 74,
+    "asset_provenance": 71,
+    "task_quality": 1,
+    "contracts_and_handoffs": 21,
+    "derived_development_foundry": 56,
+    "task_profiles_and_banks": 11,
+    "shared_runtime_delta": 7,
+    "task_preview_scenes": 4,
+    "task_visual_audio_preview": 28,
+    "task_tests_and_drivers": 32
+  },
+  "files": [
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
+      "category": "task_assets",
+      "bytes": 24044,
+      "sha256": "03ffc708153cc1806883a94b7be51aa0ab52f713d2540eafbc6a05eea45b7b30"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_0.wav.import",
+      "category": "task_assets",
+      "bytes": 523,
+      "sha256": "f8844525720e01214ee549e5b529b0bcd19271107758f7b11da8ab7d7ed03dce"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_1.wav",
+      "category": "task_assets",
+      "bytes": 24044,
+      "sha256": "91564321205cd3c1acbdd1ccf59786be3922cebc11d1d0ec7741176def74a42a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_1.wav.import",
+      "category": "task_assets",
+      "bytes": 523,
+      "sha256": "010aeaaa35ff7e41f5b415c4fe97238d146cc952cd9af402e024c64418d4b809"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_2.wav",
+      "category": "task_assets",
+      "bytes": 24044,
+      "sha256": "1ae84393547073be9e1a4537c4ce133c4a7dee411f5f7dc7c1ee31660b0a7e67"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_2.wav.import",
+      "category": "task_assets",
+      "bytes": 523,
+      "sha256": "e07b4e68bc1cd63e8279f50460a1f12c408a09afe24d9ca73cd3d4b6db7ffd1c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+      "category": "task_assets",
+      "bytes": 16364,
+      "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav.import",
+      "category": "task_assets",
+      "bytes": 520,
+      "sha256": "d89041ea6ceb6d88dfa96726eaaabcdff236f3d019fc827cba20139f5003b2a1"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+      "category": "task_assets",
+      "bytes": 16364,
+      "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav.import",
+      "category": "task_assets",
+      "bytes": 520,
+      "sha256": "a357281e2c380afed01ac43c05f8156301a03af5c8f7dec3b716a3cbe34faba6"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+      "category": "task_assets",
+      "bytes": 16364,
+      "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav.import",
+      "category": "task_assets",
+      "bytes": 520,
+      "sha256": "33c8df6aa5d5f656add379e0ff5625f628112787b289cca6c359571e6b87b14b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_0.wav",
+      "category": "task_assets",
+      "bytes": 20204,
+      "sha256": "e77a4e3fecf1b1476ca13b9a2a434d58a3ff19591d6d1682207d20abab5e5069"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_0.wav.import",
+      "category": "task_assets",
+      "bytes": 520,
+      "sha256": "8e31d2509dc8225ccc59ceaab07698deb97a191a123992a3ed4705ed1e14377d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_1.wav",
+      "category": "task_assets",
+      "bytes": 20204,
+      "sha256": "0d2467d0030eb83e8cc6dcad96dcbd1379fac5f21ef92e617968e5b336f00b35"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_1.wav.import",
+      "category": "task_assets",
+      "bytes": 519,
+      "sha256": "ad7bdb3b636ee2673bd4ae98da9a70a8450b96266e50cd0d9e436fdbc9476f04"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_2.wav",
+      "category": "task_assets",
+      "bytes": 20204,
+      "sha256": "32200f1d015719f72cd92e44b5742a2f252b00da0c831bec1239b99857983b2b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/feel_audio_v1/land_2.wav.import",
+      "category": "task_assets",
+      "bytes": 520,
+      "sha256": "e3941335f4b7761c4ff63b2125ec9f5631067ea98da4457eb92882fa5c21c5b5"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/provenance.json",
+      "category": "task_assets",
+      "bytes": 1413,
+      "sha256": "edb33b384adffc99d366297bc87f1b0e54aba7055b9f90b78de2c6f825deda9d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/ATTRIBUTION.txt",
+      "category": "task_assets",
+      "bytes": 828,
+      "sha256": "3aa026e32b696ef35e5cf2c8ea9e487941e00bedf4f1e1ff864c81c87e4cd264"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/CC0-1.0-legalcode.html",
+      "category": "task_assets",
+      "bytes": 31216,
+      "sha256": "36047b77caa40b62b4df2d659e68fe0f44a10dd0017dc745ca8bc6510478d514"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/electronic-timer-536420-hq.mp3",
+      "category": "task_assets",
+      "bytes": 73201,
+      "sha256": "f86391668ac41cf57423131f73545a90635dc259b9c1bca8a5ce44dc59bb45a3"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/electronic-timer-536420-hq.mp3.import",
+      "category": "task_assets",
+      "bytes": 458,
+      "sha256": "6ff790ba35ec4a8c680283a8223d55eb4719c4770c4965c6b4f7227856998b5b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/source-page.html",
+      "category": "task_assets",
+      "bytes": 36349,
+      "sha256": "c2de401ac12deb070e6cf1594c56503094b608518fde8550732c2ef5602312f6"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/timer_beep.wav",
+      "category": "task_assets",
+      "bytes": 8204,
+      "sha256": "7b3945c565c4f669b0649f54417067e85ce9ccc48185242fcad825b7b3c42cf1"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/mine_beep_v3/timer_beep.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "49c281a0e2fec2f783a25f018d01435780bb58126b9252226f6b7e57a8bba682"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+      "category": "task_assets",
+      "bytes": 4735,
+      "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+      "category": "task_assets",
+      "bytes": 1789499,
+      "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/motion_v1/motion_source.png.import",
+      "category": "task_assets",
+      "bytes": 983,
+      "sha256": "09004a3adcc2f431300cc3801f17376e0c890744d1eec003ef4cbb704a54a1fc"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_0.wav",
+      "category": "task_assets",
+      "bytes": 76844,
+      "sha256": "dc70b3e4b88728d2311d496f541d251d8933606180d53a02b35ca5146b2fd3bb"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_0.wav.import",
+      "category": "task_assets",
+      "bytes": 522,
+      "sha256": "369d0d9c708de0f00c315f204b64f5ecb97dfd50a3b3d4a5986fde3adea4031a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_1.wav",
+      "category": "task_assets",
+      "bytes": 76844,
+      "sha256": "fe6c14ad035857c5fb4946690f22990e50150de5af79f9a736bd3714c4d054b7"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_1.wav.import",
+      "category": "task_assets",
+      "bytes": 521,
+      "sha256": "d00c45d2564181932c2501025c093a5693dd704d99f814b831a6b48397f71d1a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_2.wav",
+      "category": "task_assets",
+      "bytes": 76844,
+      "sha256": "1184df86d62539d0d505a512ff1dcca316ee8909022caeff5a8a9be8e8045f4b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_2.wav.import",
+      "category": "task_assets",
+      "bytes": 522,
+      "sha256": "eaef61f3b643bd072a8bb137412e9d9e904550ba55b0e603df19fae04e4e3d83"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_0.wav",
+      "category": "task_assets",
+      "bytes": 18284,
+      "sha256": "57faba77d35aee8f922f776bbc97ad934871d8192d0552798ced7cbbdce0f42f"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_0.wav.import",
+      "category": "task_assets",
+      "bytes": 524,
+      "sha256": "95c2dd27281095cb65b2cedba94eb86fdfd00e9222520459249300271c77a067"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_1.wav",
+      "category": "task_assets",
+      "bytes": 18284,
+      "sha256": "7c35d33becd499396f4200b48e74ffba47957da8397de649af7e82b523da899c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_1.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "590ddbd3c564aec0d09334812b82062b6857e506c46570c6cda9d37d3820c6ac"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_2.wav",
+      "category": "task_assets",
+      "bytes": 18284,
+      "sha256": "30f8695e1757c2a870c4015dd187af7b04c976c1ee5e021cf2a95e50af9aa5f9"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_2.wav.import",
+      "category": "task_assets",
+      "bytes": 524,
+      "sha256": "475ca920cbcb1967f21486cc214b7b4c07ac695dcce7a652ea6f0c49fa777347"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_0.wav",
+      "category": "task_assets",
+      "bytes": 30764,
+      "sha256": "fb94229fdad183323163b8b32ee8d86a8c614728762c5f4a9cfc6449e0d17334"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_0.wav.import",
+      "category": "task_assets",
+      "bytes": 524,
+      "sha256": "9b369a18918059babde1311ff63b391501ce113b40989d8dcb19cb9c1a8b48c4"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_1.wav",
+      "category": "task_assets",
+      "bytes": 30764,
+      "sha256": "6c0936cc3fc0df0ead1aef308ca8b6f0b355247cb1e1bf8d0bc40bed6ab93e15"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_1.wav.import",
+      "category": "task_assets",
+      "bytes": 524,
+      "sha256": "9544d669517dad28f2d451759247965776b9280dbed7712cbb2ec5cee84be21d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_2.wav",
+      "category": "task_assets",
+      "bytes": 30764,
+      "sha256": "98f0a636dafdf8adc82d415a43766a7f601e19bac3d92b56fd7c257da414c32a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_2.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "97ffdfae8107d7678fefeaf9df2af3e2029a22698601d35ea6844524feaa418e"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_0.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "5f4541813f078d57a2a0d111988dc1a3aef9e390f3bf16779deb5946eb46193f"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_0.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "6ddc7229a8cd5723bb85deeb8e93a123dcf4c38536a5106385b07f6ec8ec1699"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_1.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "ce10f32f0cb91644929b7f5b5c5d51743296cbc224fb9fbdfc4371dbecb71493"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_1.wav.import",
+      "category": "task_assets",
+      "bytes": 530,
+      "sha256": "4169b2ed4bb0b41a44bf96ef5bcfc69ddde1df91a591843319b64a1781ba7152"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_2.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "677048a3ff65695116301e864e84c690667adcbbbf58081cd4598698264ca26c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_2.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "be4a3df260652ace1f17ba1e7355c7f293f90333e2c2a9a516fe251b5314240f"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_0.wav",
+      "category": "task_assets",
+      "bytes": 11084,
+      "sha256": "e16cb9595689a6ba6d064402191746802e07a201b38a76dc8866cded2ca223a5"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_0.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "af668090d898f9b25cba210ebf2b4cbc0cfa8c853d856c3ff0e48739e6b7f4b6"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_1.wav",
+      "category": "task_assets",
+      "bytes": 11084,
+      "sha256": "ba4636806eafa2a0fca10a2fa813828810e3bed63e969a23d1a5f491b3d46870"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_1.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "42d9d9461dd9ca0c4831a6bbfaba303a2f75770b5f96b28d49ba9079cb370f5d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_2.wav",
+      "category": "task_assets",
+      "bytes": 11084,
+      "sha256": "80a058ac4e8663ceaaea94b914ae70855dc14eaa1b54de952bdd92975d2d16a3"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_2.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "f6e9b178f07f9c9b2f26c869a95000016246782d2eedc5ef7276a296640ee45c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_0.wav",
+      "category": "task_assets",
+      "bytes": 17324,
+      "sha256": "5c57df25a170a89f7fdc3d36b38614157ceec0466fa6aebd54b99902b7b02a93"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_0.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "a95b2ecf93cc1b6ba13d81fcc5ed3ceb83155158a7829d872e1971c31a6e47a7"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_1.wav",
+      "category": "task_assets",
+      "bytes": 17324,
+      "sha256": "d00b2a52fd532acafd4845504fea7d380dd88a18f0df6f8be0eaae13f7ae4984"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_1.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "185cb2b09d477ae11f71dcd946768967af2fe4d82fa79b96421483bdf8582b9a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_2.wav",
+      "category": "task_assets",
+      "bytes": 17324,
+      "sha256": "b972b554ae21d8623c7aa007b0716cae5678d524ca256650bf50cfb56b0a5b3e"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_2.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "06868a03ab56253215a959e262e75df1405bfab99b5a6e7dbcf32d5284532057"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_0.wav",
+      "category": "task_assets",
+      "bytes": 81644,
+      "sha256": "c263e064a22d4e21cf9e6bbfe5a043fa3a2c8b504386728fb7b92cc5ee96feac"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_0.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "65c4c820c7875a2fef094aef560766e832ee007cd316ad1314c6e8ca9ce0851c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_1.wav",
+      "category": "task_assets",
+      "bytes": 81644,
+      "sha256": "003a3339398be39969454dba828e7e6d317848cb73a7c486e94477aa72c5df80"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_1.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "c649a74b872bb6cb97bf5fd69de1c7d30978d00ccdb267984c718d53afb0efdb"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_2.wav",
+      "category": "task_assets",
+      "bytes": 81644,
+      "sha256": "49f5ccf303cebffe6db6afa1c97b99910e7cf74ff9428ab524c4ee34048d99e9"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_2.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "b77044bb9a17d8a01eaff6f31424c0870d0d6530eaf70461c674822dc409e72b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_0.wav",
+      "category": "task_assets",
+      "bytes": 61552,
+      "sha256": "7c1a7c08f98a98b1cafb72c534fcf510c35bd56be16232b0b505916d8d6262ec"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_0.wav.import",
+      "category": "task_assets",
+      "bytes": 552,
+      "sha256": "4cc72aad9a58dae9771a0d78ed5ed494d06ca2375913f51e78517b3b39918fee"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_1.wav",
+      "category": "task_assets",
+      "bytes": 61552,
+      "sha256": "49abcbb28844197f86a11a73e3f7e03353fd3b431296818d50f9992116b2ae60"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_1.wav.import",
+      "category": "task_assets",
+      "bytes": 552,
+      "sha256": "a363840839babfa13053bbbc4af4eb9dbe714fef300303d8c76234d431a13c27"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_2.wav",
+      "category": "task_assets",
+      "bytes": 61552,
+      "sha256": "ec0417c15dfd60f612252b58a8a4a5ff50904559a3da702a260ca986f03d2192"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_2.wav.import",
+      "category": "task_assets",
+      "bytes": 552,
+      "sha256": "0bfd279a95103413ee2964aa734ee25dfa420eb90a0fe91d2fd28265951db285"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_0.wav",
+      "category": "task_assets",
+      "bytes": 46124,
+      "sha256": "7fe46f036871280ccfd5335d401a823839e3b094b2a8ad94be63c738498f98ed"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_0.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "68d1d82836205eb5e893bc8fd0302940b3e732b25d9a4cbbf447ae746d57d336"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_1.wav",
+      "category": "task_assets",
+      "bytes": 46124,
+      "sha256": "73fb0014c2469762a0225d3e34f1a68032bbee5c06adff331a4d151da70c7c02"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_1.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "b151888932d329672f6b42e1abbf73dd03f9eeadc9fc18a0f1e969148609219e"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_2.wav",
+      "category": "task_assets",
+      "bytes": 46124,
+      "sha256": "8f316306ae79611c4e660a2b3fe3aabd4b6c33c772aad8ab58214f7ad138e316"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blackhole_start_2.wav.import",
+      "category": "task_assets",
+      "bytes": 555,
+      "sha256": "e508eb6cef75ffd7845759e2c33cc15005e074428775c3139e0e6c168ae1a513"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_0.wav",
+      "category": "task_assets",
+      "bytes": 15404,
+      "sha256": "e90aef6273d54910b406bc4afe5e8d4f42736a12f92a2e18ed371bd7bc2c5548"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_0.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "32dfb2d7a38667ff2a2c75a5b56c891c82de708e813c8e17ecbce24b8e98880a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_1.wav",
+      "category": "task_assets",
+      "bytes": 15404,
+      "sha256": "41eaf93594f507af754ab2ac9899427a775f382ed1b50d76cb2f217a35177f9d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_1.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "a034a0f71d1601feb5b864e0ade504141713fc10f331ba2473e66dcdb8ca5cb6"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_2.wav",
+      "category": "task_assets",
+      "bytes": 15404,
+      "sha256": "3f2737eb159cc3fcacb05c5a041296173cb6a8e7c3f4b67d3c2c295d52dcee63"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blade_2.wav.import",
+      "category": "task_assets",
+      "bytes": 524,
+      "sha256": "a86b112dad46d2601c86ba952e9a6f28a4e231a8a7448d6273daaa2b01803e75"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_0.wav",
+      "category": "task_assets",
+      "bytes": 69164,
+      "sha256": "ef6e4490c4842bd095a7516e18b0c13108b2ef9f8da13fe4f079da4502d29963"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_0.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "7459d362ae26618a68588a31481ed13955edcf172d0d9e362963408ace4468a1"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_1.wav",
+      "category": "task_assets",
+      "bytes": 69164,
+      "sha256": "521280576b37e3655dd61ef63fe3358abd6553d6d7ab52df97262b3cb1ccce17"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_1.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "bcc49c5f32743d684f49c8eae9bc6dfa4ad25baf4529a948554d2d4279586e58"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_2.wav",
+      "category": "task_assets",
+      "bytes": 69164,
+      "sha256": "6d231fb76edfbec62ae5a5be75a232c0a573def289780f04fab4d32e42785bb7"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/blast_2.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "e2aea8f6bf0de339947c1e9d12c6bde03169461bfc71cac9bf014d118fed5bda"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_0.wav",
+      "category": "task_assets",
+      "bytes": 19244,
+      "sha256": "8b2d2252c0c9285f1d6ff9a1058ab8d44dfafa8a9ea82e5d14e2e6db7d38ba20"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_0.wav.import",
+      "category": "task_assets",
+      "bytes": 558,
+      "sha256": "d19a50f7601f1cca710f05e2406919c1d048ad5b016aee3e0c81861e1fb82f39"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_1.wav",
+      "category": "task_assets",
+      "bytes": 19244,
+      "sha256": "3c08c52ddb5817018841036aa483ba52a99970b78c7056dfd328957d5851ad3e"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_1.wav.import",
+      "category": "task_assets",
+      "bytes": 558,
+      "sha256": "00da0d60aa4135b7c3abb688648f26cf9dd21a060892c41cbf2cccf1d9948d15"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_2.wav",
+      "category": "task_assets",
+      "bytes": 19244,
+      "sha256": "53468d578f0a99b9e7d0496eef79bb7c97b992d9b7076ddc9f01096af8d720f5"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/boomerang_return_2.wav.import",
+      "category": "task_assets",
+      "bytes": 557,
+      "sha256": "fa602e55e41b1e91e9d5dabc0580932bcc106ec6812d9dc69e05a2cbdef24005"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_0.wav",
+      "category": "task_assets",
+      "bytes": 12524,
+      "sha256": "85d14d384f7281aa1d9cc8734b1077db07466d5176c1aad8b6eee949fd90d168"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_0.wav.import",
+      "category": "task_assets",
+      "bytes": 518,
+      "sha256": "eb4dce3fcbe7c0557f67e9615050b1c6933b9ec38230bde5ed90d1e58cdc245c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_1.wav",
+      "category": "task_assets",
+      "bytes": 12524,
+      "sha256": "cdaf34161979247ea26be6de8932dfe29d0e68111951680a612db035b502a5d6"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_1.wav.import",
+      "category": "task_assets",
+      "bytes": 518,
+      "sha256": "44e9182230b8c528efcde4b169d51ff0113e2a93aa34b38fc9f28e371f911a30"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_2.wav",
+      "category": "task_assets",
+      "bytes": 12524,
+      "sha256": "bb102d759e8dcdff50b04eadbde9c1266a15da37cf57254b34e0d2e2cad02a09"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/hit_2.wav.import",
+      "category": "task_assets",
+      "bytes": 517,
+      "sha256": "805c6c704d073fc78f531330c265991a594b7b8e0c76240a9e7eb3653d638fd2"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_0.wav",
+      "category": "task_assets",
+      "bytes": 46192,
+      "sha256": "34008ff7fce4de0a5673e39a52f74d9393711e9e606271ad6a1848088aed2999"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_0.wav.import",
+      "category": "task_assets",
+      "bytes": 533,
+      "sha256": "b0a4232d14b7b21700d0925bae9812940416932f34c3f603d176f78b0e4b2973"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_1.wav",
+      "category": "task_assets",
+      "bytes": 46192,
+      "sha256": "b0ed5c80dafaa39ea363ce83b90d11071d2b9876774e319a5c2b62bcba840f5c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_1.wav.import",
+      "category": "task_assets",
+      "bytes": 533,
+      "sha256": "ca68c0383144be89606f7574300721b81af768fbd736043a84b21541d38ea4fd"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_2.wav",
+      "category": "task_assets",
+      "bytes": 46192,
+      "sha256": "31537c158e3cabc35c4131c5e1982c682d69bb3cf7cad10ede67d6f6497d563f"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_loop_2.wav.import",
+      "category": "task_assets",
+      "bytes": 534,
+      "sha256": "35397a8824bb8421bd041cda7f462f5c8a2446f115a9fdf36b32e5ab09d1ba34"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_0.wav",
+      "category": "task_assets",
+      "bytes": 23084,
+      "sha256": "f8c69d6d0246998cbc7e4d3c4adc5216f2c235aa537e12ab8205c3d8a3501bbd"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_0.wav.import",
+      "category": "task_assets",
+      "bytes": 537,
+      "sha256": "697a46d8602ab015571d17db42d2f9b7198883264bfc9d1a51c594659178bf5d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_1.wav",
+      "category": "task_assets",
+      "bytes": 23084,
+      "sha256": "db338e5121a567e4a8ebe26c1c4356e1e7c9d489e0f732bd1a85b284434c5c61"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_1.wav.import",
+      "category": "task_assets",
+      "bytes": 536,
+      "sha256": "4bc2061c380a45c787164ac12f9409b707ac08406ec599ae22e0ba2a2a9f8da1"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_2.wav",
+      "category": "task_assets",
+      "bytes": 23084,
+      "sha256": "6fe36bbe58ac05e58c3407b43a483e5bb3aab91dde7aaeba539590c8f3943b3c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_start_2.wav.import",
+      "category": "task_assets",
+      "bytes": 537,
+      "sha256": "9f2ee1bcdfb6260800d6440673b43abc4500b9cf9026f0a4951e1f878762b1b4"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_0.wav",
+      "category": "task_assets",
+      "bytes": 26924,
+      "sha256": "ddc9bb2f73f0cc2efce88822db5d5168c29612d3fe95ce95c244f6a1f03a260c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_0.wav.import",
+      "category": "task_assets",
+      "bytes": 534,
+      "sha256": "b6ef4db48cdb4983a53c0b2fe90e2fd20c947075ab8261a77ad93754245cf064"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_1.wav",
+      "category": "task_assets",
+      "bytes": 26924,
+      "sha256": "03a2fd8fdd6867f56fb223733b40d7b143ff9e0995d27f29fdf7aa645cb1755b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_1.wav.import",
+      "category": "task_assets",
+      "bytes": 533,
+      "sha256": "31af96a83c4a13a962ad1ca41a2f4fe7c7c63c068319e3a1d8fb1d1367658621"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_2.wav",
+      "category": "task_assets",
+      "bytes": 26924,
+      "sha256": "b13aed1423d1be0e72985da3b35e0365cedb9557c400bb67ac6ad225d45bd351"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/ion_tail_2.wav.import",
+      "category": "task_assets",
+      "bytes": 533,
+      "sha256": "98c33744ac718b016aefaf60e21e94556ec0bb8e625afb4f7a37f4b495e6fac4"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_0.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "28924cf0943b4fef350d85628053d91d6d07b68a50d7c4d44693d992910cfe2d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_0.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "29007f53b8fe4ea2b94d53802aa4cad04eb25f99822f32ca3c58e1d52375f44d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_1.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "f6f46f69274d60d630a2d581852b7211c4999c28c6b796356a90dd0818389f0d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_1.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "b038b1cfc62ab52efa5a79471e0cfda5e65ddab2e9887e1bdfea22558d31f4c0"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_2.wav",
+      "category": "task_assets",
+      "bytes": 13484,
+      "sha256": "3dac2af6f016e37c97bcaca0036a973ba4fc8443aee2b3afd2caee976d63d857"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/machine_2.wav.import",
+      "category": "task_assets",
+      "bytes": 531,
+      "sha256": "0e2907616d9577a320b653e3205819b7d6071e4a9535e844d6867df66d59a1ab"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_0.wav",
+      "category": "task_assets",
+      "bytes": 7244,
+      "sha256": "06671967e52e702514b3cfcf88db9aa96a9e3d029f3b4b5b5e3f0c229260504b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_0.wav.import",
+      "category": "task_assets",
+      "bytes": 537,
+      "sha256": "84d70fc77aac4d9c1c0b8ca72bbd26c739d4995b63d45e95574cc3adf7edf15d"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_1.wav",
+      "category": "task_assets",
+      "bytes": 7244,
+      "sha256": "1bf870570838d9360a7d938fdb33621e00631efec6ba850798adc6233eb13ebf"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_1.wav.import",
+      "category": "task_assets",
+      "bytes": 537,
+      "sha256": "af736b2fdfc10902856a250d67001c0e7d1c8827a947250b1ebf5e13265a7cad"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_2.wav",
+      "category": "task_assets",
+      "bytes": 7244,
+      "sha256": "69cd9d016c8c411d7cc2bc0e7470d558f7684717f179c7de65a60fc9732d6db0"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/mine_beep_2.wav.import",
+      "category": "task_assets",
+      "bytes": 537,
+      "sha256": "ea85a1a76b5e42aac94cc69b8a80b0261bb85b1f972460c1aaf052523f8c0552"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+      "category": "task_assets",
+      "bytes": 22124,
+      "sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "b2fe61347cb2073adc3598ea7b3f33deed428175959e2f1356cb9e599bb1972b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+      "category": "task_assets",
+      "bytes": 22124,
+      "sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "4dd6845b5c1007c4e78f521521b4f2e0abf4d75f8ec3db7f5208f08bf34cf062"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav",
+      "category": "task_assets",
+      "bytes": 22124,
+      "sha256": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav.import",
+      "category": "task_assets",
+      "bytes": 525,
+      "sha256": "87025744c5d3a23f25bbd7ad0a8f9fea659cec721c3fe17d68495895a4127946"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc",
+      "category": "task_assets",
+      "bytes": 1611,
+      "sha256": "ed60abcf1ff64bf61bf8b4c585ab63643d655a21f8997ba284c01f94ed681fc5"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/CREDITS",
+      "category": "task_assets",
+      "bytes": 15465,
+      "sha256": "47333ff87236f69af6d5ac7e306e102913e944f91e199f7bde1dbb1074b5c67a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/README",
+      "category": "task_assets",
+      "bytes": 616,
+      "sha256": "8fd70022d976f1f86d51b6eced8a831cacc0070210e48c1391a870d9a5843921"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/freedoom-originals.zip",
+      "category": "task_assets",
+      "bytes": 171085,
+      "sha256": "e8273ec7a46aac816a4163e957cf726c79dfe8e5ba55ead53a1881cb5c2ddb8c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/sources/upstream.json",
+      "category": "task_assets",
+      "bytes": 6889,
+      "sha256": "9c1fb23760a1ab329bc2bcda04f9805177541bf828dd240fafff176bad98e925"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_0.wav",
+      "category": "task_assets",
+      "bytes": 11564,
+      "sha256": "e5a1aa546c974e7447bcf51588391fcec6c7740aa962c4173662c897833875ee"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_0.wav.import",
+      "category": "task_assets",
+      "bytes": 522,
+      "sha256": "61b00ee884a444688831e6243c003b32cfc9d15eaec1b25684144cb098fac10b"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_1.wav",
+      "category": "task_assets",
+      "bytes": 11564,
+      "sha256": "7b3cf8bef67ada8456c2ae22f3dc1214d8fe757eef40a1a1d440adb0df5a4bc7"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_1.wav.import",
+      "category": "task_assets",
+      "bytes": 522,
+      "sha256": "30c8d5cb8104edf03ab9a883bd1054a84616939adf1ecbf09e6a0909299de60c"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_2.wav",
+      "category": "task_assets",
+      "bytes": 11564,
+      "sha256": "b11a6290b8e50595a6ff7dc779093a5d89b52058623c68593a2dee0f5634697a"
+    },
+    {
+      "status": "A",
+      "path": "assets/player_presentation_01/weapon_audio_v2/wall_2.wav.import",
+      "category": "task_assets",
+      "bytes": 522,
+      "sha256": "79be12e88a78e5c0eba599b7101e15345a3c90e6edfc1e02ac7a49718773b3c4"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/README.md",
+      "category": "evidence",
+      "bytes": 2884,
+      "sha256": "fc24d6876722efbbe5cf461b4f145f688cfc74acc02f988c0b698f087293d7ed"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/archive-index.json",
+      "category": "evidence",
+      "bytes": 4245,
+      "sha256": "9f064a7c43a135d8eb3d55c568f1066150bd5c2722140619dc6c660bca041785"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/baseline-evidence.zip",
+      "category": "evidence",
+      "bytes": 2674009,
+      "sha256": "bc1e28422194c399378c2ca5c0dee94afbd9754e0c21ef70fa6bfbbc9c7b393c"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/body-check.json",
+      "category": "evidence",
+      "bytes": 1964,
+      "sha256": "2328024a028176391efeff7177f6706c6e052d3ad65686dcefb1de9222f96a33"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/consumer-inventory.json",
+      "category": "evidence",
+      "bytes": 2175,
+      "sha256": "468bed4e6ed9f8829e925eb319293c76fbc19b92eeea35e583d2ebce8aaedbc7"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/docs-failure.json",
+      "category": "evidence",
+      "bytes": 2055,
+      "sha256": "dbe4c141a69fe32a73ba186c1e41a88ed0129efba2a9c732b113cca8967bf8a2"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/global-quality-sparse-failed.log",
+      "category": "evidence",
+      "bytes": 160242,
+      "sha256": "5ca1c3de8b8df550b31f22574eeb95540d0ee078a3e7d03c7e5b0b7a636ae494"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/home.mp4",
+      "category": "evidence",
+      "bytes": 1367850,
+      "sha256": "3a8c150165b93d8e96f61c58d627fc75f9c30640f230f4a00c3aab57d67c1d18"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/independent-handoff-v3.md",
+      "category": "evidence",
+      "bytes": 1052,
+      "sha256": "f47e267e2cd7d9588a2eb7da4f0a87fc06690d663599323769c9eb7c97f8613c"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/independent-review-v1.md",
+      "category": "evidence",
+      "bytes": 2192,
+      "sha256": "81888f0bb48046eff69afa4d4e6dd27d5cf672f491e5a3342ef3efcfd75877bf"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/independent-review-v2.md",
+      "category": "evidence",
+      "bytes": 2153,
+      "sha256": "9b3e39924ad3776902b113c58d0bf2ba274468358924624de883e0eac2d16763"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/plains.mp4",
+      "category": "evidence",
+      "bytes": 5170197,
+      "sha256": "9d61ef2b75ab4b50b5f2af619fdfc0ed9d0bb0b623eea9ff96ec4bed2be4a2c6"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/quality-diff-final.log",
+      "category": "evidence",
+      "bytes": 105,
+      "sha256": "32bf4126be97320cafe198530446836784dfbd69abc0a39624451b5758be3bdb"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/quality-diff-initial.log",
+      "category": "evidence",
+      "bytes": 105,
+      "sha256": "c2caf95bb144baeb581901d898b42ce3255bd0b67b5f0d30c4caff99c1a4ef8f"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/quality-schema-v1-failed.log",
+      "category": "evidence",
+      "bytes": 1679,
+      "sha256": "1a09af9e3226974522b68142969ef2c7a6a3c14f8ed72cf61f8090b6f3dbc7e3"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/record-consistency.log",
+      "category": "evidence",
+      "bytes": 2077,
+      "sha256": "55900e48704a06600f21051e1634cddd2a726e3c12d3a68f75a61111f968696b"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/scope-check.json",
+      "category": "evidence",
+      "bytes": 370,
+      "sha256": "323ccce4f76f08779293836517bc3fe0b27b774607b78320eb4eaa98e71b50b3"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/summary.json",
+      "category": "evidence",
+      "bytes": 6440,
+      "sha256": "87bb136c760fd07df66e46e63253c8f6989019d085decadc043c8b05e9cadc34"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/README.md",
+      "category": "evidence",
+      "bytes": 3492,
+      "sha256": "d0308b3de11b97384003feec40bd4399228c428bb249bf78b8cac10cccd200f4"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/consumer-inventory-feel-v1.json",
+      "category": "evidence",
+      "bytes": 3689,
+      "sha256": "fd26ba8875b8af3cad42b33011c597e9a3650b3435dcc78a731312121647a743"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/engineering-review.json",
+      "category": "evidence",
+      "bytes": 10735,
+      "sha256": "f7808635d005ae6e03947eb9d84a1d851e3773d3a3cc8388859ec48682dd5f45"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/feel-v1-evidence-index.json",
+      "category": "evidence",
+      "bytes": 10334,
+      "sha256": "a076cf74fadc404d47cae1b5c4781596da2305cf8057d1e71076652fb920af43"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/feel-v1-evidence.zip",
+      "category": "evidence",
+      "bytes": 33766194,
+      "sha256": "ae18652e937a8cf5e32f56bb13f1d58cd88665e1a876e0e2df9eb85f66cb3e26"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/landing-feel-comparison.mp4",
+      "category": "evidence",
+      "bytes": 5833104,
+      "sha256": "21175e861ba04ff868d62ae77c200c6f15e84827cc074e1421382dbb00528bd4"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/public-movie-download.json",
+      "category": "evidence",
+      "bytes": 539,
+      "sha256": "ba523e211842e655cd8cbfe51766c3d42687f70e1e454e7c0d702a79ef905c83"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/runtime-review.json",
+      "category": "evidence",
+      "bytes": 12912,
+      "sha256": "1545a43387f8df83548f06315ddc8175d483855aac641a67d4a66a64b6bf96aa"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/validation-summary.json",
+      "category": "evidence",
+      "bytes": 7136,
+      "sha256": "5009dc64805fca11ca55cc87dfdb63c5de1047138cc6e5fa18bbf96b129c4b82"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/Freedoom-CREDITS.txt",
+      "category": "evidence",
+      "bytes": 15465,
+      "sha256": "47333ff87236f69af6d5ac7e306e102913e944f91e199f7bde1dbb1074b5c67a"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/Freedoom-LICENSE.txt",
+      "category": "evidence",
+      "bytes": 1611,
+      "sha256": "ed60abcf1ff64bf61bf8b4c585ab63643d655a21f8997ba284c01f94ed681fc5"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/TIMER-ATTRIBUTION.txt",
+      "category": "evidence",
+      "bytes": 828,
+      "sha256": "3aa026e32b696ef35e5cf2c8ea9e487941e00bedf4f1e1ff864c81c87e4cd264"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/clip-receipt.json",
+      "category": "evidence",
+      "bytes": 10641,
+      "sha256": "f813e15755410838b5a326210d9ed038a88a6b2afab6388327392cb40ba6238c"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/consumer-inventory.json",
+      "category": "evidence",
+      "bytes": 6154,
+      "sha256": "01d3b7d917b363c94032b854e1eaa7083f8c4e12889c61bbac62d4fccab95b1d"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/engineering-review.json",
+      "category": "evidence",
+      "bytes": 14185,
+      "sha256": "fb7de23948325cf2b28bcb2c5275b2f929c06fd2e56ec3830cde5516e60c8e36"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/evidence-index.json",
+      "category": "evidence",
+      "bytes": 9288,
+      "sha256": "0e14eaf4132fe2c7b39bb6e39dc4d65d5cbb9e6c95d4ac0abc737e8516d796b6"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/mine-beep-v3-evidence.zip",
+      "category": "evidence",
+      "bytes": 4171740,
+      "sha256": "c265d584d0c245b7da52e022d8423586bbd9e63b0e6f10bd69cb91f185ba6f06"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/public-download.json",
+      "category": "evidence",
+      "bytes": 2956,
+      "sha256": "5d4f5aa8ef870c35d2b255fd1fc0a4ca98846ecbf151089bddd19070b10ce92e"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-comparison.mp4",
+      "category": "evidence",
+      "bytes": 894632,
+      "sha256": "0b81cb308c2ac40237efd32de5753077779ccf8118ccf843cfadbab214665ec4"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-countdown.mp4",
+      "category": "evidence",
+      "bytes": 449765,
+      "sha256": "458e7394f9f068dd6785655ce3a7478913f8d0c1fa3cb4f02852c7f75021be8b"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/README.md",
+      "category": "evidence",
+      "bytes": 3812,
+      "sha256": "200d8c9bf9da93c3d1be1a1ffc3897a1235d541ee0bda54709ae492f14367c26"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/body-candidate-v1.mp4",
+      "category": "evidence",
+      "bytes": 2544803,
+      "sha256": "22b500c2cbd033f39aad75edbc145cfb0e0906fbd2d7d9be2c63f8dc1bc3440d"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/consumer-inventory-v2.json",
+      "category": "evidence",
+      "bytes": 3280,
+      "sha256": "40b6f0b9a2e8a926ed9c002c5f34bc0c3cb5a5091ec04a0ddc09668bc5dbc427"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/engineering-review.json",
+      "category": "evidence",
+      "bytes": 10476,
+      "sha256": "7e723d28b5c20ca6d4d7c2aa5d9ea4706b944a2999d611ff8139078ab2e5a8eb"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/foot-dust-comparison-v2.mp4",
+      "category": "evidence",
+      "bytes": 2613387,
+      "sha256": "04c0b5c79427b4679b9a6193ae083ea296f0271635f39fa2bd5919c08f42ae52"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/media-public-v1.json",
+      "category": "evidence",
+      "bytes": 1618,
+      "sha256": "98158b464d3dc2cd30339b6f528669157e39353e3dd99ff7e0ba1390000f7fc8"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/media-public-v2.json",
+      "category": "evidence",
+      "bytes": 1620,
+      "sha256": "58db3c949d72001f72fdbb06bc2e2fe093f2784f5b01916ad7bc5de988a22da6"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v1-evidence-index.json",
+      "category": "evidence",
+      "bytes": 25474,
+      "sha256": "2bc78d42088ca0b0b9faf39cf93d68323441bc910079de0bb93ce9b2cee19425"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v1-evidence.zip",
+      "category": "evidence",
+      "bytes": 39292840,
+      "sha256": "94f58e6a3d1d3553d6cc93c2bbc650a58598751ef45e962db711b52e57d4a1b1"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v2-evidence-index.json",
+      "category": "evidence",
+      "bytes": 13428,
+      "sha256": "eee77b4f5ad46dd20c90565a8c7fdab7968ac60c48bb9c1774b220bf8069de14"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v2-evidence.zip",
+      "category": "evidence",
+      "bytes": 19834211,
+      "sha256": "46b2e64071061242ab2148af177d4cc0447f5648467d135363f81bca4af11594"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/pixel-review.json",
+      "category": "evidence",
+      "bytes": 27300,
+      "sha256": "1ac36da471640a45a3162b81f0a4532a0a3bf46aaf2e8045a3bb9dd16b503037"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/quality-diff-final.log",
+      "category": "evidence",
+      "bytes": 105,
+      "sha256": "ea2e83655512fe1c79c2533d2bf505fb40a2de8ce1b4af345499e1cb329b6f94"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/quality-metadata-failure.log",
+      "category": "evidence",
+      "bytes": 1357,
+      "sha256": "bd4313e42df1cfd20fa5fcf6ca3c212afbe931f046078464b3ebaa5c5ed7e75c"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/rejected-run-v2.png",
+      "category": "evidence",
+      "bytes": 762386,
+      "sha256": "8ae4be0a88df29cba7290d138814e5c571e4f6a9d7d177aabf70bb53bc2c9673"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-pixel-review.json",
+      "category": "evidence",
+      "bytes": 14764,
+      "sha256": "4f01671673164a85982b4b3cbf73e14d7381bb8c691fad7d049513b33de2c9fa"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-review.json",
+      "category": "evidence",
+      "bytes": 7061,
+      "sha256": "ddae284e00df19d70a5f46d14c5b5ec5f6c735a9cf83fbddb4995ed7cbfb916e"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/README.md",
+      "category": "evidence",
+      "bytes": 2311,
+      "sha256": "ed62a977f38ad2261ff678c268abf9611b43d4e937492d01dd4607cf6fcf2a97"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/consumer-inventory-weapon-v1.json",
+      "category": "evidence",
+      "bytes": 4427,
+      "sha256": "9754ed3debc76ac7b7137f7b22029c1d8e6ba6b79372139dd02694ee7f257343"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/engineering-review.json",
+      "category": "evidence",
+      "bytes": 14744,
+      "sha256": "4719b86275a5b6f8663fbf792e7c50c6a2feec9f51710cd3b03aa10a510a9af6"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/evidence-index.json",
+      "category": "evidence",
+      "bytes": 23815,
+      "sha256": "6bfdb2779ec56e105c39a334c9e68aa75f95767a20ecaa106649b43195e26759"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/package-final.json",
+      "category": "evidence",
+      "bytes": 2458,
+      "sha256": "33e2f0494cd02ef1df11022b6218ec508b64213d1b9571e2fda9e654a15322dd"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/public-movie-download.json",
+      "category": "evidence",
+      "bytes": 947,
+      "sha256": "8665361a651a95c0a661a8fcc2055469c777929f0dd9ddb2308af7a866bc04bd"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/runtime-review.json",
+      "category": "evidence",
+      "bytes": 32038,
+      "sha256": "a1a78db3f1b27daa5ae97e3f9c7589fbed96bbb958f761104531bba7c97670b1"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/ui-only-diff.patch",
+      "category": "evidence",
+      "bytes": 978,
+      "sha256": "2f42c5ae3bb9da86251a7425727d356e56c89622bacfffb4458daa8e007f082b"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/ui-review.json",
+      "category": "evidence",
+      "bytes": 15549,
+      "sha256": "0ce110426f8fd15910c99d5505d57c8960c906933e199ec505cc16a655e18671"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/weapon-comparison.mp4",
+      "category": "evidence",
+      "bytes": 2848313,
+      "sha256": "3125af7a9895fefdeb62f2cd425e471145925bf2853487e27a7429f2a7d19c5f"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/weapon-v1-evidence.zip",
+      "category": "evidence",
+      "bytes": 39658039,
+      "sha256": "8f49cf9b922c2e69835ca6ae7287c5411108fb941802769de32d2a9c79f64aa9"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/consumer-inventory-weapon-v2.json",
+      "category": "evidence",
+      "bytes": 6123,
+      "sha256": "3d8e4d0112180263fd65d025e2dc14a16d3a38ed7e22faa128f4e9950e695274"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/engineering-review.json",
+      "category": "evidence",
+      "bytes": 23695,
+      "sha256": "70695559bb9b234a2eaec2baf7b904669bdaa94bd6134ce5928c3a02f4b79256"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/evidence-index.json",
+      "category": "evidence",
+      "bytes": 51410,
+      "sha256": "34a5c30a3c7228b6ec8924613b8a44d6678677dabf794f527921d0ef0224609f"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/package-final.json",
+      "category": "evidence",
+      "bytes": 2669,
+      "sha256": "b0e973ba582754184c603f6120af759c233f7b0bdecf3a3d11f90d4768bfbf63"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/public-movie-download.json",
+      "category": "evidence",
+      "bytes": 2463,
+      "sha256": "194a2eee2f30dce807842c871351cdec70c9662372811188a1f48179ae2bdd36"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/runtime-review.json",
+      "category": "evidence",
+      "bytes": 39238,
+      "sha256": "a6d8306d32c87c3facd4a1256fe994336c94b28f1ff06f95ea15494f1a95a731"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/weapon-v2-comparison.mp4",
+      "category": "evidence",
+      "bytes": 3352899,
+      "sha256": "33e0fa0623142acffe9eca3dfa49478130761667e5af896761d57a836dc978b6"
+    },
+    {
+      "status": "A",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v2/weapon-v2-evidence.zip",
+      "category": "evidence",
+      "bytes": 47141467,
+      "sha256": "35581adc6b78972eca7cea0620e76637932989d3aede21240b6b1293713c874c"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-0.json",
+      "category": "asset_provenance",
+      "bytes": 1517,
+      "sha256": "ca6adf2aa69ddab7e07a63faa7c51ccae2934c4882524026190eb8ecceb61ae4"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-1.json",
+      "category": "asset_provenance",
+      "bytes": 1517,
+      "sha256": "8c8c3da4ff688ab5c211dfd0a486e2259ea46bf470f814b43d31f6460e2b48be"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-2.json",
+      "category": "asset_provenance",
+      "bytes": 1517,
+      "sha256": "2c2ea081e7f28b35c4471a238b4b97e031e53dfd2284e8ecc2bf7c7eafc3c307"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-JUMP-1.json",
+      "category": "asset_provenance",
+      "bytes": 1515,
+      "sha256": "09963733ed9014f5dd68dc571148b5344deb27c94798cc7a30a3312319e8ce79"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-JUMP-2.json",
+      "category": "asset_provenance",
+      "bytes": 1515,
+      "sha256": "482d90f81e723e4280a782b0636c78867916c561de9276fcbcf90d572392310a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-LAND-0.json",
+      "category": "asset_provenance",
+      "bytes": 1515,
+      "sha256": "813c4b733df64cea95a00e09c3b7f01ed6f083a6a21aafee1274d1d9df058e1f"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-LAND-1.json",
+      "category": "asset_provenance",
+      "bytes": 1515,
+      "sha256": "426738cb9bc7ed2299c5fd1e1b364b015c4d5bb049e517a50a74df69f04782c5"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-LAND-2.json",
+      "category": "asset_provenance",
+      "bytes": 1515,
+      "sha256": "1f73cc03f9bc7f1f35ba7b801a6b1a85050abb051da4ef43796d05520aa0f476"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-V1.json",
+      "category": "asset_provenance",
+      "bytes": 2320,
+      "sha256": "ad5c18cb8460f777ccba83366fed79abdbe26d25fdcba05ebbc62235e92759f8"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-MINE-BEEP-V3.json",
+      "category": "asset_provenance",
+      "bytes": 2317,
+      "sha256": "65545e37b456b4c637a247a77e552c9403af37cde51215e6961852aa15a0d134"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-MOTION-V1.json",
+      "category": "asset_provenance",
+      "bytes": 1656,
+      "sha256": "6205727e2cd95f830aa98db24ce5b298df21ddd7ddbdd24844330579d54422ba"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-0.json",
+      "category": "asset_provenance",
+      "bytes": 1252,
+      "sha256": "626229b84cc150cc2da361a2987c6b530e27e10dd2ce2aaf652c4c15f9b2b23e"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-1.json",
+      "category": "asset_provenance",
+      "bytes": 1252,
+      "sha256": "176304d992544b4cb8e47466ce0d0200e0c0c09826a39d97e942bc89aa87a097"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-2.json",
+      "category": "asset_provenance",
+      "bytes": 1252,
+      "sha256": "19ad1fa5e3aa44156de0761040420b0fd70b1d3a280fb9ddb3b5e58fae58de89"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-0.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "a09037b68f3f4d0d481c58a5d56c3d6f9c21dde676ec5f706eff7d07399d3380"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "02054d683503707132e283aaf114b70fdc30812821a89064cab3900db4d41604"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "c33a5d5cdace7654393b773e6c5733f328ef281f7e6d18ba061ae987e7a3c07a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-0.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "74e99b109b7f62daaae7a99a20cb6b870b5da5ae22d341e592ae2a9225a282cd"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-1.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "94dab942467221c2fc278d39893a5ec9d489f10b54597bd054d8acb30f4038d5"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-2.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "2db17c5f5714b740c13e5a4dffdba877bc579c59eb1deed8c597799ae3f65e7a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-0.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "bb9e630d2b385178c4d69fc8a01fc575935b4426e0b11c171f42ad268b482611"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-1.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "ea4197dd2cd8de2e521c70e8c716127c7ef470166e9ee2d9b7201db645d3c7ad"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-2.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "54f419b4e3bd44c20e52abf804407b86d0dd8edb382ef2f9ba4d8721b50fa4de"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-0.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "63e4b5603cc0d8b5ea64d54ec96ccc697c2a473552bbab148ec1e70e3b347fd0"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "cc7f800710bf756a4e85baa6d60b54df688cda0f98c5204000533e99dc3f3755"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1263,
+      "sha256": "d96601831dd01efd0a38f0d7f120240c226c8a8328e6d0474c4c858b77b98572"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-0.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "d3c8a24e5abac5e8634fba23d4b67c2545e4259514f081a2939aabdab0fc0acf"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "a09464e84d95a05a2d1928bff3d17d2bb6e4cd03872227e24289fd74770fa58f"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1259,
+      "sha256": "64b56bb735bf73f7fcc5c1a06b1ba492c5993e2c3604d672a6d93dd1dab46cce"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-BURST-0.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "9f654cb015b1e3106547c7d34f6a2b43ac09302781d0c19225e88b5560c9fbbe"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-BURST-1.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "ba2750a9a858186e1bf4853861199475cf380ff6ca4cc7bc50316b6fcd3440dc"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-BURST-2.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "2d647b642ffa49cc0b9e1f4df304f97071a7f7673005a2339bae9120e450488b"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-LOOP-0.json",
+      "category": "asset_provenance",
+      "bytes": 1723,
+      "sha256": "02477b838e991b5f63ca0416d79b87f567f658a9ffe4473bf357871a597ca040"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-LOOP-1.json",
+      "category": "asset_provenance",
+      "bytes": 1723,
+      "sha256": "5a3a512fa35de1b9ddeafad016abcd835ca67091f030776ea5d3f9c21dbbd532"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-LOOP-2.json",
+      "category": "asset_provenance",
+      "bytes": 1723,
+      "sha256": "e0f618ffd1e8b0d777db4cc1ffb71c794315b9651a8b156888ccf98853f2f972"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-START-0.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "ce0da65878e6ac843589153079e3dce53c226ea684a5d3c9e0bf6a099db92095"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-START-1.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "368bd67ebd452ad72e0e86dde51c1ce26f9438d7e9232f6bed5028a2dc365f23"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLACKHOLE-START-2.json",
+      "category": "asset_provenance",
+      "bytes": 1725,
+      "sha256": "3a4e3dd12cbe251037b0c153a3c952add728d57fdf559b38f45a08041ec5dbe8"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLADE-0.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "3ed335707b008eda338dcd3663ef47d65df9cab1682bb30f2ded35c980bf504a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLADE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "f0212699ad8f643d2ffbc945b53a9f425455745d748f303fa0d8f517625a7239"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLADE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "d80972c2ec83d83c7bc27bb1b8759795f9d26543c3588ab655349d3926b4c722"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLAST-0.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "1445c10c045c9ae39e1ea5192859d3e2cd04d83e5a1ebdf83b370a8ef1ce3e4f"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLAST-1.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "71b93b2d0bfd64111e59edded3409bdde78c863e91ffbaccbe849d5a46dd8ce8"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BLAST-2.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "6d59838e1fd850d489d2fd7b0a3de689baa57c92204583374b9933dc3c2c1dc9"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BOOMERANG-RETURN-0.json",
+      "category": "asset_provenance",
+      "bytes": 1727,
+      "sha256": "1e6924ee02a7ce57d9f98c84ed06d3c554ccc403562f499d3ce7b2be1b119896"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BOOMERANG-RETURN-1.json",
+      "category": "asset_provenance",
+      "bytes": 1727,
+      "sha256": "c61abb7e0ba0b60b628742f50c2020e5f9cf7a382aa856373e487cf1c13695c1"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-BOOMERANG-RETURN-2.json",
+      "category": "asset_provenance",
+      "bytes": 1727,
+      "sha256": "887d8b963191c3e051ae4acaf86c5c4c680e03c0ebe2e9fb738f7b678493198a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-HIT-0.json",
+      "category": "asset_provenance",
+      "bytes": 1701,
+      "sha256": "d71365e80d40a9322a1b90b213dfe598b4a6ba8d2da0246ea4be3e71f3dd01c0"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-HIT-1.json",
+      "category": "asset_provenance",
+      "bytes": 1701,
+      "sha256": "43530c586926c0a280fd332aab8128afa420afa34dc1e32d28e1ddc394197ca1"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-HIT-2.json",
+      "category": "asset_provenance",
+      "bytes": 1701,
+      "sha256": "20e311513392f087d7e3f10c20fc8216a79cf1366391af167753e58196206a6c"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-LOOP-0.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "225d824e5cef63cfcd6e9fbd9960be36df5ea062583179f3d798b640e49e9959"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-LOOP-1.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "c581cfd35ab1b7e0d94539e0eb20d7de592cad66feb44b47f007a62e0843007e"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-LOOP-2.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "dd4bcb9b9101d49f8877e87e00e8639eac9422d500c2541e938de6c836a50a70"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-START-0.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "f791488659375e94eed7100f17ba0feb410c2c54c95861cd8691f3a34fa6b92b"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-START-1.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "7ad7a018aa97cd19af5f00734a053ce19c0762f2433374c9143b3e28fadd07fd"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-START-2.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "0eb0f6e5ee257518e5b6485b35a6614d73ce7091009c4562184463f37ad43bd4"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-TAIL-0.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "64b639d49607e6a9798872da7989e3ac6ddff8fc5010a2e7260e7251f23deb18"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-TAIL-1.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "8d98b075cd401b605bdc404357f0a2070ee7ee2954c2f8619b9641831d40f083"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-ION-TAIL-2.json",
+      "category": "asset_provenance",
+      "bytes": 1711,
+      "sha256": "67f53d6e5600d91b4c786dfd63e6ee5e3ee77631de06b76b7d7ffdabee0cc6db"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MACHINE-0.json",
+      "category": "asset_provenance",
+      "bytes": 1709,
+      "sha256": "2e06252035ae41158315c92f46ef7ab4e306a6e4182578481418643fded75329"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MACHINE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1709,
+      "sha256": "33bdcd420896392331b35d90b4f072b45f702bdc21e7677456be20ecd0cc6e1a"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MACHINE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1709,
+      "sha256": "d3dce521cbe62c1dd4e19283e4d625457dbe4c95426b5ef94fdf125ececa382d"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MINE-BEEP-0.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "154d3295835bd7eb9feb06ab684cbb7488df7986fb269f0a979ded23982e78d4"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MINE-BEEP-1.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "f9c0301e444ff8b424cfd962f21fb1e562bc0079824be331b42c6f116d50b198"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-MINE-BEEP-2.json",
+      "category": "asset_provenance",
+      "bytes": 1713,
+      "sha256": "4820b63917af89712689c321b3718149e635eb4b0462cdc5c743dd6aba14a31d"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-PULSE-0.json",
+      "category": "asset_provenance",
+      "bytes": 2531,
+      "sha256": "afb75b0f88e6052976476cd3bf90073202659c120fadc35587d5866a501d78ba"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-PULSE-1.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "35ed0cbd32c3d06677f744d4141b1a5339bec82e2354d33fb247b2fab494d57d"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-PULSE-2.json",
+      "category": "asset_provenance",
+      "bytes": 1705,
+      "sha256": "d53c0cf2d37b342cf9d9bd2c6ad2afd965ca94b7970395099343a878852894f8"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-WALL-0.json",
+      "category": "asset_provenance",
+      "bytes": 1703,
+      "sha256": "a82493d730e2b76cab233937789de5934fd8fccd7e3a686eed7c13d34268f8cb"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-WALL-1.json",
+      "category": "asset_provenance",
+      "bytes": 1703,
+      "sha256": "6a88c4694b8edaa4f56f840e000365fa1c7cae79fd9b9ed499aabf72bbd17000"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-V2-WALL-2.json",
+      "category": "asset_provenance",
+      "bytes": 1703,
+      "sha256": "3e0e79d01b71f73c0f52ecc798c6687c4b4e4dd0691ef75ebc9cd6849284a563"
+    },
+    {
+      "status": "A",
+      "path": "docs/quality/records/PLAYER-PRESENTATION-01.json",
+      "category": "task_quality",
+      "bytes": 85241,
+      "sha256": "ad8def38773aefc7f384fce82c2365262d5a4af9584fb06a3bddcabbc9d4d25c"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-01.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 13616,
+      "sha256": "4dfbfe5b2c20dc5aee3b53df48525973ae77bf78cb507d37bf01c2bd6876e4a9"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-contract.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 813,
+      "sha256": "973dc3da02c4f7f9b43f9a8f3789240f35cdcbc6edad38e5ecaf699ac20761d0"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 5362,
+      "sha256": "0bcc25d3d0b261fa98fc58fb8980ff75a15f30b8840e1ddd761ff371cc5eceaf"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/feel-contract-03.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 2830,
+      "sha256": "6a046565f31f404d606cc14b1b55c9a68503110fc0dd284bc26c9bfd114d9089"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/feel-handoff-03.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 2172,
+      "sha256": "d7cd7c84d083c615c561a13f3388bed7a0255cab63da49f943d81249bb6dc95f"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/impact-v1.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 4749,
+      "sha256": "3611a79621b81a28aa3908b539ace328a11b44c3810758464eecf779e1d7c159"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/methodology-01.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 6195,
+      "sha256": "0250089934bf8b5a05d82d7f8c1eeea5b57b030ea3d3e142d3a7544e27004578"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/methodology-02.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 5430,
+      "sha256": "04d769c7de2584800a6688a23cf7b77b3d3337a946d351cd464478a3a2587a2d"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/mine-beep-handoff-08.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 6042,
+      "sha256": "f3d8b61d64bb4784026e6e6cd258862e3870f5adb3a0ce33f4a33b13c832fd8e"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/mine-fuse-contract-v2.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 4650,
+      "sha256": "01de68eaaf8c0f28426ff2d2efaaf3cd7a1dcba6461f2964b0fe31a4c4579a93"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/motion-contract.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 1246,
+      "sha256": "4609feccd272547eab7bc082eed5bf9da805db3216572f1cc11f16e766078b92"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/motion-handoff-02.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 2814,
+      "sha256": "4fa421cc7a7131347cd34c60d44f8fb6e682b2344c042b9969169125fa7ae3e0"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/motion-source-record.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 2408,
+      "sha256": "58b3288be1f5cfb7f1875f6050e4230c58157f81ee087529cb67d39634f2931b"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 3126,
+      "sha256": "f676b7c266735f94b5ad6ebcc62403bb954677891c6e739f17aa3a925c472fb0"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 8324,
+      "sha256": "a4982879476cb4a87b70a6cc6a5454a7e8b57911a97076ddfaf3523c5b0e5474"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-v2-provenance.json",
+      "category": "contracts_and_handoffs",
+      "bytes": 28064,
+      "sha256": "60a3e4f1b1d1c8dc0f0dfbccdc86a0391f2c3b541332894ae438a054aaba73b0"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-checkpoint-04.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 4225,
+      "sha256": "7de43d8574bdf7f67d8865e70e49f7b7cd346e4da115b56471c6f35dded81170"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-contract-06.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 4651,
+      "sha256": "0cac9466b0baba36e54bd00d8957470bbb1f55cb41e1ba4042712d0f0afae81c"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-handoff-05.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 8480,
+      "sha256": "fdae083abbcaed51f3efc839cea54fe6df1b2e1679ce9d3a685692b0c7fa7997"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-handoff-07.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 8776,
+      "sha256": "00f2ef1c964a9c0086f4931f308cf4d4d0c196c8e09d41a96687ad5b74b52634"
+    },
+    {
+      "status": "A",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-vfx-v2-contract.md",
+      "category": "contracts_and_handoffs",
+      "bytes": 4204,
+      "sha256": "4510a9eb182c323b45e42ac8dd5bc842a8ba9dccc604bd6d56ea1763aa073c68"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/batch.json",
+      "category": "derived_development_foundry",
+      "bytes": 152249,
+      "sha256": "545cae6873d0ef22b9d9aa911cc3d4636a012451a8a6fe5ee143ceab083b1b75"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/export_basis.json",
+      "category": "derived_development_foundry",
+      "bytes": 552,
+      "sha256": "f36bbc98853204c12019350bf79e73076082fed29d9edbe9e4b31cf9eb10820d"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 39525,
+      "sha256": "daf12e0bec01919c131d7aed2a1a193190ea4015610b13095c660c705f93a8e9"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 39520,
+      "sha256": "249b5b970dd5bcf8be22d17649a9f948b3322b217386a3d6eca414602f079577"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 39520,
+      "sha256": "067fd7eb21fe87cccd70be398ee03a27775122fc2dc852d9f2a1aca3b5f9caab"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 42691,
+      "sha256": "d3f1ae94f71d55829699805be41de193a97a9a01b8139af355790ca958166a6d"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 42691,
+      "sha256": "9baad8d9d6d3bce1fc20a68de8b630f7255215da60938d6223124ca245433e60"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 39527,
+      "sha256": "51a74a66aa4f38790e05101d5cf437c3874eddf725a86ca6a324397764e52dbe"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 37345,
+      "sha256": "6c346f8d915042f0b37e3e393d744ab3d34814183b78de83051e09179dbc8508"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 37340,
+      "sha256": "b04f2a3030064b0e3506665e068dc94936e0165c835d0908294b4fe56e0c6eeb"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 37340,
+      "sha256": "5958d19ccc260a4a38c8d1352aa19bfbf9113d72955f8dc4d385c7700469d2e8"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 38903,
+      "sha256": "e4bda4e1c43ddee9eeead40859ffa1fff602f722f352c551f3d614528520ccb9"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 38903,
+      "sha256": "04ad3d2d00aa80125539974e3f802789bdc5685775bbbb6b9878bc4c719ba002"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 37347,
+      "sha256": "d193fc1b951521841b2953900a188086eaa1db146104ff22a39f7540dbd75f1c"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75052,
+      "sha256": "b936a551080fd7655b18c4408daefb42f00e1713875d0b8f590cd4e268f7d853"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75047,
+      "sha256": "1a8beeb1954318421980f989f0ca4c3d6293242b291c81beeec486dc4ccb62b8"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 66056,
+      "sha256": "23bdbc0b537f612f34aa908f3e6056e47cf0335e56ce5678bd241cc3cb152b83"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 77757,
+      "sha256": "3f2b0027191c020c8276fff58f7a54b7998fd765c7a8a667c1b2e6b3dec2f3bb"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 68544,
+      "sha256": "273951484b4b85009edce0b423d20e0068fdb319fcdfd8f8fedede166643d206"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75054,
+      "sha256": "0a408416c33b52481571bb78205a23ccf2d3a074ad9ba231e26bf443eee006f7"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75536,
+      "sha256": "49fcba051d0f71352d8b72288aeae5c12fce4d99658ce8de59e8409e8707c3ed"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75531,
+      "sha256": "d65f096e98da4e9eabc967b7d7cc55aebc863559569c58a3cc4f940817f32b09"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 102693,
+      "sha256": "ac5e0c2dff69f86cd15194d4befe35416a6185b4f63717166a8040aaf1a151e1"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 91209,
+      "sha256": "40d9331073b9e97390421ef7a08b6e692d31ac64e627f01ff7108a2703d6c21b"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 85797,
+      "sha256": "a0b168cbd168d52acba2e34c2fc2c4a85fde2724236ae773051dea6e3b6520a2"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 75538,
+      "sha256": "4878077af5c7880c5c9283a48ffc9c80edf23c77e82613e20ea612843cc5e43d"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 48715,
+      "sha256": "9b3a055767d728d169c484d9446d8f4e71ce42ee8a9d354a7276999bc8cef55a"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 48710,
+      "sha256": "fa8d17dd9467afa23c147f14ed907d9db12489d01dfe3eb087791b13568003a9"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 65144,
+      "sha256": "5bc15170cb7cacd35668f925a4310338b24a5524f9cd97d0d01e311a84464f28"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 62529,
+      "sha256": "e5ec831fb3ea2b3262d1e1af37bc67f0d7996def5f0fe2e3acc3a0e1c40dcda4"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 57051,
+      "sha256": "0c383f5c4ef15def1aa3077feb5c4a6bda8301611027264a0f914c038d0d1b90"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 48717,
+      "sha256": "593a68c44cd28e311a41c5c1983c6f35292226319ac140e7eaba6c39ab8de574"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-0e61faed40.json",
+      "category": "derived_development_foundry",
+      "bytes": 126304,
+      "sha256": "6a5abbc5f4ac09858ad813cb15970b9e68e6c3094a751370e6f94a4e63ccc686"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-0efaee5828.json",
+      "category": "derived_development_foundry",
+      "bytes": 151641,
+      "sha256": "b4a77119073ecf00e5b67cc7cb8f7fbc94e8a326c48cdd8db0fda1c65293f3ed"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-122d7f6e2a.json",
+      "category": "derived_development_foundry",
+      "bytes": 154901,
+      "sha256": "dcf794f0260e62594e30f9b2400313ce3cc3e9af6b29fac7955ece1e7fcf03b2"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-1521b6b7c3.json",
+      "category": "derived_development_foundry",
+      "bytes": 185046,
+      "sha256": "787b0ed21b7b558f5c1579dadd080b3daf9be4dbdcc14d49d88c9aad89e12125"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-2860deda61.json",
+      "category": "derived_development_foundry",
+      "bytes": 139982,
+      "sha256": "49ef1700268e3a71e40fc1b2b4d482e97b891f35da0cd823038df1589479aa3e"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-2d706b6f11.json",
+      "category": "derived_development_foundry",
+      "bytes": 149918,
+      "sha256": "fa672020b2819280f25adeef4e8864f4c5bb273d930697476117e2e45f76ddb8"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-2d7d2e4612.json",
+      "category": "derived_development_foundry",
+      "bytes": 127661,
+      "sha256": "b90a25bdb228e178810e0ed6cecb50ef31c52fee1945474e6835e371de0a5786"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-2f6354523f.json",
+      "category": "derived_development_foundry",
+      "bytes": 118004,
+      "sha256": "165be3ec489485f63bc7f2c50d72ec87d336618092c2933e5eed9243a1e87d2d"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-3aa2ad4cba.json",
+      "category": "derived_development_foundry",
+      "bytes": 153431,
+      "sha256": "dd4bbae1bd8d1d3ee363e9a4bbfe1de7b129dc7ec0e46db0a238dab7ec154d14"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-4bec60578b.json",
+      "category": "derived_development_foundry",
+      "bytes": 122728,
+      "sha256": "ff179ab6d956dcb0a591efb920c231838d2332764f2b842a36bf654c2bd7638c"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-5798c84cea.json",
+      "category": "derived_development_foundry",
+      "bytes": 152875,
+      "sha256": "f87181dd8c5f5cd6a81c46b2af32874d26210e97d13db8be80237563e47d9d41"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-7da5a6c16f.json",
+      "category": "derived_development_foundry",
+      "bytes": 224730,
+      "sha256": "dffc78229105242f37b41690f7dd69ccbbada1c8acc288728f9b04745eae6b59"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-908c475df3.json",
+      "category": "derived_development_foundry",
+      "bytes": 155523,
+      "sha256": "6e455717fa3f94b45c0d943944a256c9dad41c765eb545015ed2ad6d8ccffc96"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-93acd6603f.json",
+      "category": "derived_development_foundry",
+      "bytes": 148101,
+      "sha256": "44231563ffc7a48e2eaa25172e098618d63d270b07596056a689b58c36f2d975"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-ad7b9db895.json",
+      "category": "derived_development_foundry",
+      "bytes": 148781,
+      "sha256": "f9e176cb2bdcae5631297a1536494636ae924ef6dc79277df8870607fd5b5de9"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-b4df2effd8.json",
+      "category": "derived_development_foundry",
+      "bytes": 128575,
+      "sha256": "8bcaf0467836f77f8e52afc87f868acfd0d2a9401156a378e127341d92cda501"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-cf73f3c620.json",
+      "category": "derived_development_foundry",
+      "bytes": 124241,
+      "sha256": "ae58def09db530a5d0d89686350112dada9b9de8ae39ceec5926f5e950ec2a40"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/route-f91361b454.json",
+      "category": "derived_development_foundry",
+      "bytes": 188817,
+      "sha256": "0fc22692d9055aa5951cb495b9729b181c8bc0b3ebd0b9cf3ed5e539fefbf2de"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 41419,
+      "sha256": "9c27f68b1a27a3a91b94d3df048b339525dd9c8158005d4cbe3c9c3ea3fac16c"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 41414,
+      "sha256": "c62ea481f99f35d8c8d462e4d61305b5547ad30cf144dc717d69aaa8f6d6f630"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 41414,
+      "sha256": "f97d242595ef03d7a94e1ad8d546bb46f6559d52c9158bc31a605f221d627747"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 39833,
+      "sha256": "c4707bc9697362e7b8169827e88a3c91f3bb18ffcaa87738e6d76f04dc59af02"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+      "category": "derived_development_foundry",
+      "bytes": 39833,
+      "sha256": "77e1331998d9758a593ac259bd08a4759a857f425097692e59a2e72a49041575"
+    },
+    {
+      "status": "M",
+      "path": "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+      "category": "derived_development_foundry",
+      "bytes": 41421,
+      "sha256": "1480b49d43db31b3cd28dc323964045567f5a74969f2ec0152f03ae79d712f36"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/landing_screen.gdshader",
+      "category": "task_profiles_and_banks",
+      "bytes": 358,
+      "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/landing_screen.gdshader.uid",
+      "category": "task_profiles_and_banks",
+      "bytes": 20,
+      "sha256": "a3bb6efb7a4a4781d28afb06eff93a2989141bd327536463a33bcef3adad924c"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/motion_clip_data.gd",
+      "category": "task_profiles_and_banks",
+      "bytes": 3815,
+      "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/motion_clip_data.gd.uid",
+      "category": "task_profiles_and_banks",
+      "bytes": 19,
+      "sha256": "895f6c6b3ff75779430564e018ba2448d967656135d46addff60f8dbce689b11"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/motion_v1.tres",
+      "category": "task_profiles_and_banks",
+      "bytes": 237,
+      "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+      "category": "task_profiles_and_banks",
+      "bytes": 232,
+      "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_feel_v2.tres",
+      "category": "task_profiles_and_banks",
+      "bytes": 307,
+      "sha256": "e1c3759647cd1ca6e7437d935ced99472258137bf0d33a468fb136ceea02d3ea"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_sound_data.gd",
+      "category": "task_profiles_and_banks",
+      "bytes": 1478,
+      "sha256": "11a5874335fe2572d955b8c47d7c70fc93fad1fe525917ecfbc42299aaf925e7"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_sound_data.gd.uid",
+      "category": "task_profiles_and_banks",
+      "bytes": 20,
+      "sha256": "8e6eba9926b1a09f6e203236a6e623f9660bc8177bf165a7731810ee9d9b9230"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_sound_data_v2.gd",
+      "category": "task_profiles_and_banks",
+      "bytes": 3671,
+      "sha256": "6536780acd274303a0c5c1b213356f94d4930be7f783df53fd595de81dbc51cb"
+    },
+    {
+      "status": "A",
+      "path": "resources/player_presentation_01/weapon_sound_data_v2.gd.uid",
+      "category": "task_profiles_and_banks",
+      "bytes": 20,
+      "sha256": "7a370f806fe843c0b59b5f575f49b8c8ddb417ff90bef83554baabe1082f0a29"
+    },
+    {
+      "status": "M",
+      "path": "resources/weapons/magnetic_mine.tres",
+      "category": "shared_runtime_delta",
+      "bytes": 355,
+      "sha256": "aa25a81862e2fc1d19ac766a28b947f259e5933092a6a790eaa242da8825a897"
+    },
+    {
+      "status": "M",
+      "path": "resources/weapons/magnetic_storm.tres",
+      "category": "shared_runtime_delta",
+      "bytes": 387,
+      "sha256": "e83da8ec575f745017d9fce0bca590860341e39dc1b89936c23c477bfc46037f"
+    },
+    {
+      "status": "A",
+      "path": "scenes/dev/player_presentation_01/landing_feel.tscn",
+      "category": "task_preview_scenes",
+      "bytes": 237,
+      "sha256": "7f5b813da707041558df30fbacc15801a4873a54bb907a6572121e86a42f9da8"
+    },
+    {
+      "status": "A",
+      "path": "scenes/dev/player_presentation_01/motion_candidate.tscn",
+      "category": "task_preview_scenes",
+      "bytes": 213,
+      "sha256": "91ef2242eb9133f7557ee13673961a7c9f5c01fb41a64650a3fb4b205d398e18"
+    },
+    {
+      "status": "A",
+      "path": "scenes/dev/player_presentation_01/weapon_feel.tscn",
+      "category": "task_preview_scenes",
+      "bytes": 211,
+      "sha256": "408ca4159985780f08f84f8c7c0ad81e3cdbafcd74862e7fe386687fef2dbe2b"
+    },
+    {
+      "status": "A",
+      "path": "scenes/dev/player_presentation_01/weapon_feel_v2.tscn",
+      "category": "task_preview_scenes",
+      "bytes": 351,
+      "sha256": "9f0638fc747ec74eb1346cbf3b9cadec20cec2a1e04ae75f02c87272bdf39038"
+    },
+    {
+      "status": "M",
+      "path": "scripts/combat/player_projectile.gd",
+      "category": "shared_runtime_delta",
+      "bytes": 6506,
+      "sha256": "7597793841e15008dcb56985132c7793cb5c68eca0f750a9b4aaa7d0e0650c32"
+    },
+    {
+      "status": "M",
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "category": "shared_runtime_delta",
+      "bytes": 26634,
+      "sha256": "968690cd7cb383579a7da6d6598238101298d77ed871f847cca420e66412a58c"
+    },
+    {
+      "status": "M",
+      "path": "scripts/combat/weapon_definition.gd",
+      "category": "shared_runtime_delta",
+      "bytes": 4313,
+      "sha256": "5c4d8be2021279e1eb4f6e981116ba80e49811a8318681c15e6e241b2c70ec1b"
+    },
+    {
+      "status": "M",
+      "path": "scripts/combat/weapon_entity.gd",
+      "category": "shared_runtime_delta",
+      "bytes": 6362,
+      "sha256": "92100532822257979e5d8d24533d36a6e59dc559395164838418eb9e5508442b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_audio.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 2910,
+      "sha256": "23d8951006271208fc4bc85bd66da4bc976f7a9207d10bf2c223169dc22d30cc"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_audio.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "2dcd1ef67c8d91760d55ba03206d6bf5c69952de3ed038b5682434db8bc01c84"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 3445,
+      "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "0c42584bae681a55e85bead52a270d1c1922909b627df348210aeaeb3246e197"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_preview.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 5978,
+      "sha256": "954c63fdfa31dd92818ab52b60b30876babdc9ea89b622a51fc24387e0c2e987"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_preview.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "ca5833b0b08c28b6ade5bd27e6e409673320b889cd83d991242c578bcaa0e4e5"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 2340,
+      "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_profile.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "ee48c6e28899075f4cce4941e391b92e3a6dff9698ec492352945c35294617e1"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 9273,
+      "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/motion_visual.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "a8b997aae00e0d2861914c2064e37ca87ef51363af7dbbf60ad23d6b6adc0a1b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_audio.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 2178,
+      "sha256": "2da56ff839e2693b9cb1cb5e9981547689405af7d4a3777c55673114fda58618"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_audio.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "15f7ad213693647aab2b6b7f9cd3dfd712692d8088db0ad042fd388bd3509b2b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 1491,
+      "sha256": "3e82c050ae3e15ca5fad29589fc310e6c8cab66041519d45fa728601460fa742"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "bdf3666ad8669c57d80e2e123f2c257cde0fcf2135b9ea8cb3149aa0a05635c5"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 10046,
+      "sha256": "c1440bc0ad03ea79dd1ed657d923d13972be70ffb0cd4d41ef88ac450fe8904e"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "f977bfdecbc14585ec152a4ae4111a008e35becbd93252f81f7cefb1a9fa1a4b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 7259,
+      "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "315c87d7a2ac4f0fc0bd32bfbfd6380cd0bb003f77049cf992a71537ef50c107"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_preview.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 5623,
+      "sha256": "f46799e60f4b2c1505ecdb846f9cbc093decc29db82c9cc97ec33e70f72145ab"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_preview.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 19,
+      "sha256": "3d25e280e61db83634dfd202dd2b195d8b8621dda044c179ab89fc3f4c23958b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_preview_v2.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 561,
+      "sha256": "8ebb0df00fde98b84559f6c84722c8d325edc60046dd2bcae9db562383d10e8a"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_preview_v2.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "2a3cadd3941b672ff5e65c7ccc26909e7556bdb563eb0bea0f52cfadbf57fa55"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 816,
+      "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_profile.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 18,
+      "sha256": "f6e2419fc42d6a5fb45046396dfd7782a62ce6a3e2580a776960f4121a400b87"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_projectile.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 2529,
+      "sha256": "26b753006072bfabf3650728259d4af86dc92dfbc911a11ebda1449a24be0180"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_projectile.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "c0c7ab187c7de4545856f85f2a37457802931df452b60258d257a9f02c8f7d7b"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+      "category": "task_visual_audio_preview",
+      "bytes": 10554,
+      "sha256": "edaaa2e59bc0a364b68c5483c6691a73dc5e6c8ba6fab64c66e1ae178eaf80fe"
+    },
+    {
+      "status": "A",
+      "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd.uid",
+      "category": "task_visual_audio_preview",
+      "bytes": 20,
+      "sha256": "e153a94bf9997547b7a842daaffc1500d4715fd611731cac2d2817894f95f782"
+    },
+    {
+      "status": "M",
+      "path": "scripts/player/player_controller.gd",
+      "category": "shared_runtime_delta",
+      "bytes": 12454,
+      "sha256": "0fb3f319834bcae34952043449c8abf096f1f3a84842c155eed8286c6ea4acac"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/baseline_audit.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 5908,
+      "sha256": "9f855fb3a442f82de07c90a0e9fab2dfe9d033476710e48b106650ac45864fb3"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/baseline_audit.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "dc709f574fbdac1b903593cd86f56c9acfb466ba8f0760a84222beb59d4d1d76"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/build_feel_audio.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 3306,
+      "sha256": "287f9b516d7e1b1e8065e9aac600c8a6334594f74f83c108491daebbb9bb1305"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/build_mine_beep_v3.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 2919,
+      "sha256": "be6ec5c5432e6c29d348769bbfcad832e85a7c6035dc7fb2d6a29d14d127d5ad"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/build_weapon_audio.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 3855,
+      "sha256": "5a455c61479ebfde0a8a6c381d142877d8b76b42fc073d2c203d4edf680209e5"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/build_weapon_audio_v2.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 12792,
+      "sha256": "08596082786001826e8d0dc5aead6193a3655c85abcd97a878b8ce510b5ef15a"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/capture_feel.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 7339,
+      "sha256": "11ddb35bacfa9b5db76c3d663fabc3f2fc825c887b9f6adedc49f37e5990cc10"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/capture_motion.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 7246,
+      "sha256": "43963f3af92f01b81b2eb70ebd2a06dfd561d7350fb338dcc827ea6de9665104"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/capture_weapon.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 7549,
+      "sha256": "63eecb3094e9e619d611fc9fec7ad865be5b1f1b502a37675939a73ca5bdd30a"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/capture_weapon_v2.py",
+      "category": "task_tests_and_drivers",
+      "bytes": 7712,
+      "sha256": "f1d8cb8a4b70ce3de5583e904386e49c8cb26a41260f20ef7a7dea724eda1971"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/feel_lifecycle.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 3395,
+      "sha256": "a88e6cfb1bc3f4d9d34e5f21c936b37a38f7edce8a60fb1408a3d2d2b44642ca"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/feel_lifecycle.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "3ff9ea5ad08085c1d91276ceecc3283a5039d171e02ec39aab0ac3037f7000d0"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/feel_trace.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 7575,
+      "sha256": "6edad4c0ec863f22527cde11b83ef4c2bcd6de11cf4cd08ce88bf3d303940dd1"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/feel_trace.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "6d6d4f2e8929c73d1ce5b57e9451635eb4b9da0c948dbafaac42828de0770e68"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/mine_beep_binding_v3.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 2734,
+      "sha256": "225fea29bb2faaaae55707a0c2c9b372fc1e450378649d9bfda737b859d859ed"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/mine_beep_binding_v3.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "307c86081cd5174ea5c8a04688002054a04c323b1615f57b815eeffd7b568d52"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/mine_fuse_v2.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 8676,
+      "sha256": "b3290245c63855fa70f6da2ef1def0dda105caaafc9e7b929504b1f37b3d802b"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/mine_fuse_v2.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "a416a83a2f0fb7b3712edca38fd298a04b8b659664700a99672384946b5738e5"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/motion_lifecycle.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 3784,
+      "sha256": "b2f7e60e3f85a21cc7280748d730cb5a41a0a4590358f11ff531655d8c941595"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/motion_lifecycle.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "4646b1787878d57e5b2c94274b50157d0a06baf3e7f9dfbeb9df5fd6ca3c6726"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/motion_trace.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 6653,
+      "sha256": "4a9d392a77d54ecbd672217924fd3c43cff1d4a9b6a74c029b53e45e6478f3d6"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/motion_trace.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "b9ae690195ac5624cf596d19273f65d4d30f0e1758953001a5177254909400f8"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_audio_bank_v2.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 5737,
+      "sha256": "b585e29b9edf364746f968be97de24bd461183d0ee7b44b57f1fd1065e446dc4"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_audio_bank_v2.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "5ad4f880b32bfc86125fa3362d0757348a6835eb6c36ea6829be82f7b3e1f8c8"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_feedback_v2.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 5871,
+      "sha256": "d344cb81bc190ae84ef5fa7ee4e19e40375e16ecede62347e8580db2a7338546"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_feedback_v2.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "5375fb01e3f826a2b5385b6d3f621f28ed5d4ae654fb713e14aa106277fb2043"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_lifecycle.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 5602,
+      "sha256": "26e45be0c2c84d485ab188b58abf36bd64e070e479c6f29a4c95d7fdcc288e21"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_lifecycle.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "f21ba174c276d30016aaa5507f862e69f0d4480d736a58b36f0fad4072ed26ea"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_trace.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 8819,
+      "sha256": "485e5a21f765f711dc6ba67f30044a9435cb0a259151c714dffd29a4529fd2e7"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_trace.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "e9c5d8ae01a091f198532c55b82ca410179eebf2efa8b391d012c1bf0be0f17d"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_trace_v2.gd",
+      "category": "task_tests_and_drivers",
+      "bytes": 9318,
+      "sha256": "073b14f17b90daf2283129c465964f9fa1f23cf35b666ba44754910f7e12b4f1"
+    },
+    {
+      "status": "A",
+      "path": "tests/player_presentation_01/weapon_trace_v2.gd.uid",
+      "category": "task_tests_and_drivers",
+      "bytes": 20,
+      "sha256": "9e2e8de2bff07539d7850b7c55723a0cd7f2f4385812da9b167d22eb1e7e2729"
+    }
+  ],
+  "protected_files": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "equals_main_baseline": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "equals_main_baseline": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "equals_main_baseline": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "equals_main_baseline": true
+    },
+    {
+      "path": "scripts/art/player_visual_adapter.gd",
+      "sha256": "8df647e0cab625f932be6efa45b5b13ced4693f6e763c5e82e882027906d3fe9",
+      "equals_main_baseline": true
+    },
+    {
+      "path": "assets/characters/courier/courier_visual.gd",
+      "sha256": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+      "equals_main_baseline": true
+    }
+  ],
+  "shared_runtime_paths": [
+    "resources/weapons/magnetic_mine.tres",
+    "resources/weapons/magnetic_storm.tres",
+    "scripts/combat/player_projectile.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/combat/weapon_definition.gd",
+    "scripts/combat/weapon_entity.gd",
+    "scripts/player/player_controller.gd"
+  ],
+  "other_repository": {
+    "repository": "zhipijun1996/gunman-rush-previews",
+    "head": "b543242d28bb9c10aa375b002b081970d3929210",
+    "status": "clean,already pushed;concurrent other workline commits retained",
+    "own_last_delivery": "final325 movie with reversible archive of this session firstfc intermediate;not a new playable Web"
+  },
+  "exclusions": "Ignored build output,Godot caches and scratch files are not source changes. Large playable ZIP retained locally with recorded bytes/SHA,not claimed committed. Old failures and other-agentM1 branch not rewritten/deleted/merged."
+}
