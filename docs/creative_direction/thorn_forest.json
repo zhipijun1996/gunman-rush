@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v9",
+  "version": "creative-v10",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -120,7 +120,7 @@
     },
     {
       "path": "docs/design/player_actions/README.md",
-      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+      "sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
     },
     {
       "path": "docs/world_regions.json",
@@ -128,11 +128,11 @@
     },
     {
       "path": "docs/controls_contract.md",
-      "sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70"
+      "sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
     },
     {
       "path": "config/player_tuning.json",
-      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+      "sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
     },
     {
       "path": "resources/player/traversal.tres",
@@ -171,5 +171,51 @@
     "path": "docs/creative_direction/archive/creative-v7/thorn_forest.json",
     "sha256": "ba717b942c1847fb8e71df3eba38e088f36da08229fed52633a1220ebfa467ed",
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
+  },
+  "revision_impact": {
+    "task_id": "FOUR-LINE-INTEGRATION-01",
+    "revision": "UI R3 adopted action policy authority rebind, 2026-10-23",
+    "previous_direction": {
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v9.json",
+      "sha256": "0a7778677f711fd80cd3235adc247d96af415741b45ea43453c32918b2508919",
+      "version": "creative-v9"
+    },
+    "authorization": {
+      "source_commit": "ea2d6fd7c9d11c226ce52fe8885443137cdc077e",
+      "scope_path": "docs/worklines/demo_ui_01/r3/scope.md",
+      "scope_sha256": "b9a5bba695dbb7589c6bc0975ac89bd71e74197d2384d3874eb01047d53f41d7",
+      "effect": "Already authorized UI R3: exactly one baseline airborne round; shooting does not consume/return time energy; actual airborne gun/grapple slow aim shares AirFocus sole energy. Existing legal reload/ability recovery retained. Current config and the two authority-doc headers already came from the original UI branch; no new gameplay change here."
+    },
+    "changed_authorities": [
+      {
+        "path": "docs/design/player_actions/README.md",
+        "old_sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+        "new_sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
+      },
+      {
+        "path": "docs/controls_contract.md",
+        "old_sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70",
+        "new_sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
+      },
+      {
+        "path": "config/player_tuning.json",
+        "old_sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+        "new_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+      }
+    ],
+    "preserved": [
+      "Original Bible bytes, selected direction_id, region identity, selection evidence and global style-v7 unchanged",
+      "Every other authority reference, region topology, Motor, damage, ability grants, RNG and save contracts unchanged",
+      "Historical two-round/shoot-energy fixtures and assertions retained; old rules are not current defaults"
+    ],
+    "impact": "Regional production and resume planning must use the actual current action budget/time-energy authority. This is a real resource-policy adoption already implemented in UI source, not a claim that old route proofs validate every new route. No region redesign, aesthetic approval or device acceptance is inferred.",
+    "revalidation": [
+      "Original full creative-direction load and all strict authority SHA checks",
+      "Original region Bible tests",
+      "Existing core/action/weapons/budget and new140 actual time-energy assertions",
+      "Final precise Integration and Release; route reachability remains the original actual-consumer checks, not this metadata"
+    ],
+    "independent_review": "docs/evidence/four_line_integration_20261023/direction-authority-review.json",
+    "validation_status": "Versioned correction under explicit current policy; independent delta review and final Integration pending; no new content G5 approval"
   }
 }

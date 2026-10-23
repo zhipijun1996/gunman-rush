@@ -1,0 +1,54 @@
+{
+  "reviewer": "independent_review (not future rebind implementer)",
+  "verdict": "ACCEPT",
+  "scope": "Actual authority-source impact analysis and minimal versioned-rebinding conditions only. Current selected directions are still blocked until implementation and complete validator pass.",
+  "reviewed_at_utc": "2026-10-23T04:42:15.137575+00:00",
+  "observed_head": "addda5f1b0d5662ffce7d2fb063fc54d0f549740",
+  "current_failure": {
+    "command": "python tools/region_creative_direction.py --directory docs/creative_direction",
+    "log": "/workspace/scratch/integration-four-20261023/creative-current.log",
+    "log_sha256": "86d98edbbd940e4bb13881077abf9835d67e52ad36a0b7cd9fb74addf35a4bb1",
+    "status": "BLOCKED:3 Authority changed errors. Bible-only validation never established complete direction validity."
+  },
+  "independent_source_comparison": [
+    {
+      "path": "docs/design/player_actions/README.md",
+      "old_sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+      "new_sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475",
+      "actual_diff": "--- old-bound/docs/design/player_actions/README.md\n+++ current/docs/design/player_actions/README.md\n@@ -1,3 +1,5 @@\n+> 2026-10-23 最新资源规则按用户反馈修订：基础一发、射击不耗时间能量，空中枪械/钩索实际慢时共用唯一时间能量；覆盖下述旧射击精力/两发冻结，详见[本轮范围](../../worklines/demo_ui_01/r3/scope.md)。\n+\n # 武器、操作与能力锁设计入口\n \n 任务 ACTION-DESIGN-01；收录日期 2026-10-13；核查运行基线 `main@37c2153d9378e3e774fa9191c02318305af47ca5`。本目录是后续开发输入，不是已实现报告。当前正式内容继续以 [current_state](../../current_state.md) 为准。\n"
+    },
+    {
+      "path": "docs/controls_contract.md",
+      "old_sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70",
+      "new_sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a",
+      "actual_diff": "--- old-bound/docs/controls_contract.md\n+++ current/docs/controls_contract.md\n@@ -1,3 +1,5 @@\n+> 2026-10-23 DEMO-UI-01 R3 用户新规则覆盖旧 D079：开枪不消耗/不受时间能量限制；只有实际空中瞄准慢时消耗时间能量（枪械与钩索共用 AirFocus 唯一状态）。基础空中弹药一发，命中补弹、接地补弹和既有能力恢复事件保留。接地按真实秒渐回能量；慢时累计上限与耗尽再武装沿用既有规则。旧两发/射击精力只用于显式历史 fixture。详见[本轮范围](worklines/demo_ui_01/r3/scope.md)。\n+\n > 2026-10-19 本轮最新：PC右键/E、手柄LB改为按住钩索瞄准、松开发钩，轻点快速出钩；触屏HOOK仍拖动松手。空中枪械与钩索有效瞄准共用15%速度，原真实秒预算不变；取消和切设备不提交。停留环可用跳跃键小踢离开、有效射击反冲或再发H；详见[动作合同](design/forest_grapple_vertical.md)。下文旧按下即发条款被本修订覆盖。\n \n # 输入契约\n"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "old_sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "new_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+      "actual_diff": "--- old-bound/config/player_tuning.json\n+++ current/config/player_tuning.json\n@@ -9,7 +9,7 @@\n   \"recoil_impulse\": 520,\n   \"recoil_tau\": 0.16,\n   \"shot_cooldown\": 0.25,\n-  \"max_air_shots\": 2,\n+  \"max_air_shots\": 1,\n   \"projectile_speed\": 1200,\n   \"projectile_radius\": 3,\n   \"projectile_damage\": 1,\n"
+    }
+  ],
+  "source_impact": {
+    "readme": "Only a2line precedence header was prepended. It points to already authorized R3:one base round,no shooting-time-energy cost,one shared actual airborne gun/grapple slow-time state. Original action design text/weapon and ability principles retained.",
+    "controls": "Only corresponding2line current-policy header was prepended; all actual mappings,shoot release,grapple,epoch/cancel,real-time focus and ability recovery contract text retained.",
+    "tuning": "Only max_air_shots changed2→1; exact physics60Hz and all other parsed tuning values identical. This is real reduced ammo-budget scope,not merely metadata drift.",
+    "authorization": "Original UI R3 scope preserved at ea2d6fd,checked in documentation-policy-review.json; D084 formalizes current precedence. User selected region Bibles do not need a new election.",
+    "direction_content": "Both creative-v9 documents contain no hard-coded two-round promise requiring a new creative choice; high-level jump/recoil,ecology and regions remain selected."
+  },
+  "minimal_rebind_conditions": [
+    "Save each complete current creative-v9 JSON byte-identically to a versioned evidence path with its fullSHA; retain prior historical_direction pointer and all old authority hashes in that snapshot.",
+    "Increment direction version,add revision_impact and change only these3authority_sources SHA values. Preserve source list order and all other entries byte-for-value.",
+    "Preserve region_id,direction_id,decision,acceptance,user_acceptance,originaluserquote,selection_basis/rationale,candidates,allcreativecoverage,region_bible binding and originalBible bytes. Do not create new candidates or reissue user/art/gameplay/device approval.",
+    "revision_impact must bind R3 scope and D084,old/new full hashes plus real2→1ammo effect; explicitly preserve60Hz/physics/abilities/RNG/save and current slow-time policy. Do not label the complete change hash-only.",
+    "Keep old full-validator failure as failed. Run the original complete --directory validator and relevant original direction/Bible tests after actual rebind; --check-bibles alone is insufficient.",
+    "Do not reuse old two-round route/gameplay proofs as current one-round feasibility. Existing explicit historical fixtures retain original assertions; current scoped UI140/core/action budget results support current consumers but whole affected-region/fullIntegration remains separate.",
+    "Independent reviewer must compare exact applied newdirection files and snapshots against this bounded plan before final acceptance."
+  ],
+  "review_method": "Read both selected directions,actual3source diffs against exact old-bound origin/main bytes,old failure log,and full loader guard. No source edits,hydration,engine orCI.",
+  "limitations": [
+    "Implementation not yet inspected; currentdirections not signed valid.",
+    "No new artistic,user,physical-device or completeIntegration/Release approval."
+  ]
+}

@@ -168,7 +168,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(data['source']['quote'],'森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了')
         self.assertEqual(data['source']['additional_quote'],'同时后续区域不要出类似的问题')
         self.assertEqual(data['applies_to'],'all_region_create_optimize_and_proposed_bibles')
-        self.assertEqual([data['runtime_reference'][k] for k in ('tile_px','world_tile_wu')],[16,32])
+        self.assertEqual([data['runtime_reference'][k] for k in ('tile_px','world_tile_wu')],[32,32])
         refs = data['runtime_reference']['references']
         self.assertTrue(any(row['path']=='scripts/underworld_plains/underworld_terrain.gd' for row in refs))
         for row in refs:
@@ -202,7 +202,8 @@ class BibleTests(unittest.TestCase):
 
     def test_shared_reference_or_quote_drift_blocks_calls_and_restore(self):
         style=creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        paths=[style['path'],'scripts/underworld_plains/underworld_terrain.gdshader','assets/underworld_plains/terrain/terrain.png','assets/underworld_plains/terrain/source.png','assets/underworld_plains/terrain/terrain.tres']
+        paths=[style['path'],'shaders/formal_fine_boundary.gdshader','assets/underworld_plains/terrain/fine_32/terrain.png','assets/underworld_plains/terrain/fine_32/source.png','assets/underworld_plains/terrain/fine_32/terrain.tres',
+               'scripts/art/player_presentation_runtime.gd','assets/player_presentation_01/motion_v1/motion_source.png','resources/art/avatars.json']
         skill=self.root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic reviewer')
         stripped=self.task();stripped['region_bible']={k:v for k,v in self.ref.items() if not k.startswith('supplemental_authority_')}
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
@@ -232,17 +233,16 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'4')
+        self.assertEqual(style['content']['version'],'7')
         refs = style['content']['runtime_reference']['references']
-        self.assertEqual(len(refs),16)
-        # V3 restored rope feedback; V4 only accelerates exact boundary lookup.
-        # Frozen V2/V3 remain replay sources, never valid current bindings.
+        self.assertEqual(len(refs),36)
+        # The selected fine style superseded V4; V7 adds the real default body.
+        # All20 V6 references remain exact, and old bindings remain refused.
         previous_path = 'docs/creative_direction/bibles/style-continuity-20261021-v2.json'
         previous_bytes = (ROOT/previous_path).read_bytes()
-        previous = json.loads(previous_bytes)
+        previous = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v6.json').read_bytes())
         for row in previous['runtime_reference']['references']:
-            if row['path'] not in {'scripts/underworld_plains/underworld_player.gd','scripts/art/plains_terrain_borders.gd'}:
-                self.assertIn(row, refs)
+            self.assertIn(row, refs)
         superseded = copy.deepcopy(self.ref)
         superseded['supplemental_authority_path'] = previous_path
         superseded['supplemental_authority_sha256'] = hashlib.sha256(previous_bytes).hexdigest()
@@ -254,6 +254,13 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json']:
+            old_path = 'docs/creative_direction/bibles/'+old_style
+            stale = copy.deepcopy(self.ref)
+            stale['supplemental_authority_path'] = old_path
+            stale['supplemental_authority_sha256'] = hashlib.sha256((ROOT/old_path).read_bytes()).hexdigest()
+            with self.subTest(superseded=old_style),self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.validate_bible_binding(stale,root=self.root)
         for role,path in creative.PLAYER_STYLE_DEPENDENCIES.items():
             self.assertIn({'role':role,'path':path,'sha256':hashlib.sha256((self.root/path).read_bytes()).hexdigest()},refs)
         old = json.loads((ROOT/'docs/creative_direction/archive/creative-v5/thorn_forest.json').read_bytes())['region_bible']

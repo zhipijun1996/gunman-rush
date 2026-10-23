@@ -1,0 +1,18 @@
+.......F..
+======================================================================
+FAIL: test_selected_direction_binds_every_specialist_and_retains_stage_gates (__main__.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/integration-four/tests/test_region_creative_direction.py", line 94, in test_selected_direction_binds_every_specialist_and_retains_stage_gates
+    self.assertEqual(task['creative_direction']['version'], 'creative-v8')
+AssertionError: 'creative-v10' != 'creative-v8'
+- creative-v10
+?           ^^
++ creative-v8
+?           ^
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.667s
+
+FAILED (failures=1)

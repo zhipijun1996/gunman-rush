@@ -42,3 +42,5 @@ B源7项原Harness fresh全部passed，1266检查：enemy native458、formal66�
 真实GL为UI147、R2223、terrain GPU、foreground506样本/23身份，无脚本/音频退出错误。Web为真实Godot F源fbb417c包7f88f353bfb4，4新增JSON与5MP3实际导入bytes在PCK一致。F→B生产diff为空；不把旧F包重标成B新包。真实本地Chromium24GUI＋4原生音频运行/非零混音通过；追加真实家园／织时匠／新版默认与切经典已观察，随后OCR失败保留，完整切回、森林及五曲浏览器逐曲听音未验。新manual driver为tools/verify_four_line_browser.py，参数必须绑定实际Web包source/build、真实CJK OCR和全新build下输出目录；不改历史driver断言、不注入引擎。
 
 精选日志/实际图/失败/限定独审见[证据说明](../evidence/four_line_integration_20261023/README.md)。PR创建前执行原check_docs、check_quality、check_quality_diff、check_release_evidence；PR只开一次Production impact Integration，用户已授权成功后正常合main，main自动原Godot core完整Release/Web/Windows/公开PCK验证，不再重复手动dispatch完整CI。G5/全图美术、听感、手感与物理设备仍未验。
+
+原Bible32测试的当前fixture仍写v4／16px／16引用／旧shader路径，已保存真实2F1E失败。只迁移为用户已选的v7／32px／36引用及实际fine资源；保留v2/v3旧绑定拒绝，新增v4/v5/v6拒绝、factory／新人物PNG／avatars漂移零调用与恢复阻断，逐条核v6全部20引用精确保留。32原测试现全通过，完整creative方向10原测试亦通过；不声称v2旧地形仍是当前，也不改变校验器或预算。
