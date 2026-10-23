@@ -80,3 +80,5 @@ wrapper失败先用其原runner单独定位/复验，保原断言、预算与严
 GUI专项在deferred run入口设置实际Window/viewport尺寸并记录screen scale，避免初始化设置被headless默认64覆盖；DisplayServer的headless零值另列，不能当真机尺寸。HUD遮挡检查取实际可见控件，透明布局根和同一个触控菜单的自交不能冒称遮挡；真实角色／敌人／机关／其他UI重叠继续拒绝。
 
 资源策略变化后，正例与反例都要绑定实际配置；篡改必须实际改变数据，不能用删除本来不存在的扣费回执充当拒绝测试。多个彼此独立的native场景可在原聚合硬时限内并行，但须保全部场景、唯一完整覆盖、原断言、退出／日志／清理检查和可追溯子进程证据，不把每个分片另给全额时限。
+
+APT镜像修复须核实际runner日志的`mirror+file`入口（含`/etc/apt/apt-mirrors.txt`）及实际获取URL；仅安装通过或修改sources文件不能证明已切源。保GPG、套件、参数及原超时，不把临时源文件测试签成Cloud生效。

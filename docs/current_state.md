@@ -1,5 +1,11 @@
 # 当前状态
 
+## 2026-10-23 实际Ubuntu镜像入口补齐（最新）
+
+7ab4仅补两workflow六处实际mirrorlist入口。f57的安装虽通过，下载仍走Azure：日志显示file:/etc/apt/apt-mirrors.txt，原两sources只是引用它；此前切源成功的表述已纠正。现在追加此已观测文件，原sed／GPG／套件／APT／预算／断言／合流全保；真实临时三文件与原五组、精确Git独审、官方Actionlint通过。下一CI须看到实际官方HTTPS获取URL；main／Release仍未完成，游戏源／a074Preview不变。
+
+[准确日志节选与限定修复](evidence/four_line_integration_20261023/apt-mirror/mirrorlist-entry/README.md)。本地163ad原专项308.524秒通过保持其原源，未追加原生重跑。以下为历史时点。
+
 ## 2026-10-23 Ubuntu依赖镜像修复（最新）
 
 实现77eca16已冻结：88a08的parallel在原生测试前因Azure下载过慢触发原五分钟安装上限，serial状态单列，不冒称整轮通过。现仅将两workflow六处精确Azure URI改为Ubuntu官方HTTPS；GPG／套件／APT参数／原预算／检查与合流全保，精确Git采纳独审及官方Actionlint通过。本地163ad原专项308.524秒的通过保持原源；新镜像实际CI及main／Release仍待结果。
