@@ -869,39 +869,59 @@ def main():
             receipt["historical_boundary"]=historical_checks(folder,env)
         else:
             receipt["historical_boundary"]={"status":"not_run","scope":"optional immutable historical comparison; not current gameplay acceptance","reason":"not requested; use --with-legacy"}
-        # Current full135-core consumers are separate from immutable history.
-        cohorts={"after":[]}
-        for i,(seed,map_index,strategy) in enumerate(CASES):
-            target=folder/"after"/f"case_{i}"/"capture.json"
-            result=formal.capture_one(seed,map_index,strategy,target,max_ticks=15000,encounter_policy="kill_from_bank_v1")
-            require(result["captured"],"actual current formal capture rejected: "+str(result))
-            experience.validate_capture(read(target))
-            cohorts["after"].append(str(target.relative_to(ROOT)))
-        receipt["current_cases"]=cohorts["after"]
-        write(folder/"after_report.json",experience.report([ROOT/p for p in cohorts["after"]]))
-        # An independent actual current-source replay is the comparable positive.
-        # It is deliberately not a copy or self-comparison of the first cohort.
-        seed,map_index,strategy=CASES[0]
-        repeated_target=folder/"current_repeat"/"capture.json"
-        repeated=formal.capture_one(seed,map_index,strategy,repeated_target,max_ticks=15000,encounter_policy="kill_from_bank_v1")
-        require(repeated["captured"],"same-source independent formal capture rejected: "+str(repeated))
-        same_source_before=experience.report([ROOT/cohorts["after"][0]])
-        same_source_after=experience.report([repeated_target])
-        write(folder/"same_source_before_report.json",same_source_before)
-        write(folder/"same_source_after_report.json",same_source_after)
-        write(folder/"comparison.json",experience.compare(same_source_before,same_source_after))
-        receipt["same_source_repeat"]=repeated
-        receipt["comparison_scope"]=("Historical four-case transition strictly rejected; " if args.with_legacy else "Historical comparison not_run; ")+"four current-source cases plus independent current-source return replay compared, not content improvement"
-        capture=next(read(ROOT/p) for p in cohorts["after"] if any(e["kind"]=="shot_accepted" for e in read(ROOT/p)["events"]))
-        receipt["causal_tamper_rejected"]=policy_tamper_checks(capture)
-        growth=next(read(ROOT/p) for p in cohorts["after"] if read(ROOT/p)["strategy"]=="growth")
-        receipt["claim_tamper_rejected"]=claim_tamper_checks(growth)
-        # Additional explicit non-kill policy, retaining any later route failure.
-        bait=formal.capture_one("level-design-v2-baseline",1,"fast",folder/"bait"/"capture.json",max_ticks=10000,encounter_policy="bait_then_bypass_v1")
-        require(bait["captured"],"nonkill formal capture failed")
-        bait_data=read(ROOT/bait["capture"]);experience.validate_capture(bait_data)
-        require(any(o.get("kind")=="actual_nonkill_bypass" and o.get("enemy_health",0)>0 for o in bait_data["policy_observations"]),"no actual live non-kill bypass")
-        receipt["bait_capture"]=bait
+        # These six real producers have independent destinations and read-only
+        # sources. Bound concurrency only; retain each original240s producer
+        # deadline and the outer original600s specialty budget.
+        current_jobs=[(seed,index,strategy,folder/"after"/f"case_{i}"/"capture.json",15000,"kill_from_bank_v1")
+                      for i,(seed,index,strategy) in enumerate(CASES)]
+        current_jobs.extend([(*CASES[0],folder/"current_repeat"/"capture.json",15000,"kill_from_bank_v1"),
+                             ("level-design-v2-baseline",1,"fast",folder/"bait"/"capture.json",10000,"bait_then_bypass_v1")])
+        require(len(current_jobs)==6 and len({job[3] for job in current_jobs})==6,
+                "current capture matrix/unique destinations changed")
+        with ThreadPoolExecutor(max_workers=2) as workers:
+            current_futures=[workers.submit(formal.capture_one,seed,index,strategy,target,
+                             max_ticks=max_ticks,encounter_policy=policy)
+                             for seed,index,strategy,target,max_ticks,policy in current_jobs]
+            receipt["current_capture_workers"]=2
+            try:
+                # Current full135-core consumers are separate from immutable history.
+                cohorts={"after":[]}
+                for i,(seed,map_index,strategy) in enumerate(CASES):
+                    target=folder/"after"/f"case_{i}"/"capture.json"
+                    result=current_futures[i].result()
+                    require(result["captured"],"actual current formal capture rejected: "+str(result))
+                    experience.validate_capture(read(target))
+                    cohorts["after"].append(str(target.relative_to(ROOT)))
+                receipt["current_cases"]=cohorts["after"]
+                write(folder/"after_report.json",experience.report([ROOT/p for p in cohorts["after"]]))
+                # An independent actual current-source replay is the comparable positive.
+                # It is deliberately not a copy or self-comparison of the first cohort.
+                seed,map_index,strategy=CASES[0]
+                repeated_target=folder/"current_repeat"/"capture.json"
+                repeated=current_futures[4].result()
+                require(repeated["captured"],"same-source independent formal capture rejected: "+str(repeated))
+                same_source_before=experience.report([ROOT/cohorts["after"][0]])
+                same_source_after=experience.report([repeated_target])
+                write(folder/"same_source_before_report.json",same_source_before)
+                write(folder/"same_source_after_report.json",same_source_after)
+                write(folder/"comparison.json",experience.compare(same_source_before,same_source_after))
+                receipt["same_source_repeat"]=repeated
+                receipt["comparison_scope"]=("Historical four-case transition strictly rejected; " if args.with_legacy else "Historical comparison not_run; ")+"four current-source cases plus independent current-source return replay compared, not content improvement"
+                capture=next(read(ROOT/p) for p in cohorts["after"] if any(e["kind"]=="shot_accepted" for e in read(ROOT/p)["events"]))
+                receipt["causal_tamper_rejected"]=policy_tamper_checks(capture)
+                growth=next(read(ROOT/p) for p in cohorts["after"] if read(ROOT/p)["strategy"]=="growth")
+                receipt["claim_tamper_rejected"]=claim_tamper_checks(growth)
+                # Additional explicit non-kill policy, retaining any later route failure.
+                bait=current_futures[5].result()
+                require(bait["captured"],"nonkill formal capture failed")
+                bait_data=read(ROOT/bait["capture"]);experience.validate_capture(bait_data)
+                require(any(o.get("kind")=="actual_nonkill_bypass" and o.get("enemy_health",0)>0 for o in bait_data["policy_observations"]),"no actual live non-kill bypass")
+                receipt["bait_capture"]=bait
+            finally:
+                # Do not launch queued producers after an observed failure.
+                # Already running producers retain their original bounded
+                # process-group cleanup; the pool joins them before unwinding.
+                for future in current_futures: future.cancel()
         require(before==formal.source_files(),"source drift during actual specialty")
         require(verifier_sources=={p:formal.file_hash(ROOT/p) for p in verifier_sources},"verifier source drift")
         receipt.update(status="passed",source_after=formal.source_files())
