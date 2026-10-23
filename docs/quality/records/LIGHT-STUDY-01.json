@@ -4,109 +4,271 @@
   "task_type": "art",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "content_version": "light-study-v2-functional-fix",
+  "reviewed_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+  "content_version": "light-study-v2-functional-fix-schema-migration",
   "owner": "root",
   "purpose": "快速对照现有家园与正式平原的晨光、青绿荧光、蓝紫暮光，不替换正式美术",
-  "skills": [
-    "visual-director",
-    "art-director"
+  "player_experience": "Historical explicitly positioned static art experiment only; retain the author's limited visual facts without certifying the current combined/main build, motion, audio or device experience.",
+  "constraints": [
+    "用户明确要求方向实机图、快速实验、不跑CI；本次不执行整套Harness/CI或Web发布",
+    "Migrate metadata to the unchanged original quality schema; no engine rerun, production change or validator relaxation.",
+    "Original capture/log/screenshots, source hashes and failures retain their original identities; author statements are not fresh combined-source proof.",
+    "No final art, normal movement, route, audio, physical-device or player acceptance is granted by this migration."
   ],
-  "user_override": "用户明确要求方向实机图、快速实验、不跑CI；本次不执行整套Harness/CI或Web发布",
   "affected_paths": [
     "scenes/dev/light_study.tscn",
     "scripts/art/light_study.gd",
     "shaders/light_study.gdshader"
   ],
-  "source_sha256": {
-    "scenes/dev/light_study.tscn": "b490a00a1442766d7cc70fda8c2a5f0a60caf4093b901c559109099191324d4f",
-    "scripts/art/light_study.gd": "70ed4b90c77ce84f48f5efe03506b12d875dc231d45785f5e5e0dc74929bd742",
-    "shaders/light_study.gdshader": "a6a7e1009e6edf7dcc56eba9a5257a13abf4836f74b7b2896d0017375757f703"
-  },
-  "capture_command": "DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=2 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --resolution 1280x720 scenes/dev/light_study.tscn -- --capture --output=res://build/light_study_final",
-  "evidence": [
-    "docs/evidence/light_study_01/capture.json",
-    "docs/evidence/light_study_01/capture.log"
+  "deliverables": [
+    "Historical static-direction experiment and original source/failure records",
+    "Byte-identical original author JSON snapshot and structurally valid quality record; content remains review"
   ],
-  "verification": {
-    "engine": "Godot 4.7.2 Standard, GL Compatibility, llvmpipe",
-    "native_exit_code": 0,
-    "screenshots": 16,
-    "windows": [
-      "home",
-      "home_gate",
-      "plains_spawn",
-      "plains_junction"
-    ],
-    "seed": "level-design-v2-baseline/08",
-    "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
-    "fixture_scope": "位置明确设置的冻结静态实机；没有通关、全区、正常操作或设备声明",
-    "gallery": "Chromium实际绘制两张对照板并切换12个镜头/候选组合；不等于游戏Web测试"
-  },
-  "failures_retained": [
-    "首轮只抬亮存在天空横带和碎噪点，保留build/light_study",
-    "第二轮冻结过早保留了初始化BossHUD，保留build/light_study_v2；已等待process_frame后重采",
-    "final首次把RefCounted工厂当CanvasItem类型，Parse Error保留failed_parse.log，改成其真实嵌套PixelOneWayPaint后原生退出0"
-  ],
-  "review": {
-    "reviewer": "separate read-only agent /root/visual_check",
-    "actually_viewed": [
-      "home_dawn.png",
-      "home_jade.png",
-      "home_lilac.png",
-      "plains_spawn_dawn.png",
-      "plains_junction_jade.png"
-    ],
-    "scope": "仅方向改善；晨光默认，青绿局部，紫暮次选",
-    "remaining": [
-      "草边仍像连续荧光线",
-      "尚缺真正亮源与附近反光关系",
-      "青绿建筑标签对比偏低"
-    ]
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    }
   },
   "dimensions": {
     "design": {
-      "status": "passed",
-      "reason": "已完成用户要求的三方向和实机对照，仅实验候选"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 已完成用户要求的三方向和实机对照，仅实验候选",
+      "evidence": []
     },
     "technical": {
-      "status": "passed",
-      "reason": "限定16张实机、真实完成标记与退出0；无完整CI声明"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 限定16张实机、真实完成标记与退出0；无完整CI声明",
+      "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "仅显式开发场景，默认游戏消费者未替换"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 仅显式开发场景，默认游戏消费者未替换",
+      "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "方向改善已观察；仍非最终美术，待用户选择"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 方向改善已观察；仍非最终美术，待用户选择",
+      "evidence": []
     },
     "animation": {
       "status": "not_applicable",
-      "reason": "本次明确要求静态方向图"
+      "reason": "本次明确要求静态方向图 Historical Lab-only scope; not a claim about the combined integration.",
+      "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "仅实验局部光晕，未听音或验动态特效"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 仅实验局部光晕，未听音或验动态特效",
+      "evidence": []
     },
     "gameplay": {
       "status": "not_applicable",
-      "reason": "未改碰撞、Motor、生成、存档、资源；不声明路线通过"
+      "reason": "未改碰撞、Motor、生成、存档、资源；不声明路线通过 Historical Lab-only scope; not a claim about the combined integration.",
+      "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "软件渲染截图，不外推设备性能"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 软件渲染截图，不外推设备性能",
+      "evidence": []
     },
     "independent_review": {
-      "status": "passed",
-      "reason": "不同只读代理实际查看指定五图，仅方向评价"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 不同只读代理实际查看指定五图，仅方向评价",
+      "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "未跑真机"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 未跑真机",
+      "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "待用户看图反馈"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 待用户看图反馈",
+      "evidence": []
     }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "original-author-record",
+      "path": "docs/evidence/light_study_01/original-author-record.json",
+      "sha256": "0ba2d1ec828542943027f569e1159244c5f7bbfc3d7c4d048fbb1da7322aaee8",
+      "kind": "spec",
+      "producer": "historical author root",
+      "source_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+      "content_version": "light-study-v2-functional-fix-schema-migration",
+      "method": "Byte-identical preservation of the original author quality JSON; source identified by its first author commit. Metadata/history only, not a new runtime command or independent review.",
+      "observed": "Original limited static screenshot counts, source hashes, command/result statements, failures and review descriptions remain verbatim; this migration grants no passed dimensions or gates."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Complete exact-source schema evidence for any historical technical or independent-review passed statement",
+    "Current combined/main verification, real GUI, runtime motion/audio and physical-device/player acceptance",
+    "Historical original captured media retains the author's explicit diagnostic still-image scope; no screenshot is promoted to animation or route proof"
+  ],
+  "skills": [
+    "visual-director",
+    "art-director"
+  ],
+  "historical_author_record": {
+    "path": "docs/evidence/light_study_01/original-author-record.json",
+    "sha256": "0ba2d1ec828542943027f569e1159244c5f7bbfc3d7c4d048fbb1da7322aaee8",
+    "source_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+    "facts": {
+      "schema_version": 1,
+      "task_id": "LIGHT-STUDY-01",
+      "task_type": "art",
+      "workflow": "review",
+      "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "light-study-v2-functional-fix",
+      "owner": "root",
+      "purpose": "快速对照现有家园与正式平原的晨光、青绿荧光、蓝紫暮光，不替换正式美术",
+      "skills": [
+        "visual-director",
+        "art-director"
+      ],
+      "user_override": "用户明确要求方向实机图、快速实验、不跑CI；本次不执行整套Harness/CI或Web发布",
+      "affected_paths": [
+        "scenes/dev/light_study.tscn",
+        "scripts/art/light_study.gd",
+        "shaders/light_study.gdshader"
+      ],
+      "source_sha256": {
+        "scenes/dev/light_study.tscn": "b490a00a1442766d7cc70fda8c2a5f0a60caf4093b901c559109099191324d4f",
+        "scripts/art/light_study.gd": "70ed4b90c77ce84f48f5efe03506b12d875dc231d45785f5e5e0dc74929bd742",
+        "shaders/light_study.gdshader": "a6a7e1009e6edf7dcc56eba9a5257a13abf4836f74b7b2896d0017375757f703"
+      },
+      "capture_command": "DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=2 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --resolution 1280x720 scenes/dev/light_study.tscn -- --capture --output=res://build/light_study_final",
+      "evidence": [
+        "docs/evidence/light_study_01/capture.json",
+        "docs/evidence/light_study_01/capture.log"
+      ],
+      "verification": {
+        "engine": "Godot 4.7.2 Standard, GL Compatibility, llvmpipe",
+        "native_exit_code": 0,
+        "screenshots": 16,
+        "windows": [
+          "home",
+          "home_gate",
+          "plains_spawn",
+          "plains_junction"
+        ],
+        "seed": "level-design-v2-baseline/08",
+        "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
+        "fixture_scope": "位置明确设置的冻结静态实机；没有通关、全区、正常操作或设备声明",
+        "gallery": "Chromium实际绘制两张对照板并切换12个镜头/候选组合；不等于游戏Web测试"
+      },
+      "failures_retained": [
+        "首轮只抬亮存在天空横带和碎噪点，保留build/light_study",
+        "第二轮冻结过早保留了初始化BossHUD，保留build/light_study_v2；已等待process_frame后重采",
+        "final首次把RefCounted工厂当CanvasItem类型，Parse Error保留failed_parse.log，改成其真实嵌套PixelOneWayPaint后原生退出0"
+      ],
+      "review": {
+        "reviewer": "separate read-only agent /root/visual_check",
+        "actually_viewed": [
+          "home_dawn.png",
+          "home_jade.png",
+          "home_lilac.png",
+          "plains_spawn_dawn.png",
+          "plains_junction_jade.png"
+        ],
+        "scope": "仅方向改善；晨光默认，青绿局部，紫暮次选",
+        "remaining": [
+          "草边仍像连续荧光线",
+          "尚缺真正亮源与附近反光关系",
+          "青绿建筑标签对比偏低"
+        ]
+      },
+      "dimensions": {
+        "design": {
+          "status": "passed",
+          "reason": "已完成用户要求的三方向和实机对照，仅实验候选"
+        },
+        "technical": {
+          "status": "passed",
+          "reason": "限定16张实机、真实完成标记与退出0；无完整CI声明"
+        },
+        "formal_integration": {
+          "status": "unverified",
+          "reason": "仅显式开发场景，默认游戏消费者未替换"
+        },
+        "visual": {
+          "status": "unverified",
+          "reason": "方向改善已观察；仍非最终美术，待用户选择"
+        },
+        "animation": {
+          "status": "not_applicable",
+          "reason": "本次明确要求静态方向图"
+        },
+        "audio_vfx": {
+          "status": "unverified",
+          "reason": "仅实验局部光晕，未听音或验动态特效"
+        },
+        "gameplay": {
+          "status": "not_applicable",
+          "reason": "未改碰撞、Motor、生成、存档、资源；不声明路线通过"
+        },
+        "performance": {
+          "status": "unverified",
+          "reason": "软件渲染截图，不外推设备性能"
+        },
+        "independent_review": {
+          "status": "passed",
+          "reason": "不同只读代理实际查看指定五图，仅方向评价"
+        },
+        "device": {
+          "status": "unverified",
+          "reason": "未跑真机"
+        },
+        "player_acceptance": {
+          "status": "unverified",
+          "reason": "待用户看图反馈"
+        }
+      }
+    },
+    "capture_evidence_bindings": [
+      {
+        "path": "docs/evidence/light_study_01/capture.json",
+        "source_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+        "git_blob": "035d28ed926527b23ce486ed527924b51e1c1b75",
+        "sha256": "825bacfb6e59a13a8a636a7b157baeb060ceffe0311cc1954b059969f685ce80"
+      },
+      {
+        "path": "docs/evidence/light_study_01/capture.log",
+        "source_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+        "git_blob": "cd670ee3b16665c7402c5f619d493fb5ffed644d",
+        "sha256": "bf3684d75b487bc24fb056320976d8dc9f3b595782a73f7c969b62ab69aeacd9"
+      }
+    ],
+    "scope": "Original author facts only; not combined/main/Release evidence. Missing local historical files do not become passed or disappear from Git history."
   }
 }

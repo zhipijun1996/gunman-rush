@@ -4,152 +4,316 @@
   "task_type": "art",
   "workflow": "review",
   "baseline_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+  "reviewed_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+  "content_version": "pixel-light-study-02-historical-author-schema-migration",
   "owner": "root",
   "purpose": "继续快速实验：统一像素采样与表现位置，再比较局部真实打光",
-  "user_override": "不要求模仿Animal Well像素风格，只学打光；继续用户已明确的快速实验/不跑CI范围",
-  "skills": [
-    "visual-director",
-    "art-director"
+  "player_experience": "Historical explicitly positioned static art experiment only; retain the author's limited visual facts without certifying the current combined/main build, motion, audio or device experience.",
+  "constraints": [
+    "不要求模仿Animal Well像素风格，只学打光；继续用户已明确的快速实验/不跑CI范围",
+    "Migrate metadata to the unchanged original quality schema; no engine rerun, production change or validator relaxation.",
+    "Original capture/log/screenshots, source hashes and failures retain their original identities; author statements are not fresh combined-source proof.",
+    "No final art, normal movement, route, audio, physical-device or player acceptance is granted by this migration."
   ],
-  "source_files": [
+  "affected_paths": [
     "scenes/dev/pixel_light_study.tscn",
     "scripts/art/pixel_light_study.gd",
     "shaders/pixel_grid_study.gdshader",
     "shaders/local_pixel_study.gdshader",
     "shaders/local_light_study.gdshader"
   ],
-  "source_sha256": {
-    "scenes/dev/pixel_light_study.tscn": "741239e974e3ec8c80156d33432a2652516b8f9ee3f6952055dcb698a324fb07",
-    "scripts/art/pixel_light_study.gd": "4fc8e7d96f490a518b2c3e17ccf61180d473c846c6fff17c956f3664676433cf",
-    "shaders/pixel_grid_study.gdshader": "e76bed17dd1148031cab20edb7f1696d8fa0e2061d482199348e66b8ef65ae02",
-    "shaders/local_pixel_study.gdshader": "690a2ea59b54d17f6a4633b2cb52e5a80104ec8270119daacfc14151e4e7981b",
-    "shaders/local_light_study.gdshader": "2091fa6dd8acfb89bfac80e1452d7e73c24f9205fe581234208e1e5e2d477877"
-  },
-  "runtime_dependence": [
-    "scenes/dev/light_study.tscn",
-    "scripts/art/light_study.gd",
-    "shaders/light_study.gdshader"
+  "deliverables": [
+    "Historical static-direction experiment and original source/failure records",
+    "Byte-identical original author JSON snapshot and structurally valid quality record; content remains review"
   ],
-  "verification": {
-    "engine": "Godot 4.7.2 Standard / GL Compatibility / llvmpipe",
-    "native_exit_code": 0,
-    "final_log": "docs/evidence/pixel_light_study_02/capture.log",
-    "screenshots": 20,
-    "capture_receipt": "docs/evidence/pixel_light_study_02/capture.json",
-    "pixel_measurements": {
-      "scope": "GPU PNG cells only, not source redraw, art acceptance or motion/device evidence",
-      "measurements": {
-        "original": {
-          "building_roi": [
-            240,
-            360,
-            128,
-            120
-          ],
-          "same_color_2x2_fraction": 0.01328125
-        },
-        "aligned": {
-          "building_roi": [
-            240,
-            360,
-            128,
-            120
-          ],
-          "same_color_2x2_fraction": 1.0
-        },
-        "lamps": {
-          "building_roi": [
-            240,
-            360,
-            128,
-            120
-          ],
-          "same_color_2x2_fraction": 1.0,
-          "empty_sky_matches_aligned": true
-        },
-        "cool": {
-          "building_roi": [
-            240,
-            360,
-            128,
-            120
-          ],
-          "same_color_2x2_fraction": 1.0,
-          "empty_sky_matches_aligned": true
-        }
-      }
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
     },
-    "seed": "level-design-v2-baseline/08",
-    "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
-    "render_scope": "现有DemoApp/Home/正式平原；明确定位的冻结静态截图",
-    "gallery": "实际Chromium显示3张报告板并切换30个场景/基线/候选组合；不是游戏Web验证"
-  },
-  "implementation": {
-    "sampling": "原生地形16px/32wu不改。精灵/角色素材按自身2wu固定格采样，去掉MODEL_MATRIX平移以保持格子随物件；静态精灵/人物纯表现节点snap2；最终世界2px输出，HUD/世界标签绕过世界采样。",
-    "lighting": "原始albedo与天空保留；Native PointLight2D/DirectionalLight2D，OccluderPolygon来自实际地形矩形，限定亮部响应及小bloom。现有unshaded边界只在Lab实例中适配受光。",
-    "scope_limit": "运行时采样/表现修正，不是重画原图；未验移动闪烁、全区、跨分辨率与真机。地形遮光没有建筑轮廓遮光声明。"
-  },
-  "failures_retained": [
-    "build/pixel_light_study：第一轮屋顶过曝，未交付作为候选",
-    "build/pixel_light_study_r2和final：只有整屏网格不足以解决物件内部采样，保留原件",
-    "build/pixel_light_study_nativegrid：截图完成后typed actor key在释放时出错，日志保留previous_cleanup_error.log。改WeakRef+释放前busy停止后重新完整采图至deliver，原错误不签通过"
-  ],
-  "independent_review": {
-    "agent": "/root/pixel_light_review",
-    "initial_viewed": "r3 first output six screenshots and three implementation files",
-    "followup_viewed": "nativegrid/home_aligned, home_lamps, plains_bell_cool and local_pixel_study shader",
-    "finding": "新增物件固定采样格与表现snap比整屏采样完整；暖灯保留基调且无首轮过曝",
-    "remaining": [
-      "小金币/面部细节损失",
-      "平原光池仍弱",
-      "仅静态图，运动、滚动、设备性能未验"
-    ],
-    "final_cleanup_scope": "最终deliver仅WeakRef和busy释放修复，原生退出0且无脚本错误；不冒称审查者看过连续运动"
+    "G1": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Original schema did not contain a valid complete gate evidence chain. Migration preserves historical facts but does not manufacture gate approval.",
+      "evidence": []
+    }
   },
   "dimensions": {
     "design": {
-      "status": "passed",
-      "reason": "按用户最新指令：像素对齐，保留Underworld画风，借鉴打光；不推进前轮三套调色"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 按用户最新指令：像素对齐，保留Underworld画风，借鉴打光；不推进前轮三套调色",
+      "evidence": []
     },
     "technical": {
-      "status": "passed",
-      "reason": "限定最终原生退出0、20截图完成、无SCRIPT ERROR/ERROR、GPU输出2x2格子度量；不是CI通过"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 限定最终原生退出0、20截图完成、无SCRIPT ERROR/ERROR、GPU输出2x2格子度量；不是CI通过",
+      "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "仅显式开发Lab，没有替换默认游戏"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 仅显式开发Lab，没有替换默认游戏",
+      "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "像素更统一但细节损失；局部暖灯可继续，待用户判断"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 像素更统一但细节损失；局部暖灯可继续，待用户判断",
+      "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "未验真实连续移动、相机滚动或闪烁"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 未验真实连续移动、相机滚动或闪烁",
+      "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "局部点光/地形遮光/bloom静态可见；未验音轨或完整动态"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 局部点光/地形遮光/bloom静态可见；未验音轨或完整动态",
+      "evidence": []
     },
     "gameplay": {
       "status": "not_applicable",
-      "reason": "没有修改正式碰撞/Motor/资源/生成/保存；不签通关"
+      "reason": "没有修改正式碰撞/Motor/资源/生成/保存；不签通关 Historical Lab-only scope; not a claim about the combined integration.",
+      "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "llvmpipe截图不代表真机性能"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. llvmpipe截图不代表真机性能",
+      "evidence": []
     },
     "independent_review": {
-      "status": "passed",
-      "reason": "不同只读代理实际看6图+补看nativegrid3图与shader，仅静态方向评价；释放修复原生另验"
+      "status": "unverified",
+      "reason": "Original author state passed and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 不同只读代理实际看6图+补看nativegrid3图与shader，仅静态方向评价；释放修复原生另验",
+      "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "未跑实体设备"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 未跑实体设备",
+      "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "等待用户看图反馈"
+      "reason": "Original author state unverified and limited facts are preserved verbatim in the snapshot; no complete exact-source evidence is reissued for current combined/main acceptance. 等待用户看图反馈",
+      "evidence": []
     }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "original-author-record",
+      "path": "docs/evidence/pixel_light_study_02/original-author-record.json",
+      "sha256": "56536bd7ea17511321382fc318ab1aff2e75c7539a92b84ea9531008042d3a74",
+      "kind": "spec",
+      "producer": "historical author root",
+      "source_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+      "content_version": "pixel-light-study-02-historical-author-schema-migration",
+      "method": "Byte-identical preservation of the original author quality JSON; source identified by its first author commit. Metadata/history only, not a new runtime command or independent review.",
+      "observed": "Original limited static screenshot counts, source hashes, command/result statements, failures and review descriptions remain verbatim; this migration grants no passed dimensions or gates."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Complete exact-source schema evidence for any historical technical or independent-review passed statement",
+    "Current combined/main verification, real GUI, runtime motion/audio and physical-device/player acceptance",
+    "Historical original captured media retains the author's explicit diagnostic still-image scope; no screenshot is promoted to animation or route proof"
+  ],
+  "skills": [
+    "visual-director",
+    "art-director"
+  ],
+  "historical_author_record": {
+    "path": "docs/evidence/pixel_light_study_02/original-author-record.json",
+    "sha256": "56536bd7ea17511321382fc318ab1aff2e75c7539a92b84ea9531008042d3a74",
+    "source_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+    "facts": {
+      "schema_version": 1,
+      "task_id": "PIXEL-LIGHT-STUDY-02",
+      "task_type": "art",
+      "workflow": "review",
+      "baseline_commit": "35a9cd8e0ff1b2a6eb0b8f55e3fca9cefe3302f5",
+      "owner": "root",
+      "purpose": "继续快速实验：统一像素采样与表现位置，再比较局部真实打光",
+      "user_override": "不要求模仿Animal Well像素风格，只学打光；继续用户已明确的快速实验/不跑CI范围",
+      "skills": [
+        "visual-director",
+        "art-director"
+      ],
+      "source_files": [
+        "scenes/dev/pixel_light_study.tscn",
+        "scripts/art/pixel_light_study.gd",
+        "shaders/pixel_grid_study.gdshader",
+        "shaders/local_pixel_study.gdshader",
+        "shaders/local_light_study.gdshader"
+      ],
+      "source_sha256": {
+        "scenes/dev/pixel_light_study.tscn": "741239e974e3ec8c80156d33432a2652516b8f9ee3f6952055dcb698a324fb07",
+        "scripts/art/pixel_light_study.gd": "4fc8e7d96f490a518b2c3e17ccf61180d473c846c6fff17c956f3664676433cf",
+        "shaders/pixel_grid_study.gdshader": "e76bed17dd1148031cab20edb7f1696d8fa0e2061d482199348e66b8ef65ae02",
+        "shaders/local_pixel_study.gdshader": "690a2ea59b54d17f6a4633b2cb52e5a80104ec8270119daacfc14151e4e7981b",
+        "shaders/local_light_study.gdshader": "2091fa6dd8acfb89bfac80e1452d7e73c24f9205fe581234208e1e5e2d477877"
+      },
+      "runtime_dependence": [
+        "scenes/dev/light_study.tscn",
+        "scripts/art/light_study.gd",
+        "shaders/light_study.gdshader"
+      ],
+      "verification": {
+        "engine": "Godot 4.7.2 Standard / GL Compatibility / llvmpipe",
+        "native_exit_code": 0,
+        "final_log": "docs/evidence/pixel_light_study_02/capture.log",
+        "screenshots": 20,
+        "capture_receipt": "docs/evidence/pixel_light_study_02/capture.json",
+        "pixel_measurements": {
+          "scope": "GPU PNG cells only, not source redraw, art acceptance or motion/device evidence",
+          "measurements": {
+            "original": {
+              "building_roi": [
+                240,
+                360,
+                128,
+                120
+              ],
+              "same_color_2x2_fraction": 0.01328125
+            },
+            "aligned": {
+              "building_roi": [
+                240,
+                360,
+                128,
+                120
+              ],
+              "same_color_2x2_fraction": 1.0
+            },
+            "lamps": {
+              "building_roi": [
+                240,
+                360,
+                128,
+                120
+              ],
+              "same_color_2x2_fraction": 1.0,
+              "empty_sky_matches_aligned": true
+            },
+            "cool": {
+              "building_roi": [
+                240,
+                360,
+                128,
+                120
+              ],
+              "same_color_2x2_fraction": 1.0,
+              "empty_sky_matches_aligned": true
+            }
+          }
+        },
+        "seed": "level-design-v2-baseline/08",
+        "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
+        "render_scope": "现有DemoApp/Home/正式平原；明确定位的冻结静态截图",
+        "gallery": "实际Chromium显示3张报告板并切换30个场景/基线/候选组合；不是游戏Web验证"
+      },
+      "implementation": {
+        "sampling": "原生地形16px/32wu不改。精灵/角色素材按自身2wu固定格采样，去掉MODEL_MATRIX平移以保持格子随物件；静态精灵/人物纯表现节点snap2；最终世界2px输出，HUD/世界标签绕过世界采样。",
+        "lighting": "原始albedo与天空保留；Native PointLight2D/DirectionalLight2D，OccluderPolygon来自实际地形矩形，限定亮部响应及小bloom。现有unshaded边界只在Lab实例中适配受光。",
+        "scope_limit": "运行时采样/表现修正，不是重画原图；未验移动闪烁、全区、跨分辨率与真机。地形遮光没有建筑轮廓遮光声明。"
+      },
+      "failures_retained": [
+        "build/pixel_light_study：第一轮屋顶过曝，未交付作为候选",
+        "build/pixel_light_study_r2和final：只有整屏网格不足以解决物件内部采样，保留原件",
+        "build/pixel_light_study_nativegrid：截图完成后typed actor key在释放时出错，日志保留previous_cleanup_error.log。改WeakRef+释放前busy停止后重新完整采图至deliver，原错误不签通过"
+      ],
+      "independent_review": {
+        "agent": "/root/pixel_light_review",
+        "initial_viewed": "r3 first output six screenshots and three implementation files",
+        "followup_viewed": "nativegrid/home_aligned, home_lamps, plains_bell_cool and local_pixel_study shader",
+        "finding": "新增物件固定采样格与表现snap比整屏采样完整；暖灯保留基调且无首轮过曝",
+        "remaining": [
+          "小金币/面部细节损失",
+          "平原光池仍弱",
+          "仅静态图，运动、滚动、设备性能未验"
+        ],
+        "final_cleanup_scope": "最终deliver仅WeakRef和busy释放修复，原生退出0且无脚本错误；不冒称审查者看过连续运动"
+      },
+      "dimensions": {
+        "design": {
+          "status": "passed",
+          "reason": "按用户最新指令：像素对齐，保留Underworld画风，借鉴打光；不推进前轮三套调色"
+        },
+        "technical": {
+          "status": "passed",
+          "reason": "限定最终原生退出0、20截图完成、无SCRIPT ERROR/ERROR、GPU输出2x2格子度量；不是CI通过"
+        },
+        "formal_integration": {
+          "status": "unverified",
+          "reason": "仅显式开发Lab，没有替换默认游戏"
+        },
+        "visual": {
+          "status": "unverified",
+          "reason": "像素更统一但细节损失；局部暖灯可继续，待用户判断"
+        },
+        "animation": {
+          "status": "unverified",
+          "reason": "未验真实连续移动、相机滚动或闪烁"
+        },
+        "audio_vfx": {
+          "status": "unverified",
+          "reason": "局部点光/地形遮光/bloom静态可见；未验音轨或完整动态"
+        },
+        "gameplay": {
+          "status": "not_applicable",
+          "reason": "没有修改正式碰撞/Motor/资源/生成/保存；不签通关"
+        },
+        "performance": {
+          "status": "unverified",
+          "reason": "llvmpipe截图不代表真机性能"
+        },
+        "independent_review": {
+          "status": "passed",
+          "reason": "不同只读代理实际看6图+补看nativegrid3图与shader，仅静态方向评价；释放修复原生另验"
+        },
+        "device": {
+          "status": "unverified",
+          "reason": "未跑实体设备"
+        },
+        "player_acceptance": {
+          "status": "unverified",
+          "reason": "等待用户看图反馈"
+        }
+      }
+    },
+    "capture_evidence_bindings": [
+      {
+        "path": "docs/evidence/pixel_light_study_02/capture.json",
+        "source_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+        "git_blob": "857bcf640ea160251acd0b6143b8cc2709150e2f",
+        "sha256": "0e4f1fee41531729cf68445bcb4cfe7cbbe919edac6078e37ec8bbbfd7282103"
+      },
+      {
+        "path": "docs/evidence/pixel_light_study_02/capture.log",
+        "source_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+        "git_blob": "f89d0aa6c213cc38552a209454bdc4b380ef1286",
+        "sha256": "f63de00c18d937fd048ef860b5e006351e6d018685a9aa59a74cd415f2572cee"
+      }
+    ],
+    "scope": "Original author facts only; not combined/main/Release evidence. Missing local historical files do not become passed or disappear from Git history."
   }
 }
