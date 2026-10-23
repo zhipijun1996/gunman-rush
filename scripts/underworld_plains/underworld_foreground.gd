@@ -390,11 +390,11 @@ func _exposed_regions(bounds: Rect2,size: Vector2) -> Array[Rect2]:
 		if regions.is_empty():break
 	return regions
 
-func _distance_to_dynamic(regions: Array[Rect2]) -> float:
+func _distance_to_rectangles(regions: Array[Rect2],protection: Array[Rect2]) -> float:
 	var result:=1000000.0
 	for region: Rect2 in regions:
 		var bounds:=region.grow(WIND_MARGIN)
-		for rect: Rect2 in _dynamic_protect:
+		for rect: Rect2 in protection:
 			var separation: Vector2=(rect.position-bounds.end).max(bounds.position-rect.end).max(Vector2.ZERO)
 			result=minf(result,separation.length())
 	return result
@@ -431,7 +431,12 @@ func _sync_residents(center: Vector2,size: Vector2) -> void:
 		var exposed:=_exposed_regions(resident.bounds,size)
 		var exposed_area:=0.0
 		for region: Rect2 in exposed:exposed_area+=region.get_area()
-		var distance:=_distance_to_dynamic(exposed)
+		var distance:=_distance_to_rectangles(exposed,_dynamic_protect)
+		if str(resident.kind)=="branch":
+			# A branch's thin stem must remain connected. Even a permanent UI
+			# mask can sever it, so fade the complete image before any protection.
+			var entire_branch: Array[Rect2]=[resident.bounds]
+			distance=_distance_to_rectangles(entire_branch,_protect)
 		resident["unmasked_bounds_area"]=exposed_area
 		resident["protection_clearance"]=distance
 		resident.root_gate=smoothstep(ROOT_GUARD,ROOT_FADE_DISTANCE,float(resident.root_clearance))
@@ -516,7 +521,7 @@ func _render_receipt(center: Vector2,size: Vector2) -> void:
 	for rect: Rect2 in _protect:rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
 	var dynamic_rectangles: Array=[]
 	for rect: Rect2 in _dynamic_protect:dynamic_rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
-	_last={"schema":"underworld-foreground-runtime-v1","revision":"FOREGROUND-CONTINUITY-08","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":0.0,"layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"residents":residents,"resident_count":_residents.size(),"retired":_retired.duplicate(true),"advance_frame":_advance_frame,"advance_count":_advance_count,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"anticipation_rectangles":dynamic_rectangles,"overflow_hidden":_overflow,"live_warning_hidden":false,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time,"mask_policy":{"strict_inside":true,"wind_margin":WIND_MARGIN,"soft_margin":MASK_SOFT_MARGIN,"anticipation_margin":ANTICIPATION_MARGIN,"safe_delay":SAFE_DELAY,"fade_in_seconds":FADE_IN_SECONDS,"fade_out_seconds":FADE_OUT_SECONDS,"per_item_filtered":true,"anticipation_sources":"dynamic_only_over_exposed_bounds","static_protection":"strict_local_mask","retire_margin":RETIRE_MARGIN,"root_guard":ROOT_GUARD,"root_fade_distance":ROOT_FADE_DISTANCE}}
+	_last={"schema":"underworld-foreground-runtime-v1","revision":"FOREGROUND-CONTINUITY-08","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":0.0,"layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"residents":residents,"resident_count":_residents.size(),"retired":_retired.duplicate(true),"advance_frame":_advance_frame,"advance_count":_advance_count,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"anticipation_rectangles":dynamic_rectangles,"overflow_hidden":_overflow,"live_warning_hidden":false,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time,"mask_policy":{"strict_inside":true,"wind_margin":WIND_MARGIN,"soft_margin":MASK_SOFT_MARGIN,"anticipation_margin":ANTICIPATION_MARGIN,"safe_delay":SAFE_DELAY,"fade_in_seconds":FADE_IN_SECONDS,"fade_out_seconds":FADE_OUT_SECONDS,"per_item_filtered":true,"anticipation_sources":"grass_dynamic_exposed_bounds_branch_all_protection_complete_bounds","grass_anticipation":"dynamic_only_over_exposed_bounds","branch_anticipation":"all_protection_over_complete_bounds_plus_wind","static_protection":"strict_local_mask_with_branch_whole_fade","retire_margin":RETIRE_MARGIN,"root_guard":ROOT_GUARD,"root_fade_distance":ROOT_FADE_DISTANCE}}
 
 func receipt() -> Dictionary:
 	return _last.duplicate(true)

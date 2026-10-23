@@ -38,7 +38,7 @@ func snapshot(label: String) -> Dictionary:
 		var b: Array=old.bounds
 		var rect:=Rect2(float(b[0]),float(b[1]),float(b[2]),float(b[3]))
 		rect.position-=(current-_previous_center)*Vector2(1.15,1.12)
-		check(not rect.grow(2).intersects(Rect2(Vector2.ZERO,Vector2(1280,720))),"resident recycled only fully offscreen "+id)
+		check(not rect.grow(3).intersects(Rect2(Vector2.ZERO,Vector2(1280,720))),"resident recycled only fully offscreen "+id)
 	_previous=present;_previous_center=current
 	_samples+=1
 	if _samples%6==0:timeline.append({"label":label,"receipt":report})
