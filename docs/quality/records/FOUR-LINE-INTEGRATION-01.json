@@ -4,7 +4,7 @@
   "task_type": "player",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+  "reviewed_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
   "content_version": "four-line-integration-v1",
   "owner": "/root",
   "purpose": "Integrate the four user-authorized player/enemy/UI/fine-art worklines, five original user-provided MP3s and the newly authorized default-player/Weaver appearance flow without replacing author quality records.",
@@ -2476,11 +2476,9 @@
       ]
     },
     "G1": {
-      "status": "passed",
-      "reason": "Original real App/MP3/accepted-action consumers with complete nonzero summaries and clean teardown.",
-      "evidence": [
-        "targeted-trace"
-      ]
+      "status": "unverified",
+      "reason": "B native1266 and bounded review remain valid only at their original source. Current E2 engineering proof does not relabel those runtime observations.",
+      "evidence": []
     },
     "G2": {
       "status": "unverified",
@@ -2513,9 +2511,9 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "Exact clean B native seven checks pass1266 with original strict engine/exit/source guards. Original five shared checks also pass with pure metadata overlay, recorded separately.",
+      "reason": "Actual exact E2 original-path full152 resource/10 direction/32 Bible tests pass, preserving original125 resource test methods and strict refusal cases; B native1266 remains separately source-bound.",
       "evidence": [
-        "targeted-command"
+        "engineering-E2"
       ]
     },
     "formal_integration": {
@@ -2535,7 +2533,7 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Five user MP3s are copied byte-identical and private BGM89 passed; actual combined region/Boss transitions and playback have not been verified.",
+      "reason": "Native B verifies all five MP3 loops/transitions and lifecycle; browser proves mixed output only. Listening, seams, loudness and user acceptance remain unverified.",
       "evidence": []
     },
     "gameplay": {
@@ -2550,9 +2548,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Independent reviewer accepted bounded exact B runtime integration; separate metadata and docs-guard reviews preserve narrower sources and do not sign G5.",
+      "reason": "Independent exact E2 bounded review ACCEPT, with prior B/D/metadata scope inherited explicitly. Native B/F package are not relabeled, full PR/Release and subjective G5 remain pending.",
       "evidence": [
-        "independent-B"
+        "independent-E2"
       ]
     },
     "device": {
@@ -2590,7 +2588,7 @@
       "gate": "G3",
       "dimension": "formal_integration",
       "status": "unverified",
-      "reason": "Final combined source and default adaptation are not frozen or verified at01e5183.",
+      "reason": "Formal default and BGM implemented; bounded B native/F browser evidence retained; full exact PR/Release and Forest browser route remain pending.",
       "evidence": []
     },
     {
@@ -2601,8 +2599,8 @@
       "failure": "Any missing summary, assertion failure, callback error, resource leak or source drift",
       "gate": "G1",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "All seven actual original consumers and source guard pass at B.",
+      "status": "unverified",
+      "reason": "Original B1266 passes retained at B, not relabeled as E2 fresh.",
       "evidence": [
         "targeted-command",
         "targeted-trace"
@@ -2613,10 +2611,10 @@
     {
       "id": "integration-spec",
       "path": "docs/integration/four_lines_20261023.md",
-      "sha256": "daa65522ec5c7d7c6277f6eeb89d69639f40655a7ab76dbe0ebf1375aa7e571c",
+      "sha256": "00160bda7d0bda1417b8588e8001afa517c4791e515fc0ca386b7717a49d460c",
       "kind": "spec",
-      "producer": "/root/production_docs",
-      "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+      "producer": "/root",
+      "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
       "content_version": "four-line-integration-v1",
       "method": "Concrete current integration contract; records source/authorization boundaries and unfinished combined verification, not a runtime test.",
       "observed": "Explicit adoption, four author heads, source-bound tests, retained failures and final PR/Release/human boundaries"
@@ -2667,6 +2665,42 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Separate read-only agent /root/independent_review did not implement this integration. It independently inspected exact B source, original check guards and raw native logs, actual PCK bytes and two original GL images; post-B metadata/docsguard candidate reviews are separately retained."
+    },
+    {
+      "id": "engineering-E2",
+      "path": "docs/evidence/four_line_integration_20261023/verified-E2/receipt.json",
+      "sha256": "9956377cd5f02c714330ae2fbff0ea0942de4d381fb0862bbb22ed08d6bd06c4",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+      "content_version": "four-line-integration-v1",
+      "method": "Original-path full tests on exact clean E2, raw logs retained alongside receipt. No native runtime/export result is relabeled.",
+      "observed": "152 resource +10 direction +32 Bible tests pass; original125 AST unchanged and27 negative methods added.",
+      "command": "python3 tests/test_underworld_pipeline.py && python3 tests/test_region_creative_direction.py && python3 tests/test_region_bible.py",
+      "exit_code": 0,
+      "environment": "Pinned repository Python environment, actual current source/asset consumers, exact E2 clean Git source"
+    },
+    {
+      "id": "independent-E2",
+      "path": "docs/evidence/four_line_integration_20261023/independent-final-E2.json",
+      "sha256": "7c1096f74cec633c62036338d51b887d10cf74226a903cedaf5bd27f1c8ddb07",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+      "content_version": "four-line-integration-v1",
+      "method": "Read-only independent review of exact E2 consumer migration and refusal counterexamples; inherits explicitly bounded B/D reviews without relabeling native/export source.",
+      "observed": "ACCEPT bounded exact E2 integration delta; independent5 targeted and other._place rejection, actual1022 guards, original125 AST and root152/10/32 raw pass verified. Full PR CI/Release/human/device remain unverified.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/audit_ci",
+        "/root/player_presentation_01",
+        "/root/enemy_feedback_01",
+        "/root/audit_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer did not modify implementation. It independently constructed the original three concrete counterexamples and Home token bridge, refused E, and verified E2 repairs, exact source hashes and original raw logs."
     }
   ],
   "consumer_coverage": null,
@@ -2674,7 +2708,7 @@
     "Final PR exact Integration and main automatic Release/public PCK verification are not known inside this pre-PR evidence commit.",
     "Author art/animation/feel and physical target devices remain review/unverified; integration is not content G5 acceptance.",
     "Appearance selection is session-only; refresh restarts with the new default.",
-    "Browser full new/classic/new route and Forest not signed; first24 GUI and four mixed outputs plus bounded Home observations retained separately.",
+    "F browser new/classic/new Home route passes7/7; later Forest OCR SIGFPE leaves Forest route unverified. Desktop/emulated touch are not physical devices.",
     "Five native MP3 loops/Boss switches passed89, but mixed browser signal cannot identify all five songs; real listening/loop seam/loudness and user sound preference unverified."
   ],
   "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression. Current docs guard is intentionally strict60Hz/exact1 from original UI R3 user authorization already present at ea2d6fd; D084 only propagates that current policy. Historical2-shot fixtures/assertions retained, independent docs-policy review stored separately. The selected-current-direction test retains the exact same assertEqual and all other stage/specialist assertions, updating its stale creative-v8 expected tag to the explicitly versioned creative-v10. Both prior-v9 snapshots and actual v8 mismatch failure are retained; no dynamic any-version acceptance. Independent exact delta review required before merge. Original32 Bible tests migrate only current style fixtures from v4/16px/16refs to exact v7/32px/36refs and actual fine resource paths. All v2/v3 stale-binding refusals stay, v4/v5/v6 refusals and real factory/PNG/avatar drift counterexamples are added; strict full20-v6-reference subset replaces the obsolete v2-terrain-still-current assumption. All original body closure/zero-call/restore/refusal assertions and timeouts retained, exact delta independently reviewed. The Underworld checker migration follows the actual fine32 loaders and legacy recipe linkage, source-PNG-to-real-prompt provenance, grounded Home slot placement and explicit Control theme injection. All original125 test method ASTs remain unchanged; new negative cases cover the exact new consumers, including independent reviewer counterexamples. No runtime assets, physics, budgets, profiles or historical provenance are changed by this checker adaptation. Independent exact-source review and fresh original-path full test execution are required."

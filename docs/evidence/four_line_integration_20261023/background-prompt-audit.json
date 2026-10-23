@@ -1,0 +1,117 @@
+{
+  "scope": "Read-only exact source/provenance/prompt audit for current background0/1 generation guard failure; no root writes/tests/fetch",
+  "art_input_commit": "02031d718d5b24f32ef0a257c048121d93ed756b",
+  "working_head": "d43f61cc83ff153b2964322aaf50369dd57f6d34",
+  "scenery_build": {
+    "path": "assets/underworld_plains/scenery_build.json",
+    "sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de"
+  },
+  "status": "retained_nonempty_prompt_exists_for_both_backgrounds",
+  "cause": "Original audit_generation only reads top-level prompt (or old props_prompt), while these actual source records retain prompt_files / prompt_file. Do not invent a top-level prompt or weaken the nonempty requirement.",
+  "backgrounds": [
+    {
+      "background_index": 0,
+      "id": "far",
+      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png",
+      "image_recorded_source_sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+      "image_actual_local_sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+      "image_matches_generation_output": true,
+      "generation_record": {
+        "path": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json",
+        "sha256": "db3b896c6c4e7285632303890579dd14437b5a443e552c8a9f20fe62eb5785ac",
+        "top_level_prompt_present": false,
+        "actual_prompt_pointer_field": "prompt_files[0]",
+        "pointer_value": "sky_prompt.txt",
+        "tool": "image_gen.imagegen",
+        "model": "not_exposed",
+        "matches_art_input_02031_bytes": true
+      },
+      "retained_prompt": {
+        "path": "assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt",
+        "sha256": "3517682f0d026f5523288122114ec9cab6ee80a547212b07d930d0effee7f250",
+        "bytes": 1759,
+        "nonempty": true,
+        "matches_art_input_02031_bytes": true,
+        "first_commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+        "content": "Edit reference 1, the existing far-sky asset of this pixel-art game, using reference2 only to preserve the exact game's visual family. Create a refined MORNING far-sky layer, not an entire scene and not a screenshot. 16:9 wide panoramic image, fully opaque, fills every pixel. Keep the calm open quality but bring air, daylight and depth: muted clear blue morning sky across upper 70%, long thin quiet ivory/soft gray cloud streaks with tiny pale warm gold lower edges, luminous pale apricot/cream horizon band at about 77% height. Lower 22%: a few very low overlapping distant blue-gray and sage-blue rolling hill bands with atmospheric perspective, tiny almost invisible distant spires, no large buildings, no foreground. Use the existing game's crisp small pixel clusters and restrained detailed pixel art on a unified fine logical grid. Most sky must be quiet, not stippled. Gentle broad value transitions are allowed, but cloud silhouettes must remain crisp pixel art. Sky is brighter and cleaner than reference1 but not turquoise, saturated cyan, violet, gray fog or a white wall. Low saturation cool shadows and warm thin horizon support the original gold lanterns and moss roofs; do not impose a global color-filter look. Balanced cloud distribution, no signature huge diagonals, no giant glowing sun/moon, sun disc, rays, lens flares, stars or particles. LEFT and RIGHT image edges must share matching sky colors/horizon levels and no distinctive object near those edges so same-orientation lateral wrapping is quiet; do NOT mirror the image. No trees near camera, platforms, playable ground, grassy rim, bridge at gameplay scale, characters, animals, UI, text, border, watermark or decorative framing. This is the most distant opaque painting only.\n",
+        "interpretation": "Retained generation-request text linked by unchanged original provenance; no prompt was reconstructed or written by this audit."
+      },
+      "input_references": [
+        {
+          "path": "assets/underworld_plains/backgrounds/far.png",
+          "expected_sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+          "local_exists": true,
+          "actual_sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+          "matches_record": true,
+          "scope": "Recorded input reference; build screenshot is a historical external working artifact if absent locally."
+        },
+        {
+          "path": "assets/underworld_plains/backgrounds/middle.png",
+          "expected_sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+          "local_exists": true,
+          "actual_sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+          "matches_record": true,
+          "scope": "Recorded input reference; build screenshot is a historical external working artifact if absent locally."
+        },
+        {
+          "path": "build/authored_terrain_study/deliver/home_fine.png",
+          "expected_sha256": "701bd0c73b247abe814841b16a78c358c12b684828426ca21fd433104b02b358",
+          "local_exists": false,
+          "actual_sha256": null,
+          "matches_record": null,
+          "scope": "Recorded input reference; build screenshot is a historical external working artifact if absent locally."
+        }
+      ],
+      "original_tool_output": "/workspace/generated_images/exec-a2d1e9f9-bf04-4f6f-a8f7-28bc013ab118.png",
+      "limitations": [
+        "No original live MCP request/transcript was independently recovered in this audit; provenance, prompt text and output bytes are the repository source chain.",
+        "Model, per-call price and any unavailable metadata remain not_exposed.",
+        "No engine, visual quality, generation rerun, test or checker adaptation performed."
+      ]
+    },
+    {
+      "background_index": 1,
+      "id": "middle",
+      "image": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png",
+      "image_recorded_source_sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
+      "image_actual_local_sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
+      "image_matches_generation_output": true,
+      "generation_record": {
+        "path": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json",
+        "sha256": "230f598eee49f33f401fba705353835aaee5cabc9e7b305ad22b8c50c403bd0c",
+        "top_level_prompt_present": false,
+        "actual_prompt_pointer_field": "prompt_file",
+        "pointer_value": "prompt.txt",
+        "tool": "image_gen.imagegen",
+        "model": "not_exposed",
+        "matches_art_input_02031_bytes": true
+      },
+      "retained_prompt": {
+        "path": "assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt",
+        "sha256": "34187153448f598aa8289e0553317b2175a4504dae48590fedbcff6a82a9edc7",
+        "bytes": 1241,
+        "nonempty": true,
+        "matches_art_input_02031_bytes": true,
+        "first_commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+        "content": "Edit this transparent fine pixel-art background landscape into a quiet uninhabited low meadow ridge base layer for a side-scrolling game. Preserve the original fine stone/moss/grass palette and crisp detailed pixel material, but REMOVE EVERY windmill, tower, bell tower, clock, house, village, masonry wall, road, bridge and artificial landmark. Replace their silhouettes with gentle LOW rolling meadow slopes, occasional short scrub trees, soft grassy folds and a shallow stream valley. The tallest skyline should stay within the bottom 35 percent of the canvas; top 65 percent completely transparent alpha. Broad smooth stretches and sparse clumps of vegetation, restrained detail, no tall peaks, no tall cliffs, no dense forest, no repeated picket fence trees. Keep the bottom opaque down to the full canvas lower edge. The left and right skyline ends should meet at almost the same low height for repeating horizontal background use. Landscape only, no sky paint, no clouds, no words, no characters or gameplay platforms. Match the existing cool blue-green fine-pixel world, detailed material where needed but with large quiet surfaces and breathing room. True alpha transparency above the low hills, same broad canvas aspect as source.\n",
+        "interpretation": "Retained generation-request text linked by unchanged original provenance; no prompt was reconstructed or written by this audit."
+      },
+      "input_references": [
+        {
+          "path": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png",
+          "expected_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
+          "local_exists": true,
+          "actual_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
+          "matches_record": true,
+          "scope": "Exact recorded source image for the quiet-meadow edit."
+        }
+      ],
+      "original_tool_output": "/workspace/generated_images/exec-2f5ecd21-c0e6-42a5-9330-7d7b6799bb66.png",
+      "limitations": [
+        "No original live MCP request/transcript was independently recovered in this audit; provenance, prompt text and output bytes are the repository source chain.",
+        "Model, per-call price and any unavailable metadata remain not_exposed.",
+        "No engine, visual quality, generation rerun, test or checker adaptation performed."
+      ]
+    }
+  ]
+}

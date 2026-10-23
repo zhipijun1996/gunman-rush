@@ -1,0 +1,66 @@
+{
+  "original_tests": 125,
+  "current_tests": 147,
+  "all_original_method_ASTs_unchanged": true,
+  "added_test_methods": [
+    "test_background_empty_or_unknown_external_prompt_rejected",
+    "test_background_exact_consumed_output_required",
+    "test_background_external_output_sha_required",
+    "test_background_external_prompt_binding_is_actual",
+    "test_background_inline_text_cannot_bypass_external_binding",
+    "test_background_sky_cannot_use_sibling_prompt",
+    "test_background_wrong_output_image_rejected",
+    "test_background_wrong_single_prompt_pointer_rejected",
+    "test_home_actual_grounding_call_required",
+    "test_home_real_slot_loop_cannot_be_disconnected",
+    "test_home_shared_grounding_must_retain_source_foot",
+    "test_selected_builds_must_retain_exact_legacy_lineage",
+    "test_selected_hazard_actual_atlas_hash_required",
+    "test_selected_hazard_danger_and_world_units_preserved",
+    "test_selected_loaders_cannot_be_a_comment_or_other_function",
+    "test_selected_loaders_require_actual_paths",
+    "test_selected_mechanism_actual_builder_nearest_required",
+    "test_selected_mechanism_pixels_and_physics_required",
+    "test_ui_map_requires_actual_control_theme_assignment",
+    "test_ui_modal_root_requires_actual_shell_install",
+    "test_ui_shell_requires_real_ready_theme_injection",
+    "test_ui_theme_factory_cannot_only_be_a_name"
+  ],
+  "original_tool_and_tests_integration_hashes_unchanged": {
+    "tools/underworld_pipeline.py": true,
+    "tests/test_underworld_pipeline.py": true
+  },
+  "actual_current_audit_checks": 1020,
+  "actual_current_audit_failures": 0,
+  "measurements": {
+    "home": {
+      "slots": 12,
+      "active_services": [
+        "achievements",
+        "character",
+        "departure",
+        "upgrade"
+      ],
+      "world_width": 3280,
+      "generated_objects": 6
+    },
+    "ui": {
+      "icons": 18,
+      "ui_roots": 13,
+      "scope": "Source crops, source hashes and source-level consumer references; not GUI/visual/device acceptance"
+    },
+    "selected_derivatives": {
+      "hazards": {
+        "legacy_recipe": "assets/underworld_plains/hazards/hazard_build.json",
+        "selected_runtime_manifest": "assets/underworld_plains/hazards/hazard_fine_build.json",
+        "consumer": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+      },
+      "mechanisms": {
+        "legacy_recipe": "assets/underworld_plains/mechanisms/mechanisms_build.json",
+        "selected_runtime_manifest": "assets/underworld_plains/mechanisms/mechanisms_fine_build.json",
+        "consumer": "scripts/underworld_plains/underworld_terrain.gd"
+      }
+    }
+  },
+  "scope": "Real integration source and file-backed assets; no synthetic baseline or engine run"
+}
