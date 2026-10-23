@@ -7,7 +7,8 @@ const FLOOR_Y := 432.0
 var world: UnderworldHomeWorld
 var parallax: UnderworldParallax
 var reserved_id := ""
-const FUNCTION_NAMES := {"character":"衣装守护者 / Character","upgrade":"维修工坊 / Permanent upgrades","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
+const FUNCTION_NAMES := {"character":"织时匠 / Timeweaver","upgrade":"维修工坊 / Permanent upgrades","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
+var avatar_selection_id := "courier"
 var player: PlayerMotor
 var controller: PlayerController
 var camera: Camera2D
@@ -24,6 +25,14 @@ func _ready() -> void:
 	world=UnderworldHomeWorld.new()
 	add_child(world)
 	world.configure(FLOOR_Y)
+	# Rename the live service label without changing its authored id or geometry.
+	for slot: Dictionary in world.specification.slots:
+		if str(slot.id) == "character":
+			slot.label = FUNCTION_NAMES["character"]
+			var service_label := world.slot_nodes.get("character") as Label
+			if service_label != null:
+				service_label.text = "织时匠"
+				service_label.set_meta("home_slot", slot.duplicate(true))
 	var width:=float(world.specification.world_width)
 	_ground(Rect2(-100,FLOOR_Y,width+200,640))
 	_ground(Rect2(-28,-400,28,1100))
@@ -53,11 +62,9 @@ func _ready() -> void:
 	player.get_node("CourierVisual").hide()
 	player.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
 	player.get_node("PlayerFeedback").hide()
-	var art:=UnderworldPlayer.new()
-	art.motor=player
-	art.controller=controller
-	art.name="UnderworldPlayer"
+	var art := PlayerPresentationRuntime.make_body(player, controller, "UnderworldPlayer", avatar_selection_id)
 	player.add_child(art)
+	PlayerPresentationRuntime.attach(player)
 	_hud = CanvasLayer.new()
 	_hud.layer = 10
 	add_child(_hud)

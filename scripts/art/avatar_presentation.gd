@@ -27,6 +27,7 @@ func _ready() -> void:
 	for entry: Dictionary in parsed.get("avatars",[]):_definitions.append(entry)
 	var layer := CanvasLayer.new()
 	layer.layer=21;layer.name="AvatarSelectorLayer";add_child(layer)
+	layer.hide() # Real selection is offered by the Home character service.
 	_selector=OptionButton.new()
 	_selector.name="AvatarSelector"
 	# This layer is outside DemoApp's styled canvas; Web needs packaged CJK glyphs.
@@ -51,7 +52,7 @@ func _ready() -> void:
 		_sync_selector()
 
 func _available(entry: Dictionary) -> bool:
-	if str(entry.id)=="courier":return true
+	if str(entry.id) in ["courier", "courier_classic"]:return true
 	var spec := _specification(entry)
 	return not spec.is_empty() and ResourceLoader.exists(str(spec.get("texture","")))
 
@@ -59,6 +60,13 @@ func _definition(id: String) -> Dictionary:
 	for entry: Dictionary in _definitions:
 		if str(entry.id)==id:return entry
 	return {}
+
+func selection_options() -> Array[Dictionary]:
+	var options: Array[Dictionary] = []
+	for entry: Dictionary in _definitions:
+		if bool(entry.get("production_ready", false)) and _available(entry):
+			options.append({"id":str(entry.id), "display_name":str(entry.display_name)})
+	return options
 
 func _specification(entry: Dictionary) -> Dictionary:
 	var path := str(entry.get("calibration",""))
@@ -129,7 +137,7 @@ func select_avatar(id: String) -> bool:
 	var entry := _definition(id)
 	if entry.is_empty() or not _available(entry):
 		_last_rejection="unknown_or_unavailable_avatar";return false
-	if id!="courier":
+	if id not in ["courier", "courier_classic"]:
 		var spec := _specification(entry)
 		var validation := validate_specification(spec)
 		if not bool(validation.ok):
@@ -143,7 +151,10 @@ func select_avatar(id: String) -> bool:
 
 func bind_player(player: Node2D) -> void:
 	var next := player.get_node_or_null("CourierVisual") as CourierVisual
-	if next==_visual and (selected_id=="courier" or is_instance_valid(_painted)):return
+	if next == _visual:
+		if selected_id in ["courier", "courier_classic"]: _apply_selected()
+		elif not is_instance_valid(_painted): _apply_selected()
+		return
 	_dispose_painted()
 	_visual=next
 	_observed_original.clear()
@@ -173,8 +184,9 @@ func _restore_default_body() -> void:
 
 func _apply_selected() -> void:
 	if not is_instance_valid(_visual):return
-	if selected_id=="courier":
+	if selected_id in ["courier", "courier_classic"]:
 		_dispose_painted()
+		PlayerPresentationRuntime.apply_avatar(_visual.get_parent() as PlayerMotor, selected_id)
 		_source_path="";_source_sha="";_texture_sha="";_active_spec={}
 		return
 	var entry := _definition(selected_id)
@@ -208,18 +220,24 @@ func _try_apply_specification(spec: Dictionary, source_path: String) -> bool:
 	return true
 
 func _process(_delta: float) -> void:
-	if selected_id=="courier" and is_instance_valid(_visual) and not get_tree().paused:
-		var key := str(_visual.state)
+	if selected_id in ["courier", "courier_classic"] and is_instance_valid(_visual) and not get_tree().paused:
+		var body := _default_body() as UnderworldPlayer
+		var key := body.animation_state if body != null else str(_visual.state)
 		_observed_original[key]=int(_observed_original.get(key,0))+1
 
 func snapshot() -> Dictionary:
 	var entry := _definition(selected_id)
 	var spec := _active_spec
+	var actual_body := _default_body()
+	var body_source := "original CourierVisual"
+	if actual_body is PlayerMotionCandidateVisual: body_source = PlayerMotionCandidateVisual.CANDIDATE_TEXTURE.resource_path
+	elif actual_body is UnderworldPlayer: body_source = UnderworldPlayer.BUILD_PATH
 	var keys: Array=spec.get("states",{}).keys()
-	if selected_id=="courier" and is_instance_valid(_visual):
+	if selected_id in ["courier", "courier_classic"] and is_instance_valid(_visual):
 		var original: Dictionary=_visual.get("_painted_states").duplicate()
 		original.merge(_visual.get("_action_catalog").get("states",{}),true)
 		keys=original.keys()
+		if actual_body is UnderworldPlayer: keys = actual_body._frames_by_state.keys()
 	var missing: Array[String]=[]
 	for state: StringName in CourierVisual.STATES:
 		if not keys.has(str(state)):missing.append(str(state))
@@ -227,7 +245,7 @@ func snapshot() -> Dictionary:
 	if is_instance_valid(_visual):
 		for child: Node in _visual.get_parent().get_children():
 			if child.has_meta("avatar_presentation_owned"):count+=1
-	return {"selected_id":selected_id,"display_name":entry.get("display_name",selected_id),"source_calibration":_source_path,"source_sha256":_source_sha,"texture_source":spec.get("texture","original CourierVisual"),"texture_sha256":_texture_sha,"hero_states":keys,"hero_missing_states":missing,"observed_hero_states":_painted.get("observed_states").duplicate(true) if is_instance_valid(_painted) else _observed_original.duplicate(true),"painted_owner_count":count,"original_visual_visible":_visual.visible if is_instance_valid(_visual) else false,"last_rejection":_last_rejection,"session_only":true,"gameplay_changed":false}
+	return {"selected_id":selected_id,"display_name":entry.get("display_name",selected_id),"source_calibration":_source_path,"source_sha256":_source_sha,"texture_source":spec.get("texture",body_source),"texture_sha256":_texture_sha,"actual_body_script":actual_body.get_script().resource_path if actual_body != null else "","hero_states":keys,"hero_missing_states":missing,"observed_hero_states":_painted.get("observed_states").duplicate(true) if is_instance_valid(_painted) else _observed_original.duplicate(true),"painted_owner_count":count,"original_visual_visible":_visual.visible if is_instance_valid(_visual) else false,"last_rejection":_last_rejection,"session_only":true,"gameplay_changed":false}
 
 func _exit_tree() -> void:
 	_dispose_painted()

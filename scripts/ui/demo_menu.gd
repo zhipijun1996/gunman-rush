@@ -12,6 +12,7 @@ signal requested_forest_exploration(map_index: int, seed: String)
 signal requested_forest_varied(map_index: int, seed: String)
 signal requested_forest_places(map_index: int, seed: String)
 signal requested_upgrade
+signal requested_avatar(id: String)
 signal requested_lab
 signal requested_actions
 signal requested_player_presentation
@@ -44,6 +45,8 @@ var _in_run := false
 var _home_overlay := false
 var _summary := ""
 var _meta_state: Dictionary = {}
+var _avatar_options: Array[Dictionary] = []
+var _avatar_selected := "courier"
 var _build := ""
 var _build_items: Array[ItemDefinition]=[]
 var _seed := ""
@@ -97,6 +100,10 @@ func set_input_values(values: Dictionary) -> void:
 
 func set_meta_state(snapshot: Dictionary) -> void:
 	_meta_state = snapshot.duplicate(true)
+
+func set_avatar_options(options: Array[Dictionary], selected: String) -> void:
+	_avatar_options = options.duplicate(true)
+	_avatar_selected = selected
 
 func show_title() -> void:
 	_home_overlay = false
@@ -232,8 +239,21 @@ func show_home_panel(function_id: StringName) -> void:
 				_hide()
 				requested_plains.emit(_plains_seed()))
 		&"character":
-			_title("Wardrobe keeper", "Character selection is in development.")
-			_label(_content, "Current playable character: Courier. Additional characters and their unlock conditions are not implemented.", 20, TEXT)
+			_title("织时匠 / Timeweaver", "为下一段旅途换上喜欢的外观。")
+			var picker := OptionButton.new()
+			picker.name = "TimeweaverAppearance"
+			picker.custom_minimum_size = Vector2(360, 48)
+			picker.focus_mode = Control.FOCUS_ALL
+			for option: Dictionary in _avatar_options:
+				picker.add_item(str(option.display_name))
+				if str(option.id) == _avatar_selected: picker.select(picker.item_count - 1)
+			picker.item_selected.connect(func(index: int) -> void:
+				if index >= 0 and index < _avatar_options.size(): requested_avatar.emit(str(_avatar_options[index].id)))
+			_content.add_child(picker)
+			var touch := PopupTouchAdapter.new()
+			touch.popup = picker.get_popup()
+			picker.get_popup().add_child(touch)
+			_label(_content, "本次游戏中会记住你的选择。", 18, MUTED)
 		&"achievements":
 			_title("Records keeper", "Achievement service is in development.")
 			_label(_content, "No achievement rewards are granted by opening this panel. Future progress and unlock rules remain undecided.", 20, TEXT)

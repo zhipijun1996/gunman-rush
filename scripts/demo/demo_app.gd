@@ -106,7 +106,7 @@ func _ready() -> void:
 	if plains_places_candidate_requested: plains_environment_candidate_requested = true
 	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	var sound_effects := GameAudio.new()
+	var sound_effects := PlayerWeaponFeelAudioV2.new()
 	add_child(sound_effects)
 	_music = GameMusic.new()
 	_music.volume_source = sound_effects
@@ -1303,6 +1303,7 @@ func _show_home() -> void:
 	menu.hide_home()
 	if not is_instance_valid(home_scene):
 		home_scene = HomeScene.new()
+		home_scene.avatar_selection_id = avatar_selection_id
 		home_scene.process_mode = Node.PROCESS_MODE_PAUSABLE
 		add_child(home_scene)
 		home_scene.controller.router.reconfigure(_session_input)
@@ -1327,6 +1328,9 @@ func _open_home_function(id: StringName) -> void:
 		return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
+	if id == &"character":
+		var avatars := get_meta("avatar_presentation") as AvatarPresentation
+		menu.set_avatar_options(avatars.selection_options(), avatars.selected_id)
 	menu.show_home_panel(id)
 
 func _open_home_navigation() -> void:
@@ -1362,7 +1366,7 @@ func _process(_delta: float) -> void:
 	var avatar := get_meta("avatar_presentation", null) as Node
 	if is_instance_valid(avatar):
 		var selector := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
-		if selector != null: selector.visible = menu.visible_panel.is_empty() and not _uses_shared_region_pixel_presentation()
+		if selector != null: selector.visible = false # Selection belongs to the Home Timeweaver.
 	_boss_status.hide()
 	var shown_boss: WindkeeperEncounter = null
 	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(stage.boss):
@@ -1674,6 +1678,10 @@ func _make_ui() -> void:
 	progression_modal.region_selected.connect(_select_next_region)
 	progression_modal.finish_requested.connect(_finish_campaign_boundary)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
+	menu.requested_avatar.connect(func(id: String) -> void:
+		if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME: return
+		var avatars := get_meta("avatar_presentation") as AvatarPresentation
+		if avatars.select_avatar(id): menu.set_avatar_options(avatars.selection_options(), avatars.selected_id))
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
 	menu.requested_player_presentation.connect(_open_player_presentation)
@@ -2368,16 +2376,15 @@ func _sync_region_presentation(home := false) -> void:
 	var avatar := get_meta("avatar_presentation",null) as Node
 	if is_instance_valid(avatar):
 		var selector_layer := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
-		if selector_layer != null: selector_layer.visible = not pixel
+		if selector_layer != null: selector_layer.visible = false
 	if home or not is_instance_valid(player): return
 	var visual := player.get_node_or_null("PixelPlainsActor") as PixelPlainsActor
 	if pixel and visual == null:
-		visual = UnderworldPlayer.new()
-		visual.name = "PixelPlainsActor"
-		visual.motor = player
-		visual.controller = controller
+		visual = PlayerPresentationRuntime.make_body(player, controller, "PixelPlainsActor", avatar_selection_id)
 		player.add_child(visual)
 	elif not pixel and visual != null:
+		PlayerPresentationRuntime._remove(player, "MotionFeel")
+		PlayerPresentationRuntime._remove(player, "WeaponFeel")
 		player.remove_child(visual)
 		visual.queue_free()
 	var courier := player.get_node("CourierVisual") as CanvasItem
@@ -2391,7 +2398,7 @@ func _sync_region_presentation(home := false) -> void:
 			if not pixel: courier.hide()
 	# The source-art selector is session-only; rebind after pixel disposal so a
 	# deliberate alternate avatar can be restored on non-pixel consumers.
-	if not pixel and is_instance_valid(avatar): avatar.call("bind_player",player)
+	if is_instance_valid(avatar): avatar.call("bind_player",player)
 
 # Local discoveries use the shared post-damage action queue, just like caches.
 func _forest_reader_open() -> bool:
