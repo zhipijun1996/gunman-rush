@@ -135,6 +135,47 @@ class CloudInputsTests(unittest.TestCase):
             self.assertEqual((self.target / name).read_bytes(), (self.source / name).read_bytes())
         self.assertFalse((self.target / self.unrelated).exists())
 
+    def test_encounter_portable_restore_hydrates_only_two_endpoint_inputs(self):
+        endpoint = 'docs/evidence/plains_redesign/encounter/frozen_50fb10c/'
+        required = {endpoint + 'manifest.json': b'{"portable":"endpoint fixture"}\n',
+                    endpoint + 'delta.tar.gz': b'immutable endpoint archive fixture\n'}
+        for name, content in required.items():
+            path = self.source / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        runner = 'tools/run_plains_encounter_policy_tests.py'
+        (self.source / runner).write_text('print("encounter fixture")\n')
+        manifest = copy.deepcopy(self.manifest)
+        for check, flags in [('plains-encounter-policy', []),
+                             ('plains-encounter-policy-with-legacy', ['--with-legacy'])]:
+            manifest['checks'][check] = {'argv': ['python3', runner, *flags],
+                                        'timeout_seconds': 10,
+                                        'success_pattern': '^encounter fixture$'}
+        (self.source / 'tools/harness/profiles.json').write_text(json.dumps(manifest))
+        self.git(self.source, 'add', '.')
+        self.git(self.source, 'commit', '-qm', 'encounter portable boundary endpoint inputs')
+        self.git(self.target, 'fetch', '-q', 'origin')
+        self.git(self.target, 'merge', '-q', '--ff-only', 'FETCH_HEAD')
+        patterns = (self.target / '.git/info/sparse-checkout').read_bytes()
+        for check in ('plains-encounter-policy', 'plains-encounter-policy-with-legacy'):
+            plan = inputs.make_plan(self.target, checks=[check])
+            self.assertEqual({row['path'] for row in plan['inputs']}, set(required))
+            self.assertTrue(all(row['required_by'] == ['selected encounter boundary portable restore']
+                                for row in plan['inputs']))
+        self.assertEqual({row['path'] for row in self.plan()['inputs']}, {self.proof})
+        report = inputs.materialize(self.target, checks=['plains-encounter-policy'])
+        self.assertEqual(report['status'], 'ready')
+        self.assertEqual({row['path'] for row in report['materialized']}, set(required))
+        self.assertEqual(report['materialized_bytes'], sum(map(len, required.values())))
+        self.assertFalse(report['tests_executed'])
+        for row in report['materialized']:
+            self.assertEqual((self.target / row['path']).read_bytes(), required[row['path']])
+            self.assertEqual(row['blob'], self.git(self.source, 'rev-parse', 'HEAD:' + row['path']))
+        self.assertFalse((self.target / self.proof).exists())
+        self.assertFalse((self.target / self.unrelated).exists())
+        self.assertEqual((self.target / '.git/info/sparse-checkout').read_bytes(), patterns)
+        self.assertEqual(inputs.make_plan(self.target, checks=['plains-encounter-policy-with-legacy'])['status'], 'ready')
+
     def test_missing_quality_index_hydrates_then_reveals_actual_evidence_edge(self):
         self.set_sparse('/*\n!/docs/evidence/**\n!/docs/quality/records/**\n')
         plan = inputs.make_plan(self.target, checks=['quality'])

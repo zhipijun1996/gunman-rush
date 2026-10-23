@@ -498,6 +498,14 @@ def required_input_preflight(task):
         for region in ("windchime_plains", "thorn_forest"):
             require("docs/evidence/four_line_integration_20261023/direction-history/"
                     + region + "-v10-before-hud-layout.json", "selected direction historical refusal")
+    # Both encounter modes run the unchanged boundary units before native work.
+    # Their portable restore guards need exactly these two endpoint files; this
+    # does not select the optional historical gameplay replay or its directory.
+    if commands & {"tools/run_plains_encounter_policy_tests.py",
+                   "tests/test_plains_encounter_policy_boundary.py"}:
+        for name in ("manifest.json", "delta.tar.gz"):
+            require("docs/evidence/plains_redesign/encounter/frozen_50fb10c/" + name,
+                    "selected encounter boundary portable restore")
     # Godot editor imports create repository-visible sidecars even when a worker
     # only intended to run a selected native check. Detect this before spending
     # a call, using an explicit native input contract rather than runner names.
