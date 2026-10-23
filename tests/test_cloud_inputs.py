@@ -109,12 +109,14 @@ class CloudInputsTests(unittest.TestCase):
 
     def test_direction_refusal_snapshots_hydrate_without_unrelated_evidence(self):
         snapshots = ['docs/evidence/four_line_integration_20261023/direction-history/'
-                     + region + '-v10-before-hud-layout.json'
-                     for region in ('windchime_plains', 'thorn_forest')]
+                     + region + '-' + revision + '.json'
+                     for region in ('windchime_plains', 'thorn_forest')
+                     for revision in ('v10-before-hud-layout', 'v12-before-foreground-cpu')]
         for name in snapshots:
             path = self.source / name
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text('{"version":"creative-v10"}\n')
+            version = 'creative-v12' if '-v12-' in name else 'creative-v10'
+            path.write_text(json.dumps({'version': version}) + '\n')
         runner = self.source / 'tests/test_region_creative_direction.py'
         runner.parent.mkdir(exist_ok=True)
         runner.write_text('print("direction fixture")\n')
