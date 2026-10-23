@@ -4,7 +4,7 @@
   "task_type": "player",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+  "reviewed_commit": "a22f00cd98752b3b1df88ef5419c8f25268f071e",
   "content_version": "four-line-integration-v1",
   "owner": "/root",
   "purpose": "Integrate the four user-authorized player/enemy/UI/fine-art worklines, five original user-provided MP3s and the newly authorized default-player/Weaver appearance flow without replacing author quality records.",
@@ -2524,11 +2524,9 @@
       ]
     },
     "technical": {
-      "status": "passed",
-      "reason": "Actual exact E2 original-path full152 resource/10 direction/32 Bible tests pass, preserving original125 resource test methods and strict refusal cases; B native1266 remains separately source-bound.",
-      "evidence": [
-        "engineering-E2"
-      ]
+      "status": "unverified",
+      "reason": "Original B/E2 tests and current candidate observations retain their original source identity. Final current combined source is frozen at a22; exact PR Actions remains pending at this evidence commit.",
+      "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
@@ -2562,9 +2560,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Independent exact E2 bounded review ACCEPT, with prior B/D/metadata scope inherited explicitly. Native B/F package are not relabeled, full PR/Release and subjective G5 remain pending.",
+      "reason": "Independent exact clean a22 source review accepts bounded current integration and manual history deferral; final Actions/Release, art/feel/G5 remain separate.",
       "evidence": [
-        "independent-E2"
+        "independent-current-scope"
       ]
     },
     "device": {
@@ -2628,7 +2626,7 @@
       "sha256": "3d9c59cb35721d2c2e63639e0444b288f3c74cefb66e1aae2070145ddb190ab8",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "5c835d58af0a0f1db8d48be1e68594818ce4bcc8",
+      "source_commit": "a22f00cd98752b3b1df88ef5419c8f25268f071e",
       "content_version": "four-line-integration-v1",
       "method": "Concrete current integration contract; records source/authorization boundaries and unfinished combined verification, not a runtime test.",
       "observed": "Explicit adoption, four author heads, source-bound tests, retained failures and final PR/Release/human boundaries"
@@ -2715,6 +2713,28 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Separate read-only reviewer did not modify implementation. It independently constructed the original three concrete counterexamples and Home token bridge, refused E, and verified E2 repairs, exact source hashes and original raw logs."
+    },
+    {
+      "id": "independent-current-scope",
+      "path": "docs/evidence/four_line_integration_20261023/current-scope/final-review.json",
+      "sha256": "4c117b6f32a44d4229a554dbb38ef04b4e6c9ed7bb7fca626b4a3a95bd29f8a9",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "a22f00cd98752b3b1df88ef5419c8f25268f071e",
+      "content_version": "four-line-integration-v1",
+      "method": "Independent read-only review of exact clean a22 source, composed current CLI/ecology guards, menu assertions and current/manual profile split.",
+      "observed": "Bounded ACCEPT: current consumer guard preservation and user-authorized history deferral. Final Actions, Release and human/device approval pending.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/audit_ci",
+        "/root/player_presentation_01",
+        "/root/enemy_feedback_01",
+        "/root/audit_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only /root/independent_review implemented none of the integration changes; verified final exact-source hashes and coherent identity tamper rejection."
     }
   ],
   "consumer_coverage": null,
