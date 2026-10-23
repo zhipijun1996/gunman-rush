@@ -1,0 +1,150 @@
+--- 59f71c25a6290707271c12717755287485fcd0a5cfcd6cb3e3eeefe21e9fa2bf/assets/underworld_plains/scenery_build.json
++++ 305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de/assets/underworld_plains/scenery_build.json
+@@ -4,59 +4,71 @@
+   "backgrounds": [
+     {
+       "id": "far",
+-      "image": "assets/underworld_plains/backgrounds/far.png",
++      "image": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png",
+       "camera_factor": [
+         0.035,
+         0.015
+       ],
+-      "role": "opaque_evening_sky_and_low_remote_hills",
+-      "generation_record": "assets/underworld_plains/backgrounds/far_generation.json",
++      "role": "opaque_morning_sky_long_clouds_and_distant_atmospheric_hills",
++      "generation_record": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json",
+       "minimum_height_ratio": 1.2,
+       "width_ratio": 1.5,
+       "bottom_ratio": 1.0,
+-      "repetition": "alternating_mirrored_strips"
++      "repetition": "same_orientation_seam_blend",
++      "edge_fraction": 0.035,
++      "vertical_limit_ratio": 0.16,
++      "cloud_speed_wu_per_second": 0.65,
++      "source_sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
++      "upper_sky_gain": 0.72,
++      "upper_sky_saturation": 0.9
+     },
+     {
+       "id": "middle",
+-      "image": "assets/underworld_plains/backgrounds/middle.png",
++      "image": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png",
+       "camera_factor": [
+-        0.12,
+-        0.04
+-      ],
+-      "role": "transparent_sky_remote_bell_tower_and_wind_bent_meadow_trees",
+-      "generation_record": "assets/underworld_plains/backgrounds/middle_generation.json",
++        0.105,
++        0.055
++      ],
++      "role": "low_quiet_meadow_ridge_with_separate_local_landmark_ensembles",
++      "generation_record": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json",
+       "minimum_height_ratio": 0.85,
+-      "width_ratio": 1.8,
++      "width_ratio": 1.2,
+       "bottom_ratio": 1.1,
+       "repetition": "overlapping_alpha_edge_fade",
+       "edge_fraction": 0.035,
+-      "opacity": 0.96,
+-      "fog_shadow": "213444",
+-      "fog_highlight": "41566a",
+-      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle"
++      "opacity": 1.0,
++      "fog_shadow": "304b60",
++      "fog_highlight": "8399a7",
++      "readability_policy": "native fine architectural material detail retained within a desaturated cool atmospheric blend; no playable green rim, no interaction markers",
++      "vertical_limit_ratio": 0.26,
++      "source_sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
++      "composition_phase_wu": 0,
++      "source_detail_retention": 0.12
+     },
+     {
+       "id": "near",
+       "image": "assets/underworld_plains/backgrounds/near.png",
+       "camera_factor": [
+-        0.28,
+-        0.075
+-      ],
+-      "role": "transparent_sky_low_grass_bank_and_sparse_wooden_chime_frame",
++        0.265,
++        0.115
++      ],
++      "role": "transparent_near_background_meadow_bank_rooted_tree_and_distant_chime_frame",
+       "generation_record": "assets/underworld_plains/backgrounds/near_generation.json",
+       "minimum_height_ratio": 0.62,
+       "width_ratio": 1.5,
+-      "bottom_ratio": 1.35,
++      "bottom_ratio": 1.19,
+       "repetition": "overlapping_alpha_edge_fade",
+       "edge_fraction": 0.035,
+-      "opacity": 0.96,
++      "opacity": 0.94,
+       "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle",
+-      "fog_shadow": "12232e",
+-      "fog_highlight": "2b414d"
++      "fog_shadow": "142d38",
++      "fog_highlight": "39545b",
++      "vertical_limit_ratio": 0.4,
++      "source_sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2"
+     }
+   ],
+-  "horizontal_repetition": "far mirrored; transparent middle/near normal-orientation overlap with alpha-only edge feather",
+-  "vertical_policy": "camera_drift_clamped_to_10_percent_view_height_far_also_clamped_for_opaque_coverage",
++  "horizontal_repetition": "all normal orientation; opaque source-edge blend, alpha planes overlap; shared integer1wu stride/origin, no mirrored strips",
++  "vertical_policy": "smooth bounded per-plane drift from real camera center; actual source bottom row extension, no repeated skyline or exposed clear color",
+   "decor": {
+     "atlas": "assets/underworld_plains/decor/chime_props.png",
+     "regions_metadata": "assets/underworld_plains/decor/chime_props.json",
+@@ -169,5 +181,49 @@
+   "consumer_scripts": [
+     "scripts/underworld_plains/underworld_parallax.gd",
+     "scripts/underworld_plains/underworld_scenery.gd"
+-  ]
++  ],
++  "pixel_policy": "fine1wu screen lattice; exact shared integer copy origins/widths; nearest source art retained",
++  "landmark_sequence": {
++    "task_id": "SPATIAL-RHYTHM-07",
++    "image": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png",
++    "source_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
++    "camera_factor_x": 0.24,
++    "world_cell_wu": 4000,
++    "anchor_offset_wu": -1200,
++    "cycle": [
++      "windmills",
++      "open",
++      "clocktower",
++      "open",
++      "open"
++    ],
++    "home_policy": "one smaller distant windmill group; no clocktower behind Home facilities",
++    "groups": {
++      "windmills": {
++        "crop": [
++          0,
++          180,
++          660,
++          761
++        ],
++        "width_wu": 390
++      },
++      "clocktower": {
++        "crop": [
++          700,
++          180,
++          440,
++          761
++        ],
++        "width_wu": 260
++      }
++    },
++    "fog_shadow": "3c5568",
++    "fog_highlight": "8e9eaa",
++    "source_detail_retention": 0.22,
++    "bottom_ratio": 1.03,
++    "edge_fraction": 0.14,
++    "support": "painted complete ridge shoulders buried behind quiet continuous meadow base; no collision/standing edge",
++    "progression": "world anchored; no camera-zone opacity switching; same anchors on return; art hash separate from gameplay RNG"
++  }
+ }

@@ -2,7 +2,7 @@
 
 ## 2026-10-23 四线集成调度（最新）
 
-`FOUR-LINE-INTEGRATION-01`进行中：四线已在集成分支普通合并，用户授权最终合main，尚未完成组合验证或发布。[当前来源与待办](integration/four_lines_20261023.md)。5首原MP3已接入／独立89项通过；新人物默认与“织时匠”换装适配仍在进行。黄金68bd037暂停不入；原内容卡review／in_progress及玩家／设备边界不提升，以下旧“不合main”段为历史时点。
+`FOUR-LINE-INTEGRATION-01`进入review：四线、新默认人物／织时匠与5首原MP3已正式接入，冻结B的7项1266检查及原5共享专项通过；当前等待最终PR Integration和main自动Release，不预签发布。黄金68bd037暂停；原作者内容、审美／手感／实体设备边界保留。[来源与验证](integration/four_lines_20261023.md)。
 
 ## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
 
@@ -66,7 +66,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | in_progress | [范围](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；BGM为本主体子项，默认／织时匠适配与组合验收待完成 |
+| FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
 | ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
 | DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
 | DEPTH-FRAME-06 | 中景地标与前景 | — | review | [原记录](quality/records/DEPTH-FRAME-06.json)；原限定证据保留；组合验证、审美与设备状态不升签 |

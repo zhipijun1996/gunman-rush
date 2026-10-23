@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "FOUR-LINE-INTEGRATION-01",
   "task_type": "player",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "01e5183ceccad356699caf060c5be3ae0437b1d0",
+  "reviewed_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
   "content_version": "four-line-integration-v1",
   "owner": "/root",
   "purpose": "Integrate the four user-authorized player/enemy/UI/fine-art worklines, five original user-provided MP3s and the newly authorized default-player/Weaver appearance flow without replacing author quality records.",
@@ -356,6 +356,7 @@
     "docs/ability_components.md",
     "docs/art_foundation_v1.md",
     "docs/art_session_20261023.md",
+    "docs/combat_and_recharge.md",
     "docs/controls_contract.md",
     "docs/creative_direction/README.md",
     "docs/creative_direction/bibles/registry.json",
@@ -365,6 +366,7 @@
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
+    "docs/decisions.md",
     "docs/design/player_actions/README.md",
     "docs/enemy_feedback_01.md",
     "docs/enemy_feedback_01_art_direction.md",
@@ -2431,6 +2433,7 @@
     "tools/capture_spatial_rhythm.gd.uid",
     "tools/capture_spatial_rhythm_movie.gd",
     "tools/capture_spatial_rhythm_movie.gd.uid",
+    "tools/check_docs.py",
     "tools/demo_ui_01/run_time_energy.py",
     "tools/enemy_feedback_01_audio_candidates.py",
     "tools/enemy_feedback_01_audio_probe.gd",
@@ -2443,7 +2446,8 @@
     "tools/run_integration_four_tests.py",
     "tools/run_player_default_integration_tests.py",
     "tools/verify_foreground_continuity.gd",
-    "tools/verify_foreground_continuity.gd.uid"
+    "tools/verify_foreground_continuity.gd.uid",
+    "tools/verify_four_line_browser.py"
   ],
   "deliverables": [
     "Merged reviewable source with exact provenance and retained failures",
@@ -2468,9 +2472,11 @@
       ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting the original applicable gate evidence for the final combined source; no partial result is promoted to full acceptance.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Original real App/MP3/accepted-action consumers with complete nonzero summaries and clean teardown.",
+      "evidence": [
+        "targeted-trace"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -2484,7 +2490,7 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting the original applicable gate evidence for the final combined source; no partial result is promoted to full acceptance.",
+      "reason": "B source and metadata/docsguard bounded independent reviews accepted; final exact PR Integration and main Release still pending at pre-PR freeze.",
       "evidence": []
     },
     "G5": {
@@ -2502,13 +2508,15 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Corpse strict66/1→66/0 and BGM private89 are scoped prior-source results; final default-character adaptation and combined checks have not completed.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Exact clean B native seven checks pass1266 with original strict engine/exit/source guards. Original five shared checks also pass with pure metadata overlay, recorded separately.",
+      "evidence": [
+        "targeted-command"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "The four lines and BGM are merged at checkpoint01e5183; final default character and Weaver appearance integration, real GUI and exports still require combined-source evidence.",
+      "reason": "Formal default/NPC/death/regions/BGM and save native consumers pass; true F Web/GL and browser partial observations remain explicitly distinct, final exact PR/Release and complete browser route unverified.",
       "evidence": []
     },
     "visual": {
@@ -2537,9 +2545,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "style-v6 ACCEPT is limited to one Stage interface SHA rebind; final integration has no complete independent acceptance.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent reviewer accepted bounded exact B runtime integration; separate metadata and docs-guard reviews preserve narrower sources and do not sign G5.",
+      "evidence": [
+        "independent-B"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -2578,29 +2588,90 @@
       "status": "unverified",
       "reason": "Final combined source and default adaptation are not frozen or verified at01e5183.",
       "evidence": []
+    },
+    {
+      "id": "targeted-technical",
+      "scenario": "Formal App plus shared feedback/MP3/save integration",
+      "method": "Original seven fresh Harness checks on clean exact B",
+      "expected": "1266 original checks and strict clean native exit, source stable",
+      "failure": "Any missing summary, assertion failure, callback error, resource leak or source drift",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "All seven actual original consumers and source guard pass at B.",
+      "evidence": [
+        "targeted-command",
+        "targeted-trace"
+      ]
     }
   ],
   "evidence": [
     {
       "id": "integration-spec",
       "path": "docs/integration/four_lines_20261023.md",
-      "sha256": "5809292eb16a49882574f9005d2625536aeafb1c6fded2cca511de4e62f14f1d",
+      "sha256": "998b0e72a03e92733cddc077d205ea302dc005a66278bb9363522b554f241584",
       "kind": "spec",
       "producer": "/root/production_docs",
-      "source_commit": "01e5183ceccad356699caf060c5be3ae0437b1d0",
+      "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
       "content_version": "four-line-integration-v1",
       "method": "Concrete current integration contract; records source/authorization boundaries and unfinished combined verification, not a runtime test.",
-      "observed": "Four source heads, conflict preservation, existing scoped fixes, five user MP3s, pending default character/Weaver flow and exclusions are documented."
+      "observed": "Explicit adoption, four author heads, source-bound tests, retained failures and final PR/Release/human boundaries"
+    },
+    {
+      "id": "targeted-command",
+      "path": "docs/evidence/four_line_integration_20261023/verified-B/report.json",
+      "sha256": "f44f0382def6e141b4d546e0d45e5186b6e205153a09ae00ad4360563f36167d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+      "content_version": "four-line-integration-v1",
+      "method": "Actual exact B source evidence; original paths, source identity and bounded scope retained",
+      "observed": "Seven original fresh strict consumers pass; no audio exit leak or source drift. This does not claim full final CI, human, art, listening or physical device acceptance.",
+      "command": "python3 tools/harness.py --check enemy-feedback-native --check enemy-feedback-formal --check enemy-feedback-support --check enemy-corpse-save --check enemy-corpse-snapshot --check bgm-integration --check player-default-integration --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 pinned native; Dummy audio; fixed60 enemy/default; real clock BGM; isolated user data; exact B clean source"
+    },
+    {
+      "id": "targeted-trace",
+      "path": "docs/evidence/four_line_integration_20261023/verified-B/report.json",
+      "sha256": "f44f0382def6e141b4d546e0d45e5186b6e205153a09ae00ad4360563f36167d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+      "content_version": "four-line-integration-v1",
+      "method": "Actual exact B source evidence; original paths, source identity and bounded scope retained",
+      "observed": "Seven original fresh strict consumers pass; no audio exit leak or source drift. This does not claim full final CI, human, art, listening or physical device acceptance."
+    },
+    {
+      "id": "independent-B",
+      "path": "docs/evidence/four_line_integration_20261023/final-review.json",
+      "sha256": "597c59e0e5a445ff13f52e3bae34e1b8d378261959f2958cd1da8db3c5b02ff8",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+      "content_version": "four-line-integration-v1",
+      "method": "Actual exact B source evidence; original paths, source identity and bounded scope retained",
+      "observed": "Independent bounded B source and exact7/7 review; full PR/Release and G5 remain pending; F Web evidence is distinct.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/player_presentation_01",
+        "/root/enemy_feedback_01",
+        "/root/audit_delivery",
+        "/root/audit_ci"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only agent /root/independent_review did not implement this integration. It independently inspected exact B source, original check guards and raw native logs, actual PCK bytes and two original GL images; post-B metadata/docsguard candidate reviews are separately retained."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Final combined-source native/import/quality/Integration/Release results",
-    "Default-player and Weaver appearance production adaptation and exact current source binding",
-    "Combined BGM region/Boss/return/pause/reload/browser playback",
-    "Formal Web/Windows exports, real public deployment metadata and downloads",
-    "Author-specific unresolved art/animation/feel/fun and all G5 player/device acceptance",
-    "The old corpse strict66/1 failure remains historical; repaired66/0 does not certify every combined consumer"
+    "Final PR exact Integration and main automatic Release/public PCK verification are not known inside this pre-PR evidence commit.",
+    "Author art/animation/feel and physical target devices remain review/unverified; integration is not content G5 acceptance.",
+    "Appearance selection is session-only; refresh restarts with the new default.",
+    "Browser full new/classic/new route and Forest not signed; first24 GUI and four mixed outputs plus bounded Home observations retained separately.",
+    "Five native MP3 loops/Boss switches passed89, but mixed browser signal cannot identify all five songs; real listening/loop seam/loudness and user sound preference unverified."
   ],
-  "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression."
+  "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression. Current docs guard is intentionally strict60Hz/exact1 from original UI R3 user authorization already present at ea2d6fd; D084 only propagates that current policy. Historical2-shot fixtures/assertions retained, independent docs-policy review stored separately."
 }

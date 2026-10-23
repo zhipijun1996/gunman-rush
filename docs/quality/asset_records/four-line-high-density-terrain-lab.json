@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "asset_id": "FOUR-LINE-HIGH-DENSITY-TERRAIN-LAB",
+  "task_id": "FOUR-LINE-INTEGRATION-01",
+  "content_version": "four-line-asset-registration-20261023",
+  "source_path": "assets/high_density_terrain_study/master_original.png",
+  "source_sha256": "b1b649a5cc809924f07df8f276b82683d8dad36f2ebc10d1739989b3ca551c8e",
+  "runtime_paths": [
+    "assets/high_density_terrain_study/edges_32.png",
+    "assets/high_density_terrain_study/master_256.png",
+    "assets/high_density_terrain_study/terrain_32.tres",
+    "assets/high_density_terrain_study/atlas_32.png"
+  ],
+  "runtime_file_sha256": {
+    "assets/high_density_terrain_study/edges_32.png": "8c8555dc9e795b6674f6997f2b03894e69ebd3580e337ca5c8439fe6fa4b10d7",
+    "assets/high_density_terrain_study/master_256.png": "af6a60b909d79da820b126090c28ab9bbd06dafc3e894d73e421f3346604fb0d",
+    "assets/high_density_terrain_study/terrain_32.tres": "2d0cc503fc2805cfcbc269c12a3b4bda271c50206649ab5633100e45d80eee2a",
+    "assets/high_density_terrain_study/atlas_32.png": "22d8e40cbecbd37724e2b3078bd703fe69a9840d77daa19d1b335b735676ecfb"
+  },
+  "license_status": "unknown",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "limited_preview",
+  "tool": "image_gen.imagegen for retained revised master; repository Godot nearest-sampling/atlas builder",
+  "model": "not_exposed",
+  "prompt_or_reference": "assets/high_density_terrain_study/provenance.json retains the revised master prompt; first rejected-generation exact prompt is not_exposed/not retained, as originally recorded",
+  "processing": "Original retained master is nearest-sampled to256 logical pixels and assembled into the native32px 47-mask terrain/semantic edges using the existing Godot builder. Runtime edges/master/TileSet are literal dev preloads; terrain_32.tres has a literal atlas_32.png ext_resource. Original standard/provenance remain processing records, not generated runtime art or proof of acceptance.",
+  "usage_scope": "Explicit high_density_terrain_study dev Lab and inherited authored experiment only. Dormant dev consumers still require runtime provenance. Formal selected fine32 production has separate records; this family does not declare a default material switch, motion, device or aesthetic pass.",
+  "license_source": "Original provenance states AI-generated edit of repository art, with original source/license files retained and no new third-party license asserted. Separate generated-output terms and model are not_exposed; license remains unknown.",
+  "consumer_scripts": [
+    "scripts/art/high_density_terrain_study.gd",
+    "scripts/art/authored_terrain_study.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/high_density_terrain_study/provenance.json",
+      "sha256": "48e07979e7075c5c5b56e32523269421c3a811ede9b1d146cf49daeb52cae3ca",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/high_density_terrain_study/standard.json",
+      "sha256": "900dc3b1ac448f27e3279fdd975b53802404afbf3e8c9f42f1343fb3ad0b5825",
+      "role": "source_contract"
+    },
+    {
+      "path": "tools/build_high_density_terrain.gd",
+      "sha256": "2db45f016718fd66c288579ed768b57ed3fdb9e546388cc165ea711ba68dd4d4",
+      "role": "processing_record"
+    }
+  ],
+  "runtime_reference_basis": {
+    "assets/high_density_terrain_study/edges_32.png": "Literal preload in scripts/art/high_density_terrain_study.gd",
+    "assets/high_density_terrain_study/master_256.png": "Literal preload in scripts/art/high_density_terrain_study.gd",
+    "assets/high_density_terrain_study/terrain_32.tres": "Literal preload in scripts/art/high_density_terrain_study.gd",
+    "assets/high_density_terrain_study/atlas_32.png": "Literal TileSet ext_resource PNG dependency of assets/high_density_terrain_study/terrain_32.tres"
+  }
+}

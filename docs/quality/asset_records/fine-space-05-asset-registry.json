@@ -2,9 +2,9 @@
   "schema_version": 1,
   "asset_id": "fine-space-05-asset-registry",
   "task_id": "FINE-SPACE-05",
-  "content_version": "fine-space-05-candidate-20261022",
+  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023",
   "source_path": "assets/manifest.json",
-  "source_sha256": "cb8d9be19545aff07452cc859ea94ece3bbc411e3d5792269d708bbf8b907bd1",
+  "source_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
   "runtime_paths": [],
   "tool": "Repository metadata assembly; no model invocation",
   "model": "not_applicable",
@@ -16,5 +16,46 @@
   "visual_status": "unverified",
   "disposition": "production_record_only",
   "non_runtime_reason": "Central inventory/provenance document; formal renderers load concrete source assets and build metadata rather than this global inventory.",
-  "user_acceptance_evidence": []
+  "user_acceptance_evidence": [],
+  "revision_impact": {
+    "revision": "four-line-source-rebind-v1-20261023",
+    "prepared_source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "prepared_source_git_status": "M docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n?? docs/evidence/four_line_integration_20261023/asset-registration.json\n?? docs/evidence/four_line_integration_20261023/verified-B/\n?? docs/quality/asset_records/four-line-authored-terrain-lab.json\n?? docs/quality/asset_records/four-line-high-density-terrain-lab.json\n?? docs/quality/asset_records/four-line-home-build-contract.json",
+    "previous_content_version": "fine-space-05-candidate-20261022",
+    "previous_record_path": "docs/evidence/four_line_integration_20261023/asset-record-history/fine-space-05-asset-registry.json",
+    "previous_record_sha256": "dee96cda94e7c0a92918537a3f29b7cd88bf98d2513552acac490530ef6bd64f",
+    "source_changes": [
+      {
+        "field": "source_sha256",
+        "path": "assets/manifest.json",
+        "old_sha256": "cb8d9be19545aff07452cc859ea94ece3bbc411e3d5792269d708bbf8b907bd1",
+        "new_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
+        "old_source": {
+          "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+          "subject": "art: adopt fine pixel presentation and layered formal environments",
+          "bytes": 184272,
+          "source_path": "assets/manifest.json"
+        },
+        "new_source": {
+          "commit": "759695c611d71dcd8f1350e22ff82e2b85ac22c8",
+          "subject": "Merge fine-depth art and combine UI and world asset registrations",
+          "bytes": 187032,
+          "source_path": "assets/manifest.json"
+        }
+      }
+    ],
+    "actual_change": "Central offline asset registry now combines UI R2 and final art branch: 279 art entries plus two UI title entries, 281 unique IDs. Union proven with all common entry values and top-level fields unchanged; old UI 222 entries and old FINE 277 entries remain intact. New central digest does not reapprove artwork, rendering or each historical entry source SHA.",
+    "unchanged": [
+      "Original source_path/runtime_paths/associated path order and roles; only drifted hash values are rebound.",
+      "Existing processing/tool/model/license fields and original user acceptance references remain historical and unchanged.",
+      "This record revision does not generate, rewrite or replace any image/audio or grant new rights."
+    ],
+    "independent_review": "unverified; root must arrange actual source/consumer impact review before accepting this revision",
+    "visual_acceptance": "unverified for changed composition/current runtime; original record status was unverified",
+    "not_verified": [
+      "Current combined GPU composition/aesthetics and user acceptance",
+      "Physical device and complete Release acceptance"
+    ],
+    "technical_status": "Only original validate_asset schema/source consistency will be checked; previous technical/visual approvals do not transfer to this new source"
+  }
 }

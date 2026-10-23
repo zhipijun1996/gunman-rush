@@ -1,0 +1,34 @@
+{
+  "reviewer": "independent_review (not author)",
+  "verdict": "ACCEPT",
+  "scope": "Static bounded addition of actual newly ownedMusic consumer to test-world teardown; runtime repair remains pending fresh evidence.",
+  "reviewed_at_utc": "2026-10-23T04:11:09.860981+00:00",
+  "reviewed_commit": "fbb417cb4d4d4d8d2500d7c4bed11cebf681dd46",
+  "source_sha256": {
+    "tests/audio_teardown.gd": "4e0e850b56571e3069a8271b056fc7e18939ab74ff5bc8c97e7ccb1016bbe4d9"
+  },
+  "actual_failure_identity": {
+    "original_source": "c33a8a2a161e11a2439a1713065af93b428f13de",
+    "verbose_log": "docs/evidence/four_line_integration_20261023/second-combined-failures/verbose-mp3-release.log",
+    "verbose_sha256": "3666e9cb912ced193c84b697ca62eac88c04ee3563a5576b80d789ac3ba43fcb",
+    "observed_objects": [
+      "AudioStreamMP3",
+      "AudioStreamPlaybackMP3"
+    ],
+    "actual_resource": "res://assets/audio/bgm/the_kindred_hearth.mp3",
+    "status": "Original strict failed exits preserved; earlier72/0 and235/0 assertion markers did not override exit failure."
+  },
+  "verified_invariants": [
+    "Current helper equals all old bytes plus9newlines exactly; no original assertion or failure check deleted.",
+    "Same original1000ms total started timestamp is shared across existingSFX,newMusic and existing fallback weak refs. Remaining budget is passed toMusic.shutdown; any real backend release failure returnsfalse.",
+    "OnlyMusic descendants of the requested world are selected,using original ownership containment semantics. Service identity/currenttrack/start counters logged.",
+    "GameMusic.shutdown already refuses resurrection,stops/clears actual streams and waits on actualWeakRef playback release; no production exit wait or leak suppression added.",
+    "All production runtime files equalc33 across this helper-only fix. ExistingBGM89includes actual normalownerexit release without explicitshutdown and loop playback support; it remains a distinct check."
+  ],
+  "required_revalidation": "Fresh originalcorpse-save72,default235 and originalintegration consumers at the exact frozen source must exit clean. This source approval does not yet establish that result.",
+  "review_method": "Read exact diff and verbose raw evidence; no test,engine,hydration or repository writes.",
+  "limits": [
+    "Final combined check results,export/browser/fullIntegration/Release pending.",
+    "No human/device/art acceptance."
+  ]
+}

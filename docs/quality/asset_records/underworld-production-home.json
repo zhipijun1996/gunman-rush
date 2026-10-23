@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "asset_id": "underworld-production-home",
-  "content_version": "underworld-feedback-r3-v1",
+  "content_version": "underworld-feedback-r3-v1+four-line-rebind-v1-20261023",
   "source_path": "assets/underworld_plains/home/home_props.png",
   "source_sha256": "28d5b5113068d5fee56e199b7d8917437c2b33059245e09501372a3d3e3eee63",
   "runtime_paths": [
@@ -27,8 +27,49 @@
     },
     {
       "path": "assets/underworld_plains/home/home_build.json",
-      "sha256": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35",
+      "sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159",
       "role": "processing_record"
     }
-  ]
+  ],
+  "revision_impact": {
+    "revision": "four-line-source-rebind-v1-20261023",
+    "prepared_source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "prepared_source_git_status": "M docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n?? docs/evidence/four_line_integration_20261023/asset-registration.json\n?? docs/evidence/four_line_integration_20261023/verified-B/\n?? docs/quality/asset_records/four-line-authored-terrain-lab.json\n?? docs/quality/asset_records/four-line-high-density-terrain-lab.json\n?? docs/quality/asset_records/four-line-home-build-contract.json",
+    "previous_content_version": "underworld-feedback-r3-v1",
+    "previous_record_path": "docs/evidence/four_line_integration_20261023/asset-record-history/underworld-production-home.json",
+    "previous_record_sha256": "02f071207714e10c370edb8f7194b7c9a9181bae1997db3b8aadab6954b3970c",
+    "source_changes": [
+      {
+        "field": "associated_files/1/sha256",
+        "path": "assets/underworld_plains/home/home_build.json",
+        "old_sha256": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35",
+        "new_sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159",
+        "old_source": {
+          "commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+          "subject": "docs: record verified main closeout and parallel baseline [skip ci]",
+          "bytes": 7130,
+          "source_path": "assets/underworld_plains/home/home_build.json"
+        },
+        "new_source": {
+          "commit": "5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8",
+          "subject": "art: adopt fine pixel presentation and layered formal environments",
+          "bytes": 7903,
+          "source_path": "assets/underworld_plains/home/home_build.json"
+        }
+      }
+    ],
+    "actual_change": "Only grounding metadata appended to home_build.json at 5ce3cd3; original schema, world/floor/platform/slot/crop/foot/interaction/currency-save fields retain exact parsed values. Contract now documents shared GroundedContact structure/tree 7wu and small-flora 3wu visual burial; UnderworldHomeWorld._grounding_depth calls shared code. No physical rectangles or gameplay/save contract changed by this metadata addition.",
+    "unchanged": [
+      "Original source_path/runtime_paths/associated path order and roles; only drifted hash values are rebound.",
+      "Existing processing/tool/model/license fields and original user acceptance references remain historical and unchanged.",
+      "This record revision does not generate, rewrite or replace any image/audio or grant new rights."
+    ],
+    "independent_review": "unverified; root must arrange actual source/consumer impact review before accepting this revision",
+    "visual_acceptance": "unverified for changed composition/current runtime; original record status was unverified",
+    "not_verified": [
+      "Current combined GPU composition/aesthetics and user acceptance",
+      "Physical device and complete Release acceptance"
+    ],
+    "technical_status": "Only original validate_asset schema/source consistency will be checked; previous technical/visual approvals do not transfer to this new source"
+  }
 }

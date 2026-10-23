@@ -1,6 +1,6 @@
 # 2026-10-23 四条工作线集成
 
-主体任务 `FOUR-LINE-INTEGRATION-01`：in_progress。用户明确授权下列四线整理后合入main；当前在 `integration/four-lines-20261023` 普通合并，本文记录的检查点为 `01e5183`，尚未完成组合验证、main合入或新公开发布。暂停的黄金切片 `68bd037` 不属于本次范围，未合入。
+主体任务 `FOUR-LINE-INTEGRATION-01`：review。用户明确授权下列四线整理后合入main；当前在 `integration/four-lines-20261023` 普通合并，精确专项冻结检查点为 `88560578914de808a6e3cae6d5c4391d96a9205b`；本文件在PR创建前冻结，main合入与公开发布以其后的真实Git/Actions状态为准。暂停的黄金切片 `68bd037` 不属于本次范围，未合入。
 
 | 来源工作线 | 精确输入head | 本次范围 |
 | --- | --- | --- |
@@ -32,3 +32,13 @@
 下一步由总控接收默认人物适配，更新绑定和任务卡，冻结组合版本后跑唯一正式验证；失败、未执行、用户审美／手感及实体设备分别保留。所有main／部署状态以实际PR、Git与公开构建元数据为准，本文没有新的CI号或发布URL。
 
 首次组合检查保留真实失败：正常时钟的enemy support199/1，恢复作者固定60帧运行条件后重验；正式66/0仍有菜单实例释放后的_restore_focus coroutine ERROR，生产代码已改为随Menu销毁断开的单次信号回调，未修改原测试断言。最终7项与全CI尚未完成，不能引用初次summary作清洁通过。
+
+## 冻结后的实际结果与执行入口
+
+B源7项原Harness fresh全部passed，1266检查：enemy native458、formal66、support199、corpse save72、snapshot147、BGM89、default player235。原core5681、actor-actions2872、all-weapons2381、action-budget7305、UI time-energy140也全部通过；后者只带记录在report内的纯metadata overlay，无运行源漂移。菜单延迟回调、原1000ms范围新增真实音乐释放、原strict退出守门均通过。当前文档严格绑定D084已授权一发/60Hz，保留历史两发fixture。
+
+5份资产记录漂移已版本化影响分析与独审：manifest是281条准确并集，Home只增grounding；Scenery确有新的quietmeadow/地标世界锚定与前中景构图变化，不能称纯hash刷新。4份原作者格式不完整的质量卡迁移原schema，旧原件逐字节保留，旧局部passed不扩大为新source技术或用户验收。所有原资产来源/未知许可与未验边界保留。
+
+真实GL为UI147、R2223、terrain GPU、foreground506样本/23身份，无脚本/音频退出错误。Web为真实Godot F源fbb417c包7f88f353bfb4，4新增JSON与5MP3实际导入bytes在PCK一致。F→B生产diff为空；不把旧F包重标成B新包。真实本地Chromium24GUI＋4原生音频运行/非零混音通过；追加真实家园／织时匠／新版默认与切经典已观察，随后OCR失败保留，完整切回、森林及五曲浏览器逐曲听音未验。新manual driver为tools/verify_four_line_browser.py，参数必须绑定实际Web包source/build、真实CJK OCR和全新build下输出目录；不改历史driver断言、不注入引擎。
+
+精选日志/实际图/失败/限定独审见[证据说明](../evidence/four_line_integration_20261023/README.md)。PR创建前执行原check_docs、check_quality、check_quality_diff、check_release_evidence；PR只开一次Production impact Integration，用户已授权成功后正常合main，main自动原Godot core完整Release/Web/Windows/公开PCK验证，不再重复手动dispatch完整CI。G5/全图美术、听感、手感与物理设备仍未验。

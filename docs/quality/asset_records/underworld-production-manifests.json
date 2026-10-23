@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "asset_id": "underworld-production-manifests",
-  "content_version": "underworld-feedback-r3-v1",
+  "content_version": "underworld-feedback-r3-v1+four-line-rebind-v1-20261023",
   "source_path": "assets/underworld_plains/production_manifest.json",
   "source_sha256": "a074d547af9430ef21b7461313f6acc3cdf32dd3f8618f76daadf07a820cd52c",
   "runtime_paths": [],
@@ -18,8 +18,49 @@
   "associated_files": [
     {
       "path": "assets/underworld_plains/scenery_build.json",
-      "sha256": "59f71c25a6290707271c12717755287485fcd0a5cfcd6cb3e3eeefe21e9fa2bf",
+      "sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
       "role": "processing_record"
     }
-  ]
+  ],
+  "revision_impact": {
+    "revision": "four-line-source-rebind-v1-20261023",
+    "prepared_source_commit": "88560578914de808a6e3cae6d5c4391d96a9205b",
+    "prepared_source_git_status": "M docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json\n?? docs/evidence/four_line_integration_20261023/asset-registration.json\n?? docs/evidence/four_line_integration_20261023/verified-B/\n?? docs/quality/asset_records/four-line-authored-terrain-lab.json\n?? docs/quality/asset_records/four-line-high-density-terrain-lab.json\n?? docs/quality/asset_records/four-line-home-build-contract.json",
+    "previous_content_version": "underworld-feedback-r3-v1",
+    "previous_record_path": "docs/evidence/four_line_integration_20261023/asset-record-history/underworld-production-manifests.json",
+    "previous_record_sha256": "d470e87f89edcbe810375e3508f94d109dd8ddedf544a3507242f894eb88512b",
+    "source_changes": [
+      {
+        "field": "associated_files/0/sha256",
+        "path": "assets/underworld_plains/scenery_build.json",
+        "old_sha256": "59f71c25a6290707271c12717755287485fcd0a5cfcd6cb3e3eeefe21e9fa2bf",
+        "new_sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+        "old_source": {
+          "commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+          "subject": "docs: record verified main closeout and parallel baseline [skip ci]",
+          "bytes": 5514,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        },
+        "new_source": {
+          "commit": "f554e6bbea6c4f7282ed762a4880a92cae4e7918",
+          "subject": "art: alternate local landmark groups with open meadow intervals",
+          "bytes": 7658,
+          "source_path": "assets/underworld_plains/scenery_build.json"
+        }
+      }
+    ],
+    "actual_change": "Runtime configuration change, not a byte-only refresh: retain FINE-SPACE-05 far morning sky, switch middle layer to SPATIAL-RHYTHM-07 quiet meadow, tune composition/fog/detail and add world-anchored windmill/open/clocktower/open/open landmark ensembles (DEPTH-FRAME-06 image). Compared with legacy 59f71c, also adopt same-orientation sky seam, bounded vertical parallax and fine-pixel policy. UnderworldParallax3 reads backgrounds/landmark_sequence, UnderworldScenery reads decor; Home shares parallax. Original source assets remain preserved, but current composition requires independent review.",
+    "unchanged": [
+      "Original source_path/runtime_paths/associated path order and roles; only drifted hash values are rebound.",
+      "Existing processing/tool/model/license fields and original user acceptance references remain historical and unchanged.",
+      "This record revision does not generate, rewrite or replace any image/audio or grant new rights."
+    ],
+    "independent_review": "unverified; root must arrange actual source/consumer impact review before accepting this revision",
+    "visual_acceptance": "unverified for changed composition/current runtime; original record status was unverified",
+    "not_verified": [
+      "Current combined GPU composition/aesthetics and user acceptance",
+      "Physical device and complete Release acceptance"
+    ],
+    "technical_status": "Only original validate_asset schema/source consistency will be checked; previous technical/visual approvals do not transfer to this new source"
+  }
 }
