@@ -21,3 +21,5 @@ PlayerWeaponFeelAudioV2只将旧bank duplicate后替换mine_beep数组，三个�
 复验：`bash tools/godot.sh --headless --path . --script tests/player_presentation_01/mine_beep_binding_v3.gd -- --output=build/new-binding.json`；采片沿原`python3 tests/player_presentation_01/capture_weapon_v2.py --output build/new-clean-capture`（须干净冻结源/全新目录）。构建音源沿`python3 tests/player_presentation_01/build_mine_beep_v3.py`，保留源SHA不匹配时拒绝，不自刷旧通过。
 
 最后专项记录：quality.py check本卡errors=[]、记录一致性通过，但任务/内容complete=false、总体REJECT，旧视觉/动画failed保留；check_quality_diff通过458文件，git diff --check通过。全库quality索引/稀疏历史依赖不因本次音色修正关闭；完整集成/用户/真机继续未验。最终提交再执行精确Git普通文件树release-evidence守门，公网链接须推送后全字节核验。
+
+公开交付已核验：Git交付e23476341d553f8df6d1ba00e527d84753e51c8e；旧/新MP4、仅新版MP4、timer归因、完整Freedoom许可/Credits及4e源WAV均匿名HTTP200全量下载匹配本地SHA，见[公开下载收据](../../evidence/PLAYER-PRESENTATION-01/mine-beep-v3/public-download.json)。这是实际可下载音画，不宣称新的可玩Web已上线。e234精确release-evidence守门通过；全库check_quality.py本次仍因稀疏历史证据与中央planned索引不一致失败，没有重标通过。
