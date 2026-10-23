@@ -1,7 +1,0 @@
---- a/tests/underworld_plains/test_underworld_ui.gd
-+++ b/tests/underworld_plains/test_underworld_ui.gd
-@@
- 	if not target.is_visible_in_tree(): return
-+	# Finish deferred initial focus restoration before revealing a later target.
-+	await frames(4)
- 	var parent := target.get_parent()
