@@ -10,6 +10,7 @@ class HorizonLayer extends Node2D:
 
 var runtime: WeaponActionRuntime
 var controller: PlayerController
+var catch_visual: UnderworldPlayer
 @export_range(0.0,1.0) var opacity := .85
 var _blade: AtlasTexture
 var _horizon: HorizonLayer
@@ -93,6 +94,13 @@ func _draw_return(fx: Dictionary) -> void:
 	if age<0 or age>=duration: return
 	var start := to_local(fx.start)
 	var finish := to_local(fx.end)
+	# Physics has already accepted the original swept segment/catch. Its short
+	# echo follows the currently drawn hand while the real recoil moves the hero.
+	if is_instance_valid(catch_visual) and catch_visual.is_visible_in_tree():
+		finish=to_local(catch_visual.to_global(Vector2(catch_visual.facing*4,-1)))
+	else:
+		var courier := controller.motor.get_node_or_null("CourierVisual") as CourierVisual
+		if is_instance_valid(courier): finish=to_local(courier.grapple_hand_position())
 	var axis := (finish-start).normalized()
 	var width := 50.0 if bool(fx.skill) else 36.0
 	var size := Vector2(width,width*_blade.region.size.y/_blade.region.size.x)
@@ -103,6 +111,7 @@ func _draw_return(fx: Dictionary) -> void:
 		var eased := 1-pow(1-phase,3)
 		var point := start.lerp(finish,eased)
 		var alpha := (1-float(i)*.27)*(1-clampf(age/duration,0,1)*.25)*opacity
+		alpha*=minf(1,(1-age/duration)*4)
 		if i==0:
 			var tail := minf(32,start.distance_to(point))
 			draw_line(point-axis*tail,point,Color(.79,.87,.88,.3*alpha),3,false)
@@ -114,7 +123,7 @@ func draw_horizon_on(canvas: Node2D) -> void:
 	if not _valid() or runtime.phase!=&"singularity": return
 	var center := to_local(runtime._center)
 	var progress := clampf(runtime.age/controller.shoot_ability.weapon.hold_seconds,0,1)
-	var radius := 19+4*sin(progress*PI)
+	var radius := 29+4*sin(progress*PI)
 	# This fixed background pass sits one canvas-Z behind the real hero. It
 	# never covers the actor with an opaque foreground black circle.
 	canvas.draw_circle(center,radius+5,Color(.20,.12,.29,.45*opacity))
@@ -164,7 +173,9 @@ func _draw_explosion(fx: Dictionary) -> void:
 		var point := center+axis*radius*(.10+.22*burst)
 		var size := radius*(.06+.04*sin(float(i)*4))*(1-age/.7)
 		draw_circle(point,size,Color(.94,.24+.07*(i%3),.055,.65*fade))
-		if age<.18: draw_circle(point,size*.48,Color(1,.76,.22,.85*fade))
+		if age<.18:
+			var flame := PackedVector2Array([point-axis*size,point+axis.orthogonal()*size*.65,point+axis*size*2.1,point-axis.orthogonal()*size*.65])
+			draw_colored_polygon(flame,Color(1,.76,.22,.85*fade))
 	if age<.09: draw_circle(center,radius*.105,Color(1,.94,.70,(1-age/.09)*opacity))
 	for i: int in 16:
 		var axis := Vector2.from_angle(float(i)*TAU/16+.13*sin(float(i)*7))

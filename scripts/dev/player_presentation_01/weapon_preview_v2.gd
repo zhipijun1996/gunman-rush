@@ -10,3 +10,8 @@ func _new_weapon_audio() -> PlayerWeaponFeelAudio:
 
 func _new_weapon_feel() -> PlayerWeaponFeel:
 	return PlayerWeaponFeelV2.new()
+
+func _attach_feel() -> void:
+	super._attach_feel()
+	var feel := weapon_feel as PlayerWeaponFeelV2
+	if feel!=null and is_instance_valid(feel.renderer): feel.renderer.catch_visual=motion_visual
