@@ -439,7 +439,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.streams.shop="region_shop"
 	m.streams.items="region_items"
 	m.item_version="plains-items-v2"
-	m.shot_energy_version="plains-shot-energy-v1"
+	m.shot_energy_version="time-energy-v2"
 	if art_language_profile!="":
 		var planned: Array=[]
 		var unresolved: Array=[]

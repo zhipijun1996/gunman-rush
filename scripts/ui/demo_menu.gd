@@ -468,7 +468,7 @@ func show_help(in_run: bool = false) -> void:
 	_label(_content, "手柄 / GAMEPAD", 19, GOLD)
 	_label(_content, "左摇杆移动，A 跳跃。右摇杆瞄准，回中心射击。左杆向上交互。已获得钩索时，LB 按住瞄准，松开发钩。菜单内用方向键或左杆选择、A 确认、B 返回。", 17, TEXT)
 	_label(_content, "生命与续航 / RESOURCES", 19, GOLD)
-	_label(_content, "开枪消耗精力；对敌人造成真实伤害可回能，并补充一发空中弹药。落地恢复弹药，站稳可回能。空中瞄准的慢时有独立预算。爱心归零结束本局，回到家园。", 17, TEXT)
+	_label(_content, "开枪不消耗时间能量。空中瞄准枪械或钩索触发慢时，只有慢时消耗时间能量，接地逐渐恢复。基础空中弹药一发，对敌人造成真实伤害或落地可补充。二段跳与钩索解锁后，图标表示剩余可用资格。爱心归零结束本局，回到家园。", 17, TEXT)
 	_label(_content, "地图与暂停 / MAP & PAUSE", 19, GOLD)
 	_label(_content, "点击地图或按 M 查看已探索区域，拖动平移、滚轮或双指缩放。MENU / Esc 暂停；打开界面会取消旧瞄准。平原小 Boss 开启地图二，主 Boss 完成地区。开发练习保留各自规则。", 17, MUTED)
 	_button(_content, "BACK / 返回", _back)

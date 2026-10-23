@@ -214,6 +214,8 @@ func _process(delta: float) -> void:
 		stamina_label.text = "ENERGY %.0f/%.0f" % [_resources.stamina.current, _resources.stamina.capacity]
 		if _energy_hint > 0: stamina_label.text = "LAND TO RECOVER"
 		_shots_label.text = "JUMP %d/%d   SHOTS %d/%d" % [maxi(0, _actor.motor.tuning.max_jumps - _actor.jump_ability.used_jumps), _actor.motor.tuning.max_jumps, _actor.action_resources.shot_charges, _actor.motor.tuning.max_air_shots]
+	if is_instance_valid(_actor) and _actor.shot_energy != null and not _actor.shot_energy.definition.shooting_consumes_energy:
+		stamina_label.text = "时间能量 %.0f/%.0f" % [_resources.stamina.current, _resources.stamina.capacity]
 
 func _exit_tree() -> void:
 	unbind()

@@ -54,24 +54,15 @@ func _heart(origin: Vector2, amount: float, color: Color) -> void:
 	if clipped.size() >= 3: draw_colored_polygon(clipped, color)
 
 func _draw() -> void:
-	var socket := COLORS.plate(Color(COLORS.INK, 0.90), Color(COLORS.BRASS, 0.65), 0)
-	socket.set_corner_radius_all(6)
-	socket.shadow_size = 2
-	socket.shadow_offset = Vector2(0, 2)
 	for i: int in ceili(capacity):
-		var cell_origin := Vector2(i % columns, i / columns) * cell
-		draw_style_box(socket, Rect2(cell_origin, Vector2(22, 23)))
-		var origin := cell_origin + Vector2(2, 4)
+		var origin := Vector2(i % columns, i / columns) * cell + Vector2(2, 4)
 		var available := clampf(capacity - i, 0.0, 1.0)
-		_heart(origin + Vector2(0, 1), available, Color(0.02, 0.04, 0.04, 0.9))
-		_heart(origin, available, Color("46524a"))
+		var outline := PackedVector2Array()
+		for point: Vector2 in SHAPE: outline.append(origin + point * HEART_SCALE)
+		outline.append(outline[0])
+		# No surrounding sockets, panels or plates: outline only the heart itself.
+		draw_polyline(outline, Color(COLORS.INK, 0.95), 3, false)
+		_heart(origin, available, Color("48544f"))
 		if not healing: _heart(origin, clampf(delayed - i, 0, available), COLORS.BRASS)
-		var tone := COLORS.TEAL if healing and feedback > 0 else COLORS.CORAL
-		_heart(origin, clampf(current - i, 0, available), tone)
-		if current > i + 0.75:
-			draw_line(origin + Vector2(4, 2), origin + Vector2(6, 2), COLORS.PAPER, 1, false)
-		if feedback > 0 and ((healing and current > i) or (not healing and delayed > i and current < i + 1)):
-			var glow := COLORS.plate(Color.TRANSPARENT, Color(COLORS.TEAL if healing else COLORS.CORAL, feedback * 0.9), 0)
-			glow.set_corner_radius_all(6)
-			glow.shadow_size = 0
-			draw_style_box(glow, Rect2(cell_origin, Vector2(22, 23)))
+		_heart(origin, clampf(current - i, 0, available), COLORS.TEAL if healing and feedback > 0 else COLORS.CORAL)
+		if current > i + 0.75: draw_line(origin + Vector2(4, 2), origin + Vector2(6, 2), COLORS.PAPER, 1, false)

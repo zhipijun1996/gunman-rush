@@ -2,19 +2,19 @@
   "schema_version": 1,
   "task_id": "DEMO-UI-01",
   "task_type": "ui_feedback",
-  "workflow": "review",
+  "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "dce1a7172fd122ed1fd7f1e7d3263c87caf5d74b",
-  "content_version": "clockwork-ui-r2",
+  "reviewed_commit": "2cf83fa07e0b7aab0e36d44c25c2aaaf38a32d62",
+  "content_version": "clockwork-ui-r3",
   "owner": "/root",
-  "purpose": "Apply explicit user rejection feedback: one pixel font, rounded layered UI, generated scenic title and clock logo, real four-entry flow and unified HUD",
-  "player_experience": "Read health and shot resources at a glance; navigate real menus with mouse, touch and gamepad; preserve existing game lifecycle",
+  "purpose": "Apply user-directed time-energy-only slow motion and frameless portrait/heart/resonance HUD",
+  "player_experience": "Read real health and airborne actions at a glance; time energy drains only during actual slow aim",
   "constraints": [
-    "Read-only gameplay/character/enemy/environment contracts",
-    "No Motor, damage, resource, ability grant, RNG or save rule changes",
-    "Preserve all original assertions and budgets",
-    "Central task/status/handoff owned by controller",
-    "User aesthetics and physical-device acceptance remain unverified"
+    "Latest user explicitly authorizes time-energy and default one-air-shot rule changes",
+    "No Motor/damage/topology/save/RNG/ability grant changes",
+    "Historical rule assertions remain version-bound; original budgets retained",
+    "Central status owned by controller; Integration/Release pending",
+    "User aesthetics and physical-device acceptance unverified"
   ],
   "affected_paths": [
     "assets/manifest.json",
@@ -30,11 +30,87 @@
     "assets/ui/demo_ui_01/r2/title_impression.png.import",
     "assets/ui/demo_ui_01/r2/title_logo.png",
     "assets/ui/demo_ui_01/r2/title_logo.png.import",
+    "config/foundry_capabilities.json",
+    "config/player_tuning.json",
     "export_presets.cfg",
     "project.godot",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "resources/items/braided_cord.tres",
+    "resources/items/cooling_fin.tres",
+    "resources/items/echo_gold.tres",
+    "resources/items/echo_magazine.tres",
+    "resources/items/efficient_grip.tres",
+    "resources/items/quick_hammer.tres",
+    "resources/player/demo_ui_01/time_energy_v2.tres",
+    "scripts/builds/build_modifier.gd",
+    "scripts/builds/build_state.gd",
+    "scripts/combat/shot_energy_policy.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/demo/action_studio.gd",
     "scripts/demo/demo_app.gd",
     "scripts/demo/home_scene.gd",
+    "scripts/demo/module_energy_trial.gd",
     "scripts/dev/cloud_preview.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/player_controller.gd",
+    "scripts/resources/definitions/shot_energy_definition.gd",
+    "scripts/ui/actor_resources_hud.gd",
     "scripts/ui/demo_menu.gd",
     "scripts/ui/demo_ui_01/clockwork_theme.gd",
     "scripts/ui/demo_ui_01/clockwork_theme.gd.uid",
@@ -54,10 +130,17 @@
     "scripts/ui/demo_ui_01/modal_shell.gd.uid",
     "scripts/ui/demo_ui_01/preview_affordance.gd",
     "scripts/ui/demo_ui_01/preview_affordance.gd.uid",
+    "scripts/ui/demo_ui_01/r3_ability_icon.gd",
+    "scripts/ui/demo_ui_01/r3_ability_icon.gd.uid",
+    "scripts/ui/demo_ui_01/r3_resonance_line.gd",
+    "scripts/ui/demo_ui_01/r3_resonance_line.gd.uid",
+    "scripts/ui/demo_ui_01/r3_time_energy_ring.gd",
+    "scripts/ui/demo_ui_01/r3_time_energy_ring.gd.uid",
     "scripts/ui/demo_ui_01/resource_track.gd",
     "scripts/ui/demo_ui_01/resource_track.gd.uid",
     "scripts/ui/demo_ui_01/title_backdrop.gd",
     "scripts/ui/demo_ui_01/title_backdrop.gd.uid",
+    "scripts/ui/item_presentation.gd",
     "scripts/ui/item_shop_modal.gd",
     "scripts/ui/menu_theme.gd",
     "scripts/ui/plains_region_map.gd",
@@ -66,6 +149,8 @@
     "scripts/ui/stage_exit_modal.gd",
     "scripts/ui/stage_reward_modal.gd",
     "scripts/ui/windkeeper_hud.gd",
+    "tests/actor_actions_runner.gd",
+    "tests/combat_tests.gd",
     "tests/demo_ui_01/contract_runner.gd",
     "tests/demo_ui_01/contract_runner.gd.uid",
     "tests/demo_ui_01/legacy_runner.gd",
@@ -74,9 +159,26 @@
     "tests/demo_ui_01/movie_runner.gd.uid",
     "tests/demo_ui_01/r2_runner.gd",
     "tests/demo_ui_01/r2_runner.gd.uid",
+    "tests/demo_ui_01/r3_d079_original.gd",
+    "tests/demo_ui_01/r3_d079_original.gd.uid",
+    "tests/demo_ui_01/r3_energy_runner.gd",
+    "tests/demo_ui_01/r3_energy_runner.gd.uid",
+    "tests/demo_ui_01/r3_movie_runner.gd",
+    "tests/demo_ui_01/r3_movie_runner.gd.uid",
+    "tests/demo_ui_01/r3_readme.md",
     "tests/demo_ui_01/smoke_capture.gd",
     "tests/demo_ui_01/smoke_capture.gd.uid",
-    "tests/underworld_plains/test_underworld_ui.gd"
+    "tests/fixtures/demo_ui_01_r3/braided_cord_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/cooling_fin_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/echo_gold_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres",
+    "tests/fixtures/demo_ui_01_r3/history.json",
+    "tests/grapple_focus_hud_runner.gd",
+    "tests/plains_experience_energy_runner.gd",
+    "tests/underworld_plains/test_underworld_ui.gd",
+    "tools/demo_ui_01/run_time_energy.py",
+    "tools/harness/profiles.json"
   ],
   "deliverables": [
     "Independent real Godot Web Preview",
@@ -93,101 +195,90 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "passed",
-      "reason": "Explicit user feedback mapped to concrete native implementation scope",
-      "evidence": [
-        "r2-design"
-      ]
+      "status": "unverified",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "evidence": []
     },
     "G1": {
-      "status": "passed",
-      "reason": "Frozen actual native consumer/resource trace and relevant original checks pass.",
-      "evidence": [
-        "r2-native",
-        "r2-runtime"
-      ]
+      "status": "unverified",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
+      "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Scoped candidate delivered; complete subjective/dynamic/performance/device/player and Integration/Release approval not established.",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Scoped candidate delivered; complete subjective/dynamic/performance/device/player and Integration/Release approval not established.",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Scoped candidate delivered; complete subjective/dynamic/performance/device/player and Integration/Release approval not established.",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Scoped candidate delivered; complete subjective/dynamic/performance/device/player and Integration/Release approval not established.",
+      "reason": "R3 current scoped verification and review pending; no user/device/Integration approval",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "passed",
-      "reason": "R2 concrete scope and formal consumer/data boundaries recorded",
-      "evidence": [
-        "r2-design"
-      ]
+      "status": "unverified",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "evidence": []
     },
     "technical": {
-      "status": "passed",
-      "reason": "838 focused native checks and222 registry entries pass on clean frozen dce1; scope is Development UI only.",
-      "evidence": [
-        "r2-native"
-      ]
+      "status": "unverified",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "independent_review": {
-      "status": "passed",
-      "reason": "Different read-only agent gave limited static/export direction ACCEPT; no user/device/Release claim.",
-      "evidence": [
-        "r2-review"
-      ]
+      "status": "unverified",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
+      "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "R2 validation pending; user/physical-device acceptance remains separate.",
+      "reason": "R3 current evidence pending; historical R2 stays separately versioned",
       "evidence": []
     }
   },
@@ -200,11 +291,9 @@
       "failure": "Screenshot-only buttons, missing glyphs, fake save/attributes or input leaks",
       "gate": "G0",
       "dimension": "design",
-      "status": "passed",
-      "reason": "Concrete implemented scope, awaiting source-bound execution and subjective feedback",
-      "evidence": [
-        "r2-design"
-      ]
+      "status": "unverified",
+      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
+      "evidence": []
     },
     {
       "id": "r2-native-regression",
@@ -214,12 +303,9 @@
       "failure": "Any actual consumer assertion or engine failure",
       "gate": "G1",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "All nine selected rows exit0; raw command/report/assertions retained",
-      "evidence": [
-        "r2-native",
-        "r2-runtime"
-      ]
+      "status": "unverified",
+      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
+      "evidence": []
     },
     {
       "id": "r2-independent-static",
@@ -229,112 +315,18 @@
       "failure": "Self-review, unviewed artifact or unsupported blanket acceptance",
       "gate": "G4",
       "dimension": "independent_review",
-      "status": "passed",
-      "reason": "Scoped static/export ACCEPT documented; full G4 remains unverified because earlier full-content gates are not signed",
-      "evidence": [
-        "r2-review"
-      ]
+      "status": "unverified",
+      "reason": "R3 awaiting current verification; prior R2 evidence separately preserved",
+      "evidence": []
     }
   ],
-  "evidence": [
-    {
-      "id": "r2-design",
-      "path": "docs/worklines/demo_ui_01/r2_scope.md",
-      "sha256": "eb277900abea4b9c446f568b3541b9032598ff01037f074ca08ed49e149838f0",
-      "kind": "spec",
-      "producer": "/root",
-      "source_commit": "dce1a7172fd122ed1fd7f1e7d3263c87caf5d74b",
-      "content_version": "clockwork-ui-r2",
-      "method": "Mapped user feedback to actual native consumers and minimum shared entry changes",
-      "observed": "Concrete R2 implementation scope; no technical or aesthetic completion claimed"
-    },
-    {
-      "id": "r2-native",
-      "path": "docs/evidence/demo_ui_01/r2/native/report.json",
-      "sha256": "3e6b93bcd7f2e54bec9aa529a7c976f7d6964dfadd09f8fd13d3cc3a71a567f4",
-      "kind": "command",
-      "producer": "/root",
-      "source_commit": "dce1a7172fd122ed1fd7f1e7d3263c87caf5d74b",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Clean dce1 source_stable true;838 native checks0failures plus222 asset registry entries; nine targeted rows passed.",
-      "command": "python3 /workspace/scratch/demo_ui_r2_frozen.py",
-      "exit_code": 0,
-      "environment": "Godot4.7.2 Standard; Linux DISPLAY99; gl_compatibility llvmpipe; native + headless original Harness scripts"
-    },
-    {
-      "id": "r2-runtime",
-      "path": "docs/evidence/demo_ui_01/r2/native/native/assertions.json",
-      "sha256": "c7b5a1b5e264cb798caffa2786baa8bb8df06757a01a78f3ea2f424bbfd10bea",
-      "kind": "runtime_trace",
-      "producer": "/root",
-      "source_commit": "dce1a7172fd122ed1fd7f1e7d3263c87caf5d74b",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Actual DemoApp native clicks and live official resource/lifecycle cases;146 checks0failures."
-    },
-    {
-      "id": "r2-review",
-      "path": "docs/evidence/demo_ui_01/r2/export_review.md",
-      "sha256": "cbe05b7963c41adb0822816f85a9f9456ebf91958e7dcf19d634e7343a0f0c0d",
-      "kind": "review",
-      "producer": "/root/independent_review",
-      "source_commit": "dce1a7172fd122ed1fd7f1e7d3263c87caf5d74b",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Limited static/export/source-equivalence ACCEPT; old mobile OCR failure retained, no user/device/full playback approval.",
-      "reviewer": "/root/independent_review",
-      "implementers": [
-        "/root",
-        "/root/menus",
-        "/root/ui_audit"
-      ],
-      "independent": true,
-      "independence_basis": "Read-only separate agent, wrote only review documents, inspected actual native/Web pixels and exact source diffs; did not implement production code.",
-      "verdict": "ACCEPT"
-    },
-    {
-      "id": "r2-web",
-      "path": "docs/evidence/demo_ui_01/r2/browser-public/report.json",
-      "sha256": "f1143089cb2b8a8f9ee029fbb37ccfab3c395dc52c85523c933b5dc3411b5c62",
-      "kind": "gui",
-      "producer": "/root",
-      "source_commit": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Actual public HTTPS Godot canvas: desktop10+DOM mobile11 checks0failures; engine errors empty. Not physical devices."
-    },
-    {
-      "id": "r2-movie",
-      "path": "docs/evidence/demo_ui_01/r2/movie-report.json",
-      "sha256": "7ec15619c0d0c3f8f9facf011b15f2c59850980d03b40ff1081c0409b42095d4",
-      "kind": "runtime_trace",
-      "producer": "/root",
-      "source_commit": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Actual MovieWriter after880 traced frames; injury/heal/shot true;29.954667sec comparison reuses separately attributed priorR1."
-    },
-    {
-      "id": "r2-bytes",
-      "path": "docs/evidence/demo_ui_01/r2/public-bytes.json",
-      "sha256": "d5b86c35caf6c1f9ff1753300d6cee705a46ec6069d57bd04b5a8e85a56eebdc",
-      "kind": "runtime_trace",
-      "producer": "/root",
-      "source_commit": "1d1d8368ffd03de38e59fbd1140d44c5ba95c403",
-      "content_version": "clockwork-ui-r2",
-      "method": "Actual recorded native execution/source-bound evidence",
-      "observed": "Public HTML/fullPCK/video exactSHA match; build metadata exact; main before/after unchanged."
-    }
-  ],
+  "evidence": [],
   "consumer_coverage": null,
   "unverified_items": [
-    "R2 user aesthetic acceptance pending; R1 explicitly rejected and retained",
-    "Physical touchscreen/gamepad, device performance and full film/audio review unverified",
-    "Full Integration/Release deferred to controller; no Windows/full CI repetitions; unchanged workflow skipped for UI workline commits per user scope",
-    "Global check_docs failed because sparse checkout lacks unrelated historical reference/evidence files; original failure retained, no whole-history restore",
-    "Map contrast and mixed Chinese/English menu copy remain low-priority visual follow-up",
-    "Web/movie source1d1 differs from clean native proofdce1 only by original test helper settlement; exact runtime path delta empty and independently reviewed"
+    "R3 aesthetic and physical-device acceptance pending",
+    "Full Integration/Release deferred to controller; Development planner conservatively selects full for shared configuration, not claimed executed",
+    "Actual browser/mobile emulation and movie pending",
+    "R2 and earlier failures retained; archived historical tests do not sign current v2 rules"
   ],
-  "test_change_justification": "Requested label/material redesign migrates original lookup to stable action metadata and original MENU shared-material assertion from rejected black palette to actual shared CompactButton. No assertion removed or budget lowered. Original helper adds4 settlement frames before scrolling to avoid deferred focus undoing its scroll; original260 passed under same180s budget. R2 wheel helper balances real press/release. Independent export_review.md verifies scope; movie880 affects final idle padding only."
+  "test_change_justification": "New current-time-energy Harness check supplements every original check/budget. Old D079 energy and two-round motion/resource tests bind explicit legacy Definition/caps/items; original assertions retained. Current v2 separately verifies zero-energy shooting, real slow aim, one-round cap, five migrated items, real hook/damage refill and ring lifecycle. Native UI adds a growth-number readability assertion. Initial test driver preload dependency cycle and missing adapter failures retained; current driver uses load and observes teardown."
 }

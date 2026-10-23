@@ -156,6 +156,7 @@ func run() -> void:
 	await frames()
 	check(app._demo_hud.hearts.current == health.current, "fractional HP displayed without changing gameplay units")
 	await image("max-growth")
+	check(app._demo_hud._health_text.get_line_count() == 1, "fractional growing HP count remains readable on one line")
 	# Terminal damage uses existing death settlement, cleanup and home lifecycle.
 	for i: int in 180:
 		if app.policy.clock >= maxf(app.policy._protected_until, app.policy._monster_until): break
