@@ -1,5 +1,9 @@
 ## 2026-10-23 四线集成（合入前冻结检查点）
 
+## 2026-10-23 当前 audit 与 CPU 隔离修复（最新）
+
+实现冻结`ca371639209e7dbe5a4a5e4c034bcf2613a36d23`。当前RootBell40/物理10/准入11已在原Harness fresh通过；历史字节复现明确延期，手动原断言保留。森林80隔离CPU，原80/240/90/600不变。精确5502旧CI为66pass/1fail/1timeout/75未跑，本地同源80pass仍保持来源；下一轮CI与main尚未完成。见[准确失败、修复、证据与试玩](integration/four_lines_20261023.md)。
+
 ## 2026-10-23 当前源码冻结与可玩开发版（最新）
 
 冻结实现`4ef092e889f187da4ce1030b1c87146456d5d30f`。已接入四线、新人物默认／织时匠和5首原BGM；[F开发试玩与实际证据](integration/four_lines_20261023.md)已公开。下一步元数据提交推PR #106，原Integration与本地`python3 tools/harness.py --check forest-depth-region --jobs 1 --release`并行；成功后按已有授权普通合main，由原Release发布。45/80旧双进程run为主动取消，完整四进程80、精确CI及main发布均不预签。

@@ -1,5 +1,13 @@
 # 2026-10-23 四条工作线集成
 
+## 2026-10-23 当前 audit 与 CPU 隔离修复（最新）
+
+实现冻结`ca371639209e7dbe5a4a5e4c034bcf2613a36d23`。上一轮精确5502 CI真实66 passed／1 failed／1 timeout／75 not_run：current audit误带历史输入与旧raw Manifest字节复现；森林80和另9项引擎检查争CPU，在37例通过后触发原600秒。失败与源码归属保留，不改签本地5502原80/80（369.678秒）的通过结果。
+
+现在`--current-g1`明确贯穿Python→Godot runner→当前40图audit：原当前生成／实际tuning hash／候选验证、物理10与准入11反例保留；旧rawbytes明确not_run，手动历史audit原正文保留。缺失历史fixture的真实隔离环境已通过32.140秒，另8个范围／配置反例全部拒绝；ca3716的原Harness fresh同样通过31.806秒。森林完整80改为独占Harness，保原80／native240／import90／总600，未增预算。`--disable-render-loop`实测仅1%–4%波动，已拒绝采用。
+
+最新源码仍待下一轮精确Actions结果；main尚未合并／正式发布。沿用已验证的F开发试玩，链接与source/build身份见下文。原始CI报告、当前真实消费者与限定独审见[修复证据](../evidence/four_line_integration_20261023/ci-current-fix/ci-5502-identity.json)。后续只处理真实当前失败，不扩历史兼容。
+
 ## 2026-10-23 当前源码冻结与可玩开发版（最新）
 
 实现冻结于 `4ef092e889f187da4ce1030b1c87146456d5d30f`。当前平原15项原suite在cbce源全部通过（165.948秒），同源完整森林敌人检查通过；森林图二fast30/30、growth46/46与5个反例在各自收据源通过。c934源完整森林语料在45/80全部通过时主动取消，不是完整通过或超时；原始捕获已无损归档并逐文件核SHA。为避免固定双进程预计约717秒耗尽原600秒，当前corpus默认有界4进程，可用`--case-workers 2`适配低核环境；非corpus仍串行，全部80场景、240秒native、90秒导入和600秒总预算不变。14项真实子进程检查通过，独审仅签实现范围；新四进程完整语料与最终Actions尚待执行。
