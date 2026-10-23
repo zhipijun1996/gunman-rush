@@ -43,6 +43,9 @@ func run(region: String,map_index: int) -> void:
 	check(fresh.stages[0].outputs.stage_tuning.focus_time_scale==0.15 and data_script("res://scripts/run/run_manifest.gd").from_snapshot(fresh)!=null,label+" freshly recorded historical map runs at .15 and validates")
 	var historical:=fresh.duplicate(true)
 	historical.stages[0].outputs.stage_tuning.focus_time_scale=0.2
+	# Explicit actual historical baseline; current fresh runtime remains one-shot.
+	historical.stages[0].outputs.stage_tuning.max_air_shots=2
+	historical.stages[0].outputs.capability_snapshot.max_air_shots=2
 	var canonical_before:=JSON.stringify(historical,"",true)
 	var decoded =data_script("res://scripts/run/run_manifest.gd").from_snapshot(historical)
 	check(decoded!=null,label+" original twenty percent stage tuning accepted only for known historical hash")

@@ -89,9 +89,9 @@ func second_map(app: DemoApp) -> void:
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 func cleanup(app: DemoApp) -> void:
-	for child: Node in app.get_children():
-		if child is GameAudio:require(await child.shutdown(),"audio_backend_not_released")
 	app.abandon_run();await process_frame;await process_frame
+	# Return-to-Home can start music: drain the still-live App before freeing it.
+	require(await load("res://tests/audio_teardown.gd").drain_world(app),"audio_backend_not_released")
 	app.queue_free();await process_frame;await process_frame
 func application(mode: String) -> DemoApp:
 	var app:=DemoApp.new();app.meta_persistence_enabled=false

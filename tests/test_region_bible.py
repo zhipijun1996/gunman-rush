@@ -203,7 +203,7 @@ class BibleTests(unittest.TestCase):
     def test_shared_reference_or_quote_drift_blocks_calls_and_restore(self):
         style=creative.supplemental_authority(self.bible,'thorn_forest',self.root)
         paths=[style['path'],'shaders/formal_fine_boundary.gdshader','assets/underworld_plains/terrain/fine_32/terrain.png','assets/underworld_plains/terrain/fine_32/source.png','assets/underworld_plains/terrain/fine_32/terrain.tres',
-               'scripts/art/player_presentation_runtime.gd','assets/player_presentation_01/motion_v1/motion_source.png','resources/art/avatars.json']
+               'scripts/art/player_presentation_runtime.gd','assets/player_presentation_01/motion_v1/motion_source.png','resources/art/avatars.json','scripts/demo/demo_app.gd']
         skill=self.root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic reviewer')
         stripped=self.task();stripped['region_bible']={k:v for k,v in self.ref.items() if not k.startswith('supplemental_authority_')}
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
@@ -233,10 +233,26 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'7')
+        self.assertEqual(style['content']['version'],'8')
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),36)
-        # The selected fine style superseded V4; V7 adds the real default body.
+        previous_v7 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v7.json').read_bytes())
+        previous_refs = previous_v7['runtime_reference']['references']
+        self.assertEqual(len(previous_refs),36)
+        self.assertEqual([r['role'] for r in refs],[r['role'] for r in previous_refs])
+        self.assertEqual([r['path'] for r in refs],[r['path'] for r in previous_refs])
+        for before, after in zip(previous_refs,refs):
+            if before['path'] == 'scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        for key in previous_v7.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key],previous_v7[key])
+        self.assertEqual({k:v for k,v in style['content']['runtime_reference'].items() if k!='references'},
+                         {k:v for k,v in previous_v7['runtime_reference'].items() if k!='references'})
+        # The selected fine style superseded V4; V7 adds the real default body; V8 rebinds only DemoApp compatibility.
         # All20 V6 references remain exact, and old bindings remain refused.
         previous_path = 'docs/creative_direction/bibles/style-continuity-20261021-v2.json'
         previous_bytes = (ROOT/previous_path).read_bytes()
@@ -254,7 +270,7 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
-        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json']:
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json']:
             old_path = 'docs/creative_direction/bibles/'+old_style
             stale = copy.deepcopy(self.ref)
             stale['supplemental_authority_path'] = old_path

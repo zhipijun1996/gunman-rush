@@ -9,6 +9,7 @@ const SAMPLE_DY := 700.0 # Formal macros use measured phrase intervals and terra
 const HALF := 200.0
 const ATTEMPTS := 4
 const PRE_FOCUS_15_TUNING_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+const PRE_SINGLE_SHOT_TUNING_HASH := "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
 # A run pins content mode; legacy generation remains byte-identical.
 var joint_recoil_profile := false # Explicit one-challenge semantic experiment; normal maps unchanged.
 var regional_art_profile := "" # Candidate-only; empty preserves the exact formal map.
@@ -22,6 +23,11 @@ func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_f
 # current runtime tuning; this fingerprint identifies saved generation bytes.
 func generate_before_focus_15(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
 	return _generate_with_fingerprint(seed_value,tuning,sample,force_family,difficulty,PRE_FOCUS_15_TUNING_HASH)
+
+# A finite saved generation identity, never a source of runtime capabilities.
+func generate_for_saved_tuning_hash(seed_value:String,tuning:PlayerTuning,tuning_hash:String,sample:=false,force_family:="",difficulty:="advanced")->Dictionary:
+	if tuning_hash not in [FileAccess.get_sha256("res://config/player_tuning.json"),PRE_FOCUS_15_TUNING_HASH,PRE_SINGLE_SHOT_TUNING_HASH]:return {"ok":false,"error":"Unknown historical tuning fingerprint"}
+	return _generate_with_fingerprint(seed_value,tuning,sample,force_family,difficulty,tuning_hash)
 
 func _generate_with_fingerprint(seed_value: String,tuning: PlayerTuning,sample: bool,force_family: String,difficulty: String,tuning_hash: String) -> Dictionary:
 	if regional_art_profile not in ["","continuous_plains_v1"]: return {"ok":false,"error":"Unknown regional art profile"}
@@ -439,7 +445,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.streams.shop="region_shop"
 	m.streams.items="region_items"
 	m.item_version="plains-items-v2"
-	m.shot_energy_version="time-energy-v2"
+	m.shot_energy_version="plains-shot-energy-v1" if m.player_tuning_hash in [PRE_FOCUS_15_TUNING_HASH,PRE_SINGLE_SHOT_TUNING_HASH] else "time-energy-v2"
 	if art_language_profile!="":
 		var planned: Array=[]
 		var unresolved: Array=[]
@@ -891,7 +897,7 @@ func semantic_route_errors(m: Dictionary) -> Array[String]:
 	return errors
 
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
-	if m.get("player_tuning_hash") not in [FileAccess.get_sha256("res://config/player_tuning.json"),PRE_FOCUS_15_TUNING_HASH]: return false
+	if m.get("player_tuning_hash") not in [FileAccess.get_sha256("res://config/player_tuning.json"),PRE_FOCUS_15_TUNING_HASH,PRE_SINGLE_SHOT_TUNING_HASH]: return false
 	if m.get("regional_art_profile","") not in ["","continuous_plains_v1"]: return false
 	if m.get("art_language_profile","") not in ["","bounded_plains_v1"] or m.has("art_language_error"):return false
 	if m.get("art_language_profile","")!="" and (m.get("sample",false) or m.get("joint_recoil_profile",false)):return false

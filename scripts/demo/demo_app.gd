@@ -440,8 +440,8 @@ func _load_stage() -> void:
 			var matched_saved_map := false
 			for prior_mode: String in [_root_bell_run_mode,"v2", "legacy_v10"]:
 				region_generator.root_bell_mode = prior_mode
-				for historical_focus: bool in [false,true]:
-					var prior_generated := region_generator.generate_before_focus_15(actual_seed,controller.motor.tuning,false,"",difficulty) if historical_focus else region_generator.generate(actual_seed,controller.motor.tuning,false,"",difficulty)
+				for prior_fingerprint: String in [FileAccess.get_sha256("res://config/player_tuning.json"),PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH,PlainsRegionGenerator.PRE_SINGLE_SHOT_TUNING_HASH]:
+					var prior_generated := region_generator.generate_for_saved_tuning_hash(actual_seed,controller.motor.tuning,prior_fingerprint,false,"",difficulty)
 					if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
 						generated = prior_generated
 						matched_saved_map = true

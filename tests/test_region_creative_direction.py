@@ -42,6 +42,15 @@ class CreativeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Authority changed'):
                 creative.load_direction(path, region)
 
+        expected_v10 = {'windchime_plains': '0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663', 'thorn_forest': 'ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438'}
+        for region, digest in expected_v10.items():
+            path = 'docs/evidence/four_line_integration_20261023/direction-history/' + region + '-v10.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            self.assertEqual(json.loads(raw)['version'],'creative-v10')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,region)
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]
@@ -91,7 +100,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v10')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v11')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

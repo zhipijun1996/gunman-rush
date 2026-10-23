@@ -3454,6 +3454,28 @@
       "artifact_paths": [
         "build/player-default-integration"
       ]
+    },
+    "aim-save-history-profiles": {
+      "argv": [
+        "python3",
+        "tools/run_aim_save_history_profiles_tests.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^PASS: Finite historical tuning profiles and current-rule App map restore$",
+      "weight_seconds": 20,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+      ]
     }
   },
   "profiles": {
@@ -3663,7 +3685,8 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration"
+      "player-default-integration",
+      "aim-save-history-profiles"
     ],
     "art": [
       "docs",
@@ -3967,7 +3990,8 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration"
+      "player-default-integration",
+      "aim-save-history-profiles"
     ],
     "creative-feedback": [
       "docs",

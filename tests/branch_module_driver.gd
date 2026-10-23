@@ -117,6 +117,7 @@ func traverse(p_module: PlatformingModule, p_motor: PlayerMotor, p_tick: Callabl
 func wait_for_shot_energy(shots: int=1) -> bool:
 	if is_trace_cancelled(): return false
 	if controller.shot_energy==null: return true
+	if not controller.shot_energy.definition.shooting_consumes_energy: return true
 	for unused: int in 300:
 		if controller.actor_resources.stamina.current>=controller.shot_energy.shot_energy_cost*shots: return true
 		if not motor.is_on_floor(): return false

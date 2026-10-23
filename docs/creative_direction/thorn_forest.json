@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v10",
+  "version": "creative-v11",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
-    "supplemental_authority_sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v8.json",
+    "supplemental_authority_sha256": "59c9cb86f5f23168d3e7b0412d8d50870ae3f7ed4b8b8189929e6bba91d83b50",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "7202662d27e242338d7e2e4129432001eb8a4baf1bd1506a651de6aa30b5ef3d",
+    "registry_sha256": "cabea12c0074e2ef2a6c67e3172eb8ae8d14a216f17af23c8d25f57a06989375",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -165,6 +165,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
       "sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v8.json",
+      "sha256": "59c9cb86f5f23168d3e7b0412d8d50870ae3f7ed4b8b8189929e6bba91d83b50"
     }
   ],
   "historical_direction": {
@@ -174,48 +178,36 @@
   },
   "revision_impact": {
     "task_id": "FOUR-LINE-INTEGRATION-01",
-    "revision": "UI R3 adopted action policy authority rebind, 2026-10-23",
+    "revision": "Saved-run compatibility actual-consumer style-v8 technical rebind, 2026-10-23",
     "previous_direction": {
-      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v9.json",
-      "sha256": "0a7778677f711fd80cd3235adc247d96af415741b45ea43453c32918b2508919",
-      "version": "creative-v9"
-    },
-    "authorization": {
-      "source_commit": "ea2d6fd7c9d11c226ce52fe8885443137cdc077e",
-      "scope_path": "docs/worklines/demo_ui_01/r3/scope.md",
-      "scope_sha256": "b9a5bba695dbb7589c6bc0975ac89bd71e74197d2384d3874eb01047d53f41d7",
-      "effect": "Already authorized UI R3: exactly one baseline airborne round; shooting does not consume/return time energy; actual airborne gun/grapple slow aim shares AirFocus sole energy. Existing legal reload/ability recovery retained. Current config and the two authority-doc headers already came from the original UI branch; no new gameplay change here."
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10.json",
+      "sha256": "ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438",
+      "version": "creative-v10"
     },
     "changed_authorities": [
       {
-        "path": "docs/design/player_actions/README.md",
-        "old_sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
-        "new_sha256": "19b16bc98a798268431a9e9aa4505b86f92bd47e0bf99f42f23a14ff32774475"
+        "path": "docs/creative_direction/bibles/registry.json",
+        "old_sha256": "7202662d27e242338d7e2e4129432001eb8a4baf1bd1506a651de6aa30b5ef3d",
+        "new_sha256": "cabea12c0074e2ef2a6c67e3172eb8ae8d14a216f17af23c8d25f57a06989375"
       },
       {
-        "path": "docs/controls_contract.md",
-        "old_sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70",
-        "new_sha256": "8d571556a313e310eb61c909aedde767790aa1d18777602ecd397bb8f7eb3d8a"
-      },
-      {
-        "path": "config/player_tuning.json",
-        "old_sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
-        "new_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261023-v8.json",
+        "old_sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad",
+        "new_sha256": "59c9cb86f5f23168d3e7b0412d8d50870ae3f7ed4b8b8189929e6bba91d83b50"
       }
     ],
     "preserved": [
-      "Original Bible bytes, selected direction_id, region identity, selection evidence and global style-v7 unchanged",
-      "Every other authority reference, region topology, Motor, damage, ability grants, RNG and save contracts unchanged",
-      "Historical two-round/shoot-energy fixtures and assertions retained; old rules are not current defaults"
+      "Complete creative-v10 bytes retained in previous_direction snapshot",
+      "Original Bible, user selection/quotes, selected direction_id, regional content and adopted UI action policy unchanged",
+      "Other35 actual style references and all visual specifications unchanged; v7 original bytes and historical source entries retained"
     ],
-    "impact": "Regional production and resume planning must use the actual current action budget/time-energy authority. This is a real resource-policy adoption already implemented in UI source, not a claim that old route proofs validate every new route. No region redesign, aesthetic approval or device acceptance is inferred.",
+    "impact": "Bind the actual DemoApp saved-run compatibility correction through style-v8 and current registry. No regional redesign, visual/feel/G5 or device acceptance; previous B/F source identities remain separate.",
     "revalidation": [
-      "Original full creative-direction load and all strict authority SHA checks",
-      "Original region Bible tests",
-      "Existing core/action/weapons/budget and new140 actual time-energy assertions",
-      "Final precise Integration and Release; route reachability remains the original actual-consumer checks, not this metadata"
+      "Full current creative-direction check",
+      "Original32 Bible and10 direction tests with retained and added stale-binding counterexamples",
+      "Saved-run compatibility consumers and final affected Integration"
     ],
-    "independent_review": "docs/evidence/four_line_integration_20261023/direction-authority-review.json",
-    "validation_status": "Versioned correction under explicit current policy; independent delta review and final Integration pending; no new content G5 approval"
+    "validation_status": "Versioned technical rebind prepared; exact pure-Python and runtime checks pending; no new content acceptance"
   }
 }
