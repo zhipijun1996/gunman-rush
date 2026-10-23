@@ -1,0 +1,36 @@
+{
+  "status": "ACCEPT",
+  "scope": "Final mutation no-op correction and final-tail evidence; inherits plains-encounter-current-bounded-review.json for unchanged shared/native implementation.",
+  "candidate_files": {
+    "tests/plains_encounter_policy_runner.gd": "8fa7c8a40ce6b95170bf4957a544c37a6767b26012770ffd43e830e9dbebe6e4",
+    "tools/level_experience.py": "5d27c70b4a613a96c637659688c2292240de76ca29f0737be3f17360e1e101df",
+    "tools/run_plains_encounter_policy_tests.py": "44490d3cc43aef786888602ca6c265f6945fa40fba059a1307d020b8bb62820f"
+  },
+  "delta": "Free missing_shot_receipt appends actual-shaped prohibited paid-shot receipt using observed identity/time; original paid lambda retained, bad!=capture prevents noop. No positive predicates, runtime, geometry or budget changed.",
+  "independent_offline_checks": {
+    "four_retained_current_captures_valid": true,
+    "repeat_valid": true,
+    "policy_refusals_count": 7,
+    "claim_refusals_count": 8,
+    "remaining_actual_bait_capture_valid": true,
+    "actual_bait_observation": "actual_nonkill_bypass",
+    "tail_source_equal": true
+  },
+  "evidence": {
+    "tail_receipt": "/workspace/scratch/plains-encounter-free/final-tail/receipt.json",
+    "tail_status": "passed",
+    "tail_scope": "full3 failed remains unchanged; final mutation-reader offline replay of retained current captures plus original remaining live bait tail; not a fresh full wrapper",
+    "source_commit": "cab958912e222337a8d4260bb5111324fc9f1f5d",
+    "bait_frames": 3783,
+    "bait_seconds": 29.406719100999908,
+    "bait_errors": [],
+    "shared_unit_log": "/workspace/scratch/plains-encounter-free/level-experience-unit-consistent.log",
+    "shared_unit_result": "29 tests OK; log read, not rerun."
+  },
+  "failure_preservation": "Full3 remains failed on former missing_shot_receipt no-op. Tail receipt explicitly combines offline retained-capture replay with actual remaining native bait, not fresh complete wrapper.",
+  "unverified": [
+    "Combined-root complete wrapper/Harness/Integration/Release CI.",
+    "Player/art/device approval."
+  ],
+  "reviewer_actions": "Read delta/hash/logs, independently replayed four captures/repeat and7+8 mutations through final reader, validated bait capture. No engine or source edits."
+}

@@ -1,0 +1,43 @@
+{
+  "status": "REJECT",
+  "scope": "Current four-file candidate interim bounded review; final native eight-case acceptance not available.",
+  "candidate_patch_sha256": "a75bfd7e5fc883a4afb13834f70238bcff8bedf1c60ce2f20f1d4a496589937e",
+  "observed_files": {
+    "tools/run_plains_redesign_scene_tests.py": "d5bd0048c88d46e3c6470e588ad98416f089b04e8916caadaa3b18e606b95fde",
+    "tests/plains_redesign_scene_runner.gd": "b1c9bfbe3509f8fea5fc482d8beab368883dbacd9bde6a6f6cd36be2f515a9de",
+    "scripts/ui/demo_ui_01/game_hud.gd": "d3e77214e8a678ae39b6a26aa3935bf5dfeb447bd6b1cf341368d4bae89e1cae",
+    "scripts/demo/demo_app.gd": "6c3ed4c8481ae3700163bc2cff3f530723d93690b0b944fbd1e53098e38693bc"
+  },
+  "blockers": [
+    {
+      "id": "ACTUAL_HUD_ENEMY_OCCLUSION",
+      "evidence": "Parent reports original current positive main_then_high completed4473 route ticks but actual HUD rows overlap enemy12; original guard retained.",
+      "boundary": "Requires real layout fix and actual relevant-case pass; route completion alone is not presentation acceptance."
+    },
+    {
+      "id": "UNCLAMPED_FALLBACK",
+      "file": "scripts/demo/demo_app.gd",
+      "function": "_clear_ui_edge",
+      "evidence": "best=current initializes outside the viewport after a possible resize; at candidates are clamped only inside loop, but every reserved candidate can be skipped, returning original unclamped best.",
+      "minimal_fix": "Initialize fallback best with same viewport clamp; no new layout/search scope needed."
+    }
+  ],
+  "bounded_supported": [
+    "Explicit App-to-HUD region_layout_controls interface, no HUD reflection into App; use of real scaled extents and mutual UI reservations is appropriate.",
+    "Actual resource card/chrome sampling replaces transparent full-viewport root; touch-menu self-reservation exception is exact bounds equality.",
+    "Landmark source-foot/render-root/inset grounding retains real StaticBody2D ray and original floating negative.",
+    "Real RewardService AirMagazine claim raises capacity1→2 without injecting round, actual grounded frame rearms, two shots remain airborne; ordinary other cases remaincap1 and original strict apex/settled checks remain."
+  ],
+  "independent_offline_proof": "/workspace/scratch/integration-four-20261023/scene-magazine-independent-probe.json",
+  "observed_actual_support": {
+    "single_fast": "10/0,4314ticks,Viewport1280/scale1; insufficient for all cases.",
+    "magazine": "15/0,822ticks,actualapex-435.983; independent positive and3reward corruptions replayed, no engine rerun.",
+    "original_full": "Previous positive timeout/occlusion failures preserved; eight-case aggregate180s not passed at review time."
+  },
+  "unverified": [
+    "Final fixed source, full8positive and original native/raw mutation matrix under unchanged aggregate180 budget.",
+    "Fresh Web/real GUI and applicable versioned authority/Bible bindings for production App/HUD changes.",
+    "Combined Integration/Release/user/art/device approval."
+  ],
+  "reviewer_actions": "Read-only four-file diff/actual overlay source, data and Python rewardpredicate replay; no source modification, engine, full suite or history audit."
+}

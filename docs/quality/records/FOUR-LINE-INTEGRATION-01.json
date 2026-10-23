@@ -4,7 +4,7 @@
   "task_type": "player",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "ca371639209e7dbe5a4a5e4c034bcf2613a36d23",
+  "reviewed_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
   "content_version": "four-line-integration-v1",
   "owner": "/root",
   "purpose": "Integrate the four user-authorized player/enemy/UI/fine-art worklines, five original user-provided MP3s and the newly authorized default-player/Weaver appearance flow without replacing author quality records.",
@@ -364,6 +364,7 @@
     "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
     "docs/creative_direction/bibles/style-continuity-20261023-v6.json",
     "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
+    "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
@@ -1829,6 +1830,7 @@
     "docs/evidence/four_line_integration_20261023/ci-current-fix/root-ca3716-harness.json",
     "docs/evidence/four_line_integration_20261023/ci-current-fix/root-ca3716-harness.log",
     "docs/evidence/four_line_integration_20261023/ci-current-fix/serial-overlap-evidence.json",
+    "docs/evidence/four_line_integration_20261023/current-plains",
     "docs/evidence/four_line_integration_20261023/explicit-assets-review.json",
     "docs/evidence/four_line_integration_20261023/final-current/c934-corpus-cancelled.json",
     "docs/evidence/four_line_integration_20261023/final-current/cbce-enemies-and-forest-report.json",
@@ -2028,6 +2030,9 @@
     "docs/quality/asset_records/fine-space-05-shared-configuration.json",
     "docs/quality/asset_records/fine-space-05-terrain.json",
     "docs/quality/asset_records/fine-space-05-windmill.json",
+    "docs/quality/asset_records/four-line-authored-terrain-lab.json",
+    "docs/quality/asset_records/four-line-high-density-terrain-lab.json",
+    "docs/quality/asset_records/four-line-home-build-contract.json",
     "docs/quality/asset_records/integration-enemy-feedback-01-frame-contracts.json",
     "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_charger.json",
     "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_diver.json",
@@ -2035,6 +2040,8 @@
     "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-underworld_diver.json",
     "docs/quality/asset_records/integration-enemy-feedback-01-legacy-death-audio.json",
     "docs/quality/asset_records/spatial-rhythm-07-meadow.json",
+    "docs/quality/asset_records/underworld-production-home.json",
+    "docs/quality/asset_records/underworld-production-manifests.json",
     "docs/quality/records/ART-SESSION-CLOSEOUT-09.json",
     "docs/quality/records/CLOUD-EFFICIENCY-01.json",
     "docs/quality/records/DEMO-UI-01.json",
@@ -2042,6 +2049,7 @@
     "docs/quality/records/ENEMY-FEEDBACK-01.json",
     "docs/quality/records/FINE-SPACE-05.json",
     "docs/quality/records/FOREGROUND-CONTINUITY-08.json",
+    "docs/quality/records/FOUR-LINE-INTEGRATION-01.json",
     "docs/quality/records/HIGH-DENSITY-TERRAIN-03.json",
     "docs/quality/records/LIGHT-STUDY-01.json",
     "docs/quality/records/PIXEL-LIGHT-STUDY-02.json",
@@ -2390,14 +2398,26 @@
     "tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres",
     "tests/fixtures/demo_ui_01_r3/history.json",
     "tests/fixtures/root_bell/historical_authority_v2.zip",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_air_chain_case.gd",
+    "tests/forest_depth_enemy_runner.gd",
+    "tests/forest_depth_region_trace.gd",
     "tests/foundry_lab_runner.gd",
     "tests/grapple_focus_hud_runner.gd",
     "tests/home_ui_tests.gd",
+    "tests/menu_scroll_touch_tests.gd",
+    "tests/menu_settings_lifecycle_runner.gd",
+    "tests/parallel_region_presentation_tests.gd",
+    "tests/plains_campaign_map_runner.gd",
+    "tests/plains_encounter_policy_runner.gd",
     "tests/plains_experience_energy_runner.gd",
+    "tests/plains_experience_golden_runner.gd",
     "tests/plains_exploration_expansion_runner.gd",
     "tests/plains_pressure_boss_runner.gd",
     "tests/plains_redesign_golden_runner.gd",
+    "tests/plains_redesign_scene_runner.gd",
     "tests/plains_region_runner.gd",
+    "tests/plains_region_trace.gd",
     "tests/player_default_integration.gd",
     "tests/player_default_integration.gd.uid",
     "tests/player_presentation_01/baseline_audit.gd",
@@ -2433,6 +2453,7 @@
     "tests/player_presentation_01/weapon_trace_v2.gd",
     "tests/player_presentation_01/weapon_trace_v2.gd.uid",
     "tests/random_stage_tests.gd",
+    "tests/root_bell_ecology_trace.gd",
     "tests/root_bell_formal_runner.gd",
     "tests/root_bell_formal_tests.gd",
     "tests/root_bell_spaces_runner.gd",
@@ -2487,11 +2508,21 @@
     "tools/enemy_feedback_01_remains_capture.gd",
     "tools/enemy_feedback_01_remains_capture.gd.uid",
     "tools/harness/profiles.json",
+    "tools/level_capability_snapshot.gd",
+    "tools/level_experience.py",
+    "tools/level_formal_capture.gd",
     "tools/run_aim_save_history_profiles_tests.py",
+    "tools/run_forest_depth_campaign_boss.py",
+    "tools/run_forest_depth_enemies.py",
+    "tools/run_forest_depth_region.py",
     "tools/run_integration_four_tests.py",
+    "tools/run_plains_encounter_policy_tests.py",
+    "tools/run_plains_experience_golden_tests.py",
     "tools/run_plains_redesign_golden_tests.py",
+    "tools/run_plains_redesign_scene_tests.py",
     "tools/run_plains_region_tests.py",
     "tools/run_player_default_integration_tests.py",
+    "tools/run_root_bell_ecology.py",
     "tools/run_root_bell_formal.py",
     "tools/test_root_bell_formal_verifier.py",
     "tools/underworld_pipeline.py",
@@ -2538,7 +2569,7 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "B source and metadata/docsguard bounded independent reviews accepted; final exact PR Integration and main Release still pending at pre-PR freeze.",
+      "reason": "Exactcc46 bounded independent composition review accepted; original final PR Integration, main Release and fresh public Web still pending at metadata freeze.",
       "evidence": []
     },
     "G5": {
@@ -2557,12 +2588,14 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Fresh exactca3716 currentRootBell40, physical10 and originaladmission11 refusals pass; source5502 originalforest80 pass retained at5502. Latest5502 CI66pass/1fail/1timeout/75notrun remainsfailed. Current scoped audit/CPUisolation exactnextActions pending.",
-      "evidence": []
+      "reason": "Original9a static32 Bible/10 direction/29 shared-reader/16 planner/21 inputs/docs guards pass and retain source. Finalcc46 adds only strict post-assembly180s guard; actual function replay preserves real native data, reproduces old overrun and rejects five partition failures. Candidate native94/0+10true negatives+15refusals, HUD140/0 and109/56/44 consumers retained separately. Exact next full CI/Release pending; old cab and full3 failures unchanged.",
+      "evidence": [
+        "engineering-final-deadline"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Formal default/NPC/death/regions/BGM and save native consumers pass; true F Web/GL and browser partial observations remain explicitly distinct, final exact PR/Release and complete browser route unverified.",
+      "reason": "Current HUD real joystick/enemy occlusion is fixed and candidate current native consumers pass; final exact-SHA PR Integration, Release, fresh Web and public build remain unverified.",
       "evidence": []
     },
     "visual": {
@@ -2592,9 +2625,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Bounded independent combinedsource reviews retained; exactca3716 currentaudit and corpusCPUisolation delta accepted, freshcurrent40 Harness verified. FinalexactCI/Release/art/feel/G5 pending.",
+      "reason": "Independent exactcc46 bounded composition/HUD/current-guard review accepted; actual candidate sources and raw failures preserved. Final fresh CI/Release/Web and G5 remain pending.",
       "evidence": [
-        "independent-ci-current-fix"
+        "independent-current-final"
       ]
     },
     "device": {
@@ -2655,10 +2688,10 @@
     {
       "id": "integration-spec",
       "path": "docs/integration/four_lines_20261023.md",
-      "sha256": "f8f85c4b287ab44970c6da322c366c603fe82eb1412bcdbd0f77e812ddf3fd6e",
+      "sha256": "ddb8b58e76cc680db41cadf03b8ea44a2e2e743796869813a66f945dd121c135",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "ca371639209e7dbe5a4a5e4c034bcf2613a36d23",
+      "source_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
       "content_version": "four-line-integration-v1",
       "method": "Concrete current integration contract; records source/authorization boundaries and unfinished combined verification, not a runtime test.",
       "observed": "Explicit adoption, four author heads, source-bound tests, retained failures and final PR/Release/human boundaries"
@@ -2808,6 +2841,42 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Separate read-only reviewer did not implement adopted source; independently checked exactfrozenfilehashes, scopeflags/manualbody, currentreceipts/negativeguards and sourceboundfreshHarnessresult."
+    },
+    {
+      "id": "independent-current-final",
+      "path": "docs/evidence/four_line_integration_20261023/current-plains/final-independent-review.json",
+      "sha256": "c73dd5f51396e1aa4755193de5f0215fbe3269bdd050495d0efc770a48fbe549",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
+      "content_version": "four-line-integration-v1",
+      "method": "Read-only independent exactS2 source/delta review; verifies final13 source hashes, actual preserved candidate8 native cases/94 assertions,10physical/15raw refusals, original180 aggregate deadline including post-assembly guard, manual profile15 and one-of36 HUD reference rebind. No native evidence relabeled as S2 fresh.",
+      "observed": "ACCEPT bounded exactS2 integration composition and strict current guards; all original failure/candidate identities retained. Final exact PR CI, main Release/fresh Web and G5 remain unverified.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/audit_ci",
+        "/root/player_presentation_01",
+        "/root/enemy_feedback_01",
+        "/root/production_docs"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer implemented none of the adopted code; independently read exact commit hashes, source-bound actual outputs and mutation refusals, source-reference byte preservation and deadline fault injection."
+    },
+    {
+      "id": "engineering-final-deadline",
+      "path": "docs/evidence/four_line_integration_20261023/current-plains/deadline-fault-injection.json",
+      "sha256": "c19f1e42db5604ada71c797b9606ca5029974f5393bfb0e6ab56fe52cb8fa1af",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f",
+      "content_version": "four-line-integration-v1",
+      "method": "Execute actual final partition function offline using retained real native outputs; only child outcomes/clock are fault injected, not fresh native or performance measurement.",
+      "observed": "Original post-merge overrun181 acceptance reproduced; final normal accepts and aggregate overrun, nonzero child, missing marker, child timeout and missing coverage reject. Original real native133.386s source remains unchanged.",
+      "command": "python3 /workspace/scratch/integration-four-20261023/final-plains/verify-partition-deadline.py",
+      "exit_code": 0,
+      "environment": "ExactS2 Python function, retained actual two native partition outputs, isolated temporary build outputs; no engine rerun."
     }
   ],
   "consumer_coverage": null,
@@ -2818,5 +2887,5 @@
     "F browser new/classic/new Home route passes7/7; later Forest OCR SIGFPE leaves Forest route unverified. Desktop/emulated touch are not physical devices.",
     "Five native MP3 loops/Boss switches passed89, but mixed browser signal cannot identify all five songs; real listening/loop seam/loudness and user sound preference unverified."
   ],
-  "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression. Current docs guard is intentionally strict60Hz/exact1 from original UI R3 user authorization already present at ea2d6fd; D084 only propagates that current policy. Historical2-shot fixtures/assertions retained, independent docs-policy review stored separately. The selected-current-direction test retains the exact same assertEqual and all other stage/specialist assertions, updating its stale creative-v8 expected tag to the explicitly versioned creative-v10. Both prior-v9 snapshots and actual v8 mismatch failure are retained; no dynamic any-version acceptance. Independent exact delta review required before merge. Original32 Bible tests migrate only current style fixtures from v4/16px/16refs to exact v7/32px/36refs and actual fine resource paths. All v2/v3 stale-binding refusals stay, v4/v5/v6 refusals and real factory/PNG/avatar drift counterexamples are added; strict full20-v6-reference subset replaces the obsolete v2-terrain-still-current assumption. All original body closure/zero-call/restore/refusal assertions and timeouts retained, exact delta independently reviewed. The Underworld checker migration follows the actual fine32 loaders and legacy recipe linkage, source-PNG-to-real-prompt provenance, grounded Home slot placement and explicit Control theme injection. All original125 test method ASTs remain unchanged; new negative cases cover the exact new consumers, including independent reviewer counterexamples. No runtime assets, physics, budgets, profiles or historical provenance are changed by this checker adaptation. Independent exact-source review and fresh original-path full test execution are required. Fresh PR CI at b165 failed34passed/2failed/118not-executed. Preserve all original1302 library assertions and2871 region assertions. Only the two pre-existing later-capability chasm fixtures explicitly receive their required2nd airborne round; current formal1-shot config/Definition/entry/real two-map Manifest rejection is additionally tested. Original braid/cooling v1 assertions bind the already retained D079 policy and two v1 item Resources; 29 additional real Controller/Router/Motor/AirFocus assertions verify current zero shot cost, ground-only recovery and actual cooling rearm. No production tuning, capability threshold, geometry, current item resource or budgets change. Native fixture results use their actual project plus external script identity; final source-frozen wrappers and independent review required. Current HomeUI updates exactly2 user-superseded assertions (free shot and real Weaver) while preserving26 other business checks and failure probe; new real selection/callback/body/currency checks replace obsolete no-selector count. Pressure updates exactly2 superseded current budget/background owner conditions, retaining other489 dynamic assertions and all historical renderer geometry guards. Spaces only drains actual App SFX+Music through shared original1000ms before freeing, preserving40maps/10negative/strict leak rejection. Redesign preserves all original historical64 matrix/11 tamper refusals behind explicit --with-legacy and defaults to separate real current64 plus5 refusals under original240s profile budget; shared test driver skips only an energy prerequisite that actual free-shot policy does not have. Frozen Root Bell authority restores9 exact original-baseline/delta files with unchanged per-file inventory guards; exact new capability rejection and synthetic isolated historical focus rejection both tested, original27+9 retained. User explicitly defers old-save/old-feature compatibility. Revert the extra three historical-save runtime changes and v8 authority, remove the newly added history check, retain original compatibility definitions/assertions in manual legacy-compat; unchecked historical runs are deferred, not passed. root-bell-current keeps original current40/physical/admission11 checks without old165/archive stage. Current ecology uses actual Router/AirFocus free-shot policy rather than obsolete shot-energy depletion; capability schema2 binds actual configured resource, strict resource/event identities and real current depletion receipts. Menu keeps all14 assertions and shared original1000ms clean audio teardown. No current gameplay tuning or original native/assertion budgets relaxed. Pure historical forest-v1 matrix/combat and frozen plains-v9 action checks move to the same explicit manual profile; their original scripts, assertions and budgets remain. Current forest campaign/traversal/depth and plains-redesign-spatial/experience checks remain in current gates; no single current slice is treated as equivalent to full forest acceptance. Latest current-only adaptation keeps the complete28 legacy fixture catalog and every original predicate; default region executes all15 current suites including the original baseline but explicitly reports27 old standalone v10 itineraries not_run. --with-legacy-fixtures restores the original28 and original success marker under unchanged1500/120 budgets. Seven further old-version/old-mechanic scene checks move to manuallegacy; current forest v15 remains mandatory, with actual original goals/geometry and no extra shot granted. Readonly policy/focus telemetry enables strict current free-shot resource replay; legal real jump/grapple alternatives record source and executed programs separately. Native pointer tests set real Window size to project1280x720 and retain actual press/release/claim/idempotency. Enemy low-time-energy setup uses real jump/held aim, actual consumption receipts and native clock, with6 tamper refusals. All288 original predicate AST calls retained. No claim that two route samples replace80corpus or that current fast proves the retired cavity micro-scene. Original failed CI521 retained:43 passed,2 failed,105 not-run. Fourworker corpus only replaces fixed2 scheduling with bounded4 default and explicit1/2 option; original80 uniquecases/run_region_case AST/240native/90import/600overall unchanged. Preserve10 original scheduler methods verbatim, extend former max2 boundary to refuse3and5, add3 actualfour-child concurrency/failure/exception/reap tests. c93445/80 interrupted run remainscancelled and full80 pending. No production gameplay change. CurrentRootBell native revealed40 failures solely immutable oldrawbytes while all40 currentvalidation passed. Latest userdefers historicalcompatibility: carry explicit --current-g1 through Python/Godot to newcurrent40 generator/audit, keep actualconfigurationhash/current+candidate wholeManifest validators/enemybudget/physical10/versionedrealreplay/original11refusals; historicalrawbytes not_run, originalmanualauditbody byteidentical. Sourceinventory omits only nowtrulyunused historicalJSON undercurrentmode; originalmanual sources unchanged. Eight newscope/config/forgedlegacyclaim refusal mutations actuallyrejected. Forestregion.serial=true prevents overlapping otherHarnessnativechecks; no80/240/90/600 change. Renderloopflag experiment rejected for lackofmeasurablebenefit."
+  "test_change_justification": "New actual GameMusic consumer is added to the existing test-world audio drain using its existing shutdown/WeakRef release observation, same original shared1000ms total budget and failure return. Original GameAudio checks and all original66/72/199/235 assertions are unchanged. Verbose failed c33 exit identifies actual AudioStreamMP3/AudioStreamPlaybackMP3 from home BGM; independent bounded review and fresh rerun are required. No production wait or leak suppression. Current docs guard is intentionally strict60Hz/exact1 from original UI R3 user authorization already present at ea2d6fd; D084 only propagates that current policy. Historical2-shot fixtures/assertions retained, independent docs-policy review stored separately. The selected-current-direction test retains the exact same assertEqual and all other stage/specialist assertions, updating its stale creative-v8 expected tag to the explicitly versioned creative-v10. Both prior-v9 snapshots and actual v8 mismatch failure are retained; no dynamic any-version acceptance. Independent exact delta review required before merge. Original32 Bible tests migrate only current style fixtures from v4/16px/16refs to exact v7/32px/36refs and actual fine resource paths. All v2/v3 stale-binding refusals stay, v4/v5/v6 refusals and real factory/PNG/avatar drift counterexamples are added; strict full20-v6-reference subset replaces the obsolete v2-terrain-still-current assumption. All original body closure/zero-call/restore/refusal assertions and timeouts retained, exact delta independently reviewed. The Underworld checker migration follows the actual fine32 loaders and legacy recipe linkage, source-PNG-to-real-prompt provenance, grounded Home slot placement and explicit Control theme injection. All original125 test method ASTs remain unchanged; new negative cases cover the exact new consumers, including independent reviewer counterexamples. No runtime assets, physics, budgets, profiles or historical provenance are changed by this checker adaptation. Independent exact-source review and fresh original-path full test execution are required. Fresh PR CI at b165 failed34passed/2failed/118not-executed. Preserve all original1302 library assertions and2871 region assertions. Only the two pre-existing later-capability chasm fixtures explicitly receive their required2nd airborne round; current formal1-shot config/Definition/entry/real two-map Manifest rejection is additionally tested. Original braid/cooling v1 assertions bind the already retained D079 policy and two v1 item Resources; 29 additional real Controller/Router/Motor/AirFocus assertions verify current zero shot cost, ground-only recovery and actual cooling rearm. No production tuning, capability threshold, geometry, current item resource or budgets change. Native fixture results use their actual project plus external script identity; final source-frozen wrappers and independent review required. Current HomeUI updates exactly2 user-superseded assertions (free shot and real Weaver) while preserving26 other business checks and failure probe; new real selection/callback/body/currency checks replace obsolete no-selector count. Pressure updates exactly2 superseded current budget/background owner conditions, retaining other489 dynamic assertions and all historical renderer geometry guards. Spaces only drains actual App SFX+Music through shared original1000ms before freeing, preserving40maps/10negative/strict leak rejection. Redesign preserves all original historical64 matrix/11 tamper refusals behind explicit --with-legacy and defaults to separate real current64 plus5 refusals under original240s profile budget; shared test driver skips only an energy prerequisite that actual free-shot policy does not have. Frozen Root Bell authority restores9 exact original-baseline/delta files with unchanged per-file inventory guards; exact new capability rejection and synthetic isolated historical focus rejection both tested, original27+9 retained. User explicitly defers old-save/old-feature compatibility. Revert the extra three historical-save runtime changes and v8 authority, remove the newly added history check, retain original compatibility definitions/assertions in manual legacy-compat; unchecked historical runs are deferred, not passed. root-bell-current keeps original current40/physical/admission11 checks without old165/archive stage. Current ecology uses actual Router/AirFocus free-shot policy rather than obsolete shot-energy depletion; capability schema2 binds actual configured resource, strict resource/event identities and real current depletion receipts. Menu keeps all14 assertions and shared original1000ms clean audio teardown. No current gameplay tuning or original native/assertion budgets relaxed. Pure historical forest-v1 matrix/combat and frozen plains-v9 action checks move to the same explicit manual profile; their original scripts, assertions and budgets remain. Current forest campaign/traversal/depth and plains-redesign-spatial/experience checks remain in current gates; no single current slice is treated as equivalent to full forest acceptance. Latest current-only adaptation keeps the complete28 legacy fixture catalog and every original predicate; default region executes all15 current suites including the original baseline but explicitly reports27 old standalone v10 itineraries not_run. --with-legacy-fixtures restores the original28 and original success marker under unchanged1500/120 budgets. Seven further old-version/old-mechanic scene checks move to manuallegacy; current forest v15 remains mandatory, with actual original goals/geometry and no extra shot granted. Readonly policy/focus telemetry enables strict current free-shot resource replay; legal real jump/grapple alternatives record source and executed programs separately. Native pointer tests set real Window size to project1280x720 and retain actual press/release/claim/idempotency. Enemy low-time-energy setup uses real jump/held aim, actual consumption receipts and native clock, with6 tamper refusals. All288 original predicate AST calls retained. No claim that two route samples replace80corpus or that current fast proves the retired cavity micro-scene. Original failed CI521 retained:43 passed,2 failed,105 not-run. Fourworker corpus only replaces fixed2 scheduling with bounded4 default and explicit1/2 option; original80 uniquecases/run_region_case AST/240native/90import/600overall unchanged. Preserve10 original scheduler methods verbatim, extend former max2 boundary to refuse3and5, add3 actualfour-child concurrency/failure/exception/reap tests. c93445/80 interrupted run remainscancelled and full80 pending. No production gameplay change. CurrentRootBell native revealed40 failures solely immutable oldrawbytes while all40 currentvalidation passed. Latest userdefers historicalcompatibility: carry explicit --current-g1 through Python/Godot to newcurrent40 generator/audit, keep actualconfigurationhash/current+candidate wholeManifest validators/enemybudget/physical10/versionedrealreplay/original11refusals; historicalrawbytes not_run, originalmanualauditbody byteidentical. Sourceinventory omits only nowtrulyunused historicalJSON undercurrentmode; originalmanual sources unchanged. Eight newscope/config/forgedlegacyclaim refusal mutations actuallyrejected. Forestregion.serial=true prevents overlapping otherHarnessnativechecks; no80/240/90/600 change. Renderloopflag experiment rejected for lackofmeasurablebenefit. Latest actual current adaptation preserves old paid checks and explicitly versions optional legacy comparison. Free-shot tests bind actual policy/config SHA and real AirFocus/projectile/HP/session/epoch/charge causality; every counterexample must alter data, not remove already-absent receipts. Current manual fixture rejects all invented energy events. Pure frozen-v9 autonomy moves to manuallegacy; current encounter excludes only its explicit optional historical comparison, retains every current consumer and original600 budget. Native GUI tests set real Window/viewport at deferred run entry, not ineffective startup initialization; real pointer/cancel/ownership callbacks unchanged. Chinese current Canopy boundary must warn not-built regions and real Home settlement, preserving all reward/save/actor predicates. Home background checks use real Home-owned parallax/camera/panels and reject stale run owners. Scene observes actual visible HUD controls and actual source-root/ground-inset relationships; transparent container and same-owner touchmenu self-intersection are not opaque blockers. Extra two-shot recoil is explicitly a real current Air Magazine reward fixture with base1, official claim, no grant-induced charge refill, actual grounded rearm2 and original apex/settlement; other seven cases remain base1. Real product HUD joystick/enemy occlusion is repaired without moving game bodies or changing abilities. Two native positive partitions retain all8 ordered cases and legacy/corpus exactly once inside the original aggregate180 seconds; original900 profile, all10 true negatives, all12 original raw refusals and3 new fixture refusals remain. Old serial timeouts/rejections and encounter full3 failure retain their original identity. HUD-only v9/creative-v12 rebinding changes exactly one of36 references, preserving all other35, original v7, original Bibles and two v10 snapshots; original32/10 test methods and old refusal guards retained with current version fixtures and actual App drift refusal. Finalcc46 post-assembly elapsed is checked again against the original180 deadline, closing a potential merge-overrun gap. Actual original partition function/data offline fault injection reproduces old acceptance at181 seconds; final normal accepts and five failure scenarios reject. Injected clocks are not native performance metrics; real prior133.386s remains bound to its original candidate."
 }

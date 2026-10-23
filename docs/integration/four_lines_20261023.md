@@ -1,5 +1,17 @@
 # 2026-10-23 四条工作线集成
 
+## 2026-10-23 当前 HUD 与资源契约集成（冻结检查点）
+
+实现冻结 `cc46ff5bb84dac1d7946fcc0e55bf1cfa487b92f`，PR [#106](https://github.com/zhipijun1996/gunman-rush/pull/106) 的下一次精确 head Integration 尚待执行，main／正式发布尚未完成。本节记录冻结时已知事实；随后合并和发布状态以该 PR、Actions 和实际公开构建为准。
+
+当前免费射击／基础空中一发保留；共享验证绑定实际配置、投射物身份和真实 AirFocus 流水，旧付费断言不回写。纯旧 v9 自主路线与可选 encounter 历史比较移至显式手动 `legacy-compat`（现15项）；当前检查不伪称历史通过。
+
+实际修复新 HUD 的位置标签压左摇杆，以及新导航覆盖既有避敌布局：App 在控件真实尺寸确定后沿既有边缘候选避让，使用真实缩放范围、触控／控件保留区和稳定位置缓存，不移动游戏身体。共享画风为 HUD 专用 v9 绑定、两区 creative-v12；原 v7／两份 v10、其他35引用及全部像素保留。
+
+原 scene wrapper 候选完整通过：8场景94/0、10真实负例和15数据篡改拒绝；两实际引擎分片共133.386秒，全部8场景的父总预算仍180秒，wrapper共226.592／900秒。原 HUD R3 为140/0。家园／区域109/0、奖励跨区56/0、菜单触控44/0各自实测；Canopy使用官方 cab 原捕获离线全验与8拒例，不冒称重新录制。Experience保原332/0捕获，最终reader离线49拒例；encounter full3保持失败，最终reader尾段、剩余真实 nonkill 和29原单测通过，不冒称fresh完整 wrapper。最终cc46ff5另外收紧JSON合并后的总时限守门；两真实分片输出离线回放的正常情况通过，合并超时／子进程非零／缺标记／子超时／缺覆盖均拒；未重录native。上述候选与原冻结9a9eb86的32／10／29／16／21 Python测试及文档检查分别保来源，不替代下一轮全 CI。
+
+上一轮 cab CI 为75通过／2失败／66未执行，两个实际失败与修复证据均保留。精选原件、压缩恢复 SHA 和审查见[当前证据](../evidence/four_line_integration_20261023/current-plains/README.md)。[四线可玩 F 开发版](https://zhipijun1996.github.io/gunman-rush-previews/previews/FOUR-LINE-INTEGRATION-01/fbb417cb4d4d4d8d2500d7c4bed11cebf681dd46/7f88f353bfb4/)仍属于 F／7f88f353bfb4，不能称为本轮 HUD 修复或 main 新版本。最终新 Web／Windows／公开版本验证及用户／实体设备仍未验。
+
 ## 2026-10-23 当前 audit 与 CPU 隔离修复（最新）
 
 实现冻结`ca371639209e7dbe5a4a5e4c034bcf2613a36d23`。上一轮精确5502 CI真实66 passed／1 failed／1 timeout／75 not_run：current audit误带历史输入与旧raw Manifest字节复现；森林80和另9项引擎检查争CPU，在37例通过后触发原600秒。失败与源码归属保留，不改签本地5502原80/80（369.678秒）的通过结果。
