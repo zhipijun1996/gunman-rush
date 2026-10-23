@@ -9,7 +9,9 @@ func run() -> void:
 
 func _observe_audio(node: Node) -> void:
 	if node is PlayerWeaponFeelAudioV2: _audit_audio.call_deferred(node)
-	if node is PlayerWeaponFeelV2: _audit_consumer.call_deferred(node)
+	# _attach_feel assigns audio before add_child; inspect immediately because
+	# the existing lifecycle test can replace its Home leaf on the same tick.
+	if node is PlayerWeaponFeelV2: _audit_consumer(node)
 
 func _audit_consumer(feel: PlayerWeaponFeelV2) -> void:
 	check(is_instance_valid(feel) and feel.audio==app.weapon_audio,"real presentation leaf shares persistent preview audio")
