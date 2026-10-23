@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T132135.902447Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6be3db39eb704fa2d5610afceec3ed9d005e70546955a50ef5dad4b0aa5b452b",
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675297.0999787,
+      "ended_at_unix": 1792675297.2247925,
+      "duration_seconds": 0.125,
+      "expanded_argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "check_token": "781d23a48a7e46bb8fe4e4919e1ce14a",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T132135.902447Z/artifacts/environment",
+      "reused": false
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "59ce023bc775fbc32ea10c08d2b3ca2a33c70c4390f1ac9256fecb6f1ae5cc56",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675297.7895489,
+      "ended_at_unix": 1792675302.8239183,
+      "duration_seconds": 5.034,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "check_token": "e5b440fab08a49218a0d8e08b3a6d16b",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T132135.902447Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/enemy_feedback_01.md": "2aed79b684bb1cbdf7f7b00e840bc0410c6d4deb8bfe124fed5133fa38fa6ac7",
+    "docs/quality/records/ENEMY-FEEDBACK-01.json": "1adfccc8c48775f8e7f3134f9b740a1c300f21cf97ed3ad64947c0cfefd5c1c4",
+    "scripts/enemies/enemy_feedback_01.gd": "700eac869ca210c80aec0de7e53fd26cc7971fb516f85293579b4e7d54916edc",
+    "scripts/enemies/enemy_feedback_01.gd.uid": "8caccd79cb5eb37581443320728611ae3bc6ab0178dd05aa4dd4e60faa0ed8cf",
+    "scripts/enemies/enemy_presentation.gd": "8038283c545e5404ffaefc800ea21e0e60e747f5ef8da7365be89c0b0927ff8d",
+    "scripts/underworld_plains/underworld_enemy.gd": "a6a6f59359fa992bde7b6d8f674b5b87ae3267653446c0844dfff4622ef35d54",
+    "tests/enemy_feedback_01_tests.gd": "24adb3e0a952836d31e1715953022285b321753512285b946dd07815d0da2fd8",
+    "tests/enemy_feedback_01_tests.gd.uid": "88e1fbbb665ed8da4d5572e6ef4602b0d51c7fcef7c2fa8112977bf2dbda6f6c"
+  },
+  "commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "git_status": "M scripts/enemies/enemy_presentation.gd\n M scripts/underworld_plains/underworld_enemy.gd\n?? docs/enemy_feedback_01.md\n?? docs/quality/records/ENEMY-FEEDBACK-01.json\n?? scripts/enemies/enemy_feedback_01.gd\n?? scripts/enemies/enemy_feedback_01.gd.uid\n?? tests/enemy_feedback_01_tests.gd\n?? tests/enemy_feedback_01_tests.gd.uid",
+  "diff": "diff --git a/scripts/enemies/enemy_presentation.gd b/scripts/enemies/enemy_presentation.gd\nindex 2bcfdfa..81473fc 100644\n--- a/scripts/enemies/enemy_presentation.gd\n+++ b/scripts/enemies/enemy_presentation.gd\n@@ -11,18 +11,32 @@ var _weight := Vector2.ONE\n var _lean := 0.0\n static var _action_manifest: Dictionary = {}\n static var _action_textures: Dictionary = {}\n+var feedback_sample: EnemyFeedback01\n func _ready() -> void:\n \t_size = actor.definition.collision_size\n-\tactor.health.changed.connect(_health_changed)\n+\tif EnemyFeedback01.supports(actor.definition):\n+\t\tfeedback_sample = EnemyFeedback01.new(actor.health, actor.definition)\n+\telse:\n+\t\tactor.health.changed.connect(_health_changed)\n \tqueue_redraw()\n+func _exit_tree() -> void:\n+\tif feedback_sample != null: feedback_sample.dispose()\n+\tif is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)\n func _process(delta: float) -> void:\n \tif get_tree().paused: return\n \t_clock += delta\n-\tif actor.health.terminal: _death_time += delta\n-\t_hurt_time = maxf(0, _hurt_time - delta)\n+\tif feedback_sample != null:\n+\t\tfeedback_sample.advance(delta)\n+\t\t_hurt_time = feedback_sample.hurt_remaining\n+\t\t_death_time = feedback_sample.death_elapsed\n+\telse:\n+\t\tif actor.health.terminal: _death_time += delta\n+\t\t_hurt_time = maxf(0, _hurt_time - delta)\n \tvar state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &\"idle\"\n \tvar desired := Vector2(1.12,.9) if state in [&\"telegraph\",&\"attack\"] else Vector2(.97,1.025) if state == &\"recovery\" else Vector2.ONE\n \tif actor.health.terminal: desired = Vector2(1.12,.45)\n+\tif feedback_sample != null:\n+\t\tdesired = feedback_sample.pose() if actor.health.terminal else desired * feedback_sample.pose()\n \t_weight = _weight.lerp(desired,1-exp(-delta/.075))\n \t_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))\n \t_update_frame_weights(state,delta)\n@@ -34,6 +48,7 @@ func _health_changed(result: ActorResourceResult) -> void:\n func _draw() -> void:\n \tif actor == null:\n \t\treturn\n+\tif feedback_sample != null and (feedback_sample.restored_terminal or (actor.health.terminal and not feedback_sample.death_active)): return\n \tvar texture := PlainsRefreshAssets.object_texture(&\"enemy_left\" if actor.brain.direction < 0 else &\"enemy_right\")\n \tvar state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &\"idle\"\n \tvar facing := float(actor.brain.direction)\n@@ -57,6 +72,7 @@ func _draw() -> void:\n \tvar bob := sin(_clock * 7) * 1.2 if not actor.health.terminal else 0.0\n \tsize *= _weight\n \tvar tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE\n+\tif feedback_sample != null: tint = feedback_sample.tint()\n \tif actor.health.terminal:\n \t\ttint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))\n \t\tfor mote: int in 6:\n@@ -66,7 +82,7 @@ func _draw() -> void:\n \tif ForestBibleActors.draw_enemy_body(self, actor, _clock): return\n \tif actor.definition.aerial:\n \t\tvar atlas := preload(\"res://assets/plains_v4/spatial/actors.png\")\n-\t\tvar tilt := _lean + sin(_clock*2)*.035\n+\t\tvar tilt := _lean + sin(_clock*2)*.035 + (feedback_sample.tilt() if feedback_sample != null else 0.0)\n \t\tdraw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))\n \t\tdraw_texture_rect_region(atlas,Rect2(-size.x*.6,-size.y*.65,size.x*1.2,size.y*1.3),Rect2(935,570,580,445),tint)\n \t\tdraw_set_transform(Vector2.ZERO)\ndiff --git a/scripts/underworld_plains/underworld_enemy.gd b/scripts/underworld_plains/underworld_enemy.gd\nindex 1b604b7..67bdb8f 100644\n--- a/scripts/underworld_plains/underworld_enemy.gd\n+++ b/scripts/underworld_plains/underworld_enemy.gd\n@@ -3,10 +3,28 @@ extends PixelPlainsEnemy\n ## Genuine new body art. Original state-based telegraphs remain authoritative.\n var feedback: DamageFeedbackDefinition = preload(\"res://resources/damage/feedback.tres\")\n var accepted_hurt_count := 0\n+var feedback_sample: EnemyFeedback01\n \n func _ready() -> void:\n-\tsuper._ready()\n-\tactor.health.changed.connect(_accepted_damage)\n+\tif EnemyFeedback01.supports(actor.definition):\n+\t\t# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.\n+\t\tfeedback_sample = EnemyFeedback01.new(actor.health, actor.definition)\n+\telse:\n+\t\tsuper._ready()\n+\t\tactor.health.changed.connect(_accepted_damage)\n+\n+func _process(delta: float) -> void:\n+\tif get_tree().paused: return\n+\t# Parent retains exclusive ownership of death timing, alpha and visibility.\n+\tsuper._process(delta)\n+\tif feedback_sample != null:\n+\t\tfeedback_sample.advance(delta)\n+\t\t_hurt = feedback_sample.hurt_remaining\n+\t\taccepted_hurt_count = feedback_sample.accepted_hit_count\n+\n+func _exit_tree() -> void:\n+\tif feedback_sample != null: feedback_sample.dispose()\n+\tif is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)\n \n func _accepted_damage(result: ActorResourceResult) -> void:\n \tif result == null or result.operation != &\"damage\" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return\n@@ -23,6 +41,7 @@ const SPRITES := {\n \n func _draw() -> void:\n \tif actor == null: return\n+\tif feedback_sample != null and feedback_sample.restored_terminal: return\n \tvar behavior := String(actor.definition.behavior_id)\n \tvar state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &\"idle\"\n \tif not actor.health.terminal: _telegraph(state,StringName(behavior))\n@@ -40,13 +59,19 @@ func _draw() -> void:\n \tvar pose := Vector2.ONE\n \tif state==&\"telegraph\": pose=Vector2(1.06,.94)\n \telif state==&\"attack\": pose=Vector2(.96,1.04)\n-\tif _hurt > 0 and not actor.health.terminal:\n+\tif feedback_sample != null:\n+\t\tpose *= feedback_sample.pose()\n+\telif _hurt > 0 and not actor.health.terminal:\n \t\tvar age := feedback.hurt_seconds-_hurt\n \t\tpose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)\n \t\tdip -= sin(age/feedback.hurt_seconds*PI)*3\n \tvar flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0\n-\tdraw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))\n-\tdraw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE)\n+\tvar tilt := feedback_sample.tilt() if feedback_sample != null else 0.0\n+\t# Keep the ground contact anchor while squashing; the flyer retains flutter.\n+\tvar origin := Vector2(0,dip+flutter+(floor_y*(1-pose.y) if feedback_sample != null else 0.0))\n+\tdraw_set_transform(origin,tilt,Vector2(float(actor.brain.direction)*pose.x,pose.y))\n+\tvar tint := feedback_sample.tint() if feedback_sample != null else Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE\n+\tdraw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,tint)\n \tdraw_set_transform(Vector2.ZERO)\n \tif actor.health.terminal: return\n \tvar top := -size.y*.5",
+  "untracked": "docs/enemy_feedback_01.md\ndocs/quality/records/ENEMY-FEEDBACK-01.json\nscripts/enemies/enemy_feedback_01.gd\nscripts/enemies/enemy_feedback_01.gd.uid\ntests/enemy_feedback_01_tests.gd\ntests/enemy_feedback_01_tests.gd.uid",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 7.868,
+  "jobs": 1,
+  "release": true
+}

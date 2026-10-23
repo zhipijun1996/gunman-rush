@@ -1,0 +1,135 @@
+{
+	"cases": [
+		{
+			"actual_accepted_hits": 3,
+			"case": "void",
+			"chain": "original",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"expiry_observed_frames": 33,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(412.0, 364.0)",
+				"restored": true,
+				"rotation": 3.14159274101257,
+				"scale": "(1.0, -1.000197)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(492.0, 334.0)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		},
+		{
+			"actual_accepted_hits": 3,
+			"case": "aerial",
+			"chain": "original",
+			"definition": "res://resources/enemies/plains_diver.tres",
+			"expiry_observed_frames": 33,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(404.3924, 357.4641)",
+				"restored": true,
+				"rotation": -0.017957316711545,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(484.3924, 328.6635)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		},
+		{
+			"actual_accepted_hits": 3,
+			"case": "moving_host",
+			"chain": "original",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"expiry_observed_frames": 31,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(426.5, 347.0)",
+				"restored": true,
+				"rotation": 3.14159274101257,
+				"scale": "(1.000001, -1.000266)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(463.5, 334.0)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		},
+		{
+			"actual_accepted_hits": 3,
+			"case": "void",
+			"chain": "underworld",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"expiry_observed_frames": 33,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(410.5, 364.0)",
+				"restored": true,
+				"rotation": 3.14159274101257,
+				"scale": "(1.0, -1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(490.5, 334.0)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		},
+		{
+			"actual_accepted_hits": 3,
+			"case": "aerial",
+			"chain": "underworld",
+			"definition": "res://resources/enemies/plains_diver.tres",
+			"expiry_observed_frames": 33,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(401.4028, 358.4145)",
+				"restored": true,
+				"rotation": 3.14159274101257,
+				"scale": "(1.0, -1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(481.4028, 328.4145)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		},
+		{
+			"actual_accepted_hits": 3,
+			"case": "moving_host",
+			"chain": "underworld",
+			"definition": "res://resources/enemies/plains_charger.tres",
+			"expiry_observed_frames": 31,
+			"final": {
+				"active": false,
+				"age": 0.0,
+				"phase": "spent",
+				"position": "(423.5, 347.0)",
+				"restored": true,
+				"rotation": 3.14159274101257,
+				"scale": "(1.0, -1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"saved_motor": "(460.5, 334.0)",
+			"scope": "v5 short explosion; superseded persistent-corpse support/save correctness is not claimed"
+		}
+	],
+	"checks": 141,
+	"failures": [],
+	"feedback_revision": "accepted_explosion_v5",
+	"scope": "six explicit actual-projectile void/aerial/moving-host explosion boundaries; no general physics or superseded corpse-support/save certification",
+	"task": "ENEMY-FEEDBACK-01"
+}

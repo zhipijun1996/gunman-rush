@@ -2,6 +2,8 @@ class_name GameAudio
 extends Node
 ## Local presentation consumer: bounded voices, no gameplay or random-stream writes.
 const MAX_VOICES := 12
+# Per-origin death timbre; the existing accepted cue still owns timing/pooling.
+const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
 const REGIONAL_CUE_PATHS := {
 	&"forest_wind": "res://assets/forest_bible_v2/audio/forest_wind.wav",
@@ -24,7 +26,14 @@ var _playbacks: Array[WeakRef] = []
 static func cue(origin: Node, id: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
-	if service: service.play(id)
+	if service:
+		var stream_override: AudioStream
+		if id == &"enemy_defeat":
+			var overrides: Variant = origin.get_meta(CUE_STREAM_OVERRIDES_META, {})
+			if overrides is Dictionary:
+				var candidate: Variant = overrides.get(id)
+				if candidate is AudioStream: stream_override = candidate
+		service.play(id, stream_override)
 
 static func stop_region(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
@@ -65,7 +74,7 @@ func _process(delta: float) -> void:
 	_clock += delta
 	_playbacks = _playbacks.filter(func(reference: WeakRef) -> bool: return reference.get_ref() != null)
 
-func play(id: StringName) -> bool:
+func play(id: StringName, stream_override: AudioStream = null) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
 	if get_tree().paused and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
@@ -76,7 +85,7 @@ func play(id: StringName) -> bool:
 		played[id] = int(played.get(id, 0)) + 1
 		voice.process_mode = Node.PROCESS_MODE_ALWAYS if id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
-		voice.stream = _streams[id]
+		voice.stream = stream_override if stream_override != null else _streams[id]
 		var attenuation := 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation

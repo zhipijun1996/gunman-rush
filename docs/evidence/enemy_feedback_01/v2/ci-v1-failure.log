@@ -1,0 +1,17 @@
+affected	Validate PR quality and guard changes against its actual base	﻿2026-10-22T13:49:22.0908551Z ##[group]Run python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0909487Z [36;1mpython3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log[0m
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0960564Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0960905Z env:
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0961109Z   PRODUCTION_STAGE: integration
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0961438Z   PRODUCTION_BASE: e9ab0e0743466b8983e34cc7de17bab1abf9d53a
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0961779Z   LIBGL_ALWAYS_SOFTWARE: 1
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0962311Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0962757Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0963185Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0963562Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0964028Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0964771Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0965314Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:22.0965818Z ##[endgroup]
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:38.1829275Z Production change lacks non-process task record: scripts/enemies/enemy_feedback_01.gd.uid
+affected	Validate PR quality and guard changes against its actual base	2026-10-22T13:49:38.1958971Z ##[error]Process completed with exit code 1.

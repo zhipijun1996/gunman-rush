@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T023420.977960Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e08fbf6f04e619f4eeb8e548c05ddef16a04fa5672d5504d8b55c21750037541",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792722864.6782556,
+      "ended_at_unix": 1792722864.9375641,
+      "duration_seconds": 0.259,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "3321957359704534bf89e30482d9db47",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261023T023420.977960Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/enemy_feedback_01.md": "d1ada75cf49d7a458da30fb004d21164b57d7bffa5b1f4fc2468f1223f8a6bc5",
+    "docs/enemy_feedback_01_production_lessons.md": "6beeed01930b052fa0e640a98626bdea97e7bf0d66e10eb2ecbb7236bead77c1",
+    "docs/enemy_feedback_01_session_summary.md": "4b0a64af6a41c7c518d78089abb722632c6f3cef582ee87cbd8a943a3c1e5a9d",
+    "docs/evidence/enemy_feedback_01/session_closeout/README.md": "5b5562e4a05d5c0fd2f7e802b6ff04fa4da39663463770b6b8b3da7a072d44f3",
+    "docs/evidence/enemy_feedback_01/session_closeout/changes.tsv": "58761aec2b06668f39603eeac0ca09283fadf9f73d5a278eafa037ff5240040b",
+    "docs/evidence/enemy_feedback_01/session_closeout/inputs.log": "0933da674d5dc0bb7dced7ae083bb1d7d9ec1e2a6608f7fb539bdd3b389f1d59",
+    "docs/evidence/enemy_feedback_01/session_closeout/inventory.json": "07997070fed46b50357815856195d55c861343d254030407fad30d8378046fbe",
+    "docs/evidence/enemy_feedback_01/v8/README.md": "66bc3d6827d88fbc73abee0c8b897b29a69075850155358f4b02206f5bf6fbd9"
+  },
+  "commit": "620c40b3ca939cd9ba42d5cebcf9b97ccbbcef62",
+  "git_status": "M docs/enemy_feedback_01.md\n M docs/evidence/enemy_feedback_01/v8/README.md\n?? docs/enemy_feedback_01_production_lessons.md\n?? docs/enemy_feedback_01_session_summary.md\n?? docs/evidence/enemy_feedback_01/session_closeout/",
+  "diff": "diff --git a/docs/enemy_feedback_01.md b/docs/enemy_feedback_01.md\nindex 46e9f8f..d7370d9 100644\n--- a/docs/enemy_feedback_01.md\n+++ b/docs/enemy_feedback_01.md\n@@ -1,5 +1,7 @@\n # ENEMY-FEEDBACK-01 · System Engineering\n \n+2026-10-23会话收口：[全部累计修改、去留与阻塞](enemy_feedback_01_session_summary.md)；[Skills改进提案与后续怪物制作卡](enemy_feedback_01_production_lessons.md)。本次仅整理交付，当前内容仍为下述v8-r2的REJECT／draft，未合main。历史各轮“最新”仅指当时检查点，以本页首当前状态为准。\n+\n ## 2026-10-23 当前返工：专属受伤／死亡帧与留尸体（v8）\n \n 当前实际运行源3003bd0f10ed9c7fe51e0cdc5952aa579a87f130，两链实弹片与独审见[v8检查点](evidence/enemy_feedback_01/v8/README.md)。材质回接明显改善，结构回接仍REWORK；独立458/0、199/0、278/0、258/0与4原Harness通过，正式存档strict66/1仍失败，任务保持draft／REJECT。首候选5ffd的66/2与旧片完整保留，未以新片覆写旧失败。\ndiff --git a/docs/evidence/enemy_feedback_01/v8/README.md b/docs/evidence/enemy_feedback_01/v8/README.md\nindex d911e0e..e7c237c 100644\n--- a/docs/evidence/enemy_feedback_01/v8/README.md\n+++ b/docs/evidence/enemy_feedback_01/v8/README.md\n@@ -37,7 +37,7 @@\n \n ## 可恢复源码与媒体\n \n-[runtime-source.bundle](runtime-source.bundle)包含真实拍摄5ffd运行源，前置公开提交`12d7e41abe62dfdfd33d5c15c1142b3ff84d14fd`；在已有前置提交的仓库执行`git bundle verify`后可fetch该bundle的HEAD。API发布提交元数据可能不同，以最终交付树和bundle实际运行源分别标识。\n+[runtime-source.bundle](runtime-source.bundle)的HEAD为真实拍摄运行源`3003bd0f10ed9c7fe51e0cdc5952aa579a87f130`，前置公开提交`12d7e41abe62dfdfd33d5c15c1142b3ff84d14fd`；在已有前置提交的仓库执行`git bundle verify`后可fetch该bundle的HEAD。首候选5ffd的原件位于v8-first-review，不能混称当前拍摄源。API发布提交元数据可能不同，以最终交付树和bundle实际运行源分别标识。\n \n 原始影片、无损trace、source guard、ffprobe与每段原始时间区间／封装命令分别在movies/{after-report,legacy-report,recipe,legacy-recipe}.json。两份14秒成片各840帧，对照20秒1200帧，全部60/1；只裁连续原帧及对应原音频并加事实footer。封装脚本在tools/，未用静图拼接、AI补帧、变速或后配音替代正式命中证据。",
+  "untracked": "docs/enemy_feedback_01_production_lessons.md\ndocs/enemy_feedback_01_session_summary.md\ndocs/evidence/enemy_feedback_01/session_closeout/README.md\ndocs/evidence/enemy_feedback_01/session_closeout/changes.tsv\ndocs/evidence/enemy_feedback_01/session_closeout/inputs.log\ndocs/evidence/enemy_feedback_01/session_closeout/inventory.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 7.152,
+  "jobs": 1,
+  "release": true
+}

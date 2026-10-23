@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T134140.248381Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "933440f22ad6728bafdd48a813df6ad8deba18d3b18e3bc986ea37a9732cdd25",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676503.6895273,
+      "ended_at_unix": 1792676503.8685832,
+      "duration_seconds": 0.179,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "0a756b34c87147a0a9e95689e3c70c4f",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6869427e1e931a3a32fa8e5341b198cd9a6766d8541689ba58730724d765076f",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676504.5171804,
+      "ended_at_unix": 1792676504.5934415,
+      "duration_seconds": 0.076,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "4b26a77129e04e4e99b3cde84a3e1ba0",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d45b2173bf6a62c34e26377258d4c59fe97b83baaf54e66816abf23dc16ec0ec",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676505.251064,
+      "ended_at_unix": 1792676505.3780181,
+      "duration_seconds": 0.127,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "da3ae6afef9c4ea9ae109e1d82d94600",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0884e5f6ef00a93ade38d56fb23df97515557f14596576086653969ca02f4302",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676506.0126166,
+      "ended_at_unix": 1792676506.0893824,
+      "duration_seconds": 0.077,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "c4a2e171795d407689b44e8b88f4188e",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f74fa049a7ee2dbef9deff9a406ee21651d0857f9ef151d303cb28098b7ae2b6",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676506.704112,
+      "ended_at_unix": 1792676514.318315,
+      "duration_seconds": 7.614,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "70c2a9c1584849baa8674743b6829c75",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d0319ec43f3781822573186ea5cbfffde4267b234841406fd8c4647bf9b705f9",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676514.938984,
+      "ended_at_unix": 1792676514.9852405,
+      "duration_seconds": 0.046,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "bc769a614dd744d4883b11e6b5edd375",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7ba9bf18ef55cff0defcc3e6ccb8a7c267b67ca59ba56027adfd97e835719edf",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792676515.6480947,
+      "ended_at_unix": 1792676516.1279113,
+      "duration_seconds": 0.48,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "c3db09a06261421c92edd7ae43bda5a2",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "70a7e121ed25ec34085318f789ff7466d05fed9ec58fa4fffc68f3d74d6def25",
+      "log": "quality.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792676516.7148857,
+      "ended_at_unix": 1792676518.3473597,
+      "duration_seconds": 1.632,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "a5baa719ae6949779cdb7437acfc4c50",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T134140.248381Z/artifacts/quality",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/enemy_feedback_01.md": "15bc12d82ab4f8457ee410c727777ba7534a7b861d637d3211b75ef5bc31b30a",
+    "docs/enemy_feedback_01_references.md": "bb764b9781a0a3a6d85213093f345078b2a78c8ad50cf883e8f9cac60d08525c",
+    "docs/evidence/enemy_feedback_01/README.md": "311bc6dbabb249daed7c4a6c2d3e7f38977f5dc16cfb7aac4697e430999334d9",
+    "docs/evidence/enemy_feedback_01/affected-actor-actions.log": "683ed08350ec34f436115b4d9a309ce9cffde4f99536556b9fd2fb1890461600",
+    "docs/evidence/enemy_feedback_01/affected-consumers-v1.log": "86fac1879009331c1574a96ad06e06e6b338fd0c48176eff238ed4490bb6e957",
+    "docs/evidence/enemy_feedback_01/affected-forest-bible-integration-tests.log": "25cb1991f6d58b24fa3da74584dd8a3e9b73e6789a10a858d1a9d858bb58896b",
+    "docs/evidence/enemy_feedback_01/affected-report.json": "6e65a763d16341b48598b0de1af46cc5e24ad3a4e3d8f23a198625963747f0d4",
+    "docs/evidence/enemy_feedback_01/affected-underworld-damage-feedback.log": "3134b0b0294168f6814651d86f5fc7e89757873e2b60667099659d9936ebfbed",
+    "docs/evidence/enemy_feedback_01/affected-underworld-formal.log": "49cfdad4051b3e2b78d76222bd860c2011024d8dfda6b38a56f374c9c248543c",
+    "docs/evidence/enemy_feedback_01/after-report.json": "cc145c83f495053a4c99e1ddd843a99ee14e0c060174948433b1b2133d3bea8a",
+    "docs/evidence/enemy_feedback_01/after.json": "b0b0f78ce8922fd491e25141a30b3230df882428da1385c5b4bb1269b1f0221f",
+    "docs/evidence/enemy_feedback_01/after.log": "aab0ea0e4af65fa7811c83aa85e3c6037b42fbfe497e94b7ac00c538f2c799e2",
+    "docs/evidence/enemy_feedback_01/after.mp4": "b7faf7a276ef310616ea0a77e32b9916edf18c3c53e1078a5b7614e92ea91bad",
+    "docs/evidence/enemy_feedback_01/audio-audit.md": "650d8c130fc32a91204e3f1b4c9e29a3bbeed00316a2009e7e2febe3f7bb67d0",
+    "docs/evidence/enemy_feedback_01/audio-candidates-manifest.json": "634c94c33bb276084ac06a5eda8edcbfc3d6a9a2bd4c2d9b0b4f800b8d8218d2",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v1.log": "bee60c6d13ccb4435a64927f9fdd4bdb13ee8f7d04b9dd8fd344ba8b8cee6a8a",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v2.log": "bee60c6d13ccb4435a64927f9fdd4bdb13ee8f7d04b9dd8fd344ba8b8cee6a8a",
+    "docs/evidence/enemy_feedback_01/audio-candidates-v3.log": "bee60c6d13ccb4435a64927f9fdd4bdb13ee8f7d04b9dd8fd344ba8b8cee6a8a",
+    "docs/evidence/enemy_feedback_01/audio-comparison-25s.wav": "3b466304721f4d4e02729c0f2c113d309fdd3384fa440424f0a4e7b0ea7deba9",
+    "docs/evidence/enemy_feedback_01/audio-probe-v1.json": "e1f9db7087f417386e4e00cd905c1d854b327cd2325ccfc1cdb2496dfe2997a0",
+    "docs/evidence/enemy_feedback_01/audio-probe-v1.log": "0ee1474b3a71c55ff6de3f261b28939886881622c7978bfa008d350aaf016e10",
+    "docs/evidence/enemy_feedback_01/authority-inputs.json": "6a4f386fe55855a6d773067ff22e941b2c26f304c41f9b091401d60848b80b0a",
+    "docs/evidence/enemy_feedback_01/before-report.json": "cb14076415f82b04157e0b3b7714b79c8e66ece37acedf92d7b23c3b8bec1e5a",
+    "docs/evidence/enemy_feedback_01/before.json": "b32271cb5f4b7561230ca8e88f713d7c3bd1d31584407295b3e50e11ceaafd05",
+    "docs/evidence/enemy_feedback_01/before.log": "2b05089021ba043169c14c92870a028287f42dde45776bd7d26e0cefefeff061",
+    "docs/evidence/enemy_feedback_01/before.mp4": "bbdbc3ed7275fe759b34610f82bb67aeffee3b6934b53702cae9c91956b85cde",
+    "docs/evidence/enemy_feedback_01/check-quality-v1.log": "57b8adbab6714b89298eea3e29bfb0424b4fdc0b4f2659e4722d405bc55faecc",
+    "docs/evidence/enemy_feedback_01/comparison-encode.log": "580600ab30b4280da00d8f8c887a6d51cfe49c19368774801af874cd38659e94",
+    "docs/evidence/enemy_feedback_01/comparison.mp4": "e8f3d7cc20213987fed9f7867e6749704b17e4fdfb48a280dd3eac2581971c7e",
+    "docs/evidence/enemy_feedback_01/consumers.json": "7cbcb282bfd593f17ec1c1788e5c826e419472744575f0cc33ae6537acbb3125",
+    "docs/evidence/enemy_feedback_01/development-plan-v1.json": "2fcb5119e173842efd90ee07504d4912a6705b88332fbc71592d8799b669b820",
+    "docs/evidence/enemy_feedback_01/digital-audio-LICENSE.txt": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815",
+    "docs/evidence/enemy_feedback_01/docs-input-materialized.json": "9a058a61410b94e21aa5bde75c94800f04a10208d084ce49c9c9e2ff992fce1e",
+    "docs/evidence/enemy_feedback_01/docs-v1-docs.log": "e8c6d3116fd94d67a23cbed1a86423023223d4433b3fe8f275bf9f7e4ab57204",
+    "docs/evidence/enemy_feedback_01/docs-v1-report.json": "bb35a11bc4dbd10a11f78180451da780b3e64f9186a40cb341c930c99bb6620d",
+    "docs/evidence/enemy_feedback_01/docs-v1-structure.log": "12217332c834cb9cc0bf99345569f0016c0eae23923a069352464663695631a0",
+    "docs/evidence/enemy_feedback_01/docs-v1-world-design-tests.log": "62524da09646d205427f945b7888f49dc14eed76d75707112108106547d9fc41",
+    "docs/evidence/enemy_feedback_01/docs-v1-world.log": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+    "docs/evidence/enemy_feedback_01/feedback-harness-environment.log": "5f50b02ca7bd85d9eade249b03288b8a2b758d64c90b608c52cfb3b30f1fe63e",
+    "docs/evidence/enemy_feedback_01/feedback-harness-report.json": "3e7fb386b212c1f4e33de35dd365527716f27f2c46f7e58446380aaf75afff0d",
+    "docs/evidence/enemy_feedback_01/feedback-harness-underworld-damage-feedback.log": "3134b0b0294168f6814651d86f5fc7e89757873e2b60667099659d9936ebfbed",
+    "docs/evidence/enemy_feedback_01/formal-runtime.json": "919831d44cf483fe510003267a00d63ad411fdd300d6902d2b15ce467abddc9e",
+    "docs/evidence/enemy_feedback_01/formal-v1.log": "24cc3b60551be07d7e8293fe88a0da37add0f9be159596952c260e717cd62da9",
+    "docs/evidence/enemy_feedback_01/harness-docs-v1.log": "41492ae792a54ccfe8b02ef11e7001bd4a386e1d55ceab5fe73dea0a35487aef",
+    "docs/evidence/enemy_feedback_01/harness-docs-v2.log": "59d8823f75a8c478aadad2c3fe9f56eebfeda7c7fab792987ee2d1ae3b9c54f4",
+    "docs/evidence/enemy_feedback_01/harness-feedback-v1.log": "2846d9c3e842201f549528fb71466139c500b9fa34c535250cb210ea1a3609df",
+    "docs/evidence/enemy_feedback_01/impact-sounds-LICENSE.txt": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+    "docs/evidence/enemy_feedback_01/integration-plan-v1.json": "ef1fa358c0d9022728be557a0f2c0638d6b495f43c5b3c24e7c5c23f07f0760a",
+    "docs/evidence/enemy_feedback_01/inventory.json": "c0b8fdbeaed62788c8e6b4cc02ee503b4c47561e94c36072a415e3f24a112ded",
+    "docs/evidence/enemy_feedback_01/review-v1.md": "671dfde8d3a50ccb0fb00967e783112d7da1de60538774247ae1f1a329ce7257",
+    "docs/evidence/enemy_feedback_01/review-v2-formal-runtime.json": "919831d44cf483fe510003267a00d63ad411fdd300d6902d2b15ce467abddc9e",
+    "docs/evidence/enemy_feedback_01/review-v2-formal.log": "515c2ed3a09a6225b9f9926128d902e1e99533935ca884a17259c0a889a85bda",
+    "docs/evidence/enemy_feedback_01/review-v2-native.log": "8da029ece18e48db4bf6c9f4c18b4c98b4de9e494829a58b0775af74dbbe8747",
+    "docs/evidence/enemy_feedback_01/review-v2-runtime.json": "cee274ef210063949a1c071ce081ce3b6b3143d27af8dc5251c24095ec7f4bb9",
+    "docs/evidence/enemy_feedback_01/review-v2.md": "86e702c40defc83f030f8dbd3cc25fc573998cbb88669525a66134244d63a37e",
+    "docs/evidence/enemy_feedback_01/runtime-v1.log": "cac9bd05c9766a8a125360c4b636b8e6969d7b9560adfc9f3d1f16be4f9b34f6",
+    "docs/evidence/enemy_feedback_01/runtime-v2.log": "8da029ece18e48db4bf6c9f4c18b4c98b4de9e494829a58b0775af74dbbe8747",
+    "docs/evidence/enemy_feedback_01/runtime-v3-charger.log": "8da029ece18e48db4bf6c9f4c18b4c98b4de9e494829a58b0775af74dbbe8747",
+    "docs/evidence/enemy_feedback_01/runtime.json": "cee274ef210063949a1c071ce081ce3b6b3143d27af8dc5251c24095ec7f4bb9",
+    "docs/evidence/enemy_feedback_01/shot-a-compact-mechanical.wav": "4dbcd79f615d4371bdffb9e504d3b4673d2d8cc02d6b2293c2a90602535913db",
+    "docs/evidence/enemy_feedback_01/shot-b-weighted-mechanical.wav": "6c8a01c8f88f512da3378152d2e043992cabe5031df264397ca8dc0a1432ea91",
+    "docs/evidence/enemy_feedback_01/user-feedback.json": "33d58116ccfdd73843876a9043772f02f4c0b451d655876e888ec96fe57863c5",
+    "docs/quality/records/ENEMY-FEEDBACK-01.json": "5685a8e1f6119967ff40ce2161dc3d1965c4028bb0b1eb0c262284b520380c12",
+    "tools/enemy_feedback_01_audio_candidates.py": "eb1ff758338f380658dd0df4b553136f206e0e607662e568e9b2fca77063c9b4",
+    "tools/enemy_feedback_01_audio_probe.gd": "2e743455be5b38c36aa24960349206f6d3f5eb4331b911f3692f3d9d3c9d2d85",
+    "tools/enemy_feedback_01_audio_probe.gd.uid": "8ea30a3330af9b827aacbf6838d25a4db81f9e69d6d873f15939974c97b3df51"
+  },
+  "commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+  "git_status": "M docs/enemy_feedback_01.md\n M docs/quality/records/ENEMY-FEEDBACK-01.json\n?? docs/enemy_feedback_01_references.md\n?? docs/evidence/enemy_feedback_01/\n?? tools/enemy_feedback_01_audio_candidates.py\n?? tools/enemy_feedback_01_audio_probe.gd\n?? tools/enemy_feedback_01_audio_probe.gd.uid",
+  "diff": "diff --git a/docs/enemy_feedback_01.md b/docs/enemy_feedback_01.md\nindex e917a5e..bd99dac 100644\n--- a/docs/enemy_feedback_01.md\n+++ b/docs/enemy_feedback_01.md\n@@ -2,7 +2,7 @@\n \n ## 检查点 1：复用与代表对象\n \n-基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01`，工作区 `/workspace/gunman-rush-work`。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。\n+基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01-accepted-sample`，工作区 `/workspace/gunman-rush-work`。运行源 `82940b7f057d74bfadf5855b1d489c38619c4a00`；草稿[PR104](https://github.com/zhipijun1996/gunman-rush/pull/104)。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。\n \n 选择 `resources/enemies/plains_charger.tres`（plains_charger，地面冲锋）与 `resources/enemies/plains_diver.tres`（plains_diver，空中俯冲）。两者现有碰撞均28×32；选择依据是不同支撑/运动方式和现有身体轮廓，不冒称尺寸差异，不改Definition。地面保持脚底锚与冲锋节拍，空中保留flutter/lean与俯冲预告；分别用较宽的压缩和较轻的纵向反应。\n \n@@ -45,4 +45,14 @@\n \n ## 当前恢复点\n \n-任务版本 candidate-v1；已完成复用盘点与选择。实现、原生验证、媒体和独审仍进行中。质量记录 `docs/quality/records/ENEMY-FEEDBACK-01.json`；原失败与证据放 `build/enemy-feedback-01/`，精选归档到任务证据目录。工具链初始系统Godot4.6.3不符，已用仓库setup安装锁定4.7.2，未放宽检查。\n+任务版本 feedback-sample-v1，workflow=review；实现与有限原生/媒体独审已完成，完整Integration及用户/设备仍未验。两链两对象154断言、默认DemoApp真实弹体击杀/掉落/重载44断言均通过且由独立审查者重跑；额外原Harness actor-actions2872、Underworld正式两图96、森林Bible集成54及原伤害专项通过，不外推完整Integration。\n+\n+同驱动基线/候选各20.233秒真实MovieMaker带音轨短片，1200个gameplay帧严格相等；旧链死亡alpha硬截止候选已按独审修到有界归零，保留旧审查发现。精选原件与音效25秒离线A/B见[证据入口](evidence/enemy_feedback_01/README.md)。用户声音返工原话、网络方法与最小总控音频写集请求见[参考与返工](enemy_feedback_01_references.md)，不称当前正式音效已修。\n+\n+推送时发现远端已存在 `feature/enemy-feedback-01 @ ce84d01`（另一个root_bell/diver样板），因此本线更名并保留原分支，未强推/覆盖/合并其内容。PR104是从main建立的独立charger/diver候选；总控必须择一或收敛组件与消费者后集成，不能把两份共享反馈实现同时合入。\n+\n+本线中央文件只读：任务索引仍planned而卡为review，会被check_quality.py诚实拒绝；请求总控同步ENEMY-FEEDBACK-01索引及最终集成口径。新增路径原planner保守选择146项full；本线未删映射、改预算或自行合main。完整Integration必须在总控收敛两个远端候选后执行。\n+\n+质量记录 `docs/quality/records/ENEMY-FEEDBACK-01.json`；原失败与证据放 `build/enemy-feedback-01/`，精选归档到任务证据目录。工具链初始系统Godot4.6.3不符，已用仓库setup安装锁定4.7.2，未放宽检查。文档输入恢复第一次因并行提交改变HEAD被拒绝，原退出保留，固定新HEAD后重新按原工具恢复；不是玩法失败。docs首轮发现稀疏漏掉两个既有.gdignore，已恢复原字节；第二轮source snapshot在新证据写入期间被原守门拒绝，未追签通过；最终冻结后再执行原检查。\n+\n+恢复命令：先核PR104当前head与运行源三生产文件SHA（review-v2.md），再运行 `python3 tools/production_plan.py --stage integration --base origin/main`。原生专项命令与正式App命令见证据入口。运行与音频试听产物、完整门槛及用户反馈分开，不以文档提交冒称新运行构建。\ndiff --git a/docs/quality/records/ENEMY-FEEDBACK-01.json b/docs/quality/records/ENEMY-FEEDBACK-01.json\nindex e982064..6474ed7 100644\n--- a/docs/quality/records/ENEMY-FEEDBACK-01.json\n+++ b/docs/quality/records/ENEMY-FEEDBACK-01.json\n@@ -2,9 +2,9 @@\n   \"schema_version\": 1,\n   \"task_id\": \"ENEMY-FEEDBACK-01\",\n   \"task_type\": \"animation\",\n-  \"workflow\": \"in_progress\",\n+  \"workflow\": \"review\",\n   \"baseline_commit\": \"e9ab0e0743466b8983e34cc7de17bab1abf9d53a\",\n-  \"reviewed_commit\": \"e9ab0e0743466b8983e34cc7de17bab1abf9d53a\",\n+  \"reviewed_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n   \"content_version\": \"feedback-sample-v1\",\n   \"owner\": \"/root\",\n   \"purpose\": \"Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.\",\n@@ -21,113 +21,501 @@\n     \"scripts/enemies/enemy_feedback_01.gd\",\n     \"tests/enemy_feedback_01_tests.gd\",\n     \"tools/enemy_feedback_01_capture.gd\",\n-    \"tools/capture_enemy_feedback_01.py\"\n+    \"tools/capture_enemy_feedback_01.py\",\n+    \"tools/enemy_feedback_01_audio_probe.gd\",\n+    \"tools/enemy_feedback_01_audio_candidates.py\"\n   ],\n   \"deliverables\": [\n-    \"docs/enemy_feedback_01.md\",\n-    \"docs/evidence/enemy_feedback_01/README.md\"\n+    \"docs/evidence/enemy_feedback_01/after.mp4\",\n+    \"docs/evidence/enemy_feedback_01/comparison.mp4\",\n+    \"docs/evidence/enemy_feedback_01/audio-comparison-25s.wav\",\n+    \"docs/enemy_feedback_01.md\"\n+  ],\n+  \"creative_decisions\": [\n+    {\n+      \"status\": \"not_required\",\n+      \"decision\": \"Preserve existing two ordinary enemies; no new AI/design or global art direction.\",\n+      \"basis\": \"User scope limits presentation sample; behavior/definition assets unchanged.\"\n+    },\n+    {\n+      \"status\": \"proposed\",\n+      \"decision\": \"Physical/mechanical gun and compact hit audio auditions.\",\n+      \"basis\": \"User rejects current electronic timbre; no candidate selection or production audio allocation yet.\"\n+    }\n   ],\n-  \"creative_decisions\": [],\n   \"formal_impact\": true,\n   \"gates\": {\n     \"G0\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Reuse audit, exact ownership and representative sample specification.\",\n+      \"evidence\": [\n+        \"spec\"\n+      ]\n     },\n     \"G1\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Actual projectile contracts passed; whole technical gate awaits controller/global checks.\",\n+      \"evidence\": [\n+        \"native\",\n+        \"formal\"\n+      ]\n     },\n     \"G2\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Actual video/audio exists but full playback/listening and audio rework outstanding.\",\n+      \"evidence\": [\n+        \"video\",\n+        \"comparison\",\n+        \"audio_feedback\"\n+      ]\n     },\n     \"G3\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Default Plains formal sample observed; full affected consumer Integration unverified.\",\n+      \"evidence\": [\n+        \"formal_trace\"\n+      ]\n     },\n     \"G4\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Independent technical sample accepted; full original integration and central index must close before total G4.\",\n+      \"evidence\": [\n+        \"native\",\n+        \"formal\",\n+        \"review\"\n+      ]\n     },\n     \"G5\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"User/physical device acceptance absent; original audio feedback negative.\",\n+      \"evidence\": [\n+        \"audio_feedback\"\n+      ]\n     }\n   },\n   \"dimensions\": {\n     \"design\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Existing accepted-event system reused; two default species/chain-specific ownership and falsifiable sample agreed within user scope.\",\n+      \"evidence\": [\n+        \"spec\"\n+      ]\n     },\n     \"technical\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"154/0 and44/0 independently passed plus original targeted consumers; global task-index/docs and full Integration still outstanding.\",\n+      \"evidence\": [\n+        \"native\",\n+        \"formal\",\n+        \"affected\"\n+      ]\n     },\n     \"formal_integration\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Default Plains actual kills/drop/reload verified; complete affected consumers including retained forest feedback remain controller Integration obligations.\",\n+      \"evidence\": [\n+        \"formal_trace\"\n+      ]\n     },\n     \"visual\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Expert sampled actual neighboring pixels; no complete normal-speed playback/user visual acceptance.\",\n+      \"evidence\": [\n+        \"video\",\n+        \"review\"\n+      ]\n     },\n     \"animation\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Real source-stable before/after provided; full continuous human/AI playback not claimed.\",\n+      \"evidence\": [\n+        \"video\",\n+        \"comparison\",\n+        \"review\"\n+      ]\n     },\n     \"audio_vfx\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"failed\",\n+      \"reason\": \"User explicitly rejects current electronic timbre. Actual three-cue cluster diagnosed; offline A/B is proposed, production audio unchanged.\",\n+      \"evidence\": [\n+        \"audio_feedback\",\n+        \"audio_probe\"\n+      ]\n     },\n     \"gameplay\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"No gameplay rules changed; player feel and readability not yet accepted.\",\n+      \"evidence\": [\n+        \"spec\"\n+      ]\n     },\n     \"performance\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"No new nodes/timers allocated by component and release tested; offline renderer is not target-device performance evidence.\",\n+      \"evidence\": [\n+        \"native\"\n+      ]\n     },\n     \"independent_review\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Independent limited technical sample ACCEPT; does not sign full Integration or subjective content.\",\n+      \"evidence\": [\n+        \"review\"\n+      ]\n     },\n     \"device\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n+      \"reason\": \"No physical device measurement. \",\n       \"evidence\": []\n     },\n     \"player_acceptance\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"reason\": \"Visual sample and audio candidates not yet accepted; original negative audio quote preserved.\",\n+      \"evidence\": [\n+        \"audio_feedback\"\n+      ]\n     }\n   },\n-  \"criteria\": [],\n-  \"evidence\": [],\n-  \"consumer_coverage\": null,\n+  \"criteria\": [\n+    {\n+      \"id\": \"scope\",\n+      \"scenario\": \"Two species across distinct chains\",\n+      \"method\": \"Read real installer, ownership and formal contracts\",\n+      \"expected\": \"Reuse current damage/health/death/drop; no duplicate gameplay service\",\n+      \"failure\": \"Unowned writes or one-chain-only integration\",\n+      \"gate\": \"G0\",\n+      \"dimension\": \"design\",\n+      \"status\": \"passed\",\n+      \"reason\": \"Bounded spec and independent source inspection.\",\n+      \"evidence\": [\n+        \"spec\"\n+      ]\n+    },\n+    {\n+      \"id\": \"matrix\",\n+      \"scenario\": \"Charger/diver original and formal installer\",\n+      \"method\": \"Real Router/projectile accepted HP and lifecycle counterexamples\",\n+      \"expected\": \"2 hurt and1 death, rejects unchanged, pause/slowtime/unload correct\",\n+      \"failure\": \"Feedback without accepted HP, duplicate death, stale callback\",\n+      \"gate\": \"G1\",\n+      \"dimension\": \"technical\",\n+      \"status\": \"passed\",\n+      \"reason\": \"154 independently repeated assertions.\",\n+      \"evidence\": [\n+        \"native\",\n+        \"native_trace\"\n+      ]\n+    },\n+    {\n+      \"id\": \"default_app\",\n+      \"scenario\": \"Real generated ordinary enemies and same-map rebuild\",\n+      \"method\": \"Initial safe player fixture then legal actual combat and App drop flow\",\n+      \"expected\": \"One configured receipt/pickup or none; restored corpse silent\",\n+      \"failure\": \"Duplicate settlement or fresh death on reload\",\n+      \"gate\": \"G3\",\n+      \"dimension\": \"formal_integration\",\n+      \"status\": \"passed\",\n+      \"reason\": \"44 independently repeated assertions limited to named default objects.\",\n+      \"evidence\": [\n+        \"formal\",\n+        \"formal_trace\"\n+      ]\n+    },\n+    {\n+      \"id\": \"media\",\n+      \"scenario\": \"Four real engine feedback cases\",\n+      \"method\": \"Compare identical gameplay trace and sampled neighboring pixels\",\n+      \"expected\": \"Materials/outline preserved, bounded recovery/fade\",\n+      \"failure\": \"Fake hit or recurring terminal performance\",\n+      \"gate\": \"G2\",\n+      \"dimension\": \"animation\",\n+      \"status\": \"unverified\",\n+      \"reason\": \"Real media and sampled expert observations; full normal-speed playback/user feel still pending.\",\n+      \"evidence\": [\n+        \"video\",\n+        \"review\"\n+      ]\n+    },\n+    {\n+      \"id\": \"review_scope\",\n+      \"scenario\": \"Independent implementation audit\",\n+      \"method\": \"Separate author reruns actual commands and pixels\",\n+      \"expected\": \"Scoped judgment with raw failures retained\",\n+      \"failure\": \"Self-review presented as independent total acceptance\",\n+      \"gate\": \"G4\",\n+      \"dimension\": \"independent_review\",\n+      \"status\": \"passed\",\n+      \"reason\": \"Separate agent limited ACCEPT.\",\n+      \"evidence\": [\n+        \"review\"\n+      ]\n+    },\n+    {\n+      \"id\": \"audio_rework\",\n+      \"scenario\": \"Current gun/hit audio\",\n+      \"method\": \"Original user feedback + actual App voice trace\",\n+      \"expected\": \"Physical timbre with clear accepted-hit hierarchy\",\n+      \"failure\": \"Electronic notification-like timbre or unrelated cues masking hit\",\n+      \"gate\": \"G2\",\n+      \"dimension\": \"audio_vfx\",\n+      \"status\": \"failed\",\n+      \"reason\": \"Current production audio is not accepted; offline candidates pending.\",\n+      \"evidence\": [\n+        \"audio_feedback\",\n+        \"audio_probe\"\n+      ]\n+    }\n+  ],\n+  \"evidence\": [\n+    {\n+      \"id\": \"spec\",\n+      \"path\": \"docs/enemy_feedback_01.md\",\n+      \"sha256\": \"15bc12d82ab4f8457ee410c727777ba7534a7b861d637d3211b75ef5bc31b30a\",\n+      \"kind\": \"spec\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Two selected species, two chains, ownership, state/anchor/time and falsifiable scope.\"\n+    },\n+    {\n+      \"id\": \"native\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/review-v2-native.log\",\n+      \"sha256\": \"8da029ece18e48db4bf6c9f4c18b4c98b4de9e494829a58b0775af74dbbe8747\",\n+      \"kind\": \"command\",\n+      \"producer\": \"/root/feedback_review\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Independent 154 checks, zero failures and clean exit.\",\n+      \"command\": \"timeout 120 bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_tests.gd\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux x86_64 Godot 4.7.2 Standard, fixed60 headless; explicit arena fixture\"\n+    },\n+    {\n+      \"id\": \"formal\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/review-v2-formal.log\",\n+      \"sha256\": \"515c2ed3a09a6225b9f9926128d902e1e99533935ca884a17259c0a889a85bda\",\n+      \"kind\": \"command\",\n+      \"producer\": \"/root/feedback_review\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Independent default DemoApp 44 checks, real projectiles/drop/rebuild; explicit initial player position fixture.\",\n+      \"command\": \"timeout 120 bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_formal.gd\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux x86_64 Godot 4.7.2 Standard, default generated Plains map\"\n+    },\n+    {\n+      \"id\": \"native_trace\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/review-v2-runtime.json\",\n+      \"sha256\": \"cee274ef210063949a1c071ce081ce3b6b3143d27af8dc5251c24095ec7f4bb9\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"/root/feedback_review\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Observed two species x two rendering chains actual accepted-projectile outcomes.\",\n+      \"consumers\": [\n+        \"original_charger\",\n+        \"original_diver\",\n+        \"underworld_installer_charger\",\n+        \"underworld_installer_diver\"\n+      ]\n+    },\n+    {\n+      \"id\": \"formal_trace\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/review-v2-formal-runtime.json\",\n+      \"sha256\": \"919831d44cf483fe510003267a00d63ad411fdd300d6902d2b15ce467abddc9e\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"/root/feedback_review\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Actual generated charger coin drop, diver none, one death each, reload preserves receipts without new audio/performance.\",\n+      \"consumers\": [\n+        \"default_plains_app\"\n+      ]\n+    },\n+    {\n+      \"id\": \"consumers\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/consumers.json\",\n+      \"sha256\": \"7cbcb282bfd593f17ec1c1788e5c826e419472744575f0cc33ae6537acbb3125\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Combines actual runtime inventory and explicitly labelled source-discovered integration gaps.\"\n+    },\n+    {\n+      \"id\": \"review\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/review-v2.md\",\n+      \"sha256\": \"86e702c40defc83f030f8dbd3cc25fc573998cbb88669525a66134244d63a37e\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/feedback_review\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Independent technical sample ACCEPT; full playback/listening/forest feedback/full Integration/user/device unverified.\",\n+      \"reviewer\": \"/root/feedback_review\",\n+      \"implementers\": [\n+        \"/root\",\n+        \"/root/feedback_tests\",\n+        \"/root/capture_driver\",\n+        \"/root/audio_audit\"\n+      ],\n+      \"verdict\": \"ACCEPT\",\n+      \"independent\": true,\n+      \"independence_basis\": \"Separate read-only agent authored no production/test code, independently executed both native consumers and inspected decoded source-bound pixels.\"\n+    },\n+    {\n+      \"id\": \"video\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/after.mp4\",\n+      \"sha256\": \"b7faf7a276ef310616ea0a77e32b9916edf18c3c53e1078a5b7614e92ea91bad\",\n+      \"kind\": \"video\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Four actual engine cases, 12 accepted HP commits, 4 deaths. Existing formal sounds unchanged. 20.233s; sampled visual review only.\",\n+      \"consumers\": [\n+        \"original_charger\",\n+        \"original_diver\",\n+        \"underworld_installer_charger\",\n+        \"underworld_installer_diver\"\n+      ]\n+    },\n+    {\n+      \"id\": \"comparison\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/comparison.mp4\",\n+      \"sha256\": \"e8f3d7cc20213987fed9f7867e6749704b17e4fdfb48a280dd3eac2581971c7e\",\n+      \"kind\": \"video\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Complete 20.233s baseline then 20.233s candidate; original capture reports and exact gameplay equality retained.\"\n+    },\n+    {\n+      \"id\": \"affected\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/affected-report.json\",\n+      \"sha256\": \"6e65a763d16341b48598b0de1af46cc5e24ad3a4e3d8f23a198625963747f0d4\",\n+      \"kind\": \"command\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Original actor-actions, Underworld damage/formal and forest Bible integration targeted Harness checks all passed; not full Integration.\",\n+      \"command\": \"python3 tools/harness.py --check underworld-damage-feedback --check underworld-formal --check actor-actions --check forest-bible-integration-tests --release --jobs 1\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Independent clean source worktree @82940b7, Godot4.7.2, original Harness, serial engine\"\n+    },\n+    {\n+      \"id\": \"audio_feedback\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/user-feedback.json\",\n+      \"sha256\": \"33d58116ccfdd73843876a9043772f02f4c0b451d655876e888ec96fe57863c5\",\n+      \"kind\": \"user_feedback\",\n+      \"producer\": \"user\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"User rejects current electronic notification-like gun/hit timbre; no candidate acceptance.\",\n+      \"source\": \"Current user conversation 2026-10-22\",\n+      \"quote\": \"现在射枪的音效，击中怪物的音效都有点奇怪；太电子／像提示音，缺少实体感\",\n+      \"accepted\": false,\n+      \"covers\": [\n+        \"audio_vfx\"\n+      ]\n+    },\n+    {\n+      \"id\": \"audio_probe\",\n+      \"path\": \"docs/evidence/enemy_feedback_01/audio-probe-v1.json\",\n+      \"sha256\": \"e1f9db7087f417386e4e00cd905c1d854b327cd2325ccfc1cdb2496dfe2997a0\",\n+      \"kind\": \"runtime_trace\",\n+      \"producer\": \"/root\",\n+      \"source_commit\": \"82940b7f057d74bfadf5855b1d489c38619c4a00\",\n+      \"content_version\": \"feedback-sample-v1\",\n+      \"method\": \"Inspect the named exact source-bound artifact; limits stated in task evidence README.\",\n+      \"observed\": \"Real default App tick13/63 launches impact+hurt+confirm; fixed-fps AudioServer wall-clock limitation retained.\"\n+    }\n+  ],\n+  \"consumer_coverage\": {\n+    \"scope\": \"Two original/installer samples and default App runtime, plus explicit source-discovered affected integration gaps.\",\n+    \"inventory_evidence\": \"consumers\",\n+    \"observations\": [\n+      {\n+        \"consumer\": \"original_charger\",\n+        \"status\": \"passed\",\n+        \"reason\": \"Actual scene/installer arena accepted projectile result observed.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": [\n+          \"native_trace\"\n+        ]\n+      },\n+      {\n+        \"consumer\": \"original_diver\",\n+        \"status\": \"passed\",\n+        \"reason\": \"Actual scene/installer arena accepted projectile result observed.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": [\n+          \"native_trace\"\n+        ]\n+      },\n+      {\n+        \"consumer\": \"underworld_installer_charger\",\n+        \"status\": \"passed\",\n+        \"reason\": \"Actual scene/installer arena accepted projectile result observed.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": [\n+          \"native_trace\"\n+        ]\n+      },\n+      {\n+        \"consumer\": \"underworld_installer_diver\",\n+        \"status\": \"passed\",\n+        \"reason\": \"Actual scene/installer arena accepted projectile result observed.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": [\n+          \"native_trace\"\n+        ]\n+      },\n+      {\n+        \"consumer\": \"default_plains_app\",\n+        \"status\": \"passed\",\n+        \"reason\": \"Actual default App consumer, real accepted hits/drop/reload observed.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": [\n+          \"formal_trace\"\n+        ]\n+      },\n+      {\n+        \"consumer\": \"forest_retained_charger\",\n+        \"status\": \"unverified\",\n+        \"reason\": \"Original forest Bible integration54 passed, but selected charger feedback lifecycle not specifically observed on natural formal forest consumer.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": []\n+      },\n+      {\n+        \"consumer\": \"action_studio_selected\",\n+        \"status\": \"unverified\",\n+        \"reason\": \"Original actor-actions2872 passed; exact selected-consumer continuous visual inventory remains full Integration responsibility.\",\n+        \"output\": \"behavior\",\n+        \"evidence\": []\n+      }\n+    ]\n+  },\n   \"unverified_items\": [\n-    \"Native专项执行中\",\n-    \"Same-condition real projectile MP4 pending\",\n-    \"Formal full Integration, independent review, user and device acceptance pending\"\n+    \"Original planner conservatively requires full146 Integration; targeted results do not replace it\",\n+    \"Controller must reconcile existing ce84d01 candidate and PR104 before merging; do not add duplicate components\",\n+    \"Controller-owned docs/tasks index still planned while truthful card review; check_quality.py rejects mismatch\",\n+    \"Current production audio rejected by user; offline auditions not integrated or accepted\",\n+    \"Full normal-speed video/audio listening, user visual/feel and physical device absent\",\n+    \"Parent same-instance dead-to-live reset remains unchanged and outside stage-rebuild scope\"\n   ],\n   \"skills\": [\n     \"animation-vfx\",\n     \"game-quality-gate\"\n-  ]\n+  ],\n+  \"production_snapshot\": \"c015a1adb152fa8937e6afc0724a256419bfe6af41b033e9ab118e822e9f724f\"\n }",
+  "untracked": "docs/enemy_feedback_01_references.md\ndocs/evidence/enemy_feedback_01/README.md\ndocs/evidence/enemy_feedback_01/affected-actor-actions.log\ndocs/evidence/enemy_feedback_01/affected-consumers-v1.log\ndocs/evidence/enemy_feedback_01/affected-forest-bible-integration-tests.log\ndocs/evidence/enemy_feedback_01/affected-report.json\ndocs/evidence/enemy_feedback_01/affected-underworld-damage-feedback.log\ndocs/evidence/enemy_feedback_01/affected-underworld-formal.log\ndocs/evidence/enemy_feedback_01/after-report.json\ndocs/evidence/enemy_feedback_01/after.json\ndocs/evidence/enemy_feedback_01/after.log\ndocs/evidence/enemy_feedback_01/after.mp4\ndocs/evidence/enemy_feedback_01/audio-audit.md\ndocs/evidence/enemy_feedback_01/audio-candidates-manifest.json\ndocs/evidence/enemy_feedback_01/audio-candidates-v1.log\ndocs/evidence/enemy_feedback_01/audio-candidates-v2.log\ndocs/evidence/enemy_feedback_01/audio-candidates-v3.log\ndocs/evidence/enemy_feedback_01/audio-comparison-25s.wav\ndocs/evidence/enemy_feedback_01/audio-probe-v1.json\ndocs/evidence/enemy_feedback_01/audio-probe-v1.log\ndocs/evidence/enemy_feedback_01/authority-inputs.json\ndocs/evidence/enemy_feedback_01/before-report.json\ndocs/evidence/enemy_feedback_01/before.json\ndocs/evidence/enemy_feedback_01/before.log\ndocs/evidence/enemy_feedback_01/before.mp4\ndocs/evidence/enemy_feedback_01/check-quality-v1.log\ndocs/evidence/enemy_feedback_01/comparison-encode.log\ndocs/evidence/enemy_feedback_01/comparison.mp4\ndocs/evidence/enemy_feedback_01/consumers.json\ndocs/evidence/enemy_feedback_01/development-plan-v1.json\ndocs/evidence/enemy_feedback_01/digital-audio-LICENSE.txt\ndocs/evidence/enemy_feedback_01/docs-input-materialized.json\ndocs/evidence/enemy_feedback_01/docs-v1-docs.log\ndocs/evidence/enemy_feedback_01/docs-v1-report.json\ndocs/evidence/enemy_feedback_01/docs-v1-structure.log\ndocs/evidence/enemy_feedback_01/docs-v1-world-design-tests.log\ndocs/evidence/enemy_feedback_01/docs-v1-world.log\ndocs/evidence/enemy_feedback_01/feedback-harness-environment.log\ndocs/evidence/enemy_feedback_01/feedback-harness-report.json\ndocs/evidence/enemy_feedback_01/feedback-harness-underworld-damage-feedback.log\ndocs/evidence/enemy_feedback_01/formal-runtime.json\ndocs/evidence/enemy_feedback_01/formal-v1.log\ndocs/evidence/enemy_feedback_01/harness-docs-v1.log\ndocs/evidence/enemy_feedback_01/harness-docs-v2.log\ndocs/evidence/enemy_feedback_01/harness-feedback-v1.log\ndocs/evidence/enemy_feedback_01/impact-sounds-LICENSE.txt\ndocs/evidence/enemy_feedback_01/integration-plan-v1.json\ndocs/evidence/enemy_feedback_01/inventory.json\ndocs/evidence/enemy_feedback_01/review-v1.md\ndocs/evidence/enemy_feedback_01/review-v2-formal-runtime.json\ndocs/evidence/enemy_feedback_01/review-v2-formal.log\ndocs/evidence/enemy_feedback_01/review-v2-native.log\ndocs/evidence/enemy_feedback_01/review-v2-runtime.json\ndocs/evidence/enemy_feedback_01/review-v2.md\ndocs/evidence/enemy_feedback_01/runtime-v1.log\ndocs/evidence/enemy_feedback_01/runtime-v2.log\ndocs/evidence/enemy_feedback_01/runtime-v3-charger.log\ndocs/evidence/enemy_feedback_01/runtime.json\ndocs/evidence/enemy_feedback_01/shot-a-compact-mechanical.wav\ndocs/evidence/enemy_feedback_01/shot-b-weighted-mechanical.wav\ndocs/evidence/enemy_feedback_01/user-feedback.json\ntools/enemy_feedback_01_audio_candidates.py\ntools/enemy_feedback_01_audio_probe.gd\ntools/enemy_feedback_01_audio_probe.gd.uid",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 20.955,
+  "jobs": 1,
+  "release": true
+}

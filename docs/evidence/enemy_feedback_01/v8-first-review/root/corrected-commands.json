@@ -1,0 +1,28 @@
+[
+  {
+    "name": "native",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/enemy_feedback_01_tests.gd"
+    ],
+    "exit_code": 0,
+    "seconds": 20.831458950000524
+  },
+  {
+    "name": "pixels",
+    "command": [
+      "python3",
+      "/workspace/scratch/run_enemy_v6_gpu.py",
+      "/workspace/gunman-rush-work",
+      "res://tests/enemy_feedback_01_pixels.gd",
+      "/workspace/gunman-rush-work/build/enemy_feedback_01/v8/pixels-final.log"
+    ],
+    "exit_code": 1,
+    "seconds": 7.752615637000417
+  }
+]

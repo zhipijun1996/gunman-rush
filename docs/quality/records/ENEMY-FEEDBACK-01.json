@@ -1,0 +1,879 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-FEEDBACK-01",
+  "task_type": "animation",
+  "workflow": "review",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+  "content_version": "feedback-sample-v8-r2",
+  "owner": "/root",
+  "purpose": "Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.",
+  "player_experience": "Species-specific hurt/death anatomy, accepted body flash and retained drawn corpses for two existing samples in both chains. Rejected custom death sound is disabled; default unique cue remains. Candidate art/feel/sound not accepted.",
+  "constraints": [
+    "Only plains_charger/diver across both chains; readonly AI/damage/collision/reward/Boss/Definitions/formal scenes/parent clocks/shared material masters.",
+    "Original source PNGs unchanged; new task-only frame PNGs preserve each chain identity. No batch rollout or full locomotion claim.",
+    "EnemyActor/Stage/save schema/controller-owned files remain read-only. Current formal66/1 strict corpse-reload visibility failure blocks integration; no parallel save system or distant floor snap.",
+    "V7 task audio stream configuration removed from both hosts after user rejection. Original EnemyActor defeat cue remains sole trigger; gun/hit sound management stays deferred.",
+    "No main merge; full affected Integration, visual consumer coverage, user/device acceptance remain required."
+  ],
+  "affected_paths": [
+    "assets/audio/enemy_feedback_01/README.md",
+    "assets/audio/enemy_feedback_01/death_burst.wav",
+    "assets/audio/enemy_feedback_01/death_burst.wav.import",
+    "assets/audio/enemy_feedback_01/provenance.json",
+    "assets/enemy_feedback_01/frames_v8/alpha_region_audit.json",
+    "assets/enemy_feedback_01/frames_v8/legacy_charger.generation-result.json",
+    "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+    "assets/enemy_feedback_01/frames_v8/legacy_charger.png.import",
+    "assets/enemy_feedback_01/frames_v8/legacy_charger.provenance.json",
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.generation-result.json",
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.png.import",
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.provenance.json",
+    "assets/enemy_feedback_01/frames_v8/manifest.json",
+    "assets/enemy_feedback_01/frames_v8/png_chunk_audit.json",
+    "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+    "assets/enemy_feedback_01/frames_v8/underworld_charger.png.import",
+    "assets/enemy_feedback_01/frames_v8/underworld_charger.provenance.json",
+    "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+    "assets/enemy_feedback_01/frames_v8/underworld_diver.png.import",
+    "assets/enemy_feedback_01/frames_v8/underworld_diver.provenance.json",
+    "docs/enemy_feedback_01_audio_interface.md",
+    "scripts/audio/game_audio.gd",
+    "scripts/enemies/enemy_feedback_01.gd",
+    "scripts/enemies/enemy_feedback_01.gd.uid",
+    "scripts/enemies/enemy_feedback_01_body.gd",
+    "scripts/enemies/enemy_feedback_01_body.gd.uid",
+    "scripts/enemies/enemy_feedback_01_death_audio.gd",
+    "scripts/enemies/enemy_feedback_01_death_audio.gd.uid",
+    "scripts/enemies/enemy_feedback_01_flash.gdshader",
+    "scripts/enemies/enemy_feedback_01_flash.gdshader.uid",
+    "scripts/enemies/enemy_feedback_01_frames.gd",
+    "scripts/enemies/enemy_feedback_01_frames.gd.uid",
+    "scripts/enemies/enemy_feedback_01_particles.gd",
+    "scripts/enemies/enemy_feedback_01_particles.gd.uid",
+    "scripts/enemies/enemy_feedback_01_remains.gd",
+    "scripts/enemies/enemy_feedback_01_remains.gd.uid",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_feedback_01_death_audio.gd",
+    "tests/enemy_feedback_01_death_audio.gd.uid",
+    "tests/enemy_feedback_01_formal.gd",
+    "tests/enemy_feedback_01_formal.gd.uid",
+    "tests/enemy_feedback_01_particle_extent.gd",
+    "tests/enemy_feedback_01_particle_extent.gd.uid",
+    "tests/enemy_feedback_01_pixels.gd",
+    "tests/enemy_feedback_01_pixels.gd.uid",
+    "tests/enemy_feedback_01_support.gd",
+    "tests/enemy_feedback_01_support.gd.uid",
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/enemy_feedback_01_tests.gd.uid",
+    "tests/enemy_feedback_01_v6_extent.gd",
+    "tests/enemy_feedback_01_v6_extent.gd.uid",
+    "tools/build_enemy_feedback_01_death_audio.py",
+    "tools/capture_enemy_feedback_01.py",
+    "tools/capture_enemy_feedback_01_remains.py",
+    "tools/enemy_feedback_01_audio_candidates.py",
+    "tools/enemy_feedback_01_audio_probe.gd",
+    "tools/enemy_feedback_01_audio_probe.gd.uid",
+    "tools/enemy_feedback_01_capture.gd",
+    "tools/enemy_feedback_01_capture.gd.uid",
+    "tools/enemy_feedback_01_remains_capture.gd",
+    "tools/enemy_feedback_01_remains_capture.gd.uid",
+    "docs/enemy_feedback_01_session_summary.md",
+    "docs/enemy_feedback_01_production_lessons.md"
+  ],
+  "deliverables": [
+    "docs/evidence/enemy_feedback_01/v8/README.md",
+    "docs/evidence/enemy_feedback_01/v8/movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v8/movies/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/v8/movies/legacy.mp4",
+    "docs/evidence/enemy_feedback_01/v8/runtime-source.bundle",
+    "docs/evidence/enemy_feedback_01/v8/review.md",
+    "docs/enemy_feedback_01_frames.md",
+    "assets/enemy_feedback_01/frames_v8/manifest.json"
+  ],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "Retain body-only accepted flash.",
+      "basis": "Earlier explicit feature-level direction; not approval of current candidate.",
+      "evidence_id": "flash_direction"
+    },
+    {
+      "status": "user_confirmed",
+      "decision": "Use species-specific hurt/death frames and a persistent corpse, initially two samples.",
+      "basis": "Latest actual user quote supersedes v5-v7 disappearance; current new art not accepted.",
+      "evidence_id": "user_direction"
+    },
+    {
+      "status": "proposed",
+      "decision": "Four drawn hurt and four death poses per species and rendering chain; static D4 after actual support contact.",
+      "basis": "Authorized sample implementation; user/visual/motion approval remains open.",
+      "evidence_id": "spec"
+    },
+    {
+      "status": "proposed",
+      "decision": "Withdraw rejected custom death WAV and fall back to the original cue.",
+      "basis": "Reversible rollback of rejected timbre, not a completed sound redesign.",
+      "evidence_id": "user_feedback"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Latest user rework, scope and original reuse; no new signal or gameplay authority.",
+      "evidence": [
+        "spec",
+        "user_direction"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Scoped damage/animation/lifecycle checks pass, but technical dimension remains failed by current strict official corpse reload66/1; no whole-gate PASS.",
+      "evidence": [
+        "native",
+        "support",
+        "pixels",
+        "audio_command",
+        "native_trace"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Underworld material return improves, but actual legacy air876→877 structural outline pop remains continuity REWORK. Overall art/transition/feel not approved; full locomotion incomplete. Underworld verbatim prompts missing; exact model/license unverified.",
+      "evidence": [
+        "video",
+        "legacy_video",
+        "review",
+        "frame_manifest"
+      ]
+    },
+    "G3": {
+      "status": "failed",
+      "reason": "Actual default App formal66/1 strict reload visibility failure remains current; original4 Harness checks are separate limited regressions, not full Integration or complete visual consumers.",
+      "evidence": [
+        "formal",
+        "formal_trace",
+        "affected"
+      ]
+    },
+    "G4": {
+      "status": "failed",
+      "reason": "Independent audit performed; overall REJECT because strict formal recovery is not fixed and full content/Integration remains incomplete.",
+      "evidence": [
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "New direction authorizes work; new frames/audio/feel and physical devices have not been accepted.",
+      "evidence": [
+        "user_feedback"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Reuse formal accepted events and both existing rendering chains; new anatomy samples remain within presentation ownership.",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "Independent native458/0, support199/0, normal-clock default death-audio278/0 and GPU258/0 exercise actual projectiles, authored textures and lifecycle. Formal66/1 still fails saved corpse visibility.",
+      "evidence": [
+        "native",
+        "formal",
+        "support",
+        "pixels",
+        "audio_command"
+      ]
+    },
+    "formal_integration": {
+      "status": "failed",
+      "reason": "Actual default App formal66/1 strict reload visibility failure remains current; original4 Harness checks are separate limited regressions, not full Integration or complete visual consumers.",
+      "evidence": [
+        "formal",
+        "formal_trace",
+        "affected"
+      ]
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Underworld material return improves, but actual legacy air876→877 structural outline pop remains continuity REWORK. Overall art/transition/feel not approved; full locomotion incomplete. Underworld verbatim prompts missing; exact model/license unverified.",
+      "evidence": [
+        "video",
+        "legacy_video",
+        "review",
+        "frame_manifest"
+      ]
+    },
+    "animation": {
+      "status": "failed",
+      "reason": "Actual hurt/death frames and real timing observed, but structure return remains REWORK; full locomotion/turn/attack/recovery and smoothness incomplete/unapproved.",
+      "evidence": [
+        "native_trace",
+        "pixel_trace",
+        "video",
+        "review"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Rejected v7 override removed; original defeat cue plays once. Body flash/particles retained. Sound taste/mix and current feel still unapproved.",
+      "evidence": [
+        "audio_trace",
+        "video",
+        "user_feedback"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "No gameplay rule edits;1560 frame/input/event projections unchanged. User combat feel is not signed.",
+      "evidence": [
+        "capture",
+        "movie_observations"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "One stage leaf per selected actor,8 cached frame feet; software MovieMaker measurements do not certify target-device budget.",
+      "evidence": [
+        "support",
+        "capture"
+      ]
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Separate reviewer executes exact source and reports overall REJECT; a completed review is not an ACCEPT.",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical device measurement.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Latest user rejects v7 sound/disappearance and requests new frames; no acceptance of current v8.",
+      "evidence": [
+        "user_feedback"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "scenario": "Two existing species across both chains",
+      "method": "Inspect installer and writes",
+      "expected": "Accepted-event reuse and independent chain wiring",
+      "failure": "Gameplay/shared-owner writes or missing chain",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Two samples; shared state/frames/body/remains, distinct art; no new signal.",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "matrix",
+      "scenario": "Real Router/projectile hurt/death and rejected receipts",
+      "method": "Exact-source native and support counterexamples",
+      "expected": "One accepted sequence; no replay/old epoch/pause/unload leak",
+      "failure": "Unaccepted feedback or duplicate death",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Independent native458/0, support199/0, normal-clock default death-audio278/0 and GPU258/0 exercise actual projectiles, authored textures and lifecycle. Formal66/1 still fails saved corpse visibility.",
+      "evidence": [
+        "native",
+        "support",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "default_app",
+      "scenario": "Default generated enemies and official stage reload",
+      "method": "Strict actual formal App consumer",
+      "expected": "Drops unique; restored persistent corpse visible",
+      "failure": "Saved corpse disappears or duplicate rewards",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "failed",
+      "reason": "Actual default App formal66/1 strict reload visibility failure remains current; original4 Harness checks are separate limited regressions, not full Integration or complete visual consumers.",
+      "evidence": [
+        "formal",
+        "formal_trace"
+      ]
+    },
+    {
+      "id": "media",
+      "scenario": "Both species and chains through actual projectiles",
+      "method": "Real continuous engine movie/source guard",
+      "expected": "Hurt0..3/death4..7, retained final210 frames",
+      "failure": "Injected feedback or missing chain/tail",
+      "gate": "G2",
+      "dimension": "animation",
+      "status": "passed",
+      "reason": "Two clean-source movie takes; raw original audio/pixels; each chain6HP commits/2deaths; all1560 gameplay/input/event projections equal.",
+      "evidence": [
+        "video",
+        "legacy_video",
+        "capture",
+        "legacy_capture",
+        "movie_observations"
+      ]
+    },
+    {
+      "id": "review_scope",
+      "scenario": "Independent exact-source review",
+      "method": "Separate execution and decoded movie adjacency",
+      "expected": "Truthful limited conclusion and preserved failures",
+      "failure": "False full acceptance or omitted formal failure",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "failed",
+      "reason": "Actual audit is overall REJECT; content/integration not complete.",
+      "evidence": [
+        "review"
+      ]
+    },
+    {
+      "id": "audio_rework",
+      "scenario": "Gun/hit timbre ownership",
+      "method": "Read latest deferral and sample rollback",
+      "expected": "No weapon ownership expansion",
+      "failure": "Unowned redesign",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "not_applicable",
+      "reason": "Weapon/ordinary-hit sound design remains deferred; current sample death timbre also unapproved.",
+      "evidence": [
+        "user_feedback"
+      ]
+    },
+    {
+      "id": "actual_pixels",
+      "scenario": "Actual GPU body, frame, corpse and cleared layer pixels",
+      "method": "Renderer alpha/flash/texture/frame observation",
+      "expected": "Existing cream/alpha/floor<=3 and clear/replay checks pass",
+      "failure": "Wrong atlas region, footprint or lingering pixels",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "GPU258/0; measurement errors/observer script failures retained; original thresholds unchanged.",
+      "evidence": [
+        "pixels",
+        "pixel_trace"
+      ]
+    },
+    {
+      "id": "authored_motion_frames",
+      "scenario": "Complete original locomotion request",
+      "method": "Compare state inventory",
+      "expected": "Distinct full movement/turn/attack/recovery plus hurt/death",
+      "failure": "Unimplemented states represented as finished",
+      "gate": "G2",
+      "dimension": "animation",
+      "status": "failed",
+      "reason": "Current actual4hurt+4death per chain/species are present; full locomotion states remain unfinished.",
+      "evidence": [
+        "spec",
+        "frame_manifest",
+        "review"
+      ]
+    },
+    {
+      "id": "persistent_death_lifetime",
+      "scenario": "Stage-owned D4 on real support and safe restore",
+      "method": "Actual support/void/pause/epoch plus formal reload",
+      "expected": "Visible D4, zero replay; saved support valid",
+      "failure": "False floor snap, replay or missing saved corpse",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "failed",
+      "reason": "Current-stage/support199/0 and long movie tails pass; official saved-body66/1 remains failed.",
+      "evidence": [
+        "support",
+        "capture",
+        "formal"
+      ]
+    },
+    {
+      "id": "particle_envelope",
+      "scenario": "Retained v6 accepted directional particles",
+      "method": "Scope/source and GPU visibility ablation",
+      "expected": "Retain previous feedback with no new event source",
+      "failure": "New unaccepted burst",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Particles are unchanged this round; actual accepted visibility ablation remains covered, no claim of a new size gain.",
+      "evidence": [
+        "pixels",
+        "spec"
+      ]
+    },
+    {
+      "id": "actual_death_audio",
+      "scenario": "Withdraw rejected custom sound",
+      "method": "Actual pooled stream identity in both chains",
+      "expected": "Original enemy_defeat once; no task override/replay",
+      "failure": "Rejected WAV still installed or duplicate cue",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Normal-clock278/0; default stream identity and no task metadata. This is rollback, not subjective audio acceptance.",
+      "evidence": [
+        "audio_command",
+        "audio_trace"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/enemy_feedback_01_frames.md",
+      "sha256": "dab40f94aaea1eb470ea6819c2e942ea17c05a1222fcad8d3112efdd87f37810",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/native.log",
+      "sha256": "3eefa81dbd0347ea958bc857135e8fb645aff408889d590103a5c9d6b3e0b2ea",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --fixed-fps 60 --script tests/enemy_feedback_01_tests.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; actual independent sequential execution; Xvfb llvmpipe GPU; normal-clock audio, as command records"
+    },
+    {
+      "id": "formal",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/formal.log",
+      "sha256": "952e33ef281adc96ee63d196835fa95e332e6a1e120d4e23714c4639ac866fec",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --fixed-fps 60 --script tests/enemy_feedback_01_formal.gd",
+      "exit_code": 1,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; actual independent sequential execution; Xvfb llvmpipe GPU; normal-clock audio, as command records"
+    },
+    {
+      "id": "support",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/support.log",
+      "sha256": "d862c0d2acb130dbde82e03eba1b1bf72b7fe1c86a9504a802a3d2cda0f77066",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --fixed-fps 60 --script tests/enemy_feedback_01_support.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; actual independent sequential execution; Xvfb llvmpipe GPU; normal-clock audio, as command records"
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/pixels.log",
+      "sha256": "2d05581825e2c3f174df9e9c9b0c166781eaa2824b4a1f5bc6c97b8dd0f52cc9",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "python3 /workspace/scratch/run_enemy_v6_gpu.py /workspace/enemy-feedback-01-v4-after tests/enemy_feedback_01_pixels.gd /workspace/enemy-feedback-01-v4-after/build/enemy_feedback_01/v8-final-independent/pixels.log",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; actual independent sequential execution; Xvfb llvmpipe GPU; normal-clock audio, as command records"
+    },
+    {
+      "id": "native_trace",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/runtime.json",
+      "sha256": "78e617cabb9b193675605502f09da6e8a8e80d87c94a0ca9d1d090164d904c6e",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "consumers": [
+        "original_charger",
+        "original_diver",
+        "underworld_installer_charger",
+        "underworld_installer_diver"
+      ]
+    },
+    {
+      "id": "formal_trace",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/formal_runtime.json",
+      "sha256": "a7930b70e287e953e4087d0a7273ccb95c5e0795a3a9a4b48fc7672bdb4fed9d",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "support_trace",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/support_runtime.json",
+      "sha256": "89226bdc90c7dc884bd6e91e3cd50050a705e3bceb7b00ec188a2606eb43e1a9",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "pixel_trace",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/pixels/report.json",
+      "sha256": "e287ade20a8c7022fc8c2eb0afdaedae63ced7b6caf41c60cb9b3c88213228ff",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "audio_command",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/death-audio.log",
+      "sha256": "29e4792b72ce0fb6eb1e85ce22811d5b374870fb42c725d33a4c69ee05cc7ac1",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --max-fps 60 --script tests/enemy_feedback_01_death_audio.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; actual independent sequential execution; Xvfb llvmpipe GPU; normal-clock audio, as command records"
+    },
+    {
+      "id": "audio_trace",
+      "path": "docs/evidence/enemy_feedback_01/v8/independent/death_audio_runtime.json",
+      "sha256": "a51939e20c6590856017f623b01ce2f469b2981fa8cf7471eafbacded360822b",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/enemy_feedback_01/v8/review.md",
+      "sha256": "12edab010d5089c3f3159fd78a9fdc4c0317e40ebda8e9b76c988095f014e4c8",
+      "kind": "review",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "reviewer": "/root/feedback_review",
+      "implementers": [
+        "/root",
+        "/root/art_direction_v2",
+        "/root/capture_driver",
+        "/root/feedback_tests"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "Reviewer only reads production and executes exact source in a clean detached worktree; authored no production change."
+    },
+    {
+      "id": "affected",
+      "path": "docs/evidence/enemy_feedback_01/v8/affected/report.json",
+      "sha256": "42a80514931053a2e5152dc3fd00600aa47dc916a0a6230b163ab8000cc09632",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "command": "python3 tools/harness.py --check actor-actions --check underworld-damage-feedback --check underworld-formal --check forest-bible-integration-tests --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard; fresh exact-source independent consumer regression; actual report attributed separately"
+    },
+    {
+      "id": "consumers",
+      "path": "docs/evidence/enemy_feedback_01/v8/consumers.json",
+      "sha256": "4c299a2f37c53d4f8bd34e42454a573fd0a2e99ba334cc2c590b1c2aa9ce024a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "user_feedback",
+      "path": "docs/evidence/enemy_feedback_01/v8/user-feedback.json",
+      "sha256": "130d04b0321b89f68e0d2448b2672ec02e283737beedd9c848ed4b6f410318dc",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "source": "Current user conversation",
+      "quote": "这音效怪怪的。然后每个怪物应该有自己的受击死亡帧动画，感觉单纯消失好像不如开始尸体更有感觉。只是之前的应该是死亡动画帧没有做才不够好看。",
+      "accepted": false,
+      "covers": [
+        "visual",
+        "animation",
+        "audio_vfx",
+        "player_acceptance"
+      ]
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/enemy_feedback_01/v8/movies/after.mp4",
+      "sha256": "e128ccbadccd4d35ba7817d09ccaa13a16c6960c566b5d8a5811cdaa909997a8",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "consumers": [
+        "underworld_installer_charger",
+        "underworld_installer_diver"
+      ]
+    },
+    {
+      "id": "comparison",
+      "path": "docs/evidence/enemy_feedback_01/v8/movies/comparison.mp4",
+      "sha256": "85aff99a37bc2b0b8e6517b971a148fc0ec8232820b7368a641bd3f3aef7650d",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "legacy_video",
+      "path": "docs/evidence/enemy_feedback_01/v8/movies/legacy.mp4",
+      "sha256": "40faff11be0d7c1e2c7295743d22f7b48dd8140d4012e89a55425e33b3e2fbb9",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "consumers": [
+        "original_charger",
+        "original_diver"
+      ]
+    },
+    {
+      "id": "capture",
+      "path": "docs/evidence/enemy_feedback_01/v8/movies/after-report.json",
+      "sha256": "20f81a9e8399a8b141dfb74d368d73806aaf3f7a849d36744c16832498df3047",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "legacy_capture",
+      "path": "docs/evidence/enemy_feedback_01/v8/movies/legacy-report.json",
+      "sha256": "c1f01e75f4b2eae63d4e76c05400e5432c68e1fffcdb2a76bd8beadce417873c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "movie_observations",
+      "path": "docs/evidence/enemy_feedback_01/v8/movie-observations.json",
+      "sha256": "a3eab698c5e68a04f483c9c0eefa6ff49196c8d73725eb8bafa25b5aed89b15b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope.",
+      "consumers": [
+        "original_charger",
+        "original_diver",
+        "underworld_installer_charger",
+        "underworld_installer_diver"
+      ]
+    },
+    {
+      "id": "frame_manifest",
+      "path": "assets/enemy_feedback_01/frames_v8/manifest.json",
+      "sha256": "ade5988d8743f618699f6d520dfdbfef281bd1ce84ca7ee49a40cfc2ad671e85",
+      "kind": "spec",
+      "producer": "/root/art_direction_v2",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Exact runtime evidence or explicitly identified previous/precommit history; no unrun check relabeled passed.",
+      "observed": "Actual current v8 artifact; see raw command/source/failures and bounded scope."
+    },
+    {
+      "id": "flash_direction",
+      "path": "docs/evidence/enemy_feedback_01/v3/user-feedback.json",
+      "sha256": "932f76dad0b1b80ac7480c5ff525888ee1c77a57a4b12eefa32ec96016431ab4",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "bd8d130f3677ba80d569f16c05feee1977450c02",
+      "content_version": "feedback-sample-v3",
+      "method": "Inspect actual named artifact and explicit scope/failure boundaries in v3 README and independent review.",
+      "observed": "Approval covers only retention of prior body hit flash, not all VFX or current corpse art.",
+      "source": "Current user conversation",
+      "quote": "后者的受击变色保留",
+      "accepted": true,
+      "covers": [
+        "body_hit_flash"
+      ]
+    },
+    {
+      "id": "prior_art_feedback",
+      "path": "docs/evidence/enemy_feedback_01/v2/user-feedback.json",
+      "sha256": "2a6f2cd22c742bea425a6f414d08fcd4fac02b603c7a0f6021816335c9e25745",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "5de1eca1f3150289c2dc3bc72b206ac2efc326d9",
+      "content_version": "feedback-sample-v2",
+      "method": "Inspect actual named artifact and explicit scope/failure boundaries in v3 README and independent review.",
+      "observed": "Existing static art/full-state frame requirement remains rejected/unfinished.",
+      "source": "Earlier user conversation",
+      "quote": "设计音效应该让人物根据不同武器去管理。这里先不管了。怪物受击的击退看到了，但是under风格的怪物没有击中变颜色的反馈，粒子效果可以夸张一点（但是风格要统一）还是现在under风格的平原怪物美术我不满意。看不出来特色，颜色太沉（给一些建议）而且应该和人物一样，各种运动都要有动画帧",
+      "accepted": false,
+      "covers": [
+        "visual",
+        "animation"
+      ]
+    },
+    {
+      "id": "user_direction",
+      "path": "docs/evidence/enemy_feedback_01/v8/user-feedback.json",
+      "sha256": "130d04b0321b89f68e0d2448b2672ec02e283737beedd9c848ed4b6f410318dc",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "3003bd0f10ed9c7fe51e0cdc5952aa579a87f130",
+      "content_version": "feedback-sample-v8-r2",
+      "method": "Feature request quote authorizes this rework; candidate acceptance remains false in the original user-feedback.json.",
+      "observed": "Explicit requested direction only. No acceptance of current candidate art, motion, sound, user feel or device.",
+      "source": "Current user conversation",
+      "quote": "这音效怪怪的。然后每个怪物应该有自己的受击死亡帧动画，感觉单纯消失好像不如开始尸体更有感觉。只是之前的应该是死亡动画帧没有做才不够好看。",
+      "accepted": true,
+      "covers": [
+        "hurt_death_corpse_direction"
+      ]
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Two sample species in both rendering chains; actual default App reload fails; forest/ActionStudio precise visual consumers remain unverified.",
+    "inventory_evidence": "consumers",
+    "observations": [
+      {
+        "consumer": "original_charger",
+        "status": "passed",
+        "reason": "Exact-source native real projectiles plus the separately recorded matching rendering-chain movie observe authored hurt/death and retained D4.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace",
+          "movie_observations"
+        ]
+      },
+      {
+        "consumer": "original_diver",
+        "status": "passed",
+        "reason": "Exact-source native real projectiles plus the separately recorded matching rendering-chain movie observe authored hurt/death and retained D4.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace",
+          "movie_observations"
+        ]
+      },
+      {
+        "consumer": "underworld_installer_charger",
+        "status": "passed",
+        "reason": "Exact-source native real projectiles plus the separately recorded matching rendering-chain movie observe authored hurt/death and retained D4.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace",
+          "movie_observations"
+        ]
+      },
+      {
+        "consumer": "underworld_installer_diver",
+        "status": "passed",
+        "reason": "Exact-source native real projectiles plus the separately recorded matching rendering-chain movie observe authored hurt/death and retained D4.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace",
+          "movie_observations"
+        ]
+      },
+      {
+        "consumer": "default_plains_app",
+        "status": "failed",
+        "reason": "Current strict persistent corpse formal66/1 fails actual reload visibility; drops/HP pass separately.",
+        "output": "behavior",
+        "evidence": [
+          "formal",
+          "formal_trace"
+        ]
+      },
+      {
+        "consumer": "forest_retained_charger",
+        "status": "unverified",
+        "reason": "Original forest Bible integration54 passed, but selected charger feedback lifecycle not specifically observed on natural formal forest consumer.",
+        "output": "behavior",
+        "evidence": []
+      },
+      {
+        "consumer": "action_studio_selected",
+        "status": "unverified",
+        "reason": "Original actor-actions2872 passed; exact selected-consumer continuous visual inventory remains full Integration responsibility.",
+        "output": "behavior",
+        "evidence": []
+      }
+    ]
+  },
+  "unverified_items": [
+    "Current official persistent corpse reload66/1 fails; controller-owned Actor/Stage/save interface needed for actual rest/support-local pose. No main merge.",
+    "Full affected Integration/Release and exact formal forest/ActionStudio selected visual consumers remain incomplete.",
+    "Only two species/4skin profiles with hurt/death frames; full locomotion/turn/attack/recovery atlas work is unfinished, no batch rollout.",
+    "Current body-to-new-frames continuity, colors, corpse readability and user feel not accepted; Underworld verbatim prompts missing, exact image model/license not established.",
+    "Rejected custom death WAV disabled; fallback original cue is not a completed physical sound redesign. Gun/hit ownership remains deferred.",
+    "Nonunit transforms, slopes/rotating support and target-device performance/real GUI/player acceptance are unverified.",
+    "Same-instance inherited parent resurrection visibility is controller-owned and unchanged; formal stage-reload corpse gaps remain explicitly failed.",
+    "Session closeout: actual PR-base quality-diff still fails missing original asset_records registration and unaudited frames_v8 directory consumer; fix through original provenance/finite-adapter review. Documentation consolidation does not rerun or accept runtime3003."
+  ],
+  "skills": [
+    "animation-vfx",
+    "game-quality-gate",
+    "art-director"
+  ],
+  "production_snapshot": "08ec8cd5059053901a76790308248105c75596d6bf141e896f0053b285da212f"
+}

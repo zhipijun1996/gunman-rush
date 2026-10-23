@@ -1,0 +1,277 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "version": "v3-remains-review",
+  "variant": "before",
+  "seed": "enemy-feedback-01-remains",
+  "status": "passed",
+  "source": {
+    "working_files": {
+      "tools/capture_enemy_feedback_01_remains.py": "b4ef829c4f69ac6df4f3a010a92ec8013d52dfe2cda767551ab1ec59351738d6",
+      "tools/enemy_feedback_01_remains_capture.gd": "8efcbef8ba9a32323776ec1ad0b17320bcf70f5f2e9064050595d78758b13c06",
+      "tools/enemy_feedback_01_remains_capture.gd.uid": "01c7bcc35801feb0ec7ead305aeae22527d7454412ac30435d9a9931d4c39ef7"
+    },
+    "commit": "5de1eca1f3150289c2dc3bc72b206ac2efc326d9",
+    "git_status": "?? tools/capture_enemy_feedback_01_remains.py\n?? tools/enemy_feedback_01_remains_capture.gd\n?? tools/enemy_feedback_01_remains_capture.gd.uid",
+    "diff": "",
+    "untracked": "tools/capture_enemy_feedback_01_remains.py\ntools/enemy_feedback_01_remains_capture.gd\ntools/enemy_feedback_01_remains_capture.gd.uid"
+  },
+  "driver_sha256": "8efcbef8ba9a32323776ec1ad0b17320bcf70f5f2e9064050595d78758b13c06",
+  "scope": "Two explicit Underworld spawn fixtures with actual AI, nonlethal/lethal shots and a long corpse hold; no campaign/device claim.",
+  "conditions": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "playback_speed": 1,
+    "camera": {
+      "center": [
+        575,
+        440
+      ],
+      "zoom": 2.5
+    },
+    "case_frames": 780,
+    "total_trace_frames": 1560,
+    "definitions": [
+      "resources/enemies/plains_charger.tres",
+      "resources/enemies/plains_diver.tres"
+    ],
+    "player_spawn": [
+      480,
+      482
+    ],
+    "enemy_spawn": [
+      [
+        640,
+        484
+      ],
+      [
+        640,
+        430
+      ]
+    ],
+    "floor_top": 500,
+    "shots_at_case_frames": [
+      50,
+      110,
+      170,
+      230
+    ],
+    "pause_at": [
+      70,
+      85
+    ],
+    "stable_visible_tail_frames": 210,
+    "renderer": "gl_compatibility/software GPU",
+    "input": "real Router aim/release; no HP, movement or feedback injection"
+  },
+  "expect_remains": false,
+  "user_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/enemy-feedback-01-after/build/enemy-feedback-01/remains-before-v2/before.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_feedback_01_remains_capture.gd",
+    "--",
+    "--variant=before",
+    "--seed=enemy-feedback-01-remains",
+    "--trace=/workspace/enemy-feedback-01-after/build/enemy-feedback-01/remains-before-v2/before.json"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1792687186.1495886,
+    "ended_at_unix": 1792687221.84046,
+    "duration_seconds": 35.691,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/enemy-feedback-01-after/build/enemy-feedback-01/remains-before-v2/before.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_feedback_01_remains_capture.gd",
+      "--",
+      "--variant=before",
+      "--seed=enemy-feedback-01-remains",
+      "--trace=/workspace/enemy-feedback-01-after/build/enemy-feedback-01/remains-before-v2/before.json"
+    ],
+    "check_token": "e672744ea4de4636bada769cdae09d2b"
+  },
+  "case_observations": [
+    {
+      "definition": "plains_charger",
+      "post_death_observation_frames": 598,
+      "stable_visible_tail_frames": 0,
+      "tail_observation": "No stable visible remains tail: baseline may intentionally have none"
+    },
+    {
+      "definition": "plains_diver",
+      "post_death_observation_frames": 594,
+      "stable_visible_tail_frames": 0,
+      "tail_observation": "No stable visible remains tail: baseline may intentionally have none"
+    }
+  ],
+  "mp4_sha256": "236bec9e41636ad8d72f72d6793a9c988acd3ade646594e4892febb2b34e6aef",
+  "avi_sha256": "c00efb6cc1c32d00d07fdb5b270b9c04382cacb984611381c64c315642b027ff",
+  "trace_sha256": "079dcf2c97a20bb86dee540205ba2a716941091ec08caf8a166e10d097c8ea27",
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 401408,
+        "duration": "26.133333",
+        "bit_rate": "368637",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1568",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1254384,
+        "duration": "26.133000",
+        "bit_rate": "37444",
+        "nb_frames": "1226",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/enemy-feedback-01-after/build/enemy-feedback-01/remains-before-v2/before.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "26.133333",
+      "size": "1369588",
+      "bit_rate": "419261",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "source_stable": true,
+  "seconds": 40.539494403999925
+}
