@@ -1527,12 +1527,12 @@ func _layout_region_hud() -> void:
 		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
-			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
+			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,[map.position]+([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
 			_region_ui_positions["map"]=map.position
 			touch_regions.append(map.get_global_rect())
 			navigation_reserved.append(map.get_global_rect())
 		if _pause_button.is_visible_in_tree():
-			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
+			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[_pause_button.position,Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
 			_region_ui_positions["pause"]=_pause_button.position
 			touch_regions.append(_pause_button.get_global_rect())
 		for index: int in cards.size():

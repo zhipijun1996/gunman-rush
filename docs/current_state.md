@@ -1,6 +1,8 @@
 # 当前状态
 
-PR108当前集成纠正：固定左侧状态，恢复地图／暂停／钱包／位置／Toast保护，真实绘制leaf代替透明VBox包围盒；原平原场景8/10/15全部通过，HUD61/0。先前1b25 CI实际遮挡失败保留，不靠删断言放行；正常world扫描恢复，旧e525无扫描CPU结论不继承。style-v12/creative-v15仅DemoApp再重绑，35项与原Bible/旧版本保留。用户已授权合main，当前新独审、最终Integration及Web实际身份见[跟进证据](evidence/playtest_feedback_20261024/hud-integration/README.md)。
+小屏集成修订：保留本帧响应式地图／暂停位置作为避障候选，避免桌面缓存fallback覆盖真实触屏MENU。原960×540失败与4fc独审REVISE保留；两行修复后原UIcontract139/0，最终同源专项／独审和新Web以实际结果为准。
+
+PR108当前集成纠正：固定左侧状态，恢复地图／暂停／钱包／位置／Toast保护，真实绘制leaf代替透明VBox包围盒；原平原场景8/10/15全部通过，HUD61/0。先前1b25 CI实际遮挡失败保留，不靠删断言放行；正常world扫描恢复，旧e525无扫描CPU结论不继承。style-v13/creative-v16仅DemoApp再重绑，35项与原Bible/旧版本保留。用户已授权合main，当前新独审、最终Integration及Web实际身份见[跟进证据](evidence/playtest_feedback_20261024/hud-integration/README.md)。
 
 ## 2026-10-24 五项试玩反馈候选已交付
 
