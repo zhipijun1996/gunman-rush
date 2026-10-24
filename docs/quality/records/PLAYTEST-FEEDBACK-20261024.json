@@ -4,7 +4,7 @@
   "task_type": "ui_feedback",
   "workflow": "review",
   "baseline_commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
-  "reviewed_commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+  "reviewed_commit": "b0b405cd9491d65ec9bf004703ae8e83182f9e71",
   "content_version": "candidate-v1",
   "owner": "director-codex",
   "purpose": "Fix five concrete public playtest reports: Web stalls, universal hit feedback, stable HUD, Home Lv1 weapon choice and title->Home entry",
@@ -93,7 +93,7 @@
       "status": "passed",
       "reason": "Exact user reports and ownership/verification contract recorded; no aesthetic or device approval",
       "evidence": [
-        "docs/worklines/playtest_feedback_20261024/scope.md"
+        "feedback-scope"
       ]
     },
     "G1": {
@@ -124,9 +124,11 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Concrete user reports and intended current behavior recorded; new visual/device outcomes still await actual checks",
+      "evidence": [
+        "feedback-scope"
+      ]
     },
     "technical": {
       "status": "unverified",
@@ -179,10 +181,37 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "five-feedback-scope",
+      "scenario": "Five actual public playtest reports",
+      "method": "Read exact scope, constraints and ownership",
+      "expected": "Use existing systems, preserve per-enemy death and actual weapon/physics/resource contracts; no false performance acceptance",
+      "failure": "Scope omitted, reduced original checks, fabricated deployment/device or hidden failure",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Concrete task contract is committed and source-hashed",
+      "evidence": [
+        "feedback-scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "feedback-scope",
+      "path": "docs/worklines/playtest_feedback_20261024/scope.md",
+      "sha256": "bff0b80bea29e0e76da0d783656806d2c4e296de6b058457eef35cfe0109551f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "b0b405cd9491d65ec9bf004703ae8e83182f9e71",
+      "content_version": "candidate-v1",
+      "method": "Actual five user reports, source baseline, file ownership and falsifiable verification boundaries",
+      "observed": "Explicit existing systems to reuse, stable HUD/start->Home/three Lv1 goals and no device/aesthetic acceptance"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "Frozen actual UI/Home/weapon/enemy/Web outcomes and independent review pending; physical device/player acceptance remains unverified"
   ]
 }
