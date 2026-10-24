@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "acceptance_scope": "Only the three Python verifier/capture integration changes committed in f657; no MovieMaker, GPU, CI or gameplay execution by this reviewer.",
+  "reviewed_commit": "f6570eb5d7eb8ff53094433d277066a50ee1a3b8",
+  "reviewer": "/root/hud_integration_review",
+  "prior_report_immutable": "review-two-py-and-chain-audit.json",
+  "prior_report_sha256": "13d1168df7c8a3d2547159c20867dab49601cae454fe655331b1a16c90cd3374",
+  "first_two_source_hashes_match_f657_git_tree": true,
+  "capture_source_sha256": "d6a7b8b7880c354e09731769f6d710c79472d434d42c3ecfcf8e192bfbb69b4a",
+  "third_tool_review": {
+    "shared_expectation": "Home uses expected_assertions(False) exactly once, marker and receipt consume same home_expected184. Native extra=[] retains no--capture, so194 is not applied to MovieMaker.",
+    "source_inventory": "Wrapper appended after all original FIXTURES entries, preserving[0..3]. SCOPES expands FIXTURES and inventory() hashes every FIXTURES member.",
+    "source_inventory_extension_executed": true,
+    "source_inventory_extension_limit": "Base runtime_inventory stubbed to avoid redundant full asset hashing; real appended fixture/wrapper paths and bytes were read. Not a full capture source inventory or engine run.",
+    "existing_guards_preserved": [
+      "source ref/diff/untracked refusal",
+      "fresh receipt timestamp",
+      "zero native exit enforced through original run_engine",
+      "zero failures and12 visits",
+      "original source_before/after guard",
+      "all ffmpeg encode/decode/frame-size/fps/audio measurement gates"
+    ],
+    "source_ast_counterexamples": [
+      {
+        "checks": 184,
+        "visits": 12,
+        "would_raise": false
+      },
+      {
+        "checks": 180,
+        "visits": 12,
+        "would_raise": true
+      },
+      {
+        "checks": 184,
+        "visits": 11,
+        "would_raise": true
+      }
+    ],
+    "marker184_accepts_and180_refuses": true
+  },
+  "default_chain_audit": "No additional stale numeric/business-ID locks found in the previously reported scoped current CI dependency traversal; standalone native139/61/new weapon/hit/DPR proofs remain outside automatic full142 coverage.",
+  "source_boundary": "These are Python-only changes; reviewed b761 DemoApp/GameHud/scene observer/HUD test files are byte-identical in f657. Existing b761 ACCEPT remains its original identity and scope.",
+  "unverified": [
+    "Actual Home MovieMaker generation/MP4 encode/decode with changed tool was not rerun; no produced-video claim.",
+    "Full final PR CI and remaining serial checks are root-owned and not signed by this report.",
+    "No UI/player/physical-device/G5 acceptance added."
+  ]
+}

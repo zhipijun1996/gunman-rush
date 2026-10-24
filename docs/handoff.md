@@ -1,5 +1,7 @@
 # 当前交接（2026-10-24）
 
+当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。
+
 ## PR108 合入入口（当前）
 
 [当前真实试玩](https://zhipijun1996.github.io/gunman-rush/?build=5cebbdc37404)，源码b7610b8a，build5cebbdc37404，Pages40061834215成功，完整公网184493060B PCK已核。修复五项反馈及集成发现的实际遮挡／小屏MENU冲突；左状态固定，其余导航／Toast保留保护，原UI139触屏断言未放宽。最终原Harness8/10/15 fresh126.817s与独立UI270/139/HUD61/GL通过，当前style13/creative16。
