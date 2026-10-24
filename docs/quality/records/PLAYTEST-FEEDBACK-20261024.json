@@ -4,8 +4,8 @@
   "task_type": "ui_feedback",
   "workflow": "review",
   "baseline_commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
-  "reviewed_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "1b25dd5ac2b4763b2aa4447f337cd6b62dca2f2c",
+  "content_version": "candidate-v2-fixed-status-integration",
   "owner": "director-codex",
   "purpose": "Fix five concrete public playtest reports: Web stalls, universal hit feedback, stable HUD, Home Lv1 weapon choice and title->Home entry",
   "player_experience": "Stable readable HUD and responsive real game, every normal enemy reacts consistently to hits while retaining its death, three existing Lv1 choices before departure",
@@ -23,6 +23,7 @@
     "docs/creative_direction/archive/creative-v13/windchime_plains.json",
     "docs/creative_direction/bibles/registry.json",
     "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+    "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
@@ -65,6 +66,8 @@
     "docs/evidence/playtest_feedback_20261024/home-author/import.log",
     "docs/evidence/playtest_feedback_20261024/home-author/original-all-weapons.json",
     "docs/evidence/playtest_feedback_20261024/home-author/original-all-weapons.log",
+    "docs/evidence/playtest_feedback_20261024/hud-integration/README.md",
+    "docs/evidence/playtest_feedback_20261024/hud-integration/author-summary.json",
     "docs/evidence/playtest_feedback_20261024/independent/checks.json",
     "docs/evidence/playtest_feedback_20261024/independent/context-tests.log",
     "docs/evidence/playtest_feedback_20261024/independent/fixed-hud.log",
@@ -147,6 +150,7 @@
     "scripts/enemies/root_bell_presentation.gd",
     "scripts/presentation/forest_bible_actor_presentation.gd",
     "scripts/ui/demo_menu.gd",
+    "scripts/ui/demo_ui_01/game_hud.gd",
     "scripts/underworld_plains/underworld_actors.gd",
     "scripts/underworld_plains/underworld_enemy.gd",
     "scripts/underworld_plains/underworld_home_world.gd",
@@ -161,6 +165,7 @@
     "tests/home_weapon_consumers_runner.gd.uid",
     "tests/home_weapon_selection_runner.gd",
     "tests/home_weapon_selection_runner.gd.uid",
+    "tests/plains_redesign_scene_runner.gd",
     "tests/test_region_creative_direction.py",
     "tests/underworld_plains/test_fine_hud_bounds.gd",
     "tests/underworld_plains/test_underworld_home.gd",
@@ -181,7 +186,7 @@
       "status": "passed",
       "reason": "Exact user reports and ownership/verification contract recorded; no aesthetic or device approval",
       "evidence": [
-        "feedback-scope"
+        "feedback-scope-v2"
       ]
     },
     "G1": {
@@ -201,11 +206,8 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Affected exact native/GL/Web and bounded independent review passed; full PR Integration remains separate, not signed by this candidate playtest",
-      "evidence": [
-        "native-independent",
-        "public-gui"
-      ]
+      "reason": "Current fixed-status correction awaits independent rendered verification and final exact-source Integration; earlier actual serial failure preserved.",
+      "evidence": []
     },
     "G5": {
       "status": "unverified",
@@ -218,25 +220,18 @@
       "status": "passed",
       "reason": "Concrete user reports and intended current behavior recorded; new visual/device outcomes still await actual checks",
       "evidence": [
-        "feedback-scope"
+        "feedback-scope-v2"
       ]
     },
     "technical": {
-      "status": "passed",
-      "reason": "Bounded source-frozen original native consumers, actual Web closure/public bytes and source-bound independent review passed; not complete Integration or Release",
-      "evidence": [
-        "frozen-native",
-        "web-bundle",
-        "public-bytes"
-      ]
+      "status": "unverified",
+      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
+      "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Bounded actual Home/weapon/UI/monster and new Web observations retained; complete formal consumer ledger/full Integration pending",
-      "evidence": [
-        "frozen-native",
-        "public-gui"
-      ]
+      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
+      "evidence": []
     },
     "visual": {
       "status": "unverified",
@@ -259,19 +254,14 @@
       "evidence": []
     },
     "performance": {
-      "status": "passed",
-      "reason": "Bounded render-density policy confirmed in real new Web DPR1/2/3 and observed software-GPU fixed-seed public case; target-device FPS and initial load are not passed",
-      "evidence": [
-        "density-measurement",
-        "public-gui"
-      ]
+      "status": "unverified",
+      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
+      "evidence": []
     },
     "independent_review": {
-      "status": "passed",
-      "reason": "Separate reviewer accepted exact e525 native technical scope; Web and user/device outcomes remain separately attributed",
-      "evidence": [
-        "native-independent"
-      ]
+      "status": "unverified",
+      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
+      "evidence": []
     },
     "device": {
       "status": "unverified",
@@ -296,7 +286,7 @@
       "status": "passed",
       "reason": "Concrete task contract is committed and source-hashed",
       "evidence": [
-        "feedback-scope"
+        "feedback-scope-v2"
       ]
     },
     {
@@ -306,8 +296,8 @@
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "status": "unverified",
+      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
       "evidence": [
         "frozen-native",
         "web-bundle"
@@ -321,8 +311,8 @@
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "independent_review",
-      "status": "passed",
-      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "status": "unverified",
+      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
       "evidence": [
         "native-independent"
       ],
@@ -335,8 +325,8 @@
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "performance",
-      "status": "passed",
-      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "status": "unverified",
+      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
       "evidence": [
         "density-measurement",
         "public-gui"
@@ -352,7 +342,7 @@
       "gate": "G4",
       "dimension": "technical",
       "status": "unverified",
-      "reason": "Quick candidate verified; full PR Integration remains separate",
+      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
       "evidence": []
     }
   ],
@@ -453,6 +443,17 @@
       "environment": "1280x720CSS/DPR2, same normal Plains seed level-design-v2-baseline/08 and manifest78b664..., no large concurrent native tasks",
       "scenario": "HighDPI no longer multiplies rendering buffer beyond CSS while actual Home/menu/Plains input works",
       "budget_source": "Web CSS-density contract and original native1280x720 logical/pixel-art direction; no new numerical device FPS pass threshold"
+    },
+    {
+      "id": "feedback-scope-v2",
+      "path": "docs/worklines/playtest_feedback_20261024/scope.md",
+      "sha256": "bff0b80bea29e0e76da0d783656806d2c4e296de6b058457eef35cfe0109551f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "1b25dd5ac2b4763b2aa4447f337cd6b62dca2f2c",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Re-read unchanged actual user contract for integration correction; only left status is fixed, auxiliary UI protection remains required",
+      "observed": "Scope original bytes unchanged at1b25; actual CI occlusion is a defect to repair, not a reason to waive visual or native guards"
     }
   ],
   "consumer_coverage": null,
@@ -460,6 +461,7 @@
     "Physical PC/mobile/controller performance and user feel/aesthetics/fun remain unverified",
     "Initial download remains approximately186MB including loader resources; first-load/weak-network optimization not claimed fixed",
     "Complete natural Boss fights/routes and full142 PR Integration/Release remain separate",
-    "Original main Release old FoundryLab audio lifecycle failure preserved; current quick candidate deployment does not re-sign it"
+    "Original main Release old FoundryLab audio lifecycle failure preserved; current quick candidate deployment does not re-sign it",
+    "Fixed-status integration correction: final source-bound independent rendered/UI checks, complete Integration and actual updated Web producer; olde525 no-scan CPU statement superseded"
   ]
 }

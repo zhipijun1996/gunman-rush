@@ -1456,12 +1456,8 @@ func _process(_delta: float) -> void:
 	_hud.visible = debug_hud
 
 func _layout_region_hud() -> void:
-	# Gameplay HUD owns stable viewport-safe anchors. World motion must never
-	# relocate health/resources or navigation while the player reads them.
-	# Keep the legacy debug-board diagnostic available without scanning the
-	# entire world for normal play every frame.
-	if not debug_hud:
-		return
+	# Health, resonance and ammunition keep their viewport-safe status anchor.
+	# Navigation and temporary notices still avoid actual gameplay targets.
 	# Only two stable edge layouts. Read visible actors and projectiles, never
 	# move gameplay bodies or read the test driver's desired route.
 	var blockers: Array[Rect2] = []
@@ -1521,7 +1517,12 @@ func _layout_region_hud() -> void:
 	if stage is PlainsRegionStage:
 		var cards: Array[Control] = _demo_hud.region_layout_controls()
 		var card_reservations: Array[Rect2] = []
-		for card: Control in cards: card_reservations.append(card.get_global_rect())
+		for card: Control in cards:
+			if card == _demo_hud._rows:
+				for widget: Control in _demo_hud.status_draw_controls():
+					card_reservations.append(widget.get_global_rect())
+			else:
+				card_reservations.append(card.get_global_rect())
 		var navigation_reserved: Array[Rect2] = touch_regions.duplicate()
 		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
@@ -1536,6 +1537,8 @@ func _layout_region_hud() -> void:
 			touch_regions.append(_pause_button.get_global_rect())
 		for index: int in cards.size():
 			var card: Control=cards[index]
+			if card == _demo_hud._rows:
+				continue
 			var extent:=card.size*card.scale
 			var reserved: Array[Rect2]=touch_regions.duplicate()
 			for other: Control in cards:

@@ -89,7 +89,7 @@ func _ready() -> void:
 	_vitals = VBoxContainer.new()
 	_vitals.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_vitals.add_theme_constant_override("separation", 4)
-	_vitals.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_vitals.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	_head_row.add_child(_vitals)
 	var health_row := HBoxContainer.new()
 	health_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -112,7 +112,7 @@ func _ready() -> void:
 	resonance_row.add_child(_resonance_text)
 	resonance = preload("res://scripts/ui/demo_ui_01/r3_resonance_line.gd").new()
 	resonance.custom_minimum_size = Vector2(110, 10)
-	resonance.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	resonance.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	resonance.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	resonance_row.add_child(resonance)
 	var availability := HBoxContainer.new()
@@ -291,6 +291,17 @@ func present_touch_menu(overlay: TouchOverlay) -> void:
 	var location_y := overlay.left_center.y - overlay.radius - 10.0 / scale - label_height
 	_location_plate.visible = _location_plate.visible and location_y >= safe.position.y + 18.0 / scale
 	_location_plate.position = Vector2(safe.position.x + 24.0 / scale, maxf(safe.position.y, location_y))
+
+func status_draw_controls() -> Array[Control]:
+	# Containers reserve layout space but paint nothing. Navigation protection
+	# and actual-scene observation use the widgets that really draw the status.
+	var controls: Array[Control] = []
+	for widget: Control in [portrait, hearts, _health_text, _resonance_text, resonance, double_jump_icon, hook_icon]:
+		if widget.is_visible_in_tree(): controls.append(widget)
+	for cell: Label in _shot_cells:
+		if cell.is_visible_in_tree(): controls.append(cell)
+	if _notice.is_visible_in_tree() and not _notice.text.is_empty(): controls.append(_notice)
+	return controls
 
 func region_layout_controls() -> Array[Control]:
 	# App owns gameplay avoidance; expose only the actual visible card owners.

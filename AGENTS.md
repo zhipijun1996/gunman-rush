@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-24 固定状态HUD集成纠正（当前）
+
+左上角生命／共鸣／弹药固定，地图、暂停、钱包、位置提示和拾取Toast继续原实际目标避障。透明VBox不是实心面板；按实际绘制叶子核遮挡，保全部角色／敌人／预警／落点及原反例。共鸣线使用既有最小宽度。正常world保护扫描现已恢复，旧e525“普通HUD不扫描世界”的CPU说明不适用于本修订。当前style-v12／creative-v15仅再重绑DemoApp，另外35项与原v11/v14字节保留；[实际失败与修复](docs/evidence/playtest_feedback_20261024/hud-integration/README.md)，完整CI及新Web以实际收据为准。
+
 ## 2026-10-24 当前试玩反馈修复
 
 当前任务[PLAYTEST-FEEDBACK-20261024](docs/worklines/playtest_feedback_20261024/scope.md)：普通HUD固定viewport安全边缘，不因角色/镜头运动自动搬位置；开始游戏进入可操作Home。原arms武器工坊提供现有3种Lv1（pulse_gun/shadow_shuriken/recoil_bomb），仅会话记忆；正式出发携带选择，返回Home保留，刷新后默认枪。怪物共用已接受普通受击状态与身体tint，死亡/攻击预警/HP/Boss弱点独立；共享表现不得改变伤害与资源。Web独有HiDPI修复须核真实DPR2 buffer/CSS输入与nearest合成，不能靠软件GPU代签实体性能。

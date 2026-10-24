@@ -1,5 +1,7 @@
 # 当前状态
 
+PR108当前集成纠正：固定左侧状态，恢复地图／暂停／钱包／位置／Toast保护，真实绘制leaf代替透明VBox包围盒；原平原场景8/10/15全部通过，HUD61/0。先前1b25 CI实际遮挡失败保留，不靠删断言放行；正常world扫描恢复，旧e525无扫描CPU结论不继承。style-v12/creative-v15仅DemoApp再重绑，35项与原Bible/旧版本保留。用户已授权合main，当前新独审、最终Integration及Web实际身份见[跟进证据](evidence/playtest_feedback_20261024/hud-integration/README.md)。
+
 ## 2026-10-24 五项试玩反馈候选已交付
 
 [最新候选试玩](https://zhipijun1996.github.io/gunman-rush/?build=2ed80c618b79)：实际producer `e5254559b38f9593f03fa2fd7847b107d5d04402`、build `2ed80c618b79`，公网完整PCK及真实Home/固定Seed平原/工坊三武器已验证；main源码仍cd4989，候选不冒充main完整Release。

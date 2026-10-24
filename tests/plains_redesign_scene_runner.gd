@@ -145,10 +145,19 @@ func display_regions() -> Array[Dictionary]:
 	var rows: Array[Dictionary]=[]
 	for control: Control in [app._hud_frame,app._debug_button,app._pause_button,(app.stage as PlainsRegionStage).map_view]:
 		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"info" if control==app._debug_button else "pause" if control==app._pause_button else "map" if control==(app.stage as PlainsRegionStage).map_view else "debug_hud","bounds":rect_values(control.get_global_rect())})
-	# The official HUD is a transparent full-viewport Control. Observe its
-	# actual visible resource card and chrome, never its empty root rectangle.
-	for control: Control in [app._demo_hud._rows,app._demo_hud._wallet_plate,app._demo_hud._location_plate,app._demo_hud._touch_menu]:
-		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"hud_resources" if control==app._demo_hud._rows else "touch_menu" if control==app._demo_hud._touch_menu else "hud_chrome","bounds":rect_values(control.get_global_rect())})
+	# The full-screen root and status VBox are transparent layout containers.
+	# Keep strict target intersections against the actual drawn status widgets.
+	for control: Control in app._demo_hud.status_draw_controls():
+		var bounds := control.get_global_rect()
+		if control == app._demo_hud._notice:
+			var label := control as Label
+			var text_width := label.get_theme_font("font").get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x
+			bounds.size.x = minf(bounds.size.x, (text_width + 6.0) * absf(label.get_global_transform().get_scale().x))
+		if control is Label:
+			bounds = bounds.grow(2.0 * absf(control.get_global_transform().get_scale().x))
+		rows.append({"path":str(control.get_path()),"kind":"hud_resources","bounds":rect_values(bounds)})
+	for control: Control in [app._demo_hud._wallet_plate,app._demo_hud._location_plate,app._demo_hud._touch_menu]:
+		if control.is_visible_in_tree(): rows.append({"path":str(control.get_path()),"kind":"touch_menu" if control==app._demo_hud._touch_menu else "hud_chrome","bounds":rect_values(control.get_global_rect())})
 	if is_instance_valid(app.item_toast._root) and app.item_toast._root.is_visible_in_tree(): rows.append({"path":str(app.item_toast._root.get_path()),"bounds":rect_values(app.item_toast._root.get_global_rect())})
 	return rows
 func touch_conflicts(regions: Array[Dictionary]) -> Array[String]:

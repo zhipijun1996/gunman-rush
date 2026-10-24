@@ -1,0 +1,180 @@
+{
+  "scope": "four actual native partitions; one parent aggregate180s; original eight ordered cases, legacy UI and rolled-zero corpus retained",
+  "aggregate_budget_seconds": 180,
+  "aggregate_seconds": 39.97051349999674,
+  "within_aggregate_deadline": true,
+  "native_runs": [
+    {
+      "shard": 0,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-0.json",
+        "--positive-shard=0"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792813518.1696403,
+        "ended_at_unix": 1792813553.850882,
+        "duration_seconds": 35.681,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-0.json",
+          "--positive-shard=0"
+        ],
+        "check_token": "f645dd4af10e4eb6aaf51873320e46e1"
+      },
+      "output": "build/plains_redesign/scene/run_0ib80o1k/positive-shard-0.json",
+      "output_sha256": "f818806ab7905c502990a3514a17bff7490eae46fa1e1395035ed1ba3fa55d6d",
+      "log_sha256": "a7a5a9a21a877a30f3171bd06caa9c984a0e88b06540048a9538208f38040b53"
+    },
+    {
+      "shard": 1,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-1.json",
+        "--positive-shard=1"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792813518.1699336,
+        "ended_at_unix": 1792813557.6485813,
+        "duration_seconds": 39.479,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-1.json",
+          "--positive-shard=1"
+        ],
+        "check_token": "1486ad243e4d438c84f665d16ed59bd3"
+      },
+      "output": "build/plains_redesign/scene/run_0ib80o1k/positive-shard-1.json",
+      "output_sha256": "38e93ae26f192ba611a43b3051a755ce926aa11fa26015b4ebd66f903ea4b656",
+      "log_sha256": "ec936522bebc310799e9d1ecbb22731ef28896e4b282acbc7971455c709daaa2"
+    },
+    {
+      "shard": 2,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-2.json",
+        "--positive-shard=2"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792813518.1700633,
+        "ended_at_unix": 1792813546.3156123,
+        "duration_seconds": 28.146,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-2.json",
+          "--positive-shard=2"
+        ],
+        "check_token": "21e76ef90e0148f2b9f852c1a5c9dd8e"
+      },
+      "output": "build/plains_redesign/scene/run_0ib80o1k/positive-shard-2.json",
+      "output_sha256": "ea3255e2c02339048344c27facca0a16f970c1d8822a8aaaa352359472adeac5",
+      "log_sha256": "880b11dcc4f2632bcbac799eccc8bab1aaeeaa942abf253db9b27240f20edc6d"
+    },
+    {
+      "shard": 3,
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_redesign_scene_runner.gd",
+        "--",
+        "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-3.json",
+        "--positive-shard=3"
+      ],
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792813518.170173,
+        "ended_at_unix": 1792813551.2540135,
+        "duration_seconds": 33.084,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_redesign_scene_runner.gd",
+          "--",
+          "--output=/tmp/playtest-feedback-20261024/build/plains_redesign/scene/run_0ib80o1k/positive-shard-3.json",
+          "--positive-shard=3"
+        ],
+        "check_token": "559650e68a6d4a12b419dd6c5b28ee17"
+      },
+      "output": "build/plains_redesign/scene/run_0ib80o1k/positive-shard-3.json",
+      "output_sha256": "b79314a2f49f839b4b54b56540151a11ce59f4d4c4ac989abda86b4a98c99756",
+      "log_sha256": "b1e0804f5830809ee7c0bfc56edac07531ad84eb88fe96c3718806249dc5520f"
+    }
+  ]
+}
