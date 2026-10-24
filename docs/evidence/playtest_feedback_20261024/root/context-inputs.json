@@ -1,0 +1,260 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+  "checks": [
+    "creative-direction-tests",
+    "level-region-context"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+      "cwd": "/tmp/playtest-feedback-20261024",
+      "checks": [
+        {
+          "id": "creative-direction-tests",
+          "argv": [
+            "python3",
+            "tests/test_region_creative_direction.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-region-context",
+          "argv": [
+            "python3",
+            "tests/test_level_region_context.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [
+    {
+      "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10-before-hud-layout.json",
+      "blob": "471a8f1ae626a57caa025e6b44ca6b32841c5f32",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected direction historical refusal"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 14349,
+      "object_available": true,
+      "status": "materialized"
+    },
+    {
+      "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+      "blob": "02fc34d89b63d21b0ec03927e77e9a0d83341fcc",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected direction historical refusal"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 13004,
+      "object_available": true,
+      "status": "materialized"
+    },
+    {
+      "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
+      "blob": "3fe0ee1c6bb759bc009fa1ff84af42e24189c438",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected direction historical refusal"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 12415,
+      "object_available": true,
+      "status": "materialized"
+    },
+    {
+      "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+      "blob": "c64c44e8b0c0d6eab9b84078ccc1d87a1e3b5f20",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected direction historical refusal"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 11070,
+      "object_available": true,
+      "status": "materialized"
+    }
+  ],
+  "rounds": [
+    {
+      "status": "needs_materialization",
+      "approval_scope": "input_availability_only",
+      "tests_executed": false,
+      "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+      "checks": [
+        "creative-direction-tests",
+        "level-region-context"
+      ],
+      "inputs": [
+        {
+          "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+          "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10-before-hud-layout.json",
+          "blob": "471a8f1ae626a57caa025e6b44ca6b32841c5f32",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected direction historical refusal"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": 14349,
+          "object_available": true
+        },
+        {
+          "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+          "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+          "blob": "02fc34d89b63d21b0ec03927e77e9a0d83341fcc",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected direction historical refusal"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": 13004,
+          "object_available": true
+        },
+        {
+          "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+          "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
+          "blob": "3fe0ee1c6bb759bc009fa1ff84af42e24189c438",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected direction historical refusal"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": 12415,
+          "object_available": true
+        },
+        {
+          "commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
+          "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+          "blob": "c64c44e8b0c0d6eab9b84078ccc1d87a1e3b5f20",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected direction historical refusal"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": 11070,
+          "object_available": true
+        }
+      ],
+      "known_bytes": 50838,
+      "unknown_size_objects": [],
+      "blockers": [],
+      "preflight": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v10-before-hud-layout.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected direction historical refusal"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/four_line_integration_20261023/direction-history/thorn_forest-v12-before-foreground-cpu.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected direction historical refusal"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected direction historical refusal"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected direction historical refusal"
+            ],
+            "reason": "sparse_unmaterialized"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "directory_presence_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+          "cwd": "/tmp/playtest-feedback-20261024",
+          "checks": [
+            {
+              "id": "creative-direction-tests",
+              "argv": [
+                "python3",
+                "tests/test_region_creative_direction.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-region-context",
+              "argv": [
+                "python3",
+                "tests/test_level_region_context.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      },
+      "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs."
+    }
+  ],
+  "prefetch": [],
+  "materialized_bytes": 50838,
+  "sparse_patterns_changed": false,
+  "seconds": 0.359
+}

@@ -4,7 +4,7 @@
   "task_type": "ui_feedback",
   "workflow": "review",
   "baseline_commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
-  "reviewed_commit": "b0b405cd9491d65ec9bf004703ae8e83182f9e71",
+  "reviewed_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
   "content_version": "candidate-v1",
   "owner": "director-codex",
   "purpose": "Fix five concrete public playtest reports: Web stalls, universal hit feedback, stable HUD, Home Lv1 weapon choice and title->Home entry",
@@ -26,6 +26,94 @@
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
+    "docs/evidence/playtest_feedback_20261024/README.md",
+    "docs/evidence/playtest_feedback_20261024/copy-index.json",
+    "docs/evidence/playtest_feedback_20261024/enemy-author/owned-source-before-native.json",
+    "docs/evidence/playtest_feedback_20261024/enemy-author/verification.json",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/dpr-baseline-engine.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/dpr-baseline-stdout.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/dpr-engine.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/dpr-stdout.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/engine-first.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/engine-second.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/engine-third.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/original-authored-wrapper.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels-first-stdout.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels-second-engine.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels-second-stdout.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels/boss-after.png",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels/boss-before.png",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels/ordinary-after.png",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels/ordinary-before.png",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/pixels/runtime.json",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/runtime.json",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/stdout-first.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/stdout-second.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/stdout-third.log",
+    "docs/evidence/playtest_feedback_20261024/enemy-native/xvfb-private.log",
+    "docs/evidence/playtest_feedback_20261024/generated-foundry-inputs.json",
+    "docs/evidence/playtest_feedback_20261024/generated-foundry-inputs.tar.gz",
+    "docs/evidence/playtest_feedback_20261024/home-author/adoption-summary.json",
+    "docs/evidence/playtest_feedback_20261024/home-author/final-execution.json",
+    "docs/evidence/playtest_feedback_20261024/home-author/final-import.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/home-consumers-final.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/home-consumers-second.json",
+    "docs/evidence/playtest_feedback_20261024/home-author/home-consumers-second.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/home-weapons-final.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/home-weapons-first.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/import-clean.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/import.log",
+    "docs/evidence/playtest_feedback_20261024/home-author/original-all-weapons.json",
+    "docs/evidence/playtest_feedback_20261024/home-author/original-all-weapons.log",
+    "docs/evidence/playtest_feedback_20261024/independent/checks.json",
+    "docs/evidence/playtest_feedback_20261024/independent/context-tests.log",
+    "docs/evidence/playtest_feedback_20261024/independent/fixed-hud.log",
+    "docs/evidence/playtest_feedback_20261024/independent/home-consumers.log",
+    "docs/evidence/playtest_feedback_20261024/independent/independent-review.json",
+    "docs/evidence/playtest_feedback_20261024/independent/receipt.json",
+    "docs/evidence/playtest_feedback_20261024/independent/source-after.json.gz",
+    "docs/evidence/playtest_feedback_20261024/independent/source-before.json.gz",
+    "docs/evidence/playtest_feedback_20261024/independent/style-byte-audit.json",
+    "docs/evidence/playtest_feedback_20261024/independent/ui-contract.log",
+    "docs/evidence/playtest_feedback_20261024/independent/underworld-ui.log",
+    "docs/evidence/playtest_feedback_20261024/performance/browser-size-sweep/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/final-case-specific-summary.json",
+    "docs/evidence/playtest_feedback_20261024/performance/native-baseline-profile.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-fixed-seed/desktop2/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-local/desktop1/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-local/desktop2/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-local/mobile3/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-local/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/home-navigation-seeded.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/home-navigation.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/home.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/plains.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-workshop/desktop2/home.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-workshop/desktop2/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-workshop/desktop2/weapon-selected-1.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-workshop/desktop2/weapon-selected-2.png",
+    "docs/evidence/playtest_feedback_20261024/performance/new-web-public-workshop/desktop2/weapon-selected-3.png",
+    "docs/evidence/playtest_feedback_20261024/performance/pixel-dom/report.json",
+    "docs/evidence/playtest_feedback_20261024/performance/summary.json",
+    "docs/evidence/playtest_feedback_20261024/root/context-inputs.json",
+    "docs/evidence/playtest_feedback_20261024/root/docs-inputs.json.gz",
+    "docs/evidence/playtest_feedback_20261024/root/docs-inputs.log.gz",
+    "docs/evidence/playtest_feedback_20261024/root/hud-retry/engine.log",
+    "docs/evidence/playtest_feedback_20261024/root/hud-retry/stdout.log",
+    "docs/evidence/playtest_feedback_20261024/root/hud/engine.log",
+    "docs/evidence/playtest_feedback_20261024/root/hud/stdout.log",
+    "docs/evidence/playtest_feedback_20261024/root/knowledge-inputs.json",
+    "docs/evidence/playtest_feedback_20261024/root/public/build-info.json",
+    "docs/evidence/playtest_feedback_20261024/root/public/pack-verified.json",
+    "docs/evidence/playtest_feedback_20261024/root/public/playtest-deployment.json",
+    "docs/evidence/playtest_feedback_20261024/root/web/build-first.log",
+    "docs/evidence/playtest_feedback_20261024/root/web/build-second.log",
+    "docs/evidence/playtest_feedback_20261024/root/web/bundle-check.log",
+    "docs/evidence/playtest_feedback_20261024/root/web/foundry-rebuild.log",
+    "docs/evidence/playtest_feedback_20261024/root/web/generated-foundry-inputs.json",
+    "docs/evidence/playtest_feedback_20261024/root/web/licenses.log",
+    "docs/handoff.md",
     "docs/home_and_save.md",
     "docs/quality/records/PLAYTEST-FEEDBACK-20261024.json",
     "docs/tasks.md",
@@ -113,8 +201,11 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Affected exact native/GL/Web and bounded independent review passed; full PR Integration remains separate, not signed by this candidate playtest",
+      "evidence": [
+        "native-independent",
+        "public-gui"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -131,14 +222,21 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded source-frozen original native consumers, actual Web closure/public bytes and source-bound independent review passed; not complete Integration or Release",
+      "evidence": [
+        "frozen-native",
+        "web-bundle",
+        "public-bytes"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Bounded actual Home/weapon/UI/monster and new Web observations retained; complete formal consumer ledger/full Integration pending",
+      "evidence": [
+        "frozen-native",
+        "public-gui"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -161,14 +259,19 @@
       "evidence": []
     },
     "performance": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded render-density policy confirmed in real new Web DPR1/2/3 and observed software-GPU fixed-seed public case; target-device FPS and initial load are not passed",
+      "evidence": [
+        "density-measurement",
+        "public-gui"
+      ]
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Separate reviewer accepted exact e525 native technical scope; Web and user/device outcomes remain separately attributed",
+      "evidence": [
+        "native-independent"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -195,6 +298,62 @@
       "evidence": [
         "feedback-scope"
       ]
+    },
+    {
+      "id": "native-tech",
+      "scenario": "Original current native UI/Home/weapon/HUD and actual Web closure",
+      "method": "Actual source-bound evidence; see referenced original receipts",
+      "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
+      "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "evidence": [
+        "frozen-native",
+        "web-bundle"
+      ],
+      "gate": "G4"
+    },
+    {
+      "id": "bounded-review",
+      "scenario": "Read-only independent e525 technical review",
+      "method": "Actual source-bound evidence; see referenced original receipts",
+      "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
+      "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "evidence": [
+        "native-independent"
+      ],
+      "gate": "G4"
+    },
+    {
+      "id": "web-density",
+      "scenario": "Actual WebDPR2 buffer/CSS and fixed-seed observed performance",
+      "method": "Actual source-bound evidence; see referenced original receipts",
+      "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
+      "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
+      "dimension": "performance",
+      "status": "passed",
+      "reason": "Passed only within the explicit evidence scope; no player/device/complete Release approval",
+      "evidence": [
+        "density-measurement",
+        "public-gui"
+      ],
+      "gate": "G4"
+    },
+    {
+      "id": "complete-integration",
+      "scenario": "Full PR Integration after frozen candidate publication",
+      "method": "Observe actual GitHub exact-head original full coverage",
+      "expected": "Complete current Integration report, no failed/not-run counted passed",
+      "failure": "Partial/local/candidate proofs presented as full CI or main Release",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Quick candidate verified; full PR Integration remains separate",
+      "evidence": []
     }
   ],
   "evidence": [
@@ -208,10 +367,99 @@
       "content_version": "candidate-v1",
       "method": "Actual five user reports, source baseline, file ownership and falsifiable verification boundaries",
       "observed": "Explicit existing systems to reuse, stable HUD/start->Home/three Lv1 goals and no device/aesthetic acceptance"
+    },
+    {
+      "id": "frozen-native",
+      "path": "docs/evidence/playtest_feedback_20261024/independent/receipt.json",
+      "sha256": "f05c652ed36e46b2733c2ebd02292fca0a0d747a37dc4d66907345de80800162",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Independent exclusive execution of original Underworld UI, actual UI contract, fixed HUD and real weapon consumers",
+      "observed": "270/139/56/597 assertions, clean exits/markers/strict errors and full tracked-source stable; bounded fixtures, no complete natural Boss routes",
+      "command": "Exact four original argv/budgets are in receipt.json and independent-review.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, headless Dummy, real native input and current frozen formal consumers, isolated /tmp XDG"
+    },
+    {
+      "id": "native-independent",
+      "path": "docs/evidence/playtest_feedback_20261024/independent/independent-review.json",
+      "sha256": "5ffa3950c7d2ec7d304da0b23347366e9096bf50b29956d2a8ac03173f4549f2",
+      "kind": "review",
+      "producer": "/root/feedback_review",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Read-only source/style/guard audit, four independently executed original consumers, viewed original GL images and source SHA bindings",
+      "observed": "Bounded ACCEPT for e525 native technical integration; no new Web/device/player/full CI/G5 approval",
+      "reviewer": "/root/feedback_review",
+      "implementers": [
+        "/root",
+        "/root/web_performance",
+        "/root/home_weapon_selection",
+        "/root/unified_enemy_hit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer edited no implementation or tests, independently executed original real native consumers and exact source/style audits; viewed 4 GL images, retained author source identities"
+    },
+    {
+      "id": "web-bundle",
+      "path": "docs/evidence/playtest_feedback_20261024/root/web/bundle-check.log",
+      "sha256": "f15e4ade0afd4cb2e186ec342844a93139177b4b36bb6d4cb4b4c348d38ced5a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Original tools/check_web_bundle.py against actual generated Web export",
+      "observed": "Actual PCK JSON/raw PNG/texture closure passed; no gameplay/device inference",
+      "command": "python3 tools/check_web_bundle.py",
+      "exit_code": 0,
+      "environment": "Original Godot Standard Web export from e525; original normal Foundry36/18 generated inputs preserved in archive"
+    },
+    {
+      "id": "public-bytes",
+      "path": "docs/evidence/playtest_feedback_20261024/root/public/pack-verified.json",
+      "sha256": "c6b719f02f7b5c225c3c5da9fd4e74c53a327a59e87a143b3b3f210296da4c1f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Stream actual public full PCK and compare all64 SHA256 digits to original export; verify public HTML/metadata",
+      "observed": "184492580B full SHA2ed80c618b79b294f652dbd388e4634f87fd7f34338209a7fb1d37217b6b02cd; source e525/build2ed80c618b79; deployment40053591706"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/playtest_feedback_20261024/performance/final-case-specific-summary.json",
+      "sha256": "fcc289b80391cdf7e09a03c2e6b97ca1de9d9700a29950cd830924b8e9e65ee4",
+      "kind": "gui",
+      "producer": "/root/web_performance",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Real Chromium native mouse/keyboard/touch, no Godot internal invocation; case-specific source and complete report/PNG hashes",
+      "observed": "Local DPR1/2/mobile3 matrix, public fixed-seed Home->Plains, separate actual walk/jump/W workshop three selections; workshop case does not claim departure"
+    },
+    {
+      "id": "density-measurement",
+      "path": "docs/evidence/playtest_feedback_20261024/performance/new-web-public-fixed/desktop2/report.json",
+      "sha256": "2f69264eb81b36f955bae7664e5ccbfc41cae5954a558503f74fb25835aec9d2",
+      "kind": "measurement",
+      "producer": "/root/web_performance",
+      "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+      "content_version": "candidate-v1",
+      "method": "Real public DPR2 fixed-seed formal Plains; compare original observed before condition with intentional CSS-density render policy",
+      "observed": "devicePixelRatio remains2; buffer1280x720==CSS; observed23.68FPS versus old7.78 at2560x1440 buffer; sameCSS/seed/manifest, intentional physical-density difference and software GPU only",
+      "device": "Cloud Chromium154 SwiftShader, software GPU; not a physical target-device measurement",
+      "environment": "1280x720CSS/DPR2, same normal Plains seed level-design-v2-baseline/08 and manifest78b664..., no large concurrent native tasks",
+      "scenario": "HighDPI no longer multiplies rendering buffer beyond CSS while actual Home/menu/Plains input works",
+      "budget_source": "Web CSS-density contract and original native1280x720 logical/pixel-art direction; no new numerical device FPS pass threshold"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Frozen actual UI/Home/weapon/enemy/Web outcomes and independent review pending; physical device/player acceptance remains unverified"
+    "Physical PC/mobile/controller performance and user feel/aesthetics/fun remain unverified",
+    "Initial download remains approximately186MB including loader resources; first-load/weak-network optimization not claimed fixed",
+    "Complete natural Boss fights/routes and full142 PR Integration/Release remain separate",
+    "Original main Release old FoundryLab audio lifecycle failure preserved; current quick candidate deployment does not re-sign it"
   ]
 }

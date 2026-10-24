@@ -1,0 +1,127 @@
+{
+  "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+  "build_id": "2ed80c618b79",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?build=2ed80c618b79",
+  "status": "passed_for_scopes_below",
+  "public_workshop": {
+    "scope": "Real public Chromium154, DPR2, native Start click enters Home; native D walk and Space jump reach the authored elevated arms workshop; native W interaction opens Armorer; native mouse selects shadow_shuriken, recoil_bomb, then pulse_gun. Rendered selected/disabled row follows each choice. No actor transforms/physics/Godot methods injected.",
+    "raw_report": {
+      "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/report.json",
+      "bytes": 4657,
+      "sha256": "47c213614dbb25f021473e9fcd57424f0a5eec70e3a11f126f2627b55e10a9d5"
+    },
+    "selected_rows": [
+      2,
+      3,
+      1
+    ],
+    "selection_evidence": "actual rendered rows, selected-text PNGs and disabled palette, not Godot internal state",
+    "region_assembly_events": [],
+    "departure_tested": false,
+    "gameplay_weapon_damage_after_choice_tested": false,
+    "page_errors": [],
+    "http_failures": [],
+    "screenshots": [
+      {
+        "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/workshop-tier.png",
+        "bytes": 658567,
+        "sha256": "8c7fea43139fbcd56d1d8a8ecb8c7f8a754c8e34f0ec110646407455ac0345a9"
+      },
+      {
+        "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/workshop-initial.png",
+        "bytes": 23060,
+        "sha256": "5464b25952d68fa521ba7a898eb4f84095ef0f0bb43bc5fc6183e264f964295a"
+      },
+      {
+        "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/weapon-selected-2.png",
+        "bytes": 23045,
+        "sha256": "f649b913685415d182db49eb6559f9e7581bfb2987013faacef86a8a8e93fe8d"
+      },
+      {
+        "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/weapon-selected-3.png",
+        "bytes": 23046,
+        "sha256": "462a7cad5a7c4f410e18b0ee989ae68174a749963f0ba56eb11047ee30882006"
+      },
+      {
+        "path": "/tmp/web-performance-20261024/new-web-public-workshop/desktop2/weapon-selected-1.png",
+        "bytes": 23051,
+        "sha256": "1259d185cb00d1227feadeda1fbae45bb4a63415fe35425f88072a9a666d15fa"
+      }
+    ],
+    "template_scope_correction": "The untouched top-level generic report/log says title->Home->menu->Plains. That generic string is too broad for this workshop case. This case stopped in the Home workshop; events[] is empty. This supplement limits its interpretation and preserves all raw bytes."
+  },
+  "public_fixed_seed_plains": {
+    "scope": "Separate real public case: DPR2 native Start->Home menu->native LineEdit seed typing->Explore->accepted formal Plains; same seed and manifest as old public baseline.",
+    "raw_report": {
+      "path": "/tmp/web-performance-20261024/new-web-public-fixed/desktop2/report.json",
+      "bytes": 5761,
+      "sha256": "2f69264eb81b36f955bae7664e5ccbfc41cae5954a558503f74fb25835aec9d2"
+    },
+    "events": [
+      {
+        "abilities": [],
+        "boss_definition": "res://resources/bosses/bellstrider.tres",
+        "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+        "content_version": "plains-region-v12-root-bell-spaces",
+        "debug_entry": false,
+        "event": "region_assembled",
+        "layout_version": "",
+        "manifest_hash": "78b664810df3d34ba76c89a3ccf28a6adeba31fe62f774a086367fa17f140926",
+        "map_index": 1,
+        "region": "plains",
+        "seed": "level-design-v2-baseline/08"
+      }
+    ],
+    "density": {
+      "dpr": 2,
+      "css": [
+        1280,
+        720
+      ],
+      "buffer": [
+        1280,
+        720
+      ],
+      "filter": "pixelated",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "fps_observation": 23.680038530232157,
+    "p95_frame_ms": 50.10000000000582,
+    "performance_limit": "Same CSS1280x720, seed/manifest and software renderer. Physical render buffer intentionally changes from old2560x1440 to new1280x720; this is not equal-physical-resolution algorithm benchmarking or player/device FPS acceptance.",
+    "page_errors": [],
+    "http_failures": []
+  },
+  "local_browser_matrix": {
+    "scope": "Separate local stable exported Web checks: desktop DPR1/DPR2 and mobile landscape CSS960x540 DPR3, real pointer/touch Start->Home->navigation->Explore->formal Plains. Seeds were random in this matrix; no strict seed-matched performance attribution.",
+    "raw_summary": {
+      "path": "/tmp/web-performance-20261024/new-web-local/report.json",
+      "bytes": 704,
+      "sha256": "546be48f8a1a70f2e6ecc1f7844c5e8887619ea7cb1dc642bdf59284c61bd487"
+    },
+    "cases": [
+      {
+        "case": "desktop1",
+        "status": "passed",
+        "fps": 23.27821480173384,
+        "error": null
+      },
+      {
+        "case": "desktop2",
+        "status": "passed",
+        "fps": 23.078003652344933,
+        "error": null
+      },
+      {
+        "case": "mobile3",
+        "status": "passed",
+        "fps": 34.20068401368029,
+        "error": null
+      }
+    ]
+  },
+  "unverified": [
+    "Physical PC/mobile/controller performance and user acceptance",
+    "Complete routes and all three weapons combat in this public browser case",
+    "Cold-download latency improvement; package remains approximately184MB"
+  ]
+}

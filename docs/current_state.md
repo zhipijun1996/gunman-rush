@@ -1,12 +1,14 @@
 # 当前状态
 
-## 2026-10-24 当前试玩反馈修复
+## 2026-10-24 五项试玩反馈候选已交付
 
-main `cd4989a6`已合入四线；[当前公开试玩](https://zhipijun1996.github.io/gunman-rush/?build=72c47d59bc4f)实际包`72c47d59bc4f`已核完整PCK和真实标题→平原。旧自动Release的工坊音频生命周期失败保留，快速试玩不把该失败改为通过。
+[最新候选试玩](https://zhipijun1996.github.io/gunman-rush/?build=2ed80c618b79)：实际producer `e5254559b38f9593f03fa2fd7847b107d5d04402`、build `2ed80c618b79`，公网完整PCK及真实Home/固定Seed平原/工坊三武器已验证；main源码仍cd4989，候选不冒充main完整Release。
 
-当前工作线`fix/main-playtest-feedback-20261024`处理[用户五项实际反馈](worklines/playtest_feedback_20261024/scope.md)：Web HiDPI像素放大、普通HUD固定边缘、所有怪物共享受击而死亡独立、原arms工坊3种Lv1选择、标题开始进入Home。运行实现/定向验证正在收口；此处不把原公开包写成本轮新源码，也不把软件GPU结果签为用户设备。
+Web-only HighDPI按CSS像素渲染且nearest合成；正常HUD固定边缘；14普通物种/22渲染链与8Boss普通受击共用模板、死亡和弱点等保各自；原arms工坊提供3个真实Lv1会话选择、实际出发/返回携带；标题Start进入可操作Home。源码与证据见[本轮交付](evidence/playtest_feedback_20261024/README.md)。
 
-本轮共享引用候选为style-v11/creative-v14，仅DemoApp/HomeScene两项技术消费者更新，原34项/画风/Bible与旧v10/v13原件保留。下面四线集成段落是前轮实际来源；当前实现与新试玩是否完成以本轮交接/精确Git及实际部署记录为准。
+独立冻结e525原native270/139/56/597全部clean，scope限定ACCEPT；作者原all-weapons2381/0等前阶段证据保原身份。公网DPR2同CSS/Seed/Manifest观测7.78→23.68FPS，物理buffer有意2560×1440→1280×720，SwiftShader不签玩家设备。首次加载仍约186MB，完整CI/设备/玩家G5仍未验。
+
+当前style-v11/creative-v14只技术重绑DemoApp/HomeScene，另34引用/原画风/Bible/旧v10v13原字节保留。下面旧四线记录仅保原来源；main/CI以真实PR状态为准，不重新执行已完成的旧集成。
 
 ## 四线集成与当前验证（2026-10-23）
 

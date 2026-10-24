@@ -1,0 +1,101 @@
+{
+  "task": "PLAYTEST-FEEDBACK-20261024/home-weapons",
+  "base": "cd4989a68613e0b457cdfd5e252634dd57008505",
+  "status": "bounded technical proof passed; player/browser/device acceptance separate",
+  "implementation": [
+    "Existing authored arms slot active in formal Home only, same position/art/platform; 7 other reserved stations retained",
+    "Three real Lv1 Definitions: pulse_gun/shadow_shuriken/recoil_bomb; session-only choice, no economic or ability grants",
+    "Real ShootAbility.equip clears old inputs/entities; Home-only App guard, actual selected initial Manifest and Forest capability",
+    "Title Begin now enters actual Home; original Home departure and developer region entries retained",
+    "Only accepted actual Lv1 bomb blast emits a registered shot identity and forwards it to existing mechanism/Boss/rune sinks; existing guards unchanged",
+    "Mechanisms get no enemy resource callback; same actual bomb repeated callback produces one damage/packet reward",
+    "Bomb identity observation adds neither pulse nor classic shot sound; existing blast remains"
+  ],
+  "source_sha256_at_closeout": {
+    "scripts/demo/home_weapon_selection.gd": "c38f305fedae89fd4ba90d9c06a5cb9f014dc0f3b51133182459bc9929c0898a",
+    "scripts/demo/home_weapon_selection.gd.uid": "e76966fc56397fddea6229711bd067c17c0039bc15530cc2fc8345cca1cb218c",
+    "scripts/ui/demo_menu.gd": "ec3dc5d1f19bc66f12ec3304e53282da4c8256960dd7daf89503713b33034fab",
+    "scripts/demo/home_scene.gd": "1d4b1aed7b479258268e23bd095f45092d708259e34293aadc0dbc0448a8d5e1",
+    "scripts/underworld_plains/underworld_home_world.gd": "2650eaebaf1527a1f495d7d43e328df9c1f4f5bed15febabbee2c8df83db545e",
+    "scripts/combat/weapon_action_runtime.gd": "54e11fdeb66ebbceb165aec7833c1a7f5bbee4d907a4620589e2d1a2afc21b07",
+    "scripts/art/player_feedback.gd": "28ddd06362cc3289e48f80ca8e97b98ea02c859f817232b5217b39231b030cd7",
+    "scripts/dev/player_presentation_01/weapon_feel.gd": "d9ab02e6cb1af5e2e82e04fe81fc536b3dc3d0c474b826018ae27d6d4eedfc63",
+    "tests/home_weapon_selection_runner.gd": "49d6d28fad2ae3cca0b135494c509643c46ecf51bd607b40c8156b94d7bd075f",
+    "tests/home_weapon_selection_runner.gd.uid": "f61370ecf20bdd1a21fad0ec24a3a99abb015814ed209e1d71409c5d9a17e44c",
+    "tests/home_weapon_consumers_runner.gd": "55f83b6f4cf06956e98c8379d8e9bb98bb6ee6bf3bd8922bd9c1a043fb904506",
+    "tests/home_weapon_consumers_runner.gd.uid": "677c4696bb2812d27376829ec01aa243b3dc405d4b3955a4d0137aad13ae38b1",
+    "tests/underworld_plains/test_underworld_home.gd": "0eea69c6037f30a40ed2653dc0fd98e5bc0b93ce828a33404a6251badea50e26",
+    "tests/underworld_plains/test_underworld_home_terraces.gd": "95f9a594ad4bf89e08b8b36161ea3ec6dae00424c9fdce445478bacfb6303377",
+    "scripts/demo/demo_app.gd": "c404ed56910812ce3608f230e45b6a74b692f69fee09864f3fd73c7597d66693"
+  },
+  "guard_and_asset_bytes_unchanged_from_base": {
+    "scripts/combat/shoot_ability.gd": true,
+    "scripts/player/player_controller.gd": true,
+    "scripts/world/shot_latch.gd": true,
+    "scripts/world/backside_shot_latch.gd": true,
+    "scripts/bosses/windkeeper_encounter.gd": true,
+    "scripts/bosses/windkeeper_damageable.gd": true,
+    "scripts/damage/frame_damage_policy.gd": true,
+    "resources/weapons/pulse_gun.tres": true,
+    "resources/weapons/shadow_shuriken.tres": true,
+    "resources/weapons/recoil_bomb.tres": true,
+    "assets/underworld_plains/home/home_build.json": true
+  },
+  "verification": [
+    {
+      "name": "fresh import",
+      "exit_code": 0,
+      "strict_errors": 0,
+      "log": "/tmp/home-weapon-selection-20261024/final-import.log"
+    },
+    {
+      "name": "Home selection, real title click, real Home Motor+pointer/touch, 3 formal Plains, Forest startup/return, real formal Boss/audio",
+      "assertions": 58,
+      "failures": 0,
+      "exit_code": 0,
+      "strict_errors": 0,
+      "log": "/tmp/home-weapon-selection-20261024/home-weapons-final.log",
+      "report": "/tmp/playtest-feedback-20261024/build/home_weapon_selection/report.json"
+    },
+    {
+      "name": "Actual 3 Lv1 ShotLatch/adjacent wall, TTL/stale/cancel/death, backside stance, duplicate bomb/dedup resources, actual context through retained direction/rune guard",
+      "assertions": 597,
+      "failures": 0,
+      "exit_code": 0,
+      "strict_errors": 0,
+      "log": "/tmp/home-weapon-selection-20261024/home-consumers-second.log",
+      "receipt": "/tmp/home-weapon-selection-20261024/home-consumers-second.json"
+    },
+    {
+      "name": "Original all-weapons wrapper, original 90/240 budgets",
+      "assertions": 2381,
+      "failures": 0,
+      "exit_code": 0,
+      "strict_errors": 0,
+      "listed_source_stable": true,
+      "log": "/tmp/home-weapon-selection-20261024/original-all-weapons.log",
+      "receipt": "/tmp/home-weapon-selection-20261024/original-all-weapons.json"
+    }
+  ],
+  "retained_failures": [
+    {
+      "log": "/tmp/home-weapon-selection-20261024/import.log",
+      "scope": "first import actual root disk-full XDG errors; not passed; clean temporary XDG rerun retained separately"
+    },
+    {
+      "log": "/tmp/home-weapon-selection-20261024/home-weapons-first.log",
+      "scope": "49 assertions passed but enemy template missing-meta errors and absent test audio drain; not a clean pass; final original drain passes"
+    },
+    {
+      "log": "/tmp/home-weapon-selection-20261024/home-consumers-final.log",
+      "scope": "596 assertions/1 failure from rune fixture missing actual active/stage3/pier_open prerequisites; original production gate correctly refused. Corrected fixture adds inactive registration negative and preserves all guard assertions, yielding597/0"
+    }
+  ],
+  "limitations": [
+    "Native touch dispatch is not physical touch-device/browser evidence",
+    "Formal App Boss stance was explicitly initialized; no natural whole-map traversal claim",
+    "Retained directional/rune predicate unit fixture consumes real blast context; not a replay of complete old Boss route",
+    "Session only, fresh app returns to pulse_gun",
+    "Runtime changes frozen; no commits/pushes made by child"
+  ]
+}
