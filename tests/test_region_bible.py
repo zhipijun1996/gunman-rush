@@ -238,6 +238,8 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(len(refs),36)
         current_refs = refs
         old_v11 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json').read_bytes())
+        for key in old_v11.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key], old_v11[key])
         for before, after in zip(old_v11['runtime_reference']['references'], current_refs):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
@@ -246,6 +248,8 @@ class BibleTests(unittest.TestCase):
             else:
                 self.assertEqual(before, after)
         old_v10 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json').read_bytes())
+        for key in old_v10.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_v11[key], old_v10[key])
         for before, after in zip(old_v10['runtime_reference']['references'], old_v11['runtime_reference']['references']):
             if before['path'] in ('scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'):
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
