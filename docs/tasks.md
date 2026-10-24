@@ -74,6 +74,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；技术候选已公开，完整CI与玩家／设备认可分别记录 |
 | FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
 | ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
 | DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
