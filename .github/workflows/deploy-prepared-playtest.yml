@@ -1,12 +1,8 @@
 name: Deploy prepared playtest
 on:
   workflow_dispatch:
-    inputs:
-      prepared_ref:
-        description: Branch containing only the prepared Web bundle
-        required: true
-        type: string
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -16,26 +12,62 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout exact deployment helper without historical evidence
+      - name: Checkout the exact existing package validators
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: cd4989a68613e0b457cdfd5e252634dd57008505
           path: delivery-source
-          sparse-checkout: tools/style_exploration_delivery.py
+          sparse-checkout: |
+            tools/publish_playtest.py
+            tools/style_exploration_delivery.py
           sparse-checkout-cone-mode: false
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.prepared_ref }}
-          path: prepared-web
-      - name: Reconstruct and verify the complete content-addressed PCK
-        run: python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web
+      - name: Fetch the existing successful Web export and its API identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/zhipijun1996/gunman-rush/actions/artifacts/12535279274 > artifact-api.json
+          gh api repos/zhipijun1996/gunman-rush/actions/runs/40032442764 > source-run.json
+          gh api repos/zhipijun1996/gunman-rush/actions/runs/40032442764/jobs > source-jobs.json
+          gh api repos/zhipijun1996/gunman-rush/actions/artifacts/12535279274/zip > original-web.zip
+      - name: Verify original archive, exact source and complete PCK without rebuilding
+        id: bundle
+        run: |
+          python3 - <<'PY'
+          import importlib.util,json,os,zipfile
+          from pathlib import Path
+          expected='cd4989a68613e0b457cdfd5e252634dd57008505'
+          meta=json.loads(Path('artifact-api.json').read_text())
+          run=json.loads(Path('source-run.json').read_text())
+          jobs=json.loads(Path('source-jobs.json').read_text())
+          assert meta['id']==12535279274 and meta['name']=='gunman-rush-web-playtest' and not meta['expired']
+          assert meta['workflow_run']['id']==40032442764 and meta['workflow_run']['head_sha']==expected
+          assert meta['digest']=='sha256:ae190c016fafe51cb773e80f4ddecb2501c9fa0f566534c40045c4bcc699974a'
+          assert run['head_sha']==expected and run['id']==40032442764
+          web=[j for j in jobs['jobs'] if j['name']=='web']
+          assert len(web)==1 and web[0]['status']=='completed' and web[0]['conclusion']=='success'
+          def load(name,path):
+              spec=importlib.util.spec_from_file_location(name,path)
+              module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+          validator=load('original_publish_validator','delivery-source/tools/publish_playtest.py')
+          info,receipt=validator.verify_artifact_zip(Path('original-web.zip'),meta,expected,[])
+          with zipfile.ZipFile('original-web.zip') as archive:
+              archive.extractall('unpacked')
+          records=list(Path('unpacked').rglob('build-info.json'));assert len(records)==1
+          bundle=records[0].parent.resolve()
+          helper=load('original_pack_transport','delivery-source/tools/style_exploration_delivery.py')
+          pack=helper.reconstruct_pack(bundle)
+          provenance={'scope':'Quick public playtest of the existing successful Web export; no full Release success claim','source_commit':expected,'build_id':info['build_id'],'source_run_id':40032442764,'source_run_conclusion':run['conclusion'],'web_job':web[0]['id'],'archive':receipt,'pack':pack,'deployment_run':int(os.environ['GITHUB_RUN_ID'])}
+          (bundle/'playtest-deployment.json').write_text(json.dumps(provenance,indent=2)+'\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:output.write('directory='+str(bundle)+'\n')
+          print(json.dumps(provenance,indent=2))
+          PY
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: prepared-web
+          path: ${{ steps.bundle.outputs.directory }}
       - uses: actions/deploy-pages@v4
         id: deployment
