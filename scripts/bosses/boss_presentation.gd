@@ -9,9 +9,9 @@ var _hurt := 0.0
 var _death := 0.0
 var _old_phase := 1
 var _phase_age := 1.0
+var hit_template: EnemyHitTemplate
 func _ready() -> void:
-	encounter.health.changed.connect(func(result: ActorResourceResult) -> void:
-		if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED: _hurt = .16)
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 
 func _process(delta: float) -> void:
 	_clock += delta
@@ -40,6 +40,7 @@ func _draw() -> void:
 	var destination := PlainsActorAssets.anchored_rect("enemies", key, Vector2(0, size.y * 0.5), scale_factor)
 	draw_set_transform_matrix(Transform2D(Vector2(_weight.x,0),Vector2(_lean,_weight.y),Vector2(-_lean*size.y*.5,size.y*.5*(1-_weight.y))))
 	var tint := Color(1.2,1,.8) if _hurt > 0 else Color.WHITE
+	tint = hit_template.tint(tint)
 	if not alive: tint.a = maxf(.18,1-_death*.8)
 	draw_texture_rect(PlainsActorAssets.texture("enemies",key),destination,false,tint)
 	draw_set_transform(Vector2.ZERO)

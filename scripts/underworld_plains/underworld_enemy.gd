@@ -10,6 +10,7 @@ var feedback_anchor := Vector2.ZERO
 var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
+var hit_template: EnemyHitTemplate
 
 func _ready() -> void:
 	if EnemyFeedback01.supports(actor.definition):
@@ -44,6 +45,7 @@ func _ready() -> void:
 	else:
 		super._ready()
 		actor.health.changed.connect(_accepted_damage)
+		hit_template = EnemyHitTemplate.install(actor, self)
 
 func _process(delta: float) -> void:
 	if get_tree().paused: return
@@ -156,6 +158,8 @@ func _draw() -> void:
 	elif state==&"attack": pose=Vector2(.96,1.04)
 	if feedback_sample != null:
 		pose *= feedback_sample.pose()
+	elif hit_template != null and not actor.health.terminal:
+		pose *= hit_template.pose()
 	elif _hurt > 0 and not actor.health.terminal:
 		var age := feedback.hurt_seconds-_hurt
 		pose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)
@@ -163,9 +167,10 @@ func _draw() -> void:
 	var flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0
 	var tilt := feedback_sample.tilt() if feedback_sample != null else 0.0
 	# Keep the ground contact anchor while squashing; the flyer retains flutter.
-	var origin := Vector2(0,dip+flutter+(floor_y*(1-pose.y) if feedback_sample != null else 0.0))
+	var origin := Vector2(0,dip+flutter+(floor_y*(1-pose.y) if feedback_sample != null or hit_template != null else 0.0))
 	draw_set_transform(origin,tilt,Vector2(float(actor.brain.direction)*pose.x,pose.y))
 	var tint := feedback_sample.tint() if feedback_sample != null else Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE
+	if hit_template != null: tint = hit_template.tint()
 	if feedback_body == null: draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,tint)
 	draw_set_transform(Vector2.ZERO)
 	if actor.health.terminal: return

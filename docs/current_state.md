@@ -1,5 +1,13 @@
 # 当前状态
 
+## 2026-10-24 当前试玩反馈修复
+
+main `cd4989a6`已合入四线；[当前公开试玩](https://zhipijun1996.github.io/gunman-rush/?build=72c47d59bc4f)实际包`72c47d59bc4f`已核完整PCK和真实标题→平原。旧自动Release的工坊音频生命周期失败保留，快速试玩不把该失败改为通过。
+
+当前工作线`fix/main-playtest-feedback-20261024`处理[用户五项实际反馈](worklines/playtest_feedback_20261024/scope.md)：Web HiDPI像素放大、普通HUD固定边缘、所有怪物共享受击而死亡独立、原arms工坊3种Lv1选择、标题开始进入Home。运行实现/定向验证正在收口；此处不把原公开包写成本轮新源码，也不把软件GPU结果签为用户设备。
+
+本轮共享引用候选为style-v11/creative-v14，仅DemoApp/HomeScene两项技术消费者更新，原34项/画风/Bible与旧v10/v13原件保留。下面四线集成段落是前轮实际来源；当前实现与新试玩是否完成以本轮交接/精确Git及实际部署记录为准。
+
 ## 四线集成与当前验证（2026-10-23）
 
 人物b106976、怪物080ac505、UI ea2d6fd及美术02031d7已接入集成分支；黄金切片68bd037暂停，不在本轮合入范围。

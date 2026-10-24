@@ -30,7 +30,9 @@ var _actual_speed := 0.0
 var _rotor_angle:=0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
+var hit_template: EnemyHitTemplate
 func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,false)
 	get_parent().add_child.call_deferred(arrival)
@@ -42,7 +44,6 @@ func _ready() -> void:
 		_last_position = encounter.motor.global_position
 		encounter.health.changed.connect(func(result: ActorResourceResult) -> void:
 			if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
-				hurt_flash = .14
 				GameAudio.cue(self, &"core"))
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
@@ -123,7 +124,7 @@ func _draw() -> void:
 			_previous_frame = _frame
 			_frame = frame
 			_blend = 0
-		var tint := Color(1.3,1.15,.8) if hurt_flash > 0 else Color.WHITE
+		var tint := hit_template.tint()
 		if encounter.health.terminal:tint.a=maxf(0,1-_death_age/.65)
 		# Piecewise shear around the common foot origin; feet never bob off floor.
 		var form_scale:float=lerpf(.54 if _old_form==3 else .35,.54 if _form_phase==3 else .35,smoothstep(0,1,_form_blend)) if (encounter.definition as WindkeeperDefinition).platform_trials else .35

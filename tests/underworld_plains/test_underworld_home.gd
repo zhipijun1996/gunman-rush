@@ -86,7 +86,7 @@ func run() -> void:
 	check(home.camera.get_screen_center_position().x<=641,"Camera returns to western safe square")
 	if "--capture" in OS.get_cmdline_user_args():await capture(home,"returned_west")
 	var f:=FileAccess.open(output+"receipt.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"schema":"underworld-home-actual-consumer-v1","checks":checks,"failures":failures,"slots":records,"roots":rays,"layers":layers,"future_function_grants":false,"navigation_contract":"Original four signals, real panels; original home_app_runner additionally covers departure, upgrade and save baseline"},"\t"));f.close()
+	f.store_string(JSON.stringify({"schema":"underworld-home-actual-consumer-v1","checks":checks,"failures":failures,"slots":records,"roots":rays,"layers":layers,"future_function_grants":false,"navigation_contract":"Five active services including the authored arms workshop, real panels; original home_app_runner additionally covers departure, upgrade and save baseline"},"\t"));f.close()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):check(false,"Actual Home audio must release before teardown")
 	app.queue_free()
 	await frames(5)

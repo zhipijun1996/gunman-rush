@@ -8,10 +8,17 @@ var placements: Array[Dictionary] = []
 var terrain: UnderworldTerrain
 var slot_nodes: Dictionary = {}
 var floor_y := 432.0
+var weapon_workshop_enabled := false
 
 func configure(ground_y: float) -> void:
 	floor_y = ground_y
 	specification = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH))
+	# Activate the authored arms building without changing its fixed platform or art.
+	if weapon_workshop_enabled:
+		for slot: Dictionary in specification.slots:
+			if str(slot.id) == "arms":
+				slot.active = true
+				slot.keeper = "artisan"
 	var grounds: Array[Rect2] = [Rect2(-100,floor_y,float(specification.world_width)+200,640)]
 	for platform: Dictionary in specification.get("platforms",[]):
 		var rect: Array=platform.rect

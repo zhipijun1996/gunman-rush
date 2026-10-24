@@ -2,6 +2,9 @@ class_name ThornForestPresentation
 extends Node2D
 @export var encounter: ThornForestEncounter
 var age := 0.0
+var hit_template: EnemyHitTemplate
+func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 func _process(delta: float) -> void:
 	age += delta
 	queue_redraw()
@@ -10,6 +13,7 @@ func _draw() -> void:
 	var alive := not encounter.health.terminal
 	var size := encounter.definition.collision_size
 	var bark := Color(.24,.3,.22) if alive else Color(.18,.2,.17)
+	bark = hit_template.tint(bark)
 	draw_style_box(_bark_style(bark),Rect2(-size*.5,size))
 	for side: int in [-1,1]:
 		var branch := PackedVector2Array([Vector2(side*24,20),Vector2(side*60,-28),Vector2(side*48,-38),Vector2(side*18,-8)])

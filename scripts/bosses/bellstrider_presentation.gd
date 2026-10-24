@@ -15,14 +15,16 @@ var _mode: StringName
 var flash:=0.0
 var death_age:=0.0
 var _body_scale := Vector2.ONE
+var hit_template: EnemyHitTemplate
 func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,true)
 	get_parent().add_child.call_deferred(arrival)
 	_last=global_position
 	encounter.health.changed.connect(func(r: ActorResourceResult) -> void:
 		if r.operation==&"damage" and r.status==ActorResourceResult.Status.APPLIED:
-			flash=.16;GameAudio.cue(self,&"core"))
+			GameAudio.cue(self,&"core"))
 	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
 func _process(delta: float) -> void:
 	if get_tree().paused: return
@@ -56,7 +58,7 @@ func _draw() -> void:
 			draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
 		draw_set_transform(Vector2.ZERO)
 		draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean,_body_scale)
-		draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
+		draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,hit_template.tint())
 		draw_set_transform(Vector2.ZERO)
 	if encounter.core_open:
 		var p:=encounter.core_offset()

@@ -1,10 +1,13 @@
 extends Node2D
 @export var encounter: ThornQueenV2
+var hit_template: EnemyHitTemplate
+func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 func _process(_delta: float) -> void: queue_redraw()
 func _draw() -> void:
 	if encounter==null: return
 	var size := encounter.definition.collision_size
-	draw_colored_polygon(PackedVector2Array([Vector2(-size.x*.5,0),Vector2(-16,-size.y*.5),Vector2(0,-size.y*.5-18),Vector2(16,-size.y*.5),Vector2(size.x*.5,0),Vector2(0,size.y*.5)]),Color("9c677e") if not encounter.health.terminal else Color("635866"))
+	draw_colored_polygon(PackedVector2Array([Vector2(-size.x*.5,0),Vector2(-16,-size.y*.5),Vector2(0,-size.y*.5-18),Vector2(16,-size.y*.5),Vector2(size.x*.5,0),Vector2(0,size.y*.5)]),hit_template.tint(Color("9c677e") if not encounter.health.terminal else Color("635866")))
 	draw_circle(Vector2.ZERO,10,Color("efc591"))
 	draw_arc(Vector2.ZERO,15,0,TAU,24,Color("fae4b4"),2)
 	for side: int in [-1,1]:

@@ -78,8 +78,11 @@ func _shot(axis: Vector2, serial: int) -> void:
 	var cue: StringName = &"blade" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &"machine" if mode==WeaponDefinition.Mode.MACHINE else &"pulse"
 	# One sound per simultaneous volley; subsequent machine rounds keep rhythm.
 	var key := "%s/%s/%s/%s" % [_epoch,ability.packet_id,Engine.get_physics_frames(),cue]
-	if not enabled_candidate: legacy._shot(axis,serial)
-	else: _sound(cue,key)
+	# Lv1 bomb registers the same accepted-shot identity as a projectile, but its
+	# existing blast callback owns its sound/flash; never add a pulse-gun sound.
+	if mode != WeaponDefinition.Mode.BOMB:
+		if not enabled_candidate: legacy._shot(axis,serial)
+		else: _sound(cue,key)
 	for projectile: PlayerProjectile in ability._projectiles:
 		if not is_instance_valid(projectile) or projectile.shot_id!=serial: continue
 		projectile.impacted.connect(_contact.bind(projectile,mode))

@@ -43,7 +43,7 @@ static func draw_bellstrider(canvas: Node2D, encounter: Node, _spring: float, an
 	# The generated wheels are part of this body page: bobbing the whole image
 	# would lift both wheels from the real floor. Only the functional core sways.
 	canvas.draw_set_transform(Vector2.ZERO,0,Vector2(facing,1))
-	canvas.draw_texture_rect(BELLSTRIDER,Rect2(-80,-91,160,157),false,Color(1.5,1.3,1.0) if flash else Color.WHITE)
+	canvas.draw_texture_rect(BELLSTRIDER,Rect2(-80,-91,160,157),false,EnemyHitTemplate.body_tint(canvas, Color(1.5,1.3,1.0) if flash else Color.WHITE))
 	canvas.draw_set_transform(Vector2.ZERO)
 	# Axles remain the real legacy centers; rotation follows accepted movement.
 	for side: int in [-1,1]:
@@ -59,7 +59,7 @@ static func draw_windkeeper(canvas: Node2D, encounter: Node, stride: float, spee
 	var face := float(encounter.direction)
 	var dip := 4.0 if encounter.mode in [&"stomp_warning",&"charge_warning",&"pier_warning"] else 0.0
 	canvas.draw_set_transform(Vector2(0,dip),0,Vector2(face,1))
-	canvas.draw_texture_rect(WINDKEEPER,Rect2(-92,65-height,184,height),false,Color(1.5,1.3,1.0) if flash else Color.WHITE)
+	canvas.draw_texture_rect(WINDKEEPER,Rect2(-92,65-height,184,height),false,EnemyHitTemplate.body_tint(canvas, Color(1.5,1.3,1.0) if flash else Color.WHITE))
 	# The real edited source contains continuous closed armour. Its functional
 	# moving core is rendered only at the encounter-owned anchor below.
 	if absf(speed)>2:

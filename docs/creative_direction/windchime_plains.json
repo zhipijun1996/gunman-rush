@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v13",
+  "version": "creative-v14",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-    "supplemental_authority_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+    "supplemental_authority_sha256": "e4f6439eaadee9078c4ecb7454b1a939ccf48263e334aa9fbbf12f5dd305071f",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
+    "registry_sha256": "280b0a487fbb9273f131393ff0b5ca09bb757712d09e495d42ddf26eaf8ffd03",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -149,8 +149,8 @@
       "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
     },
     {
-      "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-      "sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
+      "path": "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+      "sha256": "e4f6439eaadee9078c4ecb7454b1a939ccf48263e334aa9fbbf12f5dd305071f"
     }
   ],
   "historical_direction": {
@@ -159,31 +159,31 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "FOUR-LINE-INTEGRATION-01",
-    "revision": "Foreground CPU technical-consumer rebind only",
+    "task_id": "PLAYTEST-FEEDBACK-20261024",
+    "revision": "Two existing technical consumer references; no creative direction/style selection change",
     "previous_direction": {
-      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
-      "sha256": "88b0b6fff129087952d4215d0a3e554171a8fd482234cacfb2e54a4359764ad3",
-      "version": "creative-v12"
+      "path": "docs/creative_direction/archive/creative-v13/windchime_plains.json",
+      "sha256": "a5e00e2cc3893deb65ac530c9055526e0847495d2571929435882859e50bfce0",
+      "version": "creative-v13"
     },
     "changed_authorities": [
       {
         "path": "docs/creative_direction/bibles/registry.json",
-        "old_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4",
-        "new_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74"
+        "old_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
+        "new_sha256": "280b0a487fbb9273f131393ff0b5ca09bb757712d09e495d42ddf26eaf8ffd03"
       },
       {
-        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
-        "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-        "old_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
-        "new_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
+        "old_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
+        "new_sha256": "e4f6439eaadee9078c4ecb7454b1a939ccf48263e334aa9fbbf12f5dd305071f"
       }
     ],
     "preserved": [
-      "Complete previous direction snapshot, source quotes, original Bible and all visual specifications unchanged",
-      "Other35 runtime references unchanged; prior historical snapshots retained"
+      "Complete previous direction raw bytes, user quotes, original Bible and all visual specifications",
+      "Other34 runtime references and existing historical snapshots"
     ],
-    "impact": "Automatic early refresh removed; sticky admission/entered-view/retirement timing is not claimed equivalent. Per-protection geometry snapshot and disjoint-mask skip retain mask semantics. No aesthetic/device/G5 acceptance.",
-    "validation_status": "Pending exact current authority checks; runtime evidence recorded separately, no art/player/device acceptance."
+    "impact": "DemoApp normal HUD no longer scores/moves cards against world actors every frame; Home applies an existing Lv1 session loadout before departure and reports its actual weapon id. HomeScene enables its existing arms interaction. This rebind records these changed real consumers; it does not sign player aesthetics/device/performance acceptance. Web-only HiDPI override and CSS nearest composition are separately verified, no change to logical1280x720/world style.",
+    "evidence_scope": "Functional/runtime rebind only; independent final technical review and actual Web remain separate evidence, user/device unverified"
   }
 }

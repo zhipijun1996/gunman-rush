@@ -13,9 +13,11 @@ var _burst_manifest: Dictionary = {}
 var _burst_atlas: Texture2D
 var _manifest: Dictionary = {}
 var _atlas: Texture2D
+var hit_template: EnemyHitTemplate
 
 func _ready() -> void:
 	actor.health.changed.connect(_health_changed)
+	hit_template = EnemyHitTemplate.install(actor, self)
 	var path := "res://assets/region_production_v3/enemies/root_bell/manifest.json"
 	if FileAccess.file_exists(path):
 		_manifest = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -63,6 +65,7 @@ func _draw() -> void:
 			_draw_burst(center,"fold" if behavior.state_time < .05 else "settled",1-behavior.state_time/.10)
 	if _atlas != null and not _manifest.is_empty():
 		var tint := Color(1, .65, .45) if _hurt > 0 else Color.WHITE
+		if hit_template != null: tint = hit_template.tint()
 		tint.a = maxf(0, 1 - _death / .8) if actor.health.terminal else 1
 		_draw_pose(_pose, tint)
 	draw_set_transform(Vector2.ZERO)
@@ -80,7 +83,8 @@ func _draw_pose(id: String, tint: Color) -> void:
 	breathing += sin(minf(_transition_time/.10,1)*PI)*.018
 	var lean := -.05 * sin(_hurt * 30) if _hurt > 0 else 0.0
 	var feet := Vector2(0, actor.definition.collision_size.y * .5)
-	draw_set_transform_matrix(Transform2D(Vector2(float(actor.brain.direction) * (1 + breathing), 0), Vector2(lean, 1 - breathing), feet))
+	var impact := hit_template.pose() if hit_template != null else Vector2.ONE
+	draw_set_transform_matrix(Transform2D(Vector2(float(actor.brain.direction) * (1 + breathing)*impact.x, 0), Vector2(lean, 1 - breathing)*impact.y, feet))
 	draw_texture_rect_region(_atlas, Rect2(-Vector2(anchor[0], anchor[1]) * factor, Vector2(region[2], region[3]) * factor), Rect2(region[0], region[1], region[2], region[3]), tint)
 	draw_set_transform(Vector2.ZERO)
 

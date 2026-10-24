@@ -85,7 +85,14 @@ func run() -> void:
 	check(app.menu.visible_panel == &"title", "simulated gamepad B returns from help")
 	await click(button(app.menu._root,"风铃平原"))
 	await frames(12)
-	check(app.connected_region and app.stage is PlainsRegionStage, "actual primary starts formal region")
+	check(is_instance_valid(app.home_scene) and app.director.state == DemoRunDirector.State.HOME, "actual primary enters playable Home")
+	# The remaining cases exercise formal HUD, not physical Home-exit traversal.
+	# Use the existing Home navigation consumer and its real pointer button.
+	app.menu._seed = "level-design-v2-baseline/08"
+	app._open_home_navigation()
+	await click(button(app.menu._root,"Explore"))
+	await frames(12)
+	check(app.connected_region and app.stage is PlainsRegionStage, "Home navigation pointer starts formal region for retained HUD cases")
 	check(app._demo_hud.actor == app.controller and app._demo_hud.visible and not app._hud_frame.visible, "formal consumer binds new HUD and removes old black board")
 	check(app._demo_hud.hearts.capacity == app.controller.actor_resources.health.capacity, "hearts use actual maximum")
 	await image("formal-hud")

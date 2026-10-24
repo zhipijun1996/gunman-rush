@@ -74,6 +74,7 @@ func _land() -> void:
 	_fall_speed = 0
 
 func _shot(direction: Vector2, _shot_id: int) -> void:
+	if _controller.shoot_ability.weapon.mode == WeaponDefinition.Mode.BOMB: return
 	GameAudio.cue(self, &"shot")
 	var visual := get_parent().get_node_or_null("CourierVisual") as CourierVisual
 	var muzzle := _controller.shoot_ability.last_muzzle

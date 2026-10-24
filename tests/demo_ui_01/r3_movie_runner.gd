@@ -41,6 +41,11 @@ func run() -> void:
 	await frames(120)
 	print("DEMO UI MOVIE PHASE: title / ", frame)
 	await click(button(app.menu._root,"风铃平原"))
+	await frames(60)
+	print("DEMO UI MOVIE PHASE: home / ", frame)
+	app.menu._seed="level-design-v2-baseline/08"
+	app._open_home_navigation()
+	await click(button(app.menu._root,"Explore"))
 	await frames(120)
 	print("DEMO UI MOVIE PHASE: formal / ", frame)
 	app._submit_damage(&"ui-movie-fixture",DamageRequest.Kind.MONSTER,1.0)

@@ -16,6 +16,10 @@ theme/custom_font="res://assets/ui/demo_ui_01/r2/fonts/fusion-pixel-12px-proport
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+; Pixel art and UI retain the CSS-pixel canvas on Web; high-DPI device pixels
+; otherwise multiply the complete 2D lighting/alpha workload (DPR2 = 4x).
+; Native windows keep the engine's existing high-DPI default.
+window/dpi/allow_hidpi.web=false
 window/handheld/orientation=0
 
 [physics]

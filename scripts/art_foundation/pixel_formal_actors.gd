@@ -48,7 +48,7 @@ static func draw_bellstrider(canvas: Node2D, encounter: Node, clock: float, spri
 	canvas.draw_rect(Rect2(-70,-4,140,22),INK)
 	canvas.draw_rect(Rect2(-62,-8,124,16),BRASS)
 	canvas.draw_rect(Rect2(-50,-62,100,56),INK)
-	canvas.draw_rect(Rect2(-42,-58,84,46),CREAM if flash else SHADE)
+	canvas.draw_rect(Rect2(-42,-58,84,46),EnemyHitTemplate.body_tint(canvas, CREAM if flash else SHADE))
 	canvas.draw_rect(Rect2(-34,-72,68,12),BRASS)
 	canvas.draw_rect(Rect2(-24,-80,48,8),CREAM)
 	for x: int in [-30,30]:
@@ -64,7 +64,7 @@ static func draw_windkeeper(canvas: Node2D, encounter: Node, stride: float, spee
 	var old_top := -152.0 if raised and old_phase==3 else -106.0
 	var new_top := -152.0 if raised and phase==3 else -106.0
 	var top := 2*roundf(lerpf(old_top,new_top,smoothstep(0,1,form_blend))/2)
-	var body_color := CREAM if hurt else MOSS
+	var body_color := EnemyHitTemplate.body_tint(canvas, CREAM if hurt else MOSS)
 	# Four planted/swing legs, anchored at real standing floor y=65.
 	for leg: int in 4:
 		var phase_angle: float = stride+(PI if leg%2==0 else 0)

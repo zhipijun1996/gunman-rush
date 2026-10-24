@@ -1,5 +1,12 @@
 # 项目工作规则
 
+## 2026-10-24 当前试玩反馈修复
+
+当前任务[PLAYTEST-FEEDBACK-20261024](docs/worklines/playtest_feedback_20261024/scope.md)：普通HUD固定viewport安全边缘，不因角色/镜头运动自动搬位置；开始游戏进入可操作Home。原arms武器工坊提供现有3种Lv1（pulse_gun/shadow_shuriken/recoil_bomb），仅会话记忆；正式出发携带选择，返回Home保留，刷新后默认枪。怪物共用已接受普通受击状态与身体tint，死亡/攻击预警/HP/Boss弱点独立；共享表现不得改变伤害与资源。Web独有HiDPI修复须核真实DPR2 buffer/CSS输入与nearest合成，不能靠软件GPU代签实体性能。
+
+本轮技术绑定为[style-v11](docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json)、两区creative-v14，仅更新DemoApp/HomeScene两项真实消费者，其他34项、原32px/32wu/1wu及原Bible/旧v10/v13原件不改。下方v10及此前版本是历史来源；新重绑不继承旧ACCEPT/玩家/设备认可。
+
+
 当前共享画风技术绑定为 [style-v10](docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json)，两区方向creative-v13；仅重绑前景CPU修复的Presentation，其他35引用、像素规格及旧v9/v12原件保留。原自动早刷新取消，前景原晚刷新负责每帧更新；显式refresh仍即时，不能把此优化宣称居民逐帧等价或用户视觉认可。见[实际前后验证](docs/evidence/four_line_integration_20261023/foreground-cpu/README.md)。下文v9/v12为此前HUD修订的历史来源。
 
 ## 2026-10-23 当前 Demo 优先与兼容延期（最新）

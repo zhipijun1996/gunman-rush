@@ -18,6 +18,7 @@ var feedback_anchor := Vector2.ZERO
 var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
+var hit_template: EnemyHitTemplate
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
@@ -43,6 +44,7 @@ func _ready() -> void:
 		feedback_remains.bind(feedback_sample, actor.damageable, actor.health, actor.motor, self, actor.definition.aerial, _remains_view)
 	else:
 		actor.health.changed.connect(_health_changed)
+		hit_template = EnemyHitTemplate.install(actor, self)
 	queue_redraw()
 func _exit_tree() -> void:
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
@@ -75,6 +77,8 @@ func _process(delta: float) -> void:
 	if actor.health.terminal: desired = Vector2(1.12,.45)
 	if feedback_sample != null:
 		desired = feedback_sample.pose() if actor.health.terminal else desired * feedback_sample.pose()
+	elif hit_template != null and not actor.health.terminal:
+		desired *= hit_template.pose()
 	_weight = _weight.lerp(desired,1-exp(-delta/.075))
 	_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))
 	_update_frame_weights(state,delta)
@@ -111,6 +115,7 @@ func _draw() -> void:
 	size *= _weight
 	var tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE
 	if feedback_sample != null: tint = feedback_sample.tint()
+	elif hit_template != null: tint = hit_template.tint()
 	if actor.health.terminal:
 		tint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))
 		if feedback_sample != null: tint.a = .8 * maxf(0, 1 - _death_time / EnemyFeedback01.DEATH_SECONDS)

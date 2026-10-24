@@ -16,6 +16,7 @@ func _draw()->void:
 	var state:StringName=actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
 	var pose:=5 if actor.health.terminal else 2 if state==&"telegraph" and moth else 1 if state==&"telegraph" else 3 if state==&"attack" and moth else 2 if state==&"attack" else 4 if state==&"recovery" else int(_clock*6)%2 if moth else 0
 	var tint:=Color(1,.65,.45) if _hurt_time>0 else Color.WHITE
+	if hit_template != null: tint = hit_template.tint()
 	if actor.health.terminal:tint.a=maxf(0,1-_death_time/.6)
 	var facing:=float(actor.brain.direction)
 	var size:=Vector2(38,76) if moth else Vector2(36,72)
