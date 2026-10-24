@@ -1,5 +1,29 @@
 # 当前状态
 
+当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。
+
+## PR108 合入入口（当前）
+
+[当前真实试玩](https://zhipijun1996.github.io/gunman-rush/?build=5cebbdc37404)，源码b7610b8a，build5cebbdc37404，Pages40061834215成功，完整公网184493060B PCK已核。修复五项反馈及集成发现的实际遮挡／小屏MENU冲突；左状态固定，其余导航／Toast保留保护，原UI139触屏断言未放宽。最终原Harness8/10/15 fresh126.817s与独立UI270/139/HUD61/GL通过，当前style13/creative16。
+
+用户已授权合main。下一动作先核[PR108](https://github.com/zhipijun1996/gunman-rush/pull/108)实际状态与最终head：若未合且affected完整通过，执行普通合并；若已merged，核main树／运行源与自动Release，不重复合并或重启已通过检查。此页为预合入证据快照，最终CI及合并SHA以PR实际收据为准；准备产物分支不并源码。实际来源、失败保留和新公网GUI见[精选证据](evidence/playtest_feedback_20261024/hud-integration/README.md)。
+
+仅Web像素密度与软件GPU观测已验，正常world保护扫描恢复；首次下载仍186MB，完整自然战斗／听感、用户和实体设备未签。原main旧Foundry音频Release失败保持其旧身份。
+
+小屏集成修订：保留本帧响应式地图／暂停位置作为避障候选，避免桌面缓存fallback覆盖真实触屏MENU。原960×540失败与4fc独审REVISE保留；两行修复后原UIcontract139/0，最终同源专项／独审和新Web以实际结果为准。
+
+PR108当前集成纠正：固定左侧状态，恢复地图／暂停／钱包／位置／Toast保护，真实绘制leaf代替透明VBox包围盒；原平原场景8/10/15全部通过，HUD61/0。先前1b25 CI实际遮挡失败保留，不靠删断言放行；正常world扫描恢复，旧e525无扫描CPU结论不继承。style-v13/creative-v16仅DemoApp再重绑，35项与原Bible/旧版本保留。用户已授权合main，当前新独审、最终Integration及Web实际身份见[跟进证据](evidence/playtest_feedback_20261024/hud-integration/README.md)。
+
+## 2026-10-24 五项试玩反馈候选已交付
+
+[最新候选试玩](https://zhipijun1996.github.io/gunman-rush/?build=2ed80c618b79)：实际producer `e5254559b38f9593f03fa2fd7847b107d5d04402`、build `2ed80c618b79`，公网完整PCK及真实Home/固定Seed平原/工坊三武器已验证；main源码仍cd4989，候选不冒充main完整Release。
+
+Web-only HighDPI按CSS像素渲染且nearest合成；正常HUD固定边缘；14普通物种/22渲染链与8Boss普通受击共用模板、死亡和弱点等保各自；原arms工坊提供3个真实Lv1会话选择、实际出发/返回携带；标题Start进入可操作Home。源码与证据见[本轮交付](evidence/playtest_feedback_20261024/README.md)。
+
+独立冻结e525原native270/139/56/597全部clean，scope限定ACCEPT；作者原all-weapons2381/0等前阶段证据保原身份。公网DPR2同CSS/Seed/Manifest观测7.78→23.68FPS，物理buffer有意2560×1440→1280×720，SwiftShader不签玩家设备。首次加载仍约186MB，完整CI/设备/玩家G5仍未验。
+
+当前style-v11/creative-v14只技术重绑DemoApp/HomeScene，另34引用/原画风/Bible/旧v10v13原字节保留。下面旧四线记录仅保原来源；main/CI以真实PR状态为准，不重新执行已完成的旧集成。
+
 ## 四线集成与当前验证（2026-10-23）
 
 人物b106976、怪物080ac505、UI ea2d6fd及美术02031d7已接入集成分支；黄金切片68bd037暂停，不在本轮合入范围。

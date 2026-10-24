@@ -16,6 +16,7 @@ const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
 var meta_persistence_enabled := true
 var generated_plains := false
 var home_scene: HomeScene
+var home_weapons := preload("res://scripts/demo/home_weapon_selection.gd").new()
 var debug_hud := false
 var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
@@ -280,6 +281,13 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	if not home_weapons.apply(controller):
+		remove_child(player)
+		player.queue_free()
+		player = null
+		controller = null
+		_show_home()
+		return false
 	controller.shoot_ability.shot_fired.connect(_pixel_projectiles)
 	if connected_region and not controller.enable_shot_energy(): return false
 	if active_region_id == &"thorn_forest": controller.traversal.grant(&"grapple")
@@ -412,7 +420,7 @@ func _load_stage() -> void:
 		region_generator.root_bell_mode = _root_bell_run_mode
 		var actual_seed := _region_seed()
 		var difficulty := "intro" if director.region_map_index==1 else "advanced"
-		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
+		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":String(controller.shoot_ability.weapon.id),"abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
 		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,forest_capability) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
 		# A pre-existing map owns its content version. Match the actual old hash;
 		# never overwrite old actors/claims with a new layout or silently clear it.
@@ -480,7 +488,7 @@ func _load_stage() -> void:
 					return
 			else:
 				director.manifest.enable_development_generation((stage as GeneratedDemoStage).generated.stage_generator_version)
-		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
+		var initial_character := {"id": "prototype_player", "weapon": String(controller.shoot_ability.weapon.id), "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
 		if generated_plains:
@@ -1291,6 +1299,7 @@ func _hide_run_hud() -> void:
 func _refresh_home_meta() -> void:
 	var snapshot := meta.snapshot()
 	snapshot.upgrade_quote = meta.upgrade_quote()
+	menu.set_weapon_options(home_weapons.options(), home_weapons.selected_id)
 	menu.set_meta_state(snapshot)
 	if is_instance_valid(home_scene):
 		home_scene.set_meta_state(snapshot)
@@ -1310,6 +1319,7 @@ func _show_home() -> void:
 		home_scene.controller.router.reconfigure(_session_input)
 		home_scene.controller.actor_resources.health_definition = meta.fresh_health_definition(home_scene.controller.actor_resources.health_definition)
 		home_scene.controller.actor_resources.health.configure(home_scene.controller.actor_resources.health_definition)
+		home_weapons.apply(home_scene.controller)
 		home_scene.requested_interaction.connect(_open_home_function)
 		home_scene.requested_navigation.connect(_open_home_navigation)
 	(get_meta("avatar_presentation") as Node).call("bind_player",home_scene.player)
@@ -1333,6 +1343,12 @@ func _open_home_function(id: StringName) -> void:
 		var avatars := get_meta("avatar_presentation") as AvatarPresentation
 		menu.set_avatar_options(avatars.selection_options(), avatars.selected_id)
 	menu.show_home_panel(id)
+
+func _select_home_weapon(id: StringName) -> void:
+	if director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene): return
+	if menu.visible_panel != &"home_function" or menu.home_function_id != &"arms" or not home_scene.input_blocked: return
+	if home_weapons.equip(home_scene.controller, id):
+		menu.set_weapon_options(home_weapons.options(), home_weapons.selected_id)
 
 func _open_home_navigation() -> void:
 	if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME:
@@ -1440,6 +1456,8 @@ func _process(_delta: float) -> void:
 	_hud.visible = debug_hud
 
 func _layout_region_hud() -> void:
+	# Health, resonance and ammunition keep their viewport-safe status anchor.
+	# Navigation and temporary notices still avoid actual gameplay targets.
 	# Only two stable edge layouts. Read visible actors and projectiles, never
 	# move gameplay bodies or read the test driver's desired route.
 	var blockers: Array[Rect2] = []
@@ -1499,21 +1517,28 @@ func _layout_region_hud() -> void:
 	if stage is PlainsRegionStage:
 		var cards: Array[Control] = _demo_hud.region_layout_controls()
 		var card_reservations: Array[Rect2] = []
-		for card: Control in cards: card_reservations.append(card.get_global_rect())
+		for card: Control in cards:
+			if card == _demo_hud._rows:
+				for widget: Control in _demo_hud.status_draw_controls():
+					card_reservations.append(widget.get_global_rect())
+			else:
+				card_reservations.append(card.get_global_rect())
 		var navigation_reserved: Array[Rect2] = touch_regions.duplicate()
 		navigation_reserved.append_array(card_reservations)
 		var map := (stage as PlainsRegionStage).map_view
 		if is_instance_valid(map):
-			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
+			map.position = _clear_ui_edge(_region_ui_positions.get("map",map.position),map.size*map.scale,[map.position]+([Vector2(1098,78),Vector2(1098,142),Vector2(952,78)] if overlay.enabled else [Vector2(1098,14),Vector2(1098,674)]),blockers,critical_count,navigation_reserved)
 			_region_ui_positions["map"]=map.position
 			touch_regions.append(map.get_global_rect())
 			navigation_reserved.append(map.get_global_rect())
 		if _pause_button.is_visible_in_tree():
-			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
+			_pause_button.position = _clear_ui_edge(_region_ui_positions.get("pause",_pause_button.position),_pause_button.size*_pause_button.scale,[_pause_button.position,Vector2(1150,75),Vector2(1150,620)],blockers,critical_count,navigation_reserved)
 			_region_ui_positions["pause"]=_pause_button.position
 			touch_regions.append(_pause_button.get_global_rect())
 		for index: int in cards.size():
 			var card: Control=cards[index]
+			if card == _demo_hud._rows:
+				continue
 			var extent:=card.size*card.scale
 			var reserved: Array[Rect2]=touch_regions.duplicate()
 			for other: Control in cards:
@@ -1703,6 +1728,7 @@ func _make_ui() -> void:
 	progression_modal.region_selected.connect(_select_next_region)
 	progression_modal.finish_requested.connect(_finish_campaign_boundary)
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
+	menu.requested_home_weapon.connect(_select_home_weapon)
 	menu.requested_avatar.connect(func(id: String) -> void:
 		if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME: return
 		var avatars := get_meta("avatar_presentation") as AvatarPresentation

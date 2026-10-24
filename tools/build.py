@@ -92,7 +92,9 @@ def prepare_web_playtest(html):
     startup_template = (REPO / "tools/web/cache_startup.js").read_text()
     worker_id = hashlib.sha256((worker_template + startup_template).encode()).hexdigest()[:12]
     startup = startup_template.replace("__BUILD_ID__", json.dumps(build_id)).replace("__WORKER_ID__", json.dumps(worker_id))
-    page = page.replace("</head>", "<script>\n" + startup + "\n</script>\n</head>")
+    # The Web canvas uses CSS pixels rather than multiplying by device DPR.
+    # Preserve the selected pixel grid when the browser composites it on HiDPI.
+    page = page.replace("</head>", '<style id="playtest-pixel-canvas">#canvas { image-rendering: pixelated; }</style>\n<script>\n' + startup + "\n</script>\n</head>")
     start_marker = "engine.startGame({"
     end_marker = "}).then(() => {\n\t\t\tsetStatusMode('hidden');"
     if start_marker not in page or end_marker not in page:

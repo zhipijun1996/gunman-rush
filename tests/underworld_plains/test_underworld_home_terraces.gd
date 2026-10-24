@@ -54,7 +54,7 @@ func run() -> void:
 	home.requested_interaction.connect(func(id: StringName) -> void:requests.append(id))
 	check(app.player==null and app.wallet==null and not app.lifetime.active,"Home remains separate from Run economy and lifetime")
 	check(home.world.specification.schema=="underworld-home-v2-terraces","Actual consumer uses new authorized spatial contract")
-	check(home.world.specification.slots.size()==12,"Four functional and eight reserved stations remain")
+	check(home.world.specification.slots.size()==12 and home.world.specification.slots.filter(func(entry: Dictionary) -> bool: return bool(entry.active)).size()==5,"Twelve original stations remain, with the authored arms workshop now the fifth functional service")
 	check(home.controller.jump_ability.maximum_jumps()==1 and home.player.tuning.max_jumps==1,"Route uses actual basic single jump, no future movement grants")
 	check(home.world.terrain.core_layer.get_used_cells().size()>100,"Actual native TileMapLayer remains populated")
 	check(home.player.get_node_or_null("UnderworldPlayer")!=null and not home.player.get_node("CourierVisual").visible,"One current player presentation, legacy body hidden")

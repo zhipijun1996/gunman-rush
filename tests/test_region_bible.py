@@ -233,12 +233,45 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'10')
+        self.assertEqual(style['content']['version'],'13')
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),36)
         current_refs = refs
+        old_v12 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json').read_bytes())
+        for key in old_v12.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key], old_v12[key])
+        for before, after in zip(old_v12['runtime_reference']['references'], current_refs):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                actual = subprocess.check_output(['git','show','4fc1e7a55c191dbe56cd7bc385539fc42b8f7898:'+before['path']], cwd=ROOT)
+                self.assertEqual(before['sha256'], hashlib.sha256(actual).hexdigest())
+                self.assertEqual(after['sha256'], hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        old_v11 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json').read_bytes())
+        for key in old_v11.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key], old_v11[key])
+        for before, after in zip(old_v11['runtime_reference']['references'], current_refs):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                self.assertEqual(after['sha256'], hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        old_v10 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json').read_bytes())
+        for key in old_v10.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_v11[key], old_v10[key])
+        for before, after in zip(old_v10['runtime_reference']['references'], old_v11['runtime_reference']['references']):
+            if before['path'] in ('scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'):
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                actual = subprocess.check_output(['git','show','e5254559b38f9593f03fa2fd7847b107d5d04402:'+after['path']], cwd=ROOT)
+                self.assertEqual(after['sha256'], hashlib.sha256(actual).hexdigest())
+            else:
+                self.assertEqual(before, after)
         old_v9 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json').read_bytes())
-        for before, after in zip(old_v9['runtime_reference']['references'], current_refs):
+        for before, after in zip(old_v9['runtime_reference']['references'], old_v10['runtime_reference']['references']):
             if before['path']=='scripts/underworld_plains/underworld_presentation.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'], after['sha256'])
@@ -246,7 +279,7 @@ class BibleTests(unittest.TestCase):
             else:
                 self.assertEqual(before, after)
         for key in old_v9.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
-            self.assertEqual(style['content'][key], old_v9[key])
+            self.assertEqual(old_v10[key], old_v9[key])
         self.assertEqual({k:v for k,v in style['content']['runtime_reference'].items() if k!='references'}, {k:v for k,v in old_v9['runtime_reference'].items() if k!='references'})
         refs = old_v9['runtime_reference']['references']
         old_v7 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v7.json').read_bytes())
@@ -256,7 +289,10 @@ class BibleTests(unittest.TestCase):
             if before['path']=='scripts/demo/demo_app.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
-                self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+                # The v9 source is frozen in the actual pre-feedback main,
+                # while the active DemoApp is independently verified above.
+                actual = subprocess.check_output(['git','show','cd4989a68613e0b457cdfd5e252634dd57008505:'+after['path']], cwd=ROOT)
+                self.assertEqual(after['sha256'],hashlib.sha256(actual).hexdigest())
             else:
                 self.assertEqual(before,after)
         for key in old_v7.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
@@ -280,7 +316,7 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
-        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json']:
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json']:
             old_path = 'docs/creative_direction/bibles/'+old_style
             stale = copy.deepcopy(self.ref)
             stale['supplemental_authority_path'] = old_path

@@ -13,6 +13,9 @@ var _session := 0
 var _packet := 0
 var _skill := false
 var _packet_damage := 0.0
+var _base_bomb_packet := -1
+var _base_bomb_session := -1
+var _base_bomb_airborne := false
 var _timer := 0.0
 var _rounds := 0
 var _entity_serial := 0
@@ -82,6 +85,8 @@ func cancel(reason: StringName) -> void:
 	actor().motor.cancel_weapon_requests()
 	# World entities survive a pause/aim interruption; equip/death/respawn remove them.
 	if reason in [&"equipment",&"reset",&"death",&"respawn",&"segment_return",&"scene_changed"]:
+		_base_bomb_packet = -1
+		_base_bomb_session = -1
 		for item: WeaponEntity in current_entities():item.dispose()
 		entities.clear();_fx.clear()
 	if phase in [&"beam",&"charge",&"storm",&"fan_wait",&"throw_windup",&"singularity"]:
@@ -140,6 +145,14 @@ func _release(_grounded: bool) -> void:
 			blink(-direction,base_displacement());_pose(&"blade_throw");_phase(&"idle")
 		WeaponDefinition.Mode.BOMB:
 			var bomb := spawn(&"bomb",actor().motor.global_position+direction*18)
+			if bomb.valid_owner():
+				# The real accepted Lv1 blast is a shot, just as a spawned bullet is.
+				# Register its unique reserved identity before existing gate/Boss sinks run.
+				_base_bomb_packet = _packet
+				_base_bomb_session = _session
+				_base_bomb_airborne = not actor().motor.is_on_floor()
+				ability.last_muzzle = bomb.global_position
+				ability.shot_fired.emit(direction, _packet)
 			explode(bomb);_pose(&"bomb_place");_phase(&"idle")
 		WeaponDefinition.Mode.MINE:
 			if not _fire_grounded and not _skill:
@@ -255,12 +268,25 @@ func steer_direction(item: WeaponEntity, fallback: Vector2) -> Vector2:
 		return value.normalized() if actor().router.aim_engaged and value.length()>12 else fallback
 	var aim := actor().router.aim_direction
 	return aim if actor().router.aim_engaged and not aim.is_zero_approx() else fallback
+func _accepted_base_bomb(packet: int) -> bool:
+	return definition().id == &"recoil_bomb" and definition().tier == 1 and packet == _base_bomb_packet and _session == _base_bomb_session and valid_session(_session)
+
 func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: bool, point: Vector2, unit: Vector2, amount: float = -1) -> bool:
-	if not receiver.active or receiver.faction!=&"enemy":return false
+	var base_bomb := _accepted_base_bomb(packet)
+	var mechanism := receiver.faction == &"mechanism"
+	if not receiver.active or (receiver.faction != &"enemy" and not (base_bomb and mechanism)):return false
 	var damage := amount if amount>0 else _packet_damage
 	var event := "%s:%s:weapon:%s:%s:%s" % [actor().motor.get_instance_id(),_session,packet,serial,stage]
 	var target_id := receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()
-	return receiver.receive_damage({"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit,"on_committed":actor().on_weapon_damage.bind(_session,packet,serial,not actor().motor.is_on_floor(),target_id,skill,receiver,ability.weapon_epoch)})
+	var context := {"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit}
+	if base_bomb:
+		context.shot_id = packet
+		context.attack_id = packet
+		context.fired_airborne = _base_bomb_airborne
+	if not mechanism:
+		# A mechanism is not an enemy hit: it must not grant combat/air resources.
+		context.on_committed = actor().on_weapon_damage.bind(_session,packet,packet if base_bomb else serial,_base_bomb_airborne if base_bomb else not actor().motor.is_on_floor(),target_id,skill,receiver,ability.weapon_epoch)
+	return receiver.receive_damage(context)
 func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool = true) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var start := visual.muzzle_position(unit)
@@ -285,14 +311,14 @@ func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit
 		elif not collider is Area2D:break
 		exclude.append(contact.rid)
 	if skill:_fx.append({"kind":"beam","start":start,"end":_beam_point,"age":0.0,"skill":skill})
-func receivers(point: Vector2, radius: float) -> Array[Dictionary]:
+func receivers(point: Vector2, radius: float, include_mechanisms := false) -> Array[Dictionary]:
 	var shape := CircleShape2D.new();shape.radius=radius
 	var query := PhysicsShapeQueryParameters2D.new();query.shape=shape;query.transform=Transform2D(0,point);query.collide_with_areas=true;query.exclude=[actor().motor.get_rid()]
 	var values: Array[Dictionary]=[];var seen: Dictionary={}
 	for item: Dictionary in get_world_2d().direct_space_state.intersect_shape(query,64):
 		var node := item.collider as Node2D
 		var receiver := node.get_node_or_null("Damageable") as Damageable if node!=null else null
-		if receiver==null or not receiver.active or receiver.faction!=&"enemy" or seen.has(receiver.get_instance_id()):continue
+		if receiver==null or not receiver.active or (receiver.faction!=&"enemy" and not (include_mechanisms and receiver.faction==&"mechanism")) or seen.has(receiver.get_instance_id()):continue
 		seen[receiver.get_instance_id()]=true;values.append({"node":node,"receiver":receiver})
 	values.sort_custom(func(a: Dictionary,b: Dictionary)->bool:return point.distance_squared_to(a.node.global_position)<point.distance_squared_to(b.node.global_position))
 	return values
@@ -303,7 +329,7 @@ func damage_burst(point: Vector2, radius: float, skill: bool) -> void:
 	_entity_serial+=1
 	var def := definition()
 	var chain_count := 0;var chain_origin := point
-	for value: Dictionary in receivers(point,radius+(def.chain_range*def.chain_limit if skill and def.mode==WeaponDefinition.Mode.MINE else 0)):
+	for value: Dictionary in receivers(point,radius+(def.chain_range*def.chain_limit if skill and def.mode==WeaponDefinition.Mode.MINE else 0),_accepted_base_bomb(_packet)):
 		var target: Node2D=value.node
 		var within := target.global_position.distance_to(point)<=radius
 		if not within:

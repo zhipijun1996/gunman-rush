@@ -17,6 +17,7 @@ func bind(state: EnemyFeedback01, damageable: Damageable) -> void:
 	receiver = damageable
 	_epoch = sample.epoch()
 	receiver.damaged.connect(_committed_impact)
+	set_process(false)
 
 func _committed_impact(context: Dictionary) -> void:
 	if sample == null or sample.last_event_id != StringName(context.get("event_id", "")) or context.get("target_epoch", -1) != sample.epoch() or _last_serial == sample.impact_serial: return
@@ -31,6 +32,7 @@ func _committed_impact(context: Dictionary) -> void:
 	if _bursts.size() >= MAX_BURSTS: _bursts.pop_front()
 	_bursts.append({"point": point, "direction": -(direction as Vector2).normalized(), "age": 0.0, "lethal": lethal, "serial": sample.impact_serial})
 	emitted_bursts += 1
+	set_process(true)
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -42,6 +44,7 @@ func _process(delta: float) -> void:
 	for burst: Dictionary in _bursts: burst.age = float(burst.age) + delta
 	_bursts = _bursts.filter(func(burst: Dictionary) -> bool: return float(burst.age) < (.42 if burst.lethal else .26))
 	queue_redraw()
+	if _bursts.is_empty(): set_process(false)
 
 func _draw() -> void:
 	if sample == null or _epoch != sample.epoch(): return
@@ -94,6 +97,7 @@ func active_bursts() -> int:
 func clear_for_epoch() -> void:
 	_epoch = sample.epoch()
 	_bursts.clear()
+	set_process(false)
 	queue_redraw()
 
 func _exit_tree() -> void:

@@ -94,6 +94,8 @@ static func active(canvas: Node) -> bool:
 static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0) -> bool:
 	if not active(canvas) or not is_instance_valid(actor) or actor.definition == null: return false
 	var behavior_id: StringName = actor.definition.behavior_id
+	var hit_pose := EnemyHitTemplate.body_pose(canvas)
+	var hit_origin := Vector2.ZERO if actor.definition.aerial else Vector2(0, actor.definition.collision_size.y*.5*(1.0-hit_pose.y))
 	if ECOLOGY_BODIES.has(behavior_id):
 		var body: Dictionary = ECOLOGY_BODIES[behavior_id]
 		if actor.definition.stable_id != behavior_id or actor.definition.collision_size != body.collision: return false
@@ -107,7 +109,8 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 			if behavior_id == &"forest_swing_pod" and state == &"blocked": tint = Color("a38e74")
 			elif behavior_id == &"forest_crossbranch" and state == &"telegraph": tint = Color(1.15,0.94,0.58)
 			elif behavior_id == &"forest_crossbranch" and state == &"blocked": tint = Color(0.74,0.43,0.43)
-		canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2(facing, 1.0))
+		tint = EnemyHitTemplate.body_tint(canvas, tint)
+		canvas.draw_set_transform(hit_origin, 0.0, Vector2(facing*hit_pose.x, hit_pose.y))
 		if behavior_id == &"forest_lantern":
 			_draw_lantern(canvas, body.texture as Texture2D, age, actor.health.terminal, tint)
 		else:
@@ -118,14 +121,17 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 		if actor.definition.stable_id != &"forest_bark_beetle" or actor.definition.collision_size != Vector2(36.0, 24.0): return false
 		if not is_instance_valid(actor.brain) or actor.brain.direction not in [-1, 1]: return false
 		# Mirror only the body. Restore local drawing before real shield/aim cues.
-		canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2(float(actor.brain.direction), 1.0))
-		canvas.draw_texture_rect(BEETLE_BODY, BEETLE_BOUNDS, false)
+		canvas.draw_set_transform(hit_origin, 0.0, Vector2(float(actor.brain.direction)*hit_pose.x, hit_pose.y))
+		canvas.draw_texture_rect(BEETLE_BODY, BEETLE_BOUNDS, false, EnemyHitTemplate.body_tint(canvas))
 		canvas.draw_set_transform(Vector2.ZERO)
 		return true
 	if behavior_id != &"forest_thread_spider" and behavior_id != &"forest_bible_weaver": return false
 	var body_tint: Color = Color.WHITE
 	if actor.health != null and actor.health.terminal: body_tint = WEAVER_TERMINAL_TINT
+	body_tint = EnemyHitTemplate.body_tint(canvas, body_tint)
+	canvas.draw_set_transform(hit_origin, 0.0, hit_pose)
 	canvas.draw_texture_rect(WEAVER_BODY, WEAVER_BOUNDS, false, body_tint)
+	canvas.draw_set_transform(Vector2.ZERO)
 	return true
 
 static func _draw_lantern(canvas: Node2D, texture: Texture2D, age: float, terminal: bool, tint: Color) -> void:
@@ -142,12 +148,12 @@ static func draw_boss_body(canvas: Node2D, encounter: ThornForestEncounter) -> b
 	if not active(canvas) or not is_instance_valid(encounter) or encounter.definition == null: return false
 	if encounter is ThornQueenCanopyEncounter:
 		if encounter.definition.stable_id != &"thorn_queen_canopy_v3" or encounter.definition.collision_size != Vector2(48.0, 54.0): return false
-		canvas.draw_texture_rect(QUEEN_BODY, QUEEN_BOUNDS, false)
+		canvas.draw_texture_rect(QUEEN_BODY, QUEEN_BOUNDS, false, EnemyHitTemplate.body_tint(canvas))
 		return true
 	if not encounter is RootbellGuardianV2: return false
 	if encounter.definition.stable_id != &"rootbell_guardian_v2": return false
 	if encounter.definition.collision_size != Vector2(72.0, 96.0): return false
-	canvas.draw_texture_rect(GUARDIAN_BODY, GUARDIAN_BOUNDS, false)
+	canvas.draw_texture_rect(GUARDIAN_BODY, GUARDIAN_BOUNDS, false, EnemyHitTemplate.body_tint(canvas))
 	if not encounter.core_open:
 		# Dim only the authored heart pixels; armor/feet stay at their real anchors.
 		canvas.draw_texture_rect_region(GUARDIAN_BODY,Rect2(-6,-10,16,10),Rect2(30,36,16,10),Color(0.30,0.55,0.38))

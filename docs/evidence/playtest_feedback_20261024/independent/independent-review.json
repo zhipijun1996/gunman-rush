@@ -1,0 +1,312 @@
+{
+  "task_id": "PLAYTEST-FEEDBACK-20261024",
+  "reviewer": "/root/feedback_review",
+  "independence": "Reviewer did not modify production/test source and was separate from all implementers; native window independent and exclusive",
+  "reviewed_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+  "verdict": "ACCEPT",
+  "approval_scope": "Bounded technical integration of stable HUD, title/Home and existing Lv1 weapon consumers, source-bound shared-hit body-only rendering and technical style rebind. Not a full Release or G5 signature.",
+  "independent_native": {
+    "source_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+    "source_stable": true,
+    "tracked_tree_clean": true,
+    "source_files": 26461,
+    "actual_passed": 4,
+    "requested": 4,
+    "results": [
+      {
+        "name": "underworld-ui",
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/run_underworld_ui_tests.py"
+        ],
+        "budget_seconds": 300,
+        "original_output_preserved": false,
+        "log": "/tmp/feedback-review-20261024/frozen-e5254559/underworld-ui.log",
+        "exit_code": 0,
+        "seconds": 12.942320043002837,
+        "success_marker": true,
+        "strict_errors": [],
+        "log_sha256": "0204821097f509608e2014867ed5a46e4a078bf9f2d7c28645939c6d266fbd9e",
+        "status": "passed"
+      },
+      {
+        "name": "ui-contract",
+        "argv": [
+          "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/playtest-feedback-20261024",
+          "--script",
+          "tests/demo_ui_01/contract_runner.gd",
+          "--",
+          "--output=/tmp/feedback-review-20261024/frozen-e5254559/ui-contract-output"
+        ],
+        "budget_seconds": 180,
+        "original_output_preserved": false,
+        "log": "/tmp/feedback-review-20261024/frozen-e5254559/ui-contract.log",
+        "exit_code": 0,
+        "seconds": 9.583327207001275,
+        "success_marker": true,
+        "strict_errors": [],
+        "log_sha256": "60496360f56dbbf684a41aa1ffa284b3717e21faf90eb1c4b1ae4af6ace965da",
+        "status": "passed"
+      },
+      {
+        "name": "fixed-hud",
+        "argv": [
+          "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/playtest-feedback-20261024",
+          "--script",
+          "tests/underworld_plains/test_fine_hud_bounds.gd"
+        ],
+        "budget_seconds": 180,
+        "original_output_preserved": true,
+        "log": "/tmp/feedback-review-20261024/frozen-e5254559/fixed-hud.log",
+        "exit_code": 0,
+        "seconds": 3.3209291249950184,
+        "success_marker": true,
+        "strict_errors": [],
+        "log_sha256": "a58064612957ffc839adfd00c804963209385ddad8358835b777dcd73d4d50f4",
+        "status": "passed"
+      },
+      {
+        "name": "home-consumers",
+        "argv": [
+          "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+          "--headless",
+          "--audio-driver",
+          "Dummy",
+          "--path",
+          "/tmp/playtest-feedback-20261024",
+          "--script",
+          "tests/home_weapon_consumers_runner.gd"
+        ],
+        "budget_seconds": 240,
+        "original_output_preserved": false,
+        "log": "/tmp/feedback-review-20261024/frozen-e5254559/home-consumers.log",
+        "exit_code": 0,
+        "seconds": 11.234624940989306,
+        "success_marker": true,
+        "strict_errors": [],
+        "log_sha256": "56cb6d7647211997603287b129b4d996f98567f185bd84d9de4fa7bd1346b044",
+        "status": "passed"
+      }
+    ],
+    "scope": "Independent exact frozen-source selected native consumers only; not complete CI, Web/DPR, player or device acceptance"
+  },
+  "native_assertion_counts": {
+    "underworld-ui": 270,
+    "ui-contract": 139,
+    "fixed-hud": 56,
+    "home-consumers": 597
+  },
+  "source_inventory": {
+    "tracked_paths": 26461,
+    "present_files_hashed": 5530,
+    "missing_paths_explicit_null": 20931,
+    "before_after_stable": true,
+    "note": "Missing historical sparse paths are inventory markers, not claimed byte verification or tests."
+  },
+  "context_unit_tests": {
+    "command": "python3 -S tests/test_level_region_context.py",
+    "tests": 10,
+    "status": "passed",
+    "log": "/tmp/feedback-review-20261024/frozen-e5254559/context-tests.log"
+  },
+  "style_binding_audit": {
+    "reviewed_commit": "e5254559b38f9593f03fa2fd7847b107d5d04402",
+    "status": "passed_bounded_binding_audit",
+    "references": 36,
+    "unchanged": 34,
+    "changes": [
+      {
+        "old": {
+          "role": "default_player_4",
+          "path": "scripts/demo/demo_app.gd",
+          "sha256": "088c0c1457a958ca175087a970010db2fe23098cf18f6a3f9475d5e4349e62cd"
+        },
+        "new": {
+          "role": "default_player_4",
+          "path": "scripts/demo/demo_app.gd",
+          "sha256": "c404ed56910812ce3608f230e45b6a74b692f69fee09864f3fd73c7597d66693"
+        }
+      },
+      {
+        "old": {
+          "role": "default_player_5",
+          "path": "scripts/demo/home_scene.gd",
+          "sha256": "1a8052e270fa7f4d6723295c70a44c9b6cf2a7fab2059988c92f8dd1d414ea1e"
+        },
+        "new": {
+          "role": "default_player_5",
+          "path": "scripts/demo/home_scene.gd",
+          "sha256": "1d4b1aed7b479258268e23bd095f45092d708259e34293aadc0dbc0448a8d5e1"
+        }
+      }
+    ],
+    "all_current_reference_sha_valid": true,
+    "quote_dimensions_bible_ids_preserved": true,
+    "originals": [
+      {
+        "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+        "sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
+        "exact_base_bytes": true
+      },
+      {
+        "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+        "exact_base_bytes": true
+      },
+      {
+        "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+        "exact_base_bytes": true
+      },
+      {
+        "path": "docs/creative_direction/bibles/user-request.json",
+        "sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+        "exact_base_bytes": true
+      }
+    ],
+    "creative_v13_archives": [
+      {
+        "path": "docs/creative_direction/archive/creative-v13/windchime_plains.json",
+        "original": "docs/creative_direction/windchime_plains.json",
+        "sha256": "a5e00e2cc3893deb65ac530c9055526e0847495d2571929435882859e50bfce0",
+        "exact_base_bytes": true
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v13/thorn_forest.json",
+        "original": "docs/creative_direction/thorn_forest.json",
+        "sha256": "80666404cbdfcb5d86341d36ab9663c0786c2b840d7691b7659a7e1c0d50ea28",
+        "exact_base_bytes": true
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v13/registry.json",
+        "original": "docs/creative_direction/bibles/registry.json",
+        "sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
+        "exact_base_bytes": true
+      }
+    ],
+    "scope": "Technical consumer rebind only; not new aesthetic, player or device acceptance"
+  },
+  "unchanged_original_guards_definitions_geometry": [
+    {
+      "path": "scripts/combat/shoot_ability.gd",
+      "exact_base_bytes": true,
+      "sha256": "bb2895138a6b2bdee9959313597ec2eb765eca4ffe80e2ac3e6d3e72aed148bd"
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "exact_base_bytes": true,
+      "sha256": "50c2bd887a00cb9b9d7e12d009007a79110372ff04a49c1e9a3c7ae8ffec47fa"
+    },
+    {
+      "path": "scripts/world/shot_latch.gd",
+      "exact_base_bytes": true,
+      "sha256": "a982e1ceab32390bea30eab7843a382910b33a503338351bcd0bdc1fce825929"
+    },
+    {
+      "path": "scripts/world/backside_shot_latch.gd",
+      "exact_base_bytes": true,
+      "sha256": "35f0c6bfac94ffb671047cdb10e389ec85997dc41a08a788fb60a355802bb7a1"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_encounter.gd",
+      "exact_base_bytes": true,
+      "sha256": "1cca2641a95f7fdcf35588c2f68a580f0e2b58789a62ab42ee729669a146e2fd"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_damageable.gd",
+      "exact_base_bytes": true,
+      "sha256": "75fea5d059e04dfc82f264d47dff28d0302a1529248a3f4a882565db760a7e1a"
+    },
+    {
+      "path": "scripts/damage/frame_damage_policy.gd",
+      "exact_base_bytes": true,
+      "sha256": "083c8e177d1a23e4f11e61d6bd2afe69654d97a2516d72647a872b61ccd03b5e"
+    },
+    {
+      "path": "resources/weapons/pulse_gun.tres",
+      "exact_base_bytes": true,
+      "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a"
+    },
+    {
+      "path": "resources/weapons/shadow_shuriken.tres",
+      "exact_base_bytes": true,
+      "sha256": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272"
+    },
+    {
+      "path": "resources/weapons/recoil_bomb.tres",
+      "exact_base_bytes": true,
+      "sha256": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407"
+    },
+    {
+      "path": "assets/underworld_plains/home/home_build.json",
+      "exact_base_bytes": true,
+      "sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159"
+    }
+  ],
+  "shared_hit_evidence_review": {
+    "author_report": "/tmp/enemy-hit-template-20261024/verification.json",
+    "author_source_hashes_match_current": 23,
+    "author_cases": {
+      "ordinary_species": 14,
+      "ordinary_render_chains": 22,
+      "boss_scenes": 8,
+      "checks": 426
+    },
+    "evidence_mode": "Read and audited actual fixture/receiver test, matched its source SHA and log SHA, actually viewed GL PNGs; reviewer did not re-run all30 enemy fixtures or GL capture",
+    "images": [
+      {
+        "path": "/tmp/playtest-feedback-20261024/build/enemy_hit_template/pixels/ordinary-before.png",
+        "sha256": "7977599108d43164ac5733fdcf7a847f25398e6c3fcca981c146086b1cd7e156",
+        "actually_viewed": true
+      },
+      {
+        "path": "/tmp/playtest-feedback-20261024/build/enemy_hit_template/pixels/ordinary-after.png",
+        "sha256": "cdbf52f99fd4128a80c5f3c49a6b5534a88574ac208a9d0867d0fdc443aa1c39",
+        "actually_viewed": true
+      },
+      {
+        "path": "/tmp/playtest-feedback-20261024/build/enemy_hit_template/pixels/boss-before.png",
+        "sha256": "f058da95a37a0ff4c31213e342d6d3aa0fc323eeb2498ed24e81bc30cdb37bd7",
+        "actually_viewed": true
+      },
+      {
+        "path": "/tmp/playtest-feedback-20261024/build/enemy_hit_template/pixels/boss-after.png",
+        "sha256": "ae3fc32dc2dd3eb8bf5df85f4a7bf39752c28793ffd293fbecd92f91c44b669b",
+        "actually_viewed": true
+      }
+    ],
+    "observations": "Ordinary body changes silhouette/highlight; remaining HP pip and distant telegraph stay original. Bellstrider body highlights while opaque weakpoint ring and roll cue retain position/color. Clocks frozen and contact particles explicitly hidden for color isolation; not natural battle or timing/audio approval."
+  },
+  "findings_closed": [
+    {
+      "id": "BOMB-FORMAL-SHOT-IDENTITY",
+      "resolution": "Actual accepted base bomb reserved shot emitted before blast; same packet carried into existing mechanism/Boss sinks; independent597 real consumers include all3 physical latch hits, wall/TTL/actor/end/cancel/death/equipment/duplicate/upper-bank/rune rejection boundaries. Original guards unchanged."
+    },
+    {
+      "id": "BOMB-EXTRA-PULSE-CUE",
+      "resolution": "Body source now skips pulse/legacy shot semantics for Mode.BOMB; existing blast callback preserved. Home implementer bound58 actual consumer report has blast1/pulse0/legacy0; reviewer audited routing but does not claim independent listening."
+    },
+    {
+      "id": "BODY-FLASH-BOUNDARY",
+      "resolution": "Whole-host shader/material mutation removed; explicit body-only tint and terminal pass-through. Source and actual GL ablation reviewed."
+    }
+  ],
+  "open_blocking_findings": [],
+  "unverified": [
+    "Real Web HiDPI backing dimensions/frame timings and browser GUI after export",
+    "Physical PC/phone/controller performance, touch and player preference",
+    "Natural full routes and complete Boss battles with every weapon",
+    "Continuous-animation/audio aesthetics and five-song listening",
+    "Full Integration/Release CI and newly published build identity"
+  ]
+}

@@ -13,6 +13,7 @@ signal requested_forest_varied(map_index: int, seed: String)
 signal requested_forest_places(map_index: int, seed: String)
 signal requested_upgrade
 signal requested_avatar(id: String)
+signal requested_home_weapon(id: StringName)
 signal requested_lab
 signal requested_actions
 signal requested_player_presentation
@@ -47,6 +48,10 @@ var _summary := ""
 var _meta_state: Dictionary = {}
 var _avatar_options: Array[Dictionary] = []
 var _avatar_selected := "courier"
+var _weapon_options: Array[Dictionary] = []
+var _weapon_selected: StringName = &"pulse_gun"
+var _weapon_buttons: Dictionary = {}
+var home_function_id: StringName = &""
 var _build := ""
 var _build_items: Array[ItemDefinition]=[]
 var _seed := ""
@@ -105,6 +110,16 @@ func set_avatar_options(options: Array[Dictionary], selected: String) -> void:
 	_avatar_options = options.duplicate(true)
 	_avatar_selected = selected
 
+func set_weapon_options(options: Array[Dictionary], selected: StringName) -> void:
+	_weapon_options = options.duplicate(true)
+	_weapon_selected = selected
+	for option: Dictionary in _weapon_options:
+		var id := StringName(option.id)
+		var button := _weapon_buttons.get(id) as Button
+		if is_instance_valid(button):
+			button.text = _weapon_button_text(option)
+			button.disabled = id == _weapon_selected
+
 func show_title() -> void:
 	_home_overlay = false
 	_begin(&"title", false)
@@ -142,7 +157,7 @@ func show_title() -> void:
 
 func _start_title_adventure() -> void:
 	_hide()
-	requested_plains.emit("level-design-v2-baseline/08")
+	requested_enter_home.emit()
 
 func show_continue() -> void:
 	_home_overlay = false
@@ -229,7 +244,19 @@ func show_home_navigation(summary: String = "") -> void:
 func show_home_panel(function_id: StringName) -> void:
 	_home_overlay = true
 	_begin(&"home_function", false)
+	home_function_id = function_id
 	match function_id:
+		&"arms":
+			_title("武器工坊 / ARMORER", "选择下一次冒险使用的基础武器。")
+			_label(_content, "三种武器均为 Lv.1，免费更换；同一时刻只装备一种。", 18, TEXT)
+			for option: Dictionary in _weapon_options:
+				var id := StringName(option.id)
+				var button := _button(_content, _weapon_button_text(option), func() -> void: requested_home_weapon.emit(id))
+				button.name = "EquipHomeWeapon_" + str(id)
+				button.set_meta(&"focus_key", "home_weapon_" + str(id))
+				button.disabled = id == _weapon_selected
+				_weapon_buttons[id] = button
+			_label(_content, "当前家园与下一次出发都会使用所选武器。\n本次会话内保留选择，刷新网页后恢复脉冲枪。", 17, MUTED)
 		&"upgrade":
 			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
 			_upgrade_controls(_content)
@@ -261,6 +288,9 @@ func show_home_panel(function_id: StringName) -> void:
 			_title("Home", "This service is not available.")
 	_button(_content, "BACK TO HOME", _close_home_overlay)
 	_focus_first()
+
+func _weapon_button_text(option: Dictionary) -> String:
+	return ("当前装备 · " if StringName(option.id) == _weapon_selected else "装备 · ") + "Lv.%s %s" % [option.tier, option.display_name]
 
 func _upgrade_controls(parent: Node) -> void:
 	var quote: Dictionary = _meta_state.get("upgrade_quote", {"level": 0, "max_level": 3, "price": 5, "available": true})
@@ -586,12 +616,15 @@ func _confirm_home() -> void:
 	_focus_first()
 
 func _hide() -> void:
+	home_function_id = &""
 	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_hide")
 	visible_panel = &""
 	_page_generation += 1
 	_root.hide()
 
 func _begin(panel: StringName, in_run: bool) -> void:
+	home_function_id = &""
+	_weapon_buttons.clear()
 	var focused := get_viewport().gui_get_focus_owner()
 	if is_instance_valid(focused) and _root.is_ancestor_of(focused):
 		_focus_history[visible_panel] = str(focused.get_meta(&"focus_key", focused.name))

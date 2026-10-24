@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "verdict": "ACCEPT",
+  "acceptance_scope": "Bounded technical acceptance of fixed left status HUD, real glyph/ink occlusion observation and responsive map/menu navigation in b761. Does not approve whole game, full CI, Web deployment, subjective quality or physical devices.",
+  "reviewed_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+  "reviewer": "/root/hud_integration_review",
+  "independence": "Read-only review of all production/tracked test/docs. Reviewer wrote only ignored probes/reports, independently ran original UI270/UI139/HUD61 and actual production-HUD GL ablations; root authored the fixes.",
+  "resolved_findings": [
+    {
+      "id": "HUD-TOUCH960-01",
+      "prior_verdict": "REVISE",
+      "prior_commit": "4fc1e7a55c191dbe56cd7bc385539fc42b8f7898",
+      "prior_evidence": "../review-4fc1e7a-REVISE.json",
+      "resolution": "Both current responsive proposals added to the original map/pause candidates. Reservation checks, cached preference, original blockers, scoring, inputs and signals preserved. Original native UI139 now independently passes all four viewport/menu-tap cases, including960x540; same pause/panel/shot assertions unchanged."
+    },
+    {
+      "id": "HUD-LABEL-INK-01",
+      "resolution": "Actual native GL found11 quiet/16 notice pixels beyond original leaf rectangles. Source observation expands actual Labels by2 scaled pixels. After measuring notice native text width56 plus6 padding and grow2, all4568 before/4103 quiet/4605 notice status pixels fall inside final observed bounds. No target-identity exception added."
+    }
+  ],
+  "guard_preservation": {
+    "status_anchor": "User-required left status_rows remains anchored; wallet/location fixed-position restriction was an overbroad first candidate, replaced with viewport/touch safety while restoring original avoidance. Original developer-board bottom-layout assertions retained.",
+    "scene_assertions": "Original strict actor/enemy/telegraph/projectile/required target intersections unchanged; ten actual native occlusion mutations and fifteen JSON falsification cases retained. Transparent layout VBoxes replaced with visible drawing leaves.",
+    "bible": "Active13→12 and original12/11/10/9/7 immutable-metadata/reference guards retained; actual historical Git sources bind historical SHA; active hash binds actual source. Stale12 rejection added; independent positive and mode/shared_dimensions mutation rejection passed.",
+    "budget": "No original assertions deleted for speed; original scene180 aggregate/native rejection and outer900 budgets retained."
+  },
+  "validation": {
+    "independent_consumers": "consumer-runs.json",
+    "results": [
+      {
+        "name": "raster",
+        "status": "passed",
+        "seconds": 4.523503370000981,
+        "log_sha256": "d6d93e65640fadc5637f9a11a9814b28207d1f750fa1a194fbe11a681e128bab"
+      },
+      {
+        "name": "underworld-ui",
+        "status": "passed",
+        "seconds": 11.939469453995116,
+        "log_sha256": "48e1a210cc9f789d56d2f44a4493e83d425b2d465e6c300d20df38b19e5ed406"
+      },
+      {
+        "name": "ui-contract",
+        "status": "passed",
+        "seconds": 9.682956060001743,
+        "log_sha256": "73bb13c4b62d69640fe6d4dda3e5892b1d7dbebef7badaee72832e6049159098"
+      },
+      {
+        "name": "hud-bounds",
+        "status": "passed",
+        "seconds": 3.4209744929976296,
+        "log_sha256": "1461facc949370d4d6cf3e4ad088e4920ddee7e784d338544b466bf6f30042a9"
+      }
+    ],
+    "source_file_count": 2097,
+    "source_stable": true,
+    "clean_worktree": true,
+    "source_before": "source-before.json",
+    "source_after": "source-after.json",
+    "raster": "raster-analysis.json",
+    "raster_original_pngs_viewed": [
+      "raster/before-quiet.png",
+      "raster/after-quiet.png",
+      "raster/after-notice.png"
+    ],
+    "bible_guard": "bible-counterexamples.json",
+    "original_frozen_scene_harness": {
+      "executor": "root; original complete receipt independently inspected, not rerun a third time",
+      "path": "build/verification/harness/20261024T040503.405986Z/report.json",
+      "sha256": "7d242deae779e4d0a620368a2d0aa40b5a2644b7e973348ecfdabe05de7232ec",
+      "status": "passed",
+      "seconds": 126.817,
+      "native_receipt": "build/plains_redesign/scene/run_fh3__av0/receipt.json",
+      "native_receipt_sha256": "53168f538cb08d6774b31ae23a905ce45dbc52a4ddea0d53e53918f2026b7cfe",
+      "native_positive_routes": 8,
+      "actual_native_falsifications": 10,
+      "json_falsifications": 15
+    },
+    "earlier_independent_scene": {
+      "commit": "4fc1e7a55c191dbe56cd7bc385539fc42b8f7898",
+      "report": "build/verification/harness/20261024T035300.143891Z/report.json",
+      "status": "passed",
+      "seconds": 131.224,
+      "limitation": "Earlier source identity retained; not relabeled b761."
+    }
+  },
+  "style_boundary": {
+    "active": "style13 / creative16",
+    "references": 36,
+    "changed_since_v12": [
+      "scripts/demo/demo_app.gd"
+    ],
+    "other_references_identical": 35,
+    "runtime_changes_since_e525": [
+      "scripts/demo/demo_app.gd",
+      "scripts/ui/demo_ui_01/game_hud.gd"
+    ],
+    "game_hud_independently_bound_by_sha": "0eda54104e1d1f39aca0afb495d73fb42657f2ba52a64d7f11ff3e41a42a188c"
+  },
+  "limitations": [
+    "GL is actual Godot Compatibility on Mesa llvmpipe at1280x720, not physical hardware or FPS acceptance.",
+    "GL raster isolates actual formal-bound HUD; old enemy screen rectangles are sampling windows, not an identical-seed live gameplay reenactment.",
+    "No complete normal-speed gameplay/audio video or continuous listening reviewed.",
+    "No public Web build of b761, full PR Integration, Release, player taste/feel/fun or device/controller acceptance signed.",
+    "Restored navigation avoidance reintroduces the original world scans; earlier claims that normal world scanning was removed no longer apply."
+  ]
+}

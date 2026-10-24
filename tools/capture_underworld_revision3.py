@@ -5,8 +5,9 @@ import argparse,contextlib,json,os,re,shutil,subprocess,time
 from capture_underworld_revision2_experience import inventory as runtime_inventory,sha
 from run_tests import run_engine
 from run_underworld_home_tests import Tee
+from run_underworld_home_terrace_tests import expected_assertions
 ROOT=Path(__file__).resolve().parents[1]
-FIXTURES=['tests/underworld_plains/capture_underworld_r3_boss_fight.gd','tests/underworld_plains/capture_revision3_environment.gd','tests/underworld_plains/capture_revision3_projectile_windows.gd','tests/underworld_plains/test_underworld_home_terraces.gd','tests/underworld_plains/home_terrace_driver.gd','tools/capture_underworld_revision3.py']
+FIXTURES=['tests/underworld_plains/capture_underworld_r3_boss_fight.gd','tests/underworld_plains/capture_revision3_environment.gd','tests/underworld_plains/capture_revision3_projectile_windows.gd','tests/underworld_plains/test_underworld_home_terraces.gd','tests/underworld_plains/home_terrace_driver.gd','tools/capture_underworld_revision3.py','tools/run_underworld_home_terrace_tests.py']
 SCOPES=['scripts','scenes','resources','config','shaders','assets','project.godot','export_presets.cfg',*FIXTURES]
 def inventory():
     values=runtime_inventory()
@@ -32,7 +33,8 @@ def main():
     elif args.case=='enemy':
         fixture=FIXTURES[2];extra=['--focus=enemy','--frames=540','--output=res://'+str((target/'trace.json').relative_to(ROOT))];receipt=target/'trace.json';pattern=r'^R3 FORMAL PROJECTILE WINDOW: enemy .*failures=0$'
     else:
-        fixture=FIXTURES[3];extra=[];receipt=ROOT/'build/underworld_r3/home/receipt.json';pattern=r'^UNDERWORLD HOME TERRACES: 180 assertions, 0 failures$'
+        home_expected=expected_assertions(False)
+        fixture=FIXTURES[3];extra=[];receipt=ROOT/'build/underworld_r3/home/receipt.json';pattern=rf'^UNDERWORLD HOME TERRACES: {home_expected} assertions, 0 failures$'
     engine=['--path','.','--rendering-method','gl_compatibility','--audio-driver','Dummy','--fixed-fps','60','--write-movie',str(target/'raw.avi'),'--script',fixture,'--',*extra]
     report={'schema':'underworld-r3-frozen-native-capture-v1','source_commit':commit,'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'case':args.case,'command':['bash','tools/godot.sh',*engine],'timeout_seconds':args.timeout,'status':'failed','source_before':before,'scope':'Actual formal App consumers; Boss/environment/enemy windows explicitly initialize room/anchor position once, no midfight HP/AI/resource injection; Home is real native input tour. Not natural whole-map traversal or device/player acceptance.','audio_scope':'Dummy MovieMaker mix; track/RMS alone is not listening or physical output evidence'}
     error=None;start=time.monotonic();fresh=time.time_ns()
@@ -44,7 +46,7 @@ def main():
         value=json.loads(receipt.read_text())
         if value.get('failures') not in [0,[]]:raise RuntimeError('Native receipt contains failures')
         if args.case.startswith('boss') and (value.get('boss_hp')!=0 or value.get('player_hp',0)<=0 or not value.get('no_midfight_injection')):raise RuntimeError('Actual full fight did not settle alive')
-        if args.case=='home' and (value.get('checks')!=180 or len(value.get('visits',[]))!=12):raise RuntimeError('Actual Home tour incomplete')
+        if args.case=='home' and (value.get('checks')!=home_expected or len(value.get('visits',[]))!=12):raise RuntimeError('Actual Home tour incomplete')
         if receipt.resolve()!=(target/'trace.json').resolve():shutil.copy2(receipt,target/'trace.json')
         with (target/'encode.log').open('w') as stream:subprocess.run(['ffmpeg','-y','-i',str(target/'raw.avi'),'-c:v','libx264','-crf','20','-pix_fmt','yuv420p','-c:a','aac',str(target/'movie.mp4')],stdout=subprocess.DEVNULL,stderr=stream,check=True,timeout=180)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(target/'movie.mp4')],timeout=30))

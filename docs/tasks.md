@@ -1,5 +1,9 @@
 # 开发任务
 
+## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）
+
+main已实际合入四线，cd4989a6/72c47d59bc4f已快速公开。当前处理用户的性能、全部怪物普通受击、固定HUD、家园3种Lv1武器和标题进家园五项反馈；[范围与所有权](worklines/playtest_feedback_20261024/scope.md)。下方旧未合入/等待CI段落保留历史身份，不驱动本轮重复集成。
+
 ## 2026-10-23 原场景预算内调度修复（最新）
 
 四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
@@ -70,6 +74,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；当前b761/5ce真实候选已公开，最终CI／main状态核PR108；玩家／设备认可分别记录 |
 | FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
 | ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
 | DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |

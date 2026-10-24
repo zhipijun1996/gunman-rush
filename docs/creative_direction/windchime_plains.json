@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v13",
+  "version": "creative-v16",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-    "supplemental_authority_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+    "supplemental_authority_sha256": "ab8944e429a665aed6345aa5cc7d6e958a35b2b512255f7849fe3c9a82f57c97",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
+    "registry_sha256": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -149,8 +149,8 @@
       "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
     },
     {
-      "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-      "sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
+      "path": "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+      "sha256": "ab8944e429a665aed6345aa5cc7d6e958a35b2b512255f7849fe3c9a82f57c97"
     }
   ],
   "historical_direction": {
@@ -159,31 +159,31 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "FOUR-LINE-INTEGRATION-01",
-    "revision": "Foreground CPU technical-consumer rebind only",
+    "task_id": "PLAYTEST-FEEDBACK-20261024",
+    "revision": "One responsive-navigation integration correction; no art direction change",
     "previous_direction": {
-      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
-      "sha256": "88b0b6fff129087952d4215d0a3e554171a8fd482234cacfb2e54a4359764ad3",
-      "version": "creative-v12"
+      "path": "docs/creative_direction/archive/creative-v15/windchime_plains.json",
+      "sha256": "222ff8a7bdaff041428ca228aac63995004d1860edf2c2eb3365f1628095bcc4",
+      "version": "creative-v15"
     },
     "changed_authorities": [
       {
         "path": "docs/creative_direction/bibles/registry.json",
-        "old_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4",
-        "new_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74"
+        "old_sha256": "46c57f2b127ef47ce27458ec8db7b30b0cfc21f2c48fa2d7381d884d91df48b5",
+        "new_sha256": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996"
       },
       {
-        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
-        "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
-        "old_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
-        "new_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
+        "old_sha256": "35f521df530eead1a928ef2fa8230483c8e35bf3a1ee726242d2a7fba43152d1",
+        "new_sha256": "ab8944e429a665aed6345aa5cc7d6e958a35b2b512255f7849fe3c9a82f57c97"
       }
     ],
     "preserved": [
-      "Complete previous direction snapshot, source quotes, original Bible and all visual specifications unchanged",
-      "Other35 runtime references unchanged; prior historical snapshots retained"
+      "Original raw creative-v15/registry and REVISE12 retained",
+      "Other35 runtime references and complete original Bible/user pixel selection unchanged"
     ],
-    "impact": "Automatic early refresh removed; sticky admission/entered-view/retirement timing is not claimed equivalent. Per-protection geometry snapshot and disjoint-mask skip retain mask semantics. No aesthetic/device/G5 acceptance.",
-    "validation_status": "Pending exact current authority checks; runtime evidence recorded separately, no art/player/device acceptance."
+    "impact": "Keep the current responsive map/pause proposal among avoidance candidates before fixed fallbacks; cached desktop coordinates must not cover the actual enlarged touch MENU after resize. The fixed status and compact resonance remain unchanged; normal world protection scans remain active.",
+    "evidence_scope": "Current technical correction only; independent/Web/fullCI/player/device acceptance remain separately sourced"
   }
 }

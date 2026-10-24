@@ -4,8 +4,10 @@ extends Node2D
 var _counter_flash := 0.0
 var _counter_amount := 0.0
 var _counter_position := Vector2.ZERO
+var hit_template: EnemyHitTemplate
 
 func _ready() -> void:
+	hit_template = EnemyHitTemplate.install_boss(encounter, self)
 	if encounter is RootbellGuardianV2:
 		(encounter as RootbellGuardianV2).duel_event.connect(_duel_event)
 
@@ -25,7 +27,7 @@ func _draw() -> void:
 	var color := Color("d5d273") if encounter.core_open else Color("365347")
 	var size := encounter.definition.collision_size
 	if not ForestBibleActors.draw_boss_body(self, encounter):
-		draw_rect(Rect2(-size*.5,size),Color("3b4838"))
+		draw_rect(Rect2(-size*.5,size),hit_template.tint(Color("3b4838")))
 		draw_circle(Vector2(0,-8),19,color)
 		draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
 		draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)

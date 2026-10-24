@@ -1,7 +1,8 @@
 class_name EnemyFeedback01
 extends RefCounted
 ## ENEMY-FEEDBACK-01: presentation state only. No damage, motion, audio or drops.
-## Deliberately limited to two existing definitions, in both rendering chains.
+## Authored bodies/deaths remain limited to their own definitions. The accepted
+## hit state also supplies the common live-hit template to other presentations.
 const PROFILES := {
 	&"plains_charger": {"impact_pose": Vector2(1.10, .91), "death_pose": Vector2(1.12, .45), "tilt": 0.0},
 	&"plains_diver": {"impact_pose": Vector2(.94, 1.06), "death_pose": Vector2(.86, .72), "tilt": .16},
@@ -25,11 +26,14 @@ var _seen: Dictionary = {}
 var _terminal := false
 
 static func supports(definition: EnemyDefinition) -> bool:
+	# Authored body/death assets only. Other species use EnemyHitTemplate and
+	# the same accepted-hit state without borrowing these species' death frames.
 	return definition != null and PROFILES.has(definition.stable_id)
 
-func _init(health: HealthState, definition: EnemyDefinition) -> void:
+func _init(health: HealthState, definition: EnemyDefinition = null) -> void:
 	_health = health
-	_profile = PROFILES[definition.stable_id]
+	var id: StringName = definition.stable_id if definition != null else &""
+	_profile = PROFILES.get(id, {"impact_pose": Vector2(.94, 1.06) if definition != null and definition.aerial else Vector2(1.10, .91), "death_pose": Vector2.ONE, "tilt": 0.0})
 	_synchronize()
 	_health.changed.connect(_changed)
 

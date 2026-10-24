@@ -62,8 +62,8 @@ func run() -> void:
 		check(icon!=null and icon.atlas==atlas and icon.filter_clip,"actual complete icon consumer "+key)
 		check(Rect2(Vector2.ZERO,atlas.get_size()).encloses(icon.region),"actual icon region in bounds "+key)
 	var menu := DemoMenu.new();root.add_child(menu)
-	var starts: Array[String]=[];var resumes: Array[int]=[];var leaves: Array[int]=[];var upgrades: Array[int]=[];var patches: Array[Dictionary]=[]
-	menu.requested_plains.connect(func(seed: String): starts.append(seed));menu.requested_resume.connect(func():resumes.append(1));menu.requested_home.connect(func():leaves.append(1));menu.requested_upgrade.connect(func():upgrades.append(1));menu.settings_changed.connect(func(patch: Dictionary):patches.append(patch))
+	var homes: Array[int]=[];var starts: Array[String]=[];var resumes: Array[int]=[];var leaves: Array[int]=[];var upgrades: Array[int]=[];var patches: Array[Dictionary]=[]
+	menu.requested_enter_home.connect(func():homes.append(1));menu.requested_plains.connect(func(seed: String): starts.append(seed));menu.requested_resume.connect(func():resumes.append(1));menu.requested_home.connect(func():leaves.append(1));menu.requested_upgrade.connect(func():upgrades.append(1));menu.settings_changed.connect(func(patch: Dictionary):patches.append(patch))
 	menu.show_title();await frames();await observe("title",menu._root)
 	var touch_settings := button(menu._content,"SETTINGS")
 	for pressed: bool in [true,false]:
@@ -77,7 +77,9 @@ func run() -> void:
 	await click(button(menu._content,"APPLY"));check(patches.size()==1,"valid native Apply submits one validated settings patch")
 	await observe("settings",menu._root);await click(button(menu._content,"BACK"));check(menu.visible_panel==&"title","native settings back returns title")
 	await click(button(menu._content,"HOW TO PLAY"));check(menu.visible_panel==&"help","native help opens");await observe("help",menu._root)
-	await click(button(menu._content,"BACK"));await click(button(menu._content,"风铃平原"));check(starts==["level-design-v2-baseline/08"] and menu.visible_panel.is_empty(),"original primary entry seed and request preserved")
+	await click(button(menu._content,"BACK"));await click(button(menu._content,"风铃平原"));check(homes==[1] and starts.is_empty() and menu.visible_panel.is_empty(),"primary requests Home exactly once without starting a run")
+	menu._seed="level-design-v2-baseline/08";menu.show_region_select();await frames();await click(button(menu._content,"BEGIN"))
+	check(starts==["level-design-v2-baseline/08"],"explicit region entry preserves selected seed and original request")
 	menu.show_home_navigation();await frames();await observe("home_navigation",menu._root)
 	var text := ""
 	for node: Node in menu._content.find_children("*","Button",true,false):text+=node.text
@@ -101,7 +103,9 @@ func run() -> void:
 	menu.free();await frames(3)
 	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
-	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"native primary title click creates actual formal map1")
+	check(is_instance_valid(app.home_scene) and app.director.state==DemoRunDirector.State.HOME,"native primary title click creates playable Home")
+	app.menu._seed="level-design-v2-baseline/08";app._open_home_navigation();await click(button(app.menu._content,"Explore"));await frames(8)
+	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"Home navigation click creates actual formal map1 for retained UI cases")
 	await observe("actual_formal_hud",app._resources_hud)
 	# The requested rounded material replaces the old black palette snapshot;
 	# keep the original consumer assertion against its effective shared style.

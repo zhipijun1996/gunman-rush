@@ -2,6 +2,9 @@ class_name ForestEnemyPresentation
 extends Node2D
 @export var actor: EnemyActor
 var age := 0.0
+var hit_template: EnemyHitTemplate
+func _ready() -> void:
+	hit_template = EnemyHitTemplate.install(actor, self)
 func _process(delta: float) -> void:
 	age += delta
 	queue_redraw()
@@ -12,17 +15,21 @@ func _draw() -> void:
 	var bible_body := ForestBibleActors.draw_enemy_body(self, actor, age)
 	if actor.definition.behavior_id == &"forest_lantern":
 		if not bible_body:
+			hit_template.begin_body(self)
 			var wing := 8 + sin(age * 14) * 3 if alive else 6.0
-			_paint_ellipse(Vector2(-12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
-			_paint_ellipse(Vector2(12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
-			draw_circle(Vector2.ZERO, 11, Color(.21, .4, .29) if alive else Color(.2, .2, .2))
-			draw_arc(Vector2(0, 2), 7, 0, TAU, 20, Color(.96, .82, .35) if alive else Color(.4,.4,.4), 3)
+			_paint_ellipse(Vector2(-12, -6), Vector2(wing, 4), hit_template.tint(Color(.65, .88, .67, .65)))
+			_paint_ellipse(Vector2(12, -6), Vector2(wing, 4), hit_template.tint(Color(.65, .88, .67, .65)))
+			draw_circle(Vector2.ZERO, 11, hit_template.tint(Color(.21, .4, .29) if alive else Color(.2, .2, .2)))
+			draw_arc(Vector2(0, 2), 7, 0, TAU, 20, hit_template.tint(Color(.96, .82, .35) if alive else Color(.4,.4,.4)), 3)
+			draw_set_transform(Vector2.ZERO)
 		if state == &"telegraph": draw_line(Vector2.ZERO, Vector2(actor.brain.direction * 22, 0), Color.WHITE, 2)
 	else:
 		if not bible_body:
-			draw_line(Vector2(0, 17), Vector2(0,-10), Color(.25,.46,.26), 8)
-			draw_circle(Vector2(0,-5), 14, Color(.45,.2,.35) if alive else Color(.2,.2,.2))
-			for side: int in [-1,1]: draw_line(Vector2(side*20, 10), Vector2(0,-8), Color(.5,.65,.34), 5)
+			hit_template.begin_body(self)
+			draw_line(Vector2(0, 17), Vector2(0,-10), hit_template.tint(Color(.25,.46,.26)), 8)
+			draw_circle(Vector2(0,-5), 14, hit_template.tint(Color(.45,.2,.35) if alive else Color(.2,.2,.2)))
+			for side: int in [-1,1]: draw_line(Vector2(side*20, 10), Vector2(0,-8), hit_template.tint(Color(.5,.65,.34)), 5)
+			draw_set_transform(Vector2.ZERO)
 		if state == &"telegraph":
 			draw_arc(Vector2(0,-5), 18, 0, TAU, 24, Color(1,.65,.3), 3)
 			var goal := to_local(actor.attack_behavior.attack_goal)
