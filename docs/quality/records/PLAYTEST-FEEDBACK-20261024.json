@@ -4,7 +4,7 @@
   "task_type": "ui_feedback",
   "workflow": "review",
   "baseline_commit": "cd4989a68613e0b457cdfd5e252634dd57008505",
-  "reviewed_commit": "1b25dd5ac2b4763b2aa4447f337cd6b62dca2f2c",
+  "reviewed_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
   "content_version": "candidate-v2-fixed-status-integration",
   "owner": "director-codex",
   "purpose": "Fix five concrete public playtest reports: Web stalls, universal hit feedback, stable HUD, Home Lv1 weapon choice and title->Home entry",
@@ -208,8 +208,12 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Current fixed-status correction awaits independent rendered verification and final exact-source Integration; earlier actual serial failure preserved.",
-      "evidence": []
+      "reason": "This ledger records pre-merge bounded evidence. Final PR108 exact-head Integration is evaluated dynamically before ordinary merge; no full Release/player/device acceptance inferred.",
+      "evidence": [
+        "scene-harness-v2",
+        "native-independent-v2",
+        "public-gui-v2"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -226,13 +230,17 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded exact-b761 native scene/UI/GL and actual Web/public bytes passed. e525 enemy/Home/weapon original proofs retain earlier identity; only DemoApp HUD and GameHud production scripts differ. Full Integration/Release remains separate.",
+      "evidence": [
+        "frozen-native-v2",
+        "scene-harness-v2",
+        "web-bundle-v2"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
+      "reason": "Pre-merge snapshot: final exact PR108 head must pass affected aggregate. Old40056228724 failures retained; native/public scoped proofs do not substitute complete CI. Live outcome belongs to PR108 merge receipt.",
       "evidence": []
     },
     "visual": {
@@ -256,14 +264,20 @@
       "evidence": []
     },
     "performance": {
-      "status": "unverified",
-      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded Web native density and real software-GPU observations only. Current24.20 desktop/34.52 mobile emulation; physical density differs from old7.78. Normal world-protection scans restored, first download186MB and target-device performance remain unverified.",
+      "evidence": [
+        "density-native-v2",
+        "density-measurement-v2",
+        "public-gui-v2"
+      ]
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Prior exact-e525 proofs retain original source. Real1b25 Integration found UI occlusion; current four-source author8/10/15+61 fix passed, new independent/fullCI/Web remain separate pending actual evidence. Normal world scans restored; no prior no-scan CPU claim inherited.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent actual frozen-b761 HUD/navigation ACCEPT; source stable, 4fc real mobile-menu REVISE retained and corrected; no user/device/fullCI sign-off.",
+      "evidence": [
+        "native-independent-v2"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -293,45 +307,47 @@
     },
     {
       "id": "native-tech",
-      "scenario": "Original current native UI/Home/weapon/HUD and actual Web closure",
+      "scenario": "Current frozen-b761 native/UI/scene/GL and real generated Web closure",
       "method": "Actual source-bound evidence; see referenced original receipts",
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "technical",
-      "status": "unverified",
-      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
+      "status": "passed",
+      "reason": "Passed only the exact cited b761 scope; previous-source acceptance not inherited, no player/device/fullRelease sign-off",
       "evidence": [
-        "frozen-native",
-        "web-bundle"
+        "frozen-native-v2",
+        "scene-harness-v2",
+        "web-bundle-v2"
       ],
       "gate": "G4"
     },
     {
       "id": "bounded-review",
-      "scenario": "Read-only independent e525 technical review",
+      "scenario": "Read-only independent b761 fixed-status/navigation review",
       "method": "Actual source-bound evidence; see referenced original receipts",
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "independent_review",
-      "status": "unverified",
-      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
+      "status": "passed",
+      "reason": "Passed only the exact cited b761 scope; previous-source acceptance not inherited, no player/device/fullRelease sign-off",
       "evidence": [
-        "native-independent"
+        "native-independent-v2"
       ],
       "gate": "G4"
     },
     {
       "id": "web-density",
-      "scenario": "Actual WebDPR2 buffer/CSS and fixed-seed observed performance",
+      "scenario": "Actual current publicDPR2/3 native pointer/touch, CSS buffer and scoped software performance",
       "method": "Actual source-bound evidence; see referenced original receipts",
       "expected": "Real accepted/refused consumers or scoped density behavior with clean native/Web results",
       "failure": "Wrong source, missing completion, native leak/error, wrong actual CSS/input or inflated approval",
       "dimension": "performance",
-      "status": "unverified",
-      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
+      "status": "passed",
+      "reason": "Passed only the exact cited b761 scope; previous-source acceptance not inherited, no player/device/fullRelease sign-off",
       "evidence": [
-        "density-measurement",
-        "public-gui"
+        "density-native-v2",
+        "density-measurement-v2",
+        "public-gui-v2"
       ],
       "gate": "G4"
     },
@@ -344,7 +360,7 @@
       "gate": "G4",
       "dimension": "technical",
       "status": "unverified",
-      "reason": "Earlier exact-e525 evidence is retained with original source; current fixed-status correction requires new independent/final CI/Web evidence and does not inherit that acceptance.",
+      "reason": "Pre-merge snapshot: final frozen PR108 affected result must actually succeed before ordinary merge; check live PR/source, do not rerun already merged source",
       "evidence": []
     }
   ],
@@ -456,6 +472,121 @@
       "content_version": "candidate-v2-fixed-status-integration",
       "method": "Re-read unchanged actual user contract for integration correction; only left status is fixed, auxiliary UI protection remains required",
       "observed": "Scope original bytes unchanged at1b25; actual CI occlusion is a defect to repair, not a reason to waive visual or native guards"
+    },
+    {
+      "id": "frozen-native-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/frozen-b761/consumer-runs.json",
+      "sha256": "090003e7e05da53892d3cf48db11cdfa967c0dbb240237ea129ac11a684a6404",
+      "kind": "command",
+      "producer": "/root/hud_integration_review",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Independent frozen-b761 original native UI/HUD consumers",
+      "observed": "Actual UnderworldUI270/0, UIcontract139/0 including960touch pause, HUD61/0; strict clean exits and source-stable2097 files",
+      "command": "Original exact argv and native budgets in consumer-runs.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard headless, actual native event dispatch, exclusive engine window"
+    },
+    {
+      "id": "scene-harness-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/frozen-scene-harness.json",
+      "sha256": "7d242deae779e4d0a620368a2d0aa40b5a2644b7e973348ecfdabe05de7232ec",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Original frozen-b761 Harness plains-redesign-scene",
+      "observed": "Fresh126.817s, actual eight routes and ten native violations plus fifteen record-tamper rejections; original180/900 budgets unchanged",
+      "command": "python3 tools/harness.py --check plains-redesign-scene --jobs 1",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, own /tmp XDG, no concurrent engines or tracked edits"
+    },
+    {
+      "id": "native-independent-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/frozen-b761/independent-review.json",
+      "sha256": "a036fc5ab598e28d872d02a01d37d4445d20ee5dc9e763d42a2d9786111224fd",
+      "kind": "review",
+      "producer": "/root/hud_integration_review",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Read-only actual UI/GL/guard review on frozenb761; preserves4fc REVISE and raw failures",
+      "observed": "Bounded ACCEPT only fixed status, actual compact painted leaves and responsive protected navigation; actual quiet/notice ink coverage and original strict negatives verified",
+      "reviewer": "/root/hud_integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer edited no production/test/authority files, independently executed original consumers and actual GL; checked frozen2097-file SHA before/after, no player/device/fullCI approval"
+    },
+    {
+      "id": "web-bundle-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/web-bundle.log",
+      "sha256": "5c962963f588888b01787d076fa67fadd2980a12a9779989a78051f4aaa94d48",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Original check_web_bundle.py against the actual b761 Web export",
+      "observed": "Actual pack/runtime JSON/PNG/texture closure passed; original exporter computed and accepted unchanged Foundry basis from exact original archived dependency",
+      "command": "python3 tools/check_web_bundle.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard Web export, producerb761, original56-member validated e525 dependency reused and original tracked cache restored"
+    },
+    {
+      "id": "density-native-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/frozen-density-7.log",
+      "sha256": "8a82d21ab4d87a335f102591c850bcb37f3d716aeacbc31d87ac2ac3e86d8f21",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Actual native platform override query",
+      "observed": "7/0; only Web HiDPI disabled, native platform defaults and logical1280x720 unchanged",
+      "command": "bash tools/godot.sh --headless --path . --script tests/web_pixel_density/runner.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard native on exact b761"
+    },
+    {
+      "id": "public-gui-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/public-b761/report.json",
+      "sha256": "cc6b2fcd1ca2590ff1d8fd0689c27e9fd5078183bd84679018b0e53309b05e4d",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Real public Chromium native mouse/touch and seed keyboard input; no Godot internal calls",
+      "observed": "Actual desktopDPR2 and mobileDPR3 title->Home->formal Plains, fixedSeed08/sameManifest, CSS==buffer and nearest; no page/script/HTTP errors"
+    },
+    {
+      "id": "public-pack-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/public-b761/public-pack-verified.json",
+      "sha256": "9cd11bbb38f24f881de9062674412fa7d10158f385974b094b55b33d070b0638",
+      "kind": "measurement",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Actual complete public PCK streamed, SHA/bytes/source/HTML verified",
+      "observed": "Actual184493060B pack5cebbdc37404..., producerb761, Pages40061834215 success; development-playtest not complete Release/G5",
+      "device": "Public HTTPS deployment streamed to SHA256 CPU verifier; not a player device",
+      "environment": "Python3.12 urllib, complete actual public184493060B response, no metadata-only or partial-range substitution",
+      "scenario": "Source-bound Web package integrity and exact actual deployment",
+      "budget_source": "Exact exported b761 build_report PCK SHA256 and byte count, not a performance acceptance budget"
+    },
+    {
+      "id": "density-measurement-v2",
+      "path": "docs/evidence/playtest_feedback_20261024/hud-integration/public-b761/desktop2/report.json",
+      "sha256": "1bb3a54fb0e001232fdfd81d0f6f6f770f1abffafbf186822257c7c0151867e9",
+      "kind": "measurement",
+      "producer": "/root",
+      "source_commit": "b7610b8a28f7a22f1fd11a0ac7fd0b91c8f469fd",
+      "content_version": "candidate-v2-fixed-status-integration",
+      "method": "Observed current public fixed-seed desktopDPR2 CSS-density render",
+      "observed": "SwiftShader24.20097FPS at1280x720buffer==CSS; old main7.78 used2560x1440buffer, physical density intentionally differs; no no-scan CPU or device promise",
+      "device": "Cloud Chromium SwiftShader software GPU, not target hardware",
+      "environment": "1280x720CSS, DPR2 remains2, fixedSeedlevel-design-v2-baseline/08 and Manifest78b664..., no concurrent native/export/pack compression",
+      "scenario": "Current b761 real Home/menu/Plains input with native CSS buffer and nearest composition",
+      "budget_source": "Web pixel-density contract; no invented target-device FPS budget"
     }
   ],
   "consumer_coverage": null,
@@ -464,6 +595,6 @@
     "Initial download remains approximately186MB including loader resources; first-load/weak-network optimization not claimed fixed",
     "Complete natural Boss fights/routes and full142 PR Integration/Release remain separate",
     "Original main Release old FoundryLab audio lifecycle failure preserved; current quick candidate deployment does not re-sign it",
-    "Fixed-status integration correction: final source-bound independent rendered/UI checks, complete Integration and actual updated Web producer; olde525 no-scan CPU statement superseded"
+    "Final exact PR108 full Integration/Release remains live outside this pre-merge ledger; natural complete fights/continuous listening/player/device remain unverified; initial186MB download unchanged"
   ]
 }
