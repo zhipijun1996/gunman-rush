@@ -68,6 +68,10 @@ def read_fresh_receipt(path, since_ns):
         raise RuntimeError('Current run did not write a fresh Home terrace receipt')
     return json.loads(path.read_text())
 
+def expected_assertions(capture=False):
+    # The authored arms service adds three route checks and one panel capture.
+    return 194 if capture else 184
+
 def verify(output, receipt, before, after, expected, exit_code=0):
     if exit_code != 0:
         raise RuntimeError(f'Home terrace engine returned {exit_code}')
@@ -83,7 +87,7 @@ def verify(output, receipt, before, after, expected, exit_code=0):
     if len(receipt.get('visits', [])) != 12 or len({x['foot'][1] for x in receipt['visits']}) != 3:
         raise RuntimeError('Actual visits do not cover twelve stations on all three tiers')
     active = {x['expected_action'] for x in receipt['visits'] if x['expected_action']}
-    if active != {'character', 'upgrade', 'achievements', 'departure'}:
+    if active != {'character', 'upgrade', 'achievements', 'arms', 'departure'}:
         raise RuntimeError('Current Home changed active function identity')
     for visit in receipt['visits']:
         if 'meta_before' not in visit or 'meta_after' not in visit:
@@ -128,7 +132,7 @@ def main():
         preflight()
         after = {p: digest(ROOT / p) for p in OWNED}
         binding['source_after'] = after
-        expected = 190 if args.capture else 181
+        expected = expected_assertions(args.capture)
         verify(output, receipt, before, after, expected, 0)
         saved = run / 'receipt.json'; shutil.copy2(receipt_path, saved)
         binding.update(status='passed', checks=expected, failures=0, receipt=str(saved.relative_to(ROOT)), receipt_sha256=digest(saved))
