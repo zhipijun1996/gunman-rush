@@ -2,7 +2,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
-| RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | in_progress | [质量记录](quality/records/RUN-GEAR-01.json) |
+| RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |
 
 
 ## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）

@@ -1,5 +1,18 @@
 # 当前交接（2026-10-24）
 
+## 2026-10-26 RUN-GEAR-01：局内背包与齿轮装备候选
+
+实现分支`feature/run-gear-inventory`，基线main`26e7f2a`，冻结运行源`91ea8850f308cc3c955bcece2c35cd66f75e7bda`。后续只追加证据／文档，PR面向main且不自动合并。[交付与可下载完整操作录屏](evidence/run_gear_01/README.md) · [独审](evidence/run_gear_01/independent-review.md) · [权威规则](rewards_and_builds.md)。
+
+当前道具先入无齿轮上限背包，暂停构筑装卸／原子替换后才生效；8→10→12→14容量与价格唯一来自config/gear_capacity.json。保持武器、核心能力和永久音符独立；保留收据幂等、死亡优先、跨图／地区／存活环境回退，真结束清理。新增常规道具走Definition／效果组件，复杂主动／武器／钩索技能本轮未开发。
+
+同源独立15项原Harness fresh全部通过，core5685、gear107、正式UI64、campaign67、森林App92、地区当前15组及40图回放等零失败；另实际GL67／原触控44通过。最终原生操作片20.47秒、20断言／0失败、源码稳定且退出clean：固定开发关卡自然射击／行走／领取→入包→装备／生效→卸下／撤销→扩容；正式区域消费者另有实际App验证，不能冒称正式自然全路线。
+
+所有真实失败和F1–F14修复链保留。当前技术ACCEPT／质量review，未做实体安卓／实体手柄、数百道具低端性能及玩家G5；扩容价格为试验值。27条旧独立路线及legacy-compat未跑，不记通过。当前style-v14／creative-v17仅重绑DemoApp，另35引用、原Bible和旧档字节保留，不继承美术／设备认可。
+
+恢复命令：`git switch feature/run-gear-inventory`；相关检查见证据的原Harness命令与收据；`python3 tools/check_quality_diff.py --base 26e7f2a4459623f35613a857da8a75e89daa3e62`。完整PR CI以实际Actions为准；下一步只处理具体审查／用户设备反馈，不重启旧PR108合入或无关美术生产，不自动合main。
+
+
 当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。
 
 ## PR108 合入入口（当前）

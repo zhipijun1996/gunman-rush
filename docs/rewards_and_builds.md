@@ -23,6 +23,8 @@ Modifier继续按稳定来源排序，从Character／Meta后的基础快照重�
 
 同一局切地图／地区保留背包、装备、容量、钱包、库存与收据。存活环境伤害回退只失效旧Actor操作；真正结束本局统一清理。随机Manifest仍记录固定候选与实际交易，装备／扩容另写版本化输出。装备不能成为未授予核心能力的替代保障。
 
+新增常规道具时，在`resources/items`新增独立`stable_id`并维护`definition_version`、图标、稀有度、`gear_cost`、持有／装备上限、标签及前置；声明已有`BuildModifier`或`ItemEffectComponent`，再将定义接入原奖励／商店数据池。无需修改装备提交核心。新复杂效果由独立消费者读取`effect_sources()`并遵守Run／Stage／Actor与来源撤销契约；`channel`预留分类不代表本轮已实现触发技能。
+
 验收、操作与未验边界见[本轮工作线](worklines/run_gear_01/scope.md)与[执行证据](evidence/run_gear_01/README.md)。下文保留旧版本来源，冲突以上述当前规则为准。
 
 ---
