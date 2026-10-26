@@ -1,0 +1,82 @@
+{
+  "reviewer": "/root/feedback_review",
+  "scope": "interim source/pixel review, not final acceptance",
+  "head": "631f50e2322f2b26a3d67bdc5c480dde19232dd4",
+  "runtime_worktree_dirty": true,
+  "menu_sha256": "9d946a4c681c5789ef7af9370ac2ae4ec136679b8971454be00ab1373924ab05",
+  "verdict": "REJECT",
+  "findings": [
+    {
+      "id": "UI02-R1",
+      "status": "author reports static fix; runtime unverified",
+      "kind": "static counterexample",
+      "actual": "SelectItem toggle_mode with same-ID early return can remove selected highlight",
+      "expected": "Selected icon remains highlighted after repeated click",
+      "communicated_to": "inventory_layout/ui_feedback_tests",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze"
+    },
+    {
+      "id": "UI02-R2",
+      "status": "candidate; author notified",
+      "kind": "source current consumer mismatch",
+      "actual": "show_journey Chinese leave button lacks stable legacy lookup expected by existing menu/contract tests",
+      "expected": "Actual Journey leave flow remains reachable and requires confirmation",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze"
+    },
+    {
+      "id": "UI02-R3",
+      "status": "actual failure, awaiting new source",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Panel starts around y489 of 720px; details/actions clipped beyond bottom",
+      "expected": "Pause backpack/gear/details and controls fit and scroll locally",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "root_cause": "Actual author diagnostic: transient Margin minimum enlarged to1364; after final minimum shrank630, size retained1364, CenterContainer located630 frame at y367. Minimum-fits guard restores FullRect to available viewport. Earlier disabled-scroll ensure hypothesis was not the observed root cause; skipping disabled ensure remains valid guard."
+    },
+    {
+      "id": "UI02-R4",
+      "status": "actual failure, author notified",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Previous/next button frames are visible but glyphs are blank",
+      "expected": "Visible previous/next arrows using supported font or draw/icon",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "resolution": "Supported ASCII < > visible in both desktop and touch actual GL-third images"
+    },
+    {
+      "id": "UI02-R5",
+      "status": "actual failed pixels, author notified",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Coins18 header wraps one character per line beside load label",
+      "expected": "Coin amount remains a clear single line or separate line",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "resolution": "Coins18/108/62 render as a single horizontal line in actual GL-third images"
+    }
+  ],
+  "unverified": [
+    "Final frozen source",
+    "Independent runtime",
+    "Player appearance/feel acceptance",
+    "Physical Android/controller",
+    "Continuous movie audio/listening"
+  ],
+  "retained_pixels": {
+    "path": "build/run_gear_feedback/review/rejected-desktop-equipped-01.png",
+    "sha256": "5f67dee00c6332dae65751838855fb7a85a2285eda482c03f9dab83cbe7f73bb"
+  },
+  "execution_status": "No reviewer Godot started: parent scheduling/freeze notification not yet received. Final runtime/visual acceptance remains pending.",
+  "subsequent_menu_sha256": "15420a886867cdef1c64d24810c9bdc079ab7562656cb8f45fc860b8e84dff96",
+  "pixels_viewed_after_rework": [
+    "desktop-backpack.png",
+    "desktop-equipped.png",
+    "touch-equipped.png",
+    "touch-max-capacity.png"
+  ],
+  "gear_draw_actual_observation": "8 outlined cogs at0/8; first3 teal filled of8 at3/8; first3 filled of10 at3/10;14 outlined cogs at0/14 in960x540; real teeth/central holes visible; not ColorRect bars."
+}

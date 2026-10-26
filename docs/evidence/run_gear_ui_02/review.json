@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-UI-02",
+  "reviewer": "/root/feedback_review",
+  "implementers": [
+    "/root",
+    "/root/inventory_layout",
+    "/root/ui_feedback_tests",
+    "/root/ci_audit",
+    "/root/formal_capture"
+  ],
+  "independent_from_implementers": true,
+  "production_or_test_edits_by_reviewer": false,
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "reviewed_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "baseline_commit": "631f50e2322f2b26a3d67bdc5c480dde19232dd4",
+  "content_version": "candidate-v2-paged-icon-inventory",
+  "verdict": "ACCEPT",
+  "verdict_scope": "Bounded formal App pause/backpack layout, native gear shape/state, mouse/touch/gamepad paging and inventory UI/session/lifecycle integration; source audit of related current test migrations. Not full CI, content G5, physical devices or natural full formal-region traversal.",
+  "g5_acceptance": "unverified",
+  "independent_execution": {
+    "command": [
+      "python3",
+      "tools/run_gear_ui_tests.py",
+      "--capture"
+    ],
+    "environment": {
+      "DISPLAY": ":100",
+      "LIBGL_ALWAYS_SOFTWARE": "1"
+    },
+    "exit_code": 0,
+    "wall_seconds": 24.872351250000065,
+    "source_stable": true,
+    "checks": 159,
+    "failures": 0
+  },
+  "source_guard": {
+    "files": 4360,
+    "tracked_and_untracked": true,
+    "families": [
+      "scripts",
+      "scenes",
+      "resources",
+      "assets",
+      "shaders",
+      "addons",
+      "config",
+      "tests",
+      "tools",
+      "project.godot",
+      "export_presets.cfg"
+    ],
+    "canonical_digest": "31745b91d6f376cd9103b6eb332682585bbb92bb65aa53da46bb8dc7023e9a13"
+  },
+  "evidence": [
+    {
+      "path": "reviewer/native-final/touch-max-capacity.png",
+      "sha256": "7c16b69b2443e17ace01404e6c6b35aaf1814683de47133ba4db708d1eedc246",
+      "bytes": 83536,
+      "original_path": "build/run_gear_feedback/review/native-final/touch-max-capacity.png"
+    },
+    {
+      "path": "reviewer/native-final/report.json",
+      "sha256": "e34855076e697c0a2a8959e37c657fa65340fecd366f70fae783694e99d6e92f",
+      "bytes": 17535,
+      "original_path": "build/run_gear_feedback/review/native-final/report.json"
+    },
+    {
+      "path": "reviewer/native-final/desktop-equipped.png",
+      "sha256": "90b41403ab6b683e1b7ed2fa24c29a62e920f3322c5132a99f62feb759831a1b",
+      "bytes": 131257,
+      "original_path": "build/run_gear_feedback/review/native-final/desktop-equipped.png"
+    },
+    {
+      "path": "reviewer/native-final/desktop-backpack.png",
+      "sha256": "eee56b0b20579edc84cec3a065fbc43ca2e10c7cac9a0ed91d0ac17945958b9c",
+      "bytes": 129912,
+      "original_path": "build/run_gear_feedback/review/native-final/desktop-backpack.png"
+    },
+    {
+      "path": "reviewer/native-final/console.log",
+      "sha256": "1c02155ce9d25baf402218d2089e3baeae77003eb99715386a8cd070afe5dc5c",
+      "bytes": 11066,
+      "original_path": "build/run_gear_feedback/review/native-final/console.log"
+    },
+    {
+      "path": "reviewer/native-final/touch-equipped.png",
+      "sha256": "330b7ac296511f87ab1d1342dcb6d8446a5da04040849796698c968fa36c8753",
+      "bytes": 83678,
+      "original_path": "build/run_gear_feedback/review/native-final/touch-equipped.png"
+    },
+    {
+      "path": "reviewer/native-final/receipt.json",
+      "sha256": "546216fc19a5ce0ca144a28af8ea79f148492ca87da1efd7a67a00f9a5a867c3",
+      "bytes": 1071979,
+      "original_path": "build/run_gear_feedback/review/native-final/receipt.json"
+    }
+  ],
+  "images_actually_viewed": [
+    "reviewer/native-final/desktop-backpack.png",
+    "reviewer/native-final/desktop-equipped.png",
+    "reviewer/native-final/touch-equipped.png",
+    "reviewer/native-final/touch-max-capacity.png"
+  ],
+  "observations": {
+    "formal_scene": "Actual DemoApp with PlainsRegionStage map1 level-design-v2-baseline/08; map2 seed level-design-v2-baseline/08/plains/map_2 assembled after native UI cases",
+    "fixtures": "Chest transaction-position fixture, explicit backlog48 and income100, lifecycle completion fixture; not claimed as natural traversal or natural full economy",
+    "desktop": "Actual1280x720 image shows left equipped/backpack split and right item detail/actions, supported < > arrows, single-line coins, no panel drift",
+    "small_screen": "Actual960x540 image keeps the two columns, native independent backpack scroll and usable equip/unequip; detail has its own scrollbar",
+    "gear_pixels": "Real teeth and centre holes visible: 8 outlined at0/8; first3 teal filled at3/8; first3 teal of10;14 outlined at0/14 all inside960px left column",
+    "native_assertions": "Original wrapper159/0 includes repeated selected click, same-frame stale detail equip+purchase rejection, Q/E+LB/RB+touch arrows, grid right navigation, invalid old session, physical pause of Motor/stage, no free healing, real expansion8/10/12/14 ledger, touch scroll cancellation, resume no shot, map preservation and death cleanup"
+  },
+  "findings": [
+    {
+      "id": "UI02-R1",
+      "status": "author reports static fix; runtime unverified",
+      "kind": "static counterexample",
+      "actual": "SelectItem toggle_mode with same-ID early return can remove selected highlight",
+      "expected": "Selected icon remains highlighted after repeated click",
+      "communicated_to": "inventory_layout/ui_feedback_tests",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "final_status": "resolved within native UI scope"
+    },
+    {
+      "id": "UI02-R2",
+      "status": "candidate; author notified",
+      "kind": "source current consumer mismatch",
+      "actual": "show_journey Chinese leave button lacks stable legacy lookup expected by existing menu/contract tests",
+      "expected": "Actual Journey leave flow remains reachable and requires confirmation",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "final_status": "source lookup repaired; wider original menu/Home wrapper execution remains root-owned integration evidence"
+    },
+    {
+      "id": "UI02-R3",
+      "status": "actual failure, awaiting new source",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Panel starts around y489 of 720px; details/actions clipped beyond bottom",
+      "expected": "Pause backpack/gear/details and controls fit and scroll locally",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "root_cause": "Actual author diagnostic: transient Margin minimum enlarged to1364; after final minimum shrank630, size retained1364, CenterContainer located630 frame at y367. Minimum-fits guard restores FullRect to available viewport. Earlier disabled-scroll ensure hypothesis was not the observed root cause; skipping disabled ensure remains valid guard.",
+      "final_status": "resolved within native UI scope"
+    },
+    {
+      "id": "UI02-R4",
+      "status": "actual failure, author notified",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Previous/next button frames are visible but glyphs are blank",
+      "expected": "Visible previous/next arrows using supported font or draw/icon",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "resolution": "Supported ASCII < > visible in both desktop and touch actual GL-third images",
+      "final_status": "resolved within native UI scope"
+    },
+    {
+      "id": "UI02-R5",
+      "status": "actual failed pixels, author notified",
+      "kind": "runtime pixels",
+      "evidence": "build/run_gear_feedback/ui-gl-second/desktop-equipped.png",
+      "actual": "Coins18 header wraps one character per line beside load label",
+      "expected": "Coin amount remains a clear single line or separate line",
+      "subsequent_pixels": "build/run_gear_feedback/ui-gl-third",
+      "subsequent_status": "Root independent-of-reviewer GL159/0 and 4 images actually opened by reviewer; final reviewer engine still pending freeze",
+      "resolution": "Coins18/108/62 render as a single horizontal line in actual GL-third images",
+      "final_status": "resolved within native UI scope"
+    }
+  ],
+  "sensitive_test_audit": {
+    "status": "accepted source semantics; full affected wrapper execution outside reviewer159 scope",
+    "guard_changes": "No run_engine error/leak/timeouts or original UI wrapper deadlines changed; no production Motor/resource/economy alterations in this revision. Native pointer target existence/viewport checks retained. Disabled outer scroller ensure skip avoids impossible programmatic scrolling, not a viewport exemption.",
+    "home_exact_counts": "185/195 replaces184/194 because one actual Journey-page pointer assertion was added; all39 validator tests preserved, old marker+matching underreported receipt still rejected.",
+    "canopy": "Original immediate ownership+2HP assumption split into backpack-only claim plus explicit typed EquipmentService fixture. Original declared+2/noheal effect assertion remains, with stable instance/version/source/core-D and complete ownership+equipment cleanup checks added. Actual core-choice modal stays open and fixture is labelled, not natural-menu evidence.",
+    "plains": "Only explicit Array[StringName] local binding before dynamically loaded equip_sources; original capacity/no-free-round/ground-rearm/traversal assertions retained. Root local failed positive.log records actual Invalid type; remote annotation alone did not expose it.",
+    "diff_files": [
+      {
+        "path": "scripts/ui/demo_menu.gd",
+        "sha256": "15420a886867cdef1c64d24810c9bdc079ab7562656cb8f45fc860b8e84dff96"
+      },
+      {
+        "path": "scripts/ui/gear_load_cell.gd",
+        "sha256": "a190cc95e64c5c606b5e3658b827c14e4070577f10c3f7a1bff52810f46b7b2f"
+      },
+      {
+        "path": "scripts/ui/gear_load_cell.gd.uid",
+        "sha256": "50595fc307ceae4d28b6268d5bfca9c47e030d07ca767258ead3869328873329"
+      },
+      {
+        "path": "tests/bgm_integration/runner.gd",
+        "sha256": "1ce48b30238c6bdfc8ffa2b8d38907a0b538082acc85736fc9e97cb9c7999ca2"
+      },
+      {
+        "path": "tests/demo_ui_01/contract_runner.gd",
+        "sha256": "dfa34881dc58289780ccf0ff687e33e05257abe133c46507273c6e7a7a18a1a1"
+      },
+      {
+        "path": "tests/demo_ui_01/r2_runner.gd",
+        "sha256": "6245c9ad1068e3fcf6ce3c46db9099bf99ace01d1734dedcd096f56c4684473c"
+      },
+      {
+        "path": "tests/forest_depth_canopy_campaign_case.gd",
+        "sha256": "a048e5680e02b52063f787a7b79565c6920b590e7d6d15116e1987a61c2342aa"
+      },
+      {
+        "path": "tests/home_ui_tests.gd",
+        "sha256": "f7f3a1c2e55e659f17744be718c19144cceec5e3a63cb97d881259164c6d67a5"
+      },
+      {
+        "path": "tests/menu_tests.gd",
+        "sha256": "684153abb3dfe4450040727f75c34a08d3846b04af659569ed7beeba0e0b8821"
+      },
+      {
+        "path": "tests/module_lab_tests.gd",
+        "sha256": "2aecc3ded61cc678391df95fd7d0b5fcf9585b72d8378897ffbc10fb355dc241"
+      },
+      {
+        "path": "tests/plains_redesign_scene_runner.gd",
+        "sha256": "5e6c8ed42326f38160b468efb52386de60bcbb164326db1a9e0a4b6b8decc671"
+      },
+      {
+        "path": "tests/run_gear_formal_movie.gd",
+        "sha256": "04c11c91d7cd42d4c7061976a3921d821bc715e306eaf0bbca4a43746807d499"
+      },
+      {
+        "path": "tests/run_gear_formal_movie.gd.uid",
+        "sha256": "4f1c6d19352b63279319a08d7cfdd5d73dd26a350e5101d7ba0ab8d98b06b5d6"
+      },
+      {
+        "path": "tests/run_gear_ui_runner.gd",
+        "sha256": "92dd07ca799dca0e77764056f12f138c5b74813b78ca9f9a64005f322cb393a9"
+      },
+      {
+        "path": "tests/test_underworld_home_terrace_wrapper.py",
+        "sha256": "fcb0b70c9570d86c9e610d2f153fa1097d82c2031c05558a827d5faa18e2812a"
+      },
+      {
+        "path": "tests/underworld_plains/test_underworld_home_terraces.gd",
+        "sha256": "45ec6b1322ea709c6c034d78bcfa47224d63fca642b898155c25f2122b938a25"
+      },
+      {
+        "path": "tests/underworld_plains/test_underworld_ui.gd",
+        "sha256": "a7e4a5b9b2856e3f7afb3db06e588fecf3d8f903e9b9394c41a1dd6a5e2c9159"
+      },
+      {
+        "path": "tools/capture_run_gear_formal.py",
+        "sha256": "3532addea07a24f9fcfb37542bfc6e7be6b6b14d0c0a970da217104561e2b1d8"
+      },
+      {
+        "path": "tools/run_forest_depth_campaign_boss.py",
+        "sha256": "b43acfe986e2445e88026ae26dd0482b915460d81d845bef86645469982fe101"
+      },
+      {
+        "path": "tools/run_underworld_home_terrace_tests.py",
+        "sha256": "b46a11b40ff79e663684960e85be61077ed1fd88ffd447b094dccb643d21bfa9"
+      }
+    ]
+  },
+  "unverified_items": [
+    "Full PR Integration aggregate after this revision",
+    "Other root-owned affected Harness results not re-signed by reviewer159",
+    "Natural full formal-region route; new formal movie not watched by reviewer",
+    "Physical Android, physical controller and browser DOM touch",
+    "Large inventories and low-end performance",
+    "Audio playback/listening, animation/fun and user aesthetic acceptance",
+    "Public preview availability; source integration does not update old main-hosted build"
+  ]
+}

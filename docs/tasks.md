@@ -2,6 +2,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
+| RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |
+| RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |
 | RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |
 
 

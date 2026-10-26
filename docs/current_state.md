@@ -1,5 +1,15 @@
 # 当前状态
 
+## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页
+
+用户要求暂停直接背包、左右切页、图标网格与右侧详情，补充负荷槽必须是齿轮形状。已更新同一[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`，分支`feature/run-gear-inventory`，不合main。新入口与布局覆盖下方RUN-GEAR-01旧暂停构筑入口，所有权／装备／交易合同保持。
+
+实际软件GL独立原wrapper159检查／0失败，1280与960、8／10／14齿轮、点击选择详情、装卸／替换、左右键／肩键／触屏分页、滚动和失效请求已验证。原生主游戏标题→可操作Home行走→正式出发→平原暂停及新UI已试录34断言／0失败；靠近宝箱的一次位置fixture始终明示，不冒充自然挑战通关。最终同源收据见[本轮证据](evidence/run_gear_ui_02/README.md)。
+
+前轮CI两个失败分别是canopy旧自动生效假设和plains动态调用的未类型化Array；已迁移测试并保原实际效果／严格退出守门，原失败保留。原Harness10项fresh全部通过，最终正式主游戏片27.47秒／34断言／0失败、源码稳定；UI contract149与R2入口修复后208通过。独立Preview站仅余1,358,399字节，无法加入当前完整游戏包；保留旧入口，不把旧站签成本轮。用户／实体安卓／实体手柄仍未验，任务保持review。
+
+恢复：`git switch feature/run-gear-inventory`，按本轮证据执行原选定Harness／正式影片采集。下一步只处理真实门禁／反馈并更新同PR；不要重新生产美术、删旧Preview或自动合并。
+
 ## 2026-10-26 RUN-GEAR-01：局内背包与齿轮装备候选
 
 实现分支`feature/run-gear-inventory`，基线main`26e7f2a`，冻结运行源`91ea8850f308cc3c955bcece2c35cd66f75e7bda`。后续只追加证据／文档，PR面向main且不自动合并。[交付与可下载完整操作录屏](evidence/run_gear_01/README.md) · [独审](evidence/run_gear_01/independent-review.md) · [权威规则](rewards_and_builds.md)。

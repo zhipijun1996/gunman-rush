@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=325 setup_ms=75
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"5065fdad8278e7a3c6cad94669bfba33557d3cc0cdf4c2c91283a9e91c91f771","map_index":1,"region":"plains","seed":"level-design-v2-baseline"}
+PLAINS REGION: family=crossroads areas=23 fallback=
+TERRAIN STUDY: solids=82 pieces=326 setup_ms=64
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/windkeeper_storm.tres","boss_scene":"res://scenes/bosses/windkeeper.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"86dd08389ce0e691b04ea209bfc921c0c9e6519d952b6faf675288498668f992","map_index":2,"region":"plains","seed":"level-design-v2-baseline/plains/map_2"}
+FORMAL ROUTE: strategy=fast outcome=route_target_reached ticks=6528 enemies=21 returns=0 shots=39
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"bell":6,"coin":3,"door":1,"enemy_defeat":10,"enemy_shot":3,"hurt":21,"motion_heavy":4,"motion_jump":32,"motion_land":33,"note":1,"step":163,"warning":18,"weapon_hit":30,"weapon_pulse":39,"weapon_wall":3},"service":"GameAudio"},{"node":"/root/@Node2D@2/@Node@16","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.08}
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=325 setup_ms=70
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"5065fdad8278e7a3c6cad94669bfba33557d3cc0cdf4c2c91283a9e91c91f771","map_index":1,"region":"plains","seed":"level-design-v2-baseline"}
+SCRIPT ERROR: Invalid type in function 'equip_sources' in base 'GDScript'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+          at: extra_upward_recoil (res://tests/plains_redesign_scene_runner.gd:535)
+          GDScript backtrace (most recent call first):
+              [0] extra_upward_recoil (res://tests/plains_redesign_scene_runner.gd:535)
+              [1] move_to (res://tests/level_formal_trace.gd:536)
+              [2] move_to (res://tests/random_stage_tests.gd:346)
+              [3] tick (res://tests/plains_redesign_scene_runner.gd:118)
+              [4] _sample_after_process (res://tests/plains_redesign_scene_runner.gd:124)
+FORMAL ROUTE: strategy=fast outcome=scene_custom_route_failed ticks=683 enemies=14 returns=0 shots=5
+SCENE FAIL: formal 1/fast/extra_upward_recoil route target: scene_custom_route_failed
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@1680/@Node@1681","played":{"bell":1,"coin":2,"enemy_defeat":1,"hurt":2,"motion_heavy":1,"motion_jump":2,"motion_land":1,"note":1,"step":33,"warning":1,"weapon_hit":3,"weapon_pulse":5,"weapon_wall":1},"service":"GameAudio"},{"node":"/root/@Node2D@1680/@Node@1694","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.101}
+PLAINS REDESIGN SCENE NATIVE: 24 assertions, 1 failures
+WARNING: 20 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 9 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
