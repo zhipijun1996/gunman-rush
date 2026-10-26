@@ -127,6 +127,9 @@ func claim_badge(app: DemoApp, label: String) -> bool:
 		app.toggle_pause()
 		check(paused and GEAR.equip_all(app.build) and app.controller.actor_resources.health.capacity == before + 2.0,"paused equipment command applies the claimed real badge effect / "+label)
 		app.menu.close_panel()
+		# The real pause path clears contextual controls. Let normal App frames
+		# rebuild them before the next native cache/repeat click; do not rebuild by hand.
+		await frames(2)
 	return accepted
 
 func claim_cache(app: DemoApp, label: String) -> bool:
