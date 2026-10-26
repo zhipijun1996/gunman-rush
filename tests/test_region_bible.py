@@ -316,7 +316,7 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
-        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-hud-integration.json']:
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json']:
             old_path = 'docs/creative_direction/bibles/'+old_style
             stale = copy.deepcopy(self.ref)
             stale['supplemental_authority_path'] = old_path
