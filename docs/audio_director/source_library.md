@@ -1,5 +1,7 @@
 # Audio Source Library · AUDIO-DIRECTOR-01
 
+更新：用户已拒绝v1两套新方向，原起跳/落地正面反馈；[下一轮现成素材研究与边界](../evidence/audio_director_01/feedback-02.md)。下文“尚未听取用户评价”保留第一轮来源快照身份，不再作为当前试听状态。
+
 素材许可事实与音色审美分开。当前候选仅使用 CC0-1.0 原始采样进行剪辑、滤波和分层；不生成或替换任何 BGM。32 个 A/B 候选、64 个短 WAV 是供试听比较的生产草案，主观状态均为 `awaiting-user`。尚未听取用户评价，不能声明商业品质通过。
 
 机器权威为 [sources.json](../../config/audio_director/sources.json)，每条保留作者、页面、许可、商业条件、署名要求、原始文件名、日期、原字节 SHA256。下载自 OpenGameArt 的文件另有精确 ZIP URL、ZIP SHA256 和来源页面 SHA256。实际使用的输入与输出及参数见 [候选 manifest](../../assets/audio/director_candidates/manifest.json)。

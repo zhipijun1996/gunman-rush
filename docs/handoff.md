@@ -1,5 +1,7 @@
 # 当前交接（2026-10-24）
 
+最新音效反馈：用户拒绝v1 A/B，认可原起跳/落地；下一轮保原动作，优先UI/拾取/命中/受伤的现成CC0原料与专用真实场景。第一轮网站尚未更新，不能把研究清单当第二轮试听交付。[原反馈](evidence/audio_director_01/feedback-02.md)。
+
 ## 2026-10-26 AUDIO-DIRECTOR-01（最新独立工作线）
 
 分支 `feature/audio-director-01`，基线26e7f2a；运行实现58a9f0ac，音效版本audio-director-v1，Web90764dd14d4c。第一阶段审计/风格/来源/配方/64候选/统一12voice运行策略和手机工坊已实作，正式默认original，用户听感与实体设备保持review。五原MP3逐字节保留。独立PR面向main，不自行合并；当前原PR108历史记录不驱动重复合入。

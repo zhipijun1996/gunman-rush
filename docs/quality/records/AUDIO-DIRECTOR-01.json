@@ -397,9 +397,11 @@
       ]
     },
     "G2": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "音效听感被用户拒绝；没有以工程结果代签审美",
+      "evidence": [
+        "user-listening-feedback-02"
+      ]
     },
     "G3": {
       "status": "unverified",
@@ -449,9 +451,11 @@
       "evidence": []
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "用户试听明确不满意v1 A/B；原跳落保留，下一轮重选现成素材并补真实场景",
+      "evidence": [
+        "user-listening-feedback-02"
+      ]
     },
     "gameplay": {
       "status": "unverified",
@@ -476,9 +480,11 @@
       "evidence": []
     },
     "player_acceptance": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "用户试听明确不满意v1 A/B；原跳落保留，下一轮重选现成素材并补真实场景",
+      "evidence": [
+        "user-listening-feedback-02"
+      ]
     }
   },
   "criteria": [
@@ -599,13 +605,33 @@
         "runtime-frozen",
         "lab-frozen"
       ]
+    },
+    {
+      "id": "user-listening-feedback-02",
+      "path": "docs/evidence/audio_director_01/feedback-02.md",
+      "sha256": "ee3fcefc5b3d04861b8359a4914a6082b66a1c2146e45404ffb1ce5b8960ab35",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Direct user audition feedback in this conversation",
+      "observed": "New A/B unsatisfactory; original jump/land liked; needs real contextual comparisons",
+      "source": "Current conversation, feedback after first Sound Lab delivery and PR109",
+      "quote": "没有真实场景没法很好的对比。但是我炸听之下，新的两个方案都不太满意。原声音部分挺好的，比如起跳落地，但是ui，拾取，命中，受伤等不太符合。没有开源的建议音效吗？",
+      "covers": [
+        "audio_vfx",
+        "player_acceptance"
+      ],
+      "accepted": false
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "新音色审美",
+    "v1 A/B用户听感已拒绝；不能作为正式采用方向",
+    "第二轮UI/拾取/命中/受伤专用真实场景尚未实现或部署",
+    "新现成原素材文件尚待实际场景试听",
     "实体手机与耳机/扬声器",
     "完整Integration/Release"
   ],
-  "production_snapshot": "0a0ca38f244ac5525b9bab18e647297293522d6b69744289ba5ff0fe6f485b7f"
+  "production_snapshot": "2f406f8e6b088aee453c7502114cebefc8c548b7ff7a84d9e53182940180e435"
 }
