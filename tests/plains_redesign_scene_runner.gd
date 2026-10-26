@@ -516,8 +516,10 @@ func extra_upward_recoil(trace) -> bool:
 	trace.current_edge="elective_extra_upward_recoil"
 	trace.observe_every_tick=true
 	app.overlay.set_enabled(true);app.overlay.update_layout()
-	# Current Air Magazine build fixture: a real reward claim enables the
-	# extra same-flight shot. Other scene cases retain the current base cap.
+	# Current Air Magazine build fixture: a real reward claim grants ownership,
+	# followed by the versioned paused equipment command before real ground rearm.
+	# Equipment is explicit fixture staging, not natural menu-operation evidence.
+	# Other scene cases retain the current base cap.
 	app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
 	var approached: bool = await trace.move_to(well.position.x+265)
 	if trace.is_trace_cancelled(): return false
@@ -529,6 +531,9 @@ func extra_upward_recoil(trace) -> bool:
 	request.token=app.lifetime.token();request.offer_id=offer.offer_id;request.option_id=DemoApp.SHOT_ITEM.stable_id;request.claim_id=&"scene_extra_magazine_claim"
 	var claim: EconomyReceipt=app.rewards.claim(request)
 	check(claim.accepted() and claim.item_id==DemoApp.SHOT_ITEM.stable_id,"actual Air Magazine reward accepted by official build service")
+	check(trace.motor.tuning.max_air_shots==before_grant.max_air_shots and app.build.count_item(DemoApp.SHOT_ITEM.stable_id)==1,"actual Air Magazine claim first enters backpack without granting capacity")
+	var magazine_sources: Array[StringName] = [&"reward:scene_extra_magazine_fixture"]
+	check(load("res://tests/gear_inventory_support.gd").equip_sources(app.build,magazine_sources),"explicit paused equipment fixture installs the legitimately claimed magazine")
 	var after_claim:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"items":app.build.item_ids()}
 	check(before_grant.max_air_shots==1 and after_claim.max_air_shots==2 and after_claim.shots==before_grant.shots,"real magazine increases capacity without injecting a round")
 	trace.controller.router.set_move_axis(0)
@@ -565,7 +570,7 @@ func extra_upward_recoil(trace) -> bool:
 	var accepted: Array=[]
 	for event: Dictionary in trace.events.slice(first_event):
 		if event.kind=="shot_accepted":accepted.append(event)
-	var scope:={"build_scope":"actual current Air Magazine reward fixture; base cap remains one","source_program":"base_one_jump>bell_shot>unreachable_same_flight_down_shot","executed_program":"official_magazine_reward>ground_rearm>jump>bell_shot>same_flight_down_shot>land","item_path":"res://resources/items/shot_purple.tres","item_sha256":FileAccess.get_sha256("res://resources/items/shot_purple.tres"),"reward_offer":str(offer.offer_id),"claim_status":claim.status,"claim_event":str(claim.event_id),"claim_item":str(claim.item_id),"before_grant":before_grant,"after_claim":after_claim,"after_rearm":after_rearm,"second_request_tick":second_tick,"accepted_shots":accepted,"apex_world_y":apex,"well_origin":pair(well.global_position),"settled":settled,"limitation":"Actor always mandatory. Distant old bank recorded throughout elective ascent but may leave finite view; canonical complete well arc remains separately mandatory."}
+	var scope:={"build_scope":"actual Air Magazine acquisition then explicit paused equipment fixture; base cap remains one","paused_equipment_fixture":true,"source_program":"base_one_jump>bell_shot>unreachable_same_flight_down_shot","executed_program":"official_magazine_reward>ground_rearm>jump>bell_shot>same_flight_down_shot>land","item_path":"res://resources/items/shot_purple.tres","item_sha256":FileAccess.get_sha256("res://resources/items/shot_purple.tres"),"reward_offer":str(offer.offer_id),"claim_status":claim.status,"claim_event":str(claim.event_id),"claim_item":str(claim.item_id),"before_grant":before_grant,"after_claim":after_claim,"after_rearm":after_rearm,"second_request_tick":second_tick,"accepted_shots":accepted,"apex_world_y":apex,"well_origin":pair(well.global_position),"settled":settled,"limitation":"Actor always mandatory. Distant old bank recorded throughout elective ascent but may leave finite view; canonical complete well arc remains separately mandatory."}
 	elective_receipts.append(scope)
 	check(accepted.size()==2 and accepted[1].tick>=second_tick,"elective second upward recoil uses two accepted real shots")
 	check(apex<well.position.y-100,"elective actual ascent exceeds canonical well observation band")

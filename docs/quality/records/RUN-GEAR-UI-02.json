@@ -1,0 +1,449 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-UI-02",
+  "task_type": "ui_feedback",
+  "workflow": "review",
+  "baseline_commit": "631f50e2322f2b26a3d67bdc5c480dde19232dd4",
+  "reviewed_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "content_version": "candidate-v2-paged-icon-inventory",
+  "owner": "/root",
+  "purpose": "正式暂停默认背包与参考图结构分页反馈",
+  "player_experience": "点击暂停直接看已装备、齿轮格和图标背包；选中道具看右侧详情，自由装卸并左右换页",
+  "constraints": [
+    "不改核心物理、交易、效果计算、RNG及永久音符",
+    "切页和关闭作废旧装备会话，选择图标不提交装备",
+    "参考图仅借结构，复用现有主题字体图标；不重做无关美术",
+    "真实正式场景采证，任何位置fixture明确标记；用户和实体设备未验"
+  ],
+  "affected_paths": [
+    "docs/current_state.md",
+    "docs/evidence/run_gear_ui_02/README.md",
+    "docs/evidence/run_gear_ui_02/consumer-inventory.json",
+    "docs/evidence/run_gear_ui_02/consumers/canopy-capture.json.gz",
+    "docs/evidence/run_gear_ui_02/consumers/canopy-native.log.gz",
+    "docs/evidence/run_gear_ui_02/consumers/canopy-receipt.json.gz",
+    "docs/evidence/run_gear_ui_02/desktop-backpack.png",
+    "docs/evidence/run_gear_ui_02/desktop-equipped.png",
+    "docs/evidence/run_gear_ui_02/formal-departure.png",
+    "docs/evidence/run_gear_ui_02/formal-equipped.png",
+    "docs/evidence/run_gear_ui_02/formal-game.mp4",
+    "docs/evidence/run_gear_ui_02/formal-pause.png",
+    "docs/evidence/run_gear_ui_02/harness/bgm-integration.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/command.json",
+    "docs/evidence/run_gear_ui_02/harness/core.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/demo-ui-time-energy.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/forest-campaign.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/forest-depth-campaign-canopy.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/gear-inventory.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/gear-ui.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/plains-redesign-scene.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/report.json",
+    "docs/evidence/run_gear_ui_02/harness/underworld-home.log.gz",
+    "docs/evidence/run_gear_ui_02/harness/underworld-ui.log.gz",
+    "docs/evidence/run_gear_ui_02/history/failed-desktop-equipped.png",
+    "docs/evidence/run_gear_ui_02/history/failed-display-movie-receipt.json",
+    "docs/evidence/run_gear_ui_02/history/failed-display-movie.log",
+    "docs/evidence/run_gear_ui_02/history/failed-plains-native.log",
+    "docs/evidence/run_gear_ui_02/history/failed-plains-wrapper.log",
+    "docs/evidence/run_gear_ui_02/history/failed-ui-gl-second.log",
+    "docs/evidence/run_gear_ui_02/history/interim-review-01.json",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness-note.json",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness-report.json",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness.log",
+    "docs/evidence/run_gear_ui_02/history/previous-ci-summary.json",
+    "docs/evidence/run_gear_ui_02/history/r2-first-outer.log",
+    "docs/evidence/run_gear_ui_02/history/r2-second-assertions.json",
+    "docs/evidence/run_gear_ui_02/history/r2-second-native.log",
+    "docs/evidence/run_gear_ui_02/home-wrapper-negatives.log",
+    "docs/evidence/run_gear_ui_02/independent-review.md",
+    "docs/evidence/run_gear_ui_02/media.json",
+    "docs/evidence/run_gear_ui_02/movie-receipt.json",
+    "docs/evidence/run_gear_ui_02/movie-trace.json",
+    "docs/evidence/run_gear_ui_02/movie.log",
+    "docs/evidence/run_gear_ui_02/preview-budget.json",
+    "docs/evidence/run_gear_ui_02/r2-assertions.json",
+    "docs/evidence/run_gear_ui_02/r2-entry-review.json",
+    "docs/evidence/run_gear_ui_02/r2-entry-review.md",
+    "docs/evidence/run_gear_ui_02/r2-entry-scope.md",
+    "docs/evidence/run_gear_ui_02/r2-native.log",
+    "docs/evidence/run_gear_ui_02/r2-receipt.json",
+    "docs/evidence/run_gear_ui_02/review.json",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/console.log",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/desktop-backpack.png",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/desktop-equipped.png",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/receipt.json",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/report.json",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/touch-equipped.png",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/touch-max-capacity.png",
+    "docs/evidence/run_gear_ui_02/touch-equipped.png",
+    "docs/evidence/run_gear_ui_02/touch-max-capacity.png",
+    "docs/evidence/run_gear_ui_02/ui-contract-native.log",
+    "docs/evidence/run_gear_ui_02/ui-native.log",
+    "docs/evidence/run_gear_ui_02/ui-receipt.json",
+    "docs/evidence/run_gear_ui_02/ui-report.json",
+    "docs/evidence/run_gear_ui_02/user-reference.jpg",
+    "docs/evidence/run_gear_ui_02/user-reference.json",
+    "docs/handoff.md",
+    "docs/quality/records/RUN-GEAR-UI-02.json",
+    "docs/rewards_and_builds.md",
+    "docs/tasks.md",
+    "docs/worklines/run_gear_01/ui-feedback-02.md",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/gear_load_cell.gd",
+    "scripts/ui/gear_load_cell.gd.uid",
+    "tests/bgm_integration/runner.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/demo_ui_01/r2_runner.gd",
+    "tests/forest_depth_canopy_campaign_case.gd",
+    "tests/home_ui_tests.gd",
+    "tests/menu_tests.gd",
+    "tests/module_lab_tests.gd",
+    "tests/plains_redesign_scene_runner.gd",
+    "tests/run_gear_formal_movie.gd",
+    "tests/run_gear_formal_movie.gd.uid",
+    "tests/run_gear_ui_runner.gd",
+    "tests/test_underworld_home_terrace_wrapper.py",
+    "tests/underworld_plains/test_underworld_home_terraces.gd",
+    "tests/underworld_plains/test_underworld_ui.gd",
+    "tools/capture_run_gear_formal.py",
+    "tools/run_forest_depth_campaign_boss.py",
+    "tools/run_underworld_home_terrace_tests.py"
+  ],
+  "deliverables": [
+    "docs/rewards_and_builds.md",
+    "docs/evidence/run_gear_ui_02/README.md",
+    "docs/evidence/run_gear_ui_02/formal-game.mp4",
+    "docs/evidence/run_gear_ui_02/review.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded engineering/UI scope specified",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Original selected10 and actual UI input/effect/lifetime checks",
+      "evidence": [
+        "harness",
+        "trace"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Broader original content gates including audio, performance and device/player acceptance are not signed by this bounded UI stage",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Broader original content gates including audio, performance and device/player acceptance are not signed by this bounded UI stage",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Broader original content gates including audio, performance and device/player acceptance are not signed by this bounded UI stage",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Broader original content gates including audio, performance and device/player acceptance are not signed by this bounded UI stage",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded formal pause/backpack native scope; independent evidence",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded formal pause/backpack native scope; independent evidence",
+      "evidence": [
+        "harness"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "Bounded formal pause/backpack native scope; independent evidence",
+      "evidence": [
+        "gui"
+      ]
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "Bounded formal pause/backpack native scope; independent evidence",
+      "evidence": [
+        "pixels"
+      ]
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "No new animations, audio or VFX produced; original movie audio is not listening acceptance",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No new animations, audio or VFX produced; original movie audio is not listening acceptance",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Human feel/fun, large inventory/low-end performance and physical devices not evaluated",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Human feel/fun, large inventory/low-end performance and physical devices not evaluated",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded formal pause/backpack native scope; independent evidence",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Human feel/fun, large inventory/low-end performance and physical devices not evaluated",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Human feel/fun, large inventory/low-end performance and physical devices not evaluated",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "entry",
+      "scenario": "Pause directly enters backpack and supports horizontal page navigation",
+      "method": "Original native inputs/rendering, exact-source evidence and independent review",
+      "expected": "Pause directly enters backpack and supports horizontal page navigation",
+      "failure": "Missing accepted input/state, drift, engine error, clipped control or misleading evidence scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded observed output; physical/user G5 remains unverified",
+      "evidence": [
+        "scope",
+        "gui"
+      ]
+    },
+    {
+      "id": "runtime",
+      "scenario": "Native controls, effects and stale-operation/cancellation guards",
+      "method": "Original native inputs/rendering, exact-source evidence and independent review",
+      "expected": "Native controls, effects and stale-operation/cancellation guards",
+      "failure": "Missing accepted input/state, drift, engine error, clipped control or misleading evidence scope",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Bounded observed output; physical/user G5 remains unverified",
+      "evidence": [
+        "gui"
+      ]
+    },
+    {
+      "id": "cog-layout",
+      "scenario": "Visible cog-shaped used/empty slots and reference-style split grid/details at1280/960",
+      "method": "Original native inputs/rendering, exact-source evidence and independent review",
+      "expected": "Visible cog-shaped used/empty slots and reference-style split grid/details at1280/960",
+      "failure": "Missing accepted input/state, drift, engine error, clipped control or misleading evidence scope",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "passed",
+      "reason": "Bounded observed output; physical/user G5 remains unverified",
+      "evidence": [
+        "gui",
+        "pixels"
+      ]
+    },
+    {
+      "id": "formal",
+      "scenario": "Actual formal App and main-game entry, explicit fixture boundaries",
+      "method": "Original native inputs/rendering, exact-source evidence and independent review",
+      "expected": "Actual formal App and main-game entry, explicit fixture boundaries",
+      "failure": "Missing accepted input/state, drift, engine error, clipped control or misleading evidence scope",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "Bounded observed output; physical/user G5 remains unverified",
+      "evidence": [
+        "gui",
+        "trace"
+      ]
+    },
+    {
+      "id": "independent",
+      "scenario": "Actual read-only independent counterexample/code/test/pixel review",
+      "method": "Original native inputs/rendering, exact-source evidence and independent review",
+      "expected": "Actual read-only independent counterexample/code/test/pixel review",
+      "failure": "Missing accepted input/state, drift, engine error, clipped control or misleading evidence scope",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Bounded observed output; physical/user G5 remains unverified",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/run_gear_01/ui-feedback-02.md",
+      "sha256": "74b80c56c544d6f640a86a606e3198feade5a845616886dd79f367917668ac2b",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Direct user feedback and bounded integration scope",
+      "observed": "Default pause backpack, reference structure, gear shapes, no new art/skills"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/run_gear_ui_02/ui-report.json",
+      "sha256": "e34855076e697c0a2a8959e37c657fa65340fecd366f70fae783694e99d6e92f",
+      "kind": "gui",
+      "producer": "/root/feedback_review",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Independent original native GL wrapper, exact runtime hash guard",
+      "observed": "159 checks, zero failures, strict exit0, desktop and small screen",
+      "consumers": [
+        "formal-pause-inventory"
+      ]
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/run_gear_ui_02/desktop-equipped.png",
+      "sha256": "90b41403ab6b683e1b7ed2fa24c29a62e920f3322c5132a99f62feb759831a1b",
+      "kind": "screenshot",
+      "producer": "/root/feedback_review",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Actual original-size Godot render viewed by reviewer/root",
+      "observed": "Visible eight toothed cog indicators, used/empty, split grids and right detail",
+      "consumers": [
+        "formal-pause-inventory"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/run_gear_ui_02/consumer-inventory.json",
+      "sha256": "38de86c42dc6aaed47f51b9784607ce4afdda4e4337f4d519ba0e0053ed0b2aa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Inventory derived from actual native output and movie trace",
+      "observed": "Two bounded formal consumer families with explicit fixture boundaries"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/run_gear_ui_02/review.json",
+      "sha256": "09d84cd5e78fe9140ba3e97784a4a48c3d690781ca6aa3180c98e41fef92845e",
+      "kind": "review",
+      "producer": "/root/feedback_review",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Independent source/test audit, original wrapper execution and actual four PNG viewing",
+      "observed": "ACCEPT bounded UI scope; original rejected chain retained",
+      "reviewer": "/root/feedback_review",
+      "implementers": [
+        "/root",
+        "/root/inventory_layout",
+        "/root/ui_feedback_tests",
+        "/root/ci_audit",
+        "/root/formal_capture"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct read-only reviewer did not modify production or tests and independently executed the original wrapper"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/run_gear_ui_02/formal-game.mp4",
+      "sha256": "73129c6041c8fa17f665aa02067b577c57fefdc8a83fa30233bffc8319b25c65",
+      "kind": "video",
+      "producer": "/root/formal_capture",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Frozen native Godot write-movie with real inputs and original audio",
+      "observed": "Formal title/Home/departure/Plains/pause, explicit single cache-position fixture, equip/unequip",
+      "consumers": [
+        "formal-title-home-entry"
+      ]
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/run_gear_ui_02/movie-trace.json",
+      "sha256": "b9210bddf2a60c5c3c97624030ea14f365377762bd0c7c28e97738da0840b31f",
+      "kind": "runtime_trace",
+      "producer": "/root/formal_capture",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Actual per-frame trace and inputs from final native movie",
+      "observed": "34 assertions, zero failures, actual formal scene and exact fixture location",
+      "consumers": [
+        "formal-title-home-entry"
+      ]
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/run_gear_ui_02/harness/report.json",
+      "sha256": "0646142add44167bfb9fd8a175f8c16db1c295f85f11bb1ad81ea1d801b4aaff",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+      "content_version": "candidate-v2-paged-icon-inventory",
+      "method": "Original selected10 --release --jobs1; preserved guards and budgets",
+      "observed": "See actual report; not full profile/CI",
+      "command": "See harness/command.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard headless, original consumers"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Two bounded observed formal families; fixtures explicit",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal-pause-inventory",
+        "status": "passed",
+        "reason": "Default pause, icon details, true pause, state changes, cog8/10/14, mouse/touch/gamepad, stale callbacks and map/death; Explicit original-cache position, backlog48/income100 and map completion fixture; not natural full route",
+        "output": "behavior",
+        "evidence": [
+          "gui"
+        ]
+      },
+      {
+        "consumer": "formal-title-home-entry",
+        "status": "passed",
+        "reason": "Title Start, natural Home locomotion and native departure; real pause/pages/item acquisition/equip/unequip; Exactly one visible original-cache-position fixture after natural Home departure; no coins/items/HP/kill/settlement injection",
+        "output": "behavior",
+        "evidence": [
+          "trace"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Physical Android/controllers and browser DOM touch",
+    "User visual/feel/fun/listening acceptance",
+    "Low-end and hundreds-card performance",
+    "Independent Preview host only1358399B remaining; no new Web deployment",
+    "Full PR CI status is separate from selected local10 and independent UI159",
+    "Complex active/weapon/grapple effects remain interface-only from prior task"
+  ],
+  "test_change_justification": "Read-only independent reviewer audited current20-file implementation/test changes. Pause defaults and stable semantic controls migrated; Home exact count +1 from real Journey click, old undercount refusal retained; canopy ownership-only acquisition plus explicit equipment effect fixture; plains typed dynamic Array boundary. Original strict exits, assertions and budgets preserved. See independent-review.md and review.json; full CI not asserted.",
+  "production_snapshot": "fa92daabd359b0562af3266c2cc0e95bddbb660eb42caaf5490174f93508d17f"
+}

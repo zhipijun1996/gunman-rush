@@ -1,12 +1,18 @@
 extends Node
 ## Local GUI compatibility for Godot 4.7.2 ScrollContainer, which consumes mouse
-## drag events but not ScreenDrag. Global emulation and gameplay stay unchanged.
+## drag events but not ScreenDrag. Own vertical ScreenDrag gestures locally;
+## native Button/Range input and global emulation stay unchanged.
 signal forwarded(phase: StringName)
 
 var scroll: ScrollContainer
 var _finger := -1
 var _suppressed: Dictionary = {}
 var _position := Vector2.ZERO
+var _scrolling := false
+var _range_gesture := false
+var _drag_total := Vector2.ZERO
+var _scroll_start := 0.0
+const VERTICAL_DRAG_THRESHOLD := 12.0
 var _window: Window
 var _web_canvas: Variant
 var _web_cancel_callback: Variant
@@ -56,12 +62,27 @@ func _button(pressed: bool, canceled := false) -> void:
 	mouse.canceled = canceled
 	_window.push_input(mouse,true)
 
+func _is_range_gesture() -> bool:
+	var target := _window.gui_get_hovered_control()
+	while is_instance_valid(target) and target != scroll:
+		if target is Range: return true
+		target = target.get_parent_control()
+	return false
+
+func _reset_gesture() -> void:
+	_scrolling = false
+	_range_gesture = false
+	_drag_total = Vector2.ZERO
+	_scroll_start = 0.0
+
 func cancel(reason: StringName = &"cancel") -> void:
 	var owned := _finger != -1
+	var pending_button := owned and not _scrolling
 	_finger = -1
 	_suppressed.clear()
+	_reset_gesture()
 	if owned and is_instance_valid(_window):
-		_button(false,true)
+		if pending_button: _button(false,true)
 		forwarded.emit(reason)
 
 func _input(event: InputEvent) -> void:
@@ -75,8 +96,10 @@ func _input(event: InputEvent) -> void:
 			_position = event.position
 			if not event.pressed or event.canceled:
 				# Release ownership before a Button callback can replace this menu.
+				var pending_button := not _scrolling
 				_finger = -1
-				_button(false,event.canceled)
+				_reset_gesture()
+				if pending_button: _button(false,event.canceled)
 				forwarded.emit(&"cancel" if event.canceled else &"release")
 			_consume()
 			return
@@ -87,8 +110,11 @@ func _input(event: InputEvent) -> void:
 			return
 		_finger = event.index
 		_position = event.position
+		_reset_gesture()
+		_scroll_start = scroll.scroll_vertical
 		# Establish actual GUI hover before MouseButton, required by BaseButton.
 		_motion(_position,Vector2.ZERO,false)
+		_range_gesture = _is_range_gesture()
 		_button(true)
 		forwarded.emit(&"press")
 		_consume()
@@ -101,7 +127,18 @@ func _input(event: InputEvent) -> void:
 				cancel(&"hidden")
 				return
 			_position = event.position
-			_motion(_position,event.relative,true)
+			var inverse := scroll.get_global_transform_with_canvas().affine_inverse()
+			_drag_total += inverse.basis_xform(event.relative)
+			if not _scrolling and not _range_gesture and scroll.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED and absf(_drag_total.y) > VERTICAL_DRAG_THRESHOLD:
+				# Cancel the native pending Button before taking ownership of the
+				# gesture. No release click is generated after an actual drag.
+				_button(false,true)
+				_scrolling = true
+				forwarded.emit(&"scroll_begin")
+			if _scrolling:
+				scroll.scroll_vertical = roundi(_scroll_start - _drag_total.y)
+			else:
+				_motion(_position,event.relative,true)
 			forwarded.emit(&"drag")
 			_consume()
 

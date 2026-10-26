@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-01",
+  "task_type": "mechanic",
+  "workflow": "review",
+  "baseline_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "reviewed_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+  "content_version": "candidate-v1-gear-foundation",
+  "owner": "/root",
+  "purpose": "建立正式本局背包、齿轮负荷、装备与交易基础",
+  "player_experience": "获得道具先入包，在暂停构筑中自由装卸替换并立即看到负荷和属性变化",
+  "constraints": [
+    "保持唯一Motor物理、核心能力、当前武器、RNG和永久音符合同",
+    "交易与换装失败必须不留下部分修改",
+    "不以headless代签实体设备或用户认可",
+    "不重复无关美术生产；旧兼容回放明确延期"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "config/gear_capacity.json",
+    "docs/creative_direction/archive/creative-v16/registry.json",
+    "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
+    "docs/evidence/run_gear_01/README.md",
+    "docs/evidence/run_gear_01/consumer-inventory.json",
+    "docs/evidence/run_gear_01/gear-flow.mp4",
+    "docs/evidence/run_gear_01/independent-review.md",
+    "docs/evidence/run_gear_01/media.json",
+    "docs/evidence/run_gear_01/movie-audio.log",
+    "docs/evidence/run_gear_01/movie-receipt.json",
+    "docs/evidence/run_gear_01/movie-trace.json",
+    "docs/evidence/run_gear_01/movie.log",
+    "docs/evidence/run_gear_01/phase_04.png",
+    "docs/evidence/run_gear_01/phase_05.png",
+    "docs/evidence/run_gear_01/phase_06.png",
+    "docs/evidence/run_gear_01/phase_07.png",
+    "docs/evidence/run_gear_01/review.json",
+    "docs/evidence/run_gear_01/reviewer/README.md",
+    "docs/evidence/run_gear_01/reviewer/consumers/campaign_pointer_events.json",
+    "docs/evidence/run_gear_01/reviewer/consumers/cross_region_equipment.json",
+    "docs/evidence/run_gear_01/reviewer/consumers/cross_region_manifest.json",
+    "docs/evidence/run_gear_01/reviewer/consumers/forest-app-capture.json.gz",
+    "docs/evidence/run_gear_01/reviewer/consumers/forest-app-native.log.gz",
+    "docs/evidence/run_gear_01/reviewer/consumers/forest-app-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/consumers/forest-app-summary.json",
+    "docs/evidence/run_gear_01/reviewer/gui/desktop-backpack.png",
+    "docs/evidence/run_gear_01/reviewer/gui/desktop-equipped.png",
+    "docs/evidence/run_gear_01/reviewer/gui/gl.log",
+    "docs/evidence/run_gear_01/reviewer/gui/menu-touch.log",
+    "docs/evidence/run_gear_01/reviewer/gui/receipt.json",
+    "docs/evidence/run_gear_01/reviewer/gui/touch-equipped.png",
+    "docs/evidence/run_gear_01/reviewer/gui/ui-report.json",
+    "docs/evidence/run_gear_01/reviewer/harness/command.json",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/cloud-production-planner-tests.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/core.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/demo-ui-time-energy.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/docs.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/forest-bible-app-discoveries.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/forest-bible-discoveries-tests.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/forest-campaign.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/gear-inventory.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/gear-ui.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/quality.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/region-bible-contract.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/region.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/root-bell-current.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/structure.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/logs/underworld-ui.log.gz",
+    "docs/evidence/run_gear_01/reviewer/harness/receipt.json",
+    "docs/evidence/run_gear_01/reviewer/harness/report.json",
+    "docs/evidence/run_gear_01/reviewer/history/changed-parse-cross-region-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/changed-parse49-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-core.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-forest-app-capture.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-forest-app-native.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-forest-app-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-movie-trial-capture.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/failed-movie-trial-receipt.json",
+    "docs/evidence/run_gear_01/reviewer/history/failed-root-bell-parse-timeout.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/final-harness-02-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/final-harness-03-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/final-harness-04-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/final-harness-report.json.gz",
+    "docs/evidence/run_gear_01/reviewer/history/independent-core95-receipt.json",
+    "docs/evidence/run_gear_01/reviewer/history/independent-core95.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/original-core-after-sort.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/override-order-after.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/override-order-before.log.gz",
+    "docs/evidence/run_gear_01/reviewer/history/reviewer-f10-before.png",
+    "docs/handoff.md",
+    "docs/quality/records/RUN-GEAR-01.json",
+    "docs/rewards_and_builds.md",
+    "docs/tasks.md",
+    "docs/worklines/run_gear_01/contract.json",
+    "docs/worklines/run_gear_01/scope.md",
+    "resources/items/braided_cord.tres",
+    "resources/items/brake_boots.tres",
+    "resources/items/cooling_fin.tres",
+    "resources/items/damage_blue.tres",
+    "resources/items/echo_gold.tres",
+    "resources/items/echo_magazine.tres",
+    "resources/items/efficient_grip.tres",
+    "resources/items/field_medic.tres",
+    "resources/items/forest_heart_gold.tres",
+    "resources/items/forest_old_badge.tres",
+    "resources/items/forest_spiral_core.tres",
+    "resources/items/health_blue.tres",
+    "resources/items/jump_blue.tres",
+    "resources/items/power_gold.tres",
+    "resources/items/quick_hammer.tres",
+    "resources/items/recoil_purple.tres",
+    "resources/items/region_damage_gold.tres",
+    "resources/items/region_damage_purple.tres",
+    "resources/items/region_health_gold.tres",
+    "resources/items/region_health_purple.tres",
+    "resources/items/region_recoil_purple.tres",
+    "resources/items/shot_purple.tres",
+    "resources/items/stability_blue.tres",
+    "scripts/builds/build_state.gd",
+    "scripts/builds/equipment_service.gd",
+    "scripts/builds/equipment_service.gd.uid",
+    "scripts/builds/gear_capacity_policy.gd",
+    "scripts/builds/gear_capacity_policy.gd.uid",
+    "scripts/builds/item_definition.gd",
+    "scripts/builds/item_effect_component.gd",
+    "scripts/builds/item_effect_component.gd.uid",
+    "scripts/builds/run_inventory.gd",
+    "scripts/builds/run_inventory.gd.uid",
+    "scripts/builds/run_item_instance.gd",
+    "scripts/builds/run_item_instance.gd.uid",
+    "scripts/combat/action_resources.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/rewards/economy_receipt.gd",
+    "scripts/rewards/reward_service.gd",
+    "scripts/shops/shop_purchase_request.gd",
+    "scripts/shops/shop_service.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/item_acquired_toast.gd",
+    "scripts/ui/item_card.gd",
+    "scripts/ui/item_presentation.gd",
+    "scripts/ui/item_shop_modal.gd",
+    "scripts/ui/menu_scroll_touch_adapter.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "tests/boss_approach_lab_tests.gd",
+    "tests/demo_tests.gd",
+    "tests/demo_ui_01/r3_energy_runner.gd",
+    "tests/economy_tests.gd",
+    "tests/extended_reward_tests.gd",
+    "tests/forest_bible_app_discoveries_runner.gd",
+    "tests/forest_bible_discoveries_tests.gd",
+    "tests/forest_bible_spiral_trace.gd",
+    "tests/forest_bible_trace_support.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_campaign_boss_runner.gd",
+    "tests/forest_depth_canopy_campaign_case.gd",
+    "tests/forest_depth_ecology_trace.gd",
+    "tests/forest_depth_guardian_campaign_case.gd",
+    "tests/forest_depth_lift_trace.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_exploration_region_trace.gd",
+    "tests/forest_places_region_trace.gd",
+    "tests/forest_varied_region_trace.gd",
+    "tests/gear_inventory_runner.gd",
+    "tests/gear_inventory_runner.gd.uid",
+    "tests/gear_inventory_support.gd",
+    "tests/gear_inventory_support.gd.uid",
+    "tests/plains_experience_energy_runner.gd",
+    "tests/plains_exploration_expansion_runner.gd",
+    "tests/plains_redesign_scene_runner.gd",
+    "tests/root_bell_formal_tests.gd",
+    "tests/run_gear_movie.gd",
+    "tests/run_gear_movie.gd.uid",
+    "tests/run_gear_ui_runner.gd",
+    "tests/run_gear_ui_runner.gd.uid",
+    "tests/test_production_plan.py",
+    "tools/capture_run_gear.py",
+    "tools/harness/profiles.json",
+    "tools/run_gear_inventory_tests.py",
+    "tools/run_gear_ui_tests.py"
+  ],
+  "deliverables": [
+    "docs/rewards_and_builds.md",
+    "docs/evidence/run_gear_01/README.md",
+    "docs/evidence/run_gear_01/gear-flow.mp4",
+    "docs/evidence/run_gear_01/review.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Concrete request, architecture, ownership and falsifiable criteria",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Real Player and App state/input/transactions with complete actual runtime trace",
+      "evidence": [
+        "movie-trace",
+        "cross-region",
+        "harness"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Actual UI pixels/video passed in bounded scope; complete animation/listening acceptance not applicable to new content and not signed",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Formal integration passed; hardware/performance evaluation remains unverified",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Independent technical audit and original selected checks passed; earlier broad content gates remain unverified, so no full-content gate signoff",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Human/player and physical-device acceptance unverified",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Concrete user contract and reusable ownership/effect boundaries",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "All15 selected original checks passed with strict clean exits; actual107 equipment counterexamples",
+      "evidence": [
+        "harness"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "Actual formal App pointer/touch/gamepad/map/death and region transition fixtures",
+      "evidence": [
+        "gui"
+      ]
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "Bounded real UI legibility and fractional HP pixels; not global art approval",
+      "evidence": [
+        "pixels"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "No new animation content; complete animation quality not evaluated",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Original audio captured, no new effects; listening quality not signed",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "No human fun/feel acceptance",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "No low-end/hundreds-item hardware benchmark; offline software capture is not device performance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent technical ACCEPT with actual fresh execution and preserved failures",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Physical Android/controller not available; native synthetic input is separate evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "No actual user playtest acceptance for this implementation",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "contract",
+      "scenario": "Run ownership/equipment split",
+      "method": "Read authority and actual consumers",
+      "expected": "Acquisition never auto-applies; free paused atomic gear changes",
+      "failure": "Any required rule omitted",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Concrete specification implemented",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "gear-boundaries",
+      "scenario": "8vs9, duplicates, prerequisites, HP/air/resource/callback/transactions",
+      "method": "Actual real-Player107 and original core5685",
+      "expected": "No partial mutation, re-equip gain or replay grant",
+      "failure": "Any assertion/ERROR/leak/nonzero/missing marker",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Frozen original selected checks passed",
+      "evidence": [
+        "harness",
+        "movie-trace"
+      ]
+    },
+    {
+      "id": "formal-consumers",
+      "scenario": "Formal cache/Reader/cross-map/region/death and native UI",
+      "method": "Real App fixtures, native inputs and exact ledger trace",
+      "expected": "Owned/active/capacity/ledger preserved or cleared at correct lifetime",
+      "failure": "Helper-only pass or fake natural-route claim",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "Observed native outputs for bounded discovered consumers",
+      "evidence": [
+        "gui",
+        "cross-region",
+        "reader"
+      ]
+    },
+    {
+      "id": "ui-pixels",
+      "scenario": "Fractional6.5 HP and real equipment layout",
+      "method": "Independent exact-source GL capture",
+      "expected": "Legible actual effects and controls",
+      "failure": "Rounded false HP or clipped active controls",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "passed",
+      "reason": "Actual rendered image reviewed",
+      "evidence": [
+        "pixels"
+      ]
+    },
+    {
+      "id": "review",
+      "scenario": "Source, guard migration, deterministic counterexamples",
+      "method": "Read-only independent implementation/test review and exact-source execution",
+      "expected": "Bounded ACCEPT; all prior failures retained",
+      "failure": "Self-review or changed/deleted guards disguised",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Reviewer did not implement production/tests",
+      "evidence": [
+        "independent"
+      ]
+    },
+    {
+      "id": "device-user",
+      "scenario": "Physical Android and human experience",
+      "method": "Future actual device/user playtest",
+      "expected": "Measured physical input/performance and real feedback",
+      "failure": "Headless/software capture used as hardware acceptance",
+      "gate": "G5",
+      "dimension": "device",
+      "status": "unverified",
+      "reason": "No physical device/user evidence",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/run_gear_01/scope.md",
+      "sha256": "477bf78453241905d6d0343604b03ca9721080ce4fc5a53a45ea00f933c014d7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "User requirements and shared ownership/architecture contract",
+      "observed": "Run inventory, equipment, gear and existing production consumers; no new complex skills"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/run_gear_01/reviewer/harness/report.json",
+      "sha256": "2467fbd2cc7b28768949b5b78420316b0baf7eebd5610940eaf43f98105813af",
+      "kind": "command",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Original Harness selected15 --release --jobs1; preserved checks/budgets",
+      "observed": "15 passed, exit0; core5685, gear107, UI64, region15 suites, current40-map replay, campaign67 and forestApp92",
+      "command": "See reviewer/harness/command.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; headless/native original consumers"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/run_gear_01/reviewer/gui/ui-report.json",
+      "sha256": "512e296eadb6550a91bd88753ccc5c79a1d093e30955ee265460f3ed768923b0",
+      "kind": "gui",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Actual formal App and native mouse/touch/gamepad under software GL",
+      "observed": "67 checks, zero failures, clean exit; real cache, construction, expansion, map2/death, fractional HP and scrolling",
+      "consumers": [
+        "formal-plains-construction"
+      ]
+    },
+    {
+      "id": "cross-region",
+      "path": "docs/evidence/run_gear_01/reviewer/consumers/cross_region_equipment.json",
+      "sha256": "0a7ddcf58270a3012f3141c953d5a9b4f5e20df815e168a70fe5d7830f5c107c",
+      "kind": "runtime_trace",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Real campaign H/region buttons after explicit settlement/equipment fixtures",
+      "observed": "Exact same inventory/provenance/loadout/cap10/wallet/shop/receipts and read-only transaction replay preserved",
+      "consumers": [
+        "formal-region-transition"
+      ]
+    },
+    {
+      "id": "reader",
+      "path": "docs/evidence/run_gear_01/reviewer/consumers/forest-app-summary.json",
+      "sha256": "c8ea9f6481f639dbc531323cf1508c67da9c228b0cbd044b89d99dfade6cc59b",
+      "kind": "runtime_trace",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Real forest Reader/cache pointer paths with explicit position/damage fixtures",
+      "observed": "92 assertions; both interaction orders and lethal refusal; no resource injection",
+      "consumers": [
+        "formal-forest-discovery"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/run_gear_01/consumer-inventory.json",
+      "sha256": "5f8c6b51cae80487c0bbabc696f7e633927f047b4af2c1bc1f9cff75b01ef37a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Curated bounded inventory from actual native receipts and App reports",
+      "observed": "Every listed consumer has actual observed output and explicit fixture boundaries"
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/run_gear_01/reviewer/gui/desktop-equipped.png",
+      "sha256": "8271b12e1cfc7b8bc1a0735e3a5f189cb503887a03e8496ea9683a8f004491d7",
+      "kind": "screenshot",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Actual original-size Godot rendered image",
+      "observed": "Purple Vessel +1.5 and actual summary5.0/6.5, gear card, active region and controls legible"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/run_gear_01/gear-flow.mp4",
+      "sha256": "748785ebaf3a59e4b925d0641cb7018c26131908710e2c4ac4e8d949e7e5b786",
+      "kind": "video",
+      "producer": "/root/gear_capture",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Exclusive Godot write-movie with real native input and original audio; no before",
+      "observed": "Natural fixed development route,20 assertions/0, stable source,20.47sec,1280x720/60fps; not formal natural region/device admission",
+      "consumers": [
+        "continuous-development-flow"
+      ]
+    },
+    {
+      "id": "movie-trace",
+      "path": "docs/evidence/run_gear_01/movie-trace.json",
+      "sha256": "ba4101bdefc107a00bf4dba92c3464fe82a0e88b7f852a505cb96be3492a1455",
+      "kind": "runtime_trace",
+      "producer": "/root/gear_capture",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Per-frame actual player/input/wallet/inventory/equipment trace",
+      "observed": "3 shots, HP minimum5, earned10 coins, equip1->2/unload2->1, cap8->10, final coins0",
+      "consumers": [
+        "continuous-development-flow"
+      ]
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/run_gear_01/review.json",
+      "sha256": "335550b121942efe8aa2d791851d39d74d8fcf4ed2a8726c6dae32c6ada21ea0",
+      "kind": "review",
+      "producer": "/root/inventory_review",
+      "source_commit": "91ea8850f308cc3c955bcece2c35cd66f75e7bda",
+      "content_version": "candidate-v1-gear-foundation",
+      "method": "Independent source/guard/consumer audit, F1-F14 counterexamples, fresh15+GL+original44",
+      "observed": "ACCEPT only bounded technical scope; user/physical-device/fullCI outcomes not signed",
+      "reviewer": "/root/inventory_review",
+      "implementers": [
+        "/root",
+        "/root/gear_core",
+        "/root/gear_ui",
+        "/root/gear_tests",
+        "/root/gear_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production or test edits; independently executed original checks and viewed real final GL pixels",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Four bounded observed formal/development consumer families; no natural full-region/device claim",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal-plains-construction",
+        "status": "passed",
+        "reason": "Native cache reward, no automatic stats, equip/unequip, expansion, focus invalidation, 960x540 touch scroll, gamepad and death/map2; Explicit cache-position and backlog/income setup; native Viewport controls; not natural exploration",
+        "output": "behavior",
+        "evidence": [
+          "gui"
+        ]
+      },
+      {
+        "consumer": "formal-region-transition",
+        "status": "passed",
+        "reason": "Native H/Forest buttons, same instances/provenance/equipped IDs/capacity10/wallet/shop/receipts, exact real grant ledger, true boundary cleanup; Explicit Boss settlement and paused equipment fixture; not natural Boss combat",
+        "output": "behavior",
+        "evidence": [
+          "cross-region"
+        ]
+      },
+      {
+        "consumer": "formal-forest-discovery",
+        "status": "passed",
+        "reason": "Both colocated Reader/cache orderings, actual buttons, first-W and same-frame lethal claim rejection; Position staging and explicit damage ordering, no resource injection",
+        "output": "behavior",
+        "evidence": [
+          "reader"
+        ]
+      },
+      {
+        "consumer": "continuous-development-flow",
+        "status": "passed",
+        "reason": "Natural native input: 3 real shots/defeat, 10 coins, gap traversal, reward into bag, equip jump1->2, remove2->1, upgrade8->10 coins0; Clearly watermarked fixed development rooms; no teleport, injection, direct kill or before comparison",
+        "output": "behavior",
+        "evidence": [
+          "movie-trace"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Physical Android/controller/browser-touch and low-end/hundreds-card performance",
+    "User feel/fun/aesthetic/listening G5; full PR CI is separate from selected15",
+    "Complex active/weapon/grapple effects interface only; no cross-process run save",
+    "Expansion prices are experimental; touch footer may retain keyboard hints; ModuleLab read-only preview",
+    "Explicit legacy-compat and27 old standalone routes not executed"
+  ],
+  "test_change_justification": "Ownership/equipment are now separate: acquisition checks use RunInventory; actual modifier checks explicitly submit a paused, versioned loadout. Preserve original reward/shop idempotence, exclusive equipment refusal, HP/damage/resource, map/death and all original Harness budgets/check prefixes. Additional inventory-empty guards supplement rather than replace equipped-source cleanup. F9 accidental active-run empty assertion was independently rejected and removed before final verification. New UI fixtures use native viewport input and Variant owner boundary only to release GDScript type caches; no cache cleanup or exit guard weakening.",
+  "production_snapshot": "931871e1bcc844b033ea7d9c8afd1550a0e706493b1a7c5ee6e5664fa5157b22"
+}

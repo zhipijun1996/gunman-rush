@@ -1,4 +1,6 @@
 extends SceneTree
+
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 ## R3 current contract. Real Controller/Router/Ability/Resource consumers;
 ## explicit placement/resource-edge fixtures, not natural play or device proof.
 var checks := 0
@@ -193,11 +195,12 @@ func run() -> void:
 	var baseline_recovery := player.tuning.focus_stamina_recovery
 	var grip := preload("res://resources/items/efficient_grip.tres")
 	var echo := preload("res://resources/items/echo_magazine.tres")
-	check(build.add_item(&"grip", grip) and is_equal_approx(player.tuning.focus_stamina_drain, baseline_drain * 0.8), "actual current grip changes focus drain, not shot cost")
-	check(build.add_item(&"grip", grip) and is_equal_approx(player.tuning.focus_stamina_drain, baseline_drain * 0.8), "same grip source remains idempotent")
-	check(build.add_item(&"echo", echo) and is_equal_approx(player.tuning.focus_stamina_recovery, baseline_recovery + 5), "actual current echo changes ground focus recovery")
-	check(build.remove_source(&"grip") and player.tuning.focus_stamina_drain == baseline_drain, "removing grip restores sole focus base")
-	check(build.remove_source(&"echo") and player.tuning.focus_stamina_recovery == baseline_recovery, "removing echo restores sole recovery base")
+	check(GEAR.add_and_equip(build, &"grip", grip) and is_equal_approx(player.tuning.focus_stamina_drain, baseline_drain * 0.8), "actual current grip changes focus drain, not shot cost")
+	check(GEAR.add_and_equip(build, &"grip", grip) and is_equal_approx(player.tuning.focus_stamina_drain, baseline_drain * 0.8), "same grip source remains idempotent")
+	check(GEAR.add_and_equip(build, &"echo", echo) and is_equal_approx(player.tuning.focus_stamina_recovery, baseline_recovery + 5), "actual current echo changes ground focus recovery")
+	check(GEAR.unequip_source(build, &"grip") and player.tuning.focus_stamina_drain == baseline_drain, "removing grip restores sole focus base")
+	check(GEAR.unequip_source(build, &"echo") and player.tuning.focus_stamina_recovery == baseline_recovery, "removing echo restores sole recovery base")
+	build.clear() # Each numerical fixture starts a fresh ownership case.
 	for effect: Dictionary in [
 		{"id": "efficient_grip", "stat": &"focus_stamina_drain", "expected": baseline_drain * 0.8},
 		{"id": "echo_magazine", "stat": &"focus_stamina_recovery", "expected": baseline_recovery + 5},
@@ -208,9 +211,10 @@ func run() -> void:
 		var item := load("res://resources/items/%s.tres" % effect.id) as ItemDefinition
 		var stat := StringName(effect.stat)
 		var original: float = player.tuning.get(stat)
-		check(item != null and item.definition_version == 2 and not ItemPresentation.effects(item).is_empty(), "migrated item has versioned nonempty real effect: " + str(effect.id))
-		check(build.add_item(&"migrated", item) and is_equal_approx(player.tuning.get(stat), effect.expected), "real current item grant changes the declared focus stat: " + str(effect.id))
-		check(build.remove_source(&"migrated") and is_equal_approx(player.tuning.get(stat), original), "real current item removal restores its exact base: " + str(effect.id))
+		check(item != null and item.definition_version == 3 and not ItemPresentation.effects(item).is_empty(), "migrated item has versioned nonempty real effect: " + str(effect.id))
+		check(GEAR.add_and_equip(build, &"migrated", item) and is_equal_approx(player.tuning.get(stat), effect.expected), "real current item equip changes the declared focus stat: " + str(effect.id))
+		check(GEAR.unequip_source(build, &"migrated") and is_equal_approx(player.tuning.get(stat), original), "real current item unequip restores its exact base: " + str(effect.id))
+		build.clear()
 	check(shot(Vector2.UP), "capacity-growth fixture consumes initial round")
 	actor.shoot_ability.clear_projectiles()
 	var magazine := ItemDefinition.new()
@@ -221,15 +225,15 @@ func run() -> void:
 	modifier.operation = BuildModifier.Operation.ADD
 	modifier.value = 1
 	magazine.modifiers = [modifier]
-	check(build.add_item(&"capacity", magazine) and player.tuning.max_air_shots == 2, "real BuildState can increase declared capacity")
+	check(GEAR.add_and_equip(build, &"capacity", magazine) and player.tuning.max_air_shots == 2, "real BuildState can increase declared capacity")
 	check(actor.action_resources.shot_charges == 0, "capacity growth never gifts current rounds")
 	actor.action_resources.advance(false)
 	actor.queue_grant(10, actor.session_id)
 	actor.physics_tick(1.0 / 60)
 	check(actor.action_resources.shot_charges == 1, "same-flight grants retain old one-round flight cap after growth")
-	check(build.remove_source(&"capacity") and player.tuning.max_air_shots == 1 and actor.action_resources.shot_charges == 1, "capacity removal clamps without gifting or removing valid current round")
+	check(GEAR.unequip_source(build, &"capacity") and player.tuning.max_air_shots == 1 and actor.action_resources.shot_charges == 1, "capacity removal clamps without gifting or removing valid current round")
 	var health_before := actor.actor_resources.health.current
-	check(build.add_item(&"hp", preload("res://resources/items/region_health_purple.tres")) and actor.actor_resources.health.capacity > health_before and actor.actor_resources.health.current == health_before, "health capacity growth does not gift healing")
+	check(GEAR.add_and_equip(build, &"hp", preload("res://resources/items/region_health_purple.tres")) and actor.actor_resources.health.capacity > health_before and actor.actor_resources.health.current == health_before, "health capacity growth does not gift healing")
 
 	await fixture()
 	actor.jump_ability.advance(0.01, true)

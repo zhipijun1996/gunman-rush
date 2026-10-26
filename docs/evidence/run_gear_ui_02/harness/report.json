@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T112705.875587Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "f6991e156da048d4aa602545e150ed03195efb5c90b98c034c8d0bc238ce8b2d",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014030.039455,
+      "ended_at_unix": 1793014066.901836,
+      "duration_seconds": 36.862,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_tests.py"
+      ],
+      "check_token": "f6b8aa7ae8884f1b8903aeec275a520e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "gear-inventory",
+      "argv": [
+        "python3",
+        "tools/run_gear_inventory_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "a76c43b07c0fb2b1abb9fba457c657e19108949212948fa29140451c4813a460",
+      "log": "gear-inventory.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014132.8293397,
+      "ended_at_unix": 1793014140.7373254,
+      "duration_seconds": 7.908,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_gear_inventory_tests.py"
+      ],
+      "check_token": "bb64c73979204c0eafc3fe950695e364",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/gear-inventory",
+      "reused": false
+    },
+    {
+      "id": "gear-ui",
+      "argv": [
+        "python3",
+        "tools/run_gear_ui_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "270bef8a4fcd76350cd7880cc0f7cd4500ae62642a172cbc20e7bccc36f2232c",
+      "log": "gear-ui.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014141.4842808,
+      "ended_at_unix": 1793014157.2010326,
+      "duration_seconds": 15.717,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_gear_ui_tests.py"
+      ],
+      "check_token": "b46d24faa42b49dda11451918d6a2c84",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/gear-ui",
+      "reused": false
+    },
+    {
+      "id": "underworld-ui",
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "565cd0bac1bd4f825449211d057b0965e19bae638e57762ff70dda46b5174dea",
+      "log": "underworld-ui.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014157.94225,
+      "ended_at_unix": 1793014174.116201,
+      "duration_seconds": 16.174,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "check_token": "55fa38aaa76b4babbd80977e10232c28",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/underworld-ui",
+      "reused": false
+    },
+    {
+      "id": "underworld-home",
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "6dafe8d3531b1c818a4a5b08ae7a217b5e6a51015baa1a054c7c5ab1084082fa",
+      "log": "underworld-home.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014174.8546581,
+      "ended_at_unix": 1793014185.8097327,
+      "duration_seconds": 10.955,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "check_token": "4ba743799a214904bd4ce68e57cb4f5c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/underworld-home",
+      "reused": false
+    },
+    {
+      "id": "bgm-integration",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "f219bdb380f50baf2d6592b5160f750ab55f4e63d3ab197a4d21304862c93cdd",
+      "log": "bgm-integration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014067.632155,
+      "ended_at_unix": 1793014090.2414408,
+      "duration_seconds": 22.609,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "check_token": "14cf5459f1914f79b53b8d0fa6866470",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/bgm-integration",
+      "reused": false
+    },
+    {
+      "id": "forest-depth-campaign-canopy",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "954eabded989e3038eeec21f6ee343cc74116d1d3f293b2f2c9799cfdf35bc5f",
+      "log": "forest-depth-campaign-canopy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014090.9833455,
+      "ended_at_unix": 1793014121.540653,
+      "duration_seconds": 30.557,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-24a1a0501d144a858afc2a9a6799adaf"
+      ],
+      "check_token": "24a1a0501d144a858afc2a9a6799adaf",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/forest-depth-campaign-canopy",
+      "reused": false
+    },
+    {
+      "id": "plains-redesign-scene",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "input_digest": "5cd40b060d167e538b6416c70e480721c13685568c55616225845fdb3538ff93",
+      "log": "plains-redesign-scene.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014186.6680589,
+      "ended_at_unix": 1793014379.9296584,
+      "duration_seconds": 193.262,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "check_token": "d4c73e1fbb624d8196466a52e982d6ec",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/plains-redesign-scene",
+      "reused": false
+    },
+    {
+      "id": "demo-ui-time-energy",
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "d740695b3a83b7bc11ad830d9ce297311eb84e47fd9a9ac13a3988fc5fc0b253",
+      "log": "demo-ui-time-energy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014122.375774,
+      "ended_at_unix": 1793014132.0805638,
+      "duration_seconds": 9.705,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "check_token": "77e3adc588f94e3a8731932b5fc007a3",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/demo-ui-time-energy",
+      "reused": false
+    },
+    {
+      "id": "forest-campaign",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b699c8da0e9bdf90f9e595c97e3ea4965dbe533c3c5328cc2cafa73de0512908",
+      "log": "forest-campaign.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793014381.3553314,
+      "ended_at_unix": 1793014391.8618586,
+      "duration_seconds": 10.507,
+      "expanded_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "check_token": "df584d21aefc44f4b5208980aeeb5531",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T112705.875587Z/artifacts/forest-campaign",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "07437ca2da8f603d85738338272933be10f3b2400a9c6ada308e20cd8d6a634f",
+  "working_files": {
+    "docs/current_state.md": "90220482cbc49ac91e4d7cb75e57513270ff1e52c026eb8939d298addc60c54c",
+    "docs/evidence/run_gear_ui_02/README.md": "1334caf54c3884885eb941c5bf5bfdffc4bc517b8ce1ba658cbcd92bbaddef87",
+    "docs/evidence/run_gear_ui_02/desktop-backpack.png": "eee56b0b20579edc84cec3a065fbc43ca2e10c7cac9a0ed91d0ac17945958b9c",
+    "docs/evidence/run_gear_ui_02/desktop-equipped.png": "90b41403ab6b683e1b7ed2fa24c29a62e920f3322c5132a99f62feb759831a1b",
+    "docs/evidence/run_gear_ui_02/formal-departure.png": "2cf53ea6861b14a4d557497c301452c40673cc61212b4299acdb485ab5fc4ec5",
+    "docs/evidence/run_gear_ui_02/formal-equipped.png": "aa7281de17532fc6065baa8ef996d5ecfcc450b813301d5a4394f687ae5c6f1b",
+    "docs/evidence/run_gear_ui_02/formal-game.mp4": "73129c6041c8fa17f665aa02067b577c57fefdc8a83fa30233bffc8319b25c65",
+    "docs/evidence/run_gear_ui_02/formal-pause.png": "9becff0d2ceef2a855672c359f6454a0094ce1345c57cf83ae8af60d4c26d3e1",
+    "docs/evidence/run_gear_ui_02/history/failed-desktop-equipped.png": "5f67dee00c6332dae65751838855fb7a85a2285eda482c03f9dab83cbe7f73bb",
+    "docs/evidence/run_gear_ui_02/history/failed-display-movie-receipt.json": "ed393f0f02d6f0e6f3867dd4e952ea57ea817ecd45691650e200f958dbb25c24",
+    "docs/evidence/run_gear_ui_02/history/failed-display-movie.log": "2604d8e1e4e1cdd381e3c30d023589a8cc94b884e84dc640d8c0dab1dbe91952",
+    "docs/evidence/run_gear_ui_02/history/failed-plains-native.log": "07420755cb45b5768b27e73bbe2fd447fbf31b52927b64e0d7282923976ae7d6",
+    "docs/evidence/run_gear_ui_02/history/failed-plains-wrapper.log": "02003337c7595af62f1f547ef860109886168f1b6c33cab31b3b2afae1a147f1",
+    "docs/evidence/run_gear_ui_02/history/failed-ui-gl-second.log": "4bfbdf3df6fd405e207d276b829dd62ae3c6f8442691033949bb25426e528df8",
+    "docs/evidence/run_gear_ui_02/history/interim-review-01.json": "572403df9f2ff96622729228b655416517415305bab190e5ebca0e126ad782fd",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness-note.json": "5854ab443c12397591dc7a748b094c1124af2644b062158d333401820a0ff550",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness-report.json": "21f57f30f6d00e7e83227cc7b962c74323b18da1dfe687e6d513ad4af6b16e4e",
+    "docs/evidence/run_gear_ui_02/history/interrupted-harness.log": "d3ef32b74a0c4616130f55a9c06da509b9b5c3de4e230378c280a71708008a45",
+    "docs/evidence/run_gear_ui_02/history/previous-ci-summary.json": "03dba181bc9fbdcbf194521aa53b8276e2930d5f8ec8f30d1f02505ac508f25c",
+    "docs/evidence/run_gear_ui_02/independent-review.md": "0a1efde8dcd5a9271026121e6e011ced45f820a6b8386d46e9700700c5c6b1b4",
+    "docs/evidence/run_gear_ui_02/media.json": "983b0f31b37751d2ed550d263303a78bad779b21b4e6ab685f55a2fffb4e9a3f",
+    "docs/evidence/run_gear_ui_02/movie-receipt.json": "51093a8ed4aba6aa2a7f3a14ca8891ec484bc9260655231ead3923be5ddee1ac",
+    "docs/evidence/run_gear_ui_02/movie-trace.json": "b9210bddf2a60c5c3c97624030ea14f365377762bd0c7c28e97738da0840b31f",
+    "docs/evidence/run_gear_ui_02/movie.log": "63371e7995c8d467965627d64271de24af0dba59fc75637af5099d9729ddfbb7",
+    "docs/evidence/run_gear_ui_02/preview-budget.json": "1b2dba2c18a62aceb87750796283c69b26575a639f1a6e127a9af45da375cd2e",
+    "docs/evidence/run_gear_ui_02/review.json": "09d84cd5e78fe9140ba3e97784a4a48c3d690781ca6aa3180c98e41fef92845e",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/console.log": "1c02155ce9d25baf402218d2089e3baeae77003eb99715386a8cd070afe5dc5c",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/desktop-backpack.png": "eee56b0b20579edc84cec3a065fbc43ca2e10c7cac9a0ed91d0ac17945958b9c",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/desktop-equipped.png": "90b41403ab6b683e1b7ed2fa24c29a62e920f3322c5132a99f62feb759831a1b",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/receipt.json": "546216fc19a5ce0ca144a28af8ea79f148492ca87da1efd7a67a00f9a5a867c3",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/report.json": "e34855076e697c0a2a8959e37c657fa65340fecd366f70fae783694e99d6e92f",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/touch-equipped.png": "330b7ac296511f87ab1d1342dcb6d8446a5da04040849796698c968fa36c8753",
+    "docs/evidence/run_gear_ui_02/reviewer/native-final/touch-max-capacity.png": "7c16b69b2443e17ace01404e6c6b35aaf1814683de47133ba4db708d1eedc246",
+    "docs/evidence/run_gear_ui_02/touch-equipped.png": "330b7ac296511f87ab1d1342dcb6d8446a5da04040849796698c968fa36c8753",
+    "docs/evidence/run_gear_ui_02/touch-max-capacity.png": "7c16b69b2443e17ace01404e6c6b35aaf1814683de47133ba4db708d1eedc246",
+    "docs/evidence/run_gear_ui_02/ui-native.log": "1c02155ce9d25baf402218d2089e3baeae77003eb99715386a8cd070afe5dc5c",
+    "docs/evidence/run_gear_ui_02/ui-receipt.json": "546216fc19a5ce0ca144a28af8ea79f148492ca87da1efd7a67a00f9a5a867c3",
+    "docs/evidence/run_gear_ui_02/ui-report.json": "e34855076e697c0a2a8959e37c657fa65340fecd366f70fae783694e99d6e92f",
+    "docs/evidence/run_gear_ui_02/user-reference.jpg": "f85b8fa3c039e80c9a982c0d28d95a9f66949c8f1bc2ab9b25449a12787781e8",
+    "docs/evidence/run_gear_ui_02/user-reference.json": "27a37497cb43e03be0a581df514f333da9a3c8c14a2a55001ab0c780fc43e737",
+    "docs/handoff.md": "39a0353f6bd2912c047e888c3b88fe3db6fefab119a97e67a9480594f469fcd6",
+    "docs/quality/records/RUN-GEAR-UI-02.json": "f84680545a66c5cd4255d8ec75b59d3a3ae4d8296bdcde30f5169362b42b0cd4",
+    "docs/rewards_and_builds.md": "c3f10378c2b7148fa945b7e209664f6f4516f4c480a86548cf5c07520559a410",
+    "docs/tasks.md": "b6a72be6806e32191259daa8f4ac09f3e8eab768bab447d143a46bd6c0d09266",
+    "docs/worklines/run_gear_01/ui-feedback-02.md": "74b80c56c544d6f640a86a606e3198feade5a845616886dd79f367917668ac2b"
+  },
+  "commit": "bb4bf464a639af6c20828b84a5ac1df3785f393b",
+  "git_status": "M docs/current_state.md\n M docs/handoff.md\n M docs/rewards_and_builds.md\n M docs/tasks.md\n?? docs/evidence/run_gear_ui_02/\n?? docs/quality/records/RUN-GEAR-UI-02.json\n?? docs/worklines/run_gear_01/ui-feedback-02.md",
+  "diff": "diff --git a/docs/current_state.md b/docs/current_state.md\nindex 88c4fd4..3aaa8d8 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,5 +1,15 @@\n # 当前状态\n \n+## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页\n+\n+用户要求暂停直接背包、左右切页、图标网格与右侧详情，补充负荷槽必须是齿轮形状。已更新同一[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`，分支`feature/run-gear-inventory`，不合main。新入口与布局覆盖下方RUN-GEAR-01旧暂停构筑入口，所有权／装备／交易合同保持。\n+\n+实际软件GL独立原wrapper159检查／0失败，1280与960、8／10／14齿轮、点击选择详情、装卸／替换、左右键／肩键／触屏分页、滚动和失效请求已验证。原生主游戏标题→可操作Home行走→正式出发→平原暂停及新UI已试录34断言／0失败；靠近宝箱的一次位置fixture始终明示，不冒充自然挑战通关。最终同源收据见[本轮证据](evidence/run_gear_ui_02/README.md)。\n+\n+前轮CI两个失败分别是canopy旧自动生效假设和plains动态调用的未类型化Array；已迁移测试并保原实际效果／严格退出守门，原失败保留。当前追加原Harness10项fresh与最终采集，结果以本轮证据为准。独立Preview站仅余1,358,399字节，无法加入当前完整游戏包；保留旧入口，不把旧站签成本轮。用户／实体安卓／实体手柄仍未验，任务保持review。\n+\n+恢复：`git switch feature/run-gear-inventory`，按本轮证据执行原选定Harness／正式影片采集。下一步只处理真实门禁／反馈并更新同PR；不要重新生产美术、删旧Preview或自动合并。\n+\n ## 2026-10-26 RUN-GEAR-01：局内背包与齿轮装备候选\n \n 实现分支`feature/run-gear-inventory`，基线main`26e7f2a`，冻结运行源`91ea8850f308cc3c955bcece2c35cd66f75e7bda`。后续只追加证据／文档，PR面向main且不自动合并。[交付与可下载完整操作录屏](evidence/run_gear_01/README.md) · [独审](evidence/run_gear_01/independent-review.md) · [权威规则](rewards_and_builds.md)。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex 55c53a0..e8906a4 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,5 +1,15 @@\n # 当前交接（2026-10-24）\n \n+## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页\n+\n+本轮用户反馈已实现于`feature/run-gear-inventory`／[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`：暂停一次打开背包，左已装备／齿轮形状负荷槽／独立滚动网格，右选中详情及装卸，顶部箭头、Q/E、LB/RB换页，关闭继续。选择只更新详情，离页会话失效，旧详情动作失效；不改变核心物理或交易。原规则见[权威文档](rewards_and_builds.md)，范围和独立分工见[反馈工作线](worklines/run_gear_01/ui-feedback-02.md)。\n+\n+实际GL独立159／0、8／10／14槽及两尺寸像素通过；正式标题／Home／出发／平原新背包试片34／0并严格clean。一次宝箱位置fixture明确显示，不能称自然平台挑战路线；原三房间影片保留历史身份。最终选定Harness10项、最终影片与技术复核以[本轮证据](evidence/run_gear_ui_02/README.md)为准。原R1–R5失败和前轮CI失败保留，不重签旧证据。\n+\n+独立Preview预算942,360,001／943,718,400字节，新增完整Web包受阻；未删旧入口或增加预算。本轮公开短片与截图交付，旧试玩网页尚未包含本候选。质量保持review，用户审美／手感、物理安卓／手柄与低端性能未签。main未合并。\n+\n+恢复后先核同PR状态与精确source，不重复旧PR108或整套无关美术。只跑受影响原Harness，失败先窄runner；最终媒体需干净源与真实source_guard。\n+\n ## 2026-10-26 RUN-GEAR-01：局内背包与齿轮装备候选\n \n 实现分支`feature/run-gear-inventory`，基线main`26e7f2a`，冻结运行源`91ea8850f308cc3c955bcece2c35cd66f75e7bda`。后续只追加证据／文档，PR面向main且不自动合并。[交付与可下载完整操作录屏](evidence/run_gear_01/README.md) · [独审](evidence/run_gear_01/independent-review.md) · [权威规则](rewards_and_builds.md)。\ndiff --git a/docs/rewards_and_builds.md b/docs/rewards_and_builds.md\nindex 9395641..2f32bc4 100644\n--- a/docs/rewards_and_builds.md\n+++ b/docs/rewards_and_builds.md\n@@ -1,6 +1,8 @@\n # 本局背包、装备与齿轮负荷（RUN-GEAR-01，2026-10-26）\n \n-本节覆盖下文历史原型中“获得即生效”“获取时按装备互斥过滤”和将随机道具作为必需大能力的描述。当前正式流程为：领取／购买 → 本局背包 → 暂停菜单的构筑页 → 装备 → 效果生效。未装备道具不消耗负荷，也不进入能力快照。核心能力解锁、当前武器选择与随机道具独立。\n+本节覆盖下文历史原型中“获得即生效”“获取时按装备互斥过滤”和将随机道具作为必需大能力的描述。当前正式流程为：领取／购买 → 本局背包 → 点击暂停直接打开背包 → 装备 → 效果生效。未装备道具不消耗负荷，也不进入能力快照。核心能力解锁、当前武器选择与随机道具独立。\n+\n+暂停默认背包页：左侧上方显示齿轮形状的容量槽和已装备图标，下方为独立滚动的背包图标网格；右侧显示选中实例的图标、名称、稀有度、负荷、实际效果、装卸／替换及扩容操作。点击或焦点选中图标仅更新详情，确认装备才提交。顶部左右箭头、Q/E、手柄LB/RB切换背包／旅途／设置／帮助；网格方向键继续选择道具。旅途页提供结束本局，顶部继续或Esc关闭恢复玩法。离开背包立即关闭装备会话，回来重新读取；详情选择变化也作废旧动作按钮。见[本轮反馈范围](worklines/run_gear_01/ui-feedback-02.md)。\n \n | 所有者 | 职责 | 不承担的职责 |\n | --- | --- | --- |\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex cef9fbf..b98701b 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -2,6 +2,7 @@\n \n | 任务 | 目标 | 依赖 | 状态 | 质量记录 |\n | --- | --- | --- | --- | --- |\n+| RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | in_progress | [质量记录](quality/records/RUN-GEAR-UI-02.json) |\n | RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |",
+  "untracked": "docs/evidence/run_gear_ui_02/README.md\ndocs/evidence/run_gear_ui_02/desktop-backpack.png\ndocs/evidence/run_gear_ui_02/desktop-equipped.png\ndocs/evidence/run_gear_ui_02/formal-departure.png\ndocs/evidence/run_gear_ui_02/formal-equipped.png\ndocs/evidence/run_gear_ui_02/formal-game.mp4\ndocs/evidence/run_gear_ui_02/formal-pause.png\ndocs/evidence/run_gear_ui_02/history/failed-desktop-equipped.png\ndocs/evidence/run_gear_ui_02/history/failed-display-movie-receipt.json\ndocs/evidence/run_gear_ui_02/history/failed-display-movie.log\ndocs/evidence/run_gear_ui_02/history/failed-plains-native.log\ndocs/evidence/run_gear_ui_02/history/failed-plains-wrapper.log\ndocs/evidence/run_gear_ui_02/history/failed-ui-gl-second.log\ndocs/evidence/run_gear_ui_02/history/interim-review-01.json\ndocs/evidence/run_gear_ui_02/history/interrupted-harness-note.json\ndocs/evidence/run_gear_ui_02/history/interrupted-harness-report.json\ndocs/evidence/run_gear_ui_02/history/interrupted-harness.log\ndocs/evidence/run_gear_ui_02/history/previous-ci-summary.json\ndocs/evidence/run_gear_ui_02/independent-review.md\ndocs/evidence/run_gear_ui_02/media.json\ndocs/evidence/run_gear_ui_02/movie-receipt.json\ndocs/evidence/run_gear_ui_02/movie-trace.json\ndocs/evidence/run_gear_ui_02/movie.log\ndocs/evidence/run_gear_ui_02/preview-budget.json\ndocs/evidence/run_gear_ui_02/review.json\ndocs/evidence/run_gear_ui_02/reviewer/native-final/console.log\ndocs/evidence/run_gear_ui_02/reviewer/native-final/desktop-backpack.png\ndocs/evidence/run_gear_ui_02/reviewer/native-final/desktop-equipped.png\ndocs/evidence/run_gear_ui_02/reviewer/native-final/receipt.json\ndocs/evidence/run_gear_ui_02/reviewer/native-final/report.json\ndocs/evidence/run_gear_ui_02/reviewer/native-final/touch-equipped.png\ndocs/evidence/run_gear_ui_02/reviewer/native-final/touch-max-capacity.png\ndocs/evidence/run_gear_ui_02/touch-equipped.png\ndocs/evidence/run_gear_ui_02/touch-max-capacity.png\ndocs/evidence/run_gear_ui_02/ui-native.log\ndocs/evidence/run_gear_ui_02/ui-receipt.json\ndocs/evidence/run_gear_ui_02/ui-report.json\ndocs/evidence/run_gear_ui_02/user-reference.jpg\ndocs/evidence/run_gear_ui_02/user-reference.json\ndocs/quality/records/RUN-GEAR-UI-02.json\ndocs/worklines/run_gear_01/ui-feedback-02.md",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 369.706,
+  "jobs": 1,
+  "release": true
+}

@@ -1,5 +1,6 @@
 extends SceneTree
 ## Local transaction/reader contract only; no claim of Motor route admission.
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 const READER := preload("res://scripts/world/forest_bible_discoveries.gd")
 const CATALOG := preload("res://scripts/world/forest_bible_discovery_catalog.gd")
 var assertions := 0
@@ -69,7 +70,7 @@ func run() -> void:
 	var lifetime := DemoLifetime.new()
 	var wallet := RunWallet.new()
 	var build := BuildState.new()
-	build.configure(fixture.controller)
+	build.configure(fixture.controller, lifetime)
 	var rewards := RewardService.new()
 	rewards.configure(lifetime, build)
 	var state := PlainsRegionState.new()
@@ -151,12 +152,14 @@ func run() -> void:
 	reader.interact(_point(2), lifetime.token())
 	await tree.process_frame
 	await _confirm(reader)
-	check(reader.commit_pending(_point(2)) and is_equal_approx(health.capacity, max_before + 2.0) and health.current == current_before, "old badge uses actual modifier with no implicit heal")
+	check(reader.commit_pending(_point(2)) and health.capacity == max_before and build.count_item(&"forest_old_badge") == 1, "old badge first enters the backpack without automatic effects")
+	check(GEAR.equip_all(build) and is_equal_approx(health.capacity, max_before + 2.0) and health.current == current_before, "old badge uses actual modifier with no implicit heal")
 	var damage_before: float = fixture.motor.tuning.projectile_damage
 	reader.interact(_point(3), lifetime.token())
 	await tree.process_frame
 	await _confirm(reader)
-	check(reader.commit_pending(_point(3)) and is_equal_approx(fixture.motor.tuning.projectile_damage, damage_before + 1.5), "spiral core increases real projectile damage")
+	check(reader.commit_pending(_point(3)) and fixture.motor.tuning.projectile_damage == damage_before, "spiral core ownership does not change projectile damage")
+	check(GEAR.equip_all(build) and is_equal_approx(fixture.motor.tuning.projectile_damage, damage_before + 1.5), "spiral core increases real projectile damage")
 	check(fixture.motor.tuning.max_jumps == jumps_before and fixture.motor.tuning.max_air_shots == shots_before, "discovery equipment grants no extra jumps or shots")
 	for id: String in ["forest_old_badge", "forest_spiral_core"]:
 		var item := load("res://resources/items/%s.tres" % id) as ItemDefinition
@@ -203,7 +206,8 @@ func run() -> void:
 	rejected_reader.interact(_point(2), lifetime.token())
 	await _confirm(rejected_reader)
 	check(not rejected_reader.commit_pending(_point(2)) and rejected_reader.is_open() and paused and rejected_state.claimed.is_empty() and health.capacity == capacity_at_limit, "rejected item grant keeps page paused and source unclaimed without partial effects")
-	check(build.remove_source(&"stack_limit_setup"), "temporary full-stack test source can be removed normally")
+	# This isolated fixture clears ownership explicitly; normal unequip never frees a holding limit.
+	check(build.clear() and build.inventory.instances().is_empty(), "isolated ownership reset releases the temporary full-stack setup")
 	await _confirm(rejected_reader)
 	check(rejected_reader.commit_pending(_point(2)) and rejected_state.claimed.has("forest_discovery/old_badge"), "failed item can be retried when build becomes legal")
 	rejected_reader.interact(_point(4), lifetime.token())

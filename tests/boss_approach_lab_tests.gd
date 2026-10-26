@@ -102,7 +102,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	lab.restart_module()
 	await frames(6)
 	trial = lab.boss_trial
-	check.call(not lab.lifetime.accepts(old_token) and not trial.started and trial.offer == null and trial.build.item_ids().is_empty(), "explicit practice Retry resets local build and encounter while invalidating old reward tokens")
+	check.call(not lab.lifetime.accepts(old_token) and not trial.started and trial.offer == null and trial.build.item_ids().is_empty() and trial.build.inventory.instances().is_empty(), "explicit practice Retry resets local build and encounter while invalidating old reward tokens")
 	# Same-frame deaths use player-fatal priority regardless of target sorting.
 	lab.player.global_position = Vector2(910, 582)
 	lab.player.reset_motion()

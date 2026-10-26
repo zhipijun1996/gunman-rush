@@ -1,5 +1,14 @@
 # 开发任务
 
+| 任务 | 目标 | 依赖 | 状态 | 质量记录 |
+| --- | --- | --- | --- | --- |
+| RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | review | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |
+| RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |
+| RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |
+| RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |
+| RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |
+
+
 ## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）
 
 main已实际合入四线，cd4989a6/72c47d59bc4f已快速公开。当前处理用户的性能、全部怪物普通受击、固定HUD、家园3种Lv1武器和标题进家园五项反馈；[范围与所有权](worklines/playtest_feedback_20261024/scope.md)。下方旧未合入/等待CI段落保留历史身份，不驱动本轮重复集成。

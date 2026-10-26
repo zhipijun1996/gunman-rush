@@ -1,0 +1,52 @@
+{
+  "scope": "Read-only GitHub CI diagnosis of PR110 prior source; later test-only migration separately described",
+  "source": "631f50e2322f2b26a3d67bdc5c480dde19232dd4",
+  "run": "https://github.com/zhipijun1996/gunman-rush/actions/runs/40270857049",
+  "conclusion": "failure",
+  "evidence": [
+    "run.json",
+    "parallel-check.json",
+    "parallel-annotations.json",
+    "serial-check.json",
+    "serial-annotations.json"
+  ],
+  "raw_artifact_status": "unavailable: Azure redirected artifact and per-job-log requests returned HTTP403; gh --log-failed returned empty",
+  "failures": [
+    {
+      "lane": "parallel",
+      "title": "Harness forest-depth-campaign-canopy",
+      "message": "failed: nonzero_exit\nTraceback (most recent call last):\n  File \"/home/runner/work/gunman-rush/gunman-rush/tools/run_forest_depth_campaign_boss.py\", line 416, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/gunman-rush/gunman-rush/tools/run_forest_depth_campaign_boss.py\", line 400, in main\n    text=run_engine((['--verbose'] if args.verbose else [])+['--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_campaign_boss_runner.gd','--','--boss='+args.boss,'--seed='+args.seed,'--output=res://'+(out/'capture.json').relative_to(ROOT).as_posix()],180)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/gunman-rush/gunman-rush/tools/run_tests.py\", line 42, in run_engine\n    raise RuntimeError(f\"Godot returned {process.returncode}\")\nRuntimeError: Godot returned 1"
+    },
+    {
+      "lane": "parallel",
+      "title": "",
+      "message": "Process completed with exit code 1."
+    },
+    {
+      "lane": "serial",
+      "title": "Harness plains-redesign-scene",
+      "message": "failed: nonzero_exit\nGodot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\n[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Started Project initialization (5 steps)^[[39m^[[0m\n[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Scanning file structure...^[[39m^[[0m\n[  16% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Loading global class names...^[[39m^[[0m\n[  33% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Verifying GDExtensions...^[[39m^[[0m\n[  50% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Creating autoload scripts...^[[39m^[[0m\n[  66% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Initializing plugins...^[[39m^[[0m\n[  83% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Starting file scan...^[[39m^[[0m\n^[[92m[ DONE ]^[[39m ^[[1mfirst_scan_filesystem^[[22m\n^[[0m\n[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m\n[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m\n[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m\n^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m\n^[[0m\nPLAINS REDESIGN SCENE RECEIPT: build/plains_redesign/scene/run_lgf6fdp6\nTraceback (most recent call last):\n  File \"/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_redesign_scene_tests.py\", line 278, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/runner/work/gunman-rush/gunman-rush/tools/run_plains_redesign_scene_tests.py\", line 247, in main\n    if not valid: raise RuntimeError(name + \": actual scene contract failed; preserved \" + str(folder))\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: positive: actual scene contract failed; preserved /home/runner/work/gunman-rush/gunman-rush/build/plains_redesign/scene/run_lgf6fdp6"
+    },
+    {
+      "lane": "serial",
+      "title": "",
+      "message": "Process completed with exit code 1."
+    }
+  ],
+  "analysis": {
+    "canopy": "tests/forest_depth_canopy_campaign_case.gd previously expected GOLD maxHP+2 immediately upon ownership at line59; tools/run_forest_depth_campaign_boss.py validate_canopy likewise expected immediate maxHP delta. Contradicts current backpack-only acquisition contract. Annotation provides Godot returned1, not inner assertion text, so exact original runtime assertion not independently recovered.",
+    "plains": "Annotation identifies positive actual scene contract failed. Scene runner already explicitly equips legitimately claimed Air Magazine via gear_inventory_support; exact positive validation/cleanup/engine error cannot be inferred from annotation."
+  },
+  "test_only_migration": {
+    "files": [
+      "tests/forest_depth_canopy_campaign_case.gd",
+      "tools/run_forest_depth_campaign_boss.py"
+    ],
+    "behavior": "Backpack-only GOLD ownership, stable version/source instance, explicit paused EquipmentService fixture preserves original +2/no-healing assertion while real core-choice modal remains open; random equipment/core D independence; resume by stable ResumeAdventure name; HOME clears inventory and equipment. No engine guard, budget, or production changes.",
+    "checks_executed": [
+      "python3 -m py_compile tools/run_forest_depth_campaign_boss.py",
+      "git diff --check -- tests/forest_depth_canopy_campaign_case.gd tools/run_forest_depth_campaign_boss.py"
+    ],
+    "engine_run": "Not executed by this agent; root coordinates exclusive engine and frozen-source wrapper validation"
+  }
+}

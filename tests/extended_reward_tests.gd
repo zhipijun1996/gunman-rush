@@ -60,7 +60,7 @@ func run(tree: SceneTree, check: Callable) -> void:
 			if choices.size() != 2:
 				break
 			chain_valid = chain_valid and build.add_item(StringName("item_room_%d" % stage), choices[stage % 2])
-		check.call(chain_valid and build.item_ids().size() == 9, "nine consecutive item rooms retain two legal choices seed %d" % seed_index)
+		check.call(chain_valid and build.inventory.instances().size() == 9 and build.item_ids().is_empty(), "nine consecutive item rooms retain two legal choices seed %d" % seed_index)
 		check.call(player.actor_resources.health.current == health_before, "max-health pool items never implicitly heal seed %d" % seed_index)
 	build.clear()
 	var single: Array[ItemDefinition] = [preload("res://resources/items/jump_blue.tres")]

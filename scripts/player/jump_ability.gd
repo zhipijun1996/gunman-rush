@@ -168,3 +168,10 @@ func restore_air_jump() -> void:
 	_air_max = maximum_jumps()
 	used_jumps = 1
 	_coyote_remaining = 0.0
+
+# Equipment changes occur while paused, without an advance() tick between them.
+# Record any capacity decrease immediately; growing capacity cannot grant actions
+# in this flight. maximum_jumps retains separately unlocked core abilities.
+func reconcile_capacity() -> void:
+	var maximum := maximum_jumps()
+	_air_max = maximum if _air_max < 0 else mini(_air_max, maximum)

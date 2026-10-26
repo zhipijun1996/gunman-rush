@@ -1,5 +1,18 @@
 # 项目工作规则
 
+## 2026-10-26 PR110 版本与观察守门补齐（当前）
+
+用户合入授权继续有效。当前style14／creative17的精确测试已同步，region-bible-tests显式追加原回归实际读取的11份冻结style输入，原命令／30秒预算／全部旧输入保留。forest reader的旧源码SHA不刷新，仅允许ecology1处／lift3处持有统计接口的精确迁移，其余策略字节仍受原SHA约束。原本地97、尾部14及独审与失败链见[证据](docs/evidence/run_gear_merge_05/README.md)；它们不代签最新head完整CI。恢复先核PR110：若已merged核main与自动构建，否则等待同head两full通道及affected通过后普通merge。旧阶段不合main／待测试描述按时间保留。
+
+## 2026-10-26 PR110 合入授权（当前）
+
+用户已明确要求“合入到main”，授权将本局背包／齿轮／暂停分页工作线PR110正常合并；下文“不自动合main”是此前开发阶段边界。先核精确head及完整Production impact两通道和affected汇总，通过后执行普通merge，不强推或绕过门禁。当前完整CI发现creative方向版本断言仍v16，唯一测试期望已与实际v17同步；历史版本拒绝、原阶段门和旧失败保留。若PR已merged则核main及自动构建，不重复合并。合并不代签实体设备／用户手感或内容G5。
+
+## 2026-10-26 本局背包与齿轮装备（RUN-GEAR-01）
+
+当前正式道具先入RunInventory，只有EquipmentService已装备实例进入BuildState效果计算；暂停构筑支持自由装卸／原子替换，容量及升级价以config/gear_capacity.json为唯一运行来源。保持随机道具、核心能力和当前武器独立。详见[权威规则](docs/rewards_and_builds.md)和[工作线](docs/worklines/run_gear_01/scope.md)。当前style-v14／creative-v17仅技术重绑实际DemoApp消费者，另35引用、原Bible、像素规格和所有旧版本原件不改；没有新美术生产或继承用户／设备认可。本轮PR面向main，不自动合并。
+
+
 小屏集成修订：保留本帧响应式地图／暂停位置作为避障候选，避免桌面缓存fallback覆盖真实触屏MENU。原960×540失败与4fc独审REVISE保留；两行修复后原UIcontract139/0，最终同源专项／独审和新Web以实际结果为准。
 
 ## 2026-10-24 固定状态HUD集成纠正（当前）

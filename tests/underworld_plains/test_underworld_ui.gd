@@ -14,7 +14,7 @@ func frames(count := 3) -> void:
 	for i: int in count: await process_frame
 func button(parent: Node, prefix: String) -> Button:
 	for node: Node in parent.find_children("*","Button",true,false):
-		if (node as Button).text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
+		if node.name == prefix or (node as Button).text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null,"actual requested button exists")
@@ -26,7 +26,7 @@ func click(target: Control) -> void:
 	await frames(4)
 	var parent := target.get_parent()
 	while parent != null:
-		if parent is ScrollContainer: parent.ensure_control_visible(target)
+		if parent is ScrollContainer and parent.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED: parent.ensure_control_visible(target)
 		parent = parent.get_parent()
 	await frames(4)
 	var point := target.get_global_rect().get_center()
@@ -88,10 +88,11 @@ func run() -> void:
 		menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(service);await frames();await observe("home_"+str(service),menu._root)
 	menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(&"upgrade");await click(button(menu._content,"PERMANENT"));check(upgrades.is_empty(),"actual disabled upgrade rejects native click")
 	menu.set_meta_state({"notes":7,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(&"upgrade");await click(button(menu._content,"PERMANENT"));await click(button(menu._content,"PERMANENT"));check(upgrades.size()==1,"same UI confirmation cannot submit upgrade twice")
-	menu.show_pause();await frames();await observe("pause",menu._root)
+	menu.show_pause();await frames();check(menu.visible_panel==&"build","standalone pause opens backpack preview");await observe("pause_backpack",menu._root)
+	await click(button(menu._content,"PausePage"))
 	await click(button(menu._content,"RETURN TO HOME"));check(menu.visible_panel==&"confirm_home" and leaves.is_empty(),"leave still asks actual UI confirmation")
 	await click(button(menu._content,"KEEP PLAYING"));check(resumes.size()==1 and leaves.is_empty(),"cancel resumes same run without leave")
-	menu.show_pause();await click(button(menu._content,"RETURN TO HOME"));await observe("leave_confirmation",menu._root);await click(button(menu._content,"LEAVE RUN"));check(leaves.size()==1,"confirmed native leave emits once")
+	menu.show_pause();await click(button(menu._content,"PausePage"));await click(button(menu._content,"RETURN TO HOME"));await observe("leave_confirmation",menu._root);await click(button(menu._content,"LEAVE RUN"));check(leaves.size()==1,"confirmed native leave emits once")
 	menu.hide_home()
 	var item: ItemDefinition=load("res://resources/items/jump_blue.tres")
 	var offer: RefCounted=load("res://scripts/shops/shop_offer.gd").new();offer.item=item;offer.price=10;offer.stock=1
@@ -114,9 +115,9 @@ func run() -> void:
 	var shots: int=app.controller.shoot_ability._shot_serial
 	app.controller.router.set_source_axis(&"keyboard_mouse",1.0)
 	await click(app._pause_button)
-	check(paused and app.menu.visible_panel==&"pause" and app.controller.router.axis==0,"actual pause pointer cancels movement and pauses same world")
+	check(paused and app.menu.visible_panel==&"build" and app.controller.router.axis==0,"actual pause pointer cancels movement and pauses same world")
 	await click(button(app.menu._content,"SETTINGS"));await observe("actual_run_settings",app.menu._root);await click(button(app.menu._content,"BACK"));check(paused,"settings back retains real world pause")
-	await click(button(app.menu._content,"YOUR BUILD"));await observe("actual_build",app.menu._root);await click(button(app.menu._content,"BACK"));await click(button(app.menu._content,"RESUME"))
+	check(app.menu.visible_panel==&"build","settings Back returns to live backpack");await observe("actual_build",app.menu._root);await click(button(app.menu._content,"ResumeAdventure"))
 	check(not paused and app.player==actual_player and app.controller.shoot_ability._shot_serial==shots,"resume preserves player and does not emit an old shot")
 	await click(app.stage.map_view);check(paused and app.map_modal.opened,"actual minimap pointer opens original fog map")
 	var old_zoom: float=app.map_modal.canvas.zoom
@@ -128,19 +129,19 @@ func run() -> void:
 	check(app.overlay._captures.get(77)==&"jump","real touch event captures original jump button index")
 	await observe("actual_touch_hud",app._resources_hud)
 	var menu_touch:=InputEventScreenTouch.new();menu_touch.index=78;menu_touch.position=app.overlay._pause_rect.get_center();menu_touch.pressed=true;Input.parse_input_event(menu_touch);await frames(3)
-	check(paused and app.menu.visible_panel==&"pause" and app.overlay._captures.is_empty(),"actual touch MENU pauses and cancels held touch without stale release")
+	check(paused and app.menu.visible_panel==&"build" and app.overlay._captures.is_empty(),"actual touch MENU pauses and cancels held touch without stale release")
 	menu_touch=InputEventScreenTouch.new();menu_touch.index=78;menu_touch.position=app.overlay._pause_rect.get_center();menu_touch.pressed=false;Input.parse_input_event(menu_touch);await frames(2)
 	touch=InputEventScreenTouch.new();touch.index=77;touch.position=app.overlay.jump_center;touch.pressed=false;Input.parse_input_event(touch);await frames(2)
-	await click(button(app.menu._content,"RESUME"));check(app.overlay._captures.is_empty(),"resume requires a new touch")
+	await click(button(app.menu._content,"ResumeAdventure"));check(app.overlay._captures.is_empty(),"resume requires a new touch")
 	app.overlay.set_enabled(false)
 	for viewport: Vector2i in [Vector2i(960,540),Vector2i(720,1280)]:
 		root.size=viewport;await frames(3);app.menu.show_pause();await frames(4)
 		for control: Node in app.menu._content.find_children("*","Button",true,false):
 			check(root.get_visible_rect().encloses(control.get_global_rect()),"actual small viewport menu buttons fit horizontally and vertically")
 		await observe("viewport_"+str(viewport.x)+"x"+str(viewport.y),app.menu._root)
-		await click(button(app.menu._content,"RESUME"))
+		await click(button(app.menu._content,"ResumeAdventure"))
 	root.size=Vector2i(1280,720);await frames(3)
-	await click(app._pause_button);await click(button(app.menu._content,"RETURN TO HOME"));await click(button(app.menu._content,"LEAVE RUN"));await frames(8)
+	await click(app._pause_button);await click(button(app.menu._content,"PausePage"));await click(button(app.menu._content,"RETURN TO HOME"));await click(button(app.menu._content,"LEAVE RUN"));await frames(8)
 	check(app.home_scene!=null and app.player==null and not paused,"actual leave confirmation unloads run and returns real Home")
 	if app.home_scene!=null:await observe("actual_home_return",app.home_scene._status.get_parent())
 	else:app.abandon_run();await frames(8)

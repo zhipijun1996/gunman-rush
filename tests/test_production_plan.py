@@ -179,7 +179,7 @@ class ProductionPlanTests(unittest.TestCase):
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
         self.assertFalse(set(parallel) & set(serial))
         self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (142,89,53))
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (144,89,55))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
