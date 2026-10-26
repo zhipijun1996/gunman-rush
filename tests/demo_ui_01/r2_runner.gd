@@ -295,10 +295,16 @@ func run() -> void:
 	app.menu.show_title()
 	await frames()
 	await click(named("BeginAdventure"))
+	check(is_instance_valid(app.home_scene) and app.director.state == DemoRunDirector.State.HOME, "actual title start enters the current playable Home")
+	# The current title enters Home. Retain this UI-only suite's formal pause
+	# checks through the real Home navigation button, without claiming traversal.
+	app.menu._seed = "level-design-v2-baseline/08"
+	app._open_home_navigation()
+	await click(prefix("Explore"))
 	for attempt: int in 90:
 		if app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller) and is_instance_valid(app.stage): break
 		await process_frame
-	check(app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller), "actual title start creates formal game consumer")
+	check(app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller), "actual Home navigation starts the formal game consumer for retained pause checks")
 	if is_instance_valid(app.controller): await pause_checks()
 	paused = false
 	check(await preload("res://tests/audio_teardown.gd").drain_world(app), "actual test world releases owned audio before teardown")
