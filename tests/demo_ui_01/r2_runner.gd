@@ -300,6 +300,7 @@ func run() -> void:
 	# checks through the real Home navigation button, without claiming traversal.
 	app.menu._seed = "level-design-v2-baseline/08"
 	app._open_home_navigation()
+	await frames(6)
 	await click(prefix("Explore"))
 	for attempt: int in 90:
 		if app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller) and is_instance_valid(app.stage): break
