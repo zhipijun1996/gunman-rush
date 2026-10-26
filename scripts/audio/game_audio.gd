@@ -307,7 +307,7 @@ func play_director_event(event_id: StringName, candidate: String = "", origin: N
 	selected.process_mode = Node.PROCESS_MODE_ALWAYS if bus == &"UI" else Node.PROCESS_MODE_PAUSABLE
 	selected.set_meta("cue_id", StringName("director_" + event_id))
 	selected.set_meta("director_event", event_id)
-	selected.set_meta("director_family", &"motion" if event_id in [&"jump", &"land"] else &"weapon" if event_id in [&"shot", &"enemy_hit"] else &"event")
+	selected.set_meta("director_family", &"motion" if event_id in [&"jump", &"land"] else &"weapon" if event_id in [&"shot", &"enemy_hit", &"shot_pulse", &"shot_shuriken", &"shot_bomb", &"bomb_explode"] else &"event")
 	selected.set_meta("director_sustained", sustained)
 	selected.set_meta("audio_priority", priority)
 	if is_instance_valid(origin): selected.set_meta("director_origin", weakref(origin))

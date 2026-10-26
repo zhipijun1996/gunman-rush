@@ -1,0 +1,1593 @@
+{
+  "schema_version": 1,
+  "version": "audio-director-v3",
+  "task": "AUDIO-DIRECTOR-03",
+  "profiles": {
+    "A": "A · 清脆获得",
+    "B": "B · 水铃童话",
+    "C": "C · 木芯机关"
+  },
+  "sample_rate": 44100,
+  "peak_ceiling_dbfs": -5,
+  "silence_threshold_dbfs": -58,
+  "preserve_original_events": [
+    "jump",
+    "land",
+    "step",
+    "enemy_death",
+    "hook_release",
+    "hook_connect",
+    "hook_pull"
+  ],
+  "reference_policy": "Mario/Animal Crossing/Hollow Knight references describe event contour and responsiveness only; no commercial-game audio copied",
+  "events": [
+    {
+      "id": "coin",
+      "label": "金币收集",
+      "category": "拾取",
+      "legacy_cue": "coin",
+      "max_seconds": 0.45,
+      "target_rms_dbfs": -23,
+      "candidates": [
+        {
+          "id": "coin_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "明亮收集上扬，不使用钱币落地声",
+          "layers": [
+            {
+              "source": "get/Coin01.aif",
+              "clip_seconds": 0.23,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": 3,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.12,
+              "delay_seconds": 0.045,
+              "gain": 0.17,
+              "pitch_semitones": 12,
+              "lowpass_hz": 12000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "coin_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "明亮收集上扬，不使用钱币落地声",
+          "layers": [
+            {
+              "source": "get/Coin01.aif",
+              "clip_seconds": 0.18,
+              "delay_seconds": 0,
+              "gain": 0.65,
+              "pitch_semitones": 7,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.19,
+              "delay_seconds": 0.04,
+              "gain": 0.3,
+              "pitch_semitones": 12,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "coin_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "明亮收集上扬，不使用钱币落地声",
+          "layers": [
+            {
+              "source": "k/core",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0,
+              "gain": 0.55,
+              "pitch_semitones": 7,
+              "lowpass_hz": 12000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.23,
+              "delay_seconds": 0.065,
+              "gain": 0.7,
+              "pitch_semitones": 14,
+              "lowpass_hz": 12000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heal",
+      "label": "液体回血",
+      "category": "拾取",
+      "legacy_cue": "heal",
+      "max_seconds": 0.8,
+      "target_rms_dbfs": -24,
+      "candidates": [
+        {
+          "id": "heal_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "液体气泡/轻水流回复",
+          "layers": [
+            {
+              "source": "water/bubble_01.ogg",
+              "clip_seconds": 0.45,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "water/splash_09.ogg",
+              "clip_seconds": 0.25,
+              "delay_seconds": 0.08,
+              "gain": 0.4,
+              "pitch_semitones": 0,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "get/Upper01.aif",
+              "clip_seconds": 0.24,
+              "delay_seconds": 0.34,
+              "gain": 0.13,
+              "pitch_semitones": 3,
+              "lowpass_hz": 7500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "heal_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "液体气泡/轻水流回复",
+          "layers": [
+            {
+              "source": "water/bubble_03.ogg",
+              "clip_seconds": 0.48,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": -2,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "water/loop_water_01.ogg",
+              "clip_seconds": 0.42,
+              "delay_seconds": 0.03,
+              "gain": 0.3,
+              "pitch_semitones": 0,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.25,
+              "delay_seconds": 0.39,
+              "gain": 0.1,
+              "pitch_semitones": 12,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "heal_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "液体气泡/轻水流回复",
+          "layers": [
+            {
+              "source": "water/bubble_02.ogg",
+              "clip_seconds": 0.3,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "water/splash_10.ogg",
+              "clip_seconds": 0.28,
+              "delay_seconds": 0.15,
+              "gain": 0.65,
+              "pitch_semitones": 2,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "get/Upper01.aif",
+              "clip_seconds": 0.25,
+              "delay_seconds": 0.36,
+              "gain": 0.08,
+              "pitch_semitones": 7,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chest_open",
+      "label": "宝箱开启",
+      "category": "奖励",
+      "legacy_cue": null,
+      "max_seconds": 0.9,
+      "target_rms_dbfs": -23,
+      "candidates": [
+        {
+          "id": "chest_open_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "锁扣、木盖、宝石余响",
+          "layers": [
+            {
+              "source": "rpg/lock_01.ogg",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0,
+              "gain": 0.65,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/door",
+              "clip_seconds": 0.48,
+              "delay_seconds": 0.1,
+              "gain": 0.65,
+              "pitch_semitones": 0,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_02.ogg",
+              "clip_seconds": 0.28,
+              "delay_seconds": 0.43,
+              "gain": 0.28,
+              "pitch_semitones": 4,
+              "lowpass_hz": 10500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "chest_open_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "锁扣、木盖、宝石余响",
+          "layers": [
+            {
+              "source": "material/lock_open_01.ogg",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0,
+              "gain": 0.55,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/door",
+              "clip_seconds": 0.37,
+              "delay_seconds": 0.12,
+              "gain": 0.6,
+              "pitch_semitones": 3,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "get/Upper01.aif",
+              "clip_seconds": 0.3,
+              "delay_seconds": 0.4,
+              "gain": 0.23,
+              "pitch_semitones": 0,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "chest_open_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "锁扣、木盖、宝石余响",
+          "layers": [
+            {
+              "source": "material/keys_03.ogg",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0,
+              "gain": 0.55,
+              "pitch_semitones": 0,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/wood_close_02.ogg",
+              "clip_seconds": 0.35,
+              "delay_seconds": 0.1,
+              "gain": 0.65,
+              "pitch_semitones": -2,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.4,
+              "delay_seconds": 0.43,
+              "gain": 0.23,
+              "pitch_semitones": 7,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "item_get",
+      "label": "长道具获得",
+      "category": "奖励",
+      "legacy_cue": null,
+      "max_seconds": 2.35,
+      "target_rms_dbfs": -24,
+      "candidates": [
+        {
+          "id": "item_get_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "独立较长获得小乐句，不是BGM",
+          "layers": [
+            {
+              "source": "get/Rise01.aif",
+              "clip_seconds": 1.7,
+              "delay_seconds": 0,
+              "gain": 0.7,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.12,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.46,
+              "delay_seconds": 1.63,
+              "gain": 0.22,
+              "pitch_semitones": 12,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.12,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "item_get_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "独立较长获得小乐句，不是BGM",
+          "layers": [
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 0,
+              "gain": 0.5,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 0.26,
+              "gain": 0.48,
+              "pitch_semitones": 3,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 0.56,
+              "gain": 0.5,
+              "pitch_semitones": 7,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 0.91,
+              "gain": 0.52,
+              "pitch_semitones": 10,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 1.28,
+              "gain": 0.56,
+              "pitch_semitones": 12,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/item_gem_01.ogg",
+              "clip_seconds": 0.34,
+              "delay_seconds": 1.67,
+              "gain": 0.6,
+              "pitch_semitones": 19,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.08,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "item_get_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "独立较长获得小乐句，不是BGM",
+          "layers": [
+            {
+              "source": "rpg/lock_02.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.28,
+              "pitch_semitones": 0,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "get/Rise03.aif",
+              "clip_seconds": 1.5,
+              "delay_seconds": 0.08,
+              "gain": 0.55,
+              "pitch_semitones": 0,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.1,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.42,
+              "delay_seconds": 1.7,
+              "gain": 0.25,
+              "pitch_semitones": 12,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.12,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "click",
+      "label": "UI点击",
+      "category": "界面",
+      "legacy_cue": "click",
+      "max_seconds": 0.12,
+      "target_rms_dbfs": -28,
+      "candidates": [
+        {
+          "id": "click_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/click1.wav",
+              "clip_seconds": 0.055,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "click_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/rollover3.wav",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "click_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/click3.wav",
+              "clip_seconds": 0.075,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 7500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confirm",
+      "label": "UI确认",
+      "category": "界面",
+      "legacy_cue": "confirm",
+      "max_seconds": 0.25,
+      "target_rms_dbfs": -26,
+      "candidates": [
+        {
+          "id": "confirm_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/switch12.wav",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0,
+              "gain": 0.7,
+              "pitch_semitones": 0,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.15,
+              "delay_seconds": 0.035,
+              "gain": 0.23,
+              "pitch_semitones": 7,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "confirm_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/rollover5.wav",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.65,
+              "pitch_semitones": 0,
+              "lowpass_hz": 7500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "get/Upper01.aif",
+              "clip_seconds": 0.12,
+              "delay_seconds": 0.04,
+              "gain": 0.21,
+              "pitch_semitones": 7,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "confirm_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "rpg/lock_02.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.7,
+              "pitch_semitones": 0,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.14,
+              "delay_seconds": 0.035,
+              "gain": 0.2,
+              "pitch_semitones": 12,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "denied",
+      "label": "UI拒绝",
+      "category": "界面",
+      "legacy_cue": "denied",
+      "max_seconds": 0.22,
+      "target_rms_dbfs": -28,
+      "candidates": [
+        {
+          "id": "denied_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/switch14.wav",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "denied_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "ui/switch28.wav",
+              "clip_seconds": 0.09,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": 0,
+              "lowpass_hz": 5000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "denied_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "rpg/lock_01.ogg",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": -4,
+              "lowpass_hz": 5000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enemy_hit",
+      "label": "攻击命中",
+      "category": "战斗",
+      "legacy_cue": null,
+      "max_seconds": 0.22,
+      "target_rms_dbfs": -22,
+      "candidates": [
+        {
+          "id": "enemy_hit_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "rpg/blade_01.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.24,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_hit_01.ogg",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0.008,
+              "gain": 0.9,
+              "pitch_semitones": -2,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/core",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0.008,
+              "gain": 0.1,
+              "pitch_semitones": 8,
+              "lowpass_hz": 12000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "enemy_hit_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "rpg/blade_02.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.28,
+              "pitch_semitones": 3,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_hit_06.ogg",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0.008,
+              "gain": 0.9,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "enemy_hit_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "rpg/blade_03.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0,
+              "gain": 0.3,
+              "pitch_semitones": 0,
+              "lowpass_hz": 9500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/wood_hit_05.ogg",
+              "clip_seconds": 0.12,
+              "delay_seconds": 0.008,
+              "gain": 0.9,
+              "pitch_semitones": -3,
+              "lowpass_hz": 9000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/metal_hit_03.ogg",
+              "clip_seconds": 0.06,
+              "delay_seconds": 0.01,
+              "gain": 0.12,
+              "pitch_semitones": 5,
+              "lowpass_hz": 10500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enemy_hurt",
+      "label": "敌人受伤",
+      "category": "战斗",
+      "legacy_cue": "hurt",
+      "max_seconds": 0.19,
+      "target_rms_dbfs": -29,
+      "candidates": [
+        {
+          "id": "enemy_hurt_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "hit/bfh1_hit_03.ogg",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": -4,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "enemy_hurt_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "hit/bfh1_hit_10.ogg",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": -2,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "enemy_hurt_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "material/wood_hit_04.ogg",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": -3,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hurt",
+      "label": "主角受伤",
+      "category": "战斗",
+      "legacy_cue": "hurt",
+      "max_seconds": 0.27,
+      "target_rms_dbfs": -23,
+      "candidates": [
+        {
+          "id": "hurt_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "k/hurt",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0,
+              "gain": 0.65,
+              "pitch_semitones": -4,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_hit_05.ogg",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0.005,
+              "gain": 0.4,
+              "pitch_semitones": -2,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "hurt_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "hit/bfh1_hit_09.ogg",
+              "clip_seconds": 0.14,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": -3,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0.02,
+              "gain": 0.2,
+              "pitch_semitones": 0,
+              "lowpass_hz": 5000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "hurt_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短、清晰、与动作同步的反馈",
+          "layers": [
+            {
+              "source": "hit/bfh1_hit_12.ogg",
+              "clip_seconds": 0.14,
+              "delay_seconds": 0,
+              "gain": 1,
+              "pitch_semitones": -4,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/wood_misc_01.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0.01,
+              "gain": 0.2,
+              "pitch_semitones": -3,
+              "lowpass_hz": 5000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shot_pulse",
+      "label": "脉冲枪开火",
+      "category": "武器",
+      "legacy_cue": null,
+      "max_seconds": 0.24,
+      "target_rms_dbfs": -23,
+      "candidates": [
+        {
+          "id": "shot_pulse_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "短空气/簧片脉冲",
+          "layers": [
+            {
+              "source": "k/shot",
+              "clip_seconds": 0.085,
+              "delay_seconds": 0,
+              "gain": 0.7,
+              "pitch_semitones": -2,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/lock_02.ogg",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0.018,
+              "gain": 0.3,
+              "pitch_semitones": -3,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_pulse_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "短空气/簧片脉冲",
+          "layers": [
+            {
+              "source": "k/shot",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0,
+              "gain": 0.65,
+              "pitch_semitones": 3,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "k/impact",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0.005,
+              "gain": 0.25,
+              "pitch_semitones": 2,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_pulse_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "短空气/簧片脉冲",
+          "layers": [
+            {
+              "source": "k/shot",
+              "clip_seconds": 0.075,
+              "delay_seconds": 0,
+              "gain": 0.6,
+              "pitch_semitones": -5,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/metal_spring_01.ogg",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0.01,
+              "gain": 0.25,
+              "pitch_semitones": 2,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shot_shuriken",
+      "label": "手里剑释放",
+      "category": "武器",
+      "legacy_cue": null,
+      "max_seconds": 0.27,
+      "target_rms_dbfs": -25,
+      "candidates": [
+        {
+          "id": "shot_shuriken_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "快速刃风和小金属",
+          "layers": [
+            {
+              "source": "rpg/blade_01.ogg",
+              "clip_seconds": 0.15,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": 2,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/keys_02.ogg",
+              "clip_seconds": 0.06,
+              "delay_seconds": 0.01,
+              "gain": 0.16,
+              "pitch_semitones": 5,
+              "lowpass_hz": 12000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_shuriken_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "快速刃风和小金属",
+          "layers": [
+            {
+              "source": "rpg/blade_02.ogg",
+              "clip_seconds": 0.13,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": 5,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/metal_02.ogg",
+              "clip_seconds": 0.06,
+              "delay_seconds": 0.01,
+              "gain": 0.16,
+              "pitch_semitones": 7,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_shuriken_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "快速刃风和小金属",
+          "layers": [
+            {
+              "source": "rpg/blade_03.ogg",
+              "clip_seconds": 0.16,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": 0,
+              "lowpass_hz": 10000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/chain_02.ogg",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0.02,
+              "gain": 0.17,
+              "pitch_semitones": 4,
+              "lowpass_hz": 11000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shot_bomb",
+      "label": "反冲炸弹投出",
+      "category": "武器",
+      "legacy_cue": null,
+      "max_seconds": 0.27,
+      "target_rms_dbfs": -25,
+      "candidates": [
+        {
+          "id": "shot_bomb_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "物件投出与扣锁",
+          "layers": [
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.11,
+              "delay_seconds": 0,
+              "gain": 0.6,
+              "pitch_semitones": -2,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/lock_01.ogg",
+              "clip_seconds": 0.07,
+              "delay_seconds": 0.02,
+              "gain": 0.4,
+              "pitch_semitones": -4,
+              "lowpass_hz": 8000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_bomb_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "物件投出与扣锁",
+          "layers": [
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.12,
+              "delay_seconds": 0,
+              "gain": 0.6,
+              "pitch_semitones": 0,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "material/wood_misc_02.ogg",
+              "clip_seconds": 0.08,
+              "delay_seconds": 0.03,
+              "gain": 0.3,
+              "pitch_semitones": 0,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "shot_bomb_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "物件投出与扣锁",
+          "layers": [
+            {
+              "source": "k/jump",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0,
+              "gain": 0.55,
+              "pitch_semitones": -3,
+              "lowpass_hz": 6000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/chain_01.ogg",
+              "clip_seconds": 0.1,
+              "delay_seconds": 0.02,
+              "gain": 0.35,
+              "pitch_semitones": -2,
+              "lowpass_hz": 7500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bomb_explode",
+      "label": "反冲炸弹爆炸",
+      "category": "武器",
+      "legacy_cue": null,
+      "max_seconds": 0.6,
+      "target_rms_dbfs": -21,
+      "candidates": [
+        {
+          "id": "bomb_explode_a",
+          "profile": "A",
+          "label": "A · 清脆获得",
+          "design": "低部冲击、短破碎尾",
+          "layers": [
+            {
+              "source": "k/roar",
+              "clip_seconds": 0.23,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": -8,
+              "lowpass_hz": 4500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_breaking_01.ogg",
+              "clip_seconds": 0.27,
+              "delay_seconds": 0.008,
+              "gain": 0.55,
+              "pitch_semitones": -5,
+              "lowpass_hz": 7000,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/stones_01.ogg",
+              "clip_seconds": 0.15,
+              "delay_seconds": 0.11,
+              "gain": 0.18,
+              "pitch_semitones": -2,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "bomb_explode_b",
+          "profile": "B",
+          "label": "B · 水铃童话",
+          "design": "低部冲击、短破碎尾",
+          "layers": [
+            {
+              "source": "k/roar",
+              "clip_seconds": 0.22,
+              "delay_seconds": 0,
+              "gain": 0.8,
+              "pitch_semitones": -6,
+              "lowpass_hz": 4200,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_breaking_02.ogg",
+              "clip_seconds": 0.29,
+              "delay_seconds": 0.012,
+              "gain": 0.55,
+              "pitch_semitones": -4,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/stones_02.ogg",
+              "clip_seconds": 0.18,
+              "delay_seconds": 0.1,
+              "gain": 0.16,
+              "pitch_semitones": 0,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        },
+        {
+          "id": "bomb_explode_c",
+          "profile": "C",
+          "label": "C · 木芯机关",
+          "design": "低部冲击、短破碎尾",
+          "layers": [
+            {
+              "source": "k/boss_impact",
+              "clip_seconds": 0.2,
+              "delay_seconds": 0,
+              "gain": 0.9,
+              "pitch_semitones": -7,
+              "lowpass_hz": 4500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "hit/bfh1_breaking_03.ogg",
+              "clip_seconds": 0.27,
+              "delay_seconds": 0.008,
+              "gain": 0.5,
+              "pitch_semitones": -5,
+              "lowpass_hz": 6500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            },
+            {
+              "source": "rpg/stones_03.ogg",
+              "clip_seconds": 0.16,
+              "delay_seconds": 0.1,
+              "gain": 0.18,
+              "pitch_semitones": -2,
+              "lowpass_hz": 8500,
+              "highpass_hz": 40,
+              "attack_seconds": 0.002,
+              "release_seconds": 0.015,
+              "start_seconds": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -78,6 +78,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | in_progress | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |
 | AUDIO-DIRECTOR-02 | 现成CC0三套与真实情境工坊 | AUDIO-DIRECTOR-01 | review | 保原跳落；UI/拾取/战斗可重复比较，用户听感与设备待验 |
 | AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |
 | PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；当前b761/5ce真实候选已公开，最终CI／main状态核PR108；玩家／设备认可分别记录 |
