@@ -1,5 +1,11 @@
 # 当前交接（2026-10-24）
 
+## 2026-10-26 PR110：已获合入授权，先核实际状态
+
+用户已明确“合入到main”，覆盖下方旧开发阶段不合并边界。工作线`feature/run-gear-inventory`／[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)。运行源仍`bb4bf46`（R2入口测试源11a4216）；新增`fae1799`仅把creative契约测试的精确v16期望改v17，不改游戏／资源／工具或美术。全量CI的真实版本失败、不同作者独立10／0和历史拒绝见[本轮证据](evidence/run_gear_merge_04/README.md)。
+
+下一步核精确PR head的prepare、完整parallel／serial及affected汇总：全部通过后正常merge，保原预算和全部守门；失败先定位具体check，不使用admin绕过。若已merged则同步／核main树和自动Godot构建，不重启旧PR或重复合并。主站发布以新构建的真实结果为准；合并不是设备／玩家G5签字。恢复命令：`gh pr view 110 --json state,headRefOid,mergeCommit,statusCheckRollup`。
+
 ## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页
 
 本轮用户反馈已实现于`feature/run-gear-inventory`／[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`：暂停一次打开背包，左已装备／齿轮形状负荷槽／独立滚动网格，右选中详情及装卸，顶部箭头、Q/E、LB/RB换页，关闭继续。选择只更新详情，离页会话失效，旧详情动作失效；不改变核心物理或交易。原规则见[权威文档](rewards_and_builds.md)，范围和独立分工见[反馈工作线](worklines/run_gear_01/ui-feedback-02.md)。

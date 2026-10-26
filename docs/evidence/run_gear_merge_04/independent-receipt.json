@@ -1,0 +1,51 @@
+{
+  "reviewer": "/root/merge_guard_review",
+  "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "tests/test_region_creative_direction.py"
+  ],
+  "exit_code": 0,
+  "seconds": 1.1282121620024554,
+  "tests": 10,
+  "source_before": {
+    "tests/test_region_creative_direction.py": "1837cf1e8980763b59637011ad6571b61ac5f16726fe6b39c1fbef01544b09d0",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+    "docs/creative_direction/bibles/registry.json": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+    "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+    "docs/creative_direction/windchime_plains.json": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+    "docs/creative_direction/thorn_forest.json": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
+    "docs/creative_direction/archive/creative-v16/registry.json": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996",
+    "docs/creative_direction/archive/creative-v16/windchime_plains.json": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155",
+    "docs/creative_direction/archive/creative-v16/thorn_forest.json": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+  },
+  "source_after": {
+    "tests/test_region_creative_direction.py": "1837cf1e8980763b59637011ad6571b61ac5f16726fe6b39c1fbef01544b09d0",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+    "docs/creative_direction/bibles/registry.json": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+    "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+    "docs/creative_direction/windchime_plains.json": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+    "docs/creative_direction/thorn_forest.json": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
+    "docs/creative_direction/archive/creative-v16/registry.json": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996",
+    "docs/creative_direction/archive/creative-v16/windchime_plains.json": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155",
+    "docs/creative_direction/archive/creative-v16/thorn_forest.json": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+  },
+  "source_stable": true,
+  "archive_v16_refusals": [
+    {
+      "path": "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+      "rejected": true,
+      "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+    },
+    {
+      "path": "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+      "rejected": true,
+      "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+    }
+  ],
+  "scope": "Independent original 10 Python tests and explicit archived-v16 refusal checks only; no Godot, asset production, full CI or player/device approval."
+}

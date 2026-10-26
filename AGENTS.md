@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-26 PR110 合入授权（当前）
+
+用户已明确要求“合入到main”，授权将本局背包／齿轮／暂停分页工作线PR110正常合并；下文“不自动合main”是此前开发阶段边界。先核精确head及完整Production impact两通道和affected汇总，通过后执行普通merge，不强推或绕过门禁。当前完整CI发现creative方向版本断言仍v16，唯一测试期望已与实际v17同步；历史版本拒绝、原阶段门和旧失败保留。若PR已merged则核main及自动构建，不重复合并。合并不代签实体设备／用户手感或内容G5。
+
 ## 2026-10-26 本局背包与齿轮装备（RUN-GEAR-01）
 
 当前正式道具先入RunInventory，只有EquipmentService已装备实例进入BuildState效果计算；暂停构筑支持自由装卸／原子替换，容量及升级价以config/gear_capacity.json为唯一运行来源。保持随机道具、核心能力和当前武器独立。详见[权威规则](docs/rewards_and_builds.md)和[工作线](docs/worklines/run_gear_01/scope.md)。当前style-v14／creative-v17仅技术重绑实际DemoApp消费者，另35引用、原Bible、像素规格和所有旧版本原件不改；没有新美术生产或继承用户／设备认可。本轮PR面向main，不自动合并。

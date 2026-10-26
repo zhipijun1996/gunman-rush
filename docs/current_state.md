@@ -1,5 +1,11 @@
 # 当前状态
 
+## 2026-10-26 PR110：用户已授权合入main
+
+用户本轮明确“合入到main”。[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)在完整CI通过后正常merge；旧“不合main”段落是此前开发阶段快照。若已merged，直接核main合并提交与自动Godot构建，不重复合并或把构建排队称网页发布。
+
+原CI40316936625在parallel已通过66项后，因`tests/test_region_creative_direction.py`期望creative-v16而正式记录为v17失败；serial55项全部通过，parallel66通过／1失败／22未执行；整轮仍失败，不能记完整通过。唯一代码修复`fae1799c869feb891f01afd5a912ab1b0fde3594`只更新精确测试版本期望，游戏／录片／资源字节不变。原10测试重现1失败，修复后原Harness及不同作者独立10／0，历史v16及v2拒绝、G2/content/未正式开放断言保留；详见[合入守门记录](evidence/run_gear_merge_04/README.md)。原失败未追签，最终同head完整CI及main实际状态以PR为准。用户／实体设备与复杂效果边界保持。
+
 ## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页
 
 用户要求暂停直接背包、左右切页、图标网格与右侧详情，补充负荷槽必须是齿轮形状。已更新同一[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`，分支`feature/run-gear-inventory`，不合main。新入口与布局覆盖下方RUN-GEAR-01旧暂停构筑入口，所有权／装备／交易合同保持。
