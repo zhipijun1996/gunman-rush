@@ -14,7 +14,7 @@
 <script>
 'use strict';
 const $=id=>document.getElementById(id),video=$('reel-video');
-const CATEGORY_NAMES={ui:'界面交互',pickup:'物品拾取',combat:'命中与受伤'};
+const CATEGORY_NAMES={ui:'界面交互',pickup:'物品拾取',combat:'命中与受伤',weapons:'武器射击',mix:'原BGM混音'};
 const EVENT_NAMES={click:'按钮点击',confirm:'确认',denied:'拒绝',coin:'金币拾取',heal:'生命恢复',reward:'普通奖励',enemy_hit:'命中敌人',enemy_hurt:'敌人受伤',hurt:'主角受伤'};
 let data=null,currentClip=null,currentVersion=null,category=null,activeCandidate=null,choices={},epoch=0,deadline=null,frameRequest=null,internalSeek=null,sourceLoadError=null,knownMetadata=false,boundaryBusy=false;
 window.REELS_STATS={ready:false,loops:0,starts:0,cancellations:0,mediaErrors:[],get state(){return {clip_id:currentClip?.id||null,version_id:currentVersion?.id||null,candidate_id:activeCandidate?.id||null,loop:$('loop-segment').checked,paused:video.paused,time:video.currentTime,duration:Number.isFinite(video.duration)?video.duration:null}}};
