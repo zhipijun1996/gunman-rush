@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-MERGE-05",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "05200fcebae600be35e5864cef85358c730534dd",
+  "reviewed_commit": "56f74fb0918d1cfbd1487a9734403975caf2e85f",
+  "content_version": "candidate-v1-style14-input-and-telemetry-guards",
+  "owner": "/root",
+  "purpose": "补齐合入暴露的style版本、有限历史输入与原持有观察源码守门",
+  "player_experience": "只修测试和输入声明，原策略／物理／装备事务与美术不变",
+  "constraints": [
+    "精确style14及旧v13拒绝，不改36引用／G2／content等原阶段门",
+    "Harness只增11明确输入，保旧输入前缀／argv／30秒／regex",
+    "原2 SHA不刷新，仅允许1／3处持有观察API归一化，其他字节精确受原SHA约束",
+    "只修测试／输入元数据，未改游戏或进行美术生产",
+    "同最新head完整CI通过后普通merge，保持设备／玩家边界"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/quality/records/RUN-GEAR-MERGE-05.json",
+    "tests/test_region_bible.py",
+    "tests/test_forest_bible_trace_consumers.py",
+    "tools/harness/profiles.json",
+    "docs/evidence/run_gear_merge_05/README.md",
+    "docs/evidence/run_gear_merge_05/bible-version-before.log",
+    "docs/evidence/run_gear_merge_05/contracts/creative-direction-tests.log",
+    "docs/evidence/run_gear_merge_05/contracts/forest-bible-reader-tests.log",
+    "docs/evidence/run_gear_merge_05/contracts/region-bible-tests.log",
+    "docs/evidence/run_gear_merge_05/contracts/report.json",
+    "docs/evidence/run_gear_merge_05/failed-ci-bible.log",
+    "docs/evidence/run_gear_merge_05/failed-ci-identity.json",
+    "docs/evidence/run_gear_merge_05/failed-ci-phase-report.json",
+    "docs/evidence/run_gear_merge_05/history/candidate-30bf-report.json",
+    "docs/evidence/run_gear_merge_05/history/candidate-30bf.log",
+    "docs/evidence/run_gear_merge_05/history/candidate-ae50-report.json",
+    "docs/evidence/run_gear_merge_05/history/candidate-ae50.log",
+    "docs/evidence/run_gear_merge_05/history/probe01-nonrepo.log",
+    "docs/evidence/run_gear_merge_05/history/probe03-output-policy.log",
+    "docs/evidence/run_gear_merge_05/independent-review.md",
+    "docs/evidence/run_gear_merge_05/inputs-positive.json",
+    "docs/evidence/run_gear_merge_05/reader-before-report.json",
+    "docs/evidence/run_gear_merge_05/reader-before.log",
+    "docs/evidence/run_gear_merge_05/review.json",
+    "docs/evidence/run_gear_merge_05/reviewer/bible32.log",
+    "docs/evidence/run_gear_merge_05/reviewer/creative10.log",
+    "docs/evidence/run_gear_merge_05/reviewer/final56f/bible32.log",
+    "docs/evidence/run_gear_merge_05/reviewer/final56f/creative10.log",
+    "docs/evidence/run_gear_merge_05/reviewer/final56f/reader55.log",
+    "docs/evidence/run_gear_merge_05/reviewer/final56f/receipt.json",
+    "docs/evidence/run_gear_merge_05/reviewer/interim.json",
+    "docs/evidence/run_gear_merge_05/reviewer/receipt.json",
+    "docs/evidence/run_gear_merge_05/reviewer/review.json",
+    "docs/evidence/run_gear_merge_05/reviewer/review.md",
+    "docs/evidence/run_gear_merge_05/reviewer/telemetry-static-audit.json",
+    "docs/evidence/run_gear_merge_05/sparse-negative-receipt.json",
+    "docs/evidence/run_gear_merge_05/sparse-negative.json",
+    "docs/evidence/run_gear_merge_05/tail14/bgm-integration-bgm-integration.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/bgm-integration-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-delivery-tests-cloud-delivery-tests.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-delivery-tests-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-inputs-tests-cloud-inputs-tests.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-inputs-tests-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-production-planner-tests-cloud-production-planner-tests.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/cloud-production-planner-tests-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/demo-ui-time-energy-demo-ui-time-energy.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/demo-ui-time-energy-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-corpse-save-enemy-corpse-save.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-corpse-save-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-corpse-snapshot-enemy-corpse-snapshot.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-corpse-snapshot-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-formal-enemy-feedback-formal.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-formal-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-native-enemy-feedback-native.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-native-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-support-enemy-feedback-support.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/enemy-feedback-support-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/forest-bible-av-reader-tests-forest-bible-av-reader-tests.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/forest-bible-av-reader-tests-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/harness-artifact-archive-tests-harness-artifact-archive-tests.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/harness-artifact-archive-tests-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/player-default-integration-player-default-integration.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/player-default-integration-report.json",
+    "docs/evidence/run_gear_merge_05/tail14/portable-frozen-assets-portable-frozen-assets.log.gz",
+    "docs/evidence/run_gear_merge_05/tail14/portable-frozen-assets-report.json",
+    "docs/evidence/run_gear_merge_05/tail14-summary.json"
+  ],
+  "deliverables": [
+    "tests/test_region_bible.py",
+    "tests/test_forest_bible_trace_consumers.py",
+    "tools/harness/profiles.json",
+    "docs/evidence/run_gear_merge_05/README.md",
+    "docs/evidence/run_gear_merge_05/review.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Concrete version/input/owned telemetry mismatch",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Original97 and distinct-author97 plus source negatives",
+      "evidence": [
+        "run",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Test-only small fix",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Bounded guard preservation and actual original tests",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded guard preservation and actual original tests",
+      "evidence": [
+        "run"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded guard preservation and actual original tests",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Only source guards and input metadata changed; no runtime/creative/device acceptance",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "scenario": "Current style14 and owned telemetry retain original authority/strategy boundaries",
+      "method": "Actual original current source tests and independent frozen-byte/negative review",
+      "expected": "Current style14 and owned telemetry retain original authority/strategy boundaries",
+      "failure": "Wrong version, missing finite input, dropped stage/strategy guard or nonzero original test",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded actual evidence only; latest full CI separate",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "original-tests",
+      "scenario": "Original32/10/55 all run with original argv and timeouts",
+      "method": "Actual original current source tests and independent frozen-byte/negative review",
+      "expected": "Original32/10/55 all run with original argv and timeouts",
+      "failure": "Wrong version, missing finite input, dropped stage/strategy guard or nonzero original test",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Bounded actual evidence only; latest full CI separate",
+      "evidence": [
+        "run"
+      ]
+    },
+    {
+      "id": "review",
+      "scenario": "Different read-only execution and strict byte-level counterexamples",
+      "method": "Actual original current source tests and independent frozen-byte/negative review",
+      "expected": "Different read-only execution and strict byte-level counterexamples",
+      "failure": "Wrong version, missing finite input, dropped stage/strategy guard or nonzero original test",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Bounded actual evidence only; latest full CI separate",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/run_gear_merge_05/README.md",
+      "sha256": "9b820ebcea8bf05840e70033c93b601145f9e875a651b2b81fc856568e1d8c4e",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "56f74fb0918d1cfbd1487a9734403975caf2e85f",
+      "content_version": "candidate-v1-style14-input-and-telemetry-guards",
+      "method": "Actual CI and local failures with bounded repair scope",
+      "observed": "Version14,11 additive inputs and exact owned telemetry normalization only"
+    },
+    {
+      "id": "run",
+      "path": "docs/evidence/run_gear_merge_05/contracts/report.json",
+      "sha256": "8acf1b78430e73175a80eb9f30c1626624d16f5c48f7cdf343a2b27524e46a8a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "56f74fb0918d1cfbd1487a9734403975caf2e85f",
+      "content_version": "candidate-v1-style14-input-and-telemetry-guards",
+      "method": "Original three Harness checks --release --jobs1",
+      "observed": "32+10+55=97 tests, zero failure, fresh passed",
+      "command": "python3 tools/harness.py --check region-bible-tests --check creative-direction-tests --check forest-bible-reader-tests --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Python3.12, real tracked historical inputs explicitly materialized, original registered checks"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/run_gear_merge_05/review.json",
+      "sha256": "602a5beabeb5672004a38ab21f18bca3a6a05d6eecd33d901be849470046a4f1",
+      "kind": "review",
+      "producer": "/root/bible_guard_review",
+      "source_commit": "56f74fb0918d1cfbd1487a9734403975caf2e85f",
+      "content_version": "candidate-v1-style14-input-and-telemetry-guards",
+      "method": "Read-only independent original97 and actual guard counterexamples",
+      "observed": "97/0 exit0 stable200 files/HEAD;7 source guard negative cases rejected",
+      "reviewer": "/root/bible_guard_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different read-only agent did not edit production/tests/tools; independently ran current original97 plus real temporary-copy negatives and audited root isolated sparse probe"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Latest-head complete CI required before normal merge; original052 CI remains failed",
+    "Tail14 source80c and sparse probe80c retain their actual identities; not re-signed current complete CI",
+    "No physical-device, player or whole-region acceptance; gameplay source unchanged"
+  ],
+  "test_change_justification": "Style exact version13 was stale after14 technical rebinding; expectation14 and superseded13 refusal retain all36 refs and stage gates. Manifest only appends11 actual read historical inputs, with original argv/30s/regex/all earlier inputs unchanged. Reader retains original ecology/lift SHA constants, exact1/3 inventory observation counts, and old API prohibition; reverse only these four ownership telemetry expressions before old SHA verification. Different reviewer independently ran97, audited200 hashes/HEAD and rejected7 actual temporary-copy source counterexamples, and checked the genuine isolated sparse missing-v12 probe. No route/physics/production edits or hash refresh.",
+  "production_snapshot": "919136a271479d056c2a5c6c7ea435b8c6a8f1d36618c6117c5e8f31efa93c8e"
+}

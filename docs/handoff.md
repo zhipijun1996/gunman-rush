@@ -1,5 +1,13 @@
 # 当前交接（2026-10-24）
 
+## 2026-10-26 PR110：最终守门修订与合入恢复
+
+用户已授权合main，先核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)真实state／head／checks，禁止因下方旧开发边界再询问授权。原head05200fc的CI40324535594为serial55成功、parallel73成功后style13／14测试失败，尾部15未跑；本地补跑发现持有统计旧指纹，其他14全部成功，原失败保留。
+
+新冻结测试／输入源`56f74fb0918d1cfbd1487a9734403975caf2e85f`：style14及旧v13拒绝、原check追加11个冻结输入（不删旧输入，不改命令／30秒／regex）、两trace仅允许精确1／3处持有统计API替换，保原2 SHA。当前原Harness97／0、独立97／0、7负例拒绝及真实稀疏缺v12阻断均有[便携证据](evidence/run_gear_merge_05/README.md)。游戏仍bb4bf46字节，R2测试入口11a4216、方向契约fae1799的旧证明保各自身份；没有新美术或复杂效果。
+
+下一动作：最新同head的prepare／两full通道／affected全部成功后，用固定head普通merge。若已merged，同步main并核合并树与自动Godot构建，发布不冒称完成；失败只按实际check修，不放宽原门禁。恢复命令：`gh pr view 110 --json state,headRefOid,mergeCommit,statusCheckRollup`。本地当前分支feature/run-gear-inventory；user／实体设备与G5仍独立，任务review。
+
 ## 2026-10-26 PR110：已获合入授权，先核实际状态
 
 用户已明确“合入到main”，覆盖下方旧开发阶段不合并边界。工作线`feature/run-gear-inventory`／[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)。运行源仍`bb4bf46`（R2入口测试源11a4216）；新增`fae1799`仅把creative契约测试的精确v16期望改v17，不改游戏／资源／工具或美术。全量CI的真实版本失败、不同作者独立10／0和历史拒绝见[本轮证据](evidence/run_gear_merge_04/README.md)。

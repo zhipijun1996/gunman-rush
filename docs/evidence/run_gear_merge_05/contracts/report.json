@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T140016.636722Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "5200d40cfad5c91b60c4b4aedf9e63aeea35ab514d417bde8f7ff68946bcc4bd",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793023221.2518473,
+      "ended_at_unix": 1793023224.4521925,
+      "duration_seconds": 3.2,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "fc35544c4e374e88844fd32693a7216a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T140016.636722Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "dc71b2fbb42bbe72bbc52c23a3ad4cc906dbe3eeb53386dd32be9b61504c4520",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793023225.1208503,
+      "ended_at_unix": 1793023226.2664187,
+      "duration_seconds": 1.146,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "27f5ace5bb87429ebfc4b205ddc6af16",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T140016.636722Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-reader-tests",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_reader_tests.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "05a4333658bb576709d8dfae0ec7baeed38b32af145b58a33ee6b8e19b357d7e",
+      "log": "forest-bible-reader-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793023226.9888237,
+      "ended_at_unix": 1793023228.5333903,
+      "duration_seconds": 1.545,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_reader_tests.py"
+      ],
+      "check_token": "cdd4fe61efcc4950b3362e3c8707329d",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T140016.636722Z/artifacts/forest-bible-reader-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "0b7a0c29fe814c72e410523cc62ab59ad5394e028f98c9b90797536c0bc2d98b",
+  "working_files": {
+    "docs/quality/records/RUN-GEAR-MERGE-05.json": "522570f086a20ebb3afeeb76dd789b2fd4a325ee1db028613c29982c40238559",
+    "docs/tasks.md": "02df7c122110c529192514a2d84faab7c75cef16d146c12fd4cb9ac3d66a4caf"
+  },
+  "commit": "56f74fb0918d1cfbd1487a9734403975caf2e85f",
+  "git_status": "M docs/tasks.md\n?? docs/quality/records/RUN-GEAR-MERGE-05.json",
+  "diff": "diff --git a/docs/tasks.md b/docs/tasks.md\nindex 8dbef12b..5dedae7d 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -2,6 +2,7 @@\n \n | 任务 | 目标 | 依赖 | 状态 | 质量记录 |\n | --- | --- | --- | --- | --- |\n+| RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | planned | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |\n | RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |\n | RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |\n | RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |",
+  "untracked": "docs/quality/records/RUN-GEAR-MERGE-05.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 15.577,
+  "jobs": 1,
+  "release": true
+}

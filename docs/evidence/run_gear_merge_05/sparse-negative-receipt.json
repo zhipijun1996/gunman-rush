@@ -1,0 +1,28 @@
+{
+  "source_commit": "80c3456c642c6d77a255fda992eb45b0564a551b",
+  "command": [
+    "python3",
+    "/workspace/gunman-rush/tools/cloud_inputs.py",
+    "--root",
+    "/workspace/scratch/run-gear-bible-sparse-probe-03",
+    "--check",
+    "region-bible-tests",
+    "--output",
+    "/workspace/scratch/run-gear-bible-sparse-probe-03/build/negative-04.json"
+  ],
+  "exit_code": 2,
+  "status": "needs_materialization",
+  "target_flag": "S docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+  "actual_absence": true,
+  "target_detected": [
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check region-bible-tests literal input"
+      ],
+      "reason": "sparse_unmaterialized"
+    }
+  ],
+  "scope": "Actual isolated sparse index with original current manifest. Other tracked prerequisites also remain sparse. Detects named missing v12 before worker; not full clone hydration or gameplay."
+}

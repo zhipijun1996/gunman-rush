@@ -1,0 +1,20 @@
+E...............................
+======================================================================
+ERROR: test_actual_player_body_closure_is_required_and_superseded_binding_refused (__main__.BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_bible.py", line 240, in test_actual_player_body_closure_is_required_and_superseded_binding_refused
+    old_v12 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json').read_bytes())
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-rush/docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json'
+
+----------------------------------------------------------------------
+Ran 32 tests in 2.751s
+
+FAILED (errors=1)

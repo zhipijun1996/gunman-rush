@@ -1,5 +1,13 @@
 # 当前状态
 
+## 2026-10-26 PR110：最后的测试／输入契约修订
+
+用户明确合入main，授权持续有效。原CI40324535594在head05200fc的serial55全部成功、parallel73通过后因style精确期望13／实际14失败，剩余15未执行；完整CI仍失败。随后本地逐项补跑尾部，识别持有统计接口迁移的旧源码指纹断言，余14项全通过。
+
+最终实现／测试源`56f74fb0918d1cfbd1487a9734403975caf2e85f`仅修测试与已有Harness输入声明，游戏／资源／录片工具保持原运行源：style14断言与v13拒绝、11个冻结style文件显式输入、ecology1处／lift3处持有统计的精确归一化并保原SHA。原32＋10＋55共97测试fresh通过，不同作者再独立97／0及7个源守门反例拒绝；真实隔离稀疏缺v12被原CLI在worker前阻断。见[完整失败和分源证据](evidence/run_gear_merge_05/README.md)。
+
+下一步只核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)最新head完整CI：全部成功后正常merge；若已经merged，核main树及自动Godot构建，不重复合并。当前记录为合入前快照，最终实际状态以PR及main为准；技术合入不签玩家／实体设备G5，网页发布单独核实际构建。
+
 ## 2026-10-26 PR110：用户已授权合入main
 
 用户本轮明确“合入到main”。[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)在完整CI通过后正常merge；旧“不合main”段落是此前开发阶段快照。若已merged，直接核main合并提交与自动Godot构建，不重复合并或把构建排队称网页发布。

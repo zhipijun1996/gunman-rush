@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T133951.976688Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "9ddf6d745ac06c17b58f53a161a2163a01997a81a881a2d1c96c836159a02470",
+      "log": "region-bible-tests.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793021997.6110194,
+      "ended_at_unix": 1793022000.965596,
+      "duration_seconds": 3.355,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "765abf14b2264f4ebe346381628f379a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T133951.976688Z/artifacts/region-bible-tests",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "07437ca2da8f603d85738338272933be10f3b2400a9c6ada308e20cd8d6a634f",
+  "working_files": {},
+  "commit": "ae50fdfd6c6872625b31a2dd07f13b100b74ecdf",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 12.56,
+  "jobs": 1,
+  "release": true
+}
