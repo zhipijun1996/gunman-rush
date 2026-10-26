@@ -122,6 +122,7 @@ func run() -> void:
 	await click(button(app.menu._root,"EquipItem"))
 	check(app.build.item_ids() == [owned.definition_id] and int(app.build.equipment.snapshot().used) == owned.gear_cost, "native equip changes only the selected instance and load")
 	check(app.controller.actor_resources.health.current == current_health, "equipping never grants free healing")
+	check(not is_equal_approx(float(app.controller.actor_resources.health.capacity), floor(float(app.controller.actor_resources.health.capacity))) and str(app.menu._build).contains(str(app.controller.actor_resources.health.capacity)), "actual fractional maximum HP is visible precisely in the construction summary")
 	await screenshot("desktop-equipped")
 	await click(button(app.menu._root,"UnequipItem"))
 	check(app.build.item_ids().is_empty() and app.controller.motor.tuning.projectile_damage == base_damage, "native unequip removes the effect completely")

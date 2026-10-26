@@ -1125,7 +1125,7 @@ func apply_input_settings(patch: Dictionary) -> bool:
 func _build_description() -> String:
 	if build == null or not is_instance_valid(controller):
 		return "本局尚无道具。"
-	return "背包 %s 件 · 已装备 %s 件\n生命 %.0f / %.0f · 跳跃 %s · 空中射击 %s\n伤害 %.1f · 反冲速度 %.0f\n道具入包后需装备才生效，换装不消耗金币。" % [build.inventory.item_ids().size(), build.item_ids().size(), controller.actor_resources.health.current, controller.actor_resources.health.capacity, controller.jump_ability.maximum_jumps(), controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
+	return "背包 %s 件 · 已装备 %s 件\n生命 %.1f / %.1f · 跳跃 %s · 空中射击 %s\n伤害 %.1f · 反冲速度 %.0f\n道具入包后需装备才生效，换装不消耗金币。" % [build.inventory.item_ids().size(), build.item_ids().size(), controller.actor_resources.health.current, controller.actor_resources.health.capacity, controller.jump_ability.maximum_jumps(), controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _open_build_session() -> void:
 	_close_build_session()
