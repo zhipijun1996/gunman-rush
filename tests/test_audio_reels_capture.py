@@ -20,7 +20,9 @@ class ActualMovieReceipt(unittest.TestCase):
         if not path: raise unittest.SkipTest('Set AUDIO_REELS_TEST_TRACE to a real captured trace.json')
         cls.path=Path(path); cls.trace=json.loads(cls.path.read_text())
         cls.report=json.loads((cls.path.parent/'report.json').read_text())
-        cls.reel=cls.trace['reel'];cls.frames=cls.report['frame_count']
+        cls.reel=cls.trace['reel']
+        media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-of','json',str(cls.path.parent/(cls.reel+'.mp4'))]))
+        cls.frames=int(next(s for s in media['streams'] if s['codec_type']=='video')['nb_frames'])
     def reject(self, mutate):
         broken=copy.deepcopy(self.trace);mutate(broken)
         with self.assertRaises(ValueError):capture.validate_trace(broken,self.reel,self.frames)
@@ -40,6 +42,10 @@ class ActualMovieReceipt(unittest.TestCase):
         self.reject(lambda t:t['movie_clock'].update(frames_drawn_before_quit=self.frames-120))
     def test_unaccepted_formal_result(self):
         self.reject(lambda t:t['segments'][1]['state'].update(wallet=-1,health=-1,build_count=-1))
+    def test_fractional_frame_is_rejected_instead_of_truncated(self):
+        self.reject(lambda t:t['segments'][1]['director_events'][0].update(movie_frame=246.5))
+    def test_nonfinite_frame_is_rejected(self):
+        self.reject(lambda t:t['segments'][0]['events'][0].update(movie_frame=float('nan')))
     def test_target_outside_segment(self):
         self.reject(lambda t:t['segments'][0]['events'][0].update(movie_frame=self.frames+1))
 

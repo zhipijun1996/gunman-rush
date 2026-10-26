@@ -52,8 +52,8 @@ func _make_controls() -> void:
 	box.add_child(_detail_caption)
 	var bottom := PanelContainer.new()
 	bottom.theme = DemoMenu.create_theme()
-	bottom.position = Vector2(90, 570)
-	bottom.size = Vector2(1100, 112)
+	bottom.position = Vector2(90, 610)
+	bottom.size = Vector2(1100, 85)
 	_reel_layer.add_child(bottom)
 	_proof = Label.new()
 	_proof.add_theme_font_size_override("font_size", 22)
@@ -74,8 +74,13 @@ func open_context(context: String, force_reset := false) -> bool:
 	var accepted := await super.open_context(context, force_reset)
 	if accepted and is_instance_valid(home_scene):
 		home_scene.overlay.hide()
-		home_scene.camera.position = Vector2(270, 342)
-		home_scene.camera.zoom = Vector2(1.35, 1.35)
+		# Home's visual-only _process clamps its own camera to x>=640.
+		# Freeze that follow observer for this fixed recording composition only;
+		# all original physics/input consumers continue processing.
+		home_scene.set_process(false)
+		home_scene.camera.position = Vector2(300, 342)
+		home_scene.camera.zoom = Vector2(1.6, 1.6)
+		home_scene.camera.force_update_scroll()
 		# This explicit fixture owns interaction; do not also open a nearby Home NPC.
 		if home_scene.controller.interact_requested.is_connected(home_scene.interact):
 			home_scene.controller.interact_requested.disconnect(home_scene.interact)
@@ -113,11 +118,16 @@ func _claim_pickup(kind: StringName, pickup: Node) -> bool:
 	if reel_event != "item_get": return super._claim_pickup(kind, pickup)
 	if not _claim_reel_item(): return false
 	GameAudio.cue_event(self, &"item_get", &"note")
-	item_toast.show_item(DAMAGE_ITEM)
+	_show_reel_item_toast()
 	var feedback := home_scene.player.get_node("PlayerFeedback") as PlayerFeedback
 	feedback.reward_received(pickup.global_position, true)
 	_accepted(&"item_get", {"contact": true, "scope": "fixture_area_original_reward_service", "item_id": String(DAMAGE_ITEM.stable_id), "build_count": _fixture_build.count_item(DAMAGE_ITEM.stable_id)})
 	return true
+
+func _show_reel_item_toast() -> void:
+	item_toast.show_item(DAMAGE_ITEM)
+	item_toast.layer = 126
+	item_toast._root.position = Vector2(305, 510)
 
 func _claim_reel_item() -> bool:
 	if _reward_offer == null: return false
@@ -135,7 +145,7 @@ func _interact_chest() -> void:
 	_chest_open = true
 	UnderworldObjects.place_chest(_chest, Vector2(285, HomeScene.FLOOR_Y), true)
 	GameAudio.cue_event(self, &"chest_open", &"confirm")
-	item_toast.show_item(DAMAGE_ITEM)
+	_show_reel_item_toast()
 	_accepted(&"chest_open", {"scope": "fixture_proximity_router_interact_original_reward_service", "opened": true, "build_count": _fixture_build.count_item(DAMAGE_ITEM.stable_id)})
 
 func _accepted(event_id: StringName, details: Dictionary = {}) -> void:
@@ -169,7 +179,7 @@ func _physics_process(_delta: float) -> void:
 	if not _recording or not is_instance_valid(home_scene): return
 	_reel_clock += 1
 	var actor := _fixture_enemy.get_node_or_null("Actor") as EnemyActor if is_instance_valid(_fixture_enemy) else null
-	var row := {"action_frame": _reel_clock, "movie_frame": _movie_frame(), "process_frame": Engine.get_process_frames(), "physics_tick": Engine.get_physics_frames(), "profile": lab_profile, "event": reel_event, "weapon": _active_weapon, "position": [snappedf(home_scene.player.position.x, .001), snappedf(home_scene.player.position.y, .001)], "hp": home_scene.controller.actor_resources.health.current, "enemy_hp": actor.health.current if actor != null else -1, "motion_steps": home_scene.player.motion_steps}
+	var row := {"action_frame": _reel_clock, "movie_frame": _movie_frame(), "process_frame": Engine.get_process_frames(), "physics_tick": Engine.get_physics_frames(), "profile": lab_profile, "event": reel_event, "weapon": _active_weapon, "position": [snappedf(home_scene.player.position.x, .001), snappedf(home_scene.player.position.y, .001)], "hp": home_scene.controller.actor_resources.health.current, "enemy_hp": actor.health.current if actor != null else -1, "motion_steps": home_scene.player.motion_steps, "player_screen": [home_scene.player.get_global_transform_with_canvas().origin.x, home_scene.player.get_global_transform_with_canvas().origin.y]}
 	reel_trace.append(row)
 	if is_instance_valid(_proof):
 		_proof.text = "生命 %s/%s　金币 %s　道具 %s\n真实正式角色 / HP / 受付服务 · 开发固定样板 · Seed %s · 60Hz" % [home_scene.controller.actor_resources.health.current, home_scene.controller.actor_resources.health.capacity, _fixture_wallet.balance, _fixture_build.count_item(DAMAGE_ITEM.stable_id), reel_seed]

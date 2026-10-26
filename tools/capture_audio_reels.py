@@ -4,6 +4,7 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -30,24 +31,30 @@ DIRECTOR_EVENTS = dict(EXPECTED_EVENTS)
 DIRECTOR_EVENTS.update(enemy_hit=['shot_pulse','enemy_hit'], enemy_hurt=['shot_pulse','enemy_hurt'], mix=['coin','heal','shot_pulse','enemy_hit','hurt'])
 LEGACY_AUDIO = {'coin':['coin'],'heal':['heal'],'chest_open':['confirm'],'item_get':['note'],'ui':['click','confirm','denied'],'enemy_hit':['weapon_pulse','weapon_hit'],'enemy_hurt':['weapon_pulse','hurt'],'hurt':['hurt'],'weapons':['weapon_pulse','weapon_blade','weapon_blast'],'mix':['coin','heal','weapon_pulse','weapon_hit','hurt']}
 
+def frame_integer(value):
+    if isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) or int(value)!=value or value<0:
+        raise ValueError('Frame index must be a finite nonnegative integer, including integer-valued JSON floats')
+    return int(value)
+
 def validate_trace(trace, reel, frame_count, manifest=None):
     """Validate the actual MovieMaker receipt; raises ValueError on missing or extra work."""
     if manifest is None: manifest=json.loads((ROOT/'assets/audio/director_v3/manifest.json').read_text())
     if reel not in REELS or trace.get('version')!='audio-director-v3-reels-1' or trace.get('reel')!=reel or trace.get('fps')!=60: raise ValueError('Wrong reel/version/FPS receipt')
+    frame_count=frame_integer(frame_count)
     clock=trace.get('movie_clock',{})
-    if clock.get('index_base')!=0 or abs(clock.get('frames_drawn_before_quit',-99)-frame_count)>2: raise ValueError('Missing actual movie clock or movie frame count drift')
+    if clock.get('index_base')!=0 or abs(frame_integer(clock.get('frames_drawn_before_quit'))-frame_count)>2: raise ValueError('Missing actual movie clock or movie frame count drift')
     segments=trace.get('segments',[])
     if [s.get('profile') for s in segments]!=['original','A','B','C']: raise ValueError('Missing or reordered profile segments')
     candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
     previous_end=-1
     for segment in segments:
-        profile=segment['profile']; start=segment.get('start_frame',-1); end=segment.get('end_frame',-1)
+        profile=segment['profile']; start=frame_integer(segment.get('start_frame')); end=frame_integer(segment.get('end_frame'))
         if not 0<=start<end<=frame_count or not 60<=end-start<=900 or start<=previous_end: raise ValueError('Invalid/overlapping/empty profile movie interval')
         previous_end=end
         events=segment.get('events',[])
         if [e.get('event_id') for e in events]!=EXPECTED_EVENTS[reel]: raise ValueError(f'{reel}/{profile}: missing, repeated or extra accepted target event')
         for event in events:
-            if not start<=event.get('movie_frame',-1)<end: raise ValueError('Event outside actual movie segment')
+            if not start<=frame_integer(event.get('movie_frame'))<end: raise ValueError('Event outside actual movie segment')
             expected='original' if profile=='original' else event['event_id']+'_'+profile.lower()
             if event.get('profile')!=profile or event.get('candidate_id')!=expected: raise ValueError('Wrong accepted candidate/profile provenance')
             detail=event.get('details',{})
@@ -79,8 +86,10 @@ def validate_trace(trace, reel, frame_count, manifest=None):
             if [str(e.get('id')) for e in actual]!=DIRECTOR_EVENTS[reel]: raise ValueError('Actual candidate playback missing, repeated or extra')
             if {k[9:]:v for k,v in played.items() if k.startswith('director_') and v}!=dict(Counter(DIRECTOR_EVENTS[reel])): raise ValueError('Played counter does not match actual expected candidate audio')
             for event in actual:
+                if not start<=frame_integer(event.get('movie_frame'))<end: raise ValueError('Actual playback outside movie segment')
                 candidate_id=str(event['id'])+'_'+profile.lower(); candidate=candidates.get(candidate_id)
                 if not candidate or event.get('candidate')!=candidate_id or event.get('path') not in candidate.get('variants',[candidate.get('path')]): raise ValueError('Actual audio path/candidate disagrees with frozen manifest')
+    if any(not (16<=r.get('player_screen',[-99,-99])[0]<=1264 and 155<=r.get('player_screen',[-99,-99])[1]<=560) for r in trace.get('trace',[])): raise ValueError('Actual player is outside visible action area')
     sequences=[[ [r.get('position'),r.get('hp'),r.get('enemy_hp')] for r in trace.get('trace',[]) if r.get('profile')==s['profile']] for s in segments]
     if not sequences[0] or any(seq!=sequences[0] for seq in sequences): raise ValueError('Four movie profiles have different actual physics/HP sequences')
     return segments
@@ -93,7 +102,7 @@ def validate_audio_windows(movie, trace, reel):
     candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
     rows=[]
     for segment in trace['segments']:
-        a=round(segment['start_frame']*800); b=min(len(pcm),round(segment['end_frame']*800))
+        a=frame_integer(segment['start_frame'])*800; b=min(len(pcm),frame_integer(segment['end_frame'])*800)
         rms=float(np.sqrt(np.mean(pcm[a:b]**2)))
         if rms<1e-6: raise ValueError('Captured profile audio window is silent')
         matches=[]
@@ -101,7 +110,7 @@ def validate_audio_windows(movie, trace, reel):
             for event in segment['director_events']:
                 candidate=candidates[event['candidate']]
                 reference=np.frombuffer(subprocess.check_output(['ffmpeg','-v','error','-i',str(ROOT/candidate['path'].removeprefix('res://')),'-f','f32le','-ac','1','-ar','48000','pipe:1']),dtype='<f4').astype('float64')
-                frame=event['movie_frame']; first=max(a,(frame-8)*800); last=min(b,(frame+8)*800+len(reference))
+                frame=frame_integer(event['movie_frame']); first=max(a,(frame-8)*800); last=min(b,(frame+8)*800+len(reference))
                 window=pcm[first:last].astype('float64'); m=len(reference); n=len(window)
                 if n<m: raise ValueError('Candidate tail truncated from captured profile')
                 size=1<<(m+n-1).bit_length()

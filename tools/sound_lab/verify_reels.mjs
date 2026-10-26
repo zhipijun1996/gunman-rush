@@ -4,7 +4,7 @@ import fs from 'node:fs';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 const url=process.argv[2]||'http://127.0.0.1:8795/';
 const output=process.argv[3]||'build/audio_director_v3/web-reels';fs.mkdirSync(output,{recursive:true});
-const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--autoplay-policy=no-user-gesture-required']});
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
 const errors=[];page.on('pageerror',error=>errors.push(String(error)));
 try{
@@ -12,6 +12,13 @@ try{
  const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,videoTop:document.getElementById('reel-video').getBoundingClientRect().top}));
  if(layout.scroll>layout.width||layout.videoTop>450)throw Error('Mobile layout hides or overflows scene video '+JSON.stringify(layout));
  const manifest=await page.evaluate(()=>data);
+ // Establish native media playback through an actual Playwright pointer click,
+ // with no browser autoplay exemption. Later exhaustive seeks reuse that gesture.
+ await page.locator('[data-candidate]').first().click();
+ await page.waitForFunction(()=>!video.paused&&!video.seeking&&video.currentTime>0&&video.muted===false&&video.volume>0,null,{timeout:30000});
+ const gesturePlayback=await page.evaluate(()=>({paused:video.paused,muted:video.muted,volume:video.volume,time:video.currentTime,activation:navigator.userActivation?{hasBeenActive:navigator.userActivation.hasBeenActive,isActive:navigator.userActivation.isActive}:null}));
+ if(gesturePlayback.activation&&gesturePlayback.activation.hasBeenActive!==true)throw Error('Video start lacked a real browser user gesture');
+ await page.locator('#stop').click();
  const videos=[];
  for(const clip of manifest.clips){
   await page.locator('[data-clip]').evaluateAll((buttons,id)=>{const b=buttons.find(x=>x.dataset.clip===id);if(b)b.click()},clip.id);
@@ -64,6 +71,6 @@ try{
  await page.evaluate(()=>{localStorage.removeItem('audio-director-reels:'+data.version);choices={};renderChoices()});
  await page.screenshot({path:output+'/mobile.png'});await page.setViewportSize({width:1280,height:800});await page.screenshot({path:output+'/desktop.png'});
  if(errors.length)throw Error('Browser errors '+errors.join('\n'));
- fs.writeFileSync(output+'/report.json',JSON.stringify({status:'passed',url,layout,videoChecks:videos,loopStop:true,mutualExclusion:true,pendingPlayCancellation:true,backgroundStop:true,selectionExport:true,selectionPersistence:true,errors,scope:'Actual MP4 frame/audio-track decode, seek, timed segment loop, media exclusion and choice UI in software Chromium. Source footage authenticity, subjective listening and physical phone/Safari acceptance require separate evidence.'},null,2));
+ fs.writeFileSync(output+'/report.json',JSON.stringify({status:'passed',url,layout,gesturePlayback,videoChecks:videos,loopStop:true,mutualExclusion:true,pendingPlayCancellation:true,backgroundStop:true,selectionExport:true,selectionPersistence:true,errors,scope:'Actual pointer-started, unmuted MP4 playback without an autoplay exemption; frame/audio-track decode, seek, timed segment loop, media exclusion and choice UI in software Chromium. Source footage authenticity, subjective listening and physical phone/Safari acceptance require separate evidence.'},null,2));
  console.log('AUDIO_REELS_BROWSER_OK clips='+manifest.clips.length+' candidate_segments='+videos.length);
 }catch(error){fs.writeFileSync(output+'/failure.json',JSON.stringify({error:String(error),errors},null,2));throw error}finally{await browser.close()}

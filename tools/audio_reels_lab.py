@@ -5,6 +5,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 from pathlib import Path
 import shutil
 import subprocess
@@ -36,7 +37,7 @@ def original_sources():
   paths=list((ROOT/'assets/player_presentation_01/weapon_audio_v2').glob(cue+'_*.wav'))
   records['original/'+event]={'author':'Freedoom contributors','license':'BSD-3-Clause','source_url':'https://freedoom.github.io/','original_filename':cue+'_0/1/2.wav (existing processed bank)','commercial_use':True,'attribution_required':True,'download_date':'原项目已存，见weapon-audio-v2-provenance.json','original_files':{str(p.relative_to(ROOT)):sha(p) for p in paths},'commercial_conditions':'Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons.'}
  p=ROOT/'assets/audio/bgm/the_kindred_hearth.mp3'
- records['original/home_bgm']={'author':'用户提供；作者以原provenance为准','license':'User-provided for this game/audition; no general reuse grant','source_url':'https://github.com/zhipijun1996/gunman-rush/blob/main/assets/audio/bgm/provenance.json','original_filename':p.name,'commercial_use':'Only as authorized for this project, not a third-party sample library','attribution_required':True,'path':str(p.relative_to(ROOT)),'sha256':sha(p),'download_date':'用户原提供，见assets/audio/bgm/provenance.json'}
+ records['original/home_bgm']={'author':'用户提供；作者以原provenance为准','license':'User-provided for this game/audition; no general reuse grant','source_url':'https://github.com/zhipijun1996/gunman-rush/blob/main/assets/audio/bgm/provenance.json','original_filename':p.name,'commercial_use':'Only as authorized for this project, not a third-party sample library','attribution_required':None,'commercial_conditions':'Only this game and its audition; third-party reuse/attribution terms have not been granted or independently verified.','path':str(p.relative_to(ROOT)),'sha256':sha(p),'download_date':'用户原提供，见assets/audio/bgm/provenance.json'}
  return records
 
 def build(capture:Path,output:Path,interactive_url:str):
@@ -46,7 +47,7 @@ def build(capture:Path,output:Path,interactive_url:str):
  validate()
  manifest=read(ROOT/'assets/audio/director_v3/manifest.json')
  choices={c['id']:c for e in manifest['events'] for c in e['candidates']}
- current=sources();validated=[];commits=set()
+ current=sources();validated=[];commits=set();engines=set()
  # Reject missing/changed captures before creating any deliverable directory.
  for reel in EVENTS:
   folder=capture/reel;report=read(folder/'report.json');trace=read(folder/'trace.json');movie=folder/(reel+'.mp4')
@@ -54,7 +55,12 @@ def build(capture:Path,output:Path,interactive_url:str):
   if report.get('source_before')!=current or report.get('source_after')!=current:raise ValueError('Capture runtime source differs: '+reel)
   if report.get('trace_sha256')!=sha(folder/'trace.json'):raise ValueError('Trace hash mismatch: '+reel)
   if report.get('movie_sha256')!=sha(movie):raise ValueError('Movie hash mismatch: '+reel)
-  frame_count=int(report['frame_count']);segments=validate_trace(trace,reel,frame_count,manifest)
+  count=report['frame_count']
+  if not isinstance(count,(int,float)) or not math.isfinite(count) or count!=int(count):raise ValueError('Non-integral movie frame count')
+  engine=report['engine']
+  if not engine['version'].startswith('4.7.2') or len(engine['sha256'])!=64:raise ValueError('Unverified capture engine identity')
+  engines.add((engine['version'],engine['sha256']))
+  frame_count=int(count);segments=validate_trace(trace,reel,frame_count,manifest)
   if movie.stat().st_size>25*1024*1024:raise ValueError('Movie exceeds static per-file limit')
   media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)],timeout=30));video=next(s for s in media['streams'] if s['codec_type']=='video');audio=next(s for s in media['streams'] if s['codec_type']=='audio')
   if int(video.get('nb_frames',-1))!=frame_count:raise ValueError('Actual MP4 frame count differs from receipt')
@@ -62,7 +68,7 @@ def build(capture:Path,output:Path,interactive_url:str):
   duration=float(media['format']['duration'])
   if abs(duration-frame_count/60)>.1:raise ValueError('Movie duration/frame count drift')
   commits.add(report['commit']);validated.append((reel,folder,report,segments,duration))
- if len(commits)!=1:raise ValueError('Recordings must share one frozen producer commit')
+ if len(commits)!=1 or len(engines)!=1:raise ValueError('Recordings must share one frozen producer commit and engine')
  source=commits.pop()
  # Only documentation/evidence may change after the recorded implementation.
  tree={}
@@ -78,7 +84,7 @@ def build(capture:Path,output:Path,interactive_url:str):
   if fingerprint.hexdigest()!=entry[2]:raise ValueError('Capture runtime input differs from producer commit: '+name)
  output.mkdir(parents=True);(output/'media').mkdir();(output/'posters').mkdir();(output/'audio').mkdir();(output/'licenses').mkdir()
  all_sources=copy.deepcopy(manifest['sources']);all_sources.update(original_sources())
- data={'schema_version':1,'task':TASK,'version':manifest['version'],'source_commit':source,'site_builder_commit':head(),'interactive_url':interactive_url,'event_labels':EVENT_LABELS,'sources':all_sources,'clips':[],'subjective_status':'awaiting-user'}
+ data={'schema_version':1,'task':TASK,'version':manifest['version'],'source_commit':source,'site_builder_commit':head(),'interactive_url':interactive_url,'interactive_label':'上一版互动工坊（V2） ↗','event_labels':EVENT_LABELS,'sources':all_sources,'clips':[],'subjective_status':'awaiting-user'}
  for reel,folder,report,segments,duration in validated:
   movie=folder/(reel+'.mp4');shutil.copyfile(movie,output/'media'/movie.name)
   poster=output/'posters'/(reel+'.jpg');poster_at=(segments[0]['start_frame']+min(70,segments[0]['end_frame']-segments[0]['start_frame']-1))/60
