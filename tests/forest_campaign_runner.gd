@@ -1,5 +1,6 @@
 extends SceneTree
-## Explicit settlement/transition fixture. No direct result call is traversal proof.
+## Explicit settlement/equipment/transition fixture. No direct result call is traversal or natural-menu proof.
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 # Independent v2 playtest-default expectation; no commercial admission claim.
 const EXPECTED_PUBLIC_FOREST := "thorn-forest-region-v2"
 const EXPECTED_FOREST_BOSSES := {
@@ -76,6 +77,14 @@ func check_region_presentation(region: StringName) -> void:
 	# Existing Boss/reward reset_at fixtures remain explicit settlement evidence.
 	var errors: Array[String] = load("res://tests/parallel_region_presentation_tests.gd").presentation_errors(app,region)
 	check(errors.is_empty(),"actual shared presentation: %s" % [errors])
+func inventory_identity() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for instance: RunItemInstance in app.build.inventory.instances():
+		result.append({"instance_id":str(instance.instance_id),"definition_id":str(instance.definition_id),"definition_version":instance.definition_version,"source_id":str(instance.source_id),"origin":str(instance.origin)})
+	return result
+func receipt_identity(receipt: EconomyReceipt) -> Dictionary:
+	if receipt == null: return {}
+	return {"status":receipt.status,"event_id":str(receipt.event_id),"item_id":str(receipt.item_id),"instance_id":str(receipt.instance_id),"coins":receipt.coins,"gear_capacity":receipt.gear_capacity,"gear_level":receipt.gear_level}
 func run() -> void:
 	var before:=DisplayServer.window_get_size()
 	DisplayServer.window_set_size(Vector2i(1280,720))
@@ -107,6 +116,39 @@ func run() -> void:
 	check(callback_counts.reward==1 and app.build.count_item(&"power_gold")==1,"one actual mouse reward callback and one gold instance")
 	check(not app._claim_modal_item(&"power_gold") and app.build.count_item(&"power_gold")==1,"replayed settled gold cannot stack or submit again")
 	check(not app.controller.traversal.hook_enabled,"gold item does not itself grant H")
+	check(app.build.item_ids().is_empty() and app.build.count_item(&"power_gold")==1,"settled gold first remains in the backpack without automatic equipment")
+	# Explicit fixture after the real GOLD button: use the same paused session,
+	# RunWallet debit and transaction ledger as production, without auto-equipping rewards.
+	var damage_before_equipment: float = app.controller.motor.tuning.projectile_damage
+	check(paused and GEAR.equip_all(app.build) and app.build.item_ids()==[&"power_gold"] and app.build.equipment.capacity()==8 and app.controller.motor.tuning.projectile_damage==damage_before_equipment+2.0,"explicit paused equipment fixture installs the legitimately claimed gold")
+	check(not app.controller.traversal.hook_enabled,"equipped random gold still cannot grant the independent core H")
+	var gear_quote: Dictionary = app.shop.gear_quote()
+	check(gear_quote.available and gear_quote.price==10 and gear_quote.next_capacity==10 and gear_quote.level==0,"cross-region fixture uses the actual first configured ten-coin gear quote")
+	var upgrade_events: Array[EconomyReceipt] = []
+	app.shop.purchased.connect(func(receipt: EconomyReceipt) -> void:
+		if receipt.item_id==&"gear_capacity": upgrade_events.append(receipt.copy()))
+	var gear_request := ShopPurchaseRequest.new()
+	gear_request.token=app.lifetime.token()
+	gear_request.offer_id=&"gear_capacity"
+	gear_request.quote_version=int(gear_quote.quote_version)
+	gear_request.transaction_id=&"campaign_cross_region_gear_fixture"
+	gear_request.equipment_session=app.build.equipment.open_session(gear_request.token)
+	gear_request.equipment_revision=int(app.build.equipment.snapshot().revision)
+	var coins_before_upgrade: int = app.wallet.balance
+	var committed_upgrade: EconomyReceipt = app.shop.purchase_gear_upgrade(gear_request)
+	app.build.equipment.close_session()
+	check(committed_upgrade.status==EconomyReceipt.Status.COMMITTED and committed_upgrade.coins==-10 and committed_upgrade.gear_capacity==10 and committed_upgrade.gear_level==1 and app.wallet.balance==coins_before_upgrade-10 and app.build.equipment.capacity()==10 and upgrade_events.size()==1,"real paused upgrade commits one receipt and exact run-coin debit before crossing")
+	var inventory_before_region: Array[Dictionary] = inventory_identity()
+	var equipped_before_region: Array[StringName] = app.build.equipment.equipped_ids()
+	var capacity_before_region: int = app.build.equipment.capacity()
+	var damage_before_region: float = app.controller.motor.tuning.projectile_damage
+	var build_before_region: BuildState = app.build
+	var wallet_before_region: RunWallet = app.wallet
+	var shop_before_region: ShopService = app.shop
+	var coins_before_region: int = app.wallet.balance
+	var grants_before_region: Dictionary = app.wallet._grants.duplicate(true)
+	var receipt_before_region: Dictionary = receipt_identity(app.shop.get_receipt(gear_request.transaction_id))
+	check(receipt_before_region==receipt_identity(committed_upgrade),"committed gear receipt is readable from the authoritative shop ledger")
 	var old_token := app.lifetime.token()
 	app._select_core_ability(&"wall_climb")
 	check(not app.controller.traversal.wall_enabled,"unbuilt Canyon choice is rejected by owner")
@@ -117,8 +159,36 @@ func run() -> void:
 	check(callback_counts.ability==1 and callback_counts.region==1,"actual ability and region callbacks fire exactly once")
 	check(app.stage is ThornForestRegionStage and app.stage.assembly_ok and app.active_region_id==&"thorn_forest","formal cross-region assembles forest")
 	check_default_forest_identity(1)
-	check(app.player.get_instance_id()==actor_id and app.controller.actor_resources.health==health and app.wallet.balance>=31,"same actor health coins persist across region")
-	check(app.build.count_item(&"power_gold")==1 and app.build.item_ids().is_empty() and app.controller.traversal.hook_enabled and not app.controller.traversal.wall_enabled and not app.controller.traversal.double_enabled,"backpack gold and H persist independently; no automatic equipment or extra S2 abilities")
+	# Any automatic pickup at the new spawn must have a real map-local coin source;
+	# exact ledger deltas explain the balance rather than allowing an arbitrary increase.
+	var grants_after_region: Dictionary = app.wallet._grants.duplicate(true)
+	var previous_grants_retained := true
+	for grant_id: StringName in grants_before_region:
+		if not grants_after_region.has(grant_id) or grants_after_region[grant_id]!=grants_before_region[grant_id]: previous_grants_retained=false
+	var actual_claimed_coin_sources: Dictionary = {}
+	for pickup: Dictionary in (app.stage as GeneratedDemoStage).pickups:
+		if pickup.kind=="coin" and pickup.claimed:
+			var source := StringName("%s/stage_%s/%s" % [app._run_receipt_prefix,app.director.stage_index,pickup.id])
+			actual_claimed_coin_sources[source]=int(pickup.amount)
+	var new_coin_grants: Dictionary = {}
+	var legitimate_new_grants := true
+	var granted_delta := 0
+	for grant_id: StringName in grants_after_region:
+		if grants_before_region.has(grant_id): continue
+		var amount: int = int(grants_after_region[grant_id])
+		new_coin_grants[grant_id]=amount
+		granted_delta+=amount
+		if not actual_claimed_coin_sources.has(grant_id) or actual_claimed_coin_sources[grant_id]!=amount: legitimate_new_grants=false
+	check(app.player.get_instance_id()==actor_id and app.controller.actor_resources.health==health and app.wallet==wallet_before_region and previous_grants_retained and legitimate_new_grants and app.wallet.balance==coins_before_region+granted_delta,"same actor health and exact run-wallet ledger balance persist across region")
+	check(app.build.count_item(&"power_gold")==1 and app.build.item_ids()==[&"power_gold"] and app.controller.traversal.hook_enabled and not app.controller.traversal.wall_enabled and not app.controller.traversal.double_enabled,"equipped gold and native-selected H persist independently without extra S2 abilities")
+	check(app.build==build_before_region and inventory_identity()==inventory_before_region and app.build.equipment.equipped_ids()==equipped_before_region and app.build.equipment.capacity()==capacity_before_region and capacity_before_region==10 and app.controller.motor.tuning.projectile_damage==damage_before_region,"cross-region transition preserves exact owned provenance, selected instances, ten gear and active effects")
+	check(app.shop==shop_before_region and receipt_identity(app.shop.get_receipt(gear_request.transaction_id))==receipt_before_region,"same shop retains the exact committed expansion receipt across region epochs")
+	var balance_before_replay: int = app.wallet.balance
+	var replay_upgrade: EconomyReceipt = app.shop.purchase_gear_upgrade(gear_request)
+	var replay_identity: Dictionary = receipt_identity(replay_upgrade)
+	replay_identity.status=EconomyReceipt.Status.COMMITTED
+	check(replay_upgrade.status==EconomyReceipt.Status.REPLAY and replay_identity==receipt_before_region and app.wallet.balance==balance_before_replay and app.build.equipment.capacity()==10 and app.build.equipment.equipped_ids()==equipped_before_region and upgrade_events.size()==1,"old committed upgrade command replays read-only after crossing without debit, equipment mutation or a second event")
+	write_fixture_evidence("res://build/forest_playable/progression/cross_region_equipment.json",JSON.stringify({"scope":"explicit settlement and paused equipment fixture; native H/region buttons; not natural combat or player menu proof","inventory_before":inventory_before_region,"inventory_after":inventory_identity(),"equipped_before":equipped_before_region,"equipped_after":app.build.equipment.equipped_ids(),"capacity_before":capacity_before_region,"capacity_after":app.build.equipment.capacity(),"wallet_object_before":str(wallet_before_region.get_instance_id()),"wallet_object_after":str(app.wallet.get_instance_id()),"coins_before":coins_before_region,"coins_after":app.wallet.balance,"grant_ledger_before":grants_before_region,"grant_ledger_after":grants_after_region,"new_actual_coin_grants":new_coin_grants,"receipt_before":receipt_before_region,"receipt_after":receipt_identity(app.shop.get_receipt(gear_request.transaction_id)),"replay":receipt_identity(replay_upgrade)},"  "))
 	check(not app.lifetime.accepts(old_token),"old region token rejected after crossing")
 	write_fixture_evidence("res://build/forest_playable/progression/cross_region_manifest.json",app.director.manifest.canonical_json())
 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"cross-region schema2 replay validates")
