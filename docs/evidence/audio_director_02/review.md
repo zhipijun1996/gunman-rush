@@ -79,3 +79,27 @@ Lab现在override `_sync_music`，始终依据 `_track`，不再依据Home状态
 实际动作成功证据来自作者本轮原生专项：四profile的正式ShopService钱包/装备结果、真实Area接触的正式钱包/Health结果、正式Projectile/FrameDamagePolicy改变敌人和玩家HP，原Router跳跃走motion_jump而非director_jump；只用accepted_event列表无法证明发声音频，因此本审查不将该列表升级为实际扬声器听感。单事件焦点、固定位置与重置是显式dev fixture，不是自然完整关卡。
 
 仍待本轮实际Web冷启动、3情境×4profile、声音解锁与当前构建源绑定收据；最终部署URL可达与用户主观评价另验。构建器自身是否在复制前调用候选validate已向主线提出，当前真实manifest正确不代表今后可跳过守门。
+
+### 构建入口复审 · CLOSED（独立临时反例）
+
+冻结实现`340b249bd59d0cb7c564cf2bf168341276e5ce0e`的`audio_lab_v2.build`已在任何mkdir/复制前调用候选validate。独立再建完整临时ROOT，复制tools/config/director_v2，将首候选path/variants改为旧v1 hurt，直接调用lab.build(temp/delivery)：精确拒绝`ValueError: Candidate playback path/variants differ from renders`，且`delivery_directory_created=False`。真实生产资源未改。该HEAD独立再次运行`python3 tools/audio_candidates_v2.py validate`，9事件/3套/54文件通过。
+
+同一冻结版HTML解锁提示已读`web-protocol-unlock-final/report.json`：390/390无横向溢出、63音效/5MP3、errors=[]；这是mock协议。当前Lab提供“点一下开启场景声音”的真实GUI入口，在GameMusic处理真实输入后上报其实际_unlocked，页面将声音解锁状态与profile/context ACK区分，未用假输入把已请求当作已可听。
+
+## 真实Web首轮 · 保留局部通过，拾取情境返工
+
+已读取主线实际`build/audio_director_v2/web-actual-first/report.json`，该报告为340b249b／build71031d53a0e1真实冷启动Godot iframe，不能替代我独立执行浏览器；与前述mock报告范围不同。12组合均实际收到选择ACK和正式accepted_event：UI四profile各click/confirm/denied；拾取各hurt/coin/heal/reward；普通战斗各enemy_hit。真实pointer开启后两个AudioContext处于running，记录1648个采样、peak约0.07529、errors=[]。这能证明本次实际Web连接与非零音频输出，不能区分每个候选的具体波形/听感；此次Web没有单独覆盖enemy_hurt和主角hurt，后两者只在作者原生66/0中覆盖。
+
+### V2-R5 · 拾取情境混入非目标伤音 · REVISE
+
+真实轨迹在全部四profile的拾取情境先出现hurt再拾取。冻结版run_demo的拾取分支显式调用_fire_enemy_once并等待，原fixture也生成正式敌人，因此这是有来源的真实伤害前置；当前证据不能称旧版伤害回执为伪造。问题是用缺血前置产生额外受伤声音，使仅比较拾取的一次动作混入非目标候选，不够直观。
+
+主线已要求Lab显式以静默开发fixture初始化缺血，保留正式拾取Area/正式回血受付；此初始化不能被记录或播放为敌弹命中，必须单独guard。真实受伤仍由combat按钮走正式弹体。旧报告与轨迹保留，修改后需新源冻结与新Web对照，不能用旧12组合替新包签通过。
+
+本轮完整docs Harness另有underworld专项超时，由主线保留/定位，不将前24项通过写成全套通过，也不为音频迭代扩大无关运行预算。
+
+### V2-R6 · 派生DSP追踪字段可伪造 · REVISE（独立临时反例）
+
+`validate`已核当前recipe/tool/source/output SHA，但尚未核render的processing、trim_filter、edge_filter、normalization_gain_db与实际源/配方相符。在完整临时ROOT中将首render的gain改999dB、edge_filter改volume=999dB、trim_filter改虚构方法及越界start_frame、processing改“synthesized sine wave”，保留全部真实WAV、config、tool与source字节。实际仍输出`AUDIO_CANDIDATES_V2_OK events=9 sets=3 rendered_files=54`。
+
+当前真实trace不是此伪造值，反例不声称当前候选失真；缺口是未来加工追踪字段可以自相矛盾但守门通过，因此前述“语义校验关闭”只涵盖已实际验证的播放路径与源ID，不能扩大成所有派生DSP元数据均闭环。要求基于实际源与recipe推导或重建trace进行比对，拒绝伪filter/gain/trim，并补此反例；保持54个已冻WAV不变。
