@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-02-CLIP-CLICK-C-V2",
+  "content_version": "audio-director-v2",
+  "source_path": "assets/audio/director_v2/click_c_v2.wav",
+  "source_sha256": "abbeba6ac34bfb6788065c6588e671c4d4a30d3690918247a3b2b838524ee542",
+  "tool": "tools/audio_candidates_v2.py; FFmpeg PCM decode and deterministic endpoint/gain processing",
+  "model": "not applicable",
+  "prompt_or_reference": "User rejected v1 A/B; retain original jump/land; choose distinct CC0 recorded takes with minimal processing",
+  "processing": "Single source take; original pitch; trim only outer sample silence; natural duration capped by event; 2ms/12ms edge fades and RMS/peak bounded gain",
+  "usage_scope": "Explicit Sound Lab V2 comparison only; not approved for default production",
+  "license_source": "config/audio_director/v2/sources.json and retained original page/CC0 text",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/audio/game_audio.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "limited_preview",
+  "source_family": "AUDIO-DIRECTOR-02-SOURCE-LED-V2",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v2/manifest.json",
+      "sha256": "6f4f7050918bee1ba7fbfc5542bb4aab16688a89c3bbc083ef69321d4299f2c5",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v2/recipes.json",
+      "sha256": "8ab5e65aadface151a5db12dfada8e9a8316cc30b94a32fd6c2611160a194135",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v2/sources.json",
+      "sha256": "2d7b6495e057fb5938bbb01b6a6057459576ea249479ed5f739bf25bd59ab79c",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/audio_candidates_v2.py",
+      "sha256": "7d74df3adbdf8acb88fc8db71b903096bfc9edba678292b9933666f3bee28d39",
+      "role": "processing_record"
+    }
+  ],
+  "original_source_id": "ui/click5.wav",
+  "input_sha256": "65f261088ac9902c0c1aa125a26fc6115eb77f015475d7df97cb089e5811fef5"
+}

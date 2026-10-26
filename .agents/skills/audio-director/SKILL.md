@@ -17,3 +17,7 @@ description: 为失序之钟设计或优化SFX、敌人声音、钩索、UI和�
 6. 执行相关最小测试与独审，独立Preview验证实际URL、metadata和完整字节；不能部署时给真实下载包和准确阻塞。用户听感/真机维度未验保留，自动指标不签商业品质。
 
 未来敌人/区域需要实际新选材和配方；brief不能自动完成创作。连续两轮不改善就更换原料/层次，不能只增强响度或数量。保留五首用户BGM原字节，试听真实混音。
+
+## 当前试听迭代
+
+用户已拒绝v1 A/B，原起跳/落地获得正面反馈。以brief输出的candidate_version和next_command为准；V2使用tools/audio_candidates_v2.py与config/audio_director/v2，不能把原audio_design.py的v1重建当新方向。新音色必须在[情境试听](../../../docs/audio_director/listening_v2.md)的真实UI/拾取/战斗中对照；开发fixture/单事件焦点明确标注。用户仍未批准V2，不能自动全游戏推广。

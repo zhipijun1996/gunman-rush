@@ -32,6 +32,8 @@ var _director_last: Dictionary = {}
 var _director_variants: Dictionary = {}
 var _director_clock := 0.0
 var _director_random := RandomNumberGenerator.new()
+var _director_profiles: Array[String] = ["A", "B"]
+var _director_suppressed: Array[StringName] = []
 
 static func ensure_buses() -> void:
 	# Unity buses preserve the original mix; candidates can be balanced separately.
@@ -46,7 +48,8 @@ static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 	if service == null: return
-	if service.audio_profile != "original":
+	if service.is_director_event_suppressed(event_id): return
+	if service.audio_profile != "original" and service.has_director_event(event_id):
 		service.play_director_event(event_id, "", origin)
 	else:
 		cue(origin, legacy_cue)
@@ -56,7 +59,8 @@ static func cue(origin: Node, id: StringName) -> void:
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 	if service:
 		var event_id := service.director_event_for_cue(id)
-		if service.audio_profile != "original" and not event_id.is_empty():
+		if service.is_director_event_suppressed(event_id): return
+		if service.audio_profile != "original" and service.has_director_event(event_id):
 			service.play_director_event(event_id, "", origin)
 			return
 		var stream_override: AudioStream
@@ -81,7 +85,7 @@ static func hook_connected(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 	if service == null: return
-	if service.audio_profile == "original":
+	if service.audio_profile == "original" or not service.has_director_event(&"hook_connect"):
 		cue(origin, &"bell")
 	else:
 		service.play_director_event(&"hook_connect", "", origin)
@@ -116,12 +120,12 @@ func _observe_subtree(node: Node) -> void:
 	for child: Node in node.get_children(): _observe_subtree(child)
 
 func _observe_button(node: Node) -> void:
-	if node is BaseButton and not node.pressed.is_connected(_click): node.pressed.connect(_click)
+	if node is BaseButton and not node.get_meta("audio_skip_click", false) and not node.pressed.is_connected(_click): node.pressed.connect(_click)
 
 func _click() -> void:
 	# Explicit accepted confirm/denied consumers own candidate UI feedback.
 	# A generic BaseButton press cannot also announce a successful transaction.
-	if audio_profile == "original": play(&"click")
+	if audio_profile == "original" or has_director_event(&"click"): play(&"click")
 
 func _process(delta: float) -> void:
 	_clock += delta
@@ -138,7 +142,8 @@ func _process(delta: float) -> void:
 
 func play(id: StringName, stream_override: AudioStream = null) -> bool:
 	var event_id := director_event_for_cue(id)
-	if audio_profile != "original" and not event_id.is_empty():
+	if is_director_event_suppressed(event_id): return false
+	if audio_profile != "original" and has_director_event(event_id):
 		return play_director_event(event_id)
 	return _play_original(id, stream_override)
 
@@ -181,17 +186,49 @@ func _play_original(id: StringName, stream_override: AudioStream = null) -> bool
 	return false
 
 func _load_director_bank() -> void:
-	var manifest_path := "res://assets/audio/director_candidates/manifest.json"
-	if FileAccess.file_exists(manifest_path):
-		var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
-		if manifest is Dictionary:
-			for event: Dictionary in manifest.get("events", []):
-				_director_bank[StringName(event.get("id", ""))] = event
-	var rules: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://config/audio_director/runtime.json"))
-	if rules is Dictionary: _director_rules = rules.get("events", {})
+	configure_candidate_bank("res://assets/audio/director_candidates/manifest.json", "res://config/audio_director/runtime.json")
+
+func has_director_event(event_id: StringName) -> bool:
+	return not event_id.is_empty() and _director_bank.has(event_id)
+
+func is_director_event_suppressed(event_id: StringName) -> bool:
+	return event_id in _director_suppressed
+
+func set_audition_focus(event_id: StringName) -> void:
+	# Explicit lab-only isolation. The normal game never calls this method.
+	# Both original and candidates isolate the same accepted damage layer.
+	_director_suppressed.clear()
+	if event_id == &"enemy_hit": _director_suppressed.append(&"enemy_hurt")
+	elif event_id == &"enemy_hurt": _director_suppressed.append(&"enemy_hit")
+
+func configure_candidate_bank(manifest_path: String, rules_path: String) -> bool:
+	if _shutting_down or not FileAccess.file_exists(manifest_path) or not FileAccess.file_exists(rules_path): return false
+	var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
+	var rules: Variant = JSON.parse_string(FileAccess.get_file_as_string(rules_path))
+	if not manifest is Dictionary or not rules is Dictionary: return false
+	var bank: Dictionary = {}
+	var profiles: Array[String] = []
+	var declared_profiles: Variant = manifest.get("profiles", {"A": "A", "B": "B"})
+	if not declared_profiles is Dictionary: return false
+	for id: Variant in declared_profiles:
+		if str(id) not in ["A", "B", "C"]: return false
+		profiles.append(str(id))
+	if profiles.is_empty(): return false
+	for event: Dictionary in manifest.get("events", []):
+		var id := StringName(event.get("id", ""))
+		if id.is_empty() or bank.has(id): return false
+		bank[id] = event
+	if bank.is_empty() or not rules.get("events") is Dictionary: return false
+	set_audio_profile("original")
+	_director_bank = bank
+	_director_profiles = profiles
+	_director_rules = rules.events
+	_director_variants.clear()
+	_director_last.clear()
+	return true
 
 func set_audio_profile(profile: String) -> bool:
-	if profile not in ["original", "A", "B"]: return false
+	if profile != "original" and profile not in _director_profiles: return false
 	if profile != "original" and _director_bank.is_empty(): return false
 	if profile == audio_profile: return true
 	# A/B switches are review operations: old tails must not contaminate the next.
@@ -209,17 +246,18 @@ func director_event_for_cue(id: StringName) -> StringName:
 		&"shot": return &"shot"
 		&"enemy_defeat": return &"enemy_death"
 		&"jump", &"land", &"hurt", &"coin", &"heal", &"confirm", &"denied": return id
+		&"click": return &"click" if has_director_event(&"click") else &""
 		&"note": return &"reward"
 	return &""
 
 func play_director_event(event_id: StringName, candidate: String = "", origin: Node = null, sustained: bool = false) -> bool:
-	if _shutting_down or volume <= 0 or not _director_bank.has(event_id): return false
+	if _shutting_down or volume <= 0 or not _director_bank.has(event_id) or is_director_event_suppressed(event_id): return false
 	var definition: Dictionary = _director_bank[event_id]
 	var selected_profile := candidate if not candidate.is_empty() else audio_profile
 	if selected_profile == "original":
 		var legacy: Variant = definition.get("legacy_cue", "")
 		return _play_original(StringName(legacy)) if legacy is String and not legacy.is_empty() else false
-	var candidate_id := "%s_%s" % [event_id, selected_profile.to_lower()] if selected_profile in ["A", "B"] else selected_profile
+	var candidate_id := "%s_%s" % [event_id, selected_profile.to_lower()] if selected_profile in _director_profiles else selected_profile
 	var chosen: Dictionary = {}
 	for option: Dictionary in definition.get("candidates", []):
 		if str(option.get("id", "")) == candidate_id:

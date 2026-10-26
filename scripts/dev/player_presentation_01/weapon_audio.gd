@@ -12,8 +12,10 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 	if _shutting_down or get_tree().paused or volume<=0 or not weapon_clips.has(id): return false
 	# Only the first-stage basic pulse and committed enemy hit are candidates.
 	# Shot includes the recoil texture; do not emit another recoil voice here.
-	if audio_profile != "original" and id in [&"pulse", &"hit"]:
-		return play_director_event(&"shot" if id == &"pulse" else &"enemy_hit", "", instance_from_id(owner) as Node)
+	var director_id := &"shot" if id == &"pulse" else &"enemy_hit" if id == &"hit" else &""
+	if is_director_event_suppressed(director_id): return false
+	if audio_profile != "original" and has_director_event(director_id):
+		return play_director_event(director_id, "", instance_from_id(owner) as Node)
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.playing:

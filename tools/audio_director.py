@@ -117,12 +117,16 @@ def lab(output, game_url):
     print(f'AUDIO_LAB_OK events={len(data["events"])} files={len(files)} output={output}')
 
 def brief(request,output):
-    manifest=read(MANIFEST); matches=[]
-    families={'钩索':['hook_'],'敌人':['enemy_'],'枪':['shot','recoil'],'跳':['jump','land'],'UI':['confirm','denied'],'奖励':['coin','heal','reward'],'环境':[],'区域':[]}
+    active_manifest=ROOT/'assets/audio/director_v2/manifest.json'
+    active_v2=active_manifest.is_file()
+    active_manifest=active_manifest if active_v2 else MANIFEST
+    manifest=read(active_manifest); matches=[]
+    families={'钩索':['hook_'],'敌人':['enemy_'],'命中':['enemy_hit','enemy_hurt'],'受伤':['hurt','enemy_hurt'],'拾取':['coin','heal','reward'],'界面':['click','confirm','denied'],'点击':['click'],'枪':['shot','recoil'],'跳':['jump','land'],'UI':['confirm','denied'],'奖励':['coin','heal','reward'],'环境':[],'区域':[]}
     for word,ids in families.items():
         if word in request:matches += [e['id'] for e in manifest['events'] if any(e['id'].startswith(i) for i in ids)]
-    inputs=['docs/audio_director/style_bible.md','docs/audio_director/event_catalog.json','config/audio_director/sources.json','config/audio_director/recipes.json','config/audio_director/runtime.json',str(MANIFEST.relative_to(ROOT))]
-    result={'task':'AUDIO-DIRECTOR-01','request':request,'status':'production_brief','selected_events':list(dict.fromkeys(matches)),'inputs':[{ 'path':p,'sha256':sha(ROOT/p)} for p in inputs if (ROOT/p).exists()],'workflow':['Read Audio Style Bible, Event Catalog and selected family; inspect actual consumers','Select licensed source files; new source needs author/URL/terms/original SHA/download date','Edit explicit versioned recipes; build and validate; keep original/A/B available','Verify accepted gameplay event, pause/death/reload and voice lifecycle','Deliver lab and real Godot preview; user alone approves timbre'],'next_command':'python3 tools/audio_design.py build','limitation':'Brief selects context and existing event family; a new enemy/region still requires real source selection and authored recipes, never fake synthesis or automatic approval.'}
+    prefix='config/audio_director/v2/' if active_v2 else 'config/audio_director/'
+    inputs=['docs/audio_director/style_bible.md','docs/audio_director/listening_v2.md','docs/audio_director/event_catalog.json',prefix+'sources.json',prefix+'recipes.json',prefix+'runtime.json',str(active_manifest.relative_to(ROOT))]
+    result={'task':'AUDIO-DIRECTOR-02' if active_v2 else 'AUDIO-DIRECTOR-01','candidate_version':manifest['version'],'prior_v1_status':'user-rejected; preserve original jump/land' if active_v2 else 'awaiting-user','request':request,'status':'production_brief','selected_events':list(dict.fromkeys(matches)),'inputs':[{ 'path':p,'sha256':sha(ROOT/p)} for p in inputs if (ROOT/p).exists()],'workflow':['Read Audio Style Bible, Event Catalog and selected family; inspect actual consumers','Select licensed source files; new source needs author/URL/terms/original SHA/download date','Edit explicit versioned recipes; build and validate; keep original/A/B available','Verify accepted gameplay event, pause/death/reload and voice lifecycle','Deliver lab and real Godot preview; user alone approves timbre'],'next_command':'python3 tools/audio_candidates_v2.py build' if active_v2 else 'python3 tools/audio_design.py build','limitation':'Brief selects context and existing event family; a new enemy/region still requires real source selection and authored recipes, never fake synthesis or automatic approval.'}
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():
