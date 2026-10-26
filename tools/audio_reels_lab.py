@@ -13,6 +13,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TASK = 'AUDIO-DIRECTOR-03'
+POST_VALIDATION_FILES={'tools/capture_audio_reels.py','tools/audio_reels_validation.py'}
 EVENTS = {
  'coin':['coin'], 'heal':['heal'], 'chest_open':['chest_open'], 'item_get':['item_get'],
  'ui':['click','confirm','denied'], 'enemy_hit':['enemy_hit'], 'enemy_hurt':['enemy_hurt'], 'hurt':['hurt'],
@@ -61,15 +62,20 @@ def build(capture:Path,output:Path,interactive_url:str):
  if output.exists():raise ValueError('Use fresh --output; do not overwrite retained delivery evidence')
  from audio_candidates_v3 import validate
  from capture_audio_reels import validate_trace, sources
+ from audio_reels_validation import validate_audio_windows
  validate()
  manifest=read(ROOT/'assets/audio/director_v3/manifest.json')
  choices={c['id']:c for e in manifest['events'] for c in e['candidates']}
- current=sources();validated=[];commits=set();engines=set()
+ current=sources();validated=[];commits=set();engines=set();producer_inputs=None;audio_audits={}
  # Reject missing/changed captures before creating any deliverable directory.
  for reel in EVENTS:
   folder=capture/reel;report=read(folder/'report.json');trace=read(folder/'trace.json');movie=folder/(reel+'.mp4')
   if report.get('status')!='passed' or report.get('source_stable') is not True:raise ValueError('Capture not passed: '+reel)
-  if report.get('source_before')!=current or report.get('source_after')!=current:raise ValueError('Capture runtime source differs: '+reel)
+  before=report.get('source_before')
+  if not isinstance(before,dict) or report.get('source_after')!=before:raise ValueError('Captured producer source was unstable: '+reel)
+  if producer_inputs is None:producer_inputs=before
+  if producer_inputs!=before:raise ValueError('Producer snapshots differ across recordings')
+  if {k:v for k,v in before.items() if k not in POST_VALIDATION_FILES}!={k:v for k,v in current.items() if k not in POST_VALIDATION_FILES}:raise ValueError('Captured game/scene/engine inputs differ from current frozen runtime: '+reel)
   if report.get('trace_sha256')!=sha(folder/'trace.json'):raise ValueError('Trace hash mismatch: '+reel)
   if report.get('movie_sha256')!=sha(movie):raise ValueError('Movie hash mismatch: '+reel)
   count=report['frame_count']
@@ -84,6 +90,7 @@ def build(capture:Path,output:Path,interactive_url:str):
   if video['avg_frame_rate']!='60/1' or int(audio['sample_rate'])!=48000 or int(audio['channels'])!=2:raise ValueError('Unexpected movie format')
   duration=float(media['format']['duration'])
   if abs(duration-frame_count/60)>.1:raise ValueError('Movie duration/frame count drift')
+  audio_audits[reel]=validate_audio_windows(movie,trace,reel,manifest)
   commits.add(report['commit']);validated.append((reel,folder,report,segments,duration))
  if len(commits)!=1 or len(engines)!=1:raise ValueError('Recordings must share one frozen producer commit and engine')
  source=commits.pop()
@@ -92,16 +99,21 @@ def build(capture:Path,output:Path,interactive_url:str):
  for entry in subprocess.check_output(['git','ls-tree','-r','-z',source],cwd=ROOT).split(b'\0'):
   if not entry:continue
   meta,name=entry.split(b'\t',1);mode,kind,blob=meta.split();tree[name.decode()]=(mode.decode(),kind.decode(),blob.decode())
- for name in current:
+ for name in producer_inputs:
   entry=tree.get(name)
   if not entry or entry[1]!='blob' or entry[0] not in ['100644','100755']:raise ValueError('Capture input not a regular producer file: '+name)
+  if name in POST_VALIDATION_FILES:
+   blob=subprocess.check_output(['git','show',source+':'+name],cwd=ROOT)
+   if hashlib.sha256(blob).hexdigest()!=producer_inputs[name]:raise ValueError('Historical producer tool differs from its actual recorded Git source')
+   continue
   p=ROOT/name;fingerprint=hashlib.sha1();fingerprint.update(('blob '+str(p.stat().st_size)+'\0').encode())
   with p.open('rb') as f:
    for chunk in iter(lambda:f.read(1024*1024),b''):fingerprint.update(chunk)
   if fingerprint.hexdigest()!=entry[2]:raise ValueError('Capture runtime input differs from producer commit: '+name)
- output.mkdir(parents=True);(output/'media').mkdir();(output/'posters').mkdir();(output/'audio').mkdir();(output/'licenses').mkdir()
+ output.mkdir(parents=True);(output/'media').mkdir();(output/'posters').mkdir();(output/'audio').mkdir();(output/'licenses').mkdir();(output/'verification').mkdir()
+ for reel,audit in audio_audits.items():write(output/'verification'/(reel+'-audio.json'),audit)
  all_sources=copy.deepcopy(manifest['sources']);all_sources.update(original_sources())
- data={'schema_version':1,'task':TASK,'version':manifest['version'],'source_commit':source,'site_builder_commit':head(),'interactive_url':interactive_url,'interactive_label':'上一版互动工坊（V2） ↗','event_labels':EVENT_LABELS,'sources':all_sources,'clips':[],'subjective_status':'awaiting-user'}
+ data={'schema_version':1,'task':TASK,'version':manifest['version'],'source_commit':source,'site_builder_commit':head(),'interactive_url':interactive_url,'interactive_label':'上一版互动工坊（V2） ↗','event_labels':EVENT_LABELS,'sources':all_sources,'clips':[],'subjective_status':'awaiting-user','post_validation_tool_sha256':sha(ROOT/'tools/audio_reels_validation.py'),'verification_upgrade':'Original 4d footage and producer snapshots retained. Only capture/post-validation Python tools upgraded after recording to reject numerical zero-energy FFT false peaks; all game/scene/assets/config inputs remain the original frozen bytes.'}
  for reel,folder,report,segments,duration in validated:
   movie=folder/(reel+'.mp4');shutil.copyfile(movie,output/'media'/movie.name)
   poster=output/'posters'/(reel+'.jpg');poster_at=(segments[0]['start_frame']+min(70,segments[0]['end_frame']-segments[0]['start_frame']-1))/60

@@ -55,6 +55,7 @@ class SourceClosure(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'tools').mkdir()
             (root/'project.godot').write_text('[audio]\ndriver/mix_rate=44100\n')
+            (root/'tools/audio_reels_validation.py').write_text('# isolated verification fixture\n')
             (root/'tools/godot.sh').write_text('#!/bin/sh\nexec godot "$@"\n')
             subprocess.run(['git','init','-q',str(root)],check=True)
             with patch.object(capture,'ROOT',root):

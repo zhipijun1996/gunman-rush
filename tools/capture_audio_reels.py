@@ -23,7 +23,7 @@ def sha(path):
 def sources():
     paths = [Path(v) for v in subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()]
     paths += [Path(v) for v in subprocess.check_output(['git','ls-files','--others','--exclude-standard'],cwd=ROOT,text=True).splitlines()]
-    return {str(p):sha(ROOT/p) for p in sorted(set(paths)) if str(p).startswith(('scripts/','scenes/','resources/','assets/','config/','tools/audio_reels_capture','tools/capture_audio_reels','tests/audio_director_reels')) and (ROOT/p).is_file()} | {p:sha(ROOT/p) for p in ('project.godot','tools/godot.sh')}
+    return {str(p):sha(ROOT/p) for p in sorted(set(paths)) if str(p).startswith(('scripts/','scenes/','resources/','assets/','config/','tools/audio_reels_capture','tools/capture_audio_reels','tests/audio_director_reels')) and (ROOT/p).is_file()} | {p:sha(ROOT/p) for p in ('project.godot','tools/godot.sh','tools/audio_reels_validation.py')}
 
 EXPECTED_EVENTS = {id:[id] for id in REELS}
 EXPECTED_EVENTS.update(ui=['click','confirm','denied'], weapons=['shot_pulse','shot_shuriken','shot_bomb','bomb_explode'], mix=['coin','heal','enemy_hit','hurt'])
@@ -95,33 +95,10 @@ def validate_trace(trace, reel, frame_count, manifest=None):
     return segments
 
 def validate_audio_windows(movie, trace, reel):
-    """Inspect the captured track in every profile, and match each candidate waveform even under BGM."""
-    import numpy as np
-    pcm=np.frombuffer(subprocess.check_output(['ffmpeg','-v','error','-i',str(movie),'-f','f32le','-ac','1','-ar','48000','pipe:1']),dtype='<f4')
-    manifest=json.loads((ROOT/'assets/audio/director_v3/manifest.json').read_text())
-    candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
-    rows=[]
-    for segment in trace['segments']:
-        a=frame_integer(segment['start_frame'])*800; b=min(len(pcm),frame_integer(segment['end_frame'])*800)
-        rms=float(np.sqrt(np.mean(pcm[a:b]**2)))
-        if rms<1e-6: raise ValueError('Captured profile audio window is silent')
-        matches=[]
-        if segment['profile']!='original':
-            for event in segment['director_events']:
-                candidate=candidates[event['candidate']]
-                reference=np.frombuffer(subprocess.check_output(['ffmpeg','-v','error','-i',str(ROOT/candidate['path'].removeprefix('res://')),'-f','f32le','-ac','1','-ar','48000','pipe:1']),dtype='<f4').astype('float64')
-                frame=frame_integer(event['movie_frame']); first=max(a,(frame-8)*800); last=min(b,(frame+8)*800+len(reference))
-                window=pcm[first:last].astype('float64'); m=len(reference); n=len(window)
-                if n<m: raise ValueError('Candidate tail truncated from captured profile')
-                size=1<<(m+n-1).bit_length()
-                corr=np.fft.irfft(np.fft.rfft(window,size)*np.fft.rfft(reference[::-1],size),size)[m-1:n]
-                sums=np.concatenate(([0.],np.cumsum(window**2)))
-                denom=np.sqrt(np.maximum(1e-30,(sums[m:]-sums[:-m])*np.dot(reference,reference)))
-                normalized=float(np.max(np.abs(corr)/denom))
-                if normalized<.12: raise ValueError(f'Candidate waveform missing in native track: {event["candidate"]} correlation={normalized:.3f}')
-                matches.append({'candidate':event['candidate'],'movie_frame':frame,'correlation':normalized})
-        rows.append({'profile':segment['profile'],'rms':rms,'candidate_matches':matches})
-    return rows
+    # Capture evidence must use the stable, bounded post-validator. The older
+    # cumulative-denominator implementation is retained only in historical Git.
+    from audio_reels_validation import validate_audio_windows as stable_validate
+    return stable_validate(movie, trace, reel)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
