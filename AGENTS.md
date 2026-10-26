@@ -1,5 +1,10 @@
 # 项目工作规则
 
+## 2026-10-26 本局背包与齿轮装备（RUN-GEAR-01）
+
+当前正式道具先入RunInventory，只有EquipmentService已装备实例进入BuildState效果计算；暂停构筑支持自由装卸／原子替换，容量及升级价以config/gear_capacity.json为唯一运行来源。保持随机道具、核心能力和当前武器独立。详见[权威规则](docs/rewards_and_builds.md)和[工作线](docs/worklines/run_gear_01/scope.md)。当前style-v14／creative-v17仅技术重绑实际DemoApp消费者，另35引用、原Bible、像素规格和所有旧版本原件不改；没有新美术生产或继承用户／设备认可。本轮PR面向main，不自动合并。
+
+
 小屏集成修订：保留本帧响应式地图／暂停位置作为避障候选，避免桌面缓存fallback覆盖真实触屏MENU。原960×540失败与4fc独审REVISE保留；两行修复后原UIcontract139/0，最终同源专项／独审和新Web以实际结果为准。
 
 ## 2026-10-24 固定状态HUD集成纠正（当前）

@@ -67,8 +67,8 @@ func run() -> void:
 	pilot.disconnect_actual()
 	check(await pointer(app.progression_modal,"END THIS RUN","finish"),"actual development-boundary home pointer")
 	for unused: int in 6: await get_tree().process_frame
-	data.after_boundary={"state":int(app.director.state),"wallet":app.wallet.balance,"items":app.build.item_ids(),"abilities":Array(app.campaign.abilities)}
-	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.campaign.abilities.is_empty(),"real home clears run")
+	data.after_boundary={"state":int(app.director.state),"wallet":app.wallet.balance,"items":app.build.inventory.item_ids(),"equipped":app.build.item_ids(),"abilities":Array(app.campaign.abilities)}
+	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.build.inventory.item_ids().is_empty() and app.campaign.abilities.is_empty(),"real home clears run")
 	await finish(trace)
 func reward_identity(app: DemoApp) -> Dictionary:
 	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(&"forest_heart_gold")}

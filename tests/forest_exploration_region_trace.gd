@@ -416,7 +416,7 @@ func snapshot() -> Dictionary:
 	return data
 
 func _neutral_reader_snapshot() -> Dictionary:
-	return {"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.item_ids(),"coins":app.wallet.balance,"notes":app.meta.snapshot().get("notes",0),"position":pair(player.global_position),"motion_steps":player.motion_steps}
+	return {"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.inventory.item_ids(),"coins":app.wallet.balance,"notes":app.meta.snapshot().get("notes",0),"position":pair(player.global_position),"motion_steps":player.motion_steps}
 
 func _process(delta: float) -> void:
 	if initialized and not finished and is_instance_valid(stage):

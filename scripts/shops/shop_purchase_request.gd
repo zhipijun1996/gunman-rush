@@ -7,3 +7,7 @@ var offer_id: StringName
 var quantity := 1
 var quote_version := 1
 var transaction_id: StringName
+
+# Gear purchases additionally belong to the current paused equipment editor.
+var equipment_session := -1
+var equipment_revision := -1

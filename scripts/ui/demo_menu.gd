@@ -29,6 +29,10 @@ signal requested_home
 signal settings_changed(values: Dictionary)
 signal menu_opened
 signal presentation_changed(reduced_effects: bool, muted: bool)
+signal build_opened
+signal build_closed
+signal equipment_requested(instance_ids: Array[StringName], revision: int, session: int)
+signal gear_upgrade_requested(revision: int, session: int)
 
 const INK := DemoClockworkTheme.INK
 const CARD := DemoClockworkTheme.PANEL
@@ -54,6 +58,11 @@ var _weapon_buttons: Dictionary = {}
 var home_function_id: StringName = &""
 var _build := ""
 var _build_items: Array[ItemDefinition]=[]
+var _equipment_view: Dictionary = {}
+var _equipment_body: VBoxContainer
+var _equipment_generation := 0
+var _replacement_id: StringName = &""
+var _equipment_focus_id: StringName = &""
 var _seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
@@ -80,6 +89,9 @@ var _last_screen_transform := Transform2D.IDENTITY
 var _last_window_size := Vector2i.ZERO
 var _last_layout_device: StringName = &""
 var _menu_device: StringName = &"keyboard_mouse"
+var _focus_restore_queued := false
+var _focus_restore_generation := -1
+var _focus_scroll_callback: Callable
 const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 
 func _ready() -> void:
@@ -433,6 +445,7 @@ func show_pause(build_description: String = "", items: Array[ItemDefinition] = [
 	_build_items=items
 	_begin(&"pause", true)
 	_title("片刻停驻", "钟摆停下，旅途仍在。")
+	_label(_content, "获得道具先放入行囊，装备后才会生效。", 16, MUTED)
 	_pause_navigation(&"pause")
 	var resume := _button(_content, "RESUME / 继续旅途", close_panel)
 	resume.theme_type_variation = &"PrimaryButton"
@@ -531,21 +544,167 @@ func show_help(in_run: bool = false) -> void:
 func show_build(text: String) -> void:
 	_build = text
 	_begin(&"build", true)
-	_title("旅途行囊", "本局已获得的物品与真实属性。")
+	_equipment_view.clear()
+	_replacement_id = &""
+	_equipment_focus_id = &""
+	_title("旅途构筑", "获得道具先入包，装备后生效。暂停时可以自由换装。")
 	_pause_navigation(&"build")
-	_label(_content, text if not text.is_empty() else "No items yet. Look for marked caches on optional routes.", 20, TEXT)
-	var unique: Dictionary={}
-	for item: ItemDefinition in _build_items:
-		if unique.has(item.stable_id): unique[item.stable_id].count+=1
-		else: unique[item.stable_id]={"item":item,"count":1}
-	if not unique.is_empty():
-		var scroll:=ScrollContainer.new();scroll.custom_minimum_size=Vector2(0,290);_content.add_child(scroll)
-		var cards:=HBoxContainer.new();cards.add_theme_constant_override("separation",12);scroll.add_child(cards)
-		for entry: Dictionary in unique.values():
-			var card:=ItemCard.new();card.item=entry.item;card.count=entry.count;cards.add_child(card)
-	_button(_content, "BACK", _back)
-	if not _focus_history.has(&"build"): _focus_history[&"build"] = "行囊"
+	_equipment_body = VBoxContainer.new()
+	_equipment_body.name = "EquipmentBody"
+	_equipment_body.add_theme_constant_override("separation", 12)
+	_content.add_child(_equipment_body)
+	_label(_equipment_body, "正在读取本局行囊……", 18, MUTED)
+	_button(_content, "返回暂停", _back).set_meta(&"ui_legacy_prefix", "BACK")
+	# The application creates the editing session after _begin has canceled old
+	# input. Data refreshes below never reopen the menu or create another session.
+	build_opened.emit()
 	_focus_first()
+
+func set_equipment_view(snapshot: Dictionary) -> void:
+	_equipment_view = snapshot.duplicate(true)
+	if visible_panel != &"build" or not is_instance_valid(_equipment_body): return
+	_build = str(snapshot.get("summary", _build))
+	var equipped := _equipped_ids()
+	if not _replacement_id in equipped: _replacement_id = &""
+	_render_equipment()
+
+func _equipped_ids() -> Array[StringName]:
+	var ids: Array[StringName] = []
+	for entry: Dictionary in _equipment_view.get("items", []):
+		if bool(entry.get("equipped", false)): ids.append(StringName(entry.get("instance_id", &"")))
+	return ids
+
+func _render_equipment() -> void:
+	if not is_instance_valid(_equipment_body): return
+	var focused := get_viewport().gui_get_focus_owner()
+	if is_instance_valid(focused) and _equipment_body.is_ancestor_of(focused):
+		_focus_history[&"build"] = str(focused.get_meta(&"focus_key", focused.name))
+	if not _equipment_focus_id.is_empty():
+		_focus_history[&"build"] = ("unequip:" if _equipment_focus_id in _equipped_ids() else "equip:") + str(_equipment_focus_id)
+		_equipment_focus_id = &""
+	_equipment_generation += 1
+	for child: Node in _equipment_body.get_children():
+		_equipment_body.remove_child(child)
+		child.queue_free()
+	var capacity := int(_equipment_view.get("capacity", 0))
+	var used := int(_equipment_view.get("used", 0))
+	var remaining := int(_equipment_view.get("remaining", capacity - used))
+	var load_label := _label(_equipment_body, "齿轮负荷  %s / %s    剩余 %s" % [used, capacity, remaining], 23, GOLD)
+	load_label.name = "GearLoad"
+	var slots := HBoxContainer.new()
+	slots.name = "GearSlots"
+	slots.add_theme_constant_override("separation", 4)
+	_equipment_body.add_child(slots)
+	for index: int in capacity:
+		var slot := ColorRect.new()
+		slot.name = "GearSlot%s" % (index + 1)
+		slot.color = TEAL if index < used else CARD.lightened(0.12)
+		slot.custom_minimum_size = Vector2(12, 16)
+		slot.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slots.add_child(slot)
+	var coins := int(_equipment_view.get("coins", 0))
+	var upgrade: Dictionary = _equipment_view.get("upgrade", {})
+	_label(_equipment_body, "本局金币 %s  ·  齿轮扩容 %s 级" % [coins, int(_equipment_view.get("level", 0))], 16, TEXT)
+	if bool(upgrade.get("available", false)):
+		var price := int(upgrade.get("price", 0))
+		var target := int(upgrade.get("capacity", capacity))
+		var buy := _equipment_button(_equipment_body, "扩容至 %s 槽 · %s 金币" % [target, price], func() -> void:
+			gear_upgrade_requested.emit(int(_equipment_view.get("revision", 0)), int(_equipment_view.get("session", 0))))
+		buy.name = "PurchaseGearUpgrade"
+		buy.set_meta(&"focus_key", "gear_upgrade")
+		buy.disabled = coins < price
+		if buy.disabled: _label(_equipment_body, str(upgrade.get("reason", "金币不足，暂时无法扩容。")), 16, GOLD)
+	else:
+		_label(_equipment_body, str(upgrade.get("reason", "本局齿轮容量已达上限。")), 16, MUTED)
+	var message := str(_equipment_view.get("message", ""))
+	if not message.is_empty():
+		var feedback := _label(_equipment_body, message, 18, GOLD)
+		feedback.name = "EquipmentFeedback"
+	if not _build.is_empty():
+		var attributes := _label(_equipment_body, _build, 17, TEXT)
+		attributes.name = "EquipmentAttributes"
+	if not _replacement_id.is_empty():
+		_label(_equipment_body, "已选择替换对象。点击行囊中的道具，成功后一次完成换装。", 17, TEAL)
+		var cancel := _equipment_button(_equipment_body, "取消替换", func() -> void:
+			_replacement_id = &""
+			_render_equipment())
+		cancel.set_meta(&"focus_key", "cancel_replace")
+	var equipped_count := 0
+	var backpack_count := 0
+	for entry: Dictionary in _equipment_view.get("items", []):
+		if bool(entry.get("equipped", false)): equipped_count += 1
+		else: backpack_count += 1
+	_label(_equipment_body, "已装备 · %s 件" % equipped_count, 21, TEAL)
+	var equipped_list := VBoxContainer.new()
+	equipped_list.name = "EquippedItems"
+	equipped_list.add_theme_constant_override("separation", 12)
+	_equipment_body.add_child(equipped_list)
+	for entry: Dictionary in _equipment_view.get("items", []):
+		if bool(entry.get("equipped", false)): _equipment_row(equipped_list, entry, true)
+	if equipped_count == 0: _label(equipped_list, "尚未装备道具。", 17, MUTED)
+	_label(_equipment_body, "行囊 · %s 件未装备" % backpack_count, 21, GOLD)
+	_label(_equipment_body, "行囊不占齿轮负荷，未装备的道具不产生效果。", 16, MUTED)
+	var backpack := VBoxContainer.new()
+	backpack.name = "BackpackItems"
+	backpack.add_theme_constant_override("separation", 12)
+	_equipment_body.add_child(backpack)
+	for entry: Dictionary in _equipment_view.get("items", []):
+		if not bool(entry.get("equipped", false)): _equipment_row(backpack, entry, false)
+	if backpack_count == 0: _label(backpack, "行囊暂无未装备道具。探索宝箱或商店可以获得道具。", 17, MUTED)
+	_focus_first()
+
+func _equipment_row(parent: Node, entry: Dictionary, equipped: bool) -> void:
+	var definition := entry.get("definition") as ItemDefinition
+	if definition == null: return
+	var id := StringName(entry.get("instance_id", &""))
+	var row := VBoxContainer.new()
+	row.set_meta(&"instance_id", id)
+	row.add_theme_constant_override("separation", 6)
+	parent.add_child(row)
+	var card := ItemCard.new()
+	card.item = definition
+	card.compact = true
+	card.name = "EquippedCard" if equipped else "BackpackCard"
+	row.add_child(card)
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 10)
+	row.add_child(actions)
+	if equipped:
+		var remove := _equipment_button(actions, "卸下", func() -> void: _request_equipment(id, false))
+		remove.name = "UnequipItem"
+		remove.set_meta(&"focus_key", "unequip:" + str(id))
+		var replace := _equipment_button(actions, "取消选中" if _replacement_id == id else "选为替换", func() -> void:
+			_replacement_id = &"" if _replacement_id == id else id
+			_render_equipment())
+		replace.name = "SelectReplacement"
+		replace.set_meta(&"focus_key", "replace:" + str(id))
+		replace.toggle_mode = true
+		replace.button_pressed = _replacement_id == id
+	else:
+		var add := _equipment_button(actions, "替换并装备" if not _replacement_id.is_empty() else "装备", func() -> void: _request_equipment(id, true))
+		add.name = "EquipItem"
+		add.set_meta(&"focus_key", "equip:" + str(id))
+		var reason := str(entry.get("reason", ""))
+		if not reason.is_empty() and _replacement_id.is_empty(): _label(row, reason, 16, GOLD)
+
+func _equipment_button(parent: Node, text: String, action: Callable) -> Button:
+	var generation := _equipment_generation
+	var revision := int(_equipment_view.get("revision", 0))
+	var session := int(_equipment_view.get("session", 0))
+	return _button(parent, text, func() -> void:
+		if visible_panel == &"build" and generation == _equipment_generation and revision == int(_equipment_view.get("revision", 0)) and session == int(_equipment_view.get("session", 0)):
+			action.call())
+
+func _request_equipment(id: StringName, equip: bool) -> void:
+	_equipment_focus_id = id
+	var proposed := _equipped_ids()
+	if equip:
+		if not _replacement_id.is_empty(): proposed.erase(_replacement_id)
+		if not id in proposed: proposed.append(id)
+	else:
+		proposed.erase(id)
+	equipment_requested.emit(proposed, int(_equipment_view.get("revision", 0)), int(_equipment_view.get("session", 0)))
 
 func _pause_navigation(active_page: StringName) -> void:
 	var navigation := HBoxContainer.new()
@@ -555,16 +714,12 @@ func _pause_navigation(active_page: StringName) -> void:
 	pause_tab.name = "PausePage"
 	pause_tab.toggle_mode = true
 	pause_tab.button_pressed = active_page == &"pause"
-	var build_tab := _button(navigation, "行囊", func() -> void: show_build(_build))
+	var build_tab := _button(navigation, "构筑 · 行囊 / 装备", func() -> void: show_build(_build))
 	build_tab.name = "BuildPage"
+	build_tab.set_meta(&"focus_key", "行囊")
 	build_tab.set_meta(&"ui_legacy_prefix", "YOUR BUILD")
 	build_tab.toggle_mode = true
 	build_tab.button_pressed = active_page == &"build"
-	var equipment := _button(navigation, "装备", Callable())
-	equipment.name = "EquipmentNotImplemented"
-	equipment.disabled = true
-	equipment.tooltip_text = "装备分页尚未开放。"
-	_label(_content, "装备分页尚未开放；当前可查看本局行囊。", 14, MUTED)
 
 func close_panel() -> void:
 	if _in_run:
@@ -616,6 +771,8 @@ func _confirm_home() -> void:
 	_focus_first()
 
 func _hide() -> void:
+	if visible_panel == &"build": build_closed.emit()
+	_equipment_generation += 1
 	home_function_id = &""
 	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_hide")
 	visible_panel = &""
@@ -623,6 +780,8 @@ func _hide() -> void:
 	_root.hide()
 
 func _begin(panel: StringName, in_run: bool) -> void:
+	if visible_panel == &"build": build_closed.emit()
+	_equipment_generation += 1
 	home_function_id = &""
 	_weapon_buttons.clear()
 	var focused := get_viewport().gui_get_focus_owner()
@@ -912,7 +1071,16 @@ func _space(parent: Node, height: float) -> void:
 
 func _focus_first() -> void:
 	_layout_menu()
-	_restore_focus.call_deferred(_page_generation)
+	# Opening the build can synchronously refresh its contents. Coalesce those
+	# requests and restore the latest page, rather than enqueueing two restores.
+	_focus_restore_generation = _page_generation
+	if _focus_restore_queued: return
+	_focus_restore_queued = true
+	_flush_focus_restore.call_deferred()
+
+func _flush_focus_restore() -> void:
+	_focus_restore_queued = false
+	_restore_focus(_focus_restore_generation)
 
 func _restore_focus(generation: int) -> void:
 	if generation != _page_generation or visible_panel.is_empty(): return
@@ -935,9 +1103,15 @@ func _restore_focus(generation: int) -> void:
 	target.grab_focus()
 	# Containers settle after this deferred callback. Scrolling against the
 	# pre-layout rectangle can open a long page at its bottom with focus offscreen.
-	get_tree().process_frame.connect(_finish_focus_scroll.bind(generation, weakref(target), wanted), CONNECT_ONE_SHOT)
+	# A second refresh can arrive after the deferred restore but before the
+	# next process frame. Replace that pending scroll with the newest target.
+	if _focus_scroll_callback.is_valid() and get_tree().process_frame.is_connected(_focus_scroll_callback):
+		get_tree().process_frame.disconnect(_focus_scroll_callback)
+	_focus_scroll_callback = _finish_focus_scroll.bind(generation, weakref(target), wanted)
+	get_tree().process_frame.connect(_focus_scroll_callback, CONNECT_ONE_SHOT)
 
 func _finish_focus_scroll(generation: int, target_ref: WeakRef, wanted: String) -> void:
+	_focus_scroll_callback = Callable()
 	# The bound method is disconnected when this menu is freed. A suspended
 	# coroutine would still resume after owner teardown during scene changes.
 	var target := target_ref.get_ref() as Control

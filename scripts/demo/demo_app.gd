@@ -89,6 +89,10 @@ var _dismissed_exits: Dictionary = {}
 var reward_modal: StageRewardModal
 var _pending_exit: StringName = &""
 var _reward_token: DemoToken
+var _equipment_token: DemoToken
+var _equipment_session := -1
+var _equipment_input_epoch := -1
+var _equipment_sequence := 0
 
 func _ready() -> void:
 	# Official Web templates forbid command-line scene overrides. Only an explicit
@@ -311,7 +315,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		controller.actor_resources.health_definition = meta.fresh_health_definition(controller.actor_resources.health_definition)
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
-	build.configure(controller)
+	build.configure(controller, lifetime, StringName(_run_receipt_prefix))
 	catalog.configure(build, &"plains" if connected_region else director.biome_id)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
@@ -331,6 +335,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
 
 func _stage_entered(_result: DemoRunResult) -> void:
+	_close_build_session()
 	if campaign.debug_entry and director.stage_index == 1:
 		director.region_map_index = _debug_map
 		director.manifest.enable_campaign()
@@ -491,6 +496,8 @@ func _load_stage() -> void:
 		var initial_character := {"id": "prototype_player", "weapon": String(controller.shoot_ability.weapon.id), "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
+		config_hashes.gear_capacity = FileAccess.get_sha256(GearCapacityPolicy.PATH)
+		director.manifest.record_output(director.stage_index, &"equipment_contract", {"version": 1, "acquisition": "inventory_only", "initial_capacity": build.equipment.snapshot().capacity, "gear_policy_sha256": config_hashes.gear_capacity})
 		if generated_plains:
 			var meta_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/meta_upgrades.json"))
 			initial_character.current_health = controller.actor_resources.health.current
@@ -1089,10 +1096,12 @@ func _pause_for_menu() -> void:
 	_shown_actions = ""
 
 func _resume_from_menu() -> void:
+	_close_build_session()
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller):
 		return
 	controller.router.clear("menu_resume")
 	get_viewport().gui_release_focus()
+	_resume_exit_input()
 	get_tree().paused = false
 	_shown_actions = ""
 
@@ -1115,11 +1124,77 @@ func apply_input_settings(patch: Dictionary) -> bool:
 
 func _build_description() -> String:
 	if build == null or not is_instance_valid(controller):
-		return "No items yet."
-	var items := build.item_ids()
-	var names: PackedStringArray=[]
-	for item: ItemDefinition in build.owned_items(): names.append(item.display_name)
-	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(names) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
+		return "本局尚无道具。"
+	return "背包 %s 件 · 已装备 %s 件\n生命 %.0f / %.0f · 跳跃 %s · 空中射击 %s\n伤害 %.1f · 反冲速度 %.0f\n道具入包后需装备才生效，换装不消耗金币。" % [build.inventory.item_ids().size(), build.item_ids().size(), controller.actor_resources.health.current, controller.actor_resources.health.capacity, controller.jump_ability.maximum_jumps(), controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
+
+func _open_build_session() -> void:
+	_close_build_session()
+	if not _build_menu_available(): return
+	_equipment_token = lifetime.token()
+	_equipment_session = build.equipment.open_session(_equipment_token)
+	_equipment_input_epoch = controller.router.epoch
+	_refresh_equipment_view()
+
+func _close_build_session() -> void:
+	if build != null and build.equipment != null:
+		build.equipment.close_session()
+	_equipment_token = null
+	_equipment_session = -1
+	_equipment_input_epoch = -1
+
+func _build_menu_available() -> bool:
+	return lifetime.active and director.state == DemoRunDirector.State.IN_STAGE and not _stage_pending and is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and controller.router.has_application_focus and get_tree().paused and menu.visible_panel == &"build"
+
+func _refresh_equipment_view(message: String = "") -> void:
+	if build == null or menu.visible_panel != &"build": return
+	var view := build.equipment.snapshot()
+	view["coins"] = wallet.balance
+	view["summary"] = _build_description()
+	view["message"] = message
+	var quote := shop.gear_quote()
+	view["upgrade"] = {"available": quote.available, "price": quote.get("price", 0), "capacity": quote.get("next_capacity", view.capacity), "reason": "金币不足" if quote.available and wallet.balance < int(quote.price) else "已达本局容量上限" if not quote.available else ""}
+	var cards: Array[Dictionary] = []
+	var equipped: Array[StringName] = []
+	equipped.assign(view.equipped_ids)
+	for instance: RunItemInstance in build.inventory.instances():
+		var proposed: Array[StringName] = equipped.duplicate()
+		if instance.instance_id in proposed: proposed.erase(instance.instance_id)
+		else: proposed.append(instance.instance_id)
+		var preview := build.equipment.preview(proposed)
+		cards.append({"instance_id": instance.instance_id, "definition": instance.item, "equipped": instance.instance_id in equipped, "reason": "" if preview.accepted else _equipment_reason(preview.reason)})
+	view["items"] = cards
+	menu.set_equipment_view(view)
+
+func _submit_equipment(ids: Array[StringName], revision: int, session: int) -> void:
+	if not _build_menu_available() or session != _equipment_session:
+		return
+	var result := build.equipment.submit(ids, _equipment_token, session, revision)
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
+	if result.accepted:
+		_equipment_sequence += 1
+		director.manifest.record_output(director.stage_index, StringName("equipment/%s" % _equipment_sequence), {"instances": Array(build.equipment.equipped_ids()), "items": build.item_ids(), "capacity": build.equipment.snapshot().capacity})
+	_refresh_equipment_view("换装完成" if result.accepted else _equipment_reason(result.reason))
+
+func _equipment_reason(reason: StringName) -> String:
+	var messages := {&"capacity_exceeded": "齿轮负荷不足，请先卸下道具或选择替换", &"duplicate_instance": "同一道具实例不能重复装备", &"not_owned": "背包中没有这件道具", &"equip_limit": "同类道具已达装备数量上限", &"exclusive": "与当前装备的道具互斥", &"prerequisite": "缺少所需的装备标签", &"capability_required": "尚未解锁所需的核心能力", &"weapon_required": "仅适用于指定武器", &"stale_actor": "角色状态已变化，请重新打开构筑", &"stale_session": "操作已过期，请重新打开构筑", &"stale_revision": "构筑已变化，请按当前列表重试", &"unsupported_effect": "当前角色不支持此效果", &"invalid_stats": "装备后的属性不合法", &"invalid_item": "道具定义不合法", &"effect_rejected": "效果应用失败，本次换装未提交", &"busy": "正在提交，请稍后再试"}
+	return str(messages.get(reason, "当前状态无法换装"))
+
+func _purchase_gear_upgrade(revision: int, session: int) -> void:
+	if not _build_menu_available() or session != _equipment_session: return
+	var quote := shop.gear_quote()
+	var request := ShopPurchaseRequest.new()
+	request.token = _equipment_token
+	request.offer_id = &"gear_capacity"
+	request.quote_version = int(quote.quote_version)
+	request.transaction_id = _next_id("gear_upgrade")
+	request.equipment_session = session
+	request.equipment_revision = revision
+	var receipt := shop.purchase_gear_upgrade(request)
+	GameAudio.cue(self, &"confirm" if receipt.accepted() else &"denied")
+	if receipt.accepted():
+		_equipment_sequence += 1
+		director.manifest.record_output(director.stage_index, StringName("gear_upgrade/%s" % _equipment_sequence), {"coins": receipt.coins, "capacity": build.equipment.snapshot().capacity, "transaction": str(receipt.event_id)})
+	_refresh_equipment_view("齿轮容量已扩充" if receipt.accepted() else "扩容失败：金币不足、报价或操作已过期")
 
 func _input(event: InputEvent) -> void:
 	# Presentation entry only; reuse the existing pause/cancellation boundary.
@@ -1226,6 +1301,7 @@ func abandon_run() -> void:
 		director.end_failure(_next_id("abandon"))
 
 func _run_ended(result: DemoRunResult) -> void:
+	_close_build_session()
 	if is_instance_valid(progression_modal): progression_modal.close()
 	_progression_token = null
 	_terrain_study_requested=false
@@ -1242,7 +1318,7 @@ func _run_ended(result: DemoRunResult) -> void:
 	if is_instance_valid(reward_modal):
 		reward_modal.close()
 	_queued_actions.clear()
-	var summary := {"stage": director.stage_index, "items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
+	var summary := {"stage": director.stage_index, "items": build.inventory.item_ids(), "equipped_items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
 	var settlement_id := StringName("%s/run_%s_%s" % [_run_receipt_prefix, result.run_epoch, result.event_id])
 	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
@@ -1252,7 +1328,7 @@ func _run_ended(result: DemoRunResult) -> void:
 		_status += " / " + generation_failure
 	if not settled:
 		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
-	_ui_run_report = {"success": result.reason in [&"biome_complete", &"success"], "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.item_ids().size(), meta.snapshot().get("notes", 0)]}
+	_ui_run_report = {"success": result.reason in [&"biome_complete", &"success"], "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.inventory.item_ids().size(), meta.snapshot().get("notes", 0)]}
 	if not settled: _ui_run_report.summary += "\n保存摘要失败 · 已存入音符保持原值"
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
@@ -1378,6 +1454,12 @@ func _sync_music() -> void:
 
 func _process(_delta: float) -> void:
 	_sync_music()
+	# This boundary also runs while physics is paused. Focus/stage invalidation
+	# must reject old card callbacks before gameplay can advance again.
+	if _equipment_session >= 0 and not _build_menu_available():
+		_close_build_session()
+	elif _build_menu_available() and (_equipment_session < 0 or _equipment_input_epoch != controller.router.epoch):
+		_open_build_session()
 	# UI-only visibility: the appearance selector belongs to playable consumers,
 	# and must not float above full-screen menus or the title illustration.
 	var avatar := get_meta("avatar_presentation", null) as Node
@@ -1743,6 +1825,10 @@ func _make_ui() -> void:
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
+	menu.build_opened.connect(_open_build_session)
+	menu.build_closed.connect(_close_build_session)
+	menu.equipment_requested.connect(_submit_equipment)
+	menu.gear_upgrade_requested.connect(_purchase_gear_upgrade)
 	menu.requested_home.connect(abandon_run)
 	menu.requested_retry.connect(func() -> void: start_plains(menu._plains_seed()))
 	menu.settings_changed.connect(apply_input_settings)

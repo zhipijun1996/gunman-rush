@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "reviewed_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "content_version": "candidate-v1",
+  "owner": "codex-gear-team",
+  "purpose": "建立正式本局背包、齿轮负荷、装备与交易基础",
+  "player_experience": "获得道具先入包，在暂停构筑中自由装卸替换并立即看到负荷和属性变化",
+  "constraints": [
+    "保持唯一Motor物理、核心能力、当前武器、RNG和永久音符合同",
+    "交易与换装失败必须不留下部分修改",
+    "不以headless代签实体设备或用户认可",
+    "不重复无关美术生产；旧兼容回放明确延期"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "config/gear_capacity.json",
+    "docs/creative_direction/archive/creative-v16/registry.json",
+    "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/evidence/run_gear_01/README.md",
+    "docs/quality/records/RUN-GEAR-01.json",
+    "docs/rewards_and_builds.md",
+    "docs/tasks.md",
+    "docs/worklines/run_gear_01/scope.md",
+    "resources/items/braided_cord.tres",
+    "resources/items/brake_boots.tres",
+    "resources/items/cooling_fin.tres",
+    "resources/items/damage_blue.tres",
+    "resources/items/echo_gold.tres",
+    "resources/items/echo_magazine.tres",
+    "resources/items/efficient_grip.tres",
+    "resources/items/field_medic.tres",
+    "resources/items/forest_heart_gold.tres",
+    "resources/items/forest_old_badge.tres",
+    "resources/items/forest_spiral_core.tres",
+    "resources/items/health_blue.tres",
+    "resources/items/jump_blue.tres",
+    "resources/items/power_gold.tres",
+    "resources/items/quick_hammer.tres",
+    "resources/items/recoil_purple.tres",
+    "resources/items/region_damage_gold.tres",
+    "resources/items/region_damage_purple.tres",
+    "resources/items/region_health_gold.tres",
+    "resources/items/region_health_purple.tres",
+    "resources/items/region_recoil_purple.tres",
+    "resources/items/shot_purple.tres",
+    "resources/items/stability_blue.tres",
+    "scripts/builds/build_state.gd",
+    "scripts/builds/equipment_service.gd",
+    "scripts/builds/equipment_service.gd.uid",
+    "scripts/builds/gear_capacity_policy.gd",
+    "scripts/builds/gear_capacity_policy.gd.uid",
+    "scripts/builds/item_definition.gd",
+    "scripts/builds/item_effect_component.gd",
+    "scripts/builds/item_effect_component.gd.uid",
+    "scripts/builds/run_inventory.gd",
+    "scripts/builds/run_inventory.gd.uid",
+    "scripts/builds/run_item_instance.gd",
+    "scripts/builds/run_item_instance.gd.uid",
+    "scripts/combat/action_resources.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/rewards/economy_receipt.gd",
+    "scripts/rewards/reward_service.gd",
+    "scripts/shops/shop_purchase_request.gd",
+    "scripts/shops/shop_service.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/item_acquired_toast.gd",
+    "scripts/ui/item_card.gd",
+    "scripts/ui/item_presentation.gd",
+    "scripts/ui/item_shop_modal.gd",
+    "scripts/ui/menu_scroll_touch_adapter.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "tests/boss_approach_lab_tests.gd",
+    "tests/demo_tests.gd",
+    "tests/demo_ui_01/r3_energy_runner.gd",
+    "tests/economy_tests.gd",
+    "tests/extended_reward_tests.gd",
+    "tests/forest_bible_app_discoveries_runner.gd",
+    "tests/forest_bible_discoveries_tests.gd",
+    "tests/forest_bible_spiral_trace.gd",
+    "tests/forest_bible_trace_support.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_campaign_boss_runner.gd",
+    "tests/forest_depth_canopy_campaign_case.gd",
+    "tests/forest_depth_ecology_trace.gd",
+    "tests/forest_depth_guardian_campaign_case.gd",
+    "tests/forest_depth_lift_trace.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_exploration_region_trace.gd",
+    "tests/forest_places_region_trace.gd",
+    "tests/forest_varied_region_trace.gd",
+    "tests/gear_inventory_runner.gd",
+    "tests/gear_inventory_runner.gd.uid",
+    "tests/gear_inventory_support.gd",
+    "tests/gear_inventory_support.gd.uid",
+    "tests/plains_experience_energy_runner.gd",
+    "tests/plains_exploration_expansion_runner.gd",
+    "tests/plains_redesign_scene_runner.gd",
+    "tests/root_bell_formal_tests.gd",
+    "tests/run_gear_movie.gd",
+    "tests/run_gear_movie.gd.uid",
+    "tests/run_gear_ui_runner.gd",
+    "tests/run_gear_ui_runner.gd.uid",
+    "tests/test_production_plan.py",
+    "tools/capture_run_gear.py",
+    "tools/harness/profiles.json",
+    "tools/run_gear_inventory_tests.py",
+    "tools/run_gear_ui_tests.py"
+  ],
+  "deliverables": [
+    "docs/worklines/run_gear_01/scope.md",
+    "docs/evidence/run_gear_01/README.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Final scoped Harness and frozen movie pending at initial implementation commit",
+    "Full PR Integration, legacy-compat, physical Android and user acceptance are separate; not claimed passed",
+    "Active skills, weapon-specific behaviours and grapple skills are interfaces only; current stat effects implemented"
+  ],
+  "test_change_justification": "Ownership/equipment are now separate: acquisition checks use RunInventory; actual modifier checks explicitly submit a paused, versioned loadout. Preserve original reward/shop idempotence, exclusive equipment refusal, HP/damage/resource, map/death and all original Harness budgets/check prefixes. Additional inventory-empty guards supplement rather than replace equipped-source cleanup. F9 accidental active-run empty assertion was independently rejected and removed before final verification. New UI fixtures use native viewport input and Variant owner boundary only to release GDScript type caches; no cache cleanup or exit guard weakening."
+}

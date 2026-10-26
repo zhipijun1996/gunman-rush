@@ -806,10 +806,10 @@ func drive_cache() -> void:
 		claim_before=stage.region_state.claimed.duplicate(true);cache_pending=true;request(&"interact");return
 	if not app.reward_modal.opened and cache_claimed:
 		if duplicate_tick<0:
-			duplicate_before={"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.item_ids(),"coins":app.wallet.balance}
+			duplicate_before={"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.inventory.item_ids(),"coins":app.wallet.balance}
 			duplicate_tick=tick;request(&"interact");event("actual_duplicate_interact_probe")
 		elif tick-duplicate_tick>=8:
-			duplicate_after={"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.item_ids(),"coins":app.wallet.balance}
+			duplicate_after={"claimed":stage.region_state.claimed.duplicate(true),"items":app.build.inventory.item_ids(),"coins":app.wallet.balance}
 			if app.reward_modal.opened or duplicate_before!=duplicate_after: fail("duplicate_actual_interact_changed_reward")
 			else: duplicate_checked=true;set_phase("align")
 func _process(_delta: float) -> void:

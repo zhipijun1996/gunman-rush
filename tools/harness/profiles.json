@@ -3527,6 +3527,53 @@
         "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
         "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
       ]
+    },
+    "gear-inventory": {
+      "argv": [
+        "python3",
+        "tools/run_gear_inventory_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^GEAR INVENTORY: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 15,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "gear-ui": {
+      "argv": [
+        "python3",
+        "tools/run_gear_ui_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^GEAR UI: [1-9]\\d* checks, 0 failures$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/run_gear/ui"
+      ]
     }
   },
   "profiles": {
@@ -3724,7 +3771,9 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration"
+      "player-default-integration",
+      "gear-inventory",
+      "gear-ui"
     ],
     "art": [
       "docs",
@@ -4013,7 +4062,9 @@
       "enemy-corpse-save",
       "enemy-corpse-snapshot",
       "bgm-integration",
-      "player-default-integration"
+      "player-default-integration",
+      "gear-inventory",
+      "gear-ui"
     ],
     "creative-feedback": [
       "docs",

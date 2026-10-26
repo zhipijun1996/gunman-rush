@@ -23,7 +23,7 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	_shell.cancelable = false
 	_root = _shell
 	add_child(_root)
-	_shell.heading("GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD / 选择一件奖励", "一次选择，带入本局后续旅程。 / One choice only.", "余音  /  A MOMENT TO CHOOSE")
+	_shell.heading("GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD / 选择一件奖励", "一次选择。道具先入背包，在暂停构筑中装备生效。", "余音  /  A MOMENT TO CHOOSE")
 	_options = GridContainer.new()
 	_options.add_theme_constant_override("h_separation", 18)
 	_options.add_theme_constant_override("v_separation", 16)

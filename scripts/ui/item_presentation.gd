@@ -11,7 +11,7 @@ static func effects(item: ItemDefinition) -> String:
 	if item is ResourceRewardChoice:
 		return (item as ResourceRewardChoice).effect_text()
 	var lines: PackedStringArray=[]
-	for m: BuildModifier in item.modifiers:
+	for m: BuildModifier in item.stat_modifiers():
 		var amount: String
 		if m.operation==BuildModifier.Operation.MULTIPLY: amount="%+.0f%%" % ((m.value-1.0)*100)
 		elif m.operation==BuildModifier.Operation.OVERRIDE: amount="= %s" % str(snappedf(m.value,.01))

@@ -1,4 +1,6 @@
 extends SceneTree
+
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 var assertions:=0
 var failures:=0
 func _initialize() -> void: run.call_deferred()
@@ -69,21 +71,21 @@ func item_effects() -> void:
 	var build:=BuildState.new();build.configure(actor)
 	var base_recoil:=player.tuning.ground_recoil_multiplier
 	var base_burst:=player.tuning.shot_burst_speed
-	check(build.add_item(&"stability",preload("res://resources/items/stability_blue.tres")),"stability installs a real modifier")
+	check(GEAR.add_and_equip(build, &"stability",preload("res://resources/items/stability_blue.tres")),"stability installs a real modifier")
 	check(is_equal_approx(player.tuning.ground_recoil_multiplier,base_recoil*.5) and player.tuning.shot_burst_speed==base_burst,"stability reduces ground recoil while preserving airborne burst")
-	check(build.remove_source(&"stability") and player.tuning.ground_recoil_multiplier==base_recoil,"stability removal recomputes the exact baseline")
-	check(build.add_item(&"braid",preload("res://tests/fixtures/demo_ui_01_r3/braided_cord_d079.tres")),"ground recovery modifier accepted")
+	check(GEAR.unequip_source(build, &"stability") and player.tuning.ground_recoil_multiplier==base_recoil,"stability removal recomputes the exact baseline")
+	check(GEAR.add_and_equip(build, &"braid",preload("res://tests/fixtures/demo_ui_01_r3/braided_cord_d079.tres")),"ground recovery modifier accepted")
 	actor.shot_energy.consume(1001);actor.shot_energy.advance(1.35,true)
 	check(is_equal_approx(actor.actor_resources.stamina.current,100),"braid's actual policy recovers 40.5 energy per grounded second, capped at capacity")
 	actor.shot_energy.consume(1002);actor.shot_energy.advance(1.35,false)
 	check(is_equal_approx(actor.actor_resources.stamina.current,80),"braid never recovers energy in air")
-	check(build.add_item(&"cooling",preload("res://tests/fixtures/demo_ui_01_r3/cooling_fin_d079.tres")),"cooling accepts actual recovery delay modifier")
+	check(GEAR.add_and_equip(build, &"cooling",preload("res://tests/fixtures/demo_ui_01_r3/cooling_fin_d079.tres")),"cooling accepts actual recovery delay modifier")
 	actor.shot_energy.consume(1003);actor.shot_energy.advance(.25,true)
 	check(actor.actor_resources.stamina.current>60,"cooling allows ground recovery after shorter delay")
 	var cooldown:=player.tuning.shot_cooldown
 	var braking:=player.tuning.ground_deceleration
-	check(build.add_item(&"hammer",preload("res://resources/items/quick_hammer.tres")) and is_equal_approx(player.tuning.shot_cooldown,cooldown*.85),"hammer changes real shoot cooldown")
-	check(build.add_item(&"brakes",preload("res://resources/items/brake_boots.tres")) and is_equal_approx(player.tuning.ground_deceleration,braking*1.3),"boots change real ground braking")
+	check(GEAR.add_and_equip(build, &"hammer",preload("res://resources/items/quick_hammer.tres")) and is_equal_approx(player.tuning.shot_cooldown,cooldown*.85),"hammer changes real shoot cooldown")
+	check(GEAR.add_and_equip(build, &"brakes",preload("res://resources/items/brake_boots.tres")) and is_equal_approx(player.tuning.ground_deceleration,braking*1.3),"boots change real ground braking")
 	var resource:=ResourceRewardChoice.make(&"test/coins","coin",16,ItemDefinition.Rarity.BLUE)
 	check(resource.is_valid() and not build.can_add(resource) and ItemPresentation.icon(resource.icon_key)!=null,"resource card renders real AI icon but cannot become a fake item")
 	player.free()
@@ -107,8 +109,8 @@ func current_focus_items() -> void:
 		var base_rate:=player.tuning.focus_stamina_recovery
 		var base_rearm:=player.tuning.focus_rearm_stamina
 		var build:=BuildState.new();build.configure(actor)
-		check(build.add_item(&"current_braid",preload("res://resources/items/braided_cord.tres")),"current braid installs its formal focus recovery effect")
-		if cooling_enabled: check(build.add_item(&"current_cooling",preload("res://resources/items/cooling_fin.tres")),"current cooling installs its formal focus rearm effect")
+		check(GEAR.add_and_equip(build, &"current_braid",preload("res://resources/items/braided_cord.tres")),"current braid installs its formal focus recovery effect")
+		if cooling_enabled: check(GEAR.add_and_equip(build, &"current_cooling",preload("res://resources/items/cooling_fin.tres")),"current cooling installs its formal focus rearm effect")
 		var no_op_before:=state.current
 		actor.shot_energy.consume(1002)
 		var no_op_after_shot:=state.current

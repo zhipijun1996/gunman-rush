@@ -59,7 +59,7 @@ func observe() -> void:
 		var top: Vector2=inverse*Vector2.ZERO
 		var bottom: Vector2=inverse*get_viewport().get_visible_rect().size
 		var view:=Rect2(top,bottom-top)
-		var sample: Dictionary={"tick":tick,"view":[view.position.x,view.position.y,view.size.x,view.size.y],"zoom":pair(camera.zoom),"npc_visible":view.has_point(crossbranch_actor.motor.global_position),"near_reward_edge_visible":view.has_point(Vector2(-320,268)),"NPC":crossbranch_actor.attack_behavior.call("depth_snapshot"),"wallet":app.wallet.balance,"claims":stage.region_state.claimed.keys(),"items":app.build.item_ids(),"combat_hit_packets":controller.combat_energy._packets.duplicate(true)}
+		var sample: Dictionary={"tick":tick,"view":[view.position.x,view.position.y,view.size.x,view.size.y],"zoom":pair(camera.zoom),"npc_visible":view.has_point(crossbranch_actor.motor.global_position),"near_reward_edge_visible":view.has_point(Vector2(-320,268)),"NPC":crossbranch_actor.attack_behavior.call("depth_snapshot"),"wallet":app.wallet.balance,"claims":stage.region_state.claimed.keys(),"items":app.build.inventory.item_ids(),"combat_hit_packets":controller.combat_energy._packets.duplicate(true)}
 		frames[-1].crossbranch=sample
 		frames[-1].crossbranch.physics_frame=Engine.get_physics_frames()
 		crossbranch_camera.append(sample)
