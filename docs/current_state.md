@@ -1,5 +1,10 @@
 # 当前状态
 
+## 2026-10-26 独立音效导演第一阶段
+
+AUDIO-DIRECTOR-01保持review，基线main26e7f2a，分支feature/audio-director-01；16事件A/B各2变体共64个CC0素材加工候选、来源/许可库、可重现pipeline、固定基线审计和真实Godot/手机Sound Lab已实现。正式默认original，保五首用户MP3原字节；工程验证不签用户听感或商业品质。[交付入口](audio_director/README.md)、[最终版本与证据](evidence/audio_director_01/README.md)、[交接](handoff.md)。不合main，旧主站和预览入口保留。
+
+
 当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。
 
 ## PR108 合入入口（当前）

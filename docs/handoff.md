@@ -1,5 +1,14 @@
 # 当前交接（2026-10-24）
 
+## 2026-10-26 AUDIO-DIRECTOR-01（最新独立工作线）
+
+分支 `feature/audio-director-01`，基线26e7f2a；运行实现58a9f0ac，音效版本audio-director-v1，Web90764dd14d4c。第一阶段审计/风格/来源/配方/64候选/统一12voice运行策略和手机工坊已实作，正式默认original，用户听感与实体设备保持review。五原MP3逐字节保留。独立PR面向main，不自行合并；当前原PR108历史记录不驱动重复合入。
+
+[音效总入口](audio_director/README.md)与[实际证据/最终部署收据](evidence/audio_director_01/README.md)。最小恢复：`python3 tools/audio_director.py brief '优化钩索声音'` →读绑定风格/事件/来源/配方 →按真实反馈制作。`validate`拒绝配方/来源/工具漂移；`run_audio_director_tests.py`60/0、Lab25/0，原生命周期37/0、原docs33/33。完整自然战斗/连续钩索听音、玩家、设备、Integration/Release未签。
+
+Sound Lab通过独立私有Sites交付；原预览站加恢复PCK达942341151B近900MiB，未删旧入口。初次新GitHub仓库创建被集成拒绝。Godot大资源用原分块重构，备用托管显式要求ServiceWorker+DecompressionStream。原Foundry缓存按原工具真实重建后导出，原生成输入归档在build，工作树恢复HEAD，不把生成缓存混入音频PR。最终URL/部署ID与准确源码见交付证据；源码与托管源码SHA分别记录。
+
+
 当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。
 
 ## PR108 合入入口（当前）

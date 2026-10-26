@@ -1,0 +1,21 @@
+WARNING: 311 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 215 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools11BucketSmallE
+   at: ~PagedAllocator (./core/templates/paged_allocator.h:170)
+ERROR: 62 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.
+{
+  "platform": "web",
+  "export_exit_code": 0,
+  "device_execution": "unverified",
+  "artifacts": [
+    {
+      "path": "build/web/index.html",
+      "bytes": 10554,
+      "sha256": "2b3d6ac6b5910a693be24a1ba09142022a2fc797ebdb5bbc5343821457d1208a"
+    },
+    {
+      "path": "build/web/index.6cfa002eb402.pck",
+      "bytes": 185314972,
+      "sha256": "6cfa002eb402c6bcc209172c6e252e1f56a704a3ff

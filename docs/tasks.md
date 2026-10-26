@@ -78,6 +78,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |
 | PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；当前b761/5ce真实候选已公开，最终CI／main状态核PR108；玩家／设备认可分别记录 |
 | FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
 | ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
@@ -595,5 +596,3 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | HIGH-DENSITY-TERRAIN-03 | 高分辨率地形对齐与克制材质实验 | PIXEL-LIGHT-STUDY-02 | review | 原生32px/32wu、20实机静态图与独审；岩纹重复/地区特色未定稿，默认入口不改，无CI |
 
 | TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |
-
-| AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |

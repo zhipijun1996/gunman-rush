@@ -4,7 +4,7 @@
   "task_type": "animation",
   "workflow": "review",
   "baseline_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
-  "reviewed_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "reviewed_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
   "content_version": "candidate-v1",
   "owner": "Audio Director",
   "purpose": "统一高频SFX候选与可复用生产试听系统",
@@ -209,7 +209,19 @@
     "docs/audio_director/source_library.md",
     "docs/audio_director/style_bible.md",
     "docs/evidence/audio_director_01/README.md",
+    "docs/evidence/audio_director_01/browser-final/desktop.png",
+    "docs/evidence/audio_director_01/browser-final/mobile.png",
+    "docs/evidence/audio_director_01/browser-final/report.json",
+    "docs/evidence/audio_director_01/export-exit-failure.log",
+    "docs/evidence/audio_director_01/foundry.log",
+    "docs/evidence/audio_director_01/lab-frozen/native.log",
+    "docs/evidence/audio_director_01/lab-frozen/report.json",
+    "docs/evidence/audio_director_01/original-lifecycle/native.log",
+    "docs/evidence/audio_director_01/original-lifecycle/report.json",
     "docs/evidence/audio_director_01/review.md",
+    "docs/evidence/audio_director_01/runtime-frozen/native.log",
+    "docs/evidence/audio_director_01/runtime-frozen/report.json",
+    "docs/evidence/audio_director_01/web-first-basis-failure.log",
     "docs/quality/asset_records/AUDIO-DIRECTOR-01-CANDIDATE-COIN-A-V2.json",
     "docs/quality/asset_records/AUDIO-DIRECTOR-01-CANDIDATE-COIN-A.json",
     "docs/quality/asset_records/AUDIO-DIRECTOR-01-CANDIDATE-COIN-B-V2.json",
@@ -332,6 +344,7 @@
     "tests/audio_director_lab.gd",
     "tests/audio_director_lab.gd.uid",
     "tests/audio_director_runtime.gd",
+    "tests/audio_director_runtime.gd.uid",
     "tests/test_audio_design.py",
     "tools/audio_design.py",
     "tools/audio_director.py",
@@ -344,7 +357,14 @@
   ],
   "deliverables": [
     "docs/audio_director/README.md",
-    "docs/worklines/audio_director_01/scope.md"
+    "docs/audio_director/inventory.md",
+    "docs/audio_director/event_catalog.md",
+    "docs/audio_director/style_bible.md",
+    "docs/audio_director/source_library.md",
+    "docs/audio_director/pipeline.md",
+    "docs/audio_director/runtime.md",
+    "assets/audio/director_candidates/manifest.json",
+    "docs/evidence/audio_director_01/deployment.json"
   ],
   "creative_decisions": [
     {
@@ -353,7 +373,7 @@
       "basis": "用户治愈童话、隐藏悲伤与机械魔法世界观，第一阶段高频事件范围"
     },
     {
-      "status": "user_confirmed",
+      "status": "proposed",
       "decision": "保留五首原BGM；不批量替换正式音效，先可听候选",
       "basis": "本轮用户明确指令"
     }
@@ -368,9 +388,13 @@
       ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原生实际池/限流/优先级/生命周期与真实Home样板通过；不签完整游戏CI",
+      "evidence": [
+        "runtime-frozen",
+        "lab-frozen",
+        "lab-trace"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -402,9 +426,12 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原生实际池/限流/优先级/生命周期与真实Home样板通过；不签完整游戏CI",
+      "evidence": [
+        "runtime-frozen",
+        "lab-frozen"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -437,9 +464,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "仅工程指纹、来源、下载包及静态表现接口的独审；不签主观听感/设备/自然战斗",
+      "evidence": [
+        "independent-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -452,7 +481,38 @@
       "evidence": []
     }
   },
-  "criteria": [],
+  "criteria": [
+    {
+      "id": "style-family-contract",
+      "scenario": "第一阶段高频动作需要统一声音语言并保留可淘汰方向",
+      "method": "将用户世界观与范围写入Style Bible和16事件配方",
+      "expected": "风格/事件/许可边界明确，原五曲保留",
+      "failure": "无来源或把审美自动记通过",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "审计/风格/来源与候选均具备；用户听感另列",
+      "evidence": [
+        "audio-style-v1"
+      ]
+    },
+    {
+      "id": "actual-shared-audio-service",
+      "scenario": "原版/A/B在同一正式Home实例接受动作并保12voice与清理",
+      "method": "原生严格runner60断言+Lab25实际消费者",
+      "expected": "接受动作、变体/限流/抢占/暂停/清理正确且无资源ERROR",
+      "failure": "任意断言失败、解析错误、池>12或退出泄漏",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "冻结运行源专项通过，真实行为听感仍待用户",
+      "evidence": [
+        "runtime-frozen",
+        "lab-frozen",
+        "lab-trace"
+      ]
+    }
+  ],
   "evidence": [
     {
       "id": "audio-style-v1",
@@ -464,6 +524,81 @@
       "content_version": "candidate-v1",
       "method": "用户世界观与高频范围→统一声音家族与淘汰规则",
       "observed": "形成可听A/B假设；未代签用户审美"
+    },
+    {
+      "id": "runtime-frozen",
+      "path": "docs/evidence/audio_director_01/runtime-frozen/report.json",
+      "sha256": "ba7959057fd99568956d2167d4453334b0f95621dc8ad4e653673f06b18bb531",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Godot4.7.2/Dummy actual playback drain",
+      "observed": "60 assertions / 0 failures; strict log/exit checks",
+      "command": "python3 tools/run_audio_director_tests.py --output build/audio_director/runtime-frozen",
+      "exit_code": 0,
+      "environment": "Managed Linux; Godot4.7.2; Dummy backend"
+    },
+    {
+      "id": "lab-frozen",
+      "path": "docs/evidence/audio_director_01/lab-frozen/report.json",
+      "sha256": "87767d3fdaaf6d124bbd71e54bdea4ea9ffa88553f7e3f8ccbd065d2a551f19c",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Real bootstrap/formal Home/Router/current character",
+      "observed": "25 checks / 0 failures; scopes are stated in native trace",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script res://tests/audio_director_lab.gd --marker '^AUDIO_DIRECTOR_LAB checks=25 failures=0$' --timeout 90 --output build/audio_director/lab-frozen",
+      "exit_code": 0,
+      "environment": "Managed Linux; Godot4.7.2; Dummy backend"
+    },
+    {
+      "id": "browser-sound-lab",
+      "path": "docs/evidence/audio_director_01/browser-final/report.json",
+      "sha256": "169ce0ea1e2de741cd5ffc3e7c75392fa5498934c0813a5d3b48c7df65300ea1",
+      "kind": "gui",
+      "producer": "Audio Director",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Actual Chromium mobile viewport playback/decode/UI persistence",
+      "observed": "79 decode nonzero; loop stop; five BGM; 390px no overflow; software browser only"
+    },
+    {
+      "id": "lab-trace",
+      "path": "docs/evidence/audio_director_01/lab-frozen/native.log",
+      "sha256": "22a6d86374f81945bfc2a90fcf43c7a0a964589930fb70e4b06e2ac74d444687",
+      "kind": "runtime_trace",
+      "producer": "Audio Director",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Frozen actual Godot bootstrap/Home/Router consumer trace",
+      "observed": "25/0 actual code consumer checks; Dummy does not certify listening"
+    },
+    {
+      "id": "independent-review",
+      "path": "docs/evidence/audio_director_01/review.md",
+      "sha256": "957337c8d4035c41dfacd75d6e78b34e983fe03679e971cfd34f5f627acd4268",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36",
+      "content_version": "candidate-v1",
+      "method": "Read-only independent static audit plus actual fingerprint/BGM/ZIP counterexamples and retest",
+      "observed": "AD-R1/R2 closed, engineering scoped ACCEPT; auditory/device/natural combat and final GUI not approved by reviewer",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/audio_runtime",
+        "/root/sound_candidates",
+        "/root/godot_lab"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not write production or test implementation and only wrote its own report",
+      "reviewed_evidence": [
+        "runtime-frozen",
+        "lab-frozen"
+      ]
     }
   ],
   "consumer_coverage": null,
@@ -471,5 +606,6 @@
     "新音色审美",
     "实体手机与耳机/扬声器",
     "完整Integration/Release"
-  ]
+  ],
+  "production_snapshot": "0a0ca38f244ac5525b9bab18e647297293522d6b69744289ba5ff0fe6f485b7f"
 }
