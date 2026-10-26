@@ -558,7 +558,25 @@ func show_build(text: String) -> void:
 	# The application creates the editing session after _begin has canceled old
 	# input. Data refreshes below never reopen the menu or create another session.
 	build_opened.emit()
+	if _equipment_view.is_empty(): _show_build_preview()
 	_focus_first()
+
+func _show_build_preview() -> void:
+	# Development hosts such as ModuleLab share this menu without owning a run
+	# equipment session. Preserve their real summary/cards as a read-only view.
+	for child: Node in _equipment_body.get_children():
+		_equipment_body.remove_child(child)
+		child.queue_free()
+	_label(_equipment_body, "开发入口 · 构筑预览", 21, GOLD)
+	_label(_equipment_body, "此处仅预览道具与属性。正式装备、卸下与齿轮扩容请在冒险中的暂停构筑页操作。", 17, MUTED)
+	if not _build.is_empty(): _label(_equipment_body, _build, 17, TEXT)
+	for item: ItemDefinition in _build_items:
+		if item == null: continue
+		var card := ItemCard.new()
+		card.item = item
+		card.compact = true
+		_equipment_body.add_child(card)
+	if _build_items.is_empty(): _label(_equipment_body, "此开发入口暂无道具。", 17, MUTED)
 
 func set_equipment_view(snapshot: Dictionary) -> void:
 	_equipment_view = snapshot.duplicate(true)

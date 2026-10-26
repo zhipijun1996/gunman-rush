@@ -192,7 +192,11 @@ func run() -> void:
 	check(lab.module_id==&"energy_trial" and lab.controller.shot_energy!=null and not lab.controller.shot_energy.definition.shooting_consumes_energy and lab.controller.air_focus_ability.stamina_state==lab.controller.actor_resources.stamina and is_instance_valid(lab.energy_trial),"explicit development practice uses current shared time-energy policy")
 	lab.energy_trial.show_choice();check(paused and lab.energy_trial.modal.opened,"real practice reward opens shared item cards")
 	lab.energy_trial._choose(&"efficient_grip")
-	check(not paused and lab.energy_trial.claimed and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"shared reward service commits actual displayed item effect")
+	check(not paused and lab.energy_trial.claimed and lab.energy_trial.build.count_item(&"efficient_grip")==1 and lab.energy_trial.build.item_ids().is_empty() and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,45.0),"shared practice reward first enters backpack without automatic effect")
+	# Explicit development equipment fixture uses the real paused session command;
+	# it is not natural menu-operation evidence or a special automatic reward path.
+	check(GEAR.equip_all(lab.energy_trial.build),"explicit paused practice equipment fixture installs the legitimately claimed grip")
+	check(not paused and lab.energy_trial.claimed and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"explicitly equipped practice reward applies its actual displayed item effect")
 	lab.energy_trial._choose(&"efficient_grip")
 	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"duplicate practice claim never reapplies effect")
 	lab.restart_module();await frames(8)

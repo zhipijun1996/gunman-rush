@@ -40,7 +40,7 @@ func inventory_items() -> Array[RunItemInstance]:
 func item_ids() -> Array[StringName]:
 	var result: Array[StringName] = []
 	var ids: Array = _sources.keys()
-	ids.sort()
+	ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for id: StringName in ids: result.append((_sources[id] as ItemDefinition).stable_id)
 	return result
 
@@ -75,7 +75,7 @@ func _replace_equipped_sources(proposed: Dictionary) -> bool:
 func effect_sources() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	var ids: Array = _sources.keys()
-	ids.sort()
+	ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for id: StringName in ids:
 		var item: ItemDefinition = _sources[id]
 		if not item.modifiers.is_empty():
@@ -104,7 +104,7 @@ func clear() -> bool:
 func _resolve(sources: Dictionary) -> Dictionary:
 	var values := _base.duplicate()
 	var keys: Array = sources.keys()
-	keys.sort()
+	keys.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for stat: StringName in _base:
 		var best_priority := -2147483648
 		var value: float = float(_base[stat])

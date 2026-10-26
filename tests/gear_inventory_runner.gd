@@ -17,7 +17,7 @@ func check(condition: bool, label: String) -> void:
 		failures += 1
 		printerr("FAIL: " + label)
 
-func fresh() -> void:
+func fresh(run_namespace: StringName = &"") -> void:
 	paused = false
 	if build != null:
 		build.clear()
@@ -29,7 +29,7 @@ func fresh() -> void:
 	actor = fixture.controller
 	lifetime = DemoLifetime.new()
 	build = BuildState.new()
-	build.configure(actor, lifetime)
+	build.configure(actor, lifetime, run_namespace)
 
 func item(id: StringName, cost: int, rarity := ItemDefinition.Rarity.BLUE, stat: StringName = &"projectile_damage", amount := 1.0) -> ItemDefinition:
 	var definition := ItemDefinition.new()
@@ -188,6 +188,36 @@ func reentrant_commit_snapshot() -> void:
 	check(receipt.accepted and state.equipped_ids == expected and state.used == 2 and state.remaining == 6 and build.inventory.instances().size() == 1 and build.item_ids() == [&"atomic_hp"] and sources.size() == 1 and sources[0].instance_id == expected[0] and health.capacity == maximum + 2 and health.current == current, "commit uses one private proposal for inventory, loadout, gear and applied effects despite synchronous callbacks")
 	check(submit([]).accepted and health.capacity == maximum and health.current == current and build.effect_sources().is_empty() and build.inventory.instances().size() == 1, "observer-safe commit remains reversible without discarding ownership or healing")
 
+func prefixed_override_order() -> void:
+	# Identical long instance prefixes must not turn equal-priority ordering into
+	# StringName allocation/insertion order. Test both creation and submit orders.
+	for reverse_creation: bool in [false, true]:
+		await fresh(&"same_common_instance_prefix")
+		var baseline := actor.motor.tuning.max_jumps
+		var a := item(&"prefixed_override_a", 1, ItemDefinition.Rarity.BLUE, &"max_jumps", 4)
+		var z := item(&"prefixed_override_z", 1, ItemDefinition.Rarity.BLUE, &"max_jumps", 3)
+		a.modifiers[0].operation = BuildModifier.Operation.OVERRIDE
+		z.modifiers[0].operation = BuildModifier.Operation.OVERRIDE
+		a.modifiers[0].priority = 0
+		z.modifiers[0].priority = 0
+		var source_a := StringName("source/" + String.chr(97))
+		var source_z := StringName("source/" + String.chr(122))
+		var creation: Array[StringName] = [source_a, source_z]
+		if reverse_creation: creation.reverse()
+		var owned := true
+		for source: StringName in creation:
+			owned = build.add_item(source, a if source == source_a else z) and owned
+		check(owned, "equal-priority override definitions are acquired in creation order %s" % creation)
+		var instance_a: RunItemInstance = build.inventory.instance_for_source(source_a)
+		var instance_z: RunItemInstance = build.inventory.instance_for_source(source_z)
+		if instance_a == null or instance_z == null:
+			continue
+		check(String(instance_a.instance_id).get_base_dir() == "same_common_instance_prefix/source" and String(instance_z.instance_id).get_base_dir() == String(instance_a.instance_id).get_base_dir() and String(instance_a.instance_id) < String(instance_z.instance_id), "actual instance IDs share the full common prefix and retain lexical a-before-z")
+		check(submit(ids([source_a, source_z])).accepted and actor.motor.tuning.max_jumps == 3, "later lexical prefixed override wins independent of creation order, forward submission")
+		check(submit(ids([source_z, source_a])).accepted and actor.motor.tuning.max_jumps == 3, "later lexical prefixed override wins independent of creation order, reverse submission")
+		check(submit(ids([source_a])).accepted and actor.motor.tuning.max_jumps == 4, "removing the prefixed winning override exposes the previous source value")
+		check(submit([]).accepted and actor.motor.tuning.max_jumps == baseline, "removing every prefixed override restores the sole base")
+
 func health_and_airborne() -> void:
 	await fresh()
 	var health := actor.actor_resources.health
@@ -314,6 +344,7 @@ func _run() -> void:
 	await component_only_effects()
 	await duplicates_and_requirements()
 	await reentrant_commit_snapshot()
+	await prefixed_override_order()
 	await health_and_airborne()
 	await transactions_and_lifetime()
 	paused = false

@@ -18,7 +18,7 @@ func _init(run_namespace: StringName = &"") -> void:
 func instances() -> Array[RunItemInstance]:
 	var result: Array[RunItemInstance] = []
 	var ids: Array = _instances.keys()
-	ids.sort()
+	ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for id: StringName in ids:
 		result.append((_instances[id] as RunItemInstance).copy())
 	return result
@@ -26,7 +26,7 @@ func instances() -> Array[RunItemInstance]:
 func item_ids() -> Array[StringName]:
 	var result: Array[StringName] = []
 	var ids: Array = _instances.keys()
-	ids.sort()
+	ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for id: StringName in ids:
 		result.append((_instances[id] as RunItemInstance).definition_id)
 	return result
