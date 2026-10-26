@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "AUDIO-DIRECTOR-02",
   "task_type": "animation",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "4f2307056d8667ef733bc975115a86b2c84f52d2",
-  "reviewed_commit": "4f2307056d8667ef733bc975115a86b2c84f52d2",
-  "content_version": "candidate-v1",
+  "reviewed_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+  "content_version": "audio-director-v2",
   "owner": "Audio Director",
   "purpose": "按用户反馈重选3套现成CC0原素材并加入可重复真实情境试听",
   "player_experience": "在手机工坊直接看到UI/拾取/战斗动作，在同场景切原版与3套候选",
@@ -189,16 +189,34 @@
     "config/audio_director/v2/recipes.json",
     "config/audio_director/v2/runtime.json",
     "config/audio_director/v2/sources.json",
+    "docs/audio_director/README.md",
     "docs/audio_director/candidates_v2.md",
     "docs/audio_director/listening_v2.md",
     "docs/current_state.md",
     "docs/evidence/audio_director_02/README.md",
+    "docs/evidence/audio_director_02/deployment.json",
     "docs/evidence/audio_director_02/dsp-review-receipt.json",
     "docs/evidence/audio_director_02/dsp-review-tests.log",
+    "docs/evidence/audio_director_02/harness-docs/report.json",
+    "docs/evidence/audio_director_02/harness-docs/runner.log",
     "docs/evidence/audio_director_02/native-final/native.log",
     "docs/evidence/audio_director_02/native-final/report.json",
+    "docs/evidence/audio_director_02/native-frozen/native.log",
+    "docs/evidence/audio_director_02/native-frozen/provenance.json",
+    "docs/evidence/audio_director_02/native-frozen/report.json",
+    "docs/evidence/audio_director_02/previous-docs-drift/report.json",
+    "docs/evidence/audio_director_02/previous-docs-timeout/report.json",
+    "docs/evidence/audio_director_02/previous-web-first/provenance.json",
+    "docs/evidence/audio_director_02/previous-web-first/report.json",
     "docs/evidence/audio_director_02/review.md",
     "docs/evidence/audio_director_02/underworld-isolated.log",
+    "docs/evidence/audio_director_02/web-actual-final/combat-desktop.png",
+    "docs/evidence/audio_director_02/web-actual-final/driver.cjs",
+    "docs/evidence/audio_director_02/web-actual-final/landscape.png",
+    "docs/evidence/audio_director_02/web-actual-final/mobile.png",
+    "docs/evidence/audio_director_02/web-actual-final/pickup-desktop.png",
+    "docs/evidence/audio_director_02/web-actual-final/report.json",
+    "docs/evidence/audio_director_02/web-actual-final/ui-desktop.png",
     "docs/evidence/audio_director_02/web-protocol/report.json",
     "docs/handoff.md",
     "docs/quality/asset_records/AUDIO-DIRECTOR-02-CLIP-CLICK-A-V2.json",
@@ -329,109 +347,270 @@
     "tools/audio_director.py",
     "tools/audio_lab_v2.py",
     "tools/sound_lab/v2_index.html",
+    "tools/sound_lab/verify_context_v2.cjs",
     "tools/sound_lab/verify_v2.mjs"
   ],
   "deliverables": [
-    "docs/worklines/audio_director_02/scope.md"
+    "docs/audio_director/listening_v2.md",
+    "docs/audio_director/candidates_v2.md",
+    "config/audio_director/v2/sources.json",
+    "config/audio_director/v2/recipes.json",
+    "assets/audio/director_v2/manifest.json",
+    "tools/audio_candidates_v2.py",
+    "tools/audio_lab_v2.py",
+    "scenes/dev/audio_director_lab_v2.tscn",
+    "docs/evidence/audio_director_02/deployment.json"
   ],
   "creative_decisions": [],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "用户反馈/来源/事件/场景范围和保留边界明确",
+      "evidence": [
+        "v2-scope"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "实际开发fixture与共享音频服务最小专项通过；不签自然全流程",
+      "evidence": [
+        "v2-native",
+        "v2-trace"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "本轮只交局部声音候选，未验完整关卡或自然混音",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "用户尚未在场景中认可V2音色",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "共享接口局部回归通过；尚无本轮完整Integration/Release通过收据",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "用户听感及实体设备待验",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "三方向与许可/事件/fixture边界明确，候选仍可淘汰",
+      "evidence": [
+        "v2-scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "10加工反例、66原生和20实际Web组通过；工程范围限定",
+      "evidence": [
+        "v2-native",
+        "v2-trace",
+        "v2-dsp",
+        "v2-web",
+        "v2-docs"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "实际正式组件被开发fixture复用；完整正式消费者覆盖/Integration未验",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "场景呈现可见但未请求或取得用户视觉认可",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "复用原动作，未制作或独立验收新动作动画",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "工程播放通过；V2审美/疲劳/全局混音待用户",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "保规则且fixture行为通过，但不把样板当自然完整流程",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "仅软件Chromium输出观测，未签实体性能",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "独立R1-R6复核关闭，限定工程ACCEPT；听感与设备除外",
+      "evidence": [
+        "v2-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "手机viewport不代替实体手机/Safari/耳机/扬声器",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "V2待用户试听；v1拒绝在原记录保留",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "v2-context-contract",
+      "scenario": "用户拒绝v1，需要多套原素材与真实动作比较",
+      "method": "以用户反馈限制9事件、3 CC0套装和真实fixture",
+      "expected": "原动作/BGM保留，来源/事件/版本明确",
+      "failure": "把旧v1重建当新交付或自动签审美",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "54真实不同take及三情境已实现，用户审美另列",
+      "evidence": [
+        "v2-scope"
+      ]
+    },
+    {
+      "id": "v2-actual-accepted-events",
+      "scenario": "原版/A/B/C同场景切换，比较UI/拾取/敌伤与主角受伤",
+      "method": "严格原生66断言及真实Web20组，exact事件和HPscope核验",
+      "expected": "原版/候选实际消费相同接受事件，清理/暂停正确，拾取无准备伤音",
+      "failure": "任意错误/缺事件/错候选/非目标hurt或退出泄漏",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "最终native66/0与Web20组零errors；原90秒预算保留",
+      "evidence": [
+        "v2-native",
+        "v2-trace",
+        "v2-web"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "v2-scope",
+      "path": "docs/worklines/audio_director_02/scope.md",
+      "sha256": "fe7b0a3c3572c4df942bffa060ffbc00954a7b987e11f5529960bab409bf8d94",
+      "kind": "spec",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Direct user rejection and scene audition requirement mapped to source/fixture scope",
+      "observed": "3 CC0 sets, 9 events, original actions/BGM preserved; user approval separate"
+    },
+    {
+      "id": "v2-native",
+      "path": "docs/evidence/audio_director_02/native-frozen/report.json",
+      "sha256": "23bec64bf706645ba9d3c4d3cf7cf0eb375e65fcfacfeaedef26dce463786260",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Strict Godot4.7.2 final runtime-input test; original 90s bound",
+      "observed": "66 checks/0 failures; exit0; 30.490s; no runtime/resource/leak errors",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script res://tests/audio_director_v2_scene.gd --marker '^AUDIO_DIRECTOR_V2_SCENE checks=66 failures=0$' --timeout 90 --output build/audio_director_v2/native-frozen",
+      "exit_code": 0,
+      "environment": "Managed Linux; Godot4.7.2; Dummy audio backend"
+    },
+    {
+      "id": "v2-trace",
+      "path": "docs/evidence/audio_director_02/native-frozen/native.log",
+      "sha256": "284ef7def40b3f8d7d12e6639b47adef1dc3433d2baaf60aa2d0870beb6578d9",
+      "kind": "runtime_trace",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Actual Home/Router/ShopService/Area/EnemyActor/projectiles; explicit dev fixture",
+      "observed": "66/0; actual enemy/player HP receipts; no setup hurt, playback/pause/cleanup validated"
+    },
+    {
+      "id": "v2-dsp",
+      "path": "docs/evidence/audio_director_02/dsp-review-tests.log",
+      "sha256": "e1f047d229f97a3db662c21adf40a60654b8a99ed73bb74d63df645fd9f02b84",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Counterexamples against real source/recipe/trace/runtime bindings plus byte-identical rebuild",
+      "observed": "10 tests pass; DSP trace and output re-derived from inputs; 54 WAV unchanged",
+      "command": "python3 -m unittest discover -s tests -p 'test_audio_candidates_v2.py' -v",
+      "exit_code": 0,
+      "environment": "Managed Linux; Python3/FFmpeg retained source toolchain"
+    },
+    {
+      "id": "v2-web",
+      "path": "docs/evidence/audio_director_02/web-actual-final/report.json",
+      "sha256": "81fddfde57fc684997170fee6a0ef6e24999b26a563c4a6a18511224767300ec",
+      "kind": "gui",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Actual cold Godot iframe and real pointer audio gesture; software Chromium",
+      "observed": "20 exact actual context/profile/focus event groups; matching candidate IDs and HP scopes; nonzero backend; errors0. Game source08df; verifier retained separately."
+    },
+    {
+      "id": "v2-docs",
+      "path": "docs/evidence/audio_director_02/harness-docs/report.json",
+      "sha256": "d384663748375f32ebdb20fed5a430e14540748ba23789274585a5bfbc179e0a",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Original docs profile on frozen08df snapshot, original budgets and assertions",
+      "observed": "33/33 passed; 396.628s; underworld152 cases152.501s within180s; prior failures preserved",
+      "command": "python3 tools/harness.py --profile docs --jobs 1 --reuse",
+      "exit_code": 0,
+      "environment": "Managed Linux; frozen source; no concurrent engine/browser workload"
+    },
+    {
+      "id": "v2-review",
+      "path": "docs/evidence/audio_director_02/review.md",
+      "sha256": "f02648b2f4ef2a4ee93d4d9ae13c99b6dbe069774a110e17e06a81cbd8c5ef40",
+      "kind": "review",
+      "producer": "Audio Director",
+      "source_commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+      "content_version": "audio-director-v2",
+      "method": "Read-only independent counterexamples and source/evidence/archive validation",
+      "observed": "R1-R6 closed; engineering scoped ACCEPT. Unlock prompt/mobile small controls remain nonblocking; no auditory/device approval.",
+      "reviewer": "/root/v2_review",
+      "implementers": [
+        "/root",
+        "/root/v2_candidates",
+        "/root/v2_scene",
+        "/root/v2_web"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer wrote only its own report and no production or test implementation",
+      "reviewed_evidence": [
+        "v2-native",
+        "v2-trace",
+        "v2-dsp",
+        "v2-web",
+        "v2-docs"
+      ]
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "新3套音色审美",
-    "新情境实际交互与听音",
-    "实体手机/扬声器/耳机",
-    "完整Integration/Release"
-  ]
+    "V2三套声音审美、长听疲劳和自然完整混音",
+    "实体手机/Safari/耳机/扬声器",
+    "完整Integration/Release与正式消费者覆盖",
+    "非阻断UI：部分指针已解锁后仍显示开启提示；专用按钮可同步",
+    "竖屏内按钮偏小，提供横屏/全屏/独立入口"
+  ],
+  "production_snapshot": "1b3773cd4009786340be9bc6a86f77d83e3da5fc1a971a53a6d589ce3f4465f8"
 }

@@ -1,0 +1,793 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T040000.219126Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "ca487b8075936ecd26b9ce0b3b06fc66bbf41c0f930ebeeb1c8151cab7e589b1",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987220.4606369,
+      "ended_at_unix": 1792987220.8687062,
+      "duration_seconds": 0.408,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "c6f96ca5c7234f09998e3824ffeae7ee",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b865322e0c601974794b63db9732f57309e5d7cac7c1238f45ca860489f9b320",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987222.060567,
+      "ended_at_unix": 1792987222.22452,
+      "duration_seconds": 0.164,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "ac8c69f412b04e54aa37afb2130598f2",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "00197470d816e1a354093803b8f5dbd72300aa483e33239a1d272985dbc050f0",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987223.4197693,
+      "ended_at_unix": 1792987223.6965442,
+      "duration_seconds": 0.277,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "db760dfce6cd4783872b870edbe9d6f6",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "422eba02b8dffb09aa0752a446c383146fe7bf91d6e95de3708e175a3a8d5776",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987224.8526273,
+      "ended_at_unix": 1792987225.0773337,
+      "duration_seconds": 0.225,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "4d40cfabc6f542c883bd94d3a6299f63",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a2f14f2e814ee57430736e9b36ffb466a676cb07710bdab48bb7ffd1dfa7c1c6",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987226.297757,
+      "ended_at_unix": 1792987244.3147647,
+      "duration_seconds": 18.017,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "d76f30ecb41f4e93bd058cb0a3873b36",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "01b973873c23ad7054ae8a61dd2fc9b613b1768a78790a9f0abb013af420cf88",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987245.6800308,
+      "ended_at_unix": 1792987245.868205,
+      "duration_seconds": 0.188,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "f1cc4f6f9a9f436c8689eb0dd3af5ccd",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e91d7d904860a328bfcb9ceb21caa07e6e5e8e141f4ef48e058dc11f05a37cdc",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987247.1195908,
+      "ended_at_unix": 1792987248.1636314,
+      "duration_seconds": 1.044,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "f4615ba71d684617ae242a261a9191b6",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "86f0027e028d5db042caa4bf21b2249c029c0f66dcf943a2c034be53df6c5c7e",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987249.5283475,
+      "ended_at_unix": 1792987254.858257,
+      "duration_seconds": 5.33,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "10f214a2a3f14338829ea15ae493b52a",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b92edd652567d5aa6d87ca1425c51a847056a5c5187ededfdd2ccac26927412e",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987255.9861758,
+      "ended_at_unix": 1792987326.6601,
+      "duration_seconds": 70.674,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "check_token": "19015851ce9c453a94422c56375908de",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e88a2d398f4adc2fa21ac43ab48c8b0d7cfa1113e7128b63efa88f2ddd595a3a",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987327.6635082,
+      "ended_at_unix": 1792987327.9129066,
+      "duration_seconds": 0.249,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "check_token": "0740485c76b74c0dbec941bcb622d2a4",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0355fbea53c01e447ebe2bd21b7e26c0a7931ee1948f4595c1f5633c654dc9aa",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987328.8429947,
+      "ended_at_unix": 1792987329.0880127,
+      "duration_seconds": 0.245,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "check_token": "c09059117add491b8efbf5ddb8655b68",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "ea46c89eb5ceea0cacff83ac4ee8af63ee94e90039f12a7757a6abb4f2e170ec",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987330.0453663,
+      "ended_at_unix": 1792987330.2927341,
+      "duration_seconds": 0.247,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_capture_actions.py"
+      ],
+      "check_token": "21e139c566a54639b13ee4c6849677c3",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6f4633fd14776ad921ade2850917a6c150ccce5e41bd169eacb42d5ec0aabbe1",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987331.1911452,
+      "ended_at_unix": 1792987345.734644,
+      "duration_seconds": 14.544,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "check_token": "50fc98c70de441a19fc7cbea0be68faf",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "mechanism-comparisons",
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "49516a9cbee7f1278aeecb458a2aacbafc643ac74c320b0937c32bca836715b7",
+      "log": "mechanism-comparisons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987346.7295496,
+      "ended_at_unix": 1792987347.0859487,
+      "duration_seconds": 0.356,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "check_token": "2f16883efbe94e9c91e8b6631dcbca1b",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/mechanism-comparisons",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f693aba33aa3d4300c9ab428346fe4fada6cc8012fde8b3d462b284ee47237d7",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987348.0136657,
+      "ended_at_unix": 1792987348.811136,
+      "duration_seconds": 0.797,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "check_token": "7a0718789f7948c1864f831fc80f6813",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b089b96c1e9031a2c55dbf1c11d422f08aae549be7bd83d62d7526e35afa8b9b",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987349.7791693,
+      "ended_at_unix": 1792987357.019255,
+      "duration_seconds": 7.24,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "check_token": "e2f9da1083904f45a22a4e34600588f9",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e94ffd163eb8db657e703b81423633635d60b031ce5d5fdae0733f6cfd2b2b2a",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987358.1072965,
+      "ended_at_unix": 1792987359.2623239,
+      "duration_seconds": 1.155,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "bfe0aa1baaea4ca0a75f56511bda5d08",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3b7bf87e79193772c1cc171858712f7a977ae8d27120989822c810112b4b9597",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987360.1894777,
+      "ended_at_unix": 1792987360.9467492,
+      "duration_seconds": 0.757,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "e2d3fbff2903403298c6c2e925a7736b",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "efd3677c0a1d0c9f1f42d80c4cd209da4b2f090a6aa0ec26b0feb0308d65c5b2",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987361.8882174,
+      "ended_at_unix": 1792987367.825618,
+      "duration_seconds": 5.937,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "check_token": "7e1aeb40202b4843b39ef84e990a0a3b",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6d7960a5d5bf76320e8f4e3e769aec742e3e9d05c86a4abb9383b0f95ac1e26d",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987368.7829227,
+      "ended_at_unix": 1792987372.4426064,
+      "duration_seconds": 3.66,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "check_token": "2685f2e45f884b388c8e7089fed7c809",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9aca0ba690454c7954cbb434ce563c405c4f19f0a3f72098f59449d3e9cc1b12",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987373.3661215,
+      "ended_at_unix": 1792987395.3554988,
+      "duration_seconds": 21.989,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_visual_director.py"
+      ],
+      "check_token": "164b236e5cbe4a81899f40cd8822ecc5",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987396.3899782,
+      "ended_at_unix": 1792987396.7050307,
+      "duration_seconds": 0.315,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_asset_family.py"
+      ],
+      "check_token": "a593c4582dc044d4bd40a90532020f8d",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "c6654336195f8ef44fec88bf91053368636dd764fe03451b7295c5fef6de5109",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987397.7034798,
+      "ended_at_unix": 1792987397.952482,
+      "duration_seconds": 0.249,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "b89997600ab84157b5892d46105660be",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "619d875f3f43c7b3df4d36c44219c87b88ffa6d229b015023af375be2855b8c7",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987398.9126787,
+      "ended_at_unix": 1792987400.8903203,
+      "duration_seconds": 1.978,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "80920337691741799c8001b71b32ac6a",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "1672244af797d0d84a330f9b0f889611c6615471e22a28f3221bbd682dbc9b2b",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987401.8605664,
+      "ended_at_unix": 1792987554.7423742,
+      "duration_seconds": 152.882,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "check_token": "242464b071154525a9d28a9b44d03cd9",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "738f68fbafa81454d9004d26a0dfed8d27831eb2bf39579c865c29b3f2c8cde0",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987555.8903308,
+      "ended_at_unix": 1792987556.1437495,
+      "duration_seconds": 0.253,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "check_token": "a576b4dc7f594dec97b199ea352b3dc7",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "78e201375d98f36ea853d721e0495237993e0f538a39885871dd4fbcdf1a3b14",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987557.1391425,
+      "ended_at_unix": 1792987557.3389802,
+      "duration_seconds": 0.2,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "b467821a9e234539a67ca6cd6447caa3",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "0575fdcf391fea800ba0b75d08429ab25f3ec055d23e424717477124b812573d",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987558.850743,
+      "ended_at_unix": 1792987563.576361,
+      "duration_seconds": 4.726,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "10790dd43c5d4dcfabaa55cfa1edc6f1",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "dd1b6741ba3039f9421d633df236ed6622b1f9802c6f5adaa959f0606e7385b7",
+      "log": "harness-artifact-archive-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987564.5577505,
+      "ended_at_unix": 1792987568.1853368,
+      "duration_seconds": 3.628,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "check_token": "d232612ad0d64ae0aebb3756a9a59eff",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/harness-artifact-archive-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c2152f5bbf9d9a01c52791e496d2155313ffcfa1b0226634d4d8757c6522b93a",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987568.8619504,
+      "ended_at_unix": 1792987568.8619506,
+      "duration_seconds": 0,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "ac859511ddd14fb18b137cf6f09c78ad",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T015935.135901Z/artifacts/cloud-production-planner-tests",
+      "reused": true,
+      "original_duration_seconds": 0.427,
+      "verified_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36"
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "8aa0ca76fb098e2c3eb237d1466744f9158e0e64d85e0651359ad183f06e86de",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987568.910564,
+      "ended_at_unix": 1792987568.9105642,
+      "duration_seconds": 0,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "25948471b6ec449497320baced34ccd7",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T015935.135901Z/artifacts/cloud-delivery-tests",
+      "reused": true,
+      "original_duration_seconds": 3.686,
+      "verified_commit": "58a9f0ac86c6c9c58664a5827ada5180a1ca6f36"
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2eb58486b8efb22a61c07fb538f398cf11850fcbd39c02a3432bda657818368f",
+      "log": "cloud-inputs-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987569.6443875,
+      "ended_at_unix": 1792987575.2015738,
+      "duration_seconds": 5.557,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "check_token": "6ba76cd078ae4acb9c3e41e226cee9ca",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/cloud-inputs-tests",
+      "reused": false
+    },
+    {
+      "id": "portable-frozen-assets",
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7fd214bf2941e673f0371675c9a5d92e3a68813e90028c51124bd13a955b15b2",
+      "log": "portable-frozen-assets.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792987576.3799279,
+      "ended_at_unix": 1792987578.7110116,
+      "duration_seconds": 2.331,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "check_token": "555ac0e56bb542d9a938e07cf14d0072",
+      "artifact_directory": "/workspace/gunman-audio/build/verification/harness/20261026T040000.219126Z/artifacts/portable-frozen-assets",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "1f0de8c64087109083861157eeaed7c4e332ea2a8e321ad4ad2ee4f1eadf7180",
+  "working_files": {},
+  "commit": "08df881cb3b84626f4c0fe638d86d2f86935cbe8",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 396.628,
+  "jobs": 1,
+  "release": false
+}

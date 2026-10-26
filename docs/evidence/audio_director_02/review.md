@@ -103,3 +103,46 @@ Lab现在override `_sync_music`，始终依据 `_track`，不再依据Home状态
 `validate`已核当前recipe/tool/source/output SHA，但尚未核render的processing、trim_filter、edge_filter、normalization_gain_db与实际源/配方相符。在完整临时ROOT中将首render的gain改999dB、edge_filter改volume=999dB、trim_filter改虚构方法及越界start_frame、processing改“synthesized sine wave”，保留全部真实WAV、config、tool与source字节。实际仍输出`AUDIO_CANDIDATES_V2_OK events=9 sets=3 rendered_files=54`。
 
 当前真实trace不是此伪造值，反例不声称当前候选失真；缺口是未来加工追踪字段可以自相矛盾但守门通过，因此前述“语义校验关闭”只涵盖已实际验证的播放路径与源ID，不能扩大成所有派生DSP元数据均闭环。要求基于实际源与recipe推导或重建trace进行比对，拒绝伪filter/gain/trim，并补此反例；保持54个已冻WAV不变。
+
+## 最终复审 · 限定工程范围 ACCEPT
+
+审查实现冻结于`08df881cb3b84626f4c0fe638d86d2f86935cbe8`，Web build `1048defde2ef`；源自两次返工提交，旧340b249b报告不替代新包。实现者为主线与候选/场景/网页代理，本报告作者仍为独立`/root/v2_review`；本人只写本报告，独立运行Python隔离反例并核实物/截图，没有独立启动Godot或执行最终浏览器驱动。下列引擎/浏览器数据明确来自主线实际执行，本人审读原始报告/日志及其对应代码。
+
+### R5、R6关闭
+
+- **R5 CLOSED**：Lab复制HealthDefinition，仅为拾取样板设置4/5初始生命；`_fixture_setup`屏蔽初始化回执，演示不再先发敌弹。保留可选真实敌弹操作及战斗hurt演示；正式拾取Area、钱包、回血服务继续实际受付。新原生检查同时核hurt事件与原/新hurt played计数不增加。最终Web四profile拾取严格只有coin→heal→reward，health由4→5，没有前置hurt。
+- **R6 CLOSED（独立重跑）**：在08df881c完整临时ROOT，未篡改control实际重渲染并验证54项通过；分别单改gain=999、edge=volume999dB、trim越界和processing=synth，均精确拒绝`DSP trace differs from recomputed source/recipe: <该字段>`。54个临时runtime WAV的SHA前后不变。当前validate从真实原文件与recipe临时重渲染，比较全部派生trace及输出SHA；不覆盖运行时文件。作者10项测试41.398秒通过、54文件与首轮V2字节一致，见`build/audio_director_v2/dsp-review-receipt.json`。没有把首次只校播放绑定的关闭扩大为当时已核DSP。
+
+### 最终实物与运行证据
+
+独立逐文件核`build/audio_director_v2/site-final/site-delivery.json`：535个文件bytes/SHA全部相符；index.html及manifest与当前生产源逐字节一致。独立按实际SW RESOURCE_MAP在内存解压355个chunk，各块size/SHA均正确；组合185858020字节，PCK SHA256为`1048defde2ef0797cf2b7ada204d3af7783cba4ac82252e0a19552aae4c75a2d`。这是只读重构核验，不落盘改包。页面明示首次约186MB；真实场景要求ServiceWorker与DecompressionStream，没有通用旧浏览器fallback承诺。
+
+已实读最终真实Web报告`docs/evidence/audio_director_02/web-actual-final/report.json`（SHA256 `81fddfde57fc684997170fee6a0ef6e24999b26a563c4a6a18511224767300ec`）：
+
+- 3情境×4profile为12组，另enemy_hurt、hurt各4profile为8组，合计20组。新包build/source均正确；各行实际payload的profile/candidate_id对应所选原版/A/B/C。
+- UI各组严格click/confirm/denied且钱包购买后2；拾取各组严格coin/heal/reward、真实contact=true；enemy_hit和enemy_hurt均有实际敌HP2与actual_enemy_damage_receipt；主角hurt有HP4和actual_enemy_projectile_damage。
+- 实际pointer后两个AudioContext为running、1910个采样、backend peak=0.103271484375、errors=[]。这是非零输出与实际消费者闭环，不能由总峰值推导每个候选悦耳或逐声波形质量。
+- 已独立查看mobile.png和combat-desktop.png：手机宽度下有实际Godot画面、外部场景/方案/示范按钮，提供全屏与独立打开；内部小按钮与文字在竖屏很小，因此不签真实手机触控可用性。
+
+最终冻结原生`build/audio_director_v2/native-frozen`：作者实际66 checks/0 failures、exit0、30.490秒，原90秒预算；已读日志未见ERROR/泄漏。包括四profile正式交易/Area/弹体/HP消费者、原Router跳跃、单层隔离、Stop/Pause取消telegraph、跨帧音乐选择和共享12voice释放。先前原运行时60/0、生命周期37/0作为受影响旧入口回归，不代替新专项。
+
+完整docs wrapper `docs/evidence/audio_director_02/harness-docs/report.json`为同实现commit：33项全部passed、jobs1、396.628秒；underworld runner 152.882秒小于原180秒预算。此前源漂移、超时和旧Web混伤轨迹保留，没有改预算、删失败或把部分通过改写成整套通过。
+
+### 已知非阻断提示偏差 · OPEN
+
+最终实际事件含audio_unlocked=true、后端确有声音，但父页只在ready或独立audio_unlocked消息更新bridge.audioUnlocked；点击画布其他位置已触发Godot真实输入解锁时，截图仍可能提示“请在场景内开启声音”。这是已确认的状态显示假阴性，**不是实际无声**。点击场景内专门“点一下开启场景声音”按钮可同步父页。主线决定本轮保留冻结HTML以保证已测/上传包一致；后续可同步合法同源status的实际布尔值并补专项，不应靠请求意图自认解锁。
+
+### 范围矩阵与结论限制
+
+| 维度 | 本轮结论与界限 |
+| --- | --- |
+| 设计落实 | 3套独立CC0原take、9事件、可听单声和真实情境比较已接入；音色审美待用户。 |
+| 玩法价值/公平/随机关卡 | 本轮不改变游戏规则或关卡，不作新玩法品质判定。 |
+| 操作/画面 | 实际软件Chromium画面及手机宽度布局已核；内部按钮缩小和真机触控未验。 |
+| 动画/美术 | 复用原正式表现；截图证明在场景中，不能据此代签风格品质。 |
+| 特效音频 | 来源、许可、DSP、幅度、变体、播放绑定、生命周期与非零后端输出已核；好听、统一、辨识度待用户。 |
+| 正式消费者 | 正式Shop/Health/钱包/弹体在显式开发fixture中运行；不称自然完整关卡通过。正式默认仍原版。 |
+| 性能/状态/恢复 | 共享12voice、取消与drain有原生证据；不签手机帧率、Safari或硬件音频。 |
+| 设备/主观认可 | UNVERIFIED；保留v1用户拒绝，V2全部awaiting-user。 |
+
+**限定工程ACCEPT**覆盖上述冻结候选库、可复现加工、正式架构的Lab接入及实际软件Chromium情境试听。所有初审阻断项已返工验证；已知提示偏差明确保留。商业听感、完整自然战斗/钩索混音、真机与Safari仍为**UNVERIFIED**，内容G5不能由本报告代签。最终站点发布/在线可达由主线另记精确Sites source与部署收据；本审查未把尚在部署中的地址当成已实测上线。

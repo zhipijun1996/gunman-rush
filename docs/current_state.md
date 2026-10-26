@@ -2,7 +2,7 @@
 
 ## 2026-10-26 音效第二轮：3套现成CC0与真实情境
 
-AUDIO-DIRECTOR-02从用户拒绝v1 A/B的反馈继续：只重选UI、拾取、命中/受伤，3套×9事件×2实际take共54 WAV，原起跳/落地、未要求动作及五首原BGM保留。工坊加入正式Home/ShopService/拾取Area/真实弹体伤害的开发情境，原版与A/B/C同场切换；这是试听样板，不冒充自然完整流程。[第二轮入口与状态](audio_director/listening_v2.md)、[精确验证与最终部署](evidence/audio_director_02/README.md)。听感与实体手机待用户；PR109独立工作线不默认合main。下方第一阶段是原历史交付，不能用旧v1包替代本轮场景。
+AUDIO-DIRECTOR-02从用户拒绝v1 A/B的反馈继续：只重选UI、拾取、命中/受伤，3套×9事件×2实际take共54 WAV，原起跳/落地、未要求动作及五首原BGM保留。工坊加入正式Home/ShopService/拾取Area/真实弹体伤害的开发情境，原版与A/B/C同场切换；这是试听样板，不冒充自然完整流程。[新版手机工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/?v=2&build=1048defde2ef)、[第二轮入口与状态](audio_director/listening_v2.md)、[精确验证与最终部署](evidence/audio_director_02/README.md)。听感与实体手机待用户；PR109独立工作线不默认合main。下方第一阶段是原历史交付，不能用旧v1包替代本轮场景。
 
 ## 2026-10-26 独立音效导演第一阶段
 

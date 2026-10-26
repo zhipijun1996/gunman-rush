@@ -1,6 +1,6 @@
 # 失序之钟 · Audio Director
 
-当前用户试听状态：**v1 A/B均未接受**。原起跳/落地保留；UI、拾取、命中、受伤需现成素材及专用真实场景比较。[原始反馈与修订约束](../evidence/audio_director_01/feedback-02.md)。现有网站仍为第一轮，第二轮场景尚未部署。
+当前用户试听状态：**v1 A/B均未接受，V2三套待用户试听**。原起跳/落地保留；第二轮已用现成CC0重做UI、拾取、命中/受伤的3套54 WAV，并加入真实Godot情境。[V2情境试听与生产命令](listening_v2.md) · [实际版本/最终部署收据](../evidence/audio_director_02/README.md) · [原始反馈](../evidence/audio_director_01/feedback-02.md)。下方v1加工/入口仅供原件追溯，不代表当前推荐方向。
 
 任务 **AUDIO-DIRECTOR-01**，第一阶段候选版本 `audio-director-v1`。目标是持续产出可听、可比、可追溯的游戏SFX。技术验证、用户听感与实体设备分别记录；当前没有商业品质批准。
 

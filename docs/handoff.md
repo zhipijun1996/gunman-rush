@@ -1,6 +1,6 @@
 # 当前交接（2026-10-24）
 
-最新音效工作线为AUDIO-DIRECTOR-02，仍在feature/audio-director-01/PR109：已重选3套现成CC0、54 WAV及真实UI/拾取/战斗情境。拾取初始4/5生命静默配置，比较时不夹杂准备伤音；战斗受伤仍由真实敌弹。精确source/build/网站发布状态只以[第二轮证据](evidence/audio_director_02/README.md)为准，原v1拒绝不改签。恢复命令与试听方法见[Sound Lab V2](audio_director/listening_v2.md)。
+最新音效工作线为AUDIO-DIRECTOR-02，仍在feature/audio-director-01/PR109：已重选3套现成CC0、54 WAV及真实UI/拾取/战斗情境。拾取初始4/5生命静默配置，比较时不夹杂准备伤音；战斗受伤仍由真实敌弹。运行源08df881c/build1048defde2ef，Sites版本3已发布至[工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/?v=2&build=1048defde2ef)；20组真实Web、最终原生66/0、docs33/33通过。精确source/build/网站发布状态只以[第二轮证据](evidence/audio_director_02/README.md)为准，原v1拒绝不改签。恢复命令与试听方法见[Sound Lab V2](audio_director/listening_v2.md)。
 
 ## 2026-10-26 AUDIO-DIRECTOR-01（最新独立工作线）
 

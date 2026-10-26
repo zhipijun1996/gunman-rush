@@ -28,4 +28,6 @@ python3 tools/audio_lab_v2.py build --output build/audio_director_v2/listen-FRES
 python3 tools/audio_lab_v2.py stage --bundle build/web --output build/audio_director_v2/site-FRESH
 ```
 
+真实Web核验可运行 `node tools/sound_lab/verify_context_v2.cjs http://127.0.0.1:8773/ build/audio_director_v2/web-actual EXPECTED_BUILD`，需先用HTTP服务托管本轮stage目录；它执行真实iframe、20组事件比较和非零音频后台观测，软件Chromium不能代签听感或真机。
+
 `stage`先验证原Web报告与精确PCK，再把本轮真实场景作为入口；已有Sites大资源沿项目原ServiceWorker逐块SHA重构，显式要求现代ServiceWorker/DecompressionStream，不冒称raw fallback。新游戏源变化必须重新导出，不复用v1包冒充V2场景。
