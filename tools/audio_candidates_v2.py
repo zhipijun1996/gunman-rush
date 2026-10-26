@@ -199,6 +199,18 @@ def validate():
                 source=sources[expected_source]
                 if render_.get('variant')!=i+1 or render_.get('input_path')!=source['path'] or render_['input_sha256']!=source['sha256'] or render_.get('source_layers')!=1 or not render_.get('original_pitch'):
                     raise ValueError('False source/processing provenance')
+                # Re-derive the complete DSP trace from the real retained input
+                # and current recipe, rather than trusting editable manifest DSP
+                # claims. The temporary render never touches runtime outputs.
+                validation_root=ROOT/'build/audio-v2-validation'
+                validation_root.mkdir(parents=True,exist_ok=True)
+                with tempfile.TemporaryDirectory(prefix='derive-',dir=validation_root) as temp:
+                    derived=render(recipe_event,recipe_candidate,i,expected_source,sources,config,Path(temp)/'clip.wav')
+                expected_trace={k:v for k,v in derived.items() if k!='path'}
+                actual_trace={k:v for k,v in render_.items() if k!='path'}
+                if actual_trace!=expected_trace:
+                    differences=sorted(k for k in set(actual_trace)|set(expected_trace) if actual_trace.get(k)!=expected_trace.get(k))
+                    raise ValueError('DSP trace differs from recomputed source/recipe: '+','.join(differences))
                 hashes.append(actual['sha256'])
     if len(hashes)!=54 or len(set(hashes))!=54:raise ValueError('Expected 54 distinct recorded outputs')
     print('AUDIO_CANDIDATES_V2_OK events=9 sets=3 rendered_files=54')

@@ -23,7 +23,7 @@ python3 -m unittest discover -s tests -p 'test_audio_candidates_v2.py' -v
 
 原文件、作者、URL、下载日期、原ZIP与页面SHA、许可、商业条件与署名要求都在sources注册表，原名少量原件/来源页面/CC0文本放 `_sources/.gdignore`，未用整包仅在workspace缓存。所有候选为CC0，可商用/修改且无强制署名；本项目保留作者与许可用于溯源。BGM原五MP3字节不动。
 
-验证拒绝配方、注册表、加工器、FFmpeg版本、原录音与输出漂移；单事件重建前先验证旧版本，不能给未重建条目冠新指纹。输出54个SHA全不同；真实首轮与全量重建逐字节相同。9项临时副本反例覆盖配方/来源/工具漂移、原件修改、来源快照伪造、输出篡改、重复take、未漂移partial重建，以及播放path/variants重定向和profile/source/summary/preserve元数据篡改。它们只验证制作完整性，听感需由用户在新版真实场景确认。
+验证拒绝配方、注册表、加工器、FFmpeg版本、原录音与输出漂移；单事件重建前先验证旧版本，不能给未重建条目冠新指纹。输出54个SHA全不同；真实首轮与全量重建逐字节相同。10项临时副本反例覆盖配方/来源/工具漂移、原件修改、来源快照伪造、输出篡改、重复take、未漂移partial重建，以及播放path/variants重定向和profile/source/summary/preserve元数据篡改。它们只验证制作完整性，听感需由用户在新版真实场景确认。
 
 工程失败保留：首次使用FFmpeg持续/反转静音门限时，稀疏按钮瞬态被过度裁切；诊断后改为PCM首末样本定位保留全部内部间隔，未放宽8ms/非静音/峰值门槛。原失败与修复在 `build/audio_director_v2/`，不把技术故障误写成用户审美拒绝。
 

@@ -25,6 +25,7 @@ var _serial := 0
 var _demo_serial := 0
 var _attack_serial := 0
 var _fixture_serial := 0
+var _fixture_setup := false
 var _fixture_scope: DemoLifetime
 var _fixture_policy: FrameDamagePolicy
 var _fixture_wallet: RunWallet
@@ -271,6 +272,15 @@ func _purchase(offer: StringName) -> void:
 
 func _make_pickups() -> void:
 	_fixture_title.text = "拾取小径：向右移动实际接触金币、生命、普通奖励"
+	# An explicit development initial condition, not a damage event. Configure
+	# the real HealthState with 4/5 HP so the heart can demonstrate an actual
+	# heal without preceding the pickup comparison with unrelated hurt audio.
+	_fixture_setup = true
+	var initial := home_scene.controller.actor_resources.health_definition.duplicate(true) as HealthDefinition
+	initial.initial_current = maxf(1, initial.max_health - 1)
+	if not home_scene.controller.actor_resources.health.configure(initial):
+		push_error("Audio pickup fixture has an invalid initial health condition")
+	_fixture_setup = false
 	_spawn_pickup(&"coin", 235)
 	_spawn_pickup(&"heart", 345)
 	_spawn_pickup(&"note", 455)
@@ -278,9 +288,9 @@ func _make_pickups() -> void:
 	var row := HFlowContainer.new()
 	_scene_box.add_child(row)
 	_ui_buttons["row"] = row
-	var injury := _lab_button("先受伤一次，再拾取生命", row)
+	var injury := _lab_button("额外接受一次敌弹（可选）", row)
 	injury.pressed.connect(func() -> void: _fire_enemy_once())
-	_result.text = "生命在满血时不会消费；可让真实敌弹命中后拾取。"
+	_result.text = "样板初始生命 4/5；真实接触拾取恢复生命，不先播放受伤声。"
 
 func _spawn_pickup(kind: StringName, x: float) -> void:
 	var pickup := AudioDirectorLabPickup.new()
@@ -372,8 +382,10 @@ func _damage_results(results: Array[DamageResult]) -> void:
 			_result.text = "敌弹实际命中；生命 %s/%s" % [home_scene.controller.actor_resources.health.current, home_scene.controller.actor_resources.health.capacity]
 
 func _player_health_changed(result: ActorResourceResult) -> void:
+	if _fixture_setup: return
 	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
-		_accepted(&"hurt", {"health": result.snapshot.current, "scope": "actual_enemy_projectile_damage"})
+		var source := "actual_enemy_projectile_damage" if str(result.event_id).begins_with("audio_lab_sentry:seed:") else "actual_health_state_damage"
+		_accepted(&"hurt", {"health": result.snapshot.current, "scope": source})
 
 func run_demo(event_id := "") -> void:
 	if _context_busy or demo_running: return
@@ -397,9 +409,6 @@ func run_demo(event_id := "") -> void:
 			(_ui_buttons[action] as Button).pressed.emit()
 			await _ticks(50, token)
 	elif context == "pickup":
-		if requested != &"coin":
-			await _fire_enemy_once()
-			await _ticks(70, token)
 		var goal := 235.0 if lab_focus == &"coin" and not requested.is_empty() else 345.0 if lab_focus == &"heal" else 455.0
 		await _walk_to(goal, token)
 		await _ticks(20, token)

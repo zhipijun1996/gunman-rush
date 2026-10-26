@@ -82,6 +82,16 @@ class CandidateGuards(unittest.TestCase):
                 with self.assertRaises(ValueError):audio.validate()
         p.write_bytes(before)
 
+    def test_dsp_trace_cannot_claim_unperformed_processing(self):
+        p=audio.DEST/'manifest.json';before=p.read_bytes()
+        original=json.loads(before)['events'][0]['candidates'][0]['renders'][0]
+        altered_trim=copy.deepcopy(original['trim_filter']);altered_trim['start_frame']+=100
+        for key,value in [('normalization_gain_db',999),('edge_filter','volume=999dB'),('trim_filter',altered_trim),('processing','synthesized sine wave')]:
+            with self.subTest(key=key):
+                j=json.loads(before);j['events'][0]['candidates'][0]['renders'][0][key]=value;audio.write(p,j)
+                with self.assertRaisesRegex(ValueError,'DSP trace'):audio.validate()
+        p.write_bytes(before)
+
     def test_clean_partial_build_keeps_all_54_bytes(self):
         before={p.name:audio.digest(p) for p in audio.DEST.glob('*.wav')}
         audio.build('click')
