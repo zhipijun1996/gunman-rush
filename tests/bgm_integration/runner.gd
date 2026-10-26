@@ -118,7 +118,7 @@ func gate_and_loop_checks() -> void:
 func settings_checks() -> void:
 	app.toggle_pause()
 	await frames()
-	check(paused and app.menu.visible_panel == &"pause", "real pause menu opens")
+	check(paused and app.menu.visible_panel == &"build", "real pause opens the backpack without resuming music")
 	var starts := app._music.starts.duplicate()
 	await create_timer(0.3, true, false, true).timeout
 	check(app._music._duck <= GameMusic.PAUSE_GAIN + 0.01 and app._music.starts == starts, "pause ducks continuous music without restarting")

@@ -18,14 +18,14 @@ func frames(n: int = 4) -> void:
 	for i: int in n: await process_frame
 func button(owner: Node, prefix: String) -> Button:
 	for node: Node in owner.find_children("*", "Button", true, false):
-		if node.text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
+		if node.name == prefix or node.text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null, "requested pointer control exists")
 	if target == null: return
 	var parent := target.get_parent()
 	while parent:
-		if parent is ScrollContainer: parent.ensure_control_visible(target)
+		if parent is ScrollContainer and parent.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED: parent.ensure_control_visible(target)
 		parent = parent.get_parent()
 	await frames()
 	var point := target.get_global_rect().get_center()
@@ -109,17 +109,18 @@ func run() -> void:
 	check(app._demo_hud.hearts.current == health.current and health.current == health.capacity, "official heal effect restores hearts")
 	var shots := actor.shoot_ability._shot_serial
 	await click(app._pause_button)
-	check(paused and app.menu.visible_panel == &"pause" and actor.router.axis == 0, "mouse pause cancels input and freezes same run")
+	check(paused and app.menu.visible_panel == &"build" and actor.router.axis == 0, "mouse pause cancels input and freezes same run")
 	await click(button(app.menu._root,"SETTINGS"))
 	await joy(JOY_BUTTON_B)
-	check(paused and app.menu.visible_panel == &"pause", "gamepad B returns to pause subpage")
+	check(paused and app.menu.visible_panel == &"build", "gamepad B returns to paused backpack")
 	check(root.gui_get_focus_owner() == button(app.menu._root,"SETTINGS"), "pause restores caller focus")
+	await click(button(app.menu._root,"PausePage"))
 	await click(button(app.menu._root,"RETURN TO HOME"))
 	check(paused and app.menu.visible_panel == &"confirm_home", "dangerous leave uses real confirmation")
 	await joy(JOY_BUTTON_B)
 	check(not paused and app.controller == actor and actor.shoot_ability._shot_serial == shots, "cancel leave resumes same actor without shot leakage")
 	await joy(JOY_BUTTON_START)
-	check(paused and app.menu.visible_panel == &"pause", "gamepad Start opens original pause boundary")
+	check(paused and app.menu.visible_panel == &"build", "gamepad Start opens backpack at the original pause boundary")
 	await joy(JOY_BUTTON_B)
 	check(not paused, "gamepad B resumes pause")
 	await click(app.stage.map_view)
@@ -145,7 +146,7 @@ func run() -> void:
 		check(app._demo_hud._touch_menu_text.get_theme_font_size("font_size") * root.get_screen_transform().get_scale().abs().y >= 13.9, "actual mobile MENU label at least14 physical pixels at " + str(viewport))
 		if viewport == Vector2i(844,390): await image("touch-hud-844x390")
 		await touch(app._demo_hud._touch_menu)
-		check(paused and app.menu.visible_panel == &"pause" and actor.shoot_ability._shot_serial == shots, "enlarged touch MENU invokes original pause without shot at " + str(viewport))
+		check(paused and app.menu.visible_panel == &"build" and actor.shoot_ability._shot_serial == shots, "enlarged touch MENU invokes original pause without shot at " + str(viewport))
 		await joy(JOY_BUTTON_B)
 		app.overlay.set_enabled(touch_enabled); await frames(4)
 		app.menu.show_pause(); await frames(8)

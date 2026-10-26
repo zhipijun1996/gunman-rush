@@ -532,7 +532,8 @@ func extra_upward_recoil(trace) -> bool:
 	var claim: EconomyReceipt=app.rewards.claim(request)
 	check(claim.accepted() and claim.item_id==DemoApp.SHOT_ITEM.stable_id,"actual Air Magazine reward accepted by official build service")
 	check(trace.motor.tuning.max_air_shots==before_grant.max_air_shots and app.build.count_item(DemoApp.SHOT_ITEM.stable_id)==1,"actual Air Magazine claim first enters backpack without granting capacity")
-	check(load("res://tests/gear_inventory_support.gd").equip_sources(app.build,[&"reward:scene_extra_magazine_fixture"]),"explicit paused equipment fixture installs the legitimately claimed magazine")
+	var magazine_sources: Array[StringName] = [&"reward:scene_extra_magazine_fixture"]
+	check(load("res://tests/gear_inventory_support.gd").equip_sources(app.build,magazine_sources),"explicit paused equipment fixture installs the legitimately claimed magazine")
 	var after_claim:={"tick":trace.trace_ticks,"max_air_shots":trace.motor.tuning.max_air_shots,"shots":trace.controller.action_resources.shot_charges,"items":app.build.item_ids()}
 	check(before_grant.max_air_shots==1 and after_claim.max_air_shots==2 and after_claim.shots==before_grant.shots,"real magazine increases capacity without injecting a round")
 	trace.controller.router.set_move_axis(0)

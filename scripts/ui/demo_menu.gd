@@ -41,6 +41,7 @@ const GOLD := DemoClockworkTheme.BRASS
 const TEXT := DemoClockworkTheme.PAPER
 const MUTED := DemoClockworkTheme.MUTED
 const SCROLL_TOUCH_ADAPTER := preload("res://scripts/ui/menu_scroll_touch_adapter.gd")
+const GEAR_LOAD_CELL := preload("res://scripts/ui/gear_load_cell.gd")
 
 var visible_panel: StringName = &""
 var _root: Control
@@ -61,8 +62,19 @@ var _build_items: Array[ItemDefinition]=[]
 var _equipment_view: Dictionary = {}
 var _equipment_body: VBoxContainer
 var _equipment_generation := 0
+var _equipment_detail_generation := 0
 var _replacement_id: StringName = &""
 var _equipment_focus_id: StringName = &""
+var _selected_instance_id: StringName = &""
+var _equipment_left: VBoxContainer
+var _equipment_detail: VBoxContainer
+var _equipment_grid: GridContainer
+var _equipped_grid: GridContainer
+var _backpack_scroll: ScrollContainer
+var _equipped_scroll: ScrollContainer
+var _detail_scroll: ScrollContainer
+var _inventory_tiles: Array[Button] = []
+const PAUSE_PAGES: Array[StringName] = [&"build", &"pause", &"settings", &"help"]
 var _seed := ""
 var _values: Dictionary = {}
 var _defaults: Dictionary = {}
@@ -441,27 +453,28 @@ func hide_home() -> void:
 	_hide()
 
 func show_pause(build_description: String = "", items: Array[ItemDefinition] = []) -> void:
-	_build = build_description
-	_build_items=items
+	# The formal pause entry is the inventory, with no intermediate action menu.
+	_build_items = items
+	show_build(build_description)
+
+func show_journey() -> void:
 	_begin(&"pause", true)
-	_title("片刻停驻", "钟摆停下，旅途仍在。")
-	_label(_content, "获得道具先放入行囊，装备后才会生效。", 16, MUTED)
 	_pause_navigation(&"pause")
-	var resume := _button(_content, "RESUME / 继续旅途", close_panel)
+	_title("片刻停驻", "钟摆停下，旅途仍在。")
+	if not _build.is_empty(): _label(_content, _build, 17, TEXT)
+	var resume := _button(_content, "继续旅途", close_panel)
+	resume.name = "ResumeAdventure"
+	resume.set_meta(&"ui_legacy_prefix", "RESUME")
 	resume.theme_type_variation = &"PrimaryButton"
-	var actions := GridContainer.new()
-	actions.columns = 2
-	actions.add_theme_constant_override("h_separation", 12)
-	_content.add_child(actions)
-	_button(actions, "SETTINGS", func() -> void: show_settings(true))
-	_button(actions, "CONTROLS", func() -> void: show_help(true))
-	_button(_content, "RETURN TO HOME", _confirm_home)
-	if not _focus_history.has(&"pause"): _focus_history[&"pause"] = "RESUME / 继续旅途"
+	var leave := _button(_content, "结束本局 · 返回家园", _confirm_home)
+	leave.name = "LeaveAdventure"
+	leave.set_meta(&"ui_legacy_prefix", "RETURN TO HOME")
 	_focus_first()
 
 func show_settings(in_run: bool = false) -> void:
 	if visible_panel not in [&"settings", &"help"]: _return_panel = visible_panel
 	_begin(&"settings", in_run)
+	if in_run: _pause_navigation(&"settings")
 	_title("设定", "输入参数选择应用后生效；仅保存于当前会话。")
 	_sliders.clear()
 	_label(_content, "Touch movement", 16, TEXT)
@@ -522,6 +535,7 @@ func show_settings(in_run: bool = false) -> void:
 func show_help(in_run: bool = false) -> void:
 	if visible_panel not in [&"settings", &"help"]: _return_panel = visible_panel
 	_begin(&"help", in_run)
+	if in_run: _pause_navigation(&"help")
 	_title("新手教程", "瞄准危险，反冲会带你去相反的方向。")
 	if not in_run:
 		_label(_content, "先了解操作，再从风铃平原入口练习。练习将开始一局新的冒险。", 17, MUTED)
@@ -547,28 +561,26 @@ func show_build(text: String) -> void:
 	_equipment_view.clear()
 	_replacement_id = &""
 	_equipment_focus_id = &""
-	_title("旅途构筑", "获得道具先入包，装备后生效。暂停时可以自由换装。")
 	_pause_navigation(&"build")
 	_equipment_body = VBoxContainer.new()
 	_equipment_body.name = "EquipmentBody"
-	_equipment_body.add_theme_constant_override("separation", 12)
+	_equipment_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_equipment_body.add_theme_constant_override("separation", 0)
 	_content.add_child(_equipment_body)
-	_label(_equipment_body, "正在读取本局行囊……", 18, MUTED)
-	_button(_content, "返回暂停", _back).set_meta(&"ui_legacy_prefix", "BACK")
-	# The application creates the editing session after _begin has canceled old
-	# input. Data refreshes below never reopen the menu or create another session.
+	_label(_equipment_body, "正在读取本局背包……", 18, MUTED)
+	# The application creates the editing session after _begin cancels old input.
 	build_opened.emit()
 	if _equipment_view.is_empty(): _show_build_preview()
 	_focus_first()
 
 func _show_build_preview() -> void:
-	# Development hosts such as ModuleLab share this menu without owning a run
-	# equipment session. Preserve their real summary/cards as a read-only view.
+	# Read-only development consumers may show long legacy summaries/cards.
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	for child: Node in _equipment_body.get_children():
 		_equipment_body.remove_child(child)
 		child.queue_free()
 	_label(_equipment_body, "开发入口 · 构筑预览", 21, GOLD)
-	_label(_equipment_body, "此处仅预览道具与属性。正式装备、卸下与齿轮扩容请在冒险中的暂停构筑页操作。", 17, MUTED)
+	_label(_equipment_body, "此处仅预览道具与属性。正式装备、卸下与齿轮扩容请在冒险中的暂停背包页操作。", 17, MUTED)
 	if not _build.is_empty(): _label(_equipment_body, _build, 17, TEXT)
 	for item: ItemDefinition in _build_items:
 		if item == null: continue
@@ -582,8 +594,7 @@ func set_equipment_view(snapshot: Dictionary) -> void:
 	_equipment_view = snapshot.duplicate(true)
 	if visible_panel != &"build" or not is_instance_valid(_equipment_body): return
 	_build = str(snapshot.get("summary", _build))
-	var equipped := _equipped_ids()
-	if not _replacement_id in equipped: _replacement_id = &""
+	if not _replacement_id in _equipped_ids(): _replacement_id = &""
 	_render_equipment()
 
 func _equipped_ids() -> Array[StringName]:
@@ -594,117 +605,268 @@ func _equipped_ids() -> Array[StringName]:
 
 func _render_equipment() -> void:
 	if not is_instance_valid(_equipment_body): return
+	var old_scroll := _backpack_scroll.scroll_vertical if is_instance_valid(_backpack_scroll) else 0
 	var focused := get_viewport().gui_get_focus_owner()
 	if is_instance_valid(focused) and _equipment_body.is_ancestor_of(focused):
 		_focus_history[&"build"] = str(focused.get_meta(&"focus_key", focused.name))
 	if not _equipment_focus_id.is_empty():
-		_focus_history[&"build"] = ("unequip:" if _equipment_focus_id in _equipped_ids() else "equip:") + str(_equipment_focus_id)
+		_selected_instance_id = _equipment_focus_id
+		_focus_history[&"build"] = "item:" + str(_equipment_focus_id)
 		_equipment_focus_id = &""
 	_equipment_generation += 1
+	_inventory_tiles.clear()
 	for child: Node in _equipment_body.get_children():
 		_equipment_body.remove_child(child)
 		child.queue_free()
+	var items: Array = _equipment_view.get("items", [])
+	var has_selected := false
+	var equipped_count := 0
+	for entry: Dictionary in items:
+		if StringName(entry.get("instance_id", &"")) == _selected_instance_id: has_selected = true
+		if bool(entry.get("equipped", false)): equipped_count += 1
+	if not has_selected:
+		_selected_instance_id = StringName(items[0].get("instance_id", &"")) if not items.is_empty() else &""
+	var split := HBoxContainer.new()
+	split.name = "InventoryColumns"
+	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	split.add_theme_constant_override("separation", 22)
+	_equipment_body.add_child(split)
+	_equipment_left = VBoxContainer.new()
+	_equipment_left.name = "InventoryCollection"
+	_equipment_left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_equipment_left.size_flags_stretch_ratio = 1.65
+	_equipment_left.add_theme_constant_override("separation", 8)
+	split.add_child(_equipment_left)
 	var capacity := int(_equipment_view.get("capacity", 0))
 	var used := int(_equipment_view.get("used", 0))
 	var remaining := int(_equipment_view.get("remaining", capacity - used))
-	var load_label := _label(_equipment_body, "齿轮负荷  %s / %s    剩余 %s" % [used, capacity, remaining], 23, GOLD)
+	var header := HBoxContainer.new()
+	_equipment_left.add_child(header)
+	var load_label := _label(header, "齿轮  %s / %s    剩余 %s" % [used, capacity, remaining], 21, GOLD, false)
 	load_label.name = "GearLoad"
+	load_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	load_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	var coins_label := _label(header, "金币 %s" % int(_equipment_view.get("coins", 0)), 17, MUTED, false)
+	coins_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	coins_label.size_flags_horizontal = Control.SIZE_SHRINK_END
 	var slots := HBoxContainer.new()
 	slots.name = "GearSlots"
-	slots.add_theme_constant_override("separation", 4)
-	_equipment_body.add_child(slots)
+	slots.add_theme_constant_override("separation", 7)
+	_equipment_left.add_child(slots)
 	for index: int in capacity:
-		var slot := ColorRect.new()
+		var slot := GEAR_LOAD_CELL.new()
 		slot.name = "GearSlot%s" % (index + 1)
-		slot.color = TEAL if index < used else CARD.lightened(0.12)
-		slot.custom_minimum_size = Vector2(12, 16)
-		slot.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slot.occupied = index < used
+		slot.set_meta(&"occupied", index < used)
 		slots.add_child(slot)
+	_label(_equipment_left, "已装备  ·  %s" % equipped_count, 17, TEAL)
+	_equipped_scroll = _inventory_scroll(_equipment_left, "EquippedScroll")
+	_equipped_scroll.size_flags_vertical = Control.SIZE_FILL
+	_equipped_grid = _inventory_grid(_equipped_scroll, "EquippedItems")
+	for entry: Dictionary in items:
+		if bool(entry.get("equipped", false)): _equipment_icon(_equipped_grid, entry)
+	if equipped_count == 0:
+		var empty_equipped := _label(_equipped_grid, "暂无装备", 16, MUTED, false)
+		empty_equipped.autowrap_mode = TextServer.AUTOWRAP_OFF
+	var divider := HSeparator.new()
+	_equipment_left.add_child(divider)
+	_label(_equipment_left, "背包  ·  %s    选中查看详情" % (items.size() - equipped_count), 17, GOLD)
+	_backpack_scroll = _inventory_scroll(_equipment_left, "BackpackScroll")
+	_backpack_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_equipment_grid = _inventory_grid(_backpack_scroll, "BackpackItems")
+	for entry: Dictionary in items:
+		if not bool(entry.get("equipped", false)): _equipment_icon(_equipment_grid, entry)
+	if items.size() == equipped_count:
+		var empty := _label(_equipment_grid, "背包暂无未装备道具。
+探索宝箱或商店可以获得。", 17, MUTED)
+		empty.custom_minimum_size.x = 250
+	_label(_equipment_left, "未装备道具不占负荷、不产生效果。", 14, MUTED)
+	var rule := VSeparator.new()
+	split.add_child(rule)
+	_detail_scroll = _inventory_scroll(split, "DetailScroll")
+	_detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_detail_scroll.size_flags_stretch_ratio = 1.0
+	_equipment_detail = VBoxContainer.new()
+	_equipment_detail.name = "EquipmentDetail"
+	_equipment_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_equipment_detail.add_theme_constant_override("separation", 10)
+	_detail_scroll.add_child(_equipment_detail)
+	_render_equipment_detail()
+	if not _focus_history.has(&"build") and not _selected_instance_id.is_empty(): _focus_history[&"build"] = "item:" + str(_selected_instance_id)
+	_layout_menu()
+	_backpack_scroll.set_deferred("scroll_vertical", old_scroll)
+	_focus_first()
+
+func _inventory_scroll(parent: Node, node_name: String) -> ScrollContainer:
+	var result := ScrollContainer.new()
+	result.name = node_name
+	result.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	result.follow_focus = true
+	result.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	parent.add_child(result)
+	var adapter := SCROLL_TOUCH_ADAPTER.new()
+	adapter.name = "BackpackTouchAdapter" if node_name == "BackpackScroll" else node_name + "TouchAdapter"
+	adapter.scroll = result
+	result.add_child(adapter)
+	return result
+
+func _inventory_grid(parent: Node, node_name: String) -> GridContainer:
+	var grid := GridContainer.new()
+	grid.name = node_name
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 8)
+	parent.add_child(grid)
+	return grid
+
+func _equipment_icon(parent: Node, entry: Dictionary) -> void:
+	var definition := entry.get("definition") as ItemDefinition
+	if definition == null: return
+	var id := StringName(entry.get("instance_id", &""))
+	var button := _equipment_button(parent, "", func() -> void: _select_equipment(id))
+	button.name = "SelectItem"
+	button.set_meta(&"instance_id", id)
+	button.set_meta(&"focus_key", "item:" + str(id))
+	button.set_meta(&"rarity_color", _rarity_color(definition))
+	button.set_meta(&"inventory_tile", true)
+	button.icon = ItemPresentation.icon(definition.icon_key)
+	button.expand_icon = true
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	button.add_theme_constant_override("icon_max_width", 52)
+	button.tooltip_text = "%s · %s齿轮" % [definition.display_name, definition.gear_cost]
+	button.toggle_mode = true
+	button.focus_entered.connect(func() -> void: _select_equipment(id))
+	var cost := Label.new()
+	cost.text = str(definition.gear_cost)
+	cost.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	cost.position = Vector2(-22, -24)
+	cost.size = Vector2(18, 20)
+	cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cost.add_theme_font_size_override("font_size", 14)
+	cost.add_theme_color_override("font_color", TEXT)
+	cost.add_theme_color_override("font_outline_color", INK)
+	cost.add_theme_constant_override("outline_size", 4)
+	cost.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(cost)
+	_inventory_tiles.append(button)
+	_style_inventory_tile(button)
+
+func _rarity_color(definition: ItemDefinition) -> Color:
+	return [Color("83a69e"), Color("a694b0"), GOLD][definition.rarity]
+
+func _style_inventory_tile(button: Button) -> void:
+	var selected := StringName(button.get_meta(&"instance_id", &"")) == _selected_instance_id
+	button.button_pressed = selected
+	var border: Color = button.get_meta(&"rarity_color", GOLD)
+	var normal := _box(INK.lightened(0.08) if selected else INK, GOLD if selected else border.darkened(0.35), 2)
+	normal.set_content_margin_all(8)
+	normal.set_border_width_all(2 if selected else 1)
+	button.add_theme_stylebox_override("normal", normal)
+	button.add_theme_stylebox_override("pressed", normal)
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.border_color = GOLD
+	hover.bg_color = CARD
+	button.add_theme_stylebox_override("hover", hover)
+	button.add_theme_stylebox_override("hover_pressed", hover)
+
+func _select_equipment(id: StringName) -> void:
+	if visible_panel != &"build" or not is_instance_valid(_equipment_detail): return
+	var same_selection := _selected_instance_id == id
+	_selected_instance_id = id
+	# Native toggle buttons flip before pressed: a second click must retain
+	# the selected highlight and the matching detail, rather than deselect it.
+	for tile: Button in _inventory_tiles:
+		if is_instance_valid(tile): _style_inventory_tile(tile)
+	if same_selection and _equipment_detail.get_child_count() > 0: return
+	_render_equipment_detail()
+
+func _render_equipment_detail() -> void:
+	if not is_instance_valid(_equipment_detail): return
+	_equipment_detail_generation += 1
+	for child: Node in _equipment_detail.get_children():
+		_equipment_detail.remove_child(child)
+		child.queue_free()
+	var selected: Dictionary = {}
+	for entry: Dictionary in _equipment_view.get("items", []):
+		if StringName(entry.get("instance_id", &"")) == _selected_instance_id:
+			selected = entry
+			break
+	var definition := selected.get("definition") as ItemDefinition
+	if definition != null:
+		var item_title := _label(_equipment_detail, definition.display_name, 26, TEXT)
+		item_title.name = "SelectedItemName"
+		var badge := _label(_equipment_detail, "%s  ·  %s 齿轮" % [["普通", "稀有", "顶级"][definition.rarity], definition.gear_cost], 17, _rarity_color(definition))
+		badge.name = "SelectedItemCost"
+		var image := TextureRect.new()
+		image.name = "SelectedItemIcon"
+		image.texture = ItemPresentation.icon(definition.icon_key)
+		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		image.custom_minimum_size = Vector2(0, 90)
+		image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_equipment_detail.add_child(image)
+		if not definition.description.is_empty(): _label(_equipment_detail, definition.description, 17, TEXT)
+		var effects := _label(_equipment_detail, ItemPresentation.effects(definition), 17, TEAL)
+		effects.name = "SelectedItemEffects"
+		var equipped := bool(selected.get("equipped", false))
+		var id := _selected_instance_id
+		var action := _detail_equipment_button(_equipment_detail, "卸下" if equipped else ("替换并装备" if not _replacement_id.is_empty() else "装备"), func() -> void: _request_equipment(id, not equipped))
+		action.name = "UnequipItem" if equipped else "EquipItem"
+		action.set_meta(&"focus_key", ("unequip:" if equipped else "equip:") + str(id))
+		action.theme_type_variation = &"PrimaryButton"
+		if equipped:
+			var replace := _detail_equipment_button(_equipment_detail, "取消替换对象" if _replacement_id == id else "选为替换对象", func() -> void:
+				_replacement_id = &"" if _replacement_id == id else id
+				_render_equipment_detail()
+				_focus_history[&"build"] = "item:" + str(id)
+				_focus_first())
+			replace.name = "SelectReplacement"
+			replace.set_meta(&"focus_key", "replace:" + str(id))
+		var reason := str(selected.get("reason", ""))
+		if not equipped and not reason.is_empty() and _replacement_id.is_empty():
+			var denial := _label(_equipment_detail, reason, 16, GOLD)
+			denial.name = "EquipmentReason"
+	else:
+		_label(_equipment_detail, "行囊尚空", 26, TEXT)
+		_label(_equipment_detail, "探索宝箱、击败Boss或到商店购买道具。获得后先进入背包，在这里选择并装备。", 18, MUTED)
+	if not _replacement_id.is_empty():
+		_label(_equipment_detail, "替换中 · 选择背包中的道具，再确认装备。", 16, TEAL)
+		var cancel := _detail_equipment_button(_equipment_detail, "取消替换", func() -> void:
+			_replacement_id = &""
+			_render_equipment_detail()
+			_focus_history[&"build"] = "item:" + str(_selected_instance_id)
+			_focus_first())
+		cancel.name = "CancelReplacement"
+		cancel.set_meta(&"focus_key", "cancel_replace")
+	var message := str(_equipment_view.get("message", ""))
+	if not message.is_empty():
+		var feedback := _label(_equipment_detail, message, 16, GOLD)
+		feedback.name = "EquipmentFeedback"
+	_equipment_detail.add_child(HSeparator.new())
+	var capacity := int(_equipment_view.get("capacity", 0))
 	var coins := int(_equipment_view.get("coins", 0))
 	var upgrade: Dictionary = _equipment_view.get("upgrade", {})
-	_label(_equipment_body, "本局金币 %s  ·  齿轮扩容 %s 级" % [coins, int(_equipment_view.get("level", 0))], 16, TEXT)
 	if bool(upgrade.get("available", false)):
 		var price := int(upgrade.get("price", 0))
-		var target := int(upgrade.get("capacity", capacity))
-		var buy := _equipment_button(_equipment_body, "扩容至 %s 槽 · %s 金币" % [target, price], func() -> void:
+		var buy := _detail_equipment_button(_equipment_detail, "扩容 %s→%s · %s 金币" % [capacity, int(upgrade.get("capacity", capacity)), price], func() -> void:
 			gear_upgrade_requested.emit(int(_equipment_view.get("revision", 0)), int(_equipment_view.get("session", 0))))
 		buy.name = "PurchaseGearUpgrade"
 		buy.set_meta(&"focus_key", "gear_upgrade")
 		buy.disabled = coins < price
-		if buy.disabled: _label(_equipment_body, str(upgrade.get("reason", "金币不足，暂时无法扩容。")), 16, GOLD)
+		if buy.disabled: _label(_equipment_detail, str(upgrade.get("reason", "金币不足，暂时无法扩容。")), 14, MUTED)
 	else:
-		_label(_equipment_body, str(upgrade.get("reason", "本局齿轮容量已达上限。")), 16, MUTED)
-	var message := str(_equipment_view.get("message", ""))
-	if not message.is_empty():
-		var feedback := _label(_equipment_body, message, 18, GOLD)
-		feedback.name = "EquipmentFeedback"
+		_label(_equipment_detail, str(upgrade.get("reason", "本局齿轮容量已达上限。")), 14, MUTED)
 	if not _build.is_empty():
-		var attributes := _label(_equipment_body, _build, 17, TEXT)
+		var attributes := _label(_equipment_detail, _build, 15, MUTED)
 		attributes.name = "EquipmentAttributes"
-	if not _replacement_id.is_empty():
-		_label(_equipment_body, "已选择替换对象。点击行囊中的道具，成功后一次完成换装。", 17, TEAL)
-		var cancel := _equipment_button(_equipment_body, "取消替换", func() -> void:
-			_replacement_id = &""
-			_render_equipment())
-		cancel.set_meta(&"focus_key", "cancel_replace")
-	var equipped_count := 0
-	var backpack_count := 0
-	for entry: Dictionary in _equipment_view.get("items", []):
-		if bool(entry.get("equipped", false)): equipped_count += 1
-		else: backpack_count += 1
-	_label(_equipment_body, "已装备 · %s 件" % equipped_count, 21, TEAL)
-	var equipped_list := VBoxContainer.new()
-	equipped_list.name = "EquippedItems"
-	equipped_list.add_theme_constant_override("separation", 12)
-	_equipment_body.add_child(equipped_list)
-	for entry: Dictionary in _equipment_view.get("items", []):
-		if bool(entry.get("equipped", false)): _equipment_row(equipped_list, entry, true)
-	if equipped_count == 0: _label(equipped_list, "尚未装备道具。", 17, MUTED)
-	_label(_equipment_body, "行囊 · %s 件未装备" % backpack_count, 21, GOLD)
-	_label(_equipment_body, "行囊不占齿轮负荷，未装备的道具不产生效果。", 16, MUTED)
-	var backpack := VBoxContainer.new()
-	backpack.name = "BackpackItems"
-	backpack.add_theme_constant_override("separation", 12)
-	_equipment_body.add_child(backpack)
-	for entry: Dictionary in _equipment_view.get("items", []):
-		if not bool(entry.get("equipped", false)): _equipment_row(backpack, entry, false)
-	if backpack_count == 0: _label(backpack, "行囊暂无未装备道具。探索宝箱或商店可以获得道具。", 17, MUTED)
-	_focus_first()
+	_wire_equipment_focus.call_deferred()
 
-func _equipment_row(parent: Node, entry: Dictionary, equipped: bool) -> void:
-	var definition := entry.get("definition") as ItemDefinition
-	if definition == null: return
-	var id := StringName(entry.get("instance_id", &""))
-	var row := VBoxContainer.new()
-	row.set_meta(&"instance_id", id)
-	row.add_theme_constant_override("separation", 6)
-	parent.add_child(row)
-	var card := ItemCard.new()
-	card.item = definition
-	card.compact = true
-	card.name = "EquippedCard" if equipped else "BackpackCard"
-	row.add_child(card)
-	var actions := HBoxContainer.new()
-	actions.add_theme_constant_override("separation", 10)
-	row.add_child(actions)
-	if equipped:
-		var remove := _equipment_button(actions, "卸下", func() -> void: _request_equipment(id, false))
-		remove.name = "UnequipItem"
-		remove.set_meta(&"focus_key", "unequip:" + str(id))
-		var replace := _equipment_button(actions, "取消选中" if _replacement_id == id else "选为替换", func() -> void:
-			_replacement_id = &"" if _replacement_id == id else id
-			_render_equipment())
-		replace.name = "SelectReplacement"
-		replace.set_meta(&"focus_key", "replace:" + str(id))
-		replace.toggle_mode = true
-		replace.button_pressed = _replacement_id == id
-	else:
-		var add := _equipment_button(actions, "替换并装备" if not _replacement_id.is_empty() else "装备", func() -> void: _request_equipment(id, true))
-		add.name = "EquipItem"
-		add.set_meta(&"focus_key", "equip:" + str(id))
-		var reason := str(entry.get("reason", ""))
-		if not reason.is_empty() and _replacement_id.is_empty(): _label(row, reason, 16, GOLD)
+func _detail_equipment_button(parent: Node, text: String, action: Callable) -> Button:
+	var detail_generation := _equipment_detail_generation
+	return _equipment_button(parent, text, func() -> void:
+		if detail_generation == _equipment_detail_generation: action.call())
 
 func _equipment_button(parent: Node, text: String, action: Callable) -> Button:
 	var generation := _equipment_generation
@@ -726,18 +888,76 @@ func _request_equipment(id: StringName, equip: bool) -> void:
 
 func _pause_navigation(active_page: StringName) -> void:
 	var navigation := HBoxContainer.new()
-	navigation.add_theme_constant_override("separation", 10)
+	navigation.name = "PauseNavigation"
+	navigation.add_theme_constant_override("separation", 8)
 	_content.add_child(navigation)
-	var pause_tab := _button(navigation, "暂停", func() -> void: show_pause(_build, _build_items))
-	pause_tab.name = "PausePage"
-	pause_tab.toggle_mode = true
-	pause_tab.button_pressed = active_page == &"pause"
-	var build_tab := _button(navigation, "构筑 · 行囊 / 装备", func() -> void: show_build(_build))
-	build_tab.name = "BuildPage"
-	build_tab.set_meta(&"focus_key", "行囊")
-	build_tab.set_meta(&"ui_legacy_prefix", "YOUR BUILD")
-	build_tab.toggle_mode = true
-	build_tab.button_pressed = active_page == &"build"
+	var previous := _button(navigation, "<", func() -> void: _switch_pause_page(-1))
+	previous.name = "PagePrevious"
+	previous.size_flags_horizontal = Control.SIZE_FILL
+	previous.custom_minimum_size.x = 48
+	previous.set_meta(&"ui_scale_min_width", true)
+	previous.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var pages := [{"id": &"build", "text": "背包", "name": "BuildPage"}, {"id": &"pause", "text": "旅途", "name": "PausePage"}, {"id": &"settings", "text": "设置", "name": "SettingsPage"}, {"id": &"help", "text": "帮助", "name": "HelpPage"}]
+	for page: Dictionary in pages:
+		var id: StringName = page.id
+		var tab := _button(navigation, str(page.text), func() -> void: _show_pause_page(id))
+		tab.name = str(page.name)
+		if id == &"settings": tab.set_meta(&"ui_legacy_prefix", "SETTINGS")
+		elif id == &"help": tab.set_meta(&"ui_legacy_prefix", "CONTROLS")
+		tab.toggle_mode = true
+		tab.button_pressed = active_page == id
+		tab.alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tab.add_theme_font_size_override("font_size", 20)
+		if id == &"build": tab.set_meta(&"ui_legacy_prefix", "YOUR BUILD")
+	var next := _button(navigation, ">", func() -> void: _switch_pause_page(1))
+	next.name = "PageNext"
+	next.size_flags_horizontal = Control.SIZE_FILL
+	next.custom_minimum_size.x = 48
+	next.set_meta(&"ui_scale_min_width", true)
+	next.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var resume := _button(navigation, "继续", close_panel)
+	resume.name = "ResumeAdventure"
+	resume.set_meta(&"ui_legacy_prefix", "RESUME")
+	resume.size_flags_horizontal = Control.SIZE_FILL
+	resume.custom_minimum_size.x = 112
+	resume.set_meta(&"ui_scale_min_width", true)
+	resume.alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+func _show_pause_page(page: StringName) -> void:
+	match page:
+		&"build": show_build(_build)
+		&"pause": show_journey()
+		&"settings": show_settings(true)
+		&"help": show_help(true)
+
+func _switch_pause_page(direction: int) -> void:
+	if not _in_run or not visible_panel in PAUSE_PAGES: return
+	var index := PAUSE_PAGES.find(visible_panel)
+	_show_pause_page(PAUSE_PAGES[posmod(index + direction, PAUSE_PAGES.size())])
+
+func _wire_equipment_focus() -> void:
+	if visible_panel != &"build" or not is_instance_valid(_equipment_grid): return
+	var action := _equipment_detail.get_node_or_null("EquipItem") as Control
+	if action == null: action = _equipment_detail.get_node_or_null("UnequipItem") as Control
+	for grid: GridContainer in [_equipped_grid, _equipment_grid]:
+		if not is_instance_valid(grid): continue
+		var buttons: Array[Control] = []
+		for child: Node in grid.get_children():
+			if child is Button: buttons.append(child)
+		for index: int in buttons.size():
+			var tile := buttons[index]
+			var columns := grid.columns
+			if index >= columns: tile.focus_neighbor_top = tile.get_path_to(buttons[index - columns])
+			if index + columns < buttons.size(): tile.focus_neighbor_bottom = tile.get_path_to(buttons[index + columns])
+			if index % columns > 0: tile.focus_neighbor_left = tile.get_path_to(buttons[index - 1])
+			else: tile.focus_neighbor_left = tile.get_path_to(tile)
+			if index % columns < columns - 1 and index + 1 < buttons.size(): tile.focus_neighbor_right = tile.get_path_to(buttons[index + 1])
+			elif is_instance_valid(action): tile.focus_neighbor_right = tile.get_path_to(action)
+	if is_instance_valid(action) and not _inventory_tiles.is_empty():
+		for tile: Button in _inventory_tiles:
+			if StringName(tile.get_meta(&"instance_id", &"")) == _selected_instance_id:
+				action.focus_neighbor_left = action.get_path_to(tile)
+				break
 
 func close_panel() -> void:
 	if _in_run:
@@ -809,6 +1029,15 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	_page_generation += 1
 	_in_run = in_run
 	visible_panel = panel
+	_equipment_body = null
+	_equipment_left = null
+	_equipment_detail = null
+	_equipment_grid = null
+	_equipped_grid = null
+	_backpack_scroll = null
+	_equipped_scroll = null
+	_detail_scroll = null
+	_inventory_tiles.clear()
 	_title_label = null
 	_title_secondary = null
 	_home_shell = null
@@ -866,19 +1095,22 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	centered.add_child(_frame)
 	_scroll = ScrollContainer.new()
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_scroll.follow_focus = true
+	_scroll.follow_focus = panel != &"build"
+	if panel == &"build": _scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_frame.add_child(_scroll)
 	_scroll_touch = SCROLL_TOUCH_ADAPTER.new()
 	_scroll_touch.scroll = _scroll
 	_scroll.add_child(_scroll_touch)
 	_padding = MarginContainer.new()
 	_padding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if panel == &"build": _padding.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_scroll.add_child(_padding)
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if panel == &"build": _content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_content.add_theme_constant_override("separation", 12)
 	_padding.add_child(_content)
-	if panel != &"title":
+	if panel not in [&"title", &"build"]:
 		var ribbon := HBoxContainer.new()
 		ribbon.add_theme_constant_override("separation", 12)
 		_content.add_child(ribbon)
@@ -935,18 +1167,19 @@ func _layout_menu() -> void:
 	_margin.add_theme_constant_override("margin_bottom", top + roundi(viewport.y - safe.end.y))
 	var frame_inset := _frame.get_theme_stylebox("panel").get_minimum_size()
 	var available_width := maxf(120, safe.size.x - side * 2 - frame_inset.x)
-	var width := available_width if compact else minf(360 if title_page else 640 if visible_panel in [&"pause", &"build"] else 790, available_width)
+	var width := available_width if compact or visible_panel == &"build" else minf(360 if title_page else 790, available_width)
 	if title_page: width = minf(available_width, 360.0 / minf(1.0, pixel_scale))
 	var footer_reserve := 38.0 / pixel_scale if compact else 18.0
 	var height := maxf(100, safe.size.y - top * 2 - footer_reserve - frame_inset.y)
-	_scroll.custom_minimum_size = Vector2(width, minf(640, height))
+	_scroll.custom_minimum_size = Vector2(width, height if visible_panel == &"build" else minf(640, height))
 	_scroll.size = _scroll.custom_minimum_size
-	var padding := 0 if title_page else (26 if physical_size.x >= 900 else 16)
+	var padding := 0 if title_page else (18 if visible_panel == &"build" else 26 if physical_size.x >= 900 else 16)
 	for edge: String in ["left", "right", "top", "bottom"]: _padding.add_theme_constant_override("margin_" + edge, padding)
 	if is_instance_valid(_title_label): _title_label.set_meta(&"ui_base_font_size", 36 if title_page else 24)
 	if is_instance_valid(_title_secondary): _title_secondary.columns = 2 if physical_size.x >= 500 else 1
 	if is_instance_valid(_home_shell): _home_shell.columns = 2 if physical_size.x >= 900 else 1
 	_apply_physical_metrics(pixel_scale, compact)
+	if visible_panel == &"build": _layout_inventory(pixel_scale, height - 2 * padding)
 	if is_instance_valid(_footer):
 		var footer_font := _footer.get_theme_font("font")
 		var footer_font_size := _footer.get_theme_font_size("font_size")
@@ -960,7 +1193,28 @@ func _layout_menu() -> void:
 		_clock.position = Vector2(viewport.x * 0.48, maxf(6, viewport.y * 0.16))
 		_clock.size = Vector2(viewport.x * 0.43, viewport.y * 0.78)
 		_clock.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	# Children are rebuilt synchronously after a transaction. Their temporary
+	# minimums can expand an anchored MarginContainer; reclaim the viewport
+	# once the final grid columns and no-wrap header have been established.
+	_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_update_device_hint()
+
+func _layout_inventory(pixel_scale: float, available_height: float) -> void:
+	if not is_instance_valid(_equipment_body) or not is_instance_valid(_equipment_grid): return
+	var tile_size := 72.0 / minf(1.0, pixel_scale)
+	var content_width := maxf(240, _scroll.custom_minimum_size.x - 36)
+	var left_width := (content_width - 40) * 1.65 / 2.65
+	var columns := maxi(3, floori((left_width + 8) / (tile_size + 8)))
+	_equipment_grid.columns = columns
+	_equipped_grid.columns = columns
+	_equipped_scroll.custom_minimum_size.y = tile_size + 10
+	_backpack_scroll.custom_minimum_size.y = tile_size + 10
+	for tile: Button in _inventory_tiles:
+		if not is_instance_valid(tile): continue
+		tile.custom_minimum_size = Vector2(tile_size, tile_size)
+		tile.set_meta(&"ui_base_minimum", Vector2(tile_size, tile_size))
+	_equipment_body.custom_minimum_size.y = maxf(260, available_height - 64.0 / minf(1.0, pixel_scale))
+	_wire_equipment_focus()
 
 func _apply_physical_metrics(pixel_scale: float, compact: bool) -> void:
 	# The project keeps a 1280x720 logical canvas on small windows. Preserve
@@ -993,15 +1247,24 @@ func _apply_physical_metrics(pixel_scale: float, compact: bool) -> void:
 	_content.add_theme_constant_override("separation", ceili((6.0 if visible_panel == &"title" else 12.0) / pixel_scale) if compact else 12)
 
 func _process(_delta: float) -> void:
+	if visible_panel == &"build" and is_instance_valid(_margin):
+		# A transaction replaces children while container minimums are dirty.
+		# Godot expands an anchored MarginContainer for that transient minimum,
+		# but retains the expanded size after it shrinks. Reclaim FullRect only
+		# when the final real minimum fits; genuine overflow remains detectable.
+		var viewport_size := get_viewport().get_visible_rect().size
+		var minimum := _margin.get_combined_minimum_size()
+		if _margin.size != viewport_size and minimum.x <= viewport_size.x and minimum.y <= viewport_size.y:
+			_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	if not visible_panel.is_empty() and (get_viewport().get_visible_rect().size != _last_viewport or get_viewport().get_screen_transform() != _last_screen_transform or get_window().size != _last_window_size or _menu_device != _last_layout_device):
 		_layout_menu()
 
 func _update_device_hint() -> void:
 	if not is_instance_valid(_footer): return
 	match _menu_device:
-		&"gamepad": _footer.text = "左摇杆 / 十字键  选择     A  确认     B  返回"
-		&"touch": _footer.text = "轻触选择 · 滑动长页面"
-		_: _footer.text = "鼠标 / 方向键  选择     Enter  确认     Esc  返回"
+		&"gamepad": _footer.text = "方向键 选择 · A 确认 · B 返回 · LB/RB 切页" if _in_run else "左摇杆 / 十字键  选择     A  确认     B  返回"
+		&"touch": _footer.text = "轻触图标查看 · 滑动背包 · 顶部箭头切页" if visible_panel == &"build" else "轻触选择 · 滑动长页面"
+		_: _footer.text = "鼠标 / 方向键 选择 · Enter 确认 · Q/E 切页 · Esc 继续" if _in_run else "鼠标 / 方向键  选择     Enter  确认     Esc  返回"
 
 func _input(event: InputEvent) -> void:
 	if visible_panel.is_empty(): return
@@ -1011,6 +1274,17 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventScreenTouch or event is InputEventScreenDrag: _menu_device = &"touch"
 	elif event is InputEventKey or (event is InputEventMouseButton and event.device != InputEvent.DEVICE_ID_EMULATION): _menu_device = &"keyboard_mouse"
 	_update_device_hint()
+	if _in_run and visible_panel in PAUSE_PAGES:
+		var direction := 0
+		if event is InputEventKey and event.pressed and not event.echo:
+			if event.physical_keycode == KEY_Q: direction = -1
+			elif event.physical_keycode == KEY_E: direction = 1
+		elif event is InputEventJoypadButton and event.pressed:
+			if event.button_index == JOY_BUTTON_LEFT_SHOULDER: direction = -1
+			elif event.button_index == JOY_BUTTON_RIGHT_SHOULDER: direction = 1
+		if direction != 0:
+			_switch_pause_page(direction)
+			get_viewport().set_input_as_handled()
 
 func _slider(key: String, title: String, minimum: float, maximum: float, step: float) -> void:
 	var row := HBoxContainer.new()
@@ -1056,10 +1330,10 @@ func _title(title: String, subtitle: String) -> void:
 	_label(_content, title, 30, TEXT)
 	_label(_content, subtitle, 16, MUTED)
 
-func _label(parent: Node, text: String, font_size: int, color: Color) -> Label:
+func _label(parent: Node, text: String, font_size: int, color: Color, wrap := true) -> Label:
 	var label := Label.new()
 	label.text = text
-	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if wrap else TextServer.AUTOWRAP_OFF
 	label.add_theme_font_size_override("font_size", font_size)
 	label.set_meta(&"ui_base_font_size", font_size)
 	label.add_theme_color_override("font_color", color)
@@ -1118,6 +1392,7 @@ func _restore_focus(generation: int) -> void:
 		control.focus_neighbor_left = control.get_path_to(control) if control is Range or control is OptionButton else control.focus_neighbor_top
 		control.focus_neighbor_right = control.get_path_to(control) if control is Range or control is OptionButton else control.focus_neighbor_bottom
 		if str(control.get_meta(&"focus_key", control.name)) == wanted: target = control
+	if visible_panel == &"build": _wire_equipment_focus()
 	target.grab_focus()
 	# Containers settle after this deferred callback. Scrolling against the
 	# pre-layout rectangle can open a long page at its bottom with focus offscreen.
@@ -1134,14 +1409,22 @@ func _finish_focus_scroll(generation: int, target_ref: WeakRef, wanted: String) 
 	# coroutine would still resume after owner teardown during scene changes.
 	var target := target_ref.get_ref() as Control
 	if generation == _page_generation and is_instance_valid(target) and is_instance_valid(_scroll):
-		if wanted.is_empty() or (visible_panel == &"title" and target.name == "BeginAdventure"): _scroll.scroll_vertical = 0
-		else: _scroll.ensure_control_visible(target)
+		if wanted.is_empty() or (visible_panel == &"title" and target.name == "BeginAdventure"):
+			_scroll.scroll_vertical = 0
+		else:
+			# A disabled outer shell is not a scroller. Godot's direct ensure API
+			# still changes its offsets, pushing a fixed two-column panel away.
+			var ancestor := target.get_parent()
+			while ancestor != null and ancestor != _root:
+				if ancestor is ScrollContainer and ancestor.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
+					ancestor.ensure_control_visible(target)
+				ancestor = ancestor.get_parent()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible_panel.is_empty():
 		return
 	if event.is_action_pressed("ui_cancel"):
-		if visible_panel == &"pause" or visible_panel == &"confirm_home":
+		if visible_panel in [&"build", &"pause", &"confirm_home"]:
 			close_panel()
 		elif visible_panel in [&"home_function", &"run_end"] or (visible_panel == &"home" and _home_overlay):
 			_close_home_overlay()
