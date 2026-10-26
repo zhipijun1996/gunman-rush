@@ -177,6 +177,32 @@ def build(capture:Path,output:Path,interactive_url:str):
  write(output/'delivery.json',{'task':TASK,'version':data['version'],'source_commit':source,'site_builder_commit':data['site_builder_commit'],'movies':len(validated),'clips':len(data['clips']),'candidate_segments':sum(len(c['candidates']) for c in data['clips']),'files':{p.relative_to(output).as_posix():{'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(output.rglob('*')) if p.is_file()},'subjective_status':'awaiting-user'})
  print('AUDIO_REELS_LAB_OK',len(data['clips']),'clips',source,output)
 
+def refresh_ui(package:Path,output:Path):
+ """Reuse byte-verified native media/audio; update only UI and its metadata."""
+ if output.exists():raise ValueError('Use fresh --output')
+ receipt=read(package/'delivery.json')
+ for name,expected in receipt['files'].items():
+  p=package/name
+  if not p.is_file() or p.stat().st_size!=expected['bytes'] or sha(p)!=expected['sha256']:raise ValueError('Prior verified package changed: '+name)
+ shutil.copytree(package,output)
+ shutil.copyfile(ROOT/'tools/sound_lab/reels_index.html',output/'index.html')
+ data=read(output/'reels.json');data.update(ui_source_commit=head(),ui_sha256=sha(output/'index.html'))
+ write(output/'reels.json',data)
+ if data.get('download_url'):
+  archive=output/data['download_url']
+  with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
+   for p in sorted(output.rglob('*')):
+    if not p.is_file() or p==archive or p.name=='delivery.json':continue
+    name=p.relative_to(output).as_posix()
+    if name=='reels.json':
+     offline=copy.deepcopy(data);offline['interactive_url']='';offline.pop('download_url',None);offline['offline_comparison']=True;z.writestr(name,json.dumps(offline,ensure_ascii=False,indent=2)+'\n')
+    else:z.write(p,name)
+ receipt.update(ui_source_commit=data['ui_source_commit'],ui_sha256=data['ui_sha256'],reused_frozen_audio_and_video=True,files={p.relative_to(output).as_posix():{'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(output.rglob('*')) if p.is_file() and p.name!='delivery.json'})
+ write(output/'delivery.json',receipt)
+ print('AUDIO_REELS_UI_REFRESH_OK',len(data['clips']),data['source_commit'],output)
+
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture-root',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--interactive-url',default='../');a=p.parse_args();build(a.capture_root,a.output,a.interactive_url)
+ p=argparse.ArgumentParser(description=__doc__);group=p.add_mutually_exclusive_group(required=True);group.add_argument('--capture-root',type=Path);group.add_argument('--refresh-from',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--interactive-url',default='../');a=p.parse_args()
+ if a.refresh_from:refresh_ui(a.refresh_from,a.output)
+ else:build(a.capture_root,a.output,a.interactive_url)
 if __name__=='__main__':main()

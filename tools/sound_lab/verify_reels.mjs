@@ -6,6 +6,7 @@ const url=process.argv[2]||'http://127.0.0.1:8795/';
 const output=process.argv[3]||'build/audio_director_v3/web-reels';fs.mkdirSync(output,{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+let videos=[],currentTest=null;
 const errors=[];page.on('pageerror',error=>errors.push(String(error)));
 try{
  await page.goto(url);await page.waitForFunction(()=>window.REELS_STATS?.ready);
@@ -19,20 +20,19 @@ try{
  const gesturePlayback=await page.evaluate(()=>({paused:video.paused,muted:video.muted,volume:video.volume,time:video.currentTime,activation:navigator.userActivation?{hasBeenActive:navigator.userActivation.hasBeenActive,isActive:navigator.userActivation.isActive}:null}));
  if(gesturePlayback.activation&&gesturePlayback.activation.hasBeenActive!==true)throw Error('Video start lacked a real browser user gesture');
  await page.locator('#stop').click();
- const videos=[];
  for(const clip of manifest.clips){
-  await page.locator('[data-clip]').evaluateAll((buttons,id)=>{const b=buttons.find(x=>x.dataset.clip===id);if(b)b.click()},clip.id);
+  if(await page.locator('[data-clip='+JSON.stringify(clip.id)+']').count())await page.locator('[data-clip='+JSON.stringify(clip.id)+']').click();
   // A clip in another category is selected through its real category button.
   if(await page.evaluate(()=>window.REELS_STATS.state.clip_id)!==clip.id){
-   await page.locator('[data-category]').evaluateAll((buttons,category)=>buttons.find(x=>x.dataset.category===category)?.click(),clip.category||'场景');
-   await page.locator('[data-clip]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.clip===id)?.click(),clip.id);
+   await page.locator('[data-category='+JSON.stringify(clip.category||'场景')+']').click();
+   await page.locator('[data-clip='+JSON.stringify(clip.id)+']').click();
   }
   await page.waitForFunction(id=>window.REELS_STATS.state.clip_id===id,clip.id);
   await page.waitForFunction(()=>video.readyState>=1&&Number.isFinite(video.duration),null,{timeout:30000});
   const metadata=await page.evaluate(()=>({duration:video.duration,width:video.videoWidth,height:video.videoHeight,currentSrc:video.currentSrc}));
   if(metadata.width<=0||metadata.height<=0||clip.candidates.some(c=>c.end>metadata.duration+.08))throw Error('Missing real video or wrong timestamps '+clip.id);
   for(const candidate of clip.candidates){
-   await page.locator('[data-candidate]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.candidate===id)?.click(),candidate.id);
+   currentTest={clip:clip.id,candidate:candidate.id};await page.locator('[data-candidate='+JSON.stringify(candidate.id)+']').click();
    await page.waitForFunction(id=>window.REELS_STATS.state.candidate_id===id&&!video.paused&&!video.seeking,candidate.id);
    await page.waitForTimeout(Math.min(300,Math.max(80,(candidate.end-candidate.start)*150)));
    const played=await page.evaluate(()=>({time:video.currentTime,frames:video.getVideoPlaybackQuality?.().totalVideoFrames??video.webkitDecodedFrameCount??null,audioBytes:video.webkitAudioDecodedByteCount??null,audioTracks:typeof video.captureStream==='function'?video.captureStream().getAudioTracks().length:null}));
@@ -45,22 +45,22 @@ try{
  }
  // Exercise the first actual clip's candidate boundary and loop using its encoded time.
  const first=manifest.clips[0],candidate=first.candidates[0];
- await page.locator('[data-category]').evaluateAll((buttons,category)=>buttons.find(x=>x.dataset.category===category)?.click(),first.category||'场景');
- await page.locator('[data-clip]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.clip===id)?.click(),first.id);
- await page.locator('[data-candidate]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.candidate===id)?.click(),candidate.id);
+ await page.locator('[data-category='+JSON.stringify(first.category||'场景')+']').click();
+ await page.locator('[data-clip='+JSON.stringify(first.id)+']').click();
+ await page.locator('[data-candidate='+JSON.stringify(candidate.id)+']').click();
  await page.waitForFunction(()=>!video.paused&&!video.seeking);await page.locator('#loop-segment').check();
  const loopsBefore=await page.evaluate(()=>window.REELS_STATS.loops);
  await page.waitForFunction(before=>window.REELS_STATS.loops>before,loopsBefore,{timeout:Math.max(10000,(candidate.end-candidate.start+3)*1000)});
  await page.locator('#stop').click();const stopState=await page.evaluate(()=>window.REELS_STATS.state);await page.waitForTimeout(400);
  if(!(await page.evaluate(()=>video.paused&&!document.getElementById('loop-segment').checked)))throw Error('Stop failed to cancel segment loop');
  // Native player seek and clip/version switches must also cancel the loop.
- await page.locator('[data-candidate]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.candidate===id)?.click(),candidate.id);await page.waitForFunction(()=>!video.paused);await page.locator('#loop-segment').check();
+ await page.locator('[data-candidate='+JSON.stringify(candidate.id)+']').click();await page.waitForFunction(()=>!video.paused);await page.locator('#loop-segment').check();
  await page.evaluate(()=>{const second=document.createElement('video');second.id='mutual-exclusion-fixture';second.src=video.currentSrc;second.playsInline=true;document.body.append(second);return second.play()});
  await page.waitForFunction(()=>video.paused&&!document.getElementById('loop-segment').checked);
  await page.evaluate(()=>{const second=document.getElementById('mutual-exclusion-fixture');second.pause();second.remove()});
  // Stop while seek/play is pending cannot leave a late autoplay behind.
- await page.locator('[data-candidate]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.candidate===id)?.click(),candidate.id);await page.locator('#stop').click();await page.waitForTimeout(500);if(!(await page.evaluate(()=>video.paused)))throw Error('Late candidate play survived Stop');
- await page.locator('[data-candidate]').evaluateAll((buttons,id)=>buttons.find(x=>x.dataset.candidate===id)?.click(),candidate.id);await page.waitForFunction(()=>!video.paused);await page.locator('#loop-segment').check();await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});await page.waitForTimeout(250);
+ await page.locator('[data-candidate='+JSON.stringify(candidate.id)+']').click();await page.locator('#stop').click();await page.waitForTimeout(500);if(!(await page.evaluate(()=>video.paused)))throw Error('Late candidate play survived Stop');
+ await page.locator('[data-candidate='+JSON.stringify(candidate.id)+']').click();await page.waitForFunction(()=>!video.paused);await page.locator('#loop-segment').check();await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))});await page.waitForTimeout(250);
  if(!(await page.evaluate(()=>video.paused&&!document.getElementById('loop-segment').checked)))throw Error('Backgrounding left video/loop active');await page.evaluate(()=>delete document.hidden);
  const eventId=candidate.event_ids[0];await page.locator('[data-choice-event]').evaluateAll((selects,{eventId,id})=>{const s=selects.find(x=>x.dataset.choiceEvent===eventId);s.value=id;s.dispatchEvent(new Event('change',{bubbles:true}))},{eventId,id:candidate.id});
  await page.locator('textarea').first().fill('TEST ONLY: actual scene reel choice');
@@ -73,4 +73,4 @@ try{
  if(errors.length)throw Error('Browser errors '+errors.join('\n'));
  fs.writeFileSync(output+'/report.json',JSON.stringify({status:'passed',url,layout,gesturePlayback,videoChecks:videos,loopStop:true,mutualExclusion:true,pendingPlayCancellation:true,backgroundStop:true,selectionExport:true,selectionPersistence:true,errors,scope:'Actual pointer-started, unmuted MP4 playback without an autoplay exemption; frame/audio-track decode, seek, timed segment loop, media exclusion and choice UI in software Chromium. Source footage authenticity, subjective listening and physical phone/Safari acceptance require separate evidence.'},null,2));
  console.log('AUDIO_REELS_BROWSER_OK clips='+manifest.clips.length+' candidate_segments='+videos.length);
-}catch(error){fs.writeFileSync(output+'/failure.json',JSON.stringify({error:String(error),errors},null,2));throw error}finally{await browser.close()}
+}catch(error){let state=null;try{state=await page.evaluate(()=>({stats:window.REELS_STATS?.state,status:document.getElementById('status')?.textContent,src:document.getElementById('reel-video')?.currentSrc,ready:document.getElementById('reel-video')?.readyState}));await page.screenshot({path:output+'/failure.png'})}catch{}fs.writeFileSync(output+'/failure.json',JSON.stringify({error:String(error),currentTest,state,videos,errors},null,2));throw error}finally{await browser.close()}
