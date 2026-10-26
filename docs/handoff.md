@@ -1,6 +1,6 @@
 # 当前交接（2026-10-24）
 
-最新工作线AUDIO-DIRECTOR-03按功能重做声音并交真实短录屏，继续feature/audio-director-01/PR109。先前V2网站保留，新录屏来源、实际采集/发布与失败以[第三轮证据](evidence/audio_director_03/README.md)为准；原jump/land和五BGM不改。恢复`python3 tools/audio_director.py brief '优化金币'`读取V3风格/事件/许可/配方，不复用旧掉落币方向。当前不能把V2网址冒充已发布的新视频。
+最新工作线AUDIO-DIRECTOR-03按功能重做声音并交真实短录屏，继续feature/audio-director-01/PR109。先前V2网站保留，新录屏来源、实际采集/发布与失败以[第三轮证据](evidence/audio_director_03/README.md)为准；原jump/land和五BGM不改。恢复`python3 tools/audio_director.py brief '优化金币'`读取V3风格/事件/许可/配方，不复用旧掉落币方向。新[录屏工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)已发布Sites5；运行4d724a73/后验df22e376/UI c3f4fdf4，10片原音轨保留，正式默认original。126原生/9加工/12trace/8数值/48网页/33docs通过；旧相关性数值无效保留原报告，稳定后验另记。用户听感/真机/自然混音待验；本轮不合main。
 
 最新音效工作线为AUDIO-DIRECTOR-02，仍在feature/audio-director-01/PR109：已重选3套现成CC0、54 WAV及真实UI/拾取/战斗情境。拾取初始4/5生命静默配置，比较时不夹杂准备伤音；战斗受伤仍由真实敌弹。运行源08df881c/build1048defde2ef，Sites版本3已发布至[工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/?v=2&build=1048defde2ef)；20组真实Web、最终原生66/0、docs33/33通过。精确source/build/网站发布状态只以[第二轮证据](evidence/audio_director_02/README.md)为准，原v1拒绝不改签。恢复命令与试听方法见[Sound Lab V2](audio_director/listening_v2.md)。
 

@@ -2,7 +2,7 @@
 
 ## 2026-10-26 音效第三轮：功能音色与对比录屏
 
-AUDIO-DIRECTOR-03继续PR109：按用户最新反馈重选42个CC0候选，覆盖清脆金币、液体回血、宝箱、长道具获得、打击/受伤、3武器及UI；正在制作真实Godot有声原版/ABC短片，避免必须先下载完整互动游戏。原jump/land与五BGM保持。V2未取得本轮采用认可，旧素材/反馈保留；录屏未发布前不冒称旧地址已有视频。[V3精确状态](evidence/audio_director_03/README.md)、[声音功能规范](audio_director/style_bible_v3.md)。
+AUDIO-DIRECTOR-03继续PR109：按用户最新反馈重选42个CC0候选，覆盖清脆金币、液体回血、宝箱、长道具获得、打击/受伤、3武器及UI；已交10支真实有声短片/12章节/48可选段，约157秒；[直接点播](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)，不必先下载完整游戏。原jump/land与五BGM保持。V2未取得本轮采用认可，旧素材/反馈保留；Sites版本4已发布新录屏入口；旧V2保留。[V3精确状态](evidence/audio_director_03/README.md)、[声音功能规范](audio_director/style_bible_v3.md)。
 
 ## 2026-10-26 音效第二轮：3套现成CC0与真实情境
 

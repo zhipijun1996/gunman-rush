@@ -1,5 +1,7 @@
 # Audio Source Library · AUDIO-DIRECTOR-01
 
+当前新候选见[14事件/42声音与来源](candidates_v3.md)及[逐原件作者/许可/指纹](../../config/audio_director/v3/sources.json)。V3实际选用wobbleboxx获得音、rubberduck液体/材质/刃风及Kenney素材，58原件均CC0；商业作品只作功能参考，不进入素材生产库。旧研究与前轮原件保留。
+
 更新：用户已拒绝v1两套新方向，原起跳/落地正面反馈；[下一轮现成素材研究与边界](../evidence/audio_director_01/feedback-02.md)。下文“尚未听取用户评价”保留第一轮来源快照身份，不再作为当前试听状态。
 
 素材许可事实与音色审美分开。当前候选仅使用 CC0-1.0 原始采样进行剪辑、滤波和分层；不生成或替换任何 BGM。32 个 A/B 候选、64 个短 WAV 是供试听比较的生产草案，主观状态均为 `awaiting-user`。尚未听取用户评价，不能声明商业品质通过。

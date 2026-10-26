@@ -1,0 +1,415 @@
+{
+  "task": "AUDIO-DIRECTOR-03",
+  "version": "audio-director-v3",
+  "source_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+  "site_builder_commit": "df22e3763484f86b892e16b7cf3e5e9952b847db",
+  "movies": 10,
+  "clips": 12,
+  "candidate_segments": 48,
+  "files": {
+    "README.txt": {
+      "bytes": 560,
+      "sha256": "2225755119ee2ff998f6225b7e27466a65385fd779dda9e4fc3203e3ae15a723"
+    },
+    "audio/bomb_explode_a.wav": {
+      "bytes": 32538,
+      "sha256": "dcfbeeaef4e69189a8078de68a2ee0f60855190c949b2ac15ecaa2729d413459"
+    },
+    "audio/bomb_explode_b.wav": {
+      "bytes": 33330,
+      "sha256": "cd583140e7c1e4959ef9bafaf4e8dec022c1919c41123d6f62d4c938ecb295b4"
+    },
+    "audio/bomb_explode_c.wav": {
+      "bytes": 32538,
+      "sha256": "e981a3b303c3426404763377d33f8b61002895c0ef1949c1c61d2d28cec6d852"
+    },
+    "audio/chest_open_a.wav": {
+      "bytes": 51200,
+      "sha256": "d24df7f98f3c8b2bc4309142800ccfb8e7599831bd36947880f5b9068c991605"
+    },
+    "audio/chest_open_b.wav": {
+      "bytes": 61784,
+      "sha256": "5e03e49a7e997d77213f576dfb513f1e010789efbae26e18b27f047e5b1dc166"
+    },
+    "audio/chest_open_c.wav": {
+      "bytes": 50458,
+      "sha256": "46abaa858f0b1122082bad9e9a5f92fc8e4e933bf26159a16c877df2b78511cc"
+    },
+    "audio/click_a.wav": {
+      "bytes": 3570,
+      "sha256": "62fdc07ef8938a8c3caa85bd41bbbff26496770ae90683c1c40d47b8dfd92f59"
+    },
+    "audio/click_b.wav": {
+      "bytes": 6030,
+      "sha256": "a67e5b425dd7e9741be5999019ada4899c861f3816d07068c171c23dc06d84af"
+    },
+    "audio/click_c.wav": {
+      "bytes": 6660,
+      "sha256": "01fd082e600e04843432d1598de0206996a58a86c03476099c48d530a86f7af6"
+    },
+    "audio/coin_a.wav": {
+      "bytes": 17104,
+      "sha256": "ceac1ed0267720c24d5ba50df7f9aec4eba8d75463274d728609c0ed141e8ea9"
+    },
+    "audio/coin_b.wav": {
+      "bytes": 11952,
+      "sha256": "13b741bace6e5ba5ddd7f92171daebed747309efdaacf9c9058445bde97b67b6"
+    },
+    "audio/coin_c.wav": {
+      "bytes": 14110,
+      "sha256": "7fd45ddfd5e58a12e82f9906e8a7fb25b66019cb895e286e26af030af986f784"
+    },
+    "audio/confirm_a.wav": {
+      "bytes": 11962,
+      "sha256": "7b7deee5d77f3924f5925d6846a177a3533c68cdf0df7501c007d004e605bcaf"
+    },
+    "audio/confirm_b.wav": {
+      "bytes": 10636,
+      "sha256": "7ea0b74e6fafd2e12bcf381743db66462a9f3db8cc1c57c9142a0051aef394bd"
+    },
+    "audio/confirm_c.wav": {
+      "bytes": 9306,
+      "sha256": "06465f00c60a08a0cd60ae0de9302f4bb55f861b4f3b88a641f9a2a44e1007dc"
+    },
+    "audio/denied_a.wav": {
+      "bytes": 2954,
+      "sha256": "17edeb8a3806119c259270758aad7d803fc85ad597f1588325a2b720d1e87fef"
+    },
+    "audio/denied_b.wav": {
+      "bytes": 7982,
+      "sha256": "5595b51835077ffa964baf723b1bb6a1e2b317443f1bfdd6e3c38ea199babd55"
+    },
+    "audio/denied_c.wav": {
+      "bytes": 11158,
+      "sha256": "fd7f77b1ce97c36c431d935946598d4f0e1a297214f595e68333f60791c0e7f5"
+    },
+    "audio/enemy_hit_a.wav": {
+      "bytes": 11642,
+      "sha256": "6e1151bc44587eebf5774c147141b9a3b6ed17472f5b03dd2468becb4c45086e"
+    },
+    "audio/enemy_hit_b.wav": {
+      "bytes": 10452,
+      "sha256": "9e2f7f523a4afd848e9ea33df0766050607f0ab3bfec08578daa1416e262fd5f"
+    },
+    "audio/enemy_hit_c.wav": {
+      "bytes": 13338,
+      "sha256": "4aeb4be41f0e5887e96563c6159658be2d3813eb0cfc87d986189f7d95330b43"
+    },
+    "audio/enemy_hurt_a.wav": {
+      "bytes": 12268,
+      "sha256": "9dcc6ff1b3dbf39d2493bafaeacdee9011268505d339b40018008a1139d417f9"
+    },
+    "audio/enemy_hurt_b.wav": {
+      "bytes": 9946,
+      "sha256": "8a5fe753d41fdd0a35739b306c10399c8d137e3f268f5df50ab390af30df708a"
+    },
+    "audio/enemy_hurt_c.wav": {
+      "bytes": 11582,
+      "sha256": "8f5dc5d1f3dbed231063c8787669f11086daa17f3bae4340f0fcc87c65331b7f"
+    },
+    "audio/heal_a.wav": {
+      "bytes": 47834,
+      "sha256": "2b522482c3595802070012251387030f4101f0c9e9b23d25685b6be633d8dc59"
+    },
+    "audio/heal_b.wav": {
+      "bytes": 47566,
+      "sha256": "bd62a49841f6f7bb7c97becc134fae3318daedd55409cdf8f812facd374d51cc"
+    },
+    "audio/heal_c.wav": {
+      "bytes": 46514,
+      "sha256": "96c18c9af0fcb4a6b1c181601a2411127918f2ab62947b628ecbd74df7e33aa1"
+    },
+    "audio/hurt_a.wav": {
+      "bytes": 14492,
+      "sha256": "0a76fe56a82d4bd212d79c984b567b577e2d69bf8eeeaff6cdfc553596c3cafb"
+    },
+    "audio/hurt_b.wav": {
+      "bytes": 14730,
+      "sha256": "2f2749a7cf5a7d4f3805808255929994e944b7523d68e2921a82716809874892"
+    },
+    "audio/hurt_c.wav": {
+      "bytes": 15602,
+      "sha256": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17"
+    },
+    "audio/item_get_a.wav": {
+      "bytes": 153164,
+      "sha256": "ecb3eecc88e1679bb8ad07adab891165d18baf77349f211dfcafb3a7ffac7654"
+    },
+    "audio/item_get_b.wav": {
+      "bytes": 153642,
+      "sha256": "1c40397a9b63fd8774fdb5c09bd146395a3e88d20a0fa25e7b504c2ee27a94be"
+    },
+    "audio/item_get_c.wav": {
+      "bytes": 159338,
+      "sha256": "d8b5979d777c0488dd37add30fba53fce79a4d7dfc831c58af57154832032f4d"
+    },
+    "audio/shot_bomb_a.wav": {
+      "bytes": 10936,
+      "sha256": "ec87f8aeb44a898fc0b001dcff481d19c6bbbef4bc0686150ed220e259c41cd4"
+    },
+    "audio/shot_bomb_b.wav": {
+      "bytes": 10628,
+      "sha256": "e75fcd4abba06d57e959de73b7f380eff324b3fccdd35214df02f5fc2a7355c6"
+    },
+    "audio/shot_bomb_c.wav": {
+      "bytes": 11710,
+      "sha256": "7cb6dcd67e82a7756bb791f8a177bf2c0b6ba4eb659f5937cdb46f9eddcc35e7"
+    },
+    "audio/shot_pulse_a.wav": {
+      "bytes": 8976,
+      "sha256": "8159a5ecf56b12c5c89420432cbe1958a3fe4612e4ff1cfbf069c61a6c50e024"
+    },
+    "audio/shot_pulse_b.wav": {
+      "bytes": 5986,
+      "sha256": "2bd266831a3a10c47460a57cecdc6a872128d8cfefe27fa144465c5b1d291aaa"
+    },
+    "audio/shot_pulse_c.wav": {
+      "bytes": 8876,
+      "sha256": "5765f3325f0ba303a6f6a9ca0b8bf589d990530405d8a751ab0329f84672310d"
+    },
+    "audio/shot_shuriken_a.wav": {
+      "bytes": 11832,
+      "sha256": "3ecbb5688077807d8082028e7e32a49b63fc2fd737d635439b9ec79906eafd4d"
+    },
+    "audio/shot_shuriken_b.wav": {
+      "bytes": 8634,
+      "sha256": "4428ccc4a8426c737b0ff26e4b50d049ade2823e87c5a4aa968b57ac06c571c2"
+    },
+    "audio/shot_shuriken_c.wav": {
+      "bytes": 14156,
+      "sha256": "e17c142944028817827229aff953da9859a4a696f68b792819080de123b9beaf"
+    },
+    "audio-scene-reels.zip": {
+      "bytes": 14653915,
+      "sha256": "a1f00dab20579f0931334fed2f7df8febdc62c297154af9f68f3b3c8613ca535"
+    },
+    "index.html": {
+      "bytes": 24085,
+      "sha256": "cfcc512dc3bb3933b6e28fba33cd9315a22278a31b8e62169851fa44cd67e85d"
+    },
+    "licenses/000-feel-audio-provenance.json": {
+      "bytes": 5362,
+      "sha256": "0bcc25d3d0b261fa98fc58fb8980ff75a15f30b8840e1ddd761ff371cc5eceaf"
+    },
+    "licenses/001-weapon-audio-v2-provenance.json": {
+      "bytes": 28064,
+      "sha256": "60a3e4f1b1d1c8dc0f0dfbccdc86a0391f2c3b541332894ae438a054aaba73b0"
+    },
+    "licenses/002-COPYING.adoc": {
+      "bytes": 1611,
+      "sha256": "ed60abcf1ff64bf61bf8b4c585ab63643d655a21f8997ba284c01f94ed681fc5"
+    },
+    "licenses/003-provenance.json": {
+      "bytes": 3752,
+      "sha256": "69bfa28647bae046cf9891b70749d15257d81735ab2b2e239cadd73498005792"
+    },
+    "licenses/004-rpg-audio-LICENSE.txt": {
+      "bytes": 478,
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    "licenses/005-interface-sounds-LICENSE.txt": {
+      "bytes": 574,
+      "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+    },
+    "licenses/006-digital-audio-LICENSE.txt": {
+      "bytes": 482,
+      "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+    },
+    "licenses/007-impact-sounds-LICENSE.txt": {
+      "bytes": 608,
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+    },
+    "licenses/008-CC0-1.0.txt": {
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    "licenses/009-LICENSE.txt": {
+      "bytes": 608,
+      "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+    },
+    "licenses/010-source-page.html": {
+      "bytes": 62254,
+      "sha256": "489335df462d4797674e36d69a298bf92127be515d061e2daa066bc19c649616"
+    },
+    "licenses/011-source-page.html": {
+      "bytes": 31500,
+      "sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640"
+    },
+    "licenses/012-source-page.html": {
+      "bytes": 31665,
+      "sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761"
+    },
+    "licenses/013-source-page.html": {
+      "bytes": 27881,
+      "sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234"
+    },
+    "licenses/014-LICENSE.txt": {
+      "bytes": 482,
+      "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+    },
+    "licenses/015-source-page.html": {
+      "bytes": 29746,
+      "sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334"
+    },
+    "licenses/016-LICENSE.txt": {
+      "bytes": 478,
+      "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    },
+    "licenses/017-source-page.html": {
+      "bytes": 43123,
+      "sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649"
+    },
+    "media/chest_open.mp4": {
+      "bytes": 1092604,
+      "sha256": "a9c63f0160b8f22c5cc8013852aca5115fe996262c897a090c70d34601125d69"
+    },
+    "media/coin.mp4": {
+      "bytes": 842739,
+      "sha256": "a3ece1acda21b33cfc32939e2d2e5fc72b4c284b664c874b079dbf4a4ea76454"
+    },
+    "media/enemy_hit.mp4": {
+      "bytes": 919223,
+      "sha256": "78ba8090da8e2de1b33409e4a641d04b9af670a439711e9e9a46849ad8c41870"
+    },
+    "media/enemy_hurt.mp4": {
+      "bytes": 930354,
+      "sha256": "993faf160968c5a5a1dd064c1e3e98d39f8e0fdb5a85b37dcae29eaf8df53b3f"
+    },
+    "media/heal.mp4": {
+      "bytes": 859707,
+      "sha256": "ce863df9fac3469fa44b3ae4ecc07419e18b65dac047a87f10f72e8af5559015"
+    },
+    "media/hurt.mp4": {
+      "bytes": 1143219,
+      "sha256": "0d34f97e3c1dc0fcaead4359545ec2f375e1268af74f8553b6206de82017e7bc"
+    },
+    "media/item_get.mp4": {
+      "bytes": 1182907,
+      "sha256": "3e30eb4f276cd5faa4ffcaf7ecbbfe7d9a5495e522250a1a01a5288b226bcdb5"
+    },
+    "media/mix.mp4": {
+      "bytes": 2844800,
+      "sha256": "1f3dcd64bb717f5af86749aab94c0da7eec29033d70e762e3aa34422d7090af9"
+    },
+    "media/ui.mp4": {
+      "bytes": 1018072,
+      "sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764"
+    },
+    "media/weapons.mp4": {
+      "bytes": 1641824,
+      "sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc"
+    },
+    "posters/bomb_weapon.jpg": {
+      "bytes": 134126,
+      "sha256": "b797aadc0ba853d18d8b15d1e4552c4b73b40bb61f0bc689ebdd79af91827e41"
+    },
+    "posters/chest_open.jpg": {
+      "bytes": 128937,
+      "sha256": "f659afec728da8c5ecfb2fae3eaca00db52b586bcd41a1d9d43edb6e2a543a36"
+    },
+    "posters/coin.jpg": {
+      "bytes": 122322,
+      "sha256": "31f3b8a19b2bef22fb7e833467413164b271104ecaa6c7611f314bc926709f5e"
+    },
+    "posters/enemy_hit.jpg": {
+      "bytes": 125123,
+      "sha256": "f932883a6fff8b95c86b241b1dd496debdf0cef1f0b57929ba3d32e4ee6a92b1"
+    },
+    "posters/enemy_hurt.jpg": {
+      "bytes": 127001,
+      "sha256": "c8a0ceec7de3001bf99ad39b10f0066ecb18310f8d3b6dabf8ef9c6045f0aa69"
+    },
+    "posters/heal.jpg": {
+      "bytes": 122916,
+      "sha256": "f5e2f9eac9743e7dee2983070842d37a47f13e987432ad11b7ed68b5c20e58b6"
+    },
+    "posters/hurt.jpg": {
+      "bytes": 127792,
+      "sha256": "8a307f38490c999f0cea11dc31a75bb79910c6881cbe649439478f55267a5fee"
+    },
+    "posters/item_get.jpg": {
+      "bytes": 132385,
+      "sha256": "a49bd40e0437d4611d039efe1880678153e0d5de15b4548822f5f33f736dd550"
+    },
+    "posters/mix.jpg": {
+      "bytes": 126602,
+      "sha256": "2aae55e151a2823a3327ee23abfd90ced8e5a2affbc6b02046e5049797881cb1"
+    },
+    "posters/shot_pulse.jpg": {
+      "bytes": 129620,
+      "sha256": "8ad8b6e8a2cab2c8e17a534ef6b49e1ef0b02f7a9fac8f5da1496726634fab27"
+    },
+    "posters/shot_shuriken.jpg": {
+      "bytes": 131762,
+      "sha256": "28e0b0085f0842e5bc3ccc3045bbe899769699983a8e63367bad92bd34221ad3"
+    },
+    "posters/ui.jpg": {
+      "bytes": 123478,
+      "sha256": "052f085aaae76dd41739b8d078f9f2ec0c792017486f6f8396b0b38dbd0a5468"
+    },
+    "posters/weapons.jpg": {
+      "bytes": 129427,
+      "sha256": "e611659c2df640358574035aa27bbe8b1462786a973f479162e435d58195b440"
+    },
+    "recipes.json": {
+      "bytes": 47433,
+      "sha256": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8"
+    },
+    "reels.json": {
+      "bytes": 130136,
+      "sha256": "ac08d83ecadb0ef390779b2dba2045a9750b2ecbd88d4ebb8f8e51f5fc05e69a"
+    },
+    "sound-manifest.json": {
+      "bytes": 247134,
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+    },
+    "sources.json": {
+      "bytes": 88778,
+      "sha256": "9447554e35247626611bf07fea033c5097e54837fe7dde2b1bc77cb6abe37570"
+    },
+    "verification/chest_open-audio.json": {
+      "bytes": 1399,
+      "sha256": "479f14f103626ab0b21b6e62b19e30cbeb726530cbdf09f4bd3dec64b1a8e1be"
+    },
+    "verification/coin-audio.json": {
+      "bytes": 1377,
+      "sha256": "f9e84c5195ba040a8141c596cb4be08071e713fb4b89cabdf6e1d59d11d1fdb0"
+    },
+    "verification/enemy_hit-audio.json": {
+      "bytes": 1956,
+      "sha256": "a6e037c37d45f1c648afdcf4174830c58e81c09c433bd5f93a6035c978578593"
+    },
+    "verification/enemy_hurt-audio.json": {
+      "bytes": 1957,
+      "sha256": "ffd052f9b01d09c7873d9c7886551865d3c38eea1f0bfa9fd38dfecfc5f86356"
+    },
+    "verification/heal-audio.json": {
+      "bytes": 1380,
+      "sha256": "094e8223b2f82307628db88ff37aff73577924305005ddd940bfb8d5f694273d"
+    },
+    "verification/hurt-audio.json": {
+      "bytes": 1391,
+      "sha256": "0731d80dd9416384b60192e45e647c78e542734577f7051254bba194493b158f"
+    },
+    "verification/item_get-audio.json": {
+      "bytes": 1395,
+      "sha256": "af49b6b5253176413603e8674961cb6a5a5df8eac26a7965172f074c5fc9dd06"
+    },
+    "verification/mix-audio.json": {
+      "bytes": 3574,
+      "sha256": "a0114aa26edebdf8c4c7f9c5506b3fc3ef6494ce18264bfa33a32a7de67347c6"
+    },
+    "verification/ui-audio.json": {
+      "bytes": 2476,
+      "sha256": "4cf1835aa9261625abdd61105b43aaa3e43e94f38e8f4f86f5aee5604ad428d9"
+    },
+    "verification/weapons-audio.json": {
+      "bytes": 3845,
+      "sha256": "83eb0c7a1d1fe5f789c6da45aee0ad07a5c077fff45a47dd6675847165df1ca2"
+    }
+  },
+  "subjective_status": "awaiting-user",
+  "ui_source_commit": "c3f4fdf4a41eaa32dad170804fc9f221f84f0d2a",
+  "ui_sha256": "cfcc512dc3bb3933b6e28fba33cd9315a22278a31b8e62169851fa44cd67e85d",
+  "reused_frozen_audio_and_video": true
+}
