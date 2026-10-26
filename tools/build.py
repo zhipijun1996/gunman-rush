@@ -169,6 +169,17 @@ def main():
         provenance = artifact.parent / "Kenney-audio-sources.json"
         shutil.copyfile(REPO / "assets/audio/kenney/sources.json", provenance)
         files.append(provenance)
+        # Keep source terms with this isolated audio candidate export.
+        director_sources = REPO / "config/audio_director/sources.json"
+        if director_sources.is_file():
+            destination = artifact.parent / "Audio-Director-sources.json"
+            shutil.copyfile(director_sources, destination)
+            files.append(destination)
+        freedoom_license = REPO / "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc"
+        if freedoom_license.is_file():
+            destination = artifact.parent / "Freedoom-COPYING.adoc"
+            shutil.copyfile(freedoom_license, destination)
+            files.append(destination)
     report = {"platform": args.platform, "export_exit_code": 0,
               "device_execution": "unverified", "artifacts": [
                   {"path": str(p.relative_to(REPO)), "bytes": p.stat().st_size,

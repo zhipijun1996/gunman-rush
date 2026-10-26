@@ -14,6 +14,8 @@ var motion_dropped := 0
 
 func motion_cue(id: StringName, strength: float, owner_id: int) -> bool:
 	if _shutting_down or get_tree().paused or volume <= 0 or not MOTION.has(id): return false
+	if audio_profile != "original":
+		return play_director_event(&"land" if id == &"heavy" else id, "", instance_from_id(owner_id) as Node)
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:
 		if voice.playing: continue
@@ -39,6 +41,9 @@ func motion_cue(id: StringName, strength: float, owner_id: int) -> bool:
 	_serial[id] = index + 1
 	voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 	voice.set_meta("cue_id",&"motion_" + id)
+	_clear_director_metadata(voice)
+	voice.bus = &"SFX"
+	voice.set_meta("audio_priority", 50)
 	voice.set_meta("motion_owner",owner_id)
 	voice.stream = MOTION[id][index]
 	var attenuation := 12.0 if id == &"jump" else lerpf(16,11,clampf(strength,0,1)) if id == &"land" else 9.0
@@ -52,6 +57,7 @@ func motion_cue(id: StringName, strength: float, owner_id: int) -> bool:
 	return true
 
 func stop_motion(owner_id: int) -> void:
+	stop_director_family(owner_id, &"motion")
 	for voice: AudioStreamPlayer in _voices:
 		if int(voice.get_meta("motion_owner",-1)) == owner_id and str(voice.get_meta("cue_id","")).begins_with("motion_"):
 			voice.stop()

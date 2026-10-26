@@ -27,13 +27,14 @@ var _shutting_down := false
 var _playbacks: Array[WeakRef] = []
 
 func _ready() -> void:
+	GameAudio.ensure_buses()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group(&"game_music")
 	_unlocked = not OS.has_feature("web")
 	for index: int in 2:
 		var voice := AudioStreamPlayer.new()
 		voice.name = "MusicVoice%s" % index
-		voice.bus = &"Master"
+		voice.bus = &"Music"
 		voice.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 		voice.volume_db = -80.0
 		add_child(voice)

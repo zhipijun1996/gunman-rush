@@ -1,5 +1,9 @@
 # 开发任务
 
+## 2026-10-26 AUDIO-DIRECTOR-01
+
+第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。
+
 ## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）
 
 main已实际合入四线，cd4989a6/72c47d59bc4f已快速公开。当前处理用户的性能、全部怪物普通受击、固定HUD、家园3种Lv1武器和标题进家园五项反馈；[范围与所有权](worklines/playtest_feedback_20261024/scope.md)。下方旧未合入/等待CI段落保留历史身份，不驱动本轮重复集成。
@@ -591,3 +595,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | HIGH-DENSITY-TERRAIN-03 | 高分辨率地形对齐与克制材质实验 | PIXEL-LIGHT-STUDY-02 | review | 原生32px/32wu、20实机静态图与独审；岩纹重复/地区特色未定稿，默认入口不改，无CI |
 
 | TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |
+
+| AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |

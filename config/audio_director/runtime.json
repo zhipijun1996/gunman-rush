@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "version": "audio-director-v1",
+  "default_profile": "original",
+  "voices": 12,
+  "events": {
+    "shot": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.055,
+      "max_voices": 3,
+      "attenuation_db": 10.0
+    },
+    "recoil": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 13.0
+    },
+    "enemy_hit": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "enemy_hurt": {
+      "bus": "SFX",
+      "priority": 70,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "enemy_death": {
+      "bus": "SFX",
+      "priority": 90,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "jump": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.08,
+      "max_voices": 2,
+      "attenuation_db": 11.0
+    },
+    "land": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.08,
+      "max_voices": 2,
+      "attenuation_db": 10.0
+    },
+    "hurt": {
+      "bus": "SFX",
+      "priority": 90,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "coin": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.09,
+      "max_voices": 2,
+      "attenuation_db": 10.0
+    },
+    "heal": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.09,
+      "max_voices": 2,
+      "attenuation_db": 10.0
+    },
+    "reward": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.09,
+      "max_voices": 2,
+      "attenuation_db": 10.0
+    },
+    "confirm": {
+      "bus": "UI",
+      "priority": 50,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "denied": {
+      "bus": "UI",
+      "priority": 90,
+      "interval": 0.16,
+      "max_voices": 1,
+      "attenuation_db": 8.0
+    },
+    "hook_release": {
+      "bus": "SFX",
+      "priority": 50,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "hook_connect": {
+      "bus": "SFX",
+      "priority": 90,
+      "interval": 0.055,
+      "max_voices": 2,
+      "attenuation_db": 8.0
+    },
+    "hook_pull": {
+      "bus": "SFX",
+      "priority": 30,
+      "interval": 0.2,
+      "max_voices": 1,
+      "attenuation_db": 15.0
+    }
+  }
+}

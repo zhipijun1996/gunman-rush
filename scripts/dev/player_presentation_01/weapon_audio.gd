@@ -10,6 +10,10 @@ var _weapon_serial := 0
 
 func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, sustained := false) -> bool:
 	if _shutting_down or get_tree().paused or volume<=0 or not weapon_clips.has(id): return false
+	# Only the first-stage basic pulse and committed enemy hit are candidates.
+	# Shot includes the recoil texture; do not emit another recoil voice here.
+	if audio_profile != "original" and id in [&"pulse", &"hit"]:
+		return play_director_event(&"shot" if id == &"pulse" else &"enemy_hit", "", instance_from_id(owner) as Node)
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.playing:
@@ -33,6 +37,9 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 	selected.stream=weapon_clips[id][variant]
 	selected.process_mode=Node.PROCESS_MODE_PAUSABLE
 	selected.set_meta("cue_id",&"weapon_"+id)
+	_clear_director_metadata(selected)
+	selected.bus = &"SFX"
+	selected.set_meta("audio_priority", 65)
 	selected.set_meta("weapon_owner",owner)
 	selected.set_meta("weapon_sustained",sustained)
 	selected.set_meta("attenuation",attenuation)
@@ -45,6 +52,7 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 	return true
 
 func stop_weapon(owner: int, sustained_only := false) -> void:
+	stop_director_family(owner, &"weapon", sustained_only)
 	for voice: AudioStreamPlayer in _voices:
 		if int(voice.get_meta("weapon_owner",-1))!=owner or not str(voice.get_meta("cue_id","")).begins_with("weapon_"): continue
 		if sustained_only and not bool(voice.get_meta("weapon_sustained",false)): continue
