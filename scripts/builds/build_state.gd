@@ -46,6 +46,20 @@ func item_ids() -> Array[StringName]:
 	for id: StringName in ids: result.append((_sources[id] as ItemDefinition).stable_id)
 	return result
 
+# Map-content reconstruction metadata only, not an inventory/ability save file.
+# Preserve actual instance ordering: it breaks equal-priority override ties.
+func manifest_item_sources() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if inventory == null: return result
+	var ids: Array = _sources.keys()
+	ids.sort_custom(func(a: StringName,b: StringName) -> bool: return String(a) < String(b))
+	for id: StringName in ids:
+		var owned := inventory.get_instance(id)
+		if owned == null: return []
+		var item := owned.item
+		result.append({"instance_id":String(id),"definition_id":String(item.stable_id),"definition_version":item.definition_version,"catalog_version":item.catalog_version,"fingerprint":item.fingerprint(),"level":owned.level,"broken":bool(owned.effect_state.get("broken",false)),"source_id":String(owned.source_id),"origin":String(owned.origin),"gear_cost":item.gear_cost})
+	return result
+
 func can_add(item: ItemDefinition) -> bool:
 	return not _applying and is_instance_valid(controller) and controller.active and not controller.actor_resources.health.terminal and inventory.can_add(item)
 
@@ -129,14 +143,18 @@ func clear() -> bool:
 	return _commit({})
 
 func _resolve(sources: Dictionary) -> Dictionary:
-	var values := _base.duplicate()
-	var keys: Array = sources.keys()
-	keys.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	var modifiers: Dictionary = {}
-	for source: StringName in keys: modifiers[source] = _modifiers_for(source,sources[source])
-	for stat: StringName in _base:
+	for source: StringName in sources: modifiers[source] = _modifiers_for(source,sources[source])
+	return resolve_modifier_sources(_base,modifiers)
+
+# Shared deterministic arithmetic for the live actor and content Manifest.
+static func resolve_modifier_sources(base: Dictionary, modifiers: Dictionary) -> Dictionary:
+	var values := base.duplicate()
+	var keys: Array = modifiers.keys()
+	keys.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
+	for stat: StringName in base:
 		var best_priority := -2147483648
-		var value: float = float(_base[stat])
+		var value: float = float(base[stat])
 		# Stable source order: later lexical ID wins equal-priority override.
 		for source: StringName in keys:
 			for modifier: BuildModifier in modifiers[source]:
@@ -227,12 +245,15 @@ func _effect_signature(sources: Dictionary) -> String:
 	return JSON.stringify(rows)
 
 func _modifiers_for(source: StringName, item: ItemDefinition) -> Array[BuildModifier]:
-	var owned := inventory.get_instance(source)
+	var owned := inventory.get_instance(source) if inventory != null else null
+	return resolve_item_modifiers(item,owned.level if owned != null else 1,bool(owned.effect_state.get("broken",false)) if owned != null else false)
+
+static func resolve_item_modifiers(item: ItemDefinition, level: int = 1, broken: bool = false) -> Array[BuildModifier]:
 	var modifiers: Array[BuildModifier] = []
-	if owned != null and bool(owned.effect_state.get("broken",false)): return modifiers
+	if item == null or broken or level < 1 or level > item.max_level: return modifiers
 	modifiers.append_array(item.stat_modifiers())
 	if item.catalog_version < 5: return modifiers
-	var parameters := item.parameters_for_level(owned.level if owned != null else 1)
+	var parameters := item.parameters_for_level(level)
 	var mappings: Array = [
 		["max_hp_add",&"max_health",BuildModifier.Operation.ADD],
 		["max_hp_multiplier",&"max_health",BuildModifier.Operation.MULTIPLY],

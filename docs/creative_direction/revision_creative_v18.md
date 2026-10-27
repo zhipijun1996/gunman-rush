@@ -51,3 +51,11 @@ GL02实际暴露了背包图标tooltip吞掉第一次Escape；本轮由DemoMenu.
 这是同一main14→15／creative18未发表候选的修正，不另开美术生产或继承旧通过。前候选style15 SHA `af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6`、旧active方向／registry及原H开发42与4check回执已按原字节保存在[pre-tooltip-rng归档](../evidence/item_v5_01/source-bindings/pre-tooltip-rng/manifest.json)，build有同字节副本；旧主线style14／creative17及原Bible不变。新revision_impact记录3个实际消费者App／Menu／Presenter的旧／新完整SHA及archive manifest，原36项顺序和另外35引用不改，总54项保持。
 
 重验必须绑定本次3hash：原32＋10、四个原Harness门禁fresh；原pause-escape真实tooltip首按取消、pool／formal跨runprefix的缓存／Boss／商店确定性与交易唯一性反例，以及修复后真实GL连续操作由root原租约执行。此前GL和H证据保留各自版本，不替新修复签字；这里不代签用户、实体设备或视觉最终认可。
+
+## 未发表候选内的当前 Manifest 回放修复
+
+最终受影响29项检查中的森林跨区流程拒绝了旧候选：正式V5商店启用后，legacy商店分支误连带跳过region_map记录；原资源式回放也不能表达已升级或损坏的V5装备。原REJECT保持失败。当前App把地图身份记录移出legacy商店条件，并记录版本化的已装备实例定义／版本／指纹／等级／损坏状态与配置齿轮等级／容量；BuildState与Manifest共享同一纯Modifier计算，以原stage_tuning严格校验重建。该元数据只复现地图内容，不是恢复完整背包、账本、HP或技能状态的存档接口。
+
+前候选style15 `67b7acb8d6f6b555af60649fd838c5b5eb876248be24219ee89168d8149638ef`、两区方向、registry、实际旧App字节及原tooltip／RNG阶段42与四check回执已原样归档于[pre-manifest-repair](../evidence/item_v5_01/source-bindings/pre-manifest-repair/manifest.json)。本次只更新54项引用中的实际App完整SHA，其他53项、原36项顺序、style14／creative17原件与所有Bible不变；新旧差异与复验要求写入manifest_repair_iteration，不覆盖前轮tooltip／RNG影响记录。不新增美术生产，不从旧测试继承通过或用户／实体设备认可。当前原42、四check与新Manifest／原campaign运行结果须各自记录真实来源。
+
+Manifest修订作者验证已完成：原32＋10分别零失败，原四个Harness check均fresh通过，所有54引用匹配当前源，原36前缀中除App外35项逐字相同。当前style SHA `6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0`，App SHA `f75f32cc918d3368d6aa55be94206465163ed7706eb31b19690811da6d009119`。首轮因作者重绑顺序遗漏registry_sha256而被原守门拒绝，补完整绑定后原样重跑；首失败及后通过均保存在[分源回执](../evidence/item_v5_01/source-bindings/manifest-repair-validation/summary.json)。这些检查只验证技术绑定；新的原生回放／跨区、最终完整CI与独审另计。

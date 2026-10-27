@@ -1,0 +1,106 @@
+{
+  "task_id": "ITEM-V5-01",
+  "role": "author binding validation; independent review separate",
+  "source_commit": "dbf3a1543d007b4b62b5bad10812d55e7bcc6783",
+  "worktree_modified": true,
+  "style_sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+  "app_sha256": "f75f32cc918d3368d6aa55be94206465163ed7706eb31b19690811da6d009119",
+  "status": "passed_scoped_technical_binding",
+  "checks": {
+    "author_bible": 32,
+    "author_creative": 10,
+    "original_harness": [
+      "region-bible-tests",
+      "creative-direction-tests",
+      "region-bible-contract",
+      "creative-direction"
+    ],
+    "fresh": true,
+    "all_harness_exit_codes": 0
+  },
+  "identity": {
+    "references": 54,
+    "original_prefix": 36,
+    "only_changed_original": "scripts/demo/demo_app.gd",
+    "unchanged_other_originals": 35,
+    "appended_actual_visual_consumers": 18,
+    "all_54_current_hashes_match": true,
+    "previous_main_style14_sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366"
+  },
+  "failure_chain": "Initial01 correctly rejected incomplete registry hash after author script ordering error. Logs kept; registry_sha256 rebound to actual newly versioned registry and unchanged original tests repeated in02. No guard/argv/budget/assertion changes.",
+  "scope": "Only technical binding and original pure checks. No native/UI/movie, full72 behavior, fullCI, independent acceptance, user/device/art/balance approval claim. Previous candidate and actual failed final29 keep their own status.",
+  "files": [
+    {
+      "path": "manifest-repair-01-incomplete-registry/author-tests.json",
+      "original_path": "build/item_v5/style-binding/manifest-repair-01-incomplete-registry/author-tests.json",
+      "sha256": "a6d68289517b40b7103cca283f65d98afc5b7a3e623bc71e554ac5a979bbb3d2",
+      "bytes": 568
+    },
+    {
+      "path": "manifest-repair-01-incomplete-registry/creative10.log",
+      "original_path": "build/item_v5/style-binding/manifest-repair-01-incomplete-registry/creative10.log",
+      "sha256": "6703ae093482744ace95368d1ad05093322b214817cf150691284dd92431180c",
+      "bytes": 7330
+    },
+    {
+      "path": "manifest-repair-01-incomplete-registry/bible32.log",
+      "original_path": "build/item_v5/style-binding/manifest-repair-01-incomplete-registry/bible32.log",
+      "sha256": "7d6291d9ecde5ad7f48300f147287f9b6b790fa05fd2c35642aff0e4f25bb269",
+      "bytes": 5862
+    },
+    {
+      "path": "manifest-repair-02/author-tests.json",
+      "original_path": "build/item_v5/style-binding/manifest-repair-02/author-tests.json",
+      "sha256": "191af14605dc5a7ea18bfbc63b478772f8a19ce1f17c516adf7bb274bb38ac37",
+      "bytes": 1311
+    },
+    {
+      "path": "manifest-repair-02/creative10.log",
+      "original_path": "build/item_v5/style-binding/manifest-repair-02/creative10.log",
+      "sha256": "df01b1276f134bfaea8348d8d37eff8d622353ced22b72531d8fa39e6add1676",
+      "bytes": 109
+    },
+    {
+      "path": "manifest-repair-02/bible32.log",
+      "original_path": "build/item_v5/style-binding/manifest-repair-02/bible32.log",
+      "sha256": "8e5249a5cf085836bbd6d92c55c9ddbe1311f6fd873edf4d514fa0559ca7ed40",
+      "bytes": 131
+    },
+    {
+      "path": "manifest-repair-02/harness.log",
+      "original_path": "build/item_v5/style-binding/manifest-repair-02/harness.log",
+      "sha256": "1b7861116dfa171a3d550f57bc2e15954c29c212486c61a8d27bce86b493dcbc",
+      "bytes": 815
+    },
+    {
+      "path": "harness/report.json",
+      "original_path": "build/verification/harness/20261027T210957.209818Z/report.json",
+      "sha256": "1dade09dd7a6f0f0ca3cf226a4155d324a46e2816444c36429d90d769973ac4c",
+      "bytes": 78858
+    },
+    {
+      "path": "harness/region-bible-tests.log",
+      "original_path": "build/verification/harness/20261027T210957.209818Z/region-bible-tests.log",
+      "sha256": "c8bf21eac275743861e8c1eeedb4a0e911e4f58e6deb8eea36525ca0a974fe20",
+      "bytes": 131
+    },
+    {
+      "path": "harness/creative-direction-tests.log",
+      "original_path": "build/verification/harness/20261027T210957.209818Z/creative-direction-tests.log",
+      "sha256": "d45fb8938548b9d841dc906294be772749a77d4ffd835feb1c83edc79a5dce4d",
+      "bytes": 109
+    },
+    {
+      "path": "harness/region-bible-contract.log",
+      "original_path": "build/verification/harness/20261027T210957.209818Z/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "bytes": 110
+    },
+    {
+      "path": "harness/creative-direction.log",
+      "original_path": "build/verification/harness/20261027T210957.209818Z/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "bytes": 85
+    }
+  ]
+}

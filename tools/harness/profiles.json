@@ -4100,6 +4100,36 @@
       "artifact_paths": [
         "build/item_v5/native"
       ]
+    },
+    "item-v5-manifest": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "manifest"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-manifest original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
     }
   },
   "profiles": {
@@ -4315,7 +4345,8 @@
       "item-v5-core-effects",
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
-      "item-v5-random-context"
+      "item-v5-random-context",
+      "item-v5-manifest"
     ],
     "art": [
       "docs",
@@ -4622,7 +4653,8 @@
       "item-v5-core-effects",
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
-      "item-v5-random-context"
+      "item-v5-random-context",
+      "item-v5-manifest"
     ],
     "creative-feedback": [
       "docs",
@@ -4747,7 +4779,8 @@
       "item-v5-core-effects",
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
-      "item-v5-random-context"
+      "item-v5-random-context",
+      "item-v5-manifest"
     ]
   }
 }

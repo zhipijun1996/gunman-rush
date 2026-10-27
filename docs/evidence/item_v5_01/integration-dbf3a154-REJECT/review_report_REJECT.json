@@ -1,0 +1,105 @@
+{
+  "reviewer": "/root/v5_review",
+  "verdict": "REJECT finalK2 selected29 integration scope",
+  "reviewed_commit": "dbf3a1543d007b4b62b5bad10812d55e7bcc6783",
+  "source_stable": true,
+  "source_count": 27048,
+  "preflight": "preflight.json materialize actual preflight exit0, no missing inputs/no sparse modification",
+  "actual_harness": "invocation.json / harness_report.json / execution_manifest.json",
+  "actual_result": {
+    "fresh_passed": 26,
+    "failed_check": "forest-campaign",
+    "failure_status": "timeout",
+    "executed": 27,
+    "selected": 29,
+    "not_run": [
+      "underworld-ui",
+      "underworld-home"
+    ],
+    "budget_seconds": 180,
+    "wrapper_exit": 1,
+    "seconds": 531.879147529602,
+    "reuse": false
+  },
+  "finding": {
+    "id": "IV5-R06",
+    "rule": "current formal consumer/replay integration",
+    "production_path": "scripts/demo/demo_app.gd:_load_stage around814",
+    "actual_trigger": "Original forest_campaign_runner starts formal Plains, settles original mini/gold then selects H and forest via actual pointer UI",
+    "promise": "Current map identity recorded for formal schema1/schema2 roundtrip and capability-ledger replay; V5 merchant must not suppress unrelated map output",
+    "actual_production_contradiction": "_item_runtime==null condition around legacy merchant registration also encloses manifest.record_output(region_map), so all active-V5 formal stages omit required region_map",
+    "evidence": "forest-campaign.log: first FAIL schema1 Plains manifest roundtrip, later schema2/capability roundtrip failures; then script:203 cannot access missing outputs.region_map",
+    "minimum_production_fix": "Keep original connected-region/candidate map-record rule independent of legacy-only merchant registration. Preserve native manifest validators and old malformed map identity rejection."
+  },
+  "additional_test_migration_required": {
+    "source": "tests/forest_campaign_runner.gd",
+    "actual_stale_expectations": [
+      "power_gold fixed legacy reward and +2 projectile_damage instead of actual eligible V5 gold selected by current formal reward panel",
+      "first gear upgrade price/debit10 instead of current unique config value35"
+    ],
+    "required_preserved_contracts": [
+      "Actual pointer reward choice and exactly-one owned gold instance",
+      "Replay cannot stack or grant twice; ownership alone does not equip",
+      "Legitimate paused equipment transaction yields actual selected current effect",
+      "Real current upgrade quote, adequate explicit fixture income, exact debit/receipt and no replay debit",
+      "Same actor/build/inventory/provenance/equipped effects/gear capacity/wallet ledger and chosen H persist across regions; no extra S2 capabilities",
+      "All native current RunManifest malformed/stale/fractional/Boss identity rejections remain"
+    ],
+    "not_a_compatibility_waiver": "Do not label current schema1/schema2 formal replay or current campaign regression as postponed legacy compatibility."
+  },
+  "raw_fails": [
+    "FAIL: schema1 Plains manifest roundtrip",
+    "FAIL: one actual mouse reward callback and one gold instance",
+    "FAIL: replayed settled gold cannot stack or submit again",
+    "FAIL: settled gold first remains in the backpack without automatic equipment",
+    "FAIL: explicit paused equipment fixture installs the legitimately claimed gold",
+    "FAIL: cross-region fixture uses the actual first configured ten-coin gear quote",
+    "FAIL: real paused upgrade commits one receipt and exact run-coin debit before crossing",
+    "FAIL: equipped gold and native-selected H persist independently without extra S2 abilities",
+    "FAIL: cross-region schema2 replay validates",
+    "FAIL: native campaign capability ledger roundtrip"
+  ],
+  "script_error": [
+    "SCRIPT ERROR: Invalid access to property or key 'region_map' on a base object of type 'Dictionary'."
+  ],
+  "observed_passes": [
+    "item-v5-data",
+    "item-v5-catalog",
+    "item-v5-pool",
+    "item-v5-inventory",
+    "item-v5-combat",
+    "item-v5-actives",
+    "item-v5-economy",
+    "item-v5-defense",
+    "item-v5-ui",
+    "item-v5-formal",
+    "item-v5-review",
+    "item-v5-boss-time",
+    "item-v5-core-effects",
+    "item-v5-synergy-economy",
+    "item-v5-pause-escape",
+    "item-v5-random-context",
+    "core",
+    "all-weapons",
+    "gear-inventory",
+    "gear-ui",
+    "forest-bible-app-discoveries",
+    "demo-ui-time-energy",
+    "region-bible-tests",
+    "creative-direction-tests",
+    "region-bible-contract",
+    "creative-direction"
+  ],
+  "bounded_positive_evidence": [
+    "All16V5 checks passed fresh on K2 including own default111 and real Boss1178",
+    "core and all-weapons2381 passed fresh",
+    "gear-inventory and gear-ui158 passed fresh",
+    "Actual software-GL UI image/touch proxy review and sampled MP4 motion reports remain separately bounded"
+  ],
+  "scope_limits": [
+    "26passed is a partial failed selected-check run, not a final approval or full CI result",
+    "Source fix invalidates affected exact-source integration proofs; re-run relevant original checks on repaired source",
+    "No production/tests/docs edited by reviewer; native and tracked source freeze released after original timeout"
+  ],
+  "native_lease": "released"
+}

@@ -26,6 +26,7 @@ SUITES = {
     "synergy-economy": ("tests/item_v5_synergy_economy_runner.gd", 25),
     "pause-escape": ("tests/item_v5_pause_escape_runner.gd", 10),
     "random-context": ("tests/item_v5_random_context_runner.gd", 100),
+    "manifest": ("tests/item_v5_manifest_runner.gd", 70),
 }
 
 

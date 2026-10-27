@@ -520,7 +520,7 @@ func _load_stage() -> void:
 			initial_character.meta_content_version = meta_config.version
 			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
 			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
-		director.manifest.record_configuration([
+		var content_definitions: Array = [
 			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
 			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
@@ -530,8 +530,12 @@ func _load_stage() -> void:
 			{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
 			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
 			{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
-			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
-			config_hashes, initial_character)
+			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}]
+		if _item_runtime != null:
+			config_hashes.items_v5 = FileAccess.get_sha256(ItemCatalogV5.CONFIG_PATH)
+			for definition: ItemDefinition in ItemCatalogV5.all_items():
+				content_definitions.append({"id":String(definition.stable_id),"version":definition.definition_version,"catalog_version":definition.catalog_version,"fingerprint":definition.fingerprint()})
+		director.manifest.record_configuration(content_definitions, config_hashes, initial_character)
 	add_child(stage)
 	_sync_region_presentation()
 	if stage is PlainsRegionStage and active_region_id == &"plains" and not _explicit_plains_candidate() and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
@@ -801,7 +805,16 @@ func _load_stage() -> void:
 		director.manifest.record_output(director.stage_index, &"stage_generator", {"version": random_stage.generated.stage_generator_version})
 	else:
 		director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
-	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)})
+	var capability_snapshot := {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)}
+	if _item_runtime != null:
+		var equipment_snapshot := build.equipment.snapshot()
+		# Content replay needs the exact equipped modifier provenance, including
+		# level and breakage. This is not a mid-run actor/resource save file.
+		capability_snapshot.item_sources_version = 1
+		capability_snapshot.item_sources = build.manifest_item_sources()
+		capability_snapshot.gear_capacity = int(equipment_snapshot.capacity)
+		capability_snapshot.gear_level = int(equipment_snapshot.level)
+	director.manifest.record_output(director.stage_index, &"capability_snapshot", capability_snapshot)
 	if current_reward != null:
 		_record_reward()
 	if director.stage_type_id == &"shop":
@@ -810,8 +823,8 @@ func _load_stage() -> void:
 	if connected_region and _item_runtime == null and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
-		director.manifest.record_output(director.stage_index,&"region_map",{"version":(stage as GeneratedDemoStage).generated.stage_generator_version if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
+		director.manifest.record_output(director.stage_index,&"region_map",{"version":(stage as GeneratedDemoStage).generated.stage_generator_version if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
 	if not _bind_forest_discoveries():

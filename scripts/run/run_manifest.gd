@@ -178,28 +178,109 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 	# The sole historical exception is bound to the exact pre-change config.
 	if output.get("generated_layout",{}).get("player_tuning_hash")==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH and stored.get("focus_time_scale")==0.2:
 		tuning.focus_time_scale=0.2
-	var build:=BuildState.new()
+	var base: Dictionary = {}
 	for stat:StringName in BuildState.STATS:
-		build._base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
-	var sources:Dictionary={};var counts:Dictionary={}
-	for index:int in items.size():
-		if not (items[index] is String or items[index] is StringName) or not str(items[index]).is_valid_identifier():return null
-		var path:="res://resources/items/%s.tres"%items[index]
-		if not ResourceLoader.exists(path):return null
-		var item:=load(path) as ItemDefinition
-		if item==null or item is ResourceRewardChoice or not item.is_valid() or str(item.stable_id)!=str(items[index]):return null
-		counts[item.stable_id]=int(counts.get(item.stable_id,0))+1
-		if counts[item.stable_id]>item.stack_limit or (counts[item.stable_id]>1 and item.duplicate_policy==ItemDefinition.DuplicatePolicy.REJECT):return null
-		sources[StringName("manifest_%08d"%index)]=item
-	var values:=build._resolve(sources)
+		base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
+	var source_fields := ["item_sources_version","item_sources","gear_capacity","gear_level"]
+	var versioned := false
+	for field: String in source_fields:
+		if capability.has(field): versioned = true
+	var modifiers: Dictionary = {}
+	if versioned:
+		var reconstructed: Variant = _manifest_source_modifiers(capability,items)
+		if not reconstructed is Dictionary: return null
+		modifiers = reconstructed
+	else:
+		# Preserve the complete old resource-only admission rules. Missing new
+		# metadata is historical content, never an implicit V5 level-one fallback.
+		var counts: Dictionary = {}
+		for index:int in items.size():
+			if not (items[index] is String or items[index] is StringName) or not str(items[index]).is_valid_identifier():return null
+			var path:="res://resources/items/%s.tres"%items[index]
+			if not ResourceLoader.exists(path):return null
+			var item:=load(path) as ItemDefinition
+			if item==null or item is ResourceRewardChoice or not item.is_valid() or str(item.stable_id)!=str(items[index]):return null
+			counts[item.stable_id]=int(counts.get(item.stable_id,0))+1
+			if counts[item.stable_id]>item.stack_limit or (counts[item.stable_id]>1 and item.duplicate_policy==ItemDefinition.DuplicatePolicy.REJECT):return null
+			modifiers[StringName("manifest_%08d"%index)] = BuildState.resolve_item_modifiers(item)
+	var values := BuildState.resolve_modifier_sources(base,modifiers)
 	for stat:StringName in BuildState.STATS:
 		if stat==&"max_health":continue
 		if not is_finite(float(values[stat])) or float(values[stat])<0:return null
+		if stat in [&"max_jumps",&"max_air_shots"] and float(values[stat]) != floor(float(values[stat])): return null
 		tuning.set(stat,int(values[stat]) if stat in [&"max_jumps",&"max_air_shots"] else values[stat])
+	if versioned:
+		for stat: String in ["max_jumps","max_air_shots"]:
+			if not _whole_in(capability.get(stat),0,2147483647) or float(capability[stat]) != float(values[StringName(stat)]): return null
 	var checker:=RandomStageGenerator.new()
 	for key: String in keys:
 		if not stored.has(key) or not checker._same_data(stored[key],tuning.get(key)):return null
 	return tuning
+
+static func _whole_in(value: Variant, minimum: int, maximum: int) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and float(value) >= minimum and float(value) <= maximum and float(value) == floor(float(value))
+
+# Version-one rows describe equipped item content for deterministic map replay.
+# They do not claim ownership-ledger authentication or restoration of HP/skills.
+static func _manifest_source_modifiers(capability: Dictionary, items: Array) -> Variant:
+	if not _whole_in(capability.get("item_sources_version"),1,1): return null
+	var rows: Variant = capability.get("item_sources")
+	var policy := GearCapacityPolicy.load_default()
+	if not rows is Array or not policy.valid or not _whole_in(capability.get("gear_level"),0,policy.upgrades.size()): return null
+	var gear_level := int(capability.gear_level)
+	var capacity := policy.initial_capacity if gear_level == 0 else int(policy.upgrades[gear_level-1].capacity)
+	if not _whole_in(capability.get("gear_capacity"),capacity,capacity) or rows.size() != items.size() or rows.size() > capacity: return null
+	var required_fields := ["instance_id","definition_id","definition_version","catalog_version","fingerprint","level","broken","source_id","origin","gear_cost"]
+	var definitions: Dictionary = {}
+	var counts: Dictionary = {}
+	var provenance: Dictionary = {}
+	var resolved: Dictionary = {}
+	var ordered: Array[String] = []
+	var all_tags: Array[StringName] = []
+	var used := 0
+	for row: Variant in rows:
+		if not row is Dictionary or row.size() != required_fields.size(): return null
+		for field: String in required_fields:
+			if not row.has(field): return null
+		for field: String in ["instance_id","definition_id","fingerprint","source_id","origin"]:
+			if not (row[field] is String or row[field] is StringName) or String(row[field]).is_empty(): return null
+		var id := String(row.instance_id)
+		var definition_id := String(row.definition_id)
+		if resolved.has(StringName(id)) or provenance.has(String(row.source_id)) or not definition_id.is_valid_identifier(): return null
+		if not _whole_in(row.catalog_version,0,5) or not _whole_in(row.definition_version,1,2147483647): return null
+		var item: ItemDefinition
+		if row.catalog_version == 5:
+			item = ItemCatalogV5.get_item(StringName(definition_id))
+		elif row.catalog_version == 0:
+			var path := "res://resources/items/%s.tres" % definition_id
+			if not ResourceLoader.exists(path): return null
+			item = load(path) as ItemDefinition
+		else: return null
+		if item == null or item is ResourceRewardChoice or not item.is_valid() or String(item.stable_id) != definition_id: return null
+		if row.definition_version != item.definition_version or row.catalog_version != item.catalog_version or String(row.fingerprint) != item.fingerprint(): return null
+		if not _whole_in(row.level,1,item.max_level) or not row.broken is bool or not _whole_in(row.gear_cost,item.gear_cost,item.gear_cost): return null
+		counts[item.stable_id] = int(counts.get(item.stable_id,0))+1
+		if counts[item.stable_id] > item.maximum_equipped() or (counts[item.stable_id]>1 and item.duplicate_policy == ItemDefinition.DuplicatePolicy.REJECT): return null
+		used += item.gear_cost
+		if used > capacity: return null
+		definitions[StringName(id)] = item
+		resolved[StringName(id)] = BuildState.resolve_item_modifiers(item,int(row.level),row.broken)
+		provenance[String(row.source_id)] = true
+		ordered.append(id)
+		for tag: StringName in item.tags:
+			if tag not in all_tags: all_tags.append(tag)
+	ordered.sort()
+	for index: int in ordered.size():
+		if not (items[index] is String or items[index] is StringName) or String(items[index]) != String((definitions[StringName(ordered[index])] as ItemDefinition).stable_id): return null
+	for id: StringName in definitions:
+		var item: ItemDefinition = definitions[id]
+		for required: StringName in item.required_tags:
+			if required not in all_tags: return null
+		for other_id: StringName in definitions:
+			if id == other_id: continue
+			for tag: StringName in (definitions[other_id] as ItemDefinition).tags:
+				if tag in item.exclusive_tags: return null
+	return resolved
 
 static func _campaign_compatible(data: Dictionary) -> bool:
 	if not data.get("root_seed") is String or not data.get("stages") is Array or not data.get("decisions") is Array or not data.get("versions") is Dictionary: return false

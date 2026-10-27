@@ -1,0 +1,145 @@
+{
+  "reviewer": "/root/v5_review",
+  "verdict": "ACCEPT bounded actually-viewed pixels and sampled motion/receipt correspondence; continuous playback/audio/device/whole-game UNVERIFIED",
+  "source_commit": "dbf3a1543d007b4b62b5bad10812d55e7bcc6783",
+  "producer_result": {
+    "status": "captured",
+    "assertions": 93,
+    "source_stable": true,
+    "engine_exit": 0
+  },
+  "movie": "build/item_v5/movie-source-dbf3a154-01/movie.mp4",
+  "movie_sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+  "duration_s": 34.883333,
+  "method": "Actually opened equipped.png, named opposite_flywheels.png, companions.png and result.png at original resolution. Found named opposite image too early, then independently extracted and viewed exact MP4 zero-based frames1848/1860/1880/1895, plus n1514 for companion-hit beams. Cross-checked original actual frame/input/damage trace; did not edit video, producer or tracked source.",
+  "original_named_sample_issue": {
+    "file": "opposite_flywheels.png",
+    "mp4_frame": 1840,
+    "observed": "Caption remains companions and no flywheel is visible. Trace video_frame1841 still records companions before native R takes effect. This named PNG alone cannot prove opposite flywheel motion.",
+    "status": "Evidence selection limitation; original successful MP4 and later actual frames do show effect."
+  },
+  "actually_seen_observations": [
+    {
+      "scope": "equipped.png at22.9333s",
+      "observation": "Native pause menu visibly shows8/8 used,3 equipped icons, P24 selected and current active, two backpack entries. Overlay explicitly discloses fixed-item/training fixture. This is a real UI state and not proof of naturally acquired loadout."
+    },
+    {
+      "scope": "n1514 at25.2333s",
+      "observation": "Three small mechanical companions are visible above player; thin cyan attack beams reach both outlined training targets. Player body and target silhouettes remain unobscured in this observed frame.",
+      "file": "companion-hit-n1514.png",
+      "sha256": "12b6dfd8642dc383f9e5ecd469f85f5e0ee7718a43ee7402ad43ce74037f7afb"
+    },
+    {
+      "scope": "exact frames1848,1860,1880,1895 at30.8/31.0/31.3333/31.5833s",
+      "observation": "Two distinct brass-edged dark flywheel discs with cyan rotating center marks appear on opposite sides, separate farther outward, then return toward the player. All sampled frames retain the three drones overhead and do not cover the fixed top-left health display. See selected_frames.json for exact mapping, entity positions and PNG SHA."
+    },
+    {
+      "scope": "companions.png and result.png at29.2833/33.6833s",
+      "observation": "Same visible training stage and target widgets persist; three companion bodies orbit in changed positions. These stills support presence/position differences, not continuous animation smoothness or physical-device cadence."
+    }
+  ],
+  "trace_crosscheck": {
+    "schema": "item-v5-formal-native-movie-v1",
+    "native_key_R": [
+      {
+        "drawn_frame": 1840,
+        "key": "R",
+        "kind": "key",
+        "pressed": true,
+        "video_frame": 1841
+      },
+      {
+        "drawn_frame": 1842,
+        "key": "R",
+        "kind": "key",
+        "pressed": false,
+        "video_frame": 1843
+      }
+    ],
+    "actual_primary_receipts": [
+      {
+        "packet": 1,
+        "session": 2,
+        "shot": 1,
+        "target": 1144709451620,
+        "video_frame": 1529,
+        "weapon_epoch": 1
+      },
+      {
+        "packet": 2,
+        "session": 2,
+        "shot": 2,
+        "target": 1144558458392,
+        "video_frame": 1566,
+        "weapon_epoch": 1
+      },
+      {
+        "packet": 3,
+        "session": 2,
+        "shot": 3,
+        "target": 1144709451620,
+        "video_frame": 1613,
+        "weapon_epoch": 1
+      },
+      {
+        "packet": 4,
+        "session": 2,
+        "shot": 4,
+        "target": 1144558458392,
+        "video_frame": 1650,
+        "weapon_epoch": 1
+      },
+      {
+        "packet": 5,
+        "session": 2,
+        "shot": 5,
+        "target": 1144709451620,
+        "video_frame": 1697,
+        "weapon_epoch": 1
+      }
+    ],
+    "P24_actual_four_damage_receipts": [
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_3eef414486127b72ad955225a2607203/plains/map_1//P24/run_3eef414486127b72ad955225a2607203/plains/map_1//item/2/P24/1/1/outbound/1144608787400/1",
+        "target": "movie_fixture/target0",
+        "video_frame": 1847
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_3eef414486127b72ad955225a2607203/plains/map_1//P24/run_3eef414486127b72ad955225a2607203/plains/map_1//item/2/P24/1/0/outbound/1144759783065/1",
+        "target": "movie_fixture/target1",
+        "video_frame": 1867
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_3eef414486127b72ad955225a2607203/plains/map_1//P24/run_3eef414486127b72ad955225a2607203/plains/map_1//item/2/P24/1/0/returning/1144759783065/1",
+        "target": "movie_fixture/target1",
+        "video_frame": 1875
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_3eef414486127b72ad955225a2607203/plains/map_1//P24/run_3eef414486127b72ad955225a2607203/plains/map_1//item/2/P24/1/1/returning/1144608787400/1",
+        "target": "movie_fixture/target0",
+        "video_frame": 1894
+      }
+    ],
+    "P24_sum": 1.610000000000128,
+    "P14_actual_receipt_count": 21,
+    "resonance_before_R": 35.0,
+    "resonance_during_motion": 0,
+    "not_an_independent_native_run": "Movie producer executed the capture; reviewer independently viewed actual pixel files and audited original trace."
+  },
+  "limits": [
+    "Did not play the full34.8833s continuously at normal speed; sampled frames cannot sign complete animation smoothness/game feel",
+    "Did not listen to AAC audio or assess mix/timing; stream metadata is not hearing",
+    "Training platform, camera framing, high-HP targets and known reward-item grants are disclosed fixtures, not a natural route clear or natural item acquisition",
+    "1280x720 software GL/llvmpipe is not Android or physical GPU performance evidence",
+    "No user preference, balance, commercial art-quality or whole72-item acceptance",
+    "Native Harness is running separately with original29 selected checks; no other Godot process launched for this pixel analysis"
+  ]
+}
