@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ITEM-V5-01",
   "task_type": "mechanic",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
-  "reviewed_commit": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "reviewed_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
   "content_version": "candidate-v1-item-v5",
   "owner": "/root",
   "purpose": "Implement uploaded V5 workbook72 effective items,16 growth definitions and9 viable synergies in formal run services",
@@ -104,6 +104,7 @@
     "scripts/resources/state/combat_energy_state.gd",
     "scripts/resources/state/health_state.gd",
     "scripts/rewards/demo_reward_catalog.gd",
+    "scripts/run/run_manifest.gd",
     "scripts/shops/shop_service.gd",
     "scripts/ui/actor_resources_hud.gd",
     "scripts/ui/demo_menu.gd",
@@ -113,6 +114,7 @@
     "scripts/ui/item_shop_modal.gd",
     "scripts/ui/stage_reward_modal.gd",
     "scripts/ui/touch_overlay.gd",
+    "tests/forest_campaign_runner.gd",
     "tests/gear_inventory_runner.gd",
     "tests/item_v5_actives_runner.gd",
     "tests/item_v5_actives_runner.gd.uid",
@@ -132,6 +134,8 @@
     "tests/item_v5_formal_runner.gd.uid",
     "tests/item_v5_inventory_runner.gd",
     "tests/item_v5_inventory_runner.gd.uid",
+    "tests/item_v5_manifest_runner.gd",
+    "tests/item_v5_manifest_runner.gd.uid",
     "tests/item_v5_movie.gd",
     "tests/item_v5_movie.gd.uid",
     "tests/item_v5_pause_escape_runner.gd",
@@ -167,14 +171,19 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded engineering/source scope only; broader content gates remain unverified",
+      "evidence": [
+        "scope"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded engineering/source scope only; broader content gates remain unverified",
+      "evidence": [
+        "harness",
+        "movie-trace"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -199,19 +208,25 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "harness"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "formal-gui"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -239,9 +254,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded actual technical/formal input evidence; excludes player/device/balance/whole72natural acceptance",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -254,14 +271,189 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
-  "unverified_items": [
-    "Final frozen-source Harness and independent review not completed",
-    "Real GL continuous action/media and final Web delivery not completed",
-    "Physical Android/gamepad, low-end stress, balance, fun and human acceptance unverified",
-    "P17 charge baseline decision pending user answer; G19 Boss-as-elite choice configurable candidate"
+  "criteria": [
+    {
+      "id": "source-contract",
+      "scenario": "Workbook03H and bounded ownership/equipment/effect contracts",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "current-runtime",
+      "scenario": "Current formal V5 ownership/equipment/effects and map lifecycle",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "harness",
+        "review"
+      ]
+    },
+    {
+      "id": "formal-input",
+      "scenario": "Actual title/Home/departure/reward/bag/active native input chain",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "formal-gui",
+        "movie-trace"
+      ]
+    },
+    {
+      "id": "independent-bounded",
+      "scenario": "Distinct readonly reviewer exact-current-source technical review",
+      "method": "Original30 fresh checks, actual native movie or cited scope review as applicable",
+      "expected": "Cited scope is observed with stable source and disclosed fixtures",
+      "failure": "Failure, drift, engine/leak error, stale replay or false evidence scope",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Bounded engineering criterion; broad content gates and player/device acceptance remain unverified",
+      "evidence": [
+        "review"
+      ]
+    }
   ],
-  "test_change_justification": "New style-v15 and creative-v18 bind changed visual consumers while retaining the exact v14/v17 originals, every historical refusal, original36 prefix and all previous Harness commands/inputs/budgets. New exact54/15/18 assertions replace superseded current-version literals with stronger historical and appended-set checks; no original semantic guard removed. GearUI keeps real ownership/HP/UI/map/death checks while its experiment prices follow the newly authorized workbook config; wrappers now additionally reject generic engine ERROR. Separate independent guard review must validate this migration before acceptance."
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/item_v5_01/scope.md",
+      "sha256": "02a36bb93e6b383ac5ff29be4db5b938bc3269081eb46605be22efa28662b5c0",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "User workbook and explicit03H selection, bounded implementation contract",
+      "observed": "72current definitions,16growth,9enabled synergies, deleted/pending exclusions"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/item_v5_01/final-harness/report.json",
+      "sha256": "46661e0d1b50cc7b69e28150e2bb0dc47cc13119320e957c84d6307bfc4b2ada",
+      "kind": "command",
+      "producer": "/root/final_review",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Original30 targeted checks, fresh/no reuse, unchanged budgets",
+      "observed": "30passed engineering checks; not full161 or CI",
+      "command": "See final-harness/invocation.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, single native lease"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/item_v5_01/independent-review.json",
+      "sha256": "96c062556bb30b5099e36678ee0527eba3cd80fffcd02ca71af8ac73d7facaae",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Readonly review and independent original30-check execution",
+      "observed": "Bounded technical ACCEPT, no player/device/full72natural endorsement",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/manifest_finish",
+        "/root/binding_finish"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct reviewer did not modify the reviewed production or tests"
+    },
+    {
+      "id": "formal-gui",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/receipt.json.gz",
+      "sha256": "0e689334ef491c05b828866aab3d864cd11c4f820f47209ca0c6770a2e9f1364",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Frozen real Godot native input/movie capture and source guard",
+      "observed": "Title/Home/departure/formal reward/bag/equip/unequip and35resonance active; disclosed setup fixtures",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "movie-trace",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/trace.json.gz",
+      "sha256": "bb6233a2f3c4e540726380f2e94da02bdcb6c00c1ef6a6f1741a488e95b93c96",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Actual drawn frame and accepted damage/input receipts",
+      "observed": "Formal entry, actual five primary receipts and dualwheel/companion damage",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/item_v5_01/movie-979dbb9a/movie.mp4",
+      "sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Godot native60fps continuous capture, visible fixture notes",
+      "observed": "Actual formal flow and active/companion motion; no matched before, not human/audio/device acceptance",
+      "consumers": [
+        "formal-entry-and-loadout"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/item_v5_01/consumer-inventory.json",
+      "sha256": "03a7d9314ee94e40227482c0edb3567ee8caab37808b5647c2819aad2fcecd66",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+      "content_version": "candidate-v1-item-v5",
+      "method": "Actual movie trace checkpoint inventory",
+      "observed": "One bounded formal consumer family, explicitly initialized known items and targets"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "One bounded formal movie consumer family; known-reward/target setup disclosed; excludes72natural-item/G5 claims",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal-entry-and-loadout",
+        "status": "passed",
+        "reason": "Actual native title/Home/departure/cache/bag/equip/unequip and active effect flow; disclosed cache location, known reward and training-target fixtures; not natural fullrun",
+        "output": "behavior",
+        "evidence": [
+          "formal-gui",
+          "movie-trace"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Full161 remote CI/integration has not been signed by local selected30 evidence",
+    "Physical Android/gamepad, low-end stress, balance, fun, audio listening and human acceptance unverified",
+    "P17: baseline charge remains1, equipped table candidates .4/.55/.7 pending design clarification",
+    "G19 boss_counts_as_elite=true remains explicit configurable implementation candidate",
+    "Three pending-redesign synergies and four deleted-item synergies remain disabled",
+    "Per-item unmeasured behaviors/levels/formal scenarios remain explicit in consumer_coverage.md"
+  ],
+  "test_change_justification": "New style-v15 and creative-v18 bind changed visual consumers while retaining the exact v14/v17 originals, every historical refusal, original36 prefix and all previous Harness commands/inputs/budgets. New exact54/15/18 assertions replace superseded current-version literals with stronger historical and appended-set checks; no original semantic guard removed. GearUI keeps real ownership/HP/UI/map/death checks while its experiment prices follow the newly authorized workbook config; wrappers now additionally reject generic engine ERROR. Separate independent guard review must validate this migration before acceptance. Forest campaign migration retains actual pointer choices and exact reward provenance, adds a separately disclosed legacy +2 probe, reads actual35coin quote and exact debit/replay ledger, retains all original malformed/fractional map/Boss/capability refusals; the typed Array[StringName] construction fix changes only fixture typing. New Manifest check is additive; no old check command, budget, inputs or refusal is removed."
 }

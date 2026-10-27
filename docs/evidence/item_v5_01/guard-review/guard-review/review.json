@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "task": "ITEM-V5-01",
+  "reviewer": "/root/ci_audit",
+  "reviewed_at": "2026-10-27T20:11:15.447135+00:00",
+  "base_commit": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "branch": "feature/item-v5-catalog",
+  "working_tree_review": true,
+  "verdict": "ACCEPT scoped guard/fixture/version migration and additive Harness contracts after fixes; native gameplay,72-effects completeness,fullCI,visual/device/player/G5 UNVERIFIED",
+  "independence": "Reviewer did not edit production/tests/tools/config/authority metadata. F1 fixed by bible_guard_review restoring base creative contract; F2 native sentinels added by root. Only ignored audit files and later this independent report may be authored by reviewer. No Godot launched.",
+  "source_snapshot": {
+    "tests/test_region_bible.py": "6cc1a66761f91e9ce20a216de9c80f603b675957a69050acbf0fc8f11683ec21",
+    "tests/test_region_creative_direction.py": "720f132fe22ba90e7e8bf31195950506e94839280f48aba131d6656442bda8eb",
+    "tests/gear_inventory_runner.gd": "17250a1d6e652cb665d46680c8ffdf487a008d904c2d16ce564263b21df03e13",
+    "tests/run_gear_ui_runner.gd": "6d5624cb5f15eb9abd5cb4c7b6f903548df0bd4c12e9bdcd3c2d178ad2693d05",
+    "tools/run_gear_inventory_tests.py": "aa077356cb0e2d2eb81beab16b244003f4295f4f731ea149343ab2a331fce6e8",
+    "tools/run_gear_ui_tests.py": "93e341ca9aef53dca7cc70e6dcacc40641e613d788d4b2cbd71d886d0e75d369",
+    "tools/run_item_v5_tests.py": "5a4dbf9a517e7bca6dbfa05ea8668d1a694a42004ebe481e52c64113684bb95d",
+    "tools/run_tests.py": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+    "tools/harness/profiles.json": "492d3f780a443f29307239ad5dd2faae7e467c41b35155b22e46560e683e595d",
+    "config/gear_capacity.json": "96d0734e83e38b9e99902c0ab291234b7888c6b37dc7673dc3952ae90bb44b11",
+    "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json": "af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6",
+    "docs/creative_direction/bibles/registry.json": "002376f5bd4e4f8e0f299d35c1fb98dab30cd0f5cd6e6f5fb7e67923a6ed2ed5",
+    "docs/creative_direction/windchime_plains.json": "8a8e5b26cdb6223610fb5a4194358fc8fc4bab19e781cddd70d30cec5089b37b",
+    "docs/creative_direction/thorn_forest.json": "00e895091a518eb1e3f71c2f40267c809eea740188b018b7a161aca03322f622",
+    "tests/test_item_v5_catalog.py": "70e42e3c652d24952f91b5fa1ee6772c9625982c7572be0a1bd732bd8ee0efe9",
+    "tools/import_items_v5.py": "3e32a14a9a6e97a64085b8e4b58624d3096710ddc6e55c95dc841d8ec3fc7cbc",
+    "config/items_v5.json": "734849a89f6691cdce6f143c5cd16f9f96589c3cf34444a39c73466eb6b863bc",
+    "config/item_v5_synergies.json": "40e922209692354bb9ed73b3a4f744eab98063cbed3d9c036278123ad4760465",
+    "docs/.gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/.gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness": {
+    "old_checks": 176,
+    "current_checks": 190,
+    "removed_checks": [],
+    "added_checks": [
+      "item-v5-actives",
+      "item-v5-boss-time",
+      "item-v5-catalog",
+      "item-v5-combat",
+      "item-v5-core-effects",
+      "item-v5-data",
+      "item-v5-defense",
+      "item-v5-economy",
+      "item-v5-formal",
+      "item-v5-inventory",
+      "item-v5-pool",
+      "item-v5-review",
+      "item-v5-synergy-economy",
+      "item-v5-ui"
+    ],
+    "old_checks_changed_fields": {
+      "region-bible-tests": [
+        "inputs"
+      ]
+    },
+    "creative_check_exactly_base": true,
+    "region_inputs": {
+      "base": 139,
+      "current": 187,
+      "old_prefix_intact": true
+    },
+    "old_profiles": {
+      "docs": {
+        "old_count": 33,
+        "new_count": 33,
+        "removed": [],
+        "new_checks": []
+      },
+      "core": {
+        "old_count": 30,
+        "new_count": 30,
+        "removed": [],
+        "new_checks": []
+      },
+      "gameplay": {
+        "old_count": 129,
+        "new_count": 143,
+        "removed": [],
+        "new_checks": [
+          "item-v5-actives",
+          "item-v5-boss-time",
+          "item-v5-catalog",
+          "item-v5-combat",
+          "item-v5-core-effects",
+          "item-v5-data",
+          "item-v5-defense",
+          "item-v5-economy",
+          "item-v5-formal",
+          "item-v5-inventory",
+          "item-v5-pool",
+          "item-v5-review",
+          "item-v5-synergy-economy",
+          "item-v5-ui"
+        ]
+      },
+      "art": {
+        "old_count": 95,
+        "new_count": 95,
+        "removed": [],
+        "new_checks": []
+      },
+      "web": {
+        "old_count": 46,
+        "new_count": 46,
+        "removed": [],
+        "new_checks": []
+      },
+      "full": {
+        "old_count": 144,
+        "new_count": 158,
+        "removed": [],
+        "new_checks": [
+          "item-v5-actives",
+          "item-v5-boss-time",
+          "item-v5-catalog",
+          "item-v5-combat",
+          "item-v5-core-effects",
+          "item-v5-data",
+          "item-v5-defense",
+          "item-v5-economy",
+          "item-v5-formal",
+          "item-v5-inventory",
+          "item-v5-pool",
+          "item-v5-review",
+          "item-v5-synergy-economy",
+          "item-v5-ui"
+        ]
+      },
+      "creative-feedback": {
+        "old_count": 11,
+        "new_count": 11,
+        "removed": [],
+        "new_checks": []
+      },
+      "history": {
+        "old_count": 8,
+        "new_count": 8,
+        "removed": [],
+        "new_checks": []
+      },
+      "creative-prototype": {
+        "old_count": 10,
+        "new_count": 10,
+        "removed": [],
+        "new_checks": []
+      },
+      "regional-art-feedback": {
+        "old_count": 8,
+        "new_count": 8,
+        "removed": [],
+        "new_checks": []
+      },
+      "region-bible-feedback": {
+        "old_count": 8,
+        "new_count": 8,
+        "removed": [],
+        "new_checks": []
+      },
+      "forest-exploration-feedback": {
+        "old_count": 9,
+        "new_count": 9,
+        "removed": [],
+        "new_checks": []
+      },
+      "forest-varied-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "removed": [],
+        "new_checks": []
+      },
+      "forest-places-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "removed": [],
+        "new_checks": []
+      },
+      "forest-library-feedback": {
+        "old_count": 6,
+        "new_count": 6,
+        "removed": [],
+        "new_checks": []
+      },
+      "legacy-compat": {
+        "old_count": 15,
+        "new_count": 15,
+        "removed": [],
+        "new_checks": []
+      }
+    },
+    "new_item_v5_profile": [
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy"
+    ],
+    "old_commands_timeouts_patterns_serial_cache_settings_unchanged": true,
+    "native_new_checks": {
+      "count": 13,
+      "outer_budget_seconds": 240,
+      "import_budget_seconds": 90,
+      "native_budget_seconds": 120,
+      "actual_asset_digest_prefix": "assets",
+      "original_preflight_native_sentinel": "assets/**",
+      "import_ignore_sentinels": [
+        "docs/.gdignore",
+        "build/.gdignore"
+      ]
+    }
+  },
+  "authority": {
+    "prior_style_unchanged_sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+    "current_style_sha256": "af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6",
+    "old_references": 36,
+    "current_references": 54,
+    "changed_old_references": [
+      "scripts/demo/demo_app.gd"
+    ],
+    "old_other35_exact": true,
+    "appended_references": [
+      {
+        "role": "item_feedback_view",
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802"
+      },
+      {
+        "role": "item_feedback_config",
+        "path": "config/item_v5_feedback.json",
+        "sha256": "d8652bb319fa19555c98c82cd2b812e36ab4bd34422f2ccdd747fdbd77f406ba"
+      },
+      {
+        "role": "item_entity_view",
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3"
+      },
+      {
+        "role": "item_entity_config",
+        "path": "config/item_v5_entities.json",
+        "sha256": "22202b101e0488b15551121b5982380078184be52c121ea0b76f03eea178fa29"
+      },
+      {
+        "role": "item_defense_glyphs",
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40"
+      },
+      {
+        "role": "item_defense_visual_config",
+        "path": "config/item_v5_defense.json",
+        "sha256": "00a631f71797c6a0371012ba9eaad2a49265dc1e8d06174464519a2cf4279cc0"
+      },
+      {
+        "role": "item_resource_hud",
+        "path": "scripts/ui/actor_resources_hud.gd",
+        "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721"
+      },
+      {
+        "role": "item_pause_menu",
+        "path": "scripts/ui/demo_menu.gd",
+        "sha256": "af9980d9cc7e01a63c50f1cfd0dbc9d8975c7b0d964339c4a980e692e243e36b"
+      },
+      {
+        "role": "item_description",
+        "path": "scripts/ui/item_presentation.gd",
+        "sha256": "fdcb60b2ed253967191b239f5aace06e270b0fe4443363a2c43e3d8b42eae424"
+      },
+      {
+        "role": "item_card",
+        "path": "scripts/ui/item_card.gd",
+        "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+      },
+      {
+        "role": "item_toast",
+        "path": "scripts/ui/item_acquired_toast.gd",
+        "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b"
+      },
+      {
+        "role": "item_shop_modal",
+        "path": "scripts/ui/item_shop_modal.gd",
+        "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+      },
+      {
+        "role": "item_reward_modal",
+        "path": "scripts/ui/stage_reward_modal.gd",
+        "sha256": "ba621c113362cffe13c0fa81941d1797e5f0e35c71c3d9309378047aa3b9e5fa"
+      },
+      {
+        "role": "item_touch_control",
+        "path": "scripts/ui/touch_overlay.gd",
+        "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f"
+      },
+      {
+        "role": "item_shop_presenter",
+        "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+        "sha256": "4014bc9c5c01b0d41b09189ba23be8973f93984dc5261d158d6a8f176bd392f5"
+      },
+      {
+        "role": "item_weapon_runtime",
+        "path": "scripts/combat/weapon_action_runtime.gd",
+        "sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160"
+      },
+      {
+        "role": "item_weapon_feel",
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4"
+      },
+      {
+        "role": "item_weapon_vfx",
+        "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+      }
+    ],
+    "all54_hashes_match_current_bytes": true,
+    "creative_v17_archives_exact_base_bytes": {
+      "docs/creative_direction/archive/creative-v17/registry.json": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+      "docs/creative_direction/archive/creative-v17/windchime_plains.json": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+      "docs/creative_direction/archive/creative-v17/thorn_forest.json": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8"
+    },
+    "old_test_methods": {
+      "tests/test_region_bible.py": {
+        "base_count": 32,
+        "current_count": 32,
+        "removed": []
+      },
+      "tests/test_region_creative_direction.py": {
+        "base_count": 10,
+        "current_count": 10,
+        "removed": []
+      }
+    },
+    "old_version_rejections_and_G2_content_device_boundaries": "retained; new v14/v17 refusal checks added rather than replacing older refusal cases"
+  },
+  "economy_fixture": {
+    "table": "06 经济模型 B23:B25",
+    "prices": [
+      35,
+      55,
+      80
+    ],
+    "capacity": [
+      8,
+      10,
+      12,
+      14
+    ],
+    "old_experimental_prices": [
+      10,
+      18,
+      28
+    ],
+    "guard_behavior": "UI funds a named RunWallet fixture with sum of authoritative policy prices, asserts actual quote-price debits at10/12/14 and actual lifecycle retention. Original inventory insufficient/replay/conflict/stale/rollback/max14 checks remain. Legacy fractional-health fixture is separately sourced after real V5 cache claim; original cache instance stays owned and unequipped. No actor cap or wallet balance overwrite substituted for purchases.",
+    "legacy_format_fix": "% creation -> % [creation] changes the error-prone GDScript formatting operand only, not the override-order predicate."
+  },
+  "executed": {
+    "original_python_direct": {
+      "region_bible": 32,
+      "creative_direction": 10,
+      "item_v5_data": 27,
+      "all_exit_zero": true,
+      "receipts": [
+        "python-tests.json",
+        "post-fix-python-tests.json"
+      ]
+    },
+    "isolated_scope": {
+      "data_six_declared_files": "27/0, exit0",
+      "region187_plus_original_Harness_and_SKILL_existence_bootstrap": "32/0, exit0",
+      "creative_restored_all_source": "No claim of narrowed closure remains"
+    },
+    "verifier_controls": {
+      "synthetic_wrapper_cases": 43,
+      "actual_small_python_process_guards": 7,
+      "passed": true,
+      "receipt": "wrapper-controls.json",
+      "not_native_gameplay": true
+    },
+    "native_execution": "UNVERIFIED by this reviewer; root owns engine lease and its own actual reports"
+  },
+  "findings": [
+    {
+      "id": "GUARD-F1",
+      "initial_verdict": "REJECT",
+      "problem": "creative finite120 inputs omitted real context dependencies. Isolated original10 tests pass with required observed/entry/SKILL bootstrap, deleting undeclared action_budget_spec makes CLI fail while old finite digest stays unchanged.",
+      "receipt": "finite-counterexample-r2.json",
+      "failed_initial_probe": "finite-counterexample.json had missing SKILL bootstrap even for positive; kept as failed probe, not re-signed.",
+      "fix": "creative check restored exactly to base no-inputs/all-source contract. Same removal now changes original all-source input_digest.",
+      "final_verdict": "ACCEPT fixed; original42 direct tests pass."
+    },
+    {
+      "id": "GUARD-F2",
+      "initial_verdict": "UNVERIFIED native import closure",
+      "problem": "new13 native contracts originally omitted docs/.gdignore and build/.gdignore and original assets/** preflight native-detection marker.",
+      "fix": "root appended both exact ignore sentinels plus assets/** while retaining assets directory for actual dependency digest. No global preflight,legacy checks or budget changed.",
+      "final_verdict": "ACCEPT static contract restoration; deleting them in actual Godot import was not independently executed."
+    }
+  ],
+  "limitations": [
+    "No visual or audio inspection, no physical device, no native engine or full158-check execution by this reviewer.",
+    "Actual current72 item behavior,synergy completeness/balance and G5 need their own formal execution and independent feature review.",
+    "Region isolated run includes the original implicit Harness-entry and SKILL existence bootstrap; not claimed standalone187-files-only execution.",
+    "Python audit hook records some os.open dirfd-relative cleanup names inaccurately as root-relative; rawtrace is diagnostic only, concrete passing-positive/refusal counterexample is the evidence.",
+    "Historical partial failures remain failures; latest proof does not rewrite their identity."
+  ]
+}

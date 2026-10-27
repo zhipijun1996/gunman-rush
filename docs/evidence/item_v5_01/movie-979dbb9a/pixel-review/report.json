@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/final_review",
+  "source_commit": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+  "content_version": "candidate-v1-item-v5",
+  "verdict": "ACCEPT bounded actually-viewed UI pixels and sampled motion/trace correspondence only",
+  "status": "passed_scoped_pixel_sampling",
+  "movie": "../movie.mp4",
+  "movie_sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+  "fresh_producer_receipt": {
+    "path": "../receipt.json.gz",
+    "head": "979dbb9ab5f04c82f9c605c775a5e92ee14f7141",
+    "development": false,
+    "dirty_paths": [],
+    "status": "captured",
+    "engine_exit_code": 0,
+    "source_stable_flag": true,
+    "actual_source_before_equals_after": true,
+    "frames": 2083,
+    "assertions": 93,
+    "trace_checks": 93,
+    "trace_failures": []
+  },
+  "identity_crosscheck": {
+    "prior_source_commit": "dbf3a1543d007b4b62b5bad10812d55e7bcc6783",
+    "current_file_sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+    "prior_file_sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+    "prior_independent_report_movie_sha256": "18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a",
+    "same_actual_mp4_bytes": true,
+    "meaning": "Current producer independently ran979 and retained its own new run IDs/receipt/trace; MP4 output bytes happen to match the prior DBF capture. This report extracted directly from current archived MP4 and actually viewed the new samples, rather than relabeling prior capture provenance."
+  },
+  "method": [
+    "Read fresh current compressed receipt and trace, compare actual source_before/source_after plus clean979 metadata and93 checks/0 failures. This is review of producer evidence, not a reviewer-native run.",
+    "Compute SHA256 of actual current MP4, actual historical DBF MP4 and old independent motion report; all exactly match18c2d2473a28046551c29994a2f3f87fe928818a20e743d4f5901633a1ee004a.",
+    "Independently extract exact current MP4 frames1514/1848/1860/1880/1895 via ffmpeg, exit0; actually open all five1280x720 PNGs plus current equipped.png using image viewer. No media/source/trace edits.",
+    "Read corresponding current trace frames, native R input events, five primary receipts and actual P24 derived damage events."
+  ],
+  "actually_viewed_observations": [
+    {
+      "file": "../equipped.png",
+      "observed": "Pause/backpack UI has eight visibly cog-shaped filled load cells,8/8 and remaining0, three equipped cards separated from two backpack entries, selected 回环飞轮 detail with3gear/35共鸣/1.4D/2s and current active R/RB. Top overlay explicitly discloses fixed item/training fixture. This is actual presented state, not natural acquisition or device approval."
+    },
+    {
+      "file": "sample-01.png",
+      "mp4_frame": 1514,
+      "observed": "Three small brass/cyan mechanical drones appear above the player. Thin cyan beams visibly connect toward the two high-HP outlined training targets; player silhouette and fixed top-left health remain readable in this sample."
+    },
+    {
+      "files": [
+        "sample-02.png",
+        "sample-03.png",
+        "sample-04.png",
+        "sample-05.png"
+      ],
+      "mp4_frames": [
+        1848,
+        1860,
+        1880,
+        1895
+      ],
+      "observed": "Two separate brass-edged dark discs with cyan center strokes appear on opposite sides of the player, move farther outward in later samples, then approach the player again at1895. Drones retain a separate row above the player. Effect positions do not obscure the fixed health HUD in these observed samples. Frame samples show correspondence and displacement, not continuous animation smoothness."
+    }
+  ],
+  "trace_crosscheck": {
+    "native_R_events": [
+      {
+        "drawn_frame": 1840,
+        "key": "R",
+        "kind": "key",
+        "pressed": true,
+        "video_frame": 1841
+      },
+      {
+        "drawn_frame": 1842,
+        "key": "R",
+        "kind": "key",
+        "pressed": false,
+        "video_frame": 1843
+      }
+    ],
+    "actual_primary_receipt_count": 5,
+    "P24_actual_receipts": [
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_5c970bebf48503d65affa22f433222ab/plains/map_1//P24/run_5c970bebf48503d65affa22f433222ab/plains/map_1//item/2/P24/1/1/outbound/1147259587528/1",
+        "target": "movie_fixture/target0",
+        "video_frame": 1847
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_5c970bebf48503d65affa22f433222ab/plains/map_1//P24/run_5c970bebf48503d65affa22f433222ab/plains/map_1//item/2/P24/1/0/outbound/1147410583193/1",
+        "target": "movie_fixture/target1",
+        "video_frame": 1867
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_5c970bebf48503d65affa22f433222ab/plains/map_1//P24/run_5c970bebf48503d65affa22f433222ab/plains/map_1//item/2/P24/1/0/returning/1147410583193/1",
+        "target": "movie_fixture/target1",
+        "video_frame": 1875
+      },
+      {
+        "damage": 0.402500000000032,
+        "derived": true,
+        "event": "item/run_5c970bebf48503d65affa22f433222ab/plains/map_1//P24/run_5c970bebf48503d65affa22f433222ab/plains/map_1//item/2/P24/1/1/returning/1147259587528/1",
+        "target": "movie_fixture/target0",
+        "video_frame": 1894
+      }
+    ],
+    "P24_total_damage": 1.610000000000128,
+    "resonance_before_R": 35.0,
+    "resonance_at_sampled_motion": 0.0,
+    "source_specificity": "Current trace receipt IDs use run_5c970...; historical DBF trace had a different run prefix. No old trace is presented as current."
+  },
+  "image_selection_note": "Original named opposite_flywheels.png is not used to prove motion; its early screenshot naming was already a known sampling limitation. Exact later MP4 frames above show the discs. Original screenshot kept unchanged.",
+  "limits": [
+    "Did not continuously play all34.883333 seconds at normal speed. Five selected video frames and one UI PNG cannot certify complete animation smoothness, game feel or a natural full route.",
+    "Did not listen to the AAC stream or assess audio mix/synchronization. Metadata is not hearing.",
+    "Known item grants, training platform/high-HP targets/camera are disclosed fixtures, not naturally acquired whole-game build or natural complete combat.",
+    "1280x720 softwareGL/llvmpipe capture is not physical Android/controller/GPU performance evidence.",
+    "No new all72-item visual/fun/balance/G2-G5/user/device acceptance. Independent final30 engineering report remains separate and its bytes were not modified."
+  ],
+  "edits": "Only pixel-review/ report, extraction records and reviewer PNGs; original MP4/producer evidence/independent-review.json/runtime/tests untouched."
+}

@@ -2,11 +2,13 @@
 
 ## 2026-10-27 ITEM-V5-01恢复入口（当前）
 
-用户新任务是实现附件道具V5，03H建议数值已由用户确认。分支feature/item-v5-catalog，main基线879b39e，当前实现未最终冻结，前次PR110已合，不重开或把旧合入授权套给新任务。新任务质量卡ITEM-V5-01/in_progress、[写集与接口](worklines/item_v5_01/scope.md)。所有源／真实失败见build/item_v5各development目录、独审review目录；精选最终证据尚待归档。
+分支`feature/item-v5-catalog`，main基线`879b39eaa869be70cb799dedd1bb6ffc35e0b92f`，冻结运行源`979dbb9ab5f04c82f9c605c775a5e92ee14f7141`。72 件有效道具、16 件同实例成长与9组有效联动已接入正式宝箱／Boss／商店、暂停背包与六个效果家族；21件删除道具不投放。03表H当前建议参数已由用户确认；原表与冲突完整保留。 质量保持review，旧PR110已合且不重开，本新任务不自动合main。
 
-恢复先读build/item_v5/checkpoint.json并检查git status／collaboration，确认没有正在执行的Godot再开native，root单租约。原生产agents分别所有catalog/coreUI/combat/defense/actives/economy文件，root管ItemRuntime/Controller/App/共享能源/文档/Harness；新formal tester只写自己的runner、独审禁止改生产。旧开发fixture保留，新正式启用V5；不能拿模型fixture或旧影片当正式自然通关。
+冻结运行源的选定 30 项原 Harness 全部 fresh 通过（0 复用、0 失败）；这是受影响专项，不是 full161 或远端 CI 全通过。 同运行源连续主游戏影片 93 断言／0 失败，实际退出0且源码稳定；准确时长与媒体参数见捕获收据。 最新证据见[evidence](evidence/item_v5_01/README.md)，逐件行为与缺口见[覆盖矩阵](worklines/item_v5_01/consumer_coverage.md)。原失败、source guard、Manifest／森林回归、原始媒体和明确fixture保留；K2影片不冒称修复后整源证据。
 
-下一步以日志修剩余整合，跑原15武器／core／齿轮等受影响检查；最终源码稳定后技术style-v15／creative-v18版本化重绑实际视觉消费者并独审，保35旧引用与原Bible/像素规格，不只刷新冻结SHA。随后原Harness／真实GL／操作片与准确可玩交付，创建PR，不自动合main。P17基础蓄力选择待用户；G19Boss精英为明确候选。设备、玩家与平衡不由CI代签。
+恢复先读build/item_v5/checkpoint.json、核git status／进程及实际PR精确head。只有具体失败／反馈才继续修改；不重复无关美术生产、不降原预算。相关命令：`python3 tools/harness.py --profile item-v5 --jobs 1`；正式跨区保留原`forest-campaign`检查，完整CI实际状态另核。`python3 tools/check_quality_diff.py --base 879b39eaa869be70cb799dedd1bb6ffc35e0b92f`；`python3 tools/check_release_evidence.py --commit HEAD`。
+
+P17保留未装备的原全速蓄力基线，装备后按表40%／55%／70%运行，基础规则冲突仍待用户选择；G19的Boss计精英为可调候选，未冒称用户确认。S05／S08／S14待重设计，S03／S04／S11／S16因删除道具禁用。实体安卓／手柄、低端性能、平衡、听感、趣味与玩家G5未验。 不以软件GL代签物理设备；网页Preview容量受阻时交付实际可下载MP4并注明来源，不伪造新网页上线。当前录屏见[evidence](evidence/item_v5_01/movie-979dbb9a/movie.mp4)。下一步核本分支关联PR的完整Production impact结果；公开下载在推送后另验，不把本地文件称已发布。
 
 ## 2026-10-26 PR110：最终守门修订与合入恢复
 

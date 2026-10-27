@@ -1,8 +1,12 @@
 # 项目工作规则
 
-## 2026-10-27 道具V5实施（当前）
+## 2026-10-27 道具V5候选交付（当前）
 
-新任务ITEM-V5-01基于已合入main的879b39e，在feature/item-v5-catalog实现附件72有效／21删除／16成长与9有效联动；用户已明确确认03表H当前建议参数为数值来源。当前仍实施／验证，不把旧PR110授权套到本新任务，不自动合main。原XLSX、10表、冲突与来源保留；新正式池与旧开发fixture分开。参见[本轮范围](docs/worklines/item_v5_01/scope.md)及[当前状态](docs/current_state.md)。真实Native单租约由root协调，未获窗口的agents不同时启动Godot。恢复先看build/item_v5/checkpoint.json及agents状态，旧PR110已merged无需再处理。
+ITEM-V5-01基于main879b39e，分支feature/item-v5-catalog，冻结运行源`979dbb9ab5f04c82f9c605c775a5e92ee14f7141`。72 件有效道具、16 件同实例成长与9组有效联动已接入正式宝箱／Boss／商店、暂停背包与六个效果家族；21件删除道具不投放。03表H当前建议参数已由用户确认；原表与冲突完整保留。 冻结运行源的选定 30 项原 Harness 全部 fresh 通过（0 复用、0 失败）；这是受影响专项，不是 full161 或远端 CI 全通过。
+
+Manifest现记录实际装备实例的等级／破损／定义指纹与容量，和BuildState共用重算；它用于地图内容回放，不是完整中途存档。真实失败链、限定测试与影片见[证据](docs/evidence/item_v5_01/README.md)，逐件边界见[矩阵](docs/worklines/item_v5_01/consumer_coverage.md)。P17保留未装备的原全速蓄力基线，装备后按表40%／55%／70%运行，基础规则冲突仍待用户选择；G19的Boss计精英为可调候选，未冒称用户确认。S05／S08／S14待重设计，S03／S04／S11／S16因删除道具禁用。实体安卓／手柄、低端性能、平衡、听感、趣味与玩家G5未验。
+
+质量保持review，PR／发布状态以实际交付记录和GitHub为准；旧PR110已合，不把旧合入授权用于本新任务，不自动合main。恢复先看build/item_v5/checkpoint.json、git status和运行进程，真实Native／GL单租约由root协调。
 
 ## 2026-10-26 PR110 版本与观察守门补齐（当前）
 
