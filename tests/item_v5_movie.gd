@@ -131,6 +131,9 @@ func tap(code: Key) -> void:
 	await frames(4)
 
 func move_pointer(point: Vector2) -> void:
+	# Keyboard skills query the live viewport cursor. A synthetic motion event
+	# alone does not move X11's physical pointer, unlike an actual mouse move.
+	Input.warp_mouse(point)
 	var event: InputEventMouseMotion = InputEventMouseMotion.new()
 	event.position = point
 	event.global_position = point
@@ -437,8 +440,11 @@ func _run() -> void:
 	var hp_before: float = app.controller.actor_resources.health.current
 	var coins_before: int = app.wallet.balance
 	var shots_before: int = shots
-	move_pointer(targets[1].get_global_transform_with_canvas().origin)
+	var active_pointer: Vector2 = targets[1].get_global_transform_with_canvas().origin
+	move_pointer(active_pointer)
 	await frames(2)
+	check(root.get_mouse_position().distance_to(active_pointer)<2.0,"keyboard item active reads the actual pointer placed over the visible target")
+	events.append({"kind":"live_pointer_before_item_active","requested":[active_pointer.x,active_pointer.y],"actual":[root.get_mouse_position().x,root.get_mouse_position().y],"video_frame":frame})
 	set_phase("flywheels","按 R · 一次消耗 35，共鸣飞轮严格向左右两侧发射")
 	key(KEY_R,true)
 	await frames(2)
