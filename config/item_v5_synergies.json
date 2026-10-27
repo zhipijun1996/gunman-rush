@@ -1,0 +1,501 @@
+{
+  "schema_version": 1,
+  "catalog_version": 5,
+  "source": {
+    "archive": "docs/evidence/item_v5_01/source/items-v5-original.xlsx",
+    "sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "original_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "current_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "snapshot": "docs/evidence/item_v5_01/source/workbook-snapshot.json",
+    "worksheet": "05 联动审计",
+    "parameter_authority": "05联动明确机制；冲突数值按用户授权的03H优先",
+    "implementation_acceptance": "unverified",
+    "balance_acceptance": "unverified"
+  },
+  "synergies": {
+    "S01": {
+      "enabled": true,
+      "required_items": [
+        "B18",
+        "P15"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "捕魂音叉使主动技能更易积累共鸣；续鸣装配匣的临时机不得通过副伤再次产共鸣。",
+      "safety_text": "巡钟装置不能因为巡钟装置命中再补共鸣或再孵化",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 6,
+        "cells": {
+          "A": "S01",
+          "B": "B18 + P15",
+          "C": "捕魂音叉 + 续鸣装配匣",
+          "D": "有效但效果需实测",
+          "E": "捕魂音叉使主动技能更易积累共鸣；续鸣装配匣的临时机不得通过副伤再次产共鸣。",
+          "F": "巡钟装置不能因为巡钟装置命中再补共鸣或再孵化",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S02": {
+      "enabled": true,
+      "required_items": [
+        "P14",
+        "B19"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {
+        "max_drones_per_marked_target": 2
+      },
+      "parameter_sources": {
+        "max_drones_per_marked_target": "05 联动审计!F7"
+      },
+      "mechanism_text": "游钟机群优先锁定梦读铭片的合法4秒钩索标记；每台机体保留单独目标锁。",
+      "safety_text": "每个目标最多2只巡钟装置锁定；副伤不重复产能量",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 7,
+        "cells": {
+          "A": "S02",
+          "B": "P14 + B19",
+          "C": "游钟机群 + 梦读铭片",
+          "D": "有效但效果需实测",
+          "E": "游钟机群优先锁定梦读铭片的合法4秒钩索标记；每台机体保留单独目标锁。",
+          "F": "每个目标最多2只巡钟装置锁定；副伤不重复产能量",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S03": {
+      "enabled": false,
+      "required_items": [
+        "P07",
+        "P10"
+      ],
+      "status": "disabled_deleted_item",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "原配方已失效；不放入正式联动池。涉及删除ID：P07",
+      "safety_text": "一发6分弹只生成一团；怪物DOT去重",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 8,
+        "cells": {
+          "A": "S03",
+          "B": "P07 + P10",
+          "C": "已删除道具 + 腐蚀尾铃",
+          "D": "失效：涉及已删除道具",
+          "E": "原配方已失效；不放入正式联动池。涉及删除ID：P07",
+          "F": "一发6分弹只生成一团；怪物DOT去重",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S04": {
+      "enabled": false,
+      "required_items": [
+        "P11",
+        "P10"
+      ],
+      "status": "disabled_deleted_item",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "原配方已失效；不放入正式联动池。涉及删除ID：P11",
+      "safety_text": "不会无限复制DOT实体，同敌总DOT上限不变",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 9,
+        "cells": {
+          "A": "S04",
+          "B": "P11 + P10",
+          "C": "已删除道具 + 腐蚀尾铃",
+          "D": "失效：涉及已删除道具",
+          "E": "原配方已失效；不放入正式联动池。涉及删除ID：P11",
+          "F": "不会无限复制DOT实体，同敌总DOT上限不变",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S05": {
+      "enabled": false,
+      "required_items": [
+        "P05",
+        "P06"
+      ],
+      "status": "pending_redesign",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "满血时0%时间停止、低血时+35%伤害不能同时触发；原‘变光刃’配方失效，待设计新共鸣。",
+      "safety_text": "同一HP状态只出一种波；内CD保留2秒",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 10,
+        "cells": {
+          "A": "S05",
+          "B": "P05 + P06",
+          "C": "末息轮芯 + 满月枪歌",
+          "D": "待重设计",
+          "E": "满血时0%时间停止、低血时+35%伤害不能同时触发；原‘变光刃’配方失效，待设计新共鸣。",
+          "F": "同一HP状态只出一种波；内CD保留2秒",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S06": {
+      "enabled": true,
+      "required_items": [
+        "P12",
+        "G01"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "反冲引爆：尾迹擦过带奇点印记的敌人也可引爆印记",
+      "safety_text": "引爆共用原目标6秒冷却；不增反冲距离",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 11,
+        "cells": {
+          "A": "S06",
+          "B": "P12 + G01",
+          "C": "刃影回纹 + 微核回响",
+          "D": "有效但效果需实测",
+          "E": "反冲引爆：尾迹擦过带奇点印记的敌人也可引爆印记",
+          "F": "引爆共用原目标6秒冷却；不增反冲距离",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S07": {
+      "enabled": true,
+      "required_items": [
+        "B16",
+        "B01"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "贪婪回巢：额外产出的金币先沿弧线盘旋再磁吸归来",
+      "safety_text": "仅改变已成立金币拾取的表现，不复制金币；本图额外金币预算继续由B16唯一参数决定",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 12,
+        "cells": {
+          "A": "S07",
+          "B": "B16 + B01",
+          "C": "裂纹钱袋 + 拾铃磁盘",
+          "D": "有效但效果需实测",
+          "E": "贪婪回巢：额外产出的金币先沿弧线盘旋再磁吸归来",
+          "F": "只是视觉+拾取方式，不可复制金币；总量16",
+          "G": "P1",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S08": {
+      "enabled": false,
+      "required_items": [
+        "G06",
+        "P29"
+      ],
+      "status": "pending_redesign",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "千鸣钟冠和雷丝引线均为命中连锁；同攻击包只能各触发一次，避免电链相互递归。",
+      "safety_text": "最多3副伤目标；电链不递归",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 13,
+        "cells": {
+          "A": "S08",
+          "B": "G06 + P29",
+          "C": "千鸣钟冠 + 雷丝引线",
+          "D": "待重设计",
+          "E": "千鸣钟冠和雷丝引线均为命中连锁；同攻击包只能各触发一次，避免电链相互递归。",
+          "F": "最多3副伤目标；电链不递归",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S09": {
+      "enabled": true,
+      "required_items": [
+        "P16",
+        "B13"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {
+        "intercept_cooldown_multiplier": 0.9
+      },
+      "parameter_sources": {
+        "intercept_cooldown_multiplier": "05 联动审计!E14"
+      },
+      "mechanism_text": "晨盾：有地图护盾时梦盾外观扩大，拦截CD-10%",
+      "safety_text": "不多加无敌/护盾；按同一map防刷",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 14,
+        "cells": {
+          "A": "S09",
+          "B": "P16 + B13",
+          "C": "循时梦盾 + 晨露护片",
+          "D": "有效但效果需实测",
+          "E": "晨盾：有地图护盾时梦盾外观扩大，拦截CD-10%",
+          "F": "不多加无敌/护盾；按同一map防刷",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S10": {
+      "enabled": true,
+      "required_items": [
+        "G07",
+        "P02"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {
+        "recovery_threshold": 5,
+        "skill_cost_credit": 5
+      },
+      "parameter_sources": {
+        "recovery_threshold": "05 联动审计!E15",
+        "skill_cost_credit": "05 联动审计!E15"
+      },
+      "mechanism_text": "节拍节制：脱战每图首次回收5点共鸣，额外蓄成下一次主动技能的5点耗能抵扣并显示钟摆提示",
+      "safety_text": "下次主动技能共鸣实际消耗最多额外省5，回收总额20不提升，不能在暂停刷",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 15,
+        "cells": {
+          "A": "S10",
+          "B": "G07 + P02",
+          "C": "王钟残辉 + 共鸣整流器",
+          "D": "有效但效果需实测",
+          "E": "节拍节制：脱战每图首次回收5点共鸣，额外蓄成下一次主动技能的5点耗能抵扣并显示钟摆提示",
+          "F": "下次主动技能共鸣实际消耗最多额外省5，回收总额20不提升，不能在暂停刷",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S11": {
+      "enabled": false,
+      "required_items": [
+        "G13",
+        "P39"
+      ],
+      "status": "disabled_deleted_item",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "原配方已失效；不放入正式联动池。涉及删除ID：G13",
+      "safety_text": "不使用未到账掉落作为消费；经济日志稳定",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 16,
+        "cells": {
+          "A": "S11",
+          "B": "G13 + P39",
+          "C": "已删除道具 + 盗贼旧誓",
+          "D": "失效：涉及已删除道具",
+          "E": "原配方已失效；不放入正式联动池。涉及删除ID：G13",
+          "F": "不使用未到账掉落作为消费；经济日志稳定",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S12": {
+      "enabled": true,
+      "required_items": [
+        "G19",
+        "G08"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "成长型灰铃侍钟机优先攻击空白钟芯指定的标记目标；精英成长须有独立账本。",
+      "safety_text": "最多2次升级；卸装不刷成长",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 17,
+        "cells": {
+          "A": "S12",
+          "B": "G19 + G08",
+          "C": "灰铃侍钟机 + 空白钟芯",
+          "D": "有效但效果需实测",
+          "E": "成长型灰铃侍钟机优先攻击空白钟芯指定的标记目标；精英成长须有独立账本。",
+          "F": "最多2次升级；卸装不刷成长",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S13": {
+      "enabled": true,
+      "required_items": [
+        "P24",
+        "G15"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {
+        "total_damage_budget_multiplier": 1.15
+      },
+      "parameter_sources": {
+        "total_damage_budget_multiplier": "03 数值参数!H199"
+      },
+      "mechanism_text": "双向时轮：同一次施放出现两枚相反轨迹的飞轮",
+      "safety_text": "总伤害预算×1.15、共享同一技能冷却和一次共鸣扣除",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 18,
+        "cells": {
+          "A": "S13",
+          "B": "P24 + G15",
+          "C": "回环飞轮 + 双响投架",
+          "D": "有效但效果需实测",
+          "E": "双向时轮：同一次施放出现两枚相反轨迹的飞轮",
+          "F": "总伤害仅×1.2、同一技能CD，不额外扣共鸣",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S14": {
+      "enabled": false,
+      "required_items": [
+        "B22",
+        "P25"
+      ],
+      "status": "pending_redesign",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "扩震钟环当前只作用炸弹武器爆炸，落地针雷是否认定为炸弹族需要配置化并单独验收。",
+      "safety_text": "针雷必须真地表合法放置，不能被磁雷搬走",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 19,
+        "cells": {
+          "A": "S14",
+          "B": "B22 + P25",
+          "C": "扩震钟环 + 落地针雷",
+          "D": "待重设计",
+          "E": "扩震钟环当前只作用炸弹武器爆炸，落地针雷是否认定为炸弹族需要配置化并单独验收。",
+          "F": "针雷必须真地表合法放置，不能被磁雷搬走",
+          "G": "P3",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S15": {
+      "enabled": true,
+      "required_items": [
+        "B17",
+        "B14"
+      ],
+      "status": "enabled_unverified",
+      "parameters": {
+        "once_per_owned_instance": true,
+        "after_repair_retrigger": false
+      },
+      "parameter_sources": {
+        "once_per_owned_instance": "05 联动审计!F20",
+        "after_repair_retrigger": "05 联动审计!F20"
+      },
+      "mechanism_text": "裂纹强击栓第三次受伤破碎时附加一次明确铃音；额外战斗共鸣需去重且死亡优先。",
+      "safety_text": "每件拥有实例整个本局仅一次；修好后不再给",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 20,
+        "cells": {
+          "A": "S15",
+          "B": "B17 + B14",
+          "C": "裂纹强击栓 + 苦痛铃歌",
+          "D": "有效但效果需实测",
+          "E": "裂纹强击栓第三次受伤破碎时附加一次明确铃音；额外战斗共鸣需去重且死亡优先。",
+          "F": "每件拥有实例整个本局仅一次；修好后不再给",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    },
+    "S16": {
+      "enabled": false,
+      "required_items": [
+        "B25",
+        "G01"
+      ],
+      "status": "disabled_deleted_item",
+      "parameters": {},
+      "parameter_sources": {},
+      "mechanism_text": "原配方已失效；不放入正式联动池。涉及删除ID：B25",
+      "safety_text": "仍须后续不同attack_id才能引爆；同目标冷却不变",
+      "source": {
+        "worksheet": "05 联动审计",
+        "row": 21,
+        "cells": {
+          "A": "S16",
+          "B": "B25 + G01",
+          "C": "已删除道具 + 微核回响",
+          "D": "失效：涉及已删除道具",
+          "E": "原配方已失效；不放入正式联动池。涉及删除ID：B25",
+          "F": "仍须后续不同attack_id才能引爆；同目标冷却不变",
+          "G": "P2",
+          "H": "联动输入独立按攻击包/地图实例去重，未经过实战验收",
+          "I": "V4 16组历史联动"
+        }
+      }
+    }
+  },
+  "counts": {
+    "enabled": 9,
+    "pending_redesign": 3,
+    "disabled_deleted_item": 4
+  },
+  "implementation_candidates": [
+    {
+      "synergy_id": "S09",
+      "parameter": "visual_scale_multiplier",
+      "value": null,
+      "status": "unspecified_by_workbook",
+      "scope": "仅外观扩大；具体倍率由实施候选配置确定，不改碰撞或拦截半径，不冒称用户数值"
+    }
+  ],
+  "conflicts": [
+    {
+      "synergy_id": "S13",
+      "source_cell": "05 联动审计!F18",
+      "original_text": "总伤害仅×1.2、同一技能CD，不额外扣共鸣",
+      "resolution": "总预算采用用户授权的G15原子H值；不叠乘旧1.2联动"
+    },
+    {
+      "synergy_id": "S07",
+      "source_cell": "05 联动审计!F12",
+      "original_text": "只是视觉+拾取方式，不可复制金币；总量16",
+      "resolution": "原16与当前B16每次1金币／前8次冲突，联动不改变当前B16预算"
+    }
+  ]
+}

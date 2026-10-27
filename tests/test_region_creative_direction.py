@@ -60,6 +60,32 @@ class CreativeTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(path,region)
 
+        # Preserve exact previous direction and registry bytes, then refuse their
+        # old binding under the new authority; never refresh historical SHA.
+        previous = {
+            'registry':'5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8',
+            'windchime_plains':'ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849',
+            'thorn_forest':'4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8',
+        }
+        for name,digest in previous.items():
+            path = 'docs/creative_direction/archive/creative-v17/'+name+'.json'
+            old_raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(old_raw).hexdigest(),digest)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in json.loads(old_raw).items() if k!='shared_style_authority'})
+                continue
+            old = json.loads(old_raw)
+            self.assertEqual(old['version'],'creative-v17')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]
@@ -109,7 +135,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v17')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v18')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

@@ -1,0 +1,67 @@
+{
+	"assertions": 42,
+	"failures": 0,
+	"observations": [
+		{
+			"case": "G14 physical cast through real ItemRuntime",
+			"damage_D": 1.0,
+			"energy": 55.0,
+			"first_hp": 98.7,
+			"has_G14_chain": false,
+			"second_hp": 99.65,
+			"third_hp": 99.65
+		},
+		{
+			"case": "S13 actual entity direction vectors",
+			"direction_a": [
+				1.0,
+				0.0
+			],
+			"direction_b": [
+				-1.0,
+				0.0
+			],
+			"dot": -1.0
+		},
+		{
+			"ascending_ids": [
+				270314506727,
+				270448724143,
+				270582942014,
+				270717159607,
+				270851377338
+			],
+			"case": "actual ItemRuntime targets equal-distance order",
+			"ids": [
+				270314506727,
+				270448724143,
+				270582942014,
+				270717159607,
+				270851377338
+			]
+		},
+		{
+			"case": "real pending lethal blocks paused equipment",
+			"fatal_results": 1,
+			"hp_after_commit": 0.0,
+			"hp_before": 5.0,
+			"session_before": 5
+		},
+		{
+			"case": "actual formal merchant with accepted pending lethal request",
+			"coins_after": 500,
+			"coins_before": 500,
+			"gui_button_found": true,
+			"hp_before_commit": 5.0,
+			"run_active_after_commit": false
+		}
+	],
+	"scope": "explicit native integration fixtures, no natural-route/player/device endorsement",
+	"sources": {
+		"res://scripts/combat/weapon_action_runtime.gd": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+		"res://scripts/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+		"res://scripts/items/v5/item_active_effects.gd": "198daa3272a7d28ace53efb5731b51cfcd84b972db2e4a08f9c49fbf60e4d2ac",
+		"res://scripts/items/v5/item_runtime.gd": "0d5188d69953907b237e2a5e4d1b1517dd8edd429d2018ffaa5aa3067ddf9134",
+		"res://tests/item_v5_review_runner.gd": "8c8d30c64cebe35dea990db9e1722d9ad6c34f2a0e2c8329e3ce4a50264c7588"
+	}
+}

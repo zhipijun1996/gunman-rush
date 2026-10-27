@@ -1,0 +1,369 @@
+{
+  "task_id": "ITEM-V5-01",
+  "kind": "unpublished_candidate_originals_before_tooltip_rng_correction",
+  "created_at_utc": "2026-10-27T20:20:42.892443+00:00",
+  "base_main": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "style_version": "15",
+  "creative_version": "creative-v18",
+  "status": "superseded_unpublished_candidate_not_final_acceptance",
+  "style_sha256": "af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6",
+  "references": [
+    {
+      "role": "formal_entry",
+      "path": "scripts/demo/plains_region_stage.gd",
+      "sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6"
+    },
+    {
+      "role": "terrain_consumer",
+      "path": "scripts/art/plains_terrain_study.gd",
+      "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+    },
+    {
+      "role": "terrain_renderer",
+      "path": "scripts/underworld_plains/underworld_terrain.gd",
+      "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f"
+    },
+    {
+      "role": "material_shader",
+      "path": "shaders/formal_fine_boundary.gdshader",
+      "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2"
+    },
+    {
+      "role": "tile_build",
+      "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+      "sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+    },
+    {
+      "role": "tileset",
+      "path": "assets/underworld_plains/terrain/fine_32/terrain.tres",
+      "sha256": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9"
+    },
+    {
+      "role": "atlas",
+      "path": "assets/underworld_plains/terrain/fine_32/terrain.png",
+      "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+    },
+    {
+      "role": "source_pixels",
+      "path": "assets/underworld_plains/terrain/fine_32/source.png",
+      "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431"
+    },
+    {
+      "role": "adjacency",
+      "path": "scripts/art_foundation/blob47_rules.gd",
+      "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+    },
+    {
+      "role": "boundary",
+      "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+      "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+    },
+    {
+      "role": "boundary_sides",
+      "path": "scripts/art/plains_terrain_borders.gd",
+      "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34"
+    },
+    {
+      "role": "license",
+      "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+      "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+    },
+    {
+      "role": "player_style_reference",
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127"
+    },
+    {
+      "role": "player_animation_build",
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3"
+    },
+    {
+      "role": "player_run_pixels",
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+    },
+    {
+      "role": "player_state_pixels",
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+    },
+    {
+      "role": "core_material",
+      "path": "shaders/formal_fine_lit.gdshader",
+      "sha256": "26c22d0245301c575256ee94590f3d39819f1ea0fa25537cc98df28f5181ff39"
+    },
+    {
+      "role": "world_presentation",
+      "path": "scripts/underworld_plains/underworld_presentation.gd",
+      "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+    },
+    {
+      "role": "sprite_grid",
+      "path": "shaders/underworld_fine_sprite.gdshader",
+      "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+    },
+    {
+      "role": "fine_source_provenance",
+      "path": "assets/authored_terrain_study/provenance.json",
+      "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a"
+    },
+    {
+      "role": "default_player_1",
+      "path": "scripts/art/player_presentation_runtime.gd",
+      "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91"
+    },
+    {
+      "role": "default_player_2",
+      "path": "scripts/art/avatar_presentation.gd",
+      "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437"
+    },
+    {
+      "role": "default_player_3",
+      "path": "resources/art/avatars.json",
+      "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65"
+    },
+    {
+      "role": "default_player_4",
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "5a150a3794fdb061327174710ebbc5e0c77077208f902a9ac8ecc6336117c9e5"
+    },
+    {
+      "role": "default_player_5",
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "1d4b1aed7b479258268e23bd095f45092d708259e34293aadc0dbc0448a8d5e1"
+    },
+    {
+      "role": "default_player_6",
+      "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+      "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+    },
+    {
+      "role": "default_player_7",
+      "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+      "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+    },
+    {
+      "role": "default_player_8",
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+    },
+    {
+      "role": "default_player_9",
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+    },
+    {
+      "role": "default_player_10",
+      "path": "resources/player_presentation_01/motion_v1.tres",
+      "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+    },
+    {
+      "role": "default_player_11",
+      "path": "resources/player_presentation_01/motion_clip_data.gd",
+      "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+    },
+    {
+      "role": "default_player_12",
+      "path": "resources/player_presentation_01/landing_screen.gdshader",
+      "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+    },
+    {
+      "role": "default_player_13",
+      "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+      "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+    },
+    {
+      "role": "default_player_14",
+      "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+      "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+    },
+    {
+      "role": "default_player_15",
+      "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+      "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+    },
+    {
+      "role": "default_player_16",
+      "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+      "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+    },
+    {
+      "role": "item_feedback_view",
+      "path": "scripts/items/v5/item_effect_view.gd",
+      "sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802"
+    },
+    {
+      "role": "item_feedback_config",
+      "path": "config/item_v5_feedback.json",
+      "sha256": "d8652bb319fa19555c98c82cd2b812e36ab4bd34422f2ccdd747fdbd77f406ba"
+    },
+    {
+      "role": "item_entity_view",
+      "path": "scripts/items/v5/item_v5_entity.gd",
+      "sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3"
+    },
+    {
+      "role": "item_entity_config",
+      "path": "config/item_v5_entities.json",
+      "sha256": "22202b101e0488b15551121b5982380078184be52c121ea0b76f03eea178fa29"
+    },
+    {
+      "role": "item_defense_glyphs",
+      "path": "scripts/items/v5/item_defense_effects.gd",
+      "sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40"
+    },
+    {
+      "role": "item_defense_visual_config",
+      "path": "config/item_v5_defense.json",
+      "sha256": "00a631f71797c6a0371012ba9eaad2a49265dc1e8d06174464519a2cf4279cc0"
+    },
+    {
+      "role": "item_resource_hud",
+      "path": "scripts/ui/actor_resources_hud.gd",
+      "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721"
+    },
+    {
+      "role": "item_pause_menu",
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256": "af9980d9cc7e01a63c50f1cfd0dbc9d8975c7b0d964339c4a980e692e243e36b"
+    },
+    {
+      "role": "item_description",
+      "path": "scripts/ui/item_presentation.gd",
+      "sha256": "fdcb60b2ed253967191b239f5aace06e270b0fe4443363a2c43e3d8b42eae424"
+    },
+    {
+      "role": "item_card",
+      "path": "scripts/ui/item_card.gd",
+      "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+    },
+    {
+      "role": "item_toast",
+      "path": "scripts/ui/item_acquired_toast.gd",
+      "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b"
+    },
+    {
+      "role": "item_shop_modal",
+      "path": "scripts/ui/item_shop_modal.gd",
+      "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+    },
+    {
+      "role": "item_reward_modal",
+      "path": "scripts/ui/stage_reward_modal.gd",
+      "sha256": "ba621c113362cffe13c0fa81941d1797e5f0e35c71c3d9309378047aa3b9e5fa"
+    },
+    {
+      "role": "item_touch_control",
+      "path": "scripts/ui/touch_overlay.gd",
+      "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f"
+    },
+    {
+      "role": "item_shop_presenter",
+      "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+      "sha256": "4014bc9c5c01b0d41b09189ba23be8973f93984dc5261d158d6a8f176bd392f5"
+    },
+    {
+      "role": "item_weapon_runtime",
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160"
+    },
+    {
+      "role": "item_weapon_feel",
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4"
+    },
+    {
+      "role": "item_weapon_vfx",
+      "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+      "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+    }
+  ],
+  "files": [
+    {
+      "path": "style-continuity-20261027-v15-item-v5.json",
+      "original_path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+      "sha256": "af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6",
+      "bytes": 25179
+    },
+    {
+      "path": "registry.json",
+      "original_path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "002376f5bd4e4f8e0f299d35c1fb98dab30cd0f5cd6e6f5fb7e67923a6ed2ed5",
+      "bytes": 2947
+    },
+    {
+      "path": "windchime_plains.json",
+      "original_path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "8a8e5b26cdb6223610fb5a4194358fc8fc4bab19e781cddd70d30cec5089b37b",
+      "bytes": 11560
+    },
+    {
+      "path": "thorn_forest.json",
+      "original_path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "00e895091a518eb1e3f71c2f40267c809eea740188b018b7a161aca03322f622",
+      "bytes": 13494
+    },
+    {
+      "path": "historical-h/author-tests.json",
+      "original_path": "build/item_v5/style-binding/post-audit/author-tests.json",
+      "sha256": "3655a5210f18981d94249f134f7db597c2af19ab684fe9b18f47ea8127288da1",
+      "bytes": 697
+    },
+    {
+      "path": "historical-h/summary.json",
+      "original_path": "build/item_v5/style-binding/post-audit/summary.json",
+      "sha256": "af8ab096b59a2542a86ae528c8c7442ea78a35159d5d6b43ae0a346a18e35bc7",
+      "bytes": 14708
+    },
+    {
+      "path": "historical-h/harness.log",
+      "original_path": "build/item_v5/style-binding/post-audit/harness.log",
+      "sha256": "1f63ac465b627ad1674f0fd5184ea6159d91c06112851206a036f241fa16787d",
+      "bytes": 815
+    },
+    {
+      "path": "historical-h/bible32.log",
+      "original_path": "build/item_v5/style-binding/post-audit/bible32.log",
+      "sha256": "0b56fd716a8598389865e4db5f71aa96c9652b9ff86c7f462edbb495f3e1ff6a",
+      "bytes": 131
+    },
+    {
+      "path": "historical-h/creative10.log",
+      "original_path": "build/item_v5/style-binding/post-audit/creative10.log",
+      "sha256": "312d77840923118d8a19ee17454b5855b0c276ed42146c8d8cf27ddce6a6f0c3",
+      "bytes": 109
+    },
+    {
+      "path": "historical-h/harness/report.json",
+      "original_path": "build/verification/harness/20261027T200723.133353Z/report.json",
+      "sha256": "1f2dc885ee5432f976fc0b740872681b9778a18c0c502ee6c9b0b5bbf8bc7294",
+      "bytes": 291330
+    },
+    {
+      "path": "historical-h/harness/region-bible-tests.log",
+      "original_path": "build/verification/harness/20261027T200723.133353Z/region-bible-tests.log",
+      "sha256": "fbc35a7af0a5116380ce8a857808461cfa599e3fd148ff841821c964085b4dde",
+      "bytes": 131
+    },
+    {
+      "path": "historical-h/harness/creative-direction-tests.log",
+      "original_path": "build/verification/harness/20261027T200723.133353Z/creative-direction-tests.log",
+      "sha256": "41cfb03003b8f480ac0b87bdc5f3a47b33086ac8f5ea4d6493b3c07f9baa181b",
+      "bytes": 109
+    },
+    {
+      "path": "historical-h/harness/region-bible-contract.log",
+      "original_path": "build/verification/harness/20261027T200723.133353Z/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "bytes": 110
+    },
+    {
+      "path": "historical-h/harness/creative-direction.log",
+      "original_path": "build/verification/harness/20261027T200723.133353Z/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "bytes": 85
+    }
+  ],
+  "scope": "Exact original active candidate style, directions, registry and original H author/Harness evidence copied verbatim. Old PASS retains its old source; no re-signing tooltip/RNG fixes, visual/user/device or complete sparse runtime closure."
+}

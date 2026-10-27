@@ -8,12 +8,13 @@ var _footer: Label
 var _shell: DemoUiModalShell
 var _options: GridContainer
 var _submitted := false
+var _generation := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 30
 
-func show_offer(offer: RewardOffer, next_label: String) -> void:
+func show_offer(offer: RewardOffer, next_label: String, level_by_id: Dictionary = {}) -> void:
 	close()
 	opened = true
 	_submitted = false
@@ -23,6 +24,7 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	_shell.cancelable = false
 	_root = _shell
 	add_child(_root)
+	var generation := _generation
 	_shell.heading("GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD / 选择一件奖励", "一次选择。道具先入背包，在暂停构筑中装备生效。", "余音  /  A MOMENT TO CHOOSE")
 	_options = GridContainer.new()
 	_options.add_theme_constant_override("h_separation", 18)
@@ -32,9 +34,11 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	for item: ItemDefinition in offer.candidates:
 		var card := ItemCard.new()
 		card.item = item
+		card.level = clampi(int(level_by_id.get(item.stable_id,level_by_id.get(String(item.stable_id),1))),1,item.max_level)
 		card.selectable = true
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		card.selected.connect(_select)
+		card.selected.connect(func(id: StringName) -> void:
+			if opened and generation == _generation: _select(id))
 		_options.add_child(card)
 		for button: Node in card.find_children("*", "Button", true, false):
 			(button as Button).custom_minimum_size.y = 54
@@ -51,7 +55,7 @@ func _fit_options() -> void:
 	_options.columns = 2 if physical_width >= 720 else 1
 
 func _select(id: StringName) -> void:
-	if _submitted: return
+	if not opened or _submitted: return
 	_submitted = true
 	item_selected.emit(id)
 
@@ -62,6 +66,7 @@ func show_error(message: String) -> void:
 		_footer.add_theme_color_override("font_color", DemoClockworkTheme.CORAL)
 
 func close() -> void:
+	_generation += 1
 	opened = false
 	if is_instance_valid(_root):
 		if is_instance_valid(_shell): _shell.restore_focus()

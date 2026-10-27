@@ -33,6 +33,8 @@ signal build_opened
 signal build_closed
 signal equipment_requested(instance_ids: Array[StringName], revision: int, session: int)
 signal gear_upgrade_requested(revision: int, session: int)
+signal equipment_active_selected(instance_id: StringName, revision: int, session: int)
+signal equipment_repair_requested(instance_id: StringName, quote_version: int, revision: int, session: int)
 
 const INK := DemoClockworkTheme.INK
 const CARD := DemoClockworkTheme.PANEL
@@ -736,6 +738,10 @@ func _equipment_icon(parent: Node, entry: Dictionary) -> void:
 	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 	button.add_theme_constant_override("icon_max_width", 52)
 	button.tooltip_text = "%s · %s齿轮" % [definition.display_name, definition.gear_cost]
+	if definition.catalog_version >= 5: button.tooltip_text += " · Lv%s" % int(entry.get("level",1))
+	if bool(entry.get("broken",false)):
+		button.tooltip_text += " · 已损坏"
+		button.modulate = Color(.68,.62,.57)
 	button.toggle_mode = true
 	button.focus_entered.connect(func() -> void: _select_equipment(id))
 	var cost := Label.new()
@@ -750,6 +756,17 @@ func _equipment_icon(parent: Node, entry: Dictionary) -> void:
 	cost.add_theme_constant_override("outline_size", 4)
 	cost.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(cost)
+	if definition.catalog_version >= 5:
+		var level_badge := Label.new()
+		level_badge.name = "ItemLevelBadge"
+		level_badge.text = "Lv%s" % int(entry.get("level",1))
+		level_badge.position = Vector2(5,3)
+		level_badge.add_theme_font_size_override("font_size",12)
+		level_badge.add_theme_color_override("font_color",TEXT)
+		level_badge.add_theme_color_override("font_outline_color",INK)
+		level_badge.add_theme_constant_override("outline_size",3)
+		level_badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(level_badge)
 	_inventory_tiles.append(button)
 	_style_inventory_tile(button)
 
@@ -795,10 +812,15 @@ func _render_equipment_detail() -> void:
 			break
 	var definition := selected.get("definition") as ItemDefinition
 	if definition != null:
+		var level := int(selected.get("level",1))
+		var broken := bool(selected.get("broken",false))
 		var item_title := _label(_equipment_detail, definition.display_name, 26, TEXT)
 		item_title.name = "SelectedItemName"
 		var badge := _label(_equipment_detail, "%s  ·  %s 齿轮" % [["普通", "稀有", "顶级"][definition.rarity], definition.gear_cost], 17, _rarity_color(definition))
 		badge.name = "SelectedItemCost"
+		if definition.catalog_version >= 5:
+			var level_text := _label(_equipment_detail,"Lv%s / Lv%s%s" % [level,int(selected.get("max_level",definition.max_level))," · 同名重复获得可升级，负荷不增加" if level < definition.max_level else " · 已达最高等级"],15,MUTED)
+			level_text.name = "SelectedItemLevel"
 		var image := TextureRect.new()
 		image.name = "SelectedItemIcon"
 		image.texture = ItemPresentation.icon(definition.icon_key)
@@ -807,8 +829,12 @@ func _render_equipment_detail() -> void:
 		image.custom_minimum_size = Vector2(0, 90)
 		image.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_equipment_detail.add_child(image)
-		if not definition.description.is_empty(): _label(_equipment_detail, definition.description, 17, TEXT)
-		var effects := _label(_equipment_detail, ItemPresentation.effects(definition), 17, TEAL)
+		if definition.catalog_version < 5 and not definition.description.is_empty(): _label(_equipment_detail, definition.description, 17, TEXT)
+		if broken:
+			var broken_text := _label(_equipment_detail,"已损坏 · 当前不产生效果，仍占用装备负荷。",17,GOLD)
+			broken_text.name = "SelectedItemBroken"
+		var effect_state: Dictionary = selected.get("effect_state",{})
+		var effects := _label(_equipment_detail, ("修复后的效果：\n" if broken else "")+ItemPresentation.effects(definition,level,effect_state), 17, MUTED if broken else TEAL)
 		effects.name = "SelectedItemEffects"
 		var equipped := bool(selected.get("equipped", false))
 		var id := _selected_instance_id
@@ -816,6 +842,10 @@ func _render_equipment_detail() -> void:
 		action.name = "UnequipItem" if equipped else "EquipItem"
 		action.set_meta(&"focus_key", ("unequip:" if equipped else "equip:") + str(id))
 		action.theme_type_variation = &"PrimaryButton"
+		var locked := equipped and (bool(selected.get("locked",false)) or bool(definition.parameters_for_level(level).get("locked_until_run_end",false)))
+		if locked:
+			action.disabled = true
+			_label(_equipment_detail,"本局已锁定，结束本局后解除。",15,GOLD)
 		if equipped:
 			var replace := _detail_equipment_button(_equipment_detail, "取消替换对象" if _replacement_id == id else "选为替换对象", func() -> void:
 				_replacement_id = &"" if _replacement_id == id else id
@@ -824,6 +854,23 @@ func _render_equipment_detail() -> void:
 				_focus_first())
 			replace.name = "SelectReplacement"
 			replace.set_meta(&"focus_key", "replace:" + str(id))
+			replace.disabled = locked
+		if equipped and bool(selected.get("active_capable",false)):
+			var active_selected := bool(selected.get("active_selected",false))
+			var active_button := _detail_equipment_button(_equipment_detail,"当前主动道具 · R / RB" if active_selected else "设为当前主动道具",func() -> void:
+				equipment_active_selected.emit(id,int(_equipment_view.get("revision",0)),int(_equipment_view.get("session",0))))
+			active_button.name = "SelectActiveItem"
+			active_button.disabled = active_selected or broken
+			active_button.set_meta(&"focus_key","active:"+str(id))
+		if broken:
+			var quote: Dictionary = selected.get("repair_quote",{})
+			if not quote.is_empty():
+				var quote_version := int(quote.get("quote_version",0))
+				var repair := _detail_equipment_button(_equipment_detail,"商店修复 · %s 金币" % int(quote.get("price",0)),func() -> void:
+					equipment_repair_requested.emit(id,quote_version,int(_equipment_view.get("revision",0)),int(_equipment_view.get("session",0))))
+				repair.name = "RepairSelectedItem"
+				repair.disabled = not bool(quote.get("available",false))
+				if repair.disabled: _label(_equipment_detail,ItemPresentation.reason(quote.get("reason",""),"请到商店修复。"),14,MUTED)
 		var reason := str(selected.get("reason", ""))
 		if not equipped and not reason.is_empty() and _replacement_id.is_empty():
 			var denial := _label(_equipment_detail, reason, 16, GOLD)
@@ -1274,6 +1321,9 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventScreenTouch or event is InputEventScreenDrag: _menu_device = &"touch"
 	elif event is InputEventKey or (event is InputEventMouseButton and event.device != InputEvent.DEVICE_ID_EMULATION): _menu_device = &"keyboard_mouse"
 	_update_device_hint()
+	# Handle cancellation before native GUI tooltips consume Escape. Otherwise
+	# hovering an inventory tile makes the first press only dismiss its tooltip.
+	if _handle_cancel_input(event): return
 	if _in_run and visible_panel in PAUSE_PAGES:
 		var direction := 0
 		if event is InputEventKey and event.pressed and not event.echo:
@@ -1421,16 +1471,19 @@ func _finish_focus_scroll(generation: int, target_ref: WeakRef, wanted: String) 
 				ancestor = ancestor.get_parent()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible_panel.is_empty():
-		return
-	if event.is_action_pressed("ui_cancel"):
+	_handle_cancel_input(event)
+
+func _handle_cancel_input(event: InputEvent) -> bool:
+	if not visible_panel.is_empty() and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
 		if visible_panel in [&"build", &"pause", &"confirm_home"]:
 			close_panel()
 		elif visible_panel in [&"home_function", &"run_end"] or (visible_panel == &"home" and _home_overlay):
 			_close_home_overlay()
 		elif visible_panel != &"home" and visible_panel != &"title":
 			_back()
-		get_viewport().set_input_as_handled()
+		return true
+	return false
 
 func _make_theme() -> Theme:
 	return create_theme()

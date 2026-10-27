@@ -69,11 +69,11 @@ func _physics_process(_delta: float) -> void:
 	if not _was_touching:
 		_exposure += 1
 		_pulse = 0
-		_next_pulse = policy.clock
+		_next_pulse = policy.player_clock()
 	_was_touching = true
-	if policy.clock < _next_pulse:
+	if policy.player_clock() < _next_pulse:
 		return
-	_next_pulse = policy.clock + maxf(interval, 0.01)
+	_next_pulse = policy.player_clock() + maxf(interval, 0.01)
 	_pulse += 1
 	var request := DamageRequest.new()
 	request.token = life.token()
@@ -83,6 +83,7 @@ func _physics_process(_delta: float) -> void:
 	request.source_id = source_id
 	request.event_id = StringName("%s:%d:%d:%d" % [source_id, life.actor_epoch, _exposure, _pulse])
 	request.kind = kind
+	request.fall = fall_plane
 	request.amount = amount
 	request.physics_tick = Engine.get_physics_frames()
 	request.hit_direction = relative.normalized()

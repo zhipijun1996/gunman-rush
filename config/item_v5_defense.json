@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "crystal_contact_radius_px": 18.0,
+  "orbit_intercept_radius_px": 12.0,
+  "orbit_angular_speed_rad_s": 2.4,
+  "max_monster_invulnerability_s": 1.0,
+  "morning_guard_visual_multiplier": 1.15,
+  "sources": {
+    "crystal_contact_radius_px": "Implementation candidate: workbook P20 defines contact damage and lifetime but no collision radius; exposed for playtest tuning.",
+    "orbit_intercept_radius_px": "Implementation candidate: P16 orbit radius is in the workbook; interceptor body radius is unspecified and exposed separately.",
+    "orbit_angular_speed_rad_s": "Presentation candidate for the P16 orbit; movement uses the world clock and pauses with that clock.",
+    "max_monster_invulnerability_s": "Implementation candidate for B27's stated total cap; never shortens the pre-existing base iframe.",
+    "morning_guard_visual_multiplier": "S09 asks for a larger appearance without additional shield or hit geometry. This visible scale is an adjustable presentation candidate, not a collision multiplier."
+  }
+}

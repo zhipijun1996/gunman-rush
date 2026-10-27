@@ -1,0 +1,29 @@
+.......E.E
+======================================================================
+ERROR: test_selected_direction_binds_every_specialist_and_retains_stage_gates (__main__.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tests/test_region_creative_direction.py", line 134, in test_selected_direction_binds_every_specialist_and_retains_stage_gates
+    production_loop.validate(mission)
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tools/production_loop.py", line 72, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/region-generator/SKILL.md
+
+======================================================================
+ERROR: test_short_prompt_starts_creative_work_before_assets_or_terrain (__main__.CreativeTests.test_short_prompt_starts_creative_work_before_assets_or_terrain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tests/test_region_creative_direction.py", line 120, in test_short_prompt_starts_creative_work_before_assets_or_terrain
+    production_loop.validate(mission)
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tools/production_loop.py", line 72, in validate
+    quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md")
+  File "/workspace/gunman-rush/build/item_v5/guard-audit/closure-creative-complete-observed/tools/quality.py", line 35, in local_file
+    raise ValueError(f"Missing or external evidence: {name}")
+ValueError: Missing or external evidence: .agents/skills/region-generator/SKILL.md
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.080s
+
+FAILED (errors=2)

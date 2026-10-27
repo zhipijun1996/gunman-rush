@@ -187,7 +187,7 @@ func _draw() -> void:
 	if beam.size()==2:
 		var start := to_local(beam[0])
 		var end := to_local(beam[1])
-		draw_line(start,end,Color(1,.97,.83,alpha*.8),1,false)
+		draw_line(start,end,Color(1,.97,.83,alpha*.8),runtime.beam_item_width_scale(),false)
 		if runtime._beam_start.distance_to(runtime._beam_point)<controller.shoot_ability.weapon.range_limit-.5:
 			for i: int in 3:
 				var unit := Vector2.from_angle(runtime.age*18+i*TAU/3)

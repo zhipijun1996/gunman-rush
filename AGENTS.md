@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-27 道具V5实施（当前）
+
+新任务ITEM-V5-01基于已合入main的879b39e，在feature/item-v5-catalog实现附件72有效／21删除／16成长与9有效联动；用户已明确确认03表H当前建议参数为数值来源。当前仍实施／验证，不把旧PR110授权套到本新任务，不自动合main。原XLSX、10表、冲突与来源保留；新正式池与旧开发fixture分开。参见[本轮范围](docs/worklines/item_v5_01/scope.md)及[当前状态](docs/current_state.md)。真实Native单租约由root协调，未获窗口的agents不同时启动Godot。恢复先看build/item_v5/checkpoint.json及agents状态，旧PR110已merged无需再处理。
+
 ## 2026-10-26 PR110 版本与观察守门补齐（当前）
 
 用户合入授权继续有效。当前style14／creative17的精确测试已同步，region-bible-tests显式追加原回归实际读取的11份冻结style输入，原命令／30秒预算／全部旧输入保留。forest reader的旧源码SHA不刷新，仅允许ecology1处／lift3处持有统计接口的精确迁移，其余策略字节仍受原SHA约束。原本地97、尾部14及独审与失败链见[证据](docs/evidence/run_gear_merge_05/README.md)；它们不代签最新head完整CI。恢复先核PR110：若已merged核main与自动构建，否则等待同head两full通道及affected通过后普通merge。旧阶段不合main／待测试描述按时间保留。

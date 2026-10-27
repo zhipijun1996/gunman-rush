@@ -59,13 +59,14 @@ func _draw_ion_beam(start: Vector2, finish: Vector2, age: float, fade: float, ca
 	var axis := (finish-start)/length
 	var normal := axis.orthogonal()
 	var strength := opacity*fade
-	var width := 15.0 if cannon else 9.0
+	var item_width := runtime.beam_item_width_scale() if is_instance_valid(runtime) else 1.0
+	var width := (15.0 if cannon else 9.0) * item_width
 	# A compact dark boundary and bright inner channel survive both bright sky
 	# and dark terrain. The stream follows the accepted beam's exact endpoints.
-	draw_line(start,finish,Color(.035,.075,.10,.8*strength),width+3,false)
+	draw_line(start,finish,Color(.035,.075,.10,.8*strength),width+3*item_width,false)
 	draw_line(start,finish,Color(.12,.72,.91,.26*strength),width,false)
-	draw_line(start,finish,Color(.25,.87,.98,.75*strength),4 if cannon else 3,false)
-	draw_line(start,finish,Color(.91,.99,1,strength),2,false)
+	draw_line(start,finish,Color(.25,.87,.98,.75*strength),(4 if cannon else 3)*item_width,false)
+	draw_line(start,finish,Color(.91,.99,1,strength),2*item_width,false)
 	for i: int in 9:
 		var travel := fposmod(age*3.6+float(i)/9,1.0)
 		var point := start+axis*length*travel

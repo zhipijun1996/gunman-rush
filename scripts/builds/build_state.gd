@@ -9,7 +9,8 @@ var _base: Dictionary = {}
 var _sources: Dictionary = {}
 var _revision := 0
 var _applying := false
-const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown", &"focus_stamina_drain", &"focus_stamina_recovery", &"focus_rearm_stamina"]
+var _applied_effect_signature := "[]"
+const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown", &"focus_stamina_drain", &"focus_stamina_recovery", &"focus_rearm_stamina", &"coyote_time"]
 const ENERGY_STATS: Array[StringName] = [&"shot_energy_cost",&"hit_energy_recovery", &"ground_energy_recovery", &"shot_energy_delay"]
 
 func configure(player: PlayerController, scope: DemoLifetime = null, run_namespace: StringName = &"") -> void:
@@ -18,6 +19,7 @@ func configure(player: PlayerController, scope: DemoLifetime = null, run_namespa
 	equipment = EquipmentService.new()
 	equipment.configure(self,scope,inventory)
 	_sources.clear()
+	_applied_effect_signature = "[]"
 	_base.clear()
 	for stat: StringName in STATS:
 		_base[stat] = controller.actor_resources.health.capacity if stat == &"max_health" else controller.motor.tuning.get(stat)
@@ -49,7 +51,25 @@ func can_add(item: ItemDefinition) -> bool:
 
 func add_item(source_id: StringName, item: ItemDefinition, origin: StringName = &"pickup") -> bool:
 	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal: return false
-	return inventory.add_item(source_id,item,origin)
+	var savepoint := inventory._transaction_snapshot()
+	if not inventory.add_item(source_id,item,origin): return false
+	if refresh_equipped(): return true
+	inventory._restore_transaction(savepoint)
+	return false
+
+# Explicit transaction boundary for a successful owned upgrade or a changed
+# broken flag. Inventory.changed remains presentation-only and deferred.
+func refresh_equipped() -> bool:
+	if _applying or not is_instance_valid(controller) or controller.actor_resources.health.terminal: return false
+	var sources: Dictionary = {}
+	for id: StringName in equipment.equipped_ids():
+		var owned := inventory.get_instance(id)
+		if owned == null: return false
+		sources[id] = owned.item
+	if _effect_signature(sources) == _applied_effect_signature: return true
+	if not validate_sources(sources).is_empty() or not _commit(sources): return false
+	equipment._owned_effects_changed()
+	return true
 
 # An old source ID can still identify a loadout member, but removal requires the
 # same live editing session as every other equipment operation. Ownership remains.
@@ -63,9 +83,10 @@ func remove_source(source_id: StringName, token: DemoToken = null, session: int 
 
 func validate_sources(proposed: Dictionary) -> StringName:
 	if _applying or not is_instance_valid(controller): return &"invalid_context"
-	for item: ItemDefinition in proposed.values():
+	for source: StringName in proposed:
+		var item: ItemDefinition = proposed[source]
 		if item == null or not item.is_valid(): return &"invalid_item"
-		for modifier: BuildModifier in item.stat_modifiers():
+		for modifier: BuildModifier in _modifiers_for(source,item):
 			if not _base.has(modifier.stat_id): return &"unsupported_effect"
 	return &"" if _valid_values(_resolve(proposed)) else &"invalid_stats"
 
@@ -78,10 +99,15 @@ func effect_sources() -> Array[Dictionary]:
 	ids.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
 	for id: StringName in ids:
 		var item: ItemDefinition = _sources[id]
-		if not item.modifiers.is_empty():
-			result.append({"source_id":StringName("%s/stats" % id),"instance_id":id,"definition_id":item.stable_id,"definition_version":item.definition_version,"effect_id":&"stats","channel":ItemEffectComponent.Channel.PASSIVE,"modifiers":item.duplicate(true).modifiers})
+		var owned := inventory.get_instance(id)
+		if owned != null and bool(owned.effect_state.get("broken",false)): continue
+		var level := owned.level if owned != null else 1
+		var parameters := item.parameters_for_level(level)
+		var modifiers: Array[BuildModifier] = _modifiers_for(id,item) if item.catalog_version >= 5 else item.duplicate(true).modifiers
+		if not modifiers.is_empty():
+			result.append({"source_id":StringName("%s/stats" % id),"instance_id":id,"definition_id":item.stable_id,"definition_version":item.definition_version,"effect_id":&"stats","channel":ItemEffectComponent.Channel.PASSIVE,"modifiers":modifiers,"level":level,"parameters":parameters.duplicate(true)})
 		for component: ItemEffectComponent in item.effect_components:
-			result.append({"source_id":StringName("%s/%s" % [id,component.effect_id]),"instance_id":id,"definition_id":item.stable_id,"definition_version":item.definition_version,"effect_id":component.effect_id,"channel":component.channel,"component":component.duplicate(true)})
+			result.append({"source_id":StringName("%s/%s" % [id,component.effect_id]),"instance_id":id,"definition_id":item.stable_id,"definition_version":item.definition_version,"effect_id":component.effect_id,"channel":component.channel,"component":component.duplicate(true),"level":level,"parameters":parameters.duplicate(true),"effect_state":owned.effect_state.duplicate(true) if owned != null else {}})
 	return result
 
 func clear() -> bool:
@@ -93,6 +119,7 @@ func clear() -> bool:
 	if is_instance_valid(controller) and controller.actor_resources.health.terminal:
 		# RunEnd discards the terminal actor; do not mutate/revive its HealthState.
 		_sources.clear()
+		_applied_effect_signature = "[]"
 		for stat: StringName in _base:
 			if stat != &"max_health":
 				if stat in ENERGY_STATS: controller.shot_energy.set(stat,_base[stat])
@@ -105,18 +132,20 @@ func _resolve(sources: Dictionary) -> Dictionary:
 	var values := _base.duplicate()
 	var keys: Array = sources.keys()
 	keys.sort_custom(func(a: StringName, b: StringName) -> bool: return String(a) < String(b))
+	var modifiers: Dictionary = {}
+	for source: StringName in keys: modifiers[source] = _modifiers_for(source,sources[source])
 	for stat: StringName in _base:
 		var best_priority := -2147483648
 		var value: float = float(_base[stat])
 		# Stable source order: later lexical ID wins equal-priority override.
 		for source: StringName in keys:
-			for modifier: BuildModifier in (sources[source] as ItemDefinition).stat_modifiers():
+			for modifier: BuildModifier in modifiers[source]:
 				if modifier.stat_id == stat and modifier.operation == BuildModifier.Operation.OVERRIDE and modifier.priority >= best_priority:
 					best_priority = modifier.priority
 					value = modifier.value
 		for operation: int in [BuildModifier.Operation.ADD, BuildModifier.Operation.MULTIPLY]:
 			for source: StringName in keys:
-				for modifier: BuildModifier in (sources[source] as ItemDefinition).stat_modifiers():
+				for modifier: BuildModifier in modifiers[source]:
 					if modifier.stat_id == stat and modifier.operation == operation:
 						value = value + modifier.value if operation == BuildModifier.Operation.ADD else value * modifier.value
 		values[stat] = value
@@ -142,16 +171,34 @@ func _commit(proposed: Dictionary) -> bool:
 	if not _valid_values(values):
 		return false
 	var health := controller.actor_resources.health
+	var first_contract: StringName = &""
+	var contract_equipped := false
+	for id: StringName in proposed:
+		var owned := inventory.get_instance(id)
+		var item: ItemDefinition = proposed[id]
+		var parameters := item.parameters_for_level(owned.level if owned != null else 1)
+		if item.catalog_version >= 5 and bool(parameters.get("first_equip_current_hp_ratio_convert",false)):
+			contract_equipped = true
+			if owned != null and not bool(owned.effect_state.get("first_equip_ratio_applied",false)): first_contract = id
 	_applying = true
+	var previous_heal_block := health.normal_healing_blocked
+	health.normal_healing_blocked = contract_equipped
 	if not is_equal_approx(health.capacity, values[&"max_health"]):
 		if health.terminal:
+			health.normal_healing_blocked = previous_heal_block
 			_applying = false
 			return false
 		_revision += 1
 		var request := ActorResourceRequest.new(StringName("build_max_%s_%s" % [get_instance_id(), _revision]), health.epoch, values[&"max_health"], health.get_instance_id())
-		if not health.set_max(request).accepted():
+		var result: ActorResourceResult = health.set_max_preserving_ratio(request) if not first_contract.is_empty() else health.set_max(request)
+		if not result.accepted():
+			health.normal_healing_blocked = previous_heal_block
 			_applying = false
 			return false
+	if not first_contract.is_empty():
+		# A single persistent receipt ties the exceptional proportional conversion
+		# to the same instance; ordinary HP upgrades never use this operation.
+		inventory.patch_effect_state(first_contract,{"locked":true,"first_equip_ratio_applied":true},&"p18_first_equip")
 	for stat: StringName in _base:
 		if stat != &"max_health":
 			if stat in ENERGY_STATS: controller.shot_energy.set(stat,values[stat])
@@ -162,9 +209,42 @@ func _commit(proposed: Dictionary) -> bool:
 	_sources = {}
 	for id: StringName in proposed:
 		_sources[id] = (proposed[id] as ItemDefinition).duplicate(true)
+	_applied_effect_signature = _effect_signature(_sources)
 	_applying = false
 	call_deferred("_emit_changed")
 	return true
 
 func _emit_changed() -> void:
 	changed.emit()
+
+func _effect_signature(sources: Dictionary) -> String:
+	var rows: Array = []
+	var ids: Array = sources.keys()
+	ids.sort_custom(func(a: StringName,b: StringName) -> bool: return String(a) < String(b))
+	for id: StringName in ids:
+		var owned := inventory.get_instance(id)
+		rows.append([id,(sources[id] as ItemDefinition).fingerprint(),owned.level if owned != null else 1,bool(owned.effect_state.get("broken",false)) if owned != null else false])
+	return JSON.stringify(rows)
+
+func _modifiers_for(source: StringName, item: ItemDefinition) -> Array[BuildModifier]:
+	var owned := inventory.get_instance(source)
+	var modifiers: Array[BuildModifier] = []
+	if owned != null and bool(owned.effect_state.get("broken",false)): return modifiers
+	modifiers.append_array(item.stat_modifiers())
+	if item.catalog_version < 5: return modifiers
+	var parameters := item.parameters_for_level(owned.level if owned != null else 1)
+	var mappings: Array = [
+		["max_hp_add",&"max_health",BuildModifier.Operation.ADD],
+		["max_hp_multiplier",&"max_health",BuildModifier.Operation.MULTIPLY],
+		["ground_recoil_multiplier",&"ground_recoil_multiplier",BuildModifier.Operation.MULTIPLY],
+		["coyote_time_add_s",&"coyote_time",BuildModifier.Operation.ADD],
+		["focus_stamina_drain_multiplier",&"focus_stamina_drain",BuildModifier.Operation.MULTIPLY],
+		["focus_stamina_recovery_multiplier",&"focus_stamina_recovery",BuildModifier.Operation.MULTIPLY]]
+	for mapping: Array in mappings:
+		if not parameters.has(mapping[0]): continue
+		var modifier := BuildModifier.new()
+		modifier.stat_id = mapping[1]
+		modifier.operation = mapping[2]
+		modifier.value = float(parameters[mapping[0]])
+		modifiers.append(modifier)
+	return modifiers

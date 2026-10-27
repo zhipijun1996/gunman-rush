@@ -1,5 +1,13 @@
 # 当前交接（2026-10-24）
 
+## 2026-10-27 ITEM-V5-01恢复入口（当前）
+
+用户新任务是实现附件道具V5，03H建议数值已由用户确认。分支feature/item-v5-catalog，main基线879b39e，当前实现未最终冻结，前次PR110已合，不重开或把旧合入授权套给新任务。新任务质量卡ITEM-V5-01/in_progress、[写集与接口](worklines/item_v5_01/scope.md)。所有源／真实失败见build/item_v5各development目录、独审review目录；精选最终证据尚待归档。
+
+恢复先读build/item_v5/checkpoint.json并检查git status／collaboration，确认没有正在执行的Godot再开native，root单租约。原生产agents分别所有catalog/coreUI/combat/defense/actives/economy文件，root管ItemRuntime/Controller/App/共享能源/文档/Harness；新formal tester只写自己的runner、独审禁止改生产。旧开发fixture保留，新正式启用V5；不能拿模型fixture或旧影片当正式自然通关。
+
+下一步以日志修剩余整合，跑原15武器／core／齿轮等受影响检查；最终源码稳定后技术style-v15／creative-v18版本化重绑实际视觉消费者并独审，保35旧引用与原Bible/像素规格，不只刷新冻结SHA。随后原Harness／真实GL／操作片与准确可玩交付，创建PR，不自动合main。P17基础蓄力选择待用户；G19Boss精英为明确候选。设备、玩家与平衡不由CI代签。
+
 ## 2026-10-26 PR110：最终守门修订与合入恢复
 
 用户已授权合main，先核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)真实state／head／checks，禁止因下方旧开发边界再询问授权。原head05200fc的CI40324535594为serial55成功、parallel73成功后style13／14测试失败，尾部15未跑；本地补跑发现持有统计旧指纹，其他14全部成功，原失败保留。

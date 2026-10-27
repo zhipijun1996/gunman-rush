@@ -1,0 +1,59 @@
+{
+	"assertions": 69,
+	"failures": 0,
+	"observations": [
+		{
+			"authorization_after_remove": false,
+			"case": "derived admitted then actual paused unload before HP commit",
+			"committed_callbacks": 0,
+			"damage_results": 0,
+			"enemy_hp": 100.0,
+			"source_present": false
+		},
+		{
+			"case": "unload then re-equip before old derived commit",
+			"final_hp": 99.0,
+			"fresh_results": 1,
+			"old_results": 0
+		},
+		{
+			"case": "weapon epoch changes before derived commit",
+			"final_hp": 99.0,
+			"fresh_results": 1,
+			"old_results": 0,
+			"weapon_after": 1,
+			"weapon_before": 0
+		},
+		{
+			"actual_equipped": 0,
+			"cached_source_after_remove": true,
+			"case": "unload then resolve without runtime.sync or await",
+			"hp": 100.0,
+			"results": 0
+		},
+		{
+			"case": "unload immediately re-equip then resolve without sync or await",
+			"fresh_results": 1,
+			"hp": 99.0,
+			"old_results": 0
+		},
+		{
+			"B17_broken": true,
+			"blast_results": 2,
+			"case": "actual Router Controller Projectile Policy primary triggers P09 and actual HP injuries break B17",
+			"energy_after_blast": 7.0,
+			"energy_after_primary": 7.0,
+			"first_hp": 98.2,
+			"primary_results": 1,
+			"second_hp": 99.7
+		}
+	],
+	"scope": "explicit native integration fixtures, no natural-route/player/device endorsement",
+	"sources": {
+		"res://scripts/combat/weapon_action_runtime.gd": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+		"res://scripts/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+		"res://scripts/items/v5/item_active_effects.gd": "198daa3272a7d28ace53efb5731b51cfcd84b972db2e4a08f9c49fbf60e4d2ac",
+		"res://scripts/items/v5/item_runtime.gd": "0d5188d69953907b237e2a5e4d1b1517dd8edd429d2018ffaa5aa3067ddf9134",
+		"res://tests/item_v5_review_runner.gd": "8c8d30c64cebe35dea990db9e1722d9ad6c34f2a0e2c8329e3ce4a50264c7588"
+	}
+}

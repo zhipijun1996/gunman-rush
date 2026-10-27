@@ -2418,7 +2418,55 @@
         "docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json",
         "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
         "docs/creative_direction/bibles/style-continuity-20261024-v13-responsive-navigation.json",
-        "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json"
+        "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
+        "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+        "docs/controls_contract.md",
+        "config/player_tuning.json",
+        "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+        "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+        "shaders/formal_fine_boundary.gdshader",
+        "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "assets/underworld_plains/terrain/fine_32/source.png",
+        "shaders/formal_fine_lit.gdshader",
+        "scripts/underworld_plains/underworld_presentation.gd",
+        "shaders/underworld_fine_sprite.gdshader",
+        "assets/authored_terrain_study/provenance.json",
+        "scripts/art/player_presentation_runtime.gd",
+        "scripts/art/avatar_presentation.gd",
+        "resources/art/avatars.json",
+        "scripts/demo/home_scene.gd",
+        "scripts/dev/player_presentation_01/motion_visual.gd",
+        "scripts/dev/player_presentation_01/motion_profile.gd",
+        "scripts/dev/player_presentation_01/motion_feel.gd",
+        "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "resources/player_presentation_01/motion_v1.tres",
+        "resources/player_presentation_01/motion_clip_data.gd",
+        "resources/player_presentation_01/landing_screen.gdshader",
+        "resources/player_presentation_01/weapon_feel_v1.tres",
+        "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "assets/player_presentation_01/motion_v1/motion_source.png",
+        "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "scripts/items/v5/item_effect_view.gd",
+        "config/item_v5_feedback.json",
+        "scripts/items/v5/item_v5_entity.gd",
+        "config/item_v5_entities.json",
+        "scripts/items/v5/item_defense_effects.gd",
+        "config/item_v5_defense.json",
+        "scripts/ui/actor_resources_hud.gd",
+        "scripts/ui/demo_menu.gd",
+        "scripts/ui/item_presentation.gd",
+        "scripts/ui/item_card.gd",
+        "scripts/ui/item_acquired_toast.gd",
+        "scripts/ui/item_shop_modal.gd",
+        "scripts/ui/stage_reward_modal.gd",
+        "scripts/ui/touch_overlay.gd",
+        "scripts/items/v5/item_v5_shop_presenter.gd",
+        "scripts/combat/weapon_action_runtime.gd",
+        "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "docs/.gdignore"
       ],
       "weight_seconds": 0.5
     },
@@ -3585,6 +3633,473 @@
       "artifact_paths": [
         "build/run_gear/ui"
       ]
+    },
+    "item-v5-data": {
+      "argv": [
+        "python3",
+        "tests/test_item_v5_catalog.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 3,
+      "inputs": [
+        "tools/import_items_v5.py",
+        "tests/test_item_v5_catalog.py",
+        "config/items_v5.json",
+        "config/item_v5_synergies.json",
+        "docs/evidence/item_v5_01/source/items-v5-original.xlsx",
+        "docs/evidence/item_v5_01/source/workbook-snapshot.json"
+      ]
+    },
+    "item-v5-catalog": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "catalog"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-catalog original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-pool": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "pool"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-pool original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-inventory": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "inventory"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-inventory original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-combat": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "combat"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-combat original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-actives": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "actives"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-actives original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-economy": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "economy"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-economy original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-defense": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "defense"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-defense original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-ui": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "ui"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-ui original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-formal": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "formal"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-formal original native fixture and clean teardown$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/formal"
+      ]
+    },
+    "item-v5-review": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "review"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-review original native fixture and clean teardown$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/review"
+      ]
+    },
+    "item-v5-boss-time": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "boss-time"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-boss-time original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-core-effects": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "core-effects"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-core-effects original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-synergy-economy": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "synergy-economy"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-synergy-economy original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-pause-escape": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "pause-escape"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-pause-escape original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-random-context": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "random-context"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-random-context original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
     }
   },
   "profiles": {
@@ -3784,7 +4299,23 @@
       "bgm-integration",
       "player-default-integration",
       "gear-inventory",
-      "gear-ui"
+      "gear-ui",
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context"
     ],
     "art": [
       "docs",
@@ -4075,7 +4606,23 @@
       "bgm-integration",
       "player-default-integration",
       "gear-inventory",
-      "gear-ui"
+      "gear-ui",
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context"
     ],
     "creative-feedback": [
       "docs",
@@ -4183,6 +4730,24 @@
       "region-with-legacy-fixtures",
       "plains-autonomy-golden",
       "plains-encounter-policy-with-legacy"
+    ],
+    "item-v5": [
+      "item-v5-data",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context"
     ]
   }
 }

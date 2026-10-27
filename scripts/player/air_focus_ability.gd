@@ -22,6 +22,10 @@ var active := false:
 			active_changed.emit(value)
 var exhausted := false
 var _previous_scale := 1.0
+# The equipped item runtime may refine world speed. Zero requests a frozen
+# world scope; Engine.time_scale itself always remains positive for player/UI.
+var world_scale_resolver: Callable
+var world_freeze_callback: Callable
 
 func configure(value: PlayerTuning, resource: StaminaState = null) -> void:
 	stop()
@@ -49,7 +53,13 @@ func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = 
 	if not active:
 		_previous_scale = Engine.time_scale
 		active = true
-	Engine.time_scale = _previous_scale * tuning.focus_time_scale
+	var world_scale := tuning.focus_time_scale
+	if world_scale_resolver.is_valid():
+		var candidate: Variant = world_scale_resolver.call(world_scale)
+		if (candidate is float or candidate is int) and is_finite(float(candidate)) and float(candidate) >= 0.0 and float(candidate) <= 1.0:
+			world_scale = float(candidate)
+	if world_freeze_callback.is_valid(): world_freeze_callback.call(is_zero_approx(world_scale))
+	Engine.time_scale = _previous_scale * (1.0 if is_zero_approx(world_scale) else world_scale)
 	var drain := tuning.focus_stamina_drain*clampf(drain_ratio,.01,1.0)
 	var time_left := real_delta if sustained else maxf(0,tuning.focus_max_air_duration-air_time_used)
 	var used := minf(real_delta,minf(stamina/drain,time_left))
@@ -62,6 +72,7 @@ func advance(real_delta: float, grounded: bool, aiming: bool, available: bool = 
 		stop()
 
 func stop() -> void:
+	if world_freeze_callback.is_valid(): world_freeze_callback.call(false)
 	if active:
 		Engine.time_scale = _previous_scale
 		active = false

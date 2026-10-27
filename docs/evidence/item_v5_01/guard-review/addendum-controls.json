@@ -1,0 +1,1085 @@
+{
+  "scope": "Pure synthetic wrapper controls only, not native pause/RNG behavior",
+  "cases": [
+    {
+      "suite": "catalog",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pool",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pool_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "inventory",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_inventory_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "combat",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_combat_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "actives",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_actives_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "economy",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_economy_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "defense",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_defense_time_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "ui",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_ui_input_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "formal",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_formal_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "review",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_review_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "boss-time",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_boss_time_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "core-effects",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_core_effects_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "synergy-economy",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_synergy_economy_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "pause-escape",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pause_escape_runner.gd",
+            "--fixed-fps",
+            "60"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": true,
+      "accepted": true,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    },
+    {
+      "suite": "random-context",
+      "expected_accept": false,
+      "accepted": false,
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_random_context_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ]
+    }
+  ],
+  "cases_passed": 35,
+  "former13_exact_argv_budget_replays": true,
+  "native_invoked": false
+}

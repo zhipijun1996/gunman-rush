@@ -1,0 +1,35 @@
+[
+  {
+    "check": "region-bible-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_bible.py"
+    ],
+    "timeout_seconds": 30,
+    "exit_code": 0,
+    "seconds": 4.726291760000095,
+    "log": "build/item_v5/guard-audit/post-fix-region-bible-tests.log"
+  },
+  {
+    "check": "creative-direction-tests",
+    "argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "timeout_seconds": 60,
+    "exit_code": 0,
+    "seconds": 1.534815756000171,
+    "log": "build/item_v5/guard-audit/post-fix-creative-direction-tests.log"
+  },
+  {
+    "check": "region-bible-tests isolated declared inputs plus Harness-entry/SKILL existence bootstrap",
+    "argv": [
+      "python3",
+      "tests/test_region_bible.py"
+    ],
+    "timeout_seconds": 30,
+    "exit_code": 0,
+    "seconds": 4.995295731001534,
+    "log": "build/item_v5/guard-audit/closure-region-bible-bootstrap.log"
+  }
+]

@@ -86,6 +86,40 @@ func _physics_process(delta: float) -> void:
 		return
 	global_position += query.motion
 
+# Stationary contact observation only. Owner, stage and actor-token guards are
+# identical to ordinary simulation; no motion/lifetime/visual clock advances.
+func advance_frozen_contact() -> void:
+	if spent or not is_inside_tree(): return
+	if not is_instance_valid(behavior) or not behavior._active() or not behavior.lifetime.accepts(token):
+		dispose()
+		return
+	for point: Vector2 in behavior.protected_points:
+		if DemoContactEmitter.segment_intersects_bounds(global_position,global_position,Rect2(point-Vector2.ONE*behavior.actor.definition.protected_radius,Vector2.ONE*behavior.actor.definition.protected_radius*2.0)):
+			dispose()
+			return
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = _shape
+	query.transform = Transform2D(0.0,global_position)
+	query.collision_mask = 1
+	query.exclude = [behavior.actor.motor.get_rid()]
+	var hits := get_world_2d().direct_space_state.intersect_shape(query,8)
+	if hits.is_empty(): return
+	if hits.any(func(contact: Dictionary) -> bool: return contact.get("collider") != behavior.controller.motor):
+		dispose()
+		return
+	var request := DamageRequest.new()
+	request.token = token
+	request.event_id = event_id
+	request.source_id = behavior.source_id
+	request.target_id = &"player"
+	request.amount = 1
+	request.hit_direction = direction
+	request.actor_epoch = token.actor_epoch
+	request.health_epoch = behavior.controller.actor_resources.health.epoch
+	behavior.policy.submit(request)
+	UnderworldProjectileVisual.emit(self,global_position,direction,false,true)
+	dispose()
+
 func dispose() -> void:
 	if spent: return
 	spent = true

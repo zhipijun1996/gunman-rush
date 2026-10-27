@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v17",
+  "version": "creative-v18",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
-    "supplemental_authority_sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+    "supplemental_authority_sha256": "67b7acb8d6f6b555af60649fd838c5b5eb876248be24219ee89168d8149638ef",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+    "registry_sha256": "5ce8945c70e2127dea28657487b4e92caf17a57eb2541909892ec767f7d5b262",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -151,6 +151,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
       "sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+      "sha256": "67b7acb8d6f6b555af60649fd838c5b5eb876248be24219ee89168d8149638ef"
     }
   ],
   "historical_direction": {
@@ -159,15 +163,38 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "RUN-GEAR-01",
-    "scope": "Technical shared-style v14 binding for formal run gear/equipment UI integration; all original region Bible and regional creative content preserved. No new art approval.",
-    "previous_direction": "docs/creative_direction/archive/creative-v16/windchime_plains.json",
-    "previous_sha256": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json",
-    "shared_style_sha256": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+    "task_id": "ITEM-V5-01",
+    "scope": "Technical style-v15 actual consumer binding for formal V5 items, feedback, HUD/menus and equipped beam visual width. All original Bible and regional creative content preserved; no new artistic approval.",
+    "previous_direction": "docs/creative_direction/archive/creative-v17/windchime_plains.json",
+    "previous_sha256": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+    "shared_style_sha256": "67b7acb8d6f6b555af60649fd838c5b5eb876248be24219ee89168d8149638ef",
     "affected_consumers": [
-      "scripts/demo/demo_app.gd"
+      "scripts/demo/demo_app.gd",
+      "scripts/items/v5/item_effect_view.gd",
+      "config/item_v5_feedback.json",
+      "scripts/items/v5/item_v5_entity.gd",
+      "config/item_v5_entities.json",
+      "scripts/items/v5/item_defense_effects.gd",
+      "config/item_v5_defense.json",
+      "scripts/ui/actor_resources_hud.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/ui/item_presentation.gd",
+      "scripts/ui/item_card.gd",
+      "scripts/ui/item_acquired_toast.gd",
+      "scripts/ui/item_shop_modal.gd",
+      "scripts/ui/stage_reward_modal.gd",
+      "scripts/ui/touch_overlay.gd",
+      "scripts/items/v5/item_v5_shop_presenter.gd",
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "scripts/dev/player_presentation_01/weapon_vfx_v2.gd"
     ],
-    "validation": "Current gameplay/equipment/GUI and exact-source independent evidence only; user/device/art acceptance remain separate."
+    "validation": "Fresh affected technical and actual visual evidence must retain their exact source. Player/physical-device/art acceptance remains separate and is not inherited.",
+    "candidate_iteration": {
+      "previous_candidate_direction": "docs/evidence/item_v5_01/source-bindings/pre-tooltip-rng/windchime_plains.json",
+      "previous_candidate_sha256": "8a8e5b26cdb6223610fb5a4194358fc8fc4bab19e781cddd70d30cec5089b37b",
+      "scope": "Same unpublished creative-v18 candidate: tooltip-safe pause cancellation and stable RNG contexts; fresh affected technical/native/GL evidence required, no new art or inherited user/device acceptance."
+    }
   }
 }
