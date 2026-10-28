@@ -32,6 +32,8 @@ def integer(value):
 
 def validate_trace(trace, count, manifest):
     if trace.get('version') != VERSION or trace.get('fps') != 60 or trace.get('failures') != []: raise ValueError('Failed or unexpected native trace')
+    rendering=trace.get('rendering',{})
+    if rendering.get('actual_window') != [960,540] or rendering.get('logical_content') != [1280,720] or rendering.get('scale_mode')!='canvas_items': raise ValueError('Unexpected actual/logical capture viewport')
     count = integer(count)
     if abs(integer(trace['movie_clock']['frames_drawn_before_quit'])-count) > 2: raise ValueError('MovieWriter clock differs from media')
     expected = [(region,profile) for region in ['plains','forest'] for profile in ['original','A','B']]
@@ -117,7 +119,7 @@ def capture(output):
     if output.exists(): raise ValueError('Use fresh output; retain original failures')
     output.mkdir(parents=True)
     report={'status':'failed','task':'AUDIO-AMBIENCE-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
-    started=time.monotonic(); display=None; env=os.environ.copy(); env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='2')
+    started=time.monotonic(); display=None; env=os.environ.copy(); env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='4')
     try:
         if not env.get('DISPLAY'):
             binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
@@ -127,7 +129,7 @@ def capture(output):
         report['engine']={'version':subprocess.check_output(['bash','tools/godot.sh','--version'],cwd=ROOT,text=True).strip(),'sha256':sha(engine)}
         before=frozen_sources(); report['source_before']=before
         native=output/'native.avi'; movie=output/'ambience.mp4'
-        command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(native),'--fixed-fps','60','--resolution','1280x720','--script','res://tools/audio_ambience_capture.gd','--','--output='+str(output)]
+        command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(native),'--fixed-fps','60','--resolution','960x540','--script','res://tools/audio_ambience_capture.gd','--','--output='+str(output)]
         report['command']=command
         with (output/'native.log').open('w') as log: result=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         report['exit_code']=result.returncode
@@ -136,7 +138,7 @@ def capture(output):
         subprocess.run(['ffmpeg','-y','-i',str(native),'-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',str(movie)],stdout=subprocess.DEVNULL,stderr=(output/'encode.log').open('w'),timeout=180,check=True)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)]))
         video=next(s for s in media['streams'] if s['codec_type']=='video'); sound=next(s for s in media['streams'] if s['codec_type']=='audio')
-        if video['avg_frame_rate']!='60/1' or int(sound['sample_rate'])!=48000 or sound['channels']!=2: raise ValueError('Unexpected encoded media format')
+        if video['avg_frame_rate']!='60/1' or int(video['width'])!=960 or int(video['height'])!=540 or int(sound['sample_rate'])!=48000 or sound['channels']!=2: raise ValueError('Unexpected encoded media format')
         manifest=read(ROOT/'assets/audio/ambience_v1/manifest.json'); trace=read(output/'trace.json')
         segments=validate_trace(trace,integer(int(video['nb_frames'])),manifest)
         report['native_audio_validation']=validate_native_audio(native,segments,manifest)

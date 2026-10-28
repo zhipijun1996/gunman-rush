@@ -28,7 +28,7 @@ def build(capture, output):
         for candidate in event['candidates']:
             source=ROOT/candidate['path'].removeprefix('res://'); name=source.name
             shutil.copyfile(source,output/'audio'/name)
-            choices.append({'id':candidate['id'],'region':event['region'],'profile':candidate['profile'],'path':'audio/'+name,'duration':candidate['duration'],'sha256':sha(source),'sources':candidate.get('source_ids',candidate.get('renders',{}))})
+            choices.append({'id':candidate['id'],'region':event['region'],'profile':candidate['profile'],'title':candidate.get('title',candidate['id']),'path':'audio/'+name,'duration':candidate['duration'],'sha256':sha(source),'sources':candidate.get('source_ids',candidate.get('renders',{}))})
     sources=read(ROOT/'config/audio_director/ambience/sources.json')
     points=[]
     for point in manifest.get('point_events',[]):

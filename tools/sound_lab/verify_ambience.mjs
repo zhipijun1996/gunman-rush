@@ -52,6 +52,12 @@ try{
  await page.waitForFunction(()=>!document.getElementById('single-audio').paused&&document.getElementById('single-audio').currentSrc.includes('plains_b'));
  await page.evaluate(()=>AMBIENCE_RELEASE_SINGLE());await page.waitForTimeout(150);
  if(!await page.evaluate(()=>!document.getElementById('single-audio').paused&&document.getElementById('single-audio').currentSrc.includes('plains_b')))throw Error('Old single play promise paused newer candidate');
+ if(await page.locator('[data-point]').count()!==4)throw Error('Point-event library candidates missing');
+ for(let i=0;i<4;i++){
+  await page.locator('[data-point]').nth(i).click();
+  await page.waitForFunction(()=>{const a=document.getElementById('single-audio');return !a.paused&&!a.loop&&a.readyState>=3&&a.currentTime>0},null,{timeout:5000});
+  await page.locator('#stop').click();
+ }
  await page.locator('[data-chapter]').nth(4).click();await page.waitForFunction(()=>!video.paused);
  if(!await page.evaluate(()=>document.getElementById('single-audio').paused))throw Error('Video did not cancel standalone');
  await page.locator('#stop').click();
@@ -79,6 +85,6 @@ try{
  if(!await delayed.evaluate(()=>video.paused&&!AMBIENCE_STATS.mediaReady&&AMBIENCE_STATS.state.active===null))throw Error('Late download resumed after Stop');
  await delayed.close();
  if(errors.length)throw Error(errors.join(';'));
- const report={status:'passed',url,layout,realPointerChapters:rows,boundary,loopChapter:true,singleLoopAndMutualExclusion:true,delayedRealSinglePlayDoesNotPauseNewerCandidate:true,localChoicesAndExport:true,controlledVisibilityPause:true,naturalEndNoLoop:true,delayedActualFetchCancelled:true,errors,scope:'390px Chromium software browser; real pointer playback and actual decoded native MP4/AAC. Controlled DOM visibility event and delayed actual play Promise. No physical phone/Safari or subjective listening approval. Exported choices are automated test data only.'};
+ const report={status:'passed',url,layout,realPointerChapters:rows,boundary,loopChapter:true,singleLoopAndMutualExclusion:true,standalonePointEventsPlayed:4,delayedRealSinglePlayDoesNotPauseNewerCandidate:true,localChoicesAndExport:true,controlledVisibilityPause:true,naturalEndNoLoop:true,delayedActualFetchCancelled:true,errors,scope:'390px Chromium software browser; real pointer playback and actual decoded native MP4/AAC. Controlled DOM visibility event and delayed actual play Promise. Point events are standalone library auditions, not formal-map placement proof. No physical phone/Safari or subjective listening approval. Exported choices are automated test data only.'};
  fs.writeFileSync(output+'/report.json',JSON.stringify(report,null,2)+'\n');console.log('AUDIO_AMBIENCE_BROWSER_OK chapters=12');
 }catch(error){fs.writeFileSync(output+'/failure.json',JSON.stringify({status:'failed',error:String(error),errors,rows},null,2)+'\n');throw error}finally{await browser.close()}

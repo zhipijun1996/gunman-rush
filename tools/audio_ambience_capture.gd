@@ -21,7 +21,11 @@ func _initialize() -> void:
 	run.call_deferred()
 
 func run() -> void:
-	root.size = Vector2i(1280, 720)
+	# Keep the original 1280x720 logical camera/input composition while
+	# MovieMaker renders fewer actual pixels on this software-only executor.
+	root.size = Vector2i(960, 540)
+	root.content_scale_size = Vector2i(1280, 720)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	if lifecycle_only:
 		await run_lifecycle()
 		return
@@ -74,7 +78,7 @@ func run() -> void:
 			lab.free()
 			for unused: int in 4: await process_frame
 	DirAccess.make_dir_recursive_absolute(folder)
-	FileAccess.open(folder.path_join("trace.json"), FileAccess.WRITE).store_string(JSON.stringify({"task":"AUDIO-AMBIENCE-01","version":"audio-ambience-capture-v1","fps":FPS,"seed":AudioAmbienceLab.REVIEW_SEED,"scope":"Formal generated maps from unchanged DemoApp; forest developer entry; automatic router inputs; no natural full-route or device claim","segments":segments,"trace":frame_trace,"events":events,"failures":failures,"movie_clock":{"index_base":0,"frames_drawn_before_quit":movie_frame}}))
+	FileAccess.open(folder.path_join("trace.json"), FileAccess.WRITE).store_string(JSON.stringify({"task":"AUDIO-AMBIENCE-01","version":"audio-ambience-capture-v1","fps":FPS,"seed":AudioAmbienceLab.REVIEW_SEED,"rendering":{"actual_window":[root.size.x,root.size.y],"logical_content":[root.content_scale_size.x,root.content_scale_size.y],"viewport_rect":[root.get_visible_rect().size.x,root.get_visible_rect().size.y],"scale_mode":"canvas_items"},"scope":"Formal generated maps from unchanged DemoApp; forest developer entry; automatic router inputs; no natural full-route or device claim","segments":segments,"trace":frame_trace,"events":events,"failures":failures,"movie_clock":{"index_base":0,"frames_drawn_before_quit":movie_frame}}))
 	print("AUDIO_AMBIENCE_CAPTURE segments=%s failures=%s" % [segments.size(), failures.size()])
 	quit(0 if failures.is_empty() and segments.size() == 6 else 1)
 
