@@ -28,7 +28,7 @@ def verified_selection():
     selected=json.loads((folder/'selected.json').read_text())
     raw=folder/'user-20261028.json';reels=folder/'reels-user-20261028.json';manifest=ROOT/'assets/audio/director_v3/manifest.json'
     expected=normalize(read_json(raw.read_bytes()),read_json(reels.read_bytes()),read_json(manifest.read_bytes()),root=ROOT)
-    if {k:v for k,v in selected.items() if k!='provenance'}!=expected:raise ValueError('Normalized selection differs from retained user choices')
+    if not same_json({k:v for k,v in selected.items() if k!='provenance'},expected):raise ValueError('Normalized selection differs from retained user choices')
     provenance=selected.get('provenance',{})
     for key,path in [('input',raw),('reels',reels),('candidate_manifest',manifest)]:
         if provenance.get(key,{}).get('sha256')!=sha(path):raise ValueError('Selection input fingerprint mismatch')
