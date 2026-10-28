@@ -27,3 +27,9 @@
 原native458／0、support199／0、corpse-save72／0、corpse-snapshot147／0均本轮fresh退出0，原预算／断言不改。[26.133秒实际影片](underworld/after.mp4)与[原producer报告](underworld/report.json)source_stable=true；[原轨迹](underworld/after.json)为1560游戏记录、6次HP提交、2死亡、各210记录终态可见稳定长尾。影片包含两个原fixture物种，主要核对charger；不是新内容／自然正式路线／设备性能。
 
 实际解码观察在[连续性核对](continuity_review.md)：视频94→95、143→144受伤退出结构突变为CHR-VIS-01，E03／E05 failed；charger片段没有attack状态，不能签完整冲锋动作。旧保存问题本轮原专项通过，不以旧记录重判。没有完整播放器观看或音轨试听，相关整体／声音认可仍未验。所有原件大小与SHA见[产物清单](artifact_inventory.json)，观察附图不替代原片。
+
+## 标准文档验证收口
+
+精确实现源`1f11b24`的原`python3 tools/harness.py --profile docs --release --jobs 1`已完整33／33 fresh通过，0复用；[原报告](docs-profile/report.json)及同目录逐项日志保留，[验证汇总](validation.json)分列源和范围。此前design_contract.json缺失、preview／build原隔离文件缺失、任务索引in_progress／记录review不一致的失败原件均在checks/failures；前两项恢复精确Git原件，后一项同步真实review状态，不改检查／断言／预算。最初CLI误用不支持的output参数没有执行检查，原usage也保留，不算一次测试通过。
+
+ENEMY-COMPLETION-01按原process门槛done，仅表示标准、制作卡和skills入口已形成并通过文档验证；ENEMY-CONTINUITY-01仍review且有实证failed。标准process不需要游戏设备／用户验收，不能将这一适用性用于怪物内容。源码／工具／测试／资源／配置／shader相对基线无修改。最终元数据收口另跑原记录、文档和差异守门，不把它称又一次完整33或full165。

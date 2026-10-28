@@ -1,26 +1,341 @@
 {
   "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
-  "scope": "Fresh current production bytes plus documented docs-only worktree overlay; raw movie and trace unmodified. Inspection strips are labelled video crops, not game edits.",
+  "scope": "Runtime source pin; docs-profile reviewed_commit is separate in its original report. Raw movie/trace unchanged; labelled inspection crops are analysis attachments. Narrative README and this self-index excluded.",
   "files": [
     {
-      "path": "docs/evidence/enemy_completion_01/underworld/after.json",
-      "sha256": "e87b2d612333e918fe6811dddfb534b99c4dc363e5ec1fa736ead22c6979ba23",
-      "bytes": 871418
+      "path": "docs/evidence/enemy_completion_01/body_sources.json",
+      "sha256": "c13a38e5cfe5296e77f67e2db6bbb9bbb8443bc2963abd88f79c600e6756d1f3",
+      "bytes": 1212
     },
     {
-      "path": "docs/evidence/enemy_completion_01/underworld/after.log",
-      "sha256": "dab450dadbdb6ce24c59a315a07f40e6903fd56071c4543613bd15edcbcdf873",
-      "bytes": 1044
+      "path": "docs/evidence/enemy_completion_01/checks/capture-invocation.json",
+      "sha256": "4396a7a398c33338937d2e8534f1c2650ae9add1bd31de355aac8b4ec034875b",
+      "bytes": 519
     },
     {
-      "path": "docs/evidence/enemy_completion_01/underworld/after.mp4",
-      "sha256": "ae9f20366d55867c695a0952af638bf63ac6cb2fea6b5c8575718540761e7596",
-      "bytes": 1364697
+      "path": "docs/evidence/enemy_completion_01/checks/docs-root-inputs.json",
+      "sha256": "8cf38ae15cfc8d86b590761e87167b9d65404c89db80150c7d6289a52c9b401f",
+      "bytes": 388
     },
     {
-      "path": "docs/evidence/enemy_completion_01/underworld/report.json",
-      "sha256": "714efeeac9e5c86c442a5d77a2dc717601cfd1ee6be823e36ac3175e32135d6f",
-      "bytes": 23928
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-save-01.log",
+      "sha256": "d9b28852ff7f6639e5176d80cdac5419df2ec17cc4d77b6c212cf68e04b852b1",
+      "bytes": 3596
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-snapshot-01.log",
+      "sha256": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c",
+      "bytes": 1182
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-feedback-support-01.log",
+      "sha256": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905",
+      "bytes": 1186
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172505.712229Z/docs.log",
+      "sha256": "6c691ea1b2081292f0db0dd2a53afb64f472f3fb83da53d268675302cb9af7d0",
+      "bytes": 289
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172505.712229Z/report.json",
+      "sha256": "22725aa8aad1971e8d5f2a044b707dc8e16d255486e49c95e7101a0257a34d28",
+      "bytes": 1426
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/docs.log",
+      "sha256": "fc6a70ba05b91c8273131dc4a9e9ba9859c78557ec914bfa178968df758ba67b",
+      "bytes": 101
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/report.json",
+      "sha256": "ee6ed0be389eaa80491175b27187264e874fa3cb784defb6e1765a0539cb0f1a",
+      "bytes": 3912
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/structure.log",
+      "sha256": "12217332c834cb9cc0bf99345569f0016c0eae23923a069352464663695631a0",
+      "bytes": 110
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/world-design-tests.log",
+      "sha256": "87f1ae458e6d1d46a428078a154fbbcad6bac4f7263c5eff0ec3464055fbb84c",
+      "bytes": 109
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/world.log",
+      "sha256": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+      "bytes": 150
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/docs.log",
+      "sha256": "fc6a70ba05b91c8273131dc4a9e9ba9859c78557ec914bfa178968df758ba67b",
+      "bytes": 101
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/harness-tests.log",
+      "sha256": "92f04c9a50690a38d6b60cb8ce2c624f7903292813f7087ab21def2b41d2290a",
+      "bytes": 9878
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/quality-drills.log",
+      "sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+      "bytes": 1418
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/quality-tests.log",
+      "sha256": "f8a6c47d283f8f8887a25cfea04f16937a27662f49d935e9f71be844c989a5eb",
+      "bytes": 8120
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/quality.log",
+      "sha256": "0ad44e5921109893c78118e55c0f8febeb4af6aa36c502ad6feb103f0a65c58c",
+      "bytes": 48
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/report.json",
+      "sha256": "7b2c47596eb6d89bdef4baee21f74b91864a00c2f563c17b7da59334044e145f",
+      "bytes": 7223
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/structure.log",
+      "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "bytes": 77
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/world-design-tests.log",
+      "sha256": "811eabda5dc298da232b3c7953fbe433089645edff6f53063d91016c4136c0a2",
+      "bytes": 109
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/world.log",
+      "sha256": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+      "bytes": 150
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/docs-final.log",
+      "sha256": "fc6a70ba05b91c8273131dc4a9e9ba9859c78557ec914bfa178968df758ba67b",
+      "bytes": 101
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/process-complete.log",
+      "sha256": "652e85bab9bdaa28319a21fdd778175c7600313a8b7aa30701d9b3d32399ed58",
+      "bytes": 376
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/quality-diff-final.log",
+      "sha256": "5a07a29a77861f0166109ebb778022227f00e7b1ba3aa0013d7c6e055e1d90cf",
+      "bytes": 105
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/quality-final.log",
+      "sha256": "7c14149d55935d4b2d09635d11f1352a2b7f755550284fa6cde74792c5d0ada0",
+      "bytes": 177537
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/import-isolation-inputs.json",
+      "sha256": "d7c0f69dc0b16e467e75fe782f08ec8ddafb3d2adcf48124aa96144ed6ee3c2c",
+      "bytes": 1275
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/initial-command-usage.log",
+      "sha256": "cdd77522ad04060398131ca26e95eb122487caf28d1a67f24a7904db6f6fbc85",
+      "bytes": 4804
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/native-01.log",
+      "sha256": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2",
+      "bytes": 1178
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/quality-diff-01.log",
+      "sha256": "9383b0978a7e8964f6eaf57ec1c3d4be709dbe516dcaca96003628e0c29d170f",
+      "bytes": 105
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/runtime-checks.json",
+      "sha256": "61fa925ea7e15576b51d69f6703c9df8380b5a8586d8fe41ba71c6ef5e1ae086",
+      "bytes": 852
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/continuity_review.md",
+      "sha256": "93e10cc8424ca277461952255988d5c3ce43e2df71628c2b001ed7045723637f",
+      "bytes": 4848
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/asset-family-tests.log",
+      "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19",
+      "bytes": 110
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/capture-tests.log",
+      "sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6",
+      "bytes": 103
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/cloud-delivery-tests.log",
+      "sha256": "d2b2d4a45ef0f2ffd873eff0a05a73c66f4431fa3c25df8c6bfc40cfaf63c104",
+      "bytes": 129
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/cloud-inputs-tests.log",
+      "sha256": "58b36a8172d30b91a77c73572b22a9ab0b4643929bef7dda8c3a8c7ee6c69477",
+      "bytes": 122
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/cloud-production-planner-tests.log",
+      "sha256": "81dffeaa94c63e172263b3c41fa905374466ae86b5fc6195d293402bd3067d4f",
+      "bytes": 3405
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/consumer-coverage-tests.log",
+      "sha256": "74c03fc16fde9a2dfeff03db0ec8f472a5a8dfed04e9e982a912b4b7f64faee3",
+      "bytes": 105
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/creative-direction-tests.log",
+      "sha256": "15a6a2915ac25e23dcd9135794424096f6e11f63438d526cefda13ce35596195",
+      "bytes": 109
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "bytes": 85
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/docs.log",
+      "sha256": "fc6a70ba05b91c8273131dc4a9e9ba9859c78557ec914bfa178968df758ba67b",
+      "bytes": 101
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/harness-artifact-archive-tests.log",
+      "sha256": "6001654fe8048ea75eab10903d2ff844d534d9ceb99c3a33861546c6d7817d55",
+      "bytes": 684
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/harness-tests.log",
+      "sha256": "1cdfacf5ce46a274547249799fea1e934457201d54322e01e531e38492374021",
+      "bytes": 9878
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-design-analysis.log",
+      "sha256": "a6cfa887f79d178c563e0115b9340322cac6d34decea61a95cb6acce5084eb88",
+      "bytes": 132
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-design-contracts.log",
+      "sha256": "94e4b75dc718d5456639652630ec24a84560df18568bb36950e60718f189a546",
+      "bytes": 130
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-design-golden-tests.log",
+      "sha256": "4433e622ead14c310103fcb5a1d226c9a0f946d61cf4a3ea5481075f9b0d548c",
+      "bytes": 131
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-design-routing.log",
+      "sha256": "bbd136a0f7292b5879ea8b8ab4a5251084800cd6f57095d86b4d35a9cf9f3947",
+      "bytes": 563
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-experience.log",
+      "sha256": "bf616e1ca6317f53646b2d036537f874e806e28e32e92e2f9925bb1872fdaef5",
+      "bytes": 128
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-formal-receipts.log",
+      "sha256": "458caa9d285400af7fb13f7481c972a69bc6b09390df1d4be08ab55a7b8e18f6",
+      "bytes": 115
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/level-region-context.log",
+      "sha256": "c8270cd97fe2176d762d53b3b9a6a3daf3d6a4ba4fc7cb578a1faa6554e6c679",
+      "bytes": 109
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/mechanism-comparisons.log",
+      "sha256": "603db52fd0016ca5cdcf83b2588160ae92bde08c66ba4c61dfc8a2a74cdb95c9",
+      "bytes": 107
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/portable-frozen-assets.log",
+      "sha256": "5914cdb368e469aadac7d4850a7f3bfb65cea3284daf5f6481d21ac42b1fba8f",
+      "bytes": 103
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/production-loop-tests.log",
+      "sha256": "6ba87f207120718d0023dba66db26edea61decd5a567aab7701ac73511722eec",
+      "bytes": 393
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/quality-drills.log",
+      "sha256": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+      "bytes": 1418
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/quality-tests.log",
+      "sha256": "8cd7efd63407e55e63f93e4a326aba34d4fe5ed697752cfb019a6eb51b248623",
+      "bytes": 8120
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/quality.log",
+      "sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+      "bytes": 97
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616",
+      "bytes": 110
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/region-bible-tests.log",
+      "sha256": "327f3e353700725facc050f5582ad526d562e93f9d66441ea6e5135ccd68001e",
+      "bytes": 132
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/report.json",
+      "sha256": "e3866b258a0943c5168f005459d7f231478c721b5e5c9f5f520baa3c752db65f",
+      "bytes": 29254
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/structure.log",
+      "sha256": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+      "bytes": 77
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/terrain-tile-tests.log",
+      "sha256": "38bf320bde0206302c1e57a1b42621b895232f0c74ebfec8c7b81ec6681fa5a0",
+      "bytes": 103
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/underworld-home-guard-tests.log",
+      "sha256": "da48b64fd9fb936cfeaaafdd9f8ef555b045c2dce9826a908531ec408bf5d58d",
+      "bytes": 4249
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/underworld-pipeline.log",
+      "sha256": "f90f829363ba69fca51f91f7e64d1c283cbd47dfebd89346a2f2a1a2f5314630",
+      "bytes": 20926
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/visual-director-tests.log",
+      "sha256": "3504f40324ffa1f3b2934ed0a29087cb2e1e3f21c4d683b07d25d0f4fd83632a",
+      "bytes": 124
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/world-design-tests.log",
+      "sha256": "58a520a024f15707222afe6575db8a3a9dbe7469c2c156ae0f9979903d48645a",
+      "bytes": 109
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/docs-profile/world.log",
+      "sha256": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+      "bytes": 150
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/input_receipt_summary.json",
+      "sha256": "f241cb603997765568f5b6414379785023fc2c692fbd44e2163420540df914b9",
+      "bytes": 1304
     },
     {
       "path": "docs/evidence/enemy_completion_01/inspection/hurt-exit-a.png",
@@ -43,34 +358,34 @@
       "bytes": 187366
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/capture-invocation.json",
-      "sha256": "4396a7a398c33338937d2e8534f1c2650ae9add1bd31de355aac8b4ec034875b",
-      "bytes": 519
+      "path": "docs/evidence/enemy_completion_01/source_inventory.json",
+      "sha256": "420f2ebac7f426cd4b93ccf383068a8e31319ae87139b1e1546218cc6bf1c832",
+      "bytes": 4890
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-save-01.log",
-      "sha256": "d9b28852ff7f6639e5176d80cdac5419df2ec17cc4d77b6c212cf68e04b852b1",
-      "bytes": 3596
+      "path": "docs/evidence/enemy_completion_01/underworld/after.json",
+      "sha256": "e87b2d612333e918fe6811dddfb534b99c4dc363e5ec1fa736ead22c6979ba23",
+      "bytes": 871418
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-snapshot-01.log",
-      "sha256": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c",
-      "bytes": 1182
+      "path": "docs/evidence/enemy_completion_01/underworld/after.log",
+      "sha256": "dab450dadbdb6ce24c59a315a07f40e6903fd56071c4543613bd15edcbcdf873",
+      "bytes": 1044
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/enemy-feedback-support-01.log",
-      "sha256": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905",
-      "bytes": 1186
+      "path": "docs/evidence/enemy_completion_01/underworld/after.mp4",
+      "sha256": "ae9f20366d55867c695a0952af638bf63ac6cb2fea6b5c8575718540761e7596",
+      "bytes": 1364697
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/native-01.log",
-      "sha256": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2",
-      "bytes": 1178
+      "path": "docs/evidence/enemy_completion_01/underworld/report.json",
+      "sha256": "714efeeac9e5c86c442a5d77a2dc717601cfd1ee6be823e36ac3175e32135d6f",
+      "bytes": 23928
     },
     {
-      "path": "docs/evidence/enemy_completion_01/checks/runtime-checks.json",
-      "sha256": "61fa925ea7e15576b51d69f6703c9df8380b5a8586d8fe41ba71c6ef5e1ae086",
-      "bytes": 852
+      "path": "docs/evidence/enemy_completion_01/validation.json",
+      "sha256": "6ca316f25ae04f7a0e8f0bc7300a3ab2ca0e19b37d4f58b511bcf278b662a338",
+      "bytes": 2701
     }
   ]
 }

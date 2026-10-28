@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ENEMY-COMPLETION-01",
   "task_type": "process",
-  "workflow": "review",
+  "workflow": "done",
   "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
-  "reviewed_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "reviewed_commit": "1f11b24e15c07088b350933c2ac9ce166cc66c9f",
   "content_version": "enemy-standard-v1",
   "owner": "/root",
   "purpose": "统一每物种完成标准、扩展原制作卡并接入skills；不修改运行内容",
@@ -56,9 +56,11 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原process轻量G4使用实际命令证据；不签独立游戏审查",
+      "evidence": [
+        "docs_profile"
+      ]
     },
     "G5": {
       "status": "not_applicable",
@@ -75,9 +77,11 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原33项docs全部fresh通过；只认证本process文档／入口／记录一致性",
+      "evidence": [
+        "docs_profile"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -110,8 +114,8 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "本task为纯process标准／模板，按原policy只要求design／technical；实际怪物独审在ENEMY-CONTINUITY-01保持unverified",
       "evidence": []
     },
     "device": {
@@ -139,6 +143,20 @@
       "evidence": [
         "spec"
       ]
+    },
+    {
+      "id": "document_integration",
+      "scenario": "统一标准接入原模板与三skill，并有真实未完成样板",
+      "method": "完整原docs profile fresh执行",
+      "expected": "33项完整通过、记录与任务同步、不篡改原policy或测试",
+      "failure": "缺链接、错任务状态、伪PASS或缺检查",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "33/33 fresh、0复用；早期输入／状态失败保留",
+      "evidence": [
+        "docs_profile"
+      ]
     }
   ],
   "evidence": [
@@ -148,16 +166,28 @@
       "sha256": "07b8128378d87da9fd7bc8aa524ba5884d397a451c92ada988e69e37af4ce3fd",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "source_commit": "1f11b24e15c07088b350933c2ac9ce166cc66c9f",
       "content_version": "enemy-standard-v1",
       "method": "既有G0–G5／十一维的每物种出口细化；新增候选文档overlay",
       "observed": "E01–E12、状态／转换、证据、完成声明及skills分工一致"
+    },
+    {
+      "id": "docs_profile",
+      "path": "docs/evidence/enemy_completion_01/docs-profile/report.json",
+      "sha256": "e3866b258a0943c5168f005459d7f231478c721b5e5c9f5f520baa3c752db65f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "1f11b24e15c07088b350933c2ac9ce166cc66c9f",
+      "content_version": "enemy-standard-v1",
+      "method": "Original fresh docs profile; missing sparse inputs restored from exact committed bytes; task status mismatch fixed; earlier failures retained",
+      "observed": "33/33 checks passed fresh, 0 reused; no runtime/content acceptance inherited",
+      "command": "python3 tools/harness.py --profile docs --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux x86_64; Python 3.12; sparse inputs restored; original profile/budgets/assertions unchanged"
     }
   ],
   "consumer_coverage": null,
-  "unverified_items": [
-    "原docs profile及质量diff尚待实际执行结果；标准不向任何怪物继承PASS"
-  ],
+  "unverified_items": [],
   "skills": [
     "game-quality-gate",
     "enemy-creator",

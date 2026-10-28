@@ -1,0 +1,67 @@
+{
+  "docs_profile": {
+    "reviewed_commit": "1f11b24e15c07088b350933c2ac9ce166cc66c9f",
+    "status": "passed",
+    "checks": 33,
+    "fresh": 33,
+    "reused": 0,
+    "wall_seconds": 269.431,
+    "report": "docs/evidence/enemy_completion_01/docs-profile/report.json"
+  },
+  "original_runtime_checks": {
+    "native": 458,
+    "support": 199,
+    "corpse_save": 72,
+    "corpse_snapshot": 147,
+    "failures": 0,
+    "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+    "scope": "Original bounded consumers, not full gameplay/release or subjective approval"
+  },
+  "prior_failures": [
+    {
+      "run": "20261028T172505.712229Z",
+      "reason": "missing committed docs/design_contract.json in sparse workspace",
+      "report": "docs/evidence/enemy_completion_01/checks/failures/20261028T172505.712229Z/report.json",
+      "old_result_retained": true
+    },
+    {
+      "run": "20261028T172642.303156Z",
+      "reason": "missing committed preview/build import isolation files",
+      "report": "docs/evidence/enemy_completion_01/checks/failures/20261028T172642.303156Z/report.json",
+      "old_result_retained": true
+    },
+    {
+      "run": "20261028T172805.247649Z",
+      "reason": "new task index still in_progress while record was review; corrected to review",
+      "report": "docs/evidence/enemy_completion_01/checks/failures/20261028T172805.247649Z/report.json",
+      "old_result_retained": true
+    }
+  ],
+  "production_diff_from_baseline": [],
+  "limits": [
+    "Process completion only; current charger E03/E05 failed",
+    "Same-author pixel inspection, not independent review, complete player playback, audio audition or target-device acceptance"
+  ],
+  "final_metadata_checks": [
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/process-complete.log",
+      "status": "passed",
+      "scope": "Final metadata consistency and diff checks after 33/33 implementation-source run; not another full profile"
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/quality-final.log",
+      "status": "passed",
+      "scope": "Final metadata consistency and diff checks after 33/33 implementation-source run; not another full profile"
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/docs-final.log",
+      "status": "passed",
+      "scope": "Final metadata consistency and diff checks after 33/33 implementation-source run; not another full profile"
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/checks/final/quality-diff-final.log",
+      "status": "passed",
+      "scope": "Final metadata consistency and diff checks after 33/33 implementation-source run; not another full profile"
+    }
+  ]
+}
