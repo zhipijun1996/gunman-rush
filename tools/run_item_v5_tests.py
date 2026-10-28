@@ -28,6 +28,7 @@ SUITES = {
     "random-context": ("tests/item_v5_random_context_runner.gd", 100),
     "manifest": ("tests/item_v5_manifest_runner.gd", 70),
     "authoring": ("tests/item_v5_authoring_runner.gd", 40),
+    "art": ("tests/item_v5_art_runner.gd", 140),
 }
 
 
@@ -44,6 +45,7 @@ def main():
         "--path", ".", "--script", script,
     ]
     if args.suite == "pause-escape": argv += ["--fixed-fps", "60"]
+    if args.suite == "art": argv += ["--", "--require-all-icons"]
     output = run_engine(argv, 120)
     if re.search(r"(?m)^ERROR:|^SCRIPT ERROR:|^SHADER ERROR:", output):
         raise RuntimeError("V5 family emitted an engine error; diagnostic output is not a pass")

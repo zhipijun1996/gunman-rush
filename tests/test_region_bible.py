@@ -42,6 +42,16 @@ ITEM_V5_STYLE_REFERENCES = [
     ('item_weapon_vfx', 'scripts/dev/player_presentation_01/weapon_vfx_v2.gd'),
 ]
 
+ITEM_ART_GOLDEN_REFERENCES = [
+    ('item_art_library', 'scripts/items/v5/item_art_library.gd'),
+    ('item_art_config', 'config/item_v5_art.json'),
+    ('item_icon_metadata', 'config/item_v5_authoring.json'),
+    ('item_icon_atlas_first8', 'assets/items/v5/icons/golden-02.source.png'),
+    ('item_vfx_p24_source', 'assets/items/v5/vfx/p24-01.source.png'),
+    ('item_vfx_p14_source', 'assets/items/v5/vfx/p14-01.source.png'),
+    ('item_vfx_g16_source', 'assets/items/v5/vfx/g16-01.source.png'),
+]
+
 
 class BibleTests(unittest.TestCase):
     def setUp(self):
@@ -228,6 +238,7 @@ class BibleTests(unittest.TestCase):
         paths=[style['path'],'shaders/formal_fine_boundary.gdshader','assets/underworld_plains/terrain/fine_32/terrain.png','assets/underworld_plains/terrain/fine_32/source.png','assets/underworld_plains/terrain/fine_32/terrain.tres',
                'scripts/art/player_presentation_runtime.gd','assets/player_presentation_01/motion_v1/motion_source.png','resources/art/avatars.json','scripts/demo/demo_app.gd','scripts/underworld_plains/underworld_presentation.gd']
         paths.extend(path for _,path in ITEM_V5_STYLE_REFERENCES)
+        paths.extend(path for _,path in ITEM_ART_GOLDEN_REFERENCES)
         skill=self.root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic reviewer')
         stripped=self.task();stripped['region_bible']={k:v for k,v in self.ref.items() if not k.startswith('supplemental_authority_')}
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
@@ -259,8 +270,30 @@ class BibleTests(unittest.TestCase):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
         self.assertEqual(style['content']['version'],'16')
         refs = style['content']['runtime_reference']['references']
-        self.assertEqual(len(refs),54)
+        self.assertEqual(len(refs),61)
         current_refs = refs
+        changed_golden = {'scripts/ui/item_presentation.gd',
+                          'scripts/items/v5/item_effect_view.gd',
+                          'scripts/items/v5/item_v5_entity.gd'}
+        pre_art_path = 'docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json'
+        pre_art_raw = (ROOT/pre_art_path).read_bytes()
+        self.assertEqual(hashlib.sha256(pre_art_raw).hexdigest(),'fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f')
+        pre_art = json.loads(pre_art_raw)
+        self.assertEqual(pre_art['version'],'16')
+        self.assertEqual(len(pre_art['runtime_reference']['references']),54)
+        for before,after in zip(pre_art['runtime_reference']['references'],current_refs[:54]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            if before['path'] in changed_golden:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','df5b075799e36624597b780a17d88850f0b4ff21:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_pre_art = copy.deepcopy(self.ref)
+        stale_pre_art['supplemental_authority_path'] = pre_art_path
+        stale_pre_art['supplemental_authority_sha256'] = hashlib.sha256(pre_art_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_pre_art,root=self.root)
         old_v15_path = 'docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json'
         old_v15_raw = (ROOT/old_v15_path).read_bytes()
         self.assertEqual(hashlib.sha256(old_v15_raw).hexdigest(), '6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0')
@@ -272,7 +305,7 @@ class BibleTests(unittest.TestCase):
         for key in old_v15.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
             self.assertEqual(style['content'][key],old_v15[key])
         for before,after in zip(old_v15['runtime_reference']['references'],current_refs):
-            if before['path']=='scripts/ui/item_presentation.gd':
+            if before['path'] in changed_golden:
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
                 historical = subprocess.check_output(['git','show','d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04:'+before['path']],cwd=ROOT)
@@ -298,7 +331,15 @@ class BibleTests(unittest.TestCase):
                 self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
             else:
                 self.assertEqual(before,after)
-        self.assertEqual([(row['role'],row['path']) for row in current_refs[36:]],ITEM_V5_STYLE_REFERENCES)
+        # Preserve the pre-art author's exact one-leaf change against V15 too.
+        for before,after in zip(old_v15['runtime_reference']['references'],pre_art['runtime_reference']['references']):
+            if before['path']=='scripts/ui/item_presentation.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual([(row['role'],row['path']) for row in current_refs[36:54]],ITEM_V5_STYLE_REFERENCES)
+        self.assertEqual([(row['role'],row['path']) for row in current_refs[54:]],ITEM_ART_GOLDEN_REFERENCES)
         for row in current_refs[36:]:
             self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
         old_v12 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json').read_bytes())

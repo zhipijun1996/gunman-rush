@@ -113,6 +113,33 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
             self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
 
+        # The unpublished pre-art V19 candidate has its own exact identity;
+        # same version text cannot make its older source binding current.
+        pre_art = {
+            'registry':'25992f7d338eef1135807bba9b55e34913d60802d86465ddbbfa878ee1cc198c',
+            'windchime_plains':'f203d9d0cb4afdd1be85764134be6dcaa1d8047985f46347abd3e5897c6ace5c',
+            'thorn_forest':'9f4b7ea857a83c8518191d3839009ba838d5fb9ef6bcb6a3ca01dc6e43b13f68',
+        }
+        for name,digest in pre_art.items():
+            path = 'docs/evidence/item_art_01/source-bindings/pre-golden-r08/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v19')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v19')
+            for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]

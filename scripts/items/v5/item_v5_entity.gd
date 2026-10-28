@@ -12,6 +12,10 @@ var beam_remaining := 0.0
 var beam_end := Vector2.ZERO
 var cone_half_angle := 0.65
 var marked := false
+var _step_position := Vector2.ZERO
+var _has_visual_step := false
+var _art_draws := 0
+var _art_missing := 0
 
 static func read_tuning() -> Dictionary:
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://config/item_v5_entities.json"))
@@ -40,11 +44,16 @@ func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 func step_visual(world_delta: float) -> void:
+	# Modules move the visual immediately after this call; draw reads only the
+	# resulting displacement to orient an authored trail on the real path.
+	_step_position = global_position
+	_has_visual_step = true
 	age += world_delta
 	beam_remaining = maxf(0.0, beam_remaining-world_delta)
 	queue_redraw()
 
 func _draw() -> void:
+	if _draw_art_body(): return
 	var brass := Color("d4ac64")
 	var dark := Color("19272c")
 	var glow := Color("77d3d1")
@@ -85,6 +94,41 @@ func _draw() -> void:
 			draw_arc(Vector2.ZERO, radius+4, -PI*0.8, -PI*0.2, 8, glow, 1, false)
 	if beam_remaining > 0:
 		draw_line(Vector2.ZERO, to_local(beam_end), Color(0.46,0.83,0.82,0.75), 1.5, false)
+
+func visual_snapshot() -> Dictionary:
+	return {"kind":kind,"origin":get_meta("item_definition_id",&""),"age":age,"art_draws":_art_draws,"art_missing":_art_missing,"clip":ItemArtLibrary.entity_clip(kind,StringName(get_meta("item_definition_id",&"")))}
+
+func _draw_art_body() -> bool:
+	var origin := StringName(get_meta("item_definition_id",&""))
+	var clip := ItemArtLibrary.entity_clip(kind,origin)
+	if clip.is_empty(): return false # Unproduced families retain explicit old art.
+	var point := Vector2.ZERO
+	var sample_age := age
+	var angle := 0.0
+	var tint := Color.WHITE
+	if kind == &"pulse":
+		sample_age = ItemArtLibrary.clip_duration(clip)*clampf(progress,0,0.99999)
+		point = direction*radius*clampf(progress,0.05,1)
+		angle = direction.angle()
+		tint.a = (1.0-progress)*0.6
+	var trail := ItemArtLibrary.entity_clip(StringName(String(kind)+"_trail"),origin)
+	if not trail.is_empty() and _has_visual_step:
+		var displacement := global_position-_step_position
+		if not displacement.is_zero_approx():
+			if ItemArtLibrary.draw_clip(self,trail,age,Vector2.ZERO,displacement.angle()): _art_draws += 1
+	if not ItemArtLibrary.draw_clip(self,clip,sample_age,point,angle,tint):
+		_art_missing += 1
+		return false # Library has diagnosed the missing registered resource.
+	_art_draws += 1
+	# The thin delivery beam is owned here exactly once; muzzle and committed
+	# receiver flashes are separate effect-view clips, never a fabricated hit.
+	if beam_remaining > 0:
+		draw_line(Vector2.ZERO,to_local(beam_end),Color(0.46,0.83,0.82,0.75),1.5,false)
+	if marked:
+		draw_arc(Vector2.ZERO,radius+4,-PI*0.8,-PI*0.2,8,Color("77d3d1"),1,false)
+	for i: int in evolved:
+		draw_circle(Vector2(float(i)*5-2.5,radius+4),1.5,Color("d4ac64"))
+	return true
 
 func _gear(size: float, edge: Color, inside: Color) -> void:
 	for i: int in 8:

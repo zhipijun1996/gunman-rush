@@ -29,3 +29,17 @@ ITEM-ART-01独立图标和技能VFX改进目前处于G0规划。本绑定没有�
 上述测试须在root协调的实际源码窗口运行。作者技术验证、独立审查、原生正式消费者、实际GUI／画面、远端CI、玩家和实体设备分别记录。当前文件只说明版本影响；测试与美术没有运行的部分保持未验证，不能以绑定当作完成、生产准入或艺术认可。
 
 本阶段实际作者验证：原32＋10均零失败，四个原Harness check均fresh通过，未启动Godot。精确style16 SHA `fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f`，全部54当前引用匹配，仅ItemPresentation变化，其他53项与原36项前缀逐字相同。原有限187输入只追加4个新版本／历史依赖为191，creative全源码digest保留。[分源原始回执](../evidence/item_authoring_01/source-bindings/pre-art-v16-validation/summary.json)记录基线D944及修改中的工作树，不能把随后新增美术或源代码宣称为本轮已验；当前为独审前作者技术结果。
+
+## R08：首8图标与三组VFX的实际黄金消费者
+
+本节覆盖上文“仅G0、54项”的当前阶段描述，保留其历史原貌。完成初版通用说明的checkpoint `df5b075799e36624597b780a17d88850f0b4ff21` 中，style16 SHA `fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f`、creative19两区、registry、原影响说明及三份变化消费者旧源按原字节归档于[pre-golden-r08](../evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json)。这是未发表style16／creative19候选内的新实际资产阶段，不覆盖已交付style15／creative18原件，不继承前轮42／四check或旧美术通过。
+
+当前实际54项前缀仅ItemPresentation、ItemEffectView、ItemV5Entity三份源改变，其他51项及原36项前缀不变。追加7项实际依赖为61：ItemArtLibrary、item_v5_art配置、提供icon_key的item_v5_authoring元数据、首8图标原PNG以及P24／P14／G16三个VFX原PNG。前者真实加载和采样Texture2D／AtlasTexture并按配置绘制；View／Entity消费动画帧，ItemPresentation按声明key取图。ItemRuntime的新accepted-HP桥接属于技术效果／来源／生命周期闭包，另做原生验证，没有把它冒充一个额外绘制叶子。
+
+新首8图标是B01／B03／B11／P24／P14／G14／G16／N01。原图1774×887，采用真实独审允许的八个340×340非均匀ROI并保留原始字节；源请求1024×512、等格、native64与透明留白约束的失败仍保持失败。独立ImageTexture小样的52／90可见观察只允许这8项进入真实黄金界面集成，不能代签实际导入、Menu／Card／奖励／商店／960小屏或VFX连续动作，也不允许整72项扩产。
+
+VFX仅P24／P14／G16候选。实际投射体／伙伴身体与cast／muzzle／committed-impact映射、帧长、尺寸和pivot由注册配置消费；表现观察已接受事件，不能决定伤害。当前世界／来源／装备修订／run-stage-actor／武器epoch失效时撤销表现，不用动画碰撞或假命中补玩法证据。原生ART156／0与孤立采样评审保留它们真实来源；本R08绑定还需协调冻结后的原42／四check、正式App黄金、实际两尺寸界面、连续VFX动作与独审。当前不声明美术完成、全72覆盖、原生64合规、玩家或实体设备认可。
+
+当前R08 style16 SHA `473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149`。原32／10守门保留全部历史14／15／17／18身份与拒绝，并加冻结pre-art16／19身份和旧绑定拒绝、原54项前缀精确变更及新7项精确role／path／SHA、全部新叶子漂移前后与恢复拒绝；不缩短预算、不移除原断言。新的实际运行结果另记，旧技术回执不能为后续资产签字。
+
+R08作者技术复验已实际完成：原Bible32／0（6.316秒）、方向10／0（1.467秒），原四个Harness check全部fresh通过。当前61项SHA匹配；原54项role／path顺序保留，其中三项实际改变、51项不变，原36项逐字相同。原有限191输入前缀逐字保留，仅追加11项真实新依赖与历史快照为202，原creative全源digest、命令、预算、成功模式及历史断言不改。[分源回执与完整引用身份](../evidence/item_art_01/source-bindings/r08-golden-validation/summary.json)记录checkpoint df5b与修改中的工作树；没有启动Godot。这是作者技术绑定复验，真实原生、界面／世界／连续影片、独立审查与实体设备认可分别记录。

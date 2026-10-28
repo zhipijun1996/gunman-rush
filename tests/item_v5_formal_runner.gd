@@ -356,8 +356,16 @@ func _exercise() -> void:
 	check(app.connected_region and app.stage is PlainsRegionStage and app.director.region_map_index == 1, "actual consumer is formal Plains map one")
 	check(app._item_runtime != null and app.controller.item_runtime == app._item_runtime and app._item_runtime.is_live(), "formal run owns and binds its one live ItemRuntime")
 	check(app._item_v5_pool != null and app._v5_shop_presenter != null, "formal run installs the real reward pool and merchant presenter")
-	check(ItemCatalogV5.all_items().size() == 72, "formal catalog exposes all 72 active table definitions")
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ItemCatalogV5.CONFIG_PATH))
+	var authoring: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ItemCatalogV5.AUTHORING_PATH))
+	var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/item_v5_authoring_baseline.json"))
+	var catalog := ItemCatalogV5.all_items()
+	var catalog_ids := ids(catalog)
+	var original_present: bool = original.items.size() == 72
+	for id: String in original.items:
+		original_present = original_present and StringName(id) in catalog_ids
+	check(original_present, "formal catalog exposes all 72 active table definitions")
+	check(catalog.size() == data.items.size()+authoring.additions.size(), "formal catalog also exposes the declared additional definitions")
 	var deleted_missing: bool = data.deleted_ids.size() == 21
 	var eligible: Array[ItemDefinition] = app._item_v5_pool.eligible_items()
 	var all_new: bool = true

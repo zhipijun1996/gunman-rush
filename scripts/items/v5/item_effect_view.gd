@@ -3,7 +3,7 @@ extends Node2D
 ## World-local observer of accepted ItemRuntime receipts. Never owns gameplay.
 ## The stage owns this node, so stage freeze and teardown also own its clock.
 const CONFIG := "res://config/item_v5_feedback.json"
-const SUPPORTED: Array[StringName] = [&"arc", &"item_arc", &"cloud", &"ring", &"mark", &"echo", &"item_blast", &"item_throw_burst", &"item_clock_pulse", &"item_active_cast", &"active", &"item_drone_fire", &"coin", &"item_guard_evolved", &"item_large_guard_summoned", &"synergy_bell", &"time_refund", &"skill_credit_ready", &"defense_active", &"projectile_intercept", &"barrier", &"heal"]
+const SUPPORTED: Array[StringName] = [&"arc", &"item_arc", &"cloud", &"ring", &"mark", &"echo", &"item_blast", &"item_throw_burst", &"item_clock_pulse", &"item_active_cast", &"active", &"item_drone_fire", &"coin", &"item_guard_evolved", &"item_large_guard_summoned", &"synergy_bell", &"time_refund", &"skill_credit_ready", &"defense_active", &"projectile_intercept", &"barrier", &"heal", &"item_committed_impact"]
 var _runtime_ref: WeakRef
 var _build_ref: WeakRef
 var _settings: Dictionary = {}
@@ -13,6 +13,11 @@ var _sequence := 0
 var _dropped := 0
 var _pruned := 0
 var _draws := 0
+var _art_draws := 0
+var _art_missing := 0
+var _impact_events: Dictionary = {}
+var _impact_order: Array[StringName] = []
+var _bound_world_id := 0
 
 func _ready() -> void:
 	# INHERIT is deliberate: PAUSABLE would override a DISABLED frozen parent.
@@ -28,6 +33,9 @@ func configure(runtime: RefCounted) -> bool:
 	_settings = _read_settings()
 	if runtime == null or _settings.is_empty() or not runtime.has_signal("effect_cued"): return false
 	_runtime_ref = weakref(runtime)
+	if runtime.has_method("world_root"):
+		var world := runtime.call("world_root") as Node2D
+		if is_instance_valid(world): _bound_world_id = world.get_instance_id()
 	runtime.connect("effect_cued", _on_effect_cued)
 	if runtime.has_method("build"):
 		var build := runtime.call("build") as RefCounted
@@ -40,6 +48,8 @@ func configure(runtime: RefCounted) -> bool:
 func clear() -> void:
 	_entries.clear()
 	_cast_frames.clear()
+	_impact_events.clear()
+	_impact_order.clear()
 	if is_inside_tree(): queue_redraw()
 
 func snapshot() -> Dictionary:
@@ -49,7 +59,7 @@ func snapshot() -> Dictionary:
 	for row: Dictionary in _entries:
 		counts[row.kind] = int(counts.get(row.kind,0))+1
 		entries.append({"kind":row.kind,"origin":row.origin,"point":row.point,"age":row.age,"duration":row.duration})
-	return {"count":_entries.size(),"counts":counts,"entries":entries,"dropped":_dropped,"source_pruned":_pruned,"draw_calls":_draws,"world_clock":"inherited_stage_process_delta","connected":_runtime()!=null}
+	return {"count":_entries.size(),"counts":counts,"entries":entries,"dropped":_dropped,"source_pruned":_pruned,"draw_calls":_draws,"art_draw_calls":_art_draws,"art_missing":_art_missing,"world_clock":"inherited_stage_process_delta","connected":_runtime()!=null}
 
 func _runtime() -> RefCounted:
 	return _runtime_ref.get_ref() as RefCounted if _runtime_ref != null else null
@@ -61,6 +71,7 @@ func _disconnect() -> void:
 	if build != null and build.is_connected("changed",_on_build_changed): build.disconnect("changed",_on_build_changed)
 	_runtime_ref = null
 	_build_ref = null
+	_bound_world_id = 0
 
 func _exit_tree() -> void:
 	_disconnect()
@@ -96,15 +107,38 @@ func _on_build_changed() -> void:
 func _prune_sources() -> void:
 	var runtime := _runtime()
 	if runtime == null: return
+	if not _world_matches(runtime):
+		_pruned += _entries.size()
+		clear()
+		return
+	var identity := _visual_identity(runtime)
 	for i: int in range(_entries.size()-1,-1,-1):
 		var row: Dictionary = _entries[i]
-		if row.kind in [&"cloud",&"ring"] and not StringName(row.origin).is_empty() and not bool(runtime.call("has",row.origin)):
+		var artist_entry := not String(row.get("clip","")).is_empty()
+		var tracked_source: bool = row.kind in [&"cloud",&"ring"] or artist_entry
+		var source_removed: bool = tracked_source and not StringName(row.origin).is_empty() and not bool(runtime.call("has",row.origin))
+		var context_changed: bool = artist_entry and row.get("identity",{}) != identity
+		if (row.kind in [&"cloud",&"ring"] or artist_entry) and (source_removed or context_changed):
 			_entries.remove_at(i)
 			_pruned += 1
 
 func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> void:
 	if kind not in SUPPORTED or not point.is_finite() or _settings.is_empty(): return
+	if not _world_matches(_runtime()):
+		clear()
+		return
 	var origin := StringName(str(detail.get("origin",detail.get("definition_id",detail.get("item",&"")))))
+	origin = ItemArtLibrary.cue_source(kind,origin)
+	var clip := ItemArtLibrary.cue_clip(kind,origin)
+	# Dedicated receiver art observes committed HP receipts, never a fire request.
+	if kind == &"item_committed_impact":
+		var incoming_event: Variant = detail.get("event_id",&"")
+		if not (incoming_event is String or incoming_event is StringName): return
+		var event := StringName(incoming_event)
+		if event.is_empty() or origin.is_empty() or clip.is_empty() or _impact_events.has(event) or not _impact_receipt_current(origin,detail): return
+		_impact_events[event] = true
+		_impact_order.append(event)
+		if _impact_order.size() > int(_settings.max_entries)*2: _impact_events.erase(_impact_order.pop_front())
 	var frame := Engine.get_process_frames()
 	if kind == &"active" and int(_cast_frames.get(origin,-1)) == frame: return
 	if kind in [&"item_active_cast",&"defense_active",&"item_large_guard_summoned"]: _cast_frames[origin] = frame
@@ -113,6 +147,8 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	elif kind == &"mark": duration = float(_settings.mark_confirm_duration_s)
 	elif kind == &"coin": duration = float(_settings.coin_duration_s)
 	elif kind in [&"cloud",&"ring"]: duration = _number(detail.get("duration"),duration)
+	if not clip.is_empty() and kind not in [&"cloud",&"ring"]:
+		duration = ItemArtLibrary.clip_duration(clip)
 	duration = clampf(duration,0.01,float(_settings.max_visual_duration_s))
 	var radius := clampf(_number(detail.get("radius"),float(_settings.default_radius_px)),1.0,float(_settings.max_visual_radius_px))
 	var endpoint: Variant = detail.get("finish",detail.get("end",point))
@@ -120,9 +156,12 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	if not finish.is_finite(): finish = point
 	var aiming: Variant = detail.get("direction",Vector2.RIGHT)
 	var direction: Vector2 = aiming if aiming is Vector2 else Vector2.RIGHT
+	if kind == &"item_drone_fire" and not detail.has("direction") and not finish.is_equal_approx(point): direction = finish-point
 	if not direction.is_finite() or direction.is_zero_approx(): direction = Vector2.RIGHT
 	_sequence += 1
 	var row := {"kind":kind,"point":point.round(),"finish":finish.round(),"direction":direction.normalized(),"origin":origin,"age":0.0,"duration":duration,"radius":radius,"sequence":_sequence,"magnet_bonus":kind==&"coin" and bool(detail.get("magnet_bonus",false)),"amount":clampi(int(detail.get("amount",1)),1,int(_settings.max_coin_glyphs)),"evolution":clampi(int(detail.get("evolution",0)),0,2)}
+	row["clip"] = clip
+	if not clip.is_empty(): row["identity"] = _visual_identity(_runtime())
 	if bool(row.magnet_bonus):
 		var runtime := _runtime()
 		var actor := runtime.call("actor") as PlayerController if runtime != null else null
@@ -155,6 +194,15 @@ func _draw() -> void:
 		var alpha := float(_settings.max_opacity)*(1.0-phase)
 		var center := _point(row.point)
 		var radius := float(row.radius)
+		var artist_clip := StringName(row.get("clip",&""))
+		if not artist_clip.is_empty():
+			if ItemArtLibrary.draw_clip(self,artist_clip,float(row.age),center,(row.direction as Vector2).angle(),Color(1,1,1,alpha)):
+				_art_draws += 1
+				continue
+			_art_missing += 1
+			# Missing artist art is diagnosed by the library. A committed impact
+			# never falls back to a generic hit glyph that pretends to be authored.
+			if row.kind == &"item_committed_impact": continue
 		var brass := _fade(UnderworldUI.BRASS,alpha)
 		var cool := _fade(UnderworldUI.COOL,alpha)
 		match row.kind:
@@ -202,6 +250,50 @@ func _draw() -> void:
 					_gear(center,6.0+phase*3.0,brass)
 			&"heal": _heal_mark(center,alpha)
 			_: _gear(center,5.0+phase*8.0,brass)
+
+func _world_matches(runtime: RefCounted) -> bool:
+	if runtime == null: return false
+	if _bound_world_id == 0: return true # Compatibility host without a world API.
+	var world := runtime.call("world_root") as Node2D
+	return is_instance_valid(world) and world.get_instance_id() == _bound_world_id
+
+func _visual_identity(runtime: RefCounted) -> Dictionary:
+	var result: Dictionary = {}
+	if runtime == null: return result
+	if runtime.has_method("map_key"): result["map_key"] = String(runtime.call("map_key"))
+	if runtime.has_method("world_root"):
+		var world := runtime.call("world_root") as Node2D
+		if is_instance_valid(world): result["world_id"] = world.get_instance_id()
+	if runtime.has_method("actor"):
+		var player := runtime.call("actor") as PlayerController
+		if is_instance_valid(player):
+			result["session"] = player.session_id
+			result["active"] = player.active and not player.actor_resources.health.terminal
+			if player.shoot_ability != null: result["weapon_epoch"] = player.shoot_ability.weapon_epoch
+	var owner_build := _build_ref.get_ref() as BuildState if _build_ref != null else null
+	if owner_build != null:
+		result["equipment_revision"] = int(owner_build.equipment.snapshot().revision)
+		var scope := owner_build.equipment.lifetime
+		if scope != null:
+			result["run_epoch"] = scope.epoch
+			result["stage_epoch"] = scope.stage_epoch
+			result["actor_epoch"] = scope.actor_epoch
+	return result
+
+func _impact_receipt_current(origin: StringName, detail: Dictionary) -> bool:
+	var runtime := _runtime()
+	if runtime == null or not runtime.has_method("is_live") or not bool(runtime.call("is_live")): return false
+	var identity := _visual_identity(runtime)
+	for field: String in ["session","run_epoch","stage_epoch","actor_epoch","weapon_epoch","equipment_revision","world_id"]:
+		# Live receipts carry integer identities. JSON or caller coercion cannot
+		# turn a stale/malformed identity into a newly accepted presentation.
+		if not detail.get(field) is int or not identity.has(field) or detail[field] != identity[field]: return false
+	var map: Variant = detail.get("map_key")
+	if not (map is String or map is StringName) or String(map) != String(identity.get("map_key","")): return false
+	var owner_build := _build_ref.get_ref() as BuildState if _build_ref != null else null
+	if owner_build == null or owner_build.inventory == null: return false
+	var source := owner_build.inventory.instance_for_definition(origin)
+	return source != null and source.instance_id in owner_build.equipment.equipped_ids() and not bool(source.effect_state.get("broken",false))
 
 func _arc(row: Dictionary, alpha: float) -> void:
 	var start: Vector2 = row.point

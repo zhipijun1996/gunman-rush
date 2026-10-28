@@ -210,7 +210,7 @@
       {
         "role": "item_feedback_view",
         "path": "scripts/items/v5/item_effect_view.gd",
-        "sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802"
+        "sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
       },
       {
         "role": "item_feedback_config",
@@ -220,7 +220,7 @@
       {
         "role": "item_entity_view",
         "path": "scripts/items/v5/item_v5_entity.gd",
-        "sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3"
+        "sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
       },
       {
         "role": "item_entity_config",
@@ -250,7 +250,7 @@
       {
         "role": "item_description",
         "path": "scripts/ui/item_presentation.gd",
-        "sha256": "322bed12465c532301cc1b72f7b4f0b60a4b8bdd1e90ba272a504f00ab6ac5f5"
+        "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
       },
       {
         "role": "item_card",
@@ -296,6 +296,41 @@
         "role": "item_weapon_vfx",
         "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
         "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+      },
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -314,42 +349,209 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "trigger": "Data-only passive item authoring and generic level-resolved static effect text no longer require a UI item-ID branch. Separate ITEM-ART-01 icon/VFX improvement is in G0; no new asset is bound at this stage.",
+    "trigger": "Generic data-driven text plus actual bounded first8 icon and P24/P14/G16 VFX golden integration; full72 art production is not approved.",
     "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
     "changed_references": [
       {
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "old_sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802",
+        "new_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+      },
+      {
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "old_sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3",
+        "new_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+      },
+      {
         "path": "scripts/ui/item_presentation.gd",
         "old_sha256": "fdcb60b2ed253967191b239f5aace06e270b0fe4443363a2c43e3d8b42eae424",
-        "new_sha256": "322bed12465c532301cc1b72f7b4f0b60a4b8bdd1e90ba272a504f00ab6ac5f5"
+        "new_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
       }
     ],
-    "added_references": [],
+    "added_references": [
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      }
+    ],
     "consumer_edges": [
       {
         "path": "scripts/ui/item_presentation.gd",
         "consumer": "ItemPresentation._catalog_effects uses _static_parameter_text for new data-only passive definitions, from the same resolved current-level parameter values used by BuildState; fallback uses configured description. Existing explicit special-effect formats remain."
+      },
+      {
+        "path": "scripts/items/v5/item_art_library.gd",
+        "consumer": "Actual Texture2D/AtlasTexture loader and bounded animation-frame sampler draw_clip; validates art recipe, regions, timing, geometry and memory budget."
+      },
+      {
+        "path": "config/item_v5_art.json",
+        "consumer": "Actual first8 icon regions and P24/P14/G16 frame/clip/size/pivot/cue/entity mappings read by ItemArtLibrary."
+      },
+      {
+        "path": "config/item_v5_authoring.json",
+        "consumer": "Catalog authoring icon metadata uses item-specific keys; ItemPresentation resolves declared keys through ItemArtLibrary while otheritems retain fallback."
+      },
+      {
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "consumer": "Draws registered cast/muzzle/committed-impact clips only for accepted events and current source/world/epochs; prunes stale visuals."
+      },
+      {
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "consumer": "Actual companion/flywheel entities draw the origin-specific registered body clip, preserving gameplay geometry."
+      },
+      {
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
       }
     ],
     "preserved_contracts": [
-      "All54 prior references retain role/path/order; only the actual ItemPresentation source SHA changes in this technical stage. Other53 exact reference rows and original36 prefix remain unchanged.",
-      "Published style15/creative18, original Bible texts, original user quotes, selected32px/32wu/1wu/nearest family, licenses and all prior evidence keep their exact bytes and source identity.",
-      "No generated icon/atlas/VFX asset is claimed, no new visual consumer reference is invented, and no global artistic direction changes.",
-      "Catalog/eligibility/pool authoring changes are gameplay consumers, not extra visual reference leaves; their own runtime/integration checks remain required.",
-      "Icons and VFX have a separate G0 production ledger. Real new consumers/assets must be added by a later explicit impact/archive/rebind before final technical and actual-pixel acceptance."
+      "Published style15/creative18, original Bible texts, user quotes, terrain/body source bytes, licenses, selected32px/32wu/1wu/nearest family and prior evidence retain exact identity.",
+      "Original54 role/path/order preserved; only three actual visual leaves changed from pre-art style16, remaining51 exact. Seven actual library/config/metadata/PNG dependencies appended for61 references; original36 prefix byte-identical to pre-art candidate.",
+      "Artwork observes accepted gameplay events. ItemRuntime committed-HP cue producer remains a separate technical gameplay/source-lifetime consumer, not a claim that presentation owns damage.",
+      "Original high-resolution PNG bytes and failed equalgrid/source-padding specification measurements are preserved; measured ROI use is a separately approved bounded sampling recipe. No image resizing/alpha cleanup or native64 claim.",
+      "First8 icon recipe approval permits only golden integration; it does not approve remaining64, VFX motion or full art production."
     ],
-    "impact": "Only generic numerical item text behavior changes in this binding. Source hashes identify content; they do not approve generated assets, visual quality, full item behavior, fun/balance, devices, or new region access.",
+    "impact": "Actual new imported icon and animated VFX sources enter a bounded golden candidate, alongside generic current-level text. Art source hash and native checks do not establish whole72 visuals, continuous motion, human/device or G2-G5 acceptance.",
     "required_revalidation": [
       "Original region-bible32 and creative-direction10 with historical identity/refusal checks preserved and extended to frozen style15/creative18.",
       "Original four pure Harness checks with unchanged argv/budgets/patterns after coordinated source freeze.",
       "New authoring native data-only item generation/equip/upgrade/display/pool/rollback checks plus existing item/formal consumers under root engine lease.",
       "Any later icon/VFX production requires actual import, UI/world golden observations, lifecycle/event/source checks, independent source/visual review, and explicit current evidence.",
-      "User art/feel/balance and physical Android/controller/low-end performance remain unverified without actual user/device evidence."
+      "User art/feel/balance and physical Android/controller/low-end performance remain unverified without actual user/device evidence.",
+      "Fresh original42/four pure checks for exact R08 source after coordinated freeze; preserve frozen pre-art16/creative19 bytes and refusal checks.",
+      "Original art native suite strict4.7.2, actual imported52/90 icons in Menu/Card/reward/shop at1280 and960, formal App golden and continuous P24/P14/G16 VFX motion/accepted-HP/miss/source/lifecycle observations; independent actual-pixel and technical review before further art expansion."
     ],
     "independent_review": "Required separately before production/acceptance; this author binding does not inherit prior ACCEPT, human or device approval.",
     "previous_originals": {
       "manifest_path": "docs/evidence/item_authoring_01/source-bindings/before-v16/manifest.json",
       "manifest_sha256": "2e0bd3e6c34bfe331ea71e368f0f59486595aa0fa5107d5e6a75fe7390138858",
       "creative18_archive_path": "docs/creative_direction/archive/creative-v18"
+    },
+    "related_task_id": "ITEM-ART-01",
+    "candidate_iteration_r08": {
+      "kind": "Actual golden consumer/asset addition within unpublished style16/creative19; no global style selection",
+      "previous_candidate_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json",
+      "previous_candidate_sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json",
+      "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
+      "changed_references": [
+        {
+          "path": "scripts/items/v5/item_effect_view.gd",
+          "old_sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802",
+          "new_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+        },
+        {
+          "path": "scripts/items/v5/item_v5_entity.gd",
+          "old_sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3",
+          "new_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+        },
+        {
+          "path": "scripts/ui/item_presentation.gd",
+          "old_sha256": "322bed12465c532301cc1b72f7b4f0b60a4b8bdd1e90ba272a504f00ab6ac5f5",
+          "new_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+        }
+      ],
+      "added_references": [
+        {
+          "role": "item_art_library",
+          "path": "scripts/items/v5/item_art_library.gd",
+          "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+        },
+        {
+          "role": "item_art_config",
+          "path": "config/item_v5_art.json",
+          "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+        },
+        {
+          "role": "item_icon_metadata",
+          "path": "config/item_v5_authoring.json",
+          "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+        },
+        {
+          "role": "item_icon_atlas_first8",
+          "path": "assets/items/v5/icons/golden-02.source.png",
+          "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+        },
+        {
+          "role": "item_vfx_p24_source",
+          "path": "assets/items/v5/vfx/p24-01.source.png",
+          "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+        },
+        {
+          "role": "item_vfx_p14_source",
+          "path": "assets/items/v5/vfx/p14-01.source.png",
+          "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+        },
+        {
+          "role": "item_vfx_g16_source",
+          "path": "assets/items/v5/vfx/g16-01.source.png",
+          "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+        }
+      ],
+      "golden_scope": {
+        "icons": [
+          "B01",
+          "B03",
+          "B11",
+          "P24",
+          "P14",
+          "G14",
+          "G16",
+          "N01"
+        ],
+        "vfx_candidates": [
+          "P24",
+          "P14",
+          "G16"
+        ],
+        "mass72_expansion_allowed": false,
+        "source_sampling": "raw2 high-resolution1774x887 eight measured340x340 regions; original1024x512/equalgrid/native64/source-padding spec remains failed",
+        "bounded_prior_review": "build/item_art_01/review-raw2-ui-sampler-v1.json; permits first8 real golden integration only, not VFX/native64/G2-G5"
+      },
+      "historical_evidence": "Frozen pre-art42/four checks and raw1/raw2 source specification failures retain their source and verdicts; later native/art/GUI/motion results must remain separate exact-source observations."
     }
   }
 }

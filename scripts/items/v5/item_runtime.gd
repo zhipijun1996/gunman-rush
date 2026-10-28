@@ -277,6 +277,12 @@ func _deal(receiver: Damageable, amount: float, key: StringName, origin: StringN
 	var expected_session := player.session_id
 	var expected_stage := _lifetime.stage_epoch
 	var expected_weapon := player.shoot_ability.weapon_epoch
+	# Presentation receipts carry the already-authenticated source identity.
+	var visual_run := _lifetime.epoch
+	var visual_actor := _lifetime.actor_epoch
+	var visual_map := _map
+	var visual_world := world_root().get_instance_id()
+	var visual_equipment := int(build().equipment.snapshot().revision)
 	var event := StringName("item/%s/%s/%s" % [_map, origin, key])
 	if _authorized.has(event): return false
 	var point := (receiver.get_parent() as Node2D).global_position
@@ -296,6 +302,11 @@ func _deal(receiver: Damageable, amount: float, key: StringName, origin: StringN
 		if after_commit.is_valid(): after_commit.call()
 		if not packet.is_empty():
 			on_hit({"session":expected_session,"packet":current_packet,"shot":current_packet,"airborne":not player.motor.is_on_floor(),"skill":true,"item_active":true,"primary":false,"receiver":receiver,"point":point,"direction":hit_direction,"amount":amount,"weapon_id":player.shoot_ability.weapon.id,"tier":player.shoot_ability.weapon.tier,"origin_id":origin,"weapon_epoch":expected_weapon})
+		# Policy invokes on_committed only after positive HP loss and death priority.
+		# Earlier callbacks may remove equipment or change maps, so recheck only
+		# the visual source. A killed receiver need not be alive to show its hit.
+		if is_live() and actor() == player and player.session_id == expected_session and _lifetime.epoch == visual_run and _lifetime.actor_epoch == visual_actor and _lifetime.stage_epoch == expected_stage and player.shoot_ability.weapon_epoch == expected_weapon and has(origin) and _source_current(origin) and int(build().equipment.snapshot().revision) == visual_equipment and _map == visual_map and world_root().get_instance_id() == visual_world and _authorized.has(event):
+			cue(&"item_committed_impact",point,{"definition_id":origin,"event_id":event,"direction":hit_direction,"session":expected_session,"run_epoch":visual_run,"stage_epoch":expected_stage,"actor_epoch":visual_actor,"weapon_epoch":expected_weapon,"equipment_revision":visual_equipment,"map_key":visual_map,"world_id":visual_world})
 	var accepted := receiver.receive_damage(context)
 	if not accepted: _authorized.erase(event)
 	return accepted

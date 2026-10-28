@@ -1,0 +1,26 @@
+extends SceneTree
+func _initialize() -> void:
+ var results: Array[Dictionary] = []
+ for entry: Array in [["P24","exec-f65e0323-d473-4fad-a7cf-673e67ec9f31.png"],["P14","exec-86633fc1-3c79-43cf-b8b7-869623f665b2.png"],["G16","exec-bf75c159-4486-41a2-a058-b31a9e21b095.png"]]:
+  var path := "/workspace/generated_images/"+String(entry[1])
+  var img := Image.load_from_file(path)
+  var cw := int(img.get_width()/8)
+  var ch := int(img.get_height()/3)
+  var frames: Array[Dictionary] = []
+  for index: int in 24:
+   var start := Vector2i(index%8*cw,index/8*ch)
+   var lo := Vector2i(cw,ch)
+   var hi := Vector2i(-1,-1)
+   var nonzero := 0
+   for y: int in ch:
+    for x: int in cw:
+     var a := img.get_pixel(start.x+x,start.y+y).a
+     if a > 0: nonzero += 1
+     if a >= .5:
+      lo = lo.min(Vector2i(x,y)); hi = hi.max(Vector2i(x,y))
+   frames.append({"cell":[start.x,start.y,cw,ch],"foreground_alpha_half_bbox":[lo.x,lo.y,hi.x-lo.x+1,hi.y-lo.y+1],"nonzero_alpha_pixels":nonzero})
+  results.append({"id":entry[0],"source":path,"source_sha256":FileAccess.get_sha256(path),"size":[img.get_width(),img.get_height()],"frames":frames,"method":"OriginalPNGunaltered; .5alpha bbox is semantic foreground diagnostic only, not a change to originalzero-paddinggate or sourcealpha cutoff."})
+ var f := FileAccess.open("/workspace/gunman-rush/build/item_art_01/vfx-01.measurement.json",FileAccess.WRITE)
+ f.store_string(JSON.stringify(results,"  "))
+ print("VFX ORIGINAL FRAME MEASUREMENTS: "+str(results.size())+" sheets; no pixels edited")
+ quit()

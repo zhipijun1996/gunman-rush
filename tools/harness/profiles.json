@@ -2470,7 +2470,18 @@
         "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
         "docs/creative_direction/archive/creative-v18/registry.json",
         "docs/creative_direction/archive/creative-v18/windchime_plains.json",
-        "docs/creative_direction/archive/creative-v18/thorn_forest.json"
+        "docs/creative_direction/archive/creative-v18/thorn_forest.json",
+        "scripts/items/v5/item_art_library.gd",
+        "config/item_v5_art.json",
+        "config/item_v5_authoring.json",
+        "assets/items/v5/icons/golden-02.source.png",
+        "assets/items/v5/vfx/p24-01.source.png",
+        "assets/items/v5/vfx/p14-01.source.png",
+        "assets/items/v5/vfx/g16-01.source.png",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/registry.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/windchime_plains.json",
+        "docs/evidence/item_art_01/source-bindings/pre-golden-r08/thorn_forest.json"
       ],
       "weight_seconds": 0.5
     },
@@ -4181,6 +4192,36 @@
         "config/items_v5.json",
         "config/item_v5_authoring.json"
       ]
+    },
+    "item-v5-art": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "art"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-art original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
     }
   },
   "profiles": {
@@ -4399,7 +4440,8 @@
       "item-v5-random-context",
       "item-v5-manifest",
       "item-v5-authoring",
-      "item-authoring-tools"
+      "item-authoring-tools",
+      "item-v5-art"
     ],
     "art": [
       "docs",
@@ -4709,7 +4751,8 @@
       "item-v5-random-context",
       "item-v5-manifest",
       "item-v5-authoring",
-      "item-authoring-tools"
+      "item-authoring-tools",
+      "item-v5-art"
     ],
     "creative-feedback": [
       "docs",
@@ -4837,7 +4880,8 @@
       "item-v5-random-context",
       "item-v5-manifest",
       "item-v5-authoring",
-      "item-authoring-tools"
+      "item-authoring-tools",
+      "item-v5-art"
     ]
   }
 }

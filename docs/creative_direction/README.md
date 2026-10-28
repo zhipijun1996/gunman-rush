@@ -1,6 +1,6 @@
 # 当前创作入口：区域圣经 V2
 
-当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54项顺序，仅更新当前ItemPresentation的通用数值说明消费者，其余53项和原Bible／像素选择不变。已交付style15／creative18及所有旧版原件保留；独立图标与VFX目前仅G0，不以本绑定代签新美术、用户或实体设备认可。下文旧轮版本说明保留原来源。
+当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54项顺序，按真实变化更新3个表现消费者，再追加首8图标／三组VFX的7个实际library／配置／原PNG依赖，共61项；原36项前缀、Bible和像素选择不变。已交付style15／creative18、pre-art16／19及所有旧版原件保留。当前只是有界黄金候选，不代签全72扩产、美术、用户或实体设备认可。下文旧轮版本说明保留原来源。
 
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 

@@ -192,13 +192,14 @@ class ProductionPlanTests(unittest.TestCase):
             "item-v5-formal", "item-v5-review", "item-v5-boss-time",
             "item-v5-core-effects", "item-v5-synergy-economy",
             "item-v5-pause-escape", "item-v5-random-context", "item-v5-manifest",
-            "item-v5-authoring", "item-authoring-tools",
+            "item-v5-authoring", "item-authoring-tools", "item-v5-art",
         ]
         self.assertEqual(self.manifest["profiles"]["full"][144:], additions)
         self.assertEqual(full["checks"][144:], additions)
-        self.assertEqual([name for name in parallel if name not in original], [additions[0],additions[-1]])
-        self.assertEqual([name for name in serial if name not in original], additions[1:-1])
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (163,91,72))
+        added_parallel = ["item-v5-data", "item-authoring-tools"]
+        self.assertEqual([name for name in parallel if name not in original], added_parallel)
+        self.assertEqual([name for name in serial if name not in original], [name for name in additions if name not in added_parallel])
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (164,91,73))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:

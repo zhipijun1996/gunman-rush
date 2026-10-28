@@ -1,0 +1,37 @@
+{
+  "engine": "tools/godot.sh Godot4.7.2",
+  "status": "passed",
+  "phases": [
+    {
+      "name": "editor",
+      "argv": [
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "budget": 90,
+      "exit": 0
+    },
+    {
+      "name": "native",
+      "argv": [
+        "--headless",
+        "--resolution",
+        "1280x720",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/item_v5_art_runner.gd"
+      ],
+      "budget": 120,
+      "exit": 0
+    }
+  ],
+  "checks": 156,
+  "failures": 0,
+  "seconds": 8.78961166299996
+}
