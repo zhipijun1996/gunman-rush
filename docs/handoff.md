@@ -6,6 +6,8 @@
 
 [冲锋怪制作卡](design/enemies/plains_charger.md)已盘点正式Underworld与原始链、live→H→live及D→尸体／保存所有权；源存在与历史验证不当作fresh通过。旧strict66/1与后续保存修复66/0分别保留，不按旧摘要重开已修问题。运行工具、检查结果与阻塞在[本轮证据](evidence/enemy_completion_01/README.md)收口；恢复先核Git状态和当前锁定引擎，不换版本救采证。分支不默认合main。
 
+本轮已用锁定4.7.2实跑native458／0、support199／0、save72／0、snapshot147／0。当前生产源26.133秒Underworld原fixture片source_stable=true；视频94→95及143→144受伤退出背部／壳体／肢体突变为CHR-VIS-01，E03／E05 failed。只实际看解码抽帧及局部连续帧，不签完整正常速度播放／听感；片内charger没有attack状态，完整冲锋与正式自然遭遇仍未验。详见[同作者核对](evidence/enemy_completion_01/continuity_review.md)，不能冒充独审或怪物done。标准process的文档检查与质量diff按本轮实际收据分别记录。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。

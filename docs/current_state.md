@@ -1,5 +1,7 @@
 # 当前状态
 
+怪物工作入口：[统一完成标准](quality/enemy_completion_standard.md)与原Enemy Sheet现共用E01–E12／G0–G5／十一维。已有冲锋怪[制作卡](design/enemies/plains_charger.md)为review：本轮四项局部技术检查通过，但当前实录两次受伤退出的身体结构不连续（CHR-VIS-01，E03／E05 failed），完整攻击、正式自然场景、独审、用户与设备未验。流程标准建立不等于怪物完成；[来源与证据](evidence/enemy_completion_01/README.md)。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。
