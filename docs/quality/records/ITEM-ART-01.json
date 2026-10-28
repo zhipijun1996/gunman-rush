@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "ITEM-ART-01",
   "task_type": "art",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
-  "reviewed_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
-  "content_version": "candidate-v1-independent-item-art",
+  "reviewed_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+  "content_version": "candidate-v2-72icons-event-driven-art",
   "owner": "/root",
   "purpose": "Distinct icon silhouettes for72items and dedicated event-driven skill art within current accepted style direction",
   "player_experience": "Recognize a picked item by its icon and distinguish actual item attacks without losing player/enemy/hazard readability",
@@ -15,10 +15,17 @@
     "Eighticon/threeVFX golden actualGL+motionreview before72itemexpansion",
     "No user/device/wholegameacceptance inherited from prior V5engineering/evidence",
     "Newproduction references and modifiedconsumers require original binding impactreview; neveronlyrefreshSHA",
-    "Initial asset write scope: first8icon sourceatlas and three goldenVFXsheets only; remaining72expansion follows actualgolden review, never counts designs asproduced assets."
+    "Expansion followed actualfirst8/threefamily review; sourcepixel bytes unchanged,64MiBbudget retained; actualnonuniformROIadmission doesnot retroclaimnative64/gutters."
   ],
   "affected_paths": [
-    "assets/items/v5/icons/golden-01.source.png",
+    "assets/items/v5/icons/catalog-01.source.png",
+    "assets/items/v5/icons/catalog-01.source.png.import",
+    "assets/items/v5/icons/catalog-02.source.png",
+    "assets/items/v5/icons/catalog-02.source.png.import",
+    "assets/items/v5/icons/catalog-03.source.png",
+    "assets/items/v5/icons/catalog-03.source.png.import",
+    "assets/items/v5/icons/catalog-04.source.png",
+    "assets/items/v5/icons/catalog-04.source.png.import",
     "assets/items/v5/icons/golden-02.source.png",
     "assets/items/v5/icons/golden-02.source.png.import",
     "assets/items/v5/manifest.json",
@@ -28,6 +35,10 @@
     "assets/items/v5/vfx/p14-01.source.png.import",
     "assets/items/v5/vfx/p24-01.source.png",
     "assets/items/v5/vfx/p24-01.source.png.import",
+    "assets/items/v5/vfx/static-entities.source.png",
+    "assets/items/v5/vfx/static-entities.source.png.import",
+    "assets/items/v5/vfx/static-procs.source.png",
+    "assets/items/v5/vfx/static-procs.source.png.import",
     "assets/manifest.json",
     "config/item_v5_art.json",
     "config/item_v5_authoring.json",
@@ -35,6 +46,12 @@
     "docs/quality/asset_records/ITEM-ART-02.json",
     "docs/quality/asset_records/ITEM-ART-03.json",
     "docs/quality/asset_records/ITEM-ART-04.json",
+    "docs/quality/asset_records/ITEM-ART-05.json",
+    "docs/quality/asset_records/ITEM-ART-06.json",
+    "docs/quality/asset_records/ITEM-ART-07.json",
+    "docs/quality/asset_records/ITEM-ART-08.json",
+    "docs/quality/asset_records/ITEM-ART-09.json",
+    "docs/quality/asset_records/ITEM-ART-10.json",
     "docs/quality/records/ITEM-ART-01.json",
     "docs/tasks.md",
     "docs/worklines/item_art_01/authority-ledger.json",
@@ -45,12 +62,20 @@
     "docs/worklines/item_art_01/vfx-golden.json",
     "scripts/items/v5/item_art_library.gd",
     "scripts/items/v5/item_art_library.gd.uid",
+    "scripts/items/v5/item_companion_effects.gd",
+    "scripts/items/v5/item_defense_effects.gd",
     "scripts/items/v5/item_effect_view.gd",
     "scripts/items/v5/item_runtime.gd",
     "scripts/items/v5/item_v5_entity.gd",
     "scripts/ui/item_presentation.gd",
+    "shaders/item_v5_world_sprite.gdshader",
+    "shaders/item_v5_world_sprite.gdshader.uid",
+    "tests/item_art_golden_movie.gd",
+    "tests/item_art_real_world_movie.gd",
     "tests/item_v5_art_runner.gd",
-    "tests/item_v5_art_runner.gd.uid"
+    "tests/item_v5_art_runner.gd.uid",
+    "tools/capture_item_art_golden.py",
+    "tools/capture_item_art_real_world.py"
   ],
   "deliverables": [
     "72uniqueitemiconsregisteredwithrealconsumers",
@@ -63,100 +88,241 @@
   "gates": {
     "G0": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "G1": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Planning only; actual relevant production/evidence and independentreview not complete",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
-      "evidence": []
+      "status": "passed",
+      "reason": "User scope and currentstyle/material/pixel rules explicitly documented; no output/userqualityendorsement",
+      "evidence": [
+        "scope",
+        "inventory"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Not produced or independently verified in current art task",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "unique-icons",
+      "scenario": "Every effective item has an individually authored icon and actualmenu rendering",
+      "method": "72mapping inventory plusactualtwo-sizefullcoveragecapture",
+      "expected": "72distinctsourceROIs,visible52pxgridand90pxdetails",
+      "failure": "WrongID,missingicon,neighborcliporfalsefullcoverage",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "unverified",
+      "reason": "DevelopmentUI534/0 retained; latestfrozenintegrationstillpending",
+      "evidence": [
+        "ui-stage",
+        "inventory"
+      ]
+    },
+    {
+      "id": "accepted-event-art",
+      "scenario": "Visualscarryoriginalcastidentitythroughspend/healcallbacks",
+      "method": "Actualcompleteflownegativecasesandoriginalartwrapper",
+      "expected": "No duplicatelegacycueoroldoperationreauthorizedafterreequip",
+      "failure": "Stalepresentationacceptedundernewrevision",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Bothlegacy40/6→40/0 andspend88/4→88/0 corrected; native1185/0 retainspriorassertions. LatestfrozenHarness/review pending.",
+      "evidence": [
+        "native-stage"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/item_art_01/spec.md",
+      "sha256": "81838f9cc0d2bfe0432deee020e8110897439da581bef0db36a38748267f7a53",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Actual bounded production contract; failed native64/gutter requests preserved"
+    },
+    {
+      "id": "inventory",
+      "path": "docs/worklines/item_art_01/coverage-plan.json",
+      "sha256": "e087f14150139e74f1c1fd26edada19c4638ca41c9829b5363be053cdc33d34c",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "72actual icon mappings and actualregistry-derived worldbindings; not72naturalcombatclaims"
+    },
+    {
+      "id": "native-stage",
+      "path": "docs/evidence/item_art_01/native-stages/full-art-native-06-spend-context/receipt.json",
+      "sha256": "095111f2d1339449ad1743b102a4c58a3597d42a5d922c15abec4d23df484077",
+      "kind": "command",
+      "producer": "/root/item_art_runtime",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Developmentstage1185/0, original1077retained plusP27/N02spendcallback/emptyproof108; finalfrozenHarnesspending",
+      "command": "python3 tools/run_item_v5_tests.py --suite art",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; exactfourfileSHA inreceipt, developmentworkingtree"
+    },
+    {
+      "id": "ui-stage",
+      "path": "docs/evidence/item_art_01/ui-stages/ui-all72-02/capture-manifest.json",
+      "sha256": "e22c5b56d1b19952383108537ef196d815e222117fb37118361fb1d4bd032683",
+      "kind": "gui",
+      "producer": "/root/item_art_world",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Actual72/72 icons visibleat1280and960,534/0,26captures; displayinitializationfixture"
+    },
+    {
+      "id": "shader-review",
+      "path": "docs/evidence/item_art_01/independent-shader-probe/review.json",
+      "sha256": "8805446192e44fcf96913e49c1d61afb0eae3c32bc2520224bff22ba63de5749",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Bounded actual1wuGL11/0 withnegativecontrols, notdevice/userapproval",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    },
+    {
+      "id": "body-review",
+      "path": "docs/evidence/item_art_01/independent-integration-review/ui-body-review-02-correction-and-envelope.json",
+      "sha256": "9b7df43d47c72992fe208924892c4786829e88314c383cf7e9616be1b461febd",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Fullalpha/current07bodyboundreview; priorfalsemissingobservationretracted",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    },
+    {
+      "id": "expansion-gate",
+      "path": "docs/evidence/item_art_01/review-golden-expansion-01.json",
+      "sha256": "80a74488b3318a29f3ffcc3b372685f0d67c67821f23187f4a82bc856a2c3aa0",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Goldenactualfirst8/threefamilysourceexpansion permission; nofull72orlatest-runtimeendorsement",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "G0independentreview andactualqualityregistrationpending",
-    "Allnewartassets,frameimports,actualGLandcontinuousmotionpending",
-    "72iconsandallmeaningfulworldVFXnotcompleted",
-    "PhysicalAndroid/controller,perceptualrecognition,performance/audio/userG5unverified"
+    "Latestfrozen-source targetedHarness, continuousmainmovie/tworegioncapturesandfinaltechnicalreview pending",
+    "PhysicalAndroid/controller/lowendperformance,userartrecognition,hearing,balance/funandG5unverified",
+    "Licenseandmodelunknownassetrecordsretainvisual_statusunverified",
+    "Full72naturallyearned/everylevel/everyeffectinbothregionsnotclaimed; staticbuffsreuseappropriateoriginalweaponfeedback"
   ],
-  "draft_only": "This file is a proposal for root registration under docs/quality/records, not a passed record or production authorization."
+  "test_change_justification": "Retain originalartassertions/negativecontrols and add lifecycle, realcastcallback, shaderbound andactualsourcebudget checks. OriginalBible32/creative10 methods and historicalrefs/refusals retained; append precise68leaf sourcebinding history and finite inputs, never remove old guards. Productionplan original144prefix/order/lanes frozen, exact20appended IDs,164total91parallel73serial; no command/timeout/pattern relaxation."
 }

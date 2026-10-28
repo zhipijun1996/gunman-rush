@@ -71,3 +71,27 @@ R09作者实际纯检查已经完成：原Bible32／0，9.452秒，保留原30�
 原32／10全部方法、历史阶段身份／拒绝、原54／61／68前缀与原负例保留；追加精确R09-68原件、旧同版本绑定拒绝、当前仅一项SHA可变／67项不变，以及元数据仅这3项及3个字段组可变的断言。原有限213输入作为原序前缀保留，仅追加测试实际读取的五份R09冻结文件为218；item-v5-art14输入、全部原命令／预算／成功模式与creative全源digest不改。本轮纯检查在确认最终配置SHA与原生租约结束后运行，实际结果另附。
 
 R10作者实际复验完成：原32／0，9.336秒；原10／0，1.951秒；四个原Harness check全部fresh通过，原30／60秒预算、命令、断言和成功模式保持。完整68项当前SHA匹配，只有art配置变化、另67项逐字相同；原213输入前缀保留为218，item-v5-art完整定义及14输入与f9 checkpoint相同。[本轮完整身份与原始回执](../evidence/item_art_01/source-bindings/r10-validation/summary.json)记录基线f9与修改中的工作树，未启动引擎。原生／实际GL83及正式画面、独立数据证明、独审和玩家／设备验收各自按真实来源报告。
+
+## R11：P26／P27完整调用的旧确认表现清理
+
+R10 checkpoint `01e05bd4edc5724b5386a5129bc6974a2da9f3ce` 的style16、registry、两区creative19及View／Defense两份旧绘制消费者源，逐字冻结于[pre-legacy-cues-r11](../evidence/item_art_01/source-bindings/pre-legacy-cues-r11/manifest.json)。原R10技术通过仍绑定其旧源。本轮68项role／path／顺序不变，只更新ItemEffectView与ItemDefenseEffects两项SHA，其余66项包括art配置 `708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b`、全部PNG／shader／尺寸／pivot／语义映射完全不变；没有新资产生产或global style选择。
+
+实际完整P26／P27调用专项暴露旧generic确认与已接受专属art重叠，以及资源回调改变装备／选择后旧确认使用新origin或留下ghost的失败。修前40检查／6失败和修后40／0保留原样；原924断言继续保留，当前完整ART1077／0按其真实源报告。这些数字不是新画面、全局手感或玩家认可。
+
+Runtime在原激活路径前保存original activated ID、presentation context和castpoint；Defense在原spend回调前保存visual receipt，之后旧确认携带该原身份。View对legacy active／defense_active同样校验当前来源与会话，并在已接受专属art帧去重旧generic确认。资源回调造成的卸装／改选／失效不能把旧表现指到新道具，或凭空复活旧显示。Runtime仍属伤害／资源／技能与来源生命周期的技术闭包，不新加为绘制叶子；原HP、消耗、on_skill、技能提交与几何规则不变。
+
+当前style16 SHA `9dcfa6c4aa17c84f7d54492df8aefa78718adf17c2346c91823d14bea4b25e42`。原32／10方法、历史身份、前缀、全部负例／漂移／恢复／阶段守门保留；原R10“一份配置变化／其余67项不变”的断言改以精确冻结R09→R10比较继续保留，再追加当前R10→R11“两份绘制源变化／其余66项不变”、旧源快照与旧同版本绑定拒绝。原218个有限输入前缀完整保留，只追加这6份实际被测试读取的冻结文件为224；art14定义、原命令／预算／成功模式及creative全源digest不改。纯检查待root完成实际文档／证据写入并冻结后执行，不把旧通过挪作新源通过。
+
+## 原始Markdown归档导航修正
+
+四份冻结Markdown直接搬入新目录后，其原相对链接失效。本轮保持原字节／SHA，以同路径`.md.txt`保存逐字原件；原`.md`改为明确的归档说明，只链接逐字原件和实际原始文档当前工作版。三份原manifest也逐字保留为`manifest.before-markdown-relocation.json.txt`；现manifest只追加relocation和原JSON副本说明，原path／sha256／bytes不删改。当前绑定的历史manifest引用改指向保留原hash的JSON文本原件，冻结的历史style／方向本身不改写。完整迁移来源与哈希见[迁移回执](../evidence/item_art_01/source-bindings/markdown-archive-relocation.json)，不复制数百份链接闭包，不将wrapper说成历史原件。
+
+原32方法内增加4份文本原件及3份原manifest的精确字节守门，并核实所有历史字段保留。原224个输入保留，只追加实际读取的10份txt／manifest为234。所有旧守门、旧输入和原预算不变；归档修正不涉及runtime／配置／图像／shader或生产规则。
+
+## R12：dedicated heal／barrier跨spend回调的原始身份
+
+R11预稿在独审发现P27／N02 spend回调卸装后重装的专属heal／barrier会重新获取新context后，未执行本阶段纯检查，不能标为通过。其style16／registry／两区creative19原件和旧Defense字节已冻结于[pre-spend-proof-r12](../evidence/item_art_01/source-bindings/pre-spend-proof-r12/manifest.json)。旧Defense由已提交01e基线及已记录R11补丁恢复，完整SHA与冻结R11引用7bd276完全一致；该恢复不是新运行或旧观察采集。R10、R09及更早证据保留各自来源与结论。
+
+最终修订仅在现有Defense绘制叶子传入原始pre-spend visual proof，Runtime的heal／barrier技术桥接受该既有proof。明确提供的stale／empty proof保持失效，不在回调后重取新身份；普通地图／伤害授予路径继续本地取证。HP、屏障数量、接受成本、on_skill、几何、素材、配置与shader不改。原1077守门继续保留，最新完整ART1185／0、失败反例与独审报告各按实际来源说明，不能由本绑定代签画面／玩家／设备。
+
+当前style16 SHA `079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403`，68项role／path／顺序不变，相对R11只更新Defense一项SHA，其他67项精确相同；View仍为09ddea、art配置仍为708017。Runtime仍属技术来源闭包，不添加虚构绘制叶子。原32／10全部方法与历史负例保留：R10单配置比较、R11两叶比较分别在其精确冻结阶段继续验证，再追加最终R11→R12单Defense／67不变和旧同版本绑定拒绝。仅追加5份实际读到的R11原件输入，有限清单从234到239；原224前缀、art14、原命令／预算／成功模式及creative全源digest不变。最终原42／四Harness待root文档／证据冻结后统一执行，输出build再归档，不继承任何未执行的R11通过。

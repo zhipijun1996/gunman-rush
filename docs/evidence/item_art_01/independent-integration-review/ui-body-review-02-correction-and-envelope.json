@@ -1,0 +1,101 @@
+{
+  "reviewer": "independent /root/final_review",
+  "status": "BOUNDED_UI_AND_BODY_CONSUMER_ACCEPT; FORMAL_R10_WORLD_MOVIE_AND_HARNESS_PENDING",
+  "supersedes_findings_in": {
+    "path": "build/item_art_01/independent-integration-review/ui-body-review-01.json",
+    "sha256": "f8116098db3f243c465958d48db07e8e03d9ce4532ce1e32a8877db5c51de16f",
+    "retained_unchanged": true
+  },
+  "explicit_correction": {
+    "id": "IART-R09-03",
+    "disposition": "RETRACTED_AS_FALSE_OBSERVATION",
+    "statement": "My earlier visual claim that lower-row objects disappeared was wrong. Independent read-only audits of exact ORIGINAL03PNG bytes find all5objects in everycapture. The original guard-unavailable lower-row crop was actually viewed and plainly contains G05/P15/trap/crystal/darkguard. No render, readback, lifecycle or persistence bug was established, and no production fix is needed or claimed.",
+    "evidence": "original03-independent-byte-audit.json plus original03-guard-lower-row-inspection-crop.png; author literal03producerreplay06 has byte-identical fivePNGs, CPU04/GPU05controlledprobes separately retained.",
+    "independent_counts": "G0510028/P152868/P203884 allfive; trapalsoallfive; guard3072before,4100unavailable includingourwiderbox. Sourcehash7f16a0e0c408cf2dc5281d0c723650e82ace98e5dd61f52171276c484c6f2576 binds originalguardPNG.",
+    "not_a_fix": "Capture inspection correction only; legal threeROI dimension refinement is a separate actualdatachange."
+  },
+  "bounds_resolution": {
+    "id": "IART-R09-04",
+    "disposition": "CLOSED_WITH_REAL_CONFIG_REFINEMENT_AND_ACTUAL_GL",
+    "config_sha256": "708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b",
+    "three_roi_data_independent": "body-roi-candidate-data-review.json independently verifies excluded799/757/1125nonzero pixels ALLRGB0/alpha1; everyalpha>=2retained; no sourcePNGediting or.5mask.",
+    "independent_current_raw_projection": {
+      "G05": [
+        38.81967213,
+        32.0
+      ],
+      "P20": [
+        17.89473684,
+        26.0000000021
+      ],
+      "P25": [
+        13.29680365,
+        13.0
+      ]
+    },
+    "caps": {
+      "G05": [
+        60,
+        32
+      ],
+      "P20": [
+        18,
+        26
+      ],
+      "P25": [
+        20,
+        13
+      ]
+    },
+    "aspect": "Independent rawROI/worldsize ratios equal onbothaxes up to decimalprecision; no geometrydistortion. P20transparentcanvasheight26.1053 is distinct fromrawoccupiedheight26.",
+    "trap_metal_foot": "Structuredpixel[118,212] projects(0,+2)wu atoriginalsurfaceoffset2, independentcalculation+actualnativeprobe. Doesnotclaimnaturallyacceptedtrapplacement.",
+    "actual_G19_still_valid": "Samecorepositions observed; completeNode37x24cap retained; authoredrankfootband0/0/0, legacypositive224rankpixels retained.",
+    "guard_state": "Current actualcroppedPNG showsavailablebrassguard versus darkunavailable1.15scale, withallotherfigurespersisting; no disappearance."
+  },
+  "actual_pixels_viewed": {
+    "UI": "Previous14representativepages+ALL6changedcorner/evolutiondetails acceptance retained; exacticonROIsunchanged bythreeworldclipmetadata refinements.",
+    "current_body07": [
+      "g19-overview-trap-crystal-guard.png",
+      "g19-same-pose-state-0.png",
+      "g19-same-pose-state-1.png",
+      "g19-same-pose-state-2.png",
+      "g19-total-visual-state-0.png",
+      "g19-total-visual-state-1.png",
+      "g19-total-visual-state-2.png",
+      "guard-unavailable-existing-morning-scale.png",
+      "legacy-fallback-rank-control.png"
+    ],
+    "additional_inspection_crops": [
+      "original03-guard-lower-row-inspection-crop.png",
+      "current07-guard-lower-row-inspection-crop.png"
+    ]
+  },
+  "current_native_evidence": "AuthoractualfullART924/0 andrealGLbody83/0 strictclean received; reviewerreadreceipts/images/calculatedrawsource independently, didnotrunengine.",
+  "remaining": [
+    "FreshformalR10normalworld/currentmaterialmovie andmixedplayer/hazardreadability, notsignedbyisolatedposes",
+    "Finalselected19+artHarness andcurrentCI",
+    "Naturalearnedgrowth/trapplacement not demonstrated byposefixture",
+    "PhysicalAndroid/controller/humanG2-G5/audio/liveplayback notsigned"
+  ],
+  "source_conformance": "Originalsourcepadding/native64failures remainFAILED andarchived; ROIconsumeracceptance doesnotretconsourcegenerationconformance.",
+  "evidence": {
+    "build/item_art_01/independent-integration-review/original03-independent-byte-audit.json": "9c72685cc5130deeea5b92a0a71880295833228cdc95baeb4cdfb3923dfb68b7",
+    "build/item_art_01/independent-integration-review/current07-independent-byte-audit.json": "a0a3eaaafcac7603c97639cdf71ca24eca195cd6dbebe421831b08f7288124d2",
+    "build/item_art_01/independent-integration-review/original03-guard-lower-row-inspection-crop.png": "d9952055860afaa4866e9309396bc1500c7d89ffeb82cf3f38dddab096e971a3",
+    "build/item_art_01/independent-integration-review/current07-guard-lower-row-inspection-crop.png": "25e752481d3603ba6228e3b1c3adebd4fd9cf2e6ba4e2069a7f035f236d710b0",
+    "build/item_art_01/independent-integration-review/body-roi-candidate-data-review.json": "78fa2b504db590622220410031ba0307745a0c2f725b0724f7bf500302bb84b9",
+    "build/item_art_01/body-pose-native-07-envelope/receipt.json": "7ecd3b0235e72bc06eecbc9d0b90c9cb8deb1b11d99362c498604220c96e396b",
+    "build/item_art_01/body-pose-native-07-envelope/run-receipt.json": "37cbbb552694ad9f6816fc6469a435ad88b9165d482d71abe0d05cd1a5562954",
+    "build/item_art_01/body-pose-native-07-envelope/native-gl.log": "595126851e67103651bb568e67e03643c99f46a0c8957b5cc7c59d802e6e438c",
+    "config/item_v5_art.json": "708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b",
+    "build/item_art_01/body-pose-native-07-envelope/g19-overview-trap-crystal-guard.png": "d4fd6c49ba0c25dd86922195b1d2b6f3e26d12189d5eb29197e64bd20c50ffbc",
+    "build/item_art_01/body-pose-native-07-envelope/g19-same-pose-state-0.png": "db42362b20a24bdea7a4fb98a9b7fde84b3acb20e189b81adbe6de5cc8f732a8",
+    "build/item_art_01/body-pose-native-07-envelope/g19-same-pose-state-1.png": "d486563458cbd32dc87b2c9a7d34faa18af9ab7d86be86a80c09b7601034f6c7",
+    "build/item_art_01/body-pose-native-07-envelope/g19-same-pose-state-2.png": "45b9860b6ea91a0d80453e3c38e91c70a3a520f468c0dbc128724a1b77452a4a",
+    "build/item_art_01/body-pose-native-07-envelope/g19-total-visual-state-0.png": "336406ce4ee2df212184b7ed5691c0e94dac3cbb9bef688b30db6ca58fdaeb05",
+    "build/item_art_01/body-pose-native-07-envelope/g19-total-visual-state-1.png": "178eb352ad9123bb421b74ab3f795a09c86f410c41ae87f3e84d4002d64a2f60",
+    "build/item_art_01/body-pose-native-07-envelope/g19-total-visual-state-2.png": "91146b3cd431b69d26c3d2894c8895b749347ffd53ed601978e0f52b15f5a4d0",
+    "build/item_art_01/body-pose-native-07-envelope/guard-unavailable-existing-morning-scale.png": "ce6cb70a70f578e1dec9763e38f536365858dbc58a5cc4fce4b66827c21bfaf7",
+    "build/item_art_01/body-pose-native-07-envelope/legacy-fallback-rank-control.png": "d925026d26edc05a030468cb158ea595b3e8f905001f575f3b5e823a931a923c"
+  }
+}

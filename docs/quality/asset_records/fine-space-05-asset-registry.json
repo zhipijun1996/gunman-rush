@@ -2,9 +2,9 @@
   "schema_version": 1,
   "asset_id": "fine-space-05-asset-registry",
   "task_id": "FINE-SPACE-05",
-  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023+registry-correction-v2",
+  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023+registry-correction-v2+item-art-append-v1-20261028",
   "source_path": "assets/manifest.json",
-  "source_sha256": "538a9e1e40b252b219398dde4b38c7e3a9ff73b5b62a22997e1475920f54055d",
+  "source_sha256": "470dc4dd685bfafc612de6551f99191401d3b8bcef3836e57a7b3802bf0a775b",
   "runtime_paths": [],
   "tool": "Repository metadata assembly; no model invocation",
   "model": "not_applicable",
@@ -18,20 +18,12 @@
   "non_runtime_reason": "Central inventory/provenance document; formal renderers load concrete source assets and build metadata rather than this global inventory.",
   "user_acceptance_evidence": [],
   "revision_impact": {
-    "revision": "four-line-scenery-registry-correction-v2",
-    "prepared_source_commit": "b165a6268c451e249728d399935e8e9edba78e40",
-    "previous_content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023",
-    "previous_record_path": "docs/evidence/four_line_integration_20261023/registry-correction-b165/fine-space-05-asset-registry.json",
-    "previous_record_sha256": "f9cbdbaf76862ace6effc4e4ebf2f3796f319b5bc4c43239bf46ef79763885fb",
-    "source_changes": [
-      {
-        "field": "source_sha256",
-        "path": "assets/manifest.json",
-        "old_sha256": "a73354457f825127788e490a25631b7f6dfa6c28ef9670b0e5c24711b38e6d6b",
-        "new_sha256": "538a9e1e40b252b219398dde4b38c7e3a9ff73b5b62a22997e1475920f54055d"
-      }
-    ],
-    "actual_change": "Correct exactly three stale digest fields for the already-adopted and previously reviewed scenery_build.json (scenery sha/source and Home source). All281 entries and remaining metadata unchanged; no image, world geometry, provenance origin, license or visual acceptance changed. Prior merged registry and record bytes retained.",
-    "review_status": "independent review required; no art/player/device acceptance"
+    "revision": "item-art-append-v1",
+    "prepared_source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+    "previous_record_path": "docs/evidence/item_art_01/global-registry-append-01/fine-space-05-asset-registry.json",
+    "previous_record_sha256": "0898e59a549eaa869aa134fb70fac078a6c6e14e76852e694f66d99813ca499a",
+    "actual_change": "Append10itemsource entries; original281entries andallmetadata byte-equivalent asparsed. No old art/license/visualstate changed.",
+    "proof": "docs/evidence/item_art_01/global-registry-append-01/append-proof.json",
+    "review_status": "Independentmetadatareview requested; not art/player/deviceapproval"
   }
 }

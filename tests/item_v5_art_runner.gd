@@ -284,6 +284,8 @@ func run() -> void:
 	await actual_resource_and_mark_hooks()
 	await rescue_commit_bridge()
 	await publication_receipt_epochs()
+	await complete_activation_flows()
+	await complete_spend_resource_flows()
 	if runtime != null: runtime.clear()
 	if fixture != null and is_instance_valid(fixture.get("world")): (fixture.get("world") as Node).free()
 	view = null
@@ -298,6 +300,96 @@ func run() -> void:
 	await process_frame
 	print("ITEM V5 ART: %s checks, %s failures" % [checks,failures])
 	quit(1 if failures else 0)
+
+func _activation_callback_change(id: StringName, mode: StringName) -> void:
+	if mode != &"select_only":
+		var source := build.inventory.instance_for_definition(id).instance_id
+		var other := build.inventory.instance_for_definition(&"B33").instance_id
+		var keep: Array[StringName] = [other]
+		check(EQUIP.equip_ids(build,keep),"complete callback really unloads original active "+String(id)+"/"+String(mode))
+		if mode in [&"reequip_same",&"reequip_other"]:
+			keep.append(source)
+			check(EQUIP.equip_ids(build,keep),"complete callback really re-equips SAME owned instance "+String(id)+"/"+String(mode))
+		runtime.sync()
+	var selected := id if mode == &"reequip_same" else &"B33"
+	check(runtime.select_active(selected),"actual callback selection accepts "+String(selected)+"/"+String(mode))
+
+func complete_spend_resource_flows() -> void:
+	for id: StringName in [&"P27",&"N02"]:
+		for mode: StringName in [&"none",&"unload",&"reequip_same",&"reequip_other"]:
+			await fresh()
+			source_fixture([id,&"B33"])
+			actor.combat_energy.grant("complete_spend_fixture/funding",100)
+			if id == &"P27":
+				var source_health := actor.actor_resources.health
+				check(source_health.apply_damage(ActorResourceRequest.new(&"complete_spend_fixture/hurt",source_health.epoch,1,source_health.get_instance_id())).accepted(),"real HP loss prepares spent-callback heal "+String(mode))
+			if mode != &"none": actor.combat_energy.spent.connect(func(_event: String,_amount: float) -> void: _activation_callback_change(id,mode),CONNECT_ONE_SHOT)
+			check(runtime.select_active(id),"real original source selected before spend callback "+String(id)+"/"+String(mode))
+			var parameters := runtime.effect(id)
+			var expected_cost := runtime.skill_cost(float(parameters.combat_energy_cost))
+			var energy_before := actor.combat_energy.current
+			var hp_before := actor.actor_resources.health.current
+			var expected_heal := minf(actor.actor_resources.health.capacity-hp_before,float(parameters.get("heal_hp",0.0)))
+			var source_defense := runtime.get("_defense") as ItemDefenseEffects
+			var expected_barrier := mini(int(parameters.get("barrier_grant",0)),int(source_defense.snapshot().barrier_cap)) if mode != &"unload" else 0
+			view.clear()
+			cue_events.clear()
+			var result := runtime.activate_selected(Vector2.RIGHT)
+			var snapshot := view.snapshot()
+			var kind := &"heal" if id == &"P27" else &"barrier"
+			var label := String(id)+"/spent/"+String(mode)
+			check(bool(result.accepted) and is_equal_approx(energy_before-actor.combat_energy.current,expected_cost),"complete spent-callback return and original cost unchanged "+label)
+			check(is_equal_approx(actor.actor_resources.health.current,hp_before+expected_heal) and runtime.barrier_count() == expected_barrier,"actual HP/barrier outcome survives visual cancellation "+label)
+			if mode == &"none":
+				check(int(snapshot.count) == 1 and int(snapshot.counts.get(kind,0)) == 1 and events_of(kind).size() == 1,"normal complete resource commit retains exactly one dedicated cue "+label)
+			else:
+				check(int(snapshot.count) == 0 and events_of(kind).is_empty(),"spent callback cannot regain dedicated resource cue after unload or SAME-instance re-equip "+label)
+	await fresh()
+	source_fixture([&"P27",&"N02"])
+	var health := actor.actor_resources.health
+	health.apply_damage(ActorResourceRequest.new(&"explicit_empty_visual_fixture/hurt",health.epoch,1,health.get_instance_id()))
+	view.clear()
+	cue_events.clear()
+	check(runtime.heal(1,&"P27/explicit_empty_visual_fixture",&"P27",{}) and events_of(&"heal").is_empty(),"explicit EMPTY activation proof cannot recapture fresh heal identity although actual HP grant succeeds")
+	var defense := runtime.get("_defense") as ItemDefenseEffects
+	check(defense.grant_barrier(1,&"N02/explicit_empty_visual_fixture",&"N02",{}) == 1 and events_of(&"barrier").is_empty(),"explicit EMPTY activation proof cannot recapture fresh barrier identity although actual barrier grant succeeds")
+
+func complete_activation_flows() -> void:
+	for id: StringName in [&"P26",&"P27"]:
+		for mode: StringName in [&"none",&"unload",&"reequip_same",&"reequip_other",&"select_only"]:
+			await fresh()
+			source_fixture([id,&"B33"])
+			actor.combat_energy.grant("complete_activation_fixture/funding",100)
+			if id == &"P27":
+				var health := actor.actor_resources.health
+				check(health.apply_damage(ActorResourceRequest.new(&"complete_activation_fixture/hurt",health.epoch,1,health.get_instance_id())).accepted(),"actual positive HP loss prepares complete heal "+String(mode))
+				if mode != &"none": health.changed.connect(func(_result: ActorResourceResult) -> void: _activation_callback_change(id,mode),CONNECT_ONE_SHOT)
+			elif mode != &"none":
+				actor.combat_energy.spent.connect(func(_event: String,_amount: float) -> void: _activation_callback_change(id,mode),CONNECT_ONE_SHOT)
+			check(runtime.select_active(id),"original actual active selected "+String(id)+"/"+String(mode))
+			var expected_cost := runtime.skill_cost(float(runtime.effect(id).combat_energy_cost))
+			var energy_before := actor.combat_energy.current
+			var hp_before := actor.actor_resources.health.current
+			var expected_heal := minf(actor.actor_resources.health.capacity-hp_before,float(runtime.effect(id).get("heal_hp",0.0)))
+			var revision_before := int(build.equipment.snapshot().revision)
+			var casts_before := int(runtime.get("_serial"))
+			view.clear()
+			cue_events.clear()
+			var result := runtime.activate_selected(Vector2.RIGHT)
+			var snapshot := view.snapshot()
+			var label := String(id)+"/"+String(mode)
+			check(bool(result.accepted) and is_equal_approx(energy_before-actor.combat_energy.current,expected_cost),"complete original activation return and one actual cost preserved "+label)
+			check(int(runtime.get("_serial")) == casts_before+1,"original accepted skill-hook sequence advances once "+label)
+			check(is_equal_approx(actor.actor_resources.health.current,hp_before+expected_heal),"actual HP outcome survives visual callback cancellation "+label)
+			var cast := events_of(&"active")
+			var defense := events_of(&"defense_active")
+			check(cast.size() == 1 and cast[0].detail.item == id and int(cast[0].detail.equipment_revision) == revision_before,"complete post-module cue retains original source and PRECALLBACK context "+label)
+			check(defense.size() == 1 and defense[0].detail.item == id and int(defense[0].detail.equipment_revision) == revision_before,"complete defense cue retains PRESPEND identity through real resource callback "+label)
+			if mode in [&"none",&"select_only"]:
+				var expected := &"item_guard_active" if id == &"P26" else &"heal"
+				check(int(snapshot.count) == 1 and int(snapshot.counts.get(expected,0)) == 1 and int(snapshot.counts.get(&"active",0)) == 0,"complete success renders exactly ONE dedicated visual with no generic gear "+label)
+			else:
+				check(int(snapshot.count) == 0,"complete unload/re-equip cannot revive dedicated or legacy cast visuals "+label)
 
 
 func recipe_geometry_cases() -> void:

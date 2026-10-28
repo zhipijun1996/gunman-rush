@@ -1,0 +1,133 @@
+{
+  "status": "PASSED_BOUNDED_NATIVE_AND_ISOLATED_GL_NOT_FULLGAME_VISUAL_ACCEPTANCE",
+  "native_log": "build/item_art_01/full-art-native-02/full-art.log",
+  "native_checks": 924,
+  "native_failures": 0,
+  "native_exit_code": 0,
+  "original_editor_budget_seconds": 90,
+  "original_native_budget_seconds": 120,
+  "first_failed_native": "build/item_art_01/full-art-native-01 (921/9; missing fixtureenergy+two actualROIcornerfailures)",
+  "production_shader_GL": "build/item_art_01/world-shader-native-03",
+  "production_shader_GL_checks": 11,
+  "production_shader_GL_failures": 0,
+  "actual_P24_uniform_fraction": 1.0,
+  "unchanged_uniform_gate": 0.95,
+  "nearest_only_control_uniform_fraction": 0.002242152466367713,
+  "source_world_ratio_control": 15.42168674698795,
+  "neighbor_green_clipped": [
+    0,
+    0,
+    0
+  ],
+  "neighbor_green_unfiltered": [
+    0,
+    0,
+    0
+  ],
+  "deliberate_bad_ROI_green": [
+    136,
+    119,
+    81
+  ],
+  "actual_shader_path": "res://shaders/item_v5_world_sprite.gdshader",
+  "actual_shader_sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5",
+  "canonical_style_source": "res://shaders/underworld_fine_sprite.gdshader",
+  "canonical_style_sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188",
+  "canonical_style_changed": false,
+  "congruence": "Native removed only the marked guardblock and compared byteexact canonicalstyle; passed.",
+  "header_note": "world-shader-native-03/run-receipt.json shader_sha256 names canonical source; its receipt.json world_shader+world_shader_sha256 names actual material program.",
+  "registered_icons": 72,
+  "registered_clips": 42,
+  "unique_texture_headers": [
+    {
+      "path": "assets/items/v5/icons/catalog-01.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-02.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-03.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-04.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    },
+    {
+      "path": "assets/items/v5/icons/golden-02.source.png",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "rgba_upper_bound_bytes": 6294152
+    },
+    {
+      "path": "assets/items/v5/vfx/g16-01.source.png",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "rgba_upper_bound_bytes": 6291456
+    },
+    {
+      "path": "assets/items/v5/vfx/p14-01.source.png",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "rgba_upper_bound_bytes": 6291456
+    },
+    {
+      "path": "assets/items/v5/vfx/p24-01.source.png",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "rgba_upper_bound_bytes": 6291456
+    },
+    {
+      "path": "assets/items/v5/vfx/static-entities.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    },
+    {
+      "path": "assets/items/v5/vfx/static-procs.source.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "rgba_upper_bound_bytes": 6290064
+    }
+  ],
+  "registered_RGBA_upper_bound_bytes": 62908904,
+  "budget_bytes": 67108864,
+  "unverified": [
+    "G19same-position nativeGL/trapfoot/composite32",
+    "current72icon formalmenus/reward/shop",
+    "normal-speed newallart worldmovie",
+    "physicalAndroid/controller",
+    "playerfun/audioacceptance/fullCI"
+  ],
+  "lease": "released to root"
+}

@@ -283,13 +283,91 @@ class BibleTests(unittest.TestCase):
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),68)
         current_refs = refs
+        # Frozen Markdown keeps exact bytes as .md.txt: its original relative
+        # links cannot be resolved from a different archive directory. Live .md
+        # files are explicit navigation wrappers, not rewritten originals.
+        markdown_archives = {
+            'docs/evidence/item_authoring_01/source-bindings/before-v16':
+                '2e0bd3e6c34bfe331ea71e368f0f59486595aa0fa5107d5e6a75fe7390138858',
+            'docs/evidence/item_art_01/source-bindings/pre-golden-r08':
+                'cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592',
+            'docs/evidence/item_art_01/source-bindings/pre-expansion-r09':
+                '9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725',
+        }
+        relocated_markdown = 0
+        for archive_path,original_digest in markdown_archives.items():
+            folder = ROOT/archive_path
+            original_raw = (folder/'manifest.before-markdown-relocation.json.txt').read_bytes()
+            self.assertEqual(hashlib.sha256(original_raw).hexdigest(),original_digest)
+            original_manifest = json.loads(original_raw)
+            manifest = json.loads((folder/'manifest.json').read_bytes())
+            self.assertEqual({k:v for k,v in manifest.items() if k not in {'files','original_manifest_before_markdown_relocation'}},
+                             {k:v for k,v in original_manifest.items() if k!='files'})
+            self.assertEqual(len(manifest['files']),len(original_manifest['files']))
+            for before,after in zip(original_manifest['files'],manifest['files']):
+                self.assertEqual({k:v for k,v in after.items() if k!='relocation'},before)
+                if before['path'].endswith('.md'):
+                    relocated_markdown += 1
+                    self.assertEqual(after['relocation']['path'],before['path']+'.txt')
+                    self.assertEqual(after['relocation']['wrapper_path'],before['path'])
+                    original_bytes = (folder/after['relocation']['path']).read_bytes()
+                    self.assertEqual(hashlib.sha256(original_bytes).hexdigest(),before['sha256'])
+                    self.assertEqual(len(original_bytes),before['bytes'])
+                else:
+                    self.assertNotIn('relocation',after)
+        self.assertEqual(relocated_markdown,4)
+        r11_root = 'docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/'
+        r11_path = r11_root+'style-continuity-20261028-v16-item-authoring.json'
+        r11_raw = (ROOT/r11_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r11_raw).hexdigest(),'9dcfa6c4aa17c84f7d54492df8aefa78718adf17c2346c91823d14bea4b25e42')
+        r11 = json.loads(r11_raw)
+        self.assertEqual(r11['version'],'16')
+        self.assertEqual(len(r11['runtime_reference']['references']),68)
+        for before,after in zip(r11['runtime_reference']['references'],current_refs):
+            if before['path']=='scripts/items/v5/item_defense_effects.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                old_leaf = (ROOT/(r11_root+'item_defense_effects.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_r11 = copy.deepcopy(self.ref)
+        stale_r11['supplemental_authority_path'] = r11_path
+        stale_r11['supplemental_authority_sha256'] = hashlib.sha256(r11_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r11,root=self.root)
+        r10_root = 'docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/'
+        r10_path = r10_root+'style-continuity-20261028-v16-item-authoring.json'
+        r10_raw = (ROOT/r10_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r10_raw).hexdigest(),'aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867')
+        r10 = json.loads(r10_raw)
+        self.assertEqual(r10['version'],'16')
+        self.assertEqual(len(r10['runtime_reference']['references']),68)
+        changed_r11 = {'scripts/items/v5/item_effect_view.gd',
+                       'scripts/items/v5/item_defense_effects.gd'}
+        # R11's two-leaf correction stays an exact frozen-stage proof, while
+        # the final dedicated-spend fix above changes only Defense once more.
+        for before,after in zip(r10['runtime_reference']['references'],r11['runtime_reference']['references']):
+            if before['path'] in changed_r11:
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                original_leaf = (ROOT/(r10_root+Path(before['path']).name+'.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(original_leaf).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_r10 = copy.deepcopy(self.ref)
+        stale_r10['supplemental_authority_path'] = r10_path
+        stale_r10['supplemental_authority_sha256'] = hashlib.sha256(r10_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r10,root=self.root)
         r09_path = 'docs/evidence/item_art_01/source-bindings/pre-envelope-r10/style-continuity-20261028-v16-item-authoring.json'
         r09_raw = (ROOT/r09_path).read_bytes()
         self.assertEqual(hashlib.sha256(r09_raw).hexdigest(),'bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a')
         r09 = json.loads(r09_raw)
         self.assertEqual(r09['version'],'16')
         self.assertEqual(len(r09['runtime_reference']['references']),68)
-        for before,after in zip(r09['runtime_reference']['references'],current_refs):
+        # Preserve R10's one-config-change proof against its exact frozen source.
+        for before,after in zip(r09['runtime_reference']['references'],r10['runtime_reference']['references']):
             if before['path']=='config/item_v5_art.json':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])

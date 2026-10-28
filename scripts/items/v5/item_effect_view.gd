@@ -141,6 +141,9 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	var origin := StringName(str(detail.get("origin",detail.get("definition_id",detail.get("item",&"")))))
 	origin = ItemArtLibrary.cue_source(kind,origin)
 	var clip := ItemArtLibrary.cue_clip(kind,origin)
+	# Legacy cast confirmations also belong to the original live source. Their
+	# empty clip must not bypass a callback's equipment/session cancellation.
+	if kind in [&"active",&"defense_active"] and not _impact_receipt_current(origin,detail): return
 	# Once dedicated accepted-HP art exists, the older G01 detonation request
 	# cannot also draw a receiver glyph before its damage has committed.
 	if kind == &"echo" and origin == &"G01" and not ItemArtLibrary.cue_clip(&"item_committed_impact",origin).is_empty(): return
@@ -158,7 +161,7 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	var frame := Engine.get_process_frames()
 	if kind == &"defense_active" and int(_accepted_art_frames.get(origin,-1)) == frame: return
 	if not clip.is_empty() and kind in [&"barrier",&"heal",&"item_guard_active"]: _accepted_art_frames[origin] = frame
-	if kind == &"active" and int(_cast_frames.get(origin,-1)) == frame: return
+	if kind == &"active" and (int(_cast_frames.get(origin,-1)) == frame or int(_accepted_art_frames.get(origin,-1)) == frame): return
 	if kind in [&"item_active_cast",&"defense_active",&"item_large_guard_summoned"]: _cast_frames[origin] = frame
 	var duration := float(_settings.short_duration_s)
 	if kind in [&"arc",&"item_arc",&"item_drone_fire"]: duration = float(_settings.arc_duration_s)

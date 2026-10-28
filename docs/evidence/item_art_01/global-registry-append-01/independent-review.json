@@ -1,0 +1,155 @@
+{
+  "reviewer": "independent /root/final_review",
+  "status": "SCOPED_METADATA_ACCEPT",
+  "scope": "Only centralregistry281exactoldentries+metadata/10append andtwoassociatednonruntimequalityrecords; noengine/art/player/deviceapproval",
+  "checks": {
+    "archived_main_bytes_exact": true,
+    "original281entries_exact_in_order": true,
+    "all_original_top_metadata_exact": true,
+    "exact10append": true,
+    "proof_exact_appended": true,
+    "proof_hashes_match": true,
+    "no_duplicate_ids_or_paths": true,
+    "all10_source_identity_dimensions_flags": true,
+    "demo_ui_01_r2_registry.json": true,
+    "fine-space-05-asset-registry.json": true
+  },
+  "records": [
+    {
+      "path": "docs/quality/asset_records/demo_ui_01_r2_registry.json",
+      "changed_fields": [
+        "content_version",
+        "non_runtime_reason",
+        "revision_impact",
+        "source_sha256"
+      ],
+      "only_declared_fields": true,
+      "archive_previous_record_bytes_exact": true,
+      "archive_hash_matches_revision": true,
+      "source_sha_matches_current": true,
+      "all_other_values_exact": true,
+      "current_non_runtime_reason": "Build-time centralregistry. Original two task UI entries and all original281records retained; current inventory additionally appends ten itemsource records. Renderers use concrete assets rather than this registry.",
+      "visual_status": "not_applicable",
+      "user_acceptance_evidence_unchanged": true
+    },
+    {
+      "path": "docs/quality/asset_records/fine-space-05-asset-registry.json",
+      "changed_fields": [
+        "content_version",
+        "revision_impact",
+        "source_sha256"
+      ],
+      "only_declared_fields": true,
+      "archive_previous_record_bytes_exact": true,
+      "archive_hash_matches_revision": true,
+      "source_sha_matches_current": true,
+      "all_other_values_exact": true,
+      "current_non_runtime_reason": "Central inventory/provenance document; formal renderers load concrete source assets and build metadata rather than this global inventory.",
+      "visual_status": "unverified",
+      "user_acceptance_evidence_unchanged": true
+    }
+  ],
+  "appended_source_checks": [
+    {
+      "path": "assets/items/v5/icons/golden-02.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/vfx/p24-01.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/vfx/p14-01.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/vfx/g16-01.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-01.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-02.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-03.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/icons/catalog-04.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/vfx/static-entities.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    },
+    {
+      "path": "assets/items/v5/vfx/static-procs.source.png",
+      "sha256_match": true,
+      "dimensions_match": true,
+      "png_mode": "RGBA",
+      "runtime_collision_false": true,
+      "gameplay_random_stream_false": true,
+      "not_user_device_approved": true
+    }
+  ],
+  "minor_finding_closed": "demoUIrecord stale onlytwoentries sentence corrected to distinguish preservedold2UI/281records andcurrent10itemappend; originalprosebytes retained inarchive.",
+  "unchanged_contract": "Originalsourceimages/worldconsumers/provenancelicense/visualstatus/useracceptanceevidence not changed bythese2records; oldsource/currentSHA updates are not visual or license approval.",
+  "files": {
+    "docs/evidence/item_art_01/global-registry-append-01/original-assets-manifest.json": "538a9e1e40b252b219398dde4b38c7e3a9ff73b5b62a22997e1475920f54055d",
+    "assets/manifest.json": "470dc4dd685bfafc612de6551f99191401d3b8bcef3836e57a7b3802bf0a775b",
+    "docs/evidence/item_art_01/global-registry-append-01/append-proof.json": "22e955970e172afda96f9fe8adbfc122665a1f10d6799ce3d8071ffc13dc2682",
+    "docs/evidence/item_art_01/global-registry-append-01/demo_ui_01_r2_registry.json": "3e9d392f0f368d3c752f9f5f061eb0edb2a343418c5897c25bbb56e89b8b3138",
+    "docs/evidence/item_art_01/global-registry-append-01/fine-space-05-asset-registry.json": "0898e59a549eaa869aa134fb70fac078a6c6e14e76852e694f66d99813ca499a",
+    "docs/quality/asset_records/demo_ui_01_r2_registry.json": "345b073ae7c7a06da2ff73434d990779239b1f1e7e3582f948a1fc7961299785",
+    "docs/quality/asset_records/fine-space-05-asset-registry.json": "2eddd57a7c6c80711dde5687856b19cab064384ee137bf54c1f977bc2ccc5934"
+  }
+}

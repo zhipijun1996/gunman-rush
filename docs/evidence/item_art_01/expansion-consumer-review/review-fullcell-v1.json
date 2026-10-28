@@ -1,0 +1,60 @@
+{
+  "reviewer": "independent /root/final_review",
+  "scope": "Four actual generated source boards, raw source pixel inspection and isolated real Godot 4.7.2 softwareGL at 52/90 dark/light; not current game menu/device/full72 runtime acceptance",
+  "actual_source_boards_viewed": 4,
+  "actual_gl_pages_viewed": 8,
+  "source_conformance": {
+    "central_half_alpha0_padding": "FAIL: retained original request unchanged",
+    "native64_source": "NOT MET; 1254x1254 high resolution sources, no resizing or pixel edits"
+  },
+  "recipe": "expansion-fullcell-integer-v1",
+  "decision": "REVISE",
+  "candidate_admission": {
+    "boards01_02": true,
+    "boards03_04": false
+  },
+  "findings": [
+    {
+      "id": "IART-EXP-01",
+      "severity": "blocking for exact quarter recipe on boards03/04",
+      "evidence": "At alpha>0.5 board03 first-row actual content reaches y315 and board04 y314 beyond quarter boundary313; actual 90px light pages show detached top flecks in B32/P20 and B16/B20. Exact quarter recipe divides actual silhouettes, independent of faint-alpha source tails.",
+      "repair_candidate": "Keep x edges [0,313,627,940,1254]; use measured y edges [0,332,644,936,1254] for boards03/04, preserve aspect on fit, validate actual GPU before admission."
+    }
+  ],
+  "positive_observations": [
+    "All64 source objects have individually distinct silhouettes and match the row-major item briefs.",
+    "Boards01/02 52/90 dark/light show complete recognizable objects with no visibly foreign neighbor, opaque white halo, or background rectangle.",
+    "Bad wide ROI visibly renders two different neighbors; deliberately reused first ROI visibly repeats the same object, confirming both controls."
+  ],
+  "source_unchanged": true,
+  "engine_exit_code": 0,
+  "strict_log_errors": false,
+  "unverified": [
+    "Natural actualDemoMenu with these64 sources",
+    "Actual Android/controller hardware",
+    "Live continuous playback and listening",
+    "New semanticVFX boards",
+    "Full72 runtime/CI/G2-G5"
+  ],
+  "artifacts": {
+    "recipe-before.json": "caf94771ef98639a439e1d29b1564ca27b4bde66ff90ca58ea992929d74b2fe3",
+    "measurement.json": "7d5e4bad29dc5f8f84951bf73e086d40a62fb7cbec1190c131adada77bff01d6",
+    "native-gl.log": "7497cf4b130f23acb216cf08c519ffd5476a2b0f4a62e1846a03726d51d92de8",
+    "icons-01-page1-noart.png": "fc6582383c2a6208831bee4f18cce05ec3940fe2758293cd98aa8fddfdf79bbb",
+    "icons-01-page1.png": "b9f8e7a4bd0391141d99fd266b55c929529d26ca55817346aaeb05e2802ccc3f",
+    "icons-01-page2-noart.png": "030059aee0dcf80540e1a1ace78b1aa661c2eec1e3a64c994311eae0db4ee7c7",
+    "icons-01-page2.png": "9f45d96144a219afd6c0b03b8e30876debee4cc0cf741d9604f0367f90e95e94",
+    "icons-02-page1-noart.png": "6140294912b83a1763210dbe68a6c41c167e8a4665beffd7f27f698e6e0d419f",
+    "icons-02-page1.png": "5ae14fd812d1f9a2bd756a17c58393e531b9d6a1b1d3916eaf4d91bd4bbb4444",
+    "icons-02-page2-noart.png": "fce5cfdb31fdd4ecfa1c2c2dfab5c31345f2e11a3ba3cf1871d208a64acd00c2",
+    "icons-02-page2.png": "ecacc1357ea919f53e05ab0451299c47bf0f1dbda23f094dc5ae26644db1371b",
+    "icons-03-page1-noart.png": "d6673549e1a7380fc220a3875f10fb972bae23abc00de3dc981fd75cccf43cd5",
+    "icons-03-page1.png": "4bb746739375218d9c69326f8a7acaf97cc640f11a5c16c89dc0160023fb5cf8",
+    "icons-03-page2-noart.png": "50af8d4677b42befe3a322882ea64e29406a705dc3a8e2ca541bd134dd4034d3",
+    "icons-03-page2.png": "9ca835a833fe026c5d6eb666acc9a5cefd402b1d9307c9a8f40e8f4a9071c7d0",
+    "icons-04-page1-noart.png": "bf9c26d04a97bacf688451aca12ed2fda974544f2bdfd11eba379bb60578d803",
+    "icons-04-page1.png": "998cd61fadc2fab8d10c7520f2dbfe600d0ffdfaffaa18a6de634f19d3ce1c28",
+    "icons-04-page2-noart.png": "4183f55623dba3bf18e9da759dc9addfaf9467c98cce80819254595f29640983",
+    "icons-04-page2.png": "238f3f845b01484ff75297e9f89132920058adea28cc1fecc443edec47112c06"
+  }
+}

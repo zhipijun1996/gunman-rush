@@ -205,15 +205,25 @@ func active_capable(id: StringName) -> bool:
 
 func activate_selected(direction: Vector2) -> Dictionary:
 	if not is_live() or _selected.is_empty() or not has(_selected): return {"accepted":false,"reason":&"unavailable"}
+	# A resource callback may change selection/loadout during the existing cast.
+	# Preserve only its visual identity; cost, return and skill hooks stay owned
+	# by the original activation path below.
+	var activated_id := _selected
+	var visual_context := _presentation_context()
+	var cast_point := actor().motor.global_position
 	var result: Dictionary
 	if _selected == &"G05": result = _companions.call("activate", _selected, direction)
 	elif _selected in [&"P26", &"P27", &"N02"]: result = _defense.call("activate", _selected, direction)
 	else: result = _actives.call("activate", _selected, direction)
 	if bool(result.get("accepted", false)):
 		_serial += 1
+		var visual_event := StringName("item_cast/%s" % _serial)
 		on_skill_started(StringName("item_cast/%s" % _serial))
-		cue(&"active", actor().motor.global_position, {"item":_selected})
-	else: cue(&"rejected", actor().motor.global_position, result)
+		var visual := visual_context.duplicate()
+		visual["item"] = activated_id
+		visual["event_id"] = visual_event
+		cue(&"active",cast_point,visual)
+	else: cue(&"rejected",cast_point,result)
 	return result
 
 func base_damage() -> float:
@@ -235,9 +245,11 @@ func spend_energy(amount: float, receipt: StringName, active_skill: bool = true)
 func grant_energy(amount: float, receipt: StringName) -> float:
 	return actor().combat_energy.grant(String(receipt), amount) if is_live() else 0.0
 
-func heal(amount: float, receipt: StringName, origin: StringName = &"") -> bool:
+func heal(amount: float, receipt: StringName, origin: StringName = &"", visual_proof: Variant = null) -> bool:
 	if not is_live(): return false
-	var visual := presentation_receipt(origin,receipt)
+	# null means an ordinary resource caller. An explicitly supplied activation
+	# proof, even empty/stale, must never be replaced after its spend callbacks.
+	var visual: Dictionary = presentation_receipt(origin,receipt) if visual_proof == null else visual_proof.duplicate(true) if visual_proof is Dictionary else {}
 	var point := actor().motor.global_position
 	var health := actor().actor_resources.health
 	var result := health.heal(ActorResourceRequest.new(receipt, health.epoch, amount, health.get_instance_id()))

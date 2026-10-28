@@ -120,7 +120,7 @@ func barrier_amount() -> float:
 func barrier_count() -> int:
 	return ceili(barrier_amount())
 
-func grant_barrier(amount: int, receipt: StringName, origin: StringName = &"") -> int:
+func grant_barrier(amount: int, receipt: StringName, origin: StringName = &"", visual_proof: Variant = null) -> int:
 	if not _live() or amount <= 0 or receipt.is_empty() or _shared_cap <= 0: return 0
 	if origin.is_empty(): origin = StringName(String(receipt).get_slice("/",0))
 	if origin not in BARRIER_ITEMS or _params(origin).is_empty(): return 0
@@ -130,7 +130,9 @@ func grant_barrier(amount: int, receipt: StringName, origin: StringName = &"") -
 	var applied := mini(amount, maxi(0,floori(float(_shared_cap)-barrier_amount())))
 	receipts[String(receipt)] = applied
 	var owner := _owner()
-	var visual: Dictionary = owner.call("presentation_receipt",origin,receipt)
+	# Explicit activation context spans the earlier energy callback. Ordinary
+	# map/damage grants capture locally; stale/empty supplied proof stays stale.
+	var visual: Dictionary = owner.call("presentation_receipt",origin,receipt) if visual_proof == null else visual_proof.duplicate(true) if visual_proof is Dictionary else {}
 	var point := _actor().motor.global_position
 	if not _patch(origin,{"barrier_remaining":float(state.get("barrier_remaining",0.0))+applied,"barrier_receipts":receipts},receipt): return 0
 	if applied > 0: owner.call("present_committed",&"barrier",point,visual,{"amount":applied})
@@ -276,21 +278,23 @@ func activate(id: StringName, _direction: Vector2) -> Dictionary:
 		if used >= int(params.get("max_uses_per_map",0)): return _result(false,&"map_use_limit")
 		if barrier_amount() >= float(_shared_cap): return _result(false,&"barrier_full")
 	var receipt := StringName("%s/%s/use/%s/%s" % [id,_map(),used,_now()])
+	var visual: Dictionary = owner.call("presentation_receipt",id,receipt)
+	var point := actor.motor.global_position
 	if not bool(owner.call("spend_energy",float(params.get("combat_energy_cost",0.0)),receipt)): return _result(false,&"combat_energy")
 	if id == &"P26":
-		var visual: Dictionary = owner.call("presentation_receipt",id,receipt)
-		var point := actor.motor.global_position
 		var committed := _patch(id,{"ready_at":_now()+float(params.get("cooldown_s",0.0)),"invulnerable_until":_now()+float(params.get("invulnerable_duration_real_active_s",0.0))},StringName("%s/state" % receipt))
 		if committed: owner.call("present_committed",&"item_guard_active",point,visual)
 	elif id == &"P27":
-		owner.call("heal",float(params.get("heal_hp",0.0)),StringName("%s/heal" % receipt),id)
+		owner.call("heal",float(params.get("heal_hp",0.0)),StringName("%s/heal" % receipt),id,visual)
 		uses[_map()] = used+1
 		_patch(id,{"map_uses":uses},StringName("%s/state" % receipt))
 	else:
-		grant_barrier(int(params.get("barrier_grant",0)),StringName("%s/barrier" % receipt),id)
+		grant_barrier(int(params.get("barrier_grant",0)),StringName("%s/barrier" % receipt),id,visual)
 		uses[_map()] = used+1
 		_patch(id,{"map_uses":uses},StringName("%s/state" % receipt))
-	owner.call("cue",&"defense_active",actor.motor.global_position,{"item":id})
+	var legacy_visual := visual.duplicate()
+	legacy_visual["item"] = id
+	owner.call("cue",&"defense_active",point,legacy_visual)
 	return _result(true,&"")
 
 func _spawn_crystal(params: Dictionary, point: Vector2, receipt: StringName) -> void:

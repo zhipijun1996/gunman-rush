@@ -16,10 +16,10 @@
     "version": "2.0",
     "status": "user_selected_direction_only",
     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
+    "supplemental_authority_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "5756b99012a0ca430b3d0ee7705ffcf6a9080ea4c6b6432fc4f76e2648ec3e2a",
+    "registry_sha256": "79fe26430b3c03ddf3a08bee636ac4fd9e2f36805fbaeb62d5c3180898ab487e",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -158,7 +158,7 @@
     },
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-      "sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867"
+      "sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403"
     }
   ],
   "historical_direction": {
@@ -168,26 +168,26 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "scope": "Same whole-game style: candidate72icons42clips with bounded three-body metadata envelope correction only. Code/shader/PNG/otherrecipes unchanged; visual/device/player approvals separate.",
+    "scope": "Same whole-game style/candidate68refs: one existing Defense leaf retains pre-spend dedicated cue proof; historical Markdown originals relocated verbatim, no new asset/config/shader/geometry/HP/cost/skill mechanics.",
     "previous_direction": "docs/creative_direction/archive/creative-v18/windchime_plains.json",
     "previous_sha256": "3fc390336ca7650562b287b9082279a7e647a9e89cc302170c088c9c015d5ca9",
     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
+    "shared_style_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
     "affected_consumers": [
-      "config/item_v5_art.json"
+      "scripts/items/v5/item_defense_effects.gd"
     ],
     "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
     "candidate_iteration_r08": {
       "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/windchime_plains.json",
       "previous_candidate_sha256": "f203d9d0cb4afdd1be85764134be6dcaa1d8047985f46347abd3e5897c6ace5c",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.before-markdown-relocation.json.txt",
       "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
       "scope": "Same unpublished creative19 candidate: actual golden consumer and source additions; fresh affected technical/actual UI/world/motion and independent review required; no inherited approval."
     },
     "candidate_iteration_r09": {
       "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/windchime_plains.json",
       "previous_candidate_sha256": "ab5c33c51a12d1763a6352c1b7c55e45e6952eec7ca14a33edba64d8b1b706e9",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.before-markdown-relocation.json.txt",
       "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
       "scope": "Same unpublished creative19 candidate within selected whole-game style; oldR08 bytes remain original, actual appended sources/current consumer changes require fresh scoped evidence and independent review."
     },
@@ -197,6 +197,20 @@
       "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/manifest.json",
       "archive_manifest_sha256": "775938bd3657b879427367be9b3fb8ea72fbd2b546754ecbc3bdf4fe0662a4c3",
       "scope": "Same creative19 candidate metadata-only3bodyenvelope: originalR09 source and passes frozen; fresh scoped technical/pose/body/actual-scene review, no inherited approval."
+    },
+    "candidate_iteration_r11": {
+      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/windchime_plains.json",
+      "previous_candidate_sha256": "76f850ef4b56b3331bce30c997e6552428e92449cc56e6651c2026306999cac5",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/manifest.json",
+      "archive_manifest_sha256": "470325e3598241170a3a3f34c236ff5d96dbcad790f6fd9b676026fc0c23dcb2",
+      "scope": "Same creative19 candidate existing visual-lifecycle cleanup; exact R10 original binding/pass preserved, fresh scoped checks/actual media and independent review required."
+    },
+    "candidate_iteration_r12": {
+      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/windchime_plains.json",
+      "previous_candidate_sha256": "0aaf8181a0f9ca5b338739e355bb444ae20da0a0384d7a0843c40f831088af0e",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/manifest.json",
+      "archive_manifest_sha256": "adce04089c966532b7ebbe06d9313515747ff9ff113aa12594d6a2187cf2dd95",
+      "scope": "Same creative19 candidate dedicated visual proof lifetime correction; R11 draft preserved without claimed pure pass, final fresh scoped validation required."
     }
   }
 }

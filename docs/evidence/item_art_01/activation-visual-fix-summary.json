@@ -1,0 +1,104 @@
+{
+  "status": "FIXED_NATIVE_VALIDATED",
+  "base_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+  "before": {
+    "path": "activation-flow-before-01",
+    "checks": 40,
+    "failures": 6,
+    "actual_counts": [
+      {
+        "source": "P26",
+        "callback_revokes": false,
+        "counts": {
+          "active": 1,
+          "item_guard_active": 1
+        }
+      },
+      {
+        "source": "P26",
+        "callback_revokes": true,
+        "counts": {
+          "active": 1,
+          "defense_active": 1
+        }
+      },
+      {
+        "source": "P27",
+        "callback_revokes": false,
+        "counts": {
+          "active": 1,
+          "heal": 1
+        }
+      },
+      {
+        "source": "P27",
+        "callback_revokes": true,
+        "counts": {
+          "active": 1,
+          "defense_active": 1
+        }
+      }
+    ]
+  },
+  "after_exact_same_fixture": {
+    "path": "activation-flow-after-01",
+    "checks": 40,
+    "failures": 0,
+    "actual_counts": [
+      {
+        "source": "P26",
+        "callback_revokes": false,
+        "counts": {
+          "item_guard_active": 1
+        }
+      },
+      {
+        "source": "P26",
+        "callback_revokes": true,
+        "counts": {}
+      },
+      {
+        "source": "P27",
+        "callback_revokes": false,
+        "counts": {
+          "heal": 1
+        }
+      },
+      {
+        "source": "P27",
+        "callback_revokes": true,
+        "counts": {}
+      }
+    ]
+  },
+  "full_regression": {
+    "path": "full-art-native-05-activation",
+    "checks": 1077,
+    "failures": 0,
+    "retained_original_checks": 924,
+    "new_complete_flow_checks": 153,
+    "original_editor_budget": 90,
+    "original_native_budget": 120
+  },
+  "scope": [
+    "Runtime captures original activation item, castpoint and eight context fields before module callback; only visual payload changes.",
+    "Defense captures source receipt before energy consume and reuses it in legacy confirmation; P26 committed visual uses same pre-spend proof.",
+    "View validates legacy active/defense cast receipt even without mapped clip and deduplicates generic active against same-frame committed artwork.",
+    "Ten actual complete Runtime flows cover both items, normal/unload/sameIDre-equip selectedsame/selectedother/selectiononly callbacks; actualHP/cost/accepted hook sequence preserved."
+  ],
+  "not_changed": [
+    "gameplay activation dispatch",
+    "return value",
+    "energy transactions",
+    "on_skill_started semantics",
+    "damage policy",
+    "assets/config/shaders/geometry"
+  ],
+  "source_sha256": {
+    "scripts/items/v5/item_runtime.gd": "3ea74f980f1f4a0d601390cea21d6bb7c32136ebeca1ba448177496ada973e24",
+    "scripts/items/v5/item_defense_effects.gd": "7bd276549b3d5f2a551884baf4a36be5a57f6896a58d20974b8e3234768c0c9f",
+    "scripts/items/v5/item_effect_view.gd": "09ddea3f0ad634f62f6d7d8e11f6f50e48d5d394a019015cba4c9d8569921ced",
+    "tests/item_v5_art_runner.gd": "fd4f513d2092c817a06d8db8493197c0d520add763b14219142be0962bbb768b"
+  },
+  "lease": "released; production source frozen"
+}

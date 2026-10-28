@@ -3,7 +3,7 @@
   "owner": "/root",
   "task_id": "ITEM-AUTHOR-01",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
   "reviewed_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
   "content_version": "candidate-v1-item-authoring",
@@ -17,22 +17,32 @@
   ],
   "affected_paths": [
     "config/item_v5_authoring.json",
+    "docs/creative_direction/README.md",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+    "docs/creative_direction/revision_creative_v19.md",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/item_authoring.md",
+    "docs/quality/records/ITEM-AUTHOR-01.json",
+    "docs/tasks.md",
+    "docs/worklines/item_authoring_01/scope.md",
     "scripts/items/v5/item_catalog_v5.gd",
     "scripts/items/v5/item_v5_eligibility.gd",
     "scripts/items/v5/item_v5_pool.gd",
     "scripts/ui/item_presentation.gd",
-    "tests/item_v5_authoring_runner.gd",
     "tests/fixtures/item_v5_authoring_baseline.json",
+    "tests/item_v5_authoring_runner.gd",
+    "tests/item_v5_authoring_runner.gd.uid",
+    "tests/item_v5_catalog_suite.gd",
     "tests/item_v5_ui_input_runner.gd",
     "tests/test_edit_item_catalog.py",
     "tests/test_production_plan.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
     "tools/edit_item_catalog.py",
     "tools/harness/profiles.json",
-    "tools/run_item_v5_tests.py",
-    "docs/item_authoring.md",
-    "docs/worklines/item_authoring_01/scope.md",
-    "docs/tasks.md",
-    "docs/quality/records/ITEM-AUTHOR-01.json"
+    "tools/run_item_v5_tests.py"
   ],
   "deliverables": [
     "config/item_v5_authoring.json",
@@ -43,100 +53,250 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Data/ownership/component boundaries and maintenance workflow specified; implementation acceptance remains separately pending",
+      "evidence": [
+        "scope"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
-      "evidence": []
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
+      "evidence": [
+        "maintenance-native",
+        "catalog-native",
+        "native-results"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting frozen-source evidence",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded engineering design specified with immutable workbook base, declared component roles, designer patches and explicit new-mechanism boundary",
+      "evidence": [
+        "scope"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
-      "evidence": []
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
+      "evidence": [
+        "maintenance-native",
+        "catalog-native",
+        "native-results"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "reason": "Development native479/1553 and historicalCLI11 are bounded observations; final frozen-source Harness/independent review and applicable device/player acceptance remain pending",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "data-boundaries",
+      "scenario": "Define who owns workbook data, designer overrides, equipment and actual mechanisms",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "Daily edits require data changes; new mechanisms require a real component without changing equipment transactions",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Architecture scope and maintenance workflow are documented",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "parameter-and-addition",
+      "scenario": "Resolve legal overrides and new static definitions through actual owned/equipped state",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "New values affect real attributes and retract without free healing; unknown mechanics and role forgery reject atomically",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Narrow development observations exist; exact frozen-source acceptance remains pending",
+      "evidence": [
+        "maintenance-native",
+        "native-results"
+      ]
+    },
+    {
+      "id": "baseline-and-maintenance",
+      "scenario": "Preserve frozen workbook guards while validating current legal authored content",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "Original400guards and72fingerprints retained; current additions/overrides do not require old hardcoded counts/prices",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Narrow development observations exist; exact frozen-source acceptance remains pending",
+      "evidence": [
+        "catalog-native",
+        "native-results"
+      ]
+    },
+    {
+      "id": "cli-atomicity",
+      "scenario": "Run real command edits, proposals and backup/rejection flows",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "Previous bytes are backed up; failed edits do not change file or backup count",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Narrow development observations exist; exact frozen-source acceptance remains pending",
+      "evidence": []
+    },
+    {
+      "id": "current-formal-consumers",
+      "scenario": "Validate reward/shop/pause, map Manifest and existing region transition after final source freeze",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "Original successful transaction and lifecycle behavior remains, with actual native callbacks",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "unverified",
+      "reason": "Narrow development observations exist; exact frozen-source acceptance remains pending",
+      "evidence": []
+    },
+    {
+      "id": "guard-review",
+      "scenario": "Independently review exact appended checks and current test migration",
+      "method": "Documented contract and actual narrow native logs; final same-source Harness is a separate step",
+      "expected": "Original176checks and144full prefix preserved;164/91/73 plan and exact new families retain budgets/refusals",
+      "failure": "Invalid definitions, role forgery, partial file/equipment mutation, missing actual effect, stale replay, lost original guards or misleading source attribution",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "unverified",
+      "reason": "Narrow development observations exist; exact frozen-source acceptance remains pending",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/item_authoring_01/scope.md",
+      "sha256": "a7f42c957e8139765b43670d28ebe36749312dd726ef27354638fd76de613be9",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+      "content_version": "candidate-v1-item-authoring",
+      "method": "User architecture requirement and documented base/role/override/effect ownership contract",
+      "observed": "Bounded maintenance design; same default72mechanics and supported data-only static additions"
+    },
+    {
+      "id": "maintenance-native",
+      "path": "docs/evidence/item_authoring_01/maintenance-native-01/authoring.log",
+      "sha256": "788a23b73caba91e0fedb415ae5ce0adf78cb3ac02f4142774fe54c14b7eb6f3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+      "content_version": "candidate-v1-item-authoring",
+      "method": "Development worktree native runner; task baseline is reference only, exact tested source SHA was not captured",
+      "observed": "Godot4.7.2 actual479checks/0failures; not final frozen-source Harness",
+      "command": "Development native authoring invocation; exact argv not preserved. Runner: tests/item_v5_authoring_runner.gd. Raw stdout and recorded exits/budgets are attached.",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 native headless; unpinned development worktree",
+      "source_attribution": "Unverified exact source; source_commit is task baseline reference, not a claim that this run executed baseline code"
+    },
+    {
+      "id": "catalog-native",
+      "path": "docs/evidence/item_authoring_01/maintenance-native-01/catalog.log",
+      "sha256": "e7c8828ec66010a4d4f05996c76749e49a67957f65febecdc62c5530a5fd42f7",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+      "content_version": "candidate-v1-item-authoring",
+      "method": "Development worktree native catalog runner; original400guards retained and current-configuration cases added",
+      "observed": "Actual1553checks/0failures; not final frozen-source Harness",
+      "command": "Development native catalog invocation; exact argv not preserved. Runner: tests/item_v5_catalog_suite.gd. Raw stdout and recorded exits/budgets are attached.",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 native headless; unpinned development worktree",
+      "source_attribution": "Unverified exact source; source_commit is task baseline reference only"
+    },
+    {
+      "id": "native-results",
+      "path": "docs/evidence/item_authoring_01/maintenance-native-01/results.json",
+      "sha256": "6a9b26d73317b9c4230e7a09bf46a30cc9340e35c72c2e271c8d7b6ff3114552",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+      "content_version": "candidate-v1-item-authoring",
+      "method": "Recorded editor/authoring/catalog result summary, not reconstructed gameplay trace",
+      "observed": "Editor90s and native120s original budgets; exits0;479/1553with0failures",
+      "source_attribution": "Development worktree summary; no frozen source inventory or final Harness claim"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Source currentlyinprogress; actual narrow/finalHarness/independentreviewpending",
-    "Separate full72uniqueicons/VFX productionwork notcomplete",
-    "FullremoteCI/player/device acceptance notsigned"
+    "Exact current frozen-source Harness and independent review not yet executed; development479/1553must not be relabeled current full success",
+    "CLI11passed at its earlier stage; later source requires its own fresh evidence",
+    "Full164remoteCI, formal lifecycle follow-up and new authored-item GUI/device behavior remain pending",
+    "Architecture does not sign ITEM-ART-01 icons/VFX completion, artist/user acceptance or listening quality",
+    "Physical Android/gamepad, low-end inventory stress, balance, player feel andG5unverified",
+    "Hot updating existing owned instances/frozen offers/cooldowns is not promised; changes are validated after starting a new run"
   ],
-  "test_change_justification": "Original21 productionplan methods retained; stale144/89/55 expectations migrate to163/91/72 with frozen original144profile+actualplanner order hashes, exact19appended IDs and lane identity checks. UIinput fixture enumerates actualactive tags after legacy catalogconstant removal, preserving originalfunctional assertions. Exactstyle16/creative19 guards retain old14/15/17/18 byte snapshots and originalrefusal cases; finiteBible inputs appendonly4, old187prefix preserved. Independent actualreview required beforepassing this migration."
+  "test_change_justification": "Original21 production-plan methods retained. Stale144/89/55 assertions migrate to actual164/91/73 with frozen original144profile/planner order hashes, exact20appended IDs (existing17V5 plus authoring/CLI/art) and lane identity checks; original176check commands/budgets/refusals remain. Original400catalog guards remain on the immutable workbook base and72fingerprints; additional cases validate real current overrides/additions rather than rejecting legal maintenance by old counts/prices. UI fixtures enumerate actual active tags after catalogconstant removal while preserving prior assertions. Style16/creative19 guards retain prior originals/refusal cases and old187inputprefix; additions are append-only. Current frozen-source execution and independent guard review are still required; this record does not pre-approve them."
 }
