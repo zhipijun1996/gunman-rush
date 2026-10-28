@@ -1,0 +1,431 @@
+{
+  "task_id": "MAIN-MERGE-WEB-111",
+  "state": "completed",
+  "scope": "Authorized normal PR111 merge + actual-main Web publication and bounded public desktop/touch functional smoke; no full-content/device/release acceptance",
+  "observed_utc": "2026-10-28T15:27:49.560960+00:00",
+  "main_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "main_tree_equals_fullCI_head": "09a900b2c1a60da0384688ad9e525534e6f4fe13",
+  "playtest_url": "https://zhipijun1996.github.io/gunman-rush/?v=410d4fc7539a",
+  "build_id": "410d4fc7539a",
+  "ci_run": 40701501936,
+  "ci_checks": 165,
+  "ci_fresh": 165,
+  "deployment_run": 40714056550,
+  "deployment_attempt": 1,
+  "gui": [
+    {
+      "run": "gui-main-local-desktop-01",
+      "functional_passed": true,
+      "whole_report_status": "failed",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "build_id": "410d4fc7539a",
+      "duration_seconds": 216.9767084121704,
+      "captures": 17,
+      "current_warm_execution": "not-run",
+      "game_errors": 0,
+      "default_favicon404": 1
+    },
+    {
+      "run": "gui-main-public-desktop-01",
+      "functional_passed": true,
+      "whole_report_status": "failed",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "build_id": "410d4fc7539a",
+      "duration_seconds": 271.680536031723,
+      "captures": 17,
+      "current_warm_execution": "not-run",
+      "game_errors": 0,
+      "default_favicon404": 1
+    },
+    {
+      "run": "gui-main-public-touch-01",
+      "functional_passed": true,
+      "whole_report_status": "failed",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "build_id": "410d4fc7539a",
+      "duration_seconds": 255.66828227043152,
+      "captures": 18,
+      "current_warm_execution": "not-run",
+      "game_errors": 0,
+      "default_favicon404": 1
+    }
+  ],
+  "known_limitations": [
+    "Initial201MB download",
+    "Currentmain warm not-run. Historical same-loader80MiB cache budget caused full redownload; overall GUI report remains non-PASS for cache risk",
+    "Default favicon404 separated; zero game/script/shader/asset errors on tested routes",
+    "Software touch emulation only; Home walking keyboard; physicalAndroid/gamepad/low-end performance/audio/balance/playerG5 unverified"
+  ],
+  "handoff": "PR111 merged and matching actualmain website publicly verified. No merge or publication approval pending. Main automatic release workflow remains independent, not canceled or claimed fully passed. No native/browser/server processes left by this workline. Preserve old failures and exact candidate/runtime provenance. A future task should start from latest actualmain, not rerun finished art production or re-merge PR111.",
+  "source_worktree_clean": true,
+  "files": {
+    "CI_FULL165.zip": {
+      "sha256": "4df5b371bb8a7197f5e0e5630b9d814ca885b83518711d796a861177622c68f8",
+      "bytes": 16507279
+    },
+    "README.md": {
+      "sha256": "7b59a0b27c385b576b8d21a3368bc802c65d806d31f8b5a619da3f61b1959cce",
+      "bytes": 2916
+    },
+    "cache-preflight-observation.json": {
+      "sha256": "c0cbe8c67c39258cf22ee6bf72e0ec15e45aa0e28a00c79c1afb083d2a9b0c15",
+      "bytes": 1130
+    },
+    "ci-archive-index.json": {
+      "sha256": "c2d0ff79cbcaa99f2fc474fd4db5628d24ce1ad98cd7ebbcfe35ac1b164c852c",
+      "bytes": 58594
+    },
+    "ci-current-09a/foundry-receipt.json": {
+      "sha256": "ea8a54d16572d747974f3646983e982eb1fe5e9dcfff8fb7a593581e1bca8029",
+      "bytes": 6728
+    },
+    "ci-final-green.json": {
+      "sha256": "56b4cefea99d20f29dfdfae4293d8fa31d2f8c89c991a98911ddb8679b0839c6",
+      "bytes": 16644
+    },
+    "ci-watch-original/merged-proof.json": {
+      "sha256": "df257782054271f1ce4e73562d41c87668ae47cd0f9a5b101f5ff1c9efab2320",
+      "bytes": 1027
+    },
+    "ci-watch-original/parallel-proof.json": {
+      "sha256": "49c1f9af9d5796c9e27265badb0516e6e1ac3ddb435912364eee1c127c9505c3",
+      "bytes": 807
+    },
+    "ci-watch-original/serial-proof.json": {
+      "sha256": "8a1be497c912aefd472743d7f82b121c34368d4d0ed7cfbe2315eb90f3ef5341",
+      "bytes": 938
+    },
+    "deploy-dispatch.json": {
+      "sha256": "f9adb65158f1da88344a1d1b9adda31d839c82ba609b62505e9388898484d3ba",
+      "bytes": 364
+    },
+    "deploy-success.json": {
+      "sha256": "48b50a6140f6d4c124f7d650aae2fe11b75d1131dcac9c73eeade05e2738c1d5",
+      "bytes": 352
+    },
+    "foundry-main-overlay.json": {
+      "sha256": "4c7eabd1c90a47227d8e5f107927a4b9389ba2615ec4f987bd398d2b1ca27735",
+      "bytes": 19679
+    },
+    "gui-main-local-desktop-01/000-cold-title.png": {
+      "sha256": "e0728d61e2d3ec6725200f37b2670aca7857f122a103e1807320d70c13cfb68d",
+      "bytes": 1453142
+    },
+    "gui-main-local-desktop-01/001-home.png": {
+      "sha256": "a659689dce5e124e70cd86d40efe653df803fb5fecf73c259a16d00d4ec70457",
+      "bytes": 680084
+    },
+    "gui-main-local-desktop-01/002-east-0.png": {
+      "sha256": "1b0f1b99ba4262977f9ed82c1f6035f55d81bdb880ca86643828c37107176e37",
+      "bytes": 685033
+    },
+    "gui-main-local-desktop-01/003-east-1.png": {
+      "sha256": "2884cb05183b96d1b17a731de4b3516a074e6bfe5247486d18bec519dd887ed0",
+      "bytes": 678316
+    },
+    "gui-main-local-desktop-01/004-east-2.png": {
+      "sha256": "d2472626998044320c50df2d9105e4617c2884f3f73f48e87e32fd45a06f246d",
+      "bytes": 651638
+    },
+    "gui-main-local-desktop-01/005-east-3.png": {
+      "sha256": "5286d961df94065a105ff58c1880866c2d0ceb0c8f3bbbbe16091e9933eb8586",
+      "bytes": 636259
+    },
+    "gui-main-local-desktop-01/006-east-4.png": {
+      "sha256": "6b65973e296ff3c2a26190c67edf357b814aaeef25f77eac665d6cc196864053",
+      "bytes": 652246
+    },
+    "gui-main-local-desktop-01/007-east-5.png": {
+      "sha256": "a52e723f6c0e14bbb16e961b734d936301758decf4039e8c9cd21946a878c909",
+      "bytes": 682266
+    },
+    "gui-main-local-desktop-01/008-east-6.png": {
+      "sha256": "d0a468f65b76acf9d85fc966c06999b83f3552300b3d3eafbea0215d4bcd8c92",
+      "bytes": 681936
+    },
+    "gui-main-local-desktop-01/009-east-7.png": {
+      "sha256": "dca5d77e3406adcab3a8cc3d0a2c124348110ff0336003caa3e7c8d42b33b84c",
+      "bytes": 682208
+    },
+    "gui-main-local-desktop-01/010-at-east-gate.png": {
+      "sha256": "780e5913c5f1bbfcabcf95ee7b342e27f96b9ffee06ee9452d3d0e4fd9203e5d",
+      "bytes": 682479
+    },
+    "gui-main-local-desktop-01/011-departure-panel.png": {
+      "sha256": "1e92f5a302f42a54cee171272329affe9499be851d669d07d56b7fc040799327",
+      "bytes": 15915
+    },
+    "gui-main-local-desktop-01/012-formal-plains.png": {
+      "sha256": "7e3f1acf792881b08e9f90b9eae74051d339fc7d3a7b205c034628d61dc16b88",
+      "bytes": 762652
+    },
+    "gui-main-local-desktop-01/013-direct-backpack.png": {
+      "sha256": "03664e6569af012b8d0cecf23847b3d664a558305c8e3c8cc7af37f92001407c",
+      "bytes": 104168
+    },
+    "gui-main-local-desktop-01/014-left-help.png": {
+      "sha256": "50bd36122272d05822f7510ab35de4cb03d805c11eb184fbcfea4560618cca59",
+      "bytes": 179218
+    },
+    "gui-main-local-desktop-01/015-right-backpack.png": {
+      "sha256": "03664e6569af012b8d0cecf23847b3d664a558305c8e3c8cc7af37f92001407c",
+      "bytes": 104168
+    },
+    "gui-main-local-desktop-01/016-resumed-world.png": {
+      "sha256": "a58704cbdfb2f4fbdaf5b849f5fac8fd4f2db0f67758cd0e231b8386c944e33d",
+      "bytes": 767772
+    },
+    "gui-main-local-desktop-01/commands.jsonl": {
+      "sha256": "aa19a613827d96788348d4a9cf7bb674e9d91f11e9d29739e83455e9ca4abc2a",
+      "bytes": 4112
+    },
+    "gui-main-local-desktop-01/producer.py": {
+      "sha256": "1fb807175771ebc432440a701b80b0c66f4551ecfc11c583f57f2655116c1cfe",
+      "bytes": 18702
+    },
+    "gui-main-local-desktop-01/receipt.json": {
+      "sha256": "7435a67187eae6888e7829fc0947b74bb4c2ca4f867a91ba49dcdf364741f1ac",
+      "bytes": 153250
+    },
+    "gui-main-public-desktop-01/000-cold-title.png": {
+      "sha256": "e0728d61e2d3ec6725200f37b2670aca7857f122a103e1807320d70c13cfb68d",
+      "bytes": 1453142
+    },
+    "gui-main-public-desktop-01/001-home.png": {
+      "sha256": "706bce8be687d934f7c386101411a0e874a185d576b54cff4742fca43296ce1e",
+      "bytes": 679689
+    },
+    "gui-main-public-desktop-01/002-east-0.png": {
+      "sha256": "706323c69bebb199e78b75724e3d6c05abc63beb73eefee20d43f537547d033f",
+      "bytes": 685063
+    },
+    "gui-main-public-desktop-01/003-east-1.png": {
+      "sha256": "34a612a5b04f821d64a9eea33192791d266a6263aeee8f141c69ef4da606d8dc",
+      "bytes": 678320
+    },
+    "gui-main-public-desktop-01/004-east-2.png": {
+      "sha256": "410d6fcd7ecc5bbd0dbe62da368e5a0715ef1c5f6aeef9539ae5dfbbcb194090",
+      "bytes": 651833
+    },
+    "gui-main-public-desktop-01/005-east-3.png": {
+      "sha256": "325d0458607c8e04127021cd4f954e04c63d79ef3419452366bdbfb4b0f93f25",
+      "bytes": 635180
+    },
+    "gui-main-public-desktop-01/006-east-4.png": {
+      "sha256": "eed18389874f4213d9d913cc6592815f688fcb9c4d7954534439e5189901eb9f",
+      "bytes": 649094
+    },
+    "gui-main-public-desktop-01/007-east-5.png": {
+      "sha256": "b6ed111d30a6f626f658025c30186b73f86066d4fd2c2a6a9278f92099b321d3",
+      "bytes": 681910
+    },
+    "gui-main-public-desktop-01/008-east-6.png": {
+      "sha256": "80583247db57615e844386a256b609db987c1b9508b7bbdeda829d422fdcfd76",
+      "bytes": 682209
+    },
+    "gui-main-public-desktop-01/009-east-7.png": {
+      "sha256": "d23711f7c421603c719a2137cc9d964130b1b4654493873274bdb24691839a99",
+      "bytes": 682689
+    },
+    "gui-main-public-desktop-01/010-at-east-gate.png": {
+      "sha256": "5cdf7eef261a373f7b726b97db56596bbd0b4defb687b04d3b633dadcb8ebc44",
+      "bytes": 683410
+    },
+    "gui-main-public-desktop-01/011-departure-panel.png": {
+      "sha256": "1e92f5a302f42a54cee171272329affe9499be851d669d07d56b7fc040799327",
+      "bytes": 15915
+    },
+    "gui-main-public-desktop-01/012-formal-plains.png": {
+      "sha256": "8d715c7b419b1dea781378918c2cabe1375e2dcfa9ccf151da854bddf1d11bdd",
+      "bytes": 757821
+    },
+    "gui-main-public-desktop-01/013-direct-backpack.png": {
+      "sha256": "772286151348ded3347e319e20a33ac050ec456f661420023a73253cd366c02a",
+      "bytes": 102085
+    },
+    "gui-main-public-desktop-01/014-left-help.png": {
+      "sha256": "aaa2d460d252debed9dc8486dac4b1172a5d1811dcf40be11803c54bffc5c1a4",
+      "bytes": 175045
+    },
+    "gui-main-public-desktop-01/015-right-backpack.png": {
+      "sha256": "772286151348ded3347e319e20a33ac050ec456f661420023a73253cd366c02a",
+      "bytes": 102085
+    },
+    "gui-main-public-desktop-01/016-resumed-world.png": {
+      "sha256": "57cc2c9121f987cd0706771e4dd39b50b05d9cd8667fb72efee76fd8312b5e15",
+      "bytes": 760154
+    },
+    "gui-main-public-desktop-01/commands.jsonl": {
+      "sha256": "f33fac1a76a49a84adc6b88a8e709aec132b88baf504e137c83746b3595cfc39",
+      "bytes": 4100
+    },
+    "gui-main-public-desktop-01/producer.py": {
+      "sha256": "4652ea32631afc7352d6e568f62993ad947b0e1b84e4326217f70988acc55413",
+      "bytes": 19265
+    },
+    "gui-main-public-desktop-01/receipt.json": {
+      "sha256": "761df33f628cde23a30fba46eede74bff6c2b358f5ec3fef8494c382a553319e",
+      "bytes": 163709
+    },
+    "gui-main-public-summary.json": {
+      "sha256": "3431df46e05c9c5000f890ccb90190afe90b88d2b7faead3bca74510ff067b76",
+      "bytes": 2692
+    },
+    "gui-main-public-touch-01/000-cold-title.png": {
+      "sha256": "68f47b2fb7d3faa504ba5d098486a85dd10e3d411344c2cb6c2d2e8665057801",
+      "bytes": 818519
+    },
+    "gui-main-public-touch-01/001-home.png": {
+      "sha256": "439c632e93bb4f5b3eb3664c5e68fedd4b79dbc44a585438fe2aef92549bf39e",
+      "bytes": 459784
+    },
+    "gui-main-public-touch-01/002-east-0.png": {
+      "sha256": "527c0191fa4b6e6e3570869b9ed3ee897ee94ffa2df16d3e8fd5686424ed5bef",
+      "bytes": 463209
+    },
+    "gui-main-public-touch-01/003-east-1.png": {
+      "sha256": "9d110bb83b025529d1a6205698b7b7a590a050f9b3ed21719987697a0a0154eb",
+      "bytes": 454260
+    },
+    "gui-main-public-touch-01/004-east-2.png": {
+      "sha256": "e30fdfaf8797bcfc81c0d5927d9247ee0b64e0817665b9652f944f9cb9516525",
+      "bytes": 445761
+    },
+    "gui-main-public-touch-01/005-east-3.png": {
+      "sha256": "0f04cdcc06211e91e76bb14674900421d9411a1505562fb6433458667871dca3",
+      "bytes": 435855
+    },
+    "gui-main-public-touch-01/006-east-4.png": {
+      "sha256": "5a08a20690ed13de6c9695cad3a9de01da766707a88ff4bf6b7cb4bd6b47656e",
+      "bytes": 449014
+    },
+    "gui-main-public-touch-01/007-east-5.png": {
+      "sha256": "6d4d7eb94f4572f9653481420261cf44d66c4ece3117eed75a657d59565ffb5a",
+      "bytes": 459614
+    },
+    "gui-main-public-touch-01/008-east-6.png": {
+      "sha256": "be9d44110b458dfba5f6951928b063f99744d974dd20ce4a21f5f1d018c5e6d6",
+      "bytes": 460260
+    },
+    "gui-main-public-touch-01/009-east-7.png": {
+      "sha256": "90016c09b1ac3e75d81ebeb9a729fcc42c87fa2796c5e2a7773be3839bfc1314",
+      "bytes": 460390
+    },
+    "gui-main-public-touch-01/010-at-east-gate.png": {
+      "sha256": "64315f92dd70e5f2c996d6324733ebaa1696383df14e6794a5628889b7fe25b6",
+      "bytes": 460819
+    },
+    "gui-main-public-touch-01/011-departure-panel.png": {
+      "sha256": "9552153dedf07220632a3e0115c2c2e640af4aa450c96b986ac7922bf6fe7c8f",
+      "bytes": 12760
+    },
+    "gui-main-public-touch-01/012-formal-plains.png": {
+      "sha256": "a4672585123cb8d2c2a988f35bad19fe8a0a0028574e066f9dfdb64073bc89b4",
+      "bytes": 514945
+    },
+    "gui-main-public-touch-01/013-touch-menu-backpack.png": {
+      "sha256": "6ac54fd33cb3f8455e4c1e0b37b642ae3674f9a3ceecf47b4a6493b49da1d30b",
+      "bytes": 63022
+    },
+    "gui-main-public-touch-01/014-touch-left-help.png": {
+      "sha256": "5dd9c9683596bd8ba8f0dd0fac42da766dbd2814e9b4ef8d86df5efc8eb7870e",
+      "bytes": 64198
+    },
+    "gui-main-public-touch-01/015-touch-right-backpack.png": {
+      "sha256": "6ac54fd33cb3f8455e4c1e0b37b642ae3674f9a3ceecf47b4a6493b49da1d30b",
+      "bytes": 63022
+    },
+    "gui-main-public-touch-01/016-touch-resumed-immediate.png": {
+      "sha256": "5bfb00c1cccdb9f7b51425be832523c950d67de1c0e43d2d87af022f7f30df0e",
+      "bytes": 514606
+    },
+    "gui-main-public-touch-01/017-touch-resumed-later.png": {
+      "sha256": "e839aff7f0eecc9cf7158bd1927a1b226c8b8464de94689930c411e04cdc2ac7",
+      "bytes": 514675
+    },
+    "gui-main-public-touch-01/commands.jsonl": {
+      "sha256": "4d2d2527ed33882a77d174ded1b6df467ba31dfa78f6793d4308bb9abdd4848f",
+      "bytes": 4364
+    },
+    "gui-main-public-touch-01/producer.py": {
+      "sha256": "4652ea32631afc7352d6e568f62993ad947b0e1b84e4326217f70988acc55413",
+      "bytes": 19265
+    },
+    "gui-main-public-touch-01/receipt.json": {
+      "sha256": "f595f7dd4a54d3b046102136e4f6bfbee63986bed864d58a4b348dc88ead80c5",
+      "bytes": 164915
+    },
+    "main-bundle-check.log": {
+      "sha256": "dec6436b0dbdb7cba9ca7e7bfac47f7924b317a72ecd0bec0bdf5e0078450f0f",
+      "bytes": 2776
+    },
+    "main-export-independent-review.json": {
+      "sha256": "6d7ad2d56e3ea465f7d29d28dc4ed5f2f4c518b86f9ca876a82bf6bc5341d608",
+      "bytes": 2591
+    },
+    "main-public-exact.json": {
+      "sha256": "de06f794a6bab108595723c9030993198892d1cfcf0f74b2914cfab14780cb1b",
+      "bytes": 2669
+    },
+    "main-public-independent-review.json": {
+      "sha256": "1e5f9b6b52ea508fb29be104ff95b3d74db1e85c6d73abc36f91f5d707978d5e",
+      "bytes": 3139
+    },
+    "main-public-original-verifier.log": {
+      "sha256": "f5f75d9aa291a04855df8d3d35c2256f14dd35099bd0c718bb2b8c44a577db3d",
+      "bytes": 164
+    },
+    "main-release-evidence.json": {
+      "sha256": "27a0e0b04091dfc21212a4c11fb3fd22ef1cf1974daffe2009bfaea158235f7c",
+      "bytes": 457
+    },
+    "main-release-evidence.log": {
+      "sha256": "2cea11b6b60e35ab381a0c4606685caf9d5dd2443348b377bdfff8ed5a0da64c",
+      "bytes": 123
+    },
+    "main-style-closure.json": {
+      "sha256": "39ef51d19e9f5cf59a5e06e6ed7581d8bb3be4c950482d62269fdf6924dc6892",
+      "bytes": 7260
+    },
+    "main-style-closure.log": {
+      "sha256": "39ef51d19e9f5cf59a5e06e6ed7581d8bb3be4c950482d62269fdf6924dc6892",
+      "bytes": 7260
+    },
+    "main-style-licenses.json": {
+      "sha256": "7dd2b774fe700138b9dd76e156a1ac717b748316464ca2e084e91e18e7678d85",
+      "bytes": 2467
+    },
+    "main-style-licenses.log": {
+      "sha256": "7dd2b774fe700138b9dd76e156a1ac717b748316464ca2e084e91e18e7678d85",
+      "bytes": 2467
+    },
+    "main-style-preflight.json": {
+      "sha256": "66d6808f8a64e96f8dd0a5f0c542032a4c92b511e6cc0b97e01229113cb6ebd3",
+      "bytes": 17648
+    },
+    "main-style-preflight.log": {
+      "sha256": "66d6808f8a64e96f8dd0a5f0c542032a4c92b511e6cc0b97e01229113cb6ebd3",
+      "bytes": 17648
+    },
+    "main-web-build.log": {
+      "sha256": "e246496e90ff94694d860dc16f07db24cc279393d05865baed52d37334879e47",
+      "bytes": 513248
+    },
+    "main-web-identity.json": {
+      "sha256": "ea4f2b5375faa5c8cfdac5a289914eae48ae9be1c1e46192cf4b2c2444716c9c",
+      "bytes": 651
+    },
+    "merge-receipt.json": {
+      "sha256": "cdce3b53a744109878174756a8e22ec1cb694cdaecc645857aad43b7b4d67737",
+      "bytes": 498
+    },
+    "prepared-main-45e98dbb/upload-receipt.json": {
+      "sha256": "68c580dcac86ff705f279fdf353caa00a980221feb3a69da055ed1b79db057fc",
+      "bytes": 1146
+    },
+    "verify_main_public.py": {
+      "sha256": "2746301051c0a6545acaea6be9b6f2929a90c8552f996c27a31d4aebd590f6ee",
+      "bytes": 2772
+    }
+  }
+}

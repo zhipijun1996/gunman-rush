@@ -1,0 +1,50 @@
+{
+  "reviewer": "final_review",
+  "reviewed_utc": "2026-10-28T15:14:00.889390+00:00",
+  "status": "PASS",
+  "scope": "Read-only main Web export provenance and existing checker outputs; no engine or browser run, no public deployment verification yet.",
+  "main_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "green_ci_commit": "09a900b2c1a60da0384688ad9e525534e6f4fe13",
+  "merge_tree_equal_green": true,
+  "observed_main_clean": true,
+  "pack_path": "build/web/index.410d4fc7539a.pck",
+  "pack_bytes": 201156304,
+  "pack_sha256": "410d4fc7539a3c04d524a826e4792e74981334846a17758ac5377d7f9954150f",
+  "main_build_info_exact": true,
+  "foundry_overlay": {
+    "actual_validated_CI_hashes": 56,
+    "after_build_equal_overlay": true,
+    "restored_source_hashes_verified": 56,
+    "scope": "Export consumes explicit validated prepared inputs; repository restored after build."
+  },
+  "style_records": {
+    "main-style-closure.json": {
+      "sha256": "39ef51d19e9f5cf59a5e06e6ed7581d8bb3be4c950482d62269fdf6924dc6892",
+      "command": "check-bundle"
+    },
+    "main-style-licenses.json": {
+      "sha256": "7dd2b774fe700138b9dd76e156a1ac717b748316464ca2e084e91e18e7678d85",
+      "command": "licenses"
+    },
+    "main-style-preflight.json": {
+      "sha256": "66d6808f8a64e96f8dd0a5f0c542032a4c92b511e6cc0b97e01229113cb6ebd3",
+      "command": "preflight"
+    }
+  },
+  "preflight_file_hashes_verified": 92,
+  "bundle_checker_failed": 0,
+  "release_commit_tree_evidence_missing": 0,
+  "source_records": {
+    "build/merge_web_01/merge-receipt.json": "cdce3b53a744109878174756a8e22ec1cb694cdaecc645857aad43b7b4d67737",
+    "build/merge_web_01/main-web-identity.json": "ea4f2b5375faa5c8cfdac5a289914eae48ae9be1c1e46192cf4b2c2444716c9c",
+    "build/merge_web_01/foundry-main-overlay.json": "4c7eabd1c90a47227d8e5f107927a4b9389ba2615ec4f987bd398d2b1ca27735",
+    "build/merge_web_01/main-bundle-check.log": "dec6436b0dbdb7cba9ca7e7bfac47f7924b317a72ecd0bec0bdf5e0078450f0f",
+    "build/merge_web_01/main-release-evidence.log": "2cea11b6b60e35ab381a0c4606685caf9d5dd2443348b377bdfff8ed5a0da64c",
+    "build/verification/release-evidence/20261028T150958.348489Z_b39a082fb91c4ef9b655ee35005bce52.json": "27a0e0b04091dfc21212a4c11fb3fd22ef1cf1974daffe2009bfaea158235f7c"
+  },
+  "limitations": [
+    "Existing successful full165 CI is exact green head with equal merge tree; not a new main CI run.",
+    "Main exported pack has its own measured identity; no candidate pack relabeling.",
+    "No browser/device/rendering/listening/G5 or public CDN identity acceptance from this report."
+  ]
+}

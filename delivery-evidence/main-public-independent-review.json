@@ -1,0 +1,57 @@
+{
+  "reviewer": "final_review",
+  "observed_utc": "2026-10-28T15:18:06.212063+00:00",
+  "status": "PASS",
+  "scope": "Public deployment provenance and byte-identity evidence only; GUI acceptance excluded.",
+  "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "build_id": "410d4fc7539a",
+  "url": "https://zhipijun1996.github.io/gunman-rush/",
+  "deploy_run": 40714056550,
+  "deploy_attempt": 1,
+  "official_deploy_success_independently_requeried": true,
+  "public_receipt_files": 12,
+  "all_receipt_file_lengths_and_hashes_match_local_bundle": true,
+  "source_and_license_file_list_complete_for_verifier_recipe": true,
+  "producer_script_review": "Reads each entire metadata/HTML/cacheworker/buildreport/license/source file and compares exact bytes. Independently validates PCK Content-Length, streams until EOF, hashes all blocks, compares full size and SHA against main identity and worker resource map. Receipt starts failed and reaches passed only after comparisons.",
+  "full_public_pack_receipt": {
+    "file": "index.410d4fc7539a.pck",
+    "bytes": 201156304,
+    "sha256": "410d4fc7539a3c04d524a826e4792e74981334846a17758ac5377d7f9954150f",
+    "equal": true
+  },
+  "independent_HTTP": {
+    "observed_utc": "2026-10-28T15:17:44.070233+00:00",
+    "files": [
+      {
+        "file": "build-info.json",
+        "status": 200,
+        "bytes": 370,
+        "sha256": "99280813589788eead1d110ea182b9d4f0ecbbcf57a2ea1d64c833f8a1708a46",
+        "exact_local_bytes": true
+      },
+      {
+        "file": "index.cache-sw.js",
+        "status": 200,
+        "bytes": 99182,
+        "sha256": "9fea81590c969cfb0c4302c80f1e0c9fc9b142572fa5071ce95a9defb6d632f8",
+        "exact_local_bytes": true
+      }
+    ],
+    "scope": "Two independent HTTP full-file comparisons only; no second full PCK stream or GUI."
+  },
+  "full_pack_independently_restreamed_by_this_reviewer": false,
+  "limitations": [
+    "Full public PCK transfer is reviewed from root producer and receipt; reviewer independently re-fetched only build-info and cacheworker.",
+    "No browser, rendering, gameplay, input, device, audio listening, user aesthetic or G5 acceptance.",
+    "Candidate and main identities remain distinct; current public metadata identifies actual merged main45e98."
+  ],
+  "evidence_hashes": {
+    "build/merge_web_01/deploy-dispatch.json": "f9adb65158f1da88344a1d1b9adda31d839c82ba609b62505e9388898484d3ba",
+    "build/merge_web_01/deploy-success.json": "48b50a6140f6d4c124f7d650aae2fe11b75d1131dcac9c73eeade05e2738c1d5",
+    "build/merge_web_01/main-public-exact.json": "de06f794a6bab108595723c9030993198892d1cfcf0f74b2914cfab14780cb1b",
+    "build/merge_web_01/main-web-identity.json": "ea4f2b5375faa5c8cfdac5a289914eae48ae9be1c1e46192cf4b2c2444716c9c",
+    "build/merge_web_01/main-public-original-verifier.log": "f5f75d9aa291a04855df8d3d35c2256f14dd35099bd0c718bb2b8c44a577db3d",
+    "build/merge_web_01/verify_main_public.py": "2746301051c0a6545acaea6be9b6f2929a90c8552f996c27a31d4aebd590f6ee",
+    "build/merge_web_01/main-public-independent-http.json": "6104a4be889700a1e3ab409710b464997cadd138dd1581e6ae043f7b84a94d5e"
+  }
+}
