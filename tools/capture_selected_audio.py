@@ -92,7 +92,7 @@ def frozen_sources():
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);args=p.parse_args();folder=args.output.resolve()
     if folder.exists():raise ValueError('Use fresh output; preserve prior attempts')
-    folder.mkdir(parents=True);env=os.environ.copy();env['LIBGL_ALWAYS_SOFTWARE']='1';display=None;report={'status':'failed','commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scope':'Actual native Godot soundtrack; development fixtures; user selected individual sounds, full combination/device approval pending'};started=time.monotonic()
+    folder.mkdir(parents=True);env=os.environ.copy();env['LIBGL_ALWAYS_SOFTWARE']='1';env['LP_NUM_THREADS']='2';display=None;report={'status':'failed','commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scope':'Actual native Godot soundtrack; development fixtures; user selected individual sounds, full combination/device approval pending'};started=time.monotonic()
     try:
         if not env.get('DISPLAY'):
             binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
@@ -104,7 +104,7 @@ def main():
         avi=folder/'native.avi';movie=folder/'selected.mp4'
         command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(avi),'--fixed-fps','60','--resolution','1280x720','--script','res://tools/audio_reels_capture.gd','--','--selected','--output='+str(folder)]
         report['command']=command
-        with (folder/'native.log').open('w') as log:result=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=420)
+        with (folder/'native.log').open('w') as log:result=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         native=(folder/'native.log').read_text()
         if result.returncode or ERROR.search(native) or 'AUDIO_REELS_CAPTURE reel=coin complete=true' not in native:raise ValueError('Godot capture failed; original log retained')
         subprocess.run(['ffmpeg','-y','-i',str(avi),'-c:v','libx264','-preset','fast','-crf','22','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',str(movie)],stdout=subprocess.DEVNULL,stderr=(folder/'encode.log').open('wb'),check=True,timeout=180)
