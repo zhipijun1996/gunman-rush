@@ -1,0 +1,96 @@
+{
+  "task": "MERGE-WEB-01",
+  "reviewer": "/root/final_review",
+  "scope": "Source-only additional fixed-GOLD/shared-chest scan, restricted actual full165 pending75; no engine or broad semantic approval.",
+  "source_reference": "91545e4bea256ebff641167e04c310f3df4db0e9",
+  "pending_checks": 75,
+  "same_category_new_full_blocker_identified": false,
+  "actual_check_selection": [
+    {
+      "check": "forest-depth-campaign-queen",
+      "original_argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "queen",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+      ],
+      "in_full165": false,
+      "in_unexecuted75": false,
+      "legacy_compat": true
+    },
+    {
+      "check": "forest-formal-combat",
+      "original_argv": [
+        "python3",
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-formal-combat",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-formal-combat-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-formal-combat-{check_token}"
+      ],
+      "in_full165": false,
+      "in_unexecuted75": false,
+      "legacy_compat": true
+    },
+    {
+      "check": "forest-campaign",
+      "original_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "in_full165": true,
+      "in_unexecuted75": false,
+      "legacy_compat": false
+    }
+  ],
+  "classifications": [
+    {
+      "file": "tests/forest_depth_campaign_boss_runner.gd",
+      "lines": [
+        347,
+        349,
+        351,
+        352
+      ],
+      "branch": "--boss queen",
+      "finding": "ExplicitV7 layout uses old forest_heart_gold reward assumptions and currentDemoApp. Layoutpin alone does not disable currentV5runtime, so a future standalone legacy-compat run may need a separately reviewed reward migration.",
+      "full_CI_current_risk": "Not selected in full165 or pending75; no reason to change historical combat/queenvalidator in this repair. Not claimed testedcompatible."
+    },
+    {
+      "file": "tests/forest_campaign_combat_runner.gd",
+      "lines": [
+        101,
+        102,
+        103
+      ],
+      "finding": "Legacy forest-formal-combat is invoked through run_forest_v1_regressions frozenv1consumer closure, not currentformalV5App.",
+      "decision": "Keep original historical reward assertions, do not migrate these as if they were currentV5."
+    },
+    {
+      "file": "tests/demo_tests.gd",
+      "line": 101,
+      "finding": "Explicit preload of forest_heart_gold Resource exercises legacyitem/unitmodifier path; not a randompool expectation.",
+      "decision": "Keep."
+    },
+    {
+      "file": "tests/forest_campaign_runner.gd",
+      "finding": "Actual full forest-campaign check already passed in serial lane. It is distinct from forest_campaign_combat_runner and uses actual rewarddefinition/receipt-aware V5 assertions."
+    }
+  ],
+  "remaining_current_shared_icon_note": "Known currentunderworld-formal8failures isolated to its one oldimage-equality assertion; runtimeauthor is migrating that exactassertion. No other current .gd shared-chest icon equality hit found.",
+  "source_scan": "rg over tests/*.gd recursive, no hugecaptureJSONscan; profile selection read from exact91545committed manifest.",
+  "production_tests_tools_modified": false,
+  "engine_started": false,
+  "merge_gate": "Original90/165 with2failures stillnotfullgreen; this appendix doesnotauthorize merge or relax165coverage/budgets."
+}
