@@ -25,3 +25,5 @@
 [最终归档索引](final-source-8b83e22b/archive-index.json)保留原始SHA，日志采用无损gzip；[开发失败链](development/index.json)保留42项早期记录，包括解析、策略错误日志、滚动、输入透传及影片相位失败。旧185／195期望与实际187／198计数迁移的原件均保留，未删除反例、放宽原预算或追签旧失败影片。
 
 公开下载已实际无鉴权GET返回HTTP200，2,961,211字节的完整SHA与本地原片一致；媒体固定在提交`df67fdd6972a7d13c18bc5ed0e253b6d460883e7`，运行源仍为`8b83e22b`。见[公网完整核验](public-download-check/receipt.json)；这不是当前试玩网页已部署或实体设备播放认可。最新宝箱对照也已[公网核验](public-download-check/chest-preview.json)，仍未晋级默认运行资产。
+
+远端prepare在`4365bce9`发现full清单守门仍期望164，漏了新增home-codex。已仅同步精确165／91／74清单，保留原144双SHA／旧20项／21方法及全部反例／预算；原21测试、python-S及planner Harness通过并独审。见[原失败与修复](ci-prepare-fix/summary.json)。游戏代码和上述媒体运行源N未改变；新head完整远端CI仍以Actions实际结果为准。
