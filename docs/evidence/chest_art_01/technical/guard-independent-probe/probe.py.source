@@ -1,0 +1,24 @@
+from pathlib import Path
+import sys,json,hashlib
+ROOT=Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(ROOT/'tools'))
+import underworld_pipeline as p
+objects=(ROOT/'scripts/underworld_plains/underworld_objects.gd').read_text()
+stage=(ROOT/'scripts/demo/plains_region_stage.gd').read_text()
+library=(ROOT/p.CHEST_LIBRARY).read_text()
+opened='assets/underworld_plains/objects/opened_chest.png'
+# Fake function HEADERS live in a valid top-level triple-quoted string.
+dead='var _dead_chest_guard = '+chr(34)*3+'\nfunc _ready() -> void:\n'+p.CHEST_INITIALIZATION+p.CHEST_READY+'\nfunc capture_state() -> Dictionary:\n'+p.CHEST_CAPTURE+chr(34)*3+'\n'
+changed=stage.replace(p.CHEST_INITIALIZATION,'',1).replace('StringName(str(c.tier))','&"medium"')
+at=changed.index('func _ready(')
+changed=changed[:at]+dead+'\n'+changed[at:]
+case_objects='var _dead_dispatch = '+chr(34)*3+'\n'+p.CHEST_DISPATCH+'\nfunc _dead_boundary() -> void:\n\tpass\n'+chr(34)*3+'\n'
+bad_objects=objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)','ChestArtLibrary.place_sprite(sprite,foot,tier,false)')
+at=bad_objects.index('static func place_chest(')
+bad_objects=bad_objects[:at]+case_objects+'\n'+bad_objects[at:]
+results={'baseline':p.current_chest_dispatch(objects,stage,library,opened),'wrong_actual_stage_without_decoy':p.current_chest_dispatch(objects,stage.replace(p.CHEST_INITIALIZATION,'',1).replace('StringName(str(c.tier))','&"medium"'),library,opened),'wrong_actual_stage_with_fake_headers':p.current_chest_dispatch(objects,changed,library,opened),'wrong_actual_objects_without_decoy':p.current_chest_dispatch(objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)','ChestArtLibrary.place_sprite(sprite,foot,tier,false)'),stage,library,opened),'wrong_actual_objects_with_fake_header':p.current_chest_dispatch(bad_objects,stage,library,opened),'engine_started':False}
+folder=Path(__file__).parent
+(folder/'bad-stage.gd.source').write_text(changed)
+(folder/'bad-objects.gd.source').write_text(bad_objects)
+(folder/'result.json').write_text(json.dumps(results,indent=2)+'\n')
+print(json.dumps(results,indent=2))

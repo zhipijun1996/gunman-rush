@@ -292,8 +292,34 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(old['version'],'creative-v19')
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(path,name)
-            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v20/'+name+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v20')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v20/registry.json').read_bytes())['shared_style_authority'])
+
+        # Public Home20 bytes remain exact and stale under actual Chest21.
+        published_home = {
+            'registry':'210db55d8db4b01e6697074e13a3bfd596f5a2854df76a6de00ed7db67755d02',
+            'windchime_plains':'e4d7c2527921b864bb3f8bbc4074ac9ba603f59661088aaa9978c6dcbf728673',
+            'thorn_forest':'d74ef213098bb9984f5807eb1637c4d1a58b9474433d7e157363e6ed909b22e8',
+        }
+        for name,digest in published_home.items():
+            path = 'docs/creative_direction/archive/creative-v20/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v20')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v21')
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
@@ -348,7 +374,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v20')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v21')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

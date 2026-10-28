@@ -95,7 +95,7 @@ func formal_consumers() -> void:
 		await formal_snapshot(app,"map%d_shortcut_open" % map_index)
 		var chest: Dictionary = stage.chests[0]
 		var source_id := str(chest.id)
-		check(chest.sprite.texture==UnderworldObjects.CLOSED_CHEST and not chest.claimed,"actual formal unclaimed cache starts closed")
+		check(chest.sprite.texture==ChestArtLibrary.texture(StringName(str(chest.tier)),false) and not chest.claimed,"actual formal unclaimed cache starts closed")
 		# Explicit placement fixture only; the interaction/offer/claim is the real
 		# unchanged application transaction, not claimed-state injection or route proof.
 		app.player.global_position = chest.position+Vector2(-65,0)
@@ -106,7 +106,7 @@ func formal_consumers() -> void:
 		var option := (app._region_offer.candidates[0] as ItemDefinition).stable_id
 		check(app._claim_region_chest(option),"actual original cache reward transaction accepts legal choice")
 		stage.capture_state()
-		check(chest.claimed and chest.sprite.texture==UnderworldObjects.OPEN_CHEST and chest.sprite.modulate==Color.WHITE,"actual accepted claim displays opaque colored open chest")
+		check(chest.claimed and chest.sprite.texture==ChestArtLibrary.texture(StringName(str(chest.tier)),true) and chest.sprite.modulate==Color.WHITE,"actual accepted claim displays opaque colored open chest")
 		await formal_snapshot(app,"map%d_cache_open" % map_index)
 		app._load_stage()
 		for frame: int in 6: await physics_frame
@@ -114,7 +114,7 @@ func formal_consumers() -> void:
 		var found := false
 		for restored: Dictionary in stage.chests:
 			if str(restored.id)==source_id:
-				found = restored.claimed and restored.sprite.texture==UnderworldObjects.OPEN_CHEST and restored.sprite.modulate==Color.WHITE
+				found = restored.claimed and restored.sprite.texture==ChestArtLibrary.texture(StringName(str(restored.tier)),true) and restored.sprite.modulate==Color.WHITE
 				app.player.global_position = restored.position+Vector2(-65,0)
 		check(found,"actual stage reload restores open chest from existing claimed ledger")
 		await formal_snapshot(app,"map%d_cache_reloaded" % map_index)

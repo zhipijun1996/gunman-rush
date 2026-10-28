@@ -1,6 +1,6 @@
 # CHEST-ART-01 · 三档宝箱六姿态 G0 v1
 
-当前状态：v7实际第4call收据，累计4／4调用已执行且用尽，无第5call。第4call已获v6独立有界source-only许可并执行；source04独审正式源／运行准入false。两次source04 GL诊断均因真实引擎错误严格FAIL，36／75 marker不是通过。下方历史G0与预算版本保原结论，最新边界见末节v7；用户对第四候选的新异步美术取舍仍待答，不视为接受。使用 art-director 与 animation-vfx，共用root质量记录。真实参考与SHA见 [authority.json](authority.json)。
+当前状态：v8用户采用source04现图合同并明确授权接入正式游戏；已知尺寸／姿态差异如实接受，旧门槛失败不改签通过。累计4／4调用耗尽，无新图。当前是采用与实现授权，正式runtime、两区GL、原生交易及用户／实体设备G5仍待验。以下历史记录保原结论，最新合同见末节v8。使用 art-director 与 animation-vfx，共用root质量记录。来源及SHA见 [authority.json](authority.json)。
 
 用户要求三档各有关闭／开启外观，统一整个游戏又能直接分辨。本家族沿当前 style16／creative19、两份完整已选地区 Bible；采用细像素、旧黄铜、冷钢和克制青光，左上暖光、右下冷影。平原的浅木／钟院旧物与森林的旧铜运输遗存均可容纳同一家族，不引入新全局风格或地区专用规则。
 
@@ -97,3 +97,19 @@ v6的唯一第4call已由独立 `build/chest_art_01/call4-user-shape-g0-review.j
 source04两次已跑GL诊断都必须严格记 **FAIL**。首次 `runtime-proposal/gl-04.log` 有SubViewport上非法`own_world_2d`赋值、资源泄漏等真实引擎错误，即使末尾打印36 checks／0 technical failures也不能视为通过。第二次 `gl-04-02.log` 有多次`!viewport->canvas_map.has(p_canvas)` canvas attach错误，75 checks／0 marker同样不算通过。两个原脚本失败快照、日志和各自截图／receipt都保留；坏宿主画面不能证明干净采样、脚底或alpha隔离。最后一次探针已修复但在本v7收据制作时仍待root clean运行，不能把未执行修复计划写成通过。
 
 **正式交付边界**：候选PNG未注册、未接入主游戏；没有当前源干净GL通过、正式claimed领取切换、用户最终审美或实体设备认可。当前所有候选源／正式运行准入仍false，保留现有正式外观；root负责质量卡与后续已授权诊断，本文件没有新增图像调用许可、没有改任何准入阈值。
+
+## v8 · 用户采用source04现图并授权正式接入（当前合同）
+
+用户实际回复：“宝箱接入游戏，继续工作”。上下文是root已明确告知source04仍有细微尺寸／姿态差异，并请求用户对当前候选作取舍；root收到该回复后明确要求采用现图接入。此处引号仅为用户该句原话，前一取舍上下文是root会话事实转述，不伪造额外用户原句、审批API或未存在的回执。采用范围是固定source04及已具体披露的差异，不能扩大为任意未来美术变更或技术免验。
+
+旧v7三文档及完整SHA原字节保存在 `build/chest_art_01/g0-history/v7-before-user-source04-adoption/index.json`。旧≤1wu下箱配对、gold≤44／58、固定grid／32pxgutter／native4px请求失败、第三源用户拒绝、第四源旧合同独审拒绝及两次GL严格FAIL都继续成立，所有原报告不回写；这次是**有真实用户采用授权的新合同版本**，不是声称旧要求终于通过。
+
+**固定采用物**：source04原PNG SHA `3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5`，1536×1024／RGBA8 6MiB，保持原字节和全部alpha，不改像素、不cutoff、不裁非零alpha、不后横缩。正式注册路径可由root复制原字节建立，源SHA必须相同。六个完整自然ROI固定为x=[0,535,1028,1536]／y=[0,498,1024]；每个state固定实测source foot_pivot、每tier一个两态共用等比factor，精确表见authority的 `source04_adoption_contract.fixed_recipes`，与原第四源proposal逐项一致，不能为救尺寸重新缩放或漂移支撑foot。
+
+采用的tier中点宽为蓝52wu、紫58wu、金60wu；并不伪称每态完全同宽。实际连续源下箱配对宽差约蓝1.5850wu／紫1.0841wu／金0.4240wu，作为现图已知差异保留。既有实际1wu shader诊断画面测得蓝51／53、紫57／59、金60／60wu，下箱可见配对差为2／2／0wu；金箱可见结构闭高46wu／开高60wu。本v8采用该**已观测现图边界**（配对可见差≤2wu、gold结构闭≤46／开≤60）并保持固定配方，不再套旧≤1wu和44／58去伪签通过。这里的“可见结构”来自既有shader隔离画面的结构诊断量测；全部非零alpha尾仍保留，不能把结构测量阈值当渲染透明cutoff或忽略尾部。数值绑定具体source、factor、采样和既有观测相位，正式两区／小屏／小数镜头仍须真实验证，不能称所有设备和相位已通过。
+
+既有source04第三次修复后的隔离GL日志 `runtime-proposal/gl-04-03.log` 打印75／0且未见前两次错误，配对／footprint实际值保存在 `captures-04-03/receipt.json`；它仅提供上述现图观测，不能冲销前两次严格FAIL或替代正式主游戏消费者。更早“clean重跑待执行”是v7当时的历史状态，原件保留。
+
+**继续不变**：所有奖励／购买／claimed状态、交易收据与账本、Manifest／RNG、碰撞／交互、平原脚底row＋21及森林row＋18、既有1wu采样／REGION_RECT guard与光照、单原PNG独立8MiB预算、无mipmap／无纹理复制、4call用尽无第5call，均保持。表现只读真实claimed状态，不能决定奖励或改变经济。用户接受现图不授权通过视觉回调提交奖励或移动角色。
+
+root现在可以按该采用合同注册原字节PNG、配置与正式消费者，实际实现不由本规划worker修改。**仍待验**：正式平原与森林六态GL／原比例与小屏、固定脚底及状态切换、原生奖励／幂等交易回归、生命周期、当前源正式运行和必要Harness；实体设备与完整G5未完成。本v8记录采用授权，不能把“授权接入”写成“正式接入已完成”或完整用户／设备验收。

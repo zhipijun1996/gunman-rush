@@ -2,9 +2,9 @@
   "schema_version": 1,
   "asset_id": "fine-space-05-asset-registry",
   "task_id": "FINE-SPACE-05",
-  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023+registry-correction-v2+item-art-append-v1-20261028",
+  "content_version": "fine-space-05-candidate-20261022+four-line-rebind-v1-20261023+registry-correction-v2+item-art-append-v1-20261028+chest-source04-append-v1",
   "source_path": "assets/manifest.json",
-  "source_sha256": "470dc4dd685bfafc612de6551f99191401d3b8bcef3836e57a7b3802bf0a775b",
+  "source_sha256": "06aae899dd8fc1d43bcb4fe10d9bfa9080f0dc07ad657a7e1e8cf0d1ff32958d",
   "runtime_paths": [],
   "tool": "Repository metadata assembly; no model invocation",
   "model": "not_applicable",
@@ -18,12 +18,11 @@
   "non_runtime_reason": "Central inventory/provenance document; formal renderers load concrete source assets and build metadata rather than this global inventory.",
   "user_acceptance_evidence": [],
   "revision_impact": {
-    "revision": "item-art-append-v1",
-    "prepared_source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
-    "previous_record_path": "docs/evidence/item_art_01/global-registry-append-01/fine-space-05-asset-registry.json",
-    "previous_record_sha256": "0898e59a549eaa869aa134fb70fac078a6c6e14e76852e694f66d99813ca499a",
-    "actual_change": "Append10itemsource entries; original281entries andallmetadata byte-equivalent asparsed. No old art/license/visualstate changed.",
-    "proof": "docs/evidence/item_art_01/global-registry-append-01/append-proof.json",
-    "review_status": "Independentmetadatareview requested; not art/player/deviceapproval"
+    "revision": "chest-source04-append-v1",
+    "previous_record_path": "docs/evidence/chest_art_01/asset-registration/before/fine-space-05-asset-registry.json",
+    "previous_record_sha256": "2eddd57a7c6c80711dde5687856b19cab064384ee137bf54c1f977bc2ccc5934",
+    "actual_change": "Append one byte-identical source04 chest atlas entry; all previous asset entries, original fields, license and acceptance remain unchanged. User directed current six poses into main game.",
+    "proof": "docs/evidence/chest_art_01/asset-registration/append-proof.json",
+    "review_status": "Technical append proof; whole-game visuals remain pending actual integration review"
   }
 }

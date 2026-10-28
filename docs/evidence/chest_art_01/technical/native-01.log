@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Chest art: Unknown explicit chest tier: unregistered-tier
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _diagnose (res://scripts/art/chest_art_library.gd:26)
+         [1] canonical_tier (res://scripts/art/chest_art_library.gd:87)
+         [2] pose (res://scripts/art/chest_art_library.gd:91)
+         [3] place_sprite (res://scripts/art/chest_art_library.gd:123)
+         [4] place_chest (res://scripts/underworld_plains/underworld_objects.gd:10)
+         [5] run (res://tests/chest_art_runner.gd:96)
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"plains","seed":"chest-art-formal-plains"}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=321 setup_ms=44
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"5304bc4a40d0e37d5b2e1c36420148e78150213bd5d262a28b1cf8887b8a6e93","map_index":1,"region":"plains","seed":"chest-art-formal-plains"}
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=321 setup_ms=35
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":true,"event":"region_assembled","layout_version":"","manifest_hash":"5304bc4a40d0e37d5b2e1c36420148e78150213bd5d262a28b1cf8887b8a6e93","map_index":1,"region":"plains","seed":"chest-art-formal-plains"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@15/@Node@16","played":{},"service":"GameAudio"},{"node":"/root/@Node2D@15/@Node@29","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.178}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"chest-art-formal-thorn_forest"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"91429b54947afdb4ae825ed6134831981c980d50949f42e06daff8508148af54","map_index":1,"region":"thorn_forest","seed":"chest-art-formal-thorn_forest/thorn_forest/map_1"}
+PLAINS REGION: family=hollow_root_first areas=39 fallback=
+ERROR: Recorded forest alternating web state missing
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] _load_stage (res://scripts/demo/demo_app.gd:707)
+SCRIPT ERROR: Invalid access to property or key 'chests' on a base object of type 'Nil'.
+          at: formal_region (res://tests/chest_art_runner.gd:57)
+          GDScript backtrace (most recent call first):
+              [0] formal_region (res://tests/chest_art_runner.gd:57)
+CHEST ART: 147 checks, 0 failures
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

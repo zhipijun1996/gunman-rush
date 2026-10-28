@@ -72,6 +72,18 @@ HOME_CODEX_REFERENCES = [
 ]
 
 
+CHEST_ART_REFERENCES = [
+    ('chest_art_library', 'scripts/art/chest_art_library.gd'),
+    ('chest_art_layer', 'scripts/art/chest_art_layer.gd'),
+    ('chest_formal_dispatch', 'scripts/underworld_plains/underworld_objects.gd'),
+    ('chest_forest_presentation', 'scripts/presentation/forest_bible_presentation.gd'),
+    ('chest_forest_stage', 'scripts/demo/thorn_forest_region_stage.gd'),
+    ('chest_cosmetic_boundary', 'scripts/art/p1_unity_props.gd'),
+    ('chest_art_config', 'config/chest_art.json'),
+    ('chest_source04_atlas', 'assets/objects/chests/chest-tiers-v1.source.png'),
+]
+
+
 class BibleTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -260,6 +272,7 @@ class BibleTests(unittest.TestCase):
         paths.extend(path for _,path in ITEM_ART_GOLDEN_REFERENCES)
         paths.extend(path for _,path in ITEM_ART_EXPANSION_REFERENCES)
         paths.extend(path for _,path in HOME_CODEX_REFERENCES)
+        paths.extend(path for _,path in CHEST_ART_REFERENCES)
         skill=self.root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic reviewer')
         stripped=self.task();stripped['region_bible']={k:v for k,v in self.ref.items() if not k.startswith('supplemental_authority_')}
         with patch.object(loop,'ROOT',self.root),self.assertRaisesRegex(ValueError,'binding changed'):
@@ -289,9 +302,43 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'17')
-        live_refs = style['content']['runtime_reference']['references']
+        self.assertEqual(style['content']['version'],'18')
+        actual_refs = style['content']['runtime_reference']['references']
+        self.assertEqual(len(actual_refs),81)
+        home_path = 'docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json'
+        home_raw = (ROOT/home_path).read_bytes()
+        self.assertEqual(hashlib.sha256(home_raw).hexdigest(),'ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa')
+        home_style = json.loads(home_raw)
+        self.assertEqual(home_style['version'],'17')
+        live_refs = home_style['runtime_reference']['references']
         self.assertEqual(len(live_refs),73)
+        chest_archive = 'docs/evidence/chest_art_01/source-bindings/before-style18/'
+        chest_manifest_raw = (ROOT/(chest_archive+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(chest_manifest_raw).hexdigest(),'7693e9159827ca55aeb61bf068b58675e31926abfdf85bd25300a085db7c6615')
+        for row in json.loads(chest_manifest_raw)['files']:
+            raw = (ROOT/(chest_archive+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        def pre_chest_source(path):
+            if path == 'scripts/demo/plains_region_stage.gd':
+                return (ROOT/(chest_archive+'plains_region_stage.gd.txt')).read_bytes()
+            return (ROOT/path).read_bytes()
+        for before,after in zip(live_refs,actual_refs[:73]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(before['sha256'],hashlib.sha256(pre_chest_source(before['path'])).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            if before['path']=='scripts/demo/plains_region_stage.gd':
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual([(row['role'],row['path']) for row in actual_refs[73:]],CHEST_ART_REFERENCES)
+        for row in actual_refs[73:]:
+            self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
+        self.assertEqual(style['content']['supersedes']['path'],home_path)
+        self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(home_raw).hexdigest())
+        for key in home_style.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key],home_style[key])
         published_path = 'docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json'
         published_raw = (ROOT/published_path).read_bytes()
         self.assertEqual(hashlib.sha256(published_raw).hexdigest(),'62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da')
@@ -311,12 +358,12 @@ class BibleTests(unittest.TestCase):
         def historical_source(path):
             if path in changed_home:
                 return (ROOT/(archive_root+Path(path).name+'.txt')).read_bytes()
-            return (ROOT/path).read_bytes()
+            return pre_chest_source(path)
         for before,after in zip(current_refs,live_refs[:68]):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
                              {k:v for k,v in after.items() if k!='sha256'})
             self.assertEqual(before['sha256'],hashlib.sha256(historical_source(before['path'])).hexdigest())
-            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(pre_chest_source(after['path'])).hexdigest())
             if before['path'] in changed_home:
                 self.assertNotEqual(before['sha256'],after['sha256'])
             else:
@@ -324,10 +371,10 @@ class BibleTests(unittest.TestCase):
         self.assertEqual([(row['role'],row['path']) for row in live_refs[68:]],HOME_CODEX_REFERENCES)
         for row in live_refs[68:]:
             self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
-        self.assertEqual(style['content']['supersedes']['path'],published_path)
-        self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(published_raw).hexdigest())
+        self.assertEqual(home_style['supersedes']['path'],published_path)
+        self.assertEqual(home_style['supersedes']['sha256'],hashlib.sha256(published_raw).hexdigest())
         for key in published_style.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
-            self.assertEqual(style['content'][key],published_style[key])
+            self.assertEqual(home_style[key],published_style[key])
         r12_root = 'docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/'
         r12_path = r12_root+'style-continuity-20261028-v16-item-authoring.json'
         r12_raw = (ROOT/r12_path).read_bytes()
@@ -644,14 +691,14 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
-        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json','style-continuity-20261026-v14-run-gear.json','style-continuity-20261027-v15-item-v5.json','style-continuity-20261028-v16-item-authoring.json']:
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json','style-continuity-20261026-v14-run-gear.json','style-continuity-20261027-v15-item-v5.json','style-continuity-20261028-v16-item-authoring.json','style-continuity-20261028-v17-home-codex.json']:
             old_path = 'docs/creative_direction/bibles/'+old_style
             stale = copy.deepcopy(self.ref)
             stale['supplemental_authority_path'] = old_path
             stale['supplemental_authority_sha256'] = hashlib.sha256((ROOT/old_path).read_bytes()).hexdigest()
             with self.subTest(superseded=old_style),self.assertRaisesRegex(ValueError, 'binding changed'):
                 creative.validate_bible_binding(stale,root=self.root)
-        refs = live_refs
+        refs = actual_refs
         for role,path in creative.PLAYER_STYLE_DEPENDENCIES.items():
             self.assertIn({'role':role,'path':path,'sha256':hashlib.sha256((self.root/path).read_bytes()).hexdigest()},refs)
         old = json.loads((ROOT/'docs/creative_direction/archive/creative-v5/thorn_forest.json').read_bytes())['region_bible']

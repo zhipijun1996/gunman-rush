@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "CHEST-ART-01",
   "task_type": "art",
-  "workflow": "blocked",
+  "workflow": "in_progress",
   "baseline_commit": "0f25921dd41949f220999293013f065ce758189d",
-  "reviewed_commit": "0f25921dd41949f220999293013f065ce758189d",
-  "content_version": "candidate-v4-diagnostic-only",
+  "reviewed_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "content_version": "source04-user-adopted-v1",
   "owner": "/root",
   "purpose": "Three readable chest tiers, each with matched closed/open physical appearance, integrated into formal Plains/Forest",
   "player_experience": "Recognize rewardtier bysilhouette/latch/emblem and claimedstate byattached openlid; retain existing interactions and rewards",
@@ -18,176 +18,399 @@
     "Originalchecks/budgets/refusals retained; oldCI buildloglinkportabilityfixdoesnotrelabeloldfailedrun"
   ],
   "affected_paths": [
+    "scripts/art/chest_art_library.gd",
+    "scripts/art/chest_art_library.gd.uid",
+    "scripts/art/chest_art_layer.gd",
+    "scripts/art/chest_art_layer.gd.uid",
     "scripts/underworld_plains/underworld_objects.gd",
     "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
     "scripts/presentation/forest_bible_presentation.gd",
     "scripts/art/p1_unity_props.gd",
     "config/chest_art.json",
     "assets/objects/chests/chest-tiers-v1.source.png",
+    "assets/objects/chests/chest-tiers-v1.source.png.import",
+    "assets/objects/chests/manifest.json",
+    "assets/manifest.json",
     "docs/worklines/chest_art_01/spec.md",
-    "docs/quality/records/CHEST-ART-01.json",
-    "docs/worklines/item_v5_01/consumer_coverage.md"
+    "docs/quality/records/CHEST-ART-01.json"
   ],
   "deliverables": [
-    "Four original six-pose candidates and actual failed-admission history preserved as offline evidence",
-    "Compact gold latest candidate with blue/purple/gold main panels; no default runtime promotion",
-    "Prepared formal consumer patch remains offline pending art decision and actual integration tests",
-    "Actual single-phase Godot diagnostic and preserved native-error failures"
+    "Shared three-tier/six-state art data in actual Plains and Forest",
+    "Accepted claimed state chooses open body; offers/rejections remain closed; existing rewards/RNG/feet preserved",
+    "Actual two-region normal/small composites and genuine claim/reload continuous movie",
+    "Original guarded tests plus new actual selectors and immutable source provenance"
   ],
   "creative_decisions": [
     {
-      "decision": "Three broad body colours blue/purple/gold, wide-low clock crown; source generation total3 used3",
-      "alternatives_rejected": [
-        "Independent per-state scaling",
-        "Cropping nonzero alpha",
-        "Fourth generation call under exhausted budget"
-      ],
-      "status": "proposed",
-      "basis": "Actual user rejected colour-similar first source; independently bounded third correction materially improved geometry but failed pair stability"
-    },
-    {
-      "status": "proposed",
-      "decision": "Gold compact thick chest after actual rejection of stretched source03; total fourth bounded generation used4/4",
-      "basis": "User: 金色宝箱拉长太丑了，继续工作; explicit v6 source-only G0 review. Source04 remains diagnostic-only for frozen geometry failures."
+      "status": "user_confirmed",
+      "decision": "Use compact source04 blue/purple/gold six poses with disclosed minor pose/height differences",
+      "basis": "User directly said 宝箱接入游戏，继续工作 after actual candidate and differences were disclosed",
+      "evidence_id": "user-source04-adoption"
     }
   ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Scoped v8 adoption/design contract established by actual user instruction; old failed source specification and unchanged gameplay boundaries preserved. Not future-user/deviceG5.",
+      "evidence": [
+        "user-source04-adoption",
+        "chest-v8-contract"
+      ]
     },
     "G1": {
-      "status": "failed",
-      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion",
+      "status": "passed",
+      "reason": "Bounded actual native192/0 and pure guard161/0 plus source/assemblyaudit1025/0 observed. This does not sign final freeze, GL/visual or release completeness.",
       "evidence": [
-        "source04-reject"
+        "native02",
+        "guard-pure03",
+        "guard-audit03",
+        "guard-migration-final"
       ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Independent finite-guard technical scope accepted; whole-content actual formal GL/movie/art and final source acceptance still unverified. Narrow guard review does not complete wholeG4.",
+      "evidence": [
+        "guard-independent-after"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual user adopted fixed source04 v8 contract, including disclosed geometry differences; reward/Manifest/RNG/support-foot contracts stay independent. Old1wu/gold44-58FAIL remains historical.",
+      "evidence": [
+        "user-source04-adoption",
+        "chest-v8-contract"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current bounded technical executions: native02 192/0 clean, pure161/0 in94.476s under original180s, actual-audit1025/0. Earlier native/guard failures retained; final independent review and current GL/media are separate.",
+      "evidence": [
+        "native02",
+        "guard-pure03",
+        "guard-audit03",
+        "guard-migration-final",
+        "native01-failed",
+        "technical-index"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Production code and native tests load actual formal Plains/Forest stages; current-source two-regionGL, claim/reload continuous media and final freeze still pending. Native alone does not sign visible integration.",
+      "evidence": [
+        "native02",
+        "chest-v8-contract"
+      ]
     },
     "visual": {
-      "status": "failed",
-      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion; latest user taste decision is pending",
-      "evidence": [
-        "source04-reject"
-      ]
+      "status": "unverified",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
+      "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent after-review SCOPED_TECHNICAL_ACCEPT for finite chest source gate/tests/fixture migration after confirmed fake-header repair. OriginalREVISE and exact before/after probe retained. No visual/runtime/G5 review signed.",
+      "evidence": [
+        "guard-independent-after",
+        "guard-independent-revise",
+        "guard-probe-before",
+        "guard-probe-after",
+        "guard-migration-final"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
       "evidence": []
     }
   },
   "criteria": [
     {
-      "id": "six-pose-source-fit",
-      "gate": "G1",
-      "dimension": "visual",
-      "scenario": "Fourth original six-pose atlas at frozen common factors and measured foot anchors",
-      "method": "Independent fullsource measurements and single-phase actual1wu diagnostics; no alpha edits or per-state scaling",
-      "expected": "Blue/purple lower-body delta<=1wu and gold closed/open<=44/58wu at60±1wu width",
-      "failure": "Any pair drift or gold extent exceeds the frozen contract",
-      "status": "failed",
-      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion",
+      "id": "adopted-contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Use current source04 under actual user adoption, retain original source geometry failures as history",
+      "method": "Actual user quote plus v8 fixed originalPNG/ROIs/sharedfactor/sourcefoot contract",
+      "expected": "No source pixel edit, reward/Manifest/RNG/physics/supportfoot change or regenerated art;4calls exhausted",
+      "failure": "Pretending old1wu/44-58spec passed or changing gameplay to fit artwork",
+      "status": "passed",
+      "reason": "Actual adoption contract present with immutable source and explicit known differences.",
       "evidence": [
-        "source04-reject"
+        "user-source04-adoption",
+        "chest-v8-contract"
+      ]
+    },
+    {
+      "id": "native-formal-contract",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Actual native two-region assembly, tier and claimed-state selectors",
+      "method": "Read original strict native02 log; preserve first failed native run",
+      "expected": "192/0 and no script/nativeERROR; unknown-tier negative warning remains diagnostic",
+      "failure": "Any true script/nativeERROR, incomplete stage or relying only on local147/0 marker",
+      "status": "passed",
+      "reason": "Native02 actual192/0 clean; native01 strictFAIL preserved. Formal visible capture still pending.",
+      "evidence": [
+        "native02",
+        "native01-failed"
+      ]
+    },
+    {
+      "id": "finite-guard-tests",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Preserve original152 tests and reject actual dispatch mutations and fake header literals",
+      "method": "Full161-test pure stdlib run under original180s plus1025 source/assembly audit",
+      "expected": "Zero failed/removed original tests; actual current source dispatch guarded, wrong live Stage/Objects rejected",
+      "failure": "Dead-string/fake-header bypass, deleted original guard or source audit failure",
+      "status": "passed",
+      "reason": "161/0 in94.476s,1025/0 audit and after-fix original probe rejection observed. This is author verification, not final independent acceptance.",
+      "evidence": [
+        "guard-pure03",
+        "guard-audit03",
+        "guard-migration-final",
+        "guard-probe-after"
+      ]
+    },
+    {
+      "id": "independent-finite-guard-rereview",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Independent review of original counterexample and bounded whole-source-context fix",
+      "method": "Actual independent staticdiff/AST/exactSHA review plus before/after exact counterexample evidence and complete author test/audit logs",
+      "expected": "Independent accepted scope states real fake-header bypass is closed without weakening original contracts",
+      "failure": "Author tests treated as independent acceptance or oldREVISE overwritten",
+      "status": "passed",
+      "reason": "SCOPED_TECHNICAL_ACCEPT for finite source-gate/tests/fixtures only; firstREVISE preserved. Whole parser/runtime/visual/G5 are explicitly outside acceptance.",
+      "evidence": [
+        "guard-independent-after",
+        "guard-independent-revise",
+        "guard-probe-before",
+        "guard-probe-after",
+        "guard-migration-final"
+      ]
+    },
+    {
+      "id": "current-formal-GL-and-media",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Current formal Plains/Forest six poses plus genuine claim/reload flow at original andsmall scale",
+      "method": "Root single-engine actual current-source capture and accepted-event trace, not old isolated fixture",
+      "expected": "Actual correct live tier/state/feet and original transaction behaviour in both formal consumers",
+      "failure": "Only source/native/oldisolated frames claimed as current formal visual proof",
+      "status": "unverified",
+      "reason": "Native actual stages loaded, but current formalGL/movie/finalfreeze evidence not signed here.",
+      "evidence": [
+        "native02"
       ]
     }
   ],
   "evidence": [
     {
-      "id": "source04-reject",
-      "path": "docs/evidence/chest_art_01/raw/source04-admission-review.json",
-      "sha256": "7f124742b208e2e515874fed948b31f3daf0a692169cfcd0a8acbc0b43e369cd",
+      "id": "user-source04-adoption",
+      "path": "docs/evidence/chest_art_01/user-adoption.json",
+      "sha256": "052a89cda8e906fb7610fccde7f40df135abd21cc69f4786abd6ddcac2c756c3",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Direct actual conversation instruction after concrete art tradeoff question",
+      "observed": "User directs current source04 into game; prior failed bounds are historical, actual integration remains to verify",
+      "source": "Direct user message in current conversation, responding after specific source04 geometry tradeoff disclosure; message-id/time API not exposed",
+      "quote": "宝箱接入游戏，继续工作",
+      "covers": [
+        "source04_art_adoption"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "chest-v8-contract",
+      "path": "docs/worklines/chest_art_01/spec.md",
+      "sha256": "a6be6e7b64ac1f8b0c9de47353c1729889b7ae1c60f4685e2b873460491c270f",
+      "kind": "spec",
+      "producer": "/root/item_art_direction",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual user adoption and fixed source04 ROI/factor/foot contract; old version failures archived",
+      "observed": "Source04 adoption authorized; former1wu/44-58 FAIL remains historical; no economy/physics/Manifest/foot change."
+    },
+    {
+      "id": "native02",
+      "path": "docs/evidence/chest_art_01/technical/native-02.log",
+      "sha256": "9a300798b5999d41dfa7f909d781d733512edddccf9406321a98acf2aa194509",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual pinned Godot4.7.2 native run log, read unmodified; exact invocation not embedded in this log",
+      "observed": "192 checks/0 failures with real Plains andForest assembly. No script/nativeERROR; expected unknown-tier negative warning retained.",
+      "exit_code": 0,
+      "environment": "Linux pinned Godot4.7.2 Standard/native, actual run produced by root; no physical-device claim"
+    },
+    {
+      "id": "native01-failed",
+      "path": "docs/evidence/chest_art_01/technical/native-01.log",
+      "sha256": "07b215bc168a6e37c9d4c997b5667dbb2281af5d2a3f787a39964d8c9421a5a4",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Original first native run log retained byte-identically",
+      "observed": "StrictFAIL from recorded-forest-state/Nil-access/leak errors.147/0 localmarker is invalid as overall pass."
+    },
+    {
+      "id": "guard-pure03",
+      "path": "docs/evidence/chest_art_01/technical/guard-proposal/test-native-free-03.log",
+      "sha256": "07cacfde35227ac80230f11bd5b870882d20f6b0e10e0e2b56b09ca6d40a2c99",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Original161-test complete stdlib suite after bounded fake-header-context fix",
+      "observed": "161 tests/0 failures in94.476s, original180s budget unchanged. Original152 tests retained; no removed originals.",
+      "command": "timeout 180 python3 tests/test_underworld_pipeline.py",
+      "exit_code": 0,
+      "environment": "Linux Python3 pure stdlib suite; no Godot invocation"
+    },
+    {
+      "id": "guard-audit03",
+      "path": "docs/evidence/chest_art_01/technical/guard-proposal/actual-audit-03.json",
+      "sha256": "e270bacd8ff57450df7ff5a6970794ce782574623ed6e38c1a204d5308a9a7e7",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual finite provenance and assembly audit result, not rendered content",
+      "observed": "1025 checks/0 failures; source/assembly contract only, no GL/visual/Motor/device acceptance.",
+      "exit_code": 0
+    },
+    {
+      "id": "guard-migration-final",
+      "path": "docs/evidence/chest_art_01/technical/guard-proposal/migration-result-final.json",
+      "sha256": "3a4ae25daba06b44815a7519c65627be342924bfe78ac97db3e9e2fd00056ef3",
+      "kind": "report",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Author repair result binds exact tools/test/library sourceSHA plus original-test preservation",
+      "observed": "Whole-source literal/comment-mask boundary fix; global gd_function/runtime unchanged.161-suite and actual-audit pass, two fake-header probe forms reject."
+    },
+    {
+      "id": "guard-independent-revise",
+      "path": "docs/evidence/chest_art_01/technical/guard-independent-review.json",
+      "sha256": "99cd91e272174b17dcfdb0c4f2087aaaf3f68f963ad47504e669b74e2c89e1d0",
       "kind": "review",
       "producer": "/root/final_review",
-      "source_commit": "0f25921dd41949f220999293013f065ce758189d",
-      "content_version": "candidate-v4-diagnostic-only",
-      "method": "Independent originalPNG/fullalpha/naturalROI/sharedfactor/pair-body and goldheight measurements",
-      "observed": "Fourth source remains diagnostic-only; frozen geometry fails, no formal asset promotion, user art tradeoff pending",
-      "reviewer": "/root/final_review",
-      "implementers": [
-        "/root",
-        "/root/item_art_direction"
-      ],
-      "independent": true,
-      "independence_basis": "Reviewer did not author generation or implementation; independently measured original source pixels",
-      "verdict": "REJECT"
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Independent first readonly finite-guard review retained without altering verdict",
+      "observed": "REVISE_STATIC_FUNCTION_CONTEXT_GAP; inactive fake function headers could bypass current finite guard before repair. Not final acceptance."
+    },
+    {
+      "id": "guard-probe-before",
+      "path": "docs/evidence/chest_art_01/technical/guard-independent-probe/confirmed-before.json",
+      "sha256": "44e52fb8e797ba41c5e7ec6988ccdeecfde8de3dd5cd06c78d2cddd9bc7aa40b",
+      "kind": "report",
+      "producer": "/root/final_review",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual narrow readonly counterexample confirmation, no engine or production writes",
+      "observed": "Baseline true; wrong actual Stage/Objects could pass with fake-header literals before fix. Original failed guard preserved."
+    },
+    {
+      "id": "guard-probe-after",
+      "path": "docs/evidence/chest_art_01/technical/guard-proposal/reviewer-probe-after.json",
+      "sha256": "2ad5918f36f88d57a485fb15288075635b3007fb2bc85b4bf191ec67c5d16dff",
+      "kind": "report",
+      "producer": "/root",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Author reran the confirmed independent probe after narrow extraction fix",
+      "observed": "Author replay baseline true; reviewer badStage and badObjects rejected; no engine/production change. Independent acceptance is separately evidenced by guard-independent-after, not inferred from this author replay."
+    },
+    {
+      "id": "technical-index",
+      "path": "docs/evidence/chest_art_01/technical/index.json",
+      "sha256": "61ef23300738d5a71b813d19d23a332be67d51844ddbda04e2a6a95c79d2038e",
+      "kind": "report",
+      "producer": "/root/item_art_direction",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Byte-identical technical receipt copies and original path/SHA index",
+      "observed": "Raw native01/02, pure logs01/02/03, audits, migrations, independent firstREVISE and after scopedACCEPT with original before/after probes archived; b2 remains baseline pending finalfreeze."
+    },
+    {
+      "id": "guard-independent-after",
+      "path": "docs/evidence/chest_art_01/technical/guard-independent-review-after.json",
+      "sha256": "a7a25b3811385bfb011178431b817a84406a35854df1c075dfa566aa9da79712",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Independent static diff/AST/exactSHA review of whole-source-mask repair and existing exact counterexample replay/161-suite/1025-audit logs; reviewer did not rerun whole suite or engine",
+      "observed": "SCOPED_TECHNICAL_ACCEPT: current finite source guard/test/fixture migration accepted; original152 methods retained, original false acceptance repaired. Not whole parser/dynamic reachability/runtime/visual/G5."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Fourth source not admitted for formal runtime: blue/purple pair width difference exceeds1wu; gold closed/open height exceeds44/58 under60±1wu width",
-    "Latest compact gold is a candidate awaiting actual user art tradeoff; prior stretched gold explicitly rejected",
-    "Old formal chest visuals remain; no default runtime promotion; 4/4 source calls exhausted",
-    "Source04 GL first and second diagnostic failed; latest75 clean diagnostic does not pass frozen art geometry",
-    "User/device acceptance, real formal map three-tier claim movie remain unverified"
-  ]
+    "Current formal two-regionGL, genuineclaim/reload and current-sourcemovie remain pending; native192/0 is scoped technical proof only.",
+    "Independent finite guard scope accepted; current formal GL/gameplay/art and wholeG4 remain unverified.",
+    "Final sourcefreeze/commit and current applicable broaderHarness remain root responsibility; reviewed_commit is b2 baseline with candidate uncommitted.",
+    "Physical Android/gamepad, low-endperformance and fullG5 remain unverified.",
+    "User adopted fixed source04 differences under v8; originalgrid/gutter/nativepixel/pair1wu/gold44-58FAIL stays historical, not rewrittenPASS.",
+    "No fifth image generation; byte-identical source04 only."
+  ],
+  "technical_scope_note": {
+    "baseline_commit_kept": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+    "worktree_status": "Actual tested candidate has uncommitted changes on b2; reviewed_commit intentionally remainsb2 as baseline pending root finalfreeze. This is not claim logs ran cleanb2 or final reviewedsource unchanged.",
+    "logged_guard_source_hashes_bound_by": "guard-migration-final",
+    "first_independent_verdict": "REVISE_STATIC_FUNCTION_CONTEXT_GAP preserved",
+    "after_fix_independent_review": "SCOPED_TECHNICAL_ACCEPT, only finite source gate/test/fixture migration; actual report copied byte-identically.",
+    "final_commit_update_owner": "/root",
+    "full_release_or_GL_acceptance_claimed": false
+  }
 }

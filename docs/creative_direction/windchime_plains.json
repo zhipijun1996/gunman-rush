@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v20",
+  "version": "creative-v21",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
-    "supplemental_authority_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+    "supplemental_authority_sha256": "44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "210db55d8db4b01e6697074e13a3bfd596f5a2854df76a6de00ed7db67755d02",
+    "registry_sha256": "188ab18e9228e5c8e60db7667489fbdcef62b89c159d3d6c9b1adf93bb13072b",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -163,6 +163,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
       "sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624"
     }
   ],
   "historical_direction": {
@@ -171,26 +175,23 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "HOME-CODEX-01",
-    "scope": "Actual Home item codex consumer extension within selected whole-game style; no Chest production changes, new images or inherited acceptance. Two old68 consumer hashes updated, five actual Home policy/UI/world leaves appended.",
-    "previous_direction": "docs/creative_direction/archive/creative-v19/windchime_plains.json",
-    "previous_sha256": "c8754c5a2e940da1553dc78cd411b2f05d8fb83a76620eed23a797107a80494a",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
-    "shared_style_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
+    "task_id": "CHEST-ART-01",
+    "scope": "Source04 actual three-tier/two-state formal Plains/Forest chest presentation within selected whole-game style; only one old73 leaf updated and8 actual visual leaves appended. Published17/20 immutable. No new generation/global style change/reward mechanics or inherited old-source art acceptance.",
+    "previous_direction": "docs/creative_direction/archive/creative-v20/windchime_plains.json",
+    "previous_sha256": "e4d7c2527921b864bb3f8bbc4074ac9ba603f59661088aaa9978c6dcbf728673",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+    "shared_style_sha256": "44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624",
     "affected_consumers": [
-      "scripts/demo/demo_app.gd",
-      "scripts/demo/home_scene.gd",
-      "scripts/ui/home_item_codex.gd",
-      "scripts/underworld_plains/underworld_home_world.gd",
-      "scripts/meta/home_item_catalog.gd",
-      "config/home_items.json",
-      "scripts/meta/meta_progression.gd"
+      "scripts/demo/plains_region_stage.gd",
+      "scripts/art/chest_art_library.gd",
+      "scripts/art/chest_art_layer.gd",
+      "scripts/underworld_plains/underworld_objects.gd",
+      "scripts/presentation/forest_bible_presentation.gd",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/art/p1_unity_props.gd",
+      "config/chest_art.json",
+      "assets/objects/chests/chest-tiers-v1.source.png"
     ],
-    "validation": "Original32+10/four scoped pure checks and actual Home runtime/UI/save evidence remain separate; user/device/G5 unverified.",
-    "candidate_iteration_r2": {
-      "previous_direction": "docs/evidence/home_codex_01/source-bindings/before-policy-view-rework/windchime_plains.json",
-      "previous_sha256": "6e49ebf89b0b6b9b799250260ab6536dc0936dd3d52c3d07b7a3d5911abd0516",
-      "scope": "Same unpublished creative20; only HomeItemCodex and DemoApp hashes rebind configured undiscovered policy actions and discovery after successful carry. Other71 refs unchanged; R1 pass remains source-specific. No new assets or acceptance."
-    }
+    "validation": "Fresh original32+10/four scoped checks and actual current-source formal game capture/review separate; original four-generation budget/failed candidates preserved; source04 adoption is not old44/58 validation."
   }
 }

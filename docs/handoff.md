@@ -1,5 +1,16 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-28 宝箱source04已按用户v8采用接入两区（当前）
+
+用户明确“宝箱接入游戏，继续工作”，已采用source04现图及此前披露的细微尺寸／姿态差异。三档蓝／紫／金的闭／开六态现已注册production资产并接入正式平原与森林消费者；[v8合同](worklines/chest_art_01/spec.md)固定原PNG、完整ROI、每tier共同factor／脚底，交易／Manifest／RNG、平原＋21与森林＋18支撑及1wu采样不变。此为用户采用后的新合同，旧≤1wu配对与金箱44／58规格失败仍保留，不能追签旧PASS；4／4生成用尽，无新图。
+
+原生专项 `build/chest_art_01/native-02.log` 实跑192项／0失败，未见脚本或原生ERROR；未知tier负例的预期warning保留。首次native01的真实场景未就绪／Nil访问失败原件不删，不以其147／0 marker称通过。当前production两区capture／正式开箱媒体仍待root执行与核验；不把原隔离GL或旧影片当新主游戏证据，实体设备与完整G5仍未验。[宝箱证据与边界](evidence/chest_art_01/README.md)。
+
+当前分支feature/item-v5-catalog／PR111，不自动合main。最终commit、当前源正式两区截图／媒体与公开入口由root收口后补实际收据；恢复先核git状态与单Godot租约，不重复生成美术。
+
+> 下方原文为本条之前的阶段交接，保留来源；其中“宝箱待取舍／仅离线／未注册”已被上述实际用户采用与两区实现覆盖，其历史失败仍有效。其余工作线按各自证据判断。
+
+
 ## 2026-10-28 PR111与公开录屏已交付（最新）
 
 PR111已推送并保持OPEN，不自动合main。运行源56e639d712cab0604807992cce0e6eaeaf56ac08；三段媒体固定在提交00264dbb9120916eb2a979abdf2de43320ea335b，后续仅文档证据。54秒主片及两区各12秒公网均实际HTTP200，完整SHA与本地一致，见[公开核验](evidence/item_art_01/public-download-check/receipt.json)。33项受影响Harness fresh、222主片、19／18两区和导出包隔离加载均通过；完整远端CI已启动，精确head结果以[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)实际Actions为准，未签full164通过。工作树最后只归档下载证明及交接，不重跑原生或生成美术。

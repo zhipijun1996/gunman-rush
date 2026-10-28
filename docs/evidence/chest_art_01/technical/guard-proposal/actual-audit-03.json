@@ -1,0 +1,5571 @@
+{
+  "schema": "underworld-pipeline-audit-v1",
+  "scope": "Source provenance and production-manifest assembly contract only; GPU, Motor, visual quality and device acceptance are separate.",
+  "passed": true,
+  "check_count": 1025,
+  "failure_count": 0,
+  "checks": [
+    {
+      "code": "production.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.schema",
+      "passed": true,
+      "detail": "underworld-production-v1"
+    },
+    {
+      "code": "terrain.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "reference.recipe",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.bits",
+      "passed": true,
+      "detail": "Project clockwise neighbour order"
+    },
+    {
+      "code": "reference.47_masks",
+      "passed": true,
+      "detail": "All canonical masks, including missing-diagonal inner corners"
+    },
+    {
+      "code": "reference.source",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source_sha256",
+      "passed": true,
+      "detail": "Frozen licensed Underworld source bytes"
+    },
+    {
+      "code": "terrain.declared_source_sha256",
+      "passed": true,
+      "detail": "Runtime provenance agrees with actual copied source"
+    },
+    {
+      "code": "reference.license",
+      "passed": true,
+      "detail": "res://assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.license.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.license.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.permission",
+      "passed": true,
+      "detail": "Custom publisher permission; not CC0"
+    },
+    {
+      "code": "reference.no_false_cc0",
+      "passed": true,
+      "detail": "Underworld has a custom permission statement"
+    },
+    {
+      "code": "terrain.native_pixel_scale",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "code": "terrain.world_scale",
+      "passed": true,
+      "detail": "32"
+    },
+    {
+      "code": "terrain.mask_mapping",
+      "passed": true,
+      "detail": "Runtime mask coordinates equal immutable crop recipe"
+    },
+    {
+      "code": "terrain.source_regions",
+      "passed": true,
+      "detail": "Runtime boundary source regions match the original quarter-crop recipe"
+    },
+    {
+      "code": "terrain.atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas_sha256",
+      "passed": true,
+      "detail": "Runtime provenance agrees with actual atlas"
+    },
+    {
+      "code": "terrain.crop_coverage",
+      "passed": true,
+      "detail": "All pixels covered exactly once by bounded unscaled original-source crops"
+    },
+    {
+      "code": "terrain.source_reconstruction",
+      "passed": true,
+      "detail": "Runtime atlas RGBA exactly equals source crop replay"
+    },
+    {
+      "code": "terrain.tileset",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.tileset.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.tileset.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.real_tileset",
+      "passed": true,
+      "detail": "Godot TileSetAtlasSource resource"
+    },
+    {
+      "code": "terrain.tileset_consumes_atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.honest_geometry_mode",
+      "passed": true,
+      "detail": "Formal non-grid boundaries remain exact; only interior cells use Blob47 TileMapLayer"
+    },
+    {
+      "code": "scenery.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "background.three_layers",
+      "passed": true,
+      "detail": "Sky base excluded"
+    },
+    {
+      "code": "background.0.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.factor",
+      "passed": true,
+      "detail": "[0.035, 0.015]"
+    },
+    {
+      "code": "background.0.role",
+      "passed": true,
+      "detail": "opaque_morning_sky_long_clouds_and_distant_atmospheric_hills"
+    },
+    {
+      "code": "background.0.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.0.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json"
+    },
+    {
+      "code": "background.0.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json"
+    },
+    {
+      "code": "background.0.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json"
+    },
+    {
+      "code": "background.0.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json"
+    },
+    {
+      "code": "background.0.generation_record.prompt_output_binding",
+      "passed": true,
+      "detail": "Consumed output selects its exact original prompt file; injected inline text cannot bypass this provenance"
+    },
+    {
+      "code": "background.0.generation_record.prompt_output",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.generation_record.prompt_output.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.generation_record.prompt_output.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.generation_record.prompt_output.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png"
+    },
+    {
+      "code": "background.0.generation_record.prompt_file",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt"
+    },
+    {
+      "code": "background.0.generation_record.prompt_file.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt"
+    },
+    {
+      "code": "background.0.generation_record.prompt_file.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt"
+    },
+    {
+      "code": "background.0.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "background.0.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.0.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.1.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.factor",
+      "passed": true,
+      "detail": "[0.105, 0.055]"
+    },
+    {
+      "code": "background.1.role",
+      "passed": true,
+      "detail": "low_quiet_meadow_ridge_with_separate_local_landmark_ensembles"
+    },
+    {
+      "code": "background.1.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.1.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json"
+    },
+    {
+      "code": "background.1.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json"
+    },
+    {
+      "code": "background.1.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json"
+    },
+    {
+      "code": "background.1.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json"
+    },
+    {
+      "code": "background.1.generation_record.prompt_output_binding",
+      "passed": true,
+      "detail": "Quiet meadow output uses this record's actual prompt.txt; injected inline text is not provenance"
+    },
+    {
+      "code": "background.1.generation_record.prompt_output",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.generation_record.prompt_output.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.generation_record.prompt_output.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.generation_record.prompt_output.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png"
+    },
+    {
+      "code": "background.1.generation_record.prompt_file",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt"
+    },
+    {
+      "code": "background.1.generation_record.prompt_file.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt"
+    },
+    {
+      "code": "background.1.generation_record.prompt_file.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt"
+    },
+    {
+      "code": "background.1.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "background.1.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.1.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.1.generation_record.reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png"
+    },
+    {
+      "code": "background.1.generation_record.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png"
+    },
+    {
+      "code": "background.1.generation_record.reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png"
+    },
+    {
+      "code": "background.1.generation_record.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.factor",
+      "passed": true,
+      "detail": "[0.265, 0.115]"
+    },
+    {
+      "code": "background.2.role",
+      "passed": true,
+      "detail": "transparent_near_background_meadow_bank_rooted_tree_and_distant_chime_frame"
+    },
+    {
+      "code": "background.2.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.2.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "background.2.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.2.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.2.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "background.independent_pixels",
+      "passed": true,
+      "detail": "Three different source images, not one panorama copied three times"
+    },
+    {
+      "code": "background.ordered_factors",
+      "passed": true,
+      "detail": "[[0.035, 0.015], [0.105, 0.055], [0.265, 0.115]]"
+    },
+    {
+      "code": "decor.independent_seed",
+      "passed": true,
+      "detail": "Does not consume gameplay RNG"
+    },
+    {
+      "code": "decor.keepout",
+      "passed": true,
+      "detail": "whole_display_bounds_plus_8"
+    },
+    {
+      "code": "decor.support",
+      "passed": true,
+      "detail": "full_root_span_on_exposed_static_solid"
+    },
+    {
+      "code": "decor.no_collision",
+      "passed": true,
+      "detail": "Presentation-only supported props"
+    },
+    {
+      "code": "decor.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "decor.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "decor.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "decor.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.generation_record.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "decor.regions_metadata",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "decor.regions_metadata.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "decor.regions_metadata.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "decor.regions_metadata.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "decor.extended_provenance",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.extended_provenance.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.extended_provenance.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.extended_provenance.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.grass.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.processing",
+      "passed": true,
+      "detail": "Original-source crop processing disclosure"
+    },
+    {
+      "code": "decor.grass.license",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "decor.grass.license.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "decor.grass.license.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "decor.grass.permission",
+      "passed": true,
+      "detail": "Original publisher custom permission retained"
+    },
+    {
+      "code": "decor.grass.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "decor.grass.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "decor.grass.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "decor.grass.actual_source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.actual_source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.actual_source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.grass.same_publisher_bytes",
+      "passed": true,
+      "detail": "Native grass atlas is the byte-identical original Underworld sheet"
+    },
+    {
+      "code": "decor.grass.runtime_recipe",
+      "passed": true,
+      "detail": "Runtime grass override agrees with its actual source record"
+    },
+    {
+      "code": "decor.identity_generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_generation.json"
+    },
+    {
+      "code": "decor.identity_generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_generation.json"
+    },
+    {
+      "code": "decor.identity_generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_generation.json"
+    },
+    {
+      "code": "decor.identity_generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/decor/identity_generation.json"
+    },
+    {
+      "code": "decor.identity_generation.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "decor.identity_generation.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "decor.identity_generation.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "decor.identity_generation.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/identity_props_original.png"
+    },
+    {
+      "code": "decor.identity_generation.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/identity_props_original.png"
+    },
+    {
+      "code": "decor.identity_generation.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/identity_props_original.png"
+    },
+    {
+      "code": "decor.identity_generation.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.identity_generation.reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.identity_generation.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.identity_generation.reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.identity_generation.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.identity_generation.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.identity_generation.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.identity_generation.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.identity_generation.image_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.identity.complete_objects",
+      "passed": true,
+      "detail": "Three actual complete-object regions with preserved original source"
+    },
+    {
+      "code": "decor.identity.four_roles",
+      "passed": true,
+      "detail": "Four current Plains identity roles; not sixteen-region production"
+    },
+    {
+      "code": "decor.region.grass.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.region.grass.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.region.grass.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/native_underworld.png"
+    },
+    {
+      "code": "decor.region.grass.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height entirely inside source PNG"
+    },
+    {
+      "code": "decor.region.grass.foot_bounds",
+      "passed": true,
+      "detail": "[16, 16]"
+    },
+    {
+      "code": "decor.region.grass.source_semantics",
+      "passed": true,
+      "detail": "Source role and no repaint/native versus generated lineage are explicit"
+    },
+    {
+      "code": "decor.region.grass.actual_opaque_foot",
+      "passed": true,
+      "detail": "Declared foot equals actual alpha>=128 lower edge; no cut root or floating bottom padding"
+    },
+    {
+      "code": "decor.region.well.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.well.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.well.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.well.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height entirely inside source PNG"
+    },
+    {
+      "code": "decor.region.well.foot_bounds",
+      "passed": true,
+      "detail": "[288.0, 394]"
+    },
+    {
+      "code": "decor.region.well.source_semantics",
+      "passed": true,
+      "detail": "Source role and no repaint/native versus generated lineage are explicit"
+    },
+    {
+      "code": "decor.region.well.actual_opaque_foot",
+      "passed": true,
+      "detail": "Declared foot equals actual alpha>=128 lower edge; no cut root or floating bottom padding"
+    },
+    {
+      "code": "decor.region.well.generation_recipe",
+      "passed": true,
+      "detail": "Runtime crop/foot/scale agrees with actual generated-source extraction record"
+    },
+    {
+      "code": "decor.region.well.actual_generated_atlas",
+      "passed": true,
+      "detail": "Runtime region samples the recorded original image"
+    },
+    {
+      "code": "decor.region.clock_arch.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.clock_arch.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.clock_arch.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.clock_arch.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height entirely inside source PNG"
+    },
+    {
+      "code": "decor.region.clock_arch.foot_bounds",
+      "passed": true,
+      "detail": "[344.5, 548]"
+    },
+    {
+      "code": "decor.region.clock_arch.source_semantics",
+      "passed": true,
+      "detail": "Source role and no repaint/native versus generated lineage are explicit"
+    },
+    {
+      "code": "decor.region.clock_arch.actual_opaque_foot",
+      "passed": true,
+      "detail": "Declared foot equals actual alpha>=128 lower edge; no cut root or floating bottom padding"
+    },
+    {
+      "code": "decor.region.clock_arch.generation_recipe",
+      "passed": true,
+      "detail": "Runtime crop/foot/scale agrees with actual generated-source extraction record"
+    },
+    {
+      "code": "decor.region.clock_arch.actual_generated_atlas",
+      "passed": true,
+      "detail": "Runtime region samples the recorded original image"
+    },
+    {
+      "code": "decor.region.repair_shelter.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.repair_shelter.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.repair_shelter.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "decor.region.repair_shelter.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height entirely inside source PNG"
+    },
+    {
+      "code": "decor.region.repair_shelter.foot_bounds",
+      "passed": true,
+      "detail": "[303.0, 423]"
+    },
+    {
+      "code": "decor.region.repair_shelter.source_semantics",
+      "passed": true,
+      "detail": "Source role and no repaint/native versus generated lineage are explicit"
+    },
+    {
+      "code": "decor.region.repair_shelter.actual_opaque_foot",
+      "passed": true,
+      "detail": "Declared foot equals actual alpha>=128 lower edge; no cut root or floating bottom padding"
+    },
+    {
+      "code": "decor.region.repair_shelter.generation_recipe",
+      "passed": true,
+      "detail": "Runtime crop/foot/scale agrees with actual generated-source extraction record"
+    },
+    {
+      "code": "decor.region.repair_shelter.actual_generated_atlas",
+      "passed": true,
+      "detail": "Runtime region samples the recorded original image"
+    },
+    {
+      "code": "local.spec_present",
+      "passed": true,
+      "detail": "New distant architectural consumer must have an explicit runtime spec"
+    },
+    {
+      "code": "local.identity_asset",
+      "passed": true,
+      "detail": "The source-painted well is the current creek background identity"
+    },
+    {
+      "code": "local.depth",
+      "passed": true,
+      "detail": "Background architecture is not a grounded gameplay landmark"
+    },
+    {
+      "code": "local.collision",
+      "passed": true,
+      "detail": "No collider, standable edge or physical-root claim"
+    },
+    {
+      "code": "local.standing_edge",
+      "passed": true,
+      "detail": "No collider, standable edge or physical-root claim"
+    },
+    {
+      "code": "local.physical_support",
+      "passed": true,
+      "detail": "No collider, standable edge or physical-root claim"
+    },
+    {
+      "code": "local.background_z",
+      "passed": true,
+      "detail": "Consumer remains behind the gameplay plane"
+    },
+    {
+      "code": "local.positive_height",
+      "passed": true,
+      "detail": "Actual source/foot scale has positive height"
+    },
+    {
+      "code": "local.functional_keepout",
+      "passed": true,
+      "detail": "Original functional keepouts remain declared"
+    },
+    {
+      "code": "local.visible_opacity",
+      "passed": true,
+      "detail": "Actual material opacity is declared and nonzero, not an invisible identity label"
+    },
+    {
+      "code": "local.visibility_budget",
+      "passed": true,
+      "detail": "Declared visibility sample budget cannot accept a fully hidden source base"
+    },
+    {
+      "code": "local.offset_x",
+      "passed": true,
+      "detail": "Actual source-consumed local background sockets"
+    },
+    {
+      "code": "local.offset_y",
+      "passed": true,
+      "detail": "Actual source-consumed local background sockets"
+    },
+    {
+      "code": "local.painted_base.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "local.painted_base.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "local.painted_base.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "local.painted_base.description",
+      "passed": true,
+      "detail": "Original painted footing is the declared base, not physical solid support"
+    },
+    {
+      "code": "local.source_regions",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "local.source_regions.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "local.source_regions.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "local.source_regions.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/decor/chime_props.json"
+    },
+    {
+      "code": "local.same_painted_base",
+      "passed": true,
+      "detail": "Virtual base belongs to the exact consumed well image"
+    },
+    {
+      "code": "local.readability_contract",
+      "passed": true,
+      "detail": "Actual runtime cold atmospheric material limits; no separate pipeline shadow rules"
+    },
+    {
+      "code": "local.fog_shadow.rgb",
+      "passed": true,
+      "detail": "Explicit six-digit source-consumed fog color"
+    },
+    {
+      "code": "local.fog_shadow.runtime_readability",
+      "passed": true,
+      "detail": "Matches the same declared limits checked by UnderworldLocalComposition.actual_issues"
+    },
+    {
+      "code": "local.fog_highlight.rgb",
+      "passed": true,
+      "detail": "Explicit six-digit source-consumed fog color"
+    },
+    {
+      "code": "local.fog_highlight.runtime_readability",
+      "passed": true,
+      "detail": "Matches the same declared limits checked by UnderworldLocalComposition.actual_issues"
+    },
+    {
+      "code": "local.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_local_composition.gd"
+    },
+    {
+      "code": "local.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_local_composition.gd"
+    },
+    {
+      "code": "local.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_local_composition.gd"
+    },
+    {
+      "code": "local.caller",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "local.caller.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "local.caller.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "local.caller",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "local.caller.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "local.caller.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "local.read_by_runtime",
+      "passed": true,
+      "detail": "Actual JSON-reading scenery passes local_composition into the real child configure()"
+    },
+    {
+      "code": "local.same_runtime_readability_spec",
+      "passed": true,
+      "detail": "The actual material and runtime rejection read these same production values"
+    },
+    {
+      "code": "hazards.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.selected_manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_fine_build.json"
+    },
+    {
+      "code": "hazards.selected_manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_fine_build.json"
+    },
+    {
+      "code": "hazards.selected_manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_fine_build.json"
+    },
+    {
+      "code": "hazards.selected_manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/hazards/hazard_fine_build.json"
+    },
+    {
+      "code": "hazards.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.source",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.sha256",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.generated_reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "hazards.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "hazards.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "hazards.model_status",
+      "passed": true,
+      "detail": "Unknown model is allowed when not exposed"
+    },
+    {
+      "code": "hazards.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.native_scale",
+      "passed": true,
+      "detail": "[16, 16]"
+    },
+    {
+      "code": "hazards.transitions",
+      "passed": true,
+      "detail": "Start, repeat, end and single-span material variants"
+    },
+    {
+      "code": "hazards.atlas_size",
+      "passed": true,
+      "detail": "(64, 16)"
+    },
+    {
+      "code": "hazards.root_and_tip",
+      "passed": true,
+      "detail": "4+12"
+    },
+    {
+      "code": "hazards.material_continuity",
+      "passed": true,
+      "detail": "Visible tips and embedded root pixels, not an empty overlay"
+    },
+    {
+      "code": "hazards.damage_source",
+      "passed": true,
+      "detail": "Existing authoritative damage definition"
+    },
+    {
+      "code": "hazards.orientations",
+      "passed": true,
+      "detail": "['top', 'left', 'right', 'bottom']"
+    },
+    {
+      "code": "hazards.preserve_collision",
+      "passed": true,
+      "detail": "No additional solid base or changed hazard extent"
+    },
+    {
+      "code": "hazards.no_floating_base",
+      "passed": true,
+      "detail": "Danger material uses the supporting platform boundary"
+    },
+    {
+      "code": "hazards.material_family",
+      "passed": true,
+      "detail": "underworld_green_rock"
+    },
+    {
+      "code": "hazards.selected.schema",
+      "passed": true,
+      "detail": "Selected fine hazard schema"
+    },
+    {
+      "code": "hazards.selected.source",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.selected.source.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.selected.source.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.selected.source.sha256",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.selected.generated_reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.selected.generated_reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.selected.generated_reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.selected.generated_reference.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.selected.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.selected.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.selected.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.selected.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.selected.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "hazards.selected.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "hazards.selected.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "hazards.selected.model_status",
+      "passed": true,
+      "detail": "Unknown model is allowed when not exposed"
+    },
+    {
+      "code": "hazards.selected.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface_fine.png"
+    },
+    {
+      "code": "hazards.selected.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface_fine.png"
+    },
+    {
+      "code": "hazards.selected.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface_fine.png"
+    },
+    {
+      "code": "hazards.selected.atlas.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface_fine.png"
+    },
+    {
+      "code": "hazards.selected.native_scale",
+      "passed": true,
+      "detail": "[32, 32]"
+    },
+    {
+      "code": "hazards.selected.transitions",
+      "passed": true,
+      "detail": "Start, repeat, end and single-span material variants"
+    },
+    {
+      "code": "hazards.selected.atlas_size",
+      "passed": true,
+      "detail": "(128, 32)"
+    },
+    {
+      "code": "hazards.selected.root_and_tip",
+      "passed": true,
+      "detail": "8+24"
+    },
+    {
+      "code": "hazards.selected.material_continuity",
+      "passed": true,
+      "detail": "Visible tips and embedded root pixels, not an empty overlay"
+    },
+    {
+      "code": "hazards.selected.damage_source",
+      "passed": true,
+      "detail": "Existing authoritative damage definition"
+    },
+    {
+      "code": "hazards.selected.orientations",
+      "passed": true,
+      "detail": "['top', 'left', 'right', 'bottom']"
+    },
+    {
+      "code": "hazards.selected.preserve_collision",
+      "passed": true,
+      "detail": "No additional solid base or changed hazard extent"
+    },
+    {
+      "code": "hazards.selected.no_floating_base",
+      "passed": true,
+      "detail": "Danger material uses the supporting platform boundary"
+    },
+    {
+      "code": "hazards.selected.material_family",
+      "passed": true,
+      "detail": "underworld_green_rock"
+    },
+    {
+      "code": "hazards.selected.inherited.semantics",
+      "passed": true,
+      "detail": "Actual fine derivative preserves original danger, collision, source and world units"
+    },
+    {
+      "code": "hazards.selected.inherited.connection",
+      "passed": true,
+      "detail": "Actual fine derivative preserves original danger, collision, source and world units"
+    },
+    {
+      "code": "hazards.selected.inherited.world",
+      "passed": true,
+      "detail": "Actual fine derivative preserves original danger, collision, source and world units"
+    },
+    {
+      "code": "hazards.selected.inherited.source_image",
+      "passed": true,
+      "detail": "Actual fine derivative preserves original danger, collision, source and world units"
+    },
+    {
+      "code": "hazards.selected.inherited.generated_reference",
+      "passed": true,
+      "detail": "Actual fine derivative preserves original danger, collision, source and world units"
+    },
+    {
+      "code": "player_animation.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/animation_build.json"
+    },
+    {
+      "code": "player_animation.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/animation_build.json"
+    },
+    {
+      "code": "player_animation.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/animation_build.json"
+    },
+    {
+      "code": "player_animation.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/player_animation/animation_build.json"
+    },
+    {
+      "code": "player_animation.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_player.gd"
+    },
+    {
+      "code": "player_animation.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_player.gd"
+    },
+    {
+      "code": "player_animation.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_player.gd"
+    },
+    {
+      "code": "player_animation.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/animation_build.json"
+    },
+    {
+      "code": "player.schema",
+      "passed": true,
+      "detail": "Real cached body-keyframe manifest"
+    },
+    {
+      "code": "player.recipe",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "player.recipe.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "player.recipe.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "player.recipe.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "recipe.relative_base",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "recipe.relative_base.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "recipe.relative_base.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/recipe.json"
+    },
+    {
+      "code": "player.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generation_summary.json"
+    },
+    {
+      "code": "player.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generation_summary.json"
+    },
+    {
+      "code": "player.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generation_summary.json"
+    },
+    {
+      "code": "player.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/player_animation/generation_summary.json"
+    },
+    {
+      "code": "player.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/player.png"
+    },
+    {
+      "code": "player.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/player.png"
+    },
+    {
+      "code": "player.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/player.png"
+    },
+    {
+      "code": "player.reference.sha256",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/player.png"
+    },
+    {
+      "code": "player.reference_lineage",
+      "passed": true,
+      "detail": "Runtime reference agrees with actual generation ancestry"
+    },
+    {
+      "code": "player.actual_calls",
+      "passed": true,
+      "detail": "Actual preserved generation calls, not templates"
+    },
+    {
+      "code": "player.call.0",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_call.json"
+    },
+    {
+      "code": "player.call.0.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_call.json"
+    },
+    {
+      "code": "player.call.0.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_call.json"
+    },
+    {
+      "code": "player.call.0.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/player_animation/generated/run_call.json"
+    },
+    {
+      "code": "player.call.0.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "player.call.0.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "player.call.0.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "player.call.1",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_call.json"
+    },
+    {
+      "code": "player.call.1.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_call.json"
+    },
+    {
+      "code": "player.call.1.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_call.json"
+    },
+    {
+      "code": "player.call.1.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/player_animation/generated/states_call.json"
+    },
+    {
+      "code": "player.call.1.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "player.call.1.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "player.call.1.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "player.canvas",
+      "passed": true,
+      "detail": "[80, 64]"
+    },
+    {
+      "code": "player.anchor",
+      "passed": true,
+      "detail": "[40, 58]"
+    },
+    {
+      "code": "player.recipe_anchor",
+      "passed": true,
+      "detail": "Runtime and source packing share the actual pivot"
+    },
+    {
+      "code": "player.states",
+      "passed": true,
+      "detail": "Real seven-state body set, independent from weapon"
+    },
+    {
+      "code": "player.clip.run",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.idle",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.death",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.rise",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.fall",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.hurt",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.clip.land",
+      "passed": true,
+      "detail": "Positive playback rate and explicit loop"
+    },
+    {
+      "code": "player.loop_semantics",
+      "passed": true,
+      "detail": "Running loops; terminal death holds final pose"
+    },
+    {
+      "code": "player.frame_count",
+      "passed": true,
+      "detail": "Actual required body frames, not a bobbed single sprite"
+    },
+    {
+      "code": "player.atlas.run_sheet.png",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/run_sheet.png"
+    },
+    {
+      "code": "player.atlas.run_sheet.png.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/run_sheet.png"
+    },
+    {
+      "code": "player.atlas.run_sheet.png.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/run_sheet.png"
+    },
+    {
+      "code": "player.frame.0.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.0.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.0.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.0.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.0.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.1.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.1.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.1.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.1.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.1.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.2.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.2.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.2.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.2.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.2.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.3.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.3.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.3.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.3.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.3.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.4.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.4.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.4.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.4.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.4.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.5.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.5.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.5.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.5.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.5.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.6.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.6.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.6.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.6.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.6.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.7.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.7.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.7.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.7.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.7.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.atlas.states_sheet.png",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/states_sheet.png"
+    },
+    {
+      "code": "player.atlas.states_sheet.png.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/states_sheet.png"
+    },
+    {
+      "code": "player.atlas.states_sheet.png.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/states_sheet.png"
+    },
+    {
+      "code": "player.frame.8.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.8.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.8.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.8.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.8.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.9.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.9.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.9.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.9.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.9.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.10.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.10.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.10.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.10.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.10.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.11.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.11.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.11.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.11.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.11.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.12.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.12.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.12.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.12.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.12.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.13.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.13.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.13.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.13.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.13.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.14.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.14.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.14.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.14.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.14.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.15.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.15.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.15.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.15.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.15.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.16.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.16.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.16.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.16.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.16.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.17.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.17.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.17.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.17.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.17.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.18.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.18.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.18.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.18.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.18.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.frame.19.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "player.frame.19.pixel_sha256",
+      "passed": true,
+      "detail": "Hash covers actual runtime body RGBA, not a label"
+    },
+    {
+      "code": "player.frame.19.shared_canvas",
+      "passed": true,
+      "detail": "Every frame uses one declared padded body canvas/pivot"
+    },
+    {
+      "code": "player.frame.19.opaque_bounds",
+      "passed": true,
+      "detail": "Actual alpha128 bounds"
+    },
+    {
+      "code": "player.frame.19.complete_body",
+      "passed": true,
+      "detail": "No opaque body touches cell crop boundary"
+    },
+    {
+      "code": "player.contiguous_frames",
+      "passed": true,
+      "detail": "Every real state has unique contiguous indices"
+    },
+    {
+      "code": "player.real_run_cycle",
+      "passed": true,
+      "detail": "Eight distinct source RGBA bodies in the actual run cycle"
+    },
+    {
+      "code": "player.distinct_other_poses",
+      "passed": true,
+      "detail": "Each required non-run state contains real distinct source poses"
+    },
+    {
+      "code": "player.standing_opaque_height",
+      "passed": true,
+      "detail": "Shared44wu maps actual standing opaque height, not padded canvas height"
+    },
+    {
+      "code": "player.page.0.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source_image",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source_image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.source_image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/run_source.png"
+    },
+    {
+      "code": "player.page.0.generation_source_hash",
+      "passed": true,
+      "detail": "Generation summary and recipe identify same preserved original"
+    },
+    {
+      "code": "player.page.0.packing_scale",
+      "passed": true,
+      "detail": "Declared native packing only"
+    },
+    {
+      "code": "player.page.0.source_crop.0",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.1",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.2",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.3",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.4",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.5",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.6",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.0.source_crop.7",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source_image",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source_image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.source_image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/player_animation/generated/states_source.png"
+    },
+    {
+      "code": "player.page.1.generation_source_hash",
+      "passed": true,
+      "detail": "Generation summary and recipe identify same preserved original"
+    },
+    {
+      "code": "player.page.1.packing_scale",
+      "passed": true,
+      "detail": "Declared native packing only"
+    },
+    {
+      "code": "player.page.1.source_crop.0",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.1",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.2",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.3",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.4",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.5",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.6",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.7",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.8",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.9",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.10",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.page.1.source_crop.11",
+      "passed": true,
+      "detail": "Complete measured original-source rectangle"
+    },
+    {
+      "code": "player.source_reconstruction.run_sheet.png",
+      "passed": true,
+      "detail": "Runtime body sheet exactly replays actual source crop/nearest/translation recipe"
+    },
+    {
+      "code": "player.source_reconstruction.states_sheet.png",
+      "passed": true,
+      "detail": "Runtime body sheet exactly replays actual source crop/nearest/translation recipe"
+    },
+    {
+      "code": "player.all_sources_consumed",
+      "passed": true,
+      "detail": "Every source pose reaches exactly the declared runtime sheets"
+    },
+    {
+      "code": "player.left_mirror",
+      "passed": true,
+      "detail": "Actual renderer mirrors about body pivot; separate Motor GPU proof required"
+    },
+    {
+      "code": "player.move_facing",
+      "passed": true,
+      "detail": "Actual movement-facing code is independent of mouse aim"
+    },
+    {
+      "code": "player.shared_height",
+      "passed": true,
+      "detail": "Actual standard body height consumer"
+    },
+    {
+      "code": "player.real_frame_and_muzzle_consumer",
+      "passed": true,
+      "detail": "Real body rectangle plus original weapon anchor"
+    },
+    {
+      "code": "mechanisms.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_build.json"
+    },
+    {
+      "code": "mechanisms.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_build.json"
+    },
+    {
+      "code": "mechanisms.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_build.json"
+    },
+    {
+      "code": "mechanisms.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/mechanisms/mechanisms_build.json"
+    },
+    {
+      "code": "mechanisms.consumer",
+      "passed": true,
+      "detail": "scripts/generation/module_moving_platform.gd"
+    },
+    {
+      "code": "mechanisms.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/generation/module_moving_platform.gd"
+    },
+    {
+      "code": "mechanisms.consumer.exists",
+      "passed": true,
+      "detail": "scripts/generation/module_moving_platform.gd"
+    },
+    {
+      "code": "mechanisms.consumer",
+      "passed": true,
+      "detail": "scripts/world/shot_latch.gd"
+    },
+    {
+      "code": "mechanisms.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/world/shot_latch.gd"
+    },
+    {
+      "code": "mechanisms.consumer.exists",
+      "passed": true,
+      "detail": "scripts/world/shot_latch.gd"
+    },
+    {
+      "code": "mechanisms.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "mechanisms.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "mechanisms.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "mechanisms.selected_manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_fine_build.json"
+    },
+    {
+      "code": "mechanisms.selected_manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_fine_build.json"
+    },
+    {
+      "code": "mechanisms.selected_manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_fine_build.json"
+    },
+    {
+      "code": "mechanisms.selected_manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/mechanisms/mechanisms_fine_build.json"
+    },
+    {
+      "code": "mechanisms.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/mechanisms_build.json"
+    },
+    {
+      "code": "mechanisms.schema",
+      "passed": true,
+      "detail": "Actual carrier/bell material manifest"
+    },
+    {
+      "code": "mechanisms.carrier.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source_image",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source_image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.source_image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.image",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/mechanisms/carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier.png"
+    },
+    {
+      "code": "mechanisms.carrier.image.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier.png"
+    },
+    {
+      "code": "mechanisms.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.generation.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "mechanisms.generation.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "mechanisms.generation.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "mechanisms.generated_source",
+      "passed": true,
+      "detail": "Actual generated slab is the consumed crop ancestor"
+    },
+    {
+      "code": "mechanisms.carrier.crop_bounds",
+      "passed": true,
+      "detail": "Original slab measured source crop"
+    },
+    {
+      "code": "mechanisms.carrier.size",
+      "passed": true,
+      "detail": "Runtime declared source size"
+    },
+    {
+      "code": "mechanisms.carrier.source_reconstruction",
+      "passed": true,
+      "detail": "Original crop/nearest only, no procedural replacement"
+    },
+    {
+      "code": "mechanisms.carrier.native_aspect",
+      "passed": true,
+      "detail": "Source slab aspect preserved to nearest whole-pixel height"
+    },
+    {
+      "code": "mechanisms.carrier.patch_values",
+      "passed": true,
+      "detail": "Positive patch values, no added collider"
+    },
+    {
+      "code": "mechanisms.carrier.patch_bounds",
+      "passed": true,
+      "detail": "Caps/middle source rectangles are bounded"
+    },
+    {
+      "code": "mechanisms.bell.image",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.bell.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.bell.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.bell.image.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.bell.provenance",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.bell.provenance.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.bell.provenance.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.bell.bounds",
+      "passed": true,
+      "detail": "Existing collision-bound icon fit has positive extent"
+    },
+    {
+      "code": "mechanisms.bell.aspect",
+      "passed": true,
+      "detail": "No independently stretched bell axes"
+    },
+    {
+      "code": "mechanisms.physics_unchanged",
+      "passed": true,
+      "detail": "Presentation does not install or alter collision bodies"
+    },
+    {
+      "code": "mechanisms.runtime_bell_aspect",
+      "passed": true,
+      "detail": "Real consumer uniformly fits original bell"
+    },
+    {
+      "code": "mechanisms.runtime_patch_consumer",
+      "passed": true,
+      "detail": "Actual carrier uses repeated source cap/body patches"
+    },
+    {
+      "code": "mechanisms.selected.schema",
+      "passed": true,
+      "detail": "Actual carrier/bell material manifest"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source_image",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source_image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source_image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/source_carrier.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.image",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/mechanisms/carrier_fine.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier_fine.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier_fine.png"
+    },
+    {
+      "code": "mechanisms.selected.carrier.image.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/carrier_fine.png"
+    },
+    {
+      "code": "mechanisms.selected.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.selected.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.selected.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.selected.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/mechanisms/generation_call.json"
+    },
+    {
+      "code": "mechanisms.selected.generation.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "mechanisms.selected.generation.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "mechanisms.selected.generation.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "mechanisms.selected.generated_source",
+      "passed": true,
+      "detail": "Actual generated slab is the consumed crop ancestor"
+    },
+    {
+      "code": "mechanisms.selected.carrier.crop_bounds",
+      "passed": true,
+      "detail": "Original slab measured source crop"
+    },
+    {
+      "code": "mechanisms.selected.carrier.size",
+      "passed": true,
+      "detail": "Runtime declared source size"
+    },
+    {
+      "code": "mechanisms.selected.carrier.source_reconstruction",
+      "passed": true,
+      "detail": "Original crop/nearest only, no procedural replacement"
+    },
+    {
+      "code": "mechanisms.selected.carrier.native_aspect",
+      "passed": true,
+      "detail": "Source slab aspect preserved to nearest whole-pixel height"
+    },
+    {
+      "code": "mechanisms.selected.carrier.patch_values",
+      "passed": true,
+      "detail": "Positive patch values, no added collider"
+    },
+    {
+      "code": "mechanisms.selected.carrier.patch_bounds",
+      "passed": true,
+      "detail": "Caps/middle source rectangles are bounded"
+    },
+    {
+      "code": "mechanisms.selected.bell.image",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.selected.bell.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.selected.bell.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.selected.bell.image.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/bell.png"
+    },
+    {
+      "code": "mechanisms.selected.bell.provenance",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.selected.bell.provenance.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.selected.bell.provenance.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/actors_build.json"
+    },
+    {
+      "code": "mechanisms.selected.bell.bounds",
+      "passed": true,
+      "detail": "Existing collision-bound icon fit has positive extent"
+    },
+    {
+      "code": "mechanisms.selected.bell.aspect",
+      "passed": true,
+      "detail": "No independently stretched bell axes"
+    },
+    {
+      "code": "mechanisms.selected.physics_unchanged",
+      "passed": true,
+      "detail": "Presentation does not install or alter collision bodies"
+    },
+    {
+      "code": "mechanisms.selected.runtime_bell_aspect",
+      "passed": true,
+      "detail": "Real consumer uniformly fits original bell"
+    },
+    {
+      "code": "mechanisms.selected.runtime_patch_consumer",
+      "passed": true,
+      "detail": "Actual carrier uses repeated source cap/body patches"
+    },
+    {
+      "code": "mechanisms.selected.builder",
+      "passed": true,
+      "detail": "tools/build_formal_fine.gd"
+    },
+    {
+      "code": "mechanisms.selected.builder.inside_repo",
+      "passed": true,
+      "detail": "tools/build_formal_fine.gd"
+    },
+    {
+      "code": "mechanisms.selected.builder.exists",
+      "passed": true,
+      "detail": "tools/build_formal_fine.gd"
+    },
+    {
+      "code": "mechanisms.selected.builder_nearest",
+      "passed": true,
+      "detail": "Replay the actual current Godot crop/center-nearest builder"
+    },
+    {
+      "code": "mechanisms.selected.inherited.bell",
+      "passed": true,
+      "detail": "Actual original bell source, bounds, sampling and collision contract"
+    },
+    {
+      "code": "mechanisms.selected.inherited.source",
+      "passed": true,
+      "detail": "Same actual original generated carrier source"
+    },
+    {
+      "code": "mechanisms.selected.inherited.source_sha256",
+      "passed": true,
+      "detail": "Same actual original generated carrier source"
+    },
+    {
+      "code": "mechanisms.selected.inherited.left_px",
+      "passed": true,
+      "detail": "Fine sampling retains physical patch dimensions"
+    },
+    {
+      "code": "mechanisms.selected.inherited.right_px",
+      "passed": true,
+      "detail": "Fine sampling retains physical patch dimensions"
+    },
+    {
+      "code": "mechanisms.selected.inherited.top_px",
+      "passed": true,
+      "detail": "Fine sampling retains physical patch dimensions"
+    },
+    {
+      "code": "mechanisms.selected.inherited.bottom_px",
+      "passed": true,
+      "detail": "Fine sampling retains physical patch dimensions"
+    },
+    {
+      "code": "mechanisms.selected.inherited.middle_width_px",
+      "passed": true,
+      "detail": "Fine sampling retains physical patch dimensions"
+    },
+    {
+      "code": "home.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_build.json"
+    },
+    {
+      "code": "home.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_build.json"
+    },
+    {
+      "code": "home.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_build.json"
+    },
+    {
+      "code": "home.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/home/home_build.json"
+    },
+    {
+      "code": "home.consumer",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "home.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "home.consumer.exists",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "home.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_home_world.gd"
+    },
+    {
+      "code": "home.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_home_world.gd"
+    },
+    {
+      "code": "home.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_home_world.gd"
+    },
+    {
+      "code": "home.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_build.json"
+    },
+    {
+      "code": "home.schema",
+      "passed": true,
+      "detail": "Current user-authorized multi-tier Home world manifest; R2 v1 remains a frozen fixture"
+    },
+    {
+      "code": "home.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/generation_record.json"
+    },
+    {
+      "code": "home.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/generation_record.json"
+    },
+    {
+      "code": "home.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/generation_record.json"
+    },
+    {
+      "code": "home.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/home/generation_record.json"
+    },
+    {
+      "code": "home.generation.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "home.generation.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "home.generation.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "home.generation.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "home.generation.reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.generation.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.generation.reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.generation.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "home.generation.raw_source",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.raw_source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.raw_source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.raw_source.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/sources/home_props_original.png"
+    },
+    {
+      "code": "home.generation.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.generation.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.generation.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.unpainted_original",
+      "passed": true,
+      "detail": "Home runtime atlas is byte-identical generated source"
+    },
+    {
+      "code": "home.generated_roles",
+      "passed": true,
+      "detail": "Three complete buildings and three actual keepers"
+    },
+    {
+      "code": "home.asset.wardrobe.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.wardrobe.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.wardrobe.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.wardrobe.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.wardrobe.foot_bounds",
+      "passed": true,
+      "detail": "[233.5, 422]"
+    },
+    {
+      "code": "home.asset.wardrobe.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.wardrobe.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.wardrobe.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.workshop.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.workshop.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.workshop.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.workshop.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.workshop.foot_bounds",
+      "passed": true,
+      "detail": "[267.0, 499]"
+    },
+    {
+      "code": "home.asset.workshop.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.workshop.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.workshop.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.archive.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archive.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archive.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archive.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.archive.foot_bounds",
+      "passed": true,
+      "detail": "[227.0, 442]"
+    },
+    {
+      "code": "home.asset.archive.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.archive.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.archive.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.tailor.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.tailor.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.tailor.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.tailor.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.tailor.foot_bounds",
+      "passed": true,
+      "detail": "[93.5, 333]"
+    },
+    {
+      "code": "home.asset.tailor.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.tailor.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.tailor.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.artisan.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.artisan.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.artisan.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.artisan.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.artisan.foot_bounds",
+      "passed": true,
+      "detail": "[102.5, 332]"
+    },
+    {
+      "code": "home.asset.artisan.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.artisan.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.artisan.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.archivist.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archivist.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archivist.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/home/home_props.png"
+    },
+    {
+      "code": "home.asset.archivist.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.archivist.foot_bounds",
+      "passed": true,
+      "detail": "[95.5, 320]"
+    },
+    {
+      "code": "home.asset.archivist.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.archivist.generation_recipe",
+      "passed": true,
+      "detail": "Actual generated-source whole-object crop is shared by runtime"
+    },
+    {
+      "code": "home.asset.archivist.opaque_height",
+      "passed": true,
+      "detail": "NPC/building scale measures actual visible body"
+    },
+    {
+      "code": "home.asset.tower.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "home.asset.tower.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "home.asset.tower.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "home.asset.tower.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.tower.foot_bounds",
+      "passed": true,
+      "detail": "[138.0, 543]"
+    },
+    {
+      "code": "home.asset.tower.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.shelter.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.shelter.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.shelter.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.shelter.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.shelter.foot_bounds",
+      "passed": true,
+      "detail": "[303.0, 423]"
+    },
+    {
+      "code": "home.asset.shelter.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.asset.clock_arch.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.clock_arch.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.clock_arch.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/identity_props.png"
+    },
+    {
+      "code": "home.asset.clock_arch.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "home.asset.clock_arch.foot_bounds",
+      "passed": true,
+      "detail": "[344.5, 548]"
+    },
+    {
+      "code": "home.asset.clock_arch.actual_opaque_foot",
+      "passed": true,
+      "detail": "Actual native foot, no padded-box floor anchor"
+    },
+    {
+      "code": "home.unique_slots",
+      "passed": true,
+      "detail": "Four current services plus eight physically reserved future plots"
+    },
+    {
+      "code": "home.active_services",
+      "passed": true,
+      "detail": "Reserved future plots do not become invented active services"
+    },
+    {
+      "code": "home.slot_bounds",
+      "passed": true,
+      "detail": "All service plots occupy actual Home world extent"
+    },
+    {
+      "code": "home.slot.character.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.upgrade.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.achievements.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.arms.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.relics.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.herbs.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.kitchen.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.courier.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.songs.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.stories.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.garden.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.slot.departure.source",
+      "passed": true,
+      "detail": "Real building and optional keeper asset"
+    },
+    {
+      "code": "home.three_tiers",
+      "passed": true,
+      "detail": "Every socket has a genuine world foot height; three inhabited tiers"
+    },
+    {
+      "code": "home.platform.0.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.1.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.2.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.3.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.4.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.5.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.platform.6.one_way",
+      "passed": true,
+      "detail": "Real positive one-way terrace geometry, never a decorative fake platform"
+    },
+    {
+      "code": "home.slot.character.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.upgrade.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.achievements.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.arms.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.relics.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.herbs.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.kitchen.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.courier.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.songs.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.stories.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.garden.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.slot.departure.supported",
+      "passed": true,
+      "detail": "World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately"
+    },
+    {
+      "code": "home.departure_road",
+      "passed": true,
+      "detail": "Actual departure is on the ground east of the village road, with original service identity"
+    },
+    {
+      "code": "home.safe_shared_height",
+      "passed": true,
+      "detail": "Safe Home shares real actor scale"
+    },
+    {
+      "code": "home.runtime_uniform_aspect",
+      "passed": true,
+      "detail": "Actual world consumer preserves source aspect and shared humanoid scale"
+    },
+    {
+      "code": "home.grounded_contact",
+      "passed": true,
+      "detail": "scripts/underworld_plains/grounded_contact.gd"
+    },
+    {
+      "code": "home.grounded_contact.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/grounded_contact.gd"
+    },
+    {
+      "code": "home.grounded_contact.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/grounded_contact.gd"
+    },
+    {
+      "code": "home.actual_asset_slots",
+      "passed": true,
+      "detail": "Actual slot entry root/image/region/foot/height reach _place and the shared source-foot positioning adapter"
+    },
+    {
+      "code": "ui.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/ui_build.json"
+    },
+    {
+      "code": "ui.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/ui_build.json"
+    },
+    {
+      "code": "ui.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/ui_build.json"
+    },
+    {
+      "code": "ui.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/ui/ui_build.json"
+    },
+    {
+      "code": "ui.consumer",
+      "passed": true,
+      "detail": "scripts/ui/underworld_ui.gd"
+    },
+    {
+      "code": "ui.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/ui/underworld_ui.gd"
+    },
+    {
+      "code": "ui.consumer.exists",
+      "passed": true,
+      "detail": "scripts/ui/underworld_ui.gd"
+    },
+    {
+      "code": "ui.consumer",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "ui.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "ui.consumer.exists",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "ui.consumer",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "ui.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "ui.consumer.exists",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "ui.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/ui_build.json"
+    },
+    {
+      "code": "ui.schema",
+      "passed": true,
+      "detail": "Actual Godot theme/source-region manifest"
+    },
+    {
+      "code": "ui.native_theme_disclosure",
+      "passed": true,
+      "detail": "Native layout is not falsely credited as generated illustration"
+    },
+    {
+      "code": "ui.panel.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.licensed_source",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "ui.panel.licensed_source.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "ui.panel.licensed_source.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "ui.panel.actual_source",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.actual_source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.actual_source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "ui.panel.native_reference",
+      "passed": true,
+      "detail": "Panel source is the byte-identical licensed Underworld tile sheet, not an unrelated PNG with a permission label"
+    },
+    {
+      "code": "ui.panel.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.panel.slice_margin",
+      "passed": true,
+      "detail": "Actual nine-patch corners fit original region"
+    },
+    {
+      "code": "ui.panel.custom_license",
+      "passed": true,
+      "detail": "Reference tile UI border retains custom permission disclosure"
+    },
+    {
+      "code": "ui.icons",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.relative_base",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.relative_base.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.icons.relative_base.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/icon_regions.json"
+    },
+    {
+      "code": "ui.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/provenance.json"
+    },
+    {
+      "code": "ui.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/provenance.json"
+    },
+    {
+      "code": "ui.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/provenance.json"
+    },
+    {
+      "code": "ui.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/ui/provenance.json"
+    },
+    {
+      "code": "ui.generation.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt, never an unavailable/unknown placeholder"
+    },
+    {
+      "code": "ui.generation.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "ui.generation.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "ui.generation.reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generation.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generation.reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generation.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "ui.generated_original",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/sources/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_original.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/sources/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_original.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/sources/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_original.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/sources/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_runtime.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_runtime.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_runtime.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.generated_reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generated_reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generated_reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.generated_reference.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/source_items.png"
+    },
+    {
+      "code": "ui.unpainted_original",
+      "passed": true,
+      "detail": "Generated UI atlas bytes unchanged"
+    },
+    {
+      "code": "ui.icons.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.icons.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.icons.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.icons.atlas.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/ui/inventory_icons.png"
+    },
+    {
+      "code": "ui.actual_generated_atlas",
+      "passed": true,
+      "detail": "Actual source record, runtime image and icon regions are linked"
+    },
+    {
+      "code": "ui.icons.size",
+      "passed": true,
+      "detail": "Actual icon PNG dimensions"
+    },
+    {
+      "code": "ui.complete_item_keys",
+      "passed": true,
+      "detail": "Real15 item and3 resource identifiers, no substitutions"
+    },
+    {
+      "code": "ui.icon.barrel.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.barrel.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.barrel.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.barrel.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.heart.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.heart.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.heart.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.heart.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.magazine.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.magazine.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.magazine.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.magazine.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.coil.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.coil.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.coil.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.coil.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.boots.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.boots.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.boots.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.boots.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.echo.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.echo.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.echo.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.echo.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.grip.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.grip.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.grip.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.grip.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.map.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.map.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.map.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.map.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.energy.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.energy.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.energy.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.energy.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.stabilizer.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.stabilizer.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.stabilizer.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.stabilizer.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.braid.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.braid.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.braid.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.braid.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.hammer.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.hammer.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.hammer.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.hammer.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.brakes.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.brakes.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.brakes.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.brakes.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.cooling.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.cooling.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.cooling.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.cooling.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.bandage.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.bandage.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.bandage.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.bandage.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.run_coin.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.run_coin.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.run_coin.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.run_coin.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.healing.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.healing.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.healing.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.healing.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.icon.meta_note.bounds",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.meta_note.measured_window",
+      "passed": true,
+      "detail": "Actual x/y/width/height is inside the consumed PNG"
+    },
+    {
+      "code": "ui.icon.meta_note.actual_source_bounds",
+      "passed": true,
+      "detail": "Measured original alpha body, not invented crop metadata"
+    },
+    {
+      "code": "ui.icon.meta_note.whole_object_padding",
+      "passed": true,
+      "detail": "Runtime region includes declared complete body with sampling gutter"
+    },
+    {
+      "code": "ui.actual_region_consumer",
+      "passed": true,
+      "detail": "Actual theme/icon consumer samples these regions"
+    },
+    {
+      "code": "ui.panel.native_tiling",
+      "passed": true,
+      "detail": "Nine-patch borders tile native source instead of stretching whole image"
+    },
+    {
+      "code": "ui.real_root_inventory",
+      "passed": true,
+      "detail": "Explicit actual UI consumer inventory"
+    },
+    {
+      "code": "ui.root.DemoMenu.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.DemoApp._canvas.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.HomeScene._hud.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.ActorResourcesHud.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.WindkeeperHud.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.ItemCard.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.ItemShopModal.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.ItemAcquiredToast.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.StageRewardModal.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.StageExitModal.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.PlainsRegionMapModal.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.PlainsRegionMap.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.root.TouchOverlay.actual_theme",
+      "passed": true,
+      "detail": "Actual root Control receives its shared theme directly or through the installed modal shell; CanvasLayer name references alone are insufficient"
+    },
+    {
+      "code": "ui.aspect.ItemCard",
+      "passed": true,
+      "detail": "Actual generated item icon consumer retains source aspect"
+    },
+    {
+      "code": "ui.aspect.ItemAcquiredToast",
+      "passed": true,
+      "detail": "Actual generated item icon consumer retains source aspect"
+    },
+    {
+      "code": "ui.aspect.DemoMenu",
+      "passed": true,
+      "detail": "Actual generated item icon consumer retains source aspect"
+    },
+    {
+      "code": "ui.actual_item_dispatch",
+      "passed": true,
+      "detail": "Real ItemPresentation delegates to generated AtlasTexture source"
+    },
+    {
+      "code": "production.runtime_entries",
+      "passed": true,
+      "detail": "Actual formal, Home, menu and App entry scripts"
+    },
+    {
+      "code": "production.entry.0",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "production.entry.0.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "production.entry.0.exists",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "production.entry.0.linked",
+      "passed": true,
+      "detail": "Entry actually references the Underworld presentation family"
+    },
+    {
+      "code": "production.entry.1",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "production.entry.1.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "production.entry.1.exists",
+      "passed": true,
+      "detail": "scripts/demo/home_scene.gd"
+    },
+    {
+      "code": "production.entry.1.linked",
+      "passed": true,
+      "detail": "Entry actually references the Underworld presentation family"
+    },
+    {
+      "code": "production.entry.2",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "production.entry.2.inside_repo",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "production.entry.2.exists",
+      "passed": true,
+      "detail": "scripts/ui/demo_menu.gd"
+    },
+    {
+      "code": "production.entry.2.linked",
+      "passed": true,
+      "detail": "Entry actually references the Underworld presentation family"
+    },
+    {
+      "code": "production.entry.3",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "production.entry.3.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "production.entry.3.exists",
+      "passed": true,
+      "detail": "scripts/demo/demo_app.gd"
+    },
+    {
+      "code": "production.entry.3.linked",
+      "passed": true,
+      "detail": "Entry actually references the Underworld presentation family"
+    },
+    {
+      "code": "objects.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/objects_build.json"
+    },
+    {
+      "code": "objects.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/objects_build.json"
+    },
+    {
+      "code": "objects.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/objects_build.json"
+    },
+    {
+      "code": "objects.manifest.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/objects/objects_build.json"
+    },
+    {
+      "code": "objects.schema",
+      "passed": true,
+      "detail": "Opened chest and declared native mechanism geometry"
+    },
+    {
+      "code": "objects.generation",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/generation_request.json"
+    },
+    {
+      "code": "objects.generation.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/generation_request.json"
+    },
+    {
+      "code": "objects.generation.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/generation_request.json"
+    },
+    {
+      "code": "objects.generation.object",
+      "passed": true,
+      "detail": "/workspace/gunman-rush/assets/underworld_plains/objects/generation_request.json"
+    },
+    {
+      "code": "objects.real_generation_request",
+      "passed": true,
+      "detail": "Original actual edit request and honest model disclosure"
+    },
+    {
+      "code": "objects.reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/chest.png"
+    },
+    {
+      "code": "objects.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/chest.png"
+    },
+    {
+      "code": "objects.reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/chest.png"
+    },
+    {
+      "code": "objects.reference.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/actors/chest.png"
+    },
+    {
+      "code": "objects.original",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest_original.png"
+    },
+    {
+      "code": "objects.original.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest_original.png"
+    },
+    {
+      "code": "objects.original.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest_original.png"
+    },
+    {
+      "code": "objects.original.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest_original.png"
+    },
+    {
+      "code": "objects.crop_comparison",
+      "passed": true,
+      "detail": "Actual retained builder uses alpha strictly greater than the declared threshold, not greater-or-equal"
+    },
+    {
+      "code": "objects.opened",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/objects/opened_chest.png"
+    },
+    {
+      "code": "objects.opened.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest.png"
+    },
+    {
+      "code": "objects.opened.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest.png"
+    },
+    {
+      "code": "objects.opened.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/objects/opened_chest.png"
+    },
+    {
+      "code": "objects.complete_crop",
+      "passed": true,
+      "detail": "Measured whole-object original crop bounds"
+    },
+    {
+      "code": "objects.whole_pose",
+      "passed": true,
+      "detail": "Entire visible raised lid and box preserved"
+    },
+    {
+      "code": "objects.uniform_aspect",
+      "passed": true,
+      "detail": "Proportional nearest resize; no padded-box distortion"
+    },
+    {
+      "code": "objects.exact_source_recipe",
+      "passed": true,
+      "detail": "Runtime pixels exactly reconstruct from the retained generated original"
+    },
+    {
+      "code": "objects.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_objects.gd"
+    },
+    {
+      "code": "objects.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_objects.gd"
+    },
+    {
+      "code": "objects.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_objects.gd"
+    },
+    {
+      "code": "objects.stage",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "objects.stage.inside_repo",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "objects.stage.exists",
+      "passed": true,
+      "detail": "scripts/demo/plains_region_stage.gd"
+    },
+    {
+      "code": "objects.tier_library",
+      "passed": true,
+      "detail": "scripts/art/chest_art_library.gd"
+    },
+    {
+      "code": "objects.tier_library.inside_repo",
+      "passed": true,
+      "detail": "scripts/art/chest_art_library.gd"
+    },
+    {
+      "code": "objects.tier_library.exists",
+      "passed": true,
+      "detail": "scripts/art/chest_art_library.gd"
+    },
+    {
+      "code": "objects.actual_dispatch",
+      "passed": true,
+      "detail": "Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned"
+    },
+    {
+      "code": "objects.no_grey_claimed",
+      "passed": true,
+      "detail": "Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher"
+    }
+  ],
+  "measurements": {
+    "files": {
+      "assets/underworld_plains/production_manifest.json": {
+        "sha256": "a074d547af9430ef21b7461313f6acc3cdf32dd3f8618f76daadf07a820cd52c",
+        "bytes": 2539
+      },
+      "assets/underworld_plains/terrain/terrain_build.json": {
+        "sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+        "bytes": 50757
+      },
+      "scripts/underworld_plains/underworld_terrain.gd": {
+        "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f",
+        "bytes": 12575
+      },
+      "assets/style_exploration/anchors.json": {
+        "sha256": "622dec4f962557dd77902cb9f3cb5ee6fc412d9d931e0773dacc58ed8ba0e656",
+        "bytes": 279289
+      },
+      "assets/underworld_plains/terrain/source.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/style_exploration/underworld/source/licenses/publisher_page.txt": {
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+        "bytes": 1282
+      },
+      "assets/underworld_plains/terrain/terrain.png": {
+        "sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+        "bytes": 3689
+      },
+      "assets/underworld_plains/terrain/terrain.tres": {
+        "sha256": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+        "bytes": 799
+      },
+      "assets/underworld_plains/scenery_build.json": {
+        "sha256": "305813daf77f22cfa3873daf55eb82a449c6fe956a40ac42855eac4f702705de",
+        "bytes": 7658
+      },
+      "scripts/underworld_plains/underworld_parallax.gd": {
+        "sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+        "bytes": 7376
+      },
+      "scripts/underworld_plains/underworld_scenery.gd": {
+        "sha256": "13a8b043eaccd451a19205637dbb00a5b0a38cdaa22faba0194d9d6beeca5faa",
+        "bytes": 11973
+      },
+      "assets/underworld_plains/backgrounds/parallax_fine_space_05/morning_sky.png": {
+        "sha256": "4af64f48f9e91400f080432d490fe2490faf7fb24afdf5b6501ef6e023e45ad7",
+        "bytes": 1446665
+      },
+      "assets/underworld_plains/backgrounds/parallax_fine_space_05/provenance.json": {
+        "sha256": "db3b896c6c4e7285632303890579dd14437b5a443e552c8a9f20fe62eb5785ac",
+        "bytes": 2372
+      },
+      "assets/underworld_plains/backgrounds/parallax_fine_space_05/sky_prompt.txt": {
+        "sha256": "3517682f0d026f5523288122114ec9cab6ee80a547212b07d930d0effee7f250",
+        "bytes": 1759
+      },
+      "assets/underworld_plains/backgrounds/spatial_rhythm_07/quiet_meadow.png": {
+        "sha256": "b1a45ca95353cc56a533d877a1055fb6dd6a1380fc8a284a3f7dac9905c6545e",
+        "bytes": 1097961
+      },
+      "assets/underworld_plains/backgrounds/spatial_rhythm_07/provenance.json": {
+        "sha256": "230f598eee49f33f401fba705353835aaee5cabc9e7b305ad22b8c50c403bd0c",
+        "bytes": 1014
+      },
+      "assets/underworld_plains/backgrounds/spatial_rhythm_07/prompt.txt": {
+        "sha256": "34187153448f598aa8289e0553317b2175a4504dae48590fedbcff6a82a9edc7",
+        "bytes": 1241
+      },
+      "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge_r2.png": {
+        "sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
+        "bytes": 1651398
+      },
+      "assets/underworld_plains/backgrounds/near.png": {
+        "sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+        "bytes": 434467
+      },
+      "assets/underworld_plains/backgrounds/near_generation.json": {
+        "sha256": "fe948fd3af73546f037009463d68ca1096006a7dbad90def18bf96b36925a419",
+        "bytes": 2741
+      },
+      "assets/underworld_plains/backgrounds/sources/near_original.png": {
+        "sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+        "bytes": 434467
+      },
+      "assets/style_exploration/underworld/original/TileSet.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/underworld_plains/decor/chime_props.png": {
+        "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+        "bytes": 845602
+      },
+      "assets/underworld_plains/decor/provenance.json": {
+        "sha256": "16e14281f40d70b7f7b7941f13fa4400ab7839f33c8fcc9769a3f6f17f459009",
+        "bytes": 5456
+      },
+      "assets/underworld_plains/decor/sources/original_props.png": {
+        "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+        "bytes": 845602
+      },
+      "assets/underworld_plains/decor/chime_props.json": {
+        "sha256": "832df0f54eb964ee1c6761d45ae92c521856b4cc5c57d8aec6cfeb1bad7370ff",
+        "bytes": 2818
+      },
+      "assets/underworld_plains/decor/native_underworld.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/style_exploration/underworld/source/TileSet.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/underworld_plains/decor/identity_generation.json": {
+        "sha256": "e413cf8ea1e6d387399e4a78a49fe11f201e6f4036488b208477d8f0ae423a59",
+        "bytes": 4279
+      },
+      "assets/underworld_plains/decor/sources/identity_props_original.png": {
+        "sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+        "bytes": 841417
+      },
+      "assets/underworld_plains/decor/identity_props.png": {
+        "sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+        "bytes": 841417
+      },
+      "scripts/underworld_plains/underworld_local_composition.gd": {
+        "sha256": "fb01e3eada902832091f8a54cff3d3f82feb48757bc414cfed7dc5dbace789be",
+        "bytes": 5325
+      },
+      "assets/underworld_plains/hazards/hazard_build.json": {
+        "sha256": "5af7e15d7c0e11359536a2fa37273834c69003274a7c260405e02c705f1bb16e",
+        "bytes": 2795
+      },
+      "scripts/underworld_plains/underworld_hazard_tiles.gd": {
+        "sha256": "600a5ee3f32733a3fb9c4a91693d70b37446edb045e20d09f703557181a163bd",
+        "bytes": 5253
+      },
+      "assets/underworld_plains/hazards/hazard_fine_build.json": {
+        "sha256": "715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e",
+        "bytes": 3341
+      },
+      "assets/underworld_plains/hazards/generated_reference.png": {
+        "sha256": "a12fa0e2524fc7f7b5ff7febce23bbd4c5203f8599b0b92f281695dfcf99eb0a",
+        "bytes": 663613
+      },
+      "assets/underworld_plains/hazards/generation_call.json": {
+        "sha256": "ba18c64acf6b1cafe3becbdf3be6278b5ecb0ed71ad251c0b0b3a6780512db6d",
+        "bytes": 2288
+      },
+      "assets/underworld_plains/hazards/hazard_surface.png": {
+        "sha256": "bc08926de44fe34bf28948ac242b60895b18805ab1fdbc2f847b546684f4ba98",
+        "bytes": 806
+      },
+      "assets/underworld_plains/hazards/hazard_surface_fine.png": {
+        "sha256": "37bc77717fa0eea0bf4cb760af9a7f17c9d9454e2790a04d5c09b9e3e610dd2b",
+        "bytes": 2961
+      },
+      "assets/underworld_plains/player_animation/animation_build.json": {
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+        "bytes": 11455
+      },
+      "scripts/underworld_plains/underworld_player.gd": {
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+        "bytes": 8019
+      },
+      "assets/underworld_plains/player_animation/recipe.json": {
+        "sha256": "5c23fb4daba4552b5f4a5b61d007f38a48def9165afce83875e5a521510bfe91",
+        "bytes": 5526
+      },
+      "assets/underworld_plains/player_animation/generation_summary.json": {
+        "sha256": "0867b9f77fffc80174c35c82cdb66850a1c1c57185ccd9c8a1c61f83685b61bb",
+        "bytes": 2551
+      },
+      "assets/style_exploration/underworld/player.png": {
+        "sha256": "e6df8e5c7a09668f809c0e23d11810761cb42f611772df2b259f37c08e091cb7",
+        "bytes": 79153
+      },
+      "assets/underworld_plains/player_animation/generated/run_call.json": {
+        "sha256": "3c0266f08987bc3096b91f489d12c8a4812ec1b6e5f14475d4c6217df8448460",
+        "bytes": 2472
+      },
+      "assets/underworld_plains/player_animation/generated/states_call.json": {
+        "sha256": "c7ef581583c4d1f267f2a6824285fb9853723ef86fee5848213d8511e29b209d",
+        "bytes": 2838
+      },
+      "assets/underworld_plains/player_animation/run_sheet.png": {
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+        "bytes": 29918
+      },
+      "assets/underworld_plains/player_animation/states_sheet.png": {
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+        "bytes": 44562
+      },
+      "assets/underworld_plains/player_animation/generated/run_source.png": {
+        "sha256": "f9225b333aa9fc3d50ed44d4848189d7a830d2f10bf26c2bc8278ff25c0daab1",
+        "bytes": 952846
+      },
+      "assets/underworld_plains/player_animation/generated/states_source.png": {
+        "sha256": "2caac7031772470180274afe1760408c13a666902d49306337b28da66f0881b1",
+        "bytes": 1113727
+      },
+      "assets/underworld_plains/mechanisms/mechanisms_build.json": {
+        "sha256": "183b23d838988ff493980bdc18a8e0fd1f59ecab856fa8fdc651335ae3a33fa6",
+        "bytes": 1617
+      },
+      "scripts/generation/module_moving_platform.gd": {
+        "sha256": "c3c3c7d068f5bcef692eabe4a2110aaa6308d4379623b09e652062f29c0f0fd5",
+        "bytes": 3305
+      },
+      "scripts/world/shot_latch.gd": {
+        "sha256": "a982e1ceab32390bea30eab7843a382910b33a503338351bcd0bdc1fce825929",
+        "bytes": 22594
+      },
+      "assets/underworld_plains/mechanisms/mechanisms_fine_build.json": {
+        "sha256": "9147449fe1a2a4605b1aa4a90d4b60116941954384704b35e99851a6a3379bfb",
+        "bytes": 1823
+      },
+      "assets/underworld_plains/mechanisms/source_carrier.png": {
+        "sha256": "b65c4ad5d4cdd30e2b5beae19ad081891badc84806a29560e68ba99ca54beacf",
+        "bytes": 628162
+      },
+      "assets/underworld_plains/mechanisms/carrier.png": {
+        "sha256": "b2e6cce2846e7d5c902ad6583f33a19b576ede43cdbf4d0a5bc3438031ca3311",
+        "bytes": 2820
+      },
+      "assets/underworld_plains/mechanisms/generation_call.json": {
+        "sha256": "77a7d4b0d192cde68a73d63de5998b1a40ccb5a65751b94438e46a3158ca9208",
+        "bytes": 2620
+      },
+      "assets/underworld_plains/actors/bell.png": {
+        "sha256": "94162f8e2f0e112659885356908e114bec6bd11f6d5a31b7691fd53883e85ad2",
+        "bytes": 2520
+      },
+      "assets/underworld_plains/actors/actors_build.json": {
+        "sha256": "0c056629dbef661555321268940eed02e3694a488757db76f2e276cc473f1c4a",
+        "bytes": 6334
+      },
+      "assets/underworld_plains/mechanisms/carrier_fine.png": {
+        "sha256": "3176c1d319c216b418e695368dccaad74210563275ee77e7d58725805923be39",
+        "bytes": 9866
+      },
+      "tools/build_formal_fine.gd": {
+        "sha256": "2c09d44843ddabc7e4c47929398ba78b8292926d5b1964be6d6dbad4503e5ead",
+        "bytes": 9914
+      },
+      "assets/underworld_plains/home/home_build.json": {
+        "sha256": "1769731332e97549702f1bec20fd14928e70032f4caf9d1c6a3c0abc147a7159",
+        "bytes": 7903
+      },
+      "scripts/demo/home_scene.gd": {
+        "sha256": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0",
+        "bytes": 10362
+      },
+      "scripts/underworld_plains/underworld_home_world.gd": {
+        "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+        "bytes": 7695
+      },
+      "assets/underworld_plains/home/generation_record.json": {
+        "sha256": "4dc6161716490baf217949fd09799e2e994b81f3188056269d57bce33746b9d0",
+        "bytes": 5276
+      },
+      "assets/underworld_plains/home/sources/home_props_original.png": {
+        "sha256": "28d5b5113068d5fee56e199b7d8917437c2b33059245e09501372a3d3e3eee63",
+        "bytes": 1945522
+      },
+      "assets/underworld_plains/home/home_props.png": {
+        "sha256": "28d5b5113068d5fee56e199b7d8917437c2b33059245e09501372a3d3e3eee63",
+        "bytes": 1945522
+      },
+      "scripts/underworld_plains/grounded_contact.gd": {
+        "sha256": "f5633351fdc59d0136a33991da2a5b096fd2eac67351bc3776efe4cbfe0ecebf",
+        "bytes": 539
+      },
+      "assets/underworld_plains/ui/ui_build.json": {
+        "sha256": "88bb1d1b7ae9fd638b6bc64c40588ffc2d6553a3ea0cdd9424254a4be8b67d23",
+        "bytes": 1132
+      },
+      "scripts/ui/underworld_ui.gd": {
+        "sha256": "0a6d717ef7a9f02e40b003a8f40850b4007634485b1f7ca6882086b43ec378ce",
+        "bytes": 5317
+      },
+      "scripts/ui/demo_menu.gd": {
+        "sha256": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990",
+        "bytes": 73162
+      },
+      "scripts/demo/demo_app.gd": {
+        "sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4",
+        "bytes": 155547
+      },
+      "assets/underworld_plains/ui/icon_regions.json": {
+        "sha256": "e758f5e9a7ce341358649f8e3ad3c911339ba4a02d3d4db497ef7970e289d89f",
+        "bytes": 5685
+      },
+      "assets/underworld_plains/ui/provenance.json": {
+        "sha256": "1dc953def5b8712010f0f54880a1b2aaa09b1b075ce1791d7dfd97880e4610d3",
+        "bytes": 3462
+      },
+      "assets/underworld_plains/actors/source_items.png": {
+        "sha256": "bcd00c38639eaf5c04a753995615326c73dc2dd9f618ed294c0e6c6dd92e7f03",
+        "bytes": 711699
+      },
+      "assets/underworld_plains/ui/sources/inventory_icons.png": {
+        "sha256": "5c30c458cec2cc42cb476a429d814e9db087eee59ca1f1e26336959c48408cc2",
+        "bytes": 1029526
+      },
+      "assets/underworld_plains/ui/inventory_icons.png": {
+        "sha256": "5c30c458cec2cc42cb476a429d814e9db087eee59ca1f1e26336959c48408cc2",
+        "bytes": 1029526
+      },
+      "scripts/demo/plains_region_stage.gd": {
+        "sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+        "bytes": 20052
+      },
+      "assets/underworld_plains/objects/objects_build.json": {
+        "sha256": "5b32bd3a79b2e8019adb682db5b1a338b97104c17dbd8f4b3e5d97c4f8687761",
+        "bytes": 1833
+      },
+      "assets/underworld_plains/objects/generation_request.json": {
+        "sha256": "a3a970c44ad3c33db1778e600ea30058ba5f59621d0239274c6d4daae6cc549a",
+        "bytes": 897
+      },
+      "assets/underworld_plains/actors/chest.png": {
+        "sha256": "6be3f3767643004037854b18e44f32fb7f2affeb2a8823d81c289e9836493984",
+        "bytes": 4043
+      },
+      "assets/underworld_plains/objects/opened_chest_original.png": {
+        "sha256": "e7778bdda68a47fb416d9b9dbe0aa36341f123103b6ff0603594944817b5414b",
+        "bytes": 820422
+      },
+      "assets/underworld_plains/objects/opened_chest.png": {
+        "sha256": "5f4f72179df29eb576664d3896784ad6b209c106ec45088ad9148afb5306f2a5",
+        "bytes": 4602
+      },
+      "scripts/underworld_plains/underworld_objects.gd": {
+        "sha256": "a1b4681f8d527fa51ac06fadbecf4d4a0d53b112c31f77487bed2b686763da91",
+        "bytes": 2496
+      },
+      "scripts/art/chest_art_library.gd": {
+        "sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+        "bytes": 7169
+      }
+    },
+    "terrain": {
+      "native_tile_px": 16,
+      "world_tile_wu": 32,
+      "canonical_masks": 47,
+      "unique_tile_pixels": 47
+    },
+    "backgrounds": [
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          255,
+          255
+        ],
+        "factor": [
+          0.035,
+          0.015
+        ]
+      },
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "factor": [
+          0.105,
+          0.055
+        ]
+      },
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "factor": [
+          0.265,
+          0.115
+        ]
+      }
+    ],
+    "selected_derivatives": {
+      "hazards": {
+        "legacy_recipe": "assets/underworld_plains/hazards/hazard_build.json",
+        "selected_runtime_manifest": "assets/underworld_plains/hazards/hazard_fine_build.json",
+        "consumer": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+      },
+      "mechanisms": {
+        "legacy_recipe": "assets/underworld_plains/mechanisms/mechanisms_build.json",
+        "selected_runtime_manifest": "assets/underworld_plains/mechanisms/mechanisms_fine_build.json",
+        "consumer": "scripts/underworld_plains/underworld_terrain.gd"
+      }
+    },
+    "player_animation": {
+      "source_calls": 2,
+      "body_frames": 20,
+      "distinct_run_pixels": 8,
+      "states": [
+        "death",
+        "fall",
+        "hurt",
+        "idle",
+        "land",
+        "rise",
+        "run"
+      ],
+      "scope": "Source/frame assembly; not full-speed aesthetic approval"
+    },
+    "home": {
+      "slots": 12,
+      "active_services": [
+        "achievements",
+        "character",
+        "departure",
+        "upgrade"
+      ],
+      "world_width": 3280,
+      "generated_objects": 6
+    },
+    "ui": {
+      "icons": 18,
+      "ui_roots": 13,
+      "scope": "Source crops, source hashes and source-level consumer references; not GUI/visual/device acceptance"
+    }
+  }
+}
