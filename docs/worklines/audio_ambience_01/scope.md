@@ -15,3 +15,9 @@
 ## 当前检查点
 
 已读取两区完整原Bible、风格与用户选择。素材筛选/运行/实际场景并行制作；主控独占Godot引擎租约。真实命令、失败与媒体指纹在 `build/audio_ambience_01`；精选证据进入 `docs/evidence/audio_ambience_01`。下次恢复先核分支、写集和进程，再读该目录README，不重做旧工作。
+
+## 交付检查点 · 2026-10-28
+
+运行/完整影片源de6b36c62f0640d9322973fffb687472755d25b7，Sites源8d29d15465fab8cd3e2856d130373fb35a2dd8ad；[交付与全部失败](../../evidence/audio_ambience_01/README.md)。首轮候选/6×26秒实景/12手机章节和实际许可加工已完成，原生脚本与原音轨/source/loop后验通过，独审工程ACCEPT；内容review，用户听感/实体设备/整套CI/正式推广未签。开发分支面向main，默认不合并；PR号及远端状态以最后交接为准。
+
+[已发布手机试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)，需拥有者账号；完整MP4与ZIP可直接下载。原BGM和起跳/落地不改，原forest短风在所有对照保留，点声库尚未自动布全图。下一动作是消费用户选择并迭代真实空间混音；不能因技术通过自行认定审美通过。

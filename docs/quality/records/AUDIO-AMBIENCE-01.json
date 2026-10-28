@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "AUDIO-AMBIENCE-01",
   "task_type": "animation",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
-  "reviewed_commit": "4d6f834f22c7cad85bda997225a10baf1860b4b0",
+  "reviewed_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
   "content_version": "audio-ambience-v1",
   "owner": "Audio Director",
   "purpose": "两区真实环境音候选、显式运行支持和实际场景试听",
@@ -44,8 +44,145 @@
     "config/audio_director/ambience/sources.json",
     "docs/audio_director/README.md",
     "docs/audio_director/ambience.md",
+    "docs/audio_director/ambience_event_catalog.json",
     "docs/audio_director/ambience_runtime.md",
     "docs/audio_director/ambience_sources.md",
+    "docs/current_state.md",
+    "docs/evidence/audio_ambience_01/README.md",
+    "docs/evidence/audio_ambience_01/actions-01/native.log",
+    "docs/evidence/audio_ambience_01/actions-01/report.json",
+    "docs/evidence/audio_ambience_01/adapter-root-01.log",
+    "docs/evidence/audio_ambience_01/brief-final.json",
+    "docs/evidence/audio_ambience_01/brief-gun-regression.json",
+    "docs/evidence/audio_ambience_01/browser-01/choices.json",
+    "docs/evidence/audio_ambience_01/browser-01/mobile.png",
+    "docs/evidence/audio_ambience_01/browser-01/report.json",
+    "docs/evidence/audio_ambience_01/capture-01/display.log",
+    "docs/evidence/audio_ambience_01/capture-01/native.log",
+    "docs/evidence/audio_ambience_01/capture-01/report.json",
+    "docs/evidence/audio_ambience_01/capture-01/stop-reason.json",
+    "docs/evidence/audio_ambience_01/capture-02/display.log",
+    "docs/evidence/audio_ambience_01/capture-02/native.log",
+    "docs/evidence/audio_ambience_01/capture-02/report.json",
+    "docs/evidence/audio_ambience_01/capture-02/stop-reason.json",
+    "docs/evidence/audio_ambience_01/capture-03/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/capture-03/display.log",
+    "docs/evidence/audio_ambience_01/capture-03/native.log",
+    "docs/evidence/audio_ambience_01/capture-03/report.json",
+    "docs/evidence/audio_ambience_01/capture-03/stop-reason.json",
+    "docs/evidence/audio_ambience_01/capture-04/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/capture-04/display.log",
+    "docs/evidence/audio_ambience_01/capture-04/native.log",
+    "docs/evidence/audio_ambience_01/capture-04/report.json",
+    "docs/evidence/audio_ambience_01/capture-04/stop-reason.json",
+    "docs/evidence/audio_ambience_01/capture-parse-02.log",
+    "docs/evidence/audio_ambience_01/capture/ambience.mp4",
+    "docs/evidence/audio_ambience_01/capture/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/capture/chapters.json",
+    "docs/evidence/audio_ambience_01/capture/encode.log",
+    "docs/evidence/audio_ambience_01/capture/forest_A.png",
+    "docs/evidence/audio_ambience_01/capture/forest_B.png",
+    "docs/evidence/audio_ambience_01/capture/forest_original.png",
+    "docs/evidence/audio_ambience_01/capture/native.log",
+    "docs/evidence/audio_ambience_01/capture/plains_A.png",
+    "docs/evidence/audio_ambience_01/capture/plains_B.png",
+    "docs/evidence/audio_ambience_01/capture/plains_original.png",
+    "docs/evidence/audio_ambience_01/capture/report.json",
+    "docs/evidence/audio_ambience_01/capture/screen-equality.json",
+    "docs/evidence/audio_ambience_01/capture/trace.json",
+    "docs/evidence/audio_ambience_01/complete-capture-source-guard.json",
+    "docs/evidence/audio_ambience_01/delivery.json",
+    "docs/evidence/audio_ambience_01/deployment.json",
+    "docs/evidence/audio_ambience_01/design-build-01.log",
+    "docs/evidence/audio_ambience_01/design-build-02.log",
+    "docs/evidence/audio_ambience_01/design-build-03.log",
+    "docs/evidence/audio_ambience_01/design-build-04.log",
+    "docs/evidence/audio_ambience_01/design-build-05.log",
+    "docs/evidence/audio_ambience_01/design-build-06.log",
+    "docs/evidence/audio_ambience_01/design-final-validate.log",
+    "docs/evidence/audio_ambience_01/design-root-validate.log",
+    "docs/evidence/audio_ambience_01/design-tests-01.log",
+    "docs/evidence/audio_ambience_01/design-tests-02.log",
+    "docs/evidence/audio_ambience_01/docs-preflight-summary.json",
+    "docs/evidence/audio_ambience_01/first-scene-observation.png",
+    "docs/evidence/audio_ambience_01/import-01.log",
+    "docs/evidence/audio_ambience_01/import-02.log",
+    "docs/evidence/audio_ambience_01/import-03.log",
+    "docs/evidence/audio_ambience_01/import-04.log",
+    "docs/evidence/audio_ambience_01/lifecycle-01/native.log",
+    "docs/evidence/audio_ambience_01/lifecycle-01/report.json",
+    "docs/evidence/audio_ambience_01/lifecycle-02/lifecycle.json",
+    "docs/evidence/audio_ambience_01/lifecycle-02/native.log",
+    "docs/evidence/audio_ambience_01/lifecycle-02/report.json",
+    "docs/evidence/audio_ambience_01/lifecycle-03/lifecycle.json",
+    "docs/evidence/audio_ambience_01/lifecycle-03/native.log",
+    "docs/evidence/audio_ambience_01/lifecycle-03/report.json",
+    "docs/evidence/audio_ambience_01/old-forest-01/capture.json",
+    "docs/evidence/audio_ambience_01/old-forest-01/native.log",
+    "docs/evidence/audio_ambience_01/old-forest-01/report.json",
+    "docs/evidence/audio_ambience_01/old-selected-01/native.log",
+    "docs/evidence/audio_ambience_01/old-selected-01/report.json",
+    "docs/evidence/audio_ambience_01/old-selection-python.log",
+    "docs/evidence/audio_ambience_01/package-counterexamples-01/report.json",
+    "docs/evidence/audio_ambience_01/preserved-bgm-motion.json",
+    "docs/evidence/audio_ambience_01/quality-adapter-new.log",
+    "docs/evidence/audio_ambience_01/quality-adapter-old.log",
+    "docs/evidence/audio_ambience_01/quality-diff-01.log",
+    "docs/evidence/audio_ambience_01/quality-diff-02.log",
+    "docs/evidence/audio_ambience_01/quality-diff-03.log",
+    "docs/evidence/audio_ambience_01/quality-diff-04.log",
+    "docs/evidence/audio_ambience_01/quality-diff-final-01.log",
+    "docs/evidence/audio_ambience_01/quality-diff-final-02.log",
+    "docs/evidence/audio_ambience_01/quality-final-01.log",
+    "docs/evidence/audio_ambience_01/quality-final-02.log",
+    "docs/evidence/audio_ambience_01/quality-final-03.log",
+    "docs/evidence/audio_ambience_01/remote-browser-01/failure.json",
+    "docs/evidence/audio_ambience_01/remote-browser-01/reason.txt",
+    "docs/evidence/audio_ambience_01/remote-browser-02/failure.json",
+    "docs/evidence/audio_ambience_01/remote-browser-02/reason.txt",
+    "docs/evidence/audio_ambience_01/remote-browser-03/mobile.png",
+    "docs/evidence/audio_ambience_01/remote-browser-03/report.json",
+    "docs/evidence/audio_ambience_01/remote-browser-03/scope-note.json",
+    "docs/evidence/audio_ambience_01/remote-browser-driver.mjs",
+    "docs/evidence/audio_ambience_01/review-data/adapter-independent-counterexamples.json",
+    "docs/evidence/audio_ambience_01/review-data/adapter-tests-01.json",
+    "docs/evidence/audio_ambience_01/review-data/adapter-tests-01.log",
+    "docs/evidence/audio_ambience_01/review-data/capture-override-counterexamples.json",
+    "docs/evidence/audio_ambience_01/review-data/catalog-id-counterexample-fixed.log",
+    "docs/evidence/audio_ambience_01/review-data/catalog-id-counterexample.log",
+    "docs/evidence/audio_ambience_01/review-data/design-tests-01.json",
+    "docs/evidence/audio_ambience_01/review-data/design-tests-01.log",
+    "docs/evidence/audio_ambience_01/review-data/design-tests-02.json",
+    "docs/evidence/audio_ambience_01/review-data/design-tests-02.log",
+    "docs/evidence/audio_ambience_01/review-data/final-browser-package-receipt-check.json",
+    "docs/evidence/audio_ambience_01/review-data/final-native-audio-check.json",
+    "docs/evidence/audio_ambience_01/review-data/final-remote-receipt-check.json",
+    "docs/evidence/audio_ambience_01/review-data/final-source-closure-check.json",
+    "docs/evidence/audio_ambience_01/review-data/final-trace-check.json",
+    "docs/evidence/audio_ambience_01/review-data/preserved-audio.json",
+    "docs/evidence/audio_ambience_01/review-data/quality-tests-01.json",
+    "docs/evidence/audio_ambience_01/review-data/quality-tests-01.log",
+    "docs/evidence/audio_ambience_01/review-data/scene-smoke-observation.json",
+    "docs/evidence/audio_ambience_01/review.md",
+    "docs/evidence/audio_ambience_01/runtime-01/native.log",
+    "docs/evidence/audio_ambience_01/runtime-01/report.json",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/display.log",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/encode.log",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/forest.png",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/native.log",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/plains.png",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/report.json",
+    "docs/evidence/audio_ambience_01/scene-smoke-01/scene-smoke.json",
+    "docs/evidence/audio_ambience_01/site-push.json",
+    "docs/evidence/audio_ambience_01/site-source.json",
+    "docs/evidence/audio_ambience_01/smoke-01/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/smoke-01/display.log",
+    "docs/evidence/audio_ambience_01/smoke-01/encode.log",
+    "docs/evidence/audio_ambience_01/smoke-01/native.log",
+    "docs/evidence/audio_ambience_01/smoke-01/report.json",
+    "docs/evidence/audio_ambience_01/smoke-01/smoke.json",
+    "docs/handoff.md",
     "docs/quality/asset_records/audio-ambience-v1.json",
     "docs/quality/records/AUDIO-AMBIENCE-01.json",
     "docs/tasks.md",
@@ -59,6 +196,7 @@
     "scripts/demo/audio_ambience_lab.gd.uid",
     "tests/audio_ambience_runtime.gd",
     "tests/audio_ambience_runtime.gd.uid",
+    "tests/test_ambience_asset_adapter.py",
     "tests/test_audio_ambience_design.py",
     "tools/audio_ambience_capture.gd",
     "tools/audio_ambience_capture.gd.uid",
@@ -66,6 +204,7 @@
     "tools/audio_ambience_lab.py",
     "tools/audio_director.py",
     "tools/capture_audio_ambience.py",
+    "tools/check_quality_diff.py",
     "tools/sound_lab/ambience_index.html",
     "tools/sound_lab/verify_ambience.mjs"
   ],
@@ -77,103 +216,251 @@
     "tools/audio_ambience_design.py",
     "scenes/dev/audio_ambience_lab.tscn",
     "tools/capture_audio_ambience.py",
-    "tools/sound_lab/ambience_index.html"
+    "tools/sound_lab/ambience_index.html",
+    "docs/audio_director/ambience_event_catalog.json",
+    "docs/evidence/audio_ambience_01/deployment.json",
+    "docs/evidence/audio_ambience_01/capture/ambience.mp4",
+    "docs/evidence/audio_ambience_01/browser-01/report.json"
   ],
   "creative_decisions": [],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual regional/source/experience contract fixed before production",
+      "evidence": [
+        "amb-spec"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Candidate delivery does not close user listening/device or whole-game acceptance",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Candidate delivery does not close user listening/device or whole-game acceptance",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Candidate delivery does not close user listening/device or whole-game acceptance",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Scoped engineering checks passed, while staged content G1–G3/G5 and user listening remain open; do not bypass prior gates",
+      "evidence": [
+        "amb-native",
+        "amb-gui",
+        "amb-review"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Candidate delivery does not close user listening/device or whole-game acceptance",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Existing two chosen regional Bibles and functional audio style bound; candidate hypotheses and source contract specified, no user aesthetic approval inferred",
+      "evidence": [
+        "amb-spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Scoped actual source/recipe/media/trajectory/loop/transport and native cleanup checks passed; complete project CI not inferred",
+      "evidence": [
+        "amb-native",
+        "amb-trace",
+        "amb-gui"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "No new formal art assets or movement animations authored; existing game shown only to audition new audio. Capture visibility independently checked.",
       "evidence": []
     },
     "animation": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "No new formal art assets or movement animations authored; existing game shown only to audition new audio. Capture visibility independently checked.",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Different reviewer independently checked source and actual waveforms/negative cases and selected images; hearing/device excluded",
+      "evidence": [
+        "amb-review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "ambience-spec",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Read existing regional Bibles/style and fixed reversible audition scope",
+      "evidence": [
+        "amb-spec"
+      ],
+      "scenario": "Two explicitly configured regional candidate profiles on original seeded formal stage consumers",
+      "method": "Read existing regional Bibles/style and fixed reversible audition scope",
+      "expected": "Actual attributed evidence passes within declared candidate scope",
+      "failure": "Wrong bytes/identity, missing actual output or any declared assertion/error failure rejects this technical criterion"
+    },
+    {
+      "id": "ambience-native-media",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Complete actual native source/loop/audio identity; real mobile-sized transport",
+      "evidence": [
+        "amb-native",
+        "amb-trace",
+        "amb-video",
+        "amb-gui"
+      ],
+      "scenario": "Two explicitly configured regional candidate profiles on original seeded formal stage consumers",
+      "method": "Complete actual native source/loop/audio identity; real mobile-sized transport",
+      "expected": "Actual attributed evidence passes within declared candidate scope",
+      "failure": "Wrong bytes/identity, missing actual output or any declared assertion/error failure rejects this technical criterion"
+    },
+    {
+      "id": "ambience-independent",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Independent actual source/media and negative checks; subjective listening excluded",
+      "evidence": [
+        "amb-review"
+      ],
+      "scenario": "Two explicitly configured regional candidate profiles on original seeded formal stage consumers",
+      "method": "Independent actual source/media and negative checks; subjective listening excluded",
+      "expected": "Actual attributed evidence passes within declared candidate scope",
+      "failure": "Wrong bytes/identity, missing actual output or any declared assertion/error failure rejects this technical criterion"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "amb-spec",
+      "path": "docs/worklines/audio_ambience_01/scope.md",
+      "sha256": "36c49cd027f1717ed526efd19930e5299f556c756c589ecaf8c311e39b1a247d",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Current two selected regional Bibles; authored ambience hypotheses and actual source contract",
+      "observed": "Two regions/two bed candidates each, explicit developer audition, no BGM replacement"
+    },
+    {
+      "id": "amb-native",
+      "path": "docs/evidence/audio_ambience_01/capture/report.json",
+      "sha256": "b92d0ea48733f9ef32747f908c3c1903bdde2adad950b6e7462df790a17a76df",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual MovieMaker native soundtrack; original strict trajectory/loop/source/override/waveform validators",
+      "observed": "Passed6x26s, full3808 source guard and actual4 candidate loop/audio windows",
+      "command": "python3 tools/capture_audio_ambience.py --output build/audio_ambience_01/capture-05",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, llvmpipe actual960x540, Dummy backend recorded nativePCM; FFmpegAAC, not physical device"
+    },
+    {
+      "id": "amb-trace",
+      "path": "docs/evidence/audio_ambience_01/capture/trace.json",
+      "sha256": "3b24fc92bc09f16c95d2ee59ce4acf97a4e0de299cb387b84394917e8be305ad",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual per-physics-tick state and accepted original controller events",
+      "observed": "Same seeded geometry/positions/HP/event timing; no full natural-route claim"
+    },
+    {
+      "id": "amb-video",
+      "path": "docs/evidence/audio_ambience_01/capture/ambience.mp4",
+      "sha256": "69da1d4d924d79010be30468ba3f23a0831c469212f45cc38929a3b09de5fc8e",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual Godot MovieMaker video and soundtrack encoded without post-dubbing",
+      "observed": "9943frames/60FPS,6 original/A/B chapters; foreground actions visible"
+    },
+    {
+      "id": "amb-gui",
+      "path": "docs/evidence/audio_ambience_01/browser-01/report.json",
+      "sha256": "e82ca9400f273d4ef875d99e2fd4aed7361e3a9c0be53312ff23ac933e96c80a",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual390px Chromium pointer/audio/transport/JSON interactions",
+      "observed": "12 chapters/4 point sounds and cancellation/loop/export checks passed; no physical phone claim"
+    },
+    {
+      "id": "amb-review",
+      "path": "docs/evidence/audio_ambience_01/review.md",
+      "sha256": "35f3500e720abd479405dc4b453222340ee47c267f576aff405ddc6c3fec50d6",
+      "kind": "review",
+      "producer": "/root/ambience_review",
+      "source_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+      "content_version": "audio-ambience-v1",
+      "method": "Different agent independent source/trace/decoded audio positive/negative tests and actual selected images",
+      "observed": "Scoped engineering ACCEPT; listening/device/human approval unverified",
+      "reviewer": "/root/ambience_review",
+      "implementers": [
+        "/root",
+        "/root/ambience_sources",
+        "/root/ambience_runtime",
+        "/root/ambience_scene"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different spawned reviewer /root/ambience_review wrote no production source; performed separate read-only tests/source and real media checks. Implementers listed separately; no user/device identity claim."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "User ambience choice/naturalness/masking/fatigue and modern recording contamination",
+    "Physical mobile/Safari/speakers/Bluetooth and performance",
+    "Full Integration CI and new exported interactive Godot ambience lab",
+    "Whole-map detail source placement, spatial panning/occlusion and formal rollout",
+    "Natural full gameplay route and player aesthetic approval"
   ]
 }

@@ -1,6 +1,6 @@
 # 两区环境音 · audio-ambience-v1
 
-任务AUDIO-AMBIENCE-01。当前为可淘汰的开发候选，用户听感和实体设备未验证。基于最新main45e98dbb；原Audio Inventory的26e7f2a基线保留，不回写历史审计。
+任务AUDIO-AMBIENCE-01。[手机实景试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已发布，包含原版/A/B和BGM混音/环境单听；需拥有者账号。[本轮实际事件/引用](ambience_event_catalog.json)。当前为可淘汰的开发候选，用户听感和实体设备未验证。基于最新main45e98dbb；原Audio Inventory的26e7f2a基线保留，不回写历史审计。
 
 ## 已验证的原声音与消费者
 

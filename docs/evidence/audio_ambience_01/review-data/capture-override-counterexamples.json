@@ -1,0 +1,30 @@
+{
+  "capture_script_sha256": "10f4989495258f436983fb3478770810f1892c5613dba42e1b9b3085228e475e",
+  "cases": [
+    {
+      "case": "refuse_regular",
+      "passed": true,
+      "error": "FileExistsError: [Errno 17] File exists: '/tmp/ambience-override-review-40w5t31o/override.cfg'",
+      "scope": "Mock runner boundary/real filesystem ownership only; Godot never invoked"
+    },
+    {
+      "case": "refuse_symlink",
+      "passed": true,
+      "error": "FileExistsError: [Errno 17] File exists: '/tmp/ambience-override-review-sh2e1qhy/override.cfg'",
+      "scope": "Mock runner boundary/real filesystem ownership only; Godot never invoked"
+    },
+    {
+      "case": "remove_owned_after_failure",
+      "passed": true,
+      "error": "RuntimeError: Controlled runner failure; no Godot invocation",
+      "scope": "Mock runner boundary/real filesystem ownership only; Godot never invoked"
+    },
+    {
+      "case": "preserve_drift_after_failure",
+      "passed": true,
+      "error": "ValueError: Temporary override drifted; preserved foreign/missing file state",
+      "scope": "Mock runner boundary/real filesystem ownership only; Godot never invoked"
+    }
+  ],
+  "all_passed": true
+}

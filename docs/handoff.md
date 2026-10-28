@@ -1,5 +1,13 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-28 AUDIO-AMBIENCE-01 · 两区环境音候选已交付
+
+从main `45e98dbb` 独立创建 `feature/audio-ambience-01`。4个24秒CC0实录床声＋4个细节声、可追溯加工/许可、显式GameAudio环境组件和两区同Seed原音轨对照已实作。运行/影片源 `de6b36c6`，9943帧，原生音画14,049,972B；[本轮证据](evidence/audio_ambience_01/README.md)、[音效入口](audio_director/ambience.md)。
+
+[手机环境音工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)由Sites v1成功发布（仅拥有者账号）；12章节、单声/循环、BGM混音、4点声与选择JSON，原动作工坊和主站保留。托管源 `8d29d154` 与原生producer分记。无新可操作完整Web包，不把主站称本候选。正式默认仍original，点声未全图布设；用户听感/实体设备/完整CI不代签。技术记录review，不自动合main。
+
+恢复：`python3 tools/audio_director.py brief '优化森林环境音'`；来源与精确配方见manifest。四床source/loop/原音轨/同区物理时序已实际验证；独立工程审查通过，原导入/遮挡/未完成片/诊断超时全部保留。后续先消费用户环境音选择，再做组合混音或明确授权的正式推广。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。
