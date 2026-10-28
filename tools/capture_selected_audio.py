@@ -71,6 +71,15 @@ def validate_selected_trace(trace, frame_count, selection):
         if profile=='original' and any(s['played_delta'].get(k)!=1 for k in LEGACY_AUDIO[reel]):raise ValueError('Original actual cue missing')
         if reel=='weapons' and profile=='selected' and any(s['played_delta'].get(k)!=1 for k in ['weapon_blade','weapon_blast']):raise ValueError('Selected original weapon fallback missing')
         if s['music_track']!=('home' if reel=='mix' else ''):raise ValueError('Wrong actual BGM')
+        action_start=frame_integer(s['action_start_frame']);action_end=frame_integer(s['action_end_frame'])
+        rows=[r for r in trace['trace'] if r.get('reel')==reel and r['profile']==profile and action_start<frame_integer(r['action_frame'])<=action_end]
+        if [r['action_frame'] for r in rows]!=list(range(action_start+1,action_end+1)):raise ValueError('Actual action samples missing/repeated/reordered')
+        if not rows or any(not start<=frame_integer(r['movie_frame'])<=end for r in rows):raise ValueError('Actual action sample outside movie chapter')
+        for before,after in zip(rows,rows[1:]):
+            if frame_integer(after['physics_tick'])!=frame_integer(before['physics_tick'])+1:raise ValueError('Actual physics tick discontinuity')
+            # Context reconstruction is explicitly paused in mix. Rendering
+            # may advance while sampling is suspended, but cannot go backward.
+            if frame_integer(after['movie_frame'])<=frame_integer(before['movie_frame']):raise ValueError('Actual MovieWriter action frame order invalid')
     for reel in REELS:
         sequences=[[[r['position'],r['hp'],r['enemy_hp']] for r in trace['trace'] if r.get('reel')==reel and r['profile']==p] for p in ['original','selected']]
         if not sequences[0] or sequences[0]!=sequences[1]:raise ValueError('Original-selected actual physics/HP differs: '+reel)
