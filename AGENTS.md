@@ -1,5 +1,10 @@
 # 项目工作规则
 
+## 2026-10-28 同步最新main音频工作线
+
+本分支保留本次道具／美术实现，同步main `11e35968323bbc3d3e95a0b0c0c4fc9378e702cd`（PR109音频）。两份交接文档冲突保留双方原文；武器音效传入真实武器ID、敌人受击语义音效及导出资源条目均保留主线更新。正式音效默认与用户选择记录遵循音频工作线，不由道具美术更改。最终68引用需对实际weapon_feel单叶重新绑定，R12此前42＋4只证明合入前源；新影片／集中回归以合入后冻结源为准。PR111不自动合main。
+
+
 ## 2026-10-28 道具美术与配置候选收口（最新）
 
 72独立图标、32单帧语义资源及P24／P14／G16三套八帧家族已接入实际目录、暂停背包与世界表现。沿现有细像素、旧黄铜／冷钢／克制青光，世界1wu采样；原全局shader不变。10张源PNG保持原字节，RGBA上界62,908,904字节，原64MiB预算不提高。
@@ -149,6 +154,7 @@ Manifest现记录实际装备实例的等级／破损／定义指纹与容量，
 - [.agents/skills/weapon-creator/SKILL.md](.agents/skills/weapon-creator/SKILL.md)：新增或替换武器、武器升级分支及整套攻击动作/特效。
 - [.agents/skills/ability-creator/SKILL.md](.agents/skills/ability-creator/SKILL.md)：新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力解锁与能力锁。
 - [.agents/skills/story-writer/SKILL.md](.agents/skills/story-writer/SKILL.md)：剧情、NPC、区域碎片和多轮结局；统一循环规则、角色知识与简明写法。
+- [.agents/skills/audio-director/SKILL.md](.agents/skills/audio-director/SKILL.md)：SFX设计、敌人/钩索/界面/区域声音；自动读声音风格、事件、许可库与配方，交可听候选与真实Godot对照，保留五首原BGM。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
 当前创作统一从 [区域创作总谱](docs/creative_direction/README.md) 开始，前置 [.agents/skills/region-creative-director/SKILL.md](.agents/skills/region-creative-director/SKILL.md) 负责Bible缺口、未选方向的比较/取舍与RETHINK；[.agents/skills/visual-director/SKILL.md](.agents/skills/visual-director/SKILL.md) 负责完整游戏画面，不取代区域创作决策。

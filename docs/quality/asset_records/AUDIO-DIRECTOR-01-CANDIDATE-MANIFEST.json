@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-01-CANDIDATE-MANIFEST",
+  "content_version": "audio-director-v1",
+  "source_path": "assets/audio/director_candidates/manifest.json",
+  "source_sha256": "353a041977814db5f70d13f00af7546ade187326e49de051bf91311e3108eacd",
+  "tool": "tools/audio_design.py manifest assembly",
+  "model": "not applicable; deterministic metadata registry",
+  "prompt_or_reference": "config/audio_director/recipes.json and sources.json; 16 events / 32 A/B candidates / 64 WAV renders",
+  "processing": "Registry of exact runtime paths, recipes, input/output hashes, licenses, family mix and technical metrics; does not assert aesthetic quality.",
+  "usage_scope": "Opt-in GameAudio and Sound Lab candidate discovery/provenance; legacy remains default.",
+  "license_source": "Project-authored registry; underlying sample rights individually verified CC0-1.0 in sources.json and retained licenses/pages.",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/audio/game_audio.gd",
+    "scripts/dev/audio_director_lab.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "limited_preview",
+  "source_family": "AUDIO-DIRECTOR-01-SFX-V1",
+  "associated_files": [
+    {
+      "path": "config/audio_director/recipes.json",
+      "sha256": "3794169a4864effc4e82f8ce688f678f72fa77e26c2783292495ea7ee910d350",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/sources.json",
+      "sha256": "5ed71bfd6e3951c9a83341ca141a62ce39d7d824e14ebe46a97f082ffd030b19",
+      "role": "source_contract"
+    }
+  ]
+}

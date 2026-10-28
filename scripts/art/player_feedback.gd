@@ -31,8 +31,10 @@ func _ready() -> void:
 	_session = _controller.session_id
 	_controller.jump_ability.jumped.connect(_jump)
 	_controller.traversal.action_changed.connect(func(action: StringName) -> void:
-		if action in [&"hook_cast",&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump" if action in [&"wall_kick",&"hook_kick"] else &"focus_start")
-		if action == &"hook_pull": GameAudio.cue(self,&"bell")
+		if action != &"hook_pull": GameAudio.stop_origin(self)
+		if action in [&"hook_kick",&"wall_kick"]: GameAudio.cue(self,&"jump")
+		if action == &"hook_cast": GameAudio.cue_event(self,&"hook_release",&"focus_start")
+		if action == &"hook_pull": GameAudio.hook_connected(self)
 		if action == &"hook_contact_kick":
 			GameAudio.cue(self,&"impact")
 			_emit(_controller.traversal.hook_tip,-_controller.traversal.hook_direction,8,Color("ffecc0"),.22,95,&"hit_spark")
@@ -59,6 +61,7 @@ func _ready() -> void:
 	_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &"denied"))
 
 func clear() -> void:
+	GameAudio.stop_origin(self)
 	_particles.clear()
 	queue_redraw()
 

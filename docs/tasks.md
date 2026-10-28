@@ -1,5 +1,8 @@
 # 开发任务
 
+## 2026-10-26 AUDIO-DIRECTOR-01
+
+第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
 | ITEM-AUTHOR-01 | 道具配置覆写、下架与数据式新增 | ITEM-V5-01 | review | [维护说明](item_authoring.md) · [范围](worklines/item_authoring_01/scope.md) · [质量记录](quality/records/ITEM-AUTHOR-01.json) |
@@ -86,6 +89,10 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | review | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |
+| AUDIO-DIRECTOR-04 | 用户逐事件选声与组合实景试听 | AUDIO-DIRECTOR-03 | review | 13明选、复合原版派生、共享混合profile及真实原声对照 |
+| AUDIO-DIRECTOR-02 | 现成CC0三套与真实情境工坊 | AUDIO-DIRECTOR-01 | review | 保原跳落；UI/拾取/战斗可重复比较，用户听感与设备待验 |
+| AUDIO-DIRECTOR-01 | SFX统一审计、候选与手机Sound Lab | — | review | 第一阶段16事件64WAV，真实Godot对照；音色/实体设备待验，独立PR不合main |
 | PLAYTEST-FEEDBACK-20261024 | 试玩性能、统一受击、固定HUD、家园武器与开始入口 | FOUR-LINE-INTEGRATION-01 | review | [范围](worklines/playtest_feedback_20261024/scope.md)、[质量记录](quality/records/PLAYTEST-FEEDBACK-20261024.json)、[实际试玩与证据](evidence/playtest_feedback_20261024/README.md)；当前b761/5ce真实候选已公开，最终CI／main状态核PR108；玩家／设备认可分别记录 |
 | FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | review | [范围／实际验证](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；默认／织时匠已接，7专项1266＋原5共享专项通过；PR Integration／Release及G5单列 |
 | ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |

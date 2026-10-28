@@ -1,0 +1,671 @@
+{
+  "schema_version": 1,
+  "task": "AUDIO-DIRECTOR-03",
+  "candidate_version": "audio-director-v3",
+  "source_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+  "exported_at": "2026-10-28T01:26:43.936Z",
+  "selection_scope": "Per-event listening preferences; missing choices remain unapproved originals",
+  "explicit_choices": [
+    {
+      "input_row": 0,
+      "event_id": "coin",
+      "candidate_id": "coin_a",
+      "reel_candidate_id": "coin_a",
+      "profile": "A",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 1,
+      "event_id": "heal",
+      "candidate_id": "heal_a",
+      "reel_candidate_id": "heal_a",
+      "profile": "A",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 2,
+      "event_id": "chest_open",
+      "candidate_id": "chest_open_a",
+      "reel_candidate_id": "chest_open_a",
+      "profile": "A",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 3,
+      "event_id": "item_get",
+      "candidate_id": "item_get_c",
+      "reel_candidate_id": "item_get_c",
+      "profile": "C",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 4,
+      "event_id": "click",
+      "candidate_id": "click_c",
+      "reel_candidate_id": "ui_c",
+      "profile": "C",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 5,
+      "event_id": "confirm",
+      "candidate_id": "confirm_c",
+      "reel_candidate_id": "ui_c",
+      "profile": "C",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 6,
+      "event_id": "denied",
+      "candidate_id": "denied_c",
+      "reel_candidate_id": "ui_c",
+      "profile": "C",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 7,
+      "event_id": "hurt",
+      "candidate_id": "hurt_c",
+      "reel_candidate_id": "hurt_c",
+      "profile": "C",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 8,
+      "event_id": "enemy_hurt",
+      "candidate_id": "enemy_hurt_b",
+      "reel_candidate_id": "enemy_hurt_b",
+      "profile": "B",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 9,
+      "event_id": "enemy_hit",
+      "candidate_id": "enemy_hit_b",
+      "reel_candidate_id": "enemy_hit_b",
+      "profile": "B",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 10,
+      "event_id": "shot_pulse",
+      "candidate_id": "shot_pulse_a",
+      "reel_candidate_id": "shot_pulse_a",
+      "profile": "A",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 11,
+      "event_id": "shot_shuriken",
+      "candidate_id": "shot_shuriken_original",
+      "reel_candidate_id": "shot_shuriken_original",
+      "profile": "original",
+      "selection_status": "explicit"
+    },
+    {
+      "input_row": 12,
+      "event_id": "shot_bomb",
+      "candidate_id": "shot_bomb_original",
+      "reel_candidate_id": "bomb_weapon_original",
+      "profile": "original",
+      "selection_status": "explicit"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "coin",
+      "profile": "A",
+      "candidate_id": "coin_a",
+      "candidate_path": "res://assets/audio/director_v3/coin_a.wav",
+      "candidate_sha256": "ceac1ed0267720c24d5ba50df7f9aec4eba8d75463274d728609c0ed141e8ea9",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "get/Coin01.aif",
+        "k/core"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 0,
+        "clip_id": "coin",
+        "reel_candidate_id": "coin_a",
+        "video_version": "main",
+        "video": "media/coin.mp4",
+        "movie_sha256": "a3ece1acda21b33cfc32939e2d2e5fc72b4c284b664c874b079dbf4a4ea76454",
+        "trace_sha256": "93e48bd927ccbbb0c8d967ff7342cada851777fc822b91b214bb5d904298c0a5",
+        "note": "",
+        "updated_at": "2026-10-28T01:20:39.760Z",
+        "start": 3.066666666666667,
+        "end": 5.816666666666666,
+        "event_ids": [
+          "coin"
+        ],
+        "reel_source_ids": [
+          "get/Coin01.aif",
+          "k/core",
+          "original/step"
+        ]
+      }
+    },
+    {
+      "event_id": "heal",
+      "profile": "A",
+      "candidate_id": "heal_a",
+      "candidate_path": "res://assets/audio/director_v3/heal_a.wav",
+      "candidate_sha256": "2b522482c3595802070012251387030f4101f0c9e9b23d25685b6be633d8dc59",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "water/bubble_01.ogg",
+        "water/splash_09.ogg",
+        "get/Upper01.aif"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 1,
+        "clip_id": "heal",
+        "reel_candidate_id": "heal_a",
+        "video_version": "main",
+        "video": "media/heal.mp4",
+        "movie_sha256": "ce863df9fac3469fa44b3ae4ecc07419e18b65dac047a87f10f72e8af5559015",
+        "trace_sha256": "834847b3329cb70362c215080e0699fd1dd6a7c8b4c31df61bdf580912115213",
+        "note": "",
+        "updated_at": "2026-10-28T01:21:03.437Z",
+        "start": 3.066666666666667,
+        "end": 5.816666666666666,
+        "event_ids": [
+          "heal"
+        ],
+        "reel_source_ids": [
+          "water/bubble_01.ogg",
+          "water/splash_09.ogg",
+          "get/Upper01.aif",
+          "original/step"
+        ]
+      }
+    },
+    {
+      "event_id": "chest_open",
+      "profile": "A",
+      "candidate_id": "chest_open_a",
+      "candidate_path": "res://assets/audio/director_v3/chest_open_a.wav",
+      "candidate_sha256": "d24df7f98f3c8b2bc4309142800ccfb8e7599831bd36947880f5b9068c991605",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "rpg/lock_01.ogg",
+        "k/door",
+        "rpg/item_gem_02.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 2,
+        "clip_id": "chest_open",
+        "reel_candidate_id": "chest_open_a",
+        "video_version": "main",
+        "video": "media/chest_open.mp4",
+        "movie_sha256": "a9c63f0160b8f22c5cc8013852aca5115fe996262c897a090c70d34601125d69",
+        "trace_sha256": "9acdc74200be651d074bcef441caf26e04d36c50d8bff030ab575ccd38bf5d4c",
+        "note": "",
+        "updated_at": "2026-10-28T01:21:25.720Z",
+        "start": 3.6333333333333333,
+        "end": 6.95,
+        "event_ids": [
+          "chest_open"
+        ],
+        "reel_source_ids": [
+          "rpg/lock_01.ogg",
+          "k/door",
+          "rpg/item_gem_02.ogg",
+          "original/step"
+        ]
+      }
+    },
+    {
+      "event_id": "item_get",
+      "profile": "C",
+      "candidate_id": "item_get_c",
+      "candidate_path": "res://assets/audio/director_v3/item_get_c.wav",
+      "candidate_sha256": "d8b5979d777c0488dd37add30fba53fce79a4d7dfc831c58af57154832032f4d",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "rpg/lock_02.ogg",
+        "get/Rise03.aif",
+        "k/core"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 3,
+        "clip_id": "item_get",
+        "reel_candidate_id": "item_get_c",
+        "video_version": "main",
+        "video": "media/item_get.mp4",
+        "movie_sha256": "3e30eb4f276cd5faa4ffcaf7ecbbfe7d9a5495e522250a1a01a5288b226bcdb5",
+        "trace_sha256": "013f12423c1f7faddfc34a07c92e0c8a62c1330e7a5c5c7aaea4b0810ec4a711",
+        "note": "",
+        "updated_at": "2026-10-28T01:21:53.357Z",
+        "start": 11.866666666666667,
+        "end": 15.516666666666667,
+        "event_ids": [
+          "item_get"
+        ],
+        "reel_source_ids": [
+          "rpg/lock_02.ogg",
+          "get/Rise03.aif",
+          "k/core",
+          "original/step"
+        ]
+      }
+    },
+    {
+      "event_id": "click",
+      "profile": "C",
+      "candidate_id": "click_c",
+      "candidate_path": "res://assets/audio/director_v3/click_c.wav",
+      "candidate_sha256": "01fd082e600e04843432d1598de0206996a58a86c03476099c48d530a86f7af6",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "ui/click3.wav"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 4,
+        "clip_id": "ui",
+        "reel_candidate_id": "ui_c",
+        "video_version": "main",
+        "video": "media/ui.mp4",
+        "movie_sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764",
+        "trace_sha256": "7ce4625e2765f861e997e9fd31cc7b61723ddedaa53fe7a422a8d4c3891bcda2",
+        "note": "",
+        "updated_at": "2026-10-28T01:23:16.380Z",
+        "start": 10.816666666666666,
+        "end": 14.116666666666667,
+        "event_ids": [
+          "click",
+          "confirm",
+          "denied"
+        ],
+        "reel_source_ids": [
+          "ui/click3.wav",
+          "rpg/lock_02.ogg",
+          "k/core",
+          "rpg/lock_01.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "confirm",
+      "profile": "C",
+      "candidate_id": "confirm_c",
+      "candidate_path": "res://assets/audio/director_v3/confirm_c.wav",
+      "candidate_sha256": "06465f00c60a08a0cd60ae0de9302f4bb55f861b4f3b88a641f9a2a44e1007dc",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "rpg/lock_02.ogg",
+        "k/core"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 5,
+        "clip_id": "ui",
+        "reel_candidate_id": "ui_c",
+        "video_version": "main",
+        "video": "media/ui.mp4",
+        "movie_sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764",
+        "trace_sha256": "7ce4625e2765f861e997e9fd31cc7b61723ddedaa53fe7a422a8d4c3891bcda2",
+        "note": "",
+        "updated_at": "2026-10-28T01:23:08.682Z",
+        "start": 10.816666666666666,
+        "end": 14.116666666666667,
+        "event_ids": [
+          "click",
+          "confirm",
+          "denied"
+        ],
+        "reel_source_ids": [
+          "ui/click3.wav",
+          "rpg/lock_02.ogg",
+          "k/core",
+          "rpg/lock_01.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "denied",
+      "profile": "C",
+      "candidate_id": "denied_c",
+      "candidate_path": "res://assets/audio/director_v3/denied_c.wav",
+      "candidate_sha256": "fd7f77b1ce97c36c431d935946598d4f0e1a297214f595e68333f60791c0e7f5",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "rpg/lock_01.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 6,
+        "clip_id": "ui",
+        "reel_candidate_id": "ui_c",
+        "video_version": "main",
+        "video": "media/ui.mp4",
+        "movie_sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764",
+        "trace_sha256": "7ce4625e2765f861e997e9fd31cc7b61723ddedaa53fe7a422a8d4c3891bcda2",
+        "note": "",
+        "updated_at": "2026-10-28T01:23:10.412Z",
+        "start": 10.816666666666666,
+        "end": 14.116666666666667,
+        "event_ids": [
+          "click",
+          "confirm",
+          "denied"
+        ],
+        "reel_source_ids": [
+          "ui/click3.wav",
+          "rpg/lock_02.ogg",
+          "k/core",
+          "rpg/lock_01.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "enemy_hit",
+      "profile": "B",
+      "candidate_id": "enemy_hit_b",
+      "candidate_path": "res://assets/audio/director_v3/enemy_hit_b.wav",
+      "candidate_sha256": "9e2f7f523a4afd848e9ea33df0766050607f0ab3bfec08578daa1416e262fd5f",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "rpg/blade_02.ogg",
+        "hit/bfh1_hit_06.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 9,
+        "clip_id": "enemy_hit",
+        "reel_candidate_id": "enemy_hit_b",
+        "video_version": "main",
+        "video": "media/enemy_hit.mp4",
+        "movie_sha256": "78ba8090da8e2de1b33409e4a641d04b9af670a439711e9e9a46849ad8c41870",
+        "trace_sha256": "8de7fdc34bf7432e251826fd91939e76b4bb7c1ae3408947556380e6108ac5e4",
+        "note": "",
+        "updated_at": "2026-10-28T01:25:22.312Z",
+        "start": 5.816666666666666,
+        "end": 8.416666666666666,
+        "event_ids": [
+          "enemy_hit"
+        ],
+        "reel_source_ids": [
+          "k/shot",
+          "k/impact",
+          "rpg/blade_02.ogg",
+          "hit/bfh1_hit_06.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "enemy_hurt",
+      "profile": "B",
+      "candidate_id": "enemy_hurt_b",
+      "candidate_path": "res://assets/audio/director_v3/enemy_hurt_b.wav",
+      "candidate_sha256": "8a5fe753d41fdd0a35739b306c10399c8d137e3f268f5df50ab390af30df708a",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "hit/bfh1_hit_10.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 8,
+        "clip_id": "enemy_hurt",
+        "reel_candidate_id": "enemy_hurt_b",
+        "video_version": "main",
+        "video": "media/enemy_hurt.mp4",
+        "movie_sha256": "993faf160968c5a5a1dd064c1e3e98d39f8e0fdb5a85b37dcae29eaf8df53b3f",
+        "trace_sha256": "fb9f4594323a25d8e2c4a7b56b559cb35ffad864de7c4187e3df542d6878f732",
+        "note": "",
+        "updated_at": "2026-10-28T01:25:25.864Z",
+        "start": 5.816666666666666,
+        "end": 8.416666666666666,
+        "event_ids": [
+          "enemy_hurt"
+        ],
+        "reel_source_ids": [
+          "k/shot",
+          "k/impact",
+          "hit/bfh1_hit_10.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "hurt",
+      "profile": "C",
+      "candidate_id": "hurt_c",
+      "candidate_path": "res://assets/audio/director_v3/hurt_c.wav",
+      "candidate_sha256": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "hit/bfh1_hit_12.ogg",
+        "material/wood_misc_01.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 7,
+        "clip_id": "hurt",
+        "reel_candidate_id": "hurt_c",
+        "video_version": "main",
+        "video": "media/hurt.mp4",
+        "movie_sha256": "0d34f97e3c1dc0fcaead4359545ec2f375e1268af74f8553b6206de82017e7bc",
+        "trace_sha256": "a339e72921f08081927d65f6a7e9a1360ffdbe62e92c9c65cab5994b86b71af8",
+        "note": "",
+        "updated_at": "2026-10-28T01:24:45.698Z",
+        "start": 10.116666666666667,
+        "end": 13.183333333333334,
+        "event_ids": [
+          "hurt"
+        ],
+        "reel_source_ids": [
+          "hit/bfh1_hit_12.ogg",
+          "material/wood_misc_01.ogg",
+          "original/enemy_shot",
+          "original/warning"
+        ]
+      }
+    },
+    {
+      "event_id": "shot_pulse",
+      "profile": "A",
+      "candidate_id": "shot_pulse_a",
+      "candidate_path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+      "candidate_sha256": "8159a5ecf56b12c5c89420432cbe1958a3fe4612e4ff1cfbf069c61a6c50e024",
+      "runtime_mode": "candidate",
+      "source_ids": [
+        "k/shot",
+        "rpg/lock_02.ogg"
+      ],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 10,
+        "clip_id": "shot_pulse",
+        "reel_candidate_id": "shot_pulse_a",
+        "video_version": "main",
+        "video": "media/weapons.mp4",
+        "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+        "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+        "note": "",
+        "updated_at": "2026-10-28T01:25:50.407Z",
+        "start": 5.966666666666667,
+        "end": 7.816666666666666,
+        "event_ids": [
+          "shot_pulse"
+        ],
+        "reel_source_ids": [
+          "k/shot",
+          "rpg/lock_02.ogg",
+          "rpg/blade_01.ogg",
+          "material/keys_02.ogg",
+          "k/jump",
+          "rpg/lock_01.ogg",
+          "k/roar",
+          "hit/bfh1_breaking_01.ogg",
+          "rpg/stones_01.ogg"
+        ]
+      }
+    },
+    {
+      "event_id": "shot_shuriken",
+      "profile": "original",
+      "candidate_id": "shot_shuriken_original",
+      "candidate_path": null,
+      "candidate_sha256": null,
+      "runtime_mode": "original",
+      "source_ids": [],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 11,
+        "clip_id": "shot_shuriken",
+        "reel_candidate_id": "shot_shuriken_original",
+        "video_version": "main",
+        "video": "media/weapons.mp4",
+        "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+        "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+        "note": "",
+        "updated_at": "2026-10-28T01:26:11.097Z",
+        "start": 1.9666666666666666,
+        "end": 3.683333333333333,
+        "event_ids": [
+          "shot_shuriken"
+        ],
+        "reel_source_ids": [
+          "original_weapon/blade",
+          "original_weapon/blast",
+          "original_weapon/pulse"
+        ]
+      }
+    },
+    {
+      "event_id": "shot_bomb",
+      "profile": "original",
+      "candidate_id": "shot_bomb_original",
+      "candidate_path": null,
+      "candidate_sha256": null,
+      "runtime_mode": "original",
+      "source_ids": [],
+      "selection_status": "explicit",
+      "user_selected": true,
+      "derived_from": null,
+      "evidence": {
+        "input_row": 12,
+        "clip_id": "bomb_weapon",
+        "reel_candidate_id": "bomb_weapon_original",
+        "video_version": "main",
+        "video": "media/weapons.mp4",
+        "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+        "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+        "note": "",
+        "updated_at": "2026-10-28T01:26:33.532Z",
+        "start": 3.4833333333333334,
+        "end": 5.366666666666666,
+        "event_ids": [
+          "shot_bomb",
+          "bomb_explode"
+        ],
+        "reel_source_ids": [
+          "original_weapon/blade",
+          "original_weapon/blast",
+          "original_weapon/pulse"
+        ]
+      }
+    },
+    {
+      "event_id": "bomb_explode",
+      "profile": "original",
+      "candidate_id": "bomb_explode_original",
+      "candidate_path": null,
+      "candidate_sha256": null,
+      "runtime_mode": "original",
+      "source_ids": [],
+      "selection_status": "derived",
+      "user_selected": false,
+      "derived_from": {
+        "event_id": "shot_bomb",
+        "clip_id": "bomb_weapon",
+        "reel_candidate_id": "bomb_weapon_original",
+        "rule": "recorded_original_bomb_is_one_compound_weapon_action"
+      },
+      "evidence": {
+        "input_row": 12,
+        "clip_id": "bomb_weapon",
+        "reel_candidate_id": "bomb_weapon_original",
+        "video_version": "main",
+        "video": "media/weapons.mp4",
+        "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+        "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+        "note": "",
+        "updated_at": "2026-10-28T01:26:33.532Z",
+        "start": 3.4833333333333334,
+        "end": 5.366666666666666,
+        "event_ids": [
+          "shot_bomb",
+          "bomb_explode"
+        ],
+        "reel_source_ids": [
+          "original_weapon/blade",
+          "original_weapon/blast",
+          "original_weapon/pulse"
+        ]
+      }
+    }
+  ],
+  "event_profiles": {
+    "coin": "A",
+    "heal": "A",
+    "chest_open": "A",
+    "item_get": "C",
+    "click": "C",
+    "confirm": "C",
+    "denied": "C",
+    "enemy_hit": "B",
+    "enemy_hurt": "B",
+    "hurt": "C",
+    "shot_pulse": "A",
+    "shot_shuriken": "original",
+    "shot_bomb": "original",
+    "bomb_explode": "original"
+  },
+  "provenance": {
+    "input": {
+      "path": "user-20261028.json",
+      "sha256": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072",
+      "choice_rows": 13
+    },
+    "reels": {
+      "path": "reels-user-20261028.json",
+      "sha256": "ac08d83ecadb0ef390779b2dba2045a9750b2ecbd88d4ebb8f8e51f5fc05e69a",
+      "imported_from": "build/audio_director_v3/listen-blob-publish/reels.json"
+    },
+    "candidate_manifest": {
+      "path": "assets/audio/director_v3/manifest.json",
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+    },
+    "importer_sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b"
+  }
+}

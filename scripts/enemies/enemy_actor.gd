@@ -119,7 +119,7 @@ func _accepted_hit(context: Dictionary) -> void:
 	# Grapple and active skills already own their target motion contract. HP
 	# still drives the shared hurt animation/audio; generic hit motion must not
 	# stop a moving hook target or extend the authored skill stagger clock.
-	GameAudio.cue(self, &"hurt")
+	GameAudio.cue_event(self, &"enemy_hurt", &"hurt")
 	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
 	var direction: Vector2 = raw_direction
 	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)

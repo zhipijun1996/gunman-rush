@@ -1,0 +1,67 @@
+{
+  "reel": "enemy_hit",
+  "method": "FFT search with meaningful energy mask; direct-dot bounded correlation. Shared-tick bomb verified by positive joint fit, no isolated launch onset claim.",
+  "tool_sha256": "8b395d5da9cf3bc8c800eec81ec5a38bd51e7df7cc259dbec256ac002fac8144",
+  "scope": "Technical source-waveform evidence only; not a sound-quality, physical-device or perceptual-sync approval",
+  "profiles": [
+    {
+      "profile": "original",
+      "rms": 0.03419975198681183,
+      "candidate_matches": []
+    },
+    {
+      "profile": "A",
+      "rms": 0.008127388199374622,
+      "candidate_matches": [
+        {
+          "candidate_id": "shot_pulse_a",
+          "status": "waveform_verified",
+          "correlation": 0.9987459066285034,
+          "offset_ms": 4.708333333333333
+        },
+        {
+          "candidate_id": "enemy_hit_a",
+          "status": "waveform_verified",
+          "correlation": 0.9938410330286283,
+          "offset_ms": 5.375
+        }
+      ]
+    },
+    {
+      "profile": "B",
+      "rms": 0.007532109759286063,
+      "candidate_matches": [
+        {
+          "candidate_id": "shot_pulse_b",
+          "status": "waveform_verified",
+          "correlation": 0.9994128046332313,
+          "offset_ms": 6.041666666666667
+        },
+        {
+          "candidate_id": "enemy_hit_b",
+          "status": "waveform_verified",
+          "correlation": 0.9982637734137074,
+          "offset_ms": 6.708333333333333
+        }
+      ]
+    },
+    {
+      "profile": "C",
+      "rms": 0.006715848986598829,
+      "candidate_matches": [
+        {
+          "candidate_id": "shot_pulse_c",
+          "status": "waveform_verified",
+          "correlation": 0.9983572839908096,
+          "offset_ms": 7.375
+        },
+        {
+          "candidate_id": "enemy_hit_c",
+          "status": "waveform_verified",
+          "correlation": 0.9984344951884392,
+          "offset_ms": 8.041666666666666
+        }
+      ]
+    }
+  ]
+}

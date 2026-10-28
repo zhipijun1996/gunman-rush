@@ -1,0 +1,24 @@
+{
+  "task": "AUDIO-DIRECTOR-01",
+  "source_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "verified_at_utc": "2026-10-26T01:39:32.692987+00:00",
+  "tool_sha256": "477d47c93c92ab3e653ec012895ff11fcc74ba4a3f54eddb8d2d4a8df9c2f890",
+  "exit_code": 0,
+  "commands": [
+    "python3 tools/audio_inventory.py",
+    "python3 tools/audio_inventory.py --output build/audio_inventory_replay",
+    "Python assertions: byte-identical 4 artifacts, 113 assets/110 ffprobe, 105 source manifest SHA matches, 50 nonempty mappings, exact baseline reference lines, 5 BGM retained, all listening subjective_pending"
+  ],
+  "output_sha256": {
+    "inventory.json": "b012b0e82a6153591a4bf974d8e2aeb7b22e951071ac2068d38a9a0eb23380b9",
+    "inventory.md": "49afc675ca0a2e556fe0fe7d57cdf1282484c33850d9ecc0d5f39cca2276216f",
+    "event_catalog.json": "19a378a53fa26dfcd3ab617a50f34e04549d3e4ef0aad64ef82e3855ddbbd0c3",
+    "event_catalog.md": "74d6447fb0a20534951dea9199744e79b86c6f7de78360b0a1a1e5dad2ee8b84"
+  },
+  "callsites": 132,
+  "prior_failure": {
+    "exit_code": 1,
+    "reason": "Validation found ion_loop/blackhole_loop references empty because scanner omitted _loop calls. Added _loop and generic .play call scanning; retained here as actual failure history."
+  },
+  "scope": "static baseline audit only; no hearing, Godot execution, browser or device acceptance"
+}

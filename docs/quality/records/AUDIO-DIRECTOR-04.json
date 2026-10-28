@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-DIRECTOR-04",
+  "task_type": "animation",
+  "workflow": "review",
+  "baseline_commit": "dc2e015db2f4700569c469568ba12a08116125ea",
+  "reviewed_commit": "66d400ec601cb78cbad1ea0be4a0517da0f1356e",
+  "content_version": "audio-director-selected-20261028",
+  "owner": "Audio Director",
+  "purpose": "保存用户逐事件选择，复用现有运行架构形成组合试听",
+  "player_experience": "11个已选新声音与原手里剑/炸弹在真实游戏动作中组合，原声对照可回听",
+  "constraints": [
+    "原件字节/13明选与1复合推导分开",
+    "不重加工42WAV和五MP3",
+    "正式默认original，未选original",
+    "仅表现与开发fixture，不改伤害物理输入资源RNG存档"
+  ],
+  "affected_paths": [
+    ".agents/skills/audio-director/SKILL.md",
+    "config/audio_director/selected/reels-user-20261028.json",
+    "config/audio_director/selected/selected.json",
+    "config/audio_director/selected/user-20261028.json",
+    "docs/audio_director/README.md",
+    "docs/current_state.md",
+    "docs/evidence/audio_director_04/README.md",
+    "docs/evidence/audio_director_04/audio-levels.log",
+    "docs/evidence/audio_director_04/audio-quality-scoped.json",
+    "docs/evidence/audio_director_04/browser-final/mobile.png",
+    "docs/evidence/audio_director_04/browser-final/report.json",
+    "docs/evidence/audio_director_04/capture-interrupted/native.log",
+    "docs/evidence/audio_director_04/capture-interrupted/reason.txt",
+    "docs/evidence/audio_director_04/capture-interrupted/report.json",
+    "docs/evidence/audio_director_04/capture/chapters.json",
+    "docs/evidence/audio_director_04/capture/native.log",
+    "docs/evidence/audio_director_04/capture/post-validation-v2.json",
+    "docs/evidence/audio_director_04/capture/post-validation-v3.json",
+    "docs/evidence/audio_director_04/capture/post-validation.json",
+    "docs/evidence/audio_director_04/capture/report.json",
+    "docs/evidence/audio_director_04/capture/trace.json",
+    "docs/evidence/audio_director_04/compact-summary-equivalence.json",
+    "docs/evidence/audio_director_04/delivery.json",
+    "docs/evidence/audio_director_04/deployment-first-rejected.json",
+    "docs/evidence/audio_director_04/deployment.json",
+    "docs/evidence/audio_director_04/import-tests.log",
+    "docs/evidence/audio_director_04/native-reels/native.log",
+    "docs/evidence/audio_director_04/native-reels/report.json",
+    "docs/evidence/audio_director_04/native-selected/native.log",
+    "docs/evidence/audio_director_04/native-selected/report.json",
+    "docs/evidence/audio_director_04/quality-diff.log",
+    "docs/evidence/audio_director_04/remote-browser-driver.cjs",
+    "docs/evidence/audio_director_04/remote-browser.json",
+    "docs/evidence/audio_director_04/review.md",
+    "docs/evidence/audio_director_04/site-package-size.json",
+    "docs/handoff.md",
+    "docs/quality/records/AUDIO-DIRECTOR-04.json",
+    "docs/tasks.md",
+    "docs/worklines/audio_director_04/scope.md",
+    "scripts/audio/game_audio.gd",
+    "scripts/dev/audio_director_reels.gd",
+    "scripts/dev/player_presentation_01/motion_audio.gd",
+    "scripts/dev/player_presentation_01/weapon_audio.gd",
+    "tests/audio_director_selected.gd",
+    "tests/audio_director_selected.gd.uid",
+    "tests/test_audio_reel_choices.py",
+    "tools/audio_director.py",
+    "tools/audio_reel_choices.py",
+    "tools/audio_reels_capture.gd",
+    "tools/capture_selected_audio.py",
+    "tools/package_selected_audio.py",
+    "tools/revalidate_selected_audio.py",
+    "tools/sound_lab/selected_index.html",
+    "tools/sound_lab/verify_selected.mjs"
+  ],
+  "deliverables": [
+    "config/audio_director/selected/selected.json",
+    "config/audio_director/selected/user-20261028.json",
+    "tools/audio_reel_choices.py",
+    "tools/capture_selected_audio.py",
+    "tools/sound_lab/selected_index.html",
+    "docs/evidence/audio_director_04/README.md",
+    "docs/evidence/audio_director_04/deployment.json",
+    "docs/evidence/audio_director_04/remote-browser.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "实际13项选择/候选版本/源帧已严格核对，派生炸弹爆炸单列",
+      "evidence": [
+        "v4-scope",
+        "v4-user"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "用户仅批准单项音色偏好，完整组合/正式推广/真机门槛未签",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "用户仅批准单项音色偏好，完整组合/正式推广/真机门槛未签",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "用户仅批准单项音色偏好，完整组合/正式推广/真机门槛未签",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "用户仅批准单项音色偏好，完整组合/正式推广/真机门槛未签",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "用户仅批准单项音色偏好，完整组合/正式推广/真机门槛未签",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "逐项选择及复合原版边界明确；不是全组合审美批准",
+      "evidence": [
+        "v4-scope",
+        "v4-user"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定当前不可变录屏后验与实际点播工程；原生108/126各保39bb来源，不改签当前重跑",
+      "evidence": [
+        "v4-media",
+        "v4-web"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立实际篡改与产物复核工程范围ACCEPT，用户/真机另验",
+      "evidence": [
+        "v4-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "分源工程回执与最终交付另列；不代签全局内容/设备/玩家认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "retained-choices",
+      "scenario": "用户回传原录屏工坊选择",
+      "method": "原件与reels/manifest/WAV指纹核验、复合派生单列",
+      "expected": "13明选与1派生准确，未选original，不能自动整套ABC",
+      "failure": "错版本/候选/派生伪用户批准",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "实际原件/映射与用户选择已记录",
+      "evidence": [
+        "v4-scope",
+        "v4-user"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "v4-scope",
+      "path": "docs/worklines/audio_director_04/scope.md",
+      "sha256": "dbc912c542029e66f6990388f37b057edd8f4c02c47f5953d44c5d2f7f938a20",
+      "kind": "spec",
+      "producer": "Audio Director",
+      "source_commit": "a8350cbf5ceecb401933a1a9263672019ce20f49",
+      "content_version": "audio-director-selected-20261028",
+      "method": "任务范围/明确最新main/所有权及用户13项选择",
+      "observed": "未选保原声，当前仅组合开发试听，不自动推广"
+    },
+    {
+      "id": "v4-user",
+      "path": "config/audio_director/selected/user-20261028.json",
+      "sha256": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a8350cbf5ceecb401933a1a9263672019ce20f49",
+      "content_version": "audio-director-selected-20261028",
+      "method": "用户回传实际工坊选择JSON，按冻结reels/manifest/声音SHA核对",
+      "observed": "13明选：11新候选、手里剑/炸弹原声；bomb_explode为复合推导，未伪造新用户批准",
+      "accepted": true,
+      "source": "audio-director-reel-choices.json uploaded by user on 2026-10-28",
+      "quote": "coin_a, heal_a, chest_open_a, item_get_c, click_c, confirm_c, denied_c, hurt_c, enemy_hurt_b, enemy_hit_b, shot_pulse_a, shot_shuriken_original, shot_bomb_original",
+      "covers": [
+        "individual-event-preferences"
+      ]
+    },
+    {
+      "id": "v4-import",
+      "path": "docs/evidence/audio_director_04/import-tests.log",
+      "sha256": "753a2d2abf8546e654a20ad2bdea646c42d08e0747d50dc7ad68541ac16f48e9",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "39bb62cde824dfd93dff1e9da290df93a84a8dc9",
+      "content_version": "audio-director-selected-20261028",
+      "method": "Actual retained user export + exact bank/reel/WAV closure and tamper counterexamples",
+      "observed": "9 passed; explicit original composite derived only",
+      "command": "python3 -m unittest discover -s tests -p 'test_audio_reel_choices.py' -v",
+      "exit_code": 0,
+      "environment": "Managed Linux; Python"
+    },
+    {
+      "id": "v4-selected-native",
+      "path": "docs/evidence/audio_director_04/native-selected/report.json",
+      "sha256": "996ed3b9a3828c486c1ac1bd8add1155ee3472fb7a18fed5fbb2f294e86a9bca",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "39bb62cde824dfd93dff1e9da290df93a84a8dc9",
+      "content_version": "audio-director-selected-20261028",
+      "method": "Strict actual shared audio/motion/weapon service test; original90s bound unchanged",
+      "observed": "108/0;exit0;0.884s, no errors/leaks",
+      "command": "python3 tools/run_audio_lifecycle_tests.py --script res://tests/audio_director_selected.gd --marker '^AUDIO_DIRECTOR_SELECTED checks=108 failures=0$' --timeout 90 --output build/audio_director_04/selected-native-39bb62cd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2/Dummy;1280x720 fixture"
+    },
+    {
+      "id": "v4-media",
+      "path": "docs/evidence/audio_director_04/capture/post-validation-v3.json",
+      "sha256": "e19f6ffbe870f11f9c37cb055d3c7348cbe212d53206aa6e764d33c07d631869",
+      "kind": "command",
+      "producer": "Audio Director",
+      "source_commit": "66d400ec601cb78cbad1ea0be4a0517da0f1356e",
+      "content_version": "audio-director-selected-20261028",
+      "method": "Postvalidation66d400 of immutable native producer a835, not a new native run; raw failed receipt kept",
+      "observed": "20 chapters/4704 frames,18 waveform-supported candidate plays/11 selected new sounds, original blade/blast paths, explicit2 context cuts; source closure unchanged except capture validator",
+      "command": "OPENBLAS_NUM_THREADS=2 python3 tools/revalidate_selected_audio.py --capture build/audio_director_04/capture-selected-final --revision 3",
+      "exit_code": 0,
+      "environment": "Linux/NumPy/FFmpeg; original native media and trace only"
+    },
+    {
+      "id": "v4-web",
+      "path": "docs/evidence/audio_director_04/browser-final/report.json",
+      "sha256": "41601f988188749b9dbc73ad6b36ec1ac6b011f80294ef97a85b40b5be4d16c6",
+      "kind": "gui",
+      "producer": "Audio Director",
+      "source_commit": "66d400ec601cb78cbad1ea0be4a0517da0f1356e",
+      "content_version": "audio-director-selected-20261028",
+      "method": "Actual new MP4/AAC and20 chapter real-pointer playback; HTML/verifier and media byte-bound to66d400, report-only postvalidation revision reuses identical tested UI/chapters/choices/MP4",
+      "observed": "390px/no Range/no autoplay exemption;20 chapters, natural end, Stop, delayed actual fetch cancellation, controlled visibility event; no physical-device claim"
+    },
+    {
+      "id": "v4-review",
+      "path": "docs/evidence/audio_director_04/review.md",
+      "sha256": "cd1aaf66f86bc88eb4f6408f2877c6a35dd1e5bd462585f7b54bf0cd49b8eef6",
+      "kind": "review",
+      "producer": "Audio Director",
+      "source_commit": "66d400ec601cb78cbad1ea0be4a0517da0f1356e",
+      "content_version": "audio-director-selected-20261028",
+      "method": "Independent actual trace15 counterexamples, typed preflight bool rejects, fingerprint/source closure and media/browser artifact review",
+      "observed": "Scoped engineering ACCEPT; subjective mix/device/remote deployment not included",
+      "reviewer": "/root/v2_review",
+      "implementers": [
+        "/root",
+        "/root/v2_candidates",
+        "/root/audio_runtime",
+        "/root/godot_lab"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer wrote only review.md and performed read-only checks, no production/test implementation",
+      "reviewed_evidence": [
+        "v4-import",
+        "v4-selected-native",
+        "v4-media",
+        "v4-web"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "全部所选声音同时出现时的混音/疲劳/动作手感",
+    "实体手机/Safari/硬件音频延迟",
+    "完整自然关卡/正式全局采用/Integration及Release"
+  ],
+  "production_snapshot": "1bb17221cdbfe5f9e43976c765679e47b75766c0da4d9611642049a49ec5f0c0"
+}
