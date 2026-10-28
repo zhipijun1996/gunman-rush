@@ -2,23 +2,39 @@
 """Capture six real Godot region comparisons with the native MovieMaker soundtrack."""
 from __future__ import annotations
 import argparse
+import fcntl
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
 import shutil
+import stat
 import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'audio-ambience-capture-v1'
 SEGMENT_FRAMES = 1560
+CAPTURE_OVERRIDE = ('; Ephemeral AUDIO-AMBIENCE-01 MovieMaker renderer override.\n'
+                    '[display]\n'
+                    'window/size/window_width_override=960\n'
+                    'window/size/window_height_override=540\n').encode('utf-8')
 ERROR = re.compile(r'(?m)^ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ObjectDB.*leaked|resources still in use')
 
 def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def read(path): return json.loads(Path(path).read_text())
 def write(path, data): Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n')
+
+def validate_capture_override(report, folder):
+    row=report.get('capture_override',{})
+    if row.get('path')!='override.cfg' or row.get('content')!=CAPTURE_OVERRIDE.decode() or row.get('sha256')!=hashlib.sha256(CAPTURE_OVERRIDE).hexdigest():
+        raise ValueError('Capture did not bind the exact ephemeral renderer override')
+    if row.get('created') is not True or row.get('removed') is not True or row.get('drifted') is not False:
+        raise ValueError('Capture override lifecycle was not clean')
+    if (folder/'capture-override.cfg').read_bytes()!=CAPTURE_OVERRIDE: raise ValueError('Retained renderer override bytes changed')
+    if row.get('project_sha256_before')!=row.get('project_sha256_after') or row.get('project_sha256_before')!=report['source_before'].get('project.godot'):
+        raise ValueError('Formal project settings changed during capture')
 
 def frozen_sources():
     paths = subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'], cwd=ROOT, text=True).splitlines()
@@ -115,12 +131,24 @@ def validate_native_audio(native, segments, manifest):
         results.append({'region':segment['region'],'profile':segment['profile'],'path':path,'window_start':start,'seconds':2,'rms':rms,'direct_normalized_dot':direct,'aligned_source_seconds':peak/8000,'scope':'Native BGM-off movie samples match actual decoded candidate; not aesthetic approval'})
     return results
 
-def capture(output):
+def capture(output,smoke=False):
     if output.exists(): raise ValueError('Use fresh output; retain original failures')
     output.mkdir(parents=True)
     report={'status':'failed','task':'AUDIO-AMBIENCE-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
-    started=time.monotonic(); display=None; env=os.environ.copy(); env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='4')
+    started=time.monotonic(); display=None; override_owned=False; override=ROOT/'override.cfg'; lock=None; cleanup_error=None
+    env=os.environ.copy(); env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='4')
     try:
+        # The caller also owns the project's engine lease. This lock prevents
+        # another invocation of this wrapper from creating an overlapping
+        # temporary ProjectSettings override; pre-existing files are refused.
+        lock=(ROOT/'build/.audio_ambience_capture.lock').open('a')
+        fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+        fd=os.open(override,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+        override_owned=True
+        with os.fdopen(fd,'wb') as stream:
+            stream.write(CAPTURE_OVERRIDE);stream.flush();os.fsync(stream.fileno())
+        (output/'capture-override.cfg').write_bytes(CAPTURE_OVERRIDE)
+        report['capture_override']={'path':'override.cfg','content':CAPTURE_OVERRIDE.decode(),'sha256':hashlib.sha256(CAPTURE_OVERRIDE).hexdigest(),'created':True,'removed':False,'drifted':False,'project_sha256_before':sha(ROOT/'project.godot'),'scope':'Ephemeral MovieMaker physical renderer dimensions only; formal project.godot is byte-unchanged; caller owns project engine lease'}
         if not env.get('DISPLAY'):
             binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
             display=subprocess.Popen([binary,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=(output/'display.log').open('w'),text=True)
@@ -130,15 +158,22 @@ def capture(output):
         before=frozen_sources(); report['source_before']=before
         native=output/'native.avi'; movie=output/'ambience.mp4'
         command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(native),'--fixed-fps','60','--resolution','960x540','--script','res://tools/audio_ambience_capture.gd','--','--output='+str(output)]
-        report['command']=command
+        if smoke: command.append('--smoke')
+        report['command']=command;report['scope']='Actual renderer/MovieMaker viewport smoke only' if smoke else 'Six actual formal region comparisons; automatic router inputs; no natural full-route/device or aesthetic approval'
         with (output/'native.log').open('w') as log: result=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         report['exit_code']=result.returncode
         log=(output/'native.log').read_text()
-        if result.returncode or ERROR.search(log) or 'AUDIO_AMBIENCE_CAPTURE segments=6 failures=0' not in log: raise ValueError('Native capture failed; inspect retained native.log')
+        marker='AUDIO_AMBIENCE_SMOKE frames=120' if smoke else 'AUDIO_AMBIENCE_CAPTURE segments=6 failures=0'
+        if result.returncode or ERROR.search(log) or marker not in log: raise ValueError('Native capture failed; inspect retained native.log')
         subprocess.run(['ffmpeg','-y','-i',str(native),'-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',str(movie)],stdout=subprocess.DEVNULL,stderr=(output/'encode.log').open('w'),timeout=180,check=True)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)]))
         video=next(s for s in media['streams'] if s['codec_type']=='video'); sound=next(s for s in media['streams'] if s['codec_type']=='audio')
         if video['avg_frame_rate']!='60/1' or int(video['width'])!=960 or int(video['height'])!=540 or int(sound['sample_rate'])!=48000 or sound['channels']!=2: raise ValueError('Unexpected encoded media format')
+        if smoke:
+            after=frozen_sources();report.update(source_after=after,source_stable=before==after,media=media,frame_count=int(video['nb_frames']),movie_sha256=sha(movie),movie_bytes=movie.stat().st_size,native_sha256=sha(native),smoke=read(output/'smoke.json'))
+            if before!=after: raise ValueError('Frozen smoke source changed')
+            report['status']='passed'
+            return
         manifest=read(ROOT/'assets/audio/ambience_v1/manifest.json'); trace=read(output/'trace.json')
         segments=validate_trace(trace,integer(int(video['nb_frames'])),manifest)
         report['native_audio_validation']=validate_native_audio(native,segments,manifest)
@@ -151,14 +186,27 @@ def capture(output):
         report['error']=str(error)
         raise
     finally:
-        report['seconds']=time.monotonic()-started;write(output/'report.json',report)
         if display:
             display.terminate()
             try:display.wait(timeout=5)
             except subprocess.TimeoutExpired:display.kill();display.wait()
+        if override_owned:
+            row=report.get('capture_override',{})
+            row['project_sha256_after']=sha(ROOT/'project.godot')
+            if override.is_symlink() or not override.exists() or not stat.S_ISREG(override.lstat().st_mode) or override.read_bytes()!=CAPTURE_OVERRIDE:
+                row['drifted']=True;cleanup_error='Temporary override drifted; preserved foreign/missing file state'
+            else:
+                override.unlink();row['removed']=True
+            report['capture_override']=row
+        if lock:
+            fcntl.flock(lock.fileno(),fcntl.LOCK_UN);lock.close()
+        if cleanup_error:
+            report['status']='failed';report['cleanup_error']=cleanup_error
+        report['seconds']=time.monotonic()-started;write(output/'report.json',report)
+        if cleanup_error: raise ValueError(cleanup_error)
     print(json.dumps({'status':'passed','movie':str(movie),'frames':report['frame_count'],'bytes':report['movie_bytes']}))
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True)
-    capture(parser.parse_args().output.resolve())
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--smoke',action='store_true')
+    args=parser.parse_args();capture(args.output.resolve(),args.smoke)
 if __name__=='__main__':main()

@@ -5,13 +5,14 @@ import json
 from pathlib import Path
 import shutil
 import zipfile
-from capture_audio_ambience import ROOT, read, sha, write, frozen_sources, validate_trace, chapters_from_segments
+from capture_audio_ambience import ROOT, read, sha, write, frozen_sources, validate_trace, chapters_from_segments, validate_capture_override
 
 def build(capture, output):
     if output.exists(): raise ValueError('Use fresh delivery directory')
     report=read(capture/'report.json'); trace=read(capture/'trace.json'); manifest=read(ROOT/'assets/audio/ambience_v1/manifest.json')
     movie=capture/'ambience.mp4'
     if report.get('status')!='passed' or report.get('source_stable') is not True or report.get('source_before')!=report.get('source_after'): raise ValueError('Capture did not pass original frozen source guard')
+    validate_capture_override(report,capture)
     if report['source_before'] != frozen_sources(): raise ValueError('Runtime or capture source changed since recording')
     if report['movie_sha256']!=sha(movie) or report['trace_sha256']!=sha(capture/'trace.json'): raise ValueError('Native media or trace hash differs')
     if len(report.get('native_audio_validation',[])) != 6: raise ValueError('Missing actual native audio proof')
@@ -53,6 +54,7 @@ def build(capture, output):
     shutil.copyfile(freedoom,output/'licenses'/'Freedoom-COPYING.adoc')
     write(output/'licenses'/'original-bgm-provenance.json',read(ROOT/'assets/audio/bgm/provenance.json'))
     (output/'licenses'/'README.txt').write_text('New ambience: exact CC0 source records and original license pages in sources.json/licenses. Existing actions retain Kenney CC0 and Freedoom BSD-3-Clause provenance in game repository. Original five BGM files are user-provided for this game/audition only; no general reuse permission. Source recordings are not BGM.\n')
+    (output/'README.txt').write_text('失序之钟 · AUDIO-AMBIENCE-01\n直接播放 ambience.mp4：平原与森林各 original/A/B，正常速度原生音轨。每段26秒，前15秒原BGM混音，16至26秒环境单听；各24秒床声在实际Godot跨过一次循环边界。\naudio/ 包含4床声与4独立点声，点声尚未全图布设。章节见 chapters.json。\n需要完整工坊时在本目录运行 python3 -m http.server 8000，再打开 http://localhost:8000；直接双击HTML可能受浏览器本地文件fetch限制。\n选择JSON保存在当前浏览器，可导出回传。自动验证不代表用户听感、商业品质或实体设备认可。\n来源与许可见 sources.json / licenses/；五首原BGM仅限本项目和试听，不可当通用素材再用。\n')
     with zipfile.ZipFile(output/'ambience-comparison.zip','w',zipfile.ZIP_DEFLATED) as archive:
         for source in sorted(output.rglob('*')):
             if source.is_file() and source.suffix!='.zip': archive.write(source,source.relative_to(output))

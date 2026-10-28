@@ -12,20 +12,25 @@ var events: Array[Dictionary] = []
 var active_profile := ""
 var active_region := ""
 var lifecycle_only := false
+var smoke_only := false
 
 func _initialize() -> void:
+	# MovieMaker allocates its recording target during initialization. Set
+	# the actual viewport before the deferred scene/run bootstrap.
+	root.size = Vector2i(960, 540)
+	root.content_scale_size = Vector2i(1280, 720)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	RenderingServer.frame_post_draw.connect(func() -> void: movie_frame += 1)
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="): folder = arg.trim_prefix("--output=")
 		if arg == "--lifecycle-only": lifecycle_only = true
+		if arg == "--smoke": smoke_only = true
 	run.call_deferred()
 
 func run() -> void:
-	# Keep the original 1280x720 logical camera/input composition while
-	# MovieMaker renders fewer actual pixels on this software-only executor.
-	root.size = Vector2i(960, 540)
-	root.content_scale_size = Vector2i(1280, 720)
-	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	if smoke_only:
+		await run_smoke()
+		return
 	if lifecycle_only:
 		await run_lifecycle()
 		return
@@ -84,6 +89,24 @@ func run() -> void:
 
 func event(id: String) -> void:
 	events.append({"id":id,"region":active_region,"profile":active_profile,"movie_frame":movie_frame})
+
+func run_smoke() -> void:
+	var background := ColorRect.new()
+	background.color = Color("253a3c")
+	background.size = Vector2(1280, 720)
+	root.add_child(background)
+	var label := Label.new()
+	label.text = "REAL GODOT VIEWPORT SMOKE\nactual: %s\nlogical: %s\nNo full-region claim" % [root.size, root.content_scale_size]
+	label.position = Vector2(120, 220)
+	label.add_theme_font_size_override("font_size", 32)
+	root.add_child(label)
+	for unused: int in 120: await physics_frame
+	DirAccess.make_dir_recursive_absolute(folder)
+	FileAccess.open(folder.path_join("smoke.json"), FileAccess.WRITE).store_string(JSON.stringify({"task":"AUDIO-AMBIENCE-01","scope":"Actual renderer/MovieMaker viewport smoke only; no region or sound quality claim","actual_window":[root.size.x,root.size.y],"logical_content":[root.content_scale_size.x,root.content_scale_size.y],"viewport_rect":[root.get_visible_rect().size.x,root.get_visible_rect().size.y],"movie_frames":movie_frame}))
+	background.free()
+	label.free()
+	print("AUDIO_AMBIENCE_SMOKE frames=120")
+	quit()
 
 func run_lifecycle() -> void:
 	var checks: Array[Dictionary] = []
