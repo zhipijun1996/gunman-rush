@@ -126,7 +126,12 @@ def brief(request,output):
     prefix=f'config/audio_director/v{active_version}/' if active_version>1 else 'config/audio_director/'
     inputs=['docs/audio_director/style_bible.md','docs/audio_director/event_catalog.json',prefix+'sources.json',prefix+'recipes.json',prefix+'runtime.json',str(active_manifest.relative_to(ROOT))]
     inputs+=['docs/audio_director/style_bible_v3.md','docs/audio_director/event_catalog_v3.md','docs/worklines/audio_director_03/scope.md'] if active_version==3 else ['docs/audio_director/listening_v2.md']
+    selected_path='config/audio_director/selected/selected.json'
+    if active_version==3 and (ROOT/selected_path).is_file(): inputs.append(selected_path)
     result={'task':f'AUDIO-DIRECTOR-0{active_version}','candidate_version':manifest['version'],'prior_v1_status':'user-rejected; preserve original jump/land' if active_version>1 else 'awaiting-user','request':request,'status':'production_brief','selected_events':list(dict.fromkeys(matches)),'inputs':[{'path':p,'sha256':sha(ROOT/p)} for p in inputs if (ROOT/p).exists()],'workflow':['Read current functional Audio Style Bible, Event Catalog and selected family; inspect actual accepted consumers','Review mature-game function/timing references, then select licensed source files with original SHA and terms','Build and validate explicit versioned recipes; preserve prior versions and failed aesthetic feedback','Verify event/phase semantics, pause/death/reload and shared voice lifecycle','Deliver short real Godot recordings or interactive lab as requested; user alone approves timbre'],'next_command':f'python3 tools/audio_candidates_v{active_version}.py build' if active_version>1 else 'python3 tools/audio_design.py build','limitation':'Brief routes context, not automatic creative completion. New enemies/areas need actual source selection and authored recipes. Commercial game references are not licensed production inputs.'}
+    if selected_path in inputs:
+        selection=read(ROOT/selected_path)
+        result['user_selection']={'path':selected_path,'event_profiles':selection['event_profiles'],'provenance':selection['provenance'],'scope':'User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing.'}
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

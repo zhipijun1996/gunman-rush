@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Record the user's chosen SFX in actual Godot, preserving its native soundtrack."""
 import argparse
+import copy
+import math
 from collections import Counter
 import json
 import os
@@ -34,7 +36,17 @@ def validate_selected_trace(trace, frame_count, selection):
     candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
     segments=trace['segments'];profiles=selection['event_profiles']
     if [(s.get('reel'),s.get('profile')) for s in segments]!=[(r,p) for r in REELS for p in ['original','selected']]:raise ValueError('Missing/reordered original-selected chapter')
-    if trace.get('selection')!=selection:raise ValueError('Selection receipt drift')
+    # Godot JSON.stringify truncates only the copied reel evidence decimals.
+    # The original selected file was independently rederived byte/hash-wise;
+    # identifiers, profiles, paths and fingerprints must still compare exactly.
+    copied=copy.deepcopy(trace.get('selection'))
+    if isinstance(copied,dict) and len(copied.get('events',[]))==len(selection['events']):
+        for actual,expected in zip(copied['events'],selection['events']):
+            if not isinstance(actual.get('evidence'),dict) or not isinstance(expected.get('evidence'),dict):continue
+            for key in ['start','end']:
+                a=actual['evidence'].get(key);b=expected['evidence'].get(key)
+                if type(a) in [int,float] and type(b) in [int,float] and math.isfinite(a) and math.isfinite(b) and abs(a-b)<=1e-12:actual['evidence'][key]=b
+    if copied!=selection:raise ValueError('Selection receipt drift')
     last=-1
     for s in segments:
         reel=s['reel'];profile=s['profile'];start=frame_integer(s['start_frame']);end=frame_integer(s['end_frame'])
@@ -75,11 +87,17 @@ def validate_selected_trace(trace, frame_count, selection):
         rows=[r for r in trace['trace'] if r.get('reel')==reel and r['profile']==profile and action_start<frame_integer(r['action_frame'])<=action_end]
         if [r['action_frame'] for r in rows]!=list(range(action_start+1,action_end+1)):raise ValueError('Actual action samples missing/repeated/reordered')
         if not rows or any(not start<=frame_integer(r['movie_frame'])<=end for r in rows):raise ValueError('Actual action sample outside movie chapter')
+        cuts=0
         for before,after in zip(rows,rows[1:]):
-            if frame_integer(after['physics_tick'])!=frame_integer(before['physics_tick'])+1:raise ValueError('Actual physics tick discontinuity')
+            physics_gap=frame_integer(after['physics_tick'])-frame_integer(before['physics_tick'])
+            movie_gap=frame_integer(after['movie_frame'])-frame_integer(before['movie_frame'])
+            if physics_gap!=1:
+                if reel!='mix' or cuts or physics_gap!=2 or movie_gap!=2 or before['enemy_hp']!=-1 or after['enemy_hp']!=3:raise ValueError('Actual physics tick discontinuity')
+                cuts+=1
             # Context reconstruction is explicitly paused in mix. Rendering
             # may advance while sampling is suspended, but cannot go backward.
-            if frame_integer(after['movie_frame'])<=frame_integer(before['movie_frame']):raise ValueError('Actual MovieWriter action frame order invalid')
+            if movie_gap!=physics_gap or movie_gap<1:raise ValueError('Actual MovieWriter action frame order invalid')
+        if reel=='mix' and cuts!=1:raise ValueError('Explicit mix reconstruction boundary missing')
     for reel in REELS:
         sequences=[[[r['position'],r['hp'],r['enemy_hp']] for r in trace['trace'] if r.get('reel')==reel and r['profile']==p] for p in ['original','selected']]
         if not sequences[0] or sequences[0]!=sequences[1]:raise ValueError('Original-selected actual physics/HP differs: '+reel)
