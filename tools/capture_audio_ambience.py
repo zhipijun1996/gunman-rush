@@ -38,8 +38,8 @@ def validate_capture_override(report, folder):
 
 def frozen_sources():
     paths = subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'], cwd=ROOT, text=True).splitlines()
-    prefixes = ('scripts/','scenes/','resources/','assets/','config/')
-    selected = [p for p in paths if p.startswith(prefixes) or p in ['project.godot','tools/godot.sh','tools/audio_ambience_capture.gd','tools/capture_audio_ambience.py']]
+    prefixes = ('scripts/','scenes/','resources/','assets/','config/','shaders/')
+    selected = [p for p in paths if p.startswith(prefixes) or p in ['project.godot','export_presets.cfg','tools/godot.sh','tools/audio_ambience_capture.gd','tools/capture_audio_ambience.py']]
     return {p:sha(ROOT/p) for p in sorted(set(selected)) if (ROOT/p).is_file()}
 
 def integer(value):
