@@ -2466,7 +2466,11 @@
         "scripts/combat/weapon_action_runtime.gd",
         "scripts/dev/player_presentation_01/weapon_feel.gd",
         "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
-        "docs/.gdignore"
+        "docs/.gdignore",
+        "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+        "docs/creative_direction/archive/creative-v18/registry.json",
+        "docs/creative_direction/archive/creative-v18/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v18/thorn_forest.json"
       ],
       "weight_seconds": 0.5
     },
@@ -4130,6 +4134,53 @@
       "artifact_paths": [
         "build/item_v5/native"
       ]
+    },
+    "item-v5-authoring": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "authoring"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-authoring original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-authoring-tools": {
+      "argv": [
+        "python3",
+        "tests/test_edit_item_catalog.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "cacheable": true,
+      "inputs": [
+        "tools/edit_item_catalog.py",
+        "tools/import_items_v5.py",
+        "tests/test_edit_item_catalog.py",
+        "config/items_v5.json",
+        "config/item_v5_authoring.json"
+      ]
     }
   },
   "profiles": {
@@ -4346,7 +4397,9 @@
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
       "item-v5-random-context",
-      "item-v5-manifest"
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools"
     ],
     "art": [
       "docs",
@@ -4654,7 +4707,9 @@
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
       "item-v5-random-context",
-      "item-v5-manifest"
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools"
     ],
     "creative-feedback": [
       "docs",
@@ -4780,7 +4835,9 @@
       "item-v5-synergy-economy",
       "item-v5-pause-escape",
       "item-v5-random-context",
-      "item-v5-manifest"
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-authoring-tools"
     ]
   }
 }

@@ -111,7 +111,12 @@ static func _catalog_effects(item: ItemDefinition, level: int, effect_state: Dic
 			values[key] = _display_number(float(value))
 		else:
 			values[key] = str(value)
-	var result := str(formats.get(item.stable_id,"具体机制见道具说明。")).format(values)
+	var result: String
+	if formats.has(item.stable_id):
+		result = str(formats[item.stable_id]).format(values)
+	else:
+		result = _static_parameter_text(parameters)
+		if result.is_empty(): result = item.description.format(values)
 	if item.stable_id == &"G19" and effect_state.has("evolution"):
 		var maximum := int(parameters.evolution_levels)
 		var evolution := clampi(int(effect_state.evolution),0,maximum)
@@ -121,6 +126,21 @@ static func _catalog_effects(item: ItemDefinition, level: int, effect_state: Dic
 	# leaking internal keys or raw JSON into the player's inventory.
 	if result.contains("{"): return "当前效果说明尚未同步，请查看道具描述。"
 	return result
+
+static func _static_parameter_text(parameters: Dictionary) -> String:
+	# New data-only passive items use the same resolved level values as BuildState.
+	# Their numerical description must not require another item-ID UI branch.
+	var formats := {
+		"max_hp_add":"最大生命 +%s；装备不回血。",
+		"max_hp_multiplier":"最大生命 ×%s；普通装备不回血。",
+		"ground_recoil_multiplier":"地面反冲倍率 ×%s。",
+		"coyote_time_add_s":"离台跳跃宽限 +%s秒。",
+		"focus_stamina_drain_multiplier":"慢时耗能 ×%s。",
+		"focus_stamina_recovery_multiplier":"接地时间能量恢复 ×%s。"}
+	var lines := PackedStringArray()
+	for key: String in formats:
+		if parameters.has(key): lines.append(formats[key] % _display_number(float(parameters[key])))
+	return "\n".join(lines)
 
 static func _display_number(value: float) -> String:
 	var number := snappedf(value,.001)

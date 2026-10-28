@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "owner": "/root",
+  "task_id": "ITEM-AUTHOR-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+  "reviewed_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+  "content_version": "candidate-v1-item-authoring",
+  "purpose": "Separate immutable workbook import, component bindings and designer patches; enable supported static additions without equipment core edits",
+  "player_experience": "Same default72 item behavior; edits display resolved values and invalid definitions fail without partial equipment or file updates",
+  "constraints": [
+    "Preserve original72mechanical fingerprints and existing ownership/equipment/wallet/lifecycle; newiconwork is separate ITEM-ART-01",
+    "No game outcome driven by presentation; only six alreadyimplemented staticparameter families can be data-added",
+    "Protect actual component roles from balanceoverride forgery; newmechanisms require implementation+registration",
+    "No auto merge PR111; fullCI outcomes separate from local narrow evidence"
+  ],
+  "affected_paths": [
+    "config/item_v5_authoring.json",
+    "scripts/items/v5/item_catalog_v5.gd",
+    "scripts/items/v5/item_v5_eligibility.gd",
+    "scripts/items/v5/item_v5_pool.gd",
+    "scripts/ui/item_presentation.gd",
+    "tests/item_v5_authoring_runner.gd",
+    "tests/fixtures/item_v5_authoring_baseline.json",
+    "tests/item_v5_ui_input_runner.gd",
+    "tests/test_edit_item_catalog.py",
+    "tests/test_production_plan.py",
+    "tools/edit_item_catalog.py",
+    "tools/harness/profiles.json",
+    "tools/run_item_v5_tests.py",
+    "docs/item_authoring.md",
+    "docs/worklines/item_authoring_01/scope.md",
+    "docs/tasks.md",
+    "docs/quality/records/ITEM-AUTHOR-01.json"
+  ],
+  "deliverables": [
+    "config/item_v5_authoring.json",
+    "tools/edit_item_catalog.py",
+    "docs/item_authoring.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting frozen-source evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting scoped evidence; no user/device acceptance implied",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Source currentlyinprogress; actual narrow/finalHarness/independentreviewpending",
+    "Separate full72uniqueicons/VFX productionwork notcomplete",
+    "FullremoteCI/player/device acceptance notsigned"
+  ],
+  "test_change_justification": "Original21 productionplan methods retained; stale144/89/55 expectations migrate to163/91/72 with frozen original144profile+actualplanner order hashes, exact19appended IDs and lane identity checks. UIinput fixture enumerates actualactive tags after legacy catalogconstant removal, preserving originalfunctional assertions. Exactstyle16/creative19 guards retain old14/15/17/18 byte snapshots and originalrefusal cases; finiteBible inputs appendonly4, old187prefix preserved. Independent actualreview required beforepassing this migration."
+}

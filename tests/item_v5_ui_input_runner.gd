@@ -348,7 +348,7 @@ func capture_menu_views(menu: DemoMenu, destination: String) -> void:
 	for definition: ItemDefinition in ItemCatalogV5.all_items():
 		var equipped := definition.stable_id in worn
 		if equipped: used += definition.gear_cost
-		items.append({"instance_id":StringName("visual/"+String(definition.stable_id)),"definition":definition,"level":definition.max_level,"max_level":definition.max_level,"equipped":equipped,"active_capable":definition.stable_id in ItemCatalogV5.ACTIVE_IDS,"active_selected":definition.stable_id == &"P24","effect_state":{"evolution":2} if definition.stable_id == &"G19" else {},"broken":definition.stable_id == &"B30","repair_quote":{"available":false,"price":18,"reason":&"not_in_shop","quote_version":1}})
+		items.append({"instance_id":StringName("visual/"+String(definition.stable_id)),"definition":definition,"level":definition.max_level,"max_level":definition.max_level,"equipped":equipped,"active_capable":&"active" in definition.tags,"active_selected":definition.stable_id == &"P24","effect_state":{"evolution":2} if definition.stable_id == &"G19" else {},"broken":definition.stable_id == &"B30","repair_quote":{"available":false,"price":18,"reason":&"not_in_shop","quote_version":1}})
 	var view := {"capacity":14,"used":used,"remaining":14-used,"revision":71,"session":19,"coins":90,"summary":"背包72件 · 已装备3件 · 当前主动：回环飞轮","items":items,"upgrade":{"available":false,"price":0,"capacity":14,"reason":"已达本局容量上限"}}
 	var evidence: Array = []
 	var original_size := root.size

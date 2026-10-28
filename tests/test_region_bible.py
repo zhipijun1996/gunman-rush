@@ -257,17 +257,36 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'15')
+        self.assertEqual(style['content']['version'],'16')
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),54)
         current_refs = refs
+        old_v15_path = 'docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json'
+        old_v15_raw = (ROOT/old_v15_path).read_bytes()
+        self.assertEqual(hashlib.sha256(old_v15_raw).hexdigest(), '6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0')
+        old_v15 = json.loads(old_v15_raw)
+        self.assertEqual(old_v15['version'],'15')
+        self.assertEqual(len(old_v15['runtime_reference']['references']),54)
+        self.assertEqual(style['content']['supersedes']['path'],old_v15_path)
+        self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(old_v15_raw).hexdigest())
+        for key in old_v15.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key],old_v15[key])
+        for before,after in zip(old_v15['runtime_reference']['references'],current_refs):
+            if before['path']=='scripts/ui/item_presentation.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+                self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            else:
+                self.assertEqual(before,after)
         old_v14_path = 'docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json'
         old_v14_raw = (ROOT/old_v14_path).read_bytes()
         self.assertEqual(hashlib.sha256(old_v14_raw).hexdigest(), 'a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366')
         old_v14 = json.loads(old_v14_raw)
         self.assertEqual(len(old_v14['runtime_reference']['references']),36)
-        self.assertEqual(style['content']['supersedes']['path'],old_v14_path)
-        self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(old_v14_raw).hexdigest())
+        self.assertEqual(old_v15['supersedes']['path'],old_v14_path)
+        self.assertEqual(old_v15['supersedes']['sha256'],hashlib.sha256(old_v14_raw).hexdigest())
         for key in old_v14.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
             self.assertEqual(style['content'][key],old_v14[key])
         for before,after in zip(old_v14['runtime_reference']['references'],current_refs[:36]):
@@ -361,7 +380,7 @@ class BibleTests(unittest.TestCase):
         stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
         with self.assertRaisesRegex(ValueError, 'binding changed'):
             creative.validate_bible_binding(stale_v3,root=self.root)
-        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json','style-continuity-20261026-v14-run-gear.json']:
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json','style-continuity-20261026-v14-run-gear.json','style-continuity-20261027-v15-item-v5.json']:
             old_path = 'docs/creative_direction/bibles/'+old_style
             stale = copy.deepcopy(self.ref)
             stale['supplemental_authority_path'] = old_path

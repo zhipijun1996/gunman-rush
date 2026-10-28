@@ -179,7 +179,26 @@ class ProductionPlanTests(unittest.TestCase):
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
         self.assertFalse(set(parallel) & set(serial))
         self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (144,89,55))
+        # Preserve the exact pre-V5 inventory/order from main879b39e; new
+        # families append to that baseline rather than replacing old coverage.
+        original = self.manifest["profiles"]["full"][:144]
+        digest = lambda names: hashlib.sha256(json.dumps(names,separators=(",",":")).encode()).hexdigest()
+        self.assertEqual(digest(original), "dd7ca8a04ea756fc112183fa3603a1cdcd75c4ff7677987702d659292d194bc2")
+        self.assertEqual(digest(full["checks"][:144]), "392a72c601c87c22daa53f7e2786c3481026048ee93fddd1753564e40ece621e")
+        additions = [
+            "item-v5-data", "item-v5-catalog", "item-v5-pool",
+            "item-v5-inventory", "item-v5-combat", "item-v5-actives",
+            "item-v5-economy", "item-v5-defense", "item-v5-ui",
+            "item-v5-formal", "item-v5-review", "item-v5-boss-time",
+            "item-v5-core-effects", "item-v5-synergy-economy",
+            "item-v5-pause-escape", "item-v5-random-context", "item-v5-manifest",
+            "item-v5-authoring", "item-authoring-tools",
+        ]
+        self.assertEqual(self.manifest["profiles"]["full"][144:], additions)
+        self.assertEqual(full["checks"][144:], additions)
+        self.assertEqual([name for name in parallel if name not in original], [additions[0],additions[-1]])
+        self.assertEqual([name for name in serial if name not in original], additions[1:-1])
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (163,91,72))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:

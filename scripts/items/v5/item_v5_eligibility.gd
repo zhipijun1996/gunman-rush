@@ -11,9 +11,9 @@ static func equip_reason(item: ItemDefinition, actor: PlayerController, proposed
 	if item.catalog_version < 5: return &""
 	var reason := _mechanical_reason(item, actor)
 	if not reason.is_empty(): return reason
-	var supplied: Array[StringName] = []
+	var supplied: Array[ItemDefinition] = []
 	for definition: ItemDefinition in proposed.values():
-		if definition != null: supplied.append(definition.stable_id)
+		if definition != null: supplied.append(definition)
 	return _combination_reason(item, actor, supplied)
 
 static func offer_reason(item: ItemDefinition, build: RefCounted, in_shop := false) -> StringName:
@@ -28,7 +28,8 @@ static func offer_reason(item: ItemDefinition, build: RefCounted, in_shop := fal
 	if item.catalog_version < 5: return &""
 	var reason := _mechanical_reason(item, actor)
 	if not reason.is_empty(): return reason
-	var supplied := inventory.item_ids()
+	var supplied: Array[ItemDefinition] = []
+	for owned: RunItemInstance in inventory.instances(): supplied.append(owned.item)
 	reason = _combination_reason(item, actor, supplied)
 	if not reason.is_empty(): return reason
 	if in_shop:
@@ -53,22 +54,31 @@ static func _mechanical_reason(item: ItemDefinition, actor: PlayerController) ->
 	# WeaponActionRuntime actually enters charge only for these two Lv3 modes;
 	# a default skill_charge field on another definition is not an implemented windup.
 	if id == &"P17" and (not _has_weapon_skill(actor) or weapon.mode not in [WeaponDefinition.Mode.MACHINE, WeaponDefinition.Mode.LASER] or weapon.skill_charge <= 0): return &"charge_skill_required"
-	if id in [&"B19", &"B20", &"B21", &"P13"] and (actor.traversal == null or not actor.traversal.has_capability(&"grapple")): return &"capability_required"
+	for capability: StringName in item.required_capabilities:
+		if actor.traversal == null or not actor.traversal.has_capability(capability): return &"capability_required"
+	if not item.required_weapon_id.is_empty() and item.required_weapon_id != weapon.id: return &"weapon_required"
 	if id == &"N01" and actor.air_focus_ability == null: return &"capability_required"
 	return &""
 
-static func _combination_reason(item: ItemDefinition, actor: PlayerController, supplied: Array[StringName]) -> StringName:
+static func _combination_reason(item: ItemDefinition, actor: PlayerController, supplied: Array[ItemDefinition]) -> StringName:
+	# Offer prerequisites use owned definition snapshots; equipment receives the
+	# complete proposed loadout. Category membership is authoring data, not IDs.
+	for tag: StringName in item.required_tags:
+		if not _has_tag(supplied, tag): return &"prerequisite"
 	var id := item.stable_id
-	if id == &"G08":
-		if &"P13" not in supplied or not _has_any(supplied, ItemCatalogV5.COMPANION_IDS): return &"prerequisite"
-	if id == &"G15" and not _has_any(supplied, ItemCatalogV5.PROJECTILE_ACTIVE_IDS): return &"prerequisite"
-	if id in [&"P02", &"P10"] and not _has_weapon_skill(actor) and not _has_any(supplied, ItemCatalogV5.ACTIVE_IDS): return &"prerequisite"
+	if id == &"G08" and not _has_id(supplied, &"P13"): return &"prerequisite"
+	if id in [&"P02", &"P10"] and not _has_weapon_skill(actor) and not _has_tag(supplied, &"active"): return &"prerequisite"
 	return &""
 
 static func _has_weapon_skill(actor: PlayerController) -> bool:
 	return is_instance_valid(actor) and actor.shoot_ability != null and actor.shoot_ability.weapon != null and actor.shoot_ability.weapon.tier == 3 and not actor.shoot_ability.weapon.skill_name.is_empty()
 
-static func _has_any(values: Array[StringName], candidates: Array[StringName]) -> bool:
-	for value: StringName in candidates:
-		if value in values: return true
+static func _has_tag(values: Array[ItemDefinition], tag: StringName) -> bool:
+	for item: ItemDefinition in values:
+		if item != null and tag in item.tags: return true
+	return false
+
+static func _has_id(values: Array[ItemDefinition], id: StringName) -> bool:
+	for item: ItemDefinition in values:
+		if item != null and item.stable_id == id: return true
 	return false

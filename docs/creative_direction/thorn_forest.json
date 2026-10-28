@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v18",
+  "version": "creative-v19",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
-    "supplemental_authority_sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+    "supplemental_authority_sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "706ebe31662101266b55bb832cfab6ccf4a9b7b00b6d36ee62d30a7d1ec788ec",
+    "registry_sha256": "25992f7d338eef1135807bba9b55e34913d60802d86465ddbbfa878ee1cc198c",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -177,6 +177,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
       "sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f"
     }
   ],
   "historical_direction": {
@@ -185,43 +189,15 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "ITEM-V5-01",
-    "scope": "Technical style-v15 actual consumer binding for formal V5 items, feedback, HUD/menus and equipped beam visual width. All original Bible and regional creative content preserved; no new artistic approval.",
-    "previous_direction": "docs/creative_direction/archive/creative-v17/thorn_forest.json",
-    "previous_sha256": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
-    "shared_style_sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+    "task_id": "ITEM-AUTHORING-01",
+    "scope": "Versioned technical style16 generic current-level item effect text. Planned unique icon/VFX artwork is G0 only; no generated assets or art acceptance claimed.",
+    "previous_direction": "docs/creative_direction/archive/creative-v18/thorn_forest.json",
+    "previous_sha256": "d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+    "shared_style_sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
     "affected_consumers": [
-      "scripts/demo/demo_app.gd",
-      "scripts/items/v5/item_effect_view.gd",
-      "config/item_v5_feedback.json",
-      "scripts/items/v5/item_v5_entity.gd",
-      "config/item_v5_entities.json",
-      "scripts/items/v5/item_defense_effects.gd",
-      "config/item_v5_defense.json",
-      "scripts/ui/actor_resources_hud.gd",
-      "scripts/ui/demo_menu.gd",
-      "scripts/ui/item_presentation.gd",
-      "scripts/ui/item_card.gd",
-      "scripts/ui/item_acquired_toast.gd",
-      "scripts/ui/item_shop_modal.gd",
-      "scripts/ui/stage_reward_modal.gd",
-      "scripts/ui/touch_overlay.gd",
-      "scripts/items/v5/item_v5_shop_presenter.gd",
-      "scripts/combat/weapon_action_runtime.gd",
-      "scripts/dev/player_presentation_01/weapon_feel.gd",
-      "scripts/dev/player_presentation_01/weapon_vfx_v2.gd"
+      "scripts/ui/item_presentation.gd"
     ],
-    "validation": "Fresh affected technical and actual visual evidence must retain their exact source. Player/physical-device/art acceptance remains separate and is not inherited.",
-    "candidate_iteration": {
-      "previous_candidate_direction": "docs/evidence/item_v5_01/source-bindings/pre-tooltip-rng/thorn_forest.json",
-      "previous_candidate_sha256": "00e895091a518eb1e3f71c2f40267c809eea740188b018b7a161aca03322f622",
-      "scope": "Same unpublished creative-v18 candidate: tooltip-safe pause cancellation and stable RNG contexts; fresh affected technical/native/GL evidence required, no new art or inherited user/device acceptance."
-    },
-    "manifest_repair_iteration": {
-      "previous_candidate_direction": "docs/evidence/item_v5_01/source-bindings/pre-manifest-repair/thorn_forest.json",
-      "previous_candidate_sha256": "eddc98f420041ce291b717b72335baa3b3f0302b264543ba2188dd4c1b654ec2",
-      "scope": "Same unpublished creative-v18 candidate: mandatory region_map recording and exact equipped canonical level/broken/capacity content reconstruction. Fresh original technical checks; no new visual consumers, art production or inherited approval."
-    }
+    "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved."
   }
 }

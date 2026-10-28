@@ -1,10 +1,10 @@
 # 当前创作入口：区域圣经 V2
 
-当前技术消费者绑定为 [style-v15](bibles/style-continuity-20261027-v15-item-v5.json)，两区总谱 creative-v18；[本轮版本化影响](revision_creative_v18.md)保留原36项引用顺序、另35项和原Bible／像素选择，有限追加18个真实道具界面／绘制消费者。旧style-v14与creative-v17原字节保留；这次技术重绑不继承美术、用户或实体设备认可。下文旧轮版本说明保留原来源。
+当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54项顺序，仅更新当前ItemPresentation的通用数值说明消费者，其余53项和原Bible／像素选择不变。已交付style15／creative18及所有旧版原件保留；独立图标与VFX目前仅G0，不以本绑定代签新美术、用户或实体设备认可。下文旧轮版本说明保留原来源。
 
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 
-[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v18](thorn_forest.json)、[平原creative-v18](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
+[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v19](thorn_forest.json)、[平原creative-v19](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
 
 [当前用户细粒度选择与共享风格v5](bibles/style-continuity-20261022-v5.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、原生32px/32wu与1wu世界采样/nearest、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
 
@@ -12,7 +12,7 @@
 
 历史补充v4绑定16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
 
-当前执行以style-v15技术绑定及style-v5已选像素方向为准，旧v4/16px说明仅保留原版本来源。常规资产规格填写与跨区域对照见[美术稳定输出说明](../quality/art_consistency_workflow.md)，不新增质量体系。
+当前执行以style-v16技术绑定及style-v5已选像素方向为准，旧v4/16px说明仅保留原版本来源。常规资产规格填写与跨区域对照见[美术稳定输出说明](../quality/art_consistency_workflow.md)，不新增质量体系。
 
 ## 预制作与生产
 

@@ -1,0 +1,187 @@
+{
+  "task_id": "ITEM-ART-01",
+  "production_status": "unverified_not_generated",
+  "clock_rule": "visuals observe original accepted state; no gameplay/HP/energy/RNG writes",
+  "sheets": [
+    {
+      "id": "P24",
+      "role": "flywheel body, trail and committed contact accent",
+      "wanted_source_px": [
+        1024,
+        384
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 3,
+        "cell_px": [
+          128,
+          128
+        ],
+        "pivot_px": [
+          64,
+          64
+        ],
+        "world_canvas_wu": [
+          64,
+          64
+        ],
+        "logical_source_factor": 2
+      },
+      "strips": [
+        {
+          "row": 0,
+          "name": "rotor",
+          "frames": 8,
+          "brief": "A three-lobed returning brass blade, three large negative-space holes and a bright small teal axle; rotate progressively45degreesperframe, body silhouette target48sourcepx(24worldunits). No generic gear disk."
+        },
+        {
+          "row": 1,
+          "name": "trail",
+          "frames": 8,
+          "brief": "Two narrow curved copper/teal velocity ribbons trailing to the left; interrupted flecks suggest returning motion, transparent center, no full circular ring; emitter anchor staysat64,64."
+        },
+        {
+          "row": 2,
+          "name": "contact",
+          "frames": 8,
+          "brief": "A short three-pronged cutting spark matching the rotor lobe geometry, first bright narrow core then unequal brass chips and empty last frame, not an explosion cloud."
+        }
+      ],
+      "timing_owner": "Rotor frame sampled from entity age; trail from actual travel/phase. Contact only after original HP commit. No damage callback in animation.",
+      "runtime_hooks": [
+        "ItemV5Entity kind=flywheel",
+        "ItemActiveEffects actual outbound/return step",
+        "committed HP receipt for contact: additional presentation-only hook needed"
+      ],
+      "status": "G0 request only, no generated pixels or runtime acceptance",
+      "prompt": "Original clockwork action game sprite animation sheet on truly transparent alpha. Fine pixel clusters with hard clean silhouettes; tarnished warm brass upper-left rim light, cool blue-grey steel shadows and restrained teal energy. No text, grid lines, labels, baked UI border, scenery, cast-shadow floor, opaque fog or giant glow. Match current pixel character and understated warm-brass game UI. Each row is an animation strip in chronological left-to-right order, constant canvas and anchor; no camera change or random sprite zoom. Transparent padding must isolate all cells. Actual returned dimensions and alpha bounds must be measured before consumption.\nCreate 1024x384sheetwith8columnsand3rows,128x128cells,constantcenter64,64. Source uses2pxlogicalpixelclusters. Row descriptions:\nRow1, rotor: A three-lobed returning brass blade, three large negative-space holes and a bright small teal axle; rotate progressively45degreesperframe, body silhouette target48sourcepx(24worldunits). No generic gear disk.\nRow2, trail: Two narrow curved copper/teal velocity ribbons trailing to the left; interrupted flecks suggest returning motion, transparent center, no full circular ring; emitter anchor staysat64,64.\nRow3, contact: A short three-pronged cutting spark matching the rotor lobe geometry, first bright narrow core then unequal brass chips and empty last frame, not an explosion cloud."
+    },
+    {
+      "id": "P14",
+      "role": "single patrol body, fire and target reception",
+      "wanted_source_px": [
+        1024,
+        384
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 3,
+        "cell_px": [
+          128,
+          128
+        ],
+        "pivot_px": [
+          64,
+          64
+        ],
+        "world_canvas_wu": [
+          64,
+          64
+        ],
+        "logical_source_factor": 2,
+        "body_nominal_source_px": [
+          36,
+          36
+        ],
+        "body_nominal_world_wu": [
+          18,
+          18
+        ],
+        "whole_body_max_source_px": [
+          74,
+          48
+        ],
+        "whole_body_max_world_wu": [
+          37,
+          24
+        ],
+        "body_anchor_source_px": [
+          64,
+          64
+        ],
+        "size_basis": "Currentvisual.drone_radius_px9: circularbodydiameter18wu; wing1.7*radius plusendcap3wu gives36.6wu fullwidth. Candidate max74sourcepx at2source/wu rounds to37wu, neverfills64wu canvas."
+      },
+      "strips": [
+        {
+          "row": 0,
+          "name": "body",
+          "frames": 8,
+          "brief": "ONE small patrol clockwork drone, bell-like compact copper body, two short side stabilizers, one teal lens and a tiny bottom clock pin. Gentle mechanical hinge cycle; no fat round universal gear. Three world instances form the three-drone squad. Keep the central body approximately36x36sourcepixels (18x18worldunits). INCLUDING BOTH WINGS AND THE BOTTOM PIN, the whole silhouette must fit74x48sourcepixels (37x24worldunits) centeredonthefixed64,64anchor ineach128cell. This explicitsmallworldscaleiscritical; neverfillthe128cellwithabigdrone."
+        },
+        {
+          "row": 1,
+          "name": "muzzle",
+          "frames": 8,
+          "brief": "A right-facing small three-petal copper aperture flash with thin teal center followed by a segmented tapered energy streak; concentrated near anchor, transparent majority, no electric storm."
+        },
+        {
+          "row": 2,
+          "name": "reception",
+          "frames": 8,
+          "brief": "A restrained four-point target reception star with one square copper chip and small teal core, brief expansion and empty final frame. Never show before accepted target HP result."
+        }
+      ],
+      "timing_owner": "Existing companion world age and next_attack remain authority. item_drone_fire is submitted attack cue; only muzzle/beam there. Reception requires committed result.",
+      "runtime_hooks": [
+        "ItemV5Entity kind=small_drone",
+        "item_drone_fire from ItemCompanionEffects._fire",
+        "committed HP receipt for reception: additional presentation-only hook needed"
+      ],
+      "status": "G0 request only, no generated pixels or runtime acceptance",
+      "prompt": "Original clockwork action game sprite animation sheet on truly transparent alpha. Fine pixel clusters with hard clean silhouettes; tarnished warm brass upper-left rim light, cool blue-grey steel shadows and restrained teal energy. No text, grid lines, labels, baked UI border, scenery, cast-shadow floor, opaque fog or giant glow. Match current pixel character and understated warm-brass game UI. Each row is an animation strip in chronological left-to-right order, constant canvas and anchor; no camera change or random sprite zoom. Transparent padding must isolate all cells. Actual returned dimensions and alpha bounds must be measured before consumption.\nCreate 1024x384sheetwith8columnsand3rows,128x128cells,constantcenter64,64. Source uses2pxlogicalpixelclusters. Row descriptions:\nRow1, body: ONE small patrol clockwork drone, bell-like compact copper body, two short side stabilizers, one teal lens and a tiny bottom clock pin. Gentle mechanical hinge cycle; no fat round universal gear. Three world instances form the three-drone squad. Keep the central body approximately36x36sourcepixels (18x18worldunits). INCLUDING BOTH WINGS AND THE BOTTOM PIN, the whole silhouette must fit74x48sourcepixels (37x24worldunits) centeredonthefixed64,64anchor ineach128cell. This explicitsmallworldscaleiscritical; neverfillthe128cellwithabigdrone.\nRow2, muzzle: A right-facing small three-petal copper aperture flash with thin teal center followed by a segmented tapered energy streak; concentrated near anchor, transparent majority, no electric storm.\nRow3, reception: A restrained four-point target reception star with one square copper chip and small teal core, brief expansion and empty final frame. Never show before accepted target HP result."
+    },
+    {
+      "id": "G16",
+      "role": "cast seal and three-part clock-wave/committed target stamp",
+      "wanted_source_px": [
+        1024,
+        384
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 3,
+        "cell_px": [
+          128,
+          128
+        ],
+        "pivot_px": [
+          64,
+          64
+        ],
+        "world_canvas_wu": [
+          64,
+          64
+        ],
+        "logical_source_factor": 2
+      },
+      "strips": [
+        {
+          "row": 0,
+          "name": "cast_seal",
+          "frames": 8,
+          "brief": "A compact square clockmaker seal with three hanging clock teeth opens from a narrow vertical notch to three separated teeth, then clears. Authoritative cast gesture, not a generic circle."
+        },
+        {
+          "row": 1,
+          "name": "wave_crest_detail",
+          "frames": 8,
+          "brief": "A slender right-facing crescent shock crest, brass outer cutting edge with three small bell-tooth accents and sparse teal inner chips. Large transparent center; source is a crest detail, not a filled280-radius damage fan. Display extent must follow original actual pulse geometry; do not scale a64px icon into an opaque huge disk."
+        },
+        {
+          "row": 2,
+          "name": "target_stamp",
+          "frames": 8,
+          "brief": "Three unequal little clock teeth converge into a compact angular target seal then break into two copper ticks, bright frame very brief and empty last frame. Dedicated judicial clock identity, no hammer or UI text."
+        }
+      ],
+      "timing_owner": "Each original item_clock_pulse index starts a wave on existing0.18s schedule, including misses. Target stamp only originalHP commit. Wave-frame policy follows actual0.2s visual duration, not a new damage schedule.",
+      "runtime_hooks": [
+        "ItemV5Entity kind=pulse and original direction/range/progress",
+        "item_clock_pulse uniqueG16 cue currently no definition_id",
+        "committed HP receipt for target_stamp: additional presentation-only hook needed"
+      ],
+      "status": "G0 request only, no generated pixels or runtime acceptance",
+      "prompt": "Original clockwork action game sprite animation sheet on truly transparent alpha. Fine pixel clusters with hard clean silhouettes; tarnished warm brass upper-left rim light, cool blue-grey steel shadows and restrained teal energy. No text, grid lines, labels, baked UI border, scenery, cast-shadow floor, opaque fog or giant glow. Match current pixel character and understated warm-brass game UI. Each row is an animation strip in chronological left-to-right order, constant canvas and anchor; no camera change or random sprite zoom. Transparent padding must isolate all cells. Actual returned dimensions and alpha bounds must be measured before consumption.\nCreate 1024x384sheetwith8columnsand3rows,128x128cells,constantcenter64,64. Source uses2pxlogicalpixelclusters. Row descriptions:\nRow1, cast_seal: A compact square clockmaker seal with three hanging clock teeth opens from a narrow vertical notch to three separated teeth, then clears. Authoritative cast gesture, not a generic circle.\nRow2, wave_crest_detail: A slender right-facing crescent shock crest, brass outer cutting edge with three small bell-tooth accents and sparse teal inner chips. Large transparent center; source is a crest detail, not a filled280-radius damage fan. Display extent must follow original actual pulse geometry; do not scale a64px icon into an opaque huge disk.\nRow3, target_stamp: Three unequal little clock teeth converge into a compact angular target seal then break into two copper ticks, bright frame very brief and empty last frame. Dedicated judicial clock identity, no hammer or UI text."
+    }
+  ]
+}

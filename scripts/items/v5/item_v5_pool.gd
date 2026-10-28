@@ -5,10 +5,14 @@ extends RefCounted
 const VERSION := "item_v5_pool_v2"
 var _build: BuildState
 var _offers: Dictionary = {}
+var _catalog_provider: Callable
 
-func configure(build_state: BuildState) -> void:
-	if _build != build_state: _offers.clear()
+func configure(build_state: BuildState, catalog_provider: Callable = Callable()) -> void:
+	# Godot custom Callable equality can ignore bound arguments. Compare their
+	# current values as well; the same provider still preserves its frozen offers.
+	if _build != build_state or _catalog_provider != catalog_provider or _catalog_provider.get_bound_arguments() != catalog_provider.get_bound_arguments(): _offers.clear()
 	_build = build_state
+	_catalog_provider = catalog_provider
 
 func clear() -> void:
 	_offers.clear()
@@ -16,9 +20,24 @@ func clear() -> void:
 func eligible_items(rarity := -1, in_shop := false) -> Array[ItemDefinition]:
 	var result: Array[ItemDefinition] = []
 	if _build == null or rarity < -1 or rarity > ItemDefinition.Rarity.GOLD: return result
-	for item: ItemDefinition in ItemCatalogV5.all_items():
+	for item: ItemDefinition in _catalog_items():
 		if item.appearance_weight > 0 and (rarity == -1 or item.rarity == rarity) and ItemV5Eligibility.offer_reason(item, _build, in_shop).is_empty(): result.append(item)
 	result.sort_custom(func(a: ItemDefinition, b: ItemDefinition) -> bool: return String(a.stable_id) < String(b.stable_id))
+	return result
+
+# A local catalog factory can exercise an authoring proposal without changing
+# global files. Formal runs retain the canonical catalog by default.
+func _catalog_items() -> Array[ItemDefinition]:
+	if _catalog_provider.is_null(): return ItemCatalogV5.all_items()
+	if not _catalog_provider.is_valid(): return []
+	var value: Variant = _catalog_provider.call()
+	if not value is Array: return []
+	var result: Array[ItemDefinition] = []
+	var seen: Array[StringName] = []
+	for entry: Variant in value:
+		if not entry is ItemDefinition or not entry.is_valid() or entry.stable_id in seen: return []
+		seen.append(entry.stable_id)
+		result.append(entry.duplicate(true))
 	return result
 
 func generate(seed: String, offer_id: StringName, count := 2, rarity := -1, in_shop := false, stream_namespace: StringName = &"item_v5_reward", rarity_weights: Dictionary = {}, rng_context: StringName = &"") -> Dictionary:

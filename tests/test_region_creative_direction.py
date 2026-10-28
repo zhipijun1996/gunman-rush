@@ -83,6 +83,33 @@ class CreativeTests(unittest.TestCase):
             current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-2],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
+        # The delivered V5 direction is a frozen original too. Keep its full
+        # bytes and refusal, then append only the actual new style16 authority.
+        delivered = {
+            'registry':'706ebe31662101266b55bb832cfab6ccf4a9b7b00b6d36ee62d30a7d1ec788ec',
+            'windchime_plains':'3fc390336ca7650562b287b9082279a7e647a9e89cc302170c088c9c015d5ca9',
+            'thorn_forest':'d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20',
+        }
+        for name,digest in delivered.items():
+            path = 'docs/creative_direction/archive/creative-v18/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v18')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v19')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
             self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
 
@@ -135,7 +162,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v18')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v19')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

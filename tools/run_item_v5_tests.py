@@ -27,6 +27,7 @@ SUITES = {
     "pause-escape": ("tests/item_v5_pause_escape_runner.gd", 10),
     "random-context": ("tests/item_v5_random_context_runner.gd", 100),
     "manifest": ("tests/item_v5_manifest_runner.gd", 70),
+    "authoring": ("tests/item_v5_authoring_runner.gd", 40),
 }
 
 

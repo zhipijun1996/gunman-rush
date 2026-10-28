@@ -2,6 +2,8 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
+| ITEM-AUTHOR-01 | 道具配置覆写、下架与数据式新增 | ITEM-V5-01 | in_progress | [维护说明](item_authoring.md) · [范围](worklines/item_authoring_01/scope.md) · [质量记录](quality/records/ITEM-AUTHOR-01.json) |
+| ITEM-ART-01 | 72独立道具图标与专用事件特效 | ITEM-AUTHOR-01 | in_progress | [规格与逐项计划](worklines/item_art_01/spec.md) · [质量记录](quality/records/ITEM-ART-01.json) |
 | ITEM-V5-01 | 实现道具V5的72件、16成长与9有效联动 | RUN-GEAR-01 | review | [范围与共享接口](worklines/item_v5_01/scope.md) · [质量记录](quality/records/ITEM-V5-01.json) |
 | RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | review | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |
 | RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |
