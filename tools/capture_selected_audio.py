@@ -11,8 +11,25 @@ import subprocess
 import time
 from capture_audio_reels import ROOT, REELS, EXPECTED_EVENTS, DIRECTOR_EVENTS, LEGACY_AUDIO, ERROR, sources, sha, frame_integer
 from audio_reels_validation import validate_audio_windows
+from audio_reel_choices import normalize, read_json
+
+def verified_selection():
+    folder=ROOT/'config/audio_director/selected'
+    selected=json.loads((folder/'selected.json').read_text())
+    raw=folder/'user-20261028.json';reels=folder/'reels-user-20261028.json';manifest=ROOT/'assets/audio/director_v3/manifest.json'
+    expected=normalize(read_json(raw.read_bytes()),read_json(reels.read_bytes()),read_json(manifest.read_bytes()),root=ROOT)
+    if {k:v for k,v in selected.items() if k!='provenance'}!=expected:raise ValueError('Normalized selection differs from retained user choices')
+    provenance=selected.get('provenance',{})
+    for key,path in [('input',raw),('reels',reels),('candidate_manifest',manifest)]:
+        if provenance.get(key,{}).get('sha256')!=sha(path):raise ValueError('Selection input fingerprint mismatch')
+    if provenance.get('importer_sha256')!=sha(ROOT/'tools/audio_reel_choices.py'):raise ValueError('Selection importer changed; re-import required')
+    return selected
 
 def validate_selected_trace(trace, frame_count, selection):
+    frame_count=frame_integer(frame_count)
+    if trace.get('version')!='audio-director-selected-20261028' or trace.get('fps')!=60:raise ValueError('Wrong selected trace version/FPS')
+    clock=trace.get('movie_clock',{})
+    if clock.get('index_base')!=0 or abs(frame_integer(clock.get('frames_drawn_before_quit'))-frame_count)>2:raise ValueError('Actual MovieWriter frame clock drift')
     manifest=json.loads((ROOT/'assets/audio/director_v3/manifest.json').read_text())
     candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
     segments=trace['segments'];profiles=selection['event_profiles']
@@ -28,6 +45,7 @@ def validate_selected_trace(trace, frame_count, selection):
             ep=profiles.get(e['event_id'],'original') if profile=='selected' else 'original'
             cid='original' if ep=='original' else e['event_id']+'_'+ep.lower()
             if e['candidate_id']!=cid or not start<=frame_integer(e['movie_frame'])<end:raise ValueError('Accepted event selection/frame mismatch')
+            if profile=='selected' and e.get('event_profile')!=ep:raise ValueError('Accepted event actual profile differs from user selection')
             d=e['details'];eid=e['event_id']
             if eid in ['coin','heal','item_get'] and d.get('contact') is not True:raise ValueError('No real pickup contact')
             if eid=='coin' and d.get('wallet')!=1:raise ValueError('No wallet receipt')
@@ -70,6 +88,9 @@ def main():
         if not env.get('DISPLAY'):
             binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
             display=subprocess.Popen([binary,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=(folder/'display.log').open('wb'),text=True);env['DISPLAY']=':'+display.stdout.readline().strip()
+        selection=verified_selection()
+        engine_path=Path(os.environ.get('GODOT_BIN',str(ROOT.parent/'toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64'))).resolve()
+        report['engine']={'version':subprocess.check_output(['bash','tools/godot.sh','--version'],cwd=ROOT,text=True).strip(),'path':str(engine_path),'sha256':sha(engine_path)}
         frozen=frozen_sources();report['source_before']=frozen
         avi=folder/'native.avi';movie=folder/'selected.mp4'
         command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(avi),'--fixed-fps','60','--resolution','1280x720','--script','res://tools/audio_reels_capture.gd','--','--selected','--output='+str(folder)]
@@ -80,7 +101,7 @@ def main():
         subprocess.run(['ffmpeg','-y','-i',str(avi),'-c:v','libx264','-preset','fast','-crf','22','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',str(movie)],stdout=subprocess.DEVNULL,stderr=(folder/'encode.log').open('wb'),check=True,timeout=180)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)]));video=next(s for s in media['streams'] if s['codec_type']=='video');audio=next(s for s in media['streams'] if s['codec_type']=='audio')
         if video['avg_frame_rate']!='60/1' or int(audio['sample_rate'])!=48000 or audio['channels']!=2:raise ValueError('Wrong actual encoding')
-        trace=json.loads((folder/'trace.json').read_text());selection=json.loads((ROOT/'config/audio_director/selected/selected.json').read_text());segments=validate_selected_trace(trace,int(video['nb_frames']),selection)
+        trace=json.loads((folder/'trace.json').read_text());segments=validate_selected_trace(trace,int(video['nb_frames']),selection)
         windows=validate_audio_windows(movie,trace,'selected-user-20261028')
         chapters={'chapters':[{'id':s['reel'],'title':s['reel'],'profile':s['profile'],'start':s['start_frame']/60,'end':s['end_frame']/60} for s in segments]};(folder/'chapters.json').write_text(json.dumps(chapters,indent=2)+'\n')
         stable=frozen==frozen_sources();report.update(source_after=frozen_sources(),source_stable=stable,media=media,audio_windows=windows,movie_sha256=sha(movie),native_avi_sha256=sha(avi),trace_sha256=sha(folder/'trace.json'),frame_count=int(video['nb_frames']),movie_bytes=movie.stat().st_size)
