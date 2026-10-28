@@ -18,4 +18,12 @@
 
 有限输入保持原267项顺序前缀，追加本次守门真正读取的新版本／原件和实际消费者；其他check/profile不属于本次修改。原32＋10及四项Harness已按当前冻结源fresh通过（0复用／0失败），见[实际汇总](../evidence/chest_art_01/bindings/final-summary.json)；原native02 192／0、正式合屏影片／独审及设备／用户G5证据各自记录，不能由哈希代签。
 
-当前style18 SHA `44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624`；registry SHA `188ab18e9228e5c8e60db7667489fbdcef62b89c159d3d6c9b1adf93bb13072b`。精确新旧SHA和consumer edges见[style18](bibles/style-continuity-20261028-v18-chest-art.json)的revision_impact。
+当前style18 SHA `22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510`；registry SHA `de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d`。精确新旧SHA和consumer edges见[style18](bibles/style-continuity-20261028-v18-chest-art.json)的revision_impact。
+
+## 同一未发布18／21：实际宝箱关闭后的输入恢复
+
+首版18／21四JSON、原App源码与通过属于该源的32＋10／四Harness报告均保留于[精确清单](../evidence/chest_art_01/source-bindings/before-reward-input-rebind/manifest.json)。真实连续操作发现领取第一箱后，暂停期间松开的W仍保持blocked；仅在DemoApp实际领取关闭路径使用既有`_resume_exit_input()`恢复输入，不直接清除held或放宽原input guard。Library／Layer／配置／PNG／阶段和其余80引用均与首版18一致。
+
+相对公开17，旧73中PlainsStage和DemoApp两叶实际改变，其他71精确保留；8条Chest实际新引用不再改变，总数仍81。保持原288项输入顺序前缀，仅追加本次历史守门实际读取的6份精确原件，至294项。原32／10方法、首版18仅Plains差异与全部更早反例继续保留，新增同候选仅App差异／旧21拒绝守门；原预算不变。首版通过不代签此次修复，fresh原纯验证及真实两箱连续操作证据分别记录。本次没有新图、全局风格或奖励／账本／随机机制变更。
+
+连续原箱录屏发现成功领奖后首个W被旧输入保护吞键。实际App只在成功关闭路径复用原输入恢复函数，仍按物理neutral判据保留按住保护；producer不清键。同候选18／21仅重绑App一叶，其余80引用不变，首版18／21与旧App原件保留；原288输入前缀追加6份实际读取原件至294。当前原32＋10与四项Harness再次fresh通过，首轮历史guard迁移失败原件保留，见[本轮实测汇总](../evidence/chest_art_01/bindings/input-resume/summary.json)。

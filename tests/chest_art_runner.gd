@@ -6,6 +6,7 @@ var region_completion: Dictionary = {}
 var region_phases: Dictionary = {}
 var live_apps: Array[DemoApp] = []
 var pose_cases: Dictionary = {}
+var repeated_w_completed := false
 func _initialize() -> void: run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	checks += 1
@@ -42,6 +43,108 @@ func release_app(app: DemoApp) -> bool:
 func phase(region: StringName, name: String, ok: bool, label: String) -> void:
 	region_phases[String(region)][name] = ok
 	check(ok,label)
+
+func w_event(pressed: bool) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = KEY_W
+	event.keycode = KEY_W
+	event.pressed = pressed
+	Input.parse_input_event(event)
+
+func locate_original_cache(app: DemoApp, chest: Dictionary) -> bool:
+	# Same disclosed pose-only protocol as tests/demo_tests.gd locate; no
+	# controller reset, resource grant, chest mutation, or collider substitution.
+	var collision := app.player.get_node("CollisionShape2D") as CollisionShape2D
+	var rectangle := collision.shape as RectangleShape2D
+	if rectangle == null: return false
+	var foot_offset := collision.position.y+rectangle.size.y*.5
+	for offset: float in [-65.0,65.0,-52.0,52.0,-40.0,40.0,0.0]:
+		var x: float = chest.position.x+offset
+		var ray := PhysicsRayQueryParameters2D.create(Vector2(x,chest.position.y-2),Vector2(x,chest.position.y+95),app.player.collision_mask,[app.player.get_rid()])
+		var hit := app.player.get_world_2d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or hit.normal.y > -.7: continue
+		var point := Vector2(x,hit.position.y-foot_offset-.2)
+		if point.distance_to(chest.position) >= 78 or not app.segment.is_safe(point): continue
+		if app.controller.has_pending_damage(): return false
+		var hp: float = app.controller.actor_resources.health.current
+		var session: int = app.controller.session_id
+		app.lifetime.invalidate_actor()
+		app.player.reset_at(point)
+		check(app.controller.session_id == session and app.controller.actor_resources.health.current == hp,"cache input pose fixture preserves actual HP and actor session")
+		return true
+	return false
+
+func repeated_w_cache() -> void:
+	var app := DemoApp.new()
+	live_apps.append(app)
+	app.meta_persistence_enabled = false
+	root.add_child(app)
+	check(app.start_plains("level-design-v2-baseline/08"),"real keyboard regression starts the existing formal cache seed")
+	await frames(8)
+	var stage := app.stage as PlainsRegionStage
+	if stage == null:
+		check(false,"real keyboard fixture requires the assembled formal stage")
+		check(await release_app(app),"missing keyboard fixture releases audio")
+		return
+	var first: Dictionary = {}
+	var second: Dictionary = {}
+	for chest: Dictionary in stage.chests:
+		if str(chest.reward_mode) == "resources": continue
+		if chest.tier == "medium" and str(chest.id).ends_with("medium_0"): first = chest
+		if chest.tier == "high" and second.is_empty(): second = chest
+	check(not first.is_empty() and not second.is_empty(),"existing Manifest owns both original non-resource medium and high caches")
+	if first.is_empty() or second.is_empty():
+		check(await release_app(app),"missing original caches release audio")
+		return
+	w_event(false)
+	var located := locate_original_cache(app,first)
+	check(located,"first original cache has a real safe floor inside interaction range")
+	if not located:
+		check(await release_app(app),"unsupported keyboard fixture releases audio")
+		return
+	await frames(8)
+	var epoch: int = app.lifetime.actor_epoch
+	check(app.player.is_on_floor(),"native first W starts on the original supported floor")
+	w_event(true)
+	await frames(3)
+	var first_opened: bool = paused and app.reward_modal.opened and app._region_chest >= 0 and str(stage.chests[app._region_chest].id) == str(first.id)
+	check(first_opened,"native first W opens the original medium reward UI")
+	var keyboard := app.player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
+	check(keyboard._blocked_until_release.has(KEY_W),"opening cache preserves the real held-W input block")
+	w_event(false)
+	await frames(2)
+	check(paused and not Input.is_physical_key_pressed(KEY_W) and keyboard._blocked_until_release.has(KEY_W),"paused physical W release is not delivered to the suspended adapter")
+	if not first_opened or app._region_offer == null or app._region_offer.candidates.is_empty():
+		check(await release_app(app),"unopened keyboard cache releases audio")
+		return
+	var option := app._region_offer.candidates[0] as ItemDefinition
+	check(not option is ResourceRewardChoice,"keyboard regression claims the original V5 item without resource fallback")
+	if option is ResourceRewardChoice:
+		check(await release_app(app),"unexpected resource-only keyboard offer releases audio")
+		return
+	check(app._claim_modal_item(option.stable_id),"original item claim queues through the damage-first reward path")
+	await frames(3)
+	var committed: bool = bool(first.claimed) and app.region_state.claimed.has(first.id) and app.build.inventory.count_item(option.stable_id) == 1 and not app.reward_modal.opened and not paused
+	check(committed,"real queued claim commits ownership and ledger before input resumes")
+	var resumed: bool = not keyboard._blocked_until_release.has(KEY_W) and app.get_viewport().gui_get_focus_owner() == null
+	check(resumed,"successful cache close observes physical neutrality and releases GUI focus")
+	check(app.lifetime.actor_epoch == epoch,"first keyboard transaction does not reset the actor")
+	located = locate_original_cache(app,second)
+	check(located,"second original cache keeps its real supported interaction point")
+	if not located:
+		check(await release_app(app),"unsupported second cache releases audio")
+		return
+	await frames(8)
+	epoch = app.lifetime.actor_epoch
+	w_event(true)
+	await frames(3)
+	var second_opened: bool = paused and app.reward_modal.opened and app._region_chest >= 0 and str(stage.chests[app._region_chest].id) == str(second.id)
+	check(second_opened and not second.claimed and app.lifetime.actor_epoch == epoch,"next native W opens the original high cache without swallowed input or actor return")
+	w_event(false)
+	await frames(1)
+	var drained: bool = await release_app(app)
+	check(drained,"real keyboard regression releases owned application audio")
+	repeated_w_completed = first_opened and committed and resumed and second_opened and drained
 
 func formal_region(region: StringName) -> void:
 	region_completion[String(region)] = false
@@ -150,6 +253,8 @@ func run() -> void:
 	bad.free()
 	await formal_region(&"plains")
 	await formal_region(&"thorn_forest")
+	await repeated_w_cache()
+	check(repeated_w_completed,"required real two-cache keyboard regression completed")
 	# An interrupted inner coroutine must not print success or leak its App.
 	while not live_apps.is_empty():
 		var unfinished: DemoApp = live_apps.back()

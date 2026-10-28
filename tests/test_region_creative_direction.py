@@ -325,6 +325,33 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
             self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
 
+        # First21/source18 pass remains exact and stale after the bounded
+        # DemoApp input-resume correction within this unpublished candidate.
+        pre_input = {
+            'registry':'188ab18e9228e5c8e60db7667489fbdcef62b89c159d3d6c9b1adf93bb13072b',
+            'windchime_plains':'3bc73b1c98bf3d8d8df693ed7c648cb7cdd8cbbc8d533a6284600aee99e2c7c0',
+            'thorn_forest':'7be88d13236407b8f3bb47265def8b9efa91cdbab664be784e1007033be20133',
+        }
+        for name,digest in pre_input.items():
+            path = 'docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v21')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v21')
+            for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]

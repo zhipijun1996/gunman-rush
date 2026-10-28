@@ -145,7 +145,7 @@
       {
         "role": "default_player_4",
         "path": "scripts/demo/demo_app.gd",
-        "sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4"
+        "sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
       },
       {
         "role": "default_player_5",
@@ -456,6 +456,11 @@
         "path": "scripts/demo/plains_region_stage.gd",
         "old_sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
         "new_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254"
+      },
+      {
+        "path": "scripts/demo/demo_app.gd",
+        "old_sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4",
+        "new_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
       }
     ],
     "added_references": [
@@ -536,14 +541,32 @@
       {
         "path": "assets/objects/chests/chest-tiers-v1.source.png",
         "consumer": "Exact immutable adopted source04 PNG bytes loaded by formal chest library, not diagnostic-only candidate or regenerated artwork."
+      },
+      {
+        "path": "scripts/demo/demo_app.gd",
+        "consumer": "After accepted/denied chest selection modal completes, existing _resume_exit_input releases stale input latch for real next-chest interaction; no art resource, reward, receipt, RNG or wallet semantics changed."
       }
     ],
-    "preserved": "Original73 role/path/order remain; only PlainsRegionStage hash changes, other72 exact. Existing shared32px/32wu,1wu/nearest, canonical global shader and current item-local shader, original Bible and Home policies remain exact. New8 actual visual leaves only; no pure backend linkage.",
+    "preserved": "Original73 role/path/order remain; PlainsRegionStage chest dispatch and DemoApp accepted chest modal input resume hashes change, other71 exact. Added8 chest visual leaves remain exact before-input-fix bytes. Original shared32px/32wu,1wu/nearest, all assets/config/shaders and Home policy preserved; no pure backend binding.",
     "previous_binding_manifest": {
       "path": "docs/evidence/chest_art_01/source-bindings/before-style18/manifest.json",
       "sha256": "7693e9159827ca55aeb61bf068b58675e31926abfdf85bd25300a085db7c6615"
     },
     "acceptance_boundary": "Source04 user adoption authorizes integration; old-source44/58, diagnostic QA and historical generation failures do not validate this new actual source. Original four-generation total budget and failures preserved; no new generation. Fresh scoped technical and formal combined-game evidence remains separate from device/user gameplay/G5 acceptance.",
-    "validation": "Original32+10 methods, all historical identities/refusals/drift/restore/negative cases and original budgets retained; current18/21 requires fresh four pure checks and independent current-source runtime/visual evidence."
+    "validation": "Original32+10 methods, all historical identities/refusals/drift/restore/negative cases and original budgets retained; current18/21 requires fresh four pure checks and independent current-source runtime/visual evidence.",
+    "candidate_iteration_input_resume": {
+      "previous_binding": "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/style-continuity-20261028-v18-chest-art.json",
+      "previous_binding_sha256": "44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624",
+      "archive_manifest_path": "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/manifest.json",
+      "archive_manifest_sha256": "d2ca9013df23b0d6488dc9c8638a5b09f6b27dcd64c0e4cbe78d5b4e8ae57efb",
+      "changed_references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "old_sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4",
+          "new_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
+        }
+      ],
+      "scope": "Same unpublished18/21 technical correction: actual two-chest interaction revealed paused W release retained blocked state after accepted blue reward. Only DemoApp binds existing resume helper; all other80refs exact previous18. Original32+10/four pass remains source-specific; fresh necessary checks required."
+    }
   }
 }

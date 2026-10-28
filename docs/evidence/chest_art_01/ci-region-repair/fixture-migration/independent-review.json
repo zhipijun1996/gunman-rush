@@ -1,0 +1,74 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "independent CI region fixture migration after review",
+  "created_utc": "2026-10-28T11:07:19.283626+00:00",
+  "verdict": "SCOPED_TECHNICAL_ACCEPT",
+  "scope": "eligible_item_cache fixture only; no production reward changes or full region/fullCI pass claimed.",
+  "source_commit_reviewed": "beeb08b6",
+  "original_failure_review": "ci-b2f92dce-parallel-failure.json",
+  "actual_change": {
+    "only_function_changed": "eligible_item_cache",
+    "all_other_file_bytes_identical_to_b2": true,
+    "existing_wrapper_bytes_identical_to_b2": true,
+    "original1500s_wrapper_and_suite_budgets_unchanged": true,
+    "original_other_resource_save_failure_death_and_rule_assertions_unchanged": true
+  },
+  "substantive_contracts_verified": [
+    "Existing optional V5Pool provider seam explicitly supplies current canonicalB03/B11; formal App _v5_cache_items generates a real frozen2-item offer. Fixture is disclosed and not claimed natural full catalog generation.",
+    "Real ownership maxesB03 using its configured max_level; actual ItemV5Eligibility returns maximum_level while B11 remains eligible. Reopening actual App filters ownership rather than re-rolling.",
+    "Actual reward modal retains oneB11 plus real coin16 ResourceRewardChoice; original frozen Manifest equality is asserted.",
+    "Queued selection is followed by3frames, then actual inventory instance/count and authoritative chest+region claimed ledger are checked; immediate queue acceptance is not the sole success proof.",
+    "Ownership alone must leave health/current capacity and equipped list unchanged. Existing GEAR helper opens real equipment session and submits versioned command; equip applies configuredB11 maxHP delta, unequip retracts it and neither operation changes currentHP.",
+    "Late repeat selection is rejected and inventory count remains1; actual audio teardown/abandon cleanup remains unchanged.",
+    "Conditional guarded branches cannot silently save the suite: prior check fails when candidates or owned instance are absent."
+  ],
+  "existing_actual_results_read": {
+    "parse_log": "build/chest_art_01/parse-region-fixture-01.log",
+    "engine": "Godot4.7.2.stable.official.ed1daf0bf",
+    "native_assertions": 2911,
+    "native_failures": 0,
+    "native_error_markers": 0,
+    "log": "build/chest_art_01/region-fixture-native-01.log",
+    "reviewer_reran_engine": false
+  },
+  "limitations": [
+    "Two canonical-definition provider fixture; not a full72-catalog random-distribution test.",
+    "This is one runner pass, not original15suite wrapper or complete remoteCI pass.",
+    "Actual pause-release regression discovered by main capture is separate and remains under repair.",
+    "Old b2 remote2900/2failure remains unchanged in archive."
+  ],
+  "evidence": [
+    {
+      "path": "tests/plains_exploration_expansion_runner.gd",
+      "sha256": "1d66ead6e4d96ed0b6ca90ee6198339eeb863315468e6a060e6fe19ab6480ae8"
+    },
+    {
+      "path": "tools/run_plains_region_tests.py",
+      "sha256": "75affbbf3ef4a6314ee86e146eef5640f359ae51f0eac3b02676b329dd8e88d5"
+    },
+    {
+      "path": "tests/gear_inventory_support.gd",
+      "sha256": "c1dc684437c4ce230527c3702f713657f8ee98d5a64d10df020976b3f67d2d16"
+    },
+    {
+      "path": "scripts/items/v5/item_v5_pool.gd",
+      "sha256": "5179e5e4a96ffa40791548e32720fd8a70b27ad1576d4ed2648ad5bd57c5178e"
+    },
+    {
+      "path": "build/chest_art_01/region-fixture-native-01.log",
+      "sha256": "7a015b5beb5e5abc3e465a888c4958fcc551557e078299e1d5954bab1246f092"
+    },
+    {
+      "path": "build/chest_art_01/parse-region-fixture-01.log",
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "build/chest_art_01/runtime-proposal/region-fixture/manifest.json",
+      "sha256": "479ce941c99a946a612bf7bfaac26cc70f189d16b86e8c9f937cb75c8ab7f8cb"
+    }
+  ],
+  "production_or_tests_modified_by_reviewer": false,
+  "engine_started_by_reviewer": false,
+  "remaining_blockers_within_this_test_migration_scope": []
+}

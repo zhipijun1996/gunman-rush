@@ -33,7 +33,8 @@
     "assets/objects/chests/manifest.json",
     "assets/manifest.json",
     "docs/worklines/chest_art_01/spec.md",
-    "docs/quality/records/CHEST-ART-01.json"
+    "docs/quality/records/CHEST-ART-01.json",
+    "scripts/demo/demo_app.gd"
   ],
   "deliverables": [
     "Shared three-tier/six-state art data in actual Plains and Forest",
@@ -108,9 +109,7 @@
         "native02",
         "guard-pure03",
         "guard-audit03",
-        "guard-migration-final",
-        "native01-failed",
-        "technical-index"
+        "guard-migration-final"
       ]
     },
     "formal_integration": {
@@ -150,11 +149,7 @@
       "status": "passed",
       "reason": "Independent after-review SCOPED_TECHNICAL_ACCEPT for finite chest source gate/tests/fixture migration after confirmed fake-header repair. OriginalREVISE and exact before/after probe retained. No visual/runtime/G5 review signed.",
       "evidence": [
-        "guard-independent-after",
-        "guard-independent-revise",
-        "guard-probe-before",
-        "guard-probe-after",
-        "guard-migration-final"
+        "guard-independent-after"
       ]
     },
     "device": {
@@ -195,8 +190,7 @@
       "status": "passed",
       "reason": "Native02 actual192/0 clean; native01 strictFAIL preserved. Formal visible capture still pending.",
       "evidence": [
-        "native02",
-        "native01-failed"
+        "native02"
       ]
     },
     {
@@ -228,8 +222,6 @@
       "reason": "SCOPED_TECHNICAL_ACCEPT for finite source-gate/tests/fixtures only; firstREVISE preserved. Whole parser/runtime/visual/G5 are explicitly outside acceptance.",
       "evidence": [
         "guard-independent-after",
-        "guard-independent-revise",
-        "guard-probe-before",
         "guard-probe-after",
         "guard-migration-final"
       ]
@@ -282,24 +274,23 @@
       "id": "native02",
       "path": "docs/evidence/chest_art_01/technical/native-02.log",
       "sha256": "9a300798b5999d41dfa7f909d781d733512edddccf9406321a98acf2aa194509",
-      "kind": "command",
+      "kind": "runtime_trace",
       "producer": "/root",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
-      "method": "Actual pinned Godot4.7.2 native run log, read unmodified; exact invocation not embedded in this log",
+      "method": "Read actual native execution trace byte-identically; exact shell invocation/process exit is not embedded in source log and is not invented. Strict script/native-error result is assessed separately.",
       "observed": "192 checks/0 failures with real Plains andForest assembly. No script/nativeERROR; expected unknown-tier negative warning retained.",
-      "exit_code": 0,
       "environment": "Linux pinned Godot4.7.2 Standard/native, actual run produced by root; no physical-device claim"
     },
     {
       "id": "native01-failed",
       "path": "docs/evidence/chest_art_01/technical/native-01.log",
       "sha256": "07b215bc168a6e37c9d4c997b5667dbb2281af5d2a3f787a39964d8c9421a5a4",
-      "kind": "command",
+      "kind": "runtime_trace",
       "producer": "/root",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
-      "method": "Original first native run log retained byte-identically",
+      "method": "Read actual native execution trace byte-identically; exact shell invocation/process exit is not embedded in source log and is not invented. Strict script/native-error result is assessed separately.",
       "observed": "StrictFAIL from recorded-forest-state/Nil-access/leak errors.147/0 localmarker is invalid as overall pass."
     },
     {
@@ -320,19 +311,18 @@
       "id": "guard-audit03",
       "path": "docs/evidence/chest_art_01/technical/guard-proposal/actual-audit-03.json",
       "sha256": "e270bacd8ff57450df7ff5a6970794ce782574623ed6e38c1a204d5308a9a7e7",
-      "kind": "command",
+      "kind": "runtime_trace",
       "producer": "/root",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
-      "method": "Actual finite provenance and assembly audit result, not rendered content",
-      "observed": "1025 checks/0 failures; source/assembly contract only, no GL/visual/Motor/device acceptance.",
-      "exit_code": 0
+      "method": "Read actual source/assembly audit execution result; exact shell invocation not embedded in report, so classified runtime_trace rather than reconstructed command.",
+      "observed": "1025 checks/0 failures; source/assembly contract only, no GL/visual/Motor/device acceptance."
     },
     {
       "id": "guard-migration-final",
       "path": "docs/evidence/chest_art_01/technical/guard-proposal/migration-result-final.json",
       "sha256": "3a4ae25daba06b44815a7519c65627be342924bfe78ac97db3e9e2fd00056ef3",
-      "kind": "report",
+      "kind": "runtime_trace",
       "producer": "/root",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
@@ -348,13 +338,22 @@
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
       "method": "Independent first readonly finite-guard review retained without altering verdict",
-      "observed": "REVISE_STATIC_FUNCTION_CONTEXT_GAP; inactive fake function headers could bypass current finite guard before repair. Not final acceptance."
+      "observed": "REVISE_STATIC_FUNCTION_CONTEXT_GAP; inactive fake function headers could bypass current finite guard before repair. Not final acceptance.",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer independently found and confirmed the before defect, then reviewed the bounded repair/sourceSHA/AST and existing replay logs; did not implement production gate/tests/fixtures and did not rerun full suite or engine.",
+      "verdict": "REJECT",
+      "original_report_verdict": "REVISE_STATIC_FUNCTION_CONTEXT_GAP",
+      "verdict_mapping_scope": "Quality schema normalization only; original report bytes/verdict unchanged. ACCEPT covers finite source gate/tests/fixture migration only; REVISE is a rejection until repaired, not historical PASS."
     },
     {
       "id": "guard-probe-before",
       "path": "docs/evidence/chest_art_01/technical/guard-independent-probe/confirmed-before.json",
       "sha256": "44e52fb8e797ba41c5e7ec6988ccdeecfde8de3dd5cd06c78d2cddd9bc7aa40b",
-      "kind": "report",
+      "kind": "runtime_trace",
       "producer": "/root/final_review",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
@@ -365,7 +364,7 @@
       "id": "guard-probe-after",
       "path": "docs/evidence/chest_art_01/technical/guard-proposal/reviewer-probe-after.json",
       "sha256": "2ad5918f36f88d57a485fb15288075635b3007fb2bc85b4bf191ec67c5d16dff",
-      "kind": "report",
+      "kind": "runtime_trace",
       "producer": "/root",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
@@ -376,7 +375,7 @@
       "id": "technical-index",
       "path": "docs/evidence/chest_art_01/technical/index.json",
       "sha256": "25eec9f0d0b71062cb40c0eb1871540f77059663624a2491268c6f8a413922fe",
-      "kind": "report",
+      "kind": "spec",
       "producer": "/root/item_art_direction",
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
@@ -392,7 +391,16 @@
       "source_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
       "content_version": "source04-user-adopted-v1",
       "method": "Independent static diff/AST/exactSHA review of whole-source-mask repair and existing exact counterexample replay/161-suite/1025-audit logs; reviewer did not rerun whole suite or engine",
-      "observed": "SCOPED_TECHNICAL_ACCEPT: current finite source guard/test/fixture migration accepted; original152 methods retained, original false acceptance repaired. Not whole parser/dynamic reachability/runtime/visual/G5."
+      "observed": "SCOPED_TECHNICAL_ACCEPT: current finite source guard/test/fixture migration accepted; original152 methods retained, original false acceptance repaired. Not whole parser/dynamic reachability/runtime/visual/G5.",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer independently found and confirmed the before defect, then reviewed the bounded repair/sourceSHA/AST and existing replay logs; did not implement production gate/tests/fixtures and did not rerun full suite or engine.",
+      "verdict": "ACCEPT",
+      "original_report_verdict": "SCOPED_TECHNICAL_ACCEPT",
+      "verdict_mapping_scope": "Quality schema normalization only; original report bytes/verdict unchanged. ACCEPT covers finite source gate/tests/fixture migration only; REVISE is a rejection until repaired, not historical PASS."
     }
   ],
   "consumer_coverage": null,
@@ -412,5 +420,24 @@
     "after_fix_independent_review": "SCOPED_TECHNICAL_ACCEPT, only finite source gate/test/fixture migration; actual report copied byte-identically.",
     "final_commit_update_owner": "/root",
     "full_release_or_GL_acceptance_claimed": false
-  }
+  },
+  "failure_history": [
+    {
+      "id": "first-native-strict-fail",
+      "status": "failed",
+      "evidence": [
+        "native01-failed"
+      ],
+      "reason": "Earlier native run had actual stage/Nil/leak errors; local147/0 marker never converted it to PASS. Historical failure, not cited by current passed native criterion."
+    },
+    {
+      "id": "finite-guard-before-repair",
+      "status": "failed",
+      "evidence": [
+        "guard-independent-revise",
+        "guard-probe-before"
+      ],
+      "reason": "Independent before REVISE and confirmed fake-header bypass preserved. Follow-up ACCEPT is separate after repair; old rejected review is not cited as PASS."
+    }
+  ]
 }

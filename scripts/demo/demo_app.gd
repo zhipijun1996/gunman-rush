@@ -2544,6 +2544,7 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	reward_modal.close()
 	controller.router.clear("region_cache_complete")
 	get_tree().paused = false
+	_resume_exit_input()
 	GameAudio.cue(self,&"confirm")
 	return true
 

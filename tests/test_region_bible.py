@@ -312,6 +312,34 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(home_style['version'],'17')
         live_refs = home_style['runtime_reference']['references']
         self.assertEqual(len(live_refs),73)
+        input_archive = 'docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/'
+        pre_input_raw = (ROOT/(input_archive+'style-continuity-20261028-v18-chest-art.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(pre_input_raw).hexdigest(),'44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624')
+        pre_input = json.loads(pre_input_raw)
+        self.assertEqual(pre_input['version'],'18')
+        chest_refs = pre_input['runtime_reference']['references']
+        self.assertEqual(len(chest_refs),81)
+        input_manifest_raw = (ROOT/(input_archive+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(input_manifest_raw).hexdigest(),'d2ca9013df23b0d6488dc9c8638a5b09f6b27dcd64c0e4cbe78d5b4e8ae57efb')
+        for row in json.loads(input_manifest_raw)['files']:
+            raw = (ROOT/(input_archive+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        for before,after in zip(chest_refs,actual_refs):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            if before['path']=='scripts/demo/demo_app.gd':
+                old_app = (ROOT/(input_archive+'demo_app.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_app).hexdigest())
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        stale_pre_input = copy.deepcopy(self.ref)
+        stale_pre_input['supplemental_authority_path'] = input_archive+'style-continuity-20261028-v18-chest-art.json'
+        stale_pre_input['supplemental_authority_sha256'] = hashlib.sha256(pre_input_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_pre_input,root=self.root)
         chest_archive = 'docs/evidence/chest_art_01/source-bindings/before-style18/'
         chest_manifest_raw = (ROOT/(chest_archive+'manifest.json')).read_bytes()
         self.assertEqual(hashlib.sha256(chest_manifest_raw).hexdigest(),'7693e9159827ca55aeb61bf068b58675e31926abfdf85bd25300a085db7c6615')
@@ -319,15 +347,19 @@ class BibleTests(unittest.TestCase):
             raw = (ROOT/(chest_archive+row['path'])).read_bytes()
             self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
             self.assertEqual(len(raw),row['bytes'])
+        def first_chest_source(path):
+            if path == 'scripts/demo/demo_app.gd':
+                return (ROOT/(input_archive+'demo_app.gd.txt')).read_bytes()
+            return (ROOT/path).read_bytes()
         def pre_chest_source(path):
             if path == 'scripts/demo/plains_region_stage.gd':
                 return (ROOT/(chest_archive+'plains_region_stage.gd.txt')).read_bytes()
-            return (ROOT/path).read_bytes()
-        for before,after in zip(live_refs,actual_refs[:73]):
+            return first_chest_source(path)
+        for before,after in zip(live_refs,chest_refs[:73]):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
                              {k:v for k,v in after.items() if k!='sha256'})
             self.assertEqual(before['sha256'],hashlib.sha256(pre_chest_source(before['path'])).hexdigest())
-            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(first_chest_source(after['path'])).hexdigest())
             if before['path']=='scripts/demo/plains_region_stage.gd':
                 self.assertNotEqual(before['sha256'],after['sha256'])
             else:

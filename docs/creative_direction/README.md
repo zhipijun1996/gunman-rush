@@ -1,6 +1,6 @@
 # 当前创作入口：区域圣经 V2
 
-当前技术消费者绑定为 [style-v18](bibles/style-continuity-20261028-v18-chest-art.json)，两区总谱 creative-v21；[本轮版本化影响](revision_creative_v21.md)覆盖用户采用source04后的正式三档／开关宝箱表现接入。已公开style17／creative20和原73引用完整冻结；旧73仅PlainsRegionStage实际SHA改变，其他72不变，追加8项真实Chest Library／Layer／正式dispatch／森林绘制与宿主／P1外观避让／配置／原PNG消费者，共81项。原共享像素风格、Bible、全局shader与当前item-local shader、Home策略及用户声音选择不变；不生成新图，不沿用旧源44／58或diagnostic结果代签新源。原失败与四次总生成预算保留，当前运行／合屏／玩家与设备验收各自记录。下文旧轮版本说明保留来源。
+当前技术消费者绑定为 [style-v18](bibles/style-continuity-20261028-v18-chest-art.json)，两区总谱 creative-v21；[本轮版本化影响](revision_creative_v21.md)覆盖用户采用source04后的正式三档／开关宝箱表现接入。已公开style17／creative20和原73引用完整冻结；旧73中PlainsRegionStage与真实宝箱关闭后恢复输入的DemoApp实际SHA改变，其他71不变，追加8项真实Chest Library／Layer／正式dispatch／森林绘制与宿主／P1外观避让／配置／原PNG消费者，共81项。原共享像素风格、Bible、全局shader与当前item-local shader、Home策略及用户声音选择不变；不生成新图，不沿用旧源44／58或diagnostic结果代签新源。原失败与四次总生成预算保留，当前运行／合屏／玩家与设备验收各自记录。下文旧轮版本说明保留来源。
 
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 
