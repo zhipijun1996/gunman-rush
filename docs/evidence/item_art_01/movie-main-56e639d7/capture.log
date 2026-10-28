@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+Movie Maker mode enabled, recording movie in 1280×720 @ 60 FPS...
+ITEM V5 MOVIE PHASE: title / 0 / 正式主游戏 · 点击开始，进入可操作家园
+ITEM V5 MOVIE PHASE: home_walk / 87 / 家园 · D 行走到原出口，W 打开出发界面
+ITEM V5 MOVIE PHASE: departure / 787 / 原家园出口 · 点击出发进入正式风铃平原
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=288 setup_ms=33
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"78b664810df3d34ba76c89a3ccf28a6adeba31fe62f774a086367fa17f140926","map_index":1,"region":"plains","seed":"level-design-v2-baseline/08"}
+ITEM V5 MOVIE PHASE: plains / 869 / 正式平原 · 宝箱领取后进入背包，不会自动装备
+ITEM V5 MOVIE PHASE: cache_fixture / 924 / 宝箱演示 · 仅调整位置，使用原 W 交互
+ITEM V5 MOVIE PHASE: cache_choice / 932 / 原奖励按钮 · 通过正式奖励服务领取 V5 道具
+ITEM V5 MOVIE PHASE: backpack / 1033 / 暂停背包 · 选择图标查看 Lv 与当前效果
+ITEM V5 MOVIE PHASE: fixture_loadout / 1124 / 测试配置入包 · 飞轮、双响投架、三机械巡钟
+ITEM V5 MOVIE PHASE: equipped / 1348 / 实际背包装备 8 / 8 · 当前主动：回环飞轮
+ITEM V5 MOVIE PHASE: training / 1429 / 训练配置 · 两侧实体高 HP 靶，保持原角色与战斗规则
+ITEM V5 MOVIE PHASE: primary_charge / 1519 / 真实鼠标普攻命中 5 次 · 每次 7 共鸣，准备飞轮
+ITEM V5 MOVIE PHASE: companions / 1729 / 三机械巡钟自动攻击 · 派生伤害不额外获得共鸣
+ITEM V5 MOVIE PHASE: flywheels / 1841 / 按 R · 一次消耗 35，共鸣飞轮严格向左右两侧发射
+ITEM V5 MOVIE PHASE: result / 1993 / 真实配置演示完成 · 飞轮往返、三巡钟、背包与共鸣账本一致
+ITEM V5 MOVIE PHASE: golden_swap / 2089 / 专用美术样板 · 原背包自由换装钟匠裁决
+ITEM V5 MOVIE PHASE: judgment_equipped / 2293 / 钟匠裁决 + 三巡钟 · 实际负荷 7 / 8
+ITEM V5 MOVIE PHASE: judgment_charge / 2344 / 真实普攻 10 次积攒 70 共鸣 · 施放花费 65
+ITEM V5 MOVIE PHASE: judgment_cast / 2766 / 按 R · 三段裁决钟波；命中特效读取真实扣血回执
+ITEM V5 MOVIE PHASE: golden_result / 2873 / 样板完成 · 三类专用美术与真实资源、命中回执一致
+ITEM V5 MOVIE PHASE: equipment_retraction / 2933 / 原生背包 · 卸下战斗道具，检查属性撤销与扩容
+ITEM V5 MOVIE PHASE: hp_equipped / 3039 / 木心匣已装备 · 生命上限 5.0 → 6.0；当前生命不补充
+ITEM V5 MOVIE PHASE: hp_removing / 3069 / 原生点击卸下木心匣 · 撤销生命上限效果
+ITEM V5 MOVIE PHASE: hp_removed / 3101 / 卸下木心匣 · 生命上限恢复 5.0；效果完整撤销
+ITEM V5 MOVIE PHASE: gear_upgrade_fixture / 3131 / 扩容测试初始化 +35 金币（非自然收益）· 正式按钮报价 35
+ITEM V5 MOVIE PHASE: gear_expanded / 3173 / 已扩容 8 → 10 · 扣除 35 金币；未装备道具仍不生效
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"click":40,"confirm":18,"motion_land":1,"step":52,"weapon_hit":15,"weapon_pulse":15},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"plains"}],"released":true,"seconds":0.074}
+ITEM ART GOLDEN MOVIE: 3234 frames, 222 assertions, 0 failures
+--------------------------------------------------------------------------------
+Done recording movie at path: /workspace/gunman-rush/build/item_art_01/golden-movie-final-01/raw.avi
+3244 frames at 60 FPS (movie length: 00:00:54:04), recorded in 00:03:58 (22% of real-time speed).
+CPU render time: 148.55 seconds (average: 45.79 ms/frame)
+GPU render time: 152.12 seconds (average: 46.89 ms/frame)
+Encoding time: 35.52 seconds (average: 10.95 ms/frame)
+--------------------------------------------------------------------------------
