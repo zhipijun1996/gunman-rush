@@ -23,6 +23,6 @@
 | [导出包隔离加载](packed-resource-check/packed-catalog-03-isolated/receipt.json) | 实际191MiB级PCK，六份配置原字节匹配；无项目文件的目录中加载72独立Atlas／42片段／10纹理／world shader；不是Web浏览器试玩 |
 | [共享音频回归](final-audio-merge/receipt.json) | 原transport／selected两个native检查成功、source_stable；不签听感 |
 
-三段均实际Godot4.7.2、1280×720／60fps、原游戏AAC48k立体声音轨、cleanexit、source_before==source_after。主片已知奖励／训练靶与宝箱位置fixture持续注明，末段测试金币通过原RunWallet账本明示初始化，不称自然赚取；两区补片是真实敌人而非主片训练靶。多GB原AVI留在build并保留哈希，不提交Git；MP4是同一原始采集编码，非静图拼接。此前[旧黄金片](movie-golden-7afe71a3/)与旧开发补片保留原身份，不签当前源。[最终独立复核](final-independent-review.json)接受本次限定技术／实际像素与回执范围；[隔离打包附录](final-packed-review.json)另列。公开下载与PR状态以推送后实际核验为准。
+三段均实际Godot4.7.2、1280×720／60fps、原游戏AAC48k立体声音轨、cleanexit、source_before==source_after。主片已知奖励／训练靶与宝箱位置fixture持续注明，末段测试金币通过原RunWallet账本明示初始化，不称自然赚取；两区补片是真实敌人而非主片训练靶。多GB原AVI留在build并保留哈希，不提交Git；MP4是同一原始采集编码，非静图拼接。此前[旧黄金片](movie-golden-7afe71a3/)与旧开发补片保留原身份，不签当前源。[最终独立复核](final-independent-review.json)接受本次限定技术／实际像素与回执范围；[隔离打包附录](final-packed-review.json)另列。三段固定媒体在00264dbb提交的公网下载已实际HTTP200且完整SHA匹配，见[公开核验](public-download-check/receipt.json)；[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)保持OPEN，完整远端CI以当前head实际结果为准。
 
 仍未验证：实体安卓／手柄、低端性能、用户审美、听感、全72自然实战和完整G5。来源许可及工具未披露的模型保持unknown，资产visual_status仍unverified；本记录不伪造商用许可或玩家认可。

@@ -1,5 +1,12 @@
 # 项目工作规则
 
+## 2026-10-28 PR111与公开录屏已交付（最新）
+
+PR111已推送并保持OPEN，不自动合main。运行源56e639d712cab0604807992cce0e6eaeaf56ac08；三段媒体固定在提交00264dbb9120916eb2a979abdf2de43320ea335b，后续仅文档证据。54秒主片及两区各12秒公网均实际HTTP200，完整SHA与本地一致，见[公开核验](docs/evidence/item_art_01/public-download-check/receipt.json)。33项受影响Harness fresh、222主片、19／18两区和导出包隔离加载均通过；完整远端CI已启动，精确head结果以[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)实际Actions为准，未签full164通过。工作树最后只归档下载证明及交接，不重跑原生或生成美术。
+
+恢复先核PR最新head／checks。若CI具体失败，只修真实失败并保旧报告；通过后等待用户／实体设备／平衡反馈，不自动合并。源码、已实现和未验边界见下方本次候选及[证据索引](docs/evidence/item_art_01/README.md)，不得把旧网页当新候选。
+
+
 ## 2026-10-28 道具V5／独立美术候选交付（最新）
 
 分支feature/item-v5-catalog／PR111，运行源56e639d712cab0604807992cce0e6eaeaf56ac08，已同步最新main11e359的音频工作线。72有效道具、16同实例成长与9启用联动沿既有正式宝箱／Boss／商店／暂停背包接入；03H参数按用户确认。新增配置覆写／下架／已支持静态效果的数据新增与原子CLI，常规维护不改装备核心。
