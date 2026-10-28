@@ -10,7 +10,12 @@ def main():
  if r.get('status')!='passed' or r['movie_sha256']!=sha(src/'selected.mp4') or r['trace_sha256']!=sha(src/'trace.json'):raise ValueError('No verified unchanged native media')
  dst.mkdir(parents=True)
  for name in ['selected.mp4','chapters.json']:shutil.copy(src/name,dst/name)
- shutil.copy(proof,dst/'report.json');shutil.copy(src/'report.json',dst/'capture-report.json')
+ # Keep the several-thousand-input proof in Git once. The listening player
+ # needs a bounded summary; duplicating both full source maps here exceeds
+ # the existing site's expanded static-archive limit.
+ summary={key:r[key] for key in ['status','commit','scope','engine','frame_count','movie_sha256','movie_bytes','trace_sha256','capture_attempt_status','capture_attempt_error','postvalidator_commit','runtime_sources_unchanged'] if key in r}
+ summary.update(record_kind='listening-summary',full_validation_sha256=sha(proof),full_validation_url='https://github.com/zhipijun1996/gunman-rush/blob/feature/audio-director-01/docs/evidence/audio_director_04/capture/'+proof.name,raw_capture_report_url='https://github.com/zhipijun1996/gunman-rush/blob/feature/audio-director-01/docs/evidence/audio_director_04/capture/report.json')
+ (dst/'report.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
  shutil.copy(ROOT/'tools/sound_lab/selected_index.html',dst/'index.html')
  for source,name in [('config/audio_director/selected/selected.json','selected.json'),('config/audio_director/selected/user-20261028.json','user-choices.json'),('config/audio_director/v3/sources.json','sources.json')]:shutil.copy(ROOT/source,dst/name)
  licenses=ROOT/'build/audio_director_v3/listen-blob-publish/licenses'
