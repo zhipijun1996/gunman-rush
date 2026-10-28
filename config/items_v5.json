@@ -1,0 +1,3860 @@
+{
+  "schema_version": 1,
+  "catalog_version": 5,
+  "source": {
+    "archive": "docs/evidence/item_v5_01/source/items-v5-original.xlsx",
+    "sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "bytes": 107499,
+    "original_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "current_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f",
+    "current_source_bytes": 107499,
+    "snapshot": "docs/evidence/item_v5_01/source/workbook-snapshot.json",
+    "snapshot_sha256": "6c2b6ec4c658a746e8a750d0d7f65cb53dd554a2e3a512e2bc65caa9fb7fe43d",
+    "parameter_authority": "03 数值参数 H列，01G负荷／01I价格；L最终机制优先于过期M/O",
+    "user_parameter_authorization": "按03H当前建议参数实现、保持可调（2026-10-27本轮用户回复）",
+    "balance_acceptance": "unverified"
+  },
+  "items": [
+    {
+      "stable_id": "B03",
+      "display_name": "薄暮枪管",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 28,
+      "max_level": 3,
+      "description": "Lv1/2/3 主武器基础直接伤害分别+12%/+22%/+32%；技能、灼烧和衍生伤害不重复乘算。",
+      "trigger": "已装备",
+      "limits": "不放大派生伤害；特殊武器按预算折算；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "primary_damage_multiplier_by_level": [
+          1.12,
+          1.22,
+          1.32
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "primary_damage_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "primary_damage_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "primary_damage_multiplier_by_level": [
+          "03 数值参数!H6",
+          "03 数值参数!H7",
+          "03 数值参数!H8"
+        ]
+      },
+      "source_row": 6,
+      "source_mechanism_text": "Lv1/2/3 主武器基础直接伤害分别+12%/+22%/+32%；技能、灼烧和衍生伤害不重复乘算。",
+      "source_trigger_text": "已装备",
+      "source_limits_text": "不放大派生伤害；特殊武器按预算折算；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "primary_damage_multiplier_by_level": [
+          1.12,
+          1.22,
+          1.32
+        ]
+      }
+    },
+    {
+      "stable_id": "B05",
+      "display_name": "疾鸣撞针",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 25,
+      "max_level": 1,
+      "description": "主武器冷却×0.88（脉冲枪0.25→0.22秒），受最低射击间隔限制，不替代松手射击。",
+      "trigger": "合法发射",
+      "limits": "同类总冷却倍率不低于0.65；不改松手发射意图",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "primary_cooldown_multiplier": 0.88,
+        "minimum_total_cooldown_multiplier": 0.65
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "minimum_total_cooldown_multiplier",
+          "primary_cooldown_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "minimum_total_cooldown_multiplier",
+          "primary_cooldown_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "primary_cooldown_multiplier": "03 数值参数!H9",
+        "minimum_total_cooldown_multiplier": "01 有效道具!N7（原文明确值，03未列）"
+      },
+      "source_row": 7,
+      "source_mechanism_text": "主武器冷却×0.88（脉冲枪0.25→0.22秒），受最低射击间隔限制，不替代松手射击。",
+      "source_trigger_text": "合法发射",
+      "source_limits_text": "同类总冷却倍率不低于0.65；不改松手发射意图",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "primary_cooldown_multiplier": 0.88
+      }
+    },
+    {
+      "stable_id": "B22",
+      "display_name": "扩震钟环",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 29,
+      "max_level": 3,
+      "description": "三种炸弹武器（含其升级形态）的爆炸伤害判定半径×1.12/1.20/1.28；不改变磁吸范围、伤害或人物位移。",
+      "trigger": "炸弹家族及其升级形态的爆炸",
+      "limits": "不改变安放位置规则、炸弹上限或爆破次数；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "炸弹家族（基础炸弹／磁吸雷／磁暴雷及合法升级）",
+      "effect_parameters": {
+        "bomb_explosion_radius_multiplier_by_level": [
+          1.12,
+          1.2,
+          1.28
+        ],
+        "weapon_family": "BOMB"
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "bomb_explosion_radius_multiplier_by_level",
+          "weapon_family"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "bomb_explosion_radius_multiplier_by_level"
+        ],
+        "text_modes": {
+          "weapon_family": [
+            "BOMB"
+          ]
+        },
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "bomb_explosion_radius_multiplier_by_level": [
+          "03 数值参数!H10",
+          "03 数值参数!H11",
+          "03 数值参数!H12"
+        ],
+        "weapon_family": "03 数值参数!H13"
+      },
+      "source_row": 8,
+      "source_mechanism_text": "三种炸弹武器（含其升级形态）的爆炸伤害判定半径×1.12/1.20/1.28；不改变磁吸范围、伤害或人物位移。",
+      "source_trigger_text": "磁吸遥爆雷生效",
+      "source_limits_text": "不改变安放位置规则、炸弹上限或爆破次数；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "磁吸遥爆雷 Lv2",
+      "source_snapshot_parameters": {
+        "bomb_explosion_radius_multiplier_by_level": [
+          1.12,
+          1.2,
+          1.28
+        ],
+        "weapon_family": "BOMB"
+      }
+    },
+    {
+      "stable_id": "B29",
+      "display_name": "薄钟长管",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 25,
+      "max_level": 3,
+      "description": "普通枪械弹体有效射程×1.20/1.35/1.50，固定1齿轮槽，不穿墙。",
+      "trigger": "普通枪弹发射",
+      "limits": "不穿墙、不影响钩索、不改反冲；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "枪械",
+      "effect_parameters": {
+        "projectile_range_multiplier_by_level": [
+          1.2,
+          1.35,
+          1.5
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "projectile_range_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "projectile_range_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "projectile_range_multiplier_by_level": [
+          "03 数值参数!H14",
+          "03 数值参数!H15",
+          "03 数值参数!H16"
+        ]
+      },
+      "source_row": 9,
+      "source_mechanism_text": "普通枪械弹体有效射程×1.20/1.35/1.50，固定1齿轮槽，不穿墙。",
+      "source_trigger_text": "普通枪弹发射",
+      "source_limits_text": "不穿墙、不影响钩索、不改反冲；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "枪械",
+      "source_snapshot_parameters": {
+        "projectile_range_multiplier_by_level": [
+          1.2,
+          1.35,
+          1.5
+        ]
+      }
+    },
+    {
+      "stable_id": "B31",
+      "display_name": "敲钟重锤",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 29,
+      "max_level": 1,
+      "description": "非Boss敌人的有效受击硬直×1.30",
+      "trigger": "主攻命中有硬直的敌人",
+      "limits": "Boss仅改变可硬直窗口，不开新破甲漏洞",
+      "prerequisite": "枪械",
+      "effect_parameters": {
+        "enemy_stagger_multiplier": 1.3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "enemy_stagger_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "enemy_stagger_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "enemy_stagger_multiplier": "03 数值参数!H17"
+      },
+      "source_row": 10,
+      "source_mechanism_text": "非Boss敌人的有效受击硬直×1.30",
+      "source_trigger_text": "主攻命中有硬直的敌人",
+      "source_limits_text": "Boss仅改变可硬直窗口，不开新破甲漏洞",
+      "source_prerequisite_text": "枪械",
+      "source_snapshot_parameters": {
+        "enemy_stagger_multiplier": 1.3
+      }
+    },
+    {
+      "stable_id": "P03",
+      "display_name": "术式增幅石",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 54,
+      "max_level": 3,
+      "description": "Lv3武器主动技能直接伤害Lv1/2/3分别×1.20/1.30/1.40，位移与技能资源成本不变。",
+      "trigger": "武器Lv3有效技能命中",
+      "limits": "不加成位移距离与时间冻结；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意武器Lv3已解锁",
+      "effect_parameters": {
+        "lv3_skill_damage_multiplier_by_level": [
+          1.2,
+          1.3,
+          1.4
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "lv3_skill_damage_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "lv3_skill_damage_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "lv3_skill_damage_multiplier_by_level": [
+          "03 数值参数!H18",
+          "03 数值参数!H19",
+          "03 数值参数!H20"
+        ]
+      },
+      "source_row": 11,
+      "source_mechanism_text": "Lv3武器主动技能直接伤害Lv1/2/3分别×1.20/1.30/1.40，位移与技能资源成本不变。",
+      "source_trigger_text": "武器Lv3有效技能命中",
+      "source_limits_text": "不加成位移距离与时间冻结；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意武器Lv3已解锁",
+      "source_snapshot_parameters": {
+        "lv3_skill_damage_multiplier_by_level": [
+          1.2,
+          1.3,
+          1.4
+        ]
+      }
+    },
+    {
+      "stable_id": "P06",
+      "display_name": "满月枪歌",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 61,
+      "max_level": 1,
+      "description": "满血时，将原空中瞄准世界15%慢时替换为世界完全停止(0%)；依然消耗原时间能量，单次腾空慢时2秒预算不变；唯一等级。",
+      "trigger": "满HP且空中瞄准",
+      "limits": "必须满HP；仍消耗正常时间能量与原2秒空中慢时预算；只冻结游戏世界相关对象；唯一1级",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "requires_full_hp": 1,
+        "world_time_scale_while_air_aiming": 0,
+        "time_energy_drain_per_real_s": 45,
+        "airtime_focus_budget_s": 2,
+        "level_cap": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "airtime_focus_budget_s",
+          "level_cap",
+          "requires_full_hp",
+          "time_energy_drain_per_real_s",
+          "world_time_scale_while_air_aiming"
+        ],
+        "positive_keys": [
+          "airtime_focus_budget_s",
+          "level_cap",
+          "requires_full_hp",
+          "time_energy_drain_per_real_s"
+        ],
+        "integer_keys": [
+          "level_cap",
+          "requires_full_hp"
+        ],
+        "zero_allowed_keys": [
+          "world_time_scale_while_air_aiming"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "requires_full_hp": "03 数值参数!H21",
+        "world_time_scale_while_air_aiming": "03 数值参数!H22",
+        "time_energy_drain_per_real_s": "03 数值参数!H23",
+        "airtime_focus_budget_s": "03 数值参数!H24",
+        "level_cap": "03 数值参数!H25"
+      },
+      "source_row": 12,
+      "source_mechanism_text": "满血时，将原空中瞄准世界15%慢时替换为世界完全停止(0%)；依然消耗原时间能量，单次腾空慢时2秒预算不变；唯一等级。",
+      "source_trigger_text": "满HP且空中瞄准",
+      "source_limits_text": "必须满HP；仍消耗正常时间能量与原2秒空中慢时预算；只冻结游戏世界相关对象；唯一1级",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "requires_full_hp": 1,
+        "world_time_scale_while_air_aiming": 0,
+        "time_energy_drain_per_real_s": 45,
+        "airtime_focus_budget_s": 2,
+        "level_cap": 1
+      }
+    },
+    {
+      "stable_id": "P08",
+      "display_name": "穿响音叉",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 48,
+      "max_level": 3,
+      "description": "主弹多贯穿1名额外敌人；被贯穿目标伤害Lv1/2/3为0.65/0.80/0.95D，无法穿实体墙。",
+      "trigger": "主弹命中目标",
+      "limits": "不能穿实体墙/护甲；与其他弹道替换按规则仲裁；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "枪械/可贯穿弹道",
+      "effect_parameters": {
+        "max_extra_pierce": 1,
+        "pierced_damage_ratio_D_by_level": [
+          0.65,
+          0.8,
+          0.95
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "max_extra_pierce",
+          "pierced_damage_ratio_D_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [
+          "max_extra_pierce"
+        ],
+        "zero_allowed_keys": [
+          "max_extra_pierce",
+          "pierced_damage_ratio_D_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_extra_pierce": "03 数值参数!H26",
+        "pierced_damage_ratio_D_by_level": [
+          "03 数值参数!H27",
+          "03 数值参数!H28",
+          "03 数值参数!H29"
+        ]
+      },
+      "source_row": 13,
+      "source_mechanism_text": "主弹多贯穿1名额外敌人；被贯穿目标伤害Lv1/2/3为0.65/0.80/0.95D，无法穿实体墙。",
+      "source_trigger_text": "主弹命中目标",
+      "source_limits_text": "不能穿实体墙/护甲；与其他弹道替换按规则仲裁；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "枪械/可贯穿弹道",
+      "source_snapshot_parameters": {
+        "max_extra_pierce": 1,
+        "pierced_damage_ratio_D_by_level": [
+          0.65,
+          0.8,
+          0.95
+        ]
+      }
+    },
+    {
+      "stable_id": "P23",
+      "display_name": "奇点余振环",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 53,
+      "max_level": 1,
+      "description": "坍缩奇点吸引持续+0.12秒（基础0.42→0.54秒），爆炸伤害×1.10；不能远程安放。",
+      "trigger": "坍缩奇点已经在本人位置合法建立",
+      "limits": "绝不可远程安放、取消角色固定、增加位移范围或改右杆定向",
+      "prerequisite": "坍缩奇点 Lv2",
+      "effect_parameters": {
+        "singularity_pull_duration_add_s": 0.12,
+        "singularity_explosion_damage_multiplier": 1.1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "singularity_explosion_damage_multiplier",
+          "singularity_pull_duration_add_s"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "singularity_explosion_damage_multiplier",
+          "singularity_pull_duration_add_s"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "singularity_pull_duration_add_s": "03 数值参数!H30",
+        "singularity_explosion_damage_multiplier": "03 数值参数!H31"
+      },
+      "source_row": 14,
+      "source_mechanism_text": "坍缩奇点吸引持续+0.12秒（基础0.42→0.54秒），爆炸伤害×1.10；不能远程安放。",
+      "source_trigger_text": "坍缩奇点已经在本人位置合法建立",
+      "source_limits_text": "绝不可远程安放、取消角色固定、增加位移范围或改右杆定向",
+      "source_prerequisite_text": "坍缩奇点 Lv2",
+      "source_snapshot_parameters": {
+        "singularity_pull_duration_add_s": 0.12,
+        "singularity_explosion_damage_multiplier": 1.1
+      }
+    },
+    {
+      "stable_id": "P31",
+      "display_name": "刻风膛室",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 49,
+      "max_level": 3,
+      "description": "空中主武器实际反冲并有效命中时额外造成0.45/0.65/0.85D；每个攻击包最多触发一次，CD1.5秒。",
+      "trigger": "已装备",
+      "limits": "不能放大全自动多段超出总输出上限；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "air_recoil_hit_extra_damage_ratio_D_by_level": [
+          0.45,
+          0.65,
+          0.85
+        ],
+        "cooldown_s": 1.5
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "air_recoil_hit_extra_damage_ratio_D_by_level",
+          "cooldown_s"
+        ],
+        "positive_keys": [
+          "cooldown_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "air_recoil_hit_extra_damage_ratio_D_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "air_recoil_hit_extra_damage_ratio_D_by_level": [
+          "03 数值参数!H32",
+          "03 数值参数!H33",
+          "03 数值参数!H34"
+        ],
+        "cooldown_s": "03 数值参数!H35"
+      },
+      "source_row": 15,
+      "source_mechanism_text": "空中主武器实际反冲并有效命中时额外造成0.45/0.65/0.85D；每个攻击包最多触发一次，CD1.5秒。",
+      "source_trigger_text": "已装备",
+      "source_limits_text": "不能放大全自动多段超出总输出上限；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "air_recoil_hit_extra_damage_ratio_D_by_level": [
+          0.45,
+          0.65,
+          0.85
+        ],
+        "cooldown_s": 1.5
+      }
+    },
+    {
+      "stable_id": "P33",
+      "display_name": "恒辉折镜",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 51,
+      "max_level": 1,
+      "description": "激光有效命中宽度×1.12，不改变中心射线与持续伤害结算频率。",
+      "trigger": "恒流激光合法命中",
+      "limits": "不得超出瞄准指示；持续命中回能使用结算节流",
+      "prerequisite": "恒流激光 Lv2",
+      "effect_parameters": {
+        "laser_hit_width_multiplier": 1.12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "laser_hit_width_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "laser_hit_width_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "laser_hit_width_multiplier": "03 数值参数!H36"
+      },
+      "source_row": 16,
+      "source_mechanism_text": "激光有效命中宽度×1.12，不改变中心射线与持续伤害结算频率。",
+      "source_trigger_text": "恒流激光合法命中",
+      "source_limits_text": "不得超出瞄准指示；持续命中回能使用结算节流",
+      "source_prerequisite_text": "恒流激光 Lv2",
+      "source_snapshot_parameters": {
+        "laser_hit_width_multiplier": 1.12
+      }
+    },
+    {
+      "stable_id": "P34",
+      "display_name": "连奏梭轮",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 50,
+      "max_level": 1,
+      "description": "三连枪第三发真实命中时产生0.30D冲击波；三连射共用一个攻击包。",
+      "trigger": "三连机关枪发射完整三连射",
+      "limits": "只有第三发真实有效命中触发；三发使用一个burst_id预算",
+      "prerequisite": "三连机关枪 Lv2",
+      "effect_parameters": {
+        "third_hit_bonus_damage_ratio_D": 0.3,
+        "blast_radius_px": 64
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "blast_radius_px",
+          "third_hit_bonus_damage_ratio_D"
+        ],
+        "positive_keys": [
+          "blast_radius_px"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "third_hit_bonus_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "third_hit_bonus_damage_ratio_D": "03 数值参数!H37",
+        "blast_radius_px": "03 数值参数!H38"
+      },
+      "source_row": 17,
+      "source_mechanism_text": "三连枪第三发真实命中时产生0.30D冲击波；三连射共用一个攻击包。",
+      "source_trigger_text": "三连机关枪发射完整三连射",
+      "source_limits_text": "只有第三发真实有效命中触发；三发使用一个burst_id预算",
+      "source_prerequisite_text": "三连机关枪 Lv2",
+      "source_snapshot_parameters": {
+        "third_hit_bonus_damage_ratio_D": 0.3,
+        "blast_radius_px": 64
+      }
+    },
+    {
+      "stable_id": "B07",
+      "display_name": "定脚支架",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 22,
+      "max_level": 1,
+      "description": "地面射击反冲系数×0.70（0.55→0.385）；空中1100×0.14反冲不变。",
+      "trigger": "地面射击",
+      "limits": "只对战斗地面段起效，不改地图碰撞",
+      "prerequisite": "枪械",
+      "effect_parameters": {
+        "ground_recoil_multiplier": 0.7
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "ground_recoil_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "ground_recoil_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "ground_recoil_multiplier": "03 数值参数!H39"
+      },
+      "source_row": 18,
+      "source_mechanism_text": "地面射击反冲系数×0.70（0.55→0.385）；空中1100×0.14反冲不变。",
+      "source_trigger_text": "地面射击",
+      "source_limits_text": "只对战斗地面段起效，不改地图碰撞",
+      "source_prerequisite_text": "枪械",
+      "source_snapshot_parameters": {
+        "ground_recoil_multiplier": 0.7
+      }
+    },
+    {
+      "stable_id": "B08",
+      "display_name": "止滑钟靴",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 24,
+      "max_level": 1,
+      "description": "离开平台边缘后的土狼跳时间增加0.05秒（基础0.10→0.15秒），不改变奔跑惯性。",
+      "trigger": "地面松开移动",
+      "limits": "不影响空中/强制位移，不作为主路必要能力",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "coyote_time_add_s": 0.05
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "coyote_time_add_s"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "coyote_time_add_s"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "coyote_time_add_s": "03 数值参数!H40"
+      },
+      "source_row": 19,
+      "source_mechanism_text": "离开平台边缘后的土狼跳时间增加0.05秒（基础0.10→0.15秒），不改变奔跑惯性。",
+      "source_trigger_text": "地面松开移动",
+      "source_limits_text": "不影响空中/强制位移，不作为主路必要能力",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "coyote_time_add_s": 0.05
+      }
+    },
+    {
+      "stable_id": "B23",
+      "display_name": "尾摆齿环",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 31,
+      "max_level": 1,
+      "description": "反冲终点生成0.6秒小齿环，接触敌人造成0.40D；6秒内部冷却。",
+      "trigger": "有效反冲运动结束",
+      "limits": "不追加冲量；同敌一次；副伤不回能",
+      "prerequisite": "有反冲能力",
+      "effect_parameters": {
+        "damage_ratio_D": 0.4,
+        "effect_duration_s": 0.6,
+        "radius_px": 52,
+        "cooldown_s": 6
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cooldown_s",
+          "damage_ratio_D",
+          "effect_duration_s",
+          "radius_px"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "effect_duration_s",
+          "radius_px"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "damage_ratio_D": "03 数值参数!H41",
+        "effect_duration_s": "03 数值参数!H42",
+        "radius_px": "03 数值参数!H43",
+        "cooldown_s": "01 有效道具!L20（原文明确值，03未列）"
+      },
+      "source_row": 20,
+      "source_mechanism_text": "反冲终点生成0.6秒小齿环，接触敌人造成0.40D；6秒内部冷却。",
+      "source_trigger_text": "有效反冲运动结束",
+      "source_limits_text": "不追加冲量；同敌一次；副伤不回能",
+      "source_prerequisite_text": "有反冲能力",
+      "source_snapshot_parameters": {
+        "damage_ratio_D": 0.4,
+        "effect_duration_s": 0.6,
+        "radius_px": 52
+      }
+    },
+    {
+      "stable_id": "B28",
+      "display_name": "逐风鞋簧",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 26,
+      "max_level": 1,
+      "description": "地面普通跑动速度×1.05（260→273），不改变反冲或钩索位移。",
+      "trigger": "地面正常跑动",
+      "limits": "不增加反冲位移、飞行、跳跃次数；可选路线专用",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "run_speed_multiplier": 1.05
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "run_speed_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "run_speed_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "run_speed_multiplier": "03 数值参数!H44"
+      },
+      "source_row": 21,
+      "source_mechanism_text": "地面普通跑动速度×1.05（260→273），不改变反冲或钩索位移。",
+      "source_trigger_text": "地面正常跑动",
+      "source_limits_text": "不增加反冲位移、飞行、跳跃次数；可选路线专用",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "run_speed_multiplier": 1.05
+      }
+    },
+    {
+      "stable_id": "P12",
+      "display_name": "刃影回纹",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 55,
+      "max_level": 1,
+      "description": "沿实际运动轨迹对接触目标造成0.25D",
+      "trigger": "产生真实反冲位移",
+      "limits": "同敌每次反冲仅一次、每敌2秒内CD；不加速不穿墙",
+      "prerequisite": "有反冲能力",
+      "effect_parameters": {
+        "path_contact_damage_ratio_D": 0.25,
+        "contact_width_px": 32,
+        "target_cooldown_s": 2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "contact_width_px",
+          "path_contact_damage_ratio_D",
+          "target_cooldown_s"
+        ],
+        "positive_keys": [
+          "contact_width_px",
+          "target_cooldown_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "path_contact_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "path_contact_damage_ratio_D": "03 数值参数!H45",
+        "contact_width_px": "03 数值参数!H46",
+        "target_cooldown_s": "01 有效道具!N22（原文明确值，03未列）"
+      },
+      "source_row": 22,
+      "source_mechanism_text": "沿实际运动轨迹对接触目标造成0.25D",
+      "source_trigger_text": "产生真实反冲位移",
+      "source_limits_text": "同敌每次反冲仅一次、每敌2秒内CD；不加速不穿墙",
+      "source_prerequisite_text": "有反冲能力",
+      "source_snapshot_parameters": {
+        "path_contact_damage_ratio_D": 0.25,
+        "contact_width_px": 32
+      }
+    },
+    {
+      "stable_id": "G01",
+      "display_name": "微核回响",
+      "rarity": "GOLD",
+      "gear_cost": 1,
+      "shop_price": 78,
+      "max_level": 1,
+      "description": "空中主攻施加回响标记，下次不同攻击包命中引爆0.65D；同目标6秒内置冷却。",
+      "trigger": "腾空时首次主攻有效命中",
+      "limits": "每目标冷却；本印记并非Lv2坍缩奇点，不生成物理奇点",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "mark_duration_s": 5,
+        "detonation_damage_ratio_D": 0.65,
+        "target_cooldown_s": 6
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "detonation_damage_ratio_D",
+          "mark_duration_s",
+          "target_cooldown_s"
+        ],
+        "positive_keys": [
+          "mark_duration_s",
+          "target_cooldown_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "detonation_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "mark_duration_s": "03 数值参数!H47",
+        "detonation_damage_ratio_D": "03 数值参数!H48",
+        "target_cooldown_s": "03 数值参数!H49"
+      },
+      "source_row": 23,
+      "source_mechanism_text": "空中主攻施加回响标记，下次不同攻击包命中引爆0.65D；同目标7秒内置冷却。",
+      "source_trigger_text": "腾空时首次主攻有效命中",
+      "source_limits_text": "每目标冷却；本印记并非Lv2坍缩奇点，不生成物理奇点",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "mark_duration_s": 5,
+        "detonation_damage_ratio_D": 0.65,
+        "target_cooldown_s": 6
+      }
+    },
+    {
+      "stable_id": "B19",
+      "display_name": "梦读铭片",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 25,
+      "max_level": 1,
+      "description": "钩索有效命中敌人额外获得2点战斗能量，受单攻击包12点上限约束。",
+      "trigger": "钩索标记敌人后首次主攻命中",
+      "limits": "每目标独立冷却；无法用地形钩中刷",
+      "prerequisite": "钩索已解锁",
+      "effect_parameters": {
+        "extra_combat_energy_on_hook_hit": 2,
+        "mark_duration_s": 4
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "extra_combat_energy_on_hook_hit",
+          "mark_duration_s"
+        ],
+        "positive_keys": [
+          "extra_combat_energy_on_hook_hit",
+          "mark_duration_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "extra_combat_energy_on_hook_hit": "03 数值参数!H50",
+        "mark_duration_s": "03 数值参数!H51"
+      },
+      "source_row": 24,
+      "source_mechanism_text": "钩索有效命中敌人额外获得2点战斗能量，受单攻击包12点上限约束。",
+      "source_trigger_text": "钩索标记敌人后首次主攻命中",
+      "source_limits_text": "每目标独立冷却；无法用地形钩中刷",
+      "source_prerequisite_text": "钩索已解锁",
+      "source_snapshot_parameters": {
+        "extra_combat_energy_on_hook_hit": 2,
+        "mark_duration_s": 4
+      }
+    },
+    {
+      "stable_id": "B21",
+      "display_name": "长索绕轮",
+      "rarity": "BLUE",
+      "gear_cost": 4,
+      "shop_price": 27,
+      "max_level": 3,
+      "description": "Lv1/2/3 钩索有效距离×1.15/1.25/1.35；地图主线可达性仍以无该道具验证。",
+      "trigger": "钩索释放",
+      "limits": "不允许作为地图必要路线的唯一通关能力；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "钩索已解锁",
+      "effect_parameters": {
+        "hook_range_multiplier_by_level": [
+          1.15,
+          1.25,
+          1.35
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "hook_range_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "hook_range_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "hook_range_multiplier_by_level": [
+          "03 数值参数!H52",
+          "03 数值参数!H53",
+          "03 数值参数!H54"
+        ]
+      },
+      "source_row": 25,
+      "source_mechanism_text": "Lv1/2/3 钩索有效距离×1.15/1.25/1.35；地图主线可达性仍以无该道具验证。",
+      "source_trigger_text": "钩索释放",
+      "source_limits_text": "不允许作为地图必要路线的唯一通关能力；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "钩索已解锁",
+      "source_snapshot_parameters": {
+        "hook_range_multiplier_by_level": [
+          1.15,
+          1.25,
+          1.35
+        ]
+      }
+    },
+    {
+      "stable_id": "P13",
+      "display_name": "追索徽记",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 46,
+      "max_level": 1,
+      "description": "施加4秒追索标记，对其主攻直伤×1.20",
+      "trigger": "钩索成功接触敌人",
+      "limits": "标记不可无限叠层；副伤/召唤另行定义",
+      "prerequisite": "钩索已解锁",
+      "effect_parameters": {
+        "mark_duration_s": 4,
+        "marked_primary_damage_multiplier": 1.2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "mark_duration_s",
+          "marked_primary_damage_multiplier"
+        ],
+        "positive_keys": [
+          "mark_duration_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "marked_primary_damage_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "mark_duration_s": "03 数值参数!H55",
+        "marked_primary_damage_multiplier": "03 数值参数!H56"
+      },
+      "source_row": 26,
+      "source_mechanism_text": "施加4秒追索标记，对其主攻直伤×1.20",
+      "source_trigger_text": "钩索成功接触敌人",
+      "source_limits_text": "标记不可无限叠层；副伤/召唤另行定义",
+      "source_prerequisite_text": "钩索已解锁",
+      "source_snapshot_parameters": {
+        "mark_duration_s": 4,
+        "marked_primary_damage_multiplier": 1.2
+      }
+    },
+    {
+      "stable_id": "P29",
+      "display_name": "雷丝引线",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 54,
+      "max_level": 3,
+      "description": "所有玩家主动攻击合法命中触发连锁电击；Lv1额外1目标×0.30D，Lv2额外2目标×0.30D，Lv3额外2目标×0.45D，半径120，CD1.5秒。",
+      "trigger": "玩家主动攻击合法命中",
+      "limits": "传导不回能；不穿封闭地形；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意玩家主动攻击",
+      "effect_parameters": {
+        "chain_targets_by_level": [
+          1,
+          2,
+          2
+        ],
+        "chain_damage_ratio_D_by_level": [
+          0.3,
+          0.3,
+          0.45
+        ],
+        "chain_radius_px": 120,
+        "cooldown_s": 1.5
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "chain_damage_ratio_D_by_level",
+          "chain_radius_px",
+          "chain_targets_by_level",
+          "cooldown_s"
+        ],
+        "positive_keys": [
+          "chain_radius_px",
+          "cooldown_s"
+        ],
+        "integer_keys": [
+          "chain_targets_by_level"
+        ],
+        "zero_allowed_keys": [
+          "chain_damage_ratio_D_by_level",
+          "chain_targets_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "chain_targets_by_level": [
+          "03 数值参数!H57",
+          "03 数值参数!H58",
+          "03 数值参数!H59"
+        ],
+        "chain_damage_ratio_D_by_level": [
+          "03 数值参数!H60",
+          "03 数值参数!H61",
+          "03 数值参数!H62"
+        ],
+        "chain_radius_px": "03 数值参数!H63",
+        "cooldown_s": "03 数值参数!H64"
+      },
+      "source_row": 27,
+      "source_mechanism_text": "所有玩家主动攻击合法命中触发连锁电击；Lv1额外1目标×0.30D，Lv2额外2目标×0.30D，Lv3额外2目标×0.45D，半径120，CD1.5秒。",
+      "source_trigger_text": "主弹命中钩索标记的敌人",
+      "source_limits_text": "传导不回能；不穿封闭地形；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "钩索已解锁",
+      "source_snapshot_parameters": {
+        "chain_targets_by_level": [
+          1,
+          2,
+          2
+        ],
+        "chain_damage_ratio_D_by_level": [
+          0.3,
+          0.3,
+          0.45
+        ],
+        "chain_radius_px": 120,
+        "cooldown_s": 1.5
+      }
+    },
+    {
+      "stable_id": "B04",
+      "display_name": "省力扳簧",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 30,
+      "max_level": 3,
+      "description": "Lv1/2/3 空中枪械与钩索瞄准的时间能量消耗降低18%/28%/38%；开枪不扣时间能量。",
+      "trigger": "合法发射",
+      "limits": "时间能量慢时消耗下限由当前资源策略校验；射击本身不消耗时间能量；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意射击武器",
+      "effect_parameters": {
+        "focus_stamina_drain_multiplier_by_level": [
+          0.82,
+          0.72,
+          0.62
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "focus_stamina_drain_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "focus_stamina_drain_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "focus_stamina_drain_multiplier_by_level": [
+          "03 数值参数!H65",
+          "03 数值参数!H66",
+          "03 数值参数!H67"
+        ]
+      },
+      "source_row": 28,
+      "source_mechanism_text": "Lv1/2/3 空中枪械与钩索瞄准的时间能量消耗降低18%/28%/38%；开枪不扣时间能量。",
+      "source_trigger_text": "合法发射",
+      "source_limits_text": "时间能量慢时消耗下限由当前资源策略校验；射击本身不消耗时间能量；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意射击武器",
+      "source_snapshot_parameters": {
+        "focus_stamina_drain_multiplier_by_level": [
+          0.82,
+          0.72,
+          0.62
+        ]
+      }
+    },
+    {
+      "stable_id": "P04",
+      "display_name": "悬空回响",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 45,
+      "max_level": 1,
+      "description": "空中主攻命中后1.5秒内下一次主攻直伤×1.18，单次触发和消费。",
+      "trigger": "腾空中有效主攻命中",
+      "limits": "不可自我刷新成永久；同次命中最多生成一次",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "next_primary_multiplier": 1.18,
+        "buff_window_s": 1.5
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "buff_window_s",
+          "next_primary_multiplier"
+        ],
+        "positive_keys": [
+          "buff_window_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "next_primary_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "next_primary_multiplier": "03 数值参数!H68",
+        "buff_window_s": "03 数值参数!H69"
+      },
+      "source_row": 29,
+      "source_mechanism_text": "空中主攻命中后1.5秒内下一次主攻直伤×1.18，单次触发和消费。",
+      "source_trigger_text": "腾空中有效主攻命中",
+      "source_limits_text": "不可自我刷新成永久；同次命中最多生成一次",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "next_primary_multiplier": 1.18,
+        "buff_window_s": 1.5
+      }
+    },
+    {
+      "stable_id": "B06",
+      "display_name": "回声小匣",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 32,
+      "max_level": 3,
+      "description": "空中主攻有效命中恢复10/15/20点时间能量；单次腾空最多回20/30/40点，不延长慢时2秒上限。",
+      "trigger": "主攻真实有效命中",
+      "limits": "每次腾空返还上限按Lv为20/30/40时间能量；空中命中一攻击包一次；不延长2秒慢时累计上限；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "air_hit_refund_by_level": [
+          10,
+          15,
+          20
+        ],
+        "airtime_refund_cap_by_level": [
+          20,
+          30,
+          40
+        ],
+        "unique_per_attack_packet": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "air_hit_refund_by_level",
+          "airtime_refund_cap_by_level",
+          "unique_per_attack_packet"
+        ],
+        "positive_keys": [
+          "air_hit_refund_by_level",
+          "airtime_refund_cap_by_level",
+          "unique_per_attack_packet"
+        ],
+        "integer_keys": [
+          "unique_per_attack_packet"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "air_hit_refund_by_level": [
+          "03 数值参数!H70",
+          "03 数值参数!H71",
+          "03 数值参数!H72"
+        ],
+        "airtime_refund_cap_by_level": [
+          "03 数值参数!H73",
+          "03 数值参数!H74",
+          "03 数值参数!H75"
+        ],
+        "unique_per_attack_packet": "03 数值参数!H76"
+      },
+      "source_row": 30,
+      "source_mechanism_text": "空中主攻有效命中恢复10/15/20点时间能量；单次腾空最多回20/30/40点，不延长慢时2秒上限。",
+      "source_trigger_text": "主攻真实有效命中",
+      "source_limits_text": "每次腾空最多返还12时间能量；空中命中一攻击包一次；不延长2秒慢时累计上限；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "air_hit_refund_by_level": [
+          10,
+          15,
+          20
+        ],
+        "airtime_refund_cap_by_level": [
+          20,
+          30,
+          40
+        ],
+        "unique_per_attack_packet": 1
+      }
+    },
+    {
+      "stable_id": "B09",
+      "display_name": "接地回路",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 27,
+      "max_level": 1,
+      "description": "落地时间能量自然恢复速率×1.25（30→37.5点/真实秒）；空中仍不能自然恢复。",
+      "trigger": "落地等待回能",
+      "limits": "空中不自动回复",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "focus_stamina_recovery_multiplier": 1.25
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "focus_stamina_recovery_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "focus_stamina_recovery_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "focus_stamina_recovery_multiplier": "03 数值参数!H77"
+      },
+      "source_row": 31,
+      "source_mechanism_text": "落地时间能量自然恢复速率×1.25（30→37.5点/真实秒）；空中仍不能自然恢复。",
+      "source_trigger_text": "落地等待回能",
+      "source_limits_text": "空中不自动回复",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "focus_stamina_recovery_multiplier": 1.25
+      }
+    },
+    {
+      "stable_id": "B18",
+      "display_name": "捕魂音叉",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 30,
+      "max_level": 3,
+      "description": "Lv1/2/3 主攻击包单目标基础共鸣额外+2/+3/+4；共用每攻击包12点收益上限。",
+      "trigger": "有效主动主攻命中",
+      "limits": "同攻击包-目标一次，基础7、每包上限12；持续激光按合法tick窗口，技能/伴机不产能；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "extra_combat_energy_per_target_by_level": [
+          2,
+          3,
+          4
+        ],
+        "energy_packet_total_cap": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "energy_packet_total_cap",
+          "extra_combat_energy_per_target_by_level"
+        ],
+        "positive_keys": [
+          "energy_packet_total_cap",
+          "extra_combat_energy_per_target_by_level"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "extra_combat_energy_per_target_by_level": [
+          "03 数值参数!H78",
+          "03 数值参数!H79",
+          "03 数值参数!H80"
+        ],
+        "energy_packet_total_cap": "03 数值参数!H81"
+      },
+      "source_row": 32,
+      "source_mechanism_text": "Lv1/2/3 主攻击包单目标基础共鸣额外+2/+3/+4；共用每攻击包12点收益上限。",
+      "source_trigger_text": "有效主动主攻命中",
+      "source_limits_text": "同攻击包-目标一次，基础7、每包上限12；持续激光按合法tick窗口，技能/伴机不产能；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "extra_combat_energy_per_target_by_level": [
+          2,
+          3,
+          4
+        ],
+        "energy_packet_total_cap": 12
+      }
+    },
+    {
+      "stable_id": "B26",
+      "display_name": "巨腹储鸣罐",
+      "rarity": "BLUE",
+      "gear_cost": 5,
+      "shop_price": 33,
+      "max_level": 3,
+      "description": "Lv1/2/3 战斗共鸣上限+40/+60/+80；增加上限时不免费补能。",
+      "trigger": "装备生效",
+      "limits": "蓝色高负荷样例；卸装只钳制不创造能量；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "共鸣系统已开放",
+      "effect_parameters": {
+        "max_resonance_add_by_level": [
+          40,
+          60,
+          80
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "max_resonance_add_by_level"
+        ],
+        "positive_keys": [
+          "max_resonance_add_by_level"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_resonance_add_by_level": [
+          "03 数值参数!H82",
+          "03 数值参数!H83",
+          "03 数值参数!H84"
+        ]
+      },
+      "source_row": 33,
+      "source_mechanism_text": "Lv1/2/3 战斗共鸣上限+40/+60/+80；增加上限时不免费补能。",
+      "source_trigger_text": "装备生效",
+      "source_limits_text": "蓝色高负荷样例；卸装只钳制不创造能量；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "共鸣系统已开放",
+      "source_snapshot_parameters": {
+        "max_resonance_add_by_level": [
+          40,
+          60,
+          80
+        ]
+      }
+    },
+    {
+      "stable_id": "P02",
+      "display_name": "共鸣整流器",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 48,
+      "max_level": 1,
+      "description": "当前技能战斗能量消耗×0.90（通常60→54）；不作用于时间能量。",
+      "trigger": "发动共鸣主动",
+      "limits": "每次技能最小消耗15；无免费施法",
+      "prerequisite": "Lv3武器技能或道具主动技能",
+      "effect_parameters": {
+        "skill_combat_energy_cost_multiplier": 0.9,
+        "minimum_skill_cost": 15
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "minimum_skill_cost",
+          "skill_combat_energy_cost_multiplier"
+        ],
+        "positive_keys": [
+          "minimum_skill_cost"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "skill_combat_energy_cost_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "skill_combat_energy_cost_multiplier": "03 数值参数!H85",
+        "minimum_skill_cost": "01 有效道具!N34（原文明确值，03未列）"
+      },
+      "source_row": 34,
+      "source_mechanism_text": "当前技能战斗能量消耗×0.90（通常60→54）；不作用于时间能量。",
+      "source_trigger_text": "发动共鸣主动",
+      "source_limits_text": "每次技能最小消耗15；无免费施法",
+      "source_prerequisite_text": "Lv3武器技能或道具主动技能",
+      "source_snapshot_parameters": {
+        "skill_combat_energy_cost_multiplier": 0.9
+      }
+    },
+    {
+      "stable_id": "B33",
+      "display_name": "小焰触片",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 28,
+      "max_level": 3,
+      "description": "非炸弹武器可抽取；主动消耗30共鸣，80半径爆炸伤害Lv1/2/3为1.10/1.50/1.90D，CD10秒。",
+      "trigger": "按共鸣技能键",
+      "limits": "当前为炸弹家族及其升级形态时不进入新奖励池；已持有不删除",
+      "prerequisite": "共鸣主动系统已开放",
+      "effect_parameters": {
+        "combat_energy_cost": 30,
+        "damage_ratio_D_by_level": [
+          1.1,
+          1.5,
+          1.9
+        ],
+        "radius_px": 80,
+        "cooldown_s": 10,
+        "exclude_weapon_family": "BOMB"
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "damage_ratio_D_by_level",
+          "exclude_weapon_family",
+          "radius_px"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "radius_px"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "damage_ratio_D_by_level"
+        ],
+        "text_modes": {
+          "exclude_weapon_family": [
+            "BOMB"
+          ]
+        },
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H86",
+        "damage_ratio_D_by_level": [
+          "03 数值参数!H87",
+          "03 数值参数!H88",
+          "03 数值参数!H89"
+        ],
+        "radius_px": "03 数值参数!H90",
+        "cooldown_s": "03 数值参数!H91",
+        "exclude_weapon_family": "03 数值参数!H92"
+      },
+      "source_row": 35,
+      "source_mechanism_text": "非炸弹武器可抽取；主动消耗30共鸣，80半径爆炸伤害Lv1/2/3为1.10/1.50/1.90D，CD10秒。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "当前为炸弹家族及其升级形态时不进入新奖励池；已持有不删除",
+      "source_prerequisite_text": "共鸣主动系统已开放",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 30,
+        "damage_ratio_D_by_level": [
+          1.1,
+          1.5,
+          1.9
+        ],
+        "radius_px": 80,
+        "cooldown_s": 10,
+        "exclude_weapon_family": "BOMB"
+      }
+    },
+    {
+      "stable_id": "P17",
+      "display_name": "游鸣聚能体",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 42,
+      "max_level": 3,
+      "description": "有真实蓄力前摇的Lv3主动技能，蓄力期间可按地速40%/55%/70%移动；不解除奇点等锁定。",
+      "trigger": "蓄力Lv3技能",
+      "limits": "不飞行、不改变跃起次数、不穿陷阱；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "拥有需蓄力Lv3技能",
+      "effect_parameters": {
+        "charge_move_speed_multiplier_by_level": [
+          0.4,
+          0.55,
+          0.7
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "charge_move_speed_multiplier_by_level"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "charge_move_speed_multiplier_by_level"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "charge_move_speed_multiplier_by_level": [
+          "03 数值参数!H93",
+          "03 数值参数!H94",
+          "03 数值参数!H95"
+        ]
+      },
+      "source_row": 36,
+      "source_mechanism_text": "有真实蓄力前摇的Lv3主动技能，蓄力期间可按地速40%/55%/70%移动；不解除奇点等锁定。",
+      "source_trigger_text": "蓄力Lv3技能",
+      "source_limits_text": "不飞行、不改变跃起次数、不穿陷阱；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "拥有需蓄力Lv3技能",
+      "source_snapshot_parameters": {
+        "charge_move_speed_multiplier_by_level": [
+          0.4,
+          0.55,
+          0.7
+        ]
+      }
+    },
+    {
+      "stable_id": "B11",
+      "display_name": "心室木匣",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 29,
+      "max_level": 3,
+      "description": "Lv1/2/3 最大生命上限分别+1/+2/+3，装备/升级不自动治疗。",
+      "trigger": "装备生效",
+      "limits": "卸装备钳制当前HP，零血不能复活；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "max_hp_add_by_level": [
+          1,
+          2,
+          3
+        ]
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "max_hp_add_by_level"
+        ],
+        "positive_keys": [
+          "max_hp_add_by_level"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_hp_add_by_level": [
+          "03 数值参数!H96",
+          "03 数值参数!H97",
+          "03 数值参数!H98"
+        ]
+      },
+      "source_row": 37,
+      "source_mechanism_text": "Lv1/2/3 最大生命上限分别+1/+2/+3，装备/升级不自动治疗。",
+      "source_trigger_text": "装备生效",
+      "source_limits_text": "卸装备钳制当前HP，零血不能复活；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "max_hp_add_by_level": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "stable_id": "B13",
+      "display_name": "晨露护片",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 26,
+      "max_level": 1,
+      "description": "若装备，进入地图时得到1点临时护盾",
+      "trigger": "进入新地图",
+      "limits": "每map_instance至多一次；中途装备不补护盾",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "map_start_barrier": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "map_start_barrier"
+        ],
+        "positive_keys": [
+          "map_start_barrier"
+        ],
+        "integer_keys": [
+          "map_start_barrier"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "map_start_barrier": "03 数值参数!H99"
+      },
+      "source_row": 38,
+      "source_mechanism_text": "若装备，进入地图时得到1点临时护盾",
+      "source_trigger_text": "进入新地图",
+      "source_limits_text": "每map_instance至多一次；中途装备不补护盾",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "map_start_barrier": 1
+      }
+    },
+    {
+      "stable_id": "B14",
+      "display_name": "苦痛铃歌",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 27,
+      "max_level": 1,
+      "description": "实际损失HP后获得12点战斗能量；同一次伤害只触发一次，不超过100容量。",
+      "trigger": "实际损失HP",
+      "limits": "同一damage_commit_id一次；不由致死后的后续逻辑触发",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "combat_energy_gain_on_damage": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_gain_on_damage"
+        ],
+        "positive_keys": [
+          "combat_energy_gain_on_damage"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_gain_on_damage": "03 数值参数!H100"
+      },
+      "source_row": 39,
+      "source_mechanism_text": "实际损失HP后获得12点战斗能量；同一次伤害只触发一次，不超过100容量。",
+      "source_trigger_text": "实际损失HP",
+      "source_limits_text": "同一damage_commit_id一次；不由致死后的后续逻辑触发",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "combat_energy_gain_on_damage": 12
+      }
+    },
+    {
+      "stable_id": "B15",
+      "display_name": "荆棘铜衣",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 28,
+      "max_level": 1,
+      "description": "受HP伤害后在周围78世界单位内造成0.65D反击；7秒冷却，派生伤害不回战斗能量。",
+      "trigger": "实际损失HP",
+      "limits": "对同一敌一次；反击不回能，不递归触发",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "damage_ratio_D": 0.65,
+        "radius_px": 78,
+        "cooldown_s": 7
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cooldown_s",
+          "damage_ratio_D",
+          "radius_px"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "radius_px"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "damage_ratio_D": "03 数值参数!H101",
+        "radius_px": "03 数值参数!H102",
+        "cooldown_s": "01 有效道具!L40（原文明确值，03未列）"
+      },
+      "source_row": 40,
+      "source_mechanism_text": "受HP伤害后在周围78世界单位内造成0.65D反击；7秒冷却，派生伤害不回战斗能量。",
+      "source_trigger_text": "实际损失HP",
+      "source_limits_text": "对同一敌一次；反击不回能，不递归触发",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "damage_ratio_D": 0.65,
+        "radius_px": 78
+      }
+    },
+    {
+      "stable_id": "B27",
+      "display_name": "顽固护壳",
+      "rarity": "BLUE",
+      "gear_cost": 3,
+      "shop_price": 29,
+      "max_level": 1,
+      "description": "已有受伤无敌时间额外增加0.08秒；不能无限叠加。",
+      "trigger": "受伤后合法无敌窗",
+      "limits": "不改变伤害提交/死亡优先；总无敌长度封顶",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "invulnerable_add_s": 0.08
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "invulnerable_add_s"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "invulnerable_add_s"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "invulnerable_add_s": "03 数值参数!H103"
+      },
+      "source_row": 41,
+      "source_mechanism_text": "已有受伤无敌时间额外增加0.08秒；不能无限叠加。",
+      "source_trigger_text": "受伤后合法无敌窗",
+      "source_limits_text": "不改变伤害提交/死亡优先；总无敌长度封顶",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "invulnerable_add_s": 0.08
+      }
+    },
+    {
+      "stable_id": "B30",
+      "display_name": "易裂心匣",
+      "rarity": "BLUE",
+      "gear_cost": 4,
+      "shop_price": 28,
+      "max_level": 1,
+      "description": "最大HP+3；累计受到3次实际HP伤害后破碎，支付18金币修复；跨地图保留裂纹。",
+      "trigger": "装备生效",
+      "limits": "损坏移除生命上限来源，当前生命钳制",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "max_hp_add": 3,
+        "break_on_hits": 3,
+        "repair_price": 18
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "break_on_hits",
+          "max_hp_add",
+          "repair_price"
+        ],
+        "positive_keys": [
+          "break_on_hits",
+          "max_hp_add",
+          "repair_price"
+        ],
+        "integer_keys": [
+          "break_on_hits"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_hp_add": "03 数值参数!H104",
+        "break_on_hits": "03 数值参数!H105",
+        "repair_price": "03 数值参数!H106"
+      },
+      "source_row": 42,
+      "source_mechanism_text": "最大HP+3；累计受到3次实际HP伤害后破碎，支付18金币修复；跨地图保留裂纹。",
+      "source_trigger_text": "装备生效",
+      "source_limits_text": "损坏移除生命上限来源，当前生命钳制",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "max_hp_add": 3,
+        "break_on_hits": 3,
+        "repair_price": 18
+      }
+    },
+    {
+      "stable_id": "B32",
+      "display_name": "晨蓝洪流",
+      "rarity": "BLUE",
+      "gear_cost": 4,
+      "shop_price": 33,
+      "max_level": 1,
+      "description": "进入新地图时获得2点临时护盾；卸装、回退不得重复生成。",
+      "trigger": "新地图进入",
+      "limits": "与晨露护片共享临时护盾上限3；不因切换刷盾",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "map_start_barrier": 2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "map_start_barrier"
+        ],
+        "positive_keys": [
+          "map_start_barrier"
+        ],
+        "integer_keys": [
+          "map_start_barrier"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "map_start_barrier": "03 数值参数!H107"
+      },
+      "source_row": 43,
+      "source_mechanism_text": "进入新地图时获得2点临时护盾；卸装、回退不得重复生成。",
+      "source_trigger_text": "新地图进入",
+      "source_limits_text": "与晨露护片共享临时护盾上限3；不因切换刷盾",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "map_start_barrier": 2
+      }
+    },
+    {
+      "stable_id": "P18",
+      "display_name": "暮钟心契",
+      "rarity": "PURPLE",
+      "gear_cost": 4,
+      "shop_price": 88,
+      "max_level": 1,
+      "description": "最大生命上限×2，首次装备当前HP按比例转换一次，此后常规治疗无效；首次装备后本局不可卸下、不可取消，不可升级。",
+      "trigger": "手动装备后锁定直到本局结束",
+      "limits": "装备不可卸下；禁疗覆盖常规治疗物、地图治疗和修补针；首次HP比例转换有一次性收据",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "max_hp_multiplier": 2,
+        "normal_healing_multiplier": 0,
+        "locked_until_run_end": 1,
+        "first_equip_current_hp_ratio_convert": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "first_equip_current_hp_ratio_convert",
+          "locked_until_run_end",
+          "max_hp_multiplier",
+          "normal_healing_multiplier"
+        ],
+        "positive_keys": [
+          "locked_until_run_end"
+        ],
+        "integer_keys": [
+          "first_equip_current_hp_ratio_convert",
+          "locked_until_run_end"
+        ],
+        "zero_allowed_keys": [
+          "first_equip_current_hp_ratio_convert",
+          "max_hp_multiplier",
+          "normal_healing_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_hp_multiplier": "03 数值参数!H108",
+        "normal_healing_multiplier": "03 数值参数!H109",
+        "locked_until_run_end": "03 数值参数!H110",
+        "first_equip_current_hp_ratio_convert": "03 数值参数!H111"
+      },
+      "source_row": 44,
+      "source_mechanism_text": "最大生命上限×2，首次装备当前HP按比例转换一次，此后常规治疗无效；首次装备后本局不可卸下、不可取消，不可升级。",
+      "source_trigger_text": "手动装备后锁定直到本局结束",
+      "source_limits_text": "装备不可卸下；禁疗覆盖常规治疗物、地图治疗和修补针；首次HP比例转换有一次性收据",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "max_hp_multiplier": 2,
+        "normal_healing_multiplier": 0,
+        "locked_until_run_end": 1,
+        "first_equip_current_hp_ratio_convert": 1
+      }
+    },
+    {
+      "stable_id": "P20",
+      "display_name": "残影晶刺",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 49,
+      "max_level": 1,
+      "description": "原位置留下一枚水晶，敌触碰造成0.60D",
+      "trigger": "实际掉HP",
+      "limits": "残影不赋予传送、不重复产能量",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "crystal_lifetime_s": 5,
+        "contact_damage_ratio_D": 0.6,
+        "cooldown_s": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "contact_damage_ratio_D",
+          "cooldown_s",
+          "crystal_lifetime_s"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "crystal_lifetime_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "contact_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "crystal_lifetime_s": "03 数值参数!H112",
+        "contact_damage_ratio_D": "03 数值参数!H113",
+        "cooldown_s": "01 有效道具!Q45（原文明确值，03未列）"
+      },
+      "source_row": 45,
+      "source_mechanism_text": "原位置留下一枚水晶，敌触碰造成0.60D",
+      "source_trigger_text": "实际掉HP",
+      "source_limits_text": "残影不赋予传送、不重复产能量",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "crystal_lifetime_s": 5,
+        "contact_damage_ratio_D": 0.6
+      }
+    },
+    {
+      "stable_id": "P26",
+      "display_name": "回声护幕",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 73,
+      "max_level": 1,
+      "description": "主动消耗80点战斗共鸣，使玩家正常运动但抵御符合条件的HP伤害3秒（真实活动时间）；CD30秒；不挡强制失败或坠落。",
+      "trigger": "按共鸣技能键",
+      "limits": "不免疫即死环境、不可叠到100%；施放失败不消耗",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 80,
+        "invulnerable_duration_real_active_s": 3,
+        "cooldown_s": 30,
+        "forced_failure_immunity": 0
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "forced_failure_immunity",
+          "invulnerable_duration_real_active_s"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "invulnerable_duration_real_active_s"
+        ],
+        "integer_keys": [
+          "forced_failure_immunity"
+        ],
+        "zero_allowed_keys": [
+          "forced_failure_immunity"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H114",
+        "invulnerable_duration_real_active_s": "03 数值参数!H115",
+        "cooldown_s": "03 数值参数!H116",
+        "forced_failure_immunity": "03 数值参数!H117"
+      },
+      "source_row": 46,
+      "source_mechanism_text": "主动消耗80点战斗共鸣，使玩家正常运动但抵御符合条件的HP伤害3秒（真实活动时间）；CD30秒；不挡强制失败或坠落。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "不免疫即死环境、不可叠到100%；施放失败不消耗",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 80,
+        "invulnerable_duration_real_active_s": 3,
+        "cooldown_s": 30,
+        "forced_failure_immunity": 0
+      }
+    },
+    {
+      "stable_id": "P27",
+      "display_name": "随身修补针",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 48,
+      "max_level": 1,
+      "description": "消耗65战斗能量恢复1HP；每图最多2次，且不能被卸装刷次数。",
+      "trigger": "按共鸣技能键且非满血",
+      "limits": "蓝血誓言禁用；HP不满才可释放",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 65,
+        "heal_hp": 1,
+        "max_uses_per_map": 2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "heal_hp",
+          "max_uses_per_map"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "heal_hp"
+        ],
+        "integer_keys": [
+          "max_uses_per_map"
+        ],
+        "zero_allowed_keys": [
+          "max_uses_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H118",
+        "heal_hp": "03 数值参数!H119",
+        "max_uses_per_map": "03 数值参数!H120"
+      },
+      "source_row": 47,
+      "source_mechanism_text": "消耗65战斗能量恢复1HP；每图最多2次，且不能被卸装刷次数。",
+      "source_trigger_text": "按共鸣技能键且非满血",
+      "source_limits_text": "蓝血誓言禁用；HP不满才可释放",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 65,
+        "heal_hp": 1,
+        "max_uses_per_map": 2
+      }
+    },
+    {
+      "stable_id": "G02",
+      "display_name": "无忧余音",
+      "rarity": "GOLD",
+      "gear_cost": 1,
+      "shop_price": 73,
+      "max_level": 1,
+      "description": "每累计3次真实HP受伤便获得1点共享临时护盾；累计跨地图，受盾抵挡不计；共享护盾上限3。",
+      "trigger": "每张地图实际受伤序列",
+      "limits": "共享护盾上限3；受护盾抵挡不计受伤次数",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "hits_for_one_barrier": 3,
+        "shield_per_trigger": 1,
+        "shared_barrier_cap": 3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "hits_for_one_barrier",
+          "shared_barrier_cap",
+          "shield_per_trigger"
+        ],
+        "positive_keys": [
+          "hits_for_one_barrier",
+          "shared_barrier_cap",
+          "shield_per_trigger"
+        ],
+        "integer_keys": [
+          "hits_for_one_barrier",
+          "shared_barrier_cap",
+          "shield_per_trigger"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "hits_for_one_barrier": "03 数值参数!H121",
+        "shield_per_trigger": "03 数值参数!H122",
+        "shared_barrier_cap": "03 数值参数!H123"
+      },
+      "source_row": 48,
+      "source_mechanism_text": "每累计3次真实HP受伤便获得1点共享临时护盾；累计跨地图，受盾抵挡不计；共享护盾上限3。",
+      "source_trigger_text": "每张地图实际受伤序列",
+      "source_limits_text": "共享护盾上限3；受护盾抵挡不计受伤次数",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "hits_for_one_barrier": 3,
+        "shield_per_trigger": 1,
+        "shared_barrier_cap": 3
+      }
+    },
+    {
+      "stable_id": "G03",
+      "display_name": "春归铃枝",
+      "rarity": "GOLD",
+      "gear_cost": 2,
+      "shop_price": 76,
+      "max_level": 1,
+      "description": "每张新地图首次进入时恢复1HP；返回旧图/复活/重载不触发；暮钟心契禁止其治疗。",
+      "trigger": "已装备时首次进入唯一新地图",
+      "limits": "不在死亡后触发；不能被卸装备刷",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "heal_hp_on_new_map": 1,
+        "max_triggers_per_unique_map": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "heal_hp_on_new_map",
+          "max_triggers_per_unique_map"
+        ],
+        "positive_keys": [
+          "heal_hp_on_new_map",
+          "max_triggers_per_unique_map"
+        ],
+        "integer_keys": [
+          "max_triggers_per_unique_map"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "heal_hp_on_new_map": "03 数值参数!H124",
+        "max_triggers_per_unique_map": "03 数值参数!H125"
+      },
+      "source_row": 49,
+      "source_mechanism_text": "每张新地图首次进入时恢复1HP；返回旧图/复活/重载不触发；暮钟心契禁止其治疗。",
+      "source_trigger_text": "受伤后持续20秒未再受伤",
+      "source_limits_text": "不在死亡后触发；不能被卸装备刷",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "heal_hp_on_new_map": 1,
+        "max_triggers_per_unique_map": 1
+      }
+    },
+    {
+      "stable_id": "G04",
+      "display_name": "零时护心",
+      "rarity": "GOLD",
+      "gear_cost": 4,
+      "shop_price": 89,
+      "max_level": 1,
+      "description": "即将因敌方伤害死亡时消耗65战斗能量保留1HP；每图最多一次。",
+      "trigger": "可抵挡的致死敌人伤害即将提交",
+      "limits": "不抵挡世界级必死机关；生命结算同帧原子执行",
+      "prerequisite": "共鸣系统已开放",
+      "effect_parameters": {
+        "combat_energy_cost": 65,
+        "set_remaining_hp": 1,
+        "uses_per_map": 1
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "set_remaining_hp",
+          "uses_per_map"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "set_remaining_hp"
+        ],
+        "integer_keys": [
+          "uses_per_map"
+        ],
+        "zero_allowed_keys": [
+          "uses_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H126",
+        "set_remaining_hp": "03 数值参数!H127",
+        "uses_per_map": "03 数值参数!H128"
+      },
+      "source_row": 50,
+      "source_mechanism_text": "即将因敌方伤害死亡时消耗65战斗能量保留1HP；每图最多一次。",
+      "source_trigger_text": "可抵挡的致死敌人伤害即将提交",
+      "source_limits_text": "不抵挡世界级必死机关；生命结算同帧原子执行",
+      "source_prerequisite_text": "共鸣系统已开放",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 65,
+        "set_remaining_hp": 1,
+        "uses_per_map": 1
+      }
+    },
+    {
+      "stable_id": "G11",
+      "display_name": "不朽心匣",
+      "rarity": "GOLD",
+      "gear_cost": 2,
+      "shop_price": 75,
+      "max_level": 1,
+      "description": "最大HP+3，无破损",
+      "trigger": "装备生效",
+      "limits": "与易裂心匣互斥；卸装不能回血",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "max_hp_add": 3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "max_hp_add"
+        ],
+        "positive_keys": [
+          "max_hp_add"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "max_hp_add": "03 数值参数!H129"
+      },
+      "source_row": 51,
+      "source_mechanism_text": "最大HP+3，无破损",
+      "source_trigger_text": "装备生效",
+      "source_limits_text": "与易裂心匣互斥；卸装不能回血",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "max_hp_add": 3
+      }
+    },
+    {
+      "stable_id": "P05",
+      "display_name": "末息轮芯",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 51,
+      "max_level": 1,
+      "description": "HP≤40%时主攻直接伤害×1.35；初始5HP下通常对应≤2HP。",
+      "trigger": "当前HP≤最大HP的40%",
+      "limits": "实时启停；和满血效果分属不同血量档",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "hp_ratio_threshold": 0.4,
+        "primary_damage_multiplier": 1.35
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "hp_ratio_threshold",
+          "primary_damage_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "hp_ratio_threshold",
+          "primary_damage_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "hp_ratio_threshold": "03 数值参数!H130",
+        "primary_damage_multiplier": "03 数值参数!H131"
+      },
+      "source_row": 52,
+      "source_mechanism_text": "HP≤40%时主攻直接伤害×1.35；初始5HP下通常对应≤2HP。",
+      "source_trigger_text": "当前HP≤最大HP的30%",
+      "source_limits_text": "实时启停；和满血效果分属不同血量档",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "hp_ratio_threshold": 0.4,
+        "primary_damage_multiplier": 1.35
+      }
+    },
+    {
+      "stable_id": "B24",
+      "display_name": "余火枪片",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 31,
+      "max_level": 1,
+      "description": "主攻命中附加3秒余火，总伤害0.35D，3秒内部冷却，不触发二次产能。",
+      "trigger": "有效主攻命中",
+      "limits": "同目标只刷新不堆叠；副伤不回能",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "total_dot_damage_ratio_D": 0.35,
+        "dot_duration_s": 3,
+        "cooldown_s": 3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cooldown_s",
+          "dot_duration_s",
+          "total_dot_damage_ratio_D"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "dot_duration_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "total_dot_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "total_dot_damage_ratio_D": "03 数值参数!H132",
+        "dot_duration_s": "03 数值参数!H133",
+        "cooldown_s": "01 有效道具!L53（原文明确值，03未列）"
+      },
+      "source_row": 53,
+      "source_mechanism_text": "主攻命中附加3秒余火，总伤害0.35D，3秒内部冷却，不触发二次产能。",
+      "source_trigger_text": "有效主攻命中",
+      "source_limits_text": "同目标只刷新不堆叠；副伤不回能",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "total_dot_damage_ratio_D": 0.35,
+        "dot_duration_s": 3
+      }
+    },
+    {
+      "stable_id": "P09",
+      "display_name": "弹震继电匣",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 53,
+      "max_level": 1,
+      "description": "主攻命中后引发88半径的继电爆震，0.30D，CD3秒；同攻击包最多一次、无递归。",
+      "trigger": "本次主动主攻首次有效命中",
+      "limits": "派生爆炸不回能不再触发巡钟装置",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "explosion_damage_ratio_D": 0.3,
+        "radius_px": 88,
+        "cooldown_s": 3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cooldown_s",
+          "explosion_damage_ratio_D",
+          "radius_px"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "radius_px"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "explosion_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "explosion_damage_ratio_D": "03 数值参数!H134",
+        "radius_px": "03 数值参数!H135",
+        "cooldown_s": "03 数值参数!H136"
+      },
+      "source_row": 54,
+      "source_mechanism_text": "主攻命中后引发88半径的继电爆震，0.30D，CD3秒；同攻击包最多一次、无递归。",
+      "source_trigger_text": "本次主动主攻首次有效命中",
+      "source_limits_text": "派生爆炸不回能不再触发巡钟装置",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "explosion_damage_ratio_D": 0.3,
+        "radius_px": 88,
+        "cooldown_s": 3
+      }
+    },
+    {
+      "stable_id": "P10",
+      "display_name": "腐蚀尾铃",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 48,
+      "max_level": 1,
+      "description": "主动技能后5秒内首次主攻命中生成3秒腐蚀云，半径75，每秒造成0.15D；不产生战斗能量。",
+      "trigger": "发动主动技能后5秒内首次主攻命中",
+      "limits": "每次主动最多1云；毒云不回能",
+      "prerequisite": "任意主动技能",
+      "effect_parameters": {
+        "primed_window_s": 5,
+        "cloud_duration_s": 3,
+        "cloud_radius_px": 75,
+        "dot_damage_per_second_ratio_D": 0.15
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cloud_duration_s",
+          "cloud_radius_px",
+          "dot_damage_per_second_ratio_D",
+          "primed_window_s"
+        ],
+        "positive_keys": [
+          "cloud_duration_s",
+          "cloud_radius_px",
+          "primed_window_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "dot_damage_per_second_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "primed_window_s": "03 数值参数!H137",
+        "cloud_duration_s": "03 数值参数!H138",
+        "cloud_radius_px": "03 数值参数!H139",
+        "dot_damage_per_second_ratio_D": "03 数值参数!H140"
+      },
+      "source_row": 55,
+      "source_mechanism_text": "技能触发生成3秒腐蚀云，半径75，每秒造成0.15D；不产生战斗能量。",
+      "source_trigger_text": "发动主动技能后5秒内首次主攻命中",
+      "source_limits_text": "每次主动最多1云；毒云不回能",
+      "source_prerequisite_text": "任意主动技能",
+      "source_snapshot_parameters": {
+        "primed_window_s": 5,
+        "cloud_duration_s": 3,
+        "cloud_radius_px": 75,
+        "dot_damage_per_second_ratio_D": 0.15
+      }
+    },
+    {
+      "stable_id": "P14",
+      "display_name": "游钟机群",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 54,
+      "max_level": 1,
+      "description": "装备期间跟随3台小型游钟无人机，每台1.5秒一次0.12D；不产共鸣，卸下消失。",
+      "trigger": "装备时/新地图进入",
+      "limits": "召唤物不产主攻共鸣，不跨地图复制",
+      "prerequisite": "召唤系统",
+      "effect_parameters": {
+        "small_drone_count": 3,
+        "attack_interval_s": 1.5,
+        "attack_damage_ratio_D": 0.12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "attack_damage_ratio_D",
+          "attack_interval_s",
+          "small_drone_count"
+        ],
+        "positive_keys": [
+          "attack_interval_s"
+        ],
+        "integer_keys": [
+          "small_drone_count"
+        ],
+        "zero_allowed_keys": [
+          "attack_damage_ratio_D",
+          "small_drone_count"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "small_drone_count": "03 数值参数!H141",
+        "attack_interval_s": "03 数值参数!H142",
+        "attack_damage_ratio_D": "03 数值参数!H143"
+      },
+      "source_row": 56,
+      "source_mechanism_text": "装备期间跟随3台小型游钟无人机，每台1.5秒一次0.12D；不产共鸣，卸下消失。",
+      "source_trigger_text": "装备时/新地图进入",
+      "source_limits_text": "召唤物不产主攻共鸣，不跨地图复制",
+      "source_prerequisite_text": "召唤系统",
+      "source_snapshot_parameters": {
+        "small_drone_count": 3,
+        "attack_interval_s": 1.5,
+        "attack_damage_ratio_D": 0.12
+      }
+    },
+    {
+      "stable_id": "P15",
+      "display_name": "续鸣装配匣",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 52,
+      "max_level": 1,
+      "description": "实际消耗每累计45共鸣产生一台临时巡钟无人机，持续8秒、单次0.35D，同场最多2台。",
+      "trigger": "实际消耗共鸣累计45",
+      "limits": "未满阈值累积额保留；不会用召唤伤害返还共鸣",
+      "prerequisite": "共鸣与召唤系统",
+      "effect_parameters": {
+        "combat_energy_spent_threshold": 45,
+        "temp_drone_lifetime_s": 8,
+        "temp_drone_damage_ratio_D": 0.35,
+        "max_temp_drones": 2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_spent_threshold",
+          "max_temp_drones",
+          "temp_drone_damage_ratio_D",
+          "temp_drone_lifetime_s"
+        ],
+        "positive_keys": [
+          "combat_energy_spent_threshold",
+          "temp_drone_lifetime_s"
+        ],
+        "integer_keys": [
+          "max_temp_drones"
+        ],
+        "zero_allowed_keys": [
+          "max_temp_drones",
+          "temp_drone_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_spent_threshold": "03 数值参数!H144",
+        "temp_drone_lifetime_s": "03 数值参数!H145",
+        "temp_drone_damage_ratio_D": "03 数值参数!H146",
+        "max_temp_drones": "03 数值参数!H147"
+      },
+      "source_row": 57,
+      "source_mechanism_text": "实际消耗每累计45共鸣产生一台临时巡钟无人机，持续8秒、单次0.35D，同场最多2台。",
+      "source_trigger_text": "实际消耗共鸣累计40",
+      "source_limits_text": "未满阈值累积额保留；不会用召唤伤害返还共鸣",
+      "source_prerequisite_text": "共鸣与召唤系统",
+      "source_snapshot_parameters": {
+        "combat_energy_spent_threshold": 45,
+        "temp_drone_lifetime_s": 8,
+        "temp_drone_damage_ratio_D": 0.35,
+        "max_temp_drones": 2
+      }
+    },
+    {
+      "stable_id": "P16",
+      "display_name": "循时梦盾",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 50,
+      "max_level": 1,
+      "description": "拦截一颗敌方弹体",
+      "trigger": "敌方可拦截飞弹接触环绕体",
+      "limits": "不拦Boss不可拦截招式/荆棘等环境陷阱",
+      "prerequisite": "防护系统",
+      "effect_parameters": {
+        "orbit_radius_px": 60,
+        "projectile_blocks_per_cooldown": 1,
+        "cooldown_s": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "cooldown_s",
+          "orbit_radius_px",
+          "projectile_blocks_per_cooldown"
+        ],
+        "positive_keys": [
+          "cooldown_s",
+          "orbit_radius_px",
+          "projectile_blocks_per_cooldown"
+        ],
+        "integer_keys": [
+          "projectile_blocks_per_cooldown"
+        ],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "orbit_radius_px": "03 数值参数!H148",
+        "projectile_blocks_per_cooldown": "03 数值参数!H149",
+        "cooldown_s": "01 有效道具!Q58（原文明确值，03未列）"
+      },
+      "source_row": 58,
+      "source_mechanism_text": "拦截一颗敌方弹体",
+      "source_trigger_text": "敌方可拦截飞弹接触环绕体",
+      "source_limits_text": "不拦Boss不可拦截招式/荆棘等环境陷阱",
+      "source_prerequisite_text": "防护系统",
+      "source_snapshot_parameters": {
+        "orbit_radius_px": 60,
+        "projectile_blocks_per_cooldown": 1
+      }
+    },
+    {
+      "stable_id": "G05",
+      "display_name": "永恒钟卫",
+      "rarity": "GOLD",
+      "gear_cost": 5,
+      "shop_price": 92,
+      "max_level": 1,
+      "description": "主动消耗50战斗共鸣召唤1台大型钟卫；持续18秒、攻击间隔1.8秒、每击0.60D，CD12秒，同场最多1台。",
+      "trigger": "按共鸣技能键",
+      "limits": "不自动无限繁殖；伴机伤害不供主攻能量",
+      "prerequisite": "共鸣与召唤系统",
+      "effect_parameters": {
+        "combat_energy_cost": 50,
+        "lifetime_s": 18,
+        "attack_interval_s": 1.8,
+        "attack_damage_ratio_D": 0.6,
+        "max_large_drones": 1,
+        "skill_cooldown_s": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "attack_damage_ratio_D",
+          "attack_interval_s",
+          "combat_energy_cost",
+          "lifetime_s",
+          "max_large_drones",
+          "skill_cooldown_s"
+        ],
+        "positive_keys": [
+          "attack_interval_s",
+          "combat_energy_cost",
+          "lifetime_s",
+          "skill_cooldown_s"
+        ],
+        "integer_keys": [
+          "max_large_drones"
+        ],
+        "zero_allowed_keys": [
+          "attack_damage_ratio_D",
+          "max_large_drones"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H150",
+        "lifetime_s": "03 数值参数!H151",
+        "attack_interval_s": "03 数值参数!H152",
+        "attack_damage_ratio_D": "03 数值参数!H153",
+        "max_large_drones": "03 数值参数!H154",
+        "skill_cooldown_s": "03 数值参数!H155"
+      },
+      "source_row": 59,
+      "source_mechanism_text": "主动消耗50战斗共鸣召唤1台大型钟卫；持续18秒、攻击间隔1.8秒、每击0.60D，CD12秒，同场最多1台。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "不自动无限繁殖；伴机伤害不供主攻能量",
+      "source_prerequisite_text": "共鸣与召唤系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 50,
+        "lifetime_s": 18,
+        "attack_interval_s": 1.8,
+        "attack_damage_ratio_D": 0.6,
+        "max_large_drones": 1,
+        "skill_cooldown_s": 12
+      }
+    },
+    {
+      "stable_id": "G06",
+      "display_name": "千鸣钟冠",
+      "rarity": "GOLD",
+      "gear_cost": 3,
+      "shop_price": 83,
+      "max_level": 1,
+      "description": "合法主攻命中最多弹射3个额外目标，每个0.25D；1.5秒CD、不再产生战斗能量。",
+      "trigger": "本次主动主攻首次有效命中",
+      "limits": "连锁副伤不得再次触发连锁/回能",
+      "prerequisite": "任意攻击武器",
+      "effect_parameters": {
+        "chain_targets": 3,
+        "chain_damage_ratio_D": 0.25,
+        "chain_radius_px": 160,
+        "cooldown_s": 1.5
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "chain_damage_ratio_D",
+          "chain_radius_px",
+          "chain_targets",
+          "cooldown_s"
+        ],
+        "positive_keys": [
+          "chain_radius_px",
+          "cooldown_s"
+        ],
+        "integer_keys": [
+          "chain_targets"
+        ],
+        "zero_allowed_keys": [
+          "chain_damage_ratio_D",
+          "chain_targets"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "chain_targets": "03 数值参数!H156",
+        "chain_damage_ratio_D": "03 数值参数!H157",
+        "chain_radius_px": "03 数值参数!H158",
+        "cooldown_s": "01 有效道具!L60（原文明确值，03未列）"
+      },
+      "source_row": 60,
+      "source_mechanism_text": "合法主攻命中最多弹射3个额外目标，每个0.25D；1.5秒CD、不再产生战斗能量。",
+      "source_trigger_text": "本次主动主攻首次有效命中",
+      "source_limits_text": "连锁副伤不得再次触发连锁/回能",
+      "source_prerequisite_text": "任意攻击武器",
+      "source_snapshot_parameters": {
+        "chain_targets": 3,
+        "chain_damage_ratio_D": 0.25,
+        "chain_radius_px": 160
+      }
+    },
+    {
+      "stable_id": "B01",
+      "display_name": "拾铃磁盘",
+      "rarity": "BLUE",
+      "gear_cost": 1,
+      "shop_price": 24,
+      "max_level": 1,
+      "description": "自动吸取半径200内可拾取的金币、永久音符、地面回血与能量资源；不自动领取道具、宝箱或商店货物。",
+      "trigger": "金币落地",
+      "limits": "不穿阻挡；不改变拾取ID",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "pickup_radius_px": 200,
+        "resource_pickup_mask": "coin|meta_note|health_pickup|energy_pickup",
+        "auto_collect_reward_objects": 0
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "auto_collect_reward_objects",
+          "pickup_radius_px",
+          "resource_pickup_mask"
+        ],
+        "positive_keys": [
+          "pickup_radius_px"
+        ],
+        "integer_keys": [
+          "auto_collect_reward_objects"
+        ],
+        "zero_allowed_keys": [
+          "auto_collect_reward_objects"
+        ],
+        "text_modes": {
+          "resource_pickup_mask": [
+            "coin",
+            "meta_note",
+            "health_pickup",
+            "energy_pickup"
+          ]
+        },
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "pickup_radius_px": "03 数值参数!H159",
+        "resource_pickup_mask": "03 数值参数!H160",
+        "auto_collect_reward_objects": "03 数值参数!H161"
+      },
+      "source_row": 61,
+      "source_mechanism_text": "自动吸取半径200内可拾取的金币、永久音符、地面回血与能量资源；不自动领取道具、宝箱或商店货物。",
+      "source_trigger_text": "金币落地",
+      "source_limits_text": "不穿阻挡；不改变拾取ID",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "pickup_radius_px": 200,
+        "resource_pickup_mask": "coin|meta_note|health_pickup|energy_pickup",
+        "auto_collect_reward_objects": 0
+      }
+    },
+    {
+      "stable_id": "B16",
+      "display_name": "裂纹钱袋",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 23,
+      "max_level": 1,
+      "description": "本图前8次合法击杀各+1金币；装备期间累计受到3次HP伤害损坏，商店支付20金币修复。",
+      "trigger": "本图首次合法击杀目标",
+      "limits": "修理在商店；目标ID防重复；每图最多8额外金币",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "bonus_coin_per_kill": 1,
+        "max_bonus_kills_per_map": 8,
+        "break_on_hits": 3,
+        "repair_price": 20
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "bonus_coin_per_kill",
+          "break_on_hits",
+          "max_bonus_kills_per_map",
+          "repair_price"
+        ],
+        "positive_keys": [
+          "bonus_coin_per_kill",
+          "break_on_hits",
+          "repair_price"
+        ],
+        "integer_keys": [
+          "break_on_hits",
+          "max_bonus_kills_per_map"
+        ],
+        "zero_allowed_keys": [
+          "max_bonus_kills_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "bonus_coin_per_kill": "03 数值参数!H162",
+        "max_bonus_kills_per_map": "03 数值参数!H163",
+        "break_on_hits": "03 数值参数!H164",
+        "repair_price": "03 数值参数!H165"
+      },
+      "source_row": 62,
+      "source_mechanism_text": "本图前8次合法击杀各+1金币；装备期间累计受到3次HP伤害损坏，商店支付20金币修复。",
+      "source_trigger_text": "本图首次合法击杀目标",
+      "source_limits_text": "修理在商店；目标ID防重复；同图金币上限16",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "bonus_coin_per_kill": 1,
+        "max_bonus_kills_per_map": 8,
+        "break_on_hits": 3,
+        "repair_price": 20
+      }
+    },
+    {
+      "stable_id": "B20",
+      "display_name": "盗铃钩齿",
+      "rarity": "BLUE",
+      "gear_cost": 2,
+      "shop_price": 28,
+      "max_level": 1,
+      "description": "获得1金币",
+      "trigger": "首次钩中不同敌人",
+      "limits": "每enemy_instance一次，Boss不给金币",
+      "prerequisite": "钩索已解锁",
+      "effect_parameters": {
+        "coin_per_enemy": 1,
+        "map_coin_cap": 10
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "coin_per_enemy",
+          "map_coin_cap"
+        ],
+        "positive_keys": [
+          "coin_per_enemy",
+          "map_coin_cap"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "coin_per_enemy": "03 数值参数!H166",
+        "map_coin_cap": "03 数值参数!H167"
+      },
+      "source_row": 63,
+      "source_mechanism_text": "获得1金币",
+      "source_trigger_text": "首次钩中不同敌人",
+      "source_limits_text": "每enemy_instance一次，Boss不给金币",
+      "source_prerequisite_text": "钩索已解锁",
+      "source_snapshot_parameters": {
+        "coin_per_enemy": 1,
+        "map_coin_cap": 10
+      }
+    },
+    {
+      "stable_id": "P39",
+      "display_name": "盗贼旧誓",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 18,
+      "max_level": 1,
+      "description": "合法击杀所得局内金币×1.25，受伤不扣金币；整数金币采用结余累计，不影响宝箱/退款。",
+      "trigger": "本图击杀金币结算/受伤",
+      "limits": "不能使钱包负数；扣钱要形成消费收据",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "kill_coin_multiplier": 1.25,
+        "lose_coins_on_damage": 0
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "kill_coin_multiplier",
+          "lose_coins_on_damage"
+        ],
+        "positive_keys": [],
+        "integer_keys": [
+          "lose_coins_on_damage"
+        ],
+        "zero_allowed_keys": [
+          "kill_coin_multiplier",
+          "lose_coins_on_damage"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "kill_coin_multiplier": "03 数值参数!H168",
+        "lose_coins_on_damage": "03 数值参数!H169"
+      },
+      "source_row": 64,
+      "source_mechanism_text": "合法击杀所得局内金币×1.25，受伤不扣金币；整数金币采用结余累计，不影响宝箱/退款。",
+      "source_trigger_text": "本图击杀金币结算/受伤",
+      "source_limits_text": "不能使钱包负数；扣钱要形成消费收据",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "kill_coin_multiplier": 1.25,
+        "lose_coins_on_damage": 0
+      }
+    },
+    {
+      "stable_id": "G10",
+      "display_name": "不朽钱袋",
+      "rarity": "GOLD",
+      "gear_cost": 1,
+      "shop_price": 63,
+      "max_level": 1,
+      "description": "每图首次6次有效击杀额外各+2金币，最多12金币。",
+      "trigger": "首次合法击杀敌人",
+      "limits": "与裂纹钱袋互斥；每图最多12额外金币",
+      "prerequisite": "无",
+      "effect_parameters": {
+        "bonus_coin_per_kill": 2,
+        "max_bonus_kills_per_map": 6
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "bonus_coin_per_kill",
+          "max_bonus_kills_per_map"
+        ],
+        "positive_keys": [
+          "bonus_coin_per_kill"
+        ],
+        "integer_keys": [
+          "max_bonus_kills_per_map"
+        ],
+        "zero_allowed_keys": [
+          "max_bonus_kills_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "bonus_coin_per_kill": "03 数值参数!H170",
+        "max_bonus_kills_per_map": "03 数值参数!H171"
+      },
+      "source_row": 65,
+      "source_mechanism_text": "每图首次6次有效击杀额外各+2金币，最多12金币。",
+      "source_trigger_text": "首次合法击杀敌人",
+      "source_limits_text": "与裂纹钱袋互斥；每图最多16金币",
+      "source_prerequisite_text": "无",
+      "source_snapshot_parameters": {
+        "bonus_coin_per_kill": 2,
+        "max_bonus_kills_per_map": 6
+      }
+    },
+    {
+      "stable_id": "G12",
+      "display_name": "错位命运骰",
+      "rarity": "GOLD",
+      "gear_cost": 1,
+      "shop_price": 74,
+      "max_level": 1,
+      "description": "首次商店刷新免费；蓝色概率−14百分点、紫色+10、金色+4，总概率仍100%。",
+      "trigger": "每张地图首次商店刷新",
+      "limits": "从蓝档扣除等量概率；内容池合法性与版本要校验",
+      "prerequisite": "商店可使用",
+      "effect_parameters": {
+        "free_rerolls_per_map": 1,
+        "purple_bonus_pp": 10,
+        "gold_bonus_pp": 4,
+        "blue_penalty_pp": 14
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "blue_penalty_pp",
+          "free_rerolls_per_map",
+          "gold_bonus_pp",
+          "purple_bonus_pp"
+        ],
+        "positive_keys": [
+          "blue_penalty_pp",
+          "gold_bonus_pp",
+          "purple_bonus_pp"
+        ],
+        "integer_keys": [
+          "free_rerolls_per_map"
+        ],
+        "zero_allowed_keys": [
+          "free_rerolls_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "free_rerolls_per_map": "03 数值参数!H172",
+        "purple_bonus_pp": "03 数值参数!H173",
+        "gold_bonus_pp": "03 数值参数!H174",
+        "blue_penalty_pp": "03 数值参数!H175"
+      },
+      "source_row": 66,
+      "source_mechanism_text": "首次商店刷新免费；蓝色概率−14百分点、紫色+10、金色+4，总概率仍100%。",
+      "source_trigger_text": "每张地图首次商店刷新",
+      "source_limits_text": "从蓝档扣除等量概率；内容池合法性与版本要校验",
+      "source_prerequisite_text": "商店可使用",
+      "source_snapshot_parameters": {
+        "free_rerolls_per_map": 1,
+        "purple_bonus_pp": 10,
+        "gold_bonus_pp": 4,
+        "blue_penalty_pp": 14
+      }
+    },
+    {
+      "stable_id": "G07",
+      "display_name": "王钟残辉",
+      "rarity": "GOLD",
+      "gear_cost": 2,
+      "shop_price": 68,
+      "max_level": 1,
+      "description": "每秒自然恢复2共鸣，本图恢复总计至多20",
+      "trigger": "脱战6秒且未消耗主动",
+      "limits": "离战定义严格；总额可记录、换装不可重刷",
+      "prerequisite": "共鸣系统",
+      "effect_parameters": {
+        "idle_delay_s": 6,
+        "resonance_per_s": 2,
+        "max_recovery_per_map": 20
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "idle_delay_s",
+          "max_recovery_per_map",
+          "resonance_per_s"
+        ],
+        "positive_keys": [
+          "idle_delay_s",
+          "max_recovery_per_map",
+          "resonance_per_s"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "idle_delay_s": "03 数值参数!H176",
+        "resonance_per_s": "03 数值参数!H177",
+        "max_recovery_per_map": "03 数值参数!H178"
+      },
+      "source_row": 67,
+      "source_mechanism_text": "每秒自然恢复2共鸣，本图恢复总计至多20",
+      "source_trigger_text": "脱战6秒且未消耗主动",
+      "source_limits_text": "离战定义严格；总额可记录、换装不可重刷",
+      "source_prerequisite_text": "共鸣系统",
+      "source_snapshot_parameters": {
+        "idle_delay_s": 6,
+        "resonance_per_s": 2,
+        "max_recovery_per_map": 20
+      }
+    },
+    {
+      "stable_id": "G08",
+      "display_name": "空白钟芯",
+      "rarity": "GOLD",
+      "gear_cost": 1,
+      "shop_price": 70,
+      "max_level": 1,
+      "description": "伴机优先攻击追索标记目标，首次副伤×1.30。",
+      "trigger": "伴机选择目标",
+      "limits": "需有伴机和标记才进池；不能赋予永久不可卸",
+      "prerequisite": "已拥有伴机+标记能力",
+      "effect_parameters": {
+        "marked_companion_first_hit_multiplier": 1.3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "marked_companion_first_hit_multiplier"
+        ],
+        "positive_keys": [],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "marked_companion_first_hit_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "marked_companion_first_hit_multiplier": "03 数值参数!H179"
+      },
+      "source_row": 68,
+      "source_mechanism_text": "伴机优先攻击追索标记目标，首次副伤×1.30。",
+      "source_trigger_text": "伴机选择目标",
+      "source_limits_text": "需有伴机和标记才进池；不能赋予永久不可卸",
+      "source_prerequisite_text": "已拥有伴机+标记能力",
+      "source_snapshot_parameters": {
+        "marked_companion_first_hit_multiplier": 1.3
+      }
+    },
+    {
+      "stable_id": "B17",
+      "display_name": "裂纹强击栓",
+      "rarity": "BLUE",
+      "gear_cost": 3,
+      "shop_price": 38,
+      "max_level": 1,
+      "description": "主武器基础直接伤害×1.50；装备期间累计3次真实HP伤害后损坏，商店可付26金币修复。",
+      "trigger": "主攻真实伤害",
+      "limits": "累计3次真实HP损伤（跨图）；盾吸收不计；修复26金；仍占3槽",
+      "prerequisite": "攻击武器",
+      "effect_parameters": {
+        "primary_damage_multiplier": 1.5,
+        "break_on_hits": 3,
+        "repair_price": 26
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "break_on_hits",
+          "primary_damage_multiplier",
+          "repair_price"
+        ],
+        "positive_keys": [
+          "break_on_hits",
+          "repair_price"
+        ],
+        "integer_keys": [
+          "break_on_hits"
+        ],
+        "zero_allowed_keys": [
+          "primary_damage_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "primary_damage_multiplier": "03 数值参数!H180",
+        "break_on_hits": "03 数值参数!H181",
+        "repair_price": "03 数值参数!H182"
+      },
+      "source_row": 69,
+      "source_mechanism_text": "主武器基础直接伤害×1.50；装备期间累计3次真实HP伤害后损坏，商店可付26金币修复。",
+      "source_trigger_text": "主攻真实伤害",
+      "source_limits_text": "累计3次真实HP损伤（跨图）；盾吸收不计；修复26金；仍占3槽",
+      "source_prerequisite_text": "攻击武器",
+      "source_snapshot_parameters": {
+        "primary_damage_multiplier": 1.5,
+        "break_on_hits": 3,
+        "repair_price": 26
+      }
+    },
+    {
+      "stable_id": "P24",
+      "display_name": "回环飞轮",
+      "rarity": "PURPLE",
+      "gear_cost": 3,
+      "shop_price": 47,
+      "max_level": 1,
+      "description": "消耗35战斗能量抛出往返飞轮，总直伤预算1.40D；12秒冷却。",
+      "trigger": "按共鸣技能键",
+      "limits": "单装备时同一技能飞轮至多1个；双响投架联动时至多2个；共享一次能量提交",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 35,
+        "total_damage_ratio_D": 1.4,
+        "max_target_hits": 2,
+        "range_px": 270,
+        "cooldown_s": 12
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "max_target_hits",
+          "range_px",
+          "total_damage_ratio_D"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "max_target_hits",
+          "range_px"
+        ],
+        "integer_keys": [
+          "max_target_hits"
+        ],
+        "zero_allowed_keys": [
+          "total_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H183",
+        "total_damage_ratio_D": "03 数值参数!H184",
+        "max_target_hits": "03 数值参数!H185",
+        "range_px": "03 数值参数!H186",
+        "cooldown_s": "01 有效道具!L70（原文明确值，03未列）"
+      },
+      "source_row": 70,
+      "source_mechanism_text": "消耗35战斗能量抛出往返飞轮，总直伤预算1.40D；12秒冷却。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "单装备时同一技能飞轮至多1个；双响投架联动时至多2个；共享一次能量提交",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 35,
+        "total_damage_ratio_D": 1.4,
+        "max_target_hits": 2,
+        "range_px": 270
+      }
+    },
+    {
+      "stable_id": "P25",
+      "display_name": "落地针雷",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 48,
+      "max_level": 1,
+      "description": "消耗35战斗能量放置脚下合法地面针雷，最多2枚，10秒冷却。",
+      "trigger": "按共鸣技能键",
+      "limits": "无可靠地面放置则不施放且不扣共鸣",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 35,
+        "trap_lifetime_s": 14,
+        "trap_damage_ratio_D": 0.9,
+        "radius_px": 80,
+        "max_active_traps": 2,
+        "cooldown_s": 10
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "max_active_traps",
+          "radius_px",
+          "trap_damage_ratio_D",
+          "trap_lifetime_s"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "radius_px",
+          "trap_lifetime_s"
+        ],
+        "integer_keys": [
+          "max_active_traps"
+        ],
+        "zero_allowed_keys": [
+          "max_active_traps",
+          "trap_damage_ratio_D"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H187",
+        "trap_lifetime_s": "03 数值参数!H188",
+        "trap_damage_ratio_D": "03 数值参数!H189",
+        "radius_px": "03 数值参数!H190",
+        "max_active_traps": "03 数值参数!H191",
+        "cooldown_s": "01 有效道具!L71（原文明确值，03未列）"
+      },
+      "source_row": 71,
+      "source_mechanism_text": "消耗35战斗能量放置脚下合法地面针雷，最多2枚，10秒冷却。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "无可靠地面放置则不施放且不扣共鸣",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 35,
+        "trap_lifetime_s": 14,
+        "trap_damage_ratio_D": 0.9,
+        "radius_px": 80,
+        "max_active_traps": 2
+      }
+    },
+    {
+      "stable_id": "G14",
+      "display_name": "飞雷钟樽",
+      "rarity": "GOLD",
+      "gear_cost": 2,
+      "shop_price": 85,
+      "max_level": 1,
+      "description": "仅保留投掷模式：主动消耗45点共鸣，投掷电弧雷樽，触敌或到达有效距离爆发1.30D电伤，再链到附近最多2名敌人各0.35D；CD14秒。",
+      "trigger": "按主动技能键向瞄准方向投掷",
+      "limits": "取消部署/双态切换；只有投掷; 一次技能一包，电弧副伤不产共鸣",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 45,
+        "throw_damage_ratio_D": 1.3,
+        "chain_targets": 2,
+        "chain_damage_ratio_D": 0.35,
+        "cooldown_s": 14,
+        "mode": "THROW_ONLY"
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "chain_damage_ratio_D",
+          "chain_targets",
+          "combat_energy_cost",
+          "cooldown_s",
+          "mode",
+          "throw_damage_ratio_D"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s"
+        ],
+        "integer_keys": [
+          "chain_targets"
+        ],
+        "zero_allowed_keys": [
+          "chain_damage_ratio_D",
+          "chain_targets",
+          "throw_damage_ratio_D"
+        ],
+        "text_modes": {
+          "mode": [
+            "THROW_ONLY"
+          ]
+        },
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H192",
+        "throw_damage_ratio_D": "03 数值参数!H193",
+        "chain_targets": "03 数值参数!H194",
+        "chain_damage_ratio_D": "03 数值参数!H195",
+        "cooldown_s": "03 数值参数!H196",
+        "mode": "03 数值参数!H197"
+      },
+      "source_row": 72,
+      "source_mechanism_text": "仅保留投掷模式：主动消耗45点共鸣，投掷电弧雷樽，触敌或到达有效距离爆发1.30D电伤，再链到附近最多2名敌人各0.35D；CD14秒。",
+      "source_trigger_text": "按主动技能键向瞄准方向投掷",
+      "source_limits_text": "取消部署/双态切换；只有投掷; 一次技能一包，电弧副伤不产共鸣",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 45,
+        "throw_damage_ratio_D": 1.3,
+        "chain_targets": 2,
+        "chain_damage_ratio_D": 0.35,
+        "cooldown_s": 14,
+        "mode": "THROW_ONLY"
+      }
+    },
+    {
+      "stable_id": "G15",
+      "display_name": "双响投架",
+      "rarity": "GOLD",
+      "gear_cost": 2,
+      "shop_price": 80,
+      "max_level": 1,
+      "description": "投射工具分裂为两发，合计直伤预算×1.15；不会翻倍战斗产能。",
+      "trigger": "使用投射型共鸣技能",
+      "limits": "两投共享一次扣能/冷却；不得复制护盾或治疗",
+      "prerequisite": "已装备投射型主动技能",
+      "effect_parameters": {
+        "projectile_count_multiplier": 2,
+        "total_damage_budget_multiplier": 1.15
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "projectile_count_multiplier",
+          "total_damage_budget_multiplier"
+        ],
+        "positive_keys": [
+          "projectile_count_multiplier"
+        ],
+        "integer_keys": [
+          "projectile_count_multiplier"
+        ],
+        "zero_allowed_keys": [
+          "total_damage_budget_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "projectile_count_multiplier": "03 数值参数!H198",
+        "total_damage_budget_multiplier": "03 数值参数!H199"
+      },
+      "source_row": 73,
+      "source_mechanism_text": "投射工具分裂为两发，合计直伤预算×1.15；不会翻倍战斗产能。",
+      "source_trigger_text": "使用投射型共鸣技能",
+      "source_limits_text": "两投共享一次扣能/冷却；不得复制护盾或治疗",
+      "source_prerequisite_text": "已装备投射型主动技能",
+      "source_snapshot_parameters": {
+        "projectile_count_multiplier": 2,
+        "total_damage_budget_multiplier": 1.15
+      }
+    },
+    {
+      "stable_id": "G16",
+      "display_name": "钟匠裁决",
+      "rarity": "GOLD",
+      "gear_cost": 4,
+      "shop_price": 91,
+      "max_level": 1,
+      "description": "消耗65战斗能量释放3段钟波，各0.90D；使用同一技能攻击包。",
+      "trigger": "按共鸣技能键",
+      "limits": "攻击可带特效但不添加主动位移；Boss护甲与合法窗口继续生效",
+      "prerequisite": "共鸣主动系统",
+      "effect_parameters": {
+        "combat_energy_cost": 65,
+        "pulse_count": 3,
+        "damage_ratio_D_each": 0.9,
+        "range_px": 280,
+        "cooldown_s": 18
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "damage_ratio_D_each",
+          "pulse_count",
+          "range_px"
+        ],
+        "positive_keys": [
+          "combat_energy_cost",
+          "cooldown_s",
+          "pulse_count",
+          "range_px"
+        ],
+        "integer_keys": [
+          "pulse_count"
+        ],
+        "zero_allowed_keys": [
+          "damage_ratio_D_each"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H200",
+        "pulse_count": "03 数值参数!H201",
+        "damage_ratio_D_each": "03 数值参数!H202",
+        "range_px": "03 数值参数!H203",
+        "cooldown_s": "03 数值参数!H204"
+      },
+      "source_row": 74,
+      "source_mechanism_text": "消耗65战斗能量释放3段钟波，各0.60D；使用同一技能攻击包。",
+      "source_trigger_text": "按共鸣技能键",
+      "source_limits_text": "攻击可带特效但不添加主动位移；Boss护甲与合法窗口继续生效",
+      "source_prerequisite_text": "共鸣主动系统",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 65,
+        "pulse_count": 3,
+        "damage_ratio_D_each": 0.9,
+        "range_px": 280,
+        "cooldown_s": 18
+      }
+    },
+    {
+      "stable_id": "G19",
+      "display_name": "灰铃侍钟机",
+      "rarity": "GOLD",
+      "gear_cost": 4,
+      "shop_price": 89,
+      "max_level": 1,
+      "description": "常驻1台成长型灰铃侍钟无人机；每2.5秒攻击0.30D，击败精英可进化2次，各自相对基础增伤20%；卸装进度保留。",
+      "trigger": "装备生效且本局合法击败精英",
+      "limits": "升级记在owned实例，不因卸装重置；伴机副伤不能产能量",
+      "prerequisite": "召唤系统",
+      "effect_parameters": {
+        "base_damage_ratio_D": 0.3,
+        "attack_interval_s": 2.5,
+        "evolution_levels": 2,
+        "damage_bonus_per_level_pct": 20
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "attack_interval_s",
+          "base_damage_ratio_D",
+          "damage_bonus_per_level_pct",
+          "evolution_levels"
+        ],
+        "positive_keys": [
+          "attack_interval_s",
+          "damage_bonus_per_level_pct"
+        ],
+        "integer_keys": [
+          "evolution_levels"
+        ],
+        "zero_allowed_keys": [
+          "base_damage_ratio_D",
+          "evolution_levels"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "base_damage_ratio_D": "03 数值参数!H205",
+        "attack_interval_s": "03 数值参数!H206",
+        "evolution_levels": "03 数值参数!H207",
+        "damage_bonus_per_level_pct": "03 数值参数!H208"
+      },
+      "source_row": 75,
+      "source_mechanism_text": "常驻1台成长型灰铃侍钟无人机；每2.5秒攻击0.30D，击败精英可进化2次，各自相对基础增伤20%；卸装进度保留。",
+      "source_trigger_text": "装备生效且本局合法击败精英",
+      "source_limits_text": "升级记在owned实例，不因卸装重置；伴机副伤不能产能量",
+      "source_prerequisite_text": "召唤系统",
+      "source_snapshot_parameters": {
+        "base_damage_ratio_D": 0.3,
+        "attack_interval_s": 2.5,
+        "evolution_levels": 2,
+        "damage_bonus_per_level_pct": 20
+      }
+    },
+    {
+      "stable_id": "N01",
+      "display_name": "迟暮钟摆",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 49,
+      "max_level": 3,
+      "description": "空中瞄准慢时世界倍率Lv1/2/3为12%/10%/8%，时间能量消耗与2秒预算不变；满血时由满月枪歌0%优先生效。",
+      "trigger": "空中瞄准慢时",
+      "limits": "；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "prerequisite": "慢时能力",
+      "effect_parameters": {
+        "world_slow_scale_by_level": [
+          0.12,
+          0.1,
+          0.08
+        ],
+        "focus_stamina_cost_multiplier": 1,
+        "airtime_budget_s": 2
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "airtime_budget_s",
+          "focus_stamina_cost_multiplier",
+          "world_slow_scale_by_level"
+        ],
+        "positive_keys": [
+          "airtime_budget_s",
+          "world_slow_scale_by_level"
+        ],
+        "integer_keys": [],
+        "zero_allowed_keys": [
+          "focus_stamina_cost_multiplier"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "world_slow_scale_by_level": [
+          "03 数值参数!H209",
+          "03 数值参数!H210",
+          "03 数值参数!H211"
+        ],
+        "focus_stamina_cost_multiplier": "03 数值参数!H212",
+        "airtime_budget_s": "03 数值参数!H213"
+      },
+      "source_row": 76,
+      "source_mechanism_text": "空中瞄准慢时世界倍率Lv1/2/3为12%/10%/8%，时间能量消耗与2秒预算不变；满血时由满月枪歌0%优先生效。",
+      "source_trigger_text": "空中瞄准慢时",
+      "source_limits_text": "；同名重复获取只升等级不额外占槽，满级不再进入奖励池",
+      "source_prerequisite_text": "慢时能力",
+      "source_snapshot_parameters": {
+        "world_slow_scale_by_level": [
+          0.12,
+          0.1,
+          0.08
+        ],
+        "focus_stamina_cost_multiplier": 1.0,
+        "airtime_budget_s": 2
+      }
+    },
+    {
+      "stable_id": "N02",
+      "display_name": "余鸣护甲",
+      "rarity": "PURPLE",
+      "gear_cost": 2,
+      "shop_price": 52,
+      "max_level": 1,
+      "description": "主动支付50战斗共鸣，获得最多2点临时护盾；每张地图最多成功释放1次，共享护盾总上限3。",
+      "trigger": "主动释放，且本地图未曾用过",
+      "limits": "",
+      "prerequisite": "共鸣≥50",
+      "effect_parameters": {
+        "combat_energy_cost": 50,
+        "barrier_grant": 2,
+        "max_uses_per_map": 1,
+        "shared_barrier_cap": 3
+      },
+      "parameter_contract": {
+        "required_keys": [
+          "barrier_grant",
+          "combat_energy_cost",
+          "max_uses_per_map",
+          "shared_barrier_cap"
+        ],
+        "positive_keys": [
+          "barrier_grant",
+          "combat_energy_cost",
+          "shared_barrier_cap"
+        ],
+        "integer_keys": [
+          "barrier_grant",
+          "max_uses_per_map",
+          "shared_barrier_cap"
+        ],
+        "zero_allowed_keys": [
+          "max_uses_per_map"
+        ],
+        "text_modes": {},
+        "reject_unknown_keys": true,
+        "schema_source_sha256": "222d7dd49918ab613d5430a03fcc07f45bce1fbaa89ba6ea072c5a21174b545f"
+      },
+      "parameter_sources": {
+        "combat_energy_cost": "03 数值参数!H214",
+        "barrier_grant": "03 数值参数!H215",
+        "max_uses_per_map": "03 数值参数!H216",
+        "shared_barrier_cap": "03 数值参数!H217"
+      },
+      "source_row": 77,
+      "source_mechanism_text": "主动支付50战斗共鸣，获得最多2点临时护盾；每张地图最多成功释放1次，共享护盾总上限3。",
+      "source_trigger_text": "主动释放，且本地图未曾用过",
+      "source_limits_text": "",
+      "source_prerequisite_text": "共鸣≥50",
+      "source_snapshot_parameters": {
+        "combat_energy_cost": 50,
+        "barrier_grant": 2,
+        "max_uses_per_map": 1,
+        "shared_barrier_cap": 3
+      }
+    }
+  ],
+  "deleted_ids": [
+    "B25",
+    "P07",
+    "P21",
+    "P22",
+    "P37",
+    "P38",
+    "B10",
+    "P32",
+    "P01",
+    "B12",
+    "P19",
+    "P30",
+    "G18",
+    "P11",
+    "P28",
+    "B02",
+    "G13",
+    "G09",
+    "G17",
+    "P35",
+    "P36"
+  ],
+  "text_parameter_supplements": {
+    "B05": {
+      "minimum_total_cooldown_multiplier": 0.65
+    },
+    "B23": {
+      "cooldown_s": 6
+    },
+    "P12": {
+      "target_cooldown_s": 2
+    },
+    "P02": {
+      "minimum_skill_cost": 15
+    },
+    "B15": {
+      "cooldown_s": 7
+    },
+    "B24": {
+      "cooldown_s": 3
+    },
+    "P16": {
+      "cooldown_s": 12
+    },
+    "P20": {
+      "cooldown_s": 12
+    },
+    "G06": {
+      "cooldown_s": 1.5
+    },
+    "P24": {
+      "cooldown_s": 12
+    },
+    "P25": {
+      "cooldown_s": 10
+    }
+  },
+  "upgradeable_count": 16,
+  "conflicts": [
+    {
+      "stable_id": "B22",
+      "kind": "stale_text",
+      "source_row": 8,
+      "resolution": "M/O旧单支武器限定与L/H三种炸弹家族冲突，以L/H为准"
+    },
+    {
+      "stable_id": "G01",
+      "kind": "stale_text",
+      "source_row": 23,
+      "resolution": "L7秒与H target_cooldown_s=6冲突，以H为准"
+    },
+    {
+      "stable_id": "P29",
+      "kind": "stale_text",
+      "source_row": 27,
+      "resolution": "M/O旧钩索限定与L明确通用主动攻击冲突，以最终L为准"
+    },
+    {
+      "stable_id": "B06",
+      "kind": "stale_text",
+      "source_row": 30,
+      "resolution": "N旧12与H各级20/30/40冲突，以H为准"
+    },
+    {
+      "stable_id": "G03",
+      "kind": "stale_text",
+      "source_row": 49,
+      "resolution": "M旧脱战触发与L/H新图回血冲突，以最终L/H为准"
+    },
+    {
+      "stable_id": "P05",
+      "kind": "stale_text",
+      "source_row": 52,
+      "resolution": "M旧30%与L/H40%冲突，以L/H为准"
+    },
+    {
+      "stable_id": "P10",
+      "kind": "stale_text",
+      "source_row": 55,
+      "resolution": "L缩略技能触发按M及H primed_window_s=5明确为技能后首次主攻命中"
+    },
+    {
+      "stable_id": "P15",
+      "kind": "stale_text",
+      "source_row": 57,
+      "resolution": "M旧40与L/H45冲突，以L/H为准"
+    },
+    {
+      "stable_id": "B16",
+      "kind": "stale_text",
+      "source_row": 62,
+      "resolution": "N旧16与H每次1/前8次冲突，以H为准"
+    },
+    {
+      "stable_id": "G10",
+      "kind": "stale_text",
+      "source_row": 65,
+      "resolution": "N旧16与L/H每次2/前6次冲突，以L/H为准"
+    },
+    {
+      "stable_id": "G16",
+      "kind": "stale_text",
+      "source_row": 74,
+      "resolution": "L旧0.60D与H damage_ratio_D_each=0.9冲突，以H为准"
+    },
+    {
+      "kind": "summary_upgrade_count",
+      "source_cell": "00 策划总览!C22",
+      "resolution": "概述‘16件原图鉴+新增’隐含17，但00统计、01逐件K及04唯一ID一致16；只给逐件批准的16件升级，不发明第17件"
+    }
+  ]
+}

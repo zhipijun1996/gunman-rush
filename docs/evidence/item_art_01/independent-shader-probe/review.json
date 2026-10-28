@@ -1,0 +1,84 @@
+{
+  "reviewer": "independent /root/final_review",
+  "decision": "REVISE_CURRENT_WORLD_CONSUMER; BOUNDED_ITEM_SPECIFIC_SHADER_CANDIDATE_ADMITTED_FOR_INTEGRATION_QA",
+  "production_modified": false,
+  "original_shared_shader_modified": false,
+  "shader_shared_sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188",
+  "findings": [
+    {
+      "id": "IART-R09-01",
+      "severity": "blocking unchangedsharedshader admission for thesehighratio assets",
+      "finding": "Genuine subtexel-boundary instability: actualP24 accepted/shared1wu shader maximum4x4constant activeblock fraction .763224 (<original .95 gate), nearest .002232. RawImageP24 .905371, synthetic2048x768ratio8 .928571, synthetic256square ratio8 .673469. Poweroftwo source alsofails, so non-poweroftwo alone does not explain. UVdebug has varying tiny normalizedtexel fractions inside expectedcell; source-boundary tie is consistent with .001sourcepixelbias and halfsourcepixelROI fixes.",
+      "gate_unchanged": ".95; all16screenphases evaluated, not eased"
+    },
+    {
+      "id": "IART-R09-02",
+      "severity": "blocking raw unchangedshaderAtlas sampling",
+      "finding": "Actual filter_clip=true does not stop customshader re-sampling beyond AtlasROI at128source/8.3wu15.42ratio. Greenneighbors0/13/6 atrot0/.37/.79, equalunfilteredcase. Deliberateincludedneighbor136/63/81. Originalratio~1bordercontrol passed but was insufficient forcurrentassets."
+    }
+  ],
+  "region_builtin_proof": {
+    "actual": "REGION_RECT exists in Godot4.7.2 canvas_item and yields normalizedxywh perdraw for sameNode2D4texturecommands; fullImageTexture[0,0,1,1]; AtlasROIs [0,0,.5,1],[.25,.125,.5,.5],[.5,0,.5,1]",
+    "readback": "region-receipt.json and actuallyviewedregion-actual.png",
+    "earlier_failed_diagnostic": "region-01-sampling-mismatch preserved: originalcode resizedviewportwithoutcontent_scale_size, makingreadbackcoordinateswrong. Native0 alone didnotmakeitssemanticreadbackvalid. Fixedexplicitcontent_scale_size andreran, no oldresultrelabel."
+  },
+  "candidate": {
+    "path": "stable-02/item-stable-candidate.gdshader",
+    "sha256": "846acb419483005b0261bbf97e7e4a8bacf3a71ae347057da125cd2482504142",
+    "sampling_change": "at=clamp(at+TEXTURE_PIXEL_SIZE*.001,REGION_RECT.xy+TEXTURE_PIXEL_SIZE*.5,REGION_RECT.xy+REGION_RECT.zw-TEXTURE_PIXEL_SIZE*.5); COLOR=texture(TEXTURE,at)*source_vertex_color;",
+    "originalvertex_identical": true,
+    "originallight_identical": true,
+    "actualP24uniform": 1.0,
+    "rawP24uniform": 1.0,
+    "ratio8synthetic_both": 1.0,
+    "nearestnegative": 0.00223214285714286,
+    "highratio15_42_neighbors_clipped": [
+      0,
+      0,
+      0
+    ],
+    "highratio15_42_neighbors_unfiltered": [
+      0,
+      0,
+      0
+    ],
+    "deliberatebadROI": [
+      136,
+      63,
+      81
+    ],
+    "scope": "Only ignored materialcandidate now; supports separate item-specificshader without changing globalshader or perdrawlast-uniform workaround. Needs actualEntity/View/defensiveglyph integration and native/GL regressions before productionacceptance."
+  },
+  "actual_pixels_viewed": [
+    "actual.png",
+    "stable-02/actual.png",
+    "region-actual.png"
+  ],
+  "native": "Fouractual4.7.2X11llvmpipe executions exit0; logs noERROR/leak, VSyncwarningretained. First and correctedcandidateblockgates not conflated withprocesssuccess.",
+  "remaining": [
+    "Mixedline/circle/sourceUVzero drawcommands on newshader (oldshader only previouslyverified)",
+    "Current72icon/42clip configuration and callbacklifecycle tests",
+    "Same-position G19bodyanchor/fullalpha envelope andtrapfoot/G05/P20bounds",
+    "Formal mixedregion world/motion actualartreadability",
+    "Device/human/G2-G5/audio/livecontinuousplayback notsigned"
+  ],
+  "artifacts": {
+    "actual.png": "dae04c687f142abfc9edf046a2b0a69a05c8de089d6915faa5ec3898d1f45f88",
+    "native-gl.log": "d1414c28db1196b7ec35f56cb31ff0410b6253276e669552feb6ec61c9a9abe9",
+    "probe.gd": "f3ecfa32151ba3bc34e53ed30ebacd672f248c73faa8694aef59881ee6183148",
+    "probe_stable.gd": "e794192b3a4f1a393daaf6a77b85de00789d51b4e6b0633703ee0c830c147e0f",
+    "receipt.json": "7fdcb6696d021b38f8888c90193f048b78389629c9eace744d0e8511f56fb65f",
+    "region-01-sampling-mismatch/region-actual.png": "bcb9c1fbc4ff141de3b7fc1d59ee61ab04032ceced35f796ee7aeece89fe4169",
+    "region-01-sampling-mismatch/region-native-gl.log": "4ed017503f3b80557ffcd6d3a8551f7b98d5970a35b7a80a472377bfe8583f0e",
+    "region-01-sampling-mismatch/region-receipt.json": "ebc1b801319fccb94948c326fcd5c0e5931187c2924f24ae2e6595d471c6325d",
+    "region-01-sampling-mismatch/region_probe.gd": "c660229efa840a555b89238cc7438d50896d6d863198a5799270495b7da6c905",
+    "region-actual.png": "7107d5379198a45c202529e7596ce3cd9e24c915e427c1f4accb09f76f60fabc",
+    "region-native-gl.log": "4ed017503f3b80557ffcd6d3a8551f7b98d5970a35b7a80a472377bfe8583f0e",
+    "region-receipt.json": "13835b74cf512b07c0b9e1571aeecf16b4a85462aac4ee856ef1cb0f487c31d6",
+    "region_probe.gd": "c403f9439c4e45c75a43e230f678f8679e5922def6dcf4028b8fff77726afc1f",
+    "stable-02/actual.png": "31b740a16321305bff1d70f1aa79aeff951e25590e0f77776a21116bca7ff310",
+    "stable-02/item-stable-candidate.gdshader": "846acb419483005b0261bbf97e7e4a8bacf3a71ae347057da125cd2482504142",
+    "stable-02/native-gl.log": "d1414c28db1196b7ec35f56cb31ff0410b6253276e669552feb6ec61c9a9abe9",
+    "stable-02/receipt.json": "6e5940c642f7239e4ccb10560cd2adcf2761953622fb55561b19d74267a49fdf"
+  }
+}

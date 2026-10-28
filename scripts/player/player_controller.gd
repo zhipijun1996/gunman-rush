@@ -18,6 +18,7 @@ signal weapon_damage_committed(packet: int, shot: int, receiver: Damageable, sou
 @export var recoil_ability: RecoilAbility
 var action_resource_view := PlayerActionResourceView.new()
 var combat_energy := CombatEnergyState.new()
+var item_runtime: RefCounted
 var traversal: TraversalAbility
 var shot_energy: ShotEnergyPolicy
 var active := true
@@ -67,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	physics_tick(delta)
 	var blade_focus := shoot_ability.behavior().steering_focus()
 	air_focus_ability.advance(real_delta, _was_grounded, router.aim_engaged, active and router.has_application_focus and not get_tree().paused and not traversal.busy(), blade_focus, shoot_ability.weapon.steering_focus_drain_ratio if blade_focus else 1.0)
+	if item_runtime != null: item_runtime.call("advance", real_delta, delta)
 
 func physics_tick(delta: float) -> void:
 	_tick += 1
@@ -76,11 +78,15 @@ func physics_tick(delta: float) -> void:
 	traversal.advance(delta)
 	router.grapple_available = traversal.hook_enabled
 	router.weapon_skill_available=shoot_ability.weapon.tier==3
+	if item_runtime != null:
+		router.item_skill_available = not StringName(item_runtime.call("selected_active")).is_empty()
+		var selected: RunItemInstance = item_runtime.call("instance", item_runtime.call("selected_active"))
+		router.item_skill_label = selected.item.display_name if selected != null else "道具技能"
 	var items := shoot_ability.behavior().current_entities()
 	router.weapon_context_available=not items.is_empty() and ((items[0].kind==&"boomerang" and items[0].phase in [&"outbound",&"auto_return"]) or (items[0].kind==&"mine" and items[0].phase==&"attached"))
 	router.weapon_context_label="RECALL" if not items.is_empty() and items[0].kind==&"boomerang" else "DETONATE"
 	jump_ability.advance(delta, _was_grounded)
-	shoot_ability.advance(delta)
+	shoot_ability.advance(0.0 if item_runtime != null and bool(item_runtime.call("world_is_frozen")) else delta)
 	if shot_energy!=null and router.has_application_focus and not get_tree().paused:
 		shot_energy.advance(delta,_was_grounded)
 	action_resources.advance(_was_grounded)
@@ -123,11 +129,18 @@ func physics_tick(delta: float) -> void:
 		if action.type == &"weapon_context": shoot_ability.behavior().context()
 		elif action.type == &"weapon_skill" and not traversal.busy() and not weapon_locked:
 			shoot_ability.behavior().begin(action.direction if not action.direction.is_zero_approx() else Vector2.UP,started_grounded,true)
+		elif action.type == &"item_skill" and item_runtime != null and not traversal.busy() and not weapon_locked:
+			item_runtime.call("activate_selected", action.direction if not action.direction.is_zero_approx() else router.skill_direction())
 	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.aim_mode==&"attack" and router.aim_engaged and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
 		shoot_ability.try_fire(router.aim_direction,started_grounded)
 	jump_ability.update_hold(delta, motor)
 	var requested_recoil := motor.recoil_velocity
-	motor.step(router.sample_axes(), delta)
+	var move_axis := router.sample_axes()
+	if item_runtime != null and started_grounded:
+		var shoes: Dictionary = item_runtime.call("effect", &"B28")
+		if not shoes.is_empty(): move_axis *= float(shoes.run_speed_multiplier)
+		if shoot_ability.behavior().phase == &"charge": move_axis *= float(item_runtime.call("charge_move_multiplier"))
+	motor.step(move_axis, delta)
 	traversal.after_move()
 	if motor.get_slide_collision_count() > 0 and shoot_ability.rounds_remaining > 0:
 		for index: int in motor.get_slide_collision_count():
@@ -152,6 +165,13 @@ func queue_grant(amount: int, expected_session: int = -1, on_resolved: Callable 
 		received_resource_grants.append({"amount": amount, "session_id": session_id if expected_session < 0 else expected_session, "on_resolved": on_resolved, "source_valid": source_valid})
 	elif on_resolved.is_valid():
 		on_resolved.call(0)
+
+func has_pending_damage() -> bool:
+	if not has_meta(&"frame_damage_policy"): return false
+	var reference: Variant = get_meta(&"frame_damage_policy")
+	if not reference is WeakRef: return false
+	var source := reference.get_ref() as Node
+	return is_instance_valid(source) and source.has_method("has_pending_player_damage") and bool(source.call("has_pending_player_damage"))
 
 func enable_shot_energy(config: ShotEnergyDefinition = null) -> bool:
 	if shot_energy!=null: return true
@@ -178,7 +198,11 @@ func on_projectile_hit(expected_session: int, shot_id: int, airborne: bool, move
 func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: bool, target: int, skill: bool = false, receiver: Damageable = null, weapon_epoch: int = -1) -> void:
 	if not active or actor_resources.health.terminal or expected_session!=session_id or (weapon_epoch>=0 and weapon_epoch!=shoot_ability.weapon_epoch):return
 	on_projectile_hit(expected_session,packet,airborne,shot,target!=0)
-	if target!=0:combat_energy.committed_hit("%s/%s" % [expected_session,packet],target,skill)
+	var bonus := 0.0
+	if item_runtime != null:
+		var tuning: Dictionary = item_runtime.call("effect", &"B18")
+		bonus = float(tuning.get("extra_combat_energy_per_target",0.0))
+	if target!=0:combat_energy.committed_hit("%s/%s" % [expected_session,packet],target,skill,bonus)
 	if skill and is_instance_valid(receiver):
 		var enemy := receiver.get_parent().get_node_or_null("Actor") as EnemyActor
 		if enemy!=null:
@@ -187,6 +211,7 @@ func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: b
 	if target!=0 and is_instance_valid(receiver): weapon_damage_committed.emit(packet,shot,receiver,expected_session,weapon_epoch)
 
 func die() -> void:
+	if item_runtime != null: item_runtime.call("clear")
 	combat_energy.reset()
 	if not active:
 		return
@@ -263,6 +288,11 @@ func _on_shot_fired(_direction: Vector2, _shot_id: int) -> void:
 	jump_ability.cancel_ascent()
 	air_focus_ability.stop()
 
-func on_grapple_damage(expected_session: int, packet: int, target: int) -> void:
+func on_grapple_damage(expected_session: int, packet: int, target: int, receiver: Damageable = null) -> void:
 	if not active or actor_resources.health.terminal or expected_session!=session_id:return
-	combat_energy.committed_hit("%s/hook/%s" % [expected_session,packet],target)
+	var extra := 0.0
+	if item_runtime != null:
+		var read: Dictionary = item_runtime.call("effect", &"B19")
+		extra = float(read.get("extra_combat_energy_on_hook_hit", 0.0))
+	combat_energy.committed_hit("%s/hook/%s" % [expected_session,packet],target,false,extra)
+	if item_runtime != null and is_instance_valid(receiver): item_runtime.call("on_hook_hit", receiver, packet)

@@ -1,0 +1,52 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "two legacy-shop fixtures migrated to real V5 services; static independent review",
+  "created_utc": "2026-10-28T11:37:23.137085+00:00",
+  "verdict": "SCOPED_SOURCE_TECHNICAL_ACCEPT_NATIVE_PENDING",
+  "source_baseline": "5722ca742115ba9316ff4c1a5e2c38694c87081d",
+  "scope": "Only the campaign/lifecycle test consumers of obsolete singleton merchant quote; production and original wrapper unchanged.",
+  "static_checks": {
+    "tests/plains_campaign_map_runner.gd": {
+      "sha256": "b9d9da229dbbe47d485e885f63129ba8f0d8c385e3362041eed62a688176a0e8",
+      "old_check_line_labels": 47,
+      "missing_original_labels": [],
+      "unchanged_tail": "entire corpus function"
+    },
+    "tests/plains_region_lifecycle_runner.gd": {
+      "sha256": "633d2951818d87350f6e04e4a0efe793d958f5d387bab26a4cea415a50b4e063",
+      "old_check_line_labels": 25,
+      "missing_original_labels": [],
+      "unchanged_tail": "entire death-first Boss/reward tie segment and cleanup"
+    }
+  },
+  "wrapper_preserved": {
+    "sha256": "75affbbf3ef4a6314ee86e146eef5640f359ae51f0eac3b02676b329dd8e88d5",
+    "bytes_identical_to_baseline": true,
+    "overall_seconds": 1500,
+    "individual_campaign_seconds": 90,
+    "individual_lifecycle_seconds": 90,
+    "all15suites_and_summary_gates_retained": true
+  },
+  "production_diff": [],
+  "actual_V5_flow": [
+    "Open actual App merchant and existing V5Presenter; assert paused catalog has3slots.",
+    "Read real ShopOffer via immutable slot offer_id, choose actual eligible finite stock1.",
+    "Disclosed RunWallet fixture grant uses quote.price, then presenter.refresh exposes an affordable realCatalogBuy control. No legacy service, provider replacement, ItemRuntime=null or direct state mutation.",
+    "Emitting actual Button.pressed invokes original generation guarded GUI callback -> presenter -> internally constructed ShopPurchaseRequest -> ShopService. This is a callback-driven native test fixture, not physical mouse delivery proof.",
+    "Observe actual purchased signal; assert one accepted receipt, exact debit/negative receipt.coins, owned definition+instance+nextlevel and correct backpack instance count. No automatic equipment assertion retained.",
+    "Purchased slot remains0, other2slots1; stored receipt links stable instance. Existing old control repeat is inert and balance unchanged.",
+    "Campaign actual mini-Boss transition preserves oldcatalog snapshot/receipt/backpack IDs+levels and oldwallet grants, creates different new3-slot merchant withstock1.",
+    "Lifecycle actual reload keeps catalog snapshot, purchased slot0, receipt/backpack IDs+levels, exact wallet balance/grant ledger; oldenemy/drop/shortcut/action-budget/death-first checks remain."
+  ],
+  "new_test_coverage_limits": [
+    "Button.pressed callback is exercised, not native physicalmouse/touch/controller input.",
+    "Repeated purchase emission uses the old control after presenterrefresh. This is a stale-control/no-extra-spend check plus authoritative stock assertion, not an independent fresh same-transaction payload replay test.",
+    "Runner-level native pass, fullregion wrapper and final8Harness are pending root at this review time.",
+    "No fullsource movie rerun needed solely because test fixtures change; original films keep exact oldsource identities and production0diff is explicit."
+  ],
+  "failure_preservation": "Original first8Harness report/core/region logs are retained under build/chest_art_01/region-shop-repair-failure-01; oldfailure staysfailed.",
+  "reviewer_engine_started": false,
+  "reviewer_production_or_tests_changed": false,
+  "remaining_static_defects_identified_within_scope": []
+}

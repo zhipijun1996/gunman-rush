@@ -29,6 +29,16 @@ func click(text: String) -> bool:
 	for down: bool in [true,false]:
 		var event:=InputEventMouseButton.new();event.position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=down;Input.parse_input_event(event);await frames(2)
 	return true
+func close_codex() -> bool:
+	var button := find_button(app._home_codex,"CodexClose")
+	check(button != null,"Actual visible UI button CodexClose")
+	if button == null: return false
+	var point := button.get_global_rect().get_center()
+	var motion := InputEventMouseMotion.new();motion.position=point;Input.parse_input_event(motion)
+	await frames(2)
+	for down: bool in [true,false]:
+		var event := InputEventMouseButton.new();event.position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=down;Input.parse_input_event(event);await frames(2)
+	return true
 func capture(id: String) -> void:
 	if not "--capture" in OS.get_cmdline_user_args():return
 	await process_frame
@@ -54,7 +64,7 @@ func run() -> void:
 	home.requested_interaction.connect(func(id: StringName) -> void:requests.append(id))
 	check(app.player==null and app.wallet==null and not app.lifetime.active,"Home remains separate from Run economy and lifetime")
 	check(home.world.specification.schema=="underworld-home-v2-terraces","Actual consumer uses new authorized spatial contract")
-	check(home.world.specification.slots.size()==12 and home.world.specification.slots.filter(func(entry: Dictionary) -> bool: return bool(entry.active)).size()==5,"Twelve original stations remain, with the authored arms workshop now the fifth functional service")
+	check(home.world.specification.slots.size()==12 and home.world.specification.slots.filter(func(entry: Dictionary) -> bool: return bool(entry.active)).size()==6 and home.world.specification.slots.filter(func(entry: Dictionary) -> bool: return str(entry.id)=="relics" and bool(entry.active) and str(entry.keeper).is_empty()).size()==1,"Twelve original stations remain; arms and the NPC-free item codex are the two additional active services")
 	check(home.controller.jump_ability.maximum_jumps()==1 and home.player.tuning.max_jumps==1,"Route uses actual basic single jump, no future movement grants")
 	check(home.world.terrain.core_layer.get_used_cells().size()>100,"Actual native TileMapLayer remains populated")
 	check(home.player.get_node_or_null("UnderworldPlayer")!=null and not home.player.get_node("CourierVisual").visible,"One current player presentation, legacy body hidden")
@@ -90,7 +100,10 @@ func run() -> void:
 		driver.key(KEY_W,true);await driver.frames(2);driver.key(KEY_W,false);await driver.frames(2)
 		if bool(entry.active):
 			check(requests.size()==count+1 and requests[-1]==id,"Real W delivers exact existing ID "+str(id))
-			check(home.input_blocked and app.menu.visible_panel==&"home_function","Actual App panel takes input "+str(id))
+			if id == &"relics":
+				check(home.input_blocked and paused and is_instance_valid(app._home_codex) and app._home_codex.opened and app.menu.visible_panel!=&"home_function","Actual independent codex pauses Home and takes input "+str(id))
+			else:
+				check(home.input_blocked and app.menu.visible_panel==&"home_function","Actual App panel takes input "+str(id))
 			check(home.controller.router.axis==0 and home.player.normal_velocity==Vector2.ZERO,"Panel clears original movement "+str(id))
 			if id==&"upgrade":
 				check(app.meta.snapshot()==slot_meta_before,"Upgrade travel and opening the panel cannot alter any Meta field before legal purchase")
@@ -104,7 +117,8 @@ func run() -> void:
 				check(app.meta.snapshot()==paid,"Repeat click on consumed quote is idempotent")
 				purchase_done=true
 			await capture("panel_"+str(id))
-			await click("BACK TO HOME")
+			if id == &"relics": await close_codex()
+			else: await click("BACK TO HOME")
 			await driver.frames(3)
 			check(not home.input_blocked and home.controller.router.axis==0,"Close returns current Home without replay "+str(id))
 		else:

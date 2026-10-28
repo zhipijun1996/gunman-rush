@@ -1,0 +1,1557 @@
+{
+  "scope": "Synthetic verifier positive/refusal controls and actual Python process guards; never native gameplay results",
+  "wrapper_cases": [
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "pool"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_pool_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 POOL: 60 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "inventory"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_inventory_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 INVENTORY: 40 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "combat"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_combat_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 COMBAT: 60 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "actives"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_actives_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 ACTIVES: 60 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "economy"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_economy_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 ECONOMY: 60 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "defense"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_defense_time_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 DEFENSE TIME: 50 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "ui"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_ui_input_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 UI INPUT: 100 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "formal"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_formal_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 FORMAL: 50 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "review"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_review_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 INDEPENDENT REVIEW: 100 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "boss-time"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_boss_time_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 BOSS TIME: 50 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "core-effects"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_core_effects_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CORE EFFECTS: 30 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "synergy-economy"
+      ],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_synergy_economy_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 SYNERGY ECONOMY: 25 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": ""
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 71 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 0 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 1 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\nITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 POOL: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "PASS: item-v5-catalog original native fixture and clean teardown\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\nERROR: synthetic engine error\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\nSCRIPT ERROR: synthetic error\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\nSHADER ERROR: synthetic error\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": ""
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 1 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\nERROR: synthetic engine error\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_inventory_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/gear_inventory_runner.gd"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR INVENTORY: 107 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "accept",
+      "actual": "accept",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "RuntimeError: Formal equipment GUI did not complete cleanly",
+      "synthetic_output": ""
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "RuntimeError: Formal equipment GUI did not complete cleanly",
+      "synthetic_output": "GEAR UI: 159 checks, 1 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "RuntimeError: Formal equipment GUI emitted an engine error",
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\nERROR: synthetic engine error\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        }
+      ],
+      "error": "RuntimeError: Formal equipment editor import emitted an engine error",
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "RuntimeError: Godot returned7",
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "RuntimeError: Godot leaked ObjectDB instances or live resources at exit",
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_gear_ui_tests.py",
+      "args": [],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--audio-driver",
+            "Dummy",
+            "--resolution",
+            "1280x720",
+            "--path",
+            ".",
+            "--script",
+            "tests/run_gear_ui_runner.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": "TimeoutExpired: Command '['synthetic']' timed out after 0.05 seconds",
+      "synthetic_output": "GEAR UI: 159 checks, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    },
+    {
+      "wrapper": "tools/run_item_v5_tests.py",
+      "args": [
+        "--suite",
+        "catalog"
+      ],
+      "expected": "reject",
+      "actual": "reject",
+      "calls": [
+        {
+          "argv": [
+            "--headless",
+            "--path",
+            ".",
+            "--editor",
+            "--quit"
+          ],
+          "timeout": 90
+        },
+        {
+          "argv": [
+            "--headless",
+            "--resolution",
+            "1280x720",
+            "--audio-driver",
+            "Dummy",
+            "--path",
+            ".",
+            "--script",
+            "tests/item_v5_catalog_suite.gd"
+          ],
+          "timeout": 120
+        }
+      ],
+      "error": null,
+      "synthetic_output": "ITEM V5 CATALOG: 72 assertions, 0 failures\n"
+    }
+  ],
+  "engine_process_cases": [
+    {
+      "case": "clean",
+      "accepted": true,
+      "expected_accept": true,
+      "error": null,
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "nonzero",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "RuntimeError: Godot returned 7",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "script",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "RuntimeError: Godot emitted a script/shader error; aborted immediately",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "shader",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "RuntimeError: Godot emitted a script/shader error; aborted immediately",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "object_leak",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "RuntimeError: Godot leaked ObjectDB instances or live resources at exit",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "resource_leak",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "RuntimeError: Godot leaked ObjectDB instances or live resources at exit",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    },
+    {
+      "case": "timeout",
+      "accepted": false,
+      "expected_accept": false,
+      "error": "TimeoutExpired: Command '['bash', '/workspace/gunman-rush/tools/godot.sh', '--synthetic-python-guard-check']' timed out after 0.05 seconds",
+      "scope": "Real Python subprocess with original run_engine; no Godot"
+    }
+  ]
+}

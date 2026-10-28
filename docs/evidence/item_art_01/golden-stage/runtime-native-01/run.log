@@ -1,0 +1,70 @@
+ITEM ART PHASE: editor
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (5 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | ItemEffectView[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | ItemRuntime[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | ItemPresentation[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (4 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | golden-02.source.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | g16-01.source.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | p14-01.source.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | p24-01.source.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (4 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | golden-02.source.png[39m[0m
+[  20% ] [90m[1mreimport[22m | g16-01.source.png[39m[0m
+[  40% ] [90m[1mreimport[22m | p14-01.source.png[39m[0m
+[  60% ] [90m[1mreimport[22m | p24-01.source.png[39m[0m
+[  80% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (4 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+ITEM ART PHASE: check-only
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ITEM ART PHASE: native
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ITEM V5 ART FAILURE: actual PNGs and every registered region fit real source dimensions
+WARNING: Missing explicitly requested item icon: item_missing_negative_fixture
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] _diagnose (res://scripts/items/v5/item_art_library.gd:249)
+         [1] icon_texture (res://scripts/items/v5/item_art_library.gd:71)
+         [2] resources_and_grammar (res://tests/item_v5_art_runner.gd:97)
+         [3] run (res://tests/item_v5_art_runner.gd:258)
+ITEM V5 ART: 156 checks, 1 failures
+Traceback (most recent call last):
+  File "<stdin>", line 13, in <module>
+  File "/workspace/gunman-rush/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

@@ -106,13 +106,7 @@ func _ready() -> void:
 			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
-		if generated.has("regional_art_plan"):
-			sprite.texture=PixelFormalActors.icon_texture(&"chest")
-			sprite.scale=Vector2(58,48)/sprite.texture.get_size()
-			sprite.position=c.position+Vector2(0,-3)
-			sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
-		else:
-			UnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed))
+		UnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
@@ -280,10 +274,7 @@ func capture_state() -> void:
 			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
 	for c: Dictionary in chests:
 		if c.has("sprite"):
-			if generated.has("regional_art_plan"):
-				(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0
-			else:
-				UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))
+			UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
 	for p: Dictionary in pickups:
 		if p.claimed: region_state.claimed[p.id] = true
 	for index: int in assembler.modules.size():
@@ -360,14 +351,5 @@ func cancel_shot_latch_requests(permanent: bool = false) -> void:
 	if is_instance_valid(assembler):
 		(assembler as PlainsRegionAssembler).cancel_attack_shortcuts(permanent)
 
-func _draw() -> void:
-	super._draw()
-	if not assembly_ok: return
-	for c: Dictionary in chests:
-		if c.has("sprite"): continue
-		var color := Color("c7aa77") if c.tier == "medium" else Color("cfa2f3") if c.tier == "high" else Color("ffe186")
-		if c.claimed: color = Color("647361")
-		draw_rect(Rect2(c.position+Vector2(-18,-4),Vector2(36,22)),color)
-		draw_rect(Rect2(c.position+Vector2(-18,-4),Vector2(36,8)),color.lightened(0.2))
-		draw_line(c.position+Vector2(0,-4),c.position+Vector2(0,18),Color("635037"),3)
-		if not c.claimed: draw_circle(c.position+Vector2(0,-10),3,color.lightened(0.4))
+# Chests are owned by their explicit-tier Sprite2D consumers in every art branch.
+# No rectangle fallback can mask an invalid/missing admitted art recipe.

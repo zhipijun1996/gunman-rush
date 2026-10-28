@@ -1,0 +1,49 @@
+{
+  "scope": "Author R09 original42/four original Harness current candidate72icons42clips/68refs; technical source binding only, not native/visual/user/device approval",
+  "source_commit": "cd163e2ddbb9e1041067279eb2f554d09af0582a",
+  "worktree_modified": true,
+  "style_sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 9.602365758000815
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 1.8890957589974278
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 23.041430612000113
+    }
+  ]
+}

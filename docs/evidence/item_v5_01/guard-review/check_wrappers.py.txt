@@ -1,0 +1,50 @@
+import ast,contextlib,io,json,runpy,subprocess,sys,types,unittest.mock as mock
+from pathlib import Path
+ROOT=Path.cwd();OUT=ROOT/'build/item_v5/guard-audit';rows=[]
+SUITES=ast.literal_eval(next(n.value for n in ast.parse((ROOT/'tools/run_item_v5_tests.py').read_text()).body if isinstance(n,ast.Assign) and any(isinstance(x,ast.Name) and x.id=='SUITES' for x in n.targets)))
+labels={'ui':'UI INPUT','defense':'DEFENSE TIME','review':'INDEPENDENT REVIEW','boss-time':'BOSS TIME','core-effects':'CORE EFFECTS','synergy-economy':'SYNERGY ECONOMY'}
+def exercise(wrapper,args,output,should_pass,editor='',error=None):
+ calls=[]
+ def engine(argv,budget):
+  calls.append({'argv':argv,'timeout':budget})
+  if error is not None and len(calls)==2:raise error
+  return editor if len(calls)==1 else output
+ rc=0;err=None;capture=io.StringIO()
+ with mock.patch.dict(sys.modules,{'run_tests':types.SimpleNamespace(run_engine=engine)}),mock.patch.object(sys,'argv',[wrapper,*args]),contextlib.redirect_stdout(capture),contextlib.redirect_stderr(capture):
+  try:runpy.run_path(str(ROOT/wrapper),run_name='__main__')
+  except SystemExit as e:rc=e.code or 0
+  except Exception as e:rc=1;err=type(e).__name__+': '+str(e)
+ row={'wrapper':wrapper,'args':args,'expected':'accept' if should_pass else 'reject','actual':'accept' if rc==0 else 'reject','calls':calls,'error':err,'synthetic_output':output[:180]};rows.append(row)
+ assert (rc==0)==should_pass,row
+ if rc==0:
+  expected=[90,90] if wrapper.endswith('inventory_tests.py') else [90,120]
+  assert [c['timeout'] for c in calls]==expected,row
+for name,(script,minimum) in SUITES.items():
+ label=labels.get(name,name.upper());exercise('tools/run_item_v5_tests.py',['--suite',name],f'ITEM V5 {label}: {minimum} assertions, 0 failures\n',True)
+label='CATALOG';good='ITEM V5 CATALOG: 72 assertions, 0 failures\n'
+for bad in ['',good.replace('72','71'),good.replace('72','0'),good.replace('0 failures','1 failures'),good+good,good.replace('CATALOG','POOL'),'PASS: item-v5-catalog original native fixture and clean teardown\n',good+'ERROR: synthetic engine error\n',good+'SCRIPT ERROR: synthetic error\n',good+'SHADER ERROR: synthetic error\n']:
+ exercise('tools/run_item_v5_tests.py',['--suite','catalog'],bad,False)
+exercise('tools/run_item_v5_tests.py',['--suite','catalog'],good,False,editor='ERROR: synthetic import error\n')
+for wrapper,marker in [('tools/run_gear_inventory_tests.py','GEAR INVENTORY: 107 assertions, 0 failures\n'),('tools/run_gear_ui_tests.py','GEAR UI: 159 checks, 0 failures\n')]:
+ exercise(wrapper,[],marker,True)
+ for bad in ['',marker.replace('0 failures','1 failures'),marker+'ERROR: synthetic engine error\n']:
+  exercise(wrapper,[],bad,False)
+ exercise(wrapper,[],marker,False,editor='ERROR: synthetic import error\n')
+ for error in [RuntimeError('Godot returned7'),RuntimeError('Godot leaked ObjectDB instances or live resources at exit'),subprocess.TimeoutExpired(['synthetic'],.05)]:
+  exercise(wrapper,[],marker,False,error=error)
+for error in [RuntimeError('Godot returned7'),RuntimeError('Godot leaked ObjectDB instances or live resources at exit'),subprocess.TimeoutExpired(['synthetic'],.05)]:
+ exercise('tools/run_item_v5_tests.py',['--suite','catalog'],good,False,error=error)
+# Exercise original unchanged pipe/exit/timeout guards on real small Python
+# subprocesses. The engine command is explicitly substituted; no Godot runs.
+sys.path.insert(0,str(ROOT/'tools'));import run_tests
+original_popen=subprocess.Popen;engine_rows=[]
+for name,body,timeout,should_pass in [('clean',"print('synthetic completion')",1,True),('nonzero',"raise SystemExit(7)",1,False),('script',"print('SCRIPT ERROR: synthetic')",1,False),('shader',"print('SHADER ERROR: synthetic')",1,False),('object_leak',"print('WARNING: ObjectDB instances leaked at exit')",1,False),('resource_leak',"print('WARNING: 1 resource still in use at exit')",1,False),('timeout',"import time;time.sleep(2)",.05,False)]:
+ def launch(command,**kwargs):return original_popen([sys.executable,'-c',body],**kwargs)
+ accepted=True;error=None
+ with mock.patch.object(run_tests.subprocess,'Popen',launch),contextlib.redirect_stdout(io.StringIO()):
+  try:run_tests.run_engine(['--synthetic-python-guard-check'],timeout)
+  except (RuntimeError,subprocess.SubprocessError) as e:accepted=False;error=type(e).__name__+': '+str(e)
+ assert accepted==should_pass,(name,accepted,error)
+ engine_rows.append({'case':name,'accepted':accepted,'expected_accept':should_pass,'error':error,'scope':'Real Python subprocess with original run_engine; no Godot'})
+(OUT/'wrapper-controls.json').write_text(json.dumps({'scope':'Synthetic verifier positive/refusal controls and actual Python process guards; never native gameplay results','wrapper_cases':rows,'engine_process_cases':engine_rows},indent=2)+'\n')
+print('WRAPPER CONTROLS',len(rows),'passed; PROCESS CONTROLS',len(engine_rows),'passed; Godot not invoked')

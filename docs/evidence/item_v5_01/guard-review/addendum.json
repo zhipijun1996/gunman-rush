@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "task": "ITEM-V5-01",
+  "reviewer": "/root/ci_audit",
+  "reviewed_at": "2026-10-27T20:22:48.178345+00:00",
+  "base_commit": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "verdict": "ACCEPT narrow additive metadata/wrapper contracts; actual pause/RNG production behavior,native execution,fullCI,72-effects and G5 UNVERIFIED by this reviewer",
+  "independence": "Read-only production/tests/tools/config review. Only authorized independent docs/portable reports and ignored artifacts were written. No Godot or workflow invoked.",
+  "source_snapshot": {
+    "tools/harness/profiles.json": "b1f6d36430f498934d65848af5a91cc3652d595f3f93ee4fad929a4c69c80528",
+    "tools/run_item_v5_tests.py": "8c449027d51a567f3ed5a78129ade34595bf7a81343e3b6fc116a9a051f2cd21",
+    "tools/run_tests.py": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+    "tests/item_v5_pause_escape_runner.gd": "ad182329cb30cc09ec564722dfb90800c3f79e7f860028d46783c69667995294",
+    "tests/item_v5_random_context_runner.gd": "fdba918638887c4184c6b37099d35126e1c361b83e62f6e967591bbe6d40842e",
+    "tests/test_region_bible.py": "6cc1a66761f91e9ce20a216de9c80f603b675957a69050acbf0fc8f11683ec21",
+    "tests/test_region_creative_direction.py": "720f132fe22ba90e7e8bf31195950506e94839280f48aba131d6656442bda8eb",
+    "tools/run_gear_inventory_tests.py": "aa077356cb0e2d2eb81beab16b244003f4295f4f731ea149343ab2a331fce6e8",
+    "tools/run_gear_ui_tests.py": "93e341ca9aef53dca7cc70e6dcacc40641e613d788d4b2cbd71d886d0e75d369"
+  },
+  "preserved_initial14_report_sha256": "5ff07c7e6667f61ac87f24334542d440771be6e8c25e104fb241f9650a8c334a",
+  "old_checks": 176,
+  "current_checks": 192,
+  "new_checks": 16,
+  "full_before": 144,
+  "full_after": 160,
+  "changed_old_contract_fields": {
+    "region-bible-tests": [
+      "inputs"
+    ]
+  },
+  "old_profile_order_preserved": true,
+  "new_two_contracts": {
+    "item-v5-pause-escape": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "pause-escape"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-pause-escape original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    },
+    "item-v5-random-context": {
+      "argv": [
+        "python3",
+        "tools/run_item_v5_tests.py",
+        "--suite",
+        "random-context"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: item-v5-random-context original native fixture and clean teardown$",
+      "weight_seconds": 10,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/.gdignore",
+        "build/.gdignore",
+        "assets/**"
+      ],
+      "artifact_paths": [
+        "build/item_v5/native"
+      ]
+    }
+  },
+  "wrapper_controls": {
+    "cases_passed": 35,
+    "former13_exact_argv_and_budget_replay": true,
+    "import_seconds": 90,
+    "native_seconds": 120,
+    "pause_escape_only_fixed_fps": 60,
+    "random_context_fixed_fps": false,
+    "receipt": "addendum-controls.json",
+    "scope": "Synthetic verifier controls only; no native behavior claim"
+  },
+  "static_fixture_scope": {
+    "pause-escape": "Actual App/Menu/real Input.parse_input_event, tooltip-bearing focused tile and pointer-away focused button; no direct menu handler/resume call substitutes. Explicit ownership/formal entry fixture and audio teardown. Fixed-fps60 sustains tooltip GUI-timer hover setup rather than erasing the original failure condition.",
+    "random-context": "Actual App cache/Boss consumers and ShopPresenter/ShopService initialization, paid reroll/replay under original wallet/session, four region/map combinations and four receipt prefixes. Explicit App outside tree/controlled seed and fixture funds disclosed; not a natural route or a restatement of RNG formula."
+  },
+  "reported_failure_boundary": "Parent reports actual pre-fix pause10/1 and source-bound RNG counterexample; this reviewer did not run or independently sign their native results. They remain their own original receipts.",
+  "authority_boundary": "Original14 guard report preserves its exact earlier style/authority source hashes. Subsequent App/Menu/Shop/RNG fixes and candidate style15 rebind are outside this addendum; new actual54 binding and feature acceptance need their own receipts.",
+  "not_changed": [
+    "Original176 commands,budgets,patterns,serial/cache contracts",
+    "Original run_tests process/error/leak/timeout guards",
+    "Initial14-stage original audit/failed finite-input probes"
+  ],
+  "final_requirements": "Root must run the two actual native families and appropriate original Harness under frozen source; no remote/merge/full-content result is inferred from this guard audit."
+}

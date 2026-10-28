@@ -12,6 +12,9 @@ func advance(delta: float) -> void:
 	speed=motion_velocity.length()
 	super.advance(delta)
 	flight_velocity.y+=gravity*delta
+# Bell contact uses the inherited stationary shape; gravity is not advanced.
+func advance_frozen_contact() -> void:
+	super.advance_frozen_contact()
 func _draw() -> void:
 	if UnderworldProjectileVisual.enabled(self):
 		UnderworldProjectileVisual.paint(self,direction,radius,_visual_age,_visual_trail,&"bell",false)

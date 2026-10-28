@@ -207,7 +207,7 @@ func prefixed_override_order() -> void:
 		var owned := true
 		for source: StringName in creation:
 			owned = build.add_item(source, a if source == source_a else z) and owned
-		check(owned, "equal-priority override definitions are acquired in creation order %s" % creation)
+		check(owned, "equal-priority override definitions are acquired in creation order %s" % [creation])
 		var instance_a: RunItemInstance = build.inventory.instance_for_source(source_a)
 		var instance_z: RunItemInstance = build.inventory.instance_for_source(source_z)
 		if instance_a == null or instance_z == null:

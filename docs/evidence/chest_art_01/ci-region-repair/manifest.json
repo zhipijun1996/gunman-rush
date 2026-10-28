@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "task_id": "CHEST-ART-01",
+  "archive_kind": "Exact historical b2f92dce PR111 CI failure and independent diagnosis; not a new test run",
+  "archived_utc": "2026-10-28T11:00:07.257259+00:00",
+  "head": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "run_id": 40670325927,
+  "job_id": 122761172421,
+  "job_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/40670325927/job/122761172421",
+  "artifact_id": 12808654566,
+  "artifact_original_zip_sha256": "bce45f6a64a95393e2b7fd0543fe644e8897244eaef9ec5f220bda2a02e22edb",
+  "whole_zip_archived": false,
+  "records": [
+    {
+      "original_build_path": "build/chest_art_01/ci-b2f92dce-parallel-failure.json",
+      "archived_file": "independent-failure-review.json",
+      "encoding": "exact original bytes",
+      "original_bytes": 4334,
+      "original_sha256": "a708a859ad14ca6d832b2e259a18b90b472009e4ea8eb7958d1d2b065e959461",
+      "archived_bytes": 4334,
+      "archived_sha256": "a708a859ad14ca6d832b2e259a18b90b472009e4ea8eb7958d1d2b065e959461"
+    },
+    {
+      "original_build_path": "build/chest_art_01/ci-status-b2f92dce/parallel-job-connector.log",
+      "archived_file": "original-parallel-job.log.gz",
+      "encoding": "gzip of exact original bytes",
+      "original_bytes": 153405,
+      "original_sha256": "8a70abd2264afb9d4320eb9b14fbfec8feda35333c4fa51c94600134bdd1f87c",
+      "archived_bytes": 30820,
+      "archived_sha256": "ba3828afa9467c0edb0531bd6b9e8dbf54589830040f10fb75e14e1ef857c358"
+    },
+    {
+      "original_build_path": "build/chest_art_01/ci-status-b2f92dce/lane/harness/20261028T103354.203637Z/report.json",
+      "archived_file": "original-harness-report.json.gz",
+      "encoding": "gzip of exact original bytes",
+      "original_bytes": 17281641,
+      "original_sha256": "b4e91d1b7eb3c5940d2e56ac43b8f6026e034df0f4f18f842bbcf1f89e9029b5",
+      "archived_bytes": 2198585,
+      "archived_sha256": "b5fcda62af363a47fbd53fb044708ebfc2d35f97a39cb139779a161f1f3bc383"
+    },
+    {
+      "original_build_path": "build/chest_art_01/ci-status-b2f92dce/lane/plains_region_fixtures/20261028T103754267720Z/plains_exploration_expansion_runner.log",
+      "archived_file": "original-expansion-runner.log.gz",
+      "encoding": "gzip of exact original bytes",
+      "original_bytes": 14892,
+      "original_sha256": "8cca2b3bcf299929527add4bd937a642a5897df380bc021b352dd4d7ef246e4a",
+      "archived_bytes": 2194,
+      "archived_sha256": "ed18b1188a45f6a8540e6a15b3fe66219bd7be71a9bb9bdca55ccd69fcebae06"
+    },
+    {
+      "original_build_path": "build/chest_art_01/ci-status-b2f92dce/lane/plains_region_fixtures/20261028T103754267720Z/ledger.json",
+      "archived_file": "original-region-ledger.json",
+      "encoding": "exact original bytes",
+      "original_bytes": 6205,
+      "original_sha256": "36a459b44d2c9bf1de28398449ed380889c61b8869c804a8cdd0b0c9ee3ed3a5",
+      "archived_bytes": 6205,
+      "archived_sha256": "36a459b44d2c9bf1de28398449ed380889c61b8869c804a8cdd0b0c9ee3ed3a5"
+    }
+  ],
+  "derived_region_section": {
+    "file": "region-check.json",
+    "sha256": "a63a0f07bc4f2b0df79d9cf09cbe61af48a91e5654965a45baf0fa653383b5f8"
+  },
+  "actual_failure": {
+    "harness_check": "region",
+    "native_runner": "plains_exploration_expansion_runner",
+    "assertions": 2900,
+    "failures": 2,
+    "messages": [
+      "one eligible item stays available beside a real resource",
+      "retained eligible item applies its actual effect"
+    ],
+    "cause": "eligible_item_cache fixture expects old stability_blue from chest.items; formal ItemRuntime path selects actual V5 pool items.",
+    "region_exit_code": 1,
+    "region_elapsed_seconds": 74.884,
+    "original_region_timeout_seconds": 1500,
+    "timeout_changed": false
+  },
+  "historical_status": "Failed original b2 CI remains failed. This archive does not claim the fixture repair has been run or passed. Serial lane was still running at failure review observation.",
+  "reviewer_actions": "Read-only GitHub connector/API retrieval and local archival; no runtime/tests/tools/quality-card edits, no engine/CI rerun.",
+  "excluded": [
+    "temporary signed download URLs and stderr",
+    "unrelated full artifactZIP contents",
+    "guard before/after evidence, owned by technical archival agent"
+  ]
+}

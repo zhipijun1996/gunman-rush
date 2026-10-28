@@ -16,6 +16,8 @@ var _context_held := false
 var _skill_held := false
 var _context_blocked := false
 var _skill_blocked := false
+var _item_skill_held := false
+var _item_skill_blocked := false
 var _hook_held := false
 var _hook_blocked := false
 var _hook_direction := Vector2.ZERO
@@ -36,9 +38,9 @@ func _physics_process(_delta: float) -> void:
 		_cancel("connected")
 	var left := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_X), Input.get_joy_axis(connected_device, JOY_AXIS_LEFT_Y))
 	var right := Vector2(Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(connected_device, JOY_AXIS_RIGHT_Y))
-	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_LEFT_SHOULDER),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_X),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_Y))
+	sample_tick(left, right, Input.is_joy_button_pressed(connected_device, int(router.profile.values.gamepad_jump_button)),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_LEFT_SHOULDER),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_X),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_Y),Input.is_joy_button_pressed(connected_device,JOY_BUTTON_RIGHT_SHOULDER))
 
-func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false, hook_pressed: bool = false, context_pressed: bool = false, skill_pressed: bool = false) -> void:
+func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = false, hook_pressed: bool = false, context_pressed: bool = false, skill_pressed: bool = false, item_skill_pressed: bool = false) -> void:
 	if not router.has_application_focus or (is_inside_tree() and get_tree().paused):
 		return
 	if not raw_left.is_finite() or not raw_right.is_finite():
@@ -67,12 +69,21 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 	_jump_held = jump_pressed
 	if not context_pressed:_context_blocked=false
 	if not skill_pressed:_skill_blocked=false
+	if not item_skill_pressed:_item_skill_blocked=false
 	if context_pressed and not _context_held and not _context_blocked:
 		router.activate_device(&"gamepad");router.request_action(&"weapon_context")
 	if skill_pressed and not _skill_held and not _skill_blocked:
 		router.activate_device(&"gamepad");router.request_action(&"weapon_skill",_world_direction(right) if active_right else router.skill_direction())
 		state=AimState.WAIT_NEUTRAL
+	if item_skill_pressed and not _item_skill_held and not _item_skill_blocked and router.item_skill_available:
+		router.activate_device(&"gamepad")
+		router.request_action(&"item_skill",_world_direction(right) if active_right else router.skill_direction())
+		state = AimState.WAIT_NEUTRAL
+		_arm_ticks = 0
+		_center_ticks = 0
+		last_valid_direction = Vector2.ZERO
 	_context_held=context_pressed;_skill_held=skill_pressed
+	_item_skill_held = item_skill_pressed
 	if _hook_blocked:
 		if hook_pressed: return
 		_hook_blocked = false
@@ -154,6 +165,7 @@ func _world_direction(axis: Vector2) -> Vector2:
 func _cancel(_reason: String) -> void:
 	_context_blocked=_context_blocked or _context_held
 	_skill_blocked=_skill_blocked or _skill_held
+	_item_skill_blocked = _item_skill_blocked or _item_skill_held or (connected_device >= 0 and Input.is_joy_button_pressed(connected_device,JOY_BUTTON_RIGHT_SHOULDER))
 	_hook_blocked = _hook_blocked or _hook_held
 	_hook_held = false
 	_hook_direction = Vector2.ZERO

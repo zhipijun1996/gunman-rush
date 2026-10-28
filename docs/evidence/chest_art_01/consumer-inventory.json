@@ -1,0 +1,39 @@
+{
+  "schema": "chest-art-observed-consumers-v1",
+  "production_source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+  "scope": "Actual existing Plains three-tier and Forest-high claims; explicit six-state visual fixtures use both real renderers. Not natural all-tier Forest distribution or physical-device acceptance.",
+  "consumers": [
+    {
+      "id": "plains-formal-chests",
+      "paths": [
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/underworld_plains/underworld_objects.gd",
+        "scripts/art/chest_art_library.gd"
+      ],
+      "output": "live/main/trace.json.gz",
+      "scope": "Three unchanged actual chestIDs/tiers; W/native reward UI/COMMITTED inactive ownership/open state/reload, disclosed actor/camera fixtures"
+    },
+    {
+      "id": "forest-formal-chests",
+      "paths": [
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/art/chest_art_layer.gd",
+        "scripts/presentation/forest_bible_presentation.gd",
+        "scripts/art/chest_art_library.gd"
+      ],
+      "output": "live/forest/trace.json.gz",
+      "scope": "One unchanged actual high chest; actual layer reads stage-owned claimed rows, real claim/reload and ledger"
+    }
+  ],
+  "visual_supplements": [
+    {
+      "id": "two-region-six-pose-gallery",
+      "paths": [
+        "scripts/art/chest_art_library.gd",
+        "scripts/art/chest_art_layer.gd"
+      ],
+      "output": "live/index.json",
+      "scope": "Explicit visual-only all-six fixtures over actual authored platforms; original zoom, both1280/960 viewports; no original reward rows/Manifest/ownership mutated"
+    }
+  ]
+}

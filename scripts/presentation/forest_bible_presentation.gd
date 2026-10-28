@@ -114,12 +114,9 @@ static func draw_discoveries(canvas: Node2D, m: Dictionary, state: PlainsRegionS
 
 static func draw_chests(canvas: Node2D, chests: Array) -> void:
 	for row: Dictionary in chests:
-		var claimed := bool(row.get("claimed", false))
-		var texture: Texture2D = UnderworldObjects.OPEN_CHEST if claimed else UnderworldObjects.CLOSED_CHEST
-		var at: Vector2 = row.position
-		var size := Vector2(texture.get_size())*58.0/texture.get_width()
-		# Existing chest row position is its centre, 18wu above the support.
-		canvas.draw_texture_rect(texture, Rect2(at+Vector2(-size.x*0.5, 18.0-size.y), size), false)
+		# The existing row centre remains exactly 18wu above its support.
+		# A dedicated ChestArtLayer owns the world shader; backgrounds do not.
+		ChestArtLibrary.draw_chest(canvas,row.position+Vector2(0,18),StringName(str(row.tier)),bool(row.get("claimed",false)))
 
 static func draw_gate(canvas: Node2D, rect: Rect2) -> void:
 	# Same copper carrier pixels as the Plains mechanism family. Full real

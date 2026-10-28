@@ -1,0 +1,33 @@
+{
+  "scope": "Isolated copied current sources plus actual observed read files and all declared Harness argv existence bootstrap; no Godot, no tracked mutations. Demonstrates new creative finite-input omission.",
+  "check": "creative-direction-tests",
+  "declared_input_count": 120,
+  "profile_sha256": "d487c6d1118ee4e0486038b7bf6ec65ea4848554a76ff8e86ed44884be9687ff",
+  "removed_file": "docs/quality/action_budget_spec.md",
+  "removed_sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+  "removed_was_declared": false,
+  "positive": {
+    "phase": "positive",
+    "argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "exit_code": 1,
+    "seconds": 1.2124482079998415,
+    "log": "build/item_v5/guard-audit/finite-counterexample-positive.log"
+  },
+  "negative": {
+    "phase": "missing-undeclared-context",
+    "argv": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "exit_code": 1,
+    "seconds": 0.8805028080005286,
+    "log": "build/item_v5/guard-audit/finite-counterexample-missing-undeclared-context.log"
+  },
+  "before_input_digest": "62cb38bc488d19e197e0a38182434ddfcdff8c5c543e3a659a1ea3764a7ab35e",
+  "after_input_digest": "62cb38bc488d19e197e0a38182434ddfcdff8c5c543e3a659a1ea3764a7ab35e",
+  "digest_changed": false,
+  "inference": "If positive passes and negative fails with identical digest, this finite input contract cannot cover the actual check dependency. Does not claim the outer cache accepted a stale artifact."
+}

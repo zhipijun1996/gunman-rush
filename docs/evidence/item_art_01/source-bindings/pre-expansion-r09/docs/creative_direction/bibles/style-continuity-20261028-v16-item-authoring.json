@@ -1,0 +1,557 @@
+{
+  "schema_version": 1,
+  "authority_id": "project_shared_regional_style",
+  "version": "16",
+  "source": {
+    "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
+    "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
+    "scope": "Both direct user corrections apply to all later region creation, optimization and proposed Bibles. Preserve the active project style; regional identity varies within that family. Not acceptance of future visual output/devices.",
+    "additional_quote": "同时后续区域不要出类似的问题",
+    "global_style_selection_quote": "细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。然后我发现家园的房子或者树和地面不贴合，需要修复",
+    "global_style_selection_source": "Direct user message in current root conversation, 2026-10-22; manually retained by root, not an API export",
+    "default_player_selection_quote": "人物按照新的进行默认，后续在家园的“衣装守护者”处更换人物（改个合适的名字）",
+    "default_player_selection_source": "Direct user message in root conversation, 2026-10-23; direction and adoption authorization, not future aesthetic/device acceptance"
+  },
+  "mode": "shared_project_style_with_regional_variation",
+  "shared_dimensions": {
+    "pixel_scale": "用户已明确选细粒度：正式地形原生32px/32wu，世界表现统一1wu采样和nearest；从高分母版提取细源，不能把旧16px放大当细源。角色、建筑、装饰及前后景按同一1wu屏幕采样；字体/HUD保持清晰。历史实验不追改。",
+    "adjacency_and_boundary": "继承同一47-mask邻接语义、核心TileMap与非整格exact-boundary adapter，保留solid/one-way/moving和危险语义；不为图改变碰撞，也不把精确边界冒称全网格。",
+    "lighting_outline_material": "保留Underworld家族角色、材质与轮廓语言，在统一1wu网格下采用克制暖点光、冷灰空气透视；各层用明度/饱和度/轮廓/细节和视差区分。不能靠细碎噪声与满屏装饰代替构图。",
+    "regional_variation": "森林差异来自树皮、苔藓、荆棘、有机根枝结构与区域色域；制作与正式平原同族的新材料/边界矩阵，不把平原岩石换色冒称森林。"
+  },
+  "historical_boundary": "旧提案或失败实现不自动约束新区域；这不等于抛弃正式平原仍在实际使用的Underworld tileset家族。保留原许可/来源、正式消费者和已有效的公共接口。",
+  "runtime_reference": {
+    "region_id": "windchime_plains",
+    "status": "formal_home_and_region_consumers_integrated_candidate_not_user_art_acceptance",
+    "tile_px": 32,
+    "world_tile_wu": 32,
+    "terrain_mode": "blob47_core_with_exact_boundary_adapter",
+    "references": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6"
+      },
+      {
+        "role": "terrain_consumer",
+        "path": "scripts/art/plains_terrain_study.gd",
+        "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+      },
+      {
+        "role": "terrain_renderer",
+        "path": "scripts/underworld_plains/underworld_terrain.gd",
+        "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f"
+      },
+      {
+        "role": "material_shader",
+        "path": "shaders/formal_fine_boundary.gdshader",
+        "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2"
+      },
+      {
+        "role": "tile_build",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+      },
+      {
+        "role": "tileset",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "sha256": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9"
+      },
+      {
+        "role": "atlas",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+      },
+      {
+        "role": "source_pixels",
+        "path": "assets/underworld_plains/terrain/fine_32/source.png",
+        "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431"
+      },
+      {
+        "role": "adjacency",
+        "path": "scripts/art_foundation/blob47_rules.gd",
+        "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+      },
+      {
+        "role": "boundary",
+        "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+        "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+      },
+      {
+        "role": "boundary_sides",
+        "path": "scripts/art/plains_terrain_borders.gd",
+        "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34"
+      },
+      {
+        "role": "license",
+        "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+      },
+      {
+        "role": "player_style_reference",
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127"
+      },
+      {
+        "role": "player_animation_build",
+        "path": "assets/underworld_plains/player_animation/animation_build.json",
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3"
+      },
+      {
+        "role": "player_run_pixels",
+        "path": "assets/underworld_plains/player_animation/run_sheet.png",
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+      },
+      {
+        "role": "player_state_pixels",
+        "path": "assets/underworld_plains/player_animation/states_sheet.png",
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+      },
+      {
+        "role": "core_material",
+        "path": "shaders/formal_fine_lit.gdshader",
+        "sha256": "26c22d0245301c575256ee94590f3d39819f1ea0fa25537cc98df28f5181ff39"
+      },
+      {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      },
+      {
+        "role": "sprite_grid",
+        "path": "shaders/underworld_fine_sprite.gdshader",
+        "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+      },
+      {
+        "role": "fine_source_provenance",
+        "path": "assets/authored_terrain_study/provenance.json",
+        "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a"
+      },
+      {
+        "role": "default_player_1",
+        "path": "scripts/art/player_presentation_runtime.gd",
+        "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91"
+      },
+      {
+        "role": "default_player_2",
+        "path": "scripts/art/avatar_presentation.gd",
+        "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437"
+      },
+      {
+        "role": "default_player_3",
+        "path": "resources/art/avatars.json",
+        "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65"
+      },
+      {
+        "role": "default_player_4",
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "f75f32cc918d3368d6aa55be94206465163ed7706eb31b19690811da6d009119"
+      },
+      {
+        "role": "default_player_5",
+        "path": "scripts/demo/home_scene.gd",
+        "sha256": "1d4b1aed7b479258268e23bd095f45092d708259e34293aadc0dbc0448a8d5e1"
+      },
+      {
+        "role": "default_player_6",
+        "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+        "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+      },
+      {
+        "role": "default_player_7",
+        "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+        "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+      },
+      {
+        "role": "default_player_8",
+        "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+        "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+      },
+      {
+        "role": "default_player_9",
+        "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+      },
+      {
+        "role": "default_player_10",
+        "path": "resources/player_presentation_01/motion_v1.tres",
+        "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+      },
+      {
+        "role": "default_player_11",
+        "path": "resources/player_presentation_01/motion_clip_data.gd",
+        "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+      },
+      {
+        "role": "default_player_12",
+        "path": "resources/player_presentation_01/landing_screen.gdshader",
+        "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+      },
+      {
+        "role": "default_player_13",
+        "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+        "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+      },
+      {
+        "role": "default_player_14",
+        "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+      },
+      {
+        "role": "default_player_15",
+        "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+        "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+      },
+      {
+        "role": "default_player_16",
+        "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+      },
+      {
+        "role": "item_feedback_view",
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+      },
+      {
+        "role": "item_feedback_config",
+        "path": "config/item_v5_feedback.json",
+        "sha256": "d8652bb319fa19555c98c82cd2b812e36ab4bd34422f2ccdd747fdbd77f406ba"
+      },
+      {
+        "role": "item_entity_view",
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+      },
+      {
+        "role": "item_entity_config",
+        "path": "config/item_v5_entities.json",
+        "sha256": "22202b101e0488b15551121b5982380078184be52c121ea0b76f03eea178fa29"
+      },
+      {
+        "role": "item_defense_glyphs",
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40"
+      },
+      {
+        "role": "item_defense_visual_config",
+        "path": "config/item_v5_defense.json",
+        "sha256": "00a631f71797c6a0371012ba9eaad2a49265dc1e8d06174464519a2cf4279cc0"
+      },
+      {
+        "role": "item_resource_hud",
+        "path": "scripts/ui/actor_resources_hud.gd",
+        "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721"
+      },
+      {
+        "role": "item_pause_menu",
+        "path": "scripts/ui/demo_menu.gd",
+        "sha256": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990"
+      },
+      {
+        "role": "item_description",
+        "path": "scripts/ui/item_presentation.gd",
+        "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+      },
+      {
+        "role": "item_card",
+        "path": "scripts/ui/item_card.gd",
+        "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+      },
+      {
+        "role": "item_toast",
+        "path": "scripts/ui/item_acquired_toast.gd",
+        "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b"
+      },
+      {
+        "role": "item_shop_modal",
+        "path": "scripts/ui/item_shop_modal.gd",
+        "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+      },
+      {
+        "role": "item_reward_modal",
+        "path": "scripts/ui/stage_reward_modal.gd",
+        "sha256": "ba621c113362cffe13c0fa81941d1797e5f0e35c71c3d9309378047aa3b9e5fa"
+      },
+      {
+        "role": "item_touch_control",
+        "path": "scripts/ui/touch_overlay.gd",
+        "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f"
+      },
+      {
+        "role": "item_shop_presenter",
+        "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+        "sha256": "8335b5d879bf54eb4e720ab5fcf6163ae840de54c1ad3d94bd5b8b5d663b0cc4"
+      },
+      {
+        "role": "item_weapon_runtime",
+        "path": "scripts/combat/weapon_action_runtime.gd",
+        "sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160"
+      },
+      {
+        "role": "item_weapon_feel",
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4"
+      },
+      {
+        "role": "item_weapon_vfx",
+        "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+      },
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      }
+    ],
+    "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
+  },
+  "validation": "Supplement or any shared reference SHA drift blocks new calls and resumes; versioned impact analysis/rebind and fresh affected technical/visual evidence required. Original Bible bytes and old receipts remain unchanged. Cross-region actual golden comparison is required before expanding new regional materials; metadata and hashes never sign visual acceptance.",
+  "applies_to": "all_region_create_optimize_and_proposed_bibles",
+  "original_bible_regions": [
+    "windchime_plains",
+    "thorn_forest"
+  ],
+  "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged.",
+  "supersedes": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+    "sha256": "6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+    "reason": "New ITEM-AUTHORING-01 technical consumer binding following delivered ITEM-V5-01; shared style and frozen original bytes remain unchanged"
+  },
+  "revision_impact": {
+    "task_id": "ITEM-AUTHORING-01",
+    "trigger": "Generic data-driven text plus actual bounded first8 icon and P24/P14/G16 VFX golden integration; full72 art production is not approved.",
+    "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+    "changed_references": [
+      {
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "old_sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802",
+        "new_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+      },
+      {
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "old_sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3",
+        "new_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+      },
+      {
+        "path": "scripts/ui/item_presentation.gd",
+        "old_sha256": "fdcb60b2ed253967191b239f5aace06e270b0fe4443363a2c43e3d8b42eae424",
+        "new_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+      }
+    ],
+    "added_references": [
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      }
+    ],
+    "consumer_edges": [
+      {
+        "path": "scripts/ui/item_presentation.gd",
+        "consumer": "ItemPresentation._catalog_effects uses _static_parameter_text for new data-only passive definitions, from the same resolved current-level parameter values used by BuildState; fallback uses configured description. Existing explicit special-effect formats remain."
+      },
+      {
+        "path": "scripts/items/v5/item_art_library.gd",
+        "consumer": "Actual Texture2D/AtlasTexture loader and bounded animation-frame sampler draw_clip; validates art recipe, regions, timing, geometry and memory budget."
+      },
+      {
+        "path": "config/item_v5_art.json",
+        "consumer": "Actual first8 icon regions and P24/P14/G16 frame/clip/size/pivot/cue/entity mappings read by ItemArtLibrary."
+      },
+      {
+        "path": "config/item_v5_authoring.json",
+        "consumer": "Catalog authoring icon metadata uses item-specific keys; ItemPresentation resolves declared keys through ItemArtLibrary while otheritems retain fallback."
+      },
+      {
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "consumer": "Draws registered cast/muzzle/committed-impact clips only for accepted events and current source/world/epochs; prunes stale visuals."
+      },
+      {
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "consumer": "Actual companion/flywheel entities draw the origin-specific registered body clip, preserving gameplay geometry."
+      },
+      {
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      }
+    ],
+    "preserved_contracts": [
+      "Published style15/creative18, original Bible texts, user quotes, terrain/body source bytes, licenses, selected32px/32wu/1wu/nearest family and prior evidence retain exact identity.",
+      "Original54 role/path/order preserved; only three actual visual leaves changed from pre-art style16, remaining51 exact. Seven actual library/config/metadata/PNG dependencies appended for61 references; original36 prefix byte-identical to pre-art candidate.",
+      "Artwork observes accepted gameplay events. ItemRuntime committed-HP cue producer remains a separate technical gameplay/source-lifetime consumer, not a claim that presentation owns damage.",
+      "Original high-resolution PNG bytes and failed equalgrid/source-padding specification measurements are preserved; measured ROI use is a separately approved bounded sampling recipe. No image resizing/alpha cleanup or native64 claim.",
+      "First8 icon recipe approval permits only golden integration; it does not approve remaining64, VFX motion or full art production."
+    ],
+    "impact": "Actual new imported icon and animated VFX sources enter a bounded golden candidate, alongside generic current-level text. Art source hash and native checks do not establish whole72 visuals, continuous motion, human/device or G2-G5 acceptance.",
+    "required_revalidation": [
+      "Original region-bible32 and creative-direction10 with historical identity/refusal checks preserved and extended to frozen style15/creative18.",
+      "Original four pure Harness checks with unchanged argv/budgets/patterns after coordinated source freeze.",
+      "New authoring native data-only item generation/equip/upgrade/display/pool/rollback checks plus existing item/formal consumers under root engine lease.",
+      "Any later icon/VFX production requires actual import, UI/world golden observations, lifecycle/event/source checks, independent source/visual review, and explicit current evidence.",
+      "User art/feel/balance and physical Android/controller/low-end performance remain unverified without actual user/device evidence.",
+      "Fresh original42/four pure checks for exact R08 source after coordinated freeze; preserve frozen pre-art16/creative19 bytes and refusal checks.",
+      "Original art native suite strict4.7.2, actual imported52/90 icons in Menu/Card/reward/shop at1280 and960, formal App golden and continuous P24/P14/G16 VFX motion/accepted-HP/miss/source/lifecycle observations; independent actual-pixel and technical review before further art expansion."
+    ],
+    "independent_review": "Required separately before production/acceptance; this author binding does not inherit prior ACCEPT, human or device approval.",
+    "previous_originals": {
+      "manifest_path": "docs/evidence/item_authoring_01/source-bindings/before-v16/manifest.json",
+      "manifest_sha256": "2e0bd3e6c34bfe331ea71e368f0f59486595aa0fa5107d5e6a75fe7390138858",
+      "creative18_archive_path": "docs/creative_direction/archive/creative-v18"
+    },
+    "related_task_id": "ITEM-ART-01",
+    "candidate_iteration_r08": {
+      "kind": "Actual golden consumer/asset addition within unpublished style16/creative19; no global style selection",
+      "previous_candidate_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json",
+      "previous_candidate_sha256": "fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json",
+      "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
+      "changed_references": [
+        {
+          "path": "scripts/items/v5/item_effect_view.gd",
+          "old_sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802",
+          "new_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+        },
+        {
+          "path": "scripts/items/v5/item_v5_entity.gd",
+          "old_sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3",
+          "new_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+        },
+        {
+          "path": "scripts/ui/item_presentation.gd",
+          "old_sha256": "322bed12465c532301cc1b72f7b4f0b60a4b8bdd1e90ba272a504f00ab6ac5f5",
+          "new_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+        }
+      ],
+      "added_references": [
+        {
+          "role": "item_art_library",
+          "path": "scripts/items/v5/item_art_library.gd",
+          "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+        },
+        {
+          "role": "item_art_config",
+          "path": "config/item_v5_art.json",
+          "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+        },
+        {
+          "role": "item_icon_metadata",
+          "path": "config/item_v5_authoring.json",
+          "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+        },
+        {
+          "role": "item_icon_atlas_first8",
+          "path": "assets/items/v5/icons/golden-02.source.png",
+          "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+        },
+        {
+          "role": "item_vfx_p24_source",
+          "path": "assets/items/v5/vfx/p24-01.source.png",
+          "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+        },
+        {
+          "role": "item_vfx_p14_source",
+          "path": "assets/items/v5/vfx/p14-01.source.png",
+          "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+        },
+        {
+          "role": "item_vfx_g16_source",
+          "path": "assets/items/v5/vfx/g16-01.source.png",
+          "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+        }
+      ],
+      "golden_scope": {
+        "icons": [
+          "B01",
+          "B03",
+          "B11",
+          "P24",
+          "P14",
+          "G14",
+          "G16",
+          "N01"
+        ],
+        "vfx_candidates": [
+          "P24",
+          "P14",
+          "G16"
+        ],
+        "mass72_expansion_allowed": false,
+        "source_sampling": "raw2 high-resolution1774x887 eight measured340x340 regions; original1024x512/equalgrid/native64/source-padding spec remains failed",
+        "bounded_prior_review": "build/item_art_01/review-raw2-ui-sampler-v1.json; permits first8 real golden integration only, not VFX/native64/G2-G5"
+      },
+      "historical_evidence": "Frozen pre-art42/four checks and raw1/raw2 source specification failures retain their source and verdicts; later native/art/GUI/motion results must remain separate exact-source observations."
+    }
+  }
+}

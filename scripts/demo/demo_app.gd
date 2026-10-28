@@ -20,6 +20,11 @@ var home_weapons := preload("res://scripts/demo/home_weapon_selection.gd").new()
 var debug_hud := false
 var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
+var _home_codex: HomeItemCodex
+var _home_carry_granted_run := ""
+var _pending_item_discoveries: Dictionary = {}
+var _home_codex_quotes: Dictionary = {}
+var _home_codex_profile_context := ""
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
 var _action_studio: ActionStudio
@@ -36,6 +41,9 @@ var build: BuildState
 var wallet: RunWallet
 var rewards: RewardService
 var shop: ShopService
+var _item_runtime: ItemRuntime
+var _item_v5_pool: ItemV5Pool
+var _v5_shop_presenter: ItemV5ShopPresenter
 var player: PlayerMotor
 var controller: PlayerController
 var stage: DemoStage
@@ -253,6 +261,13 @@ func _pixel_projectiles(_direction: Vector2, _shot_id: int) -> void:
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return false
+	if is_instance_valid(_home_codex) and _home_codex.opened:
+		return false
+	var selected_home_item := StringName(meta.snapshot().get("selected_home_item", ""))
+	if region_map and not selected_home_item.is_empty() and not bool(meta.home_item_quote(selected_home_item).get("can_select", false)):
+		_status = "携带道具已下架或不可用，请在图鉴重新选择。"
+		_refresh_home_meta()
+		return false
 	if _explicit_plains_candidate(): meta_persistence_enabled = false
 	if plains_environment_candidate_requested or plains_regional_art_candidate_requested:
 		region_map = true
@@ -316,12 +331,25 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		controller.actor_resources.health.configure(controller.actor_resources.health_definition)
 	build = BuildState.new()
 	build.configure(controller, lifetime, StringName(_run_receipt_prefix))
-	catalog.configure(build, &"plains" if connected_region else director.biome_id)
+	catalog.configure(build, &"plains" if connected_region else director.biome_id, connected_region)
 	wallet = RunWallet.new()
 	rewards = RewardService.new()
 	rewards.configure(lifetime, build)
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
+	var discovery_run := _run_receipt_prefix
+	rewards.claimed.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, false))
+	shop.purchased.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, true))
+	if connected_region:
+		_item_runtime = ItemRuntime.new()
+		_item_runtime.configure(controller, build, lifetime, wallet)
+		_item_v5_pool = ItemV5Pool.new()
+		_item_v5_pool.configure(build)
+		if _v5_shop_presenter == null: _v5_shop_presenter = ItemV5ShopPresenter.new()
+		_v5_shop_presenter.configure(self, _item_v5_pool)
+	else:
+		_item_runtime = null
+		_item_v5_pool = null
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
 	_demo_hud.bind(controller)
 	_resources_hud.set_region_compact(connected_region)
@@ -332,10 +360,14 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
+	var started := director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
+	if started and connected_region:
+		_grant_home_carry()
+	return started
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	_close_build_session()
+	if _item_runtime != null: _item_runtime.before_stage_change()
 	if campaign.debug_entry and director.stage_index == 1:
 		director.region_map_index = _debug_map
 		director.manifest.enable_campaign()
@@ -506,7 +538,7 @@ func _load_stage() -> void:
 			initial_character.meta_content_version = meta_config.version
 			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
 			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
-		director.manifest.record_configuration([
+		var content_definitions: Array = [
 			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
 			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
@@ -516,8 +548,12 @@ func _load_stage() -> void:
 			{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
 			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
 			{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
-			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}],
-			config_hashes, initial_character)
+			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}]
+		if _item_runtime != null:
+			config_hashes.items_v5 = FileAccess.get_sha256(ItemCatalogV5.CONFIG_PATH)
+			for definition: ItemDefinition in ItemCatalogV5.all_items():
+				content_definitions.append({"id":String(definition.stable_id),"version":definition.definition_version,"catalog_version":definition.catalog_version,"fingerprint":definition.fingerprint()})
+		director.manifest.record_configuration(content_definitions, config_hashes, initial_character)
 	add_child(stage)
 	_sync_region_presentation()
 	if stage is PlainsRegionStage and active_region_id == &"plains" and not _explicit_plains_candidate() and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
@@ -766,7 +802,7 @@ func _load_stage() -> void:
 			push_error("No two valid distinct item candidates: content pool error")
 			abandon_run()
 			return
-		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": DemoRewardCatalog.CONTENT_VERSION if not director.profile.development_only else "quick_pair_v1", "pool": DemoRewardCatalog.PLAINS_CONTENT_VERSION if generated_plains else "default"})
+		director.manifest.record_output(director.stage_index, &"reward_catalog", {"version": catalog.current_version() if not director.profile.development_only else "quick_pair_v1", "pool": DemoRewardCatalog.PLAINS_CONTENT_VERSION if generated_plains else "default"})
 	elif director.stage_type_id == &"shop":
 		shop.add_offer(_stage_id("shop_jump"), DAMAGE_ITEM if generated_plains else JUMP_ITEM, 5, 1)
 	var simple_definitions := {&"coin_reward": COIN_REWARD, &"health_reward": HEAL_REWARD}
@@ -787,17 +823,26 @@ func _load_stage() -> void:
 		director.manifest.record_output(director.stage_index, &"stage_generator", {"version": random_stage.generated.stage_generator_version})
 	else:
 		director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
-	director.manifest.record_output(director.stage_index, &"capability_snapshot", {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)})
+	var capability_snapshot := {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)}
+	if _item_runtime != null:
+		var equipment_snapshot := build.equipment.snapshot()
+		# Content replay needs the exact equipped modifier provenance, including
+		# level and breakage. This is not a mid-run actor/resource save file.
+		capability_snapshot.item_sources_version = 1
+		capability_snapshot.item_sources = build.manifest_item_sources()
+		capability_snapshot.gear_capacity = int(equipment_snapshot.capacity)
+		capability_snapshot.gear_level = int(equipment_snapshot.level)
+	director.manifest.record_output(director.stage_index, &"capability_snapshot", capability_snapshot)
 	if current_reward != null:
 		_record_reward()
 	if director.stage_type_id == &"shop":
 		var initial_quote := shop.quote(_stage_id("shop_jump"))
 		director.manifest.record_output(director.stage_index, &"shop_stock", {"offer": String(initial_quote.offer_id), "item": String(initial_quote.item.stable_id), "price": initial_quote.price, "stock": initial_quote.stock, "quote_version": initial_quote.quote_version})
-	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
+	if connected_region and _item_runtime == null and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
-		director.manifest.record_output(director.stage_index,&"region_map",{"version":(stage as GeneratedDemoStage).generated.stage_generator_version if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
+		director.manifest.record_output(director.stage_index,&"region_map",{"version":(stage as GeneratedDemoStage).generated.stage_generator_version if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
 	if not _bind_forest_discoveries():
@@ -806,6 +851,20 @@ func _load_stage() -> void:
 	_status = ("Explore forest branches / fixed rings stay after enemies die / gold flags lead to the guardian" if active_region_id == &"thorn_forest" else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement") if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
+	if _item_runtime != null:
+		var item_map := StringName(_run_receipt_prefix + "/" + _region_prefix())
+		var item_stage := stage as GeneratedDemoStage
+		for index: int in item_stage.enemies.size():
+			var enemy_body: EnemyMotor = item_stage.enemies[index]
+			enemy_body.set_meta("item_v5_enemy_id", str(item_stage.enemy_manifest[index].id))
+			enemy_body.set_meta("item_v5_elite", bool(item_stage.enemy_manifest[index].get("elite", false)))
+		if is_instance_valid(stage.boss): stage.boss.set_meta("item_v5_enemy_id", "boss/" + _region_prefix())
+		var item_view := ItemEffectView.new()
+		item_view.name = "ItemEffects"
+		stage.add_child(item_view)
+		if not item_view.configure(_item_runtime): push_error("V5 visual feedback configuration rejected")
+		_item_runtime.bind_world(stage, item_map)
+		_v5_shop_presenter.map_ready(item_map, StringName(_region_prefix()+"shop"))
 	if connected_region:
 		# Report the actually assembled consumer after generation, binding and
 		# restore have succeeded; an accepted menu request alone proves none of it.
@@ -831,7 +890,7 @@ func _physics_process(_delta: float) -> void:
 					segment.activate_anchor(StringName("generated_%s" % index))
 		for index: int in random_stage.pickups.size():
 			var pickup: Dictionary = random_stage.pickups[index]
-			if not pickup.claimed and position_now.distance_to(pickup.position) < 46:
+			if not pickup.claimed and (position_now.distance_to(pickup.position) < 46 or (_item_runtime != null and _item_runtime.can_magnet_pickup(pickup, position_now, random_stage.clock))):
 				_queue_action(_commit_pickup.bind(index))
 	else:
 		if position_now.y > 690 or position_now.y < -350:
@@ -864,6 +923,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 	request.source_id = source
 	request.target_id = &"player"
 	request.kind = kind
+	request.fall = source in [&"bounds", &"fall", &"fall_plane"]
 	request.amount = amount
 	request.hit_direction = hit_direction
 	request.health_epoch = controller.actor_resources.health.epoch
@@ -904,7 +964,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	if not was_complete and director.stage_complete:
 		if stage.boss != null:
 			if not connected_region or director.region_map_index==2:
-				current_reward = rewards.create_gold_offer(_stage_id("gold"), FOREST_GOLD_ITEM if active_region_id == &"thorn_forest" else GOLD_ITEM, _stage_id("boss_defeat"))
+				current_reward = rewards.create_gold_offer(_stage_id("gold"), _v5_boss_gold() if _item_runtime != null else FOREST_GOLD_ITEM if active_region_id == &"thorn_forest" else GOLD_ITEM, _stage_id("boss_defeat"))
 			stage.reward_position = stage.boss.global_position
 			var defeated_encounter := stage.boss.get_node("Encounter")
 			if defeated_encounter.has_method("reward_stand_position"): stage.reward_position = defeated_encounter.call("reward_stand_position")
@@ -952,6 +1012,9 @@ func _settle_enemy_drops() -> void:
 		var output: Dictionary = random_stage.generated.manifest.enemy_drops[String(enemy_id)].duplicate(true) if connected_region else _enemy_drops.settle(enemy_id)
 		if output.is_empty():
 			continue
+		if _item_runtime != null and output.kind == "coin":
+			var receiver := enemy_motor.get_node_or_null("Damageable") as Damageable
+			if _item_runtime.has_kill(receiver): output.amount = _item_runtime.settle_kill_coins(int(output.amount), StringName("%s/%s" % [_item_runtime.map_key(), enemy_id]))
 		var location := random_stage.safe_drop_position(enemy_motor.global_position)
 		output.position = [location.x, location.y]
 		output.spawn_origin=[enemy_motor.global_position.x,enemy_motor.global_position.y]
@@ -1161,7 +1224,7 @@ func _refresh_equipment_view(message: String = "") -> void:
 		if instance.instance_id in proposed: proposed.erase(instance.instance_id)
 		else: proposed.append(instance.instance_id)
 		var preview := build.equipment.preview(proposed)
-		cards.append({"instance_id": instance.instance_id, "definition": instance.item, "equipped": instance.instance_id in equipped, "reason": "" if preview.accepted else _equipment_reason(preview.reason)})
+		cards.append({"instance_id": instance.instance_id, "definition": instance.item, "equipped": instance.instance_id in equipped, "level":instance.level, "effect_state":instance.effect_state.duplicate(true), "max_level":instance.item.max_level, "broken":bool(instance.effect_state.get("broken",false)), "active_capable":_item_runtime != null and _item_runtime.active_capable(instance.definition_id), "active_selected":_item_runtime != null and _item_runtime.selected_active() == instance.definition_id, "repair_quote":_v5_shop_presenter.repair_view_quote(instance.instance_id) if _item_runtime != null else {}, "reason": "" if preview.accepted else _equipment_reason(preview.reason)})
 	view["items"] = cards
 	menu.set_equipment_view(view)
 
@@ -1373,6 +1436,7 @@ func _hide_run_hud() -> void:
 	_clear_actions()
 
 func _refresh_home_meta() -> void:
+	_flush_item_discoveries()
 	var snapshot := meta.snapshot()
 	snapshot.upgrade_quote = meta.upgrade_quote()
 	menu.set_weapon_options(home_weapons.options(), home_weapons.selected_id)
@@ -1404,6 +1468,7 @@ func _show_home() -> void:
 	queue_redraw()
 
 func _remove_home_scene() -> void:
+	_close_home_codex()
 	if is_instance_valid(home_scene):
 		home_scene.set_input_blocked(true)
 		remove_child(home_scene)
@@ -1413,8 +1478,12 @@ func _remove_home_scene() -> void:
 func _open_home_function(id: StringName) -> void:
 	if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME:
 		return
+	if is_instance_valid(_home_codex) and _home_codex.opened: return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
+	if id == &"relics":
+		_open_home_codex()
+		return
 	if id == &"character":
 		var avatars := get_meta("avatar_presentation") as AvatarPresentation
 		menu.set_avatar_options(avatars.selection_options(), avatars.selected_id)
@@ -1429,6 +1498,7 @@ func _select_home_weapon(id: StringName) -> void:
 func _open_home_navigation() -> void:
 	if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME:
 		return
+	if is_instance_valid(_home_codex) and _home_codex.opened: return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
 	var snapshot := meta.snapshot()
@@ -1438,6 +1508,112 @@ func _close_home_panel() -> void:
 	if is_instance_valid(home_scene) and director.state == DemoRunDirector.State.HOME:
 		get_tree().paused = false
 		home_scene.set_input_blocked(false)
+
+func _open_home_codex() -> void:
+	if director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene): return
+	if not is_instance_valid(_home_codex):
+		_home_codex = HomeItemCodex.new()
+		_home_codex.process_mode = Node.PROCESS_MODE_ALWAYS
+		add_child(_home_codex)
+		_home_codex.requested_close.connect(_close_home_codex)
+		_home_codex.requested_unlock.connect(_unlock_home_item)
+		_home_codex.requested_select.connect(_select_home_item)
+	home_scene.set_input_blocked(true)
+	get_tree().paused = true
+	_refresh_home_codex()
+
+func _refresh_home_codex(message: String = "") -> void:
+	var state := meta.snapshot()
+	var rows := meta.home_item_rows()
+	_home_codex_profile_context = meta.profile_context_id()
+	_home_codex_quotes.clear()
+	for row: Dictionary in rows: _home_codex_quotes[StringName(row.id)] = row.quote_fingerprint
+	_home_codex.show_codex(rows, int(state.notes), StringName(state.selected_home_item), int(state.profile_revision))
+	if not message.is_empty(): _home_codex.set_status(message, message.contains("失败"))
+	elif not _pending_item_discoveries.is_empty(): _home_codex.set_status("部分获得记录尚未保存，返回家园时会重试。")
+
+func _home_codex_can_submit(expected_revision: int) -> bool:
+	return is_instance_valid(_home_codex) and _home_codex.opened and director.state == DemoRunDirector.State.HOME and is_instance_valid(home_scene) and home_scene.input_blocked and home_scene.controller.router.has_application_focus and get_tree().paused and _home_codex_profile_context == meta.profile_context_id() and expected_revision == int(meta.snapshot().profile_revision)
+
+func _unlock_home_item(id: StringName, expected_revision: int) -> void:
+	if not _home_codex_can_submit(expected_revision): return
+	var fingerprint := str(_home_codex_quotes.get(id, ""))
+	if fingerprint.is_empty(): return
+	var result := meta.unlock_home_item(id, StringName("home_unlock/" + meta.new_run_receipt_prefix()), expected_revision, fingerprint)
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
+	_refresh_home_meta()
+	_refresh_home_codex("永久解锁成功，可选择在下次出发携带。" if result.accepted else "解锁失败：" + _home_item_reason(str(result.reason)))
+
+func _select_home_item(id: StringName, expected_revision: int) -> void:
+	if not _home_codex_can_submit(expected_revision): return
+	var result := meta.select_home_item(id, StringName("home_select/" + meta.new_run_receipt_prefix()), expected_revision)
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
+	_refresh_home_codex(("已取消出发携带。" if id.is_empty() else "已选择：下次出发加入背包，需手动装备。") if result.accepted else "选择失败：" + _home_item_reason(str(result.reason)))
+
+func _close_home_codex() -> void:
+	if not is_instance_valid(_home_codex) or not _home_codex.opened: return
+	_home_codex.hide_codex()
+	_home_codex_quotes.clear()
+	_home_codex_profile_context = ""
+	# Do not hand this same mouse-up to the shoot adapter after removing the UI.
+	get_viewport().set_input_as_handled()
+	get_viewport().gui_release_focus()
+	if director.state == DemoRunDirector.State.HOME and is_instance_valid(home_scene):
+		var closing_home := home_scene
+		closing_home.controller.router.clear("codex_close")
+		get_tree().paused = false
+		await get_tree().process_frame
+		if director.state == DemoRunDirector.State.HOME and is_instance_valid(closing_home) and closing_home == home_scene and not _home_codex.opened and menu.visible_panel.is_empty():
+			closing_home.set_input_blocked(false)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_close_home_codex()
+
+func _grant_home_carry() -> bool:
+	if not lifetime.active or not connected_region or build == null or _run_receipt_prefix == _home_carry_granted_run: return false
+	# Latch the departure, including a deliberately empty selection. Reloads and
+	# region changes cannot become a second departure with a different item.
+	_home_carry_granted_run = _run_receipt_prefix
+	var id := StringName(meta.snapshot().get("selected_home_item", ""))
+	if id.is_empty(): return true
+	if not bool(meta.home_item_quote(id).get("can_select", false)): return false
+	var item := HomeItemCatalog.item(id)
+	var source := StringName("home_carry/%s" % _run_receipt_prefix)
+	if item == null or not build.add_item(source, item, &"home_carry"): return false
+	director.manifest.record_output(director.stage_index, &"home_item_carry", {"definition_id":str(id), "instance_id":str(build.inventory.instance_for_source(source).instance_id), "level":1, "equipped":false})
+	# A policy may permit unlocking an unseen item. Reveal it only after this
+	# actual departure grant succeeds, never merely by buying or browsing it.
+	_queue_item_discovery(id, "%s/discovery/%s" % [_run_receipt_prefix, source])
+	return true
+
+func _record_item_discovery(receipt: EconomyReceipt, run_id: String, from_shop: bool) -> void:
+	if receipt == null or receipt.status != EconomyReceipt.Status.COMMITTED or run_id != _run_receipt_prefix or not lifetime.active or build == null: return
+	var owned := build.inventory.get_instance(receipt.instance_id)
+	if owned == null or owned.definition_id != receipt.item_id or owned.item.catalog_version != 5: return
+	if from_shop:
+		# Repairs/gear purchases also emit purchased; only a committed acquisition
+		# has this inventory source receipt (including same-instance growth).
+		var acquisition := build.inventory.source_receipt(StringName("shop:%s" % receipt.event_id))
+		if acquisition.get("instance_id", &"") != receipt.instance_id: return
+	var key := "%s/discovery/%s" % [run_id, receipt.event_id]
+	_queue_item_discovery(receipt.item_id, key)
+
+func _queue_item_discovery(item_id: StringName, key: String) -> void:
+	_pending_item_discoveries[key] = {"id":item_id,"profile_context":meta.profile_context_id()}
+	_flush_item_discoveries()
+
+func _flush_item_discoveries() -> void:
+	for key: String in _pending_item_discoveries.keys():
+		var pending: Dictionary = _pending_item_discoveries[key]
+		if pending.profile_context != meta.profile_context_id():
+			_pending_item_discoveries.erase(key)
+			continue
+		var result := meta.discover_item(pending.id, StringName(key))
+		if result.accepted: _pending_item_discoveries.erase(key)
+
+func _home_item_reason(reason: String) -> String:
+	return {"insufficient_notes":"音符不足", "requires_discovered":"本存档尚未获得过此道具", "not_discovered":"本存档尚未获得过此道具", "not_unlocked":"请先永久解锁", "stale_revision":"状态已变化，请重新选择", "stale_quote":"价格或道具配置已变化，未扣款，请重新选择", "save_failed":"存档写入失败，未扣除音符", "item_disabled":"道具已下架", "home_item_disabled":"道具当前不可在家园解锁或携带", "item_unavailable":"道具已下架或不可用", "profile_unavailable":"存档暂不可用"}.get(reason, reason)
 
 func _sync_music() -> void:
 	if not is_instance_valid(_music): return
@@ -1454,6 +1630,8 @@ func _sync_music() -> void:
 
 func _process(_delta: float) -> void:
 	_sync_music()
+	if is_instance_valid(_home_codex) and _home_codex.opened and (director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene)):
+		_close_home_codex()
 	# This boundary also runs while physics is paused. Focus/stage invalidation
 	# must reject old card callbacks before gameplay can advance again.
 	if _equipment_session >= 0 and not _build_menu_available():
@@ -1646,6 +1824,7 @@ func _region_touch_regions() -> Array[Rect2]:
 	if overlay.router.grapple_available:regions.append(Rect2(overlay.hook_center-Vector2.ONE*overlay.hook_radius,Vector2.ONE*overlay.hook_radius*2))
 	if overlay.router.weapon_context_available:regions.append(Rect2(overlay.context_center-Vector2.ONE*overlay.hook_radius*.8,Vector2.ONE*overlay.hook_radius*1.6))
 	if overlay.router.weapon_skill_available:regions.append(Rect2(overlay.skill_center-Vector2.ONE*overlay.hook_radius*.8,Vector2.ONE*overlay.hook_radius*1.6))
+	if overlay.router.item_skill_available:regions.append(Rect2(overlay.item_skill_center-Vector2.ONE*overlay.hook_radius*.8,Vector2.ONE*overlay.hook_radius*1.6))
 	return regions
 
 func _clear_ui_edge(current: Vector2, extent: Vector2, candidates: Array, blockers: Array[Rect2], critical_count: int=1, reserved: Array[Rect2]=[]) -> Vector2:
@@ -1706,8 +1885,11 @@ func _update_actions() -> void:
 	elif key == "region_shortcut":
 		_button(_actions,"OPEN RETURN SHORTCUT",interact)
 	elif key == "region_shop":
-		var quote := shop.quote(_region_shop_id())
-		_button(_actions,"MERCHANT / STOCK %s" % quote.stock,_open_region_shop)
+		if _item_runtime != null:
+			_button(_actions,"商店 / 商品、刷新与维修",_request_region_shop)
+		else:
+			var quote := shop.quote(_region_shop_id())
+			_button(_actions,"MERCHANT / STOCK %s" % quote.stock,_open_region_shop)
 	elif key.begins_with("reward:"):
 		for item: ItemDefinition in current_reward.candidates:
 			var selected_id := item.stable_id
@@ -1828,6 +2010,8 @@ func _make_ui() -> void:
 	menu.build_opened.connect(_open_build_session)
 	menu.build_closed.connect(_close_build_session)
 	menu.equipment_requested.connect(_submit_equipment)
+	menu.equipment_active_selected.connect(_select_equipment_active)
+	menu.equipment_repair_requested.connect(_repair_equipment_item)
 	menu.gear_upgrade_requested.connect(_purchase_gear_upgrade)
 	menu.requested_home.connect(abandon_run)
 	menu.requested_retry.connect(func() -> void: start_plains(menu._plains_seed()))
@@ -1948,7 +2132,7 @@ func _commit_pickup(index: int) -> bool:
 	if index < 0 or index >= random_stage.pickups.size():
 		return false
 	var pickup: Dictionary = random_stage.pickups[index]
-	if pickup.claimed or random_stage.clock<float(pickup.get("ready_at",0)) or player.global_position.distance_to(pickup.position) >= 46:
+	if pickup.claimed or random_stage.clock<float(pickup.get("ready_at",0)) or (player.global_position.distance_to(pickup.position) >= 46 and not (_item_runtime != null and _item_runtime.can_magnet_pickup(pickup, player.global_position, random_stage.clock))):
 		return false
 	var receipt_id := StringName("%s/stage_%s/%s" % [_run_receipt_prefix, director.stage_index, pickup.id])
 	if pickup.kind == "coin":
@@ -2034,7 +2218,8 @@ func _start_generated_boss() -> void:
 	var sink := receiver.damage_sink
 	receiver.damage_sink = func(context: Dictionary) -> bool:
 		var key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
-		return _boss_started and _in_boss_core() and lifetime.active and _boss_eligible_shots.get(key, -1) == lifetime.actor_epoch and sink.call(context) == true
+		var authorized_item := _item_runtime != null and bool(context.get("item_effect_damage", false)) and _item_runtime.authorizes_effect(context, receiver)
+		return _boss_started and _in_boss_core() and lifetime.active and (_boss_eligible_shots.get(key, -1) == lifetime.actor_epoch or authorized_item) and sink.call(context) == true
 	if encounter is WindkeeperEncounter: encounter.intro_seen = _boss_intros_seen.has(encounter.definition.stable_id)
 	_boss_started = encounter.activate()
 	if connected_region and _boss_started:
@@ -2247,9 +2432,12 @@ func _region_interact() -> void:
 	if index >= 0:
 		var chest: Dictionary = rs.chests[index]
 		var items: Array[ItemDefinition] = []
-		for id: String in chest.items:
-			var item := load("res://resources/items/%s.tres" % id) as ItemDefinition
-			if build.can_add(item): items.append(item)
+		if _item_runtime != null:
+			items = _v5_cache_items(chest)
+		else:
+			for id: String in chest.items:
+				var item := load("res://resources/items/%s.tres" % id) as ItemDefinition
+				if build.can_add(item): items.append(item)
 		# Keep every eligible item; resources are real, tier-valued alternatives.
 		var selected: Array[ItemDefinition]=[]
 		if str(chest.reward_mode)!="resources" and not items.is_empty(): selected.append(items[0])
@@ -2282,6 +2470,9 @@ func _region_interact() -> void:
 		_open_region_shop()
 
 func _open_region_shop() -> void:
+	if _item_runtime != null:
+		_v5_shop_presenter.open()
+		return
 	if not _can_interact() or shop_modal.opened: return
 	_shop_offer=shop.quote(_region_shop_id())
 	if _shop_offer==null: return
@@ -2290,6 +2481,9 @@ func _open_region_shop() -> void:
 	shop_modal.show_offer(_shop_offer,wallet.balance,build.can_add(_shop_offer.item))
 
 func _close_region_shop() -> void:
+	if _item_runtime != null and _v5_shop_presenter != null:
+		_v5_shop_presenter.close()
+		return
 	shop_modal.close()
 	_shop_offer=null
 	if is_instance_valid(controller): controller.router.clear("shop_close")
@@ -2350,6 +2544,7 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	reward_modal.close()
 	controller.router.clear("region_cache_complete")
 	get_tree().paused = false
+	_resume_exit_input()
 	GameAudio.cue(self,&"confirm")
 	return true
 
@@ -2429,7 +2624,7 @@ func _select_next_region(id: StringName) -> void:
 	region_states.clear()
 	region_state = PlainsRegionState.new()
 	_region_loaded_map = 0
-	catalog.configure(build,&"plains")
+	catalog.configure(build,&"plains",connected_region)
 	get_tree().paused = false
 	director.continue_region(_progression_token,id,_next_id("enter_thorn_forest"),campaign.abilities)
 	_progression_token = null
@@ -2597,3 +2792,41 @@ func _open_forest_discovery() -> bool:
 	if not _can_interact() or not stage is ThornForestRegionStage: return false
 	var reader := (stage as ThornForestRegionStage).discoveries
 	return is_instance_valid(reader) and reader.interact(player.global_position, lifetime.token())
+
+
+func _v5_boss_gold() -> ItemDefinition:
+	var output := _item_v5_pool.generate(director.seed, StringName(_run_receipt_prefix + "/" + _region_prefix() + "boss_gold"), 1, ItemDefinition.Rarity.GOLD, false, &"item_v5_reward", {}, StringName(_region_prefix()+"boss_gold"))
+	if not output.accepted: return null
+	director.manifest.record_output(director.stage_index, &"item_v5_boss_pool", output.manifest)
+	return output.items[0] as ItemDefinition
+
+func _request_region_shop() -> void:
+	# GUI intents join the same damage-first queue as world interaction.
+	_queue_action(_open_region_shop)
+
+func _v5_cache_items(chest: Dictionary) -> Array[ItemDefinition]:
+	var rarity := ItemDefinition.Rarity.BLUE if chest.tier == "medium" else ItemDefinition.Rarity.PURPLE if chest.tier == "high" else ItemDefinition.Rarity.GOLD
+	var output := _item_v5_pool.generate(director.seed, StringName(_run_receipt_prefix + "/" + str(chest.id)), 2, rarity, false, &"item_v5_reward", {}, StringName(_region_prefix()+"cache/"+str(chest.id)))
+	var result: Array[ItemDefinition] = []
+	if not output.accepted: return result
+	director.manifest.record_output(director.stage_index, StringName("item_v5_cache/" + str(chest.id)), output.manifest)
+	for item: ItemDefinition in output.items:
+		if build.can_add(item): result.append(item)
+	return result
+
+func _select_equipment_active(instance_id: StringName, revision: int, session: int) -> void:
+	if not _build_menu_available() or _item_runtime == null or session != _equipment_session: return
+	if not build.equipment.validate_session(_equipment_token, session, revision).is_empty(): return
+	if instance_id not in build.equipment.equipped_ids(): return
+	var owned := build.inventory.get_instance(instance_id)
+	if owned == null: return
+	_item_runtime.sync()
+	if _item_runtime.select_active(owned.definition_id):
+		controller.router.clear("item_active_selection")
+		# Reopen after the accepted input epoch change, invalidating old controls.
+		_open_build_session()
+		_refresh_equipment_view("当前道具技能：" + owned.item.display_name + " · R / RB / 触屏道具键")
+
+func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revision: int, _session: int) -> void:
+	# Repairs belong to the merchant's transaction UI, never a remote pause menu.
+	_refresh_equipment_view("请前往商店修理破损道具。")

@@ -113,9 +113,20 @@ func check_gear_cells(expected_capacity: int, expected_used: int) -> void:
 	check(native_shapes, "gear cells are real two-dimensional custom-draw controls rather than ColorRect load strips")
 	check(occupied_count == expected_used and expected_used == int(app.build.equipment.snapshot().used), "filled gear cells equal the actual equipped-instance cost sum")
 	check(all_on_screen, "all %s actual gear cells fit inside the current viewport" % expected_capacity)
-func first_owned_summary() -> Dictionary:
-	var instance: Variant = app.build.inventory.instances()[0]
+func owned_summary(source: StringName) -> Dictionary:
+	var instance: Variant = app.build.inventory.instance_for_source(source)
+	if instance == null: return {}
 	return {"instance_id":instance.instance_id,"definition_id":instance.definition_id,"gear_cost":instance.item.gear_cost}
+func grant_fractional_health() -> bool:
+	var fixture_item: Variant = load("res://resources/items/health_blue.tres").duplicate(true)
+	fixture_item.modifiers[0].value = 1.5
+	return app.build.add_item(&"ui_fractional_health", fixture_item)
+func expansion_fixture_income() -> int:
+	var policy := GearCapacityPolicy.load_default()
+	var income := 0
+	for upgrade: Dictionary in policy.upgrades: income += int(upgrade.price)
+	check(policy.valid and policy.upgrades.size() == 3 and income > 0, "explicit UI income derives all three expansion prices from the authoritative policy")
+	return income
 func inventory_ids() -> Array[StringName]:
 	var result: Array[StringName] = []
 	for instance: Variant in app.build.inventory.instances(): result.append(instance.instance_id)
@@ -153,9 +164,14 @@ func run() -> void:
 	await frames(8)
 	check(app.build.inventory.instances().size() == 1 and app.build.item_ids().is_empty(), "native reward click adds an un-equipped owned instance")
 	check(app.controller.motor.tuning.projectile_damage == base_damage, "cache acquisition does not apply damage effects")
+	# Cache manifests now use V5 items. Keep the fractional-health UI contract
+	# independent with a named legacy fixture, without modifying the cache item.
+	check(grant_fractional_health(), "explicit legacy health fixture enters ownership through the real build service")
 	# Keep custom typed iteration temporaries in synchronous helpers, so this
 	# long-lived coroutine does not retain their script constraints until exit.
-	var owned := first_owned_summary()
+	var owned := owned_summary(&"ui_fractional_health")
+	check(not owned.is_empty() and app.build.inventory.instances().size() == 2 and app.build.item_ids().is_empty(), "fractional-health fixture is distinct from the original un-equipped cache instance")
+	if owned.is_empty(): quit(1); return
 	var owned_ids: Array[StringName] = [owned.instance_id]
 	var current_health: float = app.controller.actor_resources.health.current
 	await open_build()
@@ -195,19 +211,20 @@ func run() -> void:
 	check(app.build.item_ids() == [owned.definition_id] and int(app.build.equipment.snapshot().used) == owned.gear_cost, "native equip changes only the selected instance and load")
 	check(app.controller.actor_resources.health.current == current_health, "equipping never grants free healing")
 	check_gear_cells(8, int(owned.gear_cost))
-	check(not is_equal_approx(float(app.controller.actor_resources.health.capacity), floor(float(app.controller.actor_resources.health.capacity))) and str(app.menu._build).contains(str(app.controller.actor_resources.health.capacity)), "actual fractional maximum HP is visible precisely in the construction summary")
+	check(is_equal_approx(float(app.controller.actor_resources.health.capacity), 6.5) and not is_equal_approx(float(app.controller.actor_resources.health.capacity), floor(float(app.controller.actor_resources.health.capacity))) and str(app.menu._build).contains(str(app.controller.actor_resources.health.capacity)), "actual fractional maximum HP is visible precisely in the construction summary")
 	await screenshot("desktop-equipped")
 	await click(button(app.menu._root,"UnequipItem"))
 	check(app.build.item_ids().is_empty() and app.controller.motor.tuning.projectile_damage == base_damage, "native unequip removes the effect completely")
 	check_gear_cells(8, 0)
 	# Fixture coins exercise the same ledger as natural combat/drop income.
-	app.wallet.grant(100,&"gear_ui_fixture_income")
+	app.wallet.grant(expansion_fixture_income(),&"gear_ui_fixture_income")
 	app._refresh_equipment_view()
 	var old_coins: int = app.wallet.balance
+	var first_price := int(app.shop.gear_quote().price)
 	print("GEAR UI UPGRADE BEFORE ", JSON.stringify({"equipment":app.build.equipment.snapshot(),"coins":app.wallet.balance,"quote":app.shop.gear_quote(),"session":app._equipment_session,"token":app._equipment_token.key(),"router":app.controller.router.epoch}))
 	await click(button(app.menu._root,"PurchaseGearUpgrade"))
 	print("GEAR UI UPGRADE AFTER ", JSON.stringify({"equipment":app.build.equipment.snapshot(),"coins":app.wallet.balance,"message":app.menu._equipment_view.get("message","")}))
-	check(app.build.equipment.capacity() == 10 and app.wallet.balance == old_coins-10, "native expansion uses the configured first quote and run wallet")
+	check(app.build.equipment.capacity() == 10 and first_price > 0 and app.wallet.balance == old_coins-first_price, "native expansion uses the configured first quote and run wallet")
 	check_gear_cells(10, 0)
 	var stale_session: int = app._equipment_session
 	var stale_revision := int(app.build.equipment.snapshot().revision)

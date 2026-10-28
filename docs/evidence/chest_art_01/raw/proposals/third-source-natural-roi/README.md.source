@@ -1,0 +1,23 @@
+# 第三源只读ROI／脚底／共用factor建议
+
+Source SHA `a3106003f2189e0f4d5d4e12bdc7ed579d6dd52130de2a7919be7756818627a0`。没有修改原PNG、没有生成／引擎／运行写入。以下是诊断建议，不是准入。
+
+完整自然分区：x=[0,512,1007,1536]，y=[0,512,1024]；x1024会切中金箱，不能沿请求三等列硬切。首列界x512位于33px真实alpha0沟槽；第二／三列间全高alpha0仅x1006一列，32px请求不通过。
+
+alpha>0量测保留全部alpha1尾；alpha>32仅用于结构诊断和脚底识别，不授权裁掉尾部或改像素。所有BBox使用右／下排他边界。
+
+|tier|closed ROI xywh|open ROI xywh|统一wu/srcpx|下箱宽 closed/open wu|宽差wu|结构高 closed/open wu|
+|---|---|---|---:|---|---:|---|
+|medium|[0, 0, 512, 512]|[0, 512, 512, 512]|0.12278630|[51.2019, 52.7981]|1.5962|{'closed': 27.7497, 'open': 41.379}|
+|high|[512, 0, 495, 512]|[512, 512, 495, 512]|0.13647059|[57.4541, 58.5459]|1.0918|{'closed': 38.2118, 'open': 50.7671}|
+|region_top|[1007, 0, 529, 512]|[1007, 512, 529, 512]|0.12877264|[63.7425, 64.2575]|0.5151|{'closed': 33.0946, 'open': 44.9416}|
+
+fixed source foot_pivot（ROI local）:
+- medium/closed: [262.5, 436]; structural lower-box diagnostic bbox=[54, 305, 471, 436]
+- medium/open: [268.0, 403]; structural lower-box diagnostic bbox=[53, 737, 483, 915]
+- high/closed: [249.5, 440]; structural lower-box diagnostic bbox=[551, 289, 972, 440]
+- high/open: [256.5, 405]; structural lower-box diagnostic bbox=[554, 735, 983, 917]
+- region_top/closed: [255.5, 448]; structural lower-box diagnostic bbox=[1015, 327, 1510, 448]
+- region_top/open: [260.5, 403]; structural lower-box diagnostic bbox=[1018, 748, 1517, 915]
+
+同tier factor仅一个；上述中点因子同时逼近闭／开目标宽，不允许再为每state单独修scale。下箱诊断起始y来自观察箱体结构，不是生产裁图。完整测量与各阈值BBox见proposal.json；发现差异必须由真实像素独审及1wu世界GL核准，不能以此表追签。

@@ -1,0 +1,18 @@
+from pathlib import Path
+import hashlib,json,shutil,subprocess,sys,time
+ROOT=Path.cwd();OUT=ROOT/'build/item_v5/guard-audit';base=OUT/'closure-creative-complete-observed';base.mkdir(exist_ok=False)
+specs=json.loads((ROOT/'tools/harness/profiles.json').read_text());spec=specs['checks']['creative-direction-tests'];trace=json.loads((OUT/'creative-direction-tests-read-trace.json').read_text());names=set(spec['inputs'])|set(trace['read_paths'])|{c['argv'][1] for c in specs['checks'].values()}
+for name in sorted(names):
+ p=ROOT/name
+ if not p.is_file():continue
+ dest=base/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,dest)
+(base/'profile-at-review.json').write_text(json.dumps(spec,indent=2)+'\n')
+sys.path.insert(0,str(ROOT/'tools'));import harness
+hashes=lambda:{p.relative_to(base).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in base.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc'}
+def digest():
+ snap=hashes();return harness.input_digest(spec,sorted(snap),{'scope':'same synthetic Python-only dependency identity; no engine'},snap)
+def run(tag):
+ start=time.monotonic();r=subprocess.run(spec['argv'],cwd=base,capture_output=True,text=True,timeout=spec['timeout_seconds']);log=OUT/('finite-counterexample-'+tag+'.log');log.write_text(r.stdout+r.stderr);return {'phase':tag,'argv':spec['argv'],'exit_code':r.returncode,'seconds':time.monotonic()-start,'log':str(log.relative_to(ROOT))}
+before_digest=digest();before=run('positive');target=base/'docs/quality/action_budget_spec.md';target_sha=hashlib.sha256(target.read_bytes()).hexdigest();target.unlink();after_digest=digest();after=run('missing-undeclared-context')
+report={'scope':'Isolated copied current sources plus actual observed read files and all declared Harness argv existence bootstrap; no Godot, no tracked mutations. Demonstrates new creative finite-input omission.','check':'creative-direction-tests','declared_input_count':len(spec['inputs']),'profile_sha256':hashlib.sha256(json.dumps(spec,sort_keys=True).encode()).hexdigest(),'removed_file':'docs/quality/action_budget_spec.md','removed_sha256':target_sha,'removed_was_declared':any('docs/quality/action_budget_spec.md'==x or 'docs/quality/action_budget_spec.md'.startswith(x.rstrip('/')+'/') for x in spec['inputs']),'positive':before,'negative':after,'before_input_digest':before_digest,'after_input_digest':after_digest,'digest_changed':before_digest!=after_digest,'inference':'If positive passes and negative fails with identical digest, this finite input contract cannot cover the actual check dependency. Does not claim the outer cache accepted a stale artifact.'}
+(OUT/'finite-counterexample.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

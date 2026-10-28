@@ -1,0 +1,71 @@
+extends SceneTree
+class Board extends Node2D:
+ var textures: Array[Texture2D] = []
+ var visible_art := false
+ func _draw() -> void:
+  draw_rect(Rect2(0,0,1280,720),Color("17282c"))
+  for row: int in 4:
+   var y := 68+row*150
+   var light := row%2 == 1
+   draw_rect(Rect2(12,y,1256,138),Color("ece0c5") if light else Color("17282c"))
+   var size := 52 if row < 2 else 90
+   for col: int in 8:
+    var center := Vector2(85+col*155,y+68)
+    var rect := Rect2(center-Vector2.ONE*size/2.0,Vector2.ONE*size)
+    draw_rect(rect.grow(2),Color("877b59"),false,1)
+    draw_string(ThemeDB.fallback_font,Vector2(center.x-35,y+18),["B01","B03","B11","P24","P14","G14","G16","N01"][col],HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("19272c") if light else Color("e9d8a7"))
+    if visible_art: draw_texture_rect(textures[col],rect,false)
+  draw_string(ThemeDB.fallback_font,Vector2(16,26),"RAW2 Godot atlas diagnostic / 52px dark, 52px light, 90px dark, 90px light / no source pixel edits",HORIZONTAL_ALIGNMENT_LEFT,-1,17,Color("e9d8a7"))
+  draw_string(ThemeDB.fallback_font,Vector2(15,696),"Bad ROI (two neighbors) ->",HORIZONTAL_ALIGNMENT_LEFT,-1,14,Color("e9d8a7"))
+  if visible_art: draw_texture_rect(textures[8],Rect2(245,671,90,45),false)
+func _initialize() -> void: run.call_deferred()
+func frames(n: int) -> void:
+ for i: int in n: await process_frame
+func run() -> void:
+ root.size = Vector2i(1280,720)
+ var original := Image.load_from_file("/workspace/generated_images/exec-73f33c9e-bea9-47c6-b649-bdf879e0dbf4.png")
+ var atlas := ImageTexture.create_from_image(original)
+ var board := Board.new()
+ board.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+ var rois: Array[Array] = []
+ for index: int in 8:
+  var x := int((index%4+0.5)*original.get_width()/4.0)-170
+  var y := int((index/4+0.5)*original.get_height()/2.0)-170
+  var texture := AtlasTexture.new()
+  texture.atlas = atlas
+  texture.region = Rect2(x,y,340,340)
+  texture.filter_clip = true
+  board.textures.append(texture)
+  rois.append([x,y,340,340])
+ var bad := AtlasTexture.new()
+ bad.atlas = atlas
+ bad.region = Rect2(50,50,840,340)
+ bad.filter_clip = true
+ board.textures.append(bad)
+ root.add_child(board)
+ await frames(3)
+ await RenderingServer.frame_post_draw
+ var baseline := root.get_texture().get_image()
+ baseline.save_png("/workspace/gunman-rush/build/item_art_01/raw2-ui-noart.png")
+ board.visible_art = true
+ board.queue_redraw()
+ await frames(3)
+ await RenderingServer.frame_post_draw
+ var actual := root.get_texture().get_image()
+ actual.save_png("/workspace/gunman-rush/build/item_art_01/raw2-ui-sampling.png")
+ var changed := 0
+ for y: int in actual.get_height():
+  for x: int in actual.get_width():
+   if actual.get_pixel(x,y) != baseline.get_pixel(x,y): changed += 1
+ var report := {"source":"/workspace/generated_images/exec-73f33c9e-bea9-47c6-b649-bdf879e0dbf4.png","source_sha256":FileAccess.get_sha256("/workspace/generated_images/exec-73f33c9e-bea9-47c6-b649-bdf879e0dbf4.png"),"recipe":"raw2-nonuniform-ui-sampler-v1","region":rois,"filter":"nearest; AtlasTexture.filter_clip=true; no mipmaps; raw alpha retained, no cutoffs","source_pixels_edited":false,"render_size":[actual.get_width(),actual.get_height()],"icon_sizes":[52,90],"changed_pixels_vs_noart":changed,"bad_roi":[50,50,840,340],"scope":"Controlled realGL sampling only, not actualDemoMenu/wholegame/sourcepadding or native64 acceptance"}
+ var file := FileAccess.open("/workspace/gunman-rush/build/item_art_01/raw2-ui-sampling.json",FileAccess.WRITE)
+ file.store_string(JSON.stringify(report,"  "))
+ print("ITEM ART RAW2 SAMPLER: "+JSON.stringify(report))
+ root.remove_child(board)
+ board.free()
+ atlas = null
+ original = null
+ baseline = null
+ actual = null
+ await frames(2)
+ quit()

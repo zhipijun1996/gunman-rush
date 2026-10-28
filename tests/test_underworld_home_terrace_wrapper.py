@@ -13,14 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import run_underworld_home_terrace_tests as wrapper
 
-EXPECTED = 185
-GPU_EXPECTED = 195
+EXPECTED = 187
+GPU_EXPECTED = 198
 MARKER = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions, 0 failures\n'
 
 
 def receipt():
     ids = ['character', 'upgrade', 'achievements', 'arms', 'relics', 'herbs', 'kitchen', 'courier', 'songs', 'stories', 'garden', 'departure']
-    active = {'character', 'upgrade', 'achievements', 'arms', 'departure'}
+    active = {'character', 'upgrade', 'achievements', 'arms', 'relics', 'departure'}
     meta = {'notes': 4, 'upgrades': {'vitality': 1}, 'profile_revision': 2, 'completed_runs': 0, 'failed_runs': 0, 'last_summary': {}}
     visits = [{'id': name, 'foot': [index * 200, [432, 336, 240][index % 3]], 'expected_action': name if name in active else '', 'meta_before': deepcopy(meta), 'meta_after': deepcopy(meta)} for index, name in enumerate(ids)]
     return {'schema': 'underworld-home-terraces-v1', 'checks': EXPECTED, 'failures': 0, 'driver_errors': [], 'visits': visits, 'trace': [{'hp': 5, 'jumps': 1}], 'events': [{'key': code} for code in ['A', 'D', 'S', 'W', 'Space']]}
@@ -185,6 +185,10 @@ class HomeTerraceGuardTests(unittest.TestCase):
         next(row for row in self.value['visits'] if row['id'] == 'arms')['expected_action'] = ''
         self.rejected()
 
+    def test_current_item_codex_service_cannot_be_omitted(self):
+        next(row for row in self.value['visits'] if row['id'] == 'relics')['expected_action'] = ''
+        self.rejected()
+
     def test_38_consistent_underreported_count_is_rejected(self):
         # The former 184-marker and matching receipt cannot sign the new
         # 185-assertion route that actually clicks the Journey page.
@@ -207,6 +211,6 @@ if __name__ == '__main__':
     out = ROOT / 'build/underworld_r3/home'
     out.mkdir(parents=True, exist_ok=True)
     (out / 'wrapper_guard_negatives.log').write_text(output)
-    report = {'schema': 'underworld-home-terrace-wrapper-guards-v1', 'scope': 'Pure verifier/source/provenance controls; synthetic parser positive and deliberate corrupted inputs. Not additional engine runs, image quality, motion, or final release acceptance.', 'expected_headless_checks': EXPECTED, 'expected_gpu_checks': GPU_EXPECTED, 'original_refusal_classes_retested_against_new_verifier': 17, 'unit_tests_run': result.testsRun, 'unit_test_failures': len(result.failures), 'unit_test_errors': len(result.errors), 'successful': result.wasSuccessful(), 'new_engine_execution': False, 'negative_controls': 36, 'synthetic_or_readonly_preflight_positives': 3}
+    report = {'schema': 'underworld-home-terrace-wrapper-guards-v1', 'scope': 'Pure verifier/source/provenance controls; synthetic parser positive and deliberate corrupted inputs. Not additional engine runs, image quality, motion, or final release acceptance.', 'expected_headless_checks': EXPECTED, 'expected_gpu_checks': GPU_EXPECTED, 'original_refusal_classes_retested_against_new_verifier': 17, 'unit_tests_run': result.testsRun, 'unit_test_failures': len(result.failures), 'unit_test_errors': len(result.errors), 'successful': result.wasSuccessful(), 'new_engine_execution': False, 'negative_controls': 37, 'synthetic_or_readonly_preflight_positives': 3}
     (out / 'wrapper_guard_negatives.json').write_text(json.dumps(report, indent=2)+'\n')
     sys.exit(0 if result.wasSuccessful() else 1)

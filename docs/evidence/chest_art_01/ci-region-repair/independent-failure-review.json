@@ -1,0 +1,73 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "exact b2f92dce completed parallel-lane failure root cause",
+  "observed_utc": "2026-10-28T10:56:25.656111+00:00",
+  "head": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "run": 40670325927,
+  "job": 122761172421,
+  "prepare": "success",
+  "parallel": "failure",
+  "serial": "still in_progress at observation; not reported passed",
+  "check": {
+    "id": "region",
+    "argv": [
+      "python3",
+      "tools/run_plains_region_tests.py"
+    ],
+    "timeout_seconds": 1500,
+    "input_digest": "3e8f88e3b16191f1139b6879a32b53c13c327fadbb813852e3e1122d6a0d05a7",
+    "log": "region.log",
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1793183874.2415464,
+    "ended_at_unix": 1793183949.1259284,
+    "duration_seconds": 74.884,
+    "expanded_argv": [
+      "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3",
+      "tools/run_plains_region_tests.py"
+    ],
+    "check_token": "43f7d496b9de49f4b987a2534f6ee619",
+    "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261028T103354.203637Z/artifacts/region",
+    "reused": false,
+    "success_pattern": "^PLAINS REGION CURRENT SUITES: 15 suites passed; legacy_itineraries=not_run:27$",
+    "log_sha256": "dbeb5723a63b32f5f220c1e702e22bb8005f92cde54cacf8e1545393a3346338"
+  },
+  "actual_native_failures": [
+    "FAIL: one eligible item stays available beside a real resource",
+    "FAIL: retained eligible item applies its actual effect"
+  ],
+  "actual_native_summary": "PLAINS EXPLORATION EXPANSION: 2900 assertions, 2 failures",
+  "root_cause": {
+    "file": "tests/plains_exploration_expansion_runner.gd",
+    "function": "eligible_item_cache",
+    "lines": [
+      225,
+      235
+    ],
+    "fixture": "Old fixture fills damage_blue, injects chest.items=[stability_blue,damage_blue], then expects stability_blue as sole eligible item/count.",
+    "formal_actual_path": "DemoApp._region_interact uses _v5_cache_items whenever _item_runtime!=null; formal start_plains has ItemRuntime. The old chest.items list is only read in the legacy else branch. Thus the fixture does not configure the actual V5 candidates it is asserting.",
+    "failure_classification": "Stale legacy-item fixture not migrated to formal V5 reward/inventory/equipment path. No evidence of a chest-art/style-binding failure; no production reward rollback suggested.",
+    "queue_boundary": "_claim_modal_item immediate acceptance alone does not prove later claim success; migrated test must verify actual resulting item receipt/inventory after frames."
+  },
+  "scope_of_recommended_repair": "Only migrate eligible_item_cache fixture to actual V5 eligibility and single eligible item + real resource, preserve original resource/claim/idempotency/death assertions and add explicit inventory then equip/apply/retract checks where needed. Do not change runtime reward path or budgets to satisfy legacy IDs.",
+  "source_provenance": {
+    "artifact_id": 12808654566,
+    "artifact_zip": "build/chest_art_01/ci-status-b2f92dce/parallel-lane.zip",
+    "artifact_zip_sha256": "bce45f6a64a95393e2b7fd0543fe644e8897244eaef9ec5f220bda2a02e22edb",
+    "same_as_GitHub_job_uploaded_digest": true,
+    "actual_report_commit_matches_requested_head": true,
+    "check_reused": false,
+    "artifact_report": "build/chest_art_01/ci-status-b2f92dce/lane/harness/20261028T103354.203637Z/report.json",
+    "artifact_report_sha256": "b4e91d1b7eb3c5940d2e56ac43b8f6026e034df0f4f18f842bbcf1f89e9029b5",
+    "native_log": "build/chest_art_01/ci-status-b2f92dce/lane/plains_region_fixtures/20261028T103754267720Z/plains_exploration_expansion_runner.log",
+    "native_log_sha256": "8cca2b3bcf299929527add4bd937a642a5897df380bc021b352dd4d7ef246e4a",
+    "full_job_connector_log": "build/chest_art_01/ci-status-b2f92dce/parallel-job-connector.log",
+    "full_job_connector_log_sha256": "8a70abd2264afb9d4320eb9b14fbfec8feda35333c4fa51c94600134bdd1f87c"
+  },
+  "retrieval": "gh log/API artifact direct temporary URLs returned403, so existing GitHub connector obtained full job logs and exact artifactZIP. Private URL-bearing stderr is not public evidence.",
+  "production_modified": false,
+  "CI_or_engine_rerun": false,
+  "old_pending_snapshot_preserved": true
+}

@@ -1,6 +1,7 @@
 class_name ThornForestRegionStage
 extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
+var chest_art_layer: ChestArtLayer
 var _forest_draw_clock := 0.0
 var _gate_hint: Label
 var discoveries: ForestBibleDiscoveries
@@ -144,6 +145,10 @@ func _ready() -> void:
 		chest.position = Vector2(row.position[0],row.position[1])
 		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
+	chest_art_layer = ChestArtLayer.new()
+	chest_art_layer.name = "ChestArtLayer"
+	chest_art_layer.configure(chests)
+	add_child(chest_art_layer)
 	var map_layer := CanvasLayer.new()
 	map_layer.layer = 1
 	add_child(map_layer)
@@ -199,6 +204,7 @@ func _physics_process(delta: float) -> void:
 
 func capture_state() -> void:
 	if not assembly_ok: return
+	if is_instance_valid(chest_art_layer): chest_art_layer.queue_redraw()
 	var forest_assembler := assembler as ThornForestRegionAssembler
 	for target: Node2D in forest_assembler.hook_targets.values():
 		if target is ForestPracticeBell:
@@ -308,13 +314,8 @@ func _draw() -> void:
 			draw_circle(at+Vector2(20,-35),6,Color("e8c97a"))
 	if ForestBiblePresentation.enabled(generated.manifest):
 		ForestBiblePresentation.draw_discoveries(self, generated.manifest, region_state, _forest_draw_clock)
-	if ForestBiblePresentation.enabled(generated.manifest):
-		ForestBiblePresentation.draw_chests(self, chests)
-	for chest: Dictionary in chests:
-		if ForestBiblePresentation.enabled(generated.manifest): continue
-		var color := Color("67745a") if chest.claimed else Color("e5c778")
-		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,24)),color)
-		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,8)),color.lightened(0.18))
+	# Chests in both Bible and legacy backgrounds use the same dedicated layer.
+	# Parent-stage draws never duplicate or grey the admitted tier recipe.
 	for pickup: Dictionary in pickups:
 		if pickup.claimed: continue
 		var color := Color("e9c985") if pickup.kind == "coin" else Color("b8dc9a") if pickup.kind == "heart" else Color("ccb7ed")

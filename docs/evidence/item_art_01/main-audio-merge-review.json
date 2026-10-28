@@ -1,0 +1,96 @@
+{
+  "reviewer": "independent /root/final_review",
+  "status": "BOUNDED_STATIC_MERGE_ACCEPT; REAL_REGRESSIONS_PENDING",
+  "scope": "SharedEnemyActor/weapon_feelmerge relativebothparents andexact-byte preservationofothermainchanges. No engine/audio playback/sourcewrites.",
+  "merge_commit": "4de01808f28e9471016e15155f0c36b8fbae75ab",
+  "item_parent": "0a45623b293241e0c4f055ca526d0aaa36d90dd4",
+  "audio_main_parent": "11e35968323bbc3d3e95a0b0c0c4fc9378e702cd",
+  "merge_base": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "checks": {
+    "enemy_equal_ours_plus_exactmain_semantic_cue": true,
+    "enemy_equal_main_plus_exactitem_stagger": true,
+    "weapon_equal_ours_plus_exactmain_weaponID": true,
+    "weapon_equal_main_plus_exactitem_beam_width": true,
+    "all_other_main_changes_exact": true,
+    "current_two_shared_files_equal_merge": true
+  },
+  "shared_file_semantics": [
+    "EnemyActor retains terminal/restoration/finitehitdirectionguards, enemy_hurt semanticcue beforegrapple/skillmotionearlyreturn; originalfallbackhurt remainsexplicit. Itemstagger multiplierclamp1..1.3 andnormalgroundknockback policy preserved byteexact.",
+    "WeaponFeel passesactualcontroller.shoot_ability.weapon.id as6thargument through V2 super tobaseaudio, where pulse_gun/shadow_shuriken/recoil_bomb routes areexplicit. Itembeam_item_width_scaleremainsatdrawtime. No duplicatedcue or reorderedconsumerlogicintroducedbymerge."
+  ],
+  "both_changed_paths": [
+    "AGENTS.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "scripts/dev/player_presentation_01/weapon_feel.gd",
+    "scripts/enemies/enemy_actor.gd"
+  ],
+  "othermainchanged_count": 1043,
+  "other_mainchanged_all_byteidentical": true,
+  "othermain_mismatches": [],
+  "docs_scope": "BothsidesoriginalprosepreservedinAGENTS/current_state/handoff/tasks; documentationconflictsoutsidethis2-filecode-semanticreview.",
+  "shared_blobs": {
+    "scripts/enemies/enemy_actor.gd": {
+      "0a45623b293241e0c4f055ca526d0aaa36d90dd4": "6d9d545dc2ea9248a268a42b2facb986fb0b16666f6b859e536ea97f831a0dfe",
+      "11e35968323bbc3d3e95a0b0c0c4fc9378e702cd": "fd53659f38f6d52a75cb5b27986bb12cb090e43d75f23327a61e087a9c06eb6d",
+      "4de01808f28e9471016e15155f0c36b8fbae75ab": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07"
+    },
+    "scripts/dev/player_presentation_01/weapon_feel.gd": {
+      "0a45623b293241e0c4f055ca526d0aaa36d90dd4": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4",
+      "11e35968323bbc3d3e95a0b0c0c4fc9378e702cd": "bffcdd0b24dd906c03139b3e9b7deb3305d28a7803511246ea229ecd0f632cf7",
+      "4de01808f28e9471016e15155f0c36b8fbae75ab": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
+    }
+  },
+  "all_other_inventory": {
+    "path": "build/item_art_01/main-audio-merge-other-main-inventory.json",
+    "sha256": "46eda781d13c7e2234355479e8b13256860353c4a6d22daee4ec4cec91c207f4"
+  },
+  "required_real_commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/run_audio_director_tests.py",
+        "--output",
+        "build/item_art_01/main-audio-validation/runtime"
+      ],
+      "purpose": "Existingstrictaudio runtime: enemy_hurt/playerhurt familyseparation, sharedpool/pausedcleanup/teardown; native90budget unchanged."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "res://tests/audio_director_selected.gd",
+        "--marker",
+        "^AUDIO_DIRECTOR_SELECTED checks=\\d+ failures=0$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/item_art_01/main-audio-validation/selected"
+      ],
+      "purpose": "Existingselectedaudio: realweaponID route pulse/shuriken/bomb vsothermode fallback, eventselection/lifecycle; no listeningapproval."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "purpose": "ExistingrealController/Motor/weaponconsumer regression inclweaponfeel; reuseifincludedfreshfinalHarness."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "purpose": "Existingacceptedhit/force/hurt/contact regression forsharedEnemyActor; reuseifincludedfreshfinalHarness."
+    }
+  ],
+  "item_specific_followup": "Existingfinal30affectedHarness mustfreshverifyactualitemcombat/formal/beam/weaponconsumersaftermainmerge; no needduplicatechecksifincluded.",
+  "not_signed": [
+    "Nativecompile/runtime/audioacceptanceuntilcommandsactuallyrun",
+    "SourcebindingR13formalresults",
+    "Userlistening/mixquality/devices",
+    "Finalworldmovie/Harness/fullCI/globalG2-G5"
+  ]
+}

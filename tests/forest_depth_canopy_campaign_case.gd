@@ -3,6 +3,8 @@ extends Node
 const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 const PILOT := preload("res://tests/forest_depth_canopy_campaign_pilot.gd")
 const AUDIO := preload("res://tests/audio_teardown.gd")
+const GOLD_PROBE := preload("res://tests/forest_depth_canopy_gold_probe.gd")
+var selected_gold: ItemDefinition
 var output := "res://build/forest_depth/campaign/canopy.json"
 var seed_value := "forest-depth-hollow-00"
 var failures: Array[String] = []
@@ -15,7 +17,7 @@ func check(ok: bool,why: String) -> void:
 	if not ok: failures.append(why);printerr("FAIL: canopy_app/"+why)
 func run() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
-	data={"scope":"actual_current_default_canopy_App_route_pause_freshload_fullfight_pointer_boundary","seed":seed_value,"manual_motor_step":false,"position_health_phase_resource_injection":false,"world_constructor_called":false,"whole_boss_fun_admission":false}
+	data={"scope":"actual_current_default_canopy_App_route_pause_freshload_fullfight_pointer_boundary","seed":seed_value,"manual_motor_step":false,"position_health_phase_resource_injection":false,"world_constructor_called":false,"whole_boss_fun_admission":false,"position_health_phase_resource_injection_scope":"Original route/combat/reload only; postcombat debit fixture separately disclosed"}
 	var trace: Node=STRATEGY.create();trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";get_tree().root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await get_tree().process_frame
 	trace.set_physics_process(false)
@@ -52,15 +54,16 @@ func run() -> void:
 	if not app.exit_modal.opened: check(false,"actual movement reaches reward gate");await finish(trace);return
 	check(await pointer(app.exit_modal,"ENTER / CLAIM REWARD","reward"),"real reward gate pointer")
 	check(app.reward_modal.opened and app.current_reward.gold,"combat-earned GOLD modal")
-	data.gold_definition={"id":String(app.current_reward.candidates[0].stable_id),"resource":app.current_reward.candidates[0].resource_path,"fingerprint":app.current_reward.candidates[0].fingerprint()}
+	selected_gold=app.current_reward.candidates[0].duplicate(true) as ItemDefinition
+	data.gold_definition={"id":String(selected_gold.stable_id),"resource":selected_gold.resource_path,"fingerprint":selected_gold.fingerprint(),"catalog_version":selected_gold.catalog_version,"rarity":selected_gold.rarity,"level":1,"parameters":selected_gold.parameters_for_level(1),"modifiers":modifier_rows(selected_gold)}
 	data.before_gold=reward_identity(app)
 	check(await pointer(app.reward_modal,"选择 / PICK","gold"),"real GOLD item pointer")
 	data.after_gold=reward_identity(app)
 	check(data.after_gold.count==1 and data.after_gold.hp==data.before_gold.hp and data.after_gold.wallet==data.before_gold.wallet and data.after_gold.capacity==data.before_gold.capacity and data.after_gold.equipped==data.before_gold.equipped,"GOLD first enters backpack without changing HP, capacity, coins or equipped items")
-	check(data.after_gold.instances.size()==1 and data.after_gold.instances[0].definition_id=="forest_heart_gold" and data.after_gold.instances[0].definition_version==app.current_reward.candidates[0].definition_version and data.after_gold.instances[0].source_id=="reward:%s"%app.current_reward.source_id,"GOLD owns exactly one versioned instance with its actual reward source")
-	check(not app._claim_modal_item(&"forest_heart_gold") and reward_identity(app)==data.after_gold,"duplicate GOLD rejected atomically")
+	check(data.after_gold.instances.size()==1 and data.after_gold.instances[0].definition_id==String(selected_gold.stable_id) and data.after_gold.instances[0].definition_version==app.current_reward.candidates[0].definition_version and data.after_gold.instances[0].source_id=="reward:%s"%app.current_reward.source_id,"GOLD owns exactly one versioned instance with its actual reward source")
+	check(not app._claim_modal_item(selected_gold.stable_id) and reward_identity(app)==data.after_gold,"duplicate GOLD rejected atomically")
 	# The actual core-choice modal intentionally blocks opening the pause menu.
-	# Keep the original maxHP-effect assertion as explicit equipment fixture
+	# Keep the original item-declared stat/effect assertion as explicit equipment fixture
 	# staging; this is not natural menu-operation evidence. Both acquisition and
 	# equipment still use the original versioned services without actor injection.
 	var source_id:=StringName("reward:%s"%app.current_reward.source_id)
@@ -69,13 +72,21 @@ func run() -> void:
 	var equipped: bool=load("res://tests/gear_inventory_support.gd").equip_sources(app.build,gold_sources)
 	data.gold_equipment_fixture={"scope":"Explicit paused EquipmentService fixture while real core-choice modal remains open; not natural menu operation", "accepted":equipped,"source_id":String(source_id),"before":data.after_gold.duplicate(true),"after":reward_identity(app),"core_before":abilities_before,"core_after":app.campaign.abilities.duplicate(),"progression_open":app.progression_modal.opened}
 	var after_equipment: Dictionary=data.gold_equipment_fixture.after
-	check(equipped and after_equipment.capacity==data.before_gold.capacity+2 and after_equipment.hp==data.before_gold.hp and after_equipment.wallet==data.before_gold.wallet and after_equipment.instances==data.after_gold.instances and after_equipment.equipped.count("forest_heart_gold")==1,"explicit equipment fixture applies original GOLD maxHP+2 with no healing, purchase or new ownership")
+	var expected_hp: Dictionary=BuildState.resolve_modifier_sources({&"max_health":float(data.before_gold.capacity)},{&"selected_gold":BuildState.resolve_item_modifiers(selected_gold,1)})
+	data.gold_equipment_fixture.expected_hp_capacity=expected_hp[&"max_health"]
+	check(equipped and is_equal_approx(after_equipment.capacity,float(expected_hp[&"max_health"])) and after_equipment.hp==data.before_gold.hp and after_equipment.wallet==data.before_gold.wallet and after_equipment.instances==data.after_gold.instances and after_equipment.equipped.count(String(selected_gold.stable_id))==1,"explicit equipment fixture applies actual GOLD-declared static modifiers with no healing, purchase or new ownership")
 	check(app.progression_modal.opened and Array(app.campaign.abilities)==abilities_before,"random-item equipment does not grant core abilities or dismiss the actual core-choice modal")
+	data.gold_effect_probe=await GOLD_PROBE.run(app,selected_gold)
+	data.postcombat_resource_debit_fixture=data.gold_effect_probe.get("debit_fixture",{})
+	check(data.gold_effect_probe.supported and data.gold_effect_probe.after.resonance>data.gold_effect_probe.start.resonance and data.gold_effect_probe.after.recovered>data.gold_effect_probe.start.recovered,"actual selected GOLD passive produces configuration-bound resonance through normal frames")
+	check(app.progression_modal.opened and get_tree().paused and reward_identity(app)==after_equipment,"explicit passive probe preserves HP, owned identity, equipped source and original core-choice modal")
 	check(await pointer(app.progression_modal,"D / DOUBLE JUMP","ability"),"actual D selection pointer")
 	data.boundary_ui_text=[]
 	for label: Label in app.progression_modal.find_children("*","Label",true,false): data.boundary_ui_text.append(label.text)
 	data.before_boundary={"double":app.controller.traversal.double_enabled,"abilities":Array(app.campaign.abilities),"phase":int(app.campaign.phase),"map":app.director.region_map_index,"manifest":app.director.manifest.snapshot()}
 	data.before_boundary.loadout=reward_identity(app)
+	data.before_boundary.item_effect=app._item_runtime.effect(selected_gold.stable_id)
+	data.before_boundary.item_sources=effect_source_rows(app)
 	data.before_boundary.manifest_compatible=RunManifest.compatible(data.before_boundary.manifest)
 	check(data.before_boundary.double and data.before_boundary.manifest_compatible and app.campaign.phase==RunCampaignProgression.Phase.BOUNDARY,"actual D receipt reaches compatible development boundary")
 	check(data.before_boundary.loadout==after_equipment,"actual core ability choice leaves owned instances and random-item loadout intact")
@@ -85,12 +96,22 @@ func run() -> void:
 	data.after_boundary={"state":int(app.director.state),"wallet":app.wallet.balance,"items":app.build.inventory.item_ids(),"equipped":app.build.item_ids(),"abilities":Array(app.campaign.abilities)}
 	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.build.inventory.item_ids().is_empty() and app.campaign.abilities.is_empty(),"real home clears run")
 	await finish(trace)
+func modifier_rows(item: ItemDefinition) -> Array[Dictionary]:
+	var result: Array[Dictionary]=[]
+	for modifier: BuildModifier in BuildState.resolve_item_modifiers(item,1):
+		result.append({"stat":String(modifier.stat_id),"operation":int(modifier.operation),"value":modifier.value,"priority":modifier.priority})
+	return result
+func effect_source_rows(app: DemoApp) -> Array[Dictionary]:
+	var result: Array[Dictionary]=[]
+	for source: Dictionary in app.build.effect_sources():
+		result.append({"definition_id":String(source.definition_id),"instance_id":String(source.instance_id),"source_id":String(source.source_id),"level":int(source.level),"parameters":source.parameters.duplicate(true)})
+	return result
 func reward_identity(app: DemoApp) -> Dictionary:
 	var instances: Array[Dictionary]=[]
 	for item: RunItemInstance in app.build.inventory.instances():
-		if item.definition_id==&"forest_heart_gold":
-			instances.append({"instance_id":String(item.instance_id),"definition_id":String(item.definition_id),"definition_version":item.definition_version,"source_id":String(item.source_id)})
-	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(&"forest_heart_gold"),"equipped":app.build.item_ids(),"instances":instances}
+		if selected_gold!=null and item.definition_id==selected_gold.stable_id:
+			instances.append({"instance_id":String(item.instance_id),"definition_id":String(item.definition_id),"definition_version":item.definition_version,"source_id":String(item.source_id),"level":item.level,"fingerprint":item.item.fingerprint()})
+	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(selected_gold.stable_id),"equipped":app.build.item_ids(),"instances":instances}
 func _pause_reload(driver: Node) -> bool:
 	var app: DemoApp=driver.app
 	var before: Dictionary=driver.snapshot();var token:=app.lifetime.token();var prior:=app.region_state

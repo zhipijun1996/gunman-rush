@@ -1,0 +1,23 @@
+{
+  "schema": "home-codex-packed-contract-v1",
+  "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+  "command": [
+    "bash",
+    "/workspace/gunman-rush/tools/godot.sh",
+    "--headless",
+    "--main-pack",
+    "/workspace/gunman-rush/build/home_codex_01/export-source-8b83e22b.pck",
+    "--script",
+    "/workspace/scratch/home-codex-packed-8b83e22b/probe.gd",
+    "--",
+    "--home-policy-sha=e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc"
+  ],
+  "isolated_cwd": "/workspace/scratch/home-codex-packed-8b83e22b",
+  "expected_home_policy_sha256": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc",
+  "pck_sha256": "db21ece8388ab63d1e4012d3aff41b2867b360d2a9909cb5995a9649eccc8d56",
+  "pck_bytes": 199473084,
+  "probe_sha256": "08d947ee7daf4e19e8a10b4315a598bda8f1a79335552d60875184c35165f0ed",
+  "status": "passed",
+  "scope": "Actual exported Web Playtest PCK, isolated external native probe; not browser/device deployment",
+  "exit_code": 0
+}

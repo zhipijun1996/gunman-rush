@@ -1,0 +1,110 @@
+{
+  "reviewer": "/root/v5_review",
+  "verdict": "ACCEPT explicitly exercised source-lifetime/no-sync/P09/B17 and prior42 controls; P06 restoration REJECT separately",
+  "execution_manifest": "execution_manifest.json",
+  "source_stable": true,
+  "native_results": [
+    {
+      "scope": "narrow",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/gunman-rush",
+        "--script",
+        "res://tests/item_v5_review_runner.gd",
+        "--",
+        "--source-lifetime-only"
+      ],
+      "exit_code": 0,
+      "matches": [
+        [
+          "69",
+          "0"
+        ]
+      ],
+      "strict_errors": [],
+      "accepted": true,
+      "log_sha256": "1b889537bbf0ba810e6eb68a4a1466460f12d3287d83bd07594e0d99d9708e65"
+    },
+    {
+      "scope": "full",
+      "command": [
+        "godot",
+        "--headless",
+        "--path",
+        "/workspace/gunman-rush",
+        "--script",
+        "res://tests/item_v5_review_runner.gd"
+      ],
+      "exit_code": 0,
+      "matches": [
+        [
+          "42",
+          "0"
+        ]
+      ],
+      "strict_errors": [],
+      "accepted": true,
+      "log_sha256": "86161f222a5c454c2608e276e7aa414e970978f3d2e63e9bc56fa3ee604d5b91"
+    }
+  ],
+  "observations": [
+    {
+      "authorization_after_remove": false,
+      "case": "derived admitted then actual paused unload before HP commit",
+      "committed_callbacks": 0,
+      "damage_results": 0,
+      "enemy_hp": 100.0,
+      "source_present": false
+    },
+    {
+      "case": "unload then re-equip before old derived commit",
+      "final_hp": 99.0,
+      "fresh_results": 1,
+      "old_results": 0
+    },
+    {
+      "case": "weapon epoch changes before derived commit",
+      "final_hp": 99.0,
+      "fresh_results": 1,
+      "old_results": 0,
+      "weapon_after": 1,
+      "weapon_before": 0
+    },
+    {
+      "actual_equipped": 0,
+      "cached_source_after_remove": true,
+      "case": "unload then resolve without runtime.sync or await",
+      "hp": 100.0,
+      "results": 0
+    },
+    {
+      "case": "unload immediately re-equip then resolve without sync or await",
+      "fresh_results": 1,
+      "hp": 99.0,
+      "old_results": 0
+    },
+    {
+      "B17_broken": true,
+      "blast_results": 2,
+      "case": "actual Router Controller Projectile Policy primary triggers P09 and actual HP injuries break B17",
+      "energy_after_blast": 7.0,
+      "energy_after_primary": 7.0,
+      "first_hp": 98.2,
+      "primary_results": 1,
+      "second_hp": 99.7
+    }
+  ],
+  "closed_remaining_window": "Legal unload and immediate re-equip both tested without runtime.sync or await; authoritative equipment revision invalidates old proof, current source membership rejects new proof after unload. Fresh re-equipped proof commits normally.",
+  "real_combat_control": "Router->Controller->PlayerProjectile->Policy primary yields B17 1.50D; real on_hit yields two P09 .30D commits, no recursive energy; three original Policy HP injuries break B17 and revoke multiplier.",
+  "remaining_unverified": [
+    "B19 real hook path not added",
+    "Entire72-item/full15weapon/final frozen head acceptance",
+    "P17/G19 user design authority",
+    "Player, physical device and VFX visual quality"
+  ],
+  "P06_read_only_review": "See ../p06_disable_mode_before/finding.json: changed CollisionObject2D.disable_mode not restored in release. Not independently native-tested yet.",
+  "production_edits_by_reviewer": false,
+  "native_lease": "released"
+}

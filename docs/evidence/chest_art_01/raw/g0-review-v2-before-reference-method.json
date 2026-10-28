@@ -1,0 +1,264 @@
+{
+  "schema": "chest-art-G0-independent-review-v1",
+  "reviewer": "independent /root/final_review",
+  "task_id": "CHEST-ART-01",
+  "verdict": "BOUNDED_G0_SOURCE_GENERATION_ACCEPT",
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "actual_review_head": "0f25921dd41949f220999293013f065ce758189d",
+  "reviewed_version": "G0-v3-reference-edit-before-first-call",
+  "production_allowed": true,
+  "approval_scope": "SourcegenerationONLY: oneoriginalsharedfamily, exactlymedium/high/region_top closed+open6staticposes onONEadmittedPNG, max2imagegen callsTOTAL includingrevision. No runtimepromotion/finalvisual/player/deviceapproval.",
+  "runtime_promotion_allowed": false,
+  "generation_calls_reviewed_as_executed": 0,
+  "limits": {
+    "max_generation_calls_total": 2,
+    "family_count": 1,
+    "admitted_source_png_count": 1,
+    "requested_pixels": [
+      1536,
+      1024
+    ],
+    "requested_rgba8_bytes": 6291456,
+    "actual_unique_admitted_source_rgba8_ceiling_bytes": 8388608,
+    "actual_source_pixel_area_ceiling": 2097152,
+    "mipmaps": false,
+    "duplicated_atlas_textures": false,
+    "over_budget": "Reject; do not resize/crop source or raise limit. All raw call outputs and request failures retained as disk evidence, not registered textures.",
+    "stop": "Stop after success; at most one bounded same-family revision. Two rounds without substantial improvement stop direction.",
+    "item_atlas_budget": "Existing independent64MiB unchanged.",
+    "not_claimed": "Process/GPU total memory or physical device performance."
+  },
+  "review_findings": {
+    "fixed_pre_generation": [
+      "InitialG0 lackedexplicitgeneration/memorybudget; v2nowmax2calls/one6-statefamily/oneadmittedsource/8MiBuniqueRGBA, independentitem64MiBunchanged.",
+      "Pregenrequestconformanceandconsumeradmissionseparatedbeforeanyoutput: requested1536x1024/512cells/4sourcepxclusters/32gutter cannotbeclaimedguaranteedtooloutput oruser-native4pxrule. Failuresretained; actualhighres1wusampling/completeROI/bodymatchingrequiresseparateactualpixelreview."
+    ],
+    "blocking_remaining": []
+  },
+  "design_assessment": [
+    "Tieridentityusesdifferentconstruction: flattransport/twobands/plainlatch; archedreinforced/threebands/splitgearlatch; facetedclockcrown/steppedfeet/radialseal. Thisisnotrecolororproportion-onlyvariation. Sharedoldbrass/coolsteel/wood/upperleftwarm-light/quietteal remainsselectedstyle.",
+    "Actual58wuoldconsumerand44wuplayeraregroundedinsource. New52/58/64widthandclosed32/38/44/openmax46/54/60 explicitbodytargets; nominalhalfemptycanvas andrequestedanchorleaveadequateframingroom. Actualsourcebodywidthratherthantransparentcanvaswidthmustbemeasured.",
+    "Samephysicalbase/body/feet/perspective/materialwearacrossstates; eachtierONEisotropicfactorforsameclosed/openpair. Per-statefixedsourcefoot_pivotmapstoexistingworldsupport; normalizedbasegeometrydelta<=1wu, targetwidtherror<=1wu, openheightcapsunchanged. No independentlyscalingstates/noalpha-croppingfix/noPNGedit.",
+    "FormalPlainsfoot=row.position+(0,21),Forestfoot=row.position+(0,18)preservedseparately. LegacyP1UnityProps62.4x45.6/+18overrideexplicitlyidentifiedandactiveconsumerclosuremandatory; no claimsharedUnderworldObjectsalonecoversallentrances.",
+    "World1wunearestmustusealreadyaccepteditem_v5_world_sprite samplingbias/REGION_RECTboundswithcanonicalvertex/light; no globalshaderedit. ActualsixROI/highratio/fractionalorigin/camera/neighbornegativecontrolandsamefootGLrequired; nearestaloneinsufficient.",
+    "Existingclaimedstateonlyselectsclosed/open; emptyinteriornotnewrewardpromise. Nochangeinteraction,collision,rewards/Manifest,RNG,currency/coreabilities/audio/lifecycle. Theseare6staticposes, notopeninganimation."
+  ],
+  "actual_reference_review": {
+    "all29_identity_and_size_checks_match": true,
+    "reference_count": 30,
+    "reviewer_actual_pixels_seen": [
+      "assets/underworld_plains/actors/chest.png",
+      "assets/underworld_plains/objects/opened_chest.png"
+    ],
+    "source_read_consumers": [
+      "UnderworldObjects.place_chest",
+      "PlainsRegionStage spawn/update callers",
+      "ForestBiblePresentation.draw_chests",
+      "P1UnityProps cosmetic override",
+      "UnderworldPresentation sharedsampling"
+    ],
+    "request_tool_conditioning": "Promptonlyasdeclared; localreferenceviewingdoesnotclaimreferencepixelsprovidedtoimagegen."
+  },
+  "next_admission_required": [
+    "Preserveexactimagegenargs/rawreturn/sourceSHA/actualdimensions/modelifexposed; measure8MiBcap andall6completeROIs/transparentseparation withoutsourceedits.",
+    "Independentlyinspectactualsource6subjects,requestednativeclusters/gutterfailuresandsamebasegeometry; nohash-onlyvisualacceptance.",
+    "ActualformalPlainsandForestwith44wuplayer/terrain/HUD/hazards: all6posesatsmall/normalview, samefoot/open-closedcontinuity, claimed-statechangeviarealreceipt.",
+    "ApplicablefreshHarnessandactualGL/normalstateswitchcapture, no unrelateditemartregeneration.",
+    "Stopafterfirstsuccessfulfamily; secondcallonlyboundedrevision, noextrafamilyoranimations."
+  ],
+  "not_accepted": [
+    "Anynewsourcepixels(noneproducedatthisreview)",
+    "Actualsource-native4px/gutter/alpha/dimensions",
+    "Runtimeintegration/claims/state-transitionproof",
+    "Useraesthetic/fun/G5orphysicalAndroid/controller/performance",
+    "PreviousITEM-ART/ITEM-AUTHORreportmodificationornewfullCIclaim"
+  ],
+  "reviewed_documents": {
+    "docs/worklines/chest_art_01/spec.md": "2e93809d16c1acf228ecb16aceaef58d262c573626c635b210419eb8e6ba90da",
+    "docs/worklines/chest_art_01/authority.json": "0b75b9905362374deae271c405e683bfa1069ed4a37482a6d2b5218e3147bfa7",
+    "docs/worklines/chest_art_01/prompt.txt": "9230a700ef5e2ba19680ec596b050cd7b0e54d688a0c60a8a1b3bf96c62bab47"
+  },
+  "reference_checks": [
+    {
+      "path": "AGENTS.md",
+      "actual_sha256": "c361bfcf48a6626dd081fa0a19da53872e4375ae82ef43e80328c09b8fa193a4",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": ".agents/skills/art-director/SKILL.md",
+      "actual_sha256": "811ce081f3e2e8e925a7941f8c2f69407033840fa36679a11094e6377db7940a",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": ".agents/skills/animation-vfx/SKILL.md",
+      "actual_sha256": "80d414fe92230e32cf4dded28073e405810f9b1853e8d385aa2dc885ffdc31a2",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/README.md",
+      "actual_sha256": "d4bbeaf2b1741580367340fe7875d74c4dcd68a54a9f179695c4f4d59b2a2f5f",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "actual_sha256": "ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/bibles/user-request.json",
+      "actual_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "actual_sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "actual_sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "actual_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "actual_sha256": "c8754c5a2e940da1553dc78cd411b2f05d8fb83a76620eed23a797107a80494a",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "actual_sha256": "bd3c3f8dc13536c20510c23bc7b740c8464aef4aceebd9f0d8499a1e4ac39697",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/visual_bible.md",
+      "actual_sha256": "0146616d6738df803d0b194029fe2d366473194334db09c3d4b31f5cb9adaefd",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/art_foundation_v1.md",
+      "actual_sha256": "5e2cbbda65692911ad4dfc5785f3ad0258a8be27ae9ebb2a358fe814c4d7b50a",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/art_quality_target.md",
+      "actual_sha256": "2a6ac7601125066c4d8bd6ed428c97781cc369593440877af2e0cae03b0dfee0",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "docs/animation_vfx_standards.md",
+      "actual_sha256": "55c14f070677a21b0f6bcc7b0b0dd270f61310ef126aec58507e1815238e617d",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_objects.gd",
+      "actual_sha256": "7048a69a7b7d944ea532b6379cf202cf545c545e2d1ebebbba9292f5fb87993e",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "actual_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "actual_sha256": "81f093dd3434e0338908f155d56a1592f0bf469bda37550ea7d60e30a685ecaf",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "actual_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "actual_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "actual_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/underworld_plains/actors/chest.png",
+      "actual_sha256": "6be3f3767643004037854b18e44f32fb7f2affeb2a8823d81c289e9836493984",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/underworld_plains/objects/opened_chest.png",
+      "actual_sha256": "5f4f72179df29eb576664d3896784ad6b209c106ec45088ad9148afb5306f2a5",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "actual_sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/presentation/forest_bible_presentation.gd",
+      "actual_sha256": "303b8c4c557a07cfe32b6ff993d21f7b8f98a5322901d5c106830d763891da4f",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "shaders/formal_fine_boundary.gdshader",
+      "actual_sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "assets/items/v5/icons/golden-02.source.png",
+      "actual_sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "scripts/art/p1_unity_props.gd",
+      "actual_sha256": "007bdc0b51bf5df43f67447ecebed2daa8c7d0e520826b074a021f006564f1e2",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "shaders/item_v5_world_sprite.gdshader",
+      "actual_sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5",
+      "sha256_matches": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/item_art_01/world-final-plains-01/active.png",
+      "actual_sha256": "463dc53b1013802b5a2ca5ae93ee15d90118431504075f3bfaf3a3bfbe29e313",
+      "sha256_matches": true,
+      "bytes_match": true
+    }
+  ],
+  "review_actions": "Readonlydocuments/source/pixels+buildreportonly; noengine, noimagegen, no production/test/docwrites."
+}

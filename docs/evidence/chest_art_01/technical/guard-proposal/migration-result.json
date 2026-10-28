@@ -1,0 +1,51 @@
+{
+  "task": "CHEST-ART-01 actual finite guard migration",
+  "source_base": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "owned_paths": [
+    "tools/underworld_pipeline.py",
+    "tests/test_underworld_pipeline.py",
+    "tests/fixtures/chest_dispatch_before_tiers/"
+  ],
+  "baseline_methods": 152,
+  "preserved_original_methods": 152,
+  "removed_original_methods": [],
+  "new_methods": [
+    "test_objects_current_dispatch_cannot_manufacture_claimed_state",
+    "test_objects_current_dispatch_cannot_move_or_hide_as_dead_string",
+    "test_objects_current_dispatch_rejects_duplicates_aliases_and_reflection",
+    "test_objects_current_dispatch_rejects_gray_alpha_and_position_overrides",
+    "test_objects_current_dispatch_rejects_wrong_actual_tier_claim_and_foot",
+    "test_objects_current_library_white_atlas_and_readonly_dispatch_are_bound",
+    "test_objects_current_tier_dispatch_is_actual_and_legacy_is_frozen"
+  ],
+  "legacy_alpha": "Original nine alpha negative methods now use complete immutable pre-tier source fixture; exact original helper preserved separately. Original generation/crop/aspect/reconstruction and actual old three-argument open/closed fallback checks remain.",
+  "current_adapter": "Complete initialization/ready/capture loops in correct unique functions, real fourth tier arg, original foot+21/claimed, source-bound config/AtlasTexture/WHITE library, retained original3arg recipe; unknown duplicate/alias/reflection/deadstring/gray/manualstate forms reject.",
+  "test_result": {
+    "command": "timeout 180 python3 tests/test_underworld_pipeline.py",
+    "exit_code": 0,
+    "tests": 159,
+    "failures": 0,
+    "wall_seconds_reported_by_unittest": 89.505,
+    "original_budget_seconds": 180,
+    "log": "build/chest_art_01/guard-proposal/test-native-free-02.log"
+  },
+  "actual_audit": {
+    "command": "python3 tools/underworld_pipeline.py audit --output build/chest_art_01/guard-proposal/actual-audit-02.json",
+    "passed": true,
+    "checks": 1025,
+    "failures": 0
+  },
+  "preserved_failure": {
+    "path": "build/chest_art_01/guard-proposal/test-native-free-01.log",
+    "exit_code": 5,
+    "cause": "New adapter duplicated recipe res:// prefix and indexed executable mask from different source string; narrow checker fixes only, no runtime/art changes."
+  },
+  "source_sha256": {
+    "tools/underworld_pipeline.py": "20af1d76489499efeafad4d1df593c54c35f51345059ccf78942d513664da26e",
+    "tests/test_underworld_pipeline.py": "2564a38ff2ea5227f302ae875de1bcdffe4ab7e75e31c166035b4917f5a84bee",
+    "scripts/art/chest_art_library.gd": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e"
+  },
+  "engine_started": false,
+  "runtime_or_asset_writes": false,
+  "budget_or_global_checks_changed": false
+}

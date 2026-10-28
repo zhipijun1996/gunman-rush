@@ -14,15 +14,28 @@ const DEFAULT_ITEMS: Array[ItemDefinition] = [
 var last_error: StringName = &""
 var _build: BuildState
 var _pool: Array[ItemDefinition] = []
+var _enable_v5 := false
+var _v5_pool: ItemV5Pool
+var last_manifest: Dictionary = {}
 
-func configure(build: BuildState, biome_id: StringName = &"") -> void:
+func configure(build: BuildState, biome_id: StringName = &"", enable_v5 := false) -> void:
 	_build = build
+	_enable_v5 = enable_v5
+	last_manifest = {}
+	if _enable_v5:
+		if _v5_pool == null: _v5_pool = ItemV5Pool.new()
+		_v5_pool.configure(build)
+		set_pool(ItemCatalogV5.all_items())
+		return
 	var items: Array[ItemDefinition] = []
 	for item: ItemDefinition in DEFAULT_ITEMS:
 		if biome_id == &"plains" and item.stable_id == &"jump_blue":
 			continue
 		items.append(item)
 	set_pool(items)
+
+func current_version() -> String:
+	return ItemV5Pool.VERSION if _enable_v5 else CONTENT_VERSION
 
 func set_pool(items: Array[ItemDefinition]) -> bool:
 	var seen: Array[StringName] = []
@@ -36,8 +49,15 @@ func set_pool(items: Array[ItemDefinition]) -> bool:
 	_pool = copied
 	return true
 
-func choose_candidates(seed: String, stable_stage: String) -> Array[ItemDefinition]:
+func choose_candidates(seed: String, stable_stage: String, rarity := -1, count := 2) -> Array[ItemDefinition]:
 	last_error = &""
+	if _enable_v5:
+		var reply := _v5_pool.generate(seed, StringName(stable_stage), count, rarity)
+		last_manifest = reply.manifest.duplicate(true)
+		last_error = reply.reason
+		var chosen: Array[ItemDefinition] = []
+		for item: ItemDefinition in reply.items: chosen.append(item)
+		return chosen
 	var eligible: Array[ItemDefinition] = []
 	if _build == null or stable_stage.is_empty():
 		last_error = &"invalid_context"

@@ -1,0 +1,32 @@
+import ast,contextlib,hashlib,io,json,runpy,subprocess,sys,types,unittest.mock as mock
+from pathlib import Path
+ROOT=Path.cwd();OUT=ROOT/'build/item_v5/guard-audit';rows=[]
+def execute(args,text,accept,editor='',error=None,expected_calls=None):
+ calls=[]
+ def engine(argv,budget):
+  calls.append({'argv':argv,'timeout':budget})
+  if len(calls)==2 and error is not None:raise error
+  return editor if len(calls)==1 else text
+ rc=0
+ with mock.patch.dict(sys.modules,{'run_tests':types.SimpleNamespace(run_engine=engine)}),mock.patch.object(sys,'argv',['tools/run_item_v5_tests.py',*args]),contextlib.redirect_stdout(io.StringIO()),contextlib.redirect_stderr(io.StringIO()):
+  try:runpy.run_path(str(ROOT/'tools/run_item_v5_tests.py'),run_name='__main__')
+  except SystemExit as e:rc=e.code or 0
+  except Exception:rc=1
+ assert (rc==0)==accept,(args,text,rc)
+ if accept:
+  assert [x['timeout'] for x in calls]==[90,120]
+  if expected_calls is not None:assert calls==expected_calls,(args,calls,expected_calls)
+ rows.append({'suite':args[-1],'expected_accept':accept,'accepted':rc==0,'calls':calls})
+old=json.loads((OUT/'wrapper-controls.json').read_text())
+former=[x for x in old['wrapper_cases'] if x['wrapper']=='tools/run_item_v5_tests.py' and x['expected']=='accept']
+assert len(former)==13
+for x in former:execute(x['args'],x['synthetic_output'],True,expected_calls=x['calls'])
+for name,label,minimum in [('pause-escape','PAUSE ESCAPE',10),('random-context','RANDOM CONTEXT',100)]:
+ good=f'ITEM V5 {label}: {minimum} checks, 0 failures\n';execute(['--suite',name],good,True)
+ positive=rows[-1]['calls'][1]['argv'];assert ('--fixed-fps' in positive)==(name=='pause-escape')
+ if name=='pause-escape':assert positive[-2:]==['--fixed-fps','60']
+ for bad in ['',good.replace(str(minimum)+' checks',str(minimum-1)+' checks'),good.replace('0 failures','1 failures'),good+good,good.replace(label,'CATALOG'),good+'ERROR: synthetic error\n']:
+  execute(['--suite',name],bad,False)
+ execute(['--suite',name],good,False,editor='ERROR: synthetic import error\n')
+ for e in [RuntimeError('Godot returned1'),RuntimeError('Godot leaked ObjectDB instances or live resources at exit'),subprocess.TimeoutExpired(['synthetic'],.05)]:execute(['--suite',name],good,False,error=e)
+(OUT/'addendum-controls.json').write_text(json.dumps({'scope':'Pure synthetic wrapper controls only, not native pause/RNG behavior','cases':rows,'cases_passed':len(rows),'former13_exact_argv_budget_replays':True,'native_invoked':False},indent=2)+'\n');print('ADDITIONAL CONTROLS',len(rows),'passed; former13 original argv/budget exact')

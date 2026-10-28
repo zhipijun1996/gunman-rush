@@ -1,0 +1,107 @@
+{
+  "adapter": "llvmpipe (LLVM 19.1.7, 256 bits)",
+  "adjacent_opaque_atlas_cases": [
+    {
+      "actual_world_canvas": [
+        8.3,
+        8.3
+      ],
+      "angles_radians": [
+        0,
+        0.37,
+        0.79
+      ],
+      "case": "correct_clipped_ROI",
+      "green_neighbor_pixels": [
+        0,
+        0,
+        0
+      ],
+      "physical_origin": [
+        0.25,
+        0.25
+      ]
+    },
+    {
+      "actual_world_canvas": [
+        8.3,
+        8.3
+      ],
+      "angles_radians": [
+        0,
+        0.37,
+        0.79
+      ],
+      "case": "same_unfiltered_ROI",
+      "green_neighbor_pixels": [
+        0,
+        13,
+        6
+      ],
+      "physical_origin": [
+        0.25,
+        0.25
+      ]
+    },
+    {
+      "actual_world_canvas": [
+        8.3,
+        8.3
+      ],
+      "angles_radians": [
+        0,
+        0.37,
+        0.79
+      ],
+      "case": "deliberate_neighbor_in_ROI_control",
+      "green_neighbor_pixels": [
+        136,
+        122,
+        91
+      ],
+      "physical_origin": [
+        0.25,
+        0.25
+      ]
+    }
+  ],
+  "checks": 11,
+  "display_server": "X11",
+  "failures": 1,
+  "nearest_only_control": {
+    "active_blocks": 446,
+    "screen_lattice_phase": [
+      1,
+      3
+    ],
+    "uniform_4x4_blocks": 1,
+    "uniform_fraction": 0.00224215246636771
+  },
+  "primitive_circle_rgba": [
+    0.0509803928434849,
+    1.0,
+    0.0509803928434849,
+    1.0
+  ],
+  "primitive_line_rgba": [
+    1.0,
+    0.0509803928434849,
+    0.0509803928434849,
+    1.0
+  ],
+  "quantized": {
+    "active_blocks": 393,
+    "screen_lattice_phase": [
+      1,
+      1
+    ],
+    "uniform_4x4_blocks": 294,
+    "uniform_fraction": 0.748091603053435
+  },
+  "scope": "isolated actualGL native sampling/primitive compatibility counterexample, not natural gameplay, devices or visual acceptance",
+  "screen_pixels_per_world_unit": 4,
+  "source_png_modified": false,
+  "world_shader": "res://shaders/underworld_fine_sprite.gdshader",
+  "world_shader_sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188",
+  "world_units_per_pixel": 1
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "task_id": "ITEM-ART-01",
+  "reviewer": "/root/final_review",
+  "status": "controlled_sampling_diagnostic_allowed",
+  "verdict": "UNVERIFIED art/source acceptance; ALLOW bounded raw-source sampling diagnostic",
+  "actually_viewed": "Opened entire unmodified second returned1774x887PNG in image viewer, and compared remembered actually-viewed source1 pixel arrangement. Have not viewed second-source actual52/90Godot output yet.",
+  "source": "/workspace/generated_images/exec-73f33c9e-bea9-47c6-b649-bdf879e0dbf4.png",
+  "source_sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15",
+  "measurement": "build/item_art_01/golden-02.measurement.json",
+  "measurement_sha256": "caa03226e88c7508df96cb5733b7485ca0d4060b4b528d0fe7fc5ff38a29d6de",
+  "source_observations": [
+    "Object silhouettes/material identity persist and substantial empty spacing has visibly increased versus source1. That is an actual visible spacing improvement; the unchanged strictalpha-tail failure is a different measurement.",
+    "Second source remains1774x887 rather than requested1024x512, and native64/regular256-cell/zero-transparent-padding source compliance is not established. Original source measurements and failed gates remain unchanged.",
+    "The measured alpha>0 tails reaching nominal cell edges are not by themselves evidence of visible GPU bleed. An actual sampler is necessary to distinguish low-alpha data from a visible imported/Atlas defect."
+  ],
+  "prior_gate_status": {
+    "original_regular_layout": "failed_request_dimensions/grid_contract",
+    "original_zero_source_padding": "failed in measured rows, not reclassified by a new alpha threshold",
+    "native64_logical4px_clusters": "unverified_not_claimed",
+    "source1_failure_preserved": true,
+    "source2_failure_preserved": true
+  },
+  "diagnostic_recipe_permission": {
+    "allowed": true,
+    "suggested_id": "raw2-nonuniform-ui-sampler-v1",
+    "purpose": "Test the independent high-resolution nonuniform Atlas use already contemplated by G0 fallback; observe actual small-size readability and visible padding/neighbor behavior before deciding whether any new consumer may be promoted.",
+    "output_scope": "Ignored isolated Godot sampler and screenshots/receipt only; not formal gameplay assets/catalog promotion or72icon expansion.",
+    "requirements": [
+      "Pin original source2 SHA; do not edit, erase/threshold alpha, resize/reconstruct native pixels or change raw source bytes.",
+      "Record exact integer complete-object ROI plus padding for each icon before rendered result assessment. If alpha thresholds help identify a candidate silhouette, record them as region-selection diagnostics only; do not assert zero source padding passed.",
+      "Use actual AtlasTexture with filter_clip true, nearest and no mipmaps, aspect-preserving placement at actual52px and90px target sizes. Record all region/texture/scaling/pivot settings and softwareGL/environment identity.",
+      "Render dark/light/actual theme backgrounds and retain no-image background baseline; include at least one deliberately neighbor-crossing/wrong ROI bad control to show the sampler exposes pollution.",
+      "Keep low-alpha pixels inside selected regions for actual GPU sampling; do not clean them to make the diagnostic pass. Record any outer source pixels not consumed by the selected regions rather than pretending the full original sheet complies.",
+      "Readability, visible artifacts and region completeness are assessed from actual rendered pixels; failed source0alpha/native64 gates are separate and remain failed/unverified.",
+      "Formal use requires a separately frozen nonuniform high-resolution asset-consumer recipe, explicit purpose/bounds/provenance, actual GPU review and normal game UI/world integration. This diagnostic permission alone does not approve it."
+    ]
+  },
+  "reasoning": "The original art-director causal boundary distinguishes raw low-alpha data from a rendered defect and permits a genuinely independent bounded use with an explicitly frozen consumer while retaining failed original specification. Looking at an authorized read-only diagnostic is not source-gate relaxation. Repeating image generation solely to improve an alpha1 statistic is not warranted before observing the actual sampling consequence.",
+  "not_approved": [
+    "Source/native64/alpha0gate pass",
+    "Formal asset promotion",
+    "All72 expansion",
+    "NewVFX sheets or animation acceptance",
+    "User/device/G2-G5/performance/audio acceptance"
+  ],
+  "reviewer_edits": "Only this ignored review JSON; no source pixels/runtime/recipe/quality authority modified."
+}

@@ -50,6 +50,33 @@ func _physics_process(delta: float) -> void:
 			request.health_epoch = behavior.controller.actor_resources.health.epoch
 			behavior.policy.submit(request)
 	queue_redraw()
+# This ballistic seed is dangerous only after landing in the original rules.
+# Frozen flight must not acquire a new midair damage behavior.
+func advance_frozen_contact() -> void:
+	if spent or not is_inside_tree(): return
+	if not is_instance_valid(behavior) or not behavior._active() or not behavior.lifetime.accepts(token):
+		dispose()
+		return
+	if not landed: return
+	var bounds := Rect2(goal - Vector2(behavior.actor.definition.pulse_size.x * .5, behavior.actor.definition.pulse_size.y), behavior.actor.definition.pulse_size)
+	for safe: Vector2 in behavior.protected_points:
+		if bounds.grow(behavior.actor.definition.protected_radius).has_point(safe):
+			dispose()
+			return
+	var target_shape := behavior.controller.motor.get_node("CollisionShape2D") as CollisionShape2D
+	var target_bounds := target_shape.shape.get_rect()
+	target_bounds.position += target_shape.global_position
+	if bounds.intersects(target_bounds):
+		var request := DamageRequest.new()
+		request.token = token
+		request.event_id = event_id
+		request.source_id = behavior.source_id
+		request.target_id = &"player"
+		request.amount = 1
+		request.actor_epoch = token.actor_epoch
+		request.health_epoch = behavior.controller.actor_resources.health.epoch
+		behavior.policy.submit(request)
+
 func _draw() -> void:
 	if landed:
 		var size := behavior.actor.definition.pulse_size

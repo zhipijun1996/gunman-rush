@@ -1,8 +1,89 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-28 PR111合入与试玩发布授权（最新）
+
+用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。
+
+## 2026-10-28 三档宝箱已进入正式两区（当前）
+
+蓝平盖、紫拱盖、金紧凑钟箱的闭／开六态已接平原和森林。原PNG与两区脚底、奖励／金币／claimed账本及RNG不变；成功提交才开盖，取消或拒绝不提前开盖。修复连续领奖后首个W被吞：只复用原输入恢复函数，不削弱按住保护。
+
+实际生产源为`0f7a5d1c401556b38f89d403ce781eda9798f0e6`：原生210／0、平原连续26.066667秒105／0、森林10.1秒41／0。两区1280与960六态对照32／0及26／0；后续仅gallery producer修订、生产字节不变，所有原来源与失败保留。实际Web Playtest PCK隔离15／0。独审已看24张真实PNG及逐帧收据，限定V8技术／视觉接受；旧几何规格失败、实体设备／完整G5和森林小屏旧教程HUD重叠未代签。
+
+冻结测试源／媒体提交`6d02fe70`的10项相关Harness已全部fresh通过（0复用／0失败，非full165／最新远端CI）。Core5686、region原15套、R387＋宝箱210、pure161及Home/V5formal均通过；两份过期单报价fixture已按正式V5三槽迁移，原失败与预算保留。公开两影片与两小屏截图均实际HTTP200、完整SHA一致。文档／收据已归档，PR111保持OPEN，不自动合main。恢复先核当前PR精确head的GitHub Actions；若有具体失败只修实际失败，不复用旧阶段合入授权，也不重复生成美术。native／GL租约已释放。详见[宝箱证据](evidence/chest_art_01/README.md)。
+
+## 2026-10-28 宝箱source04已按用户v8采用接入两区（当前）
+
+用户明确“宝箱接入游戏，继续工作”，已采用source04现图及此前披露的细微尺寸／姿态差异。三档蓝／紫／金的闭／开六态现已注册production资产并接入正式平原与森林消费者；[v8合同](worklines/chest_art_01/spec.md)固定原PNG、完整ROI、每tier共同factor／脚底，交易／Manifest／RNG、平原＋21与森林＋18支撑及1wu采样不变。此为用户采用后的新合同，旧≤1wu配对与金箱44／58规格失败仍保留，不能追签旧PASS；4／4生成用尽，无新图。
+
+原生专项 `build/chest_art_01/native-02.log` 实跑192项／0失败，未见脚本或原生ERROR；未知tier负例的预期warning保留。首次native01的真实场景未就绪／Nil访问失败原件不删，不以其147／0 marker称通过。当前production两区capture／正式开箱媒体仍待root执行与核验；不把原隔离GL或旧影片当新主游戏证据，实体设备与完整G5仍未验。[宝箱证据与边界](evidence/chest_art_01/README.md)。
+
+当前分支feature/item-v5-catalog／PR111，不自动合main。最终commit、当前源正式两区截图／媒体与公开入口由root收口后补实际收据；恢复先核git状态与单Godot租约，不重复生成美术。
+
+> 下方原文为本条之前的阶段交接，保留来源；其中“宝箱待取舍／仅离线／未注册”已被上述实际用户采用与两区实现覆盖，其历史失败仍有效。其余工作线按各自证据判断。
+
+
+## 2026-10-28 PR111与公开录屏已交付（最新）
+
+PR111已推送并保持OPEN，不自动合main。运行源56e639d712cab0604807992cce0e6eaeaf56ac08；三段媒体固定在提交00264dbb9120916eb2a979abdf2de43320ea335b，后续仅文档证据。54秒主片及两区各12秒公网均实际HTTP200，完整SHA与本地一致，见[公开核验](evidence/item_art_01/public-download-check/receipt.json)。33项受影响Harness fresh、222主片、19／18两区和导出包隔离加载均通过；完整远端CI已启动，精确head结果以[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)实际Actions为准，未签full164通过。工作树最后只归档下载证明及交接，不重跑原生或生成美术。
+
+恢复先核PR最新head／checks。若CI具体失败，只修真实失败并保旧报告；通过后等待用户／实体设备／平衡反馈，不自动合并。源码、已实现和未验边界见下方本次候选及[证据索引](evidence/item_art_01/README.md)，不得把旧网页当新候选。
+
+
+## 2026-10-28 道具V5／独立美术候选交付（最新）
+
+分支feature/item-v5-catalog／PR111，运行源56e639d712cab0604807992cce0e6eaeaf56ac08，已同步最新main11e359的音频工作线。72有效道具、16同实例成长与9启用联动沿既有正式宝箱／Boss／商店／暂停背包接入；03H参数按用户确认。新增配置覆写／下架／已支持静态效果的数据新增与原子CLI，常规维护不改装备核心。
+
+72独立图标、32单帧语义资源与三套八帧家族采用现有细像素／旧黄铜／冷钢／克制青光。10原PNG不改像素、1wu世界采样、64MiB预算不提高；原全局shader／音符／物理与主线音频选择不改。R13只技术重绑实际WeaponFeel单叶，其他67引用保留；原32＋10和四绑定检查通过，有限历史输入原239前缀保留至250。新增finite资产适配原51测试完整保留，追加6例纯stdlib通过，不把离线manifest冒充运行资源。
+
+同运行源最终33项受影响Harness全部fresh通过（0复用／0失败，非full164／远端CI），core5686、ART1185、catalog1553、authoring451、森林74、gearUI158。主游戏真实连续54.066667秒／222断言；平原／森林各12秒／19与18断言，三段source_stable且clean。主片完整入包／装备生效／卸装撤销／B11生命上限5→6→5／8→10扩容扣35；已知奖励、靶场、站位、共鸣与扩容金币fixture各自可见明示，不称自然全流程。来源、失败与原件见[当前证据](evidence/item_art_01/README.md)。
+
+正在更新同一PR111与公网下载核验，不自动合main。质量保持review；实体安卓／手柄、低端性能、听感、平衡、用户审美与G5未签；21删除道具不投放，3待重设计／4删除依赖联动禁用。P17基线解释与G19 Boss计精英候选仍保留原设计边界。最新阶段优先于下方历史待验描述，恢复先核git状态、实际PR头与证据，不重复美术生成。
+
+
+## 2026-10-28 同步最新main音频工作线
+
+本分支保留本次道具／美术实现，同步main `11e35968323bbc3d3e95a0b0c0c4fc9378e702cd`（PR109音频）。两份交接文档冲突保留双方原文；武器音效传入真实武器ID、敌人受击语义音效及导出资源条目均保留主线更新。正式音效默认与用户选择记录遵循音频工作线，不由道具美术更改。R13已对实际weapon_feel单叶重新绑定，另67引用不变；原32＋10和四项Harness fresh通过，历史缺件失败保留，有限输入原239前缀追加至250。新影片与最终33项受影响Harness仍待合入后干净源集中执行。PR111不自动合main。
+
+
 AUDIO-DIRECTOR-04已导入[用户原件](../config/audio_director/selected/user-20261028.json)与[14事件映射](../config/audio_director/selected/selected.json)，13明选/11新音色/2原版+1派生。按[本轮证据](evidence/audio_director_04/README.md)继续；原片运行a835、后验及网页/包来源分记，原失败不可覆盖。显式selected混合profile复用共享12voice池，正式默认original保留。需要后续选声时brief自动读当前偏好；完整组合/正式推广/实体设备需单列验证，不自动整套ABC采用。PR109继续review，不合main。
 
 # 当前交接（2026-10-24）
+
+## 2026-10-28 道具美术与配置候选收口（最新）
+
+72独立图标、32单帧语义资源及P24／P14／G16三套八帧家族已接入实际目录、暂停背包与世界表现。沿现有细像素、旧黄铜／冷钢／克制青光，世界1wu采样；原全局shader不变。10张源PNG保持原字节，RGBA上界62,908,904字节，原64MiB预算不提高。
+
+当前原生ART1185／0，实际全72菜单534／0，世界shader独立GL11／0，最新完整节点／非零alpha边界83／0。修复施放回调换装后的旧视觉来源与重复通用效果；不改HP、能量和技能结果。G05／P20／陷阱边界已用原brief与全alpha实测修正；旧“下排消失”观察经原PNG和字节相同重播反证，独审已撤回，未改生产代码掩盖假设。所有失败保留。
+
+style16／creative19 R11绑定68实际引用，本轮只更新View／Defense两叶，另66不变；原32＋10与四项纯检查尚待最终冻结执行，不能沿用R10通过。原72基表400与实际配置目录1553、维护479分源保留。最终集中Harness、当前源正式连续影片、PR111推送与公网下载核验仍待执行；旧7afe影片不签新shader。不自动合main。实体安卓／手柄、低端性能、听感、平衡与用户G5仍未验。
+
+[当前证据](evidence/item_art_01/README.md)。恢复先核git状态与实际PR头；native／GL单租约由root协调。
+
+
+## 2026-10-28 ITEM-AUTHOR-01／ITEM-ART-01（当前）
+
+用户继续要求实现表格道具、方便调参与增删，并强调新图标／特效必须与整体美术风格一致。当前本地候选已接入72独立图标、32单帧语义美术资源与P24／P14／G16三套8帧动画家族；10张原始PNG未改像素，实际注册纹理RGBA上界62,908,904字节，保留64MiB上限。UI资源由数据映射，世界沿现有1wu顶点／光照语义，新道具专用采样只补浮点稳定及真实REGION_RECT边界钳制，原全局shader不改。
+
+实际专项：原nativeART924／0；新世界采样GL11／0；完整G19节点／原回退对照GL35／0；真实暂停菜单534／0，两尺寸均完整显示72图标，包含G01／P16修正ROI的52／90px详情。G19真实光学中心偏差0.167wu，正式variant不再重复画旧进化圆点。所有源图留白／原生64请求失败及原生、切片、UV、高比例串图和采证失败链均保留；这些是局部技术证据，不签用户、实体设备、听感或完整玩法平衡。
+
+style16／creative19的R09已绑定68个实际引用，旧61只更新6项、追加6PNG及专用shader；原32＋10及四项绑定检查通过，原202输入保留追加至213。历史15／18、预美术16及R08原件不回写。配置维护的冻结72基表与实际覆写／新增已分离；原维护479／目录1553为先前阶段，最终受影响Harness尚待当前源码集中运行。
+
+当前仍在收口：独审要求明确解决G05／P20／陷阱完整alpha边界与候选brief差异，并补不可用护卫的实际画面（旧探针状态切换后隐藏了下排对象，不能拿数值当画面）。随后冻结源码、补本次材质的正式连续录屏、受影响Harness、权威设计／质量记录、同一PR111推送与公开媒体核验。旧7afe193断言49秒影片只证明前一美术源；不签最新材质。当前分支feature/item-v5-catalog，main879b39e未变，远端PR111仍d9445c0e；本地修改尚未交付，不自动合main。
+
+[维护说明](item_authoring.md) · [美术范围](worklines/item_art_01/spec.md) · [证据](evidence/item_art_01/)。恢复先读build/item_art_01/checkpoint.json和git状态，native／GL单租约由root协调。
+
+
+## 2026-10-27 ITEM-V5-01恢复入口（当前）
+
+分支`feature/item-v5-catalog`，main基线`879b39eaa869be70cb799dedd1bb6ffc35e0b92f`，冻结运行源`979dbb9ab5f04c82f9c605c775a5e92ee14f7141`。72 件有效道具、16 件同实例成长与9组有效联动已接入正式宝箱／Boss／商店、暂停背包与六个效果家族；21件删除道具不投放。03表H当前建议参数已由用户确认；原表与冲突完整保留。 质量保持review，旧PR110已合且不重开，本新任务不自动合main。
+
+冻结运行源的选定 30 项原 Harness 全部 fresh 通过（0 复用、0 失败）；这是受影响专项，不是 full161 或远端 CI 全通过。 同运行源连续主游戏影片 93 断言／0 失败，实际退出0且源码稳定；准确时长与媒体参数见捕获收据。 最新证据见[evidence](evidence/item_v5_01/README.md)，逐件行为与缺口见[覆盖矩阵](worklines/item_v5_01/consumer_coverage.md)。原失败、source guard、Manifest／森林回归、原始媒体和明确fixture保留；K2影片不冒称修复后整源证据。
+
+恢复先读build/item_v5/checkpoint.json、核git status／进程及实际PR精确head。只有具体失败／反馈才继续修改；不重复无关美术生产、不降原预算。相关命令：`python3 tools/harness.py --profile item-v5 --jobs 1`；正式跨区保留原`forest-campaign`检查，完整CI实际状态另核。`python3 tools/check_quality_diff.py --base 879b39eaa869be70cb799dedd1bb6ffc35e0b92f`；`python3 tools/check_release_evidence.py --commit HEAD`。
+
+P17保留未装备的原全速蓄力基线，装备后按表40%／55%／70%运行，基础规则冲突仍待用户选择；G19的Boss计精英为可调候选，未冒称用户确认。S05／S08／S14待重设计，S03／S04／S11／S16因删除道具禁用。实体安卓／手柄、低端性能、平衡、听感、趣味与玩家G5未验。 不以软件GL代签物理设备；网页Preview容量受阻时交付实际可下载MP4并注明来源，不伪造新网页上线。当前录屏见[evidence](evidence/item_v5_01/movie-979dbb9a/movie.mp4)。下一步核本分支关联PR的完整Production impact结果；公开下载在推送后另验，不把本地文件称已发布。
+
 
 最新工作线AUDIO-DIRECTOR-03按功能重做声音并交真实短录屏，继续feature/audio-director-01/PR109。先前V2网站保留，新录屏来源、实际采集/发布与失败以[第三轮证据](evidence/audio_director_03/README.md)为准；原jump/land和五BGM不改。恢复`python3 tools/audio_director.py brief '优化金币'`读取V3风格/事件/许可/配方，不复用旧掉落币方向。新[录屏工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)已发布Sites5；运行4d724a73/后验df22e376/UI c3f4fdf4，10片原音轨保留，正式默认original。126原生/9加工/12trace/8数值/48网页/33docs通过；旧相关性数值无效保留原报告，稳定后验另记。用户听感/真机/自然混音待验；本轮不合main。
 
@@ -15,6 +96,7 @@ AUDIO-DIRECTOR-04已导入[用户原件](../config/audio_director/selected/user-
 [音效总入口](audio_director/README.md)与[实际证据/最终部署收据](evidence/audio_director_01/README.md)。最小恢复：`python3 tools/audio_director.py brief '优化钩索声音'` →读绑定风格/事件/来源/配方 →按真实反馈制作。`validate`拒绝配方/来源/工具漂移；`run_audio_director_tests.py`60/0、Lab25/0，原生命周期37/0、原docs33/33。完整自然战斗/连续钩索听音、玩家、设备、Integration/Release未签。
 
 Sound Lab通过独立私有Sites交付；原预览站加恢复PCK达942341151B近900MiB，未删旧入口。初次新GitHub仓库创建被集成拒绝。Godot大资源用原分块重构，备用托管显式要求ServiceWorker+DecompressionStream。原Foundry缓存按原工具真实重建后导出，原生成输入归档在build，工作树恢复HEAD，不把生成缓存混入音频PR。最终URL/部署ID与准确源码见交付证据；源码与托管源码SHA分别记录。
+
 ## 2026-10-26 PR110：最终守门修订与合入恢复
 
 用户已授权合main，先核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)真实state／head／checks，禁止因下方旧开发边界再询问授权。原head05200fc的CI40324535594为serial55成功、parallel73成功后style13／14测试失败，尾部15未跑；本地补跑发现持有统计旧指纹，其他14全部成功，原失败保留。

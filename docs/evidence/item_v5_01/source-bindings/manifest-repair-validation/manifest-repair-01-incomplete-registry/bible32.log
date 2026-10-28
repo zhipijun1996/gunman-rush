@@ -1,0 +1,72 @@
+........E..............F.....EE.
+======================================================================
+ERROR: test_default_current_bibles_skip_election (__main__.BibleTests.test_default_current_bibles_skip_election)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_bible.py", line 499, in test_default_current_bibles_skip_election
+    mission = level_design.route_request(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/level_design.py", line 421, in route_request
+    data, binding = load_direction(direction, region_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 252, in load_direction
+    _, selected = validate_bible_binding(data.get('region_bible'), data.get('region_id'), root)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 185, in validate_bible_binding
+    raise ValueError('Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes')
+ValueError: Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes
+
+======================================================================
+ERROR: test_visual_director_uses_current_bible_and_exact_caller_scope (__main__.BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_bible.py", line 664, in test_visual_director_uses_current_bible_and_exact_caller_scope
+    m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/visual_director.py", line 1385, in route
+    mission = route_request(request, mode='new_region' if re.search(r'制作|create|new region', request, re.I) else 'optimize')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/level_design.py", line 421, in route_request
+    data, binding = load_direction(direction, region_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 252, in load_direction
+    _, selected = validate_bible_binding(data.get('region_bible'), data.get('region_id'), root)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 185, in validate_bible_binding
+    raise ValueError('Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes')
+ValueError: Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes
+
+======================================================================
+ERROR: test_worker_prompt_contains_full_original_and_audio_scope (__main__.BibleTests.test_worker_prompt_contains_full_original_and_audio_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_bible.py", line 629, in test_worker_prompt_contains_full_original_and_audio_scope
+    mission = level_design.route_request('制作荆棘森林')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/level_design.py", line 421, in route_request
+    data, binding = load_direction(direction, region_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 252, in load_direction
+    _, selected = validate_bible_binding(data.get('region_bible'), data.get('region_id'), root)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/region_creative_direction.py", line 185, in validate_bible_binding
+    raise ValueError('Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes')
+ValueError: Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes
+
+======================================================================
+FAIL: test_selected_direction_cannot_forge_raw_quote_or_player_approval (__main__.BibleTests.test_selected_direction_cannot_forge_raw_quote_or_player_approval)
+----------------------------------------------------------------------
+ValueError: Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_bible.py", line 159, in test_selected_direction_cannot_forge_raw_quote_or_player_approval
+    with self.assertRaisesRegex(ValueError, 'actual original instruction'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "actual original instruction" does not match "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+
+----------------------------------------------------------------------
+Ran 32 tests in 4.352s
+
+FAILED (failures=1, errors=3)

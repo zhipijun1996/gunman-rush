@@ -1,0 +1,69 @@
+extends SceneTree
+## Explicit known-offer/7coin fixture; real App/Shop observer, no natural-drop claim.
+var checks := 0
+var failures := 0
+var app: DemoApp
+var observations: Dictionary = {}
+
+func _initialize() -> void: _run.call_deferred()
+
+func check(value: bool, message: String) -> void:
+	checks += 1
+	if not value:
+		failures += 1
+		push_error(message)
+
+func frames(count: int = 3) -> void:
+	for unused: int in count: await process_frame
+
+func stage_loaded() -> void:
+	for unused: int in 240:
+		if is_instance_valid(app.stage) and not app._stage_pending: return
+		await process_frame
+	check(false,"Actual formal stage must finish loading")
+
+func _run() -> void:
+	root.size = Vector2i(1280,720)
+	app = preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
+	app.meta_persistence_enabled = false
+	root.add_child(app)
+	await frames(5)
+	app.menu.requested_enter_home.emit()
+	await frames(5)
+	check(app.start_plains("home-codex-shop-observer"),"Actual formal App starts one isolated run")
+	await stage_loaded()
+	check(app.shop.add_offer(&"codex_known_shop",ItemCatalogV5.get_item(&"B03"),7,1),"Known offer fixture is admitted by real ShopService")
+	var offer := app.shop.quote(&"codex_known_shop")
+	var request := ShopPurchaseRequest.new()
+	request.token = app.lifetime.token()
+	request.shop_id = offer.shop_id
+	request.offer_id = offer.offer_id
+	request.quote_version = offer.quote_version
+	request.transaction_id = &"codex_insufficient"
+	var before := app.meta.snapshot()
+	check(app.shop.purchase(request).status == EconomyReceipt.Status.INSUFFICIENT,"Purchase without coins fails through the real wallet")
+	check(app.meta.snapshot() == before and app.build.inventory.instances().is_empty(),"Rejected purchase cannot discover or own an item")
+	check(app.wallet.grant(7,&"codex_known_7coin_fixture"),"Explicit seven-coin fixture grants once")
+	request.transaction_id = &"codex_committed_purchase"
+	var receipt := app.shop.purchase(request)
+	check(receipt.status == EconomyReceipt.Status.COMMITTED and app.wallet.balance == 0 and app.shop.quote(offer.offer_id).stock == 0,"Real purchase atomically spends seven coins and consumes the last stock")
+	check(app.build.inventory.instances().size() == 1 and app.build.inventory.get_instance(receipt.instance_id).definition_id == &"B03" and app.build.item_ids().is_empty(),"Committed item enters the actual backpack without applying equipment")
+	check(app.meta.snapshot().discovered_items == ["B03"] and app.meta.snapshot().notes == 0 and app.meta.snapshot().unlocked_home_items.is_empty(),"Original App observer discovers committed shop ownership without notes or unlock")
+	var committed := app.meta.snapshot()
+	check(app.shop.purchase(request).status == EconomyReceipt.Status.REPLAY and app.meta.snapshot() == committed and app.build.inventory.instances().size() == 1,"Same receipt replay cannot rediscover or grant a second item")
+	request.transaction_id = &"codex_out_of_stock"
+	check(not app.shop.purchase(request).accepted() and app.meta.snapshot() == committed,"Out-of-stock purchase cannot change permanent progress")
+	app._load_stage()
+	await stage_loaded()
+	check(app.meta.snapshot() == committed and app.build.inventory.instances().size() == 1,"Actual stage rebuild preserves discovery and original ownership without replay grants")
+	observations = {"schema":"home-codex-shop-observer-v1","checks":checks,"failures":failures,"scope":"Known B03/7coin fixture, real formal App/ShopService observer; not natural shop placement","receipt":{"status":receipt.status,"event_id":str(receipt.event_id),"item_id":str(receipt.item_id),"instance_id":str(receipt.instance_id)},"committed_profile":committed}
+	var file := FileAccess.open("res://build/home_codex_01/shop-observer-trace.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(observations,"  "))
+	file.close()
+	app.abandon_run()
+	await frames(5)
+	if not await load("res://tests/audio_teardown.gd").drain_world(app): check(false,"Actual App audio releases cleanly")
+	app.queue_free()
+	await frames(5)
+	print("HOME CODEX SHOP OBSERVER: %s assertions, %s failures" % [checks,failures])
+	quit(0 if failures == 0 else 1)

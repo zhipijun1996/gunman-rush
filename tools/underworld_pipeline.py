@@ -604,7 +604,7 @@ def audit_selected_derivative(a: Audit, key: str, legacy: dict):
         check['code'] = check['code'].replace(key + '.', key + '.selected.', 1)
 
 
-def formal_chest_alpha_isolated(stage: str) -> bool:
+def legacy_chest_alpha_isolated(stage: str) -> bool:
     """Finite adapter for the explicit legacy candidate, not a GDScript parser.
 
     The complete, unique block must remain inside capture_state. Everything
@@ -623,6 +623,138 @@ def formal_chest_alpha_isolated(stage: str) -> bool:
     if stage.count(block) != 1 or capture is None or block not in capture.group(1):
         return False
     return re.search(r'\.\s*modulate\s*\.\s*a\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', stage.replace(block, '', 1)) is None
+
+
+CHEST_LIBRARY = 'scripts/art/chest_art_library.gd'
+# Reviewed finite config/AtlasTexture/WHITE/source-foot implementation. New
+# loader forms require review, not a directory or substring-based admission.
+CHEST_LIBRARY_SHA256 = '6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e'
+CHEST_INITIALIZATION = '''\tfor c: Dictionary in generated.manifest.rewards:
+\t\tvar chest := c.duplicate(true)
+\t\tchest.id=PlainsRegionCampaign.prefix(map_index)+c.id
+\t\tchest.position = Vector2(c.position[0],c.position[1])
+\t\tchest.claimed = region_state.claimed.has(chest.id)
+\t\tchests.append(chest)
+'''
+CHEST_READY = '''\tfor c: Dictionary in chests:
+\t\tvar sprite:=Sprite2D.new()
+\t\tUnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
+\t\tadd_child(sprite)
+\t\tc.sprite=sprite
+'''
+CHEST_CAPTURE = '''\tfor c: Dictionary in chests:
+\t\tif c.has("sprite"):
+\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed),StringName(str(c.tier)))
+'''
+CHEST_DISPATCH = '''static func place_chest(sprite: Sprite2D, foot: Vector2, claimed: bool, tier: StringName = &"") -> void:
+\tif not tier.is_empty():
+\t\tChestArtLibrary.place_sprite(sprite,foot,tier,claimed)
+\t\treturn
+\tsprite.texture = OPEN_CHEST if claimed else CLOSED_CHEST
+\tsprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+\tsprite.scale = Vector2.ONE * 58.0 / sprite.texture.get_width()
+\tsprite.position = foot - Vector2(0, sprite.texture.get_height() * sprite.scale.y * .5)
+\tsprite.modulate = Color.WHITE
+\tsprite.set_meta("underworld_chest_open", claimed)
+'''
+
+
+def chest_executable(text):
+    """Mask literal/comment contents, preserving offsets and line boundaries.
+
+    This only prevents a reviewed finite block being supplied as a dead string;
+    it is not a general GDScript parser or reachability proof.
+    """
+    pattern = (r'"""[\s\S]*?"""|' + r"'''[\s\S]*?'''|" +
+               r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|\#[^\n]*')
+    return re.sub(pattern, lambda m: re.sub(r'[^\n]', ' ', m.group()), text)
+
+
+def chest_function(text, name):
+    """Extract a unique real function using offsets from the whole-file mask.
+
+    Starting a fresh literal scan at a fake header inside a multiline string
+    would lose the opening quote and mistake its contents for executable code.
+    Keep the original source and the complete masked source aligned instead.
+    """
+    executable = chest_executable(text)
+    starts = list(re.finditer(r'(?m)^(?:static\s+)?func\s+' + re.escape(name) + r'\(', executable))
+    if len(starts) != 1:
+        return ''
+    start = starts[0]
+    end = re.search(r'(?m)^(?:static\s+)?func\s+', executable[start.end():])
+    finish = start.end() + end.start() if end else len(text)
+    return text[start.start():finish]
+
+
+def chest_loop_matches(function, expected):
+    code = gd_code(function)
+    header = expected.splitlines()[0]
+    matches = list(re.finditer('(?m)^' + re.escape(header) + r'\s*$', code))
+    if len(matches) != 1:
+        return False
+    start = matches[0].start()
+    # The actual loop header must be code, not a multiline-string decoy.
+    if chest_executable(code)[start:start+len(header)] != header:
+        return False
+    lines = code[start:].splitlines(True)
+    block = [lines[0]]
+    for line in lines[1:]:
+        if line.strip() and not line.startswith('\t\t'):
+            break
+        block.append(line)
+    return compact(''.join(block)) == compact(expected)
+
+
+def formal_chest_alpha_isolated(stage: str) -> bool:
+    """Current finite two-call dispatcher: real tier/state/foot, no gray fade.
+
+    The original opt-in alpha adapter is retained separately for immutable
+    historical fixtures. It cannot admit a current formal runtime consumer.
+    """
+    executable = chest_executable(stage)
+    for function in ('_ready', 'capture_state'):
+        if len(re.findall(r'(?m)^func\s+' + function + r'\(', executable)) != 1:
+            return False
+    ready, capture = chest_function(stage, '_ready'), chest_function(stage, 'capture_state')
+    if not (chest_loop_matches(ready, CHEST_INITIALIZATION) and
+            chest_loop_matches(ready, CHEST_READY) and
+            chest_loop_matches(capture, CHEST_CAPTURE)):
+        return False
+    # Reject extra calls, aliases, reflection literals and a valid block planted
+    # in a nonexecuting string while a different actual call drives the chest.
+    if len(re.findall(r'\bplace_chest\b', executable)) != 2:
+        return False
+    if re.search(r'["\']place_chest["\']', gd_code(stage)):
+        return False
+    if re.search(r'\.\s*(?:self_)?modulate(?:\s*\.\s*a)?\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', executable):
+        return False
+    # The sole chest-state assignment mirrors the authoritative ledger at
+    # construction. Presentation must not manufacture claim or position state.
+    remainder = gd_code(stage).replace(CHEST_INITIALIZATION.rstrip(), '', 1)
+    remainder = remainder.replace('if p.claimed: region_state.claimed[p.id] = true', '', 1)
+    if re.search(r'\.\s*claimed\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=|\[\s*["\']claimed["\']\s*\]\s*=|region_state\s*\.\s*claimed\s*\[[^\n]*?\]\s*=', remainder):
+        return False
+    return re.search(r'\b(?:c|chest)\s*\.\s*position\s*(?:[+\-*/])?=', remainder) is None
+
+
+def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str) -> bool:
+    """Actual formal four-argument path plus retained genuine three-arg recipe."""
+    if hashlib.sha256(library.encode()).hexdigest() != CHEST_LIBRARY_SHA256:
+        return False
+    executable = chest_executable(objects)
+    if len(re.findall(r'(?m)^static\s+func\s+place_chest\(', executable)) != 1:
+        return False
+    if compact(chest_function(objects, 'place_chest')) != compact(CHEST_DISPATCH):
+        return False
+    code = gd_code(objects)
+    executable = chest_executable(code)
+    for name, path in [('OPEN_CHEST', opened_texture.removeprefix('res://')),
+                       ('CLOSED_CHEST', 'assets/underworld_plains/actors/chest.png')]:
+        declaration = re.search(r'(?m)^const\s+' + name + r'\s*:=\s*preload\("res://' + re.escape(path) + r'"\)\s*$', code)
+        if declaration is None or not executable[declaration.start():declaration.end()].startswith('const ' + name):
+            return False
+    return formal_chest_alpha_isolated(stage)
 
 
 def audit_objects(a: Audit, spec: dict):
@@ -647,8 +779,9 @@ def audit_objects(a: Audit, spec: dict):
         a.check(reconstructed.tobytes()==runtime.tobytes(),'objects.exact_source_recipe','Runtime pixels exactly reconstruct from the retained generated original')
     text=a.script('scripts/underworld_plains/underworld_objects.gd','objects.consumer')
     stage=a.script('scripts/demo/plains_region_stage.gd','objects.stage')
-    a.check(str(opened.get('texture')) in text and 'OPEN_CHEST if claimed else CLOSED_CHEST' in text and 'UnderworldObjects.place_chest' in stage,'objects.actual_dispatch','Actual claimed ledger chooses the complete open texture; transaction itself remains gameplay-owned')
-    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Only the exact opt-in legacy candidate may fade; formal claimed chests use the opened pose')
+    library=a.script(CHEST_LIBRARY,'objects.tier_library')
+    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture'))),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
+    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
 
 
 def audit_home(a: Audit, home: dict):

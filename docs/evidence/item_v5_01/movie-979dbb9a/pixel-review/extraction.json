@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "ffmpeg",
+    "-y",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    "docs/evidence/item_v5_01/movie-979dbb9a/movie.mp4",
+    "-vf",
+    "select='eq(n,1514)+eq(n,1848)+eq(n,1860)+eq(n,1880)+eq(n,1895)'",
+    "-fps_mode",
+    "vfr",
+    "docs/evidence/item_v5_01/movie-979dbb9a/pixel-review/sample-%02d.png"
+  ],
+  "exit_code": 0,
+  "writes": "only reviewer-created sample PNGs, original media unmodified"
+}

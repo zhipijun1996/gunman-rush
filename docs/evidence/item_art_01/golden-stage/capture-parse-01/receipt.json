@@ -1,0 +1,36 @@
+{
+  "scope": "Editor and check-only parse; no gameplay or movie capture executed",
+  "steps": [
+    {
+      "name": "editor",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "status": "passed",
+      "exit_code": 0
+    },
+    {
+      "name": "golden-check-only",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/item_art_golden_movie.gd",
+        "--check-only"
+      ],
+      "timeout_seconds": 30,
+      "status": "passed",
+      "exit_code": 0
+    }
+  ]
+}

@@ -4,7 +4,7 @@ extends Node
 signal cancelled(reason: String)
 signal device_changed(device: StringName)
 signal action_rejected(reason: String)
-const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple", &"weapon_context", &"weapon_skill"]
+const ACTION_ORDER: Array[StringName] = [&"jump", &"jump_release", &"shoot_release", &"interact", &"drop_through", &"grapple", &"weapon_context", &"weapon_skill", &"item_skill"]
 const MAX_ACTIONS := 16
 # Browsers may deliver touch-derived mouse events as device 0, not Godot emulation.
 const TOUCH_MOUSE_GUARD_USEC := 400000
@@ -18,6 +18,8 @@ var _skill_primary_suppressed := false
 var grapple_available := false
 var weapon_context_available := false
 var weapon_skill_available := false
+var item_skill_available := false
+var item_skill_label := "道具"
 var weapon_context_label := "CONTEXT"
 var aim_mode: StringName = &"attack"
 var current_device: StringName = &"keyboard_mouse"
@@ -113,7 +115,14 @@ func request_action(type: StringName, direction: Vector2 = Vector2.ZERO) -> bool
 	if type == &"shoot_release" and (not direction.is_finite() or direction.is_zero_approx()):
 		action_rejected.emit("invalid_direction")
 		return false
-	if type==&"weapon_skill":
+	if type == &"item_skill":
+		if not item_skill_available or (is_inside_tree() and get_tree().paused):
+			action_rejected.emit("item_skill_unavailable")
+			return false
+		if not direction.is_finite():
+			action_rejected.emit("invalid_direction")
+			return false
+	if type in [&"weapon_skill",&"item_skill"]:
 		if direction.is_zero_approx():direction=skill_direction()
 		_skill_primary_suppressed=aim_engaged
 		cancel_actions_for(&"shoot_release")

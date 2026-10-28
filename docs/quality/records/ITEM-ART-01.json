@@ -1,0 +1,587 @@
+{
+  "schema_version": 1,
+  "task_id": "ITEM-ART-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
+  "reviewed_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+  "content_version": "candidate-v2-72icons-event-driven-art",
+  "owner": "/root",
+  "purpose": "Distinct icon silhouettes for72items and dedicated event-driven skill art within current accepted style direction",
+  "player_experience": "Recognize a picked item by its icon and distinguish actual item attacks without losing player/enemy/hazard readability",
+  "constraints": [
+    "Use currentstyle16/creative19 technicalreferences andstyle-v5 selected finepixel direction; no globalstyle/terrain/BGM replacement",
+    "Keep original HP/resource/collision/RNG/timing/ownership authority; visuals never write outcomes",
+    "Eighticon/threeVFX golden actualGL+motionreview before72itemexpansion",
+    "No user/device/wholegameacceptance inherited from prior V5engineering/evidence",
+    "Newproduction references and modifiedconsumers require original binding impactreview; neveronlyrefreshSHA",
+    "Expansion followed actualfirst8/threefamily review; sourcepixel bytes unchanged,64MiBbudget retained; actualnonuniformROIadmission doesnot retroclaimnative64/gutters."
+  ],
+  "affected_paths": [
+    "assets/items/v5/icons/catalog-01.source.png",
+    "assets/items/v5/icons/catalog-01.source.png.import",
+    "assets/items/v5/icons/catalog-02.source.png",
+    "assets/items/v5/icons/catalog-02.source.png.import",
+    "assets/items/v5/icons/catalog-03.source.png",
+    "assets/items/v5/icons/catalog-03.source.png.import",
+    "assets/items/v5/icons/catalog-04.source.png",
+    "assets/items/v5/icons/catalog-04.source.png.import",
+    "assets/items/v5/icons/golden-02.source.png",
+    "assets/items/v5/icons/golden-02.source.png.import",
+    "assets/items/v5/manifest.json",
+    "assets/items/v5/vfx/g16-01.source.png",
+    "assets/items/v5/vfx/g16-01.source.png.import",
+    "assets/items/v5/vfx/p14-01.source.png",
+    "assets/items/v5/vfx/p14-01.source.png.import",
+    "assets/items/v5/vfx/p24-01.source.png",
+    "assets/items/v5/vfx/p24-01.source.png.import",
+    "assets/items/v5/vfx/static-entities.source.png",
+    "assets/items/v5/vfx/static-entities.source.png.import",
+    "assets/items/v5/vfx/static-procs.source.png",
+    "assets/items/v5/vfx/static-procs.source.png.import",
+    "assets/manifest.json",
+    "config/item_v5_art.json",
+    "config/item_v5_authoring.json",
+    "docs/quality/asset_records/ITEM-ART-01.json",
+    "docs/quality/asset_records/ITEM-ART-02.json",
+    "docs/quality/asset_records/ITEM-ART-03.json",
+    "docs/quality/asset_records/ITEM-ART-04.json",
+    "docs/quality/asset_records/ITEM-ART-05.json",
+    "docs/quality/asset_records/ITEM-ART-06.json",
+    "docs/quality/asset_records/ITEM-ART-07.json",
+    "docs/quality/asset_records/ITEM-ART-08.json",
+    "docs/quality/asset_records/ITEM-ART-09.json",
+    "docs/quality/asset_records/ITEM-ART-10.json",
+    "docs/quality/records/ITEM-ART-01.json",
+    "docs/tasks.md",
+    "docs/worklines/item_art_01/authority-ledger.json",
+    "docs/worklines/item_art_01/coverage-plan.json",
+    "docs/worklines/item_art_01/golden-icon-prompt.txt",
+    "docs/worklines/item_art_01/golden-layout.json",
+    "docs/worklines/item_art_01/spec.md",
+    "docs/worklines/item_art_01/vfx-golden.json",
+    "scripts/items/v5/item_art_library.gd",
+    "scripts/items/v5/item_art_library.gd.uid",
+    "scripts/items/v5/item_companion_effects.gd",
+    "scripts/items/v5/item_defense_effects.gd",
+    "scripts/items/v5/item_effect_view.gd",
+    "scripts/items/v5/item_runtime.gd",
+    "scripts/items/v5/item_v5_entity.gd",
+    "scripts/ui/item_presentation.gd",
+    "shaders/item_v5_world_sprite.gdshader",
+    "shaders/item_v5_world_sprite.gdshader.uid",
+    "tests/item_art_golden_movie.gd",
+    "tests/item_art_real_world_movie.gd",
+    "tests/item_v5_art_runner.gd",
+    "tests/item_v5_art_runner.gd.uid",
+    "tests/test_quality.py",
+    "tools/capture_item_art_golden.py",
+    "tools/capture_item_art_real_world.py",
+    "tools/check_quality_diff.py"
+  ],
+  "deliverables": [
+    "72uniqueitemiconsregisteredwithrealconsumers",
+    "Dedicatedactive/proc/entityartresourceswithaccepted-eventlifecycle",
+    "Actual52pxUIandformalcombatgoldenimagesandcontinuousnativeMP4",
+    "Independentpixel/motionreviewandperitemcoverage"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Documented currentrequirements, ownership/equipment/style/source/budget boundaries; generatedoutput/playerapprovalnotinferred",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Bounded nativeengineering andactualsameN resource/lifetime/output traces; visual/artistic/user gates separate",
+      "evidence": [
+        "formal-trace",
+        "final-harness"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Broadartquality/performance/player/device gate notsignedbyboundedtechnical/sample review; originalgateordering retained.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Broadartquality/performance/player/device gate notsignedbyboundedtechnical/sample review; originalgateordering retained.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Broadartquality/performance/player/device gate notsignedbyboundedtechnical/sample review; originalgateordering retained.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Broadartquality/performance/player/device gate notsignedbyboundedtechnical/sample review; originalgateordering retained.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "User scope and currentstyle/material/pixel rules explicitly documented; no output/userqualityendorsement",
+      "evidence": [
+        "scope",
+        "inventory"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded engineering: exactN33fresh checksincluding allV5effectfamilies/architecture/ART1185/catalog1553, originalguard andbudgets retained; remoteCIseparate",
+      "evidence": [
+        "final-harness"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "Bounded actualdefaultcatalog/formalmenu/loadout/purchase andtworegionconsumer outputs, disclosedfixtures. Notall72naturallyearned/eachlevel/wholegameendorsement.",
+      "evidence": [
+        "formal-gui",
+        "formal-trace",
+        "plains-gui",
+        "forest-gui"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Readonly independent finalN engineering/actualpixel review with scopedACCEPT; no user/device/hearing substitute",
+      "evidence": [
+        "final-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Candidate implemented and bounded development evidence retained; finalfrozenHarness/media/review pending. User/device/G5notinferred.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "unique-icons",
+      "scenario": "Every effective item has an individually authored icon and actualmenu rendering",
+      "method": "72mapping inventory plusactualtwo-sizefullcoveragecapture",
+      "expected": "72distinctsourceROIs,visible52pxgridand90pxdetails",
+      "failure": "WrongID,missingicon,neighborcliporfalsefullcoverage",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "unverified",
+      "reason": "DevelopmentUI534/0 retained; latestfrozenintegrationstillpending",
+      "evidence": [
+        "ui-stage",
+        "inventory"
+      ]
+    },
+    {
+      "id": "accepted-event-art",
+      "scenario": "Visualscarryoriginalcastidentitythroughspend/healcallbacks",
+      "method": "Actualcompleteflownegativecasesandoriginalartwrapper",
+      "expected": "No duplicatelegacycueoroldoperationreauthorizedafterreequip",
+      "failure": "Stalepresentationacceptedundernewrevision",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Knowncompleteactivation/unload/same-instanceABA/selectedother/spend andemptyproof paths retained inexactN1185/0; older40/6and88/4failures preserved.",
+      "evidence": [
+        "final-harness"
+      ]
+    },
+    {
+      "id": "exactN-formal-output",
+      "scenario": "Formalnativepickup/equip/HPmaximumunload/capacitypurchase andtwoexistingregionoutputs",
+      "method": "ContinuousactualMovieWriter traces/receipts withsourcebefore==after",
+      "expected": "Originalrealservices/nativecontrols commit output, disclosedfixtures andexactdebit",
+      "failure": "Stalesource,missingactualoutput,unannouncedinitialization,freeHP/energyorwrongcost",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "222main+19plains+18forest checks andsameSOURCE N currentmedia",
+      "evidence": [
+        "formal-gui",
+        "formal-trace",
+        "plains-gui",
+        "forest-gui"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/item_art_01/spec.md",
+      "sha256": "dcb5bfdc0a8d78daf8f5d2b605aca86d86a05b67a33e0b064f4522f4b5be6700",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Actual bounded production contract; failed native64/gutter requests preserved",
+      "source_attribution": "SubjectimplementationSOURCE N; thisdocument was finalized inlaterdocumentation-onlydelivery, notclaimedbyte-identicaltoGitN."
+    },
+    {
+      "id": "inventory",
+      "path": "docs/worklines/item_art_01/coverage-plan.json",
+      "sha256": "b33fb33088f1e5eb0483416ab7e9629392b3c94bb456d432fed5b67128abec3f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "72actual icon mappings and actualregistry-derived worldbindings; not72naturalcombatclaims",
+      "source_attribution": "SubjectimplementationSOURCE N; thisdocument was finalized inlaterdocumentation-onlydelivery, notclaimedbyte-identicaltoGitN."
+    },
+    {
+      "id": "native-stage",
+      "path": "docs/evidence/item_art_01/native-stages/full-art-native-06-spend-context/receipt.json",
+      "sha256": "095111f2d1339449ad1743b102a4c58a3597d42a5d922c15abec4d23df484077",
+      "kind": "command",
+      "producer": "/root/item_art_runtime",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Developmentstage1185/0, original1077retained plusP27/N02spendcallback/emptyproof108; finalfrozenHarnesspending",
+      "command": "python3 tools/run_item_v5_tests.py --suite art",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; exactfourfileSHA inreceipt, developmentworkingtree"
+    },
+    {
+      "id": "ui-stage",
+      "path": "docs/evidence/item_art_01/ui-stages/ui-all72-02/capture-manifest.json",
+      "sha256": "e22c5b56d1b19952383108537ef196d815e222117fb37118361fb1d4bd032683",
+      "kind": "gui",
+      "producer": "/root/item_art_world",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Actual72/72 icons visibleat1280and960,534/0,26captures; displayinitializationfixture"
+    },
+    {
+      "id": "shader-review",
+      "path": "docs/evidence/item_art_01/independent-shader-probe/review.json",
+      "sha256": "8805446192e44fcf96913e49c1d61afb0eae3c32bc2520224bff22ba63de5749",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Bounded actual1wuGL11/0 withnegativecontrols, notdevice/userapproval",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    },
+    {
+      "id": "body-review",
+      "path": "docs/evidence/item_art_01/independent-integration-review/ui-body-review-02-correction-and-envelope.json",
+      "sha256": "9b7df43d47c72992fe208924892c4786829e88314c383cf7e9616be1b461febd",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Fullalpha/current07bodyboundreview; priorfalsemissingobservationretracted",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    },
+    {
+      "id": "expansion-gate",
+      "path": "docs/evidence/item_art_01/review-golden-expansion-01.json",
+      "sha256": "80a74488b3318a29f3ffcc3b372685f0d67c67821f23187f4a82bc856a2c3aa0",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "Read actual artifact; developmentstage provenance in artifact retained, source_commit names nearest checkpoint, not finalexact-sourcePASS",
+      "observed": "Goldenactualfirst8/threefamilysourceexpansion permission; nofull72orlatest-runtimeendorsement",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate readonly reviewer, no reviewed production/test edits; actualbounded scope retained"
+    },
+    {
+      "id": "final-harness",
+      "path": "docs/evidence/item_art_01/final-harness/report.json",
+      "sha256": "64e37ea181fd2cc8e8fe1c184346b3b61e1c352918532b89d430bf92af3b2f0a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "33fresh/0reuse/0failure. Originalbudgets/assertions retained; notfull164orremoteCI.",
+      "command": "See docs/evidence/item_art_01/final-harness/invocation.json",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; originalHarness jobs1 --release on cleanSOURCE N"
+    },
+    {
+      "id": "final-inventory",
+      "path": "docs/evidence/item_art_01/consumer-inventory-final.json",
+      "sha256": "378a8f270d431349b04eafc659a9910724cee91148a1c4c4017651ea43a13964",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Threebounded actualformalconsumerfamilies; not72naturallyearned/alllevels/device/UserG5"
+    },
+    {
+      "id": "formal-gui",
+      "path": "docs/evidence/item_art_01/movie-main-56e639d7/receipt.json",
+      "sha256": "4d3ebe5cbac1d33d33514f9b9803c2ca345d09881eb74469b313270e5980cd8f",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actual222/0main or19/0plains or18/0forest; source_stable, cleanexit, explicitfixtures",
+      "consumers": [
+        "formal-run-item-loadout"
+      ]
+    },
+    {
+      "id": "formal-trace",
+      "path": "docs/evidence/item_art_01/movie-main-56e639d7/trace.json",
+      "sha256": "bd6fd46c2dcdbe4066ccbec267ac2cb5b38116a2f1ee101ebdcf07710e4a3050",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actualframe/input/HP/equipment/gear/accepted-effect observations fromsamecontinuousnativecapture",
+      "consumers": [
+        "formal-run-item-loadout"
+      ]
+    },
+    {
+      "id": "formal-video",
+      "path": "docs/evidence/item_art_01/movie-main-56e639d7/movie.mp4",
+      "sha256": "27bee2d23fa6de48cabf2a36d67fc0addb898dad0dd1f82ccfd23f1e9bc90d72",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "54.066667s main or12s region, H26460fps1280x720+originalstereoAAC48k; notmatched-before/hearing/human/deviceendorsement",
+      "consumers": [
+        "formal-run-item-loadout"
+      ]
+    },
+    {
+      "id": "plains-gui",
+      "path": "docs/evidence/item_art_01/world-plains-56e639d7/receipt.json",
+      "sha256": "eb623169d44eb54564ff76b51c6f6da8fb7f2da4916239a8ef3077f1982db8f7",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actual222/0main or19/0plains or18/0forest; source_stable, cleanexit, explicitfixtures",
+      "consumers": [
+        "formal-plains-item-art"
+      ]
+    },
+    {
+      "id": "plains-trace",
+      "path": "docs/evidence/item_art_01/world-plains-56e639d7/trace.json",
+      "sha256": "259853bbc5d5df7e03366d2246d412feaa59ba38366317e61cd97023de2a7ab3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actualframe/input/HP/equipment/gear/accepted-effect observations fromsamecontinuousnativecapture",
+      "consumers": [
+        "formal-plains-item-art"
+      ]
+    },
+    {
+      "id": "plains-video",
+      "path": "docs/evidence/item_art_01/world-plains-56e639d7/world.mp4",
+      "sha256": "6d3f632d125a4a9122c043b317471f6af687ca0377ee8ed20270798109988773",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "54.066667s main or12s region, H26460fps1280x720+originalstereoAAC48k; notmatched-before/hearing/human/deviceendorsement",
+      "consumers": [
+        "formal-plains-item-art"
+      ]
+    },
+    {
+      "id": "forest-gui",
+      "path": "docs/evidence/item_art_01/world-forest-56e639d7/receipt.json",
+      "sha256": "0e1d1f9e43547a849a227293440311a6825022cda071b7725332c630b0c60383",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actual222/0main or19/0plains or18/0forest; source_stable, cleanexit, explicitfixtures",
+      "consumers": [
+        "formal-forest-item-art"
+      ]
+    },
+    {
+      "id": "forest-trace",
+      "path": "docs/evidence/item_art_01/world-forest-56e639d7/trace.json",
+      "sha256": "ca7a27a1670aa6f66a94bfadc7d52439f7c8cf7dfe009ca2da1f10643165c911",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Actualframe/input/HP/equipment/gear/accepted-effect observations fromsamecontinuousnativecapture",
+      "consumers": [
+        "formal-forest-item-art"
+      ]
+    },
+    {
+      "id": "forest-video",
+      "path": "docs/evidence/item_art_01/world-forest-56e639d7/world.mp4",
+      "sha256": "244b8c0c620b95fa6c8f26f99955f7f6a6461208d526aec711c70c076a0d8c26",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "54.066667s main or12s region, H26460fps1280x720+originalstereoAAC48k; notmatched-before/hearing/human/deviceendorsement",
+      "consumers": [
+        "formal-forest-item-art"
+      ]
+    },
+    {
+      "id": "final-review",
+      "path": "docs/evidence/item_art_01/final-independent-review.json",
+      "sha256": "ad2806283cc8ed09c4643b7800cc56d55e07ca500e3a08d8b1b09f08ce00ea40",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ExactSOURCE N frozen originalcommands/currentnativeMovieWriter outputs; disclosedinitialization andboundedcoverage",
+      "observed": "Distinctreadonly finalSOURCE N technical/pixel/trace review; limitedscope andunverifiedplayer/device/G5 explicitlyretained",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/authoring_catalog",
+        "/root/authoring_tool",
+        "/root/binding_finish",
+        "/root/item_art_world"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate reviewer did not modify reviewed production or tests; independent originalguard AST/commands andactualMP4frames/trace review"
+    },
+    {
+      "id": "packed-load",
+      "path": "docs/evidence/item_art_01/packed-resource-check/packed-catalog-03-isolated/receipt.json",
+      "sha256": "257a731800586bee4bee9009823757f0836a2ba236658feeac0f687c05cfc5f3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "56e639d712cab0604807992cce0e6eaeaf56ac08",
+      "content_version": "candidate-v2-72icons-event-driven-art",
+      "method": "ActualPCKfromN, emptyprojectlesscwd, externalreadonlyprobe; no sourceworkspacefallback",
+      "observed": "72distinctAtlasicons,42clipframes,10textures,worldmaterial loaded; nativeonlynotWebbrowser",
+      "command": "See receipt.json command and working_directory",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, headlessactualexportpack, original90snativeboundary"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Exactlythreeactualnativeformalconsumerfamilies listedinactualtrace inventory, explicitsetupfixtures retained, nofull72natural/device/userclaim",
+    "inventory_evidence": "final-inventory",
+    "observations": [
+      {
+        "consumer": "formal-run-item-loadout",
+        "status": "passed",
+        "reason": "Actuallyrecorded currentSOURCE N output withvisibleinitializationdisclosure andacceptedruntime trace; boundedrepresentativeconsumer",
+        "output": "behavior",
+        "evidence": [
+          "formal-gui",
+          "formal-video"
+        ]
+      },
+      {
+        "consumer": "formal-plains-item-art",
+        "status": "passed",
+        "reason": "Actuallyrecorded currentSOURCE N output withvisibleinitializationdisclosure andacceptedruntime trace; boundedrepresentativeconsumer",
+        "output": "visual",
+        "evidence": [
+          "plains-gui",
+          "plains-video"
+        ]
+      },
+      {
+        "consumer": "formal-forest-item-art",
+        "status": "passed",
+        "reason": "Actuallyrecorded currentSOURCE N output withvisibleinitializationdisclosure andacceptedruntime trace; boundedrepresentativeconsumer",
+        "output": "visual",
+        "evidence": [
+          "forest-gui",
+          "forest-video"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Remote full164/CI is separate from local targeted33; actualPRhead status must be checked afterpush",
+    "PhysicalAndroid/gamepad/lowendperformance/hearing/balance/fun/userartrecognitionandG5unverified",
+    "Noall72naturallyearned/everygrowthlevel/everyeffectinbothregionsclaim; 72UI534 andbody83/shader11 are ownpriorboundedstages",
+    "Assetlicense/modelunknownretained; no falsecommercialorvisualapproval",
+    "P17baselineinterpretationandG19boss_counts_as_elite remain documentedcandidates; threependingredesign/fourdeleteddependency synergies disabled"
+  ],
+  "test_change_justification": "Retain originalartassertions/negativecontrols and add lifecycle, realcastcallback, shaderbound andactualsourcebudget checks. OriginalBible32/creative10 methods and historicalrefs/refusals retained; append precise68leaf sourcebinding history and finite inputs, never remove old guards. Productionplan original144prefix/order/lanes frozen, exact20appended IDs,164total91parallel73serial; no command/timeout/pattern relaxation. Finiteassetadapter hash-binds exact ItemArtLibrary and enumerates config+sourcefamily PNGs; does not accept arbitrarydirectorysiblings. Original51quality tests remain plus6isolatedcases, stdlibonlybeforeCI pip. ActualsourceSHA/PNGCRC/region/64MiB andchangedloader/unknownreference/pathrefusals retained."
+}

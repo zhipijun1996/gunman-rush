@@ -45,7 +45,7 @@ func _controller() -> PlayerController:
 
 func _alive(token: DemoToken) -> bool:
 	var actor := _controller()
-	return is_instance_valid(actor) and lifetime != null and lifetime.accepts(token) and actor.active and not actor.actor_resources.health.terminal and actor.router.has_application_focus and actor.is_inside_tree() and actor.get_tree().paused
+	return is_instance_valid(actor) and lifetime != null and lifetime.accepts(token) and actor.active and not actor.actor_resources.health.terminal and not actor.has_pending_damage() and actor.router.has_application_focus and actor.is_inside_tree() and actor.get_tree().paused
 
 func open_session(token: DemoToken) -> int:
 	close_session()
@@ -97,6 +97,13 @@ func preview(ids: Array[StringName]) -> Dictionary:
 	var state := _build()
 	var actor := _controller()
 	if state == null or not _policy.valid or not is_instance_valid(actor) or not actor.active or actor.actor_resources.health.terminal: return _result(false,&"invalid_context")
+	for id: StringName in _equipped_ids:
+		var worn := inventory.get_instance(id)
+		if worn == null: return _result(false,&"not_owned")
+		# The declaration itself protects the just-committed first equip; there is
+		# no deferred window in which its persistent lock can be bypassed.
+		var locked := bool(worn.effect_state.get("locked",false)) or bool(worn.item.parameters_for_level(worn.level).get("locked_until_run_end",false))
+		if locked and id not in ids: return _result(false,&"locked_until_run_end")
 	var sources: Dictionary = {}
 	var definitions: Dictionary = {}
 	var used := 0
@@ -115,6 +122,9 @@ func preview(ids: Array[StringName]) -> Dictionary:
 	if used > capacity(): return _result(false,&"capacity_exceeded")
 	for id: StringName in sources:
 		var item: ItemDefinition = sources[id]
+		if item.catalog_version >= 5:
+			var item_reason := ItemV5Eligibility.equip_reason(item,actor,sources,inventory)
+			if not item_reason.is_empty(): return _result(false,item_reason)
 		for other_id: StringName in sources:
 			if id == other_id: continue
 			var other: ItemDefinition = sources[other_id]
@@ -153,6 +163,10 @@ func _commit_capacity_upgrade(expected_level: int) -> bool:
 	_revision += 1
 	call_deferred("_emit_changed")
 	return true
+
+func _owned_effects_changed() -> void:
+	_revision += 1
+	call_deferred("_emit_changed")
 
 func reset() -> void:
 	close_session()

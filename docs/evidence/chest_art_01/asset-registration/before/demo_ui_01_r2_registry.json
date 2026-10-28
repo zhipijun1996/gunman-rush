@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "asset_id": "DEMO-UI-01-R2-registry",
+  "content_version": "clockwork-ui-r2+four-line-rebind-v1-20261023+registry-correction-v2+item-art-append-v1-20261028",
+  "source_path": "assets/manifest.json",
+  "source_sha256": "470dc4dd685bfafc612de6551f99191401d3b8bcef3836e57a7b3802bf0a775b",
+  "runtime_paths": [],
+  "disposition": "production_record_only",
+  "non_runtime_reason": "Build-time centralregistry. Original two task UI entries and all original281records retained; current inventory additionally appends ten itemsource records. Renderers use concrete assets rather than this registry.",
+  "tool": "Native JSON registry append",
+  "model": "not_applicable",
+  "prompt_or_reference": "docs/worklines/demo_ui_01/asset_sources.json; original image assets have their own records",
+  "processing": "Append original PNG identifiers, dimensions, sourceSHA and actual title consumer. No image transformation.",
+  "usage_scope": "Task asset provenance registry, not artwork or gameplay.",
+  "license_status": "unknown",
+  "license_source": "Registry is project-authored metadata; licenses belong to each actual asset record.",
+  "visual_status": "not_applicable",
+  "user_acceptance_evidence": [],
+  "revision_impact": {
+    "revision": "item-art-append-v1",
+    "prepared_source_commit": "01e05bd4edc5724b5386a5129bc6974a2da9f3ce",
+    "previous_record_path": "docs/evidence/item_art_01/global-registry-append-01/demo_ui_01_r2_registry.json",
+    "previous_record_sha256": "3e9d392f0f368d3c752f9f5f061eb0edb2a343418c5897c25bbb56e89b8b3138",
+    "actual_change": "Append10itemsource entries; original281entries andallmetadata byte-equivalent asparsed. No old art/license/visualstate changed.",
+    "proof": "docs/evidence/item_art_01/global-registry-append-01/append-proof.json",
+    "review_status": "Independentmetadatareview requested; not art/player/deviceapproval"
+  }
+}

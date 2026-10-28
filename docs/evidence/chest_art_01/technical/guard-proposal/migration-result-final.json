@@ -1,0 +1,49 @@
+{
+  "task": "CHEST-ART-01 finite guard independent counterexample repair",
+  "status": "passed",
+  "change_scope": "chest_function only locates real unique function boundaries using whole-source literal/comment mask; original source is sliced by aligned offsets. Three chest extractions now use it. Global gd_function and runtime are untouched.",
+  "source_sha256": {
+    "tools/underworld_pipeline.py": "1264b594b3b0d8c9249387f7b5539f7609a8b679f20bcdc629ef8b4cbe224cce",
+    "tests/test_underworld_pipeline.py": "8fe0983ffd1e5abf19b3da36875f5a1642b0609c4b33eaa7ecf2675baf143d77",
+    "scripts/art/chest_art_library.gd": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e"
+  },
+  "original_tests_preserved": 152,
+  "original_tests_removed": [],
+  "tests_now": 161,
+  "new_regressions": [
+    "Literal fake Stage _ready/capture headers cannot replace missing real ledger initialization or constant-tier actual calls.",
+    "Literal fake Objects place_chest plus fake terminating function boundary cannot mask a real claimed=false dispatch.",
+    "Both single- and double-triple-quote forms tested; actual extracted function must equal undecorated real function."
+  ],
+  "verification": {
+    "command": "timeout 180 python3 tests/test_underworld_pipeline.py",
+    "exit_code": 0,
+    "tests": 161,
+    "failures": 0,
+    "seconds": 94.476,
+    "original_budget_seconds": 180,
+    "log": "build/chest_art_01/guard-proposal/test-native-free-03.log",
+    "audit": {
+      "checks": 1025,
+      "failures": 0,
+      "path": "build/chest_art_01/guard-proposal/actual-audit-03.json"
+    },
+    "reviewer_original_probe_after": {
+      "baseline": true,
+      "reviewer_bad_stage_rejected": true,
+      "reviewer_bad_objects_rejected": true,
+      "production_modified": false,
+      "engine_started": false
+    }
+  },
+  "preserved_before_evidence": [
+    "build/chest_art_01/guard-independent-probe/confirmed-before.json",
+    "build/chest_art_01/guard-independent-probe/pipeline-before.py",
+    "build/chest_art_01/guard-proposal/test-native-free-01.log",
+    "build/chest_art_01/guard-proposal/test-native-free-02.log",
+    "build/chest_art_01/guard-proposal/migration-result.json"
+  ],
+  "engine_started": false,
+  "runtime_source_or_asset_changed": false,
+  "source_writes_after_freeze_notice": false
+}

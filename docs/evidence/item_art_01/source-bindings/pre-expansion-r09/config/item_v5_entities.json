@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "implementation_candidate_pending_playtest",
+  "scope": "Only entity kinematics, acquisition and presentation parameters absent from the user workbook. All workbook damage, resource, count, duration and cooldown values remain in items_v5.json.",
+  "clock_policy": {"cooldowns": "real_active", "projectiles_lifetimes_and_companion_attacks": "world"},
+  "projection": {
+    "speed": 520.0,
+    "flywheel_lifetime_s": 4.0,
+    "throw_range_px": 270.0,
+    "throw_lifetime_s": 2.0,
+    "throw_main_acquire_radius_px": 40.0,
+    "throw_chain_radius_px": 120.0,
+    "split_half_angle_rad": 0.12,
+    "collision_radius_px": 6.0
+  },
+  "trap": {"ground_probe_px": 56.0, "half_base_width_px": 7.0, "ground_tolerance_px": 6.0, "floor_normal_min_up_dot": 0.7, "surface_offset_px": 2.0},
+  "pulse": {"interval_s": 0.18, "half_angle_rad": 0.65, "visual_duration_s": 0.2},
+  "companion": {"acquire_radius_px": 360.0, "orbit_radius_px": 42.0, "large_orbit_radius_px": 56.0, "orbit_height_px": -26.0, "orbit_speed_rad_s": 1.0, "follow_speed": 14.0, "temporary_attack_interval_s": 1.5, "beam_visible_s": 0.12},
+  "visual": {"flywheel_radius_px": 12.0, "throw_radius_px": 9.0, "trap_radius_px": 10.0, "drone_radius_px": 9.0, "large_drone_radius_px": 16.0}
+}

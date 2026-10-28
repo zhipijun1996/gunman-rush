@@ -1,0 +1,112 @@
+{
+	"assertions": 111,
+	"failures": 0,
+	"observations": [
+		{
+			"case": "G14 physical cast through real ItemRuntime",
+			"damage_D": 1.0,
+			"energy": 55.0,
+			"first_hp": 98.7,
+			"has_G14_chain": false,
+			"second_hp": 99.65,
+			"third_hp": 99.65
+		},
+		{
+			"case": "S13 actual entity direction vectors",
+			"direction_a": [
+				1.0,
+				0.0
+			],
+			"direction_b": [
+				-1.0,
+				0.0
+			],
+			"dot": -1.0
+		},
+		{
+			"ascending_ids": [
+				276035537437,
+				276169754784,
+				276303972564,
+				276438190490,
+				276572408022
+			],
+			"case": "actual ItemRuntime targets equal-distance order",
+			"ids": [
+				276035537437,
+				276169754784,
+				276303972564,
+				276438190490,
+				276572408022
+			]
+		},
+		{
+			"case": "real pending lethal blocks paused equipment",
+			"fatal_results": 1,
+			"hp_after_commit": 0.0,
+			"hp_before": 5.0,
+			"session_before": 5
+		},
+		{
+			"case": "actual formal merchant with accepted pending lethal request",
+			"coins_after": 500,
+			"coins_before": 500,
+			"gui_button_found": true,
+			"hp_before_commit": 5.0,
+			"run_active_after_commit": false
+		},
+		{
+			"authorization_after_remove": false,
+			"case": "derived admitted then actual paused unload before HP commit",
+			"committed_callbacks": 0,
+			"damage_results": 0,
+			"enemy_hp": 100.0,
+			"source_present": false
+		},
+		{
+			"case": "unload then re-equip before old derived commit",
+			"final_hp": 99.0,
+			"fresh_results": 1,
+			"old_results": 0
+		},
+		{
+			"case": "weapon epoch changes before derived commit",
+			"final_hp": 99.0,
+			"fresh_results": 1,
+			"old_results": 0,
+			"weapon_after": 1,
+			"weapon_before": 0
+		},
+		{
+			"actual_equipped": 0,
+			"cached_source_after_remove": true,
+			"case": "unload then resolve without runtime.sync or await",
+			"hp": 100.0,
+			"results": 0
+		},
+		{
+			"case": "unload immediately re-equip then resolve without sync or await",
+			"fresh_results": 1,
+			"hp": 99.0,
+			"old_results": 0
+		},
+		{
+			"B17_broken": true,
+			"blast_results": 2,
+			"case": "actual Router Controller Projectile Policy primary triggers P09 and actual HP injuries break B17",
+			"energy_after_blast": 7.0,
+			"energy_after_primary": 7.0,
+			"first_hp": 98.2,
+			"primary_results": 1,
+			"second_hp": 99.7
+		}
+	],
+	"scope": "explicit native integration fixtures, no natural-route/player/device endorsement",
+	"sources": {
+		"res://scripts/combat/weapon_action_runtime.gd": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160",
+		"res://scripts/damage/frame_damage_policy.gd": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a",
+		"res://scripts/items/v5/item_active_effects.gd": "198daa3272a7d28ace53efb5731b51cfcd84b972db2e4a08f9c49fbf60e4d2ac",
+		"res://scripts/items/v5/item_runtime.gd": "0ac74ee30808f0ed6d4b5d8e7a11f88ce87e28f6846ecfd12fc13708c7534af8",
+		"res://tests/item_v5_review_runner.gd": "42088dabdf08accf7aad88df20d887e8501912f815635a6f7f575bbeeca82a40"
+	}
+}

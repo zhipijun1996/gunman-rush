@@ -1,0 +1,794 @@
+{
+  "task_id": "CHEST-ART-01",
+  "kind": "readonly-third-source-natural-ROI-and-pair-factor-proposal",
+  "source_path": "/workspace/generated_images/exec-4783506e-fa2f-4f1c-8b8b-04aef5030411.png",
+  "source_sha256": "a3106003f2189e0f4d5d4e12bdc7ed579d6dd52130de2a7919be7756818627a0",
+  "source_size": [
+    1536,
+    1024
+  ],
+  "rgba8_bytes": 6291456,
+  "source_pixels_edited": false,
+  "engine_started": false,
+  "runtime_promotion_allowed": false,
+  "threshold_meaning": {
+    "0": "EVERY nonzero alpha including diffuse alpha1 tails; no source pixel discarded.",
+    "1": "alpha>=2 diagnostic",
+    "8": "alpha>=9 diagnostic",
+    "32": "alpha>=33 diagnostic structural silhouette; not a discard threshold or production alpha edit.",
+    "128": "alpha>=129 diagnostic",
+    "200": "alpha>=201 diagnostic"
+  },
+  "natural_partition": {
+    "x_boundaries_exclusive": [
+      0,
+      512,
+      1007,
+      1536
+    ],
+    "y_boundaries_exclusive": [
+      0,
+      512,
+      1024
+    ],
+    "reason": "x512 in full-height zero-alpha run488:521; x1006 is a full-height zero-alpha column, so split at1007 preserves it to left. y512 lies inside full-width zero-alpha run510:515. x1024 crosses gold object and is prohibited as equal-grid cut.",
+    "full_height_zero_alpha_column_runs": [
+      [
+        1,
+        33
+      ],
+      [
+        488,
+        521
+      ],
+      [
+        522,
+        523
+      ],
+      [
+        524,
+        525
+      ],
+      [
+        526,
+        527
+      ],
+      [
+        528,
+        535
+      ],
+      [
+        994,
+        995
+      ],
+      [
+        996,
+        997
+      ],
+      [
+        998,
+        999
+      ],
+      [
+        1000,
+        1001
+      ],
+      [
+        1002,
+        1003
+      ],
+      [
+        1006,
+        1007
+      ],
+      [
+        1520,
+        1536
+      ]
+    ],
+    "full_width_zero_alpha_row_runs": [
+      [
+        0,
+        23
+      ],
+      [
+        24,
+        32
+      ],
+      [
+        40,
+        44
+      ],
+      [
+        45,
+        56
+      ],
+      [
+        64,
+        69
+      ],
+      [
+        72,
+        73
+      ],
+      [
+        74,
+        75
+      ],
+      [
+        78,
+        79
+      ],
+      [
+        94,
+        95
+      ],
+      [
+        112,
+        117
+      ],
+      [
+        118,
+        119
+      ],
+      [
+        122,
+        123
+      ],
+      [
+        124,
+        139
+      ],
+      [
+        140,
+        141
+      ],
+      [
+        142,
+        143
+      ],
+      [
+        144,
+        157
+      ],
+      [
+        451,
+        456
+      ],
+      [
+        457,
+        473
+      ],
+      [
+        474,
+        475
+      ],
+      [
+        476,
+        483
+      ],
+      [
+        495,
+        507
+      ],
+      [
+        510,
+        515
+      ],
+      [
+        520,
+        531
+      ],
+      [
+        532,
+        537
+      ],
+      [
+        538,
+        539
+      ],
+      [
+        540,
+        541
+      ],
+      [
+        927,
+        951
+      ],
+      [
+        958,
+        959
+      ],
+      [
+        964,
+        965
+      ],
+      [
+        966,
+        969
+      ],
+      [
+        970,
+        977
+      ],
+      [
+        978,
+        979
+      ],
+      [
+        982,
+        991
+      ],
+      [
+        1000,
+        1005
+      ],
+      [
+        1006,
+        1009
+      ],
+      [
+        1014,
+        1015
+      ],
+      [
+        1016,
+        1019
+      ],
+      [
+        1020,
+        1024
+      ]
+    ],
+    "second_third_isolation_warning": "Only1 full-height zero column at1006 near the actual second/third split; requested32px clear gutters not satisfied. Actual1wu REGION_RECT-guard GL and independent pixel judgement required; do not call request success."
+  },
+  "six_ROIs": [
+    {
+      "tier": "medium",
+      "state": "closed",
+      "proposed_full_partition_ROI_xywh": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          35,
+          23,
+          482,
+          476
+        ],
+        "1": [
+          51,
+          208,
+          474,
+          438
+        ],
+        "8": [
+          53,
+          209,
+          471,
+          436
+        ],
+        "32": [
+          54,
+          210,
+          471,
+          436
+        ],
+        "128": [
+          54,
+          211,
+          470,
+          435
+        ],
+        "200": [
+          54,
+          211,
+          470,
+          435
+        ]
+      },
+      "alpha1_tail_pixel_count": 3283,
+      "all_nonzero_alpha_pixel_count": 86336,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 305,
+        "bbox_absolute": [
+          54,
+          305,
+          471,
+          436
+        ],
+        "width_source_px": 417
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        262.5,
+        436
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        262.5,
+        436
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    },
+    {
+      "tier": "medium",
+      "state": "open",
+      "proposed_full_partition_ROI_xywh": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          0,
+          573,
+          488,
+          1020
+        ],
+        "1": [
+          41,
+          576,
+          486,
+          917
+        ],
+        "8": [
+          43,
+          578,
+          484,
+          915
+        ],
+        "32": [
+          43,
+          578,
+          483,
+          915
+        ],
+        "128": [
+          44,
+          579,
+          483,
+          914
+        ],
+        "200": [
+          44,
+          579,
+          483,
+          914
+        ]
+      },
+      "alpha1_tail_pixel_count": 3614,
+      "all_nonzero_alpha_pixel_count": 134049,
+      "ROI_boundary_nonzero_counts": {
+        "left": 7,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 737,
+        "bbox_absolute": [
+          53,
+          737,
+          483,
+          915
+        ],
+        "width_source_px": 430
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        268.0,
+        915
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        268.0,
+        403
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    },
+    {
+      "tier": "high",
+      "state": "closed",
+      "proposed_full_partition_ROI_xywh": [
+        512,
+        0,
+        495,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          521,
+          32,
+          992,
+          490
+        ],
+        "1": [
+          545,
+          159,
+          976,
+          446
+        ],
+        "8": [
+          551,
+          159,
+          972,
+          441
+        ],
+        "32": [
+          551,
+          160,
+          972,
+          440
+        ],
+        "128": [
+          552,
+          160,
+          971,
+          440
+        ],
+        "200": [
+          552,
+          160,
+          971,
+          439
+        ]
+      },
+      "alpha1_tail_pixel_count": 3192,
+      "all_nonzero_alpha_pixel_count": 107108,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 289,
+        "bbox_absolute": [
+          551,
+          289,
+          972,
+          440
+        ],
+        "width_source_px": 421
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        761.5,
+        440
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        249.5,
+        440
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    },
+    {
+      "tier": "high",
+      "state": "open",
+      "proposed_full_partition_ROI_xywh": [
+        512,
+        512,
+        495,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          542,
+          541,
+          1006,
+          1006
+        ],
+        "1": [
+          550,
+          543,
+          990,
+          921
+        ],
+        "8": [
+          552,
+          545,
+          984,
+          918
+        ],
+        "32": [
+          553,
+          545,
+          983,
+          917
+        ],
+        "128": [
+          553,
+          546,
+          983,
+          917
+        ],
+        "200": [
+          553,
+          546,
+          983,
+          916
+        ]
+      },
+      "alpha1_tail_pixel_count": 4091,
+      "all_nonzero_alpha_pixel_count": 143510,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 735,
+        "bbox_absolute": [
+          554,
+          735,
+          983,
+          917
+        ],
+        "width_source_px": 429
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        768.5,
+        917
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        256.5,
+        405
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    },
+    {
+      "tier": "region_top",
+      "state": "closed",
+      "proposed_full_partition_ROI_xywh": [
+        1007,
+        0,
+        529,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          1007,
+          23,
+          1520,
+          510
+        ],
+        "1": [
+          1009,
+          189,
+          1516,
+          450
+        ],
+        "8": [
+          1015,
+          190,
+          1511,
+          448
+        ],
+        "32": [
+          1015,
+          191,
+          1510,
+          448
+        ],
+        "128": [
+          1016,
+          191,
+          1510,
+          447
+        ],
+        "200": [
+          1016,
+          192,
+          1509,
+          447
+        ]
+      },
+      "alpha1_tail_pixel_count": 3233,
+      "all_nonzero_alpha_pixel_count": 98711,
+      "ROI_boundary_nonzero_counts": {
+        "left": 11,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 327,
+        "bbox_absolute": [
+          1015,
+          327,
+          1510,
+          448
+        ],
+        "width_source_px": 495
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        1262.5,
+        448
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        255.5,
+        448
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    },
+    {
+      "tier": "region_top",
+      "state": "open",
+      "proposed_full_partition_ROI_xywh": [
+        1007,
+        512,
+        529,
+        512
+      ],
+      "threshold_bboxes_absolute_exclusive": {
+        "0": [
+          1011,
+          515,
+          1520,
+          996
+        ],
+        "1": [
+          1016,
+          564,
+          1519,
+          917
+        ],
+        "8": [
+          1018,
+          566,
+          1518,
+          915
+        ],
+        "32": [
+          1018,
+          566,
+          1517,
+          915
+        ],
+        "128": [
+          1019,
+          567,
+          1516,
+          915
+        ],
+        "200": [
+          1019,
+          567,
+          1515,
+          914
+        ]
+      },
+      "alpha1_tail_pixel_count": 4487,
+      "all_nonzero_alpha_pixel_count": 140543,
+      "ROI_boundary_nonzero_counts": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "lower_body_diagnostic_measurement": {
+        "method": "Manual observed front-box start; measure bbox of alpha>32 below this y. This is diagnostic only, not runtime region or alpha crop.",
+        "absolute_start_y": 748,
+        "bbox_absolute": [
+          1018,
+          748,
+          1517,
+          915
+        ],
+        "width_source_px": 499
+      },
+      "proposed_visible_foot_pivot_absolute": [
+        1267.5,
+        915
+      ],
+      "proposed_visible_foot_pivot_ROI_local": [
+        260.5,
+        403
+      ],
+      "foot_semantics": "Visible structural foot baseline alpha>32; alpha1 diagnostic tails do not define physical support. All nonzero source pixels still retained in full ROI."
+    }
+  ],
+  "tier_shared_scale_diagnostics": [
+    {
+      "tier": "medium",
+      "target_width_wu": 52,
+      "shared_isotropic_factor_wu_per_source_px": 0.12278630460448642,
+      "selection": "One provisional midpoint-target factor for this tier only; identical for closed/open. Not independently rescaled states.",
+      "measured_lower_body_widths_source_px": [
+        417,
+        430
+      ],
+      "resulting_lower_body_widths_wu": [
+        51.2019,
+        52.7981
+      ],
+      "pair_lower_body_width_delta_wu": 1.5962,
+      "width_delta_within_frozen_1wu": false,
+      "closed_target_height_wu": 32,
+      "open_max_height_wu": 46,
+      "heights_core32_wu": {
+        "closed": 27.7497,
+        "open": 41.379
+      },
+      "full_nonzero_tail_heights_wu": {
+        "closed": 55.6222,
+        "open": 54.8855
+      },
+      "admission": "UNVERIFIED geometry/pixel/GL. Diagnostic alpha threshold does not authorize ignoring nonzero tails or changing frozen limits."
+    },
+    {
+      "tier": "high",
+      "target_width_wu": 58,
+      "shared_isotropic_factor_wu_per_source_px": 0.13647058823529412,
+      "selection": "One provisional midpoint-target factor for this tier only; identical for closed/open. Not independently rescaled states.",
+      "measured_lower_body_widths_source_px": [
+        421,
+        429
+      ],
+      "resulting_lower_body_widths_wu": [
+        57.4541,
+        58.5459
+      ],
+      "pair_lower_body_width_delta_wu": 1.0918,
+      "width_delta_within_frozen_1wu": false,
+      "closed_target_height_wu": 38,
+      "open_max_height_wu": 54,
+      "heights_core32_wu": {
+        "closed": 38.2118,
+        "open": 50.7671
+      },
+      "full_nonzero_tail_heights_wu": {
+        "closed": 62.5035,
+        "open": 63.4588
+      },
+      "admission": "UNVERIFIED geometry/pixel/GL. Diagnostic alpha threshold does not authorize ignoring nonzero tails or changing frozen limits."
+    },
+    {
+      "tier": "region_top",
+      "target_width_wu": 64,
+      "shared_isotropic_factor_wu_per_source_px": 0.12877263581488935,
+      "selection": "One provisional midpoint-target factor for this tier only; identical for closed/open. Not independently rescaled states.",
+      "measured_lower_body_widths_source_px": [
+        495,
+        499
+      ],
+      "resulting_lower_body_widths_wu": [
+        63.7425,
+        64.2575
+      ],
+      "pair_lower_body_width_delta_wu": 0.5151,
+      "width_delta_within_frozen_1wu": true,
+      "closed_target_height_wu": 44,
+      "open_max_height_wu": 60,
+      "heights_core32_wu": {
+        "closed": 33.0946,
+        "open": 44.9416
+      },
+      "full_nonzero_tail_heights_wu": {
+        "closed": 62.7123,
+        "open": 61.9396
+      },
+      "admission": "UNVERIFIED geometry/pixel/GL. Diagnostic alpha threshold does not authorize ignoring nonzero tails or changing frozen limits."
+    }
+  ],
+  "findings": [
+    "First and second/third columns have unequal complete widths512/495/529; the original512x512 request failed. Source preserved.",
+    "Broad blue/purple/gold panels and low-wide gold silhouette visibly improved, but this is not final artistic or technical acceptance.",
+    "Alpha1 tails persist outside structural contours and approach/breach proposed outer source boundaries; full-partition ROIs preserve them.",
+    "Provisional shared factors demonstrate world-height bounds can be checked without changing source or independent pose scale; width discrepancies must be evaluated against frozen1wu geometry rule.",
+    "All pivots are fixed source metadata only; mapping must preserve Plains row+21 and Forest row+18 feet and interaction centers.",
+    "No native4px-cluster success or transparency/gutter request conformance is claimed; all runtime/GL/claimed-state/user/device checks remain separate."
+  ]
+}

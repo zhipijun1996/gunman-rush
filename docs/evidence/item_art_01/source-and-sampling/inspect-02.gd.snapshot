@@ -1,0 +1,25 @@
+extends SceneTree
+func _initialize() -> void:
+ var path := "/workspace/generated_images/exec-73f33c9e-bea9-47c6-b649-bdf879e0dbf4.png"
+ var img := Image.load_from_file(path)
+ var rows: Array[Dictionary] = []
+ var ids := ["B01","B03","B11","P24","P14","G14","G16","N01"]
+ var cell := Vector2i(img.get_width()/4,img.get_height()/2)
+ for index: int in 8:
+  var start := Vector2i(index%4,index/4)*cell
+  var lo := cell
+  var hi := Vector2i(-1,-1)
+  var visible := 0
+  var low_alpha := 0
+  for y: int in cell.y:
+   for x: int in cell.x:
+    var a := img.get_pixel(start.x+x,start.y+y).a
+    if a > 0:
+     lo = lo.min(Vector2i(x,y)); hi = hi.max(Vector2i(x,y)); visible += 1
+     if a < 0.5: low_alpha += 1
+  rows.append({"id":ids[index],"cell":[start.x,start.y,cell.x,cell.y],"alpha_bbox":[start.x+lo.x,start.y+lo.y,hi.x-lo.x+1,hi.y-lo.y+1],"margins":[lo.x,lo.y,cell.x-hi.x-1,cell.y-hi.y-1],"visible_pixels":visible,"low_alpha_pixels":low_alpha})
+ var out := {"source":path,"source_sha256":FileAccess.get_sha256(path),"size":[img.get_width(),img.get_height()],"has_alpha":img.detect_alpha(),"format":img.get_format(),"requested_size":[1024,512],"rows":rows,"method":"Original unmodified PNG inspected per-pixel by actual Godot Image API; no resizing, cropping or source-pixel edits."}
+ var f := FileAccess.open("/workspace/gunman-rush/build/item_art_01/golden-02.measurement.json",FileAccess.WRITE)
+ f.store_string(JSON.stringify(out,"  "))
+ print(JSON.stringify(out))
+ quit()

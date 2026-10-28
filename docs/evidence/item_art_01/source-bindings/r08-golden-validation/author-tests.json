@@ -1,0 +1,49 @@
+{
+  "scope": "Author original42/four original Harness exact R08 actual first8/threeVFX candidate source; no native/visual/device or independent acceptance",
+  "source_commit": "df5b075799e36624597b780a17d88850f0b4ff21",
+  "worktree_modified": true,
+  "style_sha256": "473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 6.463964759001101
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 1.5566620999998122
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 18.729437814999983
+    }
+  ]
+}

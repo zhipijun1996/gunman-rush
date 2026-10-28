@@ -1,0 +1,36 @@
+{
+  "scope": "Development import/parseonly, no finalgameplayclaim",
+  "commands": [
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "budget": 90,
+      "elapsed": 7.137933988000441,
+      "exit_code": 0,
+      "strict_pass": true
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--check-only",
+        "--script",
+        "res://tests/item_art_golden_movie.gd"
+      ],
+      "budget": 30,
+      "elapsed": 4.023993041999347,
+      "exit_code": 0,
+      "strict_pass": true
+    }
+  ]
+}

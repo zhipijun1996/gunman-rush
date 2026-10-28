@@ -28,6 +28,8 @@ func install(stage: Node) -> void:
 	for chest: Dictionary in _stage.get("chests"):
 		var sprite := chest.get("sprite") as Sprite2D
 		if sprite==null:continue
+		# Explicit P1 opt-in must not replace newly managed tier/state recipes.
+		if bool(sprite.get_meta("chest_art_managed",false)):continue
 		_chests[sprite.get_instance_id()]={"node":sprite,"texture":sprite.texture,"scale":sprite.scale,"position":sprite.position,"offset":sprite.offset,"centered":sprite.centered}
 		var spec: Dictionary=_parts.chest
 		sprite.texture=_texture("chest");sprite.centered=false

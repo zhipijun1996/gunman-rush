@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chest art immutable source metadata, separate from gameplay",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "aliases",
+    "tiers"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "aliases": {
+      "const": {
+        "hard_optional": "region_top"
+      }
+    },
+    "tiers": {
+      "type": "object",
+      "required": [
+        "medium",
+        "high",
+        "region_top"
+      ],
+      "properties": {
+        "medium": {
+          "type": "object",
+          "required": [
+            "states"
+          ],
+          "properties": {
+            "states": {
+              "type": "object",
+              "required": [
+                "closed",
+                "open"
+              ],
+              "properties": {
+                "closed": {
+                  "$ref": "#/$defs/pose"
+                },
+                "open": {
+                  "$ref": "#/$defs/pose"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "high": {
+          "type": "object",
+          "required": [
+            "states"
+          ],
+          "properties": {
+            "states": {
+              "type": "object",
+              "required": [
+                "closed",
+                "open"
+              ],
+              "properties": {
+                "closed": {
+                  "$ref": "#/$defs/pose"
+                },
+                "open": {
+                  "$ref": "#/$defs/pose"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "region_top": {
+          "type": "object",
+          "required": [
+            "states"
+          ],
+          "properties": {
+            "states": {
+              "type": "object",
+              "required": [
+                "closed",
+                "open"
+              ],
+              "properties": {
+                "closed": {
+                  "$ref": "#/$defs/pose"
+                },
+                "open": {
+                  "$ref": "#/$defs/pose"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "pose": {
+      "type": "object",
+      "required": [
+        "region",
+        "world_size",
+        "foot_pivot_source_px"
+      ],
+      "properties": {
+        "region": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "world_size": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "foot_pivot_source_px": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$comment": "Runtime additionally checks actual texture bounds, positive dimensions, source aspect, local pivot bounds, paired identical factor and independent 8MiB source budget. Null template is deliberately invalid."
+}

@@ -190,8 +190,11 @@ func _process(delta: float) -> void:
 	if combat_bar!=null:
 		combat_bar.visible=is_instance_valid(_actor);combat_label.visible=combat_bar.visible
 		if combat_bar.visible:
-			combat_bar.max_value=_actor.combat_energy.definition.capacity;combat_bar.value=_actor.combat_energy.current
-			combat_label.text="共鸣 %.0f/%.0f" % [_actor.combat_energy.current,_actor.combat_energy.definition.capacity]
+			combat_bar.max_value=_actor.combat_energy.capacity();combat_bar.value=_actor.combat_energy.current
+			combat_label.text="共鸣 %.0f/%.0f" % [_actor.combat_energy.current,_actor.combat_energy.capacity()]
+			if _actor.item_runtime != null:
+				var barrier := int(_actor.item_runtime.call("barrier_count"))
+				if barrier > 0: combat_label.text += " · 盾%s" % barrier
 	_shot_hint = maxf(0, _shot_hint - delta)
 	_energy_hint=maxf(0,_energy_hint-delta)
 	_recovery_glow=maxf(0,_recovery_glow-delta)

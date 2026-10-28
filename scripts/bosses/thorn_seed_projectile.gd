@@ -51,6 +51,28 @@ func advance(delta: float) -> void:
 	queue_redraw()
 func bounds() -> Rect2:
 	return Rect2(goal - Vector2(zone_size.x * .5, zone_size.y), zone_size)
+# Preserve landed-only danger and the original encounter/attack/session guards.
+func advance_frozen_contact() -> void:
+	if spent or not is_inside_tree(): return
+	if not is_instance_valid(encounter) or not encounter.active or encounter.health.terminal or not encounter.combat_target_active() or owner_attack_epoch != encounter.attack_epoch:
+		dispose()
+		return
+	if not is_instance_valid(_target):
+		dispose()
+		return
+	var target_controller := _target.get_node_or_null("Controller") as PlayerController
+	if target_controller != null and target_controller.session_id != target_session:
+		dispose()
+		return
+	if not landed or committed: return
+	var shape := _target.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape == null: return
+	var target_bounds := shape.shape.get_rect()
+	target_bounds.position += shape.global_position
+	if bounds().intersects(target_bounds):
+		committed = true
+		hit.emit(_target,event_id,amount)
+
 func _draw() -> void:
 	if landed:
 		draw_rect(Rect2(Vector2(-zone_size.x*.5, -zone_size.y), zone_size), Color(.8,.23,.32,.65))

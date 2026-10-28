@@ -126,6 +126,6 @@ func _accepted_hit(context: Dictionary) -> void:
 	# Ground actors have no gravity policy in EnemyMotor; a vertical force must
 	# not leave a walking beetle permanently hovering above its authored floor.
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
-	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
+	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds * clampf(float(context.get("item_stagger_multiplier", 1.0)), 1.0, 1.3)
 	if definition.behavior_id == &"root_bell": return
 	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)

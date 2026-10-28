@@ -9,6 +9,7 @@ var terrain: UnderworldTerrain
 var slot_nodes: Dictionary = {}
 var floor_y := 432.0
 var weapon_workshop_enabled := false
+var item_codex_enabled := false
 
 func configure(ground_y: float) -> void:
 	floor_y = ground_y
@@ -19,6 +20,13 @@ func configure(ground_y: float) -> void:
 			if str(slot.id) == "arms":
 				slot.active = true
 				slot.keeper = "artisan"
+	# Activate the authored relics shelter without moving its platform or using
+	# the unrelated achievements service. It is a building interaction, no NPC.
+	if item_codex_enabled:
+		for slot: Dictionary in specification.slots:
+			if str(slot.id) == "relics":
+				slot.active = true
+				slot.label = "道具图鉴 / Item codex"
 	var grounds: Array[Rect2] = [Rect2(-100,floor_y,float(specification.world_width)+200,640)]
 	for platform: Dictionary in specification.get("platforms",[]):
 		var rect: Array=platform.rect
@@ -66,7 +74,7 @@ func _build_slot(entry: Dictionary) -> void:
 	var root:=Vector2(x,float(entry.get("y",floor_y)))
 	var building: Dictionary=specification.assets[str(entry.building)]
 	_place(str(entry.id)+"_building",str(building.image),building.region,building.foot,root,float(entry.building_height),-7,float(building.get("opaque_height",building.foot[1])),_grounding_depth("structure"))
-	if bool(entry.active) and str(entry.id)!="departure":
+	if bool(entry.active) and str(entry.id)!="departure" and not str(entry.keeper).is_empty():
 		var npc: Dictionary=specification.assets[str(entry.keeper)]
 		var keeper:=_place(str(entry.id)+"_keeper",str(npc.image),npc.region,npc.foot,root+Vector2(48,0),UnderworldActors.HUMANOID_HEIGHT,-1,float(npc.opaque_height))
 		keeper.set_meta("home_function",str(entry.id))

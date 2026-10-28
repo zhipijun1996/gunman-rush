@@ -1,0 +1,48 @@
+{
+  "task_id": "HOME-CODEX-01",
+  "review": "CI prepare test inventory synchronization",
+  "reviewed_at_utc": "2026-10-28T10:03:10.063554+00:00",
+  "decision": "ACCEPT",
+  "scope": "Read-only independent review of exactly two expectation edits in tests/test_production_plan.py; no production/art/media changes reviewed as new work. Report written only under ignored build. No engine or test suite executed by reviewer.",
+  "reviewed_head": "4365bce9dd6983edeb7295d52d0e7982549e9005",
+  "reviewed_file": {
+    "path": "tests/test_production_plan.py",
+    "before_sha256": "1909b165aac1990dae6a7af6061b2e153a158d6540fb4a07b5e5154c30a7fd2a",
+    "after_sha256": "2929085e94f44db034aeb3507d5412a3ba480bba420defcaf0782855e3842507"
+  },
+  "observed_ci_failure": {
+    "path": "build/home_codex_01/ci-4365-prepare.log",
+    "job": "40667458365",
+    "head_short": "4365",
+    "assertion": "Exact additions list differed only because manifest full profile includes appended home-codex while old expected20 additions omitted it.",
+    "location": "test_physical_lanes_require_the_exact_original_full_set"
+  },
+  "checks": [
+    {
+      "result": "passed",
+      "evidence": "Byte-exact diff reconstructs only appended literal home-codex and count tuple164/91/73→165/91/74; no other test edits."
+    },
+    {
+      "result": "passed",
+      "evidence": "AST retains exactly all21 original test method names in original order."
+    },
+    {
+      "result": "passed",
+      "evidence": "Both exact original144 SHA assertions remain unchanged; all20 original append expectations remain an unchanged prefix."
+    },
+    {
+      "result": "passed",
+      "evidence": "Actual current make_plan integration result has165 checks,91 parallel,74 serial; home-codex is registered serial=true, appends to full, and is included only in serial lane."
+    },
+    {
+      "result": "passed",
+      "evidence": "Exact full-profile/list equality, disjointness/union, serial membership per check, selected_commands fallbacks and extra-check negative case remain unchanged; no assertion removal, relaxed equality, timeout or budget edit."
+    }
+  ],
+  "parent_reported_execution": {
+    "command": "python3 tests/test_production_plan.py -v",
+    "result": "21 tests,0 failures",
+    "attribution": "Reported by root; reviewer did not rerun or invent execution."
+  },
+  "conclusion": "Legitimate synchronization of exact positive inventory following registered Home check; preserves strict regression and negative guards and increases required serial coverage. Does not chase a pass by weakening the check; fresh remote exact-head CI remains necessary."
+}

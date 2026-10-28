@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "task_id": "MAIN-MERGE-WEB-111",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "91545e4bea256ebff641167e04c310f3df4db0e9",
+  "reviewed_commit": "c5a7694568f8ca5e1f5996e6b16f6123d52d98ce",
+  "content_version": "integration-v1",
+  "owner": "/root",
+  "purpose": "Repair current stale consumer fixtures, normally merge PR111 after exact fullCI, then publish actual-main Web playtest",
+  "player_experience": "Play the merged inventory/items/Home codex and three-tier chest system at the actual updated public website",
+  "constraints": [
+    "Original165checks/two full lanes/strictpatterns/budgets unchanged",
+    "No runtime gameplay/art/RNG/reward changes to rescue stale tests",
+    "No forcepush/admin merge or old artifact relabeling",
+    "Physical-device and fullG5 acceptance remain separate"
+  ],
+  "affected_paths": [
+    "tests/underworld_plains/test_underworld_formal.gd",
+    "tests/forest_depth_canopy_campaign_case.gd",
+    "tests/forest_depth_canopy_gold_probe.gd",
+    "tools/run_forest_depth_campaign_boss.py",
+    "docs/worklines/main_merge_web_111/scope.md",
+    "docs/quality/records/MAIN-MERGE-WEB-111.json",
+    "tests/forest_depth_canopy_gold_probe.gd.uid",
+    "tests/test_forest_canopy_gold_contract.py"
+  ],
+  "deliverables": [
+    "Exact165 fullCI green merge and main ancestry",
+    "Actual-main Web export with original hashed chunks/cache/licenses",
+    "Public metadata/fullPCK equality and actual desktop/touch GUI smoke"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "User merge/publication intent and exact scope recorded",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Scoped repair commands/reviews passed; exact full165CI green, actual main merge and public Web/GUI verification still pending.",
+      "evidence": [
+        "native-repair",
+        "repair-review",
+        "formal-review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Concrete authorized Git/Web scope and exact validation boundaries",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual scoped native/pure repairs verified at exact c5a code bytes; completeCI/merge/export remain pending.",
+      "evidence": [
+        "native-repair"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent scoped test/validator migration review, original failure/counterexample preserved.",
+      "evidence": [
+        "repair-review",
+        "formal-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Transport/test-fixture integration task adds no new content; actual browser/native evidence and content/device acceptance remain separately scoped.",
+      "evidence": [
+        "scope"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "authorized-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Merge existing approved featureline and publish a matching real-main playtest",
+      "method": "Direct user authorization and actual repo workflow",
+      "expected": "Exactgreenhead normal merge, accurately identified publicbuild",
+      "failure": "Red-check bypass, stale site or relabeled source",
+      "status": "passed",
+      "reason": "Concrete scope; operational results still pending",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "native-repairs",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Migrate only stale formaltexture/fixedlegacyGold checks to current authoritativeconsumer",
+      "method": "Originaltargetchecks/native/purecounterexamples and scoped independentreview",
+      "expected": "No source drift, no lost originalbattle/reload/pointer/state checks or increasedbudget",
+      "failure": "Production rescue, falseaccept or incorrect actual item/state",
+      "status": "passed",
+      "reason": "Observed only within scoped repair; fullCI/main/Web stillpending",
+      "evidence": [
+        "native-repair"
+      ]
+    },
+    {
+      "id": "independent-repairs",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Migrate only stale formaltexture/fixedlegacyGold checks to current authoritativeconsumer",
+      "method": "Originaltargetchecks/native/purecounterexamples and scoped independentreview",
+      "expected": "No source drift, no lost originalbattle/reload/pointer/state checks or increasedbudget",
+      "failure": "Production rescue, falseaccept or incorrect actual item/state",
+      "status": "passed",
+      "reason": "Observed only within scoped repair; fullCI/main/Web stillpending",
+      "evidence": [
+        "repair-review",
+        "formal-review"
+      ]
+    },
+    {
+      "id": "merge-and-public-playtest",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Actual completed normal main merge and matching public playtest",
+      "method": "Exact-head CI +GitHub merge receipt +public fullPCK/GUI evidence",
+      "expected": "Actual green merge and publicly usable target version",
+      "failure": "Queued/failed CI or stale/unverified site treated as completed",
+      "status": "unverified",
+      "reason": "Operational steps still pending; not inferred from local repair passes.",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/main_merge_web_111/scope.md",
+      "sha256": "0f1d3a8c5ca633b6df1c4d50253d92d2da54a40249b39cba2b38c8a63b07b838",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "91545e4bea256ebff641167e04c310f3df4db0e9",
+      "content_version": "integration-v1",
+      "method": "Direct user instruction and existing project-integration workflow",
+      "observed": "User authorizes PR111 normal merge and Web playtest export/publication; originalCI and production boundaries retained"
+    },
+    {
+      "id": "native-repair",
+      "path": "docs/evidence/main_merge_web_111/ci-repair/index.json",
+      "sha256": "7b6531d391a956e58d3a3137276edbf5a49145f8c8fce6acc087f92154c7350d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c5a7694568f8ca5e1f5996e6b16f6123d52d98ce",
+      "content_version": "integration-v1",
+      "method": "Actual originalnative commands and exact code-byte identity proof; precommit raw provenance retained",
+      "observed": "Formal96/0, canopy52/0 plusembedded8pure; no production changes, oldfullCI remains failed until newexacthead full165.",
+      "command": "python3 tools/run_underworld_formal_tests.py; python3 tools/run_forest_depth_campaign_boss.py --boss canopy --output-dir build/forest_depth/campaign/merge-web-111-canopy-02",
+      "exit_code": 0,
+      "environment": "Linux, officialGodot4.7.2, exclusive nativelease, original import90/native180/formal120/Harness300/150 limits"
+    },
+    {
+      "id": "repair-review",
+      "path": "docs/evidence/main_merge_web_111/ci-repair/canopy-independent-review.json",
+      "sha256": "8599e7dd10350a86acd0039e9745e3a7538d03d9925a9f2787207610c206309b",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "c5a7694568f8ca5e1f5996e6b16f6123d52d98ce",
+      "content_version": "integration-v1",
+      "method": "Independent originalAST/targets, exact verifier gitblob SHA, originalbad-summary pure replay and actual52/8/sourceguard review",
+      "observed": "Scoped technical ACCEPT; before-reader falseaccept preserved and repaired. Actualprecommit bytes match c5a, not newly rerun after commit.",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/authoring_catalog",
+        "/root/item_art_runtime"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not implement test/probe/validator; independently demonstrated before counterexample and verified repaired rejection plus actual rawreceipts.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "formal-review",
+      "path": "docs/evidence/main_merge_web_111/ci-repair/underworld-formal-independent-review.json",
+      "sha256": "799959f0d8aa9398d5ec428a559f3956de4b23b6a489bc41c0ceb730de66ca32",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "c5a7694568f8ca5e1f5996e6b16f6123d52d98ce",
+      "content_version": "integration-v1",
+      "method": "Independent exact single-assertion migration and original96/0 native output review",
+      "observed": "Same actualtier/claimed recipe, metadata, WHITE andfoot, original96checks and budgets preserved.",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not implement test; read exact original/currentdiff and rootactual strictlogs.",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Full165 CI, main merge, actual-main Web export/public identity and browser smoke pending; no completion claimed."
+  ],
+  "test_change_justification": "Old single shared chest icon and hard-coded legacy forest_heart_gold expectations no longer describe formal three-tier/V5 consumers. Preserve original assertions/negative controls, full battle/HP/pointer/instance ledgers and original budgets; independent scoped review and actual native reruns required before CI/merge."
+}

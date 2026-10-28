@@ -39,10 +39,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.echo:
 			return
 		var code: Key = event.physical_keycode
-		if code in [KEY_F,KEY_Q]:
+		if code in [KEY_F,KEY_Q,KEY_R]:
 			if event.pressed and not _held.get(code,false) and not _blocked_until_release.has(code):
 				router.activate_device(&"keyboard_mouse")
-				router.request_action(&"weapon_context" if code==KEY_F else &"weapon_skill",world_direction(get_viewport().get_mouse_position()))
+				var action: StringName = &"weapon_context" if code == KEY_F else &"weapon_skill" if code == KEY_Q else &"item_skill"
+				router.request_action(action,world_direction(get_viewport().get_mouse_position()))
 			_held[code]=event.pressed
 			if not event.pressed:_blocked_until_release.erase(code)
 			return

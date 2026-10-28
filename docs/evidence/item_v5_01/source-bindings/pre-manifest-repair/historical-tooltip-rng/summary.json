@@ -1,0 +1,131 @@
+{
+  "task_id": "ITEM-V5-01",
+  "status": "same_unpublished_candidate_rebound_author_checks_passed",
+  "scope": "Technical same main14-to15/creative18 unpublished candidate rebind after tooltip Escape and stable RNG context fixes. Author original Python/Harness evidence only; not native, GL, independent, user/device or full CI approval.",
+  "root_head_at_test": "879b39eaa869be70cb799dedd1bb6ffc35e0b92f",
+  "active_style": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json",
+    "version": "15",
+    "sha256": "67b7acb8d6f6b555af60649fd838c5b5eb876248be24219ee89168d8149638ef",
+    "reference_count": 54,
+    "preserved_main_prefix": 36,
+    "unchanged_main_prefix_refs": 35,
+    "actual_visual_additions": 18
+  },
+  "active_registry": {
+    "path": "docs/creative_direction/bibles/registry.json",
+    "sha256": "5ce8945c70e2127dea28657487b4e92caf17a57eb2541909892ec767f7d5b262"
+  },
+  "active_directions": [
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "version": "creative-v18",
+      "sha256": "0d6a10e3eacff28b8cb204bb539aca75c84e583682cdf162761bb1aac8876e92"
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "version": "creative-v18",
+      "sha256": "eddc98f420041ce291b717b72335baa3b3f0302b264543ba2188dd4c1b654ec2"
+    }
+  ],
+  "changed_since_previous_unpublished_candidate": [
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "old_sha256": "5a150a3794fdb061327174710ebbc5e0c77077208f902a9ac8ecc6336117c9e5",
+      "new_sha256": "d2ef1e746bb82c1c93da55be5139531d10756bfef01d5db92f024b5df2d6ffce"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "old_sha256": "af9980d9cc7e01a63c50f1cfd0dbc9d8975c7b0d964339c4a980e692e243e36b",
+      "new_sha256": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990"
+    },
+    {
+      "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+      "old_sha256": "4014bc9c5c01b0d41b09189ba23be8973f93984dc5261d158d6a8f176bd392f5",
+      "new_sha256": "8335b5d879bf54eb4e720ab5fcf6163ae840de54c1ad3d94bd5b8b5d663b0cc4"
+    }
+  ],
+  "preserved_previous_candidate": {
+    "archive_path": "docs/evidence/item_v5_01/source-bindings/pre-tooltip-rng",
+    "build_mirror": "build/item_v5/style-binding/pre-tooltip-rng",
+    "manifest_sha256": "338583667bc84a138674907632bc0da11ef62401f502848f9594f2acf73f6189",
+    "old_style_sha256": "af4c96718fe41aff2b11f5b81409c538963144967b01f2123589b3000ca56ec6",
+    "verbatim_file_count": 14,
+    "verbatim_bytes": 361405,
+    "historical_H_source_identity_preserved": true
+  },
+  "original_python": {
+    "actual_tests": 42,
+    "failures": 0,
+    "source_stable": true,
+    "rows": [
+      {
+        "label": "bible32",
+        "argv": [
+          "python3",
+          "tests/test_region_bible.py"
+        ],
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "seconds": 4.558235956999852
+      },
+      {
+        "label": "creative10",
+        "argv": [
+          "python3",
+          "tests/test_region_creative_direction.py"
+        ],
+        "timeout_seconds": 60,
+        "exit_code": 0,
+        "seconds": 1.2581833010008268
+      }
+    ]
+  },
+  "original_harness": {
+    "report": "build/verification/harness/20261027T202443.478486Z/report.json",
+    "status": "passed",
+    "checks": [
+      {
+        "id": "region-bible-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "input_digest": "7a6c4284130bc7e4b743d39cf7558400f2be0b0c4663d77bff8019bff02c59ef"
+      },
+      {
+        "id": "creative-direction-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "input_digest": "7d2299d70d8377c172b88c8bda773b4210cd42309bf7d0b20b943f32b0a5b0f6"
+      },
+      {
+        "id": "region-bible-contract",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "input_digest": "46b343d67ecf4d7be6200856f907255dcd348dc8cdab575be75556112ee522c9"
+      },
+      {
+        "id": "creative-direction",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "input_digest": "25f3beb5144e2f694f50ca3bb9756cbbae6677f67a8f4516280218264478235b"
+      }
+    ]
+  },
+  "input_contracts": {
+    "creative": "exact original default full-source digest; no inputs key",
+    "region_count": 187,
+    "old_region_prefix": 139,
+    "old_metadata_budgets_and_assertions_preserved": true
+  },
+  "required_fresh_root_followup": [
+    "original item-v5-pause-escape tooltip/first-cancel/input isolation and clean teardown",
+    "original pool/formal stable-context cache/Boss/shop RNG and distinct run ownership receipts",
+    "final affected original Harness and real continuous GL operation on K1"
+  ],
+  "source_writes": "Stopped; root notified to commit K1.",
+  "godot_started_by_this_agent": false
+}

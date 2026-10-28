@@ -48,7 +48,7 @@ func run() -> void:
 		if child is UnderworldPlayer:body_count+=1
 	check(body_count==1,"Exactly one actual Underworld player body is installed")
 	check(home.world.terrain.core_layer.get_used_cells().size()>100,"Native real TileMapLayer ground is populated")
-	check(home.world.specification.slots.size()==12,"Four legacy functions and eight future sockets exist")
+	check(home.world.specification.slots.size()==12,"Twelve authored sockets retain their geometry, including the active item codex")
 	var snapshot:=app.meta.snapshot()
 	var ids: Array[StringName]=[]
 	home.requested_interaction.connect(func(id: StringName) -> void:ids.append(id))
@@ -62,8 +62,13 @@ func run() -> void:
 		await frames(3)
 		if bool(entry.active):
 			check(ids.size()==count+1 and ids[-1]==expected,"Router delivers exact original interaction ID")
-			check(home.input_blocked and app.menu.visible_panel==&"home_function","Real function panel owns input")
-			app.menu.close_panel()
+			if expected == &"relics":
+				check(home.input_blocked and paused and is_instance_valid(app._home_codex) and app._home_codex.opened and app.menu.visible_panel!=&"home_function","Independent real codex owns paused Home input")
+				var close := app._home_codex.find_child("CodexClose",true,false) as Button
+				if close != null: close.pressed.emit()
+			else:
+				check(home.input_blocked and app.menu.visible_panel==&"home_function","Real function panel owns input")
+				app.menu.close_panel()
 			await frames(3)
 			check(not home.input_blocked and home.controller.router.axis==0,"Panel closes without replaying movement")
 		else:
@@ -86,7 +91,7 @@ func run() -> void:
 	check(home.camera.get_screen_center_position().x<=641,"Camera returns to western safe square")
 	if "--capture" in OS.get_cmdline_user_args():await capture(home,"returned_west")
 	var f:=FileAccess.open(output+"receipt.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"schema":"underworld-home-actual-consumer-v1","checks":checks,"failures":failures,"slots":records,"roots":rays,"layers":layers,"future_function_grants":false,"navigation_contract":"Five active services including the authored arms workshop, real panels; original home_app_runner additionally covers departure, upgrade and save baseline"},"\t"));f.close()
+	f.store_string(JSON.stringify({"schema":"underworld-home-actual-consumer-v1","checks":checks,"failures":failures,"slots":records,"roots":rays,"layers":layers,"future_function_grants":false,"navigation_contract":"Six active services including the authored arms workshop and independent item codex, real panels; original home_app_runner additionally covers departure, upgrade and save baseline"},"\t"));f.close()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):check(false,"Actual Home audio must release before teardown")
 	app.queue_free()
 	await frames(5)

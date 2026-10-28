@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Positive and deliberate corruptions of the actual runtime production inputs.
 
-No synthetic 'good' manifest: setUpClass first requires the checked-in real
+The nine historical alpha mutations explicitly use frozen actual pre-tier bytes.
+All current consumers still require the checked-in real
 consumer chain to pass. Mutations change one real fragment in memory and must
 fail the intended invariant, rather than benefiting from another missing file.
 """
 from __future__ import annotations
 import copy
+import hashlib
 import json
+import re
 from pathlib import Path
 import sys
 import unittest
@@ -411,6 +414,150 @@ class UnderworldPipelineTest(unittest.TestCase):
     def test_home_departure_must_follow_the_village_road(self):
         self.reject('home',lambda v:v['departure_road'].update(direction='west'),'home.departure_road')
 
+    def legacy_chest_source(self, path):
+        # Immutable actual pre-tier bytes, not a fake block in current runtime.
+        folder = ROOT / 'tests/fixtures/chest_dispatch_before_tiers'
+        manifest = json.loads((folder / 'manifest.json').read_text())
+        self.assertEqual(manifest['source_commit'], 'b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6')
+        expected = {
+            'scripts/demo/plains_region_stage.gd': '90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6',
+            'scripts/underworld_plains/underworld_objects.gd': '7048a69a7b7d944ea532b6379cf202cf545c545e2d1ebebbba9292f5fb87993e',
+        }
+        entries = {entry['source_path']: entry for entry in manifest['sources']}
+        self.assertEqual(set(entries), set(expected))
+        for name, fingerprint in expected.items():
+            data = (ROOT / entries[name]['fixture_path']).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), fingerprint)
+            self.assertEqual(entries[name]['sha256'], fingerprint)
+            self.assertEqual(entries[name]['bytes'], len(data))
+        return (ROOT / entries[path]['fixture_path']).read_text()
+
+    def legacy_chest_result(self, source):
+        # Retest the original finite gate only. This is explicitly historical,
+        # not an audit/pass of the new production path or generated source04.
+        original = self.legacy_chest_source('scripts/demo/plains_region_stage.gd')
+        self.assertTrue(pipeline.legacy_chest_alpha_isolated(original))
+        result = pipeline.Audit(ROOT)
+        result.check(pipeline.legacy_chest_alpha_isolated(source), 'objects.no_grey_claimed', 'Frozen pre-tier historical capture consumer only')
+        return result.result()
+
+    def reject_legacy_alpha(self, path, old, new, expected):
+        source = self.legacy_chest_source(path)
+        self.assertIn(old, source, 'Historical negative must mutate frozen actual pre-tier code')
+        result = self.legacy_chest_result(source.replace(old,new))
+        self.assertFalse(result['passed'])
+        self.assertIn(expected, {item['code'] for item in result['checks'] if not item['passed']})
+
+    def current_chest_sources(self):
+        return ((ROOT / 'scripts/underworld_plains/underworld_objects.gd').read_text(),
+                (ROOT / 'scripts/demo/plains_region_stage.gd').read_text(),
+                (ROOT / pipeline.CHEST_LIBRARY).read_text())
+
+    def test_objects_current_tier_dispatch_is_actual_and_legacy_is_frozen(self):
+        objects, stage, library = self.current_chest_sources()
+        self.assertTrue(pipeline.current_chest_dispatch(objects,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertTrue(pipeline.formal_chest_alpha_isolated(stage))
+        old = self.legacy_chest_source('scripts/demo/plains_region_stage.gd')
+        self.assertTrue(pipeline.legacy_chest_alpha_isolated(old))
+        self.assertFalse(pipeline.formal_chest_alpha_isolated(old))
+        old_objects = self.legacy_chest_source('scripts/underworld_plains/underworld_objects.gd')
+        self.assertNotEqual(old_objects, objects)
+        self.assertIn('OPEN_CHEST if claimed else CLOSED_CHEST', old_objects)
+
+    def test_objects_current_dispatch_rejects_wrong_actual_tier_claim_and_foot(self):
+        objects, stage, library = self.current_chest_sources()
+        for old, new in [('StringName(str(c.tier))','&"medium"'),
+                         ('bool(c.claimed)','false'),
+                         ('c.position+Vector2(0,21)','c.position+Vector2(0,22)'),
+                         ('StringName(str(c.tier))', 'StringName(str(c.id))')]:
+            for index in [0,1]:
+                with self.subTest(old=old,new=new,call=index):
+                    points = [m.start() for m in re.finditer(re.escape(old),stage)]
+                    self.assertEqual(len(points),2)
+                    at = points[index]
+                    changed = stage[:at]+new+stage[at+len(old):]
+                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_dispatch_rejects_duplicates_aliases_and_reflection(self):
+        objects, stage, library = self.current_chest_sources()
+        for extra in ('\nfunc extra_chest() -> void:\n\tUnderworldObjects.place_chest(null,Vector2.ZERO,false,&"medium")\n',
+                      '\nvar alias = UnderworldObjects.place_chest\n',
+                      '\nfunc reflect() -> void:\n\tUnderworldObjects.call("place_chest",null,Vector2.ZERO,false,&"medium")\n'):
+            with self.subTest(extra=extra):
+                self.assertFalse(pipeline.current_chest_dispatch(objects,stage+extra,library,'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(objects+'\n'+pipeline.CHEST_DISPATCH,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_dispatch_cannot_move_or_hide_as_dead_string(self):
+        objects, stage, library = self.current_chest_sources()
+        for block in [pipeline.CHEST_READY,pipeline.CHEST_CAPTURE]:
+            self.assertIn(block,stage)
+            for replacement in ('', '\tvar dead = """\n'+block+'\t"""\n'):
+                with self.subTest(block=block,replacement=replacement):
+                    changed = stage.replace(block,replacement,1)
+                    changed += '\nfunc unrelated() -> void:\n'+block
+                    self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_stage_rejects_literal_fake_function_headers(self):
+        # Independent review's real counterexample: the whole-source call count
+        # was masked, but the old extractor could choose a fake literal header.
+        objects, stage, library = self.current_chest_sources()
+        wrong = stage.replace(pipeline.CHEST_INITIALIZATION,'',1).replace('StringName(str(c.tier))','&"medium"')
+        self.assertFalse(pipeline.current_chest_dispatch(objects,wrong,library,'assets/underworld_plains/objects/opened_chest.png'))
+        for quote in ['"""', "'''"]:
+            with self.subTest(quote=quote):
+                dead = ('var _dead_chest_guard = '+quote+'\nfunc _ready() -> void:\n'+
+                        pipeline.CHEST_INITIALIZATION+pipeline.CHEST_READY+
+                        '\nfunc capture_state() -> Dictionary:\n'+pipeline.CHEST_CAPTURE+quote+'\n')
+                at = wrong.index('func _ready(')
+                changed = wrong[:at]+dead+'\n'+wrong[at:]
+                self.assertEqual(pipeline.chest_function(changed,'_ready'),pipeline.chest_function(wrong,'_ready'))
+                self.assertEqual(pipeline.chest_function(changed,'capture_state'),pipeline.chest_function(wrong,'capture_state'))
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_dispatch_rejects_literal_fake_function_boundary(self):
+        objects, stage, library = self.current_chest_sources()
+        wrong = objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)',
+                                'ChestArtLibrary.place_sprite(sprite,foot,tier,false)')
+        self.assertFalse(pipeline.current_chest_dispatch(wrong,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+        for quote in ['"""', "'''"]:
+            with self.subTest(quote=quote):
+                dead = ('var _dead_dispatch = '+quote+'\n'+pipeline.CHEST_DISPATCH+
+                        '\nfunc _dead_boundary() -> void:\n\tpass\n'+quote+'\n')
+                at = wrong.index('static func place_chest(')
+                changed = wrong[:at]+dead+'\n'+wrong[at:]
+                self.assertEqual(pipeline.chest_function(changed,'place_chest'),pipeline.chest_function(wrong,'place_chest'))
+                self.assertFalse(pipeline.current_chest_dispatch(changed,stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_dispatch_rejects_gray_alpha_and_position_overrides(self):
+        objects, stage, library = self.current_chest_sources()
+        for extra in ['(c.sprite as Sprite2D).modulate.a=0.35', '(c.sprite as Sprite2D).modulate . a *=0.35',
+                      '(c.sprite as Sprite2D).modulate.a += -0.65', '(c.sprite as Sprite2D).modulate=Color.GRAY',
+                      '(c.sprite as Sprite2D).position += Vector2(0,1)', 'c.position=Vector2.ZERO']:
+            with self.subTest(extra=extra):
+                changed = stage.replace(pipeline.CHEST_CAPTURE,pipeline.CHEST_CAPTURE+'\t\t\t'+extra+'\n')
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_dispatch_cannot_manufacture_claimed_state(self):
+        objects, stage, library = self.current_chest_sources()
+        for extra in ['c.claimed=true', 'c["claimed"]=true', 'region_state.claimed[c.id]=true', 'chest.claimed=true']:
+            with self.subTest(extra=extra):
+                changed = stage+'\nfunc fake_claim() -> void:\n\t'+extra+'\n'
+                self.assertFalse(pipeline.current_chest_dispatch(objects,changed,library,'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(objects,stage.replace('chest.claimed = region_state.claimed.has(chest.id)','chest.claimed = false'),library,'assets/underworld_plains/objects/opened_chest.png'))
+
+    def test_objects_current_library_white_atlas_and_readonly_dispatch_are_bound(self):
+        objects, stage, library = self.current_chest_sources()
+        for old,new in [('sprite.modulate = Color.WHITE','sprite.modulate = Color.GRAY'),
+                        ('sprite.position = foot','sprite.position = foot+Vector2(0,1)'),
+                        ('"open" if claimed else "closed"','"closed" if claimed else "open"'),
+                        ('result.atlas = ATLAS','result.atlas = null'),
+                        ('sprite.texture = texture(tier,claimed)','sprite.texture = null')]:
+            with self.subTest(old=old):
+                self.assertIn(old,library)
+                self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library.replace(old,new),'assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(objects,stage,library+'\n# unreviewed loader change\n','assets/underworld_plains/objects/opened_chest.png'))
+        self.assertFalse(pipeline.current_chest_dispatch(objects.replace('ChestArtLibrary.place_sprite(sprite,foot,tier,claimed)','ChestArtLibrary.place_sprite(sprite,foot,tier,false)'),stage,library,'assets/underworld_plains/objects/opened_chest.png'))
+
     def test_objects_raw_generation_hash(self):
         self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['generation'].update(source_sha256='0'*64),'objects.original.sha256')
 
@@ -424,64 +571,64 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject_text('scripts/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
 
     def test_objects_legacy_alpha_cannot_move_into_formal_branch(self):
-        self.reject_text('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
                          '\t\t\telse:\n\t\t\t\tUnderworldObjects.place_chest',
                          '\t\t\telse:\n\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n\t\t\t\tUnderworldObjects.place_chest',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_guard_cannot_invert(self):
-        self.reject_text('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
                          '\t\t\tif generated.has("regional_art_plan"):',
                          '\t\t\tif not generated.has("regional_art_plan"):',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_guard_cannot_disappear(self):
-        self.reject_text('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
                          '\t\t\tif generated.has("regional_art_plan"):\n',
                          '', 'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_cannot_leave_capture_consumer(self):
         path = 'scripts/demo/plains_region_stage.gd'
-        source = (ROOT / path).read_text()
+        source = self.legacy_chest_source(path)
         start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
         end = source.index('\tfor p: Dictionary in pickups:', start)
         block = source[start:end]
         moved = source[:start] + source[end:] + '\nfunc wrong_chest_consumer() -> void:\n' + block
-        result = audit(text_overrides={path: moved})
+        result = self.legacy_chest_result(moved)
         self.assertFalse(result['passed'])
         self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
 
     def test_objects_duplicate_legacy_alpha_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_text('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
                          call, call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate . a = 0.8 if c.claimed else 1.0',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_alpha_value_cannot_change(self):
-        self.reject_text('scripts/demo/plains_region_stage.gd',
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd',
                          '.modulate.a=0.35 if c.claimed',
                          '.modulate.a=0.9 if c.claimed',
                          'objects.no_grey_claimed')
 
     def test_objects_formal_alpha_multiply_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd', call,
                          call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a *= 0.35 if c.claimed else 1.0',
                          'objects.no_grey_claimed')
 
     def test_objects_formal_alpha_addition_is_rejected(self):
         call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
-        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+        self.reject_legacy_alpha('scripts/demo/plains_region_stage.gd', call,
                          call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a += -0.65 if c.claimed else 0.0',
                          'objects.no_grey_claimed')
 
     def test_objects_legacy_block_cannot_duplicate(self):
         path = 'scripts/demo/plains_region_stage.gd'
-        source = (ROOT / path).read_text()
+        source = self.legacy_chest_source(path)
         start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
         end = source.index('\tfor p: Dictionary in pickups:', start)
         duplicated = source + '\nfunc duplicate_chest_consumer() -> void:\n' + source[start:end]
-        result = audit(text_overrides={path: duplicated})
+        result = self.legacy_chest_result(duplicated)
         self.assertFalse(result['passed'])
         self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
 
