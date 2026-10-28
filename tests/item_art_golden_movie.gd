@@ -102,7 +102,13 @@ func _judgment_segment() -> void:
 	set_phase("judgment_charge","真实普攻 10 次积攒 70 共鸣 · 施放花费 65")
 	for index: int in 10:
 		caption.text = "裁决供能：真实普攻 %s / 10 · 每次命中 +7 共鸣" % (index+1)
-		if not await shoot_target(1 if index % 2 == 0 else 0): return
+		# The first five shots left the actor west of the platform midpoint.
+		# Fire toward that nearer side first so real recoil carries the actor
+		# toward the center. Alternating fixed indices from the other side can
+		# cross the left target, making both targets rightward thereafter.
+		var center_x := (targets[0].global_position.x+targets[1].global_position.x)*0.5
+		if not check(app.player.global_position.x>targets[0].global_position.x and app.player.global_position.x<targets[1].global_position.x,"real charge pose stays between the original targets without motion resets"): return
+		if not await shoot_target(0 if app.player.global_position.x<center_x else 1): return
 	check(is_equal_approx(app.controller.combat_energy.current,70),"ten actual primary HP receipts naturally supply seventy resonance")
 	var shot_count_before := shots
 	var first_damage := damage_rows.size()

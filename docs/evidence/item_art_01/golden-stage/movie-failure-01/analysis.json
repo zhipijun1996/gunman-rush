@@ -1,0 +1,8 @@
+{
+  "status": "FAILED not accepted recording",
+  "source": "a22a70b119944e61ce5f8280c3e5b3e1c5cc81e9",
+  "native": "2638 traced frames /163 assertions /1 failure, exit1",
+  "cause": "The earlier five shots end actorX -1934.7, left targetX -2005. Starting subsequent sequence toward right moves actor past left target; then both targets are rightward and repeated recoil leaves platform. Atframe2638 resonance42, not70.",
+  "fix": "Presentation test input only: choose nearer side using real actor position relative to original target midpoint, asserting actor remains between targets. No player pose/velocity/HP/energy/physics writes.",
+  "original": "Full rawAVI and trace retained build/item_art_01/golden-movie-01, not represented as passed."
+}
