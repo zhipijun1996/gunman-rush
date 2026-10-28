@@ -283,6 +283,31 @@ class BibleTests(unittest.TestCase):
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),68)
         current_refs = refs
+        r12_root = 'docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/'
+        r12_path = r12_root+'style-continuity-20261028-v16-item-authoring.json'
+        r12_raw = (ROOT/r12_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r12_raw).hexdigest(),'079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403')
+        r12 = json.loads(r12_raw)
+        self.assertEqual(r12['version'],'16')
+        self.assertEqual(len(r12['runtime_reference']['references']),68)
+        pre_audio_refs = r12['runtime_reference']['references']
+        for before,after in zip(pre_audio_refs,current_refs):
+            if before['path']=='scripts/dev/player_presentation_01/weapon_feel.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                old_leaf = (ROOT/(r12_root+'weapon_feel.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
+                new_leaf = (ROOT/after['path']).read_text()
+                sound_call = 'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained,controller.shoot_ability.weapon.id)'
+                self.assertEqual(new_leaf.count(sound_call),1)
+                self.assertEqual(new_leaf.replace(sound_call,'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)'),old_leaf.decode())
+            else:
+                self.assertEqual(before,after)
+        stale_r12 = copy.deepcopy(self.ref)
+        stale_r12['supplemental_authority_path'] = r12_path
+        stale_r12['supplemental_authority_sha256'] = hashlib.sha256(r12_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r12,root=self.root)
         # Frozen Markdown keeps exact bytes as .md.txt: its original relative
         # links cannot be resolved from a different archive directory. Live .md
         # files are explicit navigation wrappers, not rewritten originals.
@@ -323,7 +348,7 @@ class BibleTests(unittest.TestCase):
         r11 = json.loads(r11_raw)
         self.assertEqual(r11['version'],'16')
         self.assertEqual(len(r11['runtime_reference']['references']),68)
-        for before,after in zip(r11['runtime_reference']['references'],current_refs):
+        for before,after in zip(r11['runtime_reference']['references'],pre_audio_refs):
             if before['path']=='scripts/items/v5/item_defense_effects.gd':
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])
@@ -407,7 +432,7 @@ class BibleTests(unittest.TestCase):
                        'scripts/items/v5/item_defense_effects.gd',
                        'scripts/items/v5/item_art_library.gd',
                        'config/item_v5_art.json','config/item_v5_authoring.json'}
-        for before,after in zip(r08['runtime_reference']['references'],current_refs[:61]):
+        for before,after in zip(r08['runtime_reference']['references'],pre_audio_refs[:61]):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_r09:
                 self.assertNotEqual(before['sha256'],after['sha256'])
@@ -426,7 +451,7 @@ class BibleTests(unittest.TestCase):
         pre_art = json.loads(pre_art_raw)
         self.assertEqual(pre_art['version'],'16')
         self.assertEqual(len(pre_art['runtime_reference']['references']),54)
-        for before,after in zip(pre_art['runtime_reference']['references'],current_refs[:54]):
+        for before,after in zip(pre_art['runtime_reference']['references'],pre_audio_refs[:54]):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
             if before['path'] in changed_current54:
                 self.assertNotEqual(before['sha256'],after['sha256'])
@@ -456,7 +481,7 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(old_v15_raw).hexdigest())
         for key in old_v15.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
             self.assertEqual(style['content'][key],old_v15[key])
-        for before,after in zip(old_v15['runtime_reference']['references'],current_refs):
+        for before,after in zip(old_v15['runtime_reference']['references'],pre_audio_refs):
             if before['path'] in changed_current54:
                 self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
                 self.assertNotEqual(before['sha256'],after['sha256'])

@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import struct
+import zlib
 from quality import ROOT, read_json, validate_record, validate_asset
 from check_web_bundle import runtime_contract, resource_path, CONNECTED, CONNECTED_ROOT, LANDSCAPE
 
@@ -81,6 +83,139 @@ def style_asset_consumers(root):
     return found
 
 
+# Exact reviewed loader; registry contents may grow without admitting siblings.
+ITEM_ART_LOADER = 'scripts/items/v5/item_art_library.gd'
+ITEM_ART_LOADER_SHA256 = '14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d'
+ITEM_ART_ROOT = 'assets/items/v5/'
+
+
+def item_art_png_size(data):
+    """Validate the PNG container/CRCs without an optional imaging dependency."""
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError('Invalid item-art PNG signature')
+    offset, dimensions, has_data, ended = 8, None, False, False
+    while offset < len(data):
+        if len(data) - offset < 12:
+            raise ValueError('Truncated item-art PNG chunk')
+        length = struct.unpack_from('>I', data, offset)[0]
+        kind = data[offset+4:offset+8]
+        finish = offset + 12 + length
+        if finish > len(data) or zlib.crc32(data[offset+4:finish-4]) & 0xffffffff != struct.unpack_from('>I', data, finish-4)[0]:
+            raise ValueError('Invalid item-art PNG chunk/CRC')
+        payload = data[offset+8:finish-4]
+        if dimensions is None:
+            if kind != b'IHDR' or length != 13:
+                raise ValueError('Missing item-art PNG IHDR')
+            width, height, depth, color, compression, filtering, interlace = struct.unpack('>IIBBBBB', payload)
+            legal = {0: (1, 2, 4, 8, 16), 2: (8, 16), 3: (1, 2, 4, 8), 4: (8, 16), 6: (8, 16)}
+            if not 0 < width <= 0x7fffffff or not 0 < height <= 0x7fffffff or depth not in legal.get(color, ()) or compression or filtering or interlace not in (0, 1):
+                raise ValueError('Invalid item-art PNG IHDR')
+            dimensions = (width, height)
+        elif kind == b'IHDR':
+            raise ValueError('Duplicate item-art PNG IHDR')
+        if kind == b'IDAT':
+            has_data = has_data or length > 0
+        if kind == b'IEND':
+            if length or finish != len(data) or not has_data:
+                raise ValueError('Invalid item-art PNG end')
+            ended = True
+            break
+        offset = finish
+    if not ended:
+        raise ValueError('Incomplete item-art PNG')
+    return dimensions
+
+
+def item_art_consumers(root):
+    """Enumerate registered PNGs only, checked against their source-family manifest."""
+    root = Path(root).resolve()
+    loader = root / ITEM_ART_LOADER
+    if not loader.is_file():
+        return set()
+    if hashlib.sha256(loader.read_bytes()).hexdigest() != ITEM_ART_LOADER_SHA256:
+        raise ValueError('Item-art loader changed; review finite adapter')
+
+    def local(name):
+        path = (root / resource_path(name)).resolve()
+        if not path.is_relative_to(root) or not path.is_file():
+            raise ValueError('Item-art resource missing or escapes project: ' + name)
+        return path
+
+    def source_name(value):
+        if not isinstance(value, str) or not value.startswith('res://' + ITEM_ART_ROOT) or not value.endswith('.png') or '%' in value:
+            raise ValueError('Invalid item-art PNG reference')
+        return resource_path(value)
+
+    config_name = 'config/item_v5_art.json'
+    manifest_name = ITEM_ART_ROOT + 'manifest.json'
+    config = json.loads(local(config_name).read_text())
+    manifest = json.loads(local(manifest_name).read_text())
+    if not isinstance(config, dict) or type(config.get('schema_version')) not in (int, float) or config['schema_version'] != 1:
+        raise ValueError('Invalid item-art registry schema')
+    if any(not isinstance(config.get(key), dict) for key in ('icons', 'clips', 'entities', 'cues')):
+        raise ValueError('Invalid item-art registry dictionaries')
+    if not isinstance(manifest, dict) or manifest.get('schema_version') != 1 or not isinstance(manifest.get('assets'), list):
+        raise ValueError('Invalid item-art source-family manifest')
+    family = {}
+    for entry in manifest['assets']:
+        if not isinstance(entry, dict):
+            raise ValueError('Invalid item-art source-family entry')
+        name = source_name('res://' + entry.get('path', '') if isinstance(entry.get('path'), str) else None)
+        if name in family or not re.fullmatch('[0-9a-f]{64}', str(entry.get('sha256'))):
+            raise ValueError('Duplicate/invalid item-art source-family identity')
+        family[name] = entry['sha256']
+    # Provenance manifest is checker input, never loaded by the Godot consumer.
+    known, sizes = set(), {}
+    for group in ('icons', 'clips'):
+        for key, row in config[group].items():
+            if not isinstance(key, str) or not key or not isinstance(row, dict):
+                raise ValueError('Invalid item-art recipe')
+            if group == 'clips':
+                def pair(value, maximum, zero=False):
+                    return isinstance(value, list) and len(value) == 2 and all(type(n) in (int, float) and (0 <= n if zero else 0 < n) and n <= maximum for n in value)
+                fps = row.get('fps')
+                if type(fps) not in (int, float) or not 0 < fps <= 120 or type(row.get('loop')) is not bool or not pair(row.get('world_size'), 640) or not pair(row.get('pivot'), 1, True):
+                    raise ValueError('Invalid item-art clip timing/geometry')
+                if row.get('timing', 'clip') not in ('clip', 'event') or row.get('orientation', 'fixed') not in ('fixed', 'aim', 'travel') or row.get('geometry', 'fixed') not in ('fixed', 'radius', 'segment'):
+                    raise ValueError('Invalid item-art clip pose')
+                if row.get('geometry', 'fixed') == 'radius' or 'reference_radius' in row:
+                    radius = row.get('reference_radius')
+                    if row.get('geometry', 'fixed') not in ('radius', 'segment') or type(radius) not in (int, float) or not 0 < radius <= 640:
+                        raise ValueError('Invalid item-art reference radius')
+            name = source_name(row.get('texture'))
+            if name not in family:
+                raise ValueError('Item-art texture missing from source-family manifest: ' + name)
+            if name not in sizes:
+                path = local(name)
+                if hashlib.sha256(path.read_bytes()).hexdigest() != family[name]:
+                    raise ValueError('Item-art PNG differs from source-family SHA: ' + name)
+                sizes[name] = item_art_png_size(path.read_bytes())
+                known.add(name)
+            regions = [row.get('region')] if group == 'icons' else row.get('regions')
+            if not isinstance(regions, list) or not 1 <= len(regions) <= 128:
+                raise ValueError('Invalid item-art regions')
+            for region in regions:
+                if not isinstance(region, list) or len(region) != 4 or any(type(n) not in (int, float) or not float(n).is_integer() for n in region):
+                    raise ValueError('Invalid item-art region')
+                x, y, width, height = region
+                if x < 0 or y < 0 or width <= 0 or height <= 0 or x + width > sizes[name][0] or y + height > sizes[name][1]:
+                    raise ValueError('Item-art region exceeds source PNG')
+    def entity_entry(entry):
+        return (isinstance(entry, str) and entry in config['clips']) or (isinstance(entry, dict) and set(entry) == {'variants'} and isinstance(entry['variants'], dict) and set(entry['variants']) == {'0', '1', '2'} and all(isinstance(v, str) and v in config['clips'] for v in entry['variants'].values()))
+    for mapping in config['entities'].values():
+        if not (entity_entry(mapping) or isinstance(mapping, dict) and all(entity_entry(v) for v in mapping.values())):
+            raise ValueError('Unknown item-art entity clip')
+    for mapping in config['cues'].values():
+        if not isinstance(mapping, dict) or any(not isinstance(v, str) or (not v.isidentifier() if k == 'source' else v not in config['clips']) for k, v in mapping.items()):
+            raise ValueError('Unknown item-art cue clip')
+    if sum(w*h*4 for w, h in sizes.values()) > 64*1024*1024:
+        raise ValueError('Item-art PNGs exceed original 64MiB RGBA budget')
+    # Every claimed source must be registered, not a sibling admitted by directory.
+    if set(family) != set(sizes):
+        raise ValueError('Item-art source-family manifest differs from registered PNGs')
+    return known
+
+
 def known_asset_consumers(root):
     """Conservative finite adapters/literal references, not GDScript reachability.
 
@@ -90,7 +225,7 @@ def known_asset_consumers(root):
     """
     root = Path(root)
     manifests, textures, _absent_adapters = runtime_contract(root)
-    known = set(manifests) | set(textures) | style_asset_consumers(root)
+    known = set(manifests) | set(textures) | style_asset_consumers(root) | item_art_consumers(root)
     legacy = {
         ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/manifest.json'): 'assets/plains_v3/',
         ('scripts/art/plains_actor_assets.gd', 'res://assets/plains_v3/%s/%s'): 'assets/plains_v3/',
@@ -133,6 +268,8 @@ def known_asset_consumers(root):
                     value = token[1:-1]
                     if not value.startswith('res://assets/'):
                         continue
+                    if relative == ITEM_ART_LOADER and value == 'res://' + ITEM_ART_ROOT:
+                        continue # Exact SHA-bound loader; finite registry validated above.
                     if relative in STYLE_CONSUMER_SHA256 and value in {
                         'res://' + STYLE_ROOT,
                         'res://' + STYLE_ROOT + '%s/terrain.png',

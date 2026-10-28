@@ -16,10 +16,10 @@
     "version": "2.0",
     "status": "user_selected_direction_only",
     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
+    "supplemental_authority_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "79fe26430b3c03ddf3a08bee636ac4fd9e2f36805fbaeb62d5c3180898ab487e",
+    "registry_sha256": "ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -180,7 +180,7 @@
     },
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-      "sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403"
+      "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da"
     }
   ],
   "historical_direction": {
@@ -190,13 +190,13 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "scope": "Same whole-game style/candidate68refs: one existing Defense leaf retains pre-spend dedicated cue proof; historical Markdown originals relocated verbatim, no new asset/config/shader/geometry/HP/cost/skill mechanics.",
+    "scope": "Same whole-game style/candidate68refs after latest selected main audio merge: existing WeaponFeel sound call gets actual weapon ID; allother67 refs/drawing/assets/config unchanged, current-source audio/formal validation separate.",
     "previous_direction": "docs/creative_direction/archive/creative-v18/thorn_forest.json",
     "previous_sha256": "d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20",
     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
+    "shared_style_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
     "affected_consumers": [
-      "scripts/items/v5/item_defense_effects.gd"
+      "scripts/dev/player_presentation_01/weapon_feel.gd"
     ],
     "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
     "candidate_iteration_r08": {
@@ -233,6 +233,13 @@
       "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/manifest.json",
       "archive_manifest_sha256": "adce04089c966532b7ebbe06d9313515747ff9ff113aa12594d6a2187cf2dd95",
       "scope": "Same creative19 candidate dedicated visual proof lifetime correction; R11 draft preserved without claimed pure pass, final fresh scoped validation required."
+    },
+    "candidate_iteration_r13": {
+      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/thorn_forest.json",
+      "previous_candidate_sha256": "dd475ed3828e1b94067603b83f85e9e29379042c0240eef36ed445cae4e7d58c",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/manifest.json",
+      "archive_manifest_sha256": "972d41f5236b3bae303b94dad309203dd842c2ba878a7c4c6db329c67e2f3854",
+      "scope": "Same creative19 candidate currentmainaudio consumer integration; exact R12 source/pass preserved, new current-source checks required without art/listening/device approval inheritance."
     }
   }
 }

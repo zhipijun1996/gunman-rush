@@ -95,3 +95,15 @@ R11预稿在独审发现P27／N02 spend回调卸装后重装的专属heal／barr
 最终修订仅在现有Defense绘制叶子传入原始pre-spend visual proof，Runtime的heal／barrier技术桥接受该既有proof。明确提供的stale／empty proof保持失效，不在回调后重取新身份；普通地图／伤害授予路径继续本地取证。HP、屏障数量、接受成本、on_skill、几何、素材、配置与shader不改。原1077守门继续保留，最新完整ART1185／0、失败反例与独审报告各按实际来源说明，不能由本绑定代签画面／玩家／设备。
 
 当前style16 SHA `079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403`，68项role／path／顺序不变，相对R11只更新Defense一项SHA，其他67项精确相同；View仍为09ddea、art配置仍为708017。Runtime仍属技术来源闭包，不添加虚构绘制叶子。原32／10全部方法与历史负例保留：R10单配置比较、R11两叶比较分别在其精确冻结阶段继续验证，再追加最终R11→R12单Defense／67不变和旧同版本绑定拒绝。仅追加5份实际读到的R11原件输入，有限清单从234到239；原224前缀、art14、原命令／预算／成功模式及creative全源digest不变。最终原42／四Harness待root文档／证据冻结后统一执行，输出build再归档，不继承任何未执行的R11通过。
+
+## R13：合入最新main的用户选定声音消费者
+
+原R12源在原32／10与四个Harness fresh通过后提交为 `0a45623b`，随后发现main已更新为 `11e35968323bbc3d3e95a0b0c0c4fc9378e702cd`。本分支以 `4de01808f28e9471016e15155f0c36b8fbae75ab` 合入最新main，保留用户选定的声音资源／配置／调用与导出、两侧文档原文；旧R12检查不签该新源。其style16／registry／两区creative19与旧WeaponFeel原件逐字冻结于[pre-main-audio-r13](../evidence/item_art_01/source-bindings/pre-main-audio-r13/manifest.json)。
+
+实际68引用仅现有 `scripts/dev/player_presentation_01/weapon_feel.gd` 的SHA变化：原 `_sound` 的 `audio.weapon_cue` 调用增加实际 `controller.shoot_ability.weapon.id`，使main新声音选择按真实武器路由。除这一参数外，完整原源与_draw／beam表现字节保持相同；其他67引用、专属cue修复、配置708017、PNG、shader与整体像素规范不变。EnemyActor的main声音调用属于正式音频／玩法技术消费者，不额外发明美术叶子，也不生成替代用户音效。
+
+当前style16 SHA `62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da`。原R12及所有先前历史守门在精确pre-audio引用上保留，新增当前仅一个WeaponFeel叶变化／67项不变、原源只差实际weapon-ID调用参数和旧同版本绑定拒绝。原239输入前缀完整保留，仅追加5份实际读取的R12原件为244；art14定义、原预算／命令／成功模式、creative全源digest与Harness全局源码守门不变。
+
+merge重启sparse可用性后，使用原cloud_inputs对最终选定30scope按精确HEAD恢复所需输入，完整结果保存在build。该步骤只证明输入可用，不是测试通过。原32＋10／四Harness须在物化与producer源码最终冻结后重新fresh执行，仅向build输出，再由root归档。声音听感、正式完整流程、用户／真机与full CI各按实际来源验证，本技术绑定不代签。
+
+R13首次实际执行中Bible32／0，但方向10在读取冻结creative-v17平原原件时因sparse缺件失败，四项Harness尚未启动；原失败日志保留为validation01。官方30scope的ready只覆盖已声明输入，不能证明这条遗漏的历史直接读取链可用。核实后保留244项前缀，仅追加方向测试真实读取的v2两区、v3森林和v17三份历史JSON，共6项为250；旧HUD／foreground历史链继续原preflight显式规则，不缩creative全源digest，不删负例或放预算。再用原cloud_inputs按精确HEAD恢复缺件后，按同一原42／四Harness重跑。这里是输入可用性声明补齐，不把失败改签通过或新增玩法兼容任务。

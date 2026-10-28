@@ -24,7 +24,7 @@ SCOPE = (
     "Continuous actual title/Home/original departure/formal Plains/cache/native "
     "inventory. Eight distinct golden icons use an original cache or disclosed "
     "known RewardService fixtures. Explicit cache-position and high-HP training "
-    "platform/target/camera setup; no playerHP/wallet/resonance injection. "
+    "platform/target/camera setup; no playerHP/resonance injection. Final expansion only explicitly initializes quoted coins via original RunWallet ledger, not natural earnings. "
     "Actual P24/G15/P14 loadout, five primary hit receipts naturally fund35 "
     "resonance, nativeR opposite authored flywheels and three patrols. Actual "
     "native swap to G16/P14, ten more primary hits fund70, nativeR costs65 and "
@@ -39,6 +39,7 @@ PHASES = {
     "backpack", "fixture_loadout", "equipped", "training", "primary_charge",
     "companions", "flywheels", "result", "golden_swap", "judgment_equipped",
     "judgment_charge", "judgment_cast", "golden_result",
+    "equipment_retraction", "hp_equipped", "hp_removing", "hp_removed", "gear_upgrade_fixture", "gear_expanded",
 }
 
 
@@ -133,6 +134,21 @@ def validate_trace(data, frames, checks):
         raise RuntimeError("First actual golden final state differs from the original35-cost flow")
     if not final or any(r["resonance"] != 5 or set(r["equipped"]) != {"G16", "P14"} or r["gear"]["used"] != 7 for r in final):
         raise RuntimeError("Second actual golden loadout/resources do not remain consistent")
+    delivery = data["equipment_delivery"]
+    funding = [e for e in events if e["kind"] == "explicit_upgrade_coin_fixture"]
+    if len(funding) != 1 or funding[0]["amount"] != delivery["price"] or funding[0]["after"]-funding[0]["before"] != delivery["price"]:
+        raise RuntimeError("Final upgrade coin setup is missing, undisclosed or inconsistent")
+    if not (delivery["equipped_hp_max"] > delivery["base_hp_max"] == delivery["removed_hp_max"] and delivery["capacity_after"] == delivery["capacity_before"]+2 and delivery["coins_before_purchase"]-delivery["coins_after_purchase"] == delivery["price"]):
+        raise RuntimeError("Native HP equip/unload or exact capacity purchase did not commit")
+    hp_equipped_rows = [r for r in observed if r["phase"] == "hp_equipped"]
+    hp_removed_rows = [r for r in observed if r["phase"] == "hp_removed"]
+    if not hp_equipped_rows or any(set(r["equipped"]) != {"B11"} or r["hp_max"] != delivery["equipped_hp_max"] or r["hp"] != delivery["hp_current"] for r in hp_equipped_rows):
+        raise RuntimeError("Actually drawn HP-equipped trace lacks real B11 maximum or grants free health")
+    if not hp_removed_rows or any(r["equipped"] or r["hp_max"] != delivery["base_hp_max"] or r["hp"] != delivery["hp_current"] for r in hp_removed_rows):
+        raise RuntimeError("Actually drawn HP-unloaded trace retains item effects or grants free health")
+    upgrade_rows = [r for r in observed if r["phase"] == "gear_expanded"]
+    if not upgrade_rows or any(r["equipped"] or r["gear"]["capacity"] != delivery["capacity_after"] or "非自然收益" not in r["fixture_note"] for r in upgrade_rows):
+        raise RuntimeError("Final upgrade displays stale effects, wrong capacity or undisclosed coin setup")
     if not data["final_artist"]["library"]["valid"] or data["final_artist"]["library"]["last_error"]:
         raise RuntimeError("Golden resource registry has a missing-art diagnosis")
     # Select an already drawn, visibly present rotor frame, not the old early
@@ -230,7 +246,7 @@ def main():
                    for p in data["checkpoints"] if p["id"] in {
                        "title", "home_walk", "departure", "cache_choice", "backpack",
                        "fixture_loadout", "equipped", "training", "result",
-                       "judgment_equipped", "judgment_cast", "golden_result"}]
+                       "judgment_equipped", "judgment_cast", "golden_result", "hp_equipped", "hp_removed", "gear_expanded"}]
         samples.extend((name, point, 0) for name, point in art_samples.items())
         images = []
         for name, point, offset in samples:

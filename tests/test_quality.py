@@ -7,6 +7,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import struct
+import zlib
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from quality import initialize, validate_record, validate_asset, read_json, policy
@@ -648,6 +650,137 @@ class QualityTests(unittest.TestCase):
             path.unlink()
             path.symlink_to(external)
             with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def write_item_png(self, path, width, height):
+        # Genuine synthetic RGBA PNG, generated using only the standard library.
+        def chunk(kind, payload):
+            return struct.pack('>I', len(payload)) + kind + payload + struct.pack('>I', zlib.crc32(kind + payload) & 0xffffffff)
+        compressor = zlib.compressobj()
+        row = b'\0' + bytes(width*4)
+        payload = b''.join(compressor.compress(row) for _ in range(height)) + compressor.flush()
+        path.write_bytes(b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 6, 0, 0, 0)) + chunk(b'IDAT', payload) + chunk(b'IEND', b''))
+
+    def item_art_fixture(self):
+        # Frozen actual loader plus tiny genuine PNGs; isolated from runtime files.
+        from check_quality_diff import ITEM_ART_LOADER
+        repository = Path(__file__).resolve().parents[1]
+        path = self.root / ITEM_ART_LOADER
+        path.parent.mkdir(parents=True)
+        path.write_bytes((repository / ITEM_ART_LOADER).read_bytes())
+        name = 'assets/items/v5/icons/synthetic.source.png'
+        png = self.root / name
+        png.parent.mkdir(parents=True)
+        self.write_item_png(png, 4, 4)
+        config = {'schema_version': 1, 'icons': {'synthetic': {'texture': 'res://' + name, 'region': [0, 0, 4, 4]}}, 'clips': {}, 'entities': {}, 'cues': {}}
+        (self.root / 'config').mkdir()
+        (self.root / 'config/item_v5_art.json').write_text(json.dumps(config))
+        manifest = {'schema_version': 1, 'assets': [{'path': name, 'sha256': hashlib.sha256(png.read_bytes()).hexdigest()}]}
+        (self.root / 'assets/items/v5/manifest.json').write_text(json.dumps(manifest))
+        return config, manifest, name
+
+    def test_diff_item_art_finite_source_family_excludes_siblings(self):
+        from check_quality_diff import known_asset_consumers
+        config, manifest, name = self.item_art_fixture()
+        (self.root / 'assets/items/v5/unknown.png').write_bytes(b'not registered')
+        self.assertEqual(known_asset_consumers(self.root), {name})
+        # New data-only source is admitted only with a matching exact identity.
+        added = name.replace('synthetic', 'added')
+        (self.root / added).write_bytes((self.root / name).read_bytes())
+        manifest['assets'].append({'path': added, 'sha256': manifest['assets'][0]['sha256']})
+        config['clips']['added'] = {'texture': 'res://' + added, 'regions': [[0, 0, 4, 4]], 'fps': 24, 'loop': False, 'world_size': [4, 4], 'pivot': [0.5, 0.5]}
+        (self.root / 'config/item_v5_art.json').write_text(json.dumps(config))
+        (self.root / 'assets/items/v5/manifest.json').write_text(json.dumps(manifest))
+        self.assertEqual(known_asset_consumers(self.root), {name, added})
+
+    def test_diff_item_art_registry_and_manifest_corruption_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        config, manifest, name = self.item_art_fixture()
+        registry = self.root / 'config/item_v5_art.json'
+        source_family = self.root / 'assets/items/v5/manifest.json'
+        for broken in (None, {}, {**config, 'icons': []}, {**config, 'schema_version': True}):
+            with self.subTest(config=broken):
+                registry.write_text(json.dumps(broken))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        registry.write_text(json.dumps(config))
+        for broken in ({}, {**manifest, 'assets': []}, {**manifest, 'assets': manifest['assets']*2}, {**manifest, 'assets': [{'path': name, 'sha256': '0'*64}]}):
+            with self.subTest(manifest=broken):
+                source_family.write_text(json.dumps(broken))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        source_family.write_text(json.dumps(manifest))
+        for texture in ('res://assets/items/v5/../secret.png', 'res://assets/items/v5/%s.png', 'res://assets/elsewhere.png', 'res://assets/items/v5/missing.png'):
+            with self.subTest(texture=texture):
+                config['icons']['synthetic']['texture'] = texture
+                registry.write_text(json.dumps(config))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def test_diff_item_art_clip_mapping_and_budget_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        config, manifest, name = self.item_art_fixture()
+        registry = self.root / 'config/item_v5_art.json'
+        clip = {'texture': 'res://' + name, 'regions': [[0, 0, 4, 4]], 'fps': 24, 'loop': False, 'world_size': [4, 4], 'pivot': [0.5, 0.5]}
+        for broken in ({**clip, 'fps': 0}, {**clip, 'loop': 1}, {**clip, 'regions': []}, {**clip, 'pivot': [2, 0]}, {**clip, 'geometry': 'radius'}):
+            with self.subTest(clip=broken):
+                config['clips'] = {'bad': broken}
+                registry.write_text(json.dumps(config))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        config['clips'] = {'valid': clip}
+        for group in ('entities', 'cues'):
+            config[group] = {'bad': {'default': 'missing'}}
+            registry.write_text(json.dumps(config))
+            with self.assertRaises(ValueError): known_asset_consumers(self.root)
+            config[group] = {}
+        config['clips'] = {}
+        registry.write_text(json.dumps(config))
+        # Tiny compressed PNG, genuine >64MiB decoded RGBA upper bound.
+        self.write_item_png(self.root / name, 4097, 4097)
+        manifest['assets'][0]['sha256'] = hashlib.sha256((self.root / name).read_bytes()).hexdigest()
+        (self.root / 'assets/items/v5/manifest.json').write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, '64MiB'): known_asset_consumers(self.root)
+
+    def test_diff_item_art_changed_loader_unknown_dynamic_and_escape_rejected(self):
+        from check_quality_diff import known_asset_consumers, ITEM_ART_LOADER
+        config, manifest, name = self.item_art_fixture()
+        loader = self.root / ITEM_ART_LOADER
+        original = loader.read_bytes()
+        loader.write_bytes(original + b'\n# Changed loader requires review\n')
+        with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        loader.write_bytes(original)
+        unknown = self.root / 'scripts/unknown.gd'
+        unknown.write_text('const ROOT = "res://assets/items/v5/"')
+        with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        unknown.unlink()
+        with tempfile.TemporaryDirectory() as elsewhere:
+            outside = Path(elsewhere) / 'source.png'
+            outside.write_bytes((self.root / name).read_bytes())
+            (self.root / name).unlink()
+            (self.root / name).symlink_to(outside)
+            with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def test_diff_item_art_png_container_corruption_with_matching_identity_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        _config, manifest, name = self.item_art_fixture()
+        path = self.root / name
+        original = path.read_bytes()
+        for broken in (b'not PNG', original[:-1], original + b'trailing', original[:20] + bytes([original[20] ^ 1]) + original[21:]):
+            with self.subTest(size=len(broken)):
+                path.write_bytes(broken)
+                manifest['assets'][0]['sha256'] = hashlib.sha256(broken).hexdigest()
+                (self.root / 'assets/items/v5/manifest.json').write_text(json.dumps(manifest))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def test_diff_item_art_region_and_png_corruption_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        config, manifest, name = self.item_art_fixture()
+        registry = self.root / 'config/item_v5_art.json'
+        for region in ([0, 0, 5, 4], [0, 0, 0, 4], [True, 0, 4, 4], [0.5, 0, 4, 4], None):
+            with self.subTest(region=region):
+                config['icons']['synthetic']['region'] = region
+                registry.write_text(json.dumps(config))
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        config['icons']['synthetic']['region'] = [0, 0, 4, 4]
+        registry.write_text(json.dumps(config))
+        (self.root / name).write_bytes(b'corrupted PNG')
+        with self.assertRaises(ValueError): known_asset_consumers(self.root)
 
 
 

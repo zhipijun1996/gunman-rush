@@ -1,7 +1,8 @@
 extends "res://tests/item_v5_movie.gd"
 ## A continuous formal golden using the original real-input V5 movie route.
 ## Extra known-item rewards, the cache relocation and training targets are
-## disclosed setup fixtures. Player HP, coins and resonance are never injected.
+## disclosed setup fixtures. HP/resonance are never injected; only the final
+## upgrade demonstration explicitly initializes quoted coins through RunWallet.
 const GOLDEN_IDS: Array[StringName] = [&"B01",&"B03",&"B11",&"P24",&"P14",&"G14",&"G16",&"N01"]
 const EXTRA_GOLDENS: Array[StringName] = [&"B01",&"B03",&"B11",&"G14",&"G16",&"N01"]
 var _goldens_added := false
@@ -10,6 +11,7 @@ var _art_observer_connected := false
 var art_cues: Array[Dictionary] = []
 var golden_icons: Array[Dictionary] = []
 var judgment: Dictionary = {}
+var equipment_delivery: Dictionary = {}
 
 func frames(count: int) -> void:
 	for unused: int in count:
@@ -149,9 +151,52 @@ func _judgment_segment() -> void:
 	set_phase("golden_result","样板完成 · 三类专用美术与真实资源、命中回执一致")
 	await frames(60)
 
+func _equipment_delivery_segment() -> void:
+	set_phase("equipment_retraction","原生背包 · 卸下战斗道具，检查属性撤销与扩容")
+	await tap(KEY_ESCAPE)
+	if not check(paused and app.menu.visible_panel == &"build","final native inventory opens for reversible HP and capacity demonstration"): return
+	if not await _native_unload(&"G16"): return
+	if not await _native_unload(&"P14"): return
+	var health: HealthState = app.controller.actor_resources.health
+	var base_max := health.capacity
+	var current_before := health.current
+	if not await equip_owned(&"B11"): return
+	var hp_gain: float = ItemCatalogV5.get_item(&"B11").parameters_for_level(1).get("max_hp_add",0.0)
+	check(is_equal_approx(health.capacity,base_max+hp_gain) and health.current == current_before,"native B11 equips its actual configured HP maximum without healing")
+	var equipped_max := health.capacity
+	set_phase("hp_equipped","木心匣已装备 · 生命上限 %s → %s；当前生命不补充" % [base_max,health.capacity])
+	await frames(30)
+	set_phase("hp_removing","原生点击卸下木心匣 · 撤销生命上限效果")
+	if not await _native_unload(&"B11"): return
+	check(is_equal_approx(health.capacity,base_max) and health.current == current_before,"native B11 unload fully retracts its maximum HP without a free heal")
+	set_phase("hp_removed","卸下木心匣 · 生命上限恢复 %s；效果完整撤销" % base_max)
+	await frames(30)
+	var quote: Dictionary = app.shop.gear_quote()
+	var coin_before: int = app.wallet.balance
+	var capacity_before: int = app.build.equipment.snapshot().capacity
+	var price: int = int(quote.price)
+	fixture_note = "测试初始化：已知道具/训练靶；扩容金币+%s，非自然收益" % price
+	if not check(app.wallet.grant(price,&"item_art_movie/upgrade_coin_fixture"),"explicit quoted-coin setup uses original idempotent RunWallet grant ledger"): return
+	events.append({"kind":"explicit_upgrade_coin_fixture","amount":price,"before":coin_before,"after":app.wallet.balance,"event_id":"item_art_movie/upgrade_coin_fixture","video_frame":frame,"method":"explicit setup only, original RunWallet ledger; not natural earnings"})
+	app._refresh_equipment_view()
+	set_phase("gear_upgrade_fixture","扩容测试初始化 +%s 金币（非自然收益）· 正式按钮报价 %s" % [price,price])
+	await frames(30)
+	var coins_for_purchase: int = app.wallet.balance
+	if not await click(button(app.menu._root,"PurchaseGearUpgrade")): return
+	check(int(app.build.equipment.snapshot().capacity)==int(quote.next_capacity) and app.wallet.balance==coins_for_purchase-price,"actual native capacity button commits configured upgrade and exact wallet debit")
+	check(app.build.item_ids().is_empty() and is_equal_approx(health.capacity,base_max) and health.current==current_before,"capacity upgrade does not autoequip, heal or revive unloaded item effects")
+	equipment_delivery = {"base_hp_max":base_max,"equipped_hp_max":equipped_max,"removed_hp_max":health.capacity,"hp_current":health.current,"capacity_before":capacity_before,"capacity_after":app.build.equipment.snapshot().capacity,"price":price,"coin_fixture":price,"coins_before_fixture":coin_before,"coins_before_purchase":coins_for_purchase,"coins_after_purchase":app.wallet.balance}
+	set_phase("gear_expanded","已扩容 %s → %s · 扣除 %s 金币；未装备道具仍不生效" % [capacity_before,app.build.equipment.snapshot().capacity,price])
+	await frames(45)
+	var shots_before_close := shots
+	await tap(KEY_ESCAPE)
+	await frames(10)
+	check(not paused and shots == shots_before_close,"closing upgraded inventory resumes without an accidental primary shot")
+
 func finish() -> void:
 	if not _judgment_done and failures.is_empty() and phase == "result" and is_instance_valid(app):
 		await _judgment_segment()
+		if failures.is_empty(): await _equipment_delivery_segment()
 	for code: Variant in held.keys(): key(code,false)
 	paused = false
 	var final_artist := artist_snapshot()
@@ -167,7 +212,7 @@ func finish() -> void:
 		app = null
 	ItemArtLibrary.clear_cache()
 	for unused: int in 8: await process_frame
-	var data := {"schema":"item-art-golden-native-movie-v1","scope":"Continuous actual title/Home/departure/formal cache/inventory. Eight golden icons use original reward ownership (natural N01 cache or explicitly known RewardService fixtures). Disclosed cache relocation and high-HP training targets/platform/camera. Native P24+G15+P14 equipment, five primary hits naturally35resonance, realR opposite flywheels and patrol art; native G16/P14 swap, ten further primary hits naturally70resonance, realR configured65cost and three actual0.9D pulses. ActorHP/wallet/resonance never injected. Not natural fullroute, full72art, listening, physicaldevice or humanacceptance; no matched before movie.","seed":SEED,"checks":assertions,"failures":failures,"checkpoints":checkpoints,"input_events":events,"primary_receipts":primary_rows,"damage_receipts":damage_rows,"frames":rows,"golden_icons":golden_icons,"art_cues":art_cues,"judgment":judgment,"final_artist":final_artist}
+	var data := {"schema":"item-art-golden-native-movie-v1","scope":"Continuous actual title/Home/departure/formal cache/inventory. Eight golden icons use original reward ownership (natural N01 cache or explicitly known RewardService fixtures). Disclosed cache relocation and high-HP training targets/platform/camera. Native P24+G15+P14 equipment, five primary hits naturally35resonance, realR opposite flywheels and patrol art; native G16/P14 swap, ten further primary hits naturally70resonance, realR configured65cost and three actual0.9D pulses. ActorHP/resonance never injected. Final native B11 maximumHP equip/unload and capacity purchase; explicitly disclosed quoted coins initialized via original RunWallet ledger only for expansion, not natural earnings. Not natural fullroute, full72art, listening, physicaldevice or humanacceptance; no matched before movie.","seed":SEED,"checks":assertions,"failures":failures,"checkpoints":checkpoints,"input_events":events,"primary_receipts":primary_rows,"damage_receipts":damage_rows,"frames":rows,"golden_icons":golden_icons,"art_cues":art_cues,"judgment":judgment,"equipment_delivery":equipment_delivery,"final_artist":final_artist}
 	var file := FileAccess.open(destination,FileAccess.WRITE)
 	if file != null:
 		file.store_string(JSON.stringify(data,"  "))

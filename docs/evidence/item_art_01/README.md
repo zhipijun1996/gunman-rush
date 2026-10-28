@@ -10,7 +10,7 @@
 - [最新原生专项](native-stages/full-art-native-06-spend-context/receipt.json)：1185／0。保留原1077并补P27／N02扣能回调与空凭据的108项检查；真实重复旧通用特效的40／6失败与40／0修复分开保存。
 - [独立采样GL](independent-shader-probe/review.json)：11／0，旋转／高比例边界和原shader／nearest反例；[完整节点边界](native-stages/body-pose-native-07-envelope/)83／0。G05、P20、针雷按所有非零alpha及原brief校核；G19每级完整节点与原回退实测，光学中心差0.167wu。
 - [独审更正](independent-integration-review/ui-body-review-02-correction-and-envelope.json)：原“下排间歇消失”判断被原PNG与字节相同重播反证，未为错误假设改生产代码。旧报告与真正边界修正均保留。
-- [技术绑定历史](source-bindings/)保留每轮原件与影响分析；当前style16／creative19为68真实引用。哈希和原生断言不代替审美认可。
+- [技术绑定历史](source-bindings/)保留每轮原件与影响分析；当前style16／creative19 R13为68真实引用，最新原32＋10及四项Harness fresh通过；同步main11e359音频的实际WeaponFeel单叶另行绑定，其他67项不变。哈希和原生断言不代替审美认可。
 
 最新冻结源的正式连续影片及受影响Harness尚待最终采集。旧[49秒黄金流程](movie-golden-7afe71a3/)和[森林](world-forest-development-01/)／[平原](world-plains-native04-derived/)影片只证明各自旧源，不能签本次世界shader。影片中的已知奖励、训练靶、位置／能量初始化均明确水印；实际敌人补片与训练靶主片分开标注。
 

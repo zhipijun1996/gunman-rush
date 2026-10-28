@@ -246,6 +246,31 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
             self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
 
+        r12 = {
+            'registry':'79fe26430b3c03ddf3a08bee636ac4fd9e2f36805fbaeb62d5c3180898ab487e',
+            'windchime_plains':'bfeb1faf2ada8b93481b24968bc5fd6c9ded39a2145dfde4eff7439ca0b4fbc3',
+            'thorn_forest':'dd475ed3828e1b94067603b83f85e9e29379042c0240eef36ed445cae4e7d58c',
+        }
+        for name,digest in r12.items():
+            path = 'docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v19')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v19')
+            for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]

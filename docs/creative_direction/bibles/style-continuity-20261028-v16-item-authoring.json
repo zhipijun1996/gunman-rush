@@ -290,7 +290,7 @@
       {
         "role": "item_weapon_feel",
         "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
-        "sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4"
+        "sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
       },
       {
         "role": "item_weapon_vfx",
@@ -384,7 +384,7 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "trigger": "Same selected whole-game style and68-reference candidate: dedicated heal/barrier visual proof now spans original spend callback, retaining pre-callback identity instead of reacquiring after unequip/re-equip; document archive originals relocated verbatim with explicit wrappers. No asset/metadata/shader/HP/cost/skill mechanics change.",
+    "trigger": "Latest main11e359 user-selected audio integration preserved through merge4de01808: existing WeaponFeel sound call passes actual weapon ID to current audio selection. Existing drawing and every other67 style reference remain exact R12 bytes.",
     "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
     "changed_references": [
       {
@@ -406,6 +406,11 @@
         "path": "scripts/ui/item_presentation.gd",
         "old_sha256": "fdcb60b2ed253967191b239f5aace06e270b0fe4443363a2c43e3d8b42eae424",
         "new_sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+      },
+      {
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "old_sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4",
+        "new_sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
       }
     ],
     "added_references": [
@@ -556,6 +561,10 @@
       {
         "path": "assets/items/v5/vfx/static-procs.source.png",
         "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "consumer": "Existing classic weapon feedback _sound passes actual controller.shoot_ability.weapon.id to merged current audio.weapon_cue; actual _draw/beam/physics/resource logic unchanged."
       }
     ],
     "preserved_contracts": [
@@ -576,7 +585,10 @@
       "P26/P27 original before40checks6failures and after40/0/fullART1077/0 retain exact source and scope. Generic duplication/callback-origin/legacy-ghost visual failures are preserved, not relabeled as a new global style or asset production.",
       "R12 changes only the existing Defense drawing-consumer hash relative unpublished R11; other67 current reference rows including View09ddea, cfg708017, PNG/shader/geometry and all recipes remain byte-identical.",
       "Dedicated P27 heal and N02 barrier receive the original pre-spend visual proof through existing Runtime/Defense paths; empty/stale supplied proof remains stale instead of reacquiring fresh context. Gameplay HP/barrier amount, accepted cost and on_skill mechanisms unchanged.",
-      "Four historical Markdown originals are preserved verbatim as .md.txt, with explicit .md navigation wrappers; three original manifests are preserved verbatim as .json.txt while live manifests add only relocation fields. Original hashes and negative guards preserved, no broad dependency copying."
+      "Four historical Markdown originals are preserved verbatim as .md.txt, with explicit .md navigation wrappers; three original manifests are preserved verbatim as .json.txt while live manifests add only relocation fields. Original hashes and negative guards preserved, no broad dependency copying.",
+      "R13 changes only existing item_weapon_feel source hash among68; other67 including dedicated cue source fixes, metadata708017, all PNG/shaders and whole-game pixel family remain exact R12 bytes.",
+      "Latest main selected audio sources/registry/call sites are kept, not replaced or regenerated. Existing WeaponFeel _draw and all source bytes except one actual weapon-ID sound-call argument remain original; main EnemyActor audio call is technical gameplay/audio closure, not invented style leaf.",
+      "R12 original32+10/four fresh pass and all earlier source/failure evidence retain pre-main source identity; current main audio/exports/docs and actual listening/device claims are separately validated."
     ],
     "impact": "Current candidate registers72 icon keys and42 VFX clips through ten actual original PNGs. Appearance remains within the selected whole-game family and gameplay observes accepted sources. Coverage counts and technical source identity do not prove every clip looks correct, whole-game art consistency, full functional/performance validation, or user/device/G5 acceptance.",
     "required_revalidation": [
@@ -596,7 +608,10 @@
       "R11 original32/10/four unchanged pure checks after root final docs/evidence freeze; retain frozen R10 exact68, original one-config-change R10 proof against R09 as historical comparison, then current only-two-leaf change with66same and old-binding refusal.",
       "Actual P26/P27 complete cast committed-art/legacy dedup/source callback controls, original full ART and formal current-source media/UI/lifecycle checks remain independent and separately scoped; code hashes do not sign new art/user/device approval.",
       "Final R12 original32/10/four pure Harness with unchanged budgets after root docs freeze; retain every original and staged rejection, R10 one-config proof and R11 two-leaf proof on frozen stages, add current R11-to-R12 one-Defense proof and exact historical Markdown/manifest-copy guards.",
-      "Current complete ART1185/0 spend callbacks and formal media/visual/source lifecycle acceptance remain separate actual evidence; source identity is not art/user/device/G5 approval."
+      "Current complete ART1185/0 spend callbacks and formal media/visual/source lifecycle acceptance remain separate actual evidence; source identity is not art/user/device/G5 approval.",
+      "Official exact-HEAD materialization of final selected30-check closure before final source guard; availability ready is not test PASS.",
+      "R13 original32/10/four unchanged pure Harness on fully frozen merged source; keep R12 all previous guards on exact pre-audio references and add only-one-weapon-leaf/current67same, bounded sound-argument-only source proof and same-version refusal.",
+      "Affected actual native/audio/formal consumers and selected user sound routes under root validation; pure source hashes do not sign listening quality, devices or complete CI."
     ],
     "independent_review": "Required separately before production/acceptance; this author binding does not inherit prior ACCEPT, human or device approval.",
     "previous_originals": {
@@ -990,6 +1005,26 @@
       "technical_runtime_bridge": "Runtime heal accepts original visual proof supplied by defense activation; supplied stale/empty identity cannot be replaced by post-spend callback context. Runtime remains technical closure, not an added drawing leaf.",
       "markdown_relocation_receipt": "docs/evidence/item_art_01/source-bindings/markdown-archive-relocation.json",
       "scope": "R11 draft original preserved but no R11 pure-check pass claimed. Independent actual spend callback failures and latest complete1185/0 keep source scope. No new global style, art production, asset/config/shader/HP/cost/skill mechanic change."
+    },
+    "candidate_iteration_r13": {
+      "kind": "Same unpublished style16/creative19 actual main audio consumer integration; no new global style or asset production",
+      "previous_candidate_path": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/style-continuity-20261028-v16-item-authoring.json",
+      "previous_candidate_sha256": "079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/manifest.json",
+      "archive_manifest_sha256": "972d41f5236b3bae303b94dad309203dd842c2ba878a7c4c6db329c67e2f3854",
+      "source_checkpoint": "0a45623b293241e0c4f055ca526d0aaa36d90dd4",
+      "latest_main": "11e35968323bbc3d3e95a0b0c0c4fc9378e702cd",
+      "merge_commit": "4de01808f28e9471016e15155f0c36b8fbae75ab",
+      "changed_references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "old_sha256": "135789e9beb6be4d247d126a77e81fa2884c323f0dd53f354cc98c9c584902e4",
+          "new_sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
+        }
+      ],
+      "reference_count": 68,
+      "unchanged_reference_rows": 67,
+      "scope": "Main selected audio changes preserved. Only actual weapon-ID sound-call argument changes in this style leaf; drawing/gameplay/geometry unchanged. Earlier pure/native/media passes are not re-signed to merged source."
     }
   }
 }
