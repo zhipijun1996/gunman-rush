@@ -1,6 +1,6 @@
 # 当前创作入口：区域圣经 V2
 
-当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54／61项顺序，更新实际消费者，追加四张catalog图标源、两张静态VFX源及item-local1wu图集shader，共68项；原36项前缀、canonical全局shader、Bible和已选整体像素风格不变。已交付style15／creative18、pre-art16／19、R08候选及旧证据原件保留。72图标／42clip目前是实际注册候选，画面、连续动作、玩家与实体设备验收分别记录。下文旧轮版本说明保留原来源。
+当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54／61项顺序，更新实际消费者，追加四张catalog图标源、两张静态VFX源及item-local1wu图集shader，共68项；原36项前缀、canonical全局shader、Bible和已选整体像素风格不变。已交付style15／creative18、pre-art16／19、R08候选及旧证据原件保留。72图标／42clip目前是实际注册候选；最新R10只修订3项实体ROI／尺寸／pivot的一份配置，另67引用与PNG／代码／shader不变。画面、连续动作、玩家与实体设备验收分别记录。下文旧轮版本说明保留原来源。
 
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 

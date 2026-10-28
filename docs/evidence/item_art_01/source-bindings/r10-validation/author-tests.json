@@ -1,0 +1,50 @@
+{
+  "scope": "Author R10 original42/four original Harness exact final metadata-only one-of68 binding; no native/visual/user/device acceptance",
+  "source_commit": "f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb",
+  "worktree_modified": true,
+  "style_sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
+  "art_config_sha256": "708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b",
+  "tests": [
+    {
+      "label": "bible32",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 9.470161689001543
+    },
+    {
+      "label": "creative10",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 2.043546057997446
+    },
+    {
+      "label": "harness",
+      "argv": [
+        "python3",
+        "tools/harness.py",
+        "--check",
+        "region-bible-tests",
+        "--check",
+        "creative-direction-tests",
+        "--check",
+        "region-bible-contract",
+        "--check",
+        "creative-direction",
+        "--jobs",
+        "1",
+        "--release"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "seconds": 23.151899755997874
+    }
+  ]
+}

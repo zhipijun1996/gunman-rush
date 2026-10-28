@@ -59,3 +59,15 @@ R08作者技术复验已实际完成：原Bible32／0（6.316秒）、方向10�
 R09当前style16 SHA `bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a`。原32／10全部方法、旧14／15／pre-art16／R08-16及17／18／各19绑定的身份／拒绝、stage gate、漂移前后及恢复反例保留；追加R08完整61项冻结身份、实际6处变化、当前68项精确角色路径和新增7叶子反例。原202个有限输入作为原序前缀保留，仅追加实际新源及测试读取的R08快照11项为213；item-v5-art已有14个输入不变。原命令、预算、成功模式及creative全源digest不改。UI native源租约结束并冻结后才运行本轮原42／四check；尚未运行的结果不记通过。
 
 R09作者实际纯检查已经完成：原Bible32／0，9.452秒，保留原30秒预算；方向10／0，1.797秒，保留原60秒预算；四个原Harness check全部fresh通过，未启动引擎。[准确源回执](../evidence/item_art_01/source-bindings/r09-validation/summary.json)保存完整68项引用、6个实际R08差异、原202项前缀与11项追加、原始日志与Harness报告。原件66份逐个哈希匹配、原36项与canonical全局shader保持原字节，item-v5-art的14个输入未改。这是作者技术验证；新增素材、真实原生、全部UI／世界／连续动作、独审、远端CI与玩家／设备证据继续按各自真实来源报告。
+
+## R10：三项原始实体边界的纯元数据修订
+
+本节在R09的68项实际源上，只更新 `config/item_v5_art.json` 一项引用；其余67项role／path／SHA完全不变。已提交checkpoint `f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb` 中style16、registry、两区creative19和art配置五份原件逐字冻结于[pre-envelope-r10](../evidence/item_art_01/source-bindings/pre-envelope-r10/manifest.json)，R09原检查与画面各保真实来源。没有新图像、shader、runtime、物理、资源或全局style修改，也没有新增引用。
+
+本轮只调整g05.large_guard、p20.crystal、p25.needle_trap三项的regions／world_size／pivot，72图标及另39项clip精确不变。按原图真实轮廓裁定边界，排除的只有黑色alpha1填充，原始alpha≥2像素全部保留；该像素保留性质来自单独独立数据证明，不是本绑定的审美判断，也不修改PNG原字节。显示矩形约G05 38.82×32、P20 17.89×26.11、针阱13.30×13世界单位。针阱金属脚本地[118,212]对应显示原点下方2单位；它是只读绘制锚点，不移动实际摆放／接触／伤害位置。
+
+最终art配置SHA为 `708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b`，当前style16 SHA `aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867`。此前关于“缺行”的判断已被原03字节完全相同的重放与像素计数反证；本轮不借该判断宣称修复不存在的生产问题。ART924及whole-body／pose83保留各自原生与实际GL来源；本绑定仅记录三个真实metadata envelope修订。新旧画面、正式全局流程、音画、玩家与设备认可仍分开报告。
+
+原32／10全部方法、历史阶段身份／拒绝、原54／61／68前缀与原负例保留；追加精确R09-68原件、旧同版本绑定拒绝、当前仅一项SHA可变／67项不变，以及元数据仅这3项及3个字段组可变的断言。原有限213输入作为原序前缀保留，仅追加测试实际读取的五份R09冻结文件为218；item-v5-art14输入、全部原命令／预算／成功模式与creative全源digest不改。本轮纯检查在确认最终配置SHA与原生租约结束后运行，实际结果另附。
+
+R10作者实际复验完成：原32／0，9.336秒；原10／0，1.951秒；四个原Harness check全部fresh通过，原30／60秒预算、命令、断言和成功模式保持。完整68项当前SHA匹配，只有art配置变化、另67项逐字相同；原213输入前缀保留为218，item-v5-art完整定义及14输入与f9 checkpoint相同。[本轮完整身份与原始回执](../evidence/item_art_01/source-bindings/r10-validation/summary.json)记录基线f9与修改中的工作树，未启动引擎。原生／实际GL83及正式画面、独立数据证明、独审和玩家／设备验收各自按真实来源报告。

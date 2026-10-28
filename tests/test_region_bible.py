@@ -283,6 +283,37 @@ class BibleTests(unittest.TestCase):
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),68)
         current_refs = refs
+        r09_path = 'docs/evidence/item_art_01/source-bindings/pre-envelope-r10/style-continuity-20261028-v16-item-authoring.json'
+        r09_raw = (ROOT/r09_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r09_raw).hexdigest(),'bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a')
+        r09 = json.loads(r09_raw)
+        self.assertEqual(r09['version'],'16')
+        self.assertEqual(len(r09['runtime_reference']['references']),68)
+        for before,after in zip(r09['runtime_reference']['references'],current_refs):
+            if before['path']=='config/item_v5_art.json':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        old_art_raw = (ROOT/'docs/evidence/item_art_01/source-bindings/pre-envelope-r10/item_v5_art.json').read_bytes()
+        self.assertEqual(hashlib.sha256(old_art_raw).hexdigest(),'3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a')
+        old_art = json.loads(old_art_raw)
+        current_art = json.loads((ROOT/'config/item_v5_art.json').read_bytes())
+        self.assertEqual({k:v for k,v in old_art.items() if k!='clips'},
+                         {k:v for k,v in current_art.items() if k!='clips'})
+        self.assertEqual(set(old_art['clips']),set(current_art['clips']))
+        refined = {'g05.large_guard','p25.needle_trap','p20.crystal'}
+        self.assertEqual({key for key in old_art['clips'] if old_art['clips'][key]!=current_art['clips'][key]},refined)
+        for key in refined:
+            self.assertEqual({k:v for k,v in old_art['clips'][key].items() if k not in {'regions','world_size','pivot'}},
+                             {k:v for k,v in current_art['clips'][key].items() if k not in {'regions','world_size','pivot'}})
+        stale_r09 = copy.deepcopy(self.ref)
+        stale_r09['supplemental_authority_path'] = r09_path
+        stale_r09['supplemental_authority_sha256'] = hashlib.sha256(r09_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r09,root=self.root)
         changed_golden = {'scripts/ui/item_presentation.gd',
                           'scripts/items/v5/item_effect_view.gd',
                           'scripts/items/v5/item_v5_entity.gd'}

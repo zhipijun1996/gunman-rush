@@ -16,10 +16,10 @@
     "version": "2.0",
     "status": "user_selected_direction_only",
     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
+    "supplemental_authority_sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "654ddbc7343fcfd956ee1f7f49bffd5635c8a6362b9ebefe338cc08f80522212",
+    "registry_sha256": "5756b99012a0ca430b3d0ee7705ffcf6a9080ea4c6b6432fc4f76e2648ec3e2a",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -180,7 +180,7 @@
     },
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-      "sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a"
+      "sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867"
     }
   ],
   "historical_direction": {
@@ -190,25 +190,13 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "scope": "Technical style16 same whole-game family: candidate72icons/42clips, actual existing glyphs and item-local1wu atlas shader; no final visual/device/player approval.",
+    "scope": "Same whole-game style: candidate72icons42clips with bounded three-body metadata envelope correction only. Code/shader/PNG/otherrecipes unchanged; visual/device/player approvals separate.",
     "previous_direction": "docs/creative_direction/archive/creative-v18/thorn_forest.json",
     "previous_sha256": "d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20",
     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
+    "shared_style_sha256": "aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
     "affected_consumers": [
-      "scripts/items/v5/item_effect_view.gd",
-      "scripts/items/v5/item_v5_entity.gd",
-      "scripts/items/v5/item_defense_effects.gd",
-      "scripts/items/v5/item_art_library.gd",
-      "config/item_v5_art.json",
-      "config/item_v5_authoring.json",
-      "assets/items/v5/icons/catalog-01.source.png",
-      "assets/items/v5/icons/catalog-02.source.png",
-      "assets/items/v5/icons/catalog-03.source.png",
-      "assets/items/v5/icons/catalog-04.source.png",
-      "assets/items/v5/vfx/static-entities.source.png",
-      "assets/items/v5/vfx/static-procs.source.png",
-      "shaders/item_v5_world_sprite.gdshader"
+      "config/item_v5_art.json"
     ],
     "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
     "candidate_iteration_r08": {
@@ -224,6 +212,13 @@
       "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json",
       "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
       "scope": "Same unpublished creative19 candidate within selected whole-game style; oldR08 bytes remain original, actual appended sources/current consumer changes require fresh scoped evidence and independent review."
+    },
+    "candidate_iteration_r10": {
+      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/thorn_forest.json",
+      "previous_candidate_sha256": "8ee67a31efc0ddeceb63544dbb745d0a29950c9da8b45c39a3285d215b92a907",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/manifest.json",
+      "archive_manifest_sha256": "775938bd3657b879427367be9b3fb8ea72fbd2b546754ecbc3bdf4fe0662a4c3",
+      "scope": "Same creative19 candidate metadata-only3bodyenvelope: originalR09 source and passes frozen; fresh scoped technical/pose/body/actual-scene review, no inherited approval."
     }
   }
 }
