@@ -325,6 +325,11 @@ func _gallery() -> void:
 	for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(960,540)]:
 		root.size = dimensions
 		root.content_scale_size = dimensions
+		# Explicit static gallery framing after resize: the paused follow rig
+		# cannot recompute its view, and no gameplay camera/zoom policy changes.
+		app._run_camera.global_position = gallery_foot+Vector2(0,-80)
+		app._run_camera.force_update_scroll()
+		events.append({"kind":"explicit_gallery_static_camera_translation","viewport":[dimensions.x,dimensions.y],"camera_position":[app._run_camera.global_position.x,app._run_camera.global_position.y],"unchanged_zoom":[app._run_camera.zoom.x,app._run_camera.zoom.y],"video_frame":frame,"method":"gallery-only paused static comparison camera translation after viewport resize; no actor/terrain/UI/zoom modification"})
 		await observed_phase("gallery_%sx%s" % [dimensions.x,dimensions.y],"六态美术对照 · %s · 原世界尺寸，不代表自然生成" % gallery_region,8)
 		var image: Image = root.get_texture().get_image()
 		var path: String = ProjectSettings.globalize_path(gallery_destination).path_join("six-poses-%sx%s.png" % [dimensions.x,dimensions.y])
