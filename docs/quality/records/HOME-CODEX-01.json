@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "HOME-CODEX-01",
   "task_type": "mechanic",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "0f25921dd41949f220999293013f065ce758189d",
-  "reviewed_commit": "0f25921dd41949f220999293013f065ce758189d",
+  "reviewed_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
   "content_version": "candidate-v1",
   "owner": "/root",
   "purpose": "Persistent per-profile item codex, note-funded permanent unlock and one Lv1 inventory carry at departure",
@@ -35,101 +35,427 @@
     "Formal COMMITTED acquisition discovery, once-per-run inventory-only carry",
     "Targeted save/economy/UI/native tests and actual Godot evidence"
   ],
-  "creative_decisions": [],
-  "formal_impact": false,
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Reuse JSON/Resource local Definition database, no extra SQLite dependency",
+      "basis": "Existing project factory and authoring metadata support hundreds of definitions without changing equipment core"
+    },
+    {
+      "status": "proposed",
+      "decision": "Default discovered-first unlock and trial5/12/25notes prices; both remain data configurable",
+      "basis": "Optional user policy question is pending; follow recommended default without treating silence as user confirmation"
+    }
+  ],
+  "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Implemented scoped contract and separation of data/progression/inventory/equipment",
+      "evidence": [
+        "scope"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual scoped prototype/runtime and strict technical/pack evidence are present",
+      "evidence": [
+        "harness",
+        "pack",
+        "shop"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Actual UI frames and video observed; broad animation/audio quality acceptance is not claimed",
+      "evidence": [
+        "movie-gui",
+        "movie"
+      ]
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Bounded formal integration observed; real hardware performance acceptance remains unverified",
+      "evidence": [
+        "movie-gui",
+        "movie"
+      ]
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Independent frames/trace review passed within scope; prior whole-quality gates remain incomplete",
+      "evidence": [
+        "independent"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Player/device/balance acceptance outstanding; no false completed release claim",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Concrete data/progression/ownership contract implemented; experimental defaults configurable",
+      "evidence": [
+        "scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "16 currentN related checks and actual packed isolation pass; strict prior failures retained",
+      "evidence": [
+        "harness",
+        "pack"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual authored Home and formal App acquisition/departure hooks observed in bounded representative flows",
+      "evidence": [
+        "movie-gui",
+        "shop",
+        "home-route"
+      ]
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual1280 main-game frames keep theme, gear shapes, independent icons and unknown privacy; not user taste/device approval",
+      "evidence": [
+        "unknown-frame",
+        "equipped-frame"
+      ]
     },
     "animation": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "not_applicable",
+      "reason": "No new animation asset or timing mechanic; existing game/modal motion only",
+      "evidence": [
+        "movie"
+      ]
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "not_applicable",
+      "reason": "No new audio/VFX asset; existing cues and original stereo captured, hearing quality unverified",
+      "evidence": [
+        "movie"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Balance, run fun and experimental5/12/25notes prices await player feedback",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Software-GL/MovieMaker is not a real hardware performance benchmark",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Limited independent actual frames/trace/source review accepts observed main-game route",
+      "evidence": [
+        "independent"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Physical Android and gamepad not exercised; native pointer, layout and focus checks are scoped",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "No user acceptance of this Home candidate or complete release quality has been supplied",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
+  "criteria": [
+    {
+      "id": "contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Shared catalog, profile and run ownership",
+      "method": "Actual scoped evidence and original strict verifier",
+      "expected": "Prices and policy data remain separate from effects and equipment",
+      "failure": "Duplicated live item database or auto-equipped carry",
+      "status": "passed",
+      "reason": "Observed within explicit evidence scope",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "atomic-profile",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Save/unlock/select/replay/quote/profile failures",
+      "method": "Actual scoped evidence and original strict verifier",
+      "expected": "Zero partial debit or cross-profile progress; exact packed data loads",
+      "failure": "Any save failure, stale callback or invalid payload changes committed state",
+      "status": "passed",
+      "reason": "Observed within explicit evidence scope",
+      "evidence": [
+        "harness",
+        "pack"
+      ]
+    },
+    {
+      "id": "formal-route",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Main-game reward/Home/departure/shop hooks",
+      "method": "Actual scoped evidence and original strict verifier",
+      "expected": "One new inactiveLv1 item per run and observed committed discovery",
+      "failure": "Repeated grant, missing ownership, auto effect or false discovery",
+      "status": "passed",
+      "reason": "Observed within explicit evidence scope",
+      "evidence": [
+        "movie-gui",
+        "shop"
+      ]
+    },
+    {
+      "id": "visible-state",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Actual codex and backpack frames",
+      "method": "Actual scoped evidence and original strict verifier",
+      "expected": "Unknown identity hidden, current icon and gear-shaped load visible",
+      "failure": "Leaked unknown details or unreadable/unattributed state",
+      "status": "passed",
+      "reason": "Observed within explicit evidence scope",
+      "evidence": [
+        "unknown-frame",
+        "equipped-frame"
+      ]
+    },
+    {
+      "id": "independent-route",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Independent frames/trace/MP4-source comparison",
+      "method": "Actual scoped evidence and original strict verifier",
+      "expected": "Actual pixels and accepted transactions agree within fixture scope",
+      "failure": "Self-review or source/visual disagreement",
+      "status": "passed",
+      "reason": "Observed within explicit evidence scope",
+      "evidence": [
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/home_codex_01/scope.md",
+      "sha256": "20b4b5dee48aadae2cb3d40d5cad9073de5ad9278a4e0b465562015edaaa9b34",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "User requirements, current catalog/save/run contracts and configured defaults",
+      "observed": "Shared Definition database, per-profile progression, once-per-run inactive Lv1 carry"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/harness/report.json",
+      "sha256": "56c09db55787e5bd6d7f927964cd808419b114e593d56bc133e37ac7354958fb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Existing selected Harness checks, fresh jobs1/release",
+      "observed": "16 targeted checks passed, 0 reused/failed; core5686, Home92/72/91, original gear and economy consumers; not full165",
+      "command": "python3 tools/harness.py --check docs --check quality --check harness-tests --check core --check underworld-home --check underworld-home-guard-tests --check gear-inventory --check gear-ui --check home-codex --check creative-direction --check creative-direction-tests --check region-bible-contract --check region-bible-tests --check item-v5-formal --check item-v5-economy --check item-v5-pause-escape --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux / pinned Godot4.7.2 Standard, headless and native existing runners; no physical device acceptance"
+    },
+    {
+      "id": "pack",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/pack/receipt.json",
+      "sha256": "65c77836a4ff2aab64bc8fed41ba0338bc56510cd9539d5285128aa1094e2559",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Export actual Web Playtest PCK, load from isolated cwd with external exact probe",
+      "observed": "79 checks; exact Home policySHA, all72 definitions/icons and backend quote/unlock/select load; no checkout fallback",
+      "command": "bash /workspace/gunman-rush/tools/godot.sh --headless --main-pack /workspace/gunman-rush/build/home_codex_01/export-source-8b83e22b.pck --script /workspace/scratch/home-codex-packed-8b83e22b/probe.gd -- --home-policy-sha=e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc",
+      "exit_code": 0,
+      "environment": "Linux native Godot4.7.2, real191MiB PCK; not browser deployment"
+    },
+    {
+      "id": "movie-gui",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/movie/receipt.json",
+      "sha256": "cb72e73a26da70ff805d31f56fee6ad7e4fbfa9845529b0be2c4559dffaad335",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Continuous actual DemoApp/MovieMaker/native key-pointer route and strict source/audio/phase verifier",
+      "observed": "27.133333s, 59 checks, stable clean N; knownB11/50notes/twoHomepositions disclosed, UI unlock/select/departure/equip/unequip real",
+      "consumers": [
+        "formal-reward-discovery",
+        "home-item-codex",
+        "formal-departure-carry"
+      ]
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/movie/movie.mp4",
+      "sha256": "6c83c6154d72c5e8ddf0d29756f364b757baa9175e81726397413f4ff32ffd83",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Uncut normal60fps actual Godot recording with original48k stereo",
+      "observed": "Real main game and authored Home; HPmax5->6->5/current5, gear0->2->0 and new inactiveLv1 carry; explicit fixtures",
+      "consumers": [
+        "formal-reward-discovery",
+        "home-item-codex",
+        "formal-departure-carry"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/consumer-inventory.json",
+      "sha256": "18edafd07d42307a55de6e0c6231dec6c9903bcc838f4ec4a082d107313ceeb2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Bounded inventory curated from actual MovieMaker/Shop observer receipts and production paths",
+      "observed": "All four observed Home/shared App ownership families attributed to actual outputs; no natural full-region/device claim"
+    },
+    {
+      "id": "shop",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/shop/receipt.json",
+      "sha256": "700b2f6bb203aab78f742853b1c956d30c4de48880bdcfed80551df895d50954",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Real formal App/ShopService observer, explicit B03offer and7coin fixture",
+      "observed": "11 clean checks: insufficient/replay/out-of-stock do not discover; committed ownership discovers once; actual reload preserves it",
+      "consumers": [
+        "formal-shop-discovery"
+      ]
+    },
+    {
+      "id": "home-route",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/home-route/source_binding.json",
+      "sha256": "38d4e9d5a16d2bdfa94810af6cd5c9deb90bf8b6ef61de8a7b9355b770fbcf7f",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Original actual twelve-station basic-keyboard Home traversal and native panel pointer regression",
+      "observed": "198 clean GPU assertions with source N before/after equality; active relics/upgrade/departure and original baseline retained",
+      "consumers": [
+        "home-item-codex"
+      ]
+    },
+    {
+      "id": "unknown-frame",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/movie/unknown.png",
+      "sha256": "a98f99407de4efd38e7bbb4b5e19066df89bc0760db0f976daf5adb5cb42df25",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Exact real movie frame extracted by original capture wrapper",
+      "observed": "Unknown detail/tooltip contain only? and未发现, no icon/name/effect disclosure; current Home paused",
+      "consumers": [
+        "home-item-codex"
+      ]
+    },
+    {
+      "id": "equipped-frame",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/movie/equipped.png",
+      "sha256": "127d38d23d0d499791fe04d1dcec6b00b308b8681aa1a392848ec7596231c82c",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Exact actual movie frame and independent frame-byte cross-check",
+      "observed": "Actual backpack shows one equipped B11/2 of8 gear-shaped slots and HPmax6/current5",
+      "consumers": [
+        "formal-departure-carry"
+      ]
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/home_codex_01/final-source-8b83e22b/independent/review.json",
+      "sha256": "d8129d19e7995c31ad2a9d5b659149c58689d988108b03700dfa2fbeec1e46c7",
+      "kind": "review",
+      "producer": "/root/authoring_catalog",
+      "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+      "content_version": "candidate-v1",
+      "method": "Independent actual10frame review,8 exact MP4 decode comparisons,1618frame trace and11 productionSHA cross-check",
+      "observed": "ACCEPT limited main-game movie/trace, not self-authored App fixture, natural traversal, device, hearing or Chest candidate",
+      "reviewer": "/root/authoring_catalog",
+      "implementers": [
+        "/root",
+        "/root/authoring_tool",
+        "/root/item_art_world"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not implement production backend/UI/App or the movie producer; own App fixture is explicitly excluded from independent functional proof",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Home and shared formal App acquisition/departure families, Plains representative; not natural whole-campaign/device acceptance",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal-reward-discovery",
+        "status": "passed",
+        "reason": "KnownB11 formal RewardService commit/toast and original observer; explicit known reward fixture",
+        "output": "behavior",
+        "evidence": [
+          "movie-gui",
+          "movie"
+        ]
+      },
+      {
+        "consumer": "home-item-codex",
+        "status": "passed",
+        "reason": "Real authored relics/nativeUI unlock/select/close and original12station route; explicit notes/positions only in movie",
+        "output": "visual",
+        "evidence": [
+          "movie-gui",
+          "home-route",
+          "unknown-frame"
+        ]
+      },
+      {
+        "consumer": "formal-departure-carry",
+        "status": "passed",
+        "reason": "Actual original departure into formal run, oneLv1 inactive item, equip/unequip no freeHP",
+        "output": "behavior",
+        "evidence": [
+          "movie-gui",
+          "movie"
+        ]
+      },
+      {
+        "consumer": "formal-shop-discovery",
+        "status": "passed",
+        "reason": "Real formal App ShopService known-offer/coin fixture observes reject/commit/replay/reload boundaries",
+        "output": "behavior",
+        "evidence": [
+          "shop"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "Physical Android/gamepad, browser storage refresh/migration and low-end hardware have not been separately exercised for this candidate",
+    "Experimental unlock prices, carry balance and player feel await user feedback",
+    "No natural full campaign traversal is claimed; reward/notes/twoHomeposition and knownshop fixtures explicitly disclosed",
+    "Unsaved discovery retries stay within one profile context; switching/reloading discards old-context pending requests rather than writing them into another save",
+    "CHEST-ART-01 remains separate offline art candidate, not a promoted six-state main-game chest implementation",
+    "Full165 remote CI is pending; local16 targeted checks are not a full-profile signoff"
   ]
 }

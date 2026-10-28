@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "task": "HOME-CODEX-01",
+  "source_commit": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+  "reviewer": "/root/authoring_catalog",
+  "created_utc": "2026-10-28T09:00:44.205991+00:00",
+  "verdict": "ACCEPT_LIMITED_MAIN_GAME_MOVIE_AND_TRACE",
+  "independence": {
+    "reviewer_authored_movie_producer_or_home_production": false,
+    "reviewer_authored_related_app_tests": true,
+    "authored_app_tests_used_as_independent_functional_evidence": false,
+    "engine_or_project_tests_launched_by_reviewer": false,
+    "method": "Read actual movie/source receipts and original frame trace; personally view10 decoded frames, independently decode8 exact MP4 frame indices and compare pixels to the viewed PNGs; inspect the frozen production input/close guards. This is not a claim of watching every frame at playback speed.",
+    "writes": "Only ignored review JSON artifacts, no repository source/tests/assets modifications"
+  },
+  "source_binding": {
+    "head_at_review": "8b83e22bd7a15730dd1df16b90e03c4bdfb945b2",
+    "receipt_status": "captured",
+    "development": false,
+    "dirty_paths": [],
+    "source_stable": true,
+    "all_reviewed_leaves_match_capture_and_commit": true,
+    "production_leaves": [
+      {
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/ui/home_item_codex.gd",
+        "sha256": "fde91311c6a3e5898326bb5f34a55e845762a66e4e09bfd6aa21a75394efbd5e",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/meta/meta_progression.gd",
+        "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/save/meta_save_service.gd",
+        "sha256": "73ea2b63c89b904528a9d9c0e2ae998307b5f5b80c30321d13ab3e8ed7068ab0",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/meta/home_item_catalog.gd",
+        "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/demo/home_scene.gd",
+        "sha256": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/underworld_plains/underworld_home_world.gd",
+        "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/builds/build_state.gd",
+        "sha256": "5b9130a22e9b925a53949dd956c3359e60c9dba1a95d0716326b8431b7f3c10a",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/builds/run_inventory.gd",
+        "sha256": "53ded4745b39d85718d31d5d4bdc55fc7fb3749c35ca8edaa841fc18f09132b5",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "scripts/builds/equipment_service.gd",
+        "sha256": "4d35762c31518f9c7203f15758e6a115fde275edf278652c0d5bdd83d4f87799",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      },
+      {
+        "path": "config/home_items.json",
+        "sha256": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc",
+        "matches_capture_source_before": true,
+        "matches_frozen_commit": true
+      }
+    ]
+  },
+  "media": {
+    "path": "build/home_codex_01/movie-final-01/movie.mp4",
+    "sha256": "6c83c6154d72c5e8ddf0d29756f364b757baa9175e81726397413f4ff32ffd83",
+    "matches_receipt": true,
+    "duration_seconds": 27.133333,
+    "video": "1280x720 H264 60fps",
+    "recording": "Continuous real Godot GL capture;59native assertions/0 failures and engine exit0 per clean source-bound receipt.",
+    "audio": "48kHz stereo AAC stream present; Dummy backend recording, no physical output or listening acceptance.",
+    "independent_ffprobe_audio": {
+      "method": "ffprobe -v error -select_streams a -show_entries stream=codec_name,sample_rate,channels -of json movie.mp4",
+      "observed": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "listening_acceptance": false
+    }
+  },
+  "receipt": {
+    "path": "build/home_codex_01/movie-final-01/receipt.json",
+    "sha256": "cb72e73a26da70ff805d31f56fee6ad7e4fbfa9845529b0be2c4559dffaad335",
+    "engine_exit_code": 0,
+    "assertions": 59,
+    "phase_count": 14
+  },
+  "frame_review": [
+    {
+      "phase": "formal_known_reward",
+      "path": "build/home_codex_01/movie-final-01/formal_known_reward.png",
+      "sha256": "2abff013fd98c03bf59bd51d7b43a9ec35b586bc85540af8a3436d37b951822a",
+      "matches_receipt": true,
+      "movie_frame": 54,
+      "movie_time_s": 0.9,
+      "actual_image_viewed": true,
+      "visual_observation": "Actual Plains main-game map, player and original HUD are shown before granting the disclosed knownB11 fixture; no isolated legacy demo layout."
+    },
+    {
+      "phase": "reward_committed",
+      "path": "build/home_codex_01/movie-final-01/reward_committed.png",
+      "sha256": "87f481ba5d1984c60669e5aa6bafa2d41f6ff5e7087979a21bd412d619e9b9f0",
+      "matches_receipt": true,
+      "movie_frame": 114,
+      "movie_time_s": 1.9,
+      "actual_image_viewed": true,
+      "visual_observation": "Actual game toast says入背包/IN BAG B11Lv1 while actual HP remains5/5."
+    },
+    {
+      "phase": "unknown",
+      "path": "build/home_codex_01/movie-final-01/unknown.png",
+      "sha256": "a98f99407de4efd38e7bbb4b5e19066df89bc0760db0f976daf5adb5cb42df25",
+      "matches_receipt": true,
+      "movie_frame": 459,
+      "movie_time_s": 7.65,
+      "actual_image_viewed": true,
+      "visual_observation": "Unknown tile, tooltip and detail reveal only question marks/未发现; no item name, icon, rarity or actual effect is shown for that unknown selection. B11 alone remains discovered in the grid."
+    },
+    {
+      "phase": "discovered",
+      "path": "build/home_codex_01/movie-final-01/discovered.png",
+      "sha256": "ba3f4aa2246e76177664f2695b22f70ba478baba019515a3e6f48f6989dd0ab8",
+      "matches_receipt": true,
+      "movie_frame": 561,
+      "movie_time_s": 9.35,
+      "actual_image_viewed": true,
+      "visual_observation": "Actual discovered B11 icon and Lv1 card are displayed; BLUE/gear2/maxHP+1 effect and five-note permanent unlock price are readable."
+    },
+    {
+      "phase": "unlocked",
+      "path": "build/home_codex_01/movie-final-01/unlocked.png",
+      "sha256": "43b1ac826e3b1d7cbc8b3c988ddcb8d9d4b3acb35e705375812b12d8b7c5b220",
+      "matches_receipt": true,
+      "movie_frame": 678,
+      "movie_time_s": 11.3,
+      "actual_image_viewed": true,
+      "visual_observation": "Header notes visibly change50→45; B11 state is已解锁, with a select-carry button and explicit success message."
+    },
+    {
+      "phase": "selected",
+      "path": "build/home_codex_01/movie-final-01/selected.png",
+      "sha256": "6db6ced3414c132fa3a246db77288d9a3a2e1f394cf45b46ede67c3f4a3a4ec4",
+      "matches_receipt": true,
+      "movie_frame": 810,
+      "movie_time_s": 13.5,
+      "actual_image_viewed": true,
+      "visual_observation": "Notes remain45; B11 state已选择, cancel-carry button and enabled global no-carry control are visible."
+    },
+    {
+      "phase": "carried_in_bag",
+      "path": "build/home_codex_01/movie-final-01/carried_in_bag.png",
+      "sha256": "3d8b8afc3fb6b6887cfe6c9adf0484f8c8a3f1ebba0b3a7499a1c736974abe71",
+      "matches_receipt": true,
+      "movie_frame": 1041,
+      "movie_time_s": 17.35,
+      "actual_image_viewed": true,
+      "visual_observation": "Second main-game Plains run shows5/5HP, notes45; trace proves exactly one new stable Lv1 home_carry instance, unequipped."
+    },
+    {
+      "phase": "backpack",
+      "path": "build/home_codex_01/movie-final-01/backpack.png",
+      "sha256": "e552ecb9f0ad6e99c48db5acaa04e4382e81823c6362e61359e7876ac30b6438",
+      "matches_receipt": true,
+      "movie_frame": 1149,
+      "movie_time_s": 19.15,
+      "actual_image_viewed": true,
+      "visual_observation": "Pause opens formal backpack; one B11Lv1 remains in bag, equipped0, gear0/8; load cells are gear shapes."
+    },
+    {
+      "phase": "equipped",
+      "path": "build/home_codex_01/movie-final-01/equipped.png",
+      "sha256": "127d38d23d0d499791fe04d1dcec6b00b308b8681aa1a392848ec7596231c82c",
+      "matches_receipt": true,
+      "movie_frame": 1263,
+      "movie_time_s": 21.05,
+      "actual_image_viewed": true,
+      "visual_observation": "Same B11 moves into equipped area, equipped1, gear2/8 with two filled gear shapes; native unequip control is visible. Trace supports maxHP6/currentHP5."
+    },
+    {
+      "phase": "removed",
+      "path": "build/home_codex_01/movie-final-01/removed.png",
+      "sha256": "6e5f07d2bf9178d6cbae44197249e3d4655fc946ffaaab9463a834e18a67dcc0",
+      "matches_receipt": true,
+      "movie_frame": 1437,
+      "movie_time_s": 23.95,
+      "actual_image_viewed": true,
+      "visual_observation": "B11 returns to bag, equipped0, gear0/8; trace supports maxHP5/currentHP5 and same retained instance."
+    }
+  ],
+  "independent_exact_mp4_decode_verification": [
+    {
+      "phase": "unknown",
+      "movie_frame": 459,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "55b8f5d5c7c7a3865f6294c3ce49861918ed17da0c7fba20bfbca2c07ffe329e"
+    },
+    {
+      "phase": "discovered",
+      "movie_frame": 561,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "f1b8efa7ce4b2226b5c2a372534b2efd69761fca9eaf6ffa18d6952c7d721ac0"
+    },
+    {
+      "phase": "unlocked",
+      "movie_frame": 678,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "cbc3b5de59071e52dc6cb3ad8299da86a607e418c0dfe43cb8e1afd1186133c7"
+    },
+    {
+      "phase": "selected",
+      "movie_frame": 810,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "0a93a438b05badaab1171a665407132b13db6a6c51fb2a9c1a28b4ae35654d5e"
+    },
+    {
+      "phase": "carried_in_bag",
+      "movie_frame": 1041,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "486fcecf8cb18d2b1e285f015b507a3cfcfc02cb57b7abafda6f226d88369440"
+    },
+    {
+      "phase": "backpack",
+      "movie_frame": 1149,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "08bc6220f2617f2abfefee24406669e943808131145b7ae88325b6eb23c057a1"
+    },
+    {
+      "phase": "equipped",
+      "movie_frame": 1263,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "7eceac5755923c350e492c1f4aa93079d5e1e871e9a0eec92cf641431db6cc2a"
+    },
+    {
+      "phase": "removed",
+      "movie_frame": 1437,
+      "exact_decoded_pixel_match": true,
+      "decoded_rgb_sha256": "662d26624524ae24731dd2afe20a546ce2e7dd1a3a523202c2a6bbf05e1b10a1"
+    }
+  ],
+  "trace": {
+    "path": "build/home_codex_01/movie-final-01/trace.json",
+    "sha256": "2534edcce4977f8642d0b1b7fc9ce367ba2761030aaa2ad790d723d4f80e10b4",
+    "matches_receipt": true,
+    "recorded_frames": 1618,
+    "failures": [],
+    "distinct_run_ids": [
+      "run_f652d30a5174d37ba0f71791e8d26c5a",
+      "run_c47747d0b03ecba12fa2ed6da080948e"
+    ],
+    "original_committed_receipt": {
+      "drawn_frame": 85,
+      "event_id": "item_v5_movie_fixture/B11/claim",
+      "instance_id": "run_f652d30a5174d37ba0f71791e8d26c5a/reward:item_v5_movie_fixture/B11/source",
+      "item_id": "B11",
+      "meta_after_original_observer": {
+        "completed_biomes": 0,
+        "completed_runs": 0,
+        "discovered_items": [
+          "B11"
+        ],
+        "failed_runs": 0,
+        "item_progress_version": 1,
+        "last_summary": {},
+        "meta_currency": 50,
+        "notes": 50,
+        "profile_id": "local",
+        "profile_revision": 2,
+        "save_status": "memory_only",
+        "selected_home_item": "",
+        "unlocked_home_items": [],
+        "upgrades": {}
+      },
+      "run_id": "run_f652d30a5174d37ba0f71791e8d26c5a",
+      "status": 0,
+      "video_frame": 86
+    },
+    "profile_step_summary": [
+      {
+        "label": "discovered_from_committed_reward",
+        "video_frame": 86,
+        "notes": 50,
+        "discovered_items": [
+          "B11"
+        ],
+        "unlocked_home_items": [],
+        "selected_home_item": ""
+      },
+      {
+        "label": "native_unlock",
+        "video_frame": 650,
+        "notes": 45,
+        "discovered_items": [
+          "B11"
+        ],
+        "unlocked_home_items": [
+          "B11"
+        ],
+        "selected_home_item": ""
+      },
+      {
+        "label": "native_select_carry",
+        "video_frame": 782,
+        "notes": 45,
+        "discovered_items": [
+          "B11"
+        ],
+        "unlocked_home_items": [
+          "B11"
+        ],
+        "selected_home_item": "B11"
+      },
+      {
+        "label": "final_permanent_state",
+        "video_frame": 1573,
+        "notes": 45,
+        "discovered_items": [
+          "B11"
+        ],
+        "unlocked_home_items": [
+          "B11"
+        ],
+        "selected_home_item": "B11"
+      }
+    ],
+    "delivery": {
+      "base_hp_max": 5,
+      "carry": [
+        {
+          "equipped": false,
+          "id": "B11",
+          "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+          "level": 1,
+          "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+        }
+      ],
+      "equipped_hp_current": 5.0,
+      "equipped_hp_max": 6.0,
+      "notes_after": 45,
+      "notes_before": 50,
+      "removed_hp_current": 5.0,
+      "removed_hp_max": 5.0,
+      "unlock_price": 5
+    },
+    "phase_summaries": [
+      {
+        "phase": "unknown",
+        "recorded_frames": 90,
+        "first_video_frame": 432,
+        "last_video_frame": 521,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [
+            "True"
+          ],
+          "codex_opened": [
+            "True"
+          ],
+          "hp": [],
+          "hp_max": [],
+          "shot_serial": []
+        },
+        "inventory_at_phase_midpoint": null
+      },
+      {
+        "phase": "discovered",
+        "recorded_frames": 105,
+        "first_video_frame": 534,
+        "last_video_frame": 638,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [
+            "True"
+          ],
+          "codex_opened": [
+            "True"
+          ],
+          "hp": [],
+          "hp_max": [],
+          "shot_serial": []
+        },
+        "inventory_at_phase_midpoint": null
+      },
+      {
+        "phase": "unlocked",
+        "recorded_frames": 120,
+        "first_video_frame": 651,
+        "last_video_frame": 770,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [
+            "True"
+          ],
+          "codex_opened": [
+            "True"
+          ],
+          "hp": [],
+          "hp_max": [],
+          "shot_serial": []
+        },
+        "inventory_at_phase_midpoint": null
+      },
+      {
+        "phase": "selected",
+        "recorded_frames": 105,
+        "first_video_frame": 783,
+        "last_video_frame": 887,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [
+            "True"
+          ],
+          "codex_opened": [
+            "True"
+          ],
+          "hp": [],
+          "hp_max": [],
+          "shot_serial": []
+        },
+        "inventory_at_phase_midpoint": null
+      },
+      {
+        "phase": "carried_in_bag",
+        "recorded_frames": 90,
+        "first_video_frame": 1014,
+        "last_video_frame": 1103,
+        "observed_values": {
+          "paused": [
+            "False"
+          ],
+          "home_input_blocked": [],
+          "codex_opened": [
+            "False"
+          ],
+          "hp": [
+            "5.0"
+          ],
+          "hp_max": [
+            "5.0"
+          ],
+          "shot_serial": [
+            "0"
+          ]
+        },
+        "inventory_at_phase_midpoint": [
+          {
+            "equipped": false,
+            "id": "B11",
+            "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+            "level": 1,
+            "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+          }
+        ]
+      },
+      {
+        "phase": "backpack",
+        "recorded_frames": 90,
+        "first_video_frame": 1122,
+        "last_video_frame": 1211,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [],
+          "codex_opened": [
+            "False"
+          ],
+          "hp": [
+            "5.0"
+          ],
+          "hp_max": [
+            "5.0"
+          ],
+          "shot_serial": [
+            "0"
+          ]
+        },
+        "inventory_at_phase_midpoint": [
+          {
+            "equipped": false,
+            "id": "B11",
+            "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+            "level": 1,
+            "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+          }
+        ]
+      },
+      {
+        "phase": "equipped",
+        "recorded_frames": 150,
+        "first_video_frame": 1236,
+        "last_video_frame": 1385,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [],
+          "codex_opened": [
+            "False"
+          ],
+          "hp": [
+            "5.0"
+          ],
+          "hp_max": [
+            "6.0"
+          ],
+          "shot_serial": [
+            "0"
+          ]
+        },
+        "inventory_at_phase_midpoint": [
+          {
+            "equipped": true,
+            "id": "B11",
+            "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+            "level": 1,
+            "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+          }
+        ]
+      },
+      {
+        "phase": "removed",
+        "recorded_frames": 150,
+        "first_video_frame": 1410,
+        "last_video_frame": 1559,
+        "observed_values": {
+          "paused": [
+            "True"
+          ],
+          "home_input_blocked": [],
+          "codex_opened": [
+            "False"
+          ],
+          "hp": [
+            "5.0"
+          ],
+          "hp_max": [
+            "5.0"
+          ],
+          "shot_serial": [
+            "0"
+          ]
+        },
+        "inventory_at_phase_midpoint": [
+          {
+            "equipped": false,
+            "id": "B11",
+            "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+            "level": 1,
+            "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+          }
+        ]
+      },
+      {
+        "phase": "result",
+        "recorded_frames": 45,
+        "first_video_frame": 1574,
+        "last_video_frame": 1618,
+        "observed_values": {
+          "paused": [
+            "False"
+          ],
+          "home_input_blocked": [],
+          "codex_opened": [
+            "False"
+          ],
+          "hp": [
+            "5.0"
+          ],
+          "hp_max": [
+            "5.0"
+          ],
+          "shot_serial": [
+            "0"
+          ]
+        },
+        "inventory_at_phase_midpoint": [
+          {
+            "equipped": false,
+            "id": "B11",
+            "instance": "run_c47747d0b03ecba12fa2ed6da080948e/home_carry/run_c47747d0b03ecba12fa2ed6da080948e",
+            "level": 1,
+            "source": "home_carry/run_c47747d0b03ecba12fa2ed6da080948e"
+          }
+        ]
+      }
+    ]
+  },
+  "functional_conclusion": {
+    "main_game_integration": "Observed actual Plains main-game acquisition toast, real Home relics interaction/codex and second formal Plains run. This is not a replay of the old isolated mechanics screen.",
+    "economy": "Original COMMITTED reward observer discoversB11 with no unlock; real native unlock spends exactly5notes50→45; native selection does not charge again.",
+    "ownership_and_equipment": "Second Run owns exactly one new stable home_carry B11Lv1 instance, initially unequipped; same instance equips and unloads through formal pause backpack.",
+    "stats": "Original trace confirms maxHP5→6→5 while currentHP stays5; unequipped item stays owned with no effects, gear usage0→2→0.",
+    "privacy": "Unknown frame includes unknown hover tooltip and unknown detail, all masked; no identity/effect disclosure observed.",
+    "close_input": "Home selected-to-departure trace switches modal open/paused/input_blocked together to closed/unpaused/unblocked, then real departure succeeds. Inventory close resumes gameplay with shot_serial0 throughout all59 transition/result rows. Source consumes the current close event and waits oneprocess_frame before restoring the same Home adapters. Home-specific shot counter is not recorded by the trace, so no stronger direct Home-counter claim is made.",
+    "touch_target_scope": "At the captured1280x720 scale, visible close/global-clear/unlock/select/equip controls are visibly above48px high (close roughly64px; primary actions roughly64px; tiles roughly118px). Shared physical minimum48px metrics and54px authored buttons are present. This is a screen/source sizing check, not physical Android touch validation.",
+    "style": "Dark teal panels, aged-brass outlines, pixel font, distinct item icon and actual gear-shaped load cells are visually consistent between Home codex and formal backpack; no new broad art direction or user aesthetic acceptance inferred."
+  },
+  "disclosed_fixtures": {
+    "known_reward": "B11 is a known RewardService fixture, not a naturally sampled chest/Boss/shop drop.",
+    "notes": "50notes granted once through original MetaProgression in an isolated memory-only profile.",
+    "home_positions": [
+      {
+        "kind": "explicit_home_position_fixture",
+        "method": "one initial actor position at existing original service; no HP/abilities/currency mutation",
+        "position": [
+          1550.0,
+          221.9
+        ],
+        "slot": "relics",
+        "video_frame": 335
+      },
+      {
+        "kind": "explicit_home_position_fixture",
+        "method": "one initial actor position at existing original service; no HP/abilities/currency mutation",
+        "position": [
+          3070.0,
+          413.9
+        ],
+        "slot": "departure",
+        "video_frame": 899
+      }
+    ],
+    "scope": "Two Home service positions initialize relics/departure demonstrations; W interactions, UI unlock/select, departure and equipment use real native input. No direct discovery/unlock/select/HP writes."
+  },
+  "limits": [
+    "No physical device, Android touch/controller hardware, browser persistence-refresh or low-end performance acceptance.",
+    "Audio stream presence is verified; listening and physical output remain unverified.",
+    "Not natural random loot or complete world traversal; fixture disclosures remain visible in the movie.",
+    "The optional requires_discovered=false path is covered by the prior bounded source addendum, not this default-policy movie.",
+    "No Chest source04 or chest diagnostic is admitted by this review; its artistic decision remains with the user.",
+    "Prior failed development captures and aggregate failures are not overwritten or represented as passing."
+  ]
+}

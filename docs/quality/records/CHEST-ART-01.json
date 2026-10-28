@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "CHEST-ART-01",
   "task_type": "art",
-  "workflow": "in_progress",
+  "workflow": "blocked",
   "baseline_commit": "0f25921dd41949f220999293013f065ce758189d",
   "reviewed_commit": "0f25921dd41949f220999293013f065ce758189d",
   "content_version": "candidate-v4-diagnostic-only",
@@ -59,9 +59,11 @@
       "evidence": []
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion",
+      "evidence": [
+        "source04-reject"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -101,9 +103,11 @@
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion; latest user taste decision is pending",
+      "evidence": [
+        "source04-reject"
+      ]
     },
     "animation": {
       "status": "unverified",
@@ -141,8 +145,43 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "six-pose-source-fit",
+      "gate": "G1",
+      "dimension": "visual",
+      "scenario": "Fourth original six-pose atlas at frozen common factors and measured foot anchors",
+      "method": "Independent fullsource measurements and single-phase actual1wu diagnostics; no alpha edits or per-state scaling",
+      "expected": "Blue/purple lower-body delta<=1wu and gold closed/open<=44/58wu at60±1wu width",
+      "failure": "Any pair drift or gold extent exceeds the frozen contract",
+      "status": "failed",
+      "reason": "Fourth source fails frozen blue/purple pair-body1wu and compact gold44/58wu geometry; four calls exhausted, no default runtime promotion",
+      "evidence": [
+        "source04-reject"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "source04-reject",
+      "path": "docs/evidence/chest_art_01/raw/source04-admission-review.json",
+      "sha256": "7f124742b208e2e515874fed948b31f3daf0a692169cfcd0a8acbc0b43e369cd",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "0f25921dd41949f220999293013f065ce758189d",
+      "content_version": "candidate-v4-diagnostic-only",
+      "method": "Independent originalPNG/fullalpha/naturalROI/sharedfactor/pair-body and goldheight measurements",
+      "observed": "Fourth source remains diagnostic-only; frozen geometry fails, no formal asset promotion, user art tradeoff pending",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_direction"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author generation or implementation; independently measured original source pixels",
+      "verdict": "REJECT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "Fourth source not admitted for formal runtime: blue/purple pair width difference exceeds1wu; gold closed/open height exceeds44/58 under60±1wu width",

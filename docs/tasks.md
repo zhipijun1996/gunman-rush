@@ -5,7 +5,7 @@
 第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
-| CHEST-ART-01 | 三档宝箱关闭／开启六态美术与正式地图辨识 | ITEM-ART-01 | in_progress | [规格](worklines/chest_art_01/spec.md) · [质量记录](quality/records/CHEST-ART-01.json) |
+| CHEST-ART-01 | 三档宝箱关闭／开启六态美术与正式地图辨识 | ITEM-ART-01 | blocked | [规格](worklines/chest_art_01/spec.md) · [质量记录](quality/records/CHEST-ART-01.json) |
 | ITEM-AUTHOR-01 | 道具配置覆写、下架与数据式新增 | ITEM-V5-01 | review | [维护说明](item_authoring.md) · [范围](worklines/item_authoring_01/scope.md) · [质量记录](quality/records/ITEM-AUTHOR-01.json) |
 | ITEM-ART-01 | 72独立道具图标与专用事件特效 | ITEM-AUTHOR-01 | review | [规格与逐项计划](worklines/item_art_01/spec.md) · [质量记录](quality/records/ITEM-ART-01.json) |
 | ITEM-V5-01 | 实现道具V5的72件、16成长与9有效联动 | RUN-GEAR-01 | review | [范围与共享接口](worklines/item_v5_01/scope.md) · [质量记录](quality/records/ITEM-V5-01.json) |
@@ -612,4 +612,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |
 
-| HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | in_progress | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
+| HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
