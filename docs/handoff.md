@@ -10,6 +10,8 @@
 
 标准实现源`1f11b24`的原docs profile33／33 fresh通过，0复用；仅标准process done，冲锋怪仍review／E03与E05 failed。原输入／索引失败、新通过及命令见[收口证据](evidence/enemy_completion_01/validation.json)。最终收据／任务元数据追加后执行原quality／docs／差异守门；恢复不重跑未变玩法或重生成美术，下一制作范围是统一live／H／D与受伤退出，并补实际attack及正式遭遇。PR面向main，不自动合并。
 
+已推送`docs/enemy-continuity-01`并建草稿[PR112](https://github.com/zhipijun1996/gunman-rush/pull/112)。公开[本轮原片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/edeb07d11a9b3a96242ed4e6bbc8d74170678f25/docs/evidence/enemy_completion_01/underworld/after.mp4)实际完整下载1,364,697字节，SHA与本地一致；[下载收据](evidence/enemy_completion_01/public-download.json)。最终head以PR为准，后续仅收据／交接，不冒称最新head完整CI已绿。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。
