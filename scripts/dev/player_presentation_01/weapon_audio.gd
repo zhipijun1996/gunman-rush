@@ -14,7 +14,7 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 	# shuriken or pulse audition. Missing events retain the earlier bank route.
 	var director_id := director_event_for_weapon_cue(id, weapon_id)
 	if is_director_event_suppressed(director_id): return false
-	if audio_profile != "original" and has_director_event(director_id):
+	if director_profile_for_event(director_id) != "original":
 		return play_director_event(director_id, "", instance_from_id(owner) as Node)
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:

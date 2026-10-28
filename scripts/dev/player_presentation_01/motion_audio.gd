@@ -15,7 +15,7 @@ var motion_dropped := 0
 func motion_cue(id: StringName, strength: float, owner_id: int) -> bool:
 	if _shutting_down or get_tree().paused or volume <= 0 or not MOTION.has(id): return false
 	var director_id := &"land" if id == &"heavy" else id
-	if audio_profile != "original" and has_director_event(director_id):
+	if director_profile_for_event(director_id) != "original":
 		return play_director_event(director_id, "", instance_from_id(owner_id) as Node)
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:

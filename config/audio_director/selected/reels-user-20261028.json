@@ -1,0 +1,2987 @@
+{
+  "schema_version": 1,
+  "task": "AUDIO-DIRECTOR-03",
+  "version": "audio-director-v3",
+  "source_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+  "site_builder_commit": "df22e3763484f86b892e16b7cf3e5e9952b847db",
+  "interactive_url": "../",
+  "interactive_label": "上一版互动工坊（V2） ↗",
+  "event_labels": {
+    "coin": "金币收集",
+    "heal": "生命恢复",
+    "chest_open": "宝箱开启",
+    "item_get": "道具获得",
+    "click": "UI点击",
+    "confirm": "UI确认",
+    "denied": "UI拒绝",
+    "enemy_hit": "武器命中",
+    "enemy_hurt": "敌人受伤",
+    "hurt": "主角受伤",
+    "shot_pulse": "脉冲枪开火",
+    "shot_shuriken": "手里剑离手",
+    "shot_bomb": "反冲炸弹发射",
+    "bomb_explode": "炸弹爆炸"
+  },
+  "sources": {
+    "get/Coin01.aif": {
+      "path": "assets/audio/director_v3/_sources/get/Coin01.aif",
+      "original_filename": "Coin01.aif",
+      "author": "wobbleboxx",
+      "source_url": "https://opengameart.org/content/level-up-power-up-coin-get-13-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "7825f23e9cf4b0af7270bf785b4276ec92fc5458d75f7f93e42409ce38700309",
+      "source_page_sha256": "489335df462d4797674e36d69a298bf92127be515d061e2daa066bc19c649616",
+      "archive_sha256": "b3405c1c98f5223c101fdbfd445903c0b558ebb325b85306964d64a34ef82db3",
+      "download_url": "https://opengameart.org/sites/default/files/SoundPack01.zip"
+    },
+    "get/Rise01.aif": {
+      "path": "assets/audio/director_v3/_sources/get/Rise01.aif",
+      "original_filename": "Rise01.aif",
+      "author": "wobbleboxx",
+      "source_url": "https://opengameart.org/content/level-up-power-up-coin-get-13-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "8194414b0e9891a5ce26c80b65d92ede3ce76f1fa2140f53184f951de8eca670",
+      "source_page_sha256": "489335df462d4797674e36d69a298bf92127be515d061e2daa066bc19c649616",
+      "archive_sha256": "b3405c1c98f5223c101fdbfd445903c0b558ebb325b85306964d64a34ef82db3",
+      "download_url": "https://opengameart.org/sites/default/files/SoundPack01.zip"
+    },
+    "get/Rise03.aif": {
+      "path": "assets/audio/director_v3/_sources/get/Rise03.aif",
+      "original_filename": "Rise03.aif",
+      "author": "wobbleboxx",
+      "source_url": "https://opengameart.org/content/level-up-power-up-coin-get-13-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "611b15521416e5b331f37ce78e5a2c6e0b90e19d9c0ee4a3ed0098d8fd2bfbb5",
+      "source_page_sha256": "489335df462d4797674e36d69a298bf92127be515d061e2daa066bc19c649616",
+      "archive_sha256": "b3405c1c98f5223c101fdbfd445903c0b558ebb325b85306964d64a34ef82db3",
+      "download_url": "https://opengameart.org/sites/default/files/SoundPack01.zip"
+    },
+    "get/Upper01.aif": {
+      "path": "assets/audio/director_v3/_sources/get/Upper01.aif",
+      "original_filename": "Upper01.aif",
+      "author": "wobbleboxx",
+      "source_url": "https://opengameart.org/content/level-up-power-up-coin-get-13-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "0faf74c154fe4ab04d2c9ef8dbd00b3a41654003f4b1a771b9114e9737eb27f4",
+      "source_page_sha256": "489335df462d4797674e36d69a298bf92127be515d061e2daa066bc19c649616",
+      "archive_sha256": "b3405c1c98f5223c101fdbfd445903c0b558ebb325b85306964d64a34ef82db3",
+      "download_url": "https://opengameart.org/sites/default/files/SoundPack01.zip"
+    },
+    "hit/bfh1_breaking_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_breaking_01.ogg",
+      "original_filename": "bfh1_breaking_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "a714412c46a3409b0de3f10c681f780f534eb81b4b95522ab1f666ec3cbcf900",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_breaking_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_breaking_02.ogg",
+      "original_filename": "bfh1_breaking_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "ca1807a8008c74472042b8e1cc06ad723e00ff80a603879ebd7c2e5ba08573c4",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_breaking_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_breaking_03.ogg",
+      "original_filename": "bfh1_breaking_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "3ad487a133b2d9641c92f8d7041c23f4e342eb6e5f89cdf35348c2486c25f1f1",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_01.ogg",
+      "original_filename": "bfh1_hit_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "56c627582671ee7f7910d87dee7a0a77814143e06b430cd10cd9e674ec1990d5",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_03.ogg",
+      "original_filename": "bfh1_hit_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "91ef5562417a631bdb306d3c70ec7d33a2d418f5266c1488695a993877af21f9",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_05.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_05.ogg",
+      "original_filename": "bfh1_hit_05.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "c3e1a46dcf5dc0c15706f3333bfccd0b8d491aa197bc39274a6b5588b3da1ffd",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_06.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_06.ogg",
+      "original_filename": "bfh1_hit_06.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "25d4a1eb98a413a15618f5d4ea0dcc3358b7ceae90c609c34c6e56c5ab962c58",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_09.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_09.ogg",
+      "original_filename": "bfh1_hit_09.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "0ba19daecc3ba0329520fb1081ac34c9d05ec0dbc047bdd46c6b792742304150",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_10.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_10.ogg",
+      "original_filename": "bfh1_hit_10.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d940e43687f3bfd442a3796184b429add4afe6b5ac2e99a568ad2ce5eeb713b8",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "hit/bfh1_hit_12.ogg": {
+      "path": "assets/audio/director_v3/_sources/hit/bfh1_hit_12.ogg",
+      "original_filename": "bfh1_hit_12.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "ce5718e387153d651b8b54c92fdd281bd67a8136b3fad87d7d3bd2b403267969",
+      "archive_sha256": "e6ee04d91c5f4d30cfda1260d2c9d1faf96fda36319287215fbd07bcb1a80451",
+      "source_page_sha256": "da350370d441d39b3af1fa40aaf6dbd06deb0b1a094ff14d45c3940954633234",
+      "download_url": "https://opengameart.org/sites/default/files/sfx_breaking_and_falling.zip"
+    },
+    "k/boss_impact": {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactWood_heavy_000.ogg",
+      "original_filename": "impactWood_heavy_000.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/impact-sounds",
+      "retained_project_original_sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d"
+    },
+    "k/core": {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactGlass_light_000.ogg",
+      "original_filename": "impactGlass_light_000.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/impact-sounds",
+      "retained_project_original_sha256": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f"
+    },
+    "k/door": {
+      "path": "assets/audio/director_v3/_sources/kenney-rpg-audio/doorOpen_1.ogg",
+      "original_filename": "doorOpen_1.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "4ab93bab96522d8eb109ff96dc57cb6765deb02448fe14c10472084be5bb2a0b",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/rpg-audio",
+      "retained_project_original_sha256": "4ab93bab96522d8eb109ff96dc57cb6765deb02448fe14c10472084be5bb2a0b"
+    },
+    "k/hurt": {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactPunch_medium_000.ogg",
+      "original_filename": "impactPunch_medium_000.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/impact-sounds",
+      "retained_project_original_sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c"
+    },
+    "k/impact": {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactWood_light_000.ogg",
+      "original_filename": "impactWood_light_000.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/impact-sounds",
+      "retained_project_original_sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3"
+    },
+    "k/jump": {
+      "path": "assets/audio/director_v3/_sources/kenney-rpg-audio/cloth1.ogg",
+      "original_filename": "cloth1.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/rpg-audio",
+      "retained_project_original_sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+    },
+    "k/roar": {
+      "path": "assets/audio/director_v3/_sources/kenney-impact-sounds/impactSoft_heavy_000.ogg",
+      "original_filename": "impactSoft_heavy_000.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/impact-sounds",
+      "retained_project_original_sha256": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1"
+    },
+    "k/shot": {
+      "path": "assets/audio/director_v3/_sources/kenney-digital-audio/laser2.ogg",
+      "original_filename": "laser2.ogg",
+      "author": "Kenney",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "50470d64f9397855e5d9a334484da9c5232b3e0524c52f088b8a73822bd89f45",
+      "inherited_download_date": "2026-10-11",
+      "download_url": "https://kenney.nl/assets/digital-audio",
+      "retained_project_original_sha256": "50470d64f9397855e5d9a334484da9c5232b3e0524c52f088b8a73822bd89f45"
+    },
+    "material/keys_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/keys_02.ogg",
+      "original_filename": "keys_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "ce802cc346ef49a71fcae75ec2a45bbf8c7a1cfe365d3d5b6755b902ce4b9523",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/keys_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/keys_03.ogg",
+      "original_filename": "keys_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "7feae62edb5f00bff8f798aca958413a058a3ec3c341677235834903291e6fe4",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/lock_open_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/lock_open_01.ogg",
+      "original_filename": "lock_open_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "f37728690c9559d32527b55e25102a1acb7beafdfab7ad12e099285d13d29e01",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/metal_hit_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/metal_hit_03.ogg",
+      "original_filename": "metal_hit_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "9daf6e7e1fc1871acfb063cb25ce050faab559ee6c42fed84bf18a4067f26a4d",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/metal_spring_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/metal_spring_01.ogg",
+      "original_filename": "metal_spring_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "bc7d84bf0353ef884c62dc0a9ef29e05864d452ac8509a40e125fb9d7507f98f",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/wood_close_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/wood_close_02.ogg",
+      "original_filename": "wood_close_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "250275ce07101fa11ee8f371972e67e1024737a2d1d6b23a6772c2935b193f39",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/wood_hit_04.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/wood_hit_04.ogg",
+      "original_filename": "wood_hit_04.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "c7723f3c577cc6f46b091233fcb735016c6e15d462b371393baa4d265aef52b6",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/wood_hit_05.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/wood_hit_05.ogg",
+      "original_filename": "wood_hit_05.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "a6e1a4cfb65c4fc46248b3db84666275d466c2434c283028c7f0ce70035e75de",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/wood_misc_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/wood_misc_01.ogg",
+      "original_filename": "wood_misc_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "29db37359c77f06c20e8c92148dfec69d3c50a174122505cf4d2b9726b14162c",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "material/wood_misc_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/material/wood_misc_02.ogg",
+      "original_filename": "wood_misc_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/100-cc0-metal-and-wood-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "458f522d941247ee447978307842c67aec08b421878c16d2d357172c7a579e9a",
+      "archive_sha256": "be6eba63b03409ac0c77787a956b1503a7c186403d04aef9725c52644a4b7878",
+      "source_page_sha256": "84501210ac4abe914a9afabf5ad6a316aadb0171e67a17cb142ea6bf6e2e2761",
+      "download_url": "https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.zip"
+    },
+    "rpg/blade_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/blade_01.ogg",
+      "original_filename": "blade_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "caf7a7cb9b25cda4bd487c1d12d18b74a34bb18c816fd67277cf3c8d7ef32a3a",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/blade_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/blade_02.ogg",
+      "original_filename": "blade_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "c770afec8f62f14d3d082d5437c5cec28e2751d393df645ddd938eabc2588abd",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/blade_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/blade_03.ogg",
+      "original_filename": "blade_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "2cd9e6926f4602a4350e703eeae4df520053e290f358ab692632d651ad368a7c",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/chain_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/chain_01.ogg",
+      "original_filename": "chain_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d376caf0f61384b1d2e0b447f64f06be56d0ee0622ba70dd01cfdd78b3a10687",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/chain_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/chain_02.ogg",
+      "original_filename": "chain_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "dd3b753e54fd4e6ed94c36231d1950fafd681ff4a93462cfa3980099a6454ecb",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/item_gem_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/item_gem_01.ogg",
+      "original_filename": "item_gem_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "8a5d2964febb0c69cc4df2ee5257d173f2cae6960d9534df0001dbf356f27028",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/item_gem_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/item_gem_02.ogg",
+      "original_filename": "item_gem_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "a5f4b0b3ae0e272765619289ef6709513e0dfa0785d7559e8a223176a8bcf181",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/lock_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/lock_01.ogg",
+      "original_filename": "lock_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "e828ad2a936e34a0212f3309c5ac706c0ded412b9b383a87f10bcfa1d1445271",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/lock_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/lock_02.ogg",
+      "original_filename": "lock_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "e183464a4e28c1764c70e980465faaf6ea8c33c8ea4a2b636a3ae2c58e8740f5",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/metal_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/metal_02.ogg",
+      "original_filename": "metal_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "30fcaab83dc3fff5335b78f87f9df305f6f8bd7316e2b46e2a4eaed85ee21768",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/stones_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/stones_01.ogg",
+      "original_filename": "stones_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d11ce95031c2c36ae2a00979620fa95a7a3f5c6d6f2ac86962ed292aa556be8d",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/stones_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/stones_02.ogg",
+      "original_filename": "stones_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "57dc6b85ee986e68ddc4b7fb2b41cc1c885151677d32439fdb299492a3103a65",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "rpg/stones_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/rpg/stones_03.ogg",
+      "original_filename": "stones_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "b86d143d7ef4974c2b97fda9e5d1861482646eec754e15935eeb3680ea0d71da",
+      "archive_sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "source_page_sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "download_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip"
+    },
+    "ui/click1.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/click1.wav",
+      "original_filename": "click1.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "359c8c98ecd48368f45b84d3a9b9d7e68cf3ac2fefcdbf32367b8482da76c9c7",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/click3.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/click3.wav",
+      "original_filename": "click3.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "9649d0ed86f2129e39568922eda43da25c287ca0d2905328ecddbd70d11fbb34",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/rollover3.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/rollover3.wav",
+      "original_filename": "rollover3.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "807a4e586f1a61e63c8f07d3dc4bc311b00ed824da1ebb810e70819429607ba0",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/rollover5.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/rollover5.wav",
+      "original_filename": "rollover5.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "0cc661357969d912f8c9500bdd5ce865af8b7f6e4238b4545d3eff7bc4293eb9",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/switch12.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/switch12.wav",
+      "original_filename": "switch12.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d54f8c728ac296c9b3bddc512bbe0c8dd16ab8121bc4b1b4a96d181389a62ccf",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/switch14.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/switch14.wav",
+      "original_filename": "switch14.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "962bd6f49716687106b5d4deff86f0c090b5ac7c1bc58e83feb0d0270aaabe07",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "ui/switch28.wav": {
+      "path": "assets/audio/director_v3/_sources/ui/switch28.wav",
+      "original_filename": "switch28.wav",
+      "author": "Kenney",
+      "source_url": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "d244bab92bb8fefefdeade3e871b759f55b6b8d14c56b601ada6dded8a7a0324",
+      "archive_sha256": "66026b9e39859b85964dbb3ee7a2d1fc46a6a406bb3e97c8b0defee0e25fb369",
+      "source_page_sha256": "75b901c70c949dd37dee89cd3ad5ee3aeb263ba3224b8271bdd1f6d2d6438649",
+      "download_url": "https://opengameart.org/sites/default/files/UI_SFX_Set.zip"
+    },
+    "water/bubble_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/bubble_01.ogg",
+      "original_filename": "bubble_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "1d03d72347019be889280efc6de5ca5ea439d0b24b235e6db87e5bf7583ecb2b",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "water/bubble_02.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/bubble_02.ogg",
+      "original_filename": "bubble_02.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "7992a1a4637ea727b177b3edbc086ec280167d67a8fad010bb8fb58893b2e2f2",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "water/bubble_03.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/bubble_03.ogg",
+      "original_filename": "bubble_03.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "6189106305ab917f1a260b66a74380ed7d6e5be0fb4f5eba3ac93aeb89d9b7ca",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "water/loop_water_01.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/loop_water_01.ogg",
+      "original_filename": "loop_water_01.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "11ebdc63e0178f4de48167570e51a60a9ce968451ce60ff49a3c1faceabf1e0b",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "water/splash_09.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/splash_09.ogg",
+      "original_filename": "splash_09.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "123f78e6bef82b5dfb24f0a93f759b309bd12b21d05905ab401756fc588a31dc",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "water/splash_10.ogg": {
+      "path": "assets/audio/director_v3/_sources/water/splash_10.ogg",
+      "original_filename": "splash_10.ogg",
+      "author": "rubberduck",
+      "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing and game distribution; attribution optional.",
+      "attribution_required": false,
+      "download_date": "2026-10-26",
+      "sha256": "69ec352dc6c0ea4691435e692063f903c98e5292579ba71297d4fbdb51c33649",
+      "source_page_sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "archive_sha256": "7cd39abb49d4362a37ba18dc0e454c7dc1d08029d4e5b683149046bc237b2eba",
+      "download_url": "https://opengameart.org/sites/default/files/water-splash-slime-sfx.zip"
+    },
+    "original/click": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/interface-sounds",
+      "original_filename": "click_003.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/click.ogg",
+      "sha256": "2fa929138bc3a0f432696588f66eac94b8f6d463905ec8808c6461ce4b054292",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/confirm": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/interface-sounds",
+      "original_filename": "confirmation_002.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/confirm.ogg",
+      "sha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/coin": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "pepSound1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/coin.ogg",
+      "sha256": "f2f44effce087e47683f0fea05a71002bd8dca78fb10bf93d9f0b38d49f9590e",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/note": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "highUp.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/note.ogg",
+      "sha256": "cbc1c3c7ccf5d7903818144a4c3f5b2ed2385095792f29d8d7c76360ba4fa559",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/victory": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "lowThreeTone.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/victory.ogg",
+      "sha256": "b4b3bc7420e71bfbec49a6ea13b8c12d76a5751cbdf063d8a8ac017c0b1e1d87",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/jump": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "original_filename": "cloth1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/jump.ogg",
+      "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/land": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "footstep_grass_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/land.ogg",
+      "sha256": "9d49497777405d78d7cf7f2888e28277f3a23192300cfd1d79d54876b20f479f",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/step": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "footstep_grass_001.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/step.ogg",
+      "sha256": "fb28781bd22b2eefdc14077f1adf5c94d7fe9c3a130194633b55f3e0d39d9f04",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/hurt": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactPunch_medium_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/hurt.ogg",
+      "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/shot": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "laser2.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/shot.ogg",
+      "sha256": "50470d64f9397855e5d9a334484da9c5232b3e0524c52f088b8a73822bd89f45",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/impact": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactWood_light_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/impact.ogg",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/armour": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactMetal_light_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/armour.ogg",
+      "sha256": "33b5e6e37c6e9d54e07bf5a89b12c76e879f40c1ea83cdd82714df1d6f9fec6d",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/core": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactGlass_light_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/core.ogg",
+      "sha256": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/heal": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "powerUp1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/heal.ogg",
+      "sha256": "8c361b624b560c0bc30ea3063b71212bc30caebf425c9df2481c13b25561485c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/bell": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/interface-sounds",
+      "original_filename": "bong_001.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/bell.ogg",
+      "sha256": "d21d0f0b782445db579d11e2506b24cd1ac9d664ee33aeaf807761aa7b6fd710",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/denied": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/interface-sounds",
+      "original_filename": "error_001.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/denied.ogg",
+      "sha256": "46e67425d16339772e8d328fb36a49426c9467418686e11beeb71ff84b0f6433",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/roar": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactSoft_heavy_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/roar.ogg",
+      "sha256": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/enemy_shot": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "original_filename": "knifeSlice.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/enemy_shot.ogg",
+      "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/death": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "phaserDown1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/death.ogg",
+      "sha256": "d2d046cd0247045f8819905fc9719a7237ccbd590b3128ce58a61a81f50d208b",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/focus_start": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "phaserUp1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/focus_start.ogg",
+      "sha256": "4423d459fc15fdd8593a4584d71e272ec2e5f8bdc11b759db623fc613ffd957c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/focus_end": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "phaserDown2.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/focus_end.ogg",
+      "sha256": "0eaadbbc5c259cc89a1dfbb0c99b61ca07e08710d035cc9bfc805b68cb0bdc9e",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/enemy_defeat": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactSoft_medium_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/enemy_defeat.ogg",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/door": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "original_filename": "doorOpen_1.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/door.ogg",
+      "sha256": "4ab93bab96522d8eb109ff96dc57cb6765deb02448fe14c10472084be5bb2a0b",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/warning": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "original_filename": "metalClick.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/warning.ogg",
+      "sha256": "9851a69d0c613e13bceef08060ecc4148f098ef487927cbebe270d642398a3b3",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/boss_impact": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactWood_heavy_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/boss_impact.ogg",
+      "sha256": "15ff82332f342c30e469215539e1cc57e11b221aa2cf7e11e811d313a9927f3d",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/chest_open": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/interface-sounds",
+      "original_filename": "confirmation_002.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/confirm.ogg",
+      "sha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/item_get": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/digital-audio",
+      "original_filename": "highUp.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/note.ogg",
+      "sha256": "cbc1c3c7ccf5d7903818144a4c3f5b2ed2385095792f29d8d7c76360ba4fa559",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original/enemy_hurt": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "impactPunch_medium_000.ogg",
+      "commercial_use": true,
+      "attribution_required": false,
+      "path": "assets/audio/kenney/hurt.ogg",
+      "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+      "download_date": "原项目来源记录，见assets/audio/kenney/sources.json"
+    },
+    "original_weapon/blackhole_burst": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blackhole_burst_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_0.wav": "c263e064a22d4e21cf9e6bbfe5a043fa3a2c8b504386728fb7b92cc5ee96feac",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_1.wav": "003a3339398be39969454dba828e7e6d317848cb73a7c486e94477aa72c5df80",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_2.wav": "49f5ccf303cebffe6db6afa1c97b99910e7cf74ff9428ab524c4ee34048d99e9"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/blackhole_loop": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blackhole_loop_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_0.wav": "7c1a7c08f98a98b1cafb72c534fcf510c35bd56be16232b0b505916d8d6262ec",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_1.wav": "49abcbb28844197f86a11a73e3f7e03353fd3b431296818d50f9992116b2ae60",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_2.wav": "ec0417c15dfd60f612252b58a8a4a5ff50904559a3da702a260ca986f03d2192"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/blackhole_start": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blackhole_start_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_0.wav": "7fe46f036871280ccfd5335d401a823839e3b094b2a8ad94be63c738498f98ed",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_1.wav": "73fb0014c2469762a0225d3e34f1a68032bbee5c06adff331a4d151da70c7c02",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_2.wav": "8f316306ae79611c4e660a2b3fe3aabd4b6c33c772aad8ab58214f7ad138e316"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/blade": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blade_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blade_0.wav": "e90aef6273d54910b406bc4afe5e8d4f42736a12f92a2e18ed371bd7bc2c5548",
+        "assets/player_presentation_01/weapon_audio_v2/blade_1.wav": "41eaf93594f507af754ab2ac9899427a775f382ed1b50d76cb2f217a35177f9d",
+        "assets/player_presentation_01/weapon_audio_v2/blade_2.wav": "3f2737eb159cc3fcacb05c5a041296173cb6a8e7c3f4b67d3c2c295d52dcee63"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/blast": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blast_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blast_0.wav": "ef6e4490c4842bd095a7516e18b0c13108b2ef9f8da13fe4f079da4502d29963",
+        "assets/player_presentation_01/weapon_audio_v2/blast_1.wav": "521280576b37e3655dd61ef63fe3358abd6553d6d7ab52df97262b3cb1ccce17",
+        "assets/player_presentation_01/weapon_audio_v2/blast_2.wav": "6d231fb76edfbec62ae5a5be75a232c0a573def289780f04fab4d32e42785bb7"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/boomerang_return": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "boomerang_return_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_0.wav": "8b2d2252c0c9285f1d6ff9a1058ab8d44dfafa8a9ea82e5d14e2e6db7d38ba20",
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_1.wav": "3c08c52ddb5817018841036aa483ba52a99970b78c7056dfd328957d5851ad3e",
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_2.wav": "53468d578f0a99b9e7d0496eef79bb7c97b992d9b7076ddc9f01096af8d720f5"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/hit": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "hit_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/hit_0.wav": "85d14d384f7281aa1d9cc8734b1077db07466d5176c1aad8b6eee949fd90d168",
+        "assets/player_presentation_01/weapon_audio_v2/hit_1.wav": "cdaf34161979247ea26be6de8932dfe29d0e68111951680a612db035b502a5d6",
+        "assets/player_presentation_01/weapon_audio_v2/hit_2.wav": "bb102d759e8dcdff50b04eadbde9c1266a15da37cf57254b34e0d2e2cad02a09"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/ion_loop": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "ion_loop_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_0.wav": "34008ff7fce4de0a5673e39a52f74d9393711e9e606271ad6a1848088aed2999",
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_1.wav": "b0ed5c80dafaa39ea363ce83b90d11071d2b9876774e319a5c2b62bcba840f5c",
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_2.wav": "31537c158e3cabc35c4131c5e1982c682d69bb3cf7cad10ede67d6f6497d563f"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/ion_start": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "ion_start_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_0.wav": "f8c69d6d0246998cbc7e4d3c4adc5216f2c235aa537e12ab8205c3d8a3501bbd",
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_1.wav": "db338e5121a567e4a8ebe26c1c4356e1e7c9d489e0f732bd1a85b284434c5c61",
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_2.wav": "6fe36bbe58ac05e58c3407b43a483e5bb3aab91dde7aaeba539590c8f3943b3c"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/ion_tail": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "ion_tail_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_0.wav": "ddc9bb2f73f0cc2efce88822db5d5168c29612d3fe95ce95c244f6a1f03a260c",
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_1.wav": "03a2fd8fdd6867f56fb223733b40d7b143ff9e0995d27f29fdf7aa645cb1755b",
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_2.wav": "b13aed1423d1be0e72985da3b35e0365cedb9557c400bb67ac6ad225d45bd351"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/machine": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "machine_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/machine_0.wav": "28924cf0943b4fef350d85628053d91d6d07b68a50d7c4d44693d992910cfe2d",
+        "assets/player_presentation_01/weapon_audio_v2/machine_1.wav": "f6f46f69274d60d630a2d581852b7211c4999c28c6b796356a90dd0818389f0d",
+        "assets/player_presentation_01/weapon_audio_v2/machine_2.wav": "3dac2af6f016e37c97bcaca0036a973ba4fc8443aee2b3afd2caee976d63d857"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/mine_beep": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "mine_beep_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/mine_beep_0.wav": "06671967e52e702514b3cfcf88db9aa96a9e3d029f3b4b5b5e3f0c229260504b",
+        "assets/player_presentation_01/weapon_audio_v2/mine_beep_1.wav": "1bf870570838d9360a7d938fdb33621e00631efec6ba850798adc6233eb13ebf",
+        "assets/player_presentation_01/weapon_audio_v2/mine_beep_2.wav": "69cd9d016c8c411d7cc2bc0e7470d558f7684717f179c7de65a60fc9732d6db0"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/pulse": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "pulse_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_weapon/wall": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "wall_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/wall_0.wav": "e5a1aa546c974e7447bcf51588391fcec6c7740aa962c4173662c897833875ee",
+        "assets/player_presentation_01/weapon_audio_v2/wall_1.wav": "7b3cf8bef67ada8456c2ae22f3dc1214d8fe757eef40a1a1d440adb0df5a4bc7",
+        "assets/player_presentation_01/weapon_audio_v2/wall_2.wav": "b11a6290b8e50595a6ff7dc779093a5d89b52058623c68593a2dee0f5634697a"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original/enemy_hit": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "hit_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/hit_0.wav": "85d14d384f7281aa1d9cc8734b1077db07466d5176c1aad8b6eee949fd90d168",
+        "assets/player_presentation_01/weapon_audio_v2/hit_1.wav": "cdaf34161979247ea26be6de8932dfe29d0e68111951680a612db035b502a5d6",
+        "assets/player_presentation_01/weapon_audio_v2/hit_2.wav": "bb102d759e8dcdff50b04eadbde9c1266a15da37cf57254b34e0d2e2cad02a09"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original/shot_pulse": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "pulse_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original/shot_shuriken": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blade_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blade_0.wav": "e90aef6273d54910b406bc4afe5e8d4f42736a12f92a2e18ed371bd7bc2c5548",
+        "assets/player_presentation_01/weapon_audio_v2/blade_1.wav": "41eaf93594f507af754ab2ac9899427a775f382ed1b50d76cb2f217a35177f9d",
+        "assets/player_presentation_01/weapon_audio_v2/blade_2.wav": "3f2737eb159cc3fcacb05c5a041296173cb6a8e7c3f4b67d3c2c295d52dcee63"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original/bomb_explode": {
+      "author": "Freedoom contributors",
+      "license": "BSD-3-Clause",
+      "source_url": "https://freedoom.github.io/",
+      "original_filename": "blast_0/1/2.wav (existing processed bank)",
+      "commercial_use": true,
+      "attribution_required": true,
+      "download_date": "原项目已存，见weapon-audio-v2-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/weapon_audio_v2/blast_0.wav": "ef6e4490c4842bd095a7516e18b0c13108b2ef9f8da13fe4f079da4502d29963",
+        "assets/player_presentation_01/weapon_audio_v2/blast_1.wav": "521280576b37e3655dd61ef63fe3358abd6553d6d7ab52df97262b3cb1ccce17",
+        "assets/player_presentation_01/weapon_audio_v2/blast_2.wav": "6d231fb76edfbec62ae5a5be75a232c0a573def289780f04fab4d32e42785bb7"
+      },
+      "commercial_conditions": "Retain complete Freedoom COPYING.adoc with redistributed recordings/comparisons."
+    },
+    "original_motion/jump": {
+      "author": "Kenney; existing project edits",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "jump_0/1/2.wav (retained feel-audio-v1)",
+      "commercial_use": true,
+      "attribution_required": false,
+      "download_date": "原项目已存，见feel-audio-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/feel_audio_v1/jump_0.wav": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b",
+        "assets/player_presentation_01/feel_audio_v1/jump_1.wav": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865",
+        "assets/player_presentation_01/feel_audio_v1/jump_2.wav": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+      },
+      "processing_provenance": "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json"
+    },
+    "original_motion/land": {
+      "author": "Kenney; existing project edits",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "land_0/1/2.wav (retained feel-audio-v1)",
+      "commercial_use": true,
+      "attribution_required": false,
+      "download_date": "原项目已存，见feel-audio-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/feel_audio_v1/land_0.wav": "e77a4e3fecf1b1476ca13b9a2a434d58a3ff19591d6d1682207d20abab5e5069",
+        "assets/player_presentation_01/feel_audio_v1/land_1.wav": "0d2467d0030eb83e8cc6dcad96dcbd1379fac5f21ef92e617968e5b336f00b35",
+        "assets/player_presentation_01/feel_audio_v1/land_2.wav": "32200f1d015719f72cd92e44b5742a2f252b00da0c831bec1239b99857983b2b"
+      },
+      "processing_provenance": "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json"
+    },
+    "original_motion/heavy": {
+      "author": "Kenney; existing project edits",
+      "license": "CC0-1.0",
+      "source_url": "https://kenney.nl/assets/impact-sounds",
+      "original_filename": "heavy_0/1/2.wav (retained feel-audio-v1)",
+      "commercial_use": true,
+      "attribution_required": false,
+      "download_date": "原项目已存，见feel-audio-provenance.json",
+      "original_files": {
+        "assets/player_presentation_01/feel_audio_v1/heavy_0.wav": "03ffc708153cc1806883a94b7be51aa0ab52f713d2540eafbc6a05eea45b7b30",
+        "assets/player_presentation_01/feel_audio_v1/heavy_1.wav": "91564321205cd3c1acbdd1ccf59786be3922cebc11d1d0ec7741176def74a42a",
+        "assets/player_presentation_01/feel_audio_v1/heavy_2.wav": "1ae84393547073be9e1a4537c4ce133c4a7dee411f5f7dc7c1ee31660b0a7e67"
+      },
+      "processing_provenance": "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json"
+    },
+    "original/home_bgm": {
+      "author": "用户提供；作者以原provenance为准",
+      "license": "User-provided for this game/audition; no general reuse grant",
+      "source_url": "https://github.com/zhipijun1996/gunman-rush/blob/main/assets/audio/bgm/provenance.json",
+      "original_filename": "the_kindred_hearth.mp3",
+      "commercial_use": "Only as authorized for this project, not a third-party sample library",
+      "attribution_required": null,
+      "commercial_conditions": "Only this game and its audition; third-party reuse/attribution terms have not been granted or independently verified.",
+      "path": "assets/audio/bgm/the_kindred_hearth.mp3",
+      "sha256": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+      "download_date": "用户原提供，见assets/audio/bgm/provenance.json"
+    }
+  },
+  "clips": [
+    {
+      "id": "coin",
+      "title": "金币 · 清脆收集",
+      "category": "pickup",
+      "video": "media/coin.mp4",
+      "poster": "posters/coin.jpg",
+      "duration": 12.283333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。"
+      ],
+      "candidates": [
+        {
+          "id": "coin_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 2.7666666666666666,
+          "event_ids": [
+            "coin"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_original"
+          },
+          "source_ids": [
+            "original/coin",
+            "original/step"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "coin_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.066666666666667,
+          "end": 5.816666666666666,
+          "event_ids": [
+            "coin"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_a"
+          },
+          "source_ids": [
+            "get/Coin01.aif",
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "coin_a"
+          ]
+        },
+        {
+          "id": "coin_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 6.116666666666666,
+          "end": 8.866666666666667,
+          "event_ids": [
+            "coin"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_b"
+          },
+          "source_ids": [
+            "get/Coin01.aif",
+            "rpg/item_gem_01.ogg",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "coin_b"
+          ]
+        },
+        {
+          "id": "coin_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 9.166666666666666,
+          "end": 11.916666666666666,
+          "event_ids": [
+            "coin"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_c"
+          },
+          "source_ids": [
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "coin_c"
+          ]
+        }
+      ],
+      "movie_sha256": "a3ece1acda21b33cfc32939e2d2e5fc72b4c284b664c874b079dbf4a4ea76454",
+      "trace_sha256": "93e48bd927ccbbb0c8d967ff7342cada851777fc822b91b214bb5d904298c0a5"
+    },
+    {
+      "id": "heal",
+      "title": "生命 · 液体回复",
+      "category": "pickup",
+      "video": "media/heal.mp4",
+      "poster": "posters/heal.jpg",
+      "duration": 12.283333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。"
+      ],
+      "candidates": [
+        {
+          "id": "heal_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 2.7666666666666666,
+          "event_ids": [
+            "heal"
+          ],
+          "event_candidate_ids": {
+            "heal": "heal_original"
+          },
+          "source_ids": [
+            "original/heal",
+            "original/step"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "heal_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.066666666666667,
+          "end": 5.816666666666666,
+          "event_ids": [
+            "heal"
+          ],
+          "event_candidate_ids": {
+            "heal": "heal_a"
+          },
+          "source_ids": [
+            "water/bubble_01.ogg",
+            "water/splash_09.ogg",
+            "get/Upper01.aif",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "heal_a"
+          ]
+        },
+        {
+          "id": "heal_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 6.116666666666666,
+          "end": 8.866666666666667,
+          "event_ids": [
+            "heal"
+          ],
+          "event_candidate_ids": {
+            "heal": "heal_b"
+          },
+          "source_ids": [
+            "water/bubble_03.ogg",
+            "water/loop_water_01.ogg",
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "heal_b"
+          ]
+        },
+        {
+          "id": "heal_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 9.166666666666666,
+          "end": 11.916666666666666,
+          "event_ids": [
+            "heal"
+          ],
+          "event_candidate_ids": {
+            "heal": "heal_c"
+          },
+          "source_ids": [
+            "water/bubble_02.ogg",
+            "water/splash_10.ogg",
+            "get/Upper01.aif",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "heal_c"
+          ]
+        }
+      ],
+      "movie_sha256": "ce863df9fac3469fa44b3ae4ecc07419e18b65dac047a87f10f72e8af5559015",
+      "trace_sha256": "834847b3329cb70362c215080e0699fd1dd6a7c8b4c31df61bdf580912115213"
+    },
+    {
+      "id": "chest_open",
+      "title": "宝箱 · 锁扣与开盖",
+      "category": "pickup",
+      "video": "media/chest_open.mp4",
+      "poster": "posters/chest_open.jpg",
+      "duration": 14.55,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。",
+        "原版无专用事件音，保留旧通用confirm/note映射并在画面标注；ABC为新设计。"
+      ],
+      "candidates": [
+        {
+          "id": "chest_open_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 3.3333333333333335,
+          "event_ids": [
+            "chest_open"
+          ],
+          "event_candidate_ids": {
+            "chest_open": "chest_open_original"
+          },
+          "source_ids": [
+            "original/confirm",
+            "original/step"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "chest_open_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.6333333333333333,
+          "end": 6.95,
+          "event_ids": [
+            "chest_open"
+          ],
+          "event_candidate_ids": {
+            "chest_open": "chest_open_a"
+          },
+          "source_ids": [
+            "rpg/lock_01.ogg",
+            "k/door",
+            "rpg/item_gem_02.ogg",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "chest_open_a"
+          ]
+        },
+        {
+          "id": "chest_open_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 7.25,
+          "end": 10.566666666666666,
+          "event_ids": [
+            "chest_open"
+          ],
+          "event_candidate_ids": {
+            "chest_open": "chest_open_b"
+          },
+          "source_ids": [
+            "material/lock_open_01.ogg",
+            "k/door",
+            "get/Upper01.aif",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "chest_open_b"
+          ]
+        },
+        {
+          "id": "chest_open_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 10.866666666666667,
+          "end": 14.183333333333334,
+          "event_ids": [
+            "chest_open"
+          ],
+          "event_candidate_ids": {
+            "chest_open": "chest_open_c"
+          },
+          "source_ids": [
+            "material/keys_03.ogg",
+            "material/wood_close_02.ogg",
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "chest_open_c"
+          ]
+        }
+      ],
+      "movie_sha256": "a9c63f0160b8f22c5cc8013852aca5115fe996262c897a090c70d34601125d69",
+      "trace_sha256": "9acdc74200be651d074bcef441caf26e04d36c50d8bff030ab575ccd38bf5d4c"
+    },
+    {
+      "id": "item_get",
+      "title": "道具 · 较长获得乐句",
+      "category": "pickup",
+      "video": "media/item_get.mp4",
+      "poster": "posters/item_get.jpg",
+      "duration": 15.883333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。",
+        "原版无专用事件音，保留旧通用confirm/note映射并在画面标注；ABC为新设计。"
+      ],
+      "candidates": [
+        {
+          "id": "item_get_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 3.6666666666666665,
+          "event_ids": [
+            "item_get"
+          ],
+          "event_candidate_ids": {
+            "item_get": "item_get_original"
+          },
+          "source_ids": [
+            "original/note",
+            "original/step"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "item_get_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.966666666666667,
+          "end": 7.616666666666666,
+          "event_ids": [
+            "item_get"
+          ],
+          "event_candidate_ids": {
+            "item_get": "item_get_a"
+          },
+          "source_ids": [
+            "get/Rise01.aif",
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "item_get_a"
+          ]
+        },
+        {
+          "id": "item_get_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 7.916666666666667,
+          "end": 11.566666666666666,
+          "event_ids": [
+            "item_get"
+          ],
+          "event_candidate_ids": {
+            "item_get": "item_get_b"
+          },
+          "source_ids": [
+            "rpg/item_gem_01.ogg",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "item_get_b"
+          ]
+        },
+        {
+          "id": "item_get_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 11.866666666666667,
+          "end": 15.516666666666667,
+          "event_ids": [
+            "item_get"
+          ],
+          "event_candidate_ids": {
+            "item_get": "item_get_c"
+          },
+          "source_ids": [
+            "rpg/lock_02.ogg",
+            "get/Rise03.aif",
+            "k/core",
+            "original/step"
+          ],
+          "audible_candidate_ids": [
+            "item_get_c"
+          ]
+        }
+      ],
+      "movie_sha256": "3e30eb4f276cd5faa4ffcaf7ecbbfe7d9a5495e522250a1a01a5288b226bcdb5",
+      "trace_sha256": "013f12423c1f7faddfc34a07c92e0c8a62c1330e7a5c5c7aaea4b0810ec4a711"
+    },
+    {
+      "id": "ui",
+      "title": "界面 · 点击、确认、拒绝",
+      "category": "ui",
+      "video": "media/ui.mp4",
+      "poster": "posters/ui.jpg",
+      "duration": 14.483333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。"
+      ],
+      "candidates": [
+        {
+          "id": "ui_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 3.316666666666667,
+          "event_ids": [
+            "click",
+            "confirm",
+            "denied"
+          ],
+          "event_candidate_ids": {
+            "click": "click_original",
+            "confirm": "confirm_original",
+            "denied": "denied_original"
+          },
+          "source_ids": [
+            "original/click",
+            "original/confirm",
+            "original/denied"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "ui_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.6166666666666667,
+          "end": 6.916666666666667,
+          "event_ids": [
+            "click",
+            "confirm",
+            "denied"
+          ],
+          "event_candidate_ids": {
+            "click": "click_a",
+            "confirm": "confirm_a",
+            "denied": "denied_a"
+          },
+          "source_ids": [
+            "ui/click1.wav",
+            "ui/switch12.wav",
+            "k/core",
+            "ui/switch14.wav"
+          ],
+          "audible_candidate_ids": [
+            "click_a",
+            "confirm_a",
+            "denied_a"
+          ]
+        },
+        {
+          "id": "ui_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 7.216666666666667,
+          "end": 10.516666666666667,
+          "event_ids": [
+            "click",
+            "confirm",
+            "denied"
+          ],
+          "event_candidate_ids": {
+            "click": "click_b",
+            "confirm": "confirm_b",
+            "denied": "denied_b"
+          },
+          "source_ids": [
+            "ui/rollover3.wav",
+            "ui/rollover5.wav",
+            "get/Upper01.aif",
+            "ui/switch28.wav"
+          ],
+          "audible_candidate_ids": [
+            "click_b",
+            "confirm_b",
+            "denied_b"
+          ]
+        },
+        {
+          "id": "ui_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 10.816666666666666,
+          "end": 14.116666666666667,
+          "event_ids": [
+            "click",
+            "confirm",
+            "denied"
+          ],
+          "event_candidate_ids": {
+            "click": "click_c",
+            "confirm": "confirm_c",
+            "denied": "denied_c"
+          },
+          "source_ids": [
+            "ui/click3.wav",
+            "rpg/lock_02.ogg",
+            "k/core",
+            "rpg/lock_01.ogg"
+          ],
+          "audible_candidate_ids": [
+            "click_c",
+            "confirm_c",
+            "denied_c"
+          ]
+        }
+      ],
+      "movie_sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764",
+      "trace_sha256": "7ce4625e2765f861e997e9fd31cc7b61723ddedaa53fe7a422a8d4c3891bcda2"
+    },
+    {
+      "id": "enemy_hit",
+      "title": "战斗 · 武器命中",
+      "category": "combat",
+      "video": "media/enemy_hit.mp4",
+      "poster": "posters/enemy_hit.jpg",
+      "duration": 11.683333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。",
+        "场景也包含该方案的脉冲枪开火；此片重点比较对应命中/受伤层，选定后再验所选声音的组合。"
+      ],
+      "candidates": [
+        {
+          "id": "enemy_hit_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 2.6166666666666667,
+          "event_ids": [
+            "enemy_hit"
+          ],
+          "event_candidate_ids": {
+            "enemy_hit": "enemy_hit_original"
+          },
+          "source_ids": [
+            "original_weapon/hit",
+            "original_weapon/pulse"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "enemy_hit_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 2.9166666666666665,
+          "end": 5.516666666666667,
+          "event_ids": [
+            "enemy_hit"
+          ],
+          "event_candidate_ids": {
+            "enemy_hit": "enemy_hit_a"
+          },
+          "source_ids": [
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "rpg/blade_01.ogg",
+            "hit/bfh1_hit_01.ogg",
+            "k/core"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_a",
+            "enemy_hit_a"
+          ]
+        },
+        {
+          "id": "enemy_hit_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 5.816666666666666,
+          "end": 8.416666666666666,
+          "event_ids": [
+            "enemy_hit"
+          ],
+          "event_candidate_ids": {
+            "enemy_hit": "enemy_hit_b"
+          },
+          "source_ids": [
+            "k/shot",
+            "k/impact",
+            "rpg/blade_02.ogg",
+            "hit/bfh1_hit_06.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_b",
+            "enemy_hit_b"
+          ]
+        },
+        {
+          "id": "enemy_hit_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 8.716666666666667,
+          "end": 11.316666666666666,
+          "event_ids": [
+            "enemy_hit"
+          ],
+          "event_candidate_ids": {
+            "enemy_hit": "enemy_hit_c"
+          },
+          "source_ids": [
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "rpg/blade_03.ogg",
+            "material/wood_hit_05.ogg",
+            "material/metal_hit_03.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_c",
+            "enemy_hit_c"
+          ]
+        }
+      ],
+      "movie_sha256": "78ba8090da8e2de1b33409e4a641d04b9af670a439711e9e9a46849ad8c41870",
+      "trace_sha256": "8de7fdc34bf7432e251826fd91939e76b4bb7c1ae3408947556380e6108ac5e4"
+    },
+    {
+      "id": "enemy_hurt",
+      "title": "战斗 · 敌人受伤",
+      "category": "combat",
+      "video": "media/enemy_hurt.mp4",
+      "poster": "posters/enemy_hurt.jpg",
+      "duration": 11.683333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。",
+        "场景也包含该方案的脉冲枪开火；此片重点比较对应命中/受伤层，选定后再验所选声音的组合。"
+      ],
+      "candidates": [
+        {
+          "id": "enemy_hurt_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 2.6166666666666667,
+          "event_ids": [
+            "enemy_hurt"
+          ],
+          "event_candidate_ids": {
+            "enemy_hurt": "enemy_hurt_original"
+          },
+          "source_ids": [
+            "original/hurt",
+            "original_weapon/pulse"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "enemy_hurt_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 2.9166666666666665,
+          "end": 5.516666666666667,
+          "event_ids": [
+            "enemy_hurt"
+          ],
+          "event_candidate_ids": {
+            "enemy_hurt": "enemy_hurt_a"
+          },
+          "source_ids": [
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "hit/bfh1_hit_03.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_a",
+            "enemy_hurt_a"
+          ]
+        },
+        {
+          "id": "enemy_hurt_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 5.816666666666666,
+          "end": 8.416666666666666,
+          "event_ids": [
+            "enemy_hurt"
+          ],
+          "event_candidate_ids": {
+            "enemy_hurt": "enemy_hurt_b"
+          },
+          "source_ids": [
+            "k/shot",
+            "k/impact",
+            "hit/bfh1_hit_10.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_b",
+            "enemy_hurt_b"
+          ]
+        },
+        {
+          "id": "enemy_hurt_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 8.716666666666667,
+          "end": 11.316666666666666,
+          "event_ids": [
+            "enemy_hurt"
+          ],
+          "event_candidate_ids": {
+            "enemy_hurt": "enemy_hurt_c"
+          },
+          "source_ids": [
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "material/wood_hit_04.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_c",
+            "enemy_hurt_c"
+          ]
+        }
+      ],
+      "movie_sha256": "993faf160968c5a5a1dd064c1e3e98d39f8e0fdb5a85b37dcae29eaf8df53b3f",
+      "trace_sha256": "fb9f4594323a25d8e2c4a7b56b559cb35ffad864de7c4187e3df542d6878f732"
+    },
+    {
+      "id": "hurt",
+      "title": "战斗 · 主角受伤",
+      "category": "combat",
+      "video": "media/hurt.mp4",
+      "poster": "posters/hurt.jpg",
+      "duration": 13.55,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。"
+      ],
+      "candidates": [
+        {
+          "id": "hurt_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 3.0833333333333335,
+          "event_ids": [
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "hurt": "hurt_original"
+          },
+          "source_ids": [
+            "original/enemy_shot",
+            "original/hurt",
+            "original/warning"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "hurt_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 3.3833333333333333,
+          "end": 6.45,
+          "event_ids": [
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "hurt": "hurt_a"
+          },
+          "source_ids": [
+            "k/hurt",
+            "hit/bfh1_hit_05.ogg",
+            "original/enemy_shot",
+            "original/warning"
+          ],
+          "audible_candidate_ids": [
+            "hurt_a"
+          ]
+        },
+        {
+          "id": "hurt_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 6.75,
+          "end": 9.816666666666666,
+          "event_ids": [
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "hurt": "hurt_b"
+          },
+          "source_ids": [
+            "hit/bfh1_hit_09.ogg",
+            "k/jump",
+            "original/enemy_shot",
+            "original/warning"
+          ],
+          "audible_candidate_ids": [
+            "hurt_b"
+          ]
+        },
+        {
+          "id": "hurt_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 10.116666666666667,
+          "end": 13.183333333333334,
+          "event_ids": [
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "hurt": "hurt_c"
+          },
+          "source_ids": [
+            "hit/bfh1_hit_12.ogg",
+            "material/wood_misc_01.ogg",
+            "original/enemy_shot",
+            "original/warning"
+          ],
+          "audible_candidate_ids": [
+            "hurt_c"
+          ]
+        }
+      ],
+      "movie_sha256": "0d34f97e3c1dc0fcaead4359545ec2f375e1268af74f8553b6206de82017e7bc",
+      "trace_sha256": "a339e72921f08081927d65f6a7e9a1360ffdbe62e92c9c65cab5994b86b71af8"
+    },
+    {
+      "id": "shot_pulse",
+      "title": "武器 · 脉冲枪发射",
+      "category": "weapons",
+      "video": "media/weapons.mp4",
+      "poster": "posters/shot_pulse.jpg",
+      "duration": 22.683333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "同一份真实三武器录屏的原音轨章节；候选按钮直接跳到此武器，无后配或重排音画。",
+        "每方案相同真实武器/输入；命中与受伤另有场景。"
+      ],
+      "candidates": [
+        {
+          "id": "shot_pulse_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.31666666666666665,
+          "end": 2.1666666666666665,
+          "event_ids": [
+            "shot_pulse"
+          ],
+          "event_candidate_ids": {
+            "shot_pulse": "shot_pulse_original"
+          },
+          "source_ids": [
+            "original_weapon/blade",
+            "original_weapon/blast",
+            "original_weapon/pulse"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "shot_pulse_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 5.966666666666667,
+          "end": 7.816666666666666,
+          "event_ids": [
+            "shot_pulse"
+          ],
+          "event_candidate_ids": {
+            "shot_pulse": "shot_pulse_a"
+          },
+          "source_ids": [
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "rpg/blade_01.ogg",
+            "material/keys_02.ogg",
+            "k/jump",
+            "rpg/lock_01.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_01.ogg",
+            "rpg/stones_01.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_a"
+          ]
+        },
+        {
+          "id": "shot_pulse_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 11.616666666666667,
+          "end": 13.466666666666667,
+          "event_ids": [
+            "shot_pulse"
+          ],
+          "event_candidate_ids": {
+            "shot_pulse": "shot_pulse_b"
+          },
+          "source_ids": [
+            "k/shot",
+            "k/impact",
+            "rpg/blade_02.ogg",
+            "rpg/metal_02.ogg",
+            "k/jump",
+            "material/wood_misc_02.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_02.ogg",
+            "rpg/stones_02.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_b"
+          ]
+        },
+        {
+          "id": "shot_pulse_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 17.266666666666666,
+          "end": 19.116666666666667,
+          "event_ids": [
+            "shot_pulse"
+          ],
+          "event_candidate_ids": {
+            "shot_pulse": "shot_pulse_c"
+          },
+          "source_ids": [
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "rpg/blade_03.ogg",
+            "rpg/chain_02.ogg",
+            "k/jump",
+            "rpg/chain_01.ogg",
+            "k/boss_impact",
+            "hit/bfh1_breaking_03.ogg",
+            "rpg/stones_03.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_pulse_c"
+          ]
+        }
+      ],
+      "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+      "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+      "source_reel": "weapons"
+    },
+    {
+      "id": "shot_shuriken",
+      "title": "武器 · 手里剑离手",
+      "category": "weapons",
+      "video": "media/weapons.mp4",
+      "poster": "posters/shot_shuriken.jpg",
+      "duration": 22.683333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "同一份真实三武器录屏的原音轨章节；候选按钮直接跳到此武器，无后配或重排音画。",
+        "每方案相同真实武器/输入；命中与受伤另有场景。"
+      ],
+      "candidates": [
+        {
+          "id": "shot_shuriken_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 1.9666666666666666,
+          "end": 3.683333333333333,
+          "event_ids": [
+            "shot_shuriken"
+          ],
+          "event_candidate_ids": {
+            "shot_shuriken": "shot_shuriken_original"
+          },
+          "source_ids": [
+            "original_weapon/blade",
+            "original_weapon/blast",
+            "original_weapon/pulse"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "shot_shuriken_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 7.616666666666666,
+          "end": 9.333333333333334,
+          "event_ids": [
+            "shot_shuriken"
+          ],
+          "event_candidate_ids": {
+            "shot_shuriken": "shot_shuriken_a"
+          },
+          "source_ids": [
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "rpg/blade_01.ogg",
+            "material/keys_02.ogg",
+            "k/jump",
+            "rpg/lock_01.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_01.ogg",
+            "rpg/stones_01.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_shuriken_a"
+          ]
+        },
+        {
+          "id": "shot_shuriken_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 13.266666666666667,
+          "end": 14.983333333333333,
+          "event_ids": [
+            "shot_shuriken"
+          ],
+          "event_candidate_ids": {
+            "shot_shuriken": "shot_shuriken_b"
+          },
+          "source_ids": [
+            "k/shot",
+            "k/impact",
+            "rpg/blade_02.ogg",
+            "rpg/metal_02.ogg",
+            "k/jump",
+            "material/wood_misc_02.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_02.ogg",
+            "rpg/stones_02.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_shuriken_b"
+          ]
+        },
+        {
+          "id": "shot_shuriken_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 18.916666666666668,
+          "end": 20.633333333333333,
+          "event_ids": [
+            "shot_shuriken"
+          ],
+          "event_candidate_ids": {
+            "shot_shuriken": "shot_shuriken_c"
+          },
+          "source_ids": [
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "rpg/blade_03.ogg",
+            "rpg/chain_02.ogg",
+            "k/jump",
+            "rpg/chain_01.ogg",
+            "k/boss_impact",
+            "hit/bfh1_breaking_03.ogg",
+            "rpg/stones_03.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_shuriken_c"
+          ]
+        }
+      ],
+      "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+      "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+      "source_reel": "weapons"
+    },
+    {
+      "id": "bomb_weapon",
+      "title": "武器 · 反冲炸弹发射与爆破",
+      "category": "weapons",
+      "video": "media/weapons.mp4",
+      "poster": "posters/bomb_weapon.jpg",
+      "duration": 22.683333,
+      "audio_mode": "sfx_only",
+      "audio_label": "Godot原录屏音轨 · SFX，无BGM",
+      "notes": [
+        "同一份真实三武器录屏的原音轨章节；候选按钮直接跳到此武器，无后配或重排音画。",
+        "当前基础反冲炸弹是即时爆破，这里比较整体声音；原版只有原爆破声。"
+      ],
+      "candidates": [
+        {
+          "id": "bomb_weapon_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 3.4833333333333334,
+          "end": 5.366666666666666,
+          "event_ids": [
+            "shot_bomb",
+            "bomb_explode"
+          ],
+          "event_candidate_ids": {
+            "shot_bomb": "shot_bomb_original",
+            "bomb_explode": "bomb_explode_original"
+          },
+          "source_ids": [
+            "original_weapon/blade",
+            "original_weapon/blast",
+            "original_weapon/pulse"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "bomb_weapon_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 9.133333333333333,
+          "end": 11.016666666666667,
+          "event_ids": [
+            "shot_bomb",
+            "bomb_explode"
+          ],
+          "event_candidate_ids": {
+            "shot_bomb": "shot_bomb_a",
+            "bomb_explode": "bomb_explode_a"
+          },
+          "source_ids": [
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "rpg/blade_01.ogg",
+            "material/keys_02.ogg",
+            "k/jump",
+            "rpg/lock_01.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_01.ogg",
+            "rpg/stones_01.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_bomb_a",
+            "bomb_explode_a"
+          ]
+        },
+        {
+          "id": "bomb_weapon_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 14.783333333333333,
+          "end": 16.666666666666668,
+          "event_ids": [
+            "shot_bomb",
+            "bomb_explode"
+          ],
+          "event_candidate_ids": {
+            "shot_bomb": "shot_bomb_b",
+            "bomb_explode": "bomb_explode_b"
+          },
+          "source_ids": [
+            "k/shot",
+            "k/impact",
+            "rpg/blade_02.ogg",
+            "rpg/metal_02.ogg",
+            "k/jump",
+            "material/wood_misc_02.ogg",
+            "k/roar",
+            "hit/bfh1_breaking_02.ogg",
+            "rpg/stones_02.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_bomb_b",
+            "bomb_explode_b"
+          ]
+        },
+        {
+          "id": "bomb_weapon_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 20.433333333333334,
+          "end": 22.316666666666666,
+          "event_ids": [
+            "shot_bomb",
+            "bomb_explode"
+          ],
+          "event_candidate_ids": {
+            "shot_bomb": "shot_bomb_c",
+            "bomb_explode": "bomb_explode_c"
+          },
+          "source_ids": [
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "rpg/blade_03.ogg",
+            "rpg/chain_02.ogg",
+            "k/jump",
+            "rpg/chain_01.ogg",
+            "k/boss_impact",
+            "hit/bfh1_breaking_03.ogg",
+            "rpg/stones_03.ogg"
+          ],
+          "audible_candidate_ids": [
+            "shot_bomb_c",
+            "bomb_explode_c"
+          ]
+        }
+      ],
+      "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+      "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+      "source_reel": "weapons"
+    },
+    {
+      "id": "mix",
+      "title": "原BGM下 · 拾取与战斗片段",
+      "category": "mix",
+      "video": "media/mix.mp4",
+      "poster": "posters/mix.jpg",
+      "duration": 28.333333,
+      "audio_mode": "with_bgm",
+      "audio_label": "Godot原录屏音轨 · 原家园BGM+SFX",
+      "notes": [
+        "明确开发fixture；原角色、真实接受事件与原生音轨。",
+        "原版为现有实际音色/增益，ABC待用户选择。",
+        "原生连续录制中的样板片段切换：拾取后重建战斗fixture，BGM继续；不是自然无重置通关。"
+      ],
+      "candidates": [
+        {
+          "id": "mix_original",
+          "profile": "original",
+          "label": "原版",
+          "start": 0.016666666666666666,
+          "end": 6.766666666666667,
+          "event_ids": [
+            "coin",
+            "heal",
+            "enemy_hit",
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_original",
+            "heal": "heal_original",
+            "enemy_hit": "enemy_hit_original",
+            "hurt": "hurt_original"
+          },
+          "source_ids": [
+            "original/coin",
+            "original/enemy_shot",
+            "original/heal",
+            "original/hurt",
+            "original/step",
+            "original/warning",
+            "original_weapon/hit",
+            "original_weapon/pulse",
+            "original/home_bgm"
+          ],
+          "audible_candidate_ids": []
+        },
+        {
+          "id": "mix_a",
+          "profile": "A",
+          "label": "方案 A",
+          "start": 7.066666666666666,
+          "end": 13.816666666666666,
+          "event_ids": [
+            "coin",
+            "heal",
+            "enemy_hit",
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_a",
+            "heal": "heal_a",
+            "enemy_hit": "enemy_hit_a",
+            "hurt": "hurt_a"
+          },
+          "source_ids": [
+            "get/Coin01.aif",
+            "k/core",
+            "water/bubble_01.ogg",
+            "water/splash_09.ogg",
+            "get/Upper01.aif",
+            "k/shot",
+            "rpg/lock_02.ogg",
+            "rpg/blade_01.ogg",
+            "hit/bfh1_hit_01.ogg",
+            "k/hurt",
+            "hit/bfh1_hit_05.ogg",
+            "original/enemy_shot",
+            "original/step",
+            "original/warning",
+            "original/home_bgm"
+          ],
+          "audible_candidate_ids": [
+            "coin_a",
+            "heal_a",
+            "shot_pulse_a",
+            "enemy_hit_a",
+            "hurt_a"
+          ]
+        },
+        {
+          "id": "mix_b",
+          "profile": "B",
+          "label": "方案 B",
+          "start": 14.116666666666667,
+          "end": 20.866666666666667,
+          "event_ids": [
+            "coin",
+            "heal",
+            "enemy_hit",
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_b",
+            "heal": "heal_b",
+            "enemy_hit": "enemy_hit_b",
+            "hurt": "hurt_b"
+          },
+          "source_ids": [
+            "get/Coin01.aif",
+            "rpg/item_gem_01.ogg",
+            "water/bubble_03.ogg",
+            "water/loop_water_01.ogg",
+            "k/core",
+            "k/shot",
+            "k/impact",
+            "rpg/blade_02.ogg",
+            "hit/bfh1_hit_06.ogg",
+            "hit/bfh1_hit_09.ogg",
+            "k/jump",
+            "original/enemy_shot",
+            "original/step",
+            "original/warning",
+            "original/home_bgm"
+          ],
+          "audible_candidate_ids": [
+            "coin_b",
+            "heal_b",
+            "shot_pulse_b",
+            "enemy_hit_b",
+            "hurt_b"
+          ]
+        },
+        {
+          "id": "mix_c",
+          "profile": "C",
+          "label": "方案 C",
+          "start": 21.166666666666668,
+          "end": 27.916666666666668,
+          "event_ids": [
+            "coin",
+            "heal",
+            "enemy_hit",
+            "hurt"
+          ],
+          "event_candidate_ids": {
+            "coin": "coin_c",
+            "heal": "heal_c",
+            "enemy_hit": "enemy_hit_c",
+            "hurt": "hurt_c"
+          },
+          "source_ids": [
+            "k/core",
+            "water/bubble_02.ogg",
+            "water/splash_10.ogg",
+            "get/Upper01.aif",
+            "k/shot",
+            "material/metal_spring_01.ogg",
+            "rpg/blade_03.ogg",
+            "material/wood_hit_05.ogg",
+            "material/metal_hit_03.ogg",
+            "hit/bfh1_hit_12.ogg",
+            "material/wood_misc_01.ogg",
+            "original/enemy_shot",
+            "original/step",
+            "original/warning",
+            "original/home_bgm"
+          ],
+          "audible_candidate_ids": [
+            "coin_c",
+            "heal_c",
+            "shot_pulse_c",
+            "enemy_hit_c",
+            "hurt_c"
+          ]
+        }
+      ],
+      "movie_sha256": "1f3dcd64bb717f5af86749aab94c0da7eec29033d70e762e3aa34422d7090af9",
+      "trace_sha256": "cb338da5820cb5315f9df6b240918fca8dc8d4b9e3817d1c90ee1f78a5c6d144"
+    }
+  ],
+  "subjective_status": "awaiting-user",
+  "post_validation_tool_sha256": "8b395d5da9cf3bc8c800eec81ec5a38bd51e7df7cc259dbec256ac002fac8144",
+  "verification_upgrade": "Original 4d footage and producer snapshots retained. Only capture/post-validation Python tools upgraded after recording to reject numerical zero-energy FFT false peaks; all game/scene/assets/config inputs remain the original frozen bytes.",
+  "download_url": "audio-scene-reels.zip",
+  "ui_source_commit": "c3f4fdf4a41eaa32dad170804fc9f221f84f0d2a",
+  "ui_sha256": "cfcc512dc3bb3933b6e28fba33cd9315a22278a31b8e62169851fa44cd67e85d"
+}

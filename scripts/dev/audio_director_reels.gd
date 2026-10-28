@@ -19,6 +19,45 @@ var _chest_open := false
 var _reel_clock := 0
 var _recording := false
 var _active_weapon := ""
+var selected_receipt: Dictionary = {}
+
+func configure_selected(path: String = "res://config/audio_director/selected/selected.json") -> bool:
+	if not FileAccess.file_exists(path): return false
+	var receipt: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not receipt is Dictionary or receipt.get("candidate_version") != "audio-director-v3": return false
+	if not receipt.get("event_profiles") is Dictionary: return false
+	if not lab_audio.configure_selected_profiles(receipt.event_profiles): return false
+	selected_receipt = receipt
+	return true
+
+func set_lab_profile(profile: String) -> bool:
+	if profile != "selected": return super.set_lab_profile(profile)
+	if selected_receipt.is_empty() or not lab_audio.set_audio_profile(profile): return false
+	lab_profile = profile
+	_update_lab_status()
+	return true
+
+func _update_lab_status() -> void:
+	if lab_profile != "selected":
+		super._update_lab_status()
+	elif is_instance_valid(_lab_status):
+		_lab_status.text = "用户所选组合 · 2026-10-28 · 原跳落保留"
+
+func capture_selected_reel(folder: String) -> bool:
+	if not configure_selected(): return false
+	var all_segments: Array[Dictionary] = []
+	var all_trace: Array[Dictionary] = []
+	for id: String in REELS:
+		if not await capture_reel(id, folder.path_join(id), ["original", "selected"]): return false
+		for segment: Dictionary in segments:
+			segment["reel"] = id
+			all_segments.append(segment.duplicate(true))
+		for row: Dictionary in reel_trace:
+			row["reel"] = id
+			all_trace.append(row.duplicate(true))
+	var receipt := {"version": "audio-director-selected-20261028", "fps": 60, "seed": reel_seed, "segments": all_segments, "trace": all_trace, "selection": selected_receipt, "scope": "Ten explicit Home development fixtures; original/selected pairs, native continuous MovieMaker audio. Contexts rebuild between chapters, not a continuous campaign. Original BGM only in final mix chapter."}
+	FileAccess.open(folder.path_join("trace.json"), FileAccess.WRITE).store_string(JSON.stringify(receipt))
+	return true
 
 func _ready() -> void:
 	super._ready()
@@ -150,6 +189,10 @@ func _interact_chest() -> void:
 
 func _accepted(event_id: StringName, details: Dictionary = {}) -> void:
 	super._accepted(event_id, details)
+	if lab_profile == "selected":
+		var profile := lab_audio.director_profile_for_event(event_id)
+		lab_events.back()["candidate_id"] = "original" if profile == "original" else "%s_%s" % [event_id, profile.to_lower()]
+		lab_events.back()["event_profile"] = profile
 	lab_events.back()["movie_frame"] = _movie_frame()
 	lab_events.back()["process_frame"] = Engine.get_process_frames()
 	if is_instance_valid(_detail_caption):
@@ -168,7 +211,8 @@ func _movie_frame() -> int:
 	return int(movie_frame_clock.call()) if movie_frame_clock.is_valid() else Engine.get_process_frames()
 
 func _candidate_caption(event_id: StringName) -> String:
-	if lab_profile != "original": return "%s_%s" % [event_id, lab_profile.to_lower()]
+	var profile := lab_audio.director_profile_for_event(event_id)
+	if profile != "original": return "%s_%s" % [event_id, profile.to_lower()]
 	if event_id == &"chest_open": return "原版通用 confirm（无专用开箱声）"
 	if event_id == &"item_get": return "原版通用 note（无专用道具声）"
 	if event_id == &"shot_bomb": return "原版无发射声；爆炸沿原声"
@@ -206,13 +250,13 @@ func capture_reel(id: String, folder: String, profiles: Array[String] = ["origin
 	for profile: String in profiles:
 		_recording = false
 		seed(reel_seed)
-		set_lab_profile(profile)
+		if not set_lab_profile(profile): return false
 		var context := "ui" if id == "ui" else "combat" if id in ["enemy_hit", "enemy_hurt", "hurt", "weapons"] else "pickup"
 		await open_context(context, true)
 		lab_focus = StringName(id)
 		lab_audio.set_audition_focus(&"enemy_hit" if id == "weapons" else lab_focus)
-		_caption.text = "%s　｜　%s" % [TITLES[id], "原版 ORIGINAL" if profile == "original" else "方案 " + profile]
-		_detail_caption.text = "同Seed / 同动作 / 原生录音 · 真实事件发生时显示候选ID" if id in ["ui", "weapons", "mix"] else "事件 %s · %s · 同Seed / 同动作 / 原生录音" % [id, "original" if profile == "original" else id + "_" + profile.to_lower()]
+		_caption.text = "%s　｜　%s" % [TITLES[id], "原版 ORIGINAL" if profile == "original" else "用户所选组合" if profile == "selected" else "方案 " + profile]
+		_detail_caption.text = "同Seed / 同动作 / 原生录音 · 真实事件发生时显示候选ID" if id in ["ui", "weapons", "mix"] else "事件 %s · %s · 同Seed / 同动作 / 原生录音" % [id, _candidate_caption(StringName(id))]
 		if id == "ui": (_scene_box.get_parent() as Control).position = Vector2(400, 390)
 		if id == "mix":
 			for music_voice: AudioStreamPlayer in _music._voices:
@@ -288,7 +332,7 @@ func capture_reel(id: String, folder: String, profiles: Array[String] = ["origin
 
 func _reel_shot(_axis: Vector2, _serial: int, weapon: String) -> void:
 	var event_id := &"shot_pulse" if weapon == "pulse_gun" else &"shot_shuriken" if weapon == "shadow_shuriken" else &"shot_bomb"
-	if event_id == &"shot_bomb" and lab_profile != "original" and lab_audio.has_director_event(event_id):
+	if event_id == &"shot_bomb" and lab_audio.director_profile_for_event(event_id) != "original" and lab_audio.has_director_event(event_id):
 		lab_audio.play_director_event(event_id, "", home_scene.player)
 	_accepted(event_id, {"scope": "original_shot_fired_signal", "weapon": weapon, "packet": home_scene.controller.shoot_ability.packet_id})
 

@@ -34,6 +34,8 @@ var _director_clock := 0.0
 var _director_random := RandomNumberGenerator.new()
 var _director_profiles: Array[String] = ["A", "B"]
 var _director_suppressed: Array[StringName] = []
+var _selected_profiles: Dictionary = {}
+var _selected_configured := false
 
 static func ensure_buses() -> void:
 	# Unity buses preserve the original mix; candidates can be balanced separately.
@@ -49,10 +51,12 @@ static func cue_event(origin: Node, event_id: StringName, legacy_cue: StringName
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 	if service == null: return
 	if service.is_director_event_suppressed(event_id): return
-	if service.audio_profile != "original" and service.has_director_event(event_id):
+	if service.director_profile_for_event(event_id) != "original":
 		service.play_director_event(event_id, "", origin)
 	else:
-		cue(origin, legacy_cue)
+		# The semantic event selected original, even if its shared fallback cue
+		# has a different selection (e.g. chest_open -> confirm).
+		service._play_original(legacy_cue, service._origin_stream_override(origin, legacy_cue))
 
 static func cue(origin: Node, id: StringName) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
@@ -60,16 +64,18 @@ static func cue(origin: Node, id: StringName) -> void:
 	if service:
 		var event_id := service.director_event_for_cue(id)
 		if service.is_director_event_suppressed(event_id): return
-		if service.audio_profile != "original" and service.has_director_event(event_id):
+		if service.director_profile_for_event(event_id) != "original":
 			service.play_director_event(event_id, "", origin)
 			return
-		var stream_override: AudioStream
-		if id == &"enemy_defeat":
-			var overrides: Variant = origin.get_meta(CUE_STREAM_OVERRIDES_META, {})
-			if overrides is Dictionary:
-				var candidate: Variant = overrides.get(id)
-				if candidate is AudioStream: stream_override = candidate
-		service.play(id, stream_override)
+		service._play_original(id, service._origin_stream_override(origin, id))
+
+func _origin_stream_override(origin: Node, id: StringName) -> AudioStream:
+	if id != &"enemy_defeat": return null
+	var overrides: Variant = origin.get_meta(CUE_STREAM_OVERRIDES_META, {})
+	if overrides is Dictionary:
+		var candidate: Variant = overrides.get(id)
+		if candidate is AudioStream: return candidate
+	return null
 
 static func stop_region(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
@@ -85,10 +91,11 @@ static func hook_connected(origin: Node) -> void:
 	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
 	var service := origin.get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 	if service == null: return
-	if service.audio_profile == "original" or not service.has_director_event(&"hook_connect"):
-		cue(origin, &"bell")
+	if service.director_profile_for_event(&"hook_connect") == "original":
+		service._play_original(&"bell")
 	else:
 		service.play_director_event(&"hook_connect", "", origin)
+	if service.director_profile_for_event(&"hook_pull") != "original":
 		service.play_director_event(&"hook_pull", "", origin, true)
 
 func stop_regional_cues() -> void:
@@ -125,7 +132,7 @@ func _observe_button(node: Node) -> void:
 func _click() -> void:
 	# Explicit accepted confirm/denied consumers own candidate UI feedback.
 	# A generic BaseButton press cannot also announce a successful transaction.
-	if audio_profile == "original" or has_director_event(&"click"): play(&"click")
+	if audio_profile in ["original", "selected"] or has_director_event(&"click"): play(&"click")
 
 func _process(delta: float) -> void:
 	_clock += delta
@@ -143,7 +150,7 @@ func _process(delta: float) -> void:
 func play(id: StringName, stream_override: AudioStream = null) -> bool:
 	var event_id := director_event_for_cue(id)
 	if is_director_event_suppressed(event_id): return false
-	if audio_profile != "original" and has_director_event(event_id):
+	if director_profile_for_event(event_id) != "original":
 		return play_director_event(event_id)
 	return _play_original(id, stream_override)
 
@@ -191,6 +198,37 @@ func _load_director_bank() -> void:
 func has_director_event(event_id: StringName) -> bool:
 	return not event_id.is_empty() and _director_bank.has(event_id)
 
+func director_profile_for_event(event_id: StringName) -> String:
+	if not has_director_event(event_id): return "original"
+	if audio_profile == "selected": return str(_selected_profiles.get(event_id, "original"))
+	return audio_profile if audio_profile in _director_profiles else "original"
+
+func configure_selected_profiles(profiles: Dictionary) -> bool:
+	# Validate the complete proposal before touching playback, the current
+	# profile, or an earlier valid selection. No user file is read implicitly.
+	if _shutting_down or _director_bank.is_empty(): return false
+	var selected: Dictionary = {}
+	for key: Variant in profiles:
+		if not key is String and not key is StringName: return false
+		var event_id := StringName(key)
+		var profile: Variant = profiles[key]
+		if not has_director_event(event_id) or not profile is String: return false
+		if profile not in ["original", "A", "B", "C"]: return false
+		if profile != "original":
+			if profile not in _director_profiles: return false
+			var candidate_id := "%s_%s" % [event_id, str(profile).to_lower()]
+			var found := false
+			for candidate: Dictionary in _director_bank[event_id].get("candidates", []):
+				if str(candidate.get("id", "")) == candidate_id:
+					found = true
+					break
+			if not found: return false
+		selected[event_id] = profile
+	_clear_profile_playback()
+	_selected_profiles = selected
+	_selected_configured = true
+	return true
+
 func is_director_event_suppressed(event_id: StringName) -> bool:
 	return event_id in _director_suppressed
 
@@ -219,7 +257,10 @@ func configure_candidate_bank(manifest_path: String, rules_path: String) -> bool
 		if id.is_empty() or bank.has(id): return false
 		bank[id] = event
 	if bank.is_empty() or not rules.get("events") is Dictionary: return false
-	set_audio_profile("original")
+	_clear_profile_playback()
+	audio_profile = "original"
+	_selected_profiles.clear()
+	_selected_configured = false
 	_director_bank = bank
 	_director_profiles = profiles
 	_director_rules = rules.events
@@ -228,18 +269,24 @@ func configure_candidate_bank(manifest_path: String, rules_path: String) -> bool
 	return true
 
 func set_audio_profile(profile: String) -> bool:
-	if profile != "original" and profile not in _director_profiles: return false
+	if _shutting_down: return false
+	if profile == "selected":
+		if not _selected_configured: return false
+	elif profile != "original" and profile not in _director_profiles: return false
 	if profile != "original" and _director_bank.is_empty(): return false
 	if profile == audio_profile: return true
-	# A/B switches are review operations: old tails must not contaminate the next.
+	_clear_profile_playback()
+	audio_profile = profile
+	return true
+
+func _clear_profile_playback() -> void:
+	# Profile/bank/selection changes must not retain comparison tails.
 	for voice: AudioStreamPlayer in _voices:
 		voice.stop()
 		voice.stream = null
 		_clear_director_metadata(voice)
 	_director_last.clear()
 	_last.clear()
-	audio_profile = profile
-	return true
 
 func director_event_for_cue(id: StringName) -> StringName:
 	match id:
@@ -253,7 +300,7 @@ func director_event_for_cue(id: StringName) -> StringName:
 func play_director_event(event_id: StringName, candidate: String = "", origin: Node = null, sustained: bool = false) -> bool:
 	if _shutting_down or volume <= 0 or not _director_bank.has(event_id) or is_director_event_suppressed(event_id): return false
 	var definition: Dictionary = _director_bank[event_id]
-	var selected_profile := candidate if not candidate.is_empty() else audio_profile
+	var selected_profile := candidate if not candidate.is_empty() else director_profile_for_event(event_id)
 	if selected_profile == "original":
 		var legacy: Variant = definition.get("legacy_cue", "")
 		return _play_original(StringName(legacy)) if legacy is String and not legacy.is_empty() else false

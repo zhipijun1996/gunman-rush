@@ -4,11 +4,13 @@ var movie_origin_process := 0
 var smoke := false
 var folder := "res://build/audio_director_v3/reels"
 var reel := "coin"
+var selected := false
 func _initialize() -> void:
 	movie_origin_process = Engine.get_process_frames()
 	RenderingServer.frame_post_draw.connect(_movie_frame_completed)
 	for arg: String in OS.get_cmdline_user_args():
 		if arg == "--smoke": smoke = true
+		if arg == "--selected": selected = true
 		if arg.begins_with("--reel="): reel = arg.trim_prefix("--reel=")
 		if arg.begins_with("--output="): folder = arg.trim_prefix("--output=")
 	start.call_deferred()
@@ -41,7 +43,9 @@ func start() -> void:
 		push_error("Audio reels fixture did not become ready")
 		quit(1)
 		return
-	await lab.capture_reel(reel, folder)
+	var accepted: bool = await lab.capture_selected_reel(folder) if selected else await lab.capture_reel(reel, folder)
+	if not accepted:
+		push_error("Audio reel capture rejected configuration")
 	await lab._music.shutdown()
 	await lab.lab_audio.shutdown()
 	lab.free()
@@ -51,7 +55,7 @@ func start() -> void:
 	trace["movie_clock"] = {"kind": "RenderingServer.frame_post_draw count, installed before first draw", "origin_process_frame": movie_origin_process, "frames_drawn_before_quit": movie_frames_drawn, "index_base": 0}
 	FileAccess.open(trace_path, FileAccess.WRITE).store_string(JSON.stringify(trace))
 	print("AUDIO_REELS_CAPTURE reel=%s complete=true" % reel)
-	quit()
+	quit(0 if accepted else 1)
 
 func _movie_frame_completed() -> void:
 	movie_frames_drawn += 1
