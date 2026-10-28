@@ -13,8 +13,10 @@ const REGIONAL_CUE_PATHS := {
 var volume := 0.7:
 	set(value):
 		volume = clampf(value, 0.0, 1.0) if is_finite(value) else 0.0
+		if is_instance_valid(ambience): ambience.session_volume = volume
 		for voice: AudioStreamPlayer in _voices:
 			voice.volume_db = linear_to_db(maxf(0.0001, volume)) - float(voice.get_meta("attenuation", 7.0))
+var ambience: GameAmbience
 var played: Dictionary = {}
 var _voices: Array[AudioStreamPlayer] = []
 var _streams: Dictionary = {}
@@ -99,11 +101,36 @@ static func hook_connected(origin: Node) -> void:
 		service.play_director_event(&"hook_pull", "", origin, true)
 
 func stop_regional_cues() -> void:
+	clear_ambience()
 	stop_director_cues()
 	for voice: AudioStreamPlayer in _voices:
 		if REGIONAL_CUE_PATHS.has(voice.get_meta("cue_id", &"")):
 			voice.stop()
 			voice.stream = null
+
+## Candidate ambience is lazy and opt-in; original formal consumers allocate none.
+func configure_ambience(manifest_path: String) -> bool:
+	if _shutting_down or not is_inside_tree() or not FileAccess.file_exists(manifest_path): return false
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
+	if not parsed is Dictionary: return false
+	if not is_instance_valid(ambience):
+		var component := GameAmbience.new()
+		add_child(component)
+		if not component.configure(parsed):
+			component.free()
+			return false
+		ambience = component
+	else:
+		if not ambience.configure(parsed): return false
+	ambience.session_volume = volume
+	return true
+
+func set_ambience_region(region_id: String, profile: String, origin: Node, listener: Node2D) -> bool:
+	if _shutting_down or not is_instance_valid(ambience): return false
+	return ambience.select_region(region_id, profile, origin, listener)
+
+func clear_ambience() -> void:
+	if is_instance_valid(ambience): ambience.clear()
 
 func _ready() -> void:
 	ensure_buses()
@@ -135,6 +162,7 @@ func _click() -> void:
 	if audio_profile in ["original", "selected"] or has_director_event(&"click"): play(&"click")
 
 func _process(delta: float) -> void:
+	if is_instance_valid(ambience): ambience.session_volume = volume
 	_clock += delta
 	_director_clock += delta / maxf(0.001, Engine.time_scale)
 	for voice: AudioStreamPlayer in _voices:
@@ -411,12 +439,14 @@ func shutdown(timeout_msec: int = 1000) -> bool:
 		voice.stream = null
 	_streams.clear()
 	var deadline := Time.get_ticks_msec() + timeout_msec
+	if is_instance_valid(ambience) and not await ambience.shutdown(timeout_msec): return false
 	while pending.any(func(reference: WeakRef) -> bool: return reference.get_ref() != null):
 		if Time.get_ticks_msec() >= deadline: return false
 		await get_tree().process_frame
 	return true
 
 func _exit_tree() -> void:
+	clear_ambience()
 	for voice: AudioStreamPlayer in _voices:
 		voice.stop()
 		voice.stream = null

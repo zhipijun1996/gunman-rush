@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "asset_id": "audio-ambience-v1",
+  "content_version": "audio-ambience-v1",
+  "source_path": "tools/audio_ambience_design.py",
+  "source_sha256": "a073f9cf08a45753326977b232c641c76ab2032116cb5df9a5cbf4d89b29a568",
+  "runtime_paths": [
+    "assets/audio/ambience_v1/forest_a.ogg",
+    "assets/audio/ambience_v1/forest_b.ogg",
+    "assets/audio/ambience_v1/forest_leaf.wav",
+    "assets/audio/ambience_v1/forest_wood.wav",
+    "assets/audio/ambience_v1/plains_a.ogg",
+    "assets/audio/ambience_v1/plains_b.ogg",
+    "assets/audio/ambience_v1/plains_chime_a.wav",
+    "assets/audio/ambience_v1/plains_chime_b.wav"
+  ],
+  "tool": "ffmpeg version recorded in manifest; NumPy explicit recipe-driven recording edits, stereo 48000Hz Vorbis beds/PCM16 detail WAV",
+  "model": "not_applicable; source field recordings, no audio generation model",
+  "prompt_or_reference": "docs/worklines/audio_ambience_01/authority.json; docs/audio_director/ambience.md; config/audio_director/ambience/sources.json and recipes.json",
+  "processing": "Fingerprint-verified CC0 source recordings cached outside exported resources; fixed crops, high/lowpass, rate, per-layer reference RMS, layers, 2s periodic overlap, peak-constrained target RMS. Full parameters and exact outputs in manifest. No BGM processing.",
+  "usage_scope": "Opt-in developer AudioAmbienceLab on formal generated plains/forest, GameAudio-owned GameAmbience. Formal original default preserved. Four beds and four detail library candidates; detail whole-map placement not claimed.",
+  "license_status": "verified",
+  "license_source": "All seven source recordings explicitly CC0 on retained original author pages; commercial use and no attribution obligation individually recorded. Source/licence/page/original SHA and retrieval dates retained; cache restored with fetch.",
+  "visual_status": "unverified",
+  "audio_listening_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_files": [
+    "scripts/audio/game_ambience.gd",
+    "scripts/audio/game_audio.gd",
+    "scripts/demo/audio_ambience_lab.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "config/audio_director/ambience/sources.json",
+      "sha256": "da32c79fe6f1ae43600c1caa3ce9ea6af15010398bfde86a00f484f279bad05d",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/ambience/recipes.json",
+      "sha256": "52b41afccba64c9715c16c0f52604f7fec61146054f365d81b7603da01be1e58",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/manifest.json",
+      "sha256": "619fbca8b7999c791c010692ad9a61f2027260c49a06ec47a4b49f009b68f8f4",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/ambient-bird-sounds.html",
+      "sha256": "7342dac96dff863af40f458f8fde507aeb00b08e3891e95588e65dc812ea8f4d",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/bell-dingschimes.html",
+      "sha256": "080cd6cfd39aa7dab540fed97f6d052b59adc7780f19f176be3e232c7dcac14f",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/park-ambiences.html",
+      "sha256": "6642a8f0698566fd0ea33c0690be58d94a62e26a43e033365d345d1f8ace14eb",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/random-sounds-samples.html",
+      "sha256": "3553e28735a7676f8faf36d5d5103dda41f86d5e8bddb3b707c8192470d6e074",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/_sources/tree-creaking.html",
+      "sha256": "48a70e7b65a22ac38d8f2a6cb4e41da6bf297c4ca654382332e77fc1df4a35d2",
+      "role": "reference"
+    }
+  ]
+}

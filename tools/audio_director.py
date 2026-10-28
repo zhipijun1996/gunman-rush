@@ -132,6 +132,16 @@ def brief(request,output):
     if selected_path in inputs:
         selection=read(ROOT/selected_path)
         result['user_selection']={'path':selected_path,'event_profiles':selection['event_profiles'],'provenance':selection['provenance'],'scope':'User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing.'}
+    if any(word in request.lower() for word in ['环境', '区域', '风铃平原', '荆棘森林', 'ambien']):
+        ambience_inputs=['docs/audio_director/ambience.md','docs/audio_director/ambience_sources.md','docs/audio_director/ambience_runtime.md','docs/worklines/audio_ambience_01/authority.json','config/audio_director/ambience/sources.json','config/audio_director/ambience/recipes.json','assets/audio/ambience_v1/manifest.json','scripts/audio/game_ambience.gd']
+        result['family']='regional_ambience'
+        result['task']='AUDIO-AMBIENCE-01'
+        result['selected_events']=['ambience_plains','ambience_forest']
+        result['inputs'] += [{'path':p,'sha256':sha(ROOT/p)} for p in ambience_inputs if (ROOT/p).is_file()]
+        result['candidate_version']='audio-ambience-v1'
+        result['next_command']='python3 tools/audio_ambience_design.py build'
+        result['runtime_scope']='Explicit development audition only; preserve formal original ambience, five original BGM, and prior per-event SFX selections.'
+        if 'user_selection' in result: result['user_selection']['scope'] += ' No regional ambience choice is inferred.'
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

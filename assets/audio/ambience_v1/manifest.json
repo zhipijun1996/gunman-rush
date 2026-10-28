@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "version": "audio-ambience-v1",
+  "task": "AUDIO-AMBIENCE-01",
+  "recipe_sha256": "52b41afccba64c9715c16c0f52604f7fec61146054f365d81b7603da01be1e58",
+  "sources_sha256": "da32c79fe6f1ae43600c1caa3ce9ea6af15010398bfde86a00f484f279bad05d",
+  "pipeline_sha256": "a073f9cf08a45753326977b232c641c76ab2032116cb5df9a5cbf4d89b29a568",
+  "sample_rate": 48000,
+  "channels": 2,
+  "peak_ceiling_dbfs": -9,
+  "subjective_status": "awaiting-user",
+  "device_status": "unverified",
+  "runtime_default": "original",
+  "regions": {
+    "plains": {
+      "profiles": {
+        "A": {
+          "candidate_id": "plains_a",
+          "bed": "res://assets/audio/ambience_v1/plains_a.ogg",
+          "gain_db": 0.0,
+          "details": [
+            {
+              "id": "plains_chime",
+              "path": "res://assets/audio/ambience_v1/plains_chime_a.wav",
+              "gain_db": 0.0,
+              "min_interval": 9,
+              "max_distance": 720
+            }
+          ]
+        },
+        "B": {
+          "candidate_id": "plains_b",
+          "bed": "res://assets/audio/ambience_v1/plains_b.ogg",
+          "gain_db": 0.0,
+          "details": [
+            {
+              "id": "plains_chime",
+              "path": "res://assets/audio/ambience_v1/plains_chime_b.wav",
+              "gain_db": 0.0,
+              "min_interval": 9,
+              "max_distance": 720
+            }
+          ]
+        }
+      }
+    },
+    "forest": {
+      "profiles": {
+        "A": {
+          "candidate_id": "forest_a",
+          "bed": "res://assets/audio/ambience_v1/forest_a.ogg",
+          "gain_db": 0.0,
+          "details": [
+            {
+              "id": "forest_wood",
+              "path": "res://assets/audio/ambience_v1/forest_wood.wav",
+              "gain_db": 0.0,
+              "min_interval": 13,
+              "max_distance": 600
+            },
+            {
+              "id": "forest_leaf",
+              "path": "res://assets/audio/ambience_v1/forest_leaf.wav",
+              "gain_db": 0.0,
+              "min_interval": 6,
+              "max_distance": 320
+            }
+          ]
+        },
+        "B": {
+          "candidate_id": "forest_b",
+          "bed": "res://assets/audio/ambience_v1/forest_b.ogg",
+          "gain_db": 0.0,
+          "details": [
+            {
+              "id": "forest_wood",
+              "path": "res://assets/audio/ambience_v1/forest_wood.wav",
+              "gain_db": 0.0,
+              "min_interval": 13,
+              "max_distance": 600
+            },
+            {
+              "id": "forest_leaf",
+              "path": "res://assets/audio/ambience_v1/forest_leaf.wav",
+              "gain_db": 0.0,
+              "min_interval": 6,
+              "max_distance": 320
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": [
+    {
+      "id": "ambience_plains",
+      "region": "plains",
+      "candidates": [
+        {
+          "id": "plains_a",
+          "profile": "A",
+          "title": "晨风草甸 · 轻风",
+          "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+          "loop": true,
+          "duration": 24.0,
+          "source_ids": [
+            "park_wind"
+          ],
+          "renders": [
+            {
+              "id": "plains_a",
+              "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+              "sha256": "3cdf028b4e615d0ae0b99de7d11318f27a38518bea3b76748301ea4a055e04f7",
+              "bytes": 410888,
+              "source_ids": [
+                "park_wind"
+              ],
+              "metrics": {
+                "peak_dbfs": -14.209130398996784,
+                "rms_dbfs": -31.228840280279346,
+                "dc": [
+                  -7.815177013981156e-06,
+                  3.6005840229336172e-06
+                ],
+                "loop_boundary_step": 0.004930728580802679,
+                "interior_step_p999": 0.02979622222483158,
+                "frames": 1152000
+              }
+            }
+          ]
+        },
+        {
+          "id": "plains_b",
+          "profile": "B",
+          "title": "晨风草甸 · 远鸟",
+          "path": "res://assets/audio/ambience_v1/plains_b.ogg",
+          "loop": true,
+          "duration": 24.0,
+          "source_ids": [
+            "park_wind",
+            "birds"
+          ],
+          "renders": [
+            {
+              "id": "plains_b",
+              "path": "res://assets/audio/ambience_v1/plains_b.ogg",
+              "sha256": "39129958ba7ba940633096b5c7d47e0dacb8d48b78722aad5ac024d1a03205be",
+              "bytes": 411172,
+              "source_ids": [
+                "park_wind",
+                "birds"
+              ],
+              "metrics": {
+                "peak_dbfs": -10.784864052011311,
+                "rms_dbfs": -31.147109620065358,
+                "dc": [
+                  3.0309633984870743e-06,
+                  1.439273819414666e-05
+                ],
+                "loop_boundary_step": 0.00550285167992115,
+                "interior_step_p999": 0.02829633466899395,
+                "frames": 1152000
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambience_forest",
+      "region": "forest",
+      "candidates": [
+        {
+          "id": "forest_a",
+          "profile": "A",
+          "title": "林缘 · 鸟与树冠",
+          "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+          "loop": true,
+          "duration": 24.0,
+          "source_ids": [
+            "park_birds"
+          ],
+          "renders": [
+            {
+              "id": "forest_a",
+              "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+              "sha256": "75a3251564bb3d76f1ac9100e50f17958e05d44a02d89156bffec865dc4fe224",
+              "bytes": 417628,
+              "source_ids": [
+                "park_birds"
+              ],
+              "metrics": {
+                "peak_dbfs": -12.515372192905918,
+                "rms_dbfs": -31.21333855307391,
+                "dc": [
+                  -1.975419827715541e-08,
+                  -8.457661806460237e-07
+                ],
+                "loop_boundary_step": 0.007944639772176743,
+                "interior_step_p999": 0.04283759742975235,
+                "frames": 1152000
+              }
+            }
+          ]
+        },
+        {
+          "id": "forest_b",
+          "profile": "B",
+          "title": "树腹边缘 · 风叶",
+          "path": "res://assets/audio/ambience_v1/forest_b.ogg",
+          "loop": true,
+          "duration": 24.0,
+          "source_ids": [
+            "park_birds",
+            "park_wind"
+          ],
+          "renders": [
+            {
+              "id": "forest_b",
+              "path": "res://assets/audio/ambience_v1/forest_b.ogg",
+              "sha256": "2bd1b88805655b2950717813c029a6f31269d2d730b6c173a606e71896038582",
+              "bytes": 407442,
+              "source_ids": [
+                "park_birds",
+                "park_wind"
+              ],
+              "metrics": {
+                "peak_dbfs": -13.477820829420226,
+                "rms_dbfs": -31.253450440650322,
+                "dc": [
+                  1.5882068282735418e-06,
+                  1.1811212061729748e-06
+                ],
+                "loop_boundary_step": 0.00440913625061512,
+                "interior_step_p999": 0.046446602791547775,
+                "frames": 1152000
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "point_events": [
+    {
+      "id": "plains_chime_a",
+      "path": "res://assets/audio/ambience_v1/plains_chime_a.wav",
+      "sha256": "efa54b92fa3ebe2b25e83b992f5c479a69b334210e15ae0b41c5414461e297be",
+      "bytes": 484724,
+      "source_ids": [
+        "bell_1"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -40.95092607443712,
+        "dc": [
+          2.840953072791308e-07,
+          3.14066340934005e-07
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.028289794921875,
+        "frames": 121170
+      },
+      "event": "plains_chime",
+      "title": "低铜铃 A"
+    },
+    {
+      "id": "plains_chime_b",
+      "path": "res://assets/audio/ambience_v1/plains_chime_b.wav",
+      "sha256": "ed9107f0b39fdb2c48ab8be8bfffb28b78c0ec2b2764172128f0c2b7d83ba90b",
+      "bytes": 298476,
+      "source_ids": [
+        "bell_2"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -33.30676126952682,
+        "dc": [
+          3.2027750762608775e-07,
+          1.9879293233771023e-07
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.052878379821777344,
+        "frames": 74608
+      },
+      "event": "plains_chime",
+      "title": "低铜铃 B"
+    },
+    {
+      "id": "forest_wood",
+      "path": "res://assets/audio/ambience_v1/forest_wood.wav",
+      "sha256": "5c363a81a2e811e9139b082aa34b59d56f5b8030f7098f4d38dd572635998db4",
+      "bytes": 1263404,
+      "source_ids": [
+        "tree"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -39.9475063067261,
+        "dc": [
+          -2.8407320940004865e-08,
+          -2.8407320940004865e-08
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.038928985595703125,
+        "frames": 315840
+      },
+      "event": "forest_wood",
+      "title": "树干轻响"
+    },
+    {
+      "id": "forest_leaf",
+      "path": "res://assets/audio/ambience_v1/forest_leaf.wav",
+      "sha256": "203d7c3543a8f51cad4b9254b83ef4ad1e79fa513bb9e0805c26412fc619323e",
+      "bytes": 268844,
+      "source_ids": [
+        "leaves"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -34.34697378337466,
+        "dc": [
+          -3.315153662697412e-08,
+          -2.2252400810884865e-08
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.079071044921875,
+        "frames": 67200
+      },
+      "event": "forest_leaf",
+      "title": "近叶轻拂"
+    }
+  ],
+  "renders": [
+    {
+      "id": "plains_a",
+      "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+      "sha256": "3cdf028b4e615d0ae0b99de7d11318f27a38518bea3b76748301ea4a055e04f7",
+      "bytes": 410888,
+      "source_ids": [
+        "park_wind"
+      ],
+      "metrics": {
+        "peak_dbfs": -14.209130398996784,
+        "rms_dbfs": -31.228840280279346,
+        "dc": [
+          -7.815177013981156e-06,
+          3.6005840229336172e-06
+        ],
+        "loop_boundary_step": 0.004930728580802679,
+        "interior_step_p999": 0.02979622222483158,
+        "frames": 1152000
+      }
+    },
+    {
+      "id": "plains_b",
+      "path": "res://assets/audio/ambience_v1/plains_b.ogg",
+      "sha256": "39129958ba7ba940633096b5c7d47e0dacb8d48b78722aad5ac024d1a03205be",
+      "bytes": 411172,
+      "source_ids": [
+        "park_wind",
+        "birds"
+      ],
+      "metrics": {
+        "peak_dbfs": -10.784864052011311,
+        "rms_dbfs": -31.147109620065358,
+        "dc": [
+          3.0309633984870743e-06,
+          1.439273819414666e-05
+        ],
+        "loop_boundary_step": 0.00550285167992115,
+        "interior_step_p999": 0.02829633466899395,
+        "frames": 1152000
+      }
+    },
+    {
+      "id": "forest_a",
+      "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+      "sha256": "75a3251564bb3d76f1ac9100e50f17958e05d44a02d89156bffec865dc4fe224",
+      "bytes": 417628,
+      "source_ids": [
+        "park_birds"
+      ],
+      "metrics": {
+        "peak_dbfs": -12.515372192905918,
+        "rms_dbfs": -31.21333855307391,
+        "dc": [
+          -1.975419827715541e-08,
+          -8.457661806460237e-07
+        ],
+        "loop_boundary_step": 0.007944639772176743,
+        "interior_step_p999": 0.04283759742975235,
+        "frames": 1152000
+      }
+    },
+    {
+      "id": "forest_b",
+      "path": "res://assets/audio/ambience_v1/forest_b.ogg",
+      "sha256": "2bd1b88805655b2950717813c029a6f31269d2d730b6c173a606e71896038582",
+      "bytes": 407442,
+      "source_ids": [
+        "park_birds",
+        "park_wind"
+      ],
+      "metrics": {
+        "peak_dbfs": -13.477820829420226,
+        "rms_dbfs": -31.253450440650322,
+        "dc": [
+          1.5882068282735418e-06,
+          1.1811212061729748e-06
+        ],
+        "loop_boundary_step": 0.00440913625061512,
+        "interior_step_p999": 0.046446602791547775,
+        "frames": 1152000
+      }
+    },
+    {
+      "id": "plains_chime_a",
+      "path": "res://assets/audio/ambience_v1/plains_chime_a.wav",
+      "sha256": "efa54b92fa3ebe2b25e83b992f5c479a69b334210e15ae0b41c5414461e297be",
+      "bytes": 484724,
+      "source_ids": [
+        "bell_1"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -40.95092607443712,
+        "dc": [
+          2.840953072791308e-07,
+          3.14066340934005e-07
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.028289794921875,
+        "frames": 121170
+      }
+    },
+    {
+      "id": "plains_chime_b",
+      "path": "res://assets/audio/ambience_v1/plains_chime_b.wav",
+      "sha256": "ed9107f0b39fdb2c48ab8be8bfffb28b78c0ec2b2764172128f0c2b7d83ba90b",
+      "bytes": 298476,
+      "source_ids": [
+        "bell_2"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -33.30676126952682,
+        "dc": [
+          3.2027750762608775e-07,
+          1.9879293233771023e-07
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.052878379821777344,
+        "frames": 74608
+      }
+    },
+    {
+      "id": "forest_wood",
+      "path": "res://assets/audio/ambience_v1/forest_wood.wav",
+      "sha256": "5c363a81a2e811e9139b082aa34b59d56f5b8030f7098f4d38dd572635998db4",
+      "bytes": 1263404,
+      "source_ids": [
+        "tree"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -39.9475063067261,
+        "dc": [
+          -2.8407320940004865e-08,
+          -2.8407320940004865e-08
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.038928985595703125,
+        "frames": 315840
+      }
+    },
+    {
+      "id": "forest_leaf",
+      "path": "res://assets/audio/ambience_v1/forest_leaf.wav",
+      "sha256": "203d7c3543a8f51cad4b9254b83ef4ad1e79fa513bb9e0805c26412fc619323e",
+      "bytes": 268844,
+      "source_ids": [
+        "leaves"
+      ],
+      "metrics": {
+        "peak_dbfs": -9.500116731940828,
+        "rms_dbfs": -34.34697378337466,
+        "dc": [
+          -3.315153662697412e-08,
+          -2.2252400810884865e-08
+        ],
+        "loop_boundary_step": 0.0,
+        "interior_step_p999": 0.079071044921875,
+        "frames": 67200
+      }
+    }
+  ],
+  "sources": {
+    "park_wind": {
+      "path": "build/audio_ambience_01/source-cache/park_ambience_wind.wav",
+      "original_filename": "park_ambience_wind.wav",
+      "source_url": "https://opengameart.org/content/park-ambiences",
+      "download_url": "https://opengameart.org/sites/default/files/park_ambience_wind.wav",
+      "author": "Thimras",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "5c381856745b4706e7eba55eb9271a61a530e90c05df8126adb2db89ecfa6c5a",
+      "bytes": 73960096,
+      "source_page_path": "assets/audio/ambience_v1/_sources/park-ambiences.html",
+      "source_page_sha256": "6642a8f0698566fd0ea33c0690be58d94a62e26a43e033365d345d1f8ace14eb",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Open field wind; public park recording, Adelaide, South Australia; winter. 48kHz, 24bit original.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "park_birds": {
+      "path": "build/audio_ambience_01/source-cache/park_ambience_birds.wav",
+      "original_filename": "park_ambience_birds.wav",
+      "source_url": "https://opengameart.org/content/park-ambiences",
+      "download_url": "https://opengameart.org/sites/default/files/park_ambience_birds.wav",
+      "author": "Thimras",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "dc1a5ac34b89cab7f8f261b53a23da7c1c5e3cc895aae4cb6fb4a1a04001b2af",
+      "bytes": 86190432,
+      "source_page_path": "assets/audio/ambience_v1/_sources/park-ambiences.html",
+      "source_page_sha256": "6642a8f0698566fd0ea33c0690be58d94a62e26a43e033365d345d1f8ace14eb",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Birds beside a copse of trees before rain; public park recording, Adelaide. 48kHz, 16bit original.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "birds": {
+      "path": "build/audio_ambience_01/source-cache/birds-isaiah658_0.ogg",
+      "original_filename": "birds-isaiah658_0.ogg",
+      "source_url": "https://opengameart.org/content/ambient-bird-sounds",
+      "download_url": "https://opengameart.org/sites/default/files/birds-isaiah658_0.ogg",
+      "author": "isaiah658",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "359e4e3f9da9d75aac64cede511c7e3ef8b461f9d9f8c230f8f80e44c4b3e35f",
+      "bytes": 544669,
+      "source_page_path": "assets/audio/ambience_v1/_sources/ambient-bird-sounds.html",
+      "source_page_sha256": "7342dac96dff863af40f458f8fde507aeb00b08e3891e95588e65dc812ea8f4d",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Camera microphone field recording; cleaned in Audacity by author.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "bell_1": {
+      "path": "build/audio_ambience_01/source-cache/bell_ding1.wav",
+      "original_filename": "bell_ding1.wav",
+      "source_url": "https://opengameart.org/content/bell-dingschimes",
+      "download_url": "https://opengameart.org/sites/default/files/bell_ding1.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "8ce40f49cd211125303df59db0da4fe911e8b2f34d3847011b15137c6b5850de",
+      "bytes": 366660,
+      "source_page_path": "assets/audio/ambience_v1/_sources/bell-dingschimes.html",
+      "source_page_sha256": "080cd6cfd39aa7dab540fed97f6d052b59adc7780f19f176be3e232c7dcac14f",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Thin short bell/chime. Recording technique not specified; no claim of field recording.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "bell_2": {
+      "path": "build/audio_ambience_01/source-cache/bell_ding2.wav",
+      "original_filename": "bell_ding2.wav",
+      "source_url": "https://opengameart.org/content/bell-dingschimes",
+      "download_url": "https://opengameart.org/sites/default/files/bell_ding2.wav",
+      "author": "PWL",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "e4a764a1e0a6284f5a5ec80caf3d44c76d3ff8db17ddab8b42abb6b143e83529",
+      "bytes": 254020,
+      "source_page_path": "assets/audio/ambience_v1/_sources/bell-dingschimes.html",
+      "source_page_sha256": "080cd6cfd39aa7dab540fed97f6d052b59adc7780f19f176be3e232c7dcac14f",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Second short bell/chime. Recording technique not specified.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "tree": {
+      "path": "build/audio_ambience_01/source-cache/tree_creak.flac",
+      "original_filename": "tree_creak.flac",
+      "source_url": "https://opengameart.org/content/tree-creaking",
+      "download_url": "https://opengameart.org/sites/default/files/tree_creak.flac",
+      "author": "Department64; cleanup by AntumDeluge",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "9bab7c7f68850136c43fb91216c7c1760ac2bda22b2a31659905c559a464d422",
+      "bytes": 231924,
+      "source_page_path": "assets/audio/ambience_v1/_sources/tree-creaking.html",
+      "source_page_sha256": "48a70e7b65a22ac38d8f2a6cb4e41da6bf297c4ca654382332e77fc1df4a35d2",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Tree creaking by Department64, cleaned and normalized by AntumDeluge.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    },
+    "leaves": {
+      "path": "build/audio_ambience_01/source-cache/moving leaves stereo.ogg",
+      "original_filename": "moving leaves stereo.ogg",
+      "source_url": "https://opengameart.org/content/random-sounds-samples",
+      "download_url": "https://opengameart.org/sites/default/files/moving%20leaves%20stereo.ogg",
+      "author": "HaelDB",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercial_use": true,
+      "commercial_conditions": "CC0 permits commercial use, editing, game distribution and redistribution; no attribution or share-alike required. Source and authors retained for traceability.",
+      "attribution_required": false,
+      "download_date": "2026-10-28",
+      "sha256": "678c0da00ef1092f4be7c2d8c7b22c1c91c5fc8ca1f3f9570ce59de995c0138c",
+      "bytes": 22317,
+      "source_page_path": "assets/audio/ambience_v1/_sources/random-sounds-samples.html",
+      "source_page_sha256": "3553e28735a7676f8faf36d5d5103dda41f86d5e8bddb3b707c8192470d6e074",
+      "license_path": "assets/audio/ambience_v1/_sources/CC0-1.0.txt",
+      "license_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "description": "Leaves recording, EQ and stereo processing by uploader. Dual OGA-BY3.0 / CC0 offer; select CC0.",
+      "storage": "Complete original in ignored build cache; fetch command restores exact bytes. Only used derivatives and license evidence are tracked."
+    }
+  },
+  "ffmpeg_version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "loop_method": "24s recorded material; first 2s linear tail/head overlap; no silence fades at wrap; lossy seam separately measured",
+  "assessment_limits": "License and waveform checks do not prove pleasantness, absence of distant public-park traffic/voices, or commercial quality. Listen with BGM and actions."
+}

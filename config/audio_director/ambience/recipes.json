@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "version": "audio-ambience-v1",
+  "task": "AUDIO-AMBIENCE-01",
+  "sample_rate": 48000,
+  "channels": 2,
+  "loop_seconds": 24,
+  "crossfade_seconds": 2,
+  "peak_ceiling_dbfs": -9,
+  "beds": [
+    {
+      "id": "plains_a",
+      "region": "plains",
+      "profile": "A",
+      "title": "晨风草甸 · 轻风",
+      "target_rms_dbfs": -31,
+      "layers": [
+        {
+          "source": "park_wind",
+          "start": 32,
+          "highpass_hz": 160,
+          "lowpass_hz": 6000,
+          "gain_db": 0,
+          "layer_rms_dbfs": -30
+        }
+      ]
+    },
+    {
+      "id": "plains_b",
+      "region": "plains",
+      "profile": "B",
+      "title": "晨风草甸 · 远鸟",
+      "target_rms_dbfs": -31,
+      "layers": [
+        {
+          "source": "park_wind",
+          "start": 102,
+          "highpass_hz": 150,
+          "lowpass_hz": 5200,
+          "gain_db": 0,
+          "layer_rms_dbfs": -30
+        },
+        {
+          "source": "birds",
+          "start": 2,
+          "highpass_hz": 750,
+          "lowpass_hz": 5700,
+          "gain_db": -11,
+          "layer_rms_dbfs": -30
+        }
+      ]
+    },
+    {
+      "id": "forest_a",
+      "region": "forest",
+      "profile": "A",
+      "title": "林缘 · 鸟与树冠",
+      "target_rms_dbfs": -31,
+      "layers": [
+        {
+          "source": "park_birds",
+          "start": 40,
+          "highpass_hz": 180,
+          "lowpass_hz": 6200,
+          "gain_db": 0,
+          "layer_rms_dbfs": -30
+        }
+      ]
+    },
+    {
+      "id": "forest_b",
+      "region": "forest",
+      "profile": "B",
+      "title": "树腹边缘 · 风叶",
+      "target_rms_dbfs": -31,
+      "layers": [
+        {
+          "source": "park_birds",
+          "start": 210,
+          "highpass_hz": 180,
+          "lowpass_hz": 4200,
+          "gain_db": 0,
+          "layer_rms_dbfs": -30
+        },
+        {
+          "source": "park_wind",
+          "start": 175,
+          "highpass_hz": 240,
+          "lowpass_hz": 4000,
+          "gain_db": -10,
+          "layer_rms_dbfs": -30
+        }
+      ]
+    }
+  ],
+  "details": [
+    {
+      "id": "plains_chime_a",
+      "event": "plains_chime",
+      "regions": [
+        "plains"
+      ],
+      "profiles": [
+        "A"
+      ],
+      "title": "低铜铃 A",
+      "source": "bell_1",
+      "start": 0,
+      "duration": 2.07,
+      "rate": 0.82,
+      "highpass_hz": 300,
+      "lowpass_hz": 5000,
+      "target_rms_dbfs": -29,
+      "min_interval": 9,
+      "max_distance": 720
+    },
+    {
+      "id": "plains_chime_b",
+      "event": "plains_chime",
+      "regions": [
+        "plains"
+      ],
+      "profiles": [
+        "B"
+      ],
+      "title": "低铜铃 B",
+      "source": "bell_2",
+      "start": 0,
+      "duration": 1.43,
+      "rate": 0.92,
+      "highpass_hz": 300,
+      "lowpass_hz": 5000,
+      "target_rms_dbfs": -29,
+      "min_interval": 9,
+      "max_distance": 720
+    },
+    {
+      "id": "forest_wood",
+      "event": "forest_wood",
+      "regions": [
+        "forest"
+      ],
+      "profiles": [
+        "A",
+        "B"
+      ],
+      "title": "树干轻响",
+      "source": "tree",
+      "start": 0,
+      "duration": 6.58,
+      "rate": 1,
+      "highpass_hz": 180,
+      "lowpass_hz": 3600,
+      "target_rms_dbfs": -30,
+      "min_interval": 13,
+      "max_distance": 600
+    },
+    {
+      "id": "forest_leaf",
+      "event": "forest_leaf",
+      "regions": [
+        "forest"
+      ],
+      "profiles": [
+        "A",
+        "B"
+      ],
+      "title": "近叶轻拂",
+      "source": "leaves",
+      "start": 0,
+      "duration": 1.4,
+      "rate": 1,
+      "highpass_hz": 240,
+      "lowpass_hz": 5200,
+      "target_rms_dbfs": -29,
+      "min_interval": 6,
+      "max_distance": 320
+    }
+  ]
+}
