@@ -76,7 +76,8 @@ func run() -> void:
 				pickups+=1
 		check(pickups==1,"single pickup visual layer")
 		for chest:Dictionary in stage.chests:
-			check(chest.sprite.texture==UnderworldActors.icon_texture(&"chest"),"actual reward chest no longer old flat placeholder")
+			var expected: AtlasTexture=ChestArtLibrary.texture(StringName(str(chest.tier)),bool(chest.claimed))
+			check(expected!=null and chest.sprite.texture==expected and chest.sprite.has_meta("underworld_chest_open") and bool(chest.sprite.get_meta("underworld_chest_open"))==bool(chest.claimed) and chest.sprite.modulate==Color.WHITE and chest.sprite.position==chest.position+Vector2(0,21),"actual reward chest uses its tier and claimed recipe at the unchanged world foot")
 		var old_manifest:=JSON.stringify(stage.generated.manifest)
 		var old_actor_epoch:=app.lifetime.actor_epoch
 		var old_stage_epoch:=app.lifetime.stage_epoch
