@@ -3,13 +3,17 @@
 当前蓝／紫／金三档闭开六态已接入正式平原和森林，金箱为紧凑钟箱。通过共享数据与材质读取原`claimed`，奖励成功提交才开启；不修改原箱子分布、奖励或永久音符。修复领奖关闭后下一个W被输入保护吞掉，持续按住的保护逻辑保留。
 
 - [实际原图](sources/source-04.png)与[六态小屏平原对照](live/gallery-plains/six-poses-960x540.png)、[森林对照](live/gallery-forest/six-poses-960x540.png)。对照为明确标注的视觉fixture，非自然六箱分布。
-- [三档真实领取与重载影片](live/main/movie.mp4)：26.066667秒、105断言。原箱原奖励：金币0→8→26→56、3个未装备实例，重载不重复。影片仅站位／镜头fixture，非自然全路线。
-- [森林原high箱影片](live/forest/movie.mp4)：10.1秒、41断言，金币0→18，实际领取后开启与重载保持。
+- [三档真实领取与重载影片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/main/movie.mp4)：26.066667秒、105断言。原箱原奖励：金币0→8→26→56、3个未装备实例，重载不重复。影片仅站位／镜头fixture，非自然全路线。
+- [森林原high箱影片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/6d02fe700ee57491b4d58ce6c856a43276d577f7/docs/evidence/chest_art_01/live/forest/movie.mp4)：10.1秒、41断言，金币0→18，实际领取后开启与重载保持。
 - [完整实际捕获索引](live/index.json)保存原source/trace/receipt/PNG/MP4；两影片源`0f7a5d1c`，平原gallery源`614d7b68`，森林gallery源`5722ca74`。后续只修gallery producer，生产脚本／资源／配置及claim路径原字节不变，保留各来源身份，不把旧片追签新录制。
 - [独立实际画面／逐帧审查](final-independent-visual-review.json)：逐张看24PNG，限定V8技术和视觉接受。奖励modal覆盖箱子期间，closed由trace/texture证明，不冒称像素可见。
-- 原生210／0（原192完整保留、追加真实两箱W），[导出包隔离](pack/receipt.json)15／0；最终相关Harness仍在最后执行。原32＋10与四绑定检查fresh通过，所有原预算／旧断言与失败链保留。
+- 原生210／0（原192完整保留、追加真实两箱W），[导出包隔离](pack/receipt.json)15／0；[最终10项相关Harness](final-validation/summary.json)已全部fresh通过（0复用／0失败，非full165或最新远端CI）。原32＋10与四绑定检查fresh通过，所有原预算／旧断言与失败链保留。
 
 [本轮失败归档](capture-failures/index.json)及[旧商店回归失败](region-shop-repair/failure-01/archive-index.json)保持原件；新版source04是用户采用的V8合同，不改写旧≤1wu及44／58高度失败。六静态姿态，不是开盖动画；实体安卓／手柄、低端性能、听感与完整G5未验。森林960已有教程文字与上左HUD局部重叠，本轮未改该布局。
+
+[公网完整下载校验](public-download-check/receipt.json)：四份媒体实际HTTP200，完整SHA与提交原件相同。媒体固定于`6d02fe70`；[生产／录制／测试身份](source-bindings/delivered-source-identity.json)证明生产原字节相同，后续仅测试producer和文档／收据修订。PR111继续OPEN，不自动合main，最新全量远端CI仍以GitHub实际head结果为准。
+
+[最终验证独审](final-validation/independent-review.json)另核10项原命令／预算、真实marker、Source guard与4份公网完整SHA。补充文档／质量两项fresh通过；仅文档和收据晚于冻结测试源，不改已验证的生产或测试代码。
 
 以下保留此前阶段交接，旧“待执行／待答”只描述当时状态。
 
