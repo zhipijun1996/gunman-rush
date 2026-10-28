@@ -13,6 +13,7 @@ var active_profile := ""
 var active_region := ""
 var lifecycle_only := false
 var smoke_only := false
+var scene_smoke_only := false
 
 func _initialize() -> void:
 	# MovieMaker allocates its recording target during initialization. Set
@@ -25,11 +26,15 @@ func _initialize() -> void:
 		if arg.begins_with("--output="): folder = arg.trim_prefix("--output=")
 		if arg == "--lifecycle-only": lifecycle_only = true
 		if arg == "--smoke": smoke_only = true
+		if arg == "--scene-smoke": scene_smoke_only = true
 	run.call_deferred()
 
 func run() -> void:
 	if smoke_only:
 		await run_smoke()
+		return
+	if scene_smoke_only:
+		await run_scene_smoke()
 		return
 	if lifecycle_only:
 		await run_lifecycle()
@@ -107,6 +112,37 @@ func run_smoke() -> void:
 	label.free()
 	print("AUDIO_AMBIENCE_SMOKE frames=120")
 	quit()
+
+func run_scene_smoke() -> void:
+	var scene_segments: Array[Dictionary] = []
+	for region: String in ["plains", "forest"]:
+		var lab := LAB.instantiate() as AudioAmbienceLab
+		lab.capture_mode = true
+		lab.lab_profile = "A"
+		root.add_child(lab)
+		if not lab.lab_ready or not await lab.open_region(region):
+			failures.append("Actual scene smoke failed to start: " + region)
+			lab.free()
+			continue
+		lab.set_capture_phase("真实正式地区短录 · 仅验证启动 / 可见角色 / 环境床声")
+		var first_frame := movie_frame
+		var samples: Array[Dictionary] = []
+		for index: int in 120:
+			await physics_frame
+			var screen := lab.player.get_global_transform_with_canvas().origin
+			samples.append({"movie_frame":movie_frame,"screen":[screen.x,screen.y],"position":[lab.player.global_position.x,lab.player.global_position.y],"ambience":lab.lab_audio.ambience.snapshot()})
+		scene_segments.append({"region":region,"profile":"A","start_frame":first_frame,"end_frame":movie_frame,"manifest_hash":(lab.stage as GeneratedDemoStage).generated.manifest.manifest_hash,"samples":samples,"interactive_panel_present":is_instance_valid(lab._ambience_toolbar),"caption_rects":[_rect(lab._ambience_status_label.get_global_rect()),_rect(lab._ambience_phase_label.get_global_rect())]})
+		if not await lab._music.shutdown(): failures.append("Scene smoke music cleanup")
+		if not await lab.lab_audio.shutdown(): failures.append("Scene smoke audio cleanup")
+		lab.free()
+		for unused: int in 4: await process_frame
+	DirAccess.make_dir_recursive_absolute(folder)
+	FileAccess.open(folder.path_join("scene-smoke.json"), FileAccess.WRITE).store_string(JSON.stringify({"scope":"Actual formal two-region startup/viewport/visible player smoke only; no 26-second or full-loop claim","actual_window":[root.size.x,root.size.y],"logical_content":[root.content_scale_size.x,root.content_scale_size.y],"segments":scene_segments,"failures":failures}))
+	print("AUDIO_AMBIENCE_SCENE_SMOKE segments=%s failures=%s" % [scene_segments.size(), failures.size()])
+	quit(0 if failures.is_empty() and scene_segments.size() == 2 else 1)
+
+func _rect(value: Rect2) -> Array:
+	return [value.position.x,value.position.y,value.size.x,value.size.y]
 
 func run_lifecycle() -> void:
 	var checks: Array[Dictionary] = []

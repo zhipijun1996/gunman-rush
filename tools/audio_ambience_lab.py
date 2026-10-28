@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import shutil
 import zipfile
-from capture_audio_ambience import ROOT, read, sha, write, frozen_sources, validate_trace, chapters_from_segments, validate_capture_override
+from capture_audio_ambience import ROOT, read, sha, write, frozen_sources, validate_trace, chapters_from_segments, validate_capture_override, validate_native_audio
 
 def build(capture, output):
     if output.exists(): raise ValueError('Use fresh delivery directory')
@@ -15,8 +15,11 @@ def build(capture, output):
     validate_capture_override(report,capture)
     if report['source_before'] != frozen_sources(): raise ValueError('Runtime or capture source changed since recording')
     if report['movie_sha256']!=sha(movie) or report['trace_sha256']!=sha(capture/'trace.json'): raise ValueError('Native media or trace hash differs')
+    if report.get('native_sha256')!=sha(capture/'native.avi'): raise ValueError('Native MovieMaker soundtrack/source fingerprint differs')
     if len(report.get('native_audio_validation',[])) != 6: raise ValueError('Missing actual native audio proof')
     segments=validate_trace(trace,report['frame_count'],manifest)
+    if validate_native_audio(capture/'native.avi',segments,manifest)!=report['native_audio_validation']:
+        raise ValueError('Native soundtrack verification differs from retained capture proof')
     expected_chapters=chapters_from_segments(segments)
     if report.get('chapters_sha256')!=sha(capture/'chapters.json') or json.dumps(read(capture/'chapters.json'),sort_keys=True)!=json.dumps(expected_chapters,sort_keys=True):
         raise ValueError('Chapter identity/timing differs from actual native trace')

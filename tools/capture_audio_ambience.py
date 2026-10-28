@@ -131,7 +131,7 @@ def validate_native_audio(native, segments, manifest):
         results.append({'region':segment['region'],'profile':segment['profile'],'path':path,'window_start':start,'seconds':2,'rms':rms,'direct_normalized_dot':direct,'aligned_source_seconds':peak/8000,'scope':'Native BGM-off movie samples match actual decoded candidate; not aesthetic approval'})
     return results
 
-def capture(output,smoke=False):
+def capture(output,smoke=False,scene_smoke=False):
     if output.exists(): raise ValueError('Use fresh output; retain original failures')
     output.mkdir(parents=True)
     report={'status':'failed','task':'AUDIO-AMBIENCE-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
@@ -159,18 +159,26 @@ def capture(output,smoke=False):
         native=output/'native.avi'; movie=output/'ambience.mp4'
         command=['bash','tools/godot.sh','--path','.', '--audio-driver','Dummy','--rendering-method','gl_compatibility','--write-movie',str(native),'--fixed-fps','60','--resolution','960x540','--script','res://tools/audio_ambience_capture.gd','--','--output='+str(output)]
         if smoke: command.append('--smoke')
-        report['command']=command;report['scope']='Actual renderer/MovieMaker viewport smoke only' if smoke else 'Six actual formal region comparisons; automatic router inputs; no natural full-route/device or aesthetic approval'
+        if scene_smoke: command.append('--scene-smoke')
+        report['command']=command;report['scope']='Actual renderer/MovieMaker viewport smoke only' if smoke else 'Actual formal two-region startup/visible-player smoke only' if scene_smoke else 'Six actual formal region comparisons; automatic router inputs; no natural full-route/device or aesthetic approval'
         with (output/'native.log').open('w') as log: result=subprocess.run(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         report['exit_code']=result.returncode
         log=(output/'native.log').read_text()
-        marker='AUDIO_AMBIENCE_SMOKE frames=120' if smoke else 'AUDIO_AMBIENCE_CAPTURE segments=6 failures=0'
+        marker='AUDIO_AMBIENCE_SMOKE frames=120' if smoke else 'AUDIO_AMBIENCE_SCENE_SMOKE segments=2 failures=0' if scene_smoke else 'AUDIO_AMBIENCE_CAPTURE segments=6 failures=0'
         if result.returncode or ERROR.search(log) or marker not in log: raise ValueError('Native capture failed; inspect retained native.log')
         subprocess.run(['ffmpeg','-y','-i',str(native),'-c:v','libx264','-preset','fast','-crf','23','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',str(movie)],stdout=subprocess.DEVNULL,stderr=(output/'encode.log').open('w'),timeout=180,check=True)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)]))
         video=next(s for s in media['streams'] if s['codec_type']=='video'); sound=next(s for s in media['streams'] if s['codec_type']=='audio')
         if video['avg_frame_rate']!='60/1' or int(video['width'])!=960 or int(video['height'])!=540 or int(sound['sample_rate'])!=48000 or sound['channels']!=2: raise ValueError('Unexpected encoded media format')
-        if smoke:
-            after=frozen_sources();report.update(source_after=after,source_stable=before==after,media=media,frame_count=int(video['nb_frames']),movie_sha256=sha(movie),movie_bytes=movie.stat().st_size,native_sha256=sha(native),smoke=read(output/'smoke.json'))
+        if smoke or scene_smoke:
+            after=frozen_sources();report.update(source_after=after,source_stable=before==after,media=media,frame_count=int(video['nb_frames']),movie_sha256=sha(movie),movie_bytes=movie.stat().st_size,native_sha256=sha(native),smoke=read(output/('scene-smoke.json' if scene_smoke else 'smoke.json')))
+            if scene_smoke:
+                report['smoke']=read(output/'scene-smoke.json')
+                scene=report['smoke']
+                if scene.get('failures')!=[] or [s['region'] for s in scene['segments']]!=['plains','forest']: raise ValueError('Formal scene smoke startup failed')
+                for segment in scene['segments']:
+                    if segment['interactive_panel_present'] is not False or len(segment['samples'])!=120: raise ValueError('Capture unexpectedly includes interactive panel or lacks real samples')
+                    if any(r[1]+r[3]>155 for r in segment['caption_rects']): raise ValueError('Observer captions cover action area')
             if before!=after: raise ValueError('Frozen smoke source changed')
             report['status']='passed'
             return
@@ -207,6 +215,6 @@ def capture(output,smoke=False):
     print(json.dumps({'status':'passed','movie':str(movie),'frames':report['frame_count'],'bytes':report['movie_bytes']}))
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--smoke',action='store_true')
-    args=parser.parse_args();capture(args.output.resolve(),args.smoke)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);modes=parser.add_mutually_exclusive_group();modes.add_argument('--smoke',action='store_true');modes.add_argument('--scene-smoke',action='store_true')
+    args=parser.parse_args();capture(args.output.resolve(),args.smoke,args.scene_smoke)
 if __name__=='__main__':main()

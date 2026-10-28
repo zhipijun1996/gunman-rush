@@ -18,6 +18,8 @@ Details require an actual source coordinate from a real scene object; there is n
 
 Paused trees pause both beds and details and freeze the fade/cooldown clock. Zero session volume pauses continuous audio immediately. A real user key/pointer/touch/gamepad gesture unlocks Web playback, following the music service pattern; canceled touch and key echo do not unlock it. Browser/audio-device validation remains separate from native transport tests.
 
+The actual DemoApp `player` is a `PlayerMotor`, which does not expose `died`. The audition lab therefore also binds the accepted `PlayerController.died` event to `clear_ambience`, and disconnects that binding when replacing the controller. Other consumers must provide that real death hook; the optional listener signal alone does not cover a PlayerMotor. The native lifecycle fixture calls the formal Controller death entry explicitly; it does not claim a natural enemy-caused death route.
+
 The component retains weak references to its stage owner and listener. Their unload clears all new playback on the next processing tick. An accepted listener `died` signal clears it immediately; replacement disconnects the old listener signal. `GameAudio.stop_regional_cues`, `clear_ambience`, original comparison and app shutdown stop the component. Shutdown uses weak backend playback references and a wall-clock bound, retaining failures. No health, movement, rewards, ability, save or gameplay RNG state is written.
 
 `snapshot()` exposes actual stream paths, candidate IDs, playing/paused state, linear fade gain, volume dB and backend playback positions, plus start counts. These are diagnostic receipts, not proof that the intended media reached the encoded recording or that the user likes its sound.

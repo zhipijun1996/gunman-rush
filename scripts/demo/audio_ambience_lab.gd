@@ -34,6 +34,13 @@ func _make_lab_controls() -> void:
 	layer.layer = 118
 	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(layer)
+	if capture_mode:
+		# Recording keeps the entire action area visible. Container minimum
+		# sizes are not used for these two fixed, short observer captions.
+		_ambience_status_label = _capture_label(Vector2(28, 94), 18, layer)
+		_ambience_phase_label = _capture_label(Vector2(28, 122), 15, layer)
+		_update_status()
+		return
 	_ambience_toolbar = PanelContainer.new()
 	_ambience_toolbar.theme = DemoMenu.create_theme()
 	layer.add_child(_ambience_toolbar)
@@ -61,6 +68,18 @@ func _make_lab_controls() -> void:
 	_layout_lab()
 	_update_status()
 
+func _capture_label(at: Vector2, font_size: int, parent: Node) -> Label:
+	var label := Label.new()
+	label.position = at
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.95))
+	label.add_theme_constant_override("shadow_offset_x", 1)
+	label.add_theme_constant_override("shadow_offset_y", 1)
+	label.add_theme_constant_override("outline_size", 3)
+	parent.add_child(label)
+	return label
+
 func _ambience_button(text: String, parent: Node) -> Button:
 	var result := Button.new()
 	result.text = text
@@ -72,11 +91,22 @@ func _ambience_button(text: String, parent: Node) -> Button:
 	return result
 
 func _layout_lab() -> void:
+	if not is_instance_valid(_ambience_toolbar): return
 	var width := minf(770.0, get_viewport_rect().size.x - 24.0)
 	_ambience_toolbar.position = Vector2(maxf(12.0, (get_viewport_rect().size.x - width) * 0.5), 77)
-	_ambience_toolbar.size.x = width
+	_ambience_toolbar.size = Vector2(width, 0)
 	_ambience_status_label.custom_minimum_size.x = width - 20.0
 	_ambience_phase_label.custom_minimum_size.x = width - 20.0
+	_settle_lab_toolbar.call_deferred(width)
+
+func _settle_lab_toolbar(width: float) -> void:
+	if not is_instance_valid(_ambience_toolbar): return
+	# Give HFlow/VBox their real parent width, then discard the old minimum
+	# height that was calculated while the newly created container was tiny.
+	await get_tree().process_frame
+	if not is_instance_valid(_ambience_toolbar): return
+	_ambience_toolbar.reset_size()
+	_ambience_toolbar.size = Vector2(width, 0)
 
 func _clear_lab_input() -> void:
 	if is_instance_valid(controller): controller.router.clear("ambience_lab_control")
@@ -147,6 +177,7 @@ func _sync_music() -> void:
 func _update_status() -> void:
 	if not is_instance_valid(_ambience_status_label): return
 	_ambience_status_label.text = "环境音工坊 · %s · %s · %s" % ["风铃平原" if lab_region == "plains" else "荆棘森林", PROFILE_NAMES[lab_profile], "环境单听（BGM 关闭）" if environment_only else "原 BGM 混音"]
+	if is_instance_valid(_ambience_toolbar): _layout_lab()
 
 func set_capture_phase(text: String) -> void:
 	_ambience_phase_label.text = text
