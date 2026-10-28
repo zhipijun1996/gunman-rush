@@ -16,6 +16,7 @@ var _active_ids: Array[StringName] = []
 var _effects: Dictionary = {}
 var _syncing := false
 var _serial := 0
+var _visual_serial := 0
 var _authorized: Dictionary = {}
 var _packets: Dictionary = {}
 var _kills: Dictionary = {}
@@ -234,11 +235,43 @@ func spend_energy(amount: float, receipt: StringName, active_skill: bool = true)
 func grant_energy(amount: float, receipt: StringName) -> float:
 	return actor().combat_energy.grant(String(receipt), amount) if is_live() else 0.0
 
-func heal(amount: float, receipt: StringName) -> bool:
+func heal(amount: float, receipt: StringName, origin: StringName = &"") -> bool:
 	if not is_live(): return false
+	var visual := presentation_receipt(origin,receipt)
+	var point := actor().motor.global_position
 	var health := actor().actor_resources.health
 	var result := health.heal(ActorResourceRequest.new(receipt, health.epoch, amount, health.get_instance_id()))
-	return result.status == ActorResourceResult.Status.APPLIED and result.amount_applied > 0.0
+	var applied := result.status == ActorResourceResult.Status.APPLIED and result.amount_applied > 0.0
+	if applied: present_committed(&"heal",point,visual,{"amount":result.amount_applied})
+	return applied
+
+# A bounded presentation identity around the existing commit. It never accepts
+# a transaction, retains an actor, changes HP/cost or authorizes damage.
+func presentation_receipt(origin: StringName, event_id: StringName) -> Dictionary:
+	if origin.is_empty() or event_id.is_empty() or not is_live() or not has(origin) or not _source_current(origin): return {}
+	var value := _presentation_context()
+	value["definition_id"] = origin
+	value["event_id"] = event_id
+	return value
+
+func _presentation_context() -> Dictionary:
+	if not is_live(): return {}
+	return {"session":actor().session_id,"run_epoch":_lifetime.epoch,"stage_epoch":_lifetime.stage_epoch,"actor_epoch":_lifetime.actor_epoch,"weapon_epoch":actor().shoot_ability.weapon_epoch,"equipment_revision":int(build().equipment.snapshot().revision),"map_key":_map,"world_id":world_root().get_instance_id()}
+
+func present_committed(kind: StringName, point: Vector2, proof: Dictionary, detail: Dictionary = {}) -> bool:
+	if kind not in [&"heal",&"barrier",&"item_guard_active",&"item_rescue_committed",&"item_break_bell_committed"] or proof.is_empty() or not point.is_finite(): return false
+	var origin: Variant = proof.get("definition_id")
+	var event: Variant = proof.get("event_id")
+	if not (origin is String or origin is StringName) or not (event is String or event is StringName): return false
+	if proof != presentation_receipt(StringName(origin),StringName(event)): return false
+	var payload := proof.duplicate(true)
+	payload.merge(detail,false)
+	cue(kind,point,payload)
+	return true
+
+func presentation_mark(origin: StringName, receiver: Damageable) -> Dictionary:
+	if _combat == null or not has(origin) or not _source_current(origin): return {}
+	return _combat.call("presentation_mark",origin,receiver)
 
 func barrier_grant(amount: int, receipt: StringName) -> int:
 	return int(_defense.call("grant_barrier", amount, receipt))
@@ -474,7 +507,21 @@ func charge_move_multiplier() -> float:
 	return float(_combat.call("charge_move_multiplier"))
 
 func cue(kind: StringName, point: Vector2, detail: Dictionary = {}) -> void:
-	effect_cued.emit(kind, point, detail.duplicate(true))
+	var payload := detail.duplicate(true)
+	# Existing synchronous cast/state observers get a publication identity.
+	# Never stamp HP/resource/rescue committed kinds: those require their actual
+	# commit proof. Never refresh even a partial carried identity on re-delivery.
+	if kind in [&"arc",&"item_arc",&"cloud",&"ring",&"mark",&"echo",&"item_blast",&"item_throw_burst",&"item_clock_pulse",&"item_active_cast",&"active",&"item_drone_fire",&"coin",&"item_guard_evolved",&"item_large_guard_summoned",&"synergy_bell",&"time_refund",&"skill_credit_ready",&"defense_active",&"projectile_intercept",&"item_echo_armed",&"item_motion_path"]:
+		var carried := false
+		for field: String in ["session","run_epoch","stage_epoch","actor_epoch","weapon_epoch","equipment_revision","map_key","world_id"]:
+			if payload.has(field): carried = true
+		if not carried:
+			var identity := _presentation_context()
+			if not identity.is_empty():
+				_visual_serial += 1
+				identity["event_id"] = StringName("visual/%s/%s/%s/%s" % [_lifetime.epoch,_lifetime.stage_epoch,actor().session_id,_visual_serial])
+				payload.merge(identity,false)
+	effect_cued.emit(kind, point, payload)
 	var player := actor()
 	if not is_instance_valid(player): return
 	if kind == &"rejected": GameAudio.cue(player, &"denied")

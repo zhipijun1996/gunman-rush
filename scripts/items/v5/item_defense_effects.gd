@@ -18,10 +18,18 @@ var _glyph: GuardGlyph
 var _orbit_age := 0.0
 var _previous_guard := Vector2.INF
 var _projectile_positions: Dictionary = {}
+var _rescue_policy: WeakRef
+var _rescue_visual_tickets: Dictionary = {}
+const MAX_RESCUE_VISUAL_TICKETS := 8
 
 class CrystalGlyph extends Node2D:
 	var radius := 0.0
+	var visual_age := 0.0
+	func _ready() -> void:
+		material = ItemArtLibrary.world_material()
 	func _draw() -> void:
+		var clip := ItemArtLibrary.entity_clip(&"crystal",&"P20")
+		if not clip.is_empty() and ItemArtLibrary.draw_recipe(self,clip,visual_age,Vector2.ZERO,Vector2.RIGHT,Vector2.ZERO,radius,Vector2.ZERO,Color(1,1,1,.5)): return
 		var points := PackedVector2Array([Vector2(0,-radius), Vector2(radius*.65,0), Vector2(0,radius), Vector2(-radius*.65,0)])
 		draw_colored_polygon(points, Color(.18,.55,.65,.5))
 		draw_polyline(points + PackedVector2Array([points[0]]), Color(.65,.94,.95,.9), 2.0)
@@ -30,7 +38,13 @@ class CrystalGlyph extends Node2D:
 class GuardGlyph extends Node2D:
 	var radius := 0.0
 	var available := true
+	var visual_age := 0.0
+	func _ready() -> void:
+		material = ItemArtLibrary.world_material()
 	func _draw() -> void:
+		var clip := ItemArtLibrary.entity_clip(&"orbit_guard",&"P16")
+		var artist_tint := Color(1,1,1,.9) if available else Color(.35,.45,.48,.4)
+		if not clip.is_empty() and ItemArtLibrary.draw_recipe(self,clip,visual_age,Vector2.ZERO,Vector2.RIGHT,Vector2.ZERO,radius,Vector2.ZERO,artist_tint): return
 		var color := Color(.55,.88,.92,.9) if available else Color(.35,.45,.48,.4)
 		draw_arc(Vector2.ZERO, radius, 0, TAU, 20, color, 2.0)
 		draw_line(Vector2(-radius*.6,0),Vector2(radius*.6,0),color,2)
@@ -95,6 +109,7 @@ func sync() -> void:
 			if is_instance_valid(row.node): (row.node as Node).queue_free()
 		_crystals.clear()
 	if _params(&"P16").is_empty(): _clear_glyph()
+	if _params(&"G04").is_empty(): _clear_rescue_observer()
 
 func barrier_amount() -> float:
 	var total := 0.0
@@ -114,7 +129,11 @@ func grant_barrier(amount: int, receipt: StringName, origin: StringName = &"") -
 	if receipts.has(String(receipt)): return 0
 	var applied := mini(amount, maxi(0,floori(float(_shared_cap)-barrier_amount())))
 	receipts[String(receipt)] = applied
+	var owner := _owner()
+	var visual: Dictionary = owner.call("presentation_receipt",origin,receipt)
+	var point := _actor().motor.global_position
 	if not _patch(origin,{"barrier_remaining":float(state.get("barrier_remaining",0.0))+applied,"barrier_receipts":receipts},receipt): return 0
+	if applied > 0: owner.call("present_committed",&"barrier",point,visual,{"amount":applied})
 	return applied
 
 func _absorb(amount: float, receipt: StringName) -> float:
@@ -150,9 +169,13 @@ func defend_request(request: DamageRequest, current_hp: float) -> Dictionary:
 			var uses: Dictionary = (state.get("map_uses",{}) as Dictionary).duplicate()
 			if int(uses.get(_map(),0)) < int(rescue.get("uses_per_map",0)):
 				var owner := _owner()
+				var visual: Dictionary = owner.call("presentation_receipt",&"G04",StringName("G04/rescue/%s" % key))
+				var policy := _current_rescue_policy()
+				var point := _actor().motor.global_position
 				if bool(owner.call("spend_energy",float(rescue.get("combat_energy_cost",0.0)),StringName("G04/rescue/%s" % key),false)):
 					uses[_map()] = int(uses.get(_map(),0))+1
-					_patch(&"G04",{"map_uses":uses},StringName("G04/use/%s" % key))
+					var prepared := _patch(&"G04",{"map_uses":uses},StringName("G04/use/%s" % key))
+					if prepared: _prepare_rescue_visual(request,policy,visual,point)
 					result.amount = maxf(0.0,current_hp-float(rescue.get("set_remaining_hp",1.0)))
 					result.rescued = true
 					result.blocked = float(result.amount) <= 0.0
@@ -187,7 +210,7 @@ func _commit_entry() -> void:
 		var receipt := StringName("%s/%s/entry" % [id,key])
 		if not _patch(id,{"entry_maps":maps},receipt): continue
 		if params.is_empty(): continue
-		if id == &"G03": _owner().call("heal",float(params.get("heal_hp_on_new_map",0.0)),StringName("%s/heal" % receipt))
+		if id == &"G03": _owner().call("heal",float(params.get("heal_hp_on_new_map",0.0)),StringName("%s/heal" % receipt),id)
 		else: grant_barrier(int(params.get("map_start_barrier",0)),StringName("%s/barrier" % receipt),id)
 
 func on_damage(event: Dictionary) -> void:
@@ -208,8 +231,11 @@ func on_damage(event: Dictionary) -> void:
 		if first_break: patch["first_break_resolved"] = true
 		var bell := first_break and not _params(&"B14").is_empty()
 		if bell: patch["first_break_bell_emitted"] = true
-		_patch(id,patch,StringName("%s/hit/%s" % [id,key]))
-		if bell: owner.call("cue",&"synergy_bell",actor.motor.global_position,{"synergy":&"S15","item":id,"receipt":key})
+		var bell_proof: Dictionary = owner.call("presentation_receipt",&"B14",StringName("S15/%s" % key)) if bell else {}
+		var changed := _patch(id,patch,StringName("%s/hit/%s" % [id,key]))
+		if bell:
+			if changed: owner.call("present_committed",&"item_break_bell_committed",actor.motor.global_position,bell_proof,{"synergy":&"S15","item":id})
+			owner.call("cue",&"synergy_bell",actor.motor.global_position,{"synergy":&"S15","item":id,"receipt":key})
 		broken_changed = broken_changed or broken
 	var pain := _params(&"B14")
 	if not pain.is_empty(): owner.call("grant_energy",float(pain.get("combat_energy_gain_on_damage",0.0)),StringName("B14/%s" % key))
@@ -252,9 +278,12 @@ func activate(id: StringName, _direction: Vector2) -> Dictionary:
 	var receipt := StringName("%s/%s/use/%s/%s" % [id,_map(),used,_now()])
 	if not bool(owner.call("spend_energy",float(params.get("combat_energy_cost",0.0)),receipt)): return _result(false,&"combat_energy")
 	if id == &"P26":
-		_patch(id,{"ready_at":_now()+float(params.get("cooldown_s",0.0)),"invulnerable_until":_now()+float(params.get("invulnerable_duration_real_active_s",0.0))},StringName("%s/state" % receipt))
+		var visual: Dictionary = owner.call("presentation_receipt",id,receipt)
+		var point := actor.motor.global_position
+		var committed := _patch(id,{"ready_at":_now()+float(params.get("cooldown_s",0.0)),"invulnerable_until":_now()+float(params.get("invulnerable_duration_real_active_s",0.0))},StringName("%s/state" % receipt))
+		if committed: owner.call("present_committed",&"item_guard_active",point,visual)
 	elif id == &"P27":
-		owner.call("heal",float(params.get("heal_hp",0.0)),StringName("%s/heal" % receipt))
+		owner.call("heal",float(params.get("heal_hp",0.0)),StringName("%s/heal" % receipt),id)
 		uses[_map()] = used+1
 		_patch(id,{"map_uses":uses},StringName("%s/state" % receipt))
 	else:
@@ -269,6 +298,7 @@ func _spawn_crystal(params: Dictionary, point: Vector2, receipt: StringName) -> 
 	var world := owner.call("world_root") as Node2D
 	if not is_instance_valid(world): return
 	var marker := CrystalGlyph.new()
+	marker.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	marker.radius = float(_tuning.get("crystal_contact_radius_px",0.0))
 	if marker.radius <= 0.0: return
 	marker.set_meta(&"item_v5_world_entity",true)
@@ -286,6 +316,8 @@ func advance(_real_delta: float, world_delta: float) -> void:
 			_crystals.erase(row)
 			continue
 		if world_delta <= 0.0: continue
+		(marker as CrystalGlyph).visual_age += world_delta
+		marker.queue_redraw()
 		row.remaining = float(row.remaining)-world_delta
 		if row.remaining <= 0.0 or _params(&"P20").is_empty():
 			marker.queue_free()
@@ -308,8 +340,10 @@ func _advance_guard(world_delta: float) -> void:
 	var owner := _owner()
 	if not is_instance_valid(_glyph):
 		_glyph = GuardGlyph.new()
+		_glyph.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		_glyph.radius = float(_tuning.get("orbit_intercept_radius_px",0.0))
 		actor.motor.add_child(_glyph)
+	_glyph.visual_age += maxf(0.0,world_delta)
 	_orbit_age += maxf(0.0,world_delta)*float(_tuning.get("orbit_angular_speed_rad_s",0.0))
 	_glyph.position = Vector2.from_angle(_orbit_age)*float(params.get("orbit_radius_px",0.0))
 	var morning := not _params(&"B13").is_empty() and barrier_amount() > 0.0
@@ -352,6 +386,45 @@ func _advance_guard(world_delta: float) -> void:
 	_projectile_positions = next_positions
 	_previous_guard = _glyph.global_position
 
+# The existing policy signal is the only rescue presentation commit bridge.
+# Preparing a defense, spending energy, or setting map uses is not an outcome.
+func _current_rescue_policy() -> FrameDamagePolicy:
+	var actor := _actor()
+	if not is_instance_valid(actor): return null
+	var reference: Variant = actor.get_meta(&"frame_damage_policy",null)
+	return reference.get_ref() as FrameDamagePolicy if reference is WeakRef else null
+
+func _prepare_rescue_visual(request: DamageRequest, policy: FrameDamagePolicy, proof: Dictionary, point: Vector2) -> void:
+	if proof.is_empty() or not is_instance_valid(policy) or policy != _current_rescue_policy() or request.token == null: return
+	var previous := _rescue_policy.get_ref() as FrameDamagePolicy if _rescue_policy != null else null
+	if previous != policy:
+		_clear_rescue_observer()
+		_rescue_policy = weakref(policy)
+		policy.batch_resolved.connect(_on_rescue_batch)
+	if _rescue_visual_tickets.size()>=MAX_RESCUE_VISUAL_TICKETS: _rescue_visual_tickets.erase(_rescue_visual_tickets.keys()[0])
+	_rescue_visual_tickets[request.get_instance_id()] = {"request":weakref(request),"proof":proof.duplicate(true),"point":point,"token":request.token.key(),"actor_epoch":request.actor_epoch,"health_epoch":request.health_epoch,"health_id":_actor().actor_resources.health.get_instance_id()}
+
+func _on_rescue_batch(results: Array[DamageResult]) -> void:
+	var policy := _rescue_policy.get_ref() as FrameDamagePolicy if _rescue_policy != null else null
+	var tickets := _rescue_visual_tickets.duplicate()
+	_rescue_visual_tickets.clear()
+	if not _live() or not is_instance_valid(policy) or policy.lifetime == null or policy != _current_rescue_policy(): return
+	for result: DamageResult in results:
+		if result == null or not result.rescued or result.lethal or result.request == null or result.health == null or result.health.terminal: continue
+		var request := result.request
+		var row: Dictionary = tickets.get(request.get_instance_id(),{})
+		if row.is_empty() or (row.request as WeakRef).get_ref() != request or request.token == null or not policy.lifetime.accepts(request.token): continue
+		if request.token.key() != row.token or request.actor_epoch != row.actor_epoch or request.health_epoch != row.health_epoch: continue
+		var health := _actor().actor_resources.health
+		if health.get_instance_id() != row.health_id or health.epoch != row.health_epoch or health.terminal: continue
+		_owner().call("present_committed",&"item_rescue_committed",row.point,row.proof,{"remaining_hp":result.health.current,"hp_lost":result.hp_lost})
+
+func _clear_rescue_observer() -> void:
+	var policy := _rescue_policy.get_ref() as FrameDamagePolicy if _rescue_policy != null else null
+	if is_instance_valid(policy) and policy.batch_resolved.is_connected(_on_rescue_batch): policy.batch_resolved.disconnect(_on_rescue_batch)
+	_rescue_policy = null
+	_rescue_visual_tickets.clear()
+
 func _collect_projectiles(node: Node, output: Array[Node]) -> void:
 	if node is EnemyAttackProjectile or node is BossProjectile:
 		if node not in output: output.append(node)
@@ -365,6 +438,7 @@ func _clear_glyph() -> void:
 	_projectile_positions.clear()
 
 func clear_world_entities() -> void:
+	_clear_rescue_observer()
 	for row: Dictionary in _crystals:
 		if is_instance_valid(row.node): (row.node as Node).queue_free()
 	_crystals.clear()

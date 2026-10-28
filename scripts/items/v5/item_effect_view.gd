@@ -3,12 +3,13 @@ extends Node2D
 ## World-local observer of accepted ItemRuntime receipts. Never owns gameplay.
 ## The stage owns this node, so stage freeze and teardown also own its clock.
 const CONFIG := "res://config/item_v5_feedback.json"
-const SUPPORTED: Array[StringName] = [&"arc", &"item_arc", &"cloud", &"ring", &"mark", &"echo", &"item_blast", &"item_throw_burst", &"item_clock_pulse", &"item_active_cast", &"active", &"item_drone_fire", &"coin", &"item_guard_evolved", &"item_large_guard_summoned", &"synergy_bell", &"time_refund", &"skill_credit_ready", &"defense_active", &"projectile_intercept", &"barrier", &"heal", &"item_committed_impact"]
+const SUPPORTED: Array[StringName] = [&"arc", &"item_arc", &"cloud", &"ring", &"mark", &"echo", &"item_blast", &"item_throw_burst", &"item_clock_pulse", &"item_active_cast", &"active", &"item_drone_fire", &"coin", &"item_guard_evolved", &"item_large_guard_summoned", &"synergy_bell", &"time_refund", &"skill_credit_ready", &"defense_active", &"projectile_intercept", &"barrier", &"heal", &"item_committed_impact",&"item_echo_armed",&"item_guard_active",&"item_rescue_committed",&"item_motion_path",&"item_break_bell_committed"]
 var _runtime_ref: WeakRef
 var _build_ref: WeakRef
 var _settings: Dictionary = {}
 var _entries: Array[Dictionary] = []
 var _cast_frames: Dictionary = {}
+var _accepted_art_frames: Dictionary = {}
 var _sequence := 0
 var _dropped := 0
 var _pruned := 0
@@ -23,6 +24,7 @@ func _ready() -> void:
 	# INHERIT is deliberate: PAUSABLE would override a DISABLED frozen parent.
 	process_mode = Node.PROCESS_MODE_INHERIT
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	material = ItemArtLibrary.world_material()
 	z_index = 5
 	set_process(_runtime_ref != null and not _settings.is_empty())
 
@@ -48,6 +50,7 @@ func configure(runtime: RefCounted) -> bool:
 func clear() -> void:
 	_entries.clear()
 	_cast_frames.clear()
+	_accepted_art_frames.clear()
 	_impact_events.clear()
 	_impact_order.clear()
 	if is_inside_tree(): queue_redraw()
@@ -77,6 +80,7 @@ func _exit_tree() -> void:
 	_disconnect()
 	_entries.clear()
 	_cast_frames.clear()
+	_accepted_art_frames.clear()
 
 func _process(delta: float) -> void:
 	advance_visual(delta)
@@ -91,6 +95,12 @@ func advance_visual(world_delta: float) -> void:
 	if runtime.has_method("is_live") and not bool(runtime.call("is_live")): return
 	if not is_finite(world_delta) or world_delta <= 0: return
 	for i: int in range(_entries.size()-1,-1,-1):
+		if _entries[i].has("mark_target"):
+			var state := _mark_state(runtime,_entries[i])
+			if state.is_empty():
+				_entries.remove_at(i)
+				continue
+			_entries[i].point = (state.point as Vector2).round()
 		_entries[i].age = float(_entries[i].age)+world_delta
 		if bool(_entries[i].magnet_bonus) and _entries[i].get("target") is WeakRef:
 			var target := (_entries[i].target as WeakRef).get_ref() as Node2D
@@ -118,7 +128,8 @@ func _prune_sources() -> void:
 		var tracked_source: bool = row.kind in [&"cloud",&"ring"] or artist_entry
 		var source_removed: bool = tracked_source and not StringName(row.origin).is_empty() and not bool(runtime.call("has",row.origin))
 		var context_changed: bool = artist_entry and row.get("identity",{}) != identity
-		if (row.kind in [&"cloud",&"ring"] or artist_entry) and (source_removed or context_changed):
+		var mark_revoked: bool = row.has("mark_target") and _mark_state(runtime,row).is_empty()
+		if (row.kind in [&"cloud",&"ring"] or artist_entry) and (source_removed or context_changed or mark_revoked):
 			_entries.remove_at(i)
 			_pruned += 1
 
@@ -130,8 +141,13 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	var origin := StringName(str(detail.get("origin",detail.get("definition_id",detail.get("item",&"")))))
 	origin = ItemArtLibrary.cue_source(kind,origin)
 	var clip := ItemArtLibrary.cue_clip(kind,origin)
+	# Once dedicated accepted-HP art exists, the older G01 detonation request
+	# cannot also draw a receiver glyph before its damage has committed.
+	if kind == &"echo" and origin == &"G01" and not ItemArtLibrary.cue_clip(&"item_committed_impact",origin).is_empty(): return
+	if kind == &"synergy_bell" and StringName(detail.get("synergy",&"")) == &"S15" and not ItemArtLibrary.cue_clip(&"item_break_bell_committed",&"B14").is_empty(): return
 	# Dedicated receiver art observes committed HP receipts, never a fire request.
-	if kind == &"item_committed_impact":
+	var guarded_receipt: bool = kind == &"item_committed_impact" or not clip.is_empty()
+	if guarded_receipt:
 		var incoming_event: Variant = detail.get("event_id",&"")
 		if not (incoming_event is String or incoming_event is StringName): return
 		var event := StringName(incoming_event)
@@ -140,6 +156,8 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 		_impact_order.append(event)
 		if _impact_order.size() > int(_settings.max_entries)*2: _impact_events.erase(_impact_order.pop_front())
 	var frame := Engine.get_process_frames()
+	if kind == &"defense_active" and int(_accepted_art_frames.get(origin,-1)) == frame: return
+	if not clip.is_empty() and kind in [&"barrier",&"heal",&"item_guard_active"]: _accepted_art_frames[origin] = frame
 	if kind == &"active" and int(_cast_frames.get(origin,-1)) == frame: return
 	if kind in [&"item_active_cast",&"defense_active",&"item_large_guard_summoned"]: _cast_frames[origin] = frame
 	var duration := float(_settings.short_duration_s)
@@ -147,8 +165,10 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	elif kind == &"mark": duration = float(_settings.mark_confirm_duration_s)
 	elif kind == &"coin": duration = float(_settings.coin_duration_s)
 	elif kind in [&"cloud",&"ring"]: duration = _number(detail.get("duration"),duration)
-	if not clip.is_empty() and kind not in [&"cloud",&"ring"]:
+	if not clip.is_empty() and kind not in [&"cloud",&"ring"] and not ItemArtLibrary.clip_uses_event_timing(clip):
 		duration = ItemArtLibrary.clip_duration(clip)
+	var persistent_mark: bool = not clip.is_empty() and kind in [&"mark",&"item_echo_armed"] and detail.get("target") is WeakRef
+	if persistent_mark: duration = _number(detail.get("duration"),duration)
 	duration = clampf(duration,0.01,float(_settings.max_visual_duration_s))
 	var radius := clampf(_number(detail.get("radius"),float(_settings.default_radius_px)),1.0,float(_settings.max_visual_radius_px))
 	var endpoint: Variant = detail.get("finish",detail.get("end",point))
@@ -161,6 +181,11 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 	_sequence += 1
 	var row := {"kind":kind,"point":point.round(),"finish":finish.round(),"direction":direction.normalized(),"origin":origin,"age":0.0,"duration":duration,"radius":radius,"sequence":_sequence,"magnet_bonus":kind==&"coin" and bool(detail.get("magnet_bonus",false)),"amount":clampi(int(detail.get("amount",1)),1,int(_settings.max_coin_glyphs)),"evolution":clampi(int(detail.get("evolution",0)),0,2)}
 	row["clip"] = clip
+	row["observed_radius"] = _number(detail.get("radius"),-1.0)>0.0
+	row["long"] = kind in [&"cloud",&"ring"] or persistent_mark
+	if persistent_mark:
+		row["mark_target"] = detail.target
+		row["mark_receipt"] = detail.get("mark_receipt",&"")
 	if not clip.is_empty(): row["identity"] = _visual_identity(_runtime())
 	if bool(row.magnet_bonus):
 		var runtime := _runtime()
@@ -170,13 +195,13 @@ func _on_effect_cued(kind: StringName, point: Vector2, detail: Dictionary) -> vo
 			row.finish = point+offset.limit_length(float(_settings.max_coin_arc_distance_px))
 			row["target"] = weakref(actor.motor)
 		else: row.magnet_bonus = false
-	if kind in [&"cloud",&"ring"]:
+	if bool(row["long"]):
 		var count := 0
 		for active: Dictionary in _entries:
-			if active.kind in [&"cloud",&"ring"]: count += 1
+			if bool(active.get("long",active.kind in [&"cloud",&"ring"])): count += 1
 		if count >= int(_settings.max_long_entries):
 			for i: int in _entries.size():
-				if _entries[i].kind in [&"cloud",&"ring"]:
+				if bool(_entries[i].get("long",_entries[i].kind in [&"cloud",&"ring"])):
 					_entries.remove_at(i)
 					_dropped += 1
 					break
@@ -196,9 +221,15 @@ func _draw() -> void:
 		var radius := float(row.radius)
 		var artist_clip := StringName(row.get("clip",&""))
 		if not artist_clip.is_empty():
-			if ItemArtLibrary.draw_clip(self,artist_clip,float(row.age),center,(row.direction as Vector2).angle(),Color(1,1,1,alpha)):
-				_art_draws += 1
-				continue
+			if row.kind == &"coin":
+				if _coin_art(row,phase,alpha,artist_clip): continue
+			else:
+				var art_alpha := float(_settings.cloud_opacity)*minf(1,phase*10)*(1.0-phase) if row.kind == &"cloud" else alpha
+				var finish := _point(row.finish)
+				var observed_radius := radius if bool(row.get("observed_radius",false)) else NAN
+				if ItemArtLibrary.draw_recipe(self,artist_clip,float(row.age),center,row.direction,finish-center,observed_radius,finish,Color(1,1,1,art_alpha),(row.direction as Vector2).angle()):
+					_art_draws += 1
+					continue
 			_art_missing += 1
 			# Missing artist art is diagnosed by the library. A committed impact
 			# never falls back to a generic hit glyph that pretends to be authored.
@@ -256,6 +287,30 @@ func _world_matches(runtime: RefCounted) -> bool:
 	if _bound_world_id == 0: return true # Compatibility host without a world API.
 	var world := runtime.call("world_root") as Node2D
 	return is_instance_valid(world) and world.get_instance_id() == _bound_world_id
+
+func _mark_state(runtime: RefCounted, row: Dictionary) -> Dictionary:
+	if runtime == null or not runtime.has_method("presentation_mark") or not row.get("mark_target") is WeakRef: return {}
+	var receiver := (row.mark_target as WeakRef).get_ref() as Damageable
+	if not is_instance_valid(receiver): return {}
+	var state: Dictionary = runtime.call("presentation_mark",StringName(row.origin),receiver)
+	if state.is_empty() or state.get("receipt",&"") != row.get("mark_receipt",&"") or not state.get("point") is Vector2 or not (state.point as Vector2).is_finite(): return {}
+	return state
+
+# Reuse the original accepted-wallet glyph count and exact magnet path. Artist
+# pixels replace each glyph without introducing another target/path authority.
+func _coin_art(row: Dictionary, phase: float, alpha: float, clip: StringName) -> bool:
+	var start: Vector2 = row.point
+	var finish: Vector2 = row.finish
+	for i: int in int(row.amount):
+		var point: Vector2
+		if bool(row.magnet_bonus):
+			var delay := float(i)*0.05
+			var t := clampf((phase-delay)/(1.0-delay),0,1)
+			point = start.lerp(finish,t)+Vector2.UP*sin(t*PI)*float(_settings.max_coin_arc_height_px)
+		else: point = start+Vector2(float(i)*5-5,-phase*18)
+		if not ItemArtLibrary.draw_recipe(self,clip,float(row.age),_point(point),row.direction,finish-start,NAN,_point(finish),Color(1,1,1,alpha),(row.direction as Vector2).angle()): return false
+		_art_draws += 1
+	return true
 
 func _visual_identity(runtime: RefCounted) -> Dictionary:
 	var result: Dictionary = {}

@@ -42,6 +42,7 @@ func _ready() -> void:
 	set_process(false)
 	set_physics_process(false)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	material = ItemArtLibrary.world_material()
 
 func step_visual(world_delta: float) -> void:
 	# Modules move the visual immediately after this call; draw reads only the
@@ -96,11 +97,11 @@ func _draw() -> void:
 		draw_line(Vector2.ZERO, to_local(beam_end), Color(0.46,0.83,0.82,0.75), 1.5, false)
 
 func visual_snapshot() -> Dictionary:
-	return {"kind":kind,"origin":get_meta("item_definition_id",&""),"age":age,"art_draws":_art_draws,"art_missing":_art_missing,"clip":ItemArtLibrary.entity_clip(kind,StringName(get_meta("item_definition_id",&"")))}
+	return {"kind":kind,"origin":get_meta("item_definition_id",&""),"age":age,"art_draws":_art_draws,"art_missing":_art_missing,"clip":ItemArtLibrary.entity_clip(kind,StringName(get_meta("item_definition_id",&"")),evolved),"world_shader":ItemArtLibrary.WORLD_SHADER_PATH,"world_material":material==ItemArtLibrary.world_material()}
 
 func _draw_art_body() -> bool:
 	var origin := StringName(get_meta("item_definition_id",&""))
-	var clip := ItemArtLibrary.entity_clip(kind,origin)
+	var clip := ItemArtLibrary.entity_clip(kind,origin,evolved)
 	if clip.is_empty(): return false # Unproduced families retain explicit old art.
 	var point := Vector2.ZERO
 	var sample_age := age
@@ -116,7 +117,8 @@ func _draw_art_body() -> bool:
 		var displacement := global_position-_step_position
 		if not displacement.is_zero_approx():
 			if ItemArtLibrary.draw_clip(self,trail,age,Vector2.ZERO,displacement.angle()): _art_draws += 1
-	if not ItemArtLibrary.draw_clip(self,clip,sample_age,point,angle,tint):
+	var actual_travel := global_position-_step_position if _has_visual_step else Vector2.ZERO
+	if not ItemArtLibrary.draw_recipe(self,clip,sample_age,point,direction,actual_travel,radius,point+actual_travel,tint,angle):
 		_art_missing += 1
 		return false # Library has diagnosed the missing registered resource.
 	_art_draws += 1
@@ -126,8 +128,12 @@ func _draw_art_body() -> bool:
 		draw_line(Vector2.ZERO,to_local(beam_end),Color(0.46,0.83,0.82,0.75),1.5,false)
 	if marked:
 		draw_arc(Vector2.ZERO,radius+4,-PI*0.8,-PI*0.2,8,Color("77d3d1"),1,false)
-	for i: int in evolved:
-		draw_circle(Vector2(float(i)*5-2.5,radius+4),1.5,Color("d4ac64"))
+	# Authored variants already carry their rank; detached fallback dots would
+	# duplicate it and exceed the calibrated full-body envelope. Legacy _draw()
+	# still owns its indicators when no authored body can be drawn.
+	if not ItemArtLibrary.entity_has_variants(kind,origin):
+		for i: int in evolved:
+			draw_circle(Vector2(float(i)*5-2.5,radius+4),1.5,Color("d4ac64"))
 	return true
 
 func _gear(size: float, edge: Color, inside: Color) -> void:

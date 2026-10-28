@@ -21,6 +21,7 @@ var _moving_recoil := false
 var _recoil_had_motion := false
 var _recoil_serial := 0
 var _recoil_targets: Dictionary = {}
+var _path_visual_serial := 0
 
 func configure(host: RefCounted) -> void:
 	_host_ref = weakref(host)
@@ -92,6 +93,7 @@ func map_entered(key: StringName) -> void:
 	_rings.clear()
 	_pending_recoil_hits.clear()
 	_recoil_targets.clear()
+	_path_visual_serial = 0
 	_moving_recoil = false
 	_recoil_had_motion = false
 	_last_position = _actor().motor.global_position
@@ -184,12 +186,12 @@ func on_hook_hit(receiver: Damageable, receipt: StringName = &"") -> void:
 		var sequence := int(_state(&"P13").get("mark_sequence", 0)) + 1
 		_patch(&"P13", {"mark_sequence":sequence})
 		_hook_marks[key] = {"until":_world_time+float(_effect(&"P13").mark_duration_s), "receipt":StringName("%s/hook/%s" % [key, sequence])}
-		_host().call("cue", &"mark", (receiver.get_parent() as Node2D).global_position, {"origin":&"P13"})
+		_host().call("cue",&"mark",(receiver.get_parent() as Node2D).global_position,{"origin":&"P13","event_id":_hook_marks[key].receipt,"target":weakref(receiver),"mark_receipt":_hook_marks[key].receipt,"duration":float(_hook_marks[key].until)-_world_time})
 	if _has(&"B19"):
 		var sequence := int(_state(&"B19").get("dream_mark_sequence", 0)) + 1
 		_patch(&"B19", {"dream_mark_sequence":sequence})
 		_dream_marks[key] = {"until":_world_time+float(_effect(&"B19").mark_duration_s), "receipt":StringName("%s/dream/%s" % [key, sequence])}
-		_host().call("cue", &"mark", (receiver.get_parent() as Node2D).global_position, {"origin":&"B19"})
+		_host().call("cue",&"mark",(receiver.get_parent() as Node2D).global_position,{"origin":&"B19","event_id":_dream_marks[key].receipt,"target":weakref(receiver),"mark_receipt":_dream_marks[key].receipt,"duration":float(_dream_marks[key].until)-_world_time})
 
 func is_marked(receiver: Damageable) -> bool:
 	return not mark_key(receiver).is_empty()
@@ -264,7 +266,20 @@ func _echo(receiver: Damageable, point: Vector2, event: Dictionary, target: Stri
 	elif bool(event.get("airborne", false)) and mark.is_empty():
 		var cooldowns: Dictionary = _state(&"G01").get("combat_cooldowns", {})
 		if _now() >= float(cooldowns.get(String(target), 0.0)):
-			_echo_marks[target] = {"packet":_packet_key(int(event.packet)), "until":_world_time+float(_effect(&"G01").mark_duration_s)}
+			var visual_receipt := _receipt(&"G01",event,target)
+			_echo_marks[target] = {"packet":_packet_key(int(event.packet)), "until":_world_time+float(_effect(&"G01").mark_duration_s),"visual_receipt":visual_receipt}
+			_host().call("cue",&"item_echo_armed",point,{"origin":&"G01","event_id":visual_receipt,"target":weakref(receiver),"mark_receipt":visual_receipt,"duration":float(_echo_marks[target].until)-_world_time})
+
+# Read-only presentation projection. A revoked/consumed/expired mark cannot be
+# kept alive by its sprite; weak receivers and damage_epoch define the target.
+func presentation_mark(origin: StringName, receiver: Damageable) -> Dictionary:
+	if not _has(origin) or not _eligible(receiver) or not receiver.active: return {}
+	var marks: Dictionary = _hook_marks if origin == &"P13" else _dream_marks if origin == &"B19" else _echo_marks if origin == &"G01" else {}
+	var row: Dictionary = marks.get(_target_key(receiver),{})
+	if row.is_empty() or float(row.until)<=_world_time: return {}
+	var node := receiver.get_parent() as Node2D
+	if not is_instance_valid(node): return {}
+	return {"receipt":row.get("visual_receipt",row.get("receipt",&"")),"point":node.global_position,"remaining":float(row.until)-_world_time}
 
 func _detonate_echo(receiver: Damageable, point: Vector2, event: Dictionary, target: StringName) -> bool:
 	if not _has(&"G01"): return false
@@ -379,6 +394,8 @@ func _observe_path(start: Vector2, finish: Vector2) -> void:
 	var width := float(path.contact_width_px)
 	var length := start.distance_to(finish)
 	if length <= 0.000001: return
+	_path_visual_serial += 1
+	_host().call("cue",&"item_motion_path",start,{"origin":&"P12","event_id":StringName("%s/P12/path/%s/%s" % [_map,_recoil_serial,_path_visual_serial]),"finish":finish,"width":width,"radius":width*.5})
 	var shape := CapsuleShape2D.new()
 	shape.radius = width*0.5
 	shape.height = length+width

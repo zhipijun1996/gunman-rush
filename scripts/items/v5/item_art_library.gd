@@ -4,6 +4,8 @@ extends RefCounted
 ## Atlas pixels and animation recipes only. Never retains an actor or drives gameplay.
 const CONFIG_PATH := "res://config/item_v5_art.json"
 const ASSET_ROOT := "res://assets/items/v5/"
+const WORLD_STYLE_SHADER_PATH := "res://shaders/underworld_fine_sprite.gdshader"
+const WORLD_SHADER_PATH := "res://shaders/item_v5_world_sprite.gdshader"
 const MAX_TEXTURE_RGBA_BYTES := 64*1024*1024
 static var _signature := ""
 static var _data: Dictionary = {}
@@ -13,6 +15,7 @@ static var _frames: Dictionary = {}
 static var _warnings: Dictionary = {}
 static var _last_error := ""
 static var _texture_rgba_bytes := 0
+static var _world_material: ShaderMaterial
 
 static func clear_cache() -> void:
 	_signature = ""
@@ -23,6 +26,19 @@ static func clear_cache() -> void:
 	_warnings.clear()
 	_last_error = ""
 	_texture_rgba_bytes = 0
+	_world_material = null
+
+# Reuse the established world sampler/light cap without retaining consumers.
+# UI consumers deliberately request only textures, never this world material.
+static func world_material() -> ShaderMaterial:
+	if _world_material != null: return _world_material
+	var shader := load(WORLD_SHADER_PATH) as Shader
+	if shader == null:
+		_diagnose("Missing established item-world sampling shader: "+WORLD_SHADER_PATH)
+		return null
+	_world_material = ShaderMaterial.new()
+	_world_material.shader = shader
+	return _world_material
 
 static func reload_registry() -> bool:
 	_signature = ""
@@ -31,7 +47,7 @@ static func reload_registry() -> bool:
 
 static func diagnostics() -> Dictionary:
 	_load()
-	return {"valid":not _data.is_empty(),"last_error":_last_error,"textures":_textures.size(),"icons":_icons.size(),"clips":_frames.size(),"registered_texture_rgba_upper_bound_bytes":_texture_rgba_bytes,"texture_budget_bytes":MAX_TEXTURE_RGBA_BYTES}
+	return {"valid":not _data.is_empty(),"last_error":_last_error,"textures":_textures.size(),"icons":_icons.size(),"clips":_frames.size(),"registered_texture_rgba_upper_bound_bytes":_texture_rgba_bytes,"texture_budget_bytes":MAX_TEXTURE_RGBA_BYTES,"world_shader":WORLD_SHADER_PATH,"world_style_source":WORLD_STYLE_SHADER_PATH,"world_material_cached":_world_material!=null}
 
 static func has_icon(key: StringName) -> bool:
 	_load()
@@ -41,10 +57,17 @@ static func has_clip(key: StringName) -> bool:
 	_load()
 	return _data.get("clips",{}).has(String(key))
 
-static func entity_clip(kind: StringName, origin: StringName = &"") -> StringName:
+static func entity_clip(kind: StringName, origin: StringName = &"", evolution: int = -1) -> StringName:
 	_load()
 	var value: Variant = _data.get("entities",{}).get(String(kind),"")
-	return _mapped_clip(value,origin)
+	return _mapped_clip(value,origin,evolution)
+
+static func entity_has_variants(kind: StringName, origin: StringName = &"") -> bool:
+	_load()
+	var mapping: Variant = _data.get("entities",{}).get(String(kind),{})
+	if not mapping is Dictionary: return false
+	var entry: Variant = mapping.get(String(origin),mapping.get("default",{}))
+	return entry is Dictionary and entry.get("variants") is Dictionary
 
 static func cue_source(kind: StringName, origin: StringName) -> StringName:
 	if not origin.is_empty(): return origin
@@ -52,9 +75,14 @@ static func cue_source(kind: StringName, origin: StringName) -> StringName:
 	var variants: Dictionary = _data.get("cues",{}).get(String(kind),{})
 	return StringName(variants.get("source",""))
 
-static func _mapped_clip(value: Variant, origin: StringName) -> StringName:
-	if value is String: return StringName(value)
-	if value is Dictionary: return StringName(value.get(String(origin),value.get("default","")))
+static func _mapped_clip(value: Variant, origin: StringName, evolution: int = -1) -> StringName:
+	var entry: Variant = value.get(String(origin),value.get("default","")) if value is Dictionary else value
+	if entry is String: return StringName(entry)
+	if entry is Dictionary and entry.get("variants") is Dictionary:
+		if evolution < 0 or evolution > 2:
+			_diagnose("Explicit item-art evolution variant requires actual state0/1/2")
+			return &""
+		return StringName(entry.variants.get(str(evolution),""))
 	return &""
 
 static func cue_clip(kind: StringName, origin: StringName) -> StringName:
@@ -79,6 +107,10 @@ static func clip_duration(key: StringName) -> float:
 	_load()
 	var row: Dictionary = _data.get("clips",{}).get(String(key),{})
 	return float(row.regions.size())/float(row.fps) if not row.is_empty() else 0.0
+
+static func clip_uses_event_timing(key: StringName) -> bool:
+	_load()
+	return _data.get("clips",{}).get(String(key),{}).get("timing","clip") == "event"
 
 static func frame_texture(key: StringName, age: float) -> Texture2D:
 	_load()
@@ -111,6 +143,63 @@ static func draw_clip(canvas: CanvasItem, key: StringName, age: float, position 
 	canvas.draw_set_transform(Vector2.ZERO)
 	return true
 
+# Optional presentation geometry. Omitted fields preserve each existing
+# consumer's angle and canvas exactly; no metadata can move a physical node.
+static func clip_pose(key: StringName, point: Vector2, aim: Vector2, travel: Vector2, radius: float, finish: Vector2, legacy_angle := 0.0) -> Dictionary:
+	_load()
+	var row: Dictionary = _data.get("clips",{}).get(String(key),{})
+	return resolve_clip_pose(row,point,aim,travel,radius,finish,legacy_angle)
+
+static func resolve_clip_pose(row: Dictionary, point: Vector2, aim: Vector2, travel: Vector2, radius: float, finish: Vector2, legacy_angle := 0.0) -> Dictionary:
+	if row.is_empty() or not _pose_ok(row) or not _pair(row.get("world_size"),false,640) or not _pair(row.get("pivot"),true,1): return {}
+	if not point.is_finite() or not finish.is_finite() or not aim.is_finite() or not travel.is_finite() or not is_finite(legacy_angle): return {}
+	var angle := legacy_angle
+	var facing := String(row.get("orientation",""))
+	if facing == "fixed": angle = 0.0
+	elif facing == "aim": angle = aim.angle() if not aim.is_zero_approx() else 0.0
+	elif facing == "travel": angle = travel.angle() if not travel.is_zero_approx() else 0.0
+	var at := point
+	var scale := Vector2.ONE
+	var geometry := String(row.get("geometry","fixed"))
+	if geometry == "radius":
+		if not is_finite(radius) or radius <= 0.0 or radius > 320.0: return {}
+		scale = Vector2.ONE*(radius/float(row.reference_radius))
+	elif geometry == "segment":
+		var segment := finish-point
+		if segment.is_zero_approx() or segment.length()>1280.0: return {}
+		angle = segment.angle()
+		at = point+segment*float(row.pivot[0])
+		scale.x = segment.length()/float(row.world_size[0])
+		if row.has("reference_radius"):
+			if not is_finite(radius) or radius <= 0.0 or radius > 320.0: return {}
+			scale.y = radius/float(row.reference_radius)
+	var size := Vector2(float(row.world_size[0]),float(row.world_size[1]))*scale
+	if not scale.is_finite() or size.x>1280.0 or size.y>1280.0: return {}
+	return {"position":at,"angle":angle,"size_multiplier":scale}
+
+static func draw_recipe(canvas: CanvasItem, key: StringName, age: float, point: Vector2, aim: Vector2, travel: Vector2, radius: float, finish: Vector2, tint := Color.WHITE, legacy_angle := 0.0) -> bool:
+	var pose := clip_pose(key,point,aim,travel,radius,finish,legacy_angle)
+	if pose.is_empty():
+		_diagnose("Invalid observed geometry for explicitly requested item clip: "+String(key))
+		return false
+	return draw_clip(canvas,key,age,pose.position,pose.angle,tint,pose.size_multiplier)
+
+static func _pose_ok(row: Dictionary) -> bool:
+	if row.has("timing") and (not row.timing is String or row.timing not in ["clip","event"]): return false
+	if row.has("orientation") and (not row.orientation is String or row.orientation not in ["fixed","aim","travel"]): return false
+	if row.has("geometry") and (not row.geometry is String or row.geometry not in ["fixed","radius","segment"]): return false
+	var geometry := String(row.get("geometry","fixed"))
+	if geometry == "radius": return _positive(row.get("reference_radius"),640)
+	if geometry == "segment" and row.has("reference_radius"): return _positive(row.reference_radius,640)
+	return not row.has("reference_radius")
+
+static func _entity_entry_ok(entry: Variant, clips: Dictionary) -> bool:
+	if entry is String: return clips.has(entry)
+	if not entry is Dictionary or entry.size()!=1 or not entry.get("variants") is Dictionary or entry.variants.size()!=3: return false
+	for state: String in ["0","1","2"]:
+		if not entry.variants.get(state) is String or not clips.has(entry.variants[state]): return false
+	return true
+
 # Pure recipe grammar; real image dimensions are additionally checked on loading.
 static func validate_payload(value: Variant) -> String:
 	if not value is Dictionary: return "Invalid item-art schema"
@@ -125,16 +214,17 @@ static func validate_payload(value: Variant) -> String:
 		var row: Variant = value.clips[key]
 		if not key is String or key.is_empty() or not row is Dictionary or not _path_ok(row.get("texture")) or not row.get("regions") is Array or row.regions.is_empty() or row.regions.size()>128: return "Invalid clip recipe: "+str(key)
 		if not _positive(row.get("fps"),120) or not row.get("loop") is bool or not _pair(row.get("world_size"),false,640) or not _pair(row.get("pivot"),true,1): return "Invalid clip timing/geometry: "+str(key)
+		if not _pose_ok(row): return "Invalid optional clip pose: "+str(key)
 		for region: Variant in row.regions:
 			if not _region_ok(region): return "Invalid clip frame: "+str(key)
 	for key: Variant in value.entities:
 		if not key is String: return "Invalid entity kind"
 		var mapping: Variant = value.entities[key]
 		if mapping is String:
-			if not value.clips.has(mapping): return "Unknown entity clip: "+str(key)
+			if not _entity_entry_ok(mapping,value.clips): return "Unknown entity clip: "+str(key)
 		elif mapping is Dictionary:
 			for origin: Variant in mapping:
-				if not origin is String or not mapping[origin] is String or not value.clips.has(mapping[origin]): return "Unknown entity clip: "+str(key)
+				if not origin is String or not _entity_entry_ok(mapping[origin],value.clips): return "Unknown entity clip: "+str(key)
 		else: return "Invalid entity mapping: "+str(key)
 	for key: Variant in value.cues:
 		if not key is String or not value.cues[key] is Dictionary: return "Invalid cue mapping: "+str(key)

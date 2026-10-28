@@ -210,7 +210,7 @@
       {
         "role": "item_feedback_view",
         "path": "scripts/items/v5/item_effect_view.gd",
-        "sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+        "sha256": "f155e63a3af9e6ab1095131bd598eb5de3d86379b90457928e4f9e60e1e09bba"
       },
       {
         "role": "item_feedback_config",
@@ -220,7 +220,7 @@
       {
         "role": "item_entity_view",
         "path": "scripts/items/v5/item_v5_entity.gd",
-        "sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+        "sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd"
       },
       {
         "role": "item_entity_config",
@@ -230,7 +230,7 @@
       {
         "role": "item_defense_glyphs",
         "path": "scripts/items/v5/item_defense_effects.gd",
-        "sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40"
+        "sha256": "601470278bbace6be6f9880fc6dc0e2eba36e9e21b8bfd44672c632f1a37b8ee"
       },
       {
         "role": "item_defense_visual_config",
@@ -300,17 +300,17 @@
       {
         "role": "item_art_library",
         "path": "scripts/items/v5/item_art_library.gd",
-        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+        "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d"
       },
       {
         "role": "item_art_config",
         "path": "config/item_v5_art.json",
-        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+        "sha256": "3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a"
       },
       {
         "role": "item_icon_metadata",
         "path": "config/item_v5_authoring.json",
-        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+        "sha256": "a56669cea41f6aa8e179bf278fb115c8551d3a320dd9c326eb31a3e506dd69a7"
       },
       {
         "role": "item_icon_atlas_first8",
@@ -331,6 +331,41 @@
         "role": "item_vfx_g16_source",
         "path": "assets/items/v5/vfx/g16-01.source.png",
         "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      },
+      {
+        "role": "item_icon_atlas_catalog01",
+        "path": "assets/items/v5/icons/catalog-01.source.png",
+        "sha256": "1886eacd1441f03a9a3049dd7fc297183fc8e1fb74a8ca387347d99985ab676d"
+      },
+      {
+        "role": "item_icon_atlas_catalog02",
+        "path": "assets/items/v5/icons/catalog-02.source.png",
+        "sha256": "24f59cf059af977b901b13367ddc917b4255d34a5b132c1e844a4fd34f1cbfed"
+      },
+      {
+        "role": "item_icon_atlas_catalog03",
+        "path": "assets/items/v5/icons/catalog-03.source.png",
+        "sha256": "b2a96b978c0edeace1507f7c1393c8c7b8c99ca3ebb154dca99481086f223db3"
+      },
+      {
+        "role": "item_icon_atlas_catalog04",
+        "path": "assets/items/v5/icons/catalog-04.source.png",
+        "sha256": "242438a3157b514ebf7fdeaf2c7aa88cffe8d74b83d0ec355d866842faf21c31"
+      },
+      {
+        "role": "item_vfx_static_entities_source",
+        "path": "assets/items/v5/vfx/static-entities.source.png",
+        "sha256": "9aa8c5dd255d5bd01a1a9f90ad8bc31bcd53f5f2d678682822042190902f41ff"
+      },
+      {
+        "role": "item_vfx_static_procs_source",
+        "path": "assets/items/v5/vfx/static-procs.source.png",
+        "sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885"
+      },
+      {
+        "role": "item_world_sampler_shader",
+        "path": "shaders/item_v5_world_sprite.gdshader",
+        "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
       }
     ],
     "player_dependency_boundary": "UnderworldPlayer.gd BUILD_PATH/RUN_SHEET/STATES_SHEET directly read animation_build.json and the two body atlases. Bind their complete bytes as well as the script; this is an explicit actual-consumer closure, not a recursive asset scanner. Latest user adoption uses PlayerPresentationRuntime factory for real Home/Plains/Forest bodies, AvatarPresentation session selection and exact candidate motion resources above; UnderworldPlayer remains actual superclass and classic body. Motion/weapon feedback are presentation-only; audio lifecycle is separately tested. No development panels, ability grants or training targets are installed in the formal factory."
@@ -349,18 +384,23 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "trigger": "Generic data-driven text plus actual bounded first8 icon and P24/P14/G16 VFX golden integration; full72 art production is not approved.",
+    "trigger": "Data-driven item authoring plus actual candidate72 item icon/42 VFX clip source registration and item-local1wu sampling; same selected whole-game style, no new global direction or final art approval.",
     "baseline_commit": "d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04",
     "changed_references": [
       {
         "path": "scripts/items/v5/item_effect_view.gd",
         "old_sha256": "4705134ecc2757e9ee733443b396721436f4e744c13cc7782d71720036c17802",
-        "new_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f"
+        "new_sha256": "f155e63a3af9e6ab1095131bd598eb5de3d86379b90457928e4f9e60e1e09bba"
       },
       {
         "path": "scripts/items/v5/item_v5_entity.gd",
         "old_sha256": "5adde6a72b3c6ec25eb8a09ec7ac308564e5d71e862e5948d84967d12d8f10b3",
-        "new_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc"
+        "new_sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd"
+      },
+      {
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "old_sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40",
+        "new_sha256": "601470278bbace6be6f9880fc6dc0e2eba36e9e21b8bfd44672c632f1a37b8ee"
       },
       {
         "path": "scripts/ui/item_presentation.gd",
@@ -372,17 +412,17 @@
       {
         "role": "item_art_library",
         "path": "scripts/items/v5/item_art_library.gd",
-        "sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72"
+        "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d"
       },
       {
         "role": "item_art_config",
         "path": "config/item_v5_art.json",
-        "sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e"
+        "sha256": "3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a"
       },
       {
         "role": "item_icon_metadata",
         "path": "config/item_v5_authoring.json",
-        "sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b"
+        "sha256": "a56669cea41f6aa8e179bf278fb115c8551d3a320dd9c326eb31a3e506dd69a7"
       },
       {
         "role": "item_icon_atlas_first8",
@@ -403,6 +443,41 @@
         "role": "item_vfx_g16_source",
         "path": "assets/items/v5/vfx/g16-01.source.png",
         "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      },
+      {
+        "role": "item_icon_atlas_catalog01",
+        "path": "assets/items/v5/icons/catalog-01.source.png",
+        "sha256": "1886eacd1441f03a9a3049dd7fc297183fc8e1fb74a8ca387347d99985ab676d"
+      },
+      {
+        "role": "item_icon_atlas_catalog02",
+        "path": "assets/items/v5/icons/catalog-02.source.png",
+        "sha256": "24f59cf059af977b901b13367ddc917b4255d34a5b132c1e844a4fd34f1cbfed"
+      },
+      {
+        "role": "item_icon_atlas_catalog03",
+        "path": "assets/items/v5/icons/catalog-03.source.png",
+        "sha256": "b2a96b978c0edeace1507f7c1393c8c7b8c99ca3ebb154dca99481086f223db3"
+      },
+      {
+        "role": "item_icon_atlas_catalog04",
+        "path": "assets/items/v5/icons/catalog-04.source.png",
+        "sha256": "242438a3157b514ebf7fdeaf2c7aa88cffe8d74b83d0ec355d866842faf21c31"
+      },
+      {
+        "role": "item_vfx_static_entities_source",
+        "path": "assets/items/v5/vfx/static-entities.source.png",
+        "sha256": "9aa8c5dd255d5bd01a1a9f90ad8bc31bcd53f5f2d678682822042190902f41ff"
+      },
+      {
+        "role": "item_vfx_static_procs_source",
+        "path": "assets/items/v5/vfx/static-procs.source.png",
+        "sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885"
+      },
+      {
+        "role": "item_world_sampler_shader",
+        "path": "shaders/item_v5_world_sprite.gdshader",
+        "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
       }
     ],
     "consumer_edges": [
@@ -445,6 +520,42 @@
       {
         "path": "assets/items/v5/vfx/g16-01.source.png",
         "consumer": "Exact original generated source bytes consumed by the art registry recipes; measured high-resolution ROI candidate, not native64 or source-padding acceptance."
+      },
+      {
+        "path": "scripts/items/v5/item_art_library.gd",
+        "consumer": "Actual imported PNG regions, clip variants and declared aim/travel/upright orientation plus fixed/radius/segment geometry; shared material loads item-local canonical-family shader."
+      },
+      {
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "consumer": "Existing actual CrystalGlyph/GuardGlyph draw-only art reads registered defense clips without writing gameplay/resource/collision state."
+      },
+      {
+        "path": "shaders/item_v5_world_sprite.gdshader",
+        "consumer": "Actual item-world draw material preserves selected canonical vertex/light and whole-body1wu sampling, adding only texel-boundary bias and REGION_RECT atlas clamp; global underworld_fine_sprite remains byte-identical."
+      },
+      {
+        "path": "assets/items/v5/icons/catalog-01.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "assets/items/v5/icons/catalog-02.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "assets/items/v5/icons/catalog-03.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "assets/items/v5/icons/catalog-04.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "assets/items/v5/vfx/static-entities.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
+      },
+      {
+        "path": "assets/items/v5/vfx/static-procs.source.png",
+        "consumer": "Actual consumed original PNG bytes for measured new item icon/static entity/proc regions; dimensions and measured recipes remain explicit, not relabeled native64 source compliance."
       }
     ],
     "preserved_contracts": [
@@ -452,9 +563,13 @@
       "Original54 role/path/order preserved; only three actual visual leaves changed from pre-art style16, remaining51 exact. Seven actual library/config/metadata/PNG dependencies appended for61 references; original36 prefix byte-identical to pre-art candidate.",
       "Artwork observes accepted gameplay events. ItemRuntime committed-HP cue producer remains a separate technical gameplay/source-lifetime consumer, not a claim that presentation owns damage.",
       "Original high-resolution PNG bytes and failed equalgrid/source-padding specification measurements are preserved; measured ROI use is a separately approved bounded sampling recipe. No image resizing/alpha cleanup or native64 claim.",
-      "First8 icon recipe approval permits only golden integration; it does not approve remaining64, VFX motion or full art production."
+      "First8 icon recipe approval permits only golden integration; it does not approve remaining64, VFX motion or full art production.",
+      "R09 original61 role/path/order preserved. Six actual R08 references change; remaining55 exact. Original54 prefix has four changes relative frozen pre-art16, including its earlier ItemPresentation update. Original36 terrain/body/style prefix remains byte-identical.",
+      "Seven real new direct visual dependencies appended after61: four catalog icon PNGs, two static VFX PNGs and item-local shader; source filenames are actual consumed registry/material paths, no speculative future reference.",
+      "Canonical global underworld_fine_sprite shader remains SHA8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188; whole-body item sampling inherits its selected1wu vertex/light behavior. Item-local texel bias and REGION_RECT guard address actual source sampling counterexamples without changing physics or global shader.",
+      "Old R08 raw source/request/padding/grid failures and bounded first8 approval retain original verdicts; new sources/recipes and shader controls have their own evidence. No procedural substitute, hidden raster modification, whole72 motion or user acceptance claim."
     ],
-    "impact": "Actual new imported icon and animated VFX sources enter a bounded golden candidate, alongside generic current-level text. Art source hash and native checks do not establish whole72 visuals, continuous motion, human/device or G2-G5 acceptance.",
+    "impact": "Current candidate registers72 icon keys and42 VFX clips through ten actual original PNGs. Appearance remains within the selected whole-game family and gameplay observes accepted sources. Coverage counts and technical source identity do not prove every clip looks correct, whole-game art consistency, full functional/performance validation, or user/device/G5 acceptance.",
     "required_revalidation": [
       "Original region-bible32 and creative-direction10 with historical identity/refusal checks preserved and extended to frozen style15/creative18.",
       "Original four pure Harness checks with unchanged argv/budgets/patterns after coordinated source freeze.",
@@ -462,7 +577,11 @@
       "Any later icon/VFX production requires actual import, UI/world golden observations, lifecycle/event/source checks, independent source/visual review, and explicit current evidence.",
       "User art/feel/balance and physical Android/controller/low-end performance remain unverified without actual user/device evidence.",
       "Fresh original42/four pure checks for exact R08 source after coordinated freeze; preserve frozen pre-art16/creative19 bytes and refusal checks.",
-      "Original art native suite strict4.7.2, actual imported52/90 icons in Menu/Card/reward/shop at1280 and960, formal App golden and continuous P24/P14/G16 VFX motion/accepted-HP/miss/source/lifecycle observations; independent actual-pixel and technical review before further art expansion."
+      "Original art native suite strict4.7.2, actual imported52/90 icons in Menu/Card/reward/shop at1280 and960, formal App golden and continuous P24/P14/G16 VFX motion/accepted-HP/miss/source/lifecycle observations; independent actual-pixel and technical review before further art expansion.",
+      "R09 fresh original32/10 and four unchanged pure Harness checks after root-owned UI/native source lease ends and a coordinated freeze; old202 finite inputs remain exact prefix.",
+      "Exact R08 frozen61 identity, prior-oldbindings refusal, original54/61 prefix and actual six-leaf changes, seven new actual refs and source drift/resume refusals.",
+      "Actual72icon Menu/Card/detail/reward/shop large/small-screen observations, registered42clip semantic/world/motion geometry and source-lifetime controls plus actual formal Plains/Forest and export/memory checks; native contract counts are not visual approval.",
+      "Independent whole-body/shader boundary controls and canonical global byte preservation, accepted-hit/miss and pause/focus/death/unload/map cleanup. User whole-game style reinforcement does not sign newly produced results."
     ],
     "independent_review": "Required separately before production/acceptance; this author binding does not inherit prior ACCEPT, human or device approval.",
     "previous_originals": {
@@ -552,6 +671,96 @@
         "bounded_prior_review": "build/item_art_01/review-raw2-ui-sampler-v1.json; permits first8 real golden integration only, not VFX/native64/G2-G5"
       },
       "historical_evidence": "Frozen pre-art42/four checks and raw1/raw2 source specification failures retain their source and verdicts; later native/art/GUI/motion results must remain separate exact-source observations."
+    },
+    "candidate_iteration_r09": {
+      "kind": "Same unpublished style16/creative19 technical impact following actual expanded source registration; no new global style",
+      "previous_candidate_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "previous_candidate_sha256": "473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json",
+      "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
+      "source_checkpoint": "cd163e2ddbb9e1041067279eb2f554d09af0582a",
+      "changed_references": [
+        {
+          "path": "scripts/items/v5/item_effect_view.gd",
+          "old_sha256": "c1790a009340f1b507f133ee74cbed9c67f0d608c9fafeff5ae30f312e8f7c8f",
+          "new_sha256": "f155e63a3af9e6ab1095131bd598eb5de3d86379b90457928e4f9e60e1e09bba"
+        },
+        {
+          "path": "scripts/items/v5/item_v5_entity.gd",
+          "old_sha256": "c4194ddbd858d6d43bf00f7a61476a0f3db9e138f2ba753846e422035271e1fc",
+          "new_sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd"
+        },
+        {
+          "path": "scripts/items/v5/item_defense_effects.gd",
+          "old_sha256": "a3e5be269c9ca4c0072ac2fa39f9a622bf102c8a3a12eab6c001530143841e40",
+          "new_sha256": "601470278bbace6be6f9880fc6dc0e2eba36e9e21b8bfd44672c632f1a37b8ee"
+        },
+        {
+          "path": "scripts/items/v5/item_art_library.gd",
+          "old_sha256": "d7080a1151c27d066079f6b9e2b93b186ecbfebf0b76c88a97e2b1a8a3753b72",
+          "new_sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d"
+        },
+        {
+          "path": "config/item_v5_art.json",
+          "old_sha256": "e02b40fd4b1b7f2132c4b14467b771d82cc5111e5f15c9c19f4d337d8ed6a70e",
+          "new_sha256": "3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a"
+        },
+        {
+          "path": "config/item_v5_authoring.json",
+          "old_sha256": "3f611febd2232b096775770e2cbf46fea92c3cbcc929e220c3b74e064201c51b",
+          "new_sha256": "a56669cea41f6aa8e179bf278fb115c8551d3a320dd9c326eb31a3e506dd69a7"
+        }
+      ],
+      "added_references": [
+        {
+          "role": "item_icon_atlas_catalog01",
+          "path": "assets/items/v5/icons/catalog-01.source.png",
+          "sha256": "1886eacd1441f03a9a3049dd7fc297183fc8e1fb74a8ca387347d99985ab676d"
+        },
+        {
+          "role": "item_icon_atlas_catalog02",
+          "path": "assets/items/v5/icons/catalog-02.source.png",
+          "sha256": "24f59cf059af977b901b13367ddc917b4255d34a5b132c1e844a4fd34f1cbfed"
+        },
+        {
+          "role": "item_icon_atlas_catalog03",
+          "path": "assets/items/v5/icons/catalog-03.source.png",
+          "sha256": "b2a96b978c0edeace1507f7c1393c8c7b8c99ca3ebb154dca99481086f223db3"
+        },
+        {
+          "role": "item_icon_atlas_catalog04",
+          "path": "assets/items/v5/icons/catalog-04.source.png",
+          "sha256": "242438a3157b514ebf7fdeaf2c7aa88cffe8d74b83d0ec355d866842faf21c31"
+        },
+        {
+          "role": "item_vfx_static_entities_source",
+          "path": "assets/items/v5/vfx/static-entities.source.png",
+          "sha256": "9aa8c5dd255d5bd01a1a9f90ad8bc31bcd53f5f2d678682822042190902f41ff"
+        },
+        {
+          "role": "item_vfx_static_procs_source",
+          "path": "assets/items/v5/vfx/static-procs.source.png",
+          "sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885"
+        },
+        {
+          "role": "item_world_sampler_shader",
+          "path": "shaders/item_v5_world_sprite.gdshader",
+          "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
+        }
+      ],
+      "counts": {
+        "old61_changed": 6,
+        "old61_unchanged": 55,
+        "current_references": 68,
+        "registered_icon_keys": 72,
+        "registered_clip_keys": 42,
+        "raw_png_sources": 10
+      },
+      "canonical_global_shader": {
+        "path": "shaders/underworld_fine_sprite.gdshader",
+        "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+      },
+      "preserved_evidence": "R08 original42/four Harness and each golden/UI/movie/world/native observation keep exact source identity; preserved manifest captures original61, mutable source bytes, prior rawPNG and old input prefix. New production remains a candidate with actual evidence and independent review separately scoped."
     }
   }
 }

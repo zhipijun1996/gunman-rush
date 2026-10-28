@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "asset_id": "item_v5.vfx.static-procs_source",
+  "content_version": "candidate-v2-independent-item-art",
+  "source_path": "assets/items/v5/vfx/static-procs.source.png",
+  "source_sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885",
+  "runtime_paths": [
+    "assets/items/v5/vfx/static-procs.source.png",
+    "assets/items/v5/vfx/static-procs.source.png.import"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "unknown: generator does not disclose model identity",
+  "prompt_or_reference": "docs/evidence/item_art_01/generation/static-procs.request.json",
+  "license_status": "unknown",
+  "license_source": "User explicitly requested original item icons and dedicated skill art; provider terms not independently verified",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "processing": "Byte-identical generatedPNG. Integer measuredAtlasROIs and world1wu consumer; no PNG/alpha edits. Source requested native64/gutter gate failed and preserved; separate actual52/90/world ROI consumer admission. Godot4.7.2 original lossless import settings remain in .png.import; actual world sampler details in familymanifest.",
+  "usage_scope": "Registered72icon/32singleframe resources/threeanimatedfamilies integration candidate; per-sourceIDs/ROIs in config/item_v5_art.json. Not native64/sourcegutter conformance, player/device acceptance or totalmemory proof.",
+  "associated_files": [
+    {
+      "path": "docs/evidence/item_art_01/generation/static-procs.request.json",
+      "sha256": "b2ef15640c03ec098500ee8f05afebb4444e823de036fd79ccae05ab86a4a06a",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/items/v5/manifest.json",
+      "sha256": "97a84ac4ec8e5da8c012a0130f6191a1153a2186af6e47bc2ed338767759611f",
+      "role": "source_contract"
+    },
+    {
+      "path": "shaders/item_v5_world_sprite.gdshader",
+      "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5",
+      "role": "reference"
+    }
+  ]
+}

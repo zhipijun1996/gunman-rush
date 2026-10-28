@@ -43,3 +43,19 @@ VFX仅P24／P14／G16候选。实际投射体／伙伴身体与cast／muzzle／c
 当前R08 style16 SHA `473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149`。原32／10守门保留全部历史14／15／17／18身份与拒绝，并加冻结pre-art16／19身份和旧绑定拒绝、原54项前缀精确变更及新7项精确role／path／SHA、全部新叶子漂移前后与恢复拒绝；不缩短预算、不移除原断言。新的实际运行结果另记，旧技术回执不能为后续资产签字。
 
 R08作者技术复验已实际完成：原Bible32／0（6.316秒）、方向10／0（1.467秒），原四个Harness check全部fresh通过。当前61项SHA匹配；原54项role／path顺序保留，其中三项实际改变、51项不变，原36项逐字相同。原有限191输入前缀逐字保留，仅追加11项真实新依赖与历史快照为202，原creative全源digest、命令、预算、成功模式及历史断言不改。[分源回执与完整引用身份](../evidence/item_art_01/source-bindings/r08-golden-validation/summary.json)记录checkpoint df5b与修改中的工作树；没有启动Godot。这是作者技术绑定复验，真实原生、界面／世界／连续影片、独立审查与实体设备认可分别记录。
+
+## R09：72图标／42段表现候选与整体风格采样
+
+本节更新R08之后的实际源阶段，保留上文各阶段及回执的历史身份。R08 style16 SHA `473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149`、creative19两区、registry、实际源消费者、旧图像原件、守门及原42／四check回执，在任何扩产写入前已经归档。现将那份66文件原件逐字晋级到[pre-expansion-r09](../evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json)，原manifest SHA `9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725`保持不变，单独的promotion-receipt说明复制来源；不回写旧绑定或改签旧通过。
+
+当前注册配置实际引用72个道具图标、42段clip和10张原PNG：保留首8图标及原P24／P14／G16源，再增加四张catalog图标源和static-entities／static-procs两张源。它们是已经存在并被实际图集配置消费的候选，不用覆盖计数代替每个图标或效果的画面验收。新原图和实测ROI／帧／pivot／尺寸／方位／演化variant均有各自来源；旧尺寸、等格、原生64和透明留白失败保留原判定，不把测得ROI或不改字节的导入过程重新命名为原规格通过。
+
+原61项role／path／顺序完整保留，仅6项实际更新：ItemEffectView、ItemV5Entity、已存在的ItemDefenseEffects绘制叶子、ItemArtLibrary、art配置、icon元数据；其他55项逐字相同。本轮ItemPresentation未再改变。相对最初pre-art54项，当前实际变化为4项：其既有通用说明改动，加View／Entity／Defense；相对R08原54项只有后三项新增变化。继续保留原36项地形／身体／全局shader字节。末尾只追加实际6张新PNG及item-local shader，共68项，没有发明额外绘制叶子或重选全局画风。
+
+用户强调的整体风格继续由同一已选32px／32wu、1wu／nearest、原Underworld角色／地形／光照／材质与两区Bible约束。ItemArtLibrary使用实际 `shaders/item_v5_world_sprite.gdshader`：继承canonical全局shader的vertex／light与整体1wu取样，仅增加真实边界反例需要的0.001 texel偏移和每次DRAW的REGION_RECT钳制。canonical `underworld_fine_sprite.gdshader`仍为SHA `8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188`，没有修改全局资源。绘制原点取整不搬动actor／弹体／碰撞／交互锚点，不用视觉缩放改变伤害半径；aim／travel／upright、radius／segment及variant来自实际事件和状态。
+
+已有ART924、shader GL11、whole-body35与各UI／世界证据保留它们实际采集源和限定范围。本绑定不把这些数量代签72件逐一画面、所有42段连续动作、正式整局、听感、设备性能或玩家G5；新增静态或循环表现也不能替代真正命中／未命中、遮挡、卸下／死亡／失焦／暂停／换图的生命周期观察。本轮仍属同一未发表style16／creative19候选内的技术影响，没有新global style选择、复用旧审美通过或自动合main。
+
+R09当前style16 SHA `bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a`。原32／10全部方法、旧14／15／pre-art16／R08-16及17／18／各19绑定的身份／拒绝、stage gate、漂移前后及恢复反例保留；追加R08完整61项冻结身份、实际6处变化、当前68项精确角色路径和新增7叶子反例。原202个有限输入作为原序前缀保留，仅追加实际新源及测试读取的R08快照11项为213；item-v5-art已有14个输入不变。原命令、预算、成功模式及creative全源digest不改。UI native源租约结束并冻结后才运行本轮原42／四check；尚未运行的结果不记通过。
+
+R09作者实际纯检查已经完成：原Bible32／0，9.452秒，保留原30秒预算；方向10／0，1.797秒，保留原60秒预算；四个原Harness check全部fresh通过，未启动引擎。[准确源回执](../evidence/item_art_01/source-bindings/r09-validation/summary.json)保存完整68项引用、6个实际R08差异、原202项前缀与11项追加、原始日志与Harness报告。原件66份逐个哈希匹配、原36项与canonical全局shader保持原字节，item-v5-art的14个输入未改。这是作者技术验证；新增素材、真实原生、全部UI／世界／连续动作、独审、远端CI与玩家／设备证据继续按各自真实来源报告。

@@ -16,10 +16,10 @@
     "version": "2.0",
     "status": "user_selected_direction_only",
     "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149",
+    "supplemental_authority_sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "17e3228cb0a155cf06f0db1676aca86c0b9dca90a086a87f2b86ac246e6bd238",
+    "registry_sha256": "654ddbc7343fcfd956ee1f7f49bffd5635c8a6362b9ebefe338cc08f80522212",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -158,7 +158,7 @@
     },
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-      "sha256": "473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149"
+      "sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a"
     }
   ],
   "historical_direction": {
@@ -168,22 +168,25 @@
   },
   "revision_impact": {
     "task_id": "ITEM-AUTHORING-01",
-    "scope": "Technical style16 generic text and actual bounded first8 icon/three VFX golden candidate; raw source/native64 failures preserved, no full72 or final art/device acceptance.",
+    "scope": "Technical style16 same whole-game family: candidate72icons/42clips, actual existing glyphs and item-local1wu atlas shader; no final visual/device/player approval.",
     "previous_direction": "docs/creative_direction/archive/creative-v18/windchime_plains.json",
     "previous_sha256": "3fc390336ca7650562b287b9082279a7e647a9e89cc302170c088c9c015d5ca9",
     "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149",
+    "shared_style_sha256": "bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
     "affected_consumers": [
       "scripts/items/v5/item_effect_view.gd",
       "scripts/items/v5/item_v5_entity.gd",
-      "scripts/ui/item_presentation.gd",
+      "scripts/items/v5/item_defense_effects.gd",
       "scripts/items/v5/item_art_library.gd",
       "config/item_v5_art.json",
       "config/item_v5_authoring.json",
-      "assets/items/v5/icons/golden-02.source.png",
-      "assets/items/v5/vfx/p24-01.source.png",
-      "assets/items/v5/vfx/p14-01.source.png",
-      "assets/items/v5/vfx/g16-01.source.png"
+      "assets/items/v5/icons/catalog-01.source.png",
+      "assets/items/v5/icons/catalog-02.source.png",
+      "assets/items/v5/icons/catalog-03.source.png",
+      "assets/items/v5/icons/catalog-04.source.png",
+      "assets/items/v5/vfx/static-entities.source.png",
+      "assets/items/v5/vfx/static-procs.source.png",
+      "shaders/item_v5_world_sprite.gdshader"
     ],
     "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
     "candidate_iteration_r08": {
@@ -192,6 +195,13 @@
       "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.json",
       "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
       "scope": "Same unpublished creative19 candidate: actual golden consumer and source additions; fresh affected technical/actual UI/world/motion and independent review required; no inherited approval."
+    },
+    "candidate_iteration_r09": {
+      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/windchime_plains.json",
+      "previous_candidate_sha256": "ab5c33c51a12d1763a6352c1b7c55e45e6952eec7ca14a33edba64d8b1b706e9",
+      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.json",
+      "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
+      "scope": "Same unpublished creative19 candidate within selected whole-game style; oldR08 bytes remain original, actual appended sources/current consumer changes require fresh scoped evidence and independent review."
     }
   }
 }
