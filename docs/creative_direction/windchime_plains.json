@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v19",
+  "version": "creative-v20",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+    "supplemental_authority_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
+    "registry_sha256": "210db55d8db4b01e6697074e13a3bfd596f5a2854df76a6de00ed7db67755d02",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -159,6 +159,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
       "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+      "sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa"
     }
   ],
   "historical_direction": {
@@ -167,57 +171,26 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "ITEM-AUTHORING-01",
-    "scope": "Same whole-game style/candidate68refs after latest selected main audio merge: existing WeaponFeel sound call gets actual weapon ID; allother67 refs/drawing/assets/config unchanged, current-source audio/formal validation separate.",
-    "previous_direction": "docs/creative_direction/archive/creative-v18/windchime_plains.json",
-    "previous_sha256": "3fc390336ca7650562b287b9082279a7e647a9e89cc302170c088c9c015d5ca9",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+    "task_id": "HOME-CODEX-01",
+    "scope": "Actual Home item codex consumer extension within selected whole-game style; no Chest production changes, new images or inherited acceptance. Two old68 consumer hashes updated, five actual Home policy/UI/world leaves appended.",
+    "previous_direction": "docs/creative_direction/archive/creative-v19/windchime_plains.json",
+    "previous_sha256": "c8754c5a2e940da1553dc78cd411b2f05d8fb83a76620eed23a797107a80494a",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+    "shared_style_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
     "affected_consumers": [
-      "scripts/dev/player_presentation_01/weapon_feel.gd"
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/home_scene.gd",
+      "scripts/ui/home_item_codex.gd",
+      "scripts/underworld_plains/underworld_home_world.gd",
+      "scripts/meta/home_item_catalog.gd",
+      "config/home_items.json",
+      "scripts/meta/meta_progression.gd"
     ],
-    "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
-    "candidate_iteration_r08": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/windchime_plains.json",
-      "previous_candidate_sha256": "f203d9d0cb4afdd1be85764134be6dcaa1d8047985f46347abd3e5897c6ace5c",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.before-markdown-relocation.json.txt",
-      "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
-      "scope": "Same unpublished creative19 candidate: actual golden consumer and source additions; fresh affected technical/actual UI/world/motion and independent review required; no inherited approval."
-    },
-    "candidate_iteration_r09": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/windchime_plains.json",
-      "previous_candidate_sha256": "ab5c33c51a12d1763a6352c1b7c55e45e6952eec7ca14a33edba64d8b1b706e9",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.before-markdown-relocation.json.txt",
-      "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
-      "scope": "Same unpublished creative19 candidate within selected whole-game style; oldR08 bytes remain original, actual appended sources/current consumer changes require fresh scoped evidence and independent review."
-    },
-    "candidate_iteration_r10": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/windchime_plains.json",
-      "previous_candidate_sha256": "17dd6ce7a53ec4cc4b1d7d17d24b4f8aa396f2356047fca6a662dea620ee4b67",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/manifest.json",
-      "archive_manifest_sha256": "775938bd3657b879427367be9b3fb8ea72fbd2b546754ecbc3bdf4fe0662a4c3",
-      "scope": "Same creative19 candidate metadata-only3bodyenvelope: originalR09 source and passes frozen; fresh scoped technical/pose/body/actual-scene review, no inherited approval."
-    },
-    "candidate_iteration_r11": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/windchime_plains.json",
-      "previous_candidate_sha256": "76f850ef4b56b3331bce30c997e6552428e92449cc56e6651c2026306999cac5",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/manifest.json",
-      "archive_manifest_sha256": "470325e3598241170a3a3f34c236ff5d96dbcad790f6fd9b676026fc0c23dcb2",
-      "scope": "Same creative19 candidate existing visual-lifecycle cleanup; exact R10 original binding/pass preserved, fresh scoped checks/actual media and independent review required."
-    },
-    "candidate_iteration_r12": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/windchime_plains.json",
-      "previous_candidate_sha256": "0aaf8181a0f9ca5b338739e355bb444ae20da0a0384d7a0843c40f831088af0e",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/manifest.json",
-      "archive_manifest_sha256": "adce04089c966532b7ebbe06d9313515747ff9ff113aa12594d6a2187cf2dd95",
-      "scope": "Same creative19 candidate dedicated visual proof lifetime correction; R11 draft preserved without claimed pure pass, final fresh scoped validation required."
-    },
-    "candidate_iteration_r13": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/windchime_plains.json",
-      "previous_candidate_sha256": "bfeb1faf2ada8b93481b24968bc5fd6c9ded39a2145dfde4eff7439ca0b4fbc3",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/manifest.json",
-      "archive_manifest_sha256": "972d41f5236b3bae303b94dad309203dd842c2ba878a7c4c6db329c67e2f3854",
-      "scope": "Same creative19 candidate currentmainaudio consumer integration; exact R12 source/pass preserved, new current-source checks required without art/listening/device approval inheritance."
+    "validation": "Original32+10/four scoped pure checks and actual Home runtime/UI/save evidence remain separate; user/device/G5 unverified.",
+    "candidate_iteration_r2": {
+      "previous_direction": "docs/evidence/home_codex_01/source-bindings/before-policy-view-rework/windchime_plains.json",
+      "previous_sha256": "6e49ebf89b0b6b9b799250260ab6536dc0936dd3d52c3d07b7a3d5911abd0516",
+      "scope": "Same unpublished creative20; only HomeItemCodex and DemoApp hashes rebind configured undiscovered policy actions and discovery after successful carry. Other71 refs unchanged; R1 pass remains source-specific. No new assets or acceptance."
     }
   }
 }

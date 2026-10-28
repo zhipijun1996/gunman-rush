@@ -150,3 +150,13 @@ D064：平原取消二段跳；正式平原普通道具池与商店不提供额�
 `config/items_v5.json`保存原表生成基表；`config/item_v5_authoring.json`分开声明组件身份、设计覆写、已实现静态效果的新增与下架。下架只停止新投放，不删除本局已持有定义或冻结报价。目录工厂严格校验并按真实配置字节缓存；调参不写RunInventory实例身份，不改变Equipment原子提交与BuildState仅装备重算的职责。具体命令和可用参数见[item_authoring](item_authoring.md)。全新效果机制仍须实现明确组件和回归，不能靠伪造tag获得空技能。
 
 `config/item_v5_art.json`将72个独立图标及世界recipe与玩法参数分离。图集region、锚点、尺寸、变体与时间轴由数据描述，ItemPresentation／ItemArtLibrary共用资源；View／Entity读取原效果状态和已接受回执。施放前捕获来源及生命周期上下文，回调中卸装或重装不能给旧表现重新授信。伤害命中、治疗、护盾、金币等反馈分别等待真实结果，不由贴图帧回调决定数值。纯属性道具不强加常驻粒子。新增常规图标／已支持表现family不需改背包装备核心；新机制需明确组件，资源预算仍受64MiB上界约束。
+
+## 家园道具图鉴与出发携带（HOME-CODEX-01）
+
+`ItemCatalogV5` 是本地只读道具数据库，JSON 保存定义和参数、Resource 提供效果组件；当前无需额外 SQLite。`config/home_items.json` 只维护家园准入、默认及逐件音符解锁价格，`HomeItemCatalog` 合成家园条目，不复制一份道具定义。新增当前支持机制的道具仍从原目录进入图鉴。
+
+每份存档单独保存 `discovered_items`、`unlocked_home_items` 和 `selected_home_item`。正式 RewardService／ShopService 的 COMMITTED 获得收据及成功出发入包才记录发现，重复回放、修理、扩容、装备和浏览不创造获得记录。未发现条目显示问号并隐藏名称、图标、效果。默认需曾获得才能永久解锁，可由家园策略配置；蓝5／紫12／金25音符是可调试验价。音符扣款与永久解锁经原 MetaProgression 账本和原子存档统一提交，保存失败不收费。按钮绑定实际显示报价、档案会话及revision，旧价格／旧页面／失焦请求不能提交。
+
+家园原 `relics` 建筑开放图鉴，与成就档案、武器工坊和核心能力独立。玩家可以单选一个已解锁条目或选择不携带；每次正式出发加入一个 Lv.1 的 `home_carry` 实例，不自动装备、不重复扣音符、不消耗永久解锁。RunInventory 持有、EquipmentService 装备校验与齿轮、BuildState 只重算已装备效果的职责不变。地图重载、地区切换和存活回退不再次发放；结束本局清空局内实例，保留永久记录及携带选择。
+
+下架／移除 ID 保留存档历史，但不能新解锁或带出，界面始终提供“不携带道具”以免过期选择阻止出发。存档 envelope 升至schema3，迁移当前schema2并保留原Web存储key；历史结算里确实记录过的有效道具可恢复发现，不免费解锁。获得记录若保存失败，当前档案会话内重试；主动切换／重载档案时丢弃尚未保存的旧会话请求，绝不写入另一个存档。完整范围见[图鉴工作线](worklines/home_codex_01/scope.md)。

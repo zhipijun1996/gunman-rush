@@ -1,0 +1,266 @@
+extends SceneTree
+var checks := 0
+var failures := 0
+var observations: Array[Dictionary] = []
+func _initialize() -> void: run.call_deferred()
+func check(ok: bool, label: String) -> void:
+	checks += 1
+	observations.append({"ok":ok,"label":label})
+	if not ok:
+		failures += 1
+		printerr("FAIL: "+label)
+func fixture(upper_y: float = 582.0) -> RefCounted:
+	var cases: RefCounted = load("res://tests/shot_latch_tests.gd").new()
+	cases.tree = self
+	cases.check = check
+	await cases.create_fixture()
+	cases.world.set_meta("underworld_formal_style",true)
+	cases.world.set_meta("pixel_formal_style",true)
+	for old: ShotLatch in cases.latches:
+		old.cancel()
+		old.queue_free()
+	cases.latches.clear()
+	await cases.frames(2)
+	var latch := BacksideShotLatch.new()
+	latch.upper_control = Vector2(190,upper_y)
+	latch.formal_presentation = true
+	latch.region_presentation = true
+	cases.world.add_child(latch)
+	latch.setup(cases.controller,cases.scope,Vector2(190,535),Rect2(460,330,24,270))
+	cases.latches.append(latch)
+	await cases.frames(2)
+	return cases
+func fire(cases: RefCounted) -> void:
+	var latch: ShotLatch = cases.latches[0]
+	cases.controller.router.request_action(&"shoot_release",(latch.bell_position-cases.motor.position).normalized())
+	await cases.frames(30)
+func assembler_fixture(cases: RefCounted, already_open: bool) -> PlainsRegionAssembler:
+	var assembler := PlainsRegionAssembler.new()
+	assembler.region_state = PlainsRegionState.new()
+	assembler.manifest = {"connections":[{"id":"upper-bank", "condition":"backside", "control":[190,582], "gate":[460,330,24,270]}]}
+	if already_open: assembler.region_state.opened["upper-bank"] = true
+	cases.world.add_child(assembler)
+	var body := StaticBody2D.new()
+	body.position = Vector2(472,465)
+	var collision := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(24,270)
+	collision.shape = shape
+	collision.disabled = already_open
+	body.add_child(collision)
+	assembler.add_child(body)
+	assembler.shortcut_bodies["upper-bank"] = body
+	assembler.shortcut_shapes["upper-bank"] = collision
+	assembler.install_attack_shortcuts(cases.controller,cases.scope)
+	return assembler
+
+func formal_snapshot(app: DemoApp, name: String) -> void:
+	if "--capture" not in OS.get_cmdline_user_args(): return
+	if "--cache-only" in OS.get_cmdline_user_args() and not "cache_" in name: return
+	app._run_camera.snap_to_target()
+	app._run_camera.force_update_scroll()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://build/underworld_r3/objects/%s.png" % name)
+
+func formal_consumers() -> void:
+	var map_hashes: Dictionary = {}
+	var app := DemoApp.new()
+	app.meta_persistence_enabled = false
+	root.add_child(app)
+	check(app.start_plains("underworld-r3-objects-formal"),"actual ordinary formal entry accepted")
+	for frame: int in 6: await physics_frame
+	for map_index: int in [1,2]:
+		if map_index==2:
+			app.director.stage_index = 2;app.director.region_map_index = 2
+			app._load_stage()
+			for frame: int in 6: await physics_frame
+		var stage := app.stage as PlainsRegionStage
+		check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual formal map, derived seed and hash match the requested consumer")
+		var actual_hash := str(stage.generated.manifest.manifest_hash)
+		check(not map_hashes.has(actual_hash),"requested formal map owns a distinct actual Manifest hash")
+		map_hashes[actual_hash] = true
+		var assembler := stage.assembler as PlainsRegionAssembler
+		check(stage.assembly_ok and assembler.attack_shortcuts.size()>=2,"actual formal map installs attack-only shortcut consumers")
+		check(stage.nearby_shortcut(stage.spawn).is_empty(),"actual Stage exposes no interact shortcut route")
+		check(stage.boss_seal is BossArenaSeal and UnderworldActors.enabled(stage.boss_seal),"actual default Boss seal inherits Underworld material context")
+		var shortcut := assembler.attack_shortcuts[0]
+		app.player.global_position = shortcut.upper_control
+		app._region_interact()
+		check(not shortcut.is_open,"actual application interact cannot activate shortcut")
+		await formal_snapshot(app,"map%d_shortcut_closed" % map_index)
+		app.controller.router.request_action(&"shoot_release",(shortcut.global_position+shortcut.bell_position-app.player.global_position).normalized())
+		for frame: int in 32: await physics_frame
+		check(shortcut.is_open and assembler.region_state.opened.has(shortcut.shortcut_id),"actual formal Router projectile activates upper shortcut and ledger")
+		await formal_snapshot(app,"map%d_shortcut_open" % map_index)
+		var chest: Dictionary = stage.chests[0]
+		var source_id := str(chest.id)
+		check(chest.sprite.texture==ChestArtLibrary.texture(StringName(str(chest.tier)),false) and not chest.claimed,"actual formal unclaimed cache starts closed")
+		# Explicit placement fixture only; the interaction/offer/claim is the real
+		# unchanged application transaction, not claimed-state injection or route proof.
+		app.player.global_position = chest.position+Vector2(-65,0)
+		await formal_snapshot(app,"map%d_cache_closed" % map_index)
+		app._region_interact()
+		check(app.reward_modal.opened and not chest.claimed,"merely opening real offer does not open cache body")
+		check(not app._claim_region_chest(&"missing-invalid-option") and not chest.claimed,"denied actual claim leaves closed cache")
+		var option := (app._region_offer.candidates[0] as ItemDefinition).stable_id
+		check(app._claim_region_chest(option),"actual original cache reward transaction accepts legal choice")
+		stage.capture_state()
+		check(chest.claimed and chest.sprite.texture==ChestArtLibrary.texture(StringName(str(chest.tier)),true) and chest.sprite.modulate==Color.WHITE,"actual accepted claim displays opaque colored open chest")
+		await formal_snapshot(app,"map%d_cache_open" % map_index)
+		app._load_stage()
+		for frame: int in 6: await physics_frame
+		stage = app.stage as PlainsRegionStage
+		var found := false
+		for restored: Dictionary in stage.chests:
+			if str(restored.id)==source_id:
+				found = restored.claimed and restored.sprite.texture==ChestArtLibrary.texture(StringName(str(restored.tier)),true) and restored.sprite.modulate==Color.WHITE
+				app.player.global_position = restored.position+Vector2(-65,0)
+		check(found,"actual stage reload restores open chest from existing claimed ledger")
+		await formal_snapshot(app,"map%d_cache_reloaded" % map_index)
+		if "--capture" in OS.get_cmdline_user_args() and not "--cache-only" in OS.get_cmdline_user_args():
+			# Existing saved-closed setter fixture, not a traversed/defeated Boss.
+			app.player.global_position = Vector2(stage.boss_arena.position.x+60,stage.boss_arena.end.y-18)
+			stage.boss_seal.restore_closed(true)
+			await formal_snapshot(app,"map%d_boss_seal_saved_closed" % map_index)
+			stage.boss_seal.release()
+	app.abandon_run()
+	check(await load("res://tests/audio_teardown.gd").drain_world(app),"formal application tears down audio strictly")
+	app.free()
+	for frame: int in 4: await process_frame
+
+class MaterialCatalog extends Node2D:
+	func _draw() -> void:
+		draw_rect(Rect2(0,0,1280,720),Color("17231e"))
+		var font := ThemeDB.fallback_font
+		draw_string(font,Vector2(40,55),"R3 OBJECT MATERIAL / NATIVE GODOT CATALOG",HORIZONTAL_ALIGNMENT_LEFT,-1,23,Color("d4c898"))
+		draw_string(font,Vector2(40,92),"Runtime source materials and actual generated open pose; formal scene evidence is separate.",HORIZONTAL_ALIGNMENT_LEFT,-1,17,Color("8c9d83"))
+		for size: Vector2 in [Vector2(24,40),Vector2(24,180),Vector2(24,420)]:
+			var x := 80.0 + size.y
+			UnderworldTerrain.draw_mechanism_beam(self,Rect2(x,150,size.x,size.y))
+		UnderworldTerrain.draw_mechanism_beam(self,Rect2(40,610,410,24))
+		for step: int in [1,2]:
+			UnderworldTerrain.draw_mechanism_bell(self,Vector2(720+step*90,190),step==1)
+			UnderworldObjects.sequence_plate(self,Vector2(740+step*90,154),step,step==1)
+			UnderworldObjects.link_sigil(self,Vector2(720+step*90,250),2,28)
+		draw_string(font,Vector2(735,310),"MATCHED TALLY / LINK GLYPHS",HORIZONTAL_ALIGNMENT_LEFT,-1,17,Color("8c9d83"))
+		for claimed: bool in [false,true]:
+			var texture := UnderworldObjects.OPEN_CHEST if claimed else UnderworldObjects.CLOSED_CHEST
+			var width := 116.0
+			var height := texture.get_height()*width/texture.get_width()
+			var x := 940.0 if claimed else 740.0
+			draw_texture_rect(texture,Rect2(x,540-height,width,height),false)
+			draw_line(Vector2(x-10,541),Vector2(x+width+10,541),Color("8c9d83"),1)
+			draw_string(font,Vector2(x,585),"CLAIMED / OPEN" if claimed else "UNCLAIMED",HORIZONTAL_ALIGNMENT_LEFT,-1,17,Color("d4c898"))
+
+func capture_catalog() -> void:
+	var catalog := MaterialCatalog.new()
+	catalog.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	root.add_child(catalog)
+	root.size = Vector2i(1280,720)
+	await process_frame
+	await RenderingServer.frame_post_draw
+	var image := root.get_texture().get_image()
+	check(image.get_size()==Vector2i(1280,720),"native catalog actual viewport1280x720")
+	image.save_png("res://build/underworld_r3/objects/material_catalog.png")
+	catalog.queue_free()
+	await process_frame
+
+func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/objects")
+	var audio := GameAudio.new()
+	root.add_child(audio)
+	var original: RefCounted = load("res://tests/shot_latch_tests.gd").new()
+	await original.run(self,check)
+	original = null
+	var cases := await fixture()
+	var latch: BacksideShotLatch = cases.latches[0]
+	cases.controller.router.request_action(&"interact")
+	await cases.frames(3)
+	check(not latch.is_open,"interact/contact alone cannot open upper-bank attack gate")
+	await fire(cases)
+	check(latch.is_open and latch.open_count==1 and latch.gate_shape.disabled,"real accepted upper-bank projectile opens gate once")
+	await fire(cases)
+	check(latch.open_count==1,"repeat real projectile does not duplicate settlement")
+	await cases.dispose()
+	cases = await fixture(540.0)
+	await fire(cases)
+	check(not cases.latches[0].is_open,"real lower-side projectile within90wu cannot open shortcut")
+	await cases.dispose()
+	cases = await fixture()
+	var blocker := StaticBody2D.new()
+	blocker.position = Vector2(155,545)
+	var collision := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(12,100)
+	collision.shape = shape
+	blocker.add_child(collision)
+	cases.world.add_child(blocker)
+	await cases.frames(2)
+	await fire(cases)
+	check(not cases.latches[0].is_open,"real occluded shot cannot activate shortcut")
+	await cases.dispose()
+	cases = await fixture()
+	latch = cases.latches[0]
+	cases.controller.router.request_action(&"shoot_release",Vector2.UP)
+	await cases.frames(1)
+	var context := {"amount":1.0,"event_id":"r3-enemy","session_id":cases.controller.session_id,"shot_id":cases.controller.shoot_ability._shot_serial,"source_faction":&"enemy","source_actor_id":cases.motor.get_instance_id(),"target_actor_id":latch.receiver.actor_id,"target_epoch":latch.health.epoch}
+	check(not latch.receiver.receive_damage(context),"enemy damage context rejected by player-only switch")
+	context.source_faction = &"player"
+	context.event_id = "r3-stale"
+	cases.scope.invalidate_actor()
+	check(not latch.receiver.receive_damage(context),"stale actor token cannot open shortcut")
+	await cases.dispose()
+	cases = null
+	# Production assembler actuator and persistence, using a controlled complete
+	# physical wall/upper-bank fixture rather than pretending an entire route.
+	cases = await fixture()
+	for old: ShotLatch in cases.latches:
+		old.cancel();old.queue_free()
+	cases.latches.clear()
+	await cases.frames(2)
+	var assembler := assembler_fixture(cases,false)
+	var installed: BacksideShotLatch = assembler.attack_shortcuts[0]
+	cases.latches.append(installed)
+	await cases.frames(2)
+	check(not installed.gate_visual_enabled and installed.gate_body.collision_layer==0,"assembler remains sole actual wall and gate visual owner")
+	await fire(cases)
+	await cases.frames(2)
+	check(assembler.region_state.opened.has("upper-bank") and assembler.shortcut_shapes["upper-bank"].disabled,"actual assembler accepts attack and persists original opened ledger")
+	check(installed.open_count==1,"actual assembler shortcut settles once")
+	await cases.dispose()
+	cases = await fixture()
+	for old: ShotLatch in cases.latches:
+		old.cancel();old.queue_free()
+	cases.latches.clear()
+	await cases.frames(2)
+	assembler = assembler_fixture(cases,true)
+	installed = assembler.attack_shortcuts[0]
+	cases.latches.append(installed)
+	await cases.frames(2)
+	check(installed.is_open and installed.bell_body.collision_layer==0 and assembler.shortcut_shapes["upper-bank"].disabled,"assembler reload restores opened shortcut and disables receiver/wall")
+	assembler.cancel_attack_shortcuts()
+	check(installed.is_open,"segment request cancellation preserves opened state")
+	await cases.dispose()
+	cases = null
+	for claimed: bool in [false,true,false,true]:
+		var sprite := Sprite2D.new()
+		var foot := Vector2(80,200)
+		UnderworldObjects.place_chest(sprite,foot,claimed)
+		check(sprite.texture==UnderworldObjects.OPEN_CHEST if claimed else sprite.texture==UnderworldObjects.CLOSED_CHEST,"actual claimed state selects corresponding body pose")
+		check(sprite.modulate==Color.WHITE,"opened chest is opaque original-color art, never greyed")
+		check(is_equal_approx(sprite.scale.x,sprite.scale.y),"both chest bodies preserve source aspect")
+		check(is_equal_approx(sprite.position.y+sprite.texture.get_height()*sprite.scale.y*.5,foot.y),"both chest poses retain same world foot")
+		sprite.free()
+	var alpha := UnderworldObjects.OPEN_CHEST.get_image().get_used_rect()
+	check(alpha.size.x>0 and alpha.size.y>0,"real generated opened chest has nonempty texture")
+	await formal_consumers()
+	if "--capture" in OS.get_cmdline_user_args() and not "--cache-only" in OS.get_cmdline_user_args(): await capture_catalog()
+	check(await audio.shutdown(),"actual GameAudio shutdown waits for mixer playback release")
+	audio.queue_free()
+	await process_frame
+	var receipt := {"schema":"underworld-r3-objects-actual-v1","checks":checks,"failures":failures,"observations":observations,"scope":"Original real ShotLatch route and rejection tests preserved, dedicated upper-bank physical projectile, lower bank, occlusion, interact, duplicate, enemy/stale contexts and actual chest textures/foot. Formal claim/reload and GPU separate."}
+	var file := FileAccess.open("res://build/underworld_r3/objects/receipt.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(receipt,"\t"));file.close()
+	print("UNDERWORLD R3 OBJECTS: %d assertions, %d failures" % [checks,failures])
+	quit(1 if failures else 0)

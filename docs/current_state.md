@@ -1,5 +1,16 @@
 # 当前状态
 
+## 2026-10-28 家园图鉴候选与宝箱美术取舍（当前）
+
+HOME-CODEX-01已接原relics建筑：共享ItemCatalogV5目录，存档独立记录发现／音符永久解锁／出发单选。配置管理价格、家园准入与先发现开关；每局一个Lv1实例先入背包，仍需装备。保存失败、旧报价、切档、失焦和关闭输入守门已实现；下架／移除条目始终可取消选择。当前专项Meta92／UI72／App91均clean通过，最终冻结源Harness、实际PCK及连续影片仍待集中交付，不能把开发旧失败录像签为最终通过。
+
+style17／creative20 R2为73真实引用，公开16／19原件不改，旧68仅两个旧Home入口变更；原250输入前缀追加至267。原32＋10及四项绑定fresh通过；实体安卓／手柄、平衡、用户认可未验。
+
+CHEST-ART-01已按用户拒绝长扁金箱重画紧凑蓝／紫／金六态，但仍超冻结几何要求，4／4生成预算耗尽。原图／独审／失败与75项clean单相位GL诊断均[离线归档](evidence/chest_art_01/README.md)，不注册为live、不替换默认主游戏箱体；用户对当前差异的取舍待答。正式接入方案只作离线准备，不伪称完成。PR111保持独立分支，不自动合main。
+
+[图鉴范围](worklines/home_codex_01/scope.md) · [权威规则](rewards_and_builds.md) · [开发证据](evidence/home_codex_01/development/index.json)。恢复先核git状态、最终源/媒体收据和单Godot租约，避免重复生产美术。
+
+
 ## 2026-10-28 PR111与公开录屏已交付（最新）
 
 PR111已推送并保持OPEN，不自动合main。运行源56e639d712cab0604807992cce0e6eaeaf56ac08；三段媒体固定在提交00264dbb9120916eb2a979abdf2de43320ea335b，后续仅文档证据。54秒主片及两区各12秒公网均实际HTTP200，完整SHA与本地一致，见[公开核验](evidence/item_art_01/public-download-check/receipt.json)。33项受影响Harness fresh、222主片、19／18两区和导出包隔离加载均通过；完整远端CI已启动，精确head结果以[PR111](https://github.com/zhipijun1996/gunman-rush/pull/111)实际Actions为准，未签full164通过。工作树最后只归档下载证明及交接，不重跑原生或生成美术。

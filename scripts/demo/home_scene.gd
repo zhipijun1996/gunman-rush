@@ -7,7 +7,7 @@ const FLOOR_Y := 432.0
 var world: UnderworldHomeWorld
 var parallax: UnderworldParallax
 var reserved_id := ""
-const FUNCTION_NAMES := {"character":"织时匠 / Timeweaver","upgrade":"维修工坊 / Permanent upgrades","arms":"武器工坊 / Armorer","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
+const FUNCTION_NAMES := {"character":"织时匠 / Timeweaver","upgrade":"维修工坊 / Permanent upgrades","arms":"武器工坊 / Armorer","relics":"道具图鉴 / Item codex","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
 var avatar_selection_id := "courier"
 var player: PlayerMotor
 var controller: PlayerController
@@ -24,6 +24,7 @@ var _hud: CanvasLayer
 func _ready() -> void:
 	world=UnderworldHomeWorld.new()
 	world.weapon_workshop_enabled = true
+	world.item_codex_enabled = true
 	add_child(world)
 	world.configure(FLOOR_Y)
 	# Rename the live service label without changing its authored id or geometry.

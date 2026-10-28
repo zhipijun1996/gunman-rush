@@ -1,0 +1,448 @@
+{
+  "task_id": "CHEST-ART-01",
+  "version": "G0-v4-user-colour-and-bounded-budget-revision",
+  "status": "budget_revision_pending_independent_bounded_rework",
+  "production_allowed": false,
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "branch": "feature/item-v5-catalog",
+  "scope": "Three shared-world chest tiers, closed and open static poses only. No animation claim; no global style, collision, reward, interaction, audio or RNG changes.",
+  "skills": [
+    "art-director",
+    "animation-vfx"
+  ],
+  "authority": {
+    "shared_style": "16",
+    "creative_scores": "creative-v19",
+    "bibles": [
+      "windchime_plains_v2@2.0",
+      "thorn_forest_v2@2.0"
+    ],
+    "selection_scope": "Previously selected fine pixel direction; not acceptance of these new chests."
+  },
+  "references": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "c361bfcf48a6626dd081fa0a19da53872e4375ae82ef43e80328c09b8fa193a4",
+      "bytes": 35854
+    },
+    {
+      "path": ".agents/skills/art-director/SKILL.md",
+      "sha256": "811ce081f3e2e8e925a7941f8c2f69407033840fa36679a11094e6377db7940a",
+      "bytes": 22563
+    },
+    {
+      "path": ".agents/skills/animation-vfx/SKILL.md",
+      "sha256": "80d414fe92230e32cf4dded28073e405810f9b1853e8d385aa2dc885ffdc31a2",
+      "bytes": 16064
+    },
+    {
+      "path": "docs/creative_direction/README.md",
+      "sha256": "d4bbeaf2b1741580367340fe7875d74c4dcd68a54a9f179695c4f4d59b2a2f5f",
+      "bytes": 10795
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
+      "bytes": 2954
+    },
+    {
+      "path": "docs/creative_direction/bibles/user-request.json",
+      "sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+      "bytes": 1865
+    },
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+      "bytes": 15107
+    },
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+      "bytes": 26026
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
+      "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+      "bytes": 57204
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "c8754c5a2e940da1553dc78cd411b2f05d8fb83a76620eed23a797107a80494a",
+      "bytes": 15220
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "bd3c3f8dc13536c20510c23bc7b740c8464aef4aceebd9f0d8499a1e4ac39697",
+      "bytes": 17130
+    },
+    {
+      "path": "docs/visual_bible.md",
+      "sha256": "0146616d6738df803d0b194029fe2d366473194334db09c3d4b31f5cb9adaefd",
+      "bytes": 8438
+    },
+    {
+      "path": "docs/art_foundation_v1.md",
+      "sha256": "5e2cbbda65692911ad4dfc5785f3ad0258a8be27ae9ebb2a358fe814c4d7b50a",
+      "bytes": 22832
+    },
+    {
+      "path": "docs/art_quality_target.md",
+      "sha256": "2a6ac7601125066c4d8bd6ed428c97781cc369593440877af2e0cae03b0dfee0",
+      "bytes": 6890
+    },
+    {
+      "path": "docs/animation_vfx_standards.md",
+      "sha256": "55c14f070677a21b0f6bcc7b0b0dd270f61310ef126aec58507e1815238e617d",
+      "bytes": 3505
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_objects.gd",
+      "sha256": "7048a69a7b7d944ea532b6379cf202cf545c545e2d1ebebbba9292f5fb87993e",
+      "bytes": 2308
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "bytes": 8019
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "sha256": "81f093dd3434e0338908f155d56a1592f0bf469bda37550ea7d60e30a685ecaf",
+      "bytes": 4221
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "bytes": 11455
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "bytes": 29918
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "bytes": 44562
+    },
+    {
+      "path": "assets/underworld_plains/actors/chest.png",
+      "sha256": "6be3f3767643004037854b18e44f32fb7f2affeb2a8823d81c289e9836493984",
+      "bytes": 4043
+    },
+    {
+      "path": "assets/underworld_plains/objects/opened_chest.png",
+      "sha256": "5f4f72179df29eb576664d3896784ad6b209c106ec45088ad9148afb5306f2a5",
+      "bytes": 4602
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "sha256": "90117694febc87312baa4ddec8660d6f4e8d97d327f70bca3ae43c41900a7fd6",
+      "bytes": 20885
+    },
+    {
+      "path": "scripts/presentation/forest_bible_presentation.gd",
+      "sha256": "303b8c4c557a07cfe32b6ff993d21f7b8f98a5322901d5c106830d763891da4f",
+      "bytes": 9373
+    },
+    {
+      "path": "shaders/formal_fine_boundary.gdshader",
+      "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2",
+      "bytes": 3343
+    },
+    {
+      "path": "assets/items/v5/icons/golden-02.source.png",
+      "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15",
+      "bytes": 718495
+    },
+    {
+      "path": "scripts/art/p1_unity_props.gd",
+      "sha256": "007bdc0b51bf5df43f67447ecebed2daa8c7d0e520826b074a021f006564f1e2",
+      "bytes": 7371
+    },
+    {
+      "path": "shaders/item_v5_world_sprite.gdshader",
+      "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5",
+      "bytes": 1331
+    },
+    {
+      "path": "build/item_art_01/world-final-plains-01/active.png",
+      "sha256": "463dc53b1013802b5a2ca5ae93ee15d90118431504075f3bfaf3a3bfbe29e313",
+      "bytes": 654318,
+      "role": "optional_actual_formal_scene_reference_only"
+    }
+  ],
+  "visual_inspection": {
+    "viewed_pixels": [
+      "assets/underworld_plains/actors/chest.png",
+      "assets/underworld_plains/player_animation/states_sheet.png",
+      "build/item_art_01/world-final-plains-01/active.png"
+    ],
+    "not_claimed": "These references have been visually inspected; planned input selection is not proof of actual model conditioning until the tool call records referenced_image_paths."
+  },
+  "generation": {
+    "planned_only": true,
+    "tool": "image_gen.imagegen reference editing/expansion",
+    "transparent_background": true,
+    "requested_dimensions": [
+      1536,
+      1024
+    ],
+    "layout": [
+      3,
+      2
+    ],
+    "conditioning": "Planned edit/expansion with referenced_image_paths: old closed and opened chest PNGs; optional actual formal Plains screenshot for style only. Output is a new six-pose atlas; never overwrite references. Exact actual submitted paths and raw call receipt remain required; planning is not a call receipt.",
+    "source_pixel_editing": "Prohibited: preserve original PNG bytes. Do not crop nonzero alpha, script-resize or repaint. Actual measured ROI and state-specific fixed source foot pivots may map to existing world foot. Each tier uses one common isotropic factor across closed/open; factors may differ between tiers.",
+    "request_is_not_admission": "1536x1024,512cells,4sourcepx/wu and32px gutters are requests, not user-mandated native4px clusters or guaranteed tool output. Record request failures. Actual high-resolution return may qualify only through measured ROI, real1wu shader sampling, full geometry and independent pixel review; never call this native pixel success.",
+    "reference_inputs": [
+      {
+        "path": "assets/underworld_plains/actors/chest.png",
+        "sha256": "6be3f3767643004037854b18e44f32fb7f2affeb2a8823d81c289e9836493984",
+        "bytes": 4043,
+        "purpose": "Closed chest material, lighting, construction language and shallow side-view continuity.",
+        "submission_status": "planned_required",
+        "viewed_by_root_before_proposed_call": true
+      },
+      {
+        "path": "assets/underworld_plains/objects/opened_chest.png",
+        "sha256": "5f4f72179df29eb576664d3896784ad6b209c106ec45088ad9148afb5306f2a5",
+        "bytes": 4602,
+        "purpose": "Matching opened chest family, hinged opening and claimed-state empty-interior semantics.",
+        "submission_status": "planned_required",
+        "viewed_by_root_before_proposed_call": true
+      },
+      {
+        "path": "build/item_art_01/world-final-plains-01/active.png",
+        "sha256": "463dc53b1013802b5a2ca5ae93ee15d90118431504075f3bfaf3a3bfbe29e313",
+        "bytes": 654318,
+        "purpose": "Actual formal Plains pixel-family, player scale, terrain/light integration only. Do not copy scene, HUD, objects or background into transparent output.",
+        "submission_status": "planned_optional_actual_submission_requires_receipt",
+        "viewed_by_root_before_proposed_call": true
+      }
+    ],
+    "source_originals": "Old chest PNG bytes and paths remain unchanged. Output must be a new transparent six-state atlas.",
+    "prompt_body": "prompt.txt retains original layout/art request. Root appends explicit reference-use instructions in actual call; preserve exact full submitted prompt."
+  },
+  "layout": {
+    "cell_px": [
+      512,
+      512
+    ],
+    "source_px_per_world_unit": 4,
+    "logical_cell_wu": [
+      128,
+      128
+    ],
+    "local_foot_px": [
+      256,
+      384
+    ],
+    "local_foot_wu": [
+      64,
+      96
+    ],
+    "columns": [
+      "medium",
+      "high",
+      "region_top"
+    ],
+    "rows": [
+      "closed",
+      "open"
+    ],
+    "outer_and_cell_gutter_min_px": 32,
+    "sampling": "Requested authored4-source-pixel logical clusters; actual high-resolution source may qualify via accepted1wu world shader and independent actual-pixel review. Nearest alone is insufficient.",
+    "admission_mapping": {
+      "source_foot_pivot": "one fixed measured pivot per state; maps to existing formal consumer world foot, no interaction/map/support movement",
+      "scale": "one isotropic factor per tier shared by closed/open; different tiers may differ",
+      "max_normalized_pair_base_geometry_delta_wu": 1,
+      "target_width_tolerance_wu": 1,
+      "no_nonzero_alpha_cropping": true,
+      "micro_perspective": "Independent actual pixel review; no numerical request-grid assertion substitutes for visible geometry."
+    }
+  },
+  "tiers": [
+    {
+      "id": "medium",
+      "width_wu": 52,
+      "closed_height_wu": 32,
+      "open_height_max_wu": 46,
+      "silhouette": "flat low rectangular transport coffer",
+      "lock": "one plain vertical brass latch",
+      "emblem": "small single hanging-bell relief"
+    },
+    {
+      "id": "high",
+      "width_wu": 58,
+      "closed_height_wu": 38,
+      "open_height_max_wu": 54,
+      "silhouette": "arched lid with strong banded shoulders",
+      "lock": "large split gear latch",
+      "emblem": "paired opposed clock hands"
+    },
+    {
+      "id": "region_top",
+      "width_wu": 64,
+      "closed_height_wu": 44,
+      "open_height_max_wu": 60,
+      "silhouette": "faceted clock-crown lid and broad stepped corner feet",
+      "lock": "radial clockface seal",
+      "emblem": "three-prong clock-crown relief"
+    }
+  ],
+  "consumer_observations": [
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "lines": "8",
+      "fact": "HUMANOID_HEIGHT=44wu."
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "lines": "14",
+      "fact": "standing_body_source_height=46; actual standing scale=44/46."
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_objects.gd",
+      "lines": "5-15",
+      "fact": "Two shared textures; 58wu destination width; explicit foot placement."
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "lines": "115,286",
+      "fact": "Formal Plains caller foot is row.position+(0,21)."
+    },
+    {
+      "path": "scripts/presentation/forest_bible_presentation.gd",
+      "lines": "115-122",
+      "fact": "Forest shared texture width58, actual foot row.position+(0,18)."
+    },
+    {
+      "path": "scripts/art/p1_unity_props.gd",
+      "lines": "23-35",
+      "fact": "Legacy cosmetic layer may overwrite chest sprite with62.4×45.6wu artwork,foot+18. Active-path inventory must resolve overlap; preserve formal current+21 and forest+18 separately."
+    }
+  ],
+  "remaining_checks": [
+    "Independent G0 scope/binding/pixel spec review before generation",
+    "Measure returned image dimensions/alpha/native clusters/gutters and each ROI; no presumed requested return size",
+    "Actual complete six-pose world family with player44wu and terrain in both regions; normal and small-screen scale",
+    "Closed/open base/pivot continuity and claimed-state semantics in formal consumers",
+    "Applicable fresh art/gameplay/docs checks planned by root; no tests executed in this planning task",
+    "User aesthetic approval and physical target-device checks remain unverified"
+  ],
+  "sampling_admission": {
+    "recipe": "shaders/item_v5_world_sprite.gdshader",
+    "preserve": "canonical vertex/light with stable1wu world texel selection + floating bias + per-draw REGION_RECT guard; no global shader edits",
+    "required_actual_GL": [
+      "same support foot across closed/open",
+      "width52/58/64 actual source/world ratio",
+      "each of six ROI boundaries against neighbor contamination",
+      "fractional camera/origin positions"
+    ],
+    "nearest_only": "insufficient"
+  },
+  "budget": {
+    "max_generation_calls_total": 3,
+    "family_count": 1,
+    "admitted_source_png_count": 1,
+    "requested_pixels": [
+      1536,
+      1024
+    ],
+    "requested_rgba8_bytes": 6291456,
+    "actual_unique_admitted_source_rgba8_ceiling_bytes": 8388608,
+    "actual_source_pixel_area_ceiling": 2097152,
+    "mipmaps": false,
+    "duplicated_atlas_textures": false,
+    "over_budget": "Reject; do not resize/crop source or raise limit. All raw call outputs and request failures retained as disk evidence, not registered textures.",
+    "stop": "Same task/family total3 calls,2 already used; final third call only after independent bounded REWORK. Two consecutive rounds without substantial improvement still stop. No fourth call; all admission thresholds unchanged.",
+    "item_atlas_budget": "Existing independent64MiB unchanged.",
+    "not_claimed": "Process/GPU total memory or physical device performance."
+  },
+  "budget_revision": {
+    "version": "v4",
+    "previous_contract_archive": "build/chest_art_01/g0-history/v3-before-user-colour-and-call-budget-revision/index.json",
+    "previous_spec_sha256": "2e93809d16c1acf228ecb16aceaef58d262c573626c635b210419eb8e6ba90da",
+    "previous_authority_sha256": "0b75b9905362374deae271c405e683bfa1069ed4a37482a6d2b5218e3147bfa7",
+    "previous_budget": {
+      "max_generation_calls_total": 2,
+      "family_count": 1,
+      "admitted_source_png_count": 1,
+      "requested_pixels": [
+        1536,
+        1024
+      ],
+      "requested_rgba8_bytes": 6291456,
+      "actual_unique_admitted_source_rgba8_ceiling_bytes": 8388608,
+      "actual_source_pixel_area_ceiling": 2097152,
+      "mipmaps": false,
+      "duplicated_atlas_textures": false,
+      "over_budget": "Reject; do not resize/crop source or raise limit. All raw call outputs and request failures retained as disk evidence, not registered textures.",
+      "stop": "Stop after success; at most one bounded same-family revision. Two rounds without substantial improvement stop direction.",
+      "item_atlas_budget": "Existing independent64MiB unchanged.",
+      "not_claimed": "Process/GPU total memory or physical device performance."
+    },
+    "new_max_calls_total": 3,
+    "calls_already_executed": 2,
+    "remaining_max_calls": 1,
+    "reset_count": false,
+    "decision_source": "Root task instruction after actual user colour-separation feedback; bounded same-family revision pending independent review.",
+    "reason": "The max2 draft preceded actual user demand for dominant body colours. Second image materially improved blue/purple/gold differentiation, so the skill stop condition of two consecutive rounds without substantial improvement has not been asserted. Geometry/halo remain failed or unadmitted; one final bounded correction only.",
+    "unchanged_admission": [
+      "one family/one admitted six-pose PNG",
+      "8MiB unique source RGBA ceiling",
+      "52/58/64wu widths and closed32/38/44wu,open caps46/54/60wu",
+      "full alpha/transparent isolation",
+      "one isotropic factor per tier shared closed/open",
+      "fixed measured state source foot_pivots, existing world foot/interaction unchanged",
+      "no source PNG pixel editing or nonzero-alpha crop",
+      "actual1wu shader/ROI/geometry/pixel review"
+    ],
+    "third_call_scope": "Edit second atlas; keep clear dominant blue/purple/gold; remove halo and ensure true transparent isolation; make gold a wide low clock-crown coffer within existing closed44/open60 bounds; no extra asset or animation.",
+    "independent_revision_approval": "pending; original G0-v3 max2 approval does not approve increased count"
+  },
+  "user_feedback_revision": {
+    "quote": "继续工作，你刚刚的图，三种级别宝箱区分度不够明显。最好颜色上也有不同",
+    "source": "Actual direct user feedback relayed verbatim by root after call1; not API export",
+    "first_image_status": "rejected_by_user_insufficient_tier_colour_separation_and_unadmitted_alpha_gutter",
+    "tier_colours": {
+      "medium": "weathered steel blue / dusty cobalt broad body and lid panels",
+      "high": "amethyst purple / royal violet broad body and lid panels",
+      "region_top": "old gold / amber brass dominant broad surfaces"
+    },
+    "colour_coverage": "Clearly dominant broad body/lid panels, not jewellery-only accents; generation target at least about2/3 of broad panels for blue/purple; actual visible area/readability requires independent pixel review.",
+    "structure_material_constraints": "Keep old brass narrow bands, cool steel recesses, top-left light, distinct three silhouettes and closed/open identity.",
+    "prompt_original_preserved": "docs/worklines/chest_art_01/prompt.txt"
+  },
+  "generation_history": [
+    {
+      "call_number": 1,
+      "source_png": "/workspace/generated_images/exec-f629acb9-a9f8-403c-b01b-55e126aa3b81.png",
+      "source_sha256": "c362730ddafb73c0e8e02dab6a1eabede888fc3eede18488e00c19729eacc023",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "rgba_bytes": 6291456,
+      "status": "rejected_by_user_colour_similarity; alpha halo/gutter not admitted",
+      "measurement_path": "build/chest_art_01/generation/response-01-measurement.json",
+      "measurement_sha256": "104909178af5c4734867cfafb3d485c4ed7e6037f4c9e967f307a72bc430dd20",
+      "registered_for_runtime": false
+    },
+    {
+      "call_number": 2,
+      "source_png": "/workspace/generated_images/exec-4cc69a31-29fc-4e56-af7f-747ff224ceb8.png",
+      "source_sha256": "f18840d1776f4ce49940f16966c8f5711731f6ac084379c6969070f9f2e28328",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "rgba_bytes": 6291456,
+      "status": "blue/purple/gold meaningful improvement, but geometry/halo/isolation not admitted; independent bounded REWORK pending",
+      "measurement_path": "build/chest_art_01/generation/response-02-measurement.json",
+      "measurement_sha256": "a37bc3920adcc373476281b2a4f5e721fbb7f49fd1cfc0edaa7cbc479872f15b",
+      "registered_for_runtime": false
+    }
+  ]
+}

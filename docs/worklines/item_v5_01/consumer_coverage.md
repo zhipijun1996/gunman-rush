@@ -20,11 +20,11 @@
 | U | [UI/input runner](../../../tests/item_v5_ui_input_runner.gd)：全部定义／等级的可读文案、原生适配器与 Control 回调守卫 | 文案正确就是该道具数值行为通过；合成键鼠／手柄／触屏输入不等于实体设备验收 |
 | M | [连续影片源](../../../tests/item_v5_movie.gd)、[采集器](../../../tools/capture_item_v5.py)：正式标题／Home／出发／宝箱／装备／P24+G15+P14 的计划采集路径 | K2/dbf3a154已实际采集93/0并抽帧独审，后继979源以本轮捕获收据为准；均含明确fixture，不是72件自然路线 |
 
-F 已有历史原始记录 [development-04/formal.log](../../../build/item_v5/development-04/formal.log)：**190 assertions／0 failures，严格 clean exit**。其中初始化位置、训练平台／高 HP 靶、已知奖励、商店收入和 director 完成条件均明确为 fixture。它不是后续生产改动的自动 fresh 签字。原 [formal-02](../../../build/item_v5/development-03/formal-02.log) 的 190／7 失败与更早 parse 失败保留。
+F 已有历史原始记录 [development-04/formal.log](../../evidence/item_v5_01/portable-history-logs/development-04/formal.log)：**190 assertions／0 failures，严格 clean exit**。其中初始化位置、训练平台／高 HP 靶、已知奖励、商店收入和 director 完成条件均明确为 fixture。它不是后续生产改动的自动 fresh 签字。原 [formal-02](../../evidence/item_v5_01/portable-history-logs/development-03/formal-02.log) 的 190／7 失败与更早 parse 失败保留。
 
-补测开发结果：K [core-effects-02.log](../../../build/item_v5/development-05/core-effects-02.log) **79／0**，SE [synergy-economy-02.log](../../../build/item_v5/development-05/synergy-economy-02.log) **68／0**，root 已实际执行、exit0、严格 clean。它们是 Development 结果，**不是 final 全源回归**。A新增生命周期／成长实伤／S12已实际原生执行：K2/dbf3a154的原Harness日志为102／0；不是仅有源码。当前979源最终状态见最终专项报告。
+补测开发结果：K [core-effects-02.log](../../evidence/item_v5_01/portable-history-logs/development-05/core-effects-02.log) **79／0**，SE [synergy-economy-02.log](../../evidence/item_v5_01/portable-history-logs/development-05/synergy-economy-02.log) **68／0**，root 已实际执行、exit0、严格 clean。它们是 Development 结果，**不是 final 全源回归**。A新增生命周期／成长实伤／S12已实际原生执行：K2/dbf3a154的原Harness日志为102／0；不是仅有源码。当前979源最终状态见最终专项报告。
 
-**保留真实失败：**[正式Boss时间域 runner](../../../tests/item_v5_boss_time_runner.gd)修前 [boss-time-before-04](../../../build/item_v5/boss-time-before-04/boss_time.log) 为 **189／35失败**，暴露停时移除碰撞／接触免疫问题；修复后K2/dbf3a154原Harness正式Boss时间域1178／0、防御178／0，原189／35和后续真实失败均保留。验证实际碰撞、接触伤害、时钟恢复与退出，软件GL／人机体验仍另验。
+**保留真实失败：**[正式Boss时间域 runner](../../../tests/item_v5_boss_time_runner.gd)修前 [boss-time-before-04](../../evidence/item_v5_01/portable-history-logs/boss-time-before-04/boss_time.log) 为 **189／35失败**，暴露停时移除碰撞／接触免疫问题；修复后K2/dbf3a154原Harness正式Boss时间域1178／0、防御178／0，原189／35和后续真实失败均保留。验证实际碰撞、接触伤害、时钟恢复与退出，软件GL／人机体验仍另验。
 
 [catalog suite](../../../tests/item_v5_catalog_suite.gd)、[Python 导入／审计测试](../../../tests/test_item_v5_catalog.py)及 [pool suite](../../../tests/item_v5_pool_suite.gd) 对全部 72 件提供数据、参数、等级、删除项、冻结抽取及准入证据。下表**不会**把这些共同的数据检查充当每一行的行为正例。旧 core／15 武器／gear 回归若没有装备 V5，也不能替代对应道具行为。
 

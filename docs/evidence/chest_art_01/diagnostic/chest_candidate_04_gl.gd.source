@@ -1,0 +1,355 @@
+extends SceneTree
+## Isolated DIAGNOSTIC_QA_ONLY fixture. Never loads reward/gameplay consumers.
+## The original source, including every alpha1 tail, is drawn without edits.
+
+const PROPOSAL := "res://build/chest_art_01/proposals/fourth-source/proposal.json"
+const WORLD_SHADER := "res://shaders/item_v5_world_sprite.gdshader"
+const EXPECTED_SOURCE_SHA := "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5"
+const TIERS := ["medium", "high", "region_top"]
+const WORLD_TO_SCREEN := 2.0
+var output := "res://build/chest_art_01/runtime-proposal/captures-04-02"
+var proposal: Dictionary
+var source_texture: ImageTexture
+var shared_material: ShaderMaterial
+var recipes: Dictionary = {}
+var nodes: Array[CandidateChest] = []
+var guides: ComparisonGuides
+var ui: Control
+var ui_layer: CanvasLayer
+var checks := 0
+var failures := 0
+var hold_frames := 24
+var only_width := 0
+var isolated_viewports: Array[SubViewport] = []
+var isolated_nodes: Array[CandidateChest] = []
+var isolation_completed := false
+var receipt: Dictionary = {"task_id":"CHEST-ART-01", "scope":"isolated candidate GL; no formal game integration", "runtime_promotion_allowed":false, "source_pixels_edited":false, "alpha_discard_threshold":null, "known_failed_frozen_gate":"Source-only pair/height failures retained; actual shader footprints measured separately", "captures":[], "timeline":[]}
+
+class CandidateChest extends Node2D:
+	var recipe: Dictionary
+	func _draw() -> void:
+		if recipe.is_empty(): return
+		# Full natural-partition ROI; no alpha-based crop or per-state scaling.
+		draw_texture_rect(recipe.atlas, Rect2(-recipe.pivot * recipe.factor, recipe.canvas), false)
+	func use_recipe(value: Dictionary) -> void:
+		recipe = value
+		queue_redraw()
+
+class ComparisonGuides extends Node2D:
+	var feet: Array[Vector2] = []
+	func _draw() -> void:
+		for foot: Vector2 in feet:
+			draw_line(foot + Vector2(-68,0), foot + Vector2(48,0), Color(.37,.37,.39), .5)
+			draw_line(foot + Vector2(0,-2), foot + Vector2(0,2), Color(.9,.45,.3), .5)
+			# Declared 44wu comparison silhouette, not a captured gameplay actor.
+			var origin := foot + Vector2(-53,0)
+			var ink := Color(.55,.59,.64)
+			draw_circle(origin + Vector2(0,-39), 5.0, ink)
+			draw_colored_polygon(PackedVector2Array([origin+Vector2(-4,-33),origin+Vector2(4,-33),origin+Vector2(5,-15),origin+Vector2(-5,-15)]),ink)
+			for side: float in [-1.0, 1.0]:
+				draw_line(origin+Vector2(side*3,-29),origin+Vector2(side*8,-17),ink,3)
+				draw_line(origin+Vector2(side*3,-16),origin+Vector2(side*5,-1),ink,3)
+				draw_line(origin+Vector2(side*5,-1),origin+Vector2(side*8,-1),ink,2)
+
+func _initialize() -> void:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--output="): output = argument.trim_prefix("--output=")
+		if argument.begins_with("--width="): only_width = argument.trim_prefix("--width=").to_int()
+		if argument.begins_with("--hold-frames="): hold_frames = maxi(1,argument.trim_prefix("--hold-frames=").to_int())
+	run.call_deferred()
+
+func check(ok: bool, label: String) -> void:
+	checks += 1
+	if not ok:
+		failures += 1
+		printerr("CHEST CANDIDATE TECHNICAL FAILURE: "+label)
+
+func pair(value: Array) -> Vector2:
+	return Vector2(float(value[0]),float(value[1]))
+
+func add_label(value: String, at: Vector2, size := 16, color := Color(.8,.82,.86)) -> Label:
+	var label := Label.new()
+	label.text = value
+	label.position = at
+	label.add_theme_font_size_override("font_size",size)
+	label.add_theme_color_override("font_color",color)
+	ui.add_child(label)
+	return label
+
+func load_source() -> void:
+	var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROPOSAL))
+	# Explicit fourth-proposal adapter: keeps all original fields in receipt and
+	# changes field names only, never factors, ROIs, pivots, or source pixels.
+	receipt["original_fourth_source_proposal"] = original.duplicate(true)
+	proposal = original.duplicate(true)
+	proposal.source_path = ProjectSettings.globalize_path("res://"+String(original.source_path))
+	proposal["rgba8_bytes"] = original.unique_RGBA8_bytes
+	proposal["findings"] = [original.geometry_conclusion,original.original_request_conformance]
+	proposal["tier_shared_scale_diagnostics"] = []
+	for raw_pair: Dictionary in original.tier_pairs:
+		var adapted_pair := raw_pair.duplicate(true)
+		adapted_pair["shared_isotropic_factor_wu_per_source_px"] = raw_pair.shared_factor_wu_per_source_px
+		adapted_pair["width_delta_within_frozen_1wu"] = raw_pair.paired_width_meets_limit
+		proposal.tier_shared_scale_diagnostics.append(adapted_pair)
+	proposal.six_ROIs = []
+	for raw_row: Dictionary in original.six_ROIs:
+		var adapted_row := raw_row.duplicate(true)
+		adapted_row["proposed_full_partition_ROI_xywh"] = raw_row.full_ROI_xywh
+		adapted_row["proposed_visible_foot_pivot_ROI_local"] = raw_row.source_foot_pivot_ROI_local
+		adapted_row["all_nonzero_alpha_pixel_count"] = raw_row.all_nonzero_pixels
+		proposal.six_ROIs.append(adapted_row)
+	var path: String = proposal.source_path
+	check(FileAccess.get_sha256(path) == EXPECTED_SOURCE_SHA,"original PNG SHA matches the fourth immutable source")
+	var image := Image.new()
+	check(image.load(path) == OK,"load original PNG without import, conversion, resize or alpha edits")
+	check(image.get_size() == Vector2i(1536,1024),"actual original dimensions")
+	check(int(proposal.rgba8_bytes) == 6291456 and int(proposal.rgba8_bytes) <= 8*1024*1024,"separate chest source RGBA8 allocation below 8MiB")
+	source_texture = ImageTexture.create_from_image(image)
+	shared_material = ShaderMaterial.new()
+	shared_material.shader = load(WORLD_SHADER)
+	check(shared_material.shader != null,"existing per-draw REGION_RECT-safe 1wu shader loads")
+	var scale_rows: Dictionary = {}
+	for row: Dictionary in proposal.tier_shared_scale_diagnostics:
+		scale_rows[row.tier] = row
+	var source_records: Array = []
+	var total_nonzero := 0
+	var covered_area := 0
+	for row: Dictionary in proposal.six_ROIs:
+		var region: Array = row.proposed_full_partition_ROI_xywh
+		var rect := Rect2i(int(region[0]),int(region[1]),int(region[2]),int(region[3]))
+		var factor := float(scale_rows[row.tier].shared_isotropic_factor_wu_per_source_px)
+		var atlas := AtlasTexture.new()
+		atlas.atlas = source_texture
+		atlas.region = Rect2(rect)
+		atlas.filter_clip = true
+		var pivot := pair(row.proposed_visible_foot_pivot_ROI_local)
+		var canvas := Vector2(rect.size)*factor
+		var key: String = row.tier+"/"+row.state
+		recipes[key] = {"atlas":atlas,"pivot":pivot,"factor":factor,"canvas":canvas,"tier":row.tier,"state":row.state,"region":region}
+		var nonzero := 0
+		for y: int in range(rect.position.y,rect.end.y):
+			for x: int in range(rect.position.x,rect.end.x):
+				if image.get_pixel(x,y).a > 0.0: nonzero += 1
+		check(nonzero == int(row.all_nonzero_alpha_pixel_count),"all original nonzero-alpha pixels retained in "+key)
+		total_nonzero += nonzero
+		covered_area += rect.get_area()
+		var source_bbox: Array = row.threshold_bboxes_absolute_exclusive["0"]
+		var local_min := Vector2(float(source_bbox[0])-rect.position.x,float(source_bbox[1])-rect.position.y)
+		var local_max := Vector2(float(source_bbox[2])-rect.position.x,float(source_bbox[3])-rect.position.y)
+		source_records.append({"key":key,"full_region_xywh":region,"factor_wu_per_source_px":factor,"pivot_ROI_local":[pivot.x,pivot.y],"world_canvas":[canvas.x,canvas.y],"full_nonzero_alpha_count":nonzero,"full_nonzero_alpha_world_bbox":[(local_min.x-pivot.x)*factor,(local_min.y-pivot.y)*factor,(local_max.x-local_min.x)*factor,(local_max.y-local_min.y)*factor],"filter_clip":true,"no_source_alpha_threshold_applied":true})
+	check(covered_area == image.get_width()*image.get_height(),"six complete natural partition rectangles cover entire original source")
+	check(recipes.size() == 6,"exactly six candidate recipes")
+	for tier: String in TIERS:
+		check(is_equal_approx(float(recipes[tier+"/closed"].factor),float(recipes[tier+"/open"].factor)),"one shared closed/open isotropic factor: "+tier)
+	check(not bool(scale_rows.medium.width_delta_within_frozen_1wu) and not bool(scale_rows.high.width_delta_within_frozen_1wu),"retain both known failed frozen width gates without weakening")
+	receipt.merge({"source_path":path,"source_sha256":FileAccess.get_sha256(path),"source_dimensions":[image.get_width(),image.get_height()],"source_rgba8_bytes":proposal.rgba8_bytes,"original_nonzero_alpha_pixels":total_nonzero,"proposal_sha256":FileAccess.get_sha256(PROPOSAL),"world_shader":WORLD_SHADER,"world_shader_sha256":FileAccess.get_sha256(WORLD_SHADER),"recipes":source_records,"original_scale_diagnostics":proposal.tier_shared_scale_diagnostics,"original_findings":proposal.findings,"screen_pixels_per_world_unit":WORLD_TO_SCREEN,"display_server":DisplayServer.get_name(),"rendering_method":RenderingServer.get_current_rendering_method(),"rendering_adapter":RenderingServer.get_video_adapter_name(),"native_gameplay_claim":false})
+
+func prepare_layout(dimensions: Vector2i, swap: bool) -> void:
+	for node: CandidateChest in nodes:
+		root.remove_child(node)
+		node.free()
+	nodes.clear()
+	if is_instance_valid(guides): guides.free()
+	if is_instance_valid(ui_layer): ui_layer.free()
+	root.size = dimensions
+	root.canvas_transform = Transform2D().scaled(Vector2.ONE*WORLD_TO_SCREEN)
+	guides = ComparisonGuides.new()
+	root.add_child(guides)
+	ui_layer = CanvasLayer.new()
+	ui = Control.new()
+	root.add_child(ui_layer)
+	ui_layer.add_child(ui)
+	add_label("CHEST ART / FOURTH SOURCE / DIAGNOSTIC ONLY",Vector2(18,12),20)
+	add_label("Original alpha preserved | existing 1wu world shader | 2 screen px/wu | 44wu reference silhouette",Vector2(18,42),13)
+	add_label("NOT ADMITTED: raw pair/height failures retained. Actual 1wu shader footprints are measured separately.",Vector2(18,dimensions.y-27),12,Color(1,.65,.42))
+	for column: int in 3:
+		var tier: String = TIERS[column]
+		var column_x := float(dimensions.x)*(float(column)+.5)/3.0
+		add_label(tier.to_upper(),Vector2(column_x-62,72),15)
+		var row_count := 1 if swap else 2
+		for row_index: int in row_count:
+			var state := "closed" if row_index == 0 else "open"
+			var foot_screen := Vector2(column_x+16,float(dimensions.y)*(.65 if swap else (.42 if row_index == 0 else .81)))
+			var foot := foot_screen/WORLD_TO_SCREEN
+			guides.feet.append(foot)
+			var node := CandidateChest.new()
+			node.position = foot
+			node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			node.material = shared_material
+			node.use_recipe(recipes[tier+"/"+state])
+			root.add_child(node)
+			nodes.append(node)
+			add_label("44wu",foot_screen+Vector2(-122,7),12)
+			add_label(state.to_upper() if not swap else "SAME FOOT / SAME SCALE",foot_screen+Vector2(-25,21),12)
+	guides.queue_redraw()
+
+func capture(stem: String) -> void:
+	for unused: int in hold_frames: await process_frame
+	await RenderingServer.frame_post_draw
+	var image := root.get_texture().get_image()
+	check(image != null and image.get_size() == root.size,"actual framebuffer size "+stem)
+	check(image.save_png(ProjectSettings.globalize_path(output).path_join(stem+".png")) == OK,"save actual GL screenshot "+stem)
+	var poses: Array = []
+	for node: CandidateChest in nodes:
+		poses.append({"tier":node.recipe.tier,"state":node.recipe.state,"foot_world":[node.position.x,node.position.y],"factor_wu_per_source_px":node.recipe.factor,"pivot_ROI_local":[node.recipe.pivot.x,node.recipe.pivot.y],"same_shared_material_instance":node.material == shared_material})
+	receipt.captures.append({"file":stem+".png","sha256":FileAccess.get_sha256(ProjectSettings.globalize_path(output).path_join(stem+".png")),"actual_dimensions":[image.get_width(),image.get_height()],"poses":poses,"frame":Engine.get_process_frames()})
+
+func alpha_bounds(image: Image, alpha_exclusive: float, window: Rect2i) -> Dictionary:
+	var area := window.intersection(Rect2i(Vector2i.ZERO,image.get_size()))
+	var start := Vector2i(image.get_width(),image.get_height())
+	var finish := Vector2i(-1,-1)
+	var pixels := 0
+	for y: int in range(area.position.y,area.end.y):
+		for x: int in range(area.position.x,area.end.x):
+			if image.get_pixel(x,y).a > alpha_exclusive:
+				start.x = mini(start.x,x)
+				start.y = mini(start.y,y)
+				finish.x = maxi(finish.x,x)
+				finish.y = maxi(finish.y,y)
+				pixels += 1
+	var dimensions := finish-start+Vector2i.ONE if pixels>0 else Vector2i.ZERO
+	return {"bbox_xywh":[start.x,start.y,dimensions.x,dimensions.y] if pixels>0 else [],"pixels":pixels,"alpha_greater_than":alpha_exclusive,"measurement_only_no_render_threshold":true}
+
+func capture_isolated_footprints() -> void:
+	var measurements: Array = []
+	var foot := Vector2(128.25,190.25)
+	var foot_screen := foot*WORLD_TO_SCREEN
+	for row: Dictionary in proposal.six_ROIs:
+		var key: String = row.tier+"/"+row.state
+		var viewport := SubViewport.new()
+		isolated_viewports.append(viewport)
+		viewport.size = Vector2i(512,512)
+		viewport.transparent_bg = true
+		viewport.world_2d = World2D.new()
+		viewport.disable_3d = true
+		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		root.add_child(viewport)
+		# World2D must attach its canvas before RenderingServer receives its transform.
+		await process_frame
+		viewport.canvas_transform = Transform2D().scaled(Vector2.ONE*WORLD_TO_SCREEN)
+		var node := CandidateChest.new()
+		isolated_nodes.append(node)
+		node.position = foot
+		node.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		node.material = shared_material
+		node.use_recipe(recipes[key])
+		viewport.add_child(node)
+		# Explicit completion-guard counterexample, never a production path.
+		# The owner must reject this early return and free the live viewport.
+		if "--simulate-isolation-incomplete" in OS.get_cmdline_user_args(): return
+		for unused: int in 4: await process_frame
+		await RenderingServer.frame_post_draw
+		var image := viewport.get_texture().get_image()
+		check(image != null and image.get_size() == Vector2i(512,512),"actual transparent GL isolated footprint "+key)
+		if image == null: return
+		var name: String = "isolated-"+row.tier+"-"+row.state+"-2px-per-wu.png"
+		check(image.save_png(ProjectSettings.globalize_path(output).path_join(name)) == OK,"save unmodified actual alpha framebuffer "+key)
+		var region: Array = row.full_ROI_xywh
+		var recipe: Dictionary = recipes[key]
+		var factor := float(recipe.factor)
+		var local_start_y := float(row.lower_body_diagnostic.start_y_absolute)-float(region[1])
+		var upper_y: float = foot_screen.y+(local_start_y-recipe.pivot.y)*factor*WORLD_TO_SCREEN
+		var lower_window := Rect2i(0,floori(upper_y),512,ceili(foot_screen.y)-floori(upper_y)+1)
+		var full := alpha_bounds(image,0,Rect2i(Vector2i.ZERO,image.get_size()))
+		var structural := alpha_bounds(image,32.0/255.0,Rect2i(Vector2i.ZERO,image.get_size()))
+		var lower := alpha_bounds(image,32.0/255.0,lower_window)
+		check(int(full.pixels)>0 and int(structural.pixels)>0 and int(lower.pixels)>0,"actual full-alpha/structural/lower-box raster visible "+key)
+		if int(full.pixels) == 0 or int(structural.pixels) == 0 or int(lower.pixels) == 0: return
+		var canvas_start: Vector2 = foot_screen-recipe.pivot*factor*WORLD_TO_SCREEN
+		var canvas_finish: Vector2 = canvas_start+recipe.canvas*WORLD_TO_SCREEN
+		check(canvas_start.x>0 and canvas_start.y>0 and canvas_finish.x<512 and canvas_finish.y<512,"entire source canvas fits isolated viewport without clipping "+key)
+		var full_bbox: Array = full.bbox_xywh
+		var structural_bbox: Array = structural.bbox_xywh
+		var lower_bbox: Array = lower.bbox_xywh
+		measurements.append({"tier":row.tier,"state":row.state,"file":name,"same_fixed_foot_world":[foot.x,foot.y],"foot_screen":[foot_screen.x,foot_screen.y],"factor_wu_per_source_px":factor,"original_pivot_source_px":[recipe.pivot.x,recipe.pivot.y],"actual_all_nonzero_alpha":full,"actual_structural_alpha_gt32_diagnostic_only":structural,"actual_lower_box_alpha_gt32_diagnostic_only":lower,"lower_box_window_screen_xywh":[lower_window.position.x,lower_window.position.y,lower_window.size.x,lower_window.size.y],"actual_full_alpha_width_wu":float(full_bbox[2])/WORLD_TO_SCREEN,"actual_full_alpha_height_wu":float(full_bbox[3])/WORLD_TO_SCREEN,"actual_structural_width_wu":float(structural_bbox[2])/WORLD_TO_SCREEN,"actual_structural_height_wu":float(structural_bbox[3])/WORLD_TO_SCREEN,"actual_structural_top_above_foot_wu":(foot_screen.y-float(structural_bbox[1]))/WORLD_TO_SCREEN,"actual_lower_box_width_wu":float(lower_bbox[2])/WORLD_TO_SCREEN,"no_gameplay_or_source_admission_claim":true})
+		node.material = null
+		node.recipe = {}
+		isolated_nodes.erase(node)
+		isolated_viewports.erase(viewport)
+		viewport.free()
+		await process_frame
+	var pairs: Array = []
+	for tier: String in TIERS:
+		var closed: Dictionary = {}
+		var opened: Dictionary = {}
+		for measurement: Dictionary in measurements:
+			if measurement.tier == tier:
+				if measurement.state == "closed": closed = measurement
+				else: opened = measurement
+		var delta: float = absf(float(closed.actual_lower_box_width_wu)-float(opened.actual_lower_box_width_wu))
+		pairs.append({"tier":tier,"actual_lower_box_widths_wu":[closed.actual_lower_box_width_wu,opened.actual_lower_box_width_wu],"actual_lower_box_width_delta_wu":delta,"unchanged_paired_width_limit_wu":1,"actual_discrete_width_delta_within_1wu":delta<=1.0,"not_overall_admission":true})
+	receipt["actual_isolated_shader_footprints"] = measurements
+	receipt["actual_shader_pair_diagnostics"] = pairs
+	receipt["alpha_measurement_note"] = "Actual GPU framebuffer alpha tests are read-only diagnostics. All original alpha is still rendered; alpha>32 selects a measurement window only. Source raw bounds/failures remain separate and are never rewritten by sampled results."
+	isolation_completed = measurements.size() == 6 and pairs.size() == 3
+
+func cleanup_fixture() -> void:
+	# Registration precedes setup, so even an aborted diagnostic coroutine
+	# cannot leave a newly created World2D/viewport/node/RID unowned.
+	for node: CandidateChest in isolated_nodes:
+		if is_instance_valid(node):
+			node.material = null
+			node.recipe = {}
+			node.free()
+	isolated_nodes.clear()
+	for viewport: SubViewport in isolated_viewports:
+		if is_instance_valid(viewport): viewport.free()
+	isolated_viewports.clear()
+	for node: CandidateChest in nodes:
+		if is_instance_valid(node):
+			node.material = null
+			node.recipe = {}
+			node.free()
+	nodes.clear()
+	if is_instance_valid(guides): guides.free()
+	if is_instance_valid(ui_layer): ui_layer.free()
+	recipes.clear()
+	source_texture = null
+	shared_material = null
+
+func run() -> void:
+	RenderingServer.set_default_clear_color(Color(.065,.072,.085))
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
+	load_source()
+	if failures == 0:
+		var sizes: Array[Vector2i] = [Vector2i(1280,720),Vector2i(960,540)]
+		if only_width == 1280: sizes = [Vector2i(1280,720)]
+		elif only_width == 960: sizes = [Vector2i(960,540)]
+		for dimensions: Vector2i in sizes:
+			prepare_layout(dimensions,false)
+			await capture("six-poses-%dx%d"%[dimensions.x,dimensions.y])
+		prepare_layout(sizes[-1],true)
+		var original_positions: Array[Vector2] = []
+		for node: CandidateChest in nodes: original_positions.append(node.position)
+		var swap_label := add_label("",Vector2(18,103),18)
+		for state: String in ["closed","open","closed"]:
+			for index: int in nodes.size():
+				var node := nodes[index]
+				node.use_recipe(recipes[TIERS[index]+"/"+state])
+				check(node.position == original_positions[index],"swap retains exact world foot "+TIERS[index]+" "+state)
+			var step: int = receipt.timeline.size()
+			receipt.timeline.append({"step":step,"state":state,"frame_before_capture":Engine.get_process_frames(),"fixture_state_only_no_claim_transaction":true})
+			swap_label.text = "SWAP %d / %s"%[step,state.to_upper()]
+			await capture("swap-%d-%s"%[step,state])
+	if failures == 0: await capture_isolated_footprints()
+	check(isolation_completed,"required six isolated GL captures and three pair statistics completed")
+	var isolated_rows: Array = receipt.get("actual_isolated_shader_footprints",[])
+	var pair_rows: Array = receipt.get("actual_shader_pair_diagnostics",[])
+	check(isolated_rows.size() == 6 and pair_rows.size() == 3,"receipt contains every required isolated result")
+	for row: Dictionary in isolated_rows:
+		check(FileAccess.file_exists(ProjectSettings.globalize_path(output).path_join(str(row.file))),"required actual isolated PNG exists "+str(row.file))
+		check(row.has("actual_all_nonzero_alpha") and row.has("actual_lower_box_width_wu") and row.has("actual_structural_height_wu"),"required full-alpha and body statistics exist "+str(row.file))
+	check(receipt.captures.size() == (4 if only_width in [960,1280] else 5) and receipt.timeline.size() == 3,"all requested comparison and same-foot swap captures completed")
+	receipt["isolation_completed"] = isolation_completed
+	cleanup_fixture()
+	for unused: int in 3: await process_frame
+	receipt["technical_checks"] = checks
+	receipt["technical_failures"] = failures
+	receipt["status"] = "DIAGNOSTIC_QA_ONLY; frozen art gates remain failed"
+	var file := FileAccess.open(ProjectSettings.globalize_path(output).path_join("receipt.json"),FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify(receipt,"\t")+"\n")
+		file.close()
+	else: check(false,"write diagnostic receipt")
+	print("CHEST CANDIDATE DIAGNOSTIC: %d checks, %d technical failures; production_admission=false"%[checks,failures])
+	quit(0 if failures == 0 else 1)

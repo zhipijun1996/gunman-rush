@@ -2529,7 +2529,24 @@
         "docs/creative_direction/archive/creative-v3/thorn_forest.json",
         "docs/creative_direction/archive/creative-v17/registry.json",
         "docs/creative_direction/archive/creative-v17/windchime_plains.json",
-        "docs/creative_direction/archive/creative-v17/thorn_forest.json"
+        "docs/creative_direction/archive/creative-v17/thorn_forest.json",
+        "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+        "docs/creative_direction/archive/creative-v19/registry.json",
+        "docs/creative_direction/archive/creative-v19/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v19/thorn_forest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/manifest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/style-continuity-20261028-v16-item-authoring.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/registry.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/windchime_plains.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/thorn_forest.json",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/demo_app.gd.txt",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/home_scene.gd.txt",
+        "docs/evidence/home_codex_01/source-bindings/before-style17/underworld_home_world.gd.txt",
+        "scripts/ui/home_item_codex.gd",
+        "scripts/underworld_plains/underworld_home_world.gd",
+        "scripts/meta/home_item_catalog.gd",
+        "config/home_items.json",
+        "scripts/meta/meta_progression.gd"
       ],
       "weight_seconds": 0.5
     },
@@ -4272,6 +4289,31 @@
       "artifact_paths": [
         "build/item_v5/native"
       ]
+    },
+    "home-codex": {
+      "argv": [
+        "python3",
+        "tools/run_home_codex_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^HOME CODEX CHECK: persistence, UI and formal App completed with 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/home_codex_01"
+      ]
     }
   },
   "profiles": {
@@ -4491,7 +4533,8 @@
       "item-v5-manifest",
       "item-v5-authoring",
       "item-authoring-tools",
-      "item-v5-art"
+      "item-v5-art",
+      "home-codex"
     ],
     "art": [
       "docs",
@@ -4588,7 +4631,8 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "home-codex"
     ],
     "web": [
       "docs",
@@ -4636,7 +4680,8 @@
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "home-codex"
     ],
     "full": [
       "docs",
@@ -4802,7 +4847,8 @@
       "item-v5-manifest",
       "item-v5-authoring",
       "item-authoring-tools",
-      "item-v5-art"
+      "item-v5-art",
+      "home-codex"
     ],
     "creative-feedback": [
       "docs",

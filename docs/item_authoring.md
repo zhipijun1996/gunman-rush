@@ -9,8 +9,11 @@
 | 持有与装备 | `RunInventory`、`EquipmentService`、`BuildState` | 稳定实例、成长、原子校验、容量与从基础重算；不按新道具逐件加分支 |
 | 机制组件 | `scripts/items/v5/item_*_effects.gd`、`ItemRuntime` | 六类真实效果，消费已接受事件；新增机制在对应组件实现并验证撤销与生命周期 |
 | 表现 | `ItemPresentation`、`ItemEffectView`、`ItemV5Entity` | 消费定义与真实结果；独立图标／特效资源工作见[美术工作线](worklines/item_art_01/) |
+| 家园图鉴策略 | `config/home_items.json`、`HomeItemCatalog` | 音符永久解锁价格、需先发现开关、逐件家园准入；不修改背包或效果核心 |
 
 覆写层包含 `schema_version`、`metadata`、`overrides`、`additions`、`disabled_ids`。`metadata` 是开发者维护的组件身份声明；日常数值、图标和出现率在 `overrides` 调整。覆写不能把被动道具伪装成主动、伴随、标记或投射主动，也不能修改绑定的组件通道；注册全新机制时必须同时实现组件和审查身份声明。
+
+家园道具图鉴直接枚举同一目录，未发现的条目隐藏名字／图标／效果。`home_items.json` 的 `default_note_prices` 按稀有度配置默认音符价；`items` 可按稳定ID覆写，例如 `"B11": {"unlock_notes": 8, "home_enabled": true}`。`home_enabled_blacklist` 禁止指定道具在家园解锁／带出；`requires_discovered` 默认true。下架不会抹掉玩家发现或解锁记录，过期选择可随时取消。调参后打开的新页面才取得新报价，旧页面按旧指纹提交会拒绝，不会静默按新价收费。验证运行 `python3 tools/harness.py --check home-codex --jobs 1`。
 
 ## 日常命令
 

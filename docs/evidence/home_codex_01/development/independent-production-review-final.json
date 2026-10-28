@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "task": "HOME-CODEX-01",
+  "reviewer": "/root/authoring_catalog",
+  "created_utc": "2026-10-28T08:37:41.457302+00:00",
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "verdict": "LIMITED_PRODUCTION_STATIC_AND_SINGLE_FRAME_ACCEPT",
+  "supersedes_runtime_acceptance": false,
+  "previous_review": {
+    "path": "build/home_codex_01/independent-production-review.json",
+    "sha256": "9f9e490c0178a678df8b9288381cd46370f15809795e02e7f7de858f97be2aea",
+    "preserved_unchanged": true
+  },
+  "independence": {
+    "reviewer_authored_home_production": false,
+    "reviewer_authored_app_and_home_test_fixtures": true,
+    "authored_tests_excluded_from_independent_acceptance": true,
+    "reviewer_engine_or_tests_executed": false,
+    "tracked_source_or_tests_modified_in_this_final_review": false,
+    "writes": "Only this ignored final JSON report"
+  },
+  "source_inputs": [
+    {
+      "path": "scripts/meta/meta_progression.gd",
+      "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/save/meta_save_service.gd",
+      "sha256": "73ea2b63c89b904528a9d9c0e2ae998307b5f5b80c30321d13ab3e8ed7068ab0",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/meta/home_item_catalog.gd",
+      "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/ui/home_item_codex.gd",
+      "sha256": "9201701832b3d7499862496d4ee425c44a68bb55edc9467aa934514f3dedb3ed",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "22a215967d79b2e5d216286009877eed1d6fd974f491e7e2a7337ee053c476ae",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "config/home_items.json",
+      "sha256": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/ui/demo_ui_01/modal_shell.gd",
+      "sha256": "ed469c7f83bbf21d0c2182d735fbb9dde7c7306da263ed4eb25facf8902a8715",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/ui/demo_ui_01/modal_metrics.gd",
+      "sha256": "698d684d88af0555d6aaa8269aa9de4831094471735e5575a866091dc7d478d9",
+      "same_as_movie02_source": true
+    },
+    {
+      "path": "scripts/ui/menu_scroll_touch_adapter.gd",
+      "sha256": "25035e4fce4aa2f0dd7875aab0319bba97705996b8c897ff48d995bc626a28fb",
+      "same_as_movie02_source": true
+    }
+  ],
+  "original_findings_recheck": [
+    {
+      "id": "HC-IR-01",
+      "severity": "P2",
+      "original_title": "Disabled or removed selected carry can block departure with no usable clear action",
+      "status": "Root/UI-owner repair verified against actual frozen production; no unresolved P1/P2 in reviewed path",
+      "evidence": "Current UI adds always-visible CodexClearSelection whose eligibility depends only on nonempty selected ID, plus chosen-item cancellation before source availability check. App still validates Home/focus/pause/revision/context. This makes disabled and missing selected entries cancellable without a replacement purchase."
+    },
+    {
+      "id": "HC-IR-02",
+      "severity": "P2",
+      "original_title": "Unlock submits a freshly computed quote instead of the displayed quote",
+      "status": "Root/UI-owner repair verified against actual frozen production; no unresolved P1/P2 in reviewed path",
+      "evidence": "App caches every displayed row.quote_fingerprint at _refresh_home_codex and passes the captured fingerprint on unlock. Current backend recomputes canonical quote and rejects stale_quote before debit; App maps refusal to explicit no-charge message."
+    },
+    {
+      "id": "HC-IR-03",
+      "severity": "P2",
+      "original_title": "Pending discovery retries are not bound to the originating profile owner",
+      "status": "Root/UI-owner repair verified against actual frozen production; no unresolved P1/P2 in reviewed path",
+      "evidence": "MetaProgression.profile_context_id combines owner instance ID and incrementing configure epoch. App captures it for the current view, checks it before submit, and queues each pending discovery with its context. Retry erases mismatched contexts instead of writing another profile."
+    }
+  ],
+  "close_input_recheck": {
+    "path": "scripts/demo/demo_app.gd:_close_home_codex",
+    "result": "satisfactory finite ownership boundary by code inspection",
+    "checks": [
+      "hide_codex invalidates view/detail generations and cancels pending touch adapters.",
+      "App clears displayed quotes and profile context when closing.",
+      "Current close event is consumed with set_input_as_handled before GUI focus release; it cannot fall through this same mouse-up to the shoot adapter.",
+      "Router queue is cleared and tree resumes immediately, while Home input adapters remain blocked.",
+      "After exactly the next process_frame, input only restores if still HOME, captured Home is alive and still current, codex remains closed, and no other menu is open.",
+      "Reopening codex/another menu or replacing/removing Home during the wait cannot revive old adapters.",
+      "Application focus loss closes the codex through the same path; InputRouter independently rejects unfocused actions.",
+      "_open_home_function and _open_home_navigation refuse competing Home panels while codex is open."
+    ],
+    "profile_switch_modal": "A profile-context mismatch rejects submit while keeping the blocking modal until a real close; it does not silently resume gameplay or redirect an old intent into the new owner."
+  },
+  "inspected_existing_logs": [
+    {
+      "path": "build/home_codex_01/native-01.log",
+      "sha256": "2f17c46766390dc64742bb3971f03a56c923af1d7dba452279a52e59ec999258",
+      "completion_lines": [
+        "HOME ITEM CODEX: 92 assertions, 0 failures"
+      ],
+      "strict_error_lines": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    },
+    {
+      "path": "build/home_codex_01/ui-native-01.log",
+      "sha256": "46be887c30c1bf1f8080d65cd0e9d4bcd4970cbd54cb7f5a02da19b422a0e766",
+      "completion_lines": [
+        "HOME ITEM CODEX UI: 42 assertions, 1 failures"
+      ],
+      "strict_error_lines": [],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    },
+    {
+      "path": "build/home_codex_01/native-02.log",
+      "sha256": "43cbc002af825f55a985b4b20920300339c444e2a3f4d1c707e9336c22f95f6f",
+      "completion_lines": [
+        "HOME ITEM CODEX: 92 assertions, 0 failures",
+        "HOME ITEM CODEX UI: 42 assertions, 0 failures",
+        "HOME CODEX APP: 63 assertions, 0 failures"
+      ],
+      "strict_error_lines": [],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    },
+    {
+      "path": "build/home_codex_01/native-03.log",
+      "sha256": "972c630ec5226942e375157509fe4c7a1dc1c0dde7697556b5611590bfc8b06a",
+      "completion_lines": [
+        "HOME ITEM CODEX: 92 assertions, 0 failures",
+        "HOME ITEM CODEX UI: 54 assertions, 0 failures",
+        "HOME CODEX APP: 82 assertions, 1 failures"
+      ],
+      "strict_error_lines": [
+        "ERROR: Closing pointer releases without a queued movement or shot"
+      ],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    },
+    {
+      "path": "build/home_codex_01/native-04.log",
+      "sha256": "a65e2d192df202d3c4ef59dcbb55b6b4738c3b2ff4de1a19f9442cdbcd60db55",
+      "completion_lines": [
+        "HOME ITEM CODEX: 92 assertions, 0 failures",
+        "HOME ITEM CODEX UI: 54 assertions, 0 failures",
+        "HOME CODEX APP: 82 assertions, 2 failures"
+      ],
+      "strict_error_lines": [
+        "ERROR: Application focus loss closes codex and invalidates old UI callbacks",
+        "ERROR: Closing pointer releases without a queued movement or shot"
+      ],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    },
+    {
+      "path": "build/home_codex_01/app-native-05.log",
+      "sha256": "c7f1056a1e63e56b466284c77cc28a833f6e13c46e63997d14733a8d576493ba",
+      "completion_lines": [
+        "HOME CODEX APP: 82 assertions, 0 failures"
+      ],
+      "strict_error_lines": [],
+      "scope_note": "Existing owner-run log inspected only. Own authored App fixture is not independent test evidence. Zero-failure section markers inside failed aggregates do not make their aggregate pass."
+    }
+  ],
+  "visual_inspection": {
+    "path": "build/home_codex_01/movie-development-02/review/discovered.png",
+    "sha256": "8dfeb2517f6f0f9d1b6877b5787e010239963bd79ff188b8e47316189c7a7741",
+    "inspected": true,
+    "dimensions": "1280x720",
+    "observations": [
+      "Actual paused codex uses the established dark-brass theme; header, notes50, clear-selection and close controls fit and are readable.",
+      "Left pane has individually masked undiscovered tiles and one discovered B11 icon; no hidden name/rarity/effect disclosure is visible in the unknown tiles.",
+      "Right B11 card shows Lv1, BLUE, gear cost2 and maximum-health effect; unlock button visibly quotes5 notes.",
+      "Catalog scroll track and separated detail area are present; this single frame does not prove scrolling/interaction or small-screen layout."
+    ],
+    "not_a_full_movie_acceptance": true
+  },
+  "movie02_scope": {
+    "receipt_path": "build/home_codex_01/movie-development-02/receipt.json",
+    "receipt_sha256": "4e601291f9ebd90c6ef15e543a573350c22013d9b7272e36980488c26a494d19",
+    "wrapper_status": "failed",
+    "wrapper_error": "RuntimeError: Unknown detail was not shown in the actual paused blocking Home UI",
+    "source_stable": true,
+    "current_reviewed_source_matches_movie02": true,
+    "native_marker": "HOME CODEX MOVIE: 1618 frames, 59 assertions, 0 failures",
+    "acceptance": "Single-frame visual/static evidence only. Wrapper failed its old phase-label check; raw59/0 does not override the failed movie receipt. Producer final clean capture still pending."
+  },
+  "remaining_limits": [
+    "No independent engine/native/GL/browser tests were launched by this reviewer.",
+    "App82/0 is observed in root-run clean log, but the reviewer authored the App fixture and does not count it as independent functional evidence.",
+    "Native03 and native04 aggregate App failures are explicitly retained, not reclassified as passing aggregates.",
+    "Current960x540 layout, browser persistence refresh, physical Android touch/gamepad behavior, listening and low-end performance are not independently observed here.",
+    "Original Home GPU wrapper is currently owned/running by root; this report does not infer its result or bind predicted counts.",
+    "Pending discoveries retry only in their original profile context; switching contexts deliberately discards mismatched unsaved records. They are not migrated into another slot or persisted as a cross-profile retry queue.",
+    "Startup validates selected availability before Home removal, but a post-director-start carry insertion failure is not rolled back; no normal valid canonical empty-bag rejection was demonstrated, and fault-injection behavior remains a limitation.",
+    "Final full continuous movie requires a successful same-source wrapper receipt; failed movie02 and static frame are not substituted for it."
+  ]
+}

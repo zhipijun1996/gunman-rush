@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task": "HOME-CODEX-01",
+  "reviewer": "/root/authoring_catalog",
+  "created_utc": "2026-10-28T08:46:36.891589+00:00",
+  "review_type": "Read-only bounded production addendum for optional unseen unlock/carry discovery",
+  "verdict": "LIMITED_STATIC_ACCEPT",
+  "prior_final_review": {
+    "path": "build/home_codex_01/independent-production-review-final.json",
+    "sha256": "e279a2dd857e606b0176be43d9a3e402d0e8782cbce6031d01731c43007f4784",
+    "preserved_unchanged": true
+  },
+  "scope": {
+    "production_leaves": [
+      {
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "2db4466fafb80d0745e3b9d2de4910bf492727ba8177ba041c7b391479a479e4"
+      },
+      {
+        "path": "scripts/ui/home_item_codex.gd",
+        "sha256": "fde91311c6a3e5898326bb5f34a55e845762a66e4e09bfd6aa21a75394efbd5e"
+      }
+    ],
+    "engine_or_tests_executed": false,
+    "tracked_source_or_test_writes": false,
+    "authored_tests_are_independent_evidence": false,
+    "write": "This ignored addendum JSON only",
+    "not_reviewed_again": "Whole project, final style binding execution, full movie, browser/device behavior"
+  },
+  "branch_review": [
+    {
+      "area": "Default discovery-required behavior",
+      "result": "Unchanged default true. Unknown rows render a question mark and return before exposing unlock or select; request validation independently rejects missing discovery when policy requires it."
+    },
+    {
+      "area": "Optional requires_discovered=false",
+      "result": "Unknown detail retains question mark and generic unrevealed text; it does not construct ItemCard. Unlock/select now use authoritative row availability and configured note price while allowing the policy-defined missing discovery. Tile name, tooltip, image and effect remain masked until discovered. No client-side notes/unlock/discovery mutation is introduced."
+    },
+    {
+      "area": "Actual carry ownership reveals the entry",
+      "result": "App only queues discovery after nonnull canonical item and successful BuildState.add_item home_carry transaction, following the actual inventory/Manifest grant. Empty choice, unavailable canonical item and failed add return before discovery. Opening, unlocking and selecting alone do not queue discovery."
+    },
+    {
+      "area": "Idempotency and profile isolation",
+      "result": "Existing once-per-Run carry latch is retained. Reward/shop discovery still requires COMMITTED, matching live run/owned definition and shop acquisition receipt. Shared _queue_item_discovery stores the current profile_context; retry preserves the existing mismatch refusal and only then calls MetaProgression.discover_item. Default already-discovered items remain backend no-ops."
+    },
+    {
+      "area": "Prior three P2 and close boundary",
+      "result": "Inspection confirms view-bound quote fingerprint, context-bound submit/pending records, global clear-selection, close event consumption and next-frame same-Home adapter restore remain present. This increment does not remove those repaired guards."
+    }
+  ],
+  "observed_owner_run_log": {
+    "path": "build/home_codex_01/native-final-development.log",
+    "sha256": "cc8794293248b1ecf1e960af7a95a2ac7fb138fbce95dafd635c564a9404b1f7",
+    "completion_lines": [
+      "HOME ITEM CODEX: 92 assertions, 0 failures",
+      "HOME ITEM CODEX UI: 72 assertions, 0 failures",
+      "HOME CODEX APP: 91 assertions, 0 failures"
+    ],
+    "strict_error_lines": [],
+    "attribution": "Existing root-owned native aggregate inspected, not reviewer-run testing. App91 includes reviewer-authored original82 plus owner-added9; none are represented as independent reviewer functional execution."
+  },
+  "unresolved_new_P1_P2": [],
+  "limits": [
+    "No new actual images were inspected for the unseen-policy branch; visual masking assessment here is code-based.",
+    "No independent runtime, browser storage refresh, physical device or full-movie acceptance is granted.",
+    "Prior explicit remaining limits remain unchanged, including cross-context pending records being discarded and carry startup fault-injection rollback not demonstrated.",
+    "The former docs phrase reward/shop COMMITTED-only discovery should describe the intentional new successful home_carry acquisition path as well; current production gate is ownership success, not mere UI unlock."
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "created_utc": "2026-10-28T08:21:19.806298+00:00",
+  "review_kind": "Actual source04 independent pixel and read-only geometry review",
+  "source_head": "0f25921dd41949f220999293013f065ce758189d",
+  "verdict": "FORMAL_SOURCE_REJECTED_GEOMETRY_DIAGNOSTIC_QA_ONLY",
+  "formal_source_admission": false,
+  "runtime_promotion_allowed": false,
+  "production_push_allowed_on_this_review": false,
+  "isolated_actual_GL_diagnostic_allowed": true,
+  "source": {
+    "path": "build/chest_art_01/generation/candidate-04.source.png",
+    "sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5",
+    "file_bytes": 2108392,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "rgba8_bytes": 6291456,
+    "source_texture_cap_bytes": 8388608,
+    "source_bytes_modified_by_reviewer": false,
+    "original_dataURL_byte_identity": "Root reports base64-only decoding of actual tool bytes; reviewer checked the saved PNG and SHA, not the original transient dataURL."
+  },
+  "positive_actual_pixel_observations": [
+    "Gold visibly changed from stretched low coffer to a compact thicker clock chest, retaining radial lock, crown and stepped feet. This is real improvement in the requested direction, not final user or in-game acceptance.",
+    "Blue, purple and gold broad panels remain visibly distinct in both poses at source scale; flat, arched and compact crowned lids supply structural distinctions.",
+    "One unmodified1536x1024 source texture remains below the original8MiB cap. Complete natural zero-alpha partitions exist."
+  ],
+  "blocking_findings": [
+    {
+      "id": "PAIRED_BLUE_PURPLE_BASE",
+      "severity": "formal source-admission blocker",
+      "status": "FAIL",
+      "detail": "Physical front lower boxes/feet still differ in width. Alpha>32 is a diagnostic for substantive geometry, not permission to discard lower alpha. Direction independently reproduced the same widths over multiple front-body starting rows. No allowed shared scale can satisfy pair delta<=1wu while both poses meet their width target +/-1wu.",
+      "tiers": [
+        {
+          "tier": "medium",
+          "source_widths_px": [
+            420,
+            433
+          ],
+          "shared_midpoint_factor": 0.12192262602579132,
+          "delta_wu_at_midpoint": 1.5849941383352872,
+          "minimum_allowed_shared_factor": 0.12142857142857143,
+          "minimum_possible_delta_wu": 1.5785714285714285,
+          "frozen_pair_limit_wu": 1
+        },
+        {
+          "tier": "high",
+          "source_widths_px": [
+            424,
+            432
+          ],
+          "shared_midpoint_factor": 0.13551401869158877,
+          "delta_wu_at_midpoint": 1.0841121495327102,
+          "minimum_allowed_shared_factor": 0.13443396226415094,
+          "minimum_possible_delta_wu": 1.0754716981132075,
+          "frozen_pair_limit_wu": 1
+        }
+      ]
+    },
+    {
+      "id": "GOLD_CLOSED_HEIGHT",
+      "severity": "formal source-admission blocker",
+      "status": "FAIL",
+      "detail": "Closed gold substantive complete silhouette includes the crown and supporting feet. At alpha>32 its width/height are426x323px; open lower/full body width423px. One common factor satisfying both width targets60+/-1 requires at least59/423wu per source pixel, yielding closed height45.052wu, above the v6 hard maximum44wu. The alpha>128 silhouette is also323px tall, so this is not caused only by alpha1 haze. Do not omit crown/feet, use different alpha thresholds for width versus height, or independently shrink closed pose to claim pass.",
+      "closed_substantive_bbox_absolute_exclusive": [
+        1052,
+        144,
+        1478,
+        467
+      ],
+      "closed_height_px": 323,
+      "closed_width_px": 426,
+      "open_width_px": 423,
+      "minimum_common_factor": 0.13947990543735225,
+      "minimum_closed_height_wu": 45.05200945626478,
+      "closed_target_height_wu": 42,
+      "closed_max_height_wu": 44,
+      "open_max_height_wu": 58
+    },
+    {
+      "id": "SOURCE_REQUEST_AND_SAMPLING",
+      "severity": "unverified source-consumer conformance",
+      "status": "REQUEST_FAILED_GL_UNVERIFIED",
+      "detail": "Original regular512 grid/32px clear-gutter/native4px-cluster request is not established. Full alpha1 tails persist and may be on outer atlas edges. Equal y512 would cut the open-gold crown; natural full-width gap494..502 must be used. No actual source04 rendering, halo absence, neighboring-region isolation,1wu style or feet/player scale has been observed by reviewer."
+    }
+  ],
+  "natural_ROI_diagnostic": {
+    "reviewer_complete_partition": {
+      "x": [
+        0,
+        512,
+        1024,
+        1536
+      ],
+      "y": [
+        0,
+        503,
+        1024
+      ]
+    },
+    "direction_alternative_relayed_in_message": {
+      "x": [
+        0,
+        535,
+        1028,
+        1536
+      ],
+      "y": [
+        0,
+        498,
+        1024
+      ]
+    },
+    "all_nonzero_source_pixels_retained_in_reviewer_six_partition_union": true,
+    "none_of_the_cuts_requires_alpha_mask_or_PNG_pixel_edit": true,
+    "not_a_claim": "Zero-alpha partition and union coverage do not prove semantic attribution of faint disconnected tails, clean GPU sampling, exact foot pivots or whole-family admission. Actual texture consumer controls remain required."
+  },
+  "cross_review": {
+    "direction_independently_confirmed": "Same420/433blue,424/432purple,426/423gold widths, closed323/open424 heights; minimum gold common factor gives45.052>44.",
+    "message_provenance": "Direct /root/item_art_direction message in this task; no independent engine run."
+  },
+  "isolated_QA_conditions": [
+    "Ignored candidate-only fixture using the saved PNG and frozen v6 dimensions; no registration or replacement of formal assets/config/consumers while known geometry fails.",
+    "Preserve all source alpha and original bytes; full natural ROIs, one isotropic factor per tier shared across poses, fixed source foot pivots mapped to unchanged world feet.",
+    "Use existing item_v5_world_sprite shader/nearest at actual ratios and fractional origins, positive/negative neighboring-ROI controls and dark/light backgrounds. Do not claim native4px source success.",
+    "Show closed/open at the same world foot beside actual44wu character and formal Plains/Forest terrain/hazards if an authorized world diagnostic is made; technical rendering cannot erase the numeric geometry defects or substitute for user aesthetics."
+  ],
+  "generation_budget": {
+    "calls_used_total": 4,
+    "approved_total_max": 4,
+    "remaining_calls": 0,
+    "fifth_call_allowed": false,
+    "new_task_counter_reset_allowed": false,
+    "previous_failures_and_reports_preserved": true
+  },
+  "actual_review_actions": {
+    "full_source_pixels_viewed": true,
+    "independent_readonly_PIL_alpha_and_geometric_measurement": true,
+    "original_actual_submitted_prompt_and_request_read": true,
+    "engine_started": false,
+    "production_tests_docs_modified": false,
+    "writes_only_ignored_build_reports": true
+  },
+  "evidence": [
+    {
+      "path": "build/chest_art_01/generation/candidate-04.source.png",
+      "sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5"
+    },
+    {
+      "path": "build/chest_art_01/generation/request-04.json",
+      "sha256": "244015dfe9b428e1374d7171661f604d2e8e95b7c367de86712a65b49ffbdd71"
+    },
+    {
+      "path": "build/chest_art_01/generation/prompt-04.txt",
+      "sha256": "3ecf6291992283e8757306cc004717fa64106824458cf71c14244362d14badc7"
+    },
+    {
+      "path": "build/chest_art_01/call4-user-shape-g0-review.json",
+      "sha256": "52531986e94c0d986911407f2ace5b7ec2b080536f0548ac2889cf4b8ab0fc54"
+    },
+    {
+      "path": "build/chest_art_01/source04-independent-measurement.json",
+      "sha256": "f5ec93988d4b20264a5987875bd1617fb6a0d45e04b0b85b0027c2a48b05ba26"
+    },
+    {
+      "path": "build/chest_art_01/source03-qa-admission-review.json",
+      "sha256": "40191ebf8e08f83cfaf8d21546e448b5c642518adc52d1a6cbc29e47e1fa867a"
+    }
+  ],
+  "unverified": [
+    "actual source04 GL/world rendering",
+    "source04 actual current formal consumer coverage",
+    "claimed transaction and lifecycle",
+    "small-screen tier recognition",
+    "physical device performance",
+    "user aesthetic acceptance"
+  ],
+  "scope_boundary": "No formal source or runtime admission. One may preserve or investigate this fourth candidate in isolated diagnostics, but must stop generation at4 under the current contract and report unresolved geometry instead of modifying thresholds, masking source pixels, independently scaling poses or silently promoting a failed family."
+}

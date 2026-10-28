@@ -1,10 +1,10 @@
 # 当前创作入口：区域圣经 V2
 
-当前技术消费者绑定为 [style-v16](bibles/style-continuity-20261028-v16-item-authoring.json)，两区总谱 creative-v19；[本轮版本化影响](revision_creative_v19.md)保留原54／61项顺序，更新实际消费者，追加四张catalog图标源、两张静态VFX源及item-local1wu图集shader，共68项；原36项前缀、canonical全局shader、Bible和已选整体像素风格不变。已交付style15／creative18、pre-art16／19、R08候选及旧证据原件保留。72图标／42clip目前是实际注册候选；最新R13保留已合入main的用户选定声音，仅更新现有WeaponFeel调用的真实weapon-ID参数，另67引用、R12专属proof修复、metadata envelope及全部PNG／shader保持原字节。各阶段证据保留真实源；历史Markdown原件以精确txt保存并提供导航wrapper。画面、连续动作、玩家与实体设备验收分别记录。下文旧轮版本说明保留原来源。
+当前技术消费者绑定为 [style-v17](bibles/style-continuity-20261028-v17-home-codex.json)，两区总谱 creative-v20；[本轮版本化影响](revision_creative_v20.md)仅覆盖HOME-CODEX-01原relics家园图鉴。公开style16／creative19及完整68项冻结原件保留；旧68只更新实际DemoApp／HomeScene两叶，追加5项实际Home图鉴UI／建筑入口／目录策略／配置／Profile显示快照，共73项。其他66项、所有PNG／shader／用户声音选择、Bible和32px／32wu／1wu选定整体风格不变。CHEST候选仍为diagnostic QA，本轮无正式宝箱生产变更或新PNG绑定。哈希只证明输入身份；运行、画面、用户及实体设备验收分别记录。下文旧轮版本说明保留原来源。
 
 制作或优化地区先有该地区完整圣经，所有专业按原文设计、生成和优化。用户已提供并选择两份原件：[荆棘森林](bibles/2-thorn_forest_region_bible_v2.md)、[风铃平原](bibles/1-windchime_plains_region_bible_v2.md)；先完整森林含美术，再优化平原。[原始指令](bibles/user-request.json)是直接用户消息的逐字引用，明确不是API导出。选方向不代表新内容的美术、趣味、音频或实体设备验收。
 
-[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v19](thorn_forest.json)、[平原creative-v19](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
+[注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v20](thorn_forest.json)、[平原creative-v20](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
 
 [当前用户细粒度选择与共享风格v5](bibles/style-continuity-20261022-v5.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、原生32px/32wu与1wu世界采样/nearest、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
 
@@ -12,7 +12,7 @@
 
 历史补充v4绑定16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
 
-当前执行以style-v16技术绑定及style-v5已选像素方向为准，旧v4/16px说明仅保留原版本来源。常规资产规格填写与跨区域对照见[美术稳定输出说明](../quality/art_consistency_workflow.md)，不新增质量体系。
+当前执行以style-v17技术绑定及style-v5已选像素方向为准，旧v4/16px说明仅保留原版本来源。常规资产规格填写与跨区域对照见[美术稳定输出说明](../quality/art_consistency_workflow.md)，不新增质量体系。
 
 ## 预制作与生产
 

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "task_id": "HOME-CODEX-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "0f25921dd41949f220999293013f065ce758189d",
+  "reviewed_commit": "0f25921dd41949f220999293013f065ce758189d",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "Persistent per-profile item codex, note-funded permanent unlock and one Lv1 inventory carry at departure",
+  "player_experience": "Visit the authored relics building, reveal acquired items, unlock and select one item for the next run",
+  "constraints": [
+    "Reuse ItemCatalogV5 and original permanent notes/save ledger; no SQLite dependency",
+    "Default discovered-first unlock is configurable pending optional user answer",
+    "Unknown/disabled IDs retain history; no new unlock or carry",
+    "Lv1 carry adds one owned instance; does not equip, consume unlock, or modify core ability grants",
+    "Atomic save failures and receipt conflicts reject without charging; stale UI/focus callbacks rejected",
+    "Original checks/budgets and old evidence retained; no auto-merge PR111"
+  ],
+  "affected_paths": [
+    "scripts/meta/meta_progression.gd",
+    "scripts/save/meta_save_service.gd",
+    "scripts/meta/home_item_catalog.gd",
+    "config/home_items.json",
+    "scripts/ui/home_item_codex.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/home_scene.gd",
+    "scripts/underworld_plains/underworld_home_world.gd",
+    "scripts/meta/home_item_catalog.gd.uid",
+    "scripts/ui/home_item_codex.gd.uid"
+  ],
+  "deliverables": [
+    "Data-driven catalog and atomic permanent unlock/selection",
+    "Reserved home relics consumer and real codex UI",
+    "Formal COMMITTED acquisition discovery, once-per-run inventory-only carry",
+    "Targeted save/economy/UI/native tests and actual Godot evidence"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

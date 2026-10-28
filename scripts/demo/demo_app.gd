@@ -20,6 +20,11 @@ var home_weapons := preload("res://scripts/demo/home_weapon_selection.gd").new()
 var debug_hud := false
 var _run_receipt_prefix := ""
 var _meta_purchase_sequence := 0
+var _home_codex: HomeItemCodex
+var _home_carry_granted_run := ""
+var _pending_item_discoveries: Dictionary = {}
+var _home_codex_quotes: Dictionary = {}
+var _home_codex_profile_context := ""
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
 var _action_studio: ActionStudio
@@ -256,6 +261,13 @@ func _pixel_projectiles(_direction: Vector2, _shot_id: int) -> void:
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return false
+	if is_instance_valid(_home_codex) and _home_codex.opened:
+		return false
+	var selected_home_item := StringName(meta.snapshot().get("selected_home_item", ""))
+	if region_map and not selected_home_item.is_empty() and not bool(meta.home_item_quote(selected_home_item).get("can_select", false)):
+		_status = "携带道具已下架或不可用，请在图鉴重新选择。"
+		_refresh_home_meta()
+		return false
 	if _explicit_plains_candidate(): meta_persistence_enabled = false
 	if plains_environment_candidate_requested or plains_regional_art_candidate_requested:
 		region_map = true
@@ -325,6 +337,9 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	rewards.configure(lifetime, build)
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
+	var discovery_run := _run_receipt_prefix
+	rewards.claimed.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, false))
+	shop.purchased.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, true))
 	if connected_region:
 		_item_runtime = ItemRuntime.new()
 		_item_runtime.configure(controller, build, lifetime, wallet)
@@ -345,7 +360,10 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	return director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
+	var started := director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
+	if started and connected_region:
+		_grant_home_carry()
+	return started
 
 func _stage_entered(_result: DemoRunResult) -> void:
 	_close_build_session()
@@ -1418,6 +1436,7 @@ func _hide_run_hud() -> void:
 	_clear_actions()
 
 func _refresh_home_meta() -> void:
+	_flush_item_discoveries()
 	var snapshot := meta.snapshot()
 	snapshot.upgrade_quote = meta.upgrade_quote()
 	menu.set_weapon_options(home_weapons.options(), home_weapons.selected_id)
@@ -1449,6 +1468,7 @@ func _show_home() -> void:
 	queue_redraw()
 
 func _remove_home_scene() -> void:
+	_close_home_codex()
 	if is_instance_valid(home_scene):
 		home_scene.set_input_blocked(true)
 		remove_child(home_scene)
@@ -1458,8 +1478,12 @@ func _remove_home_scene() -> void:
 func _open_home_function(id: StringName) -> void:
 	if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME:
 		return
+	if is_instance_valid(_home_codex) and _home_codex.opened: return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
+	if id == &"relics":
+		_open_home_codex()
+		return
 	if id == &"character":
 		var avatars := get_meta("avatar_presentation") as AvatarPresentation
 		menu.set_avatar_options(avatars.selection_options(), avatars.selected_id)
@@ -1474,6 +1498,7 @@ func _select_home_weapon(id: StringName) -> void:
 func _open_home_navigation() -> void:
 	if not is_instance_valid(home_scene) or director.state != DemoRunDirector.State.HOME:
 		return
+	if is_instance_valid(_home_codex) and _home_codex.opened: return
 	home_scene.set_input_blocked(true)
 	_refresh_home_meta()
 	var snapshot := meta.snapshot()
@@ -1483,6 +1508,112 @@ func _close_home_panel() -> void:
 	if is_instance_valid(home_scene) and director.state == DemoRunDirector.State.HOME:
 		get_tree().paused = false
 		home_scene.set_input_blocked(false)
+
+func _open_home_codex() -> void:
+	if director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene): return
+	if not is_instance_valid(_home_codex):
+		_home_codex = HomeItemCodex.new()
+		_home_codex.process_mode = Node.PROCESS_MODE_ALWAYS
+		add_child(_home_codex)
+		_home_codex.requested_close.connect(_close_home_codex)
+		_home_codex.requested_unlock.connect(_unlock_home_item)
+		_home_codex.requested_select.connect(_select_home_item)
+	home_scene.set_input_blocked(true)
+	get_tree().paused = true
+	_refresh_home_codex()
+
+func _refresh_home_codex(message: String = "") -> void:
+	var state := meta.snapshot()
+	var rows := meta.home_item_rows()
+	_home_codex_profile_context = meta.profile_context_id()
+	_home_codex_quotes.clear()
+	for row: Dictionary in rows: _home_codex_quotes[StringName(row.id)] = row.quote_fingerprint
+	_home_codex.show_codex(rows, int(state.notes), StringName(state.selected_home_item), int(state.profile_revision))
+	if not message.is_empty(): _home_codex.set_status(message, message.contains("失败"))
+	elif not _pending_item_discoveries.is_empty(): _home_codex.set_status("部分获得记录尚未保存，返回家园时会重试。")
+
+func _home_codex_can_submit(expected_revision: int) -> bool:
+	return is_instance_valid(_home_codex) and _home_codex.opened and director.state == DemoRunDirector.State.HOME and is_instance_valid(home_scene) and home_scene.input_blocked and home_scene.controller.router.has_application_focus and get_tree().paused and _home_codex_profile_context == meta.profile_context_id() and expected_revision == int(meta.snapshot().profile_revision)
+
+func _unlock_home_item(id: StringName, expected_revision: int) -> void:
+	if not _home_codex_can_submit(expected_revision): return
+	var fingerprint := str(_home_codex_quotes.get(id, ""))
+	if fingerprint.is_empty(): return
+	var result := meta.unlock_home_item(id, StringName("home_unlock/" + meta.new_run_receipt_prefix()), expected_revision, fingerprint)
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
+	_refresh_home_meta()
+	_refresh_home_codex("永久解锁成功，可选择在下次出发携带。" if result.accepted else "解锁失败：" + _home_item_reason(str(result.reason)))
+
+func _select_home_item(id: StringName, expected_revision: int) -> void:
+	if not _home_codex_can_submit(expected_revision): return
+	var result := meta.select_home_item(id, StringName("home_select/" + meta.new_run_receipt_prefix()), expected_revision)
+	GameAudio.cue(self, &"confirm" if result.accepted else &"denied")
+	_refresh_home_codex(("已取消出发携带。" if id.is_empty() else "已选择：下次出发加入背包，需手动装备。") if result.accepted else "选择失败：" + _home_item_reason(str(result.reason)))
+
+func _close_home_codex() -> void:
+	if not is_instance_valid(_home_codex) or not _home_codex.opened: return
+	_home_codex.hide_codex()
+	_home_codex_quotes.clear()
+	_home_codex_profile_context = ""
+	# Do not hand this same mouse-up to the shoot adapter after removing the UI.
+	get_viewport().set_input_as_handled()
+	get_viewport().gui_release_focus()
+	if director.state == DemoRunDirector.State.HOME and is_instance_valid(home_scene):
+		var closing_home := home_scene
+		closing_home.controller.router.clear("codex_close")
+		get_tree().paused = false
+		await get_tree().process_frame
+		if director.state == DemoRunDirector.State.HOME and is_instance_valid(closing_home) and closing_home == home_scene and not _home_codex.opened and menu.visible_panel.is_empty():
+			closing_home.set_input_blocked(false)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_close_home_codex()
+
+func _grant_home_carry() -> bool:
+	if not lifetime.active or not connected_region or build == null or _run_receipt_prefix == _home_carry_granted_run: return false
+	# Latch the departure, including a deliberately empty selection. Reloads and
+	# region changes cannot become a second departure with a different item.
+	_home_carry_granted_run = _run_receipt_prefix
+	var id := StringName(meta.snapshot().get("selected_home_item", ""))
+	if id.is_empty(): return true
+	if not bool(meta.home_item_quote(id).get("can_select", false)): return false
+	var item := HomeItemCatalog.item(id)
+	var source := StringName("home_carry/%s" % _run_receipt_prefix)
+	if item == null or not build.add_item(source, item, &"home_carry"): return false
+	director.manifest.record_output(director.stage_index, &"home_item_carry", {"definition_id":str(id), "instance_id":str(build.inventory.instance_for_source(source).instance_id), "level":1, "equipped":false})
+	# A policy may permit unlocking an unseen item. Reveal it only after this
+	# actual departure grant succeeds, never merely by buying or browsing it.
+	_queue_item_discovery(id, "%s/discovery/%s" % [_run_receipt_prefix, source])
+	return true
+
+func _record_item_discovery(receipt: EconomyReceipt, run_id: String, from_shop: bool) -> void:
+	if receipt == null or receipt.status != EconomyReceipt.Status.COMMITTED or run_id != _run_receipt_prefix or not lifetime.active or build == null: return
+	var owned := build.inventory.get_instance(receipt.instance_id)
+	if owned == null or owned.definition_id != receipt.item_id or owned.item.catalog_version != 5: return
+	if from_shop:
+		# Repairs/gear purchases also emit purchased; only a committed acquisition
+		# has this inventory source receipt (including same-instance growth).
+		var acquisition := build.inventory.source_receipt(StringName("shop:%s" % receipt.event_id))
+		if acquisition.get("instance_id", &"") != receipt.instance_id: return
+	var key := "%s/discovery/%s" % [run_id, receipt.event_id]
+	_queue_item_discovery(receipt.item_id, key)
+
+func _queue_item_discovery(item_id: StringName, key: String) -> void:
+	_pending_item_discoveries[key] = {"id":item_id,"profile_context":meta.profile_context_id()}
+	_flush_item_discoveries()
+
+func _flush_item_discoveries() -> void:
+	for key: String in _pending_item_discoveries.keys():
+		var pending: Dictionary = _pending_item_discoveries[key]
+		if pending.profile_context != meta.profile_context_id():
+			_pending_item_discoveries.erase(key)
+			continue
+		var result := meta.discover_item(pending.id, StringName(key))
+		if result.accepted: _pending_item_discoveries.erase(key)
+
+func _home_item_reason(reason: String) -> String:
+	return {"insufficient_notes":"音符不足", "requires_discovered":"本存档尚未获得过此道具", "not_discovered":"本存档尚未获得过此道具", "not_unlocked":"请先永久解锁", "stale_revision":"状态已变化，请重新选择", "stale_quote":"价格或道具配置已变化，未扣款，请重新选择", "save_failed":"存档写入失败，未扣除音符", "item_disabled":"道具已下架", "home_item_disabled":"道具当前不可在家园解锁或携带", "item_unavailable":"道具已下架或不可用", "profile_unavailable":"存档暂不可用"}.get(reason, reason)
 
 func _sync_music() -> void:
 	if not is_instance_valid(_music): return
@@ -1499,6 +1630,8 @@ func _sync_music() -> void:
 
 func _process(_delta: float) -> void:
 	_sync_music()
+	if is_instance_valid(_home_codex) and _home_codex.opened and (director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene)):
+		_close_home_codex()
 	# This boundary also runs while physics is paused. Focus/stage invalidation
 	# must reject old card callbacks before gameplay can advance again.
 	if _equipment_session >= 0 and not _build_menu_available():

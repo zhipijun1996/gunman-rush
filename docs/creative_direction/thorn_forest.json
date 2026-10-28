@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v19",
+  "version": "creative-v20",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "supplemental_authority_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+    "supplemental_authority_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
+    "registry_sha256": "210db55d8db4b01e6697074e13a3bfd596f5a2854df76a6de00ed7db67755d02",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -181,6 +181,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
       "sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+      "sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa"
     }
   ],
   "historical_direction": {
@@ -189,57 +193,26 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "ITEM-AUTHORING-01",
-    "scope": "Same whole-game style/candidate68refs after latest selected main audio merge: existing WeaponFeel sound call gets actual weapon ID; allother67 refs/drawing/assets/config unchanged, current-source audio/formal validation separate.",
-    "previous_direction": "docs/creative_direction/archive/creative-v18/thorn_forest.json",
-    "previous_sha256": "d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json",
-    "shared_style_sha256": "62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+    "task_id": "HOME-CODEX-01",
+    "scope": "Actual Home item codex consumer extension within selected whole-game style; no Chest production changes, new images or inherited acceptance. Two old68 consumer hashes updated, five actual Home policy/UI/world leaves appended.",
+    "previous_direction": "docs/creative_direction/archive/creative-v19/thorn_forest.json",
+    "previous_sha256": "bd3c3f8dc13536c20510c23bc7b740c8464aef4aceebd9f0d8499a1e4ac39697",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json",
+    "shared_style_sha256": "ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
     "affected_consumers": [
-      "scripts/dev/player_presentation_01/weapon_feel.gd"
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/home_scene.gd",
+      "scripts/ui/home_item_codex.gd",
+      "scripts/underworld_plains/underworld_home_world.gd",
+      "scripts/meta/home_item_catalog.gd",
+      "config/home_items.json",
+      "scripts/meta/meta_progression.gd"
     ],
-    "validation": "Fresh original42/four pure checks, authoring/current formal consumers, and later actual asset evidence and independent review remain separate. Original shared family, Bible, gameplay contracts and frozen references preserved.",
-    "candidate_iteration_r08": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/thorn_forest.json",
-      "previous_candidate_sha256": "9f4b7ea857a83c8518191d3839009ba838d5fb9ef6bcb6a3ca01dc6e43b13f68",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-golden-r08/manifest.before-markdown-relocation.json.txt",
-      "archive_manifest_sha256": "cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
-      "scope": "Same unpublished creative19 candidate: actual golden consumer and source additions; fresh affected technical/actual UI/world/motion and independent review required; no inherited approval."
-    },
-    "candidate_iteration_r09": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/thorn_forest.json",
-      "previous_candidate_sha256": "d4239c72db564136a4033c08f05ff899cac9b765b2705b0e1a6757e681802a2b",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-expansion-r09/manifest.before-markdown-relocation.json.txt",
-      "archive_manifest_sha256": "9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
-      "scope": "Same unpublished creative19 candidate within selected whole-game style; oldR08 bytes remain original, actual appended sources/current consumer changes require fresh scoped evidence and independent review."
-    },
-    "candidate_iteration_r10": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/thorn_forest.json",
-      "previous_candidate_sha256": "8ee67a31efc0ddeceb63544dbb745d0a29950c9da8b45c39a3285d215b92a907",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-envelope-r10/manifest.json",
-      "archive_manifest_sha256": "775938bd3657b879427367be9b3fb8ea72fbd2b546754ecbc3bdf4fe0662a4c3",
-      "scope": "Same creative19 candidate metadata-only3bodyenvelope: originalR09 source and passes frozen; fresh scoped technical/pose/body/actual-scene review, no inherited approval."
-    },
-    "candidate_iteration_r11": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/thorn_forest.json",
-      "previous_candidate_sha256": "b019e95a3ada136c2b2eb8be59d6307fadd877a1a04f7a304d30066aa5741d6b",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/manifest.json",
-      "archive_manifest_sha256": "470325e3598241170a3a3f34c236ff5d96dbcad790f6fd9b676026fc0c23dcb2",
-      "scope": "Same creative19 candidate existing visual-lifecycle cleanup; exact R10 original binding/pass preserved, fresh scoped checks/actual media and independent review required."
-    },
-    "candidate_iteration_r12": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/thorn_forest.json",
-      "previous_candidate_sha256": "ca997ede2d07e5d0d2df01455706b4fa74d10168c1cc1783a496ea5f5568c81d",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/manifest.json",
-      "archive_manifest_sha256": "adce04089c966532b7ebbe06d9313515747ff9ff113aa12594d6a2187cf2dd95",
-      "scope": "Same creative19 candidate dedicated visual proof lifetime correction; R11 draft preserved without claimed pure pass, final fresh scoped validation required."
-    },
-    "candidate_iteration_r13": {
-      "previous_candidate_direction": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/thorn_forest.json",
-      "previous_candidate_sha256": "dd475ed3828e1b94067603b83f85e9e29379042c0240eef36ed445cae4e7d58c",
-      "archive_manifest_path": "docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/manifest.json",
-      "archive_manifest_sha256": "972d41f5236b3bae303b94dad309203dd842c2ba878a7c4c6db329c67e2f3854",
-      "scope": "Same creative19 candidate currentmainaudio consumer integration; exact R12 source/pass preserved, new current-source checks required without art/listening/device approval inheritance."
+    "validation": "Original32+10/four scoped pure checks and actual Home runtime/UI/save evidence remain separate; user/device/G5 unverified.",
+    "candidate_iteration_r2": {
+      "previous_direction": "docs/evidence/home_codex_01/source-bindings/before-policy-view-rework/thorn_forest.json",
+      "previous_sha256": "fc60eb5c19f606f59cea4c333ebad23542c907c98e3cf26b6a43709aba6f5f70",
+      "scope": "Same unpublished creative20; only HomeItemCodex and DemoApp hashes rebind configured undiscovered policy actions and discovery after successful carry. Other71 refs unchanged; R1 pass remains source-specific. No new assets or acceptance."
     }
   }
 }
