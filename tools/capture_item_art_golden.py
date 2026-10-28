@@ -99,7 +99,11 @@ def validate_trace(data, frames, checks):
         wheels = authored(row, "flywheel", "P24")
         if len(wheels) == 2 and math.fsum(x*y for x, y in zip(wheels[0]["direction"], wheels[1]["direction"])) < -.9999:
             twins.append(row)
-    patrols = [r for r in observed if len(authored(r, "small_drone", "P14")) == 3]
+    # Entity draw counters remain nonzero while an overlay pauses the stage.
+    # Select an actual unobscured world observation, never a menu screenshot
+    # merely because three previously drawn bodies still exist underneath it.
+    patrols = [r for r in observed if len(authored(r, "small_drone", "P14")) == 3
+               and r["phase"] == "companions" and not r["paused"] and not r["menu"]]
     pulses = [r for r in observed if authored(r, "pulse", "G16")]
     if not twins or not patrols or not pulses:
         raise RuntimeError("Actual post-draw trace lacks authored twin rotor/three patrol/judgment entity draws")

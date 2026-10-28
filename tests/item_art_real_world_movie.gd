@@ -78,6 +78,8 @@ func frames(count: int) -> void:
 			rows[-1].actor_epoch = app.lifetime.actor_epoch
 			rows[-1].stage_epoch = app.lifetime.stage_epoch
 			rows[-1].player_collision = [app.player.collision_layer,app.player.collision_mask]
+			rows[-1].player_grounded = app.player.is_on_floor()
+			rows[-1].player_velocity = [app.player.velocity.x,app.player.velocity.y]
 			if not selected.is_empty():
 				for actor_row: Dictionary in rows[-1].targets:
 					if actor_row.target != selected.target: continue
@@ -169,7 +171,9 @@ func _run() -> void:
 	if not check(not selected.is_empty(),"a real collision-legal floor near a live original actor and visible original hazard exists"): await finish(); return
 	await tap(KEY_ESCAPE)
 	if not check(paused and app.menu.visible_panel == &"build","native Escape opens the original equipment session"): await finish(); return
-	var loadout: Array[StringName] = [&"P24",&"G15",&"P14"] if region == &"plains" else [&"G16",&"P14"]
+	var loadout: Array[StringName] = []
+	if region == &"plains": loadout.assign([&"P24",&"G15",&"P14"])
+	else: loadout.assign([&"G16",&"P14"])
 	var instance_ids: Array[StringName] = []
 	for id: StringName in loadout:
 		if not grant_fixture(id): await finish(); return
@@ -178,7 +182,8 @@ func _run() -> void:
 	app._submit_equipment(instance_ids,revision,app._equipment_session)
 	if not check(app.build.item_ids().size() == loadout.size(),"disclosed initial full proposal commits through the original atomic equipment owner"): await finish(); return
 	var active: StringName = &"P24" if region == &"plains" else &"G16"
-	if not check(app._item_runtime.select_active(active),"disclosed test setup chooses an actually equipped active"): await finish(); return
+	app._select_equipment_active(StringName(fixture_instances[active]),int(app.build.equipment.snapshot().revision),app._equipment_session)
+	if not check(app._item_runtime.selected_active() == active,"disclosed setup uses the original menu owner to refresh and select an equipped active"): await finish(); return
 	app.player.global_position = Vector2(selected.position[0],selected.position[1])
 	app.controller.motor.reset_motion()
 	app._run_camera.snap_to_target()
@@ -200,21 +205,26 @@ func _run() -> void:
 	initial_stage_epoch = app.lifetime.stage_epoch
 	start_world_draw = Engine.get_frames_drawn()
 	await frames(5)
+	if region == &"thorn_forest":
+		# A real2HP spider can die to three judgment pulses before the first
+		# normal1.5s patrol volley. Observe that real volley first, then cast.
+		for unused: int in 120:
+			if damage_rows.any(func(row: Dictionary) -> bool: return row.derived and row.damage > 0 and str(row.event).contains("/P14/")): break
+			await frames(1)
+		if not check(damage_rows.any(func(row: Dictionary) -> bool: return row.derived and row.damage > 0 and str(row.event).contains("/P14/")),"actual original patrol volley commits HP before native judgment input"): await finish(); return
+		events.append({"kind":"native_cast_waited_for_original_patrol_receipt","video_frame":frame,"method":"original1.5s cadence; no damage or time injection"})
 	_aim_original_enemy()
 	await tap(KEY_R)
 	set_phase("world_active","原敌人可受击或躲开 · 命中表现只由实际扣血回执发出")
 	await frames(120)
 	_aim_original_enemy()
-	mouse(pointer,true)
-	await frames(2)
-	mouse(pointer,false)
+	# Native vertical jump keeps the original floor and nearby thorns visible.
+	# Primary recoil is covered by the main movie; firing here would recoil
+	# directly into the disclosed nearby hazard.
+	await tap(KEY_SPACE)
 	await frames(90)
 	set_phase("world_observe","观察原敌人预警、移动机关、落脚面与技能遮挡")
-	# No pose/velocity/AI writes. Input is one short native walk away from target.
-	var away: Key = KEY_A if float(selected.target_position[0]) > float(selected.position[0]) else KEY_D
-	key(away,true)
-	await frames(16)
-	key(away,false)
+	# No further pose, velocity, HP, AI or input-route changes during observation.
 	await frames(720-(Engine.get_frames_drawn()-start_world_draw))
 	end_world_draw = Engine.get_frames_drawn()
 	check(app.controller.session_id == initial_session and app.lifetime.stage_epoch == initial_stage_epoch,"world clip retains its original actor session and stage; any death/return rejects this candidate")

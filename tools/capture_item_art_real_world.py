@@ -26,7 +26,7 @@ WATERMARK = "美术验证：道具/共鸣/站位为测试初始化"
 SCOPE = ("Actual current formal Plains/Forest map1, original EnemyActor AI, real "
          "terrain, original saw/thorns, normal original camera and HUD. Disclosed "
          "known item/equipment, one35/65resonance grant, one initial pose. Actual "
-         "native R/mouse/walk inputs. No fake targets/floor/enemyHP writes/AI overrides. "
+         "native R/pointer-aim/jump inputs. No fake targets/floor/enemyHP writes/AI overrides. "
          "Supplemental visual world clip, not natural progression/device/listening acceptance.")
 
 
@@ -76,6 +76,11 @@ def validate(data, frames, checks, region, *, probe=False):
     if not any(r["hazards"] for r in observations):
         raise RuntimeError("No original visible hazard observations")
     active = "P24" if region == "plains" else "G16"
+    for origin in (active,"P14"):
+        if not any("/"+origin+"/" in r["event"] for r in damaging):
+            raise RuntimeError("Original EnemyActor HP receipt missing for "+origin)
+    if not any(r.get("player_grounded") is False for r in observations) or observations[-1].get("player_grounded") is not True:
+        raise RuntimeError("Native jump and actual original-floor landing were not observed")
     authored = [(r,e) for r in observations for e in r.get("entities", [])
                 if e.get("artist",{}).get("origin") == active and e["artist"].get("art_draws",0) > 0]
     patrol = [(r,e) for r in observations for e in r.get("entities", [])
@@ -161,17 +166,17 @@ def main():
             end = data["world_end_drawn"]
             # Exact continuous actual frame range; original audio uses the same
             # sample-time interval. Full raw movie/trace remain as setup evidence.
-            vf = f"trim=start_frame={start}:end_frame={end},setpts=PTS-STARTPTS"
+            vf = f"trim=start_frame={start}:end_frame={end},setpts=N/(60*TB)"
             af = f"atrim=start={start/60}:end={end/60},asetpts=PTS-STARTPTS"
             with (target/"encode.log").open("w") as log:
                 subprocess.run(["ffmpeg","-y","-i",str(target/"raw.avi"),"-vf",vf,"-af",af,
-                                "-c:v","libx264","-crf","20","-pix_fmt","yuv420p","-c:a","aac",
+                                "-r","60","-fps_mode","cfr","-c:v","libx264","-crf","20","-pix_fmt","yuv420p","-c:a","aac",
                                 "-ar","48000","-ac","2","-movflags","+faststart",str(target/"world.mp4")],
                                stdout=subprocess.DEVNULL,stderr=log,check=True,timeout=150)
             media = json.loads(subprocess.check_output(["ffprobe","-v","error","-show_streams","-show_format","-of","json",str(target/"world.mp4")],timeout=30))
             video = next(s for s in media["streams"] if s["codec_type"] == "video")
             audio = [s for s in media["streams"] if s["codec_type"] == "audio"]
-            if video["codec_name"] != "h264" or video["avg_frame_rate"] != "60/1" or (video["width"],video["height"]) != (1280,720):
+            if video["codec_name"] != "h264" or video["avg_frame_rate"] != "60/1" or int(video["nb_frames"]) != end-start or (video["width"],video["height"]) != (1280,720):
                 raise RuntimeError("Actual derivative is not H264 normal60fps1280x720")
             if len(audio)!=1 or audio[0]["sample_rate"]!="48000" or audio[0]["channels"]!=2:
                 raise RuntimeError("Original game stereo48k audio is absent")
