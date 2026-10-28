@@ -15,6 +15,14 @@ from capture_audio_reels import ROOT, REELS, EXPECTED_EVENTS, DIRECTOR_EVENTS, L
 from audio_reels_validation import validate_audio_windows
 from audio_reel_choices import normalize, read_json
 
+def same_json(a,b):
+    if isinstance(a,bool) or isinstance(b,bool):return type(a) is bool and type(b) is bool and a==b
+    if type(a) in [int,float] or type(b) in [int,float]:return type(a) in [int,float] and type(b) in [int,float] and math.isfinite(a) and math.isfinite(b) and a==b
+    if type(a) is not type(b):return False
+    if isinstance(a,dict):return a.keys()==b.keys() and all(same_json(a[k],b[k]) for k in a)
+    if isinstance(a,list):return len(a)==len(b) and all(same_json(x,y) for x,y in zip(a,b))
+    return a==b
+
 def verified_selection():
     folder=ROOT/'config/audio_director/selected'
     selected=json.loads((folder/'selected.json').read_text())
@@ -31,7 +39,7 @@ def validate_selected_trace(trace, frame_count, selection):
     frame_count=frame_integer(frame_count)
     if trace.get('version')!='audio-director-selected-20261028' or trace.get('fps')!=60:raise ValueError('Wrong selected trace version/FPS')
     clock=trace.get('movie_clock',{})
-    if clock.get('index_base')!=0 or abs(frame_integer(clock.get('frames_drawn_before_quit'))-frame_count)>2:raise ValueError('Actual MovieWriter frame clock drift')
+    if frame_integer(clock.get('index_base'))!=0 or abs(frame_integer(clock.get('frames_drawn_before_quit'))-frame_count)>2:raise ValueError('Actual MovieWriter frame clock drift')
     manifest=json.loads((ROOT/'assets/audio/director_v3/manifest.json').read_text())
     candidates={c['id']:c for e in manifest['events'] for c in e['candidates']}
     segments=trace['segments'];profiles=selection['event_profiles']
@@ -46,7 +54,7 @@ def validate_selected_trace(trace, frame_count, selection):
             for key in ['start','end']:
                 a=actual['evidence'].get(key);b=expected['evidence'].get(key)
                 if type(a) in [int,float] and type(b) in [int,float] and math.isfinite(a) and math.isfinite(b) and abs(a-b)<=1e-12:actual['evidence'][key]=b
-    if copied!=selection:raise ValueError('Selection receipt drift')
+    if not same_json(copied,selection):raise ValueError('Selection receipt drift')
     last=-1
     for s in segments:
         reel=s['reel'];profile=s['profile'];start=frame_integer(s['start_frame']);end=frame_integer(s['end_frame'])
@@ -59,6 +67,8 @@ def validate_selected_trace(trace, frame_count, selection):
             if e['candidate_id']!=cid or not start<=frame_integer(e['movie_frame'])<end:raise ValueError('Accepted event selection/frame mismatch')
             if profile=='selected' and e.get('event_profile')!=ep:raise ValueError('Accepted event actual profile differs from user selection')
             d=e['details'];eid=e['event_id']
+            for field in ['wallet','health','build_count']:
+                if field in d:frame_integer(d[field])
             if eid in ['coin','heal','item_get'] and d.get('contact') is not True:raise ValueError('No real pickup contact')
             if eid=='coin' and d.get('wallet')!=1:raise ValueError('No wallet receipt')
             if eid=='heal' and d.get('health')!=5:raise ValueError('No heal receipt')
@@ -70,6 +80,7 @@ def validate_selected_trace(trace, frame_count, selection):
             if eid in weapons and (d.get('scope')!='original_shot_fired_signal' or d.get('weapon')!=weapons[eid]):raise ValueError('No exact weapon identity')
             if eid=='bomb_explode' and d.get('scope')!='original_weapon_runtime_blast_fired':raise ValueError('No original blast signal')
         state=s['state']
+        for field in ['wallet','health','build_count']:frame_integer(state[field])
         if reel=='ui' and (state['wallet']!=2 or state['build_count']!=1):raise ValueError('Shop commit/denial missing')
         if reel in ['hurt','mix'] and state['health']!=4:raise ValueError('Actual player HP result missing')
         if reel in ['enemy_hit','enemy_hurt','mix'] and state['enemy_health']!=2:raise ValueError('Actual enemy HP result missing')

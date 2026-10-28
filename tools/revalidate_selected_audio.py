@@ -6,7 +6,7 @@ from capture_selected_audio import ROOT,sha,ERROR,frozen_sources,verified_select
 from audio_reels_validation import validate_audio_windows
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);a=p.parse_args();folder=a.capture.resolve();old_path=folder/'report.json';old=json.loads(old_path.read_text());output=folder/'post-validation.json'
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--capture',type=Path,required=True);p.add_argument('--revision',type=int,default=1);a=p.parse_args();folder=a.capture.resolve();old_path=folder/'report.json';old=json.loads(old_path.read_text());output=folder/('post-validation.json' if a.revision==1 else 'post-validation-v%d.json'%a.revision)
  if output.exists():raise ValueError('Preserve prior post-validation; use explicit new version')
  if old.get('status')!='failed' or old.get('error') not in ['Selection receipt drift','Actual physics tick discontinuity']:raise ValueError('Only the known JSON roundtrip or explicit context reconstruction validator rejection may be corrected here')
  before=old['source_before'];current=frozen_sources();allowed='tools/capture_selected_audio.py'
