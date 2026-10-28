@@ -56,22 +56,41 @@ func run() -> void:
 	data.before_gold=reward_identity(app)
 	check(await pointer(app.reward_modal,"选择 / PICK","gold"),"real GOLD item pointer")
 	data.after_gold=reward_identity(app)
-	check(data.after_gold.count==1 and data.after_gold.hp==data.before_gold.hp and data.after_gold.wallet==data.before_gold.wallet and data.after_gold.capacity==data.before_gold.capacity+2,"GOLD maxHP+2 preserves HP/coins per current declaration")
+	check(data.after_gold.count==1 and data.after_gold.hp==data.before_gold.hp and data.after_gold.wallet==data.before_gold.wallet and data.after_gold.capacity==data.before_gold.capacity and data.after_gold.equipped==data.before_gold.equipped,"GOLD first enters backpack without changing HP, capacity, coins or equipped items")
+	check(data.after_gold.instances.size()==1 and data.after_gold.instances[0].definition_id=="forest_heart_gold" and data.after_gold.instances[0].definition_version==app.current_reward.candidates[0].definition_version and data.after_gold.instances[0].source_id=="reward:%s"%app.current_reward.source_id,"GOLD owns exactly one versioned instance with its actual reward source")
 	check(not app._claim_modal_item(&"forest_heart_gold") and reward_identity(app)==data.after_gold,"duplicate GOLD rejected atomically")
+	# The actual core-choice modal intentionally blocks opening the pause menu.
+	# Keep the original maxHP-effect assertion as explicit equipment fixture
+	# staging; this is not natural menu-operation evidence. Both acquisition and
+	# equipment still use the original versioned services without actor injection.
+	var source_id:=StringName("reward:%s"%app.current_reward.source_id)
+	var abilities_before: Array=app.campaign.abilities.duplicate()
+	var gold_sources: Array[StringName] = [source_id]
+	var equipped: bool=load("res://tests/gear_inventory_support.gd").equip_sources(app.build,gold_sources)
+	data.gold_equipment_fixture={"scope":"Explicit paused EquipmentService fixture while real core-choice modal remains open; not natural menu operation", "accepted":equipped,"source_id":String(source_id),"before":data.after_gold.duplicate(true),"after":reward_identity(app),"core_before":abilities_before,"core_after":app.campaign.abilities.duplicate(),"progression_open":app.progression_modal.opened}
+	var after_equipment: Dictionary=data.gold_equipment_fixture.after
+	check(equipped and after_equipment.capacity==data.before_gold.capacity+2 and after_equipment.hp==data.before_gold.hp and after_equipment.wallet==data.before_gold.wallet and after_equipment.instances==data.after_gold.instances and after_equipment.equipped.count("forest_heart_gold")==1,"explicit equipment fixture applies original GOLD maxHP+2 with no healing, purchase or new ownership")
+	check(app.progression_modal.opened and Array(app.campaign.abilities)==abilities_before,"random-item equipment does not grant core abilities or dismiss the actual core-choice modal")
 	check(await pointer(app.progression_modal,"D / DOUBLE JUMP","ability"),"actual D selection pointer")
 	data.boundary_ui_text=[]
 	for label: Label in app.progression_modal.find_children("*","Label",true,false): data.boundary_ui_text.append(label.text)
 	data.before_boundary={"double":app.controller.traversal.double_enabled,"abilities":Array(app.campaign.abilities),"phase":int(app.campaign.phase),"map":app.director.region_map_index,"manifest":app.director.manifest.snapshot()}
+	data.before_boundary.loadout=reward_identity(app)
 	data.before_boundary.manifest_compatible=RunManifest.compatible(data.before_boundary.manifest)
 	check(data.before_boundary.double and data.before_boundary.manifest_compatible and app.campaign.phase==RunCampaignProgression.Phase.BOUNDARY,"actual D receipt reaches compatible development boundary")
+	check(data.before_boundary.loadout==after_equipment,"actual core ability choice leaves owned instances and random-item loadout intact")
 	pilot.disconnect_actual()
 	check(await pointer(app.progression_modal,"END THIS RUN","finish"),"actual development-boundary home pointer")
 	for unused: int in 6: await get_tree().process_frame
-	data.after_boundary={"state":int(app.director.state),"wallet":app.wallet.balance,"items":app.build.item_ids(),"abilities":Array(app.campaign.abilities)}
-	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.campaign.abilities.is_empty(),"real home clears run")
+	data.after_boundary={"state":int(app.director.state),"wallet":app.wallet.balance,"items":app.build.inventory.item_ids(),"equipped":app.build.item_ids(),"abilities":Array(app.campaign.abilities)}
+	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.build.inventory.item_ids().is_empty() and app.campaign.abilities.is_empty(),"real home clears run")
 	await finish(trace)
 func reward_identity(app: DemoApp) -> Dictionary:
-	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(&"forest_heart_gold")}
+	var instances: Array[Dictionary]=[]
+	for item: RunItemInstance in app.build.inventory.instances():
+		if item.definition_id==&"forest_heart_gold":
+			instances.append({"instance_id":String(item.instance_id),"definition_id":String(item.definition_id),"definition_version":item.definition_version,"source_id":String(item.source_id)})
+	return {"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"wallet":app.wallet.balance,"count":app.build.count_item(&"forest_heart_gold"),"equipped":app.build.item_ids(),"instances":instances}
 func _pause_reload(driver: Node) -> bool:
 	var app: DemoApp=driver.app
 	var before: Dictionary=driver.snapshot();var token:=app.lifetime.token();var prior:=app.region_state
@@ -98,7 +117,7 @@ func _pause_reload(driver: Node) -> bool:
 	var stale_rejected:=not app.policy.submit(request)
 	check(stale_rejected and not app.lifetime.accepts(token) and driver.queen.health.current==hp and app.policy._queue.size()==queued,"actual Policy rejects old token without damage/queue mutation")
 	driver.segment="after_reload"
-	if not await pointer(app.menu,"RESUME","resume"): return false
+	if not await pointer(app.menu,"ResumeAdventure","resume"): return false
 	var resumed: Dictionary=driver.snapshot()
 	check(not get_tree().paused,"real RESUME pointer releases pause")
 	driver._last_steps=driver.player.motion_steps
@@ -151,7 +170,7 @@ func approach_reward(app: DemoApp) -> void:
 func pointer(owner: Node,prefix: String,phase: String) -> bool:
 	for unused: int in 4: await get_tree().process_frame
 	for button: Button in owner.find_children("*","Button",true,false):
-		if button.text.begins_with(prefix) and button.visible and not button.disabled: return await send_button(button,phase)
+		if (String(button.name)==prefix or button.text.begins_with(prefix)) and button.visible and not button.disabled: return await send_button(button,phase)
 	return false
 func send_button(button: Button,phase: String) -> bool:
 	if not is_instance_valid(button) or not button.visible or button.disabled: return false

@@ -1,0 +1,2785 @@
+{
+  "captured": false,
+  "checks": 208,
+  "exit_code": 0,
+  "failures": 0,
+  "layouts": [
+    {
+      "buttons": [
+        {
+          "logical_rect": [
+            22.0,
+            195.0,
+            658.0,
+            91.0
+          ],
+          "name": "BeginAdventure",
+          "physical_height": 49.2916684746742
+        },
+        {
+          "logical_rect": [
+            22.0,
+            298.0,
+            658.0,
+            91.0
+          ],
+          "name": "ContinueAdventure",
+          "physical_height": 49.2916684746742
+        },
+        {
+          "logical_rect": [
+            22.0,
+            401.0,
+            658.0,
+            91.0
+          ],
+          "name": "TitleSettings",
+          "physical_height": 49.2916684746742
+        },
+        {
+          "logical_rect": [
+            22.0,
+            504.0,
+            658.0,
+            91.0
+          ],
+          "name": "TitleTutorial",
+          "physical_height": 49.2916684746742
+        },
+        {
+          "logical_rect": [
+            22.0,
+            625.0,
+            658.0,
+            89.0
+          ],
+          "name": "DevelopmentEntries",
+          "physical_height": 48.2083351016045
+        }
+      ],
+      "logical_size": [
+        1280.0,
+        720.0
+      ],
+      "pixel_scale": [
+        0.541406273841858,
+        0.541666686534882
+      ],
+      "window_size": [
+        844,
+        390
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "logical_rect": [
+            22.0,
+            146.0,
+            480.0,
+            75.0
+          ],
+          "name": "BeginAdventure",
+          "physical_height": 56.25
+        },
+        {
+          "logical_rect": [
+            22.0,
+            229.0,
+            480.0,
+            75.0
+          ],
+          "name": "ContinueAdventure",
+          "physical_height": 56.25
+        },
+        {
+          "logical_rect": [
+            22.0,
+            312.0,
+            480.0,
+            75.0
+          ],
+          "name": "TitleSettings",
+          "physical_height": 56.25
+        },
+        {
+          "logical_rect": [
+            22.0,
+            395.0,
+            480.0,
+            75.0
+          ],
+          "name": "TitleTutorial",
+          "physical_height": 56.25
+        },
+        {
+          "logical_rect": [
+            22.0,
+            492.0,
+            480.0,
+            64.0
+          ],
+          "name": "DevelopmentEntries",
+          "physical_height": 48.0
+        }
+      ],
+      "logical_size": [
+        1280.0,
+        720.0
+      ],
+      "pixel_scale": [
+        0.75,
+        0.75
+      ],
+      "window_size": [
+        960,
+        540
+      ]
+    },
+    {
+      "buttons": [
+        {
+          "logical_rect": [
+            52.0,
+            159.0,
+            360.0,
+            64.0
+          ],
+          "name": "BeginAdventure",
+          "physical_height": 64.0
+        },
+        {
+          "logical_rect": [
+            52.0,
+            235.0,
+            360.0,
+            64.0
+          ],
+          "name": "ContinueAdventure",
+          "physical_height": 64.0
+        },
+        {
+          "logical_rect": [
+            52.0,
+            311.0,
+            360.0,
+            64.0
+          ],
+          "name": "TitleSettings",
+          "physical_height": 64.0
+        },
+        {
+          "logical_rect": [
+            52.0,
+            387.0,
+            360.0,
+            64.0
+          ],
+          "name": "TitleTutorial",
+          "physical_height": 64.0
+        },
+        {
+          "logical_rect": [
+            52.0,
+            481.0,
+            360.0,
+            57.0
+          ],
+          "name": "DevelopmentEntries",
+          "physical_height": 57.0
+        }
+      ],
+      "logical_size": [
+        1280.0,
+        720.0
+      ],
+      "pixel_scale": [
+        1.0,
+        1.0
+      ],
+      "window_size": [
+        1920,
+        720
+      ]
+    }
+  ],
+  "media": [],
+  "native_event_route": "Window.push_input(event, true)",
+  "observations": [
+    {
+      "assertion": "fresh R2 evidence directory is writable",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "real project autoload runs while fixture disables persistence",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "shared Theme consumes the task pixel font",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "runtime canonical font bytes match recorded licensed source",
+      "detail": {
+        "name": "Fusion Pixel 12px Prop zh-Hans",
+        "sha256": "db40edf0cc1e446bfe1ce75d5abb4d7c499ace96379b8a0f5f761bd3de8335eb"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "autoload installs same pixel family for default and CanvasItem fallback",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pixel font uses deterministic embedded glyphs without system substitution",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "direct legacy FontFile aliases canonical runtime name and bytes",
+      "detail": {
+        "path": "res://assets/fonts/foundry_notes.otf",
+        "runtime_name": "Fusion Pixel 12px Prop zh-Hans"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "direct legacy FontFile aliases canonical runtime name and bytes",
+      "detail": {
+        "path": "res://assets/fonts/foundry_ui.otf",
+        "runtime_name": "Fusion Pixel 12px Prop zh-Hans"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "direct legacy FontFile aliases canonical runtime name and bytes",
+      "detail": {
+        "path": "res://assets/fonts/windkeeper_ui.ttf",
+        "runtime_name": "Fusion Pixel 12px Prop zh-Hans"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "real title and legacy UI resolve one pixel family",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "embedded pixel font covers quoted CJK in actual UI, items, Boss names and Home",
+      "detail": {
+        "missing": "",
+        "unique_cjk": 516
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          195.0,
+          658.0,
+          91.0
+        ],
+        "name": "BeginAdventure",
+        "physical_height": 49.2916684746742
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          298.0,
+          658.0,
+          91.0
+        ],
+        "name": "ContinueAdventure",
+        "physical_height": 49.2916684746742
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          401.0,
+          658.0,
+          91.0
+        ],
+        "name": "TitleSettings",
+        "physical_height": 49.2916684746742
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          504.0,
+          658.0,
+          91.0
+        ],
+        "name": "TitleTutorial",
+        "physical_height": 49.2916684746742
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          625.0,
+          658.0,
+          89.0
+        ],
+        "name": "DevelopmentEntries",
+        "physical_height": 48.2083351016045
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleTutorial",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "real title owns a separate illustration Control",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title illustration fills viewport independently of button containers",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title consumes distinct generated environment and clock-logo assets",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "environment is a full-bleed native TextureRect",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "clock logo occupies right composition without intercepting clicks",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "illustration contains no baked or hidden replacement buttons",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "BeginAdventure",
+        "window": [
+          844,
+          390
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "ContinueAdventure",
+        "window": [
+          844,
+          390
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleSettings",
+        "window": [
+          844,
+          390
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleTutorial",
+        "window": [
+          844,
+          390
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "DevelopmentEntries",
+        "window": [
+          844,
+          390
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          146.0,
+          480.0,
+          75.0
+        ],
+        "name": "BeginAdventure",
+        "physical_height": 56.25
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          229.0,
+          480.0,
+          75.0
+        ],
+        "name": "ContinueAdventure",
+        "physical_height": 56.25
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          312.0,
+          480.0,
+          75.0
+        ],
+        "name": "TitleSettings",
+        "physical_height": 56.25
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          395.0,
+          480.0,
+          75.0
+        ],
+        "name": "TitleTutorial",
+        "physical_height": 56.25
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          22.0,
+          492.0,
+          480.0,
+          64.0
+        ],
+        "name": "DevelopmentEntries",
+        "physical_height": 48.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleTutorial",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "real title owns a separate illustration Control",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title illustration fills viewport independently of button containers",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title consumes distinct generated environment and clock-logo assets",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "environment is a full-bleed native TextureRect",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "clock logo occupies right composition without intercepting clicks",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "illustration contains no baked or hidden replacement buttons",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "BeginAdventure",
+        "window": [
+          960,
+          540
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "ContinueAdventure",
+        "window": [
+          960,
+          540
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleSettings",
+        "window": [
+          960,
+          540
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleTutorial",
+        "window": [
+          960,
+          540
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "DevelopmentEntries",
+        "window": [
+          960,
+          540
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title primary uses exact requested name and label",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          52.0,
+          159.0,
+          360.0,
+          64.0
+        ],
+        "name": "BeginAdventure",
+        "physical_height": 64.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          52.0,
+          235.0,
+          360.0,
+          64.0
+        ],
+        "name": "ContinueAdventure",
+        "physical_height": 64.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          52.0,
+          311.0,
+          360.0,
+          64.0
+        ],
+        "name": "TitleSettings",
+        "physical_height": 64.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          52.0,
+          387.0,
+          360.0,
+          64.0
+        ],
+        "name": "TitleTutorial",
+        "physical_height": 64.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "every title target is at least 48 rendered pixels tall",
+      "detail": {
+        "logical_rect": [
+          52.0,
+          481.0,
+          360.0,
+          57.0
+        ],
+        "name": "DevelopmentEntries",
+        "physical_height": 57.0
+      },
+      "passed": true
+    },
+    {
+      "assertion": "title target fits viewport horizontally",
+      "detail": {
+        "name": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "BeginAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "ContinueAdventure",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleSettings",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "primary title hit rectangles do not overlap",
+      "detail": {
+        "a": "TitleTutorial",
+        "b": "DevelopmentEntries"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "real title owns a separate illustration Control",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title illustration fills viewport independently of button containers",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "title consumes distinct generated environment and clock-logo assets",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "environment is a full-bleed native TextureRect",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "clock logo occupies right composition without intercepting clicks",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "illustration contains no baked or hidden replacement buttons",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "BeginAdventure",
+        "window": [
+          1920,
+          720
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "ContinueAdventure",
+        "window": [
+          1920,
+          720
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleSettings",
+        "window": [
+          1920,
+          720
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "TitleTutorial",
+        "window": [
+          1920,
+          720
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "each title action is reachable with native wheel scrolling",
+      "detail": {
+        "name": "DevelopmentEntries",
+        "window": [
+          1920,
+          720
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "TitleSettings",
+        "rect": [
+          52.0,
+          311.0,
+          360.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "TitleSettings"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "actual title settings click opens real settings",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "@Button@257",
+        "rect": [
+          271.0,
+          555.0,
+          732.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "@Button@257"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "settings back restores actual title caller focus",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "TitleTutorial",
+        "rect": [
+          52.0,
+          387.0,
+          360.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "TitleTutorial"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "tutorial exposes truthful basic Plains new-adventure entry",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "@Button@311",
+        "rect": [
+          271.0,
+          555.0,
+          732.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "@Button@311"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "ContinueAdventure",
+        "rect": [
+          52.0,
+          235.0,
+          360.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "ContinueAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "empty actual profile presentation offers no fake choose/load action",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "explicit saved-record fixture identifies permanent progress without promising run resume",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "ChooseExistingProfile",
+        "rect": [
+          271.0,
+          441.0,
+          738.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "ChooseExistingProfile"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "saved fixture choose emits once into actual Home without restoring fake data or mutating real meta",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "memory-only preview wording distinguishes current session from saved profiles",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "BeginAdventure",
+        "rect": [
+          52.0,
+          159.0,
+          360.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "BeginAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "actual title start enters the current playable Home",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "@Button@751",
+        "rect": [
+          559.0,
+          266.0,
+          444.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "@Button@751"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "actual Home navigation starts the formal game consumer for retained pause checks",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "@Button@67",
+        "rect": [
+          1148.0,
+          76.0,
+          108.0,
+          48.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "@Button@67"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native MENU pauses actual world and opens backpack directly",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "paused backpack exposes four genuine page controls",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "backpack is the active page on pause entry",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "fresh run has an honest empty backpack without disabled fake equipment tabs",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "PausePage",
+        "rect": [
+          367.0,
+          87.0,
+          209.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "PausePage"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native page click opens journey actions without resuming",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "BuildPage",
+        "rect": [
+          327.0,
+          139.0,
+          120.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "BuildPage"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native backpack page click returns to the actual equipment editor",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native next-page key opens journey without moving the actor",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native previous-page key returns to backpack",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "SettingsPage",
+        "rect": [
+          584.0,
+          87.0,
+          209.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "SettingsPage"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native settings page is reachable from backpack",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "@Button@1642",
+        "rect": [
+          271.0,
+          555.0,
+          732.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "@Button@1642"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "settings Back remains inside paused backpack",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "requested native pointer button exists",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "pointer target belongs to the visible page",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "native wheel makes complete button reachable",
+      "detail": {
+        "name": "ResumeAdventure",
+        "rect": [
+          1074.0,
+          87.0,
+          112.0,
+          64.0
+        ]
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native mouse motion reaches actual button hover",
+      "detail": {
+        "name": "ResumeAdventure"
+      },
+      "passed": true
+    },
+    {
+      "assertion": "native pointer activation count matches enabled state",
+      "detail": {
+        "count": 1,
+        "enabled": true
+      },
+      "passed": true
+    },
+    {
+      "assertion": "direct backpack close preserves real player and releases no stale UI shot",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "actual test world releases owned audio before teardown",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "assertion": "real DemoApp is released cleanly",
+      "detail": {},
+      "passed": true
+    }
+  ],
+  "pointer_events": 73,
+  "pointer_trace": [
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@180/@VBoxContainer@181/@PanelContainer@182/@ScrollContainer@185/@MarginContainer@187/@VBoxContainer@188/TitleSettings",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        232.0,
+        343.0
+      ],
+      "pressed": false,
+      "rect": [
+        52.0,
+        311.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设定"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@180/@VBoxContainer@181/@PanelContainer@182/@ScrollContainer@185/@MarginContainer@187/@VBoxContainer@188/TitleSettings",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        232.0,
+        343.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        311.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设定"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@180/@VBoxContainer@181/@PanelContainer@182/@ScrollContainer@185/@MarginContainer@187/@VBoxContainer@188/TitleSettings",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        232.0,
+        343.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        311.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设定"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        232.0,
+        343.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@202/@CenterContainer@203/@PanelContainer@204/@ScrollContainer@207/@MarginContainer@209/@VBoxContainer@210/@Button@257",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 679,
+      "target": "BACK"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@202/@CenterContainer@203/@PanelContainer@204/@ScrollContainer@207/@MarginContainer@209/@VBoxContainer@210/@Button@257",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 679,
+      "target": "BACK"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@202/@CenterContainer@203/@PanelContainer@204/@ScrollContainer@207/@MarginContainer@209/@VBoxContainer@210/@Button@257",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 679,
+      "target": "BACK"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@262/@VBoxContainer@263/@PanelContainer@264/@ScrollContainer@267/@MarginContainer@269/@VBoxContainer@270/TitleTutorial",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        232.0,
+        419.0
+      ],
+      "pressed": false,
+      "rect": [
+        52.0,
+        387.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "新手教程"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@262/@VBoxContainer@263/@PanelContainer@264/@ScrollContainer@267/@MarginContainer@269/@VBoxContainer@270/TitleTutorial",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        232.0,
+        419.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        387.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "新手教程"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@262/@VBoxContainer@263/@PanelContainer@264/@ScrollContainer@267/@MarginContainer@269/@VBoxContainer@270/TitleTutorial",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        232.0,
+        419.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        387.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "新手教程"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        232.0,
+        419.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@284/@CenterContainer@285/@PanelContainer@286/@ScrollContainer@289/@MarginContainer@291/@VBoxContainer@292/@Button@311",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 315,
+      "target": "BACK / 返回"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@284/@CenterContainer@285/@PanelContainer@286/@ScrollContainer@289/@MarginContainer@291/@VBoxContainer@292/@Button@311",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 315,
+      "target": "BACK / 返回"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@284/@CenterContainer@285/@PanelContainer@286/@ScrollContainer@289/@MarginContainer@291/@VBoxContainer@292/@Button@311",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 315,
+      "target": "BACK / 返回"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@316/@VBoxContainer@317/@PanelContainer@318/@ScrollContainer@321/@MarginContainer@323/@VBoxContainer@324/ContinueAdventure",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        232.0,
+        267.0
+      ],
+      "pressed": false,
+      "rect": [
+        52.0,
+        235.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续游戏（选择存档）"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@316/@VBoxContainer@317/@PanelContainer@318/@ScrollContainer@321/@MarginContainer@323/@VBoxContainer@324/ContinueAdventure",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        232.0,
+        267.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        235.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续游戏（选择存档）"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@316/@VBoxContainer@317/@PanelContainer@318/@ScrollContainer@321/@MarginContainer@323/@VBoxContainer@324/ContinueAdventure",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        232.0,
+        267.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        235.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续游戏（选择存档）"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        232.0,
+        267.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@360/@CenterContainer@361/@PanelContainer@362/@ScrollContainer@365/@MarginContainer@367/@VBoxContainer@368/ChooseExistingProfile",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        640.0,
+        473.0
+      ],
+      "pressed": false,
+      "rect": [
+        271.0,
+        441.0,
+        738.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "选择此进度 · 返回家园"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@360/@CenterContainer@361/@PanelContainer@362/@ScrollContainer@365/@MarginContainer@367/@VBoxContainer@368/ChooseExistingProfile",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        640.0,
+        473.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        441.0,
+        738.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "选择此进度 · 返回家园"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@360/@CenterContainer@361/@PanelContainer@362/@ScrollContainer@365/@MarginContainer@367/@VBoxContainer@368/ChooseExistingProfile",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        640.0,
+        473.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        441.0,
+        738.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "选择此进度 · 返回家园"
+    },
+    {
+      "hovered": "",
+      "mode": 0,
+      "phase": "after-release",
+      "point": [
+        640.0,
+        473.0
+      ],
+      "pressed": false,
+      "rect": [
+        271.0,
+        441.0,
+        738.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "选择此进度 · 返回家园"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@554/@VBoxContainer@555/@PanelContainer@556/@ScrollContainer@559/@MarginContainer@561/@VBoxContainer@562/BeginAdventure",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        232.0,
+        191.0
+      ],
+      "pressed": false,
+      "rect": [
+        52.0,
+        159.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "开始游戏"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@554/@VBoxContainer@555/@PanelContainer@556/@ScrollContainer@559/@MarginContainer@561/@VBoxContainer@562/BeginAdventure",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        232.0,
+        191.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        159.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "开始游戏"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@554/@VBoxContainer@555/@PanelContainer@556/@ScrollContainer@559/@MarginContainer@561/@VBoxContainer@562/BeginAdventure",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        232.0,
+        191.0
+      ],
+      "pressed": true,
+      "rect": [
+        52.0,
+        159.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "开始游戏"
+    },
+    {
+      "hovered": "",
+      "mode": 0,
+      "phase": "after-release",
+      "point": [
+        232.0,
+        191.0
+      ],
+      "pressed": false,
+      "rect": [
+        52.0,
+        159.0,
+        360.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "开始游戏"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@716/@CenterContainer@717/@PanelContainer@718/@ScrollContainer@721/@MarginContainer@723/@VBoxContainer@724/@GridContainer@729/@VBoxContainer@747/@Button@751",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        781.0,
+        298.0
+      ],
+      "pressed": false,
+      "rect": [
+        559.0,
+        266.0,
+        444.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "Explore   /   Windchime Plains"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@716/@CenterContainer@717/@PanelContainer@718/@ScrollContainer@721/@MarginContainer@723/@VBoxContainer@724/@GridContainer@729/@VBoxContainer@747/@Button@751",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        781.0,
+        298.0
+      ],
+      "pressed": true,
+      "rect": [
+        559.0,
+        266.0,
+        444.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "Explore   /   Windchime Plains"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@716/@CenterContainer@717/@PanelContainer@718/@ScrollContainer@721/@MarginContainer@723/@VBoxContainer@724/@GridContainer@729/@VBoxContainer@747/@Button@751",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        781.0,
+        298.0
+      ],
+      "pressed": true,
+      "rect": [
+        559.0,
+        266.0,
+        444.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "Explore   /   Windchime Plains"
+    },
+    {
+      "hovered": "",
+      "mode": 0,
+      "phase": "after-release",
+      "point": [
+        781.0,
+        298.0
+      ],
+      "pressed": false,
+      "rect": [
+        559.0,
+        266.0,
+        444.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "Explore   /   Windchime Plains"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@28/@Button@67",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        1202.0,
+        100.0
+      ],
+      "pressed": false,
+      "rect": [
+        1148.0,
+        76.0,
+        108.0,
+        48.0
+      ],
+      "scroll": 0,
+      "target": "MENU"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@28/@Button@67",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        1202.0,
+        100.0
+      ],
+      "pressed": true,
+      "rect": [
+        1148.0,
+        76.0,
+        108.0,
+        48.0
+      ],
+      "scroll": 0,
+      "target": "MENU"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@28/@Button@67",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        1202.0,
+        100.0
+      ],
+      "pressed": true,
+      "rect": [
+        1148.0,
+        76.0,
+        108.0,
+        48.0
+      ],
+      "scroll": 0,
+      "target": "MENU"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@28/@Button@67",
+      "mode": 2,
+      "phase": "after-release",
+      "point": [
+        1202.0,
+        100.0
+      ],
+      "pressed": false,
+      "rect": [
+        1148.0,
+        76.0,
+        108.0,
+        48.0
+      ],
+      "scroll": 0,
+      "target": "MENU"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1405/@CenterContainer@1406/@PanelContainer@1407/@ScrollContainer@1410/@MarginContainer@1412/@VBoxContainer@1413/PauseNavigation/PausePage",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        471.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        367.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "旅途"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1405/@CenterContainer@1406/@PanelContainer@1407/@ScrollContainer@1410/@MarginContainer@1412/@VBoxContainer@1413/PauseNavigation/PausePage",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        471.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        367.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "旅途"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1405/@CenterContainer@1406/@PanelContainer@1407/@ScrollContainer@1410/@MarginContainer@1412/@VBoxContainer@1413/PauseNavigation/PausePage",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        471.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        367.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "旅途"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        471.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1446/@CenterContainer@1447/@PanelContainer@1448/@ScrollContainer@1451/@MarginContainer@1453/@VBoxContainer@1454/PauseNavigation/BuildPage",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        387.0,
+        171.0
+      ],
+      "pressed": false,
+      "rect": [
+        327.0,
+        139.0,
+        120.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "背包"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1446/@CenterContainer@1447/@PanelContainer@1448/@ScrollContainer@1451/@MarginContainer@1453/@VBoxContainer@1454/PauseNavigation/BuildPage",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        387.0,
+        171.0
+      ],
+      "pressed": false,
+      "rect": [
+        327.0,
+        139.0,
+        120.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "背包"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1446/@CenterContainer@1447/@PanelContainer@1448/@ScrollContainer@1451/@MarginContainer@1453/@VBoxContainer@1454/PauseNavigation/BuildPage",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        387.0,
+        171.0
+      ],
+      "pressed": false,
+      "rect": [
+        327.0,
+        139.0,
+        120.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "背包"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        387.0,
+        171.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1539/@CenterContainer@1540/@PanelContainer@1541/@ScrollContainer@1544/@MarginContainer@1546/@VBoxContainer@1547/PauseNavigation/SettingsPage",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        688.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        584.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设置"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1539/@CenterContainer@1540/@PanelContainer@1541/@ScrollContainer@1544/@MarginContainer@1546/@VBoxContainer@1547/PauseNavigation/SettingsPage",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        688.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        584.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设置"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1539/@CenterContainer@1540/@PanelContainer@1541/@ScrollContainer@1544/@MarginContainer@1546/@VBoxContainer@1547/PauseNavigation/SettingsPage",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        688.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        584.0,
+        87.0,
+        209.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "设置"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        688.5,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 755,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1580/@CenterContainer@1581/@PanelContainer@1582/@ScrollContainer@1585/@MarginContainer@1587/@VBoxContainer@1588/@Button@1642",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 755,
+      "target": "BACK"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1580/@CenterContainer@1581/@PanelContainer@1582/@ScrollContainer@1585/@MarginContainer@1587/@VBoxContainer@1588/@Button@1642",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 755,
+      "target": "BACK"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1580/@CenterContainer@1581/@PanelContainer@1582/@ScrollContainer@1585/@MarginContainer@1587/@VBoxContainer@1588/@Button@1642",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": true,
+      "rect": [
+        271.0,
+        555.0,
+        732.0,
+        64.0
+      ],
+      "scroll": 755,
+      "target": "BACK"
+    },
+    {
+      "hovered": "",
+      "mode": -1,
+      "phase": "after-release",
+      "point": [
+        637.0,
+        587.0
+      ],
+      "pressed": false,
+      "rect": [],
+      "scroll": 0,
+      "target": "disposed"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1644/@CenterContainer@1645/@PanelContainer@1646/@ScrollContainer@1649/@MarginContainer@1651/@VBoxContainer@1652/PauseNavigation/ResumeAdventure",
+      "mode": 2,
+      "phase": "before-press",
+      "point": [
+        1130.0,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        1074.0,
+        87.0,
+        112.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1644/@CenterContainer@1645/@PanelContainer@1646/@ScrollContainer@1649/@MarginContainer@1651/@VBoxContainer@1652/PauseNavigation/ResumeAdventure",
+      "mode": 1,
+      "phase": "after-press",
+      "point": [
+        1130.0,
+        119.0
+      ],
+      "pressed": true,
+      "rect": [
+        1074.0,
+        87.0,
+        112.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续"
+    },
+    {
+      "hovered": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1644/@CenterContainer@1645/@PanelContainer@1646/@ScrollContainer@1649/@MarginContainer@1651/@VBoxContainer@1652/PauseNavigation/ResumeAdventure",
+      "mode": 1,
+      "phase": "before-release",
+      "point": [
+        1130.0,
+        119.0
+      ],
+      "pressed": true,
+      "rect": [
+        1074.0,
+        87.0,
+        112.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续"
+    },
+    {
+      "hovered": "",
+      "mode": 0,
+      "phase": "after-release",
+      "point": [
+        1130.0,
+        119.0
+      ],
+      "pressed": false,
+      "rect": [
+        1074.0,
+        87.0,
+        112.0,
+        64.0
+      ],
+      "scroll": 0,
+      "target": "继续"
+    }
+  ],
+  "schema": "demo-ui-r2-native-v1",
+  "scope": "Actual native DemoApp and Control GUI. Saved/session snapshots are explicitly presentation fixtures; real persistence disabled. CJK checks actual quoted UI/item/Boss/Home source against embedded font. No physical device or user-art approval.",
+  "wheel_events": 34
+}

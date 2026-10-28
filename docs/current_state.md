@@ -11,6 +11,41 @@ AUDIO-DIRECTOR-02从用户拒绝v1 A/B的反馈继续：只重选UI、拾取、�
 ## 2026-10-26 独立音效导演第一阶段
 
 AUDIO-DIRECTOR-01保持review，基线main26e7f2a，分支feature/audio-director-01；16事件A/B各2变体共64个CC0素材加工候选、来源/许可库、可重现pipeline、固定基线审计和真实Godot/手机Sound Lab已实现。正式默认original，保五首用户MP3原字节；工程验证不签用户听感或商业品质。[交付入口](audio_director/README.md)、[最终版本与证据](evidence/audio_director_01/README.md)、[交接](handoff.md)。不合main，旧主站和预览入口保留。
+## 2026-10-26 PR110：最后的测试／输入契约修订
+
+用户明确合入main，授权持续有效。原CI40324535594在head05200fc的serial55全部成功、parallel73通过后因style精确期望13／实际14失败，剩余15未执行；完整CI仍失败。随后本地逐项补跑尾部，识别持有统计接口迁移的旧源码指纹断言，余14项全通过。
+
+最终实现／测试源`56f74fb0918d1cfbd1487a9734403975caf2e85f`仅修测试与已有Harness输入声明，游戏／资源／录片工具保持原运行源：style14断言与v13拒绝、11个冻结style文件显式输入、ecology1处／lift3处持有统计的精确归一化并保原SHA。原32＋10＋55共97测试fresh通过，不同作者再独立97／0及7个源守门反例拒绝；真实隔离稀疏缺v12被原CLI在worker前阻断。见[完整失败和分源证据](evidence/run_gear_merge_05/README.md)。
+
+下一步只核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)最新head完整CI：全部成功后正常merge；若已经merged，核main树及自动Godot构建，不重复合并。当前记录为合入前快照，最终实际状态以PR及main为准；技术合入不签玩家／实体设备G5，网页发布单独核实际构建。
+
+## 2026-10-26 PR110：用户已授权合入main
+
+用户本轮明确“合入到main”。[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)在完整CI通过后正常merge；旧“不合main”段落是此前开发阶段快照。若已merged，直接核main合并提交与自动Godot构建，不重复合并或把构建排队称网页发布。
+
+原CI40316936625在parallel已通过66项后，因`tests/test_region_creative_direction.py`期望creative-v16而正式记录为v17失败；serial55项全部通过，parallel66通过／1失败／22未执行；整轮仍失败，不能记完整通过。唯一代码修复`fae1799c869feb891f01afd5a912ab1b0fde3594`只更新精确测试版本期望，游戏／录片／资源字节不变。原10测试重现1失败，修复后原Harness及不同作者独立10／0，历史v16及v2拒绝、G2/content/未正式开放断言保留；详见[合入守门记录](evidence/run_gear_merge_04/README.md)。原失败未追签，最终同head完整CI及main实际状态以PR为准。用户／实体设备与复杂效果边界保持。
+
+## 2026-10-26 RUN-GEAR-UI-02：暂停直达背包与参考图分页
+
+用户要求暂停直接背包、左右切页、图标网格与右侧详情，补充负荷槽必须是齿轮形状。已更新同一[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)，运行源`bb4bf464a639af6c20828b84a5ac1df3785f393b`，分支`feature/run-gear-inventory`，不合main。新入口与布局覆盖下方RUN-GEAR-01旧暂停构筑入口，所有权／装备／交易合同保持。
+
+实际软件GL独立原wrapper159检查／0失败，1280与960、8／10／14齿轮、点击选择详情、装卸／替换、左右键／肩键／触屏分页、滚动和失效请求已验证。原生主游戏标题→可操作Home行走→正式出发→平原暂停及新UI已试录34断言／0失败；靠近宝箱的一次位置fixture始终明示，不冒充自然挑战通关。最终同源收据见[本轮证据](evidence/run_gear_ui_02/README.md)。
+
+前轮CI两个失败分别是canopy旧自动生效假设和plains动态调用的未类型化Array；已迁移测试并保原实际效果／严格退出守门，原失败保留。原Harness10项fresh全部通过，最终正式主游戏片27.47秒／34断言／0失败、源码稳定；UI contract149与R2入口修复后208通过。独立Preview站仅余1,358,399字节，无法加入当前完整游戏包；保留旧入口，不把旧站签成本轮。用户／实体安卓／实体手柄仍未验，任务保持review。
+
+恢复：`git switch feature/run-gear-inventory`，按本轮证据执行原选定Harness／正式影片采集。下一步只处理真实门禁／反馈并更新同PR；不要重新生产美术、删旧Preview或自动合并。
+
+## 2026-10-26 RUN-GEAR-01：局内背包与齿轮装备候选
+
+实现分支`feature/run-gear-inventory`，基线main`26e7f2a`，冻结运行源`91ea8850f308cc3c955bcece2c35cd66f75e7bda`。后续只追加证据／文档，PR面向main且不自动合并。[交付与可下载完整操作录屏](evidence/run_gear_01/README.md) · [独审](evidence/run_gear_01/independent-review.md) · [权威规则](rewards_and_builds.md)。
+
+当前道具先入无齿轮上限背包，暂停构筑装卸／原子替换后才生效；8→10→12→14容量与价格唯一来自config/gear_capacity.json。保持武器、核心能力和永久音符独立；保留收据幂等、死亡优先、跨图／地区／存活环境回退，真结束清理。新增常规道具走Definition／效果组件，复杂主动／武器／钩索技能本轮未开发。
+
+同源独立15项原Harness fresh全部通过，core5685、gear107、正式UI64、campaign67、森林App92、地区当前15组及40图回放等零失败；另实际GL67／原触控44通过。最终原生操作片20.47秒、20断言／0失败、源码稳定且退出clean：固定开发关卡自然射击／行走／领取→入包→装备／生效→卸下／撤销→扩容；正式区域消费者另有实际App验证，不能冒称正式自然全路线。
+
+所有真实失败和F1–F14修复链保留。当前技术ACCEPT／质量review，未做实体安卓／实体手柄、数百道具低端性能及玩家G5；扩容价格为试验值。27条旧独立路线及legacy-compat未跑，不记通过。当前style-v14／creative-v17仅重绑DemoApp，另35引用、原Bible和旧档字节保留，不继承美术／设备认可。
+
+恢复命令：`git switch feature/run-gear-inventory`；相关检查见证据的原Harness命令与收据；`python3 tools/check_quality_diff.py --base 26e7f2a4459623f35613a857da8a75e89daa3e62`。完整PR CI以实际Actions为准；下一步只处理具体审查／用户设备反馈，不重启旧PR108合入或无关美术生产，不自动合main。
 
 
 当前仅校验器收尾：f2CI实际Home184/0被旧181／四服务外层拒绝；现精确184/194／五runtime服务、39校验器测试、真实headless/GL及剩余22原serial全部通过，原门禁/预算保留。[准确分源收据](evidence/playtest_feedback_20261024/home-wrapper-contract/README.md)。f657只改三Python验证/录像工具，游戏仍b761/5ce，无需重导Web；最终head、CI和main状态继续核PR108，旧失败不改签。

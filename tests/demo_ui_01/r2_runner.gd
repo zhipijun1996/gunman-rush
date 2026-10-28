@@ -295,10 +295,17 @@ func run() -> void:
 	app.menu.show_title()
 	await frames()
 	await click(named("BeginAdventure"))
+	check(is_instance_valid(app.home_scene) and app.director.state == DemoRunDirector.State.HOME, "actual title start enters the current playable Home")
+	# The current title enters Home. Retain this UI-only suite's formal pause
+	# checks through the real Home navigation button, without claiming traversal.
+	app.menu._seed = "level-design-v2-baseline/08"
+	app._open_home_navigation()
+	await frames(6)
+	await click(prefix("Explore"))
 	for attempt: int in 90:
 		if app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller) and is_instance_valid(app.stage): break
 		await process_frame
-	check(app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller), "actual title start creates formal game consumer")
+	check(app.director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(app.controller), "actual Home navigation starts the formal game consumer for retained pause checks")
 	if is_instance_valid(app.controller): await pause_checks()
 	paused = false
 	check(await preload("res://tests/audio_teardown.gd").drain_world(app), "actual test world releases owned audio before teardown")
@@ -322,31 +329,30 @@ func pause_checks() -> void:
 	var player := app.player
 	var shots := app.controller.shoot_ability._shot_serial
 	await click(app._pause_button)
-	check(paused and app.menu.visible_panel == &"pause", "native MENU click pauses actual world")
+	check(paused and app.menu.visible_panel == &"build", "native MENU pauses actual world and opens backpack directly")
 	var pause_tab := named("PausePage")
 	var build_tab := named("BuildPage")
-	var equipment := named("EquipmentNotImplemented")
-	check(pause_tab != null and build_tab != null and equipment != null, "pause exposes genuine pause/build pages and a reserved equipment tab")
-	if pause_tab == null or build_tab == null or equipment == null: return
-	check(pause_tab.button_pressed and not build_tab.button_pressed and equipment.disabled, "actual pause tab selected; unavailable equipment cannot appear active")
-	await shot("pause")
-	await click(build_tab)
-	check(paused and app.menu.visible_panel == &"build" and named("BuildPage").button_pressed and not named("PausePage").button_pressed, "native tab click opens true run inventory page without resuming")
+	var settings_tab := named("SettingsPage")
+	var help_tab := named("HelpPage")
+	check(pause_tab != null and build_tab != null and settings_tab != null and help_tab != null, "paused backpack exposes four genuine page controls")
+	if pause_tab == null or build_tab == null or settings_tab == null or help_tab == null: return
+	check(build_tab.button_pressed and not pause_tab.button_pressed, "backpack is the active page on pause entry")
 	await shot("pause-build")
-	var disabled := named("EquipmentNotImplemented")
-	await click(disabled, false)
-	check(app.menu.visible_panel == &"build" and paused and disabled.disabled, "equipment click remains unavailable without fake page or gameplay change")
+	var backpack := app.menu._content.find_child("BackpackItems", true, false) as GridContainer
+	check(backpack != null and backpack.find_children("*", "Button", true, false).is_empty() and named("EquipItem") == null and named("EquipmentNotImplemented") == null, "fresh run has an honest empty backpack without disabled fake equipment tabs")
+	await click(pause_tab)
+	check(paused and app.menu.visible_panel == &"pause" and named("PausePage").button_pressed and not named("BuildPage").button_pressed, "native page click opens journey actions without resuming")
+	await shot("pause")
+	await click(named("BuildPage"))
+	check(app.menu.visible_panel == &"build" and paused and named("BuildPage").button_pressed, "native backpack page click returns to the actual equipment editor")
 	named("BuildPage").grab_focus()
-	await key(KEY_LEFT)
-	check(root.gui_get_focus_owner() == named("PausePage"), "native left navigation reaches actual previous page tab")
-	await key(KEY_ENTER)
-	check(app.menu.visible_panel == &"pause" and paused, "native confirm opens focused pause page")
-	named("PausePage").grab_focus()
-	await key(KEY_RIGHT)
-	check(root.gui_get_focus_owner() == named("BuildPage"), "native right navigation reaches actual next page tab")
-	await key(KEY_ENTER)
-	check(app.menu.visible_panel == &"build" and paused, "native confirm opens focused inventory page")
+	await key(KEY_E)
+	check(app.menu.visible_panel == &"pause" and paused, "native next-page key opens journey without moving the actor")
+	await key(KEY_Q)
+	check(app.menu.visible_panel == &"build" and paused, "native previous-page key returns to backpack")
+	await click(named("SettingsPage"))
+	check(app.menu.visible_panel == &"settings" and paused, "native settings page is reachable from backpack")
 	await click(prefix("BACK"))
-	check(app.menu.visible_panel == &"pause" and paused, "inventory back stays inside paused game")
-	await click(prefix("RESUME"))
-	check(not paused and app.player == player and app.controller.shoot_ability._shot_serial == shots, "resume preserves real player and releases no stale UI shot")
+	check(app.menu.visible_panel == &"build" and paused, "settings Back remains inside paused backpack")
+	await click(named("ResumeAdventure"))
+	check(not paused and app.player == player and app.controller.shoot_ability._shot_serial == shots, "direct backpack close preserves real player and releases no stale UI shot")

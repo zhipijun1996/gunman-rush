@@ -3,6 +3,14 @@
 ## 2026-10-26 AUDIO-DIRECTOR-01
 
 第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。
+| 任务 | 目标 | 依赖 | 状态 | 质量记录 |
+| --- | --- | --- | --- | --- |
+| RUN-GEAR-MERGE-05 | 补齐style14与过期style13拒绝的版本契约 | RUN-GEAR-MERGE-04 | review | [质量记录](quality/records/RUN-GEAR-MERGE-05.json) |
+| RUN-GEAR-MERGE-04 | 合入守门的creative精确版本测试同步 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-MERGE-04.json) |
+| RUN-GEAR-R2-03 | 修复当前R2测试的家园入口与布局等待 | RUN-GEAR-UI-02 | review | [质量记录](quality/records/RUN-GEAR-R2-03.json) |
+| RUN-GEAR-UI-02 | 暂停直达背包、图标网格与左右分页 | RUN-GEAR-01 | review | [质量记录](quality/records/RUN-GEAR-UI-02.json) |
+| RUN-GEAR-01 | 正式本局背包、齿轮负荷与暂停换装基础 | — | review | [质量记录](quality/records/RUN-GEAR-01.json) |
+
 
 ## 2026-10-24 PLAYTEST-FEEDBACK-20261024（当前）
 

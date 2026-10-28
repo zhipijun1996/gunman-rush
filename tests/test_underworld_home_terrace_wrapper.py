@@ -13,8 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import run_underworld_home_terrace_tests as wrapper
 
-EXPECTED = 184
-GPU_EXPECTED = 194
+EXPECTED = 185
+GPU_EXPECTED = 195
 MARKER = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions, 0 failures\n'
 
 
@@ -186,6 +186,8 @@ class HomeTerraceGuardTests(unittest.TestCase):
         self.rejected()
 
     def test_38_consistent_underreported_count_is_rejected(self):
+        # The former 184-marker and matching receipt cannot sign the new
+        # 185-assertion route that actually clicks the Journey page.
         self.value['checks'] = EXPECTED - 1
         self.output = f'UNDERWORLD HOME TERRACES: {EXPECTED - 1} assertions, 0 failures\n'
         self.rejected()

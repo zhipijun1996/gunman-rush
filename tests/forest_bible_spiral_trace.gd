@@ -1,5 +1,7 @@
 extends "res://tests/forest_bible_world_trace.gd"
 ## One F08 journey. All rewards use real visible Reader buttons and App queue.
+## After legitimate acquisition, the explicit equipment fixture uses the paused
+## versioned command; this is not a natural player-operated equipment journey.
 var local_fixture := false
 var fixture_data: Dictionary = {}
 var core_evidence: Dictionary = {}
@@ -104,10 +106,20 @@ func _process(delta: float) -> void:
 			_core_state = "commit"; _core_ui_age = 0
 	elif _core_state == "commit" and stage.region_state.claimed.get("forest_spiral_core",false):
 		var count_after: int = app.build.count_item(&"forest_spiral_core")
+		var damage_owned: float = player.tuning.projectile_damage
+		if stage.discoveries.is_open() or get_tree().paused or count_after != _core_count_before+1 or not is_equal_approx(damage_owned,_core_damage_before) or _core_actual_receipt.get("item") != "forest_spiral_core":
+			fail("spiral_actual_queued_ownership_missing_or_auto_equipped"); return
+		var acquired: RunItemInstance
+		for instance: RunItemInstance in app.build.inventory.instances():
+			if instance.definition_id == &"forest_spiral_core": acquired = instance; break
+		var equipped_ids: Array[StringName] = app.build.equipment.equipped_ids()
+		if acquired == null: fail("spiral_owned_instance_missing"); return
+		if acquired.instance_id not in equipped_ids: equipped_ids.append(acquired.instance_id)
+		var equipped: bool = load("res://tests/gear_inventory_support.gd").equip_ids(app.build,equipped_ids)
 		var damage_after: float = player.tuning.projectile_damage
-		if stage.discoveries.is_open() or get_tree().paused or count_after != _core_count_before+1 or not is_equal_approx(damage_after,_core_damage_before+1.5) or _core_actual_receipt.get("item") != "forest_spiral_core":
+		if not equipped or not is_equal_approx(damage_after,_core_damage_before+1.5):
 			fail("spiral_actual_queued_item_effect_missing"); return
-		core_evidence = {"id":"forest_spiral_core","position":pair(player.global_position),"actual_receipt":_core_actual_receipt.duplicate(true),"item_count_before":_core_count_before,"item_count_after":count_after,"projectile_damage_before":_core_damage_before,"projectile_damage_after":damage_after,"claim_via_real_Reader_buttons_and_App_postdamage_queue":true,"direct_claim_or_grant":false}
+		core_evidence = {"id":"forest_spiral_core","position":pair(player.global_position),"actual_receipt":_core_actual_receipt.duplicate(true),"item_count_before":_core_count_before,"item_count_after":count_after,"projectile_damage_before":_core_damage_before,"projectile_damage_after":damage_after,"claim_via_real_Reader_buttons_and_App_postdamage_queue":true,"direct_claim_or_grant":false,"paused_equipment_fixture":true,"equipped_instance_id":str(acquired.instance_id),"damage_after_ownership":damage_owned}
 		event("spiral_actual_queued_item_accepted",core_evidence)
 		_core_done = true; _core_state = "done"
 

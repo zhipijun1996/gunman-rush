@@ -1,0 +1,24 @@
+{
+  "reviewer": "/root/bible_guard_review",
+  "scope": "Read-only single test contract and original32+10, no gameplay/art/device admission",
+  "head_observed": "80c3456c642c6d77a255fda992eb45b0564a551b",
+  "status": "awaiting_input_hydration",
+  "source_or_test_edits_by_reviewer": false,
+  "static_findings": {
+    "active_style": 14,
+    "active_creative": 17,
+    "same_pathset36_between_v13_and14": true,
+    "only_changed_runtime_reference": "scripts/demo/demo_app.gd",
+    "v13_original_bytes_equal_predecessor_main": true,
+    "v13_sha256": "ab8944e429a665aed6345aa5cc7d6e958a35b2b512255f7849fe3c9a82f57c97",
+    "remaining_active_stale_pins_in_scanned_python_tests": []
+  },
+  "input_failure": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json",
+    "tracked": true,
+    "git_index_flag": "S",
+    "local_original_Harness": "build/verification/harness/20261026T134034.331595Z/region-bible-tests.log",
+    "preflight_claim": "ready despite missing v12; finite explicit check.inputs omits historical dynamic reads"
+  },
+  "historical_note": "Intermediate ae50 and30bfd Harness both fail at missing v12 before reaching the added v13 filename; do not misstate those outputs as an executed bad-v13-path refusal."
+}

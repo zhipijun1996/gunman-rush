@@ -367,13 +367,19 @@ def validate_canopy(data):
     gold=data['gold_definition'];before_gold=data['before_gold'];after_gold=data['after_gold']
     require(gold['id']=='forest_heart_gold' and before_gold['count']==0 and after_gold['count']==1 and after_gold['hp']==before_gold['hp'] and after_gold['wallet']==before_gold['wallet'],'Actual GOLD claim unique, with no invented coin/heal settlement')
     declaration=json.loads(gold['fingerprint']);additions=[effect[2] for effect in declaration[-1] if effect[0]=='max_health' and effect[1]==1]
-    require(len(additions)==1 and close(after_gold['capacity'],before_gold['capacity']+additions[0]),'Actual item-declared maxHP delta required')
+    require(close(after_gold['capacity'],before_gold['capacity']) and after_gold['equipped']==before_gold['equipped'],'Actual GOLD acquisition is backpack-only, with no automatic maxHP/equipment change')
+    instances=after_gold['instances'];fixture=data['gold_equipment_fixture'];after_equipment=fixture['after']
+    require(len(instances)==1 and instances[0]['instance_id'] and instances[0]['definition_id']==gold['id'] and instances[0]['definition_version']==declaration[1] and instances[0]['source_id']==fixture['source_id'] and fixture['source_id'].startswith('reward:'),'Exactly one stable versioned instance from the real reward source required')
+    require(fixture['scope']=='Explicit paused EquipmentService fixture while real core-choice modal remains open; not natural menu operation' and fixture['accepted'] is True and fixture['before']==after_gold and fixture['progression_open'] is True,'Explicit equipment-fixture identity must not be presented as natural menu evidence')
+    require(len(additions)==1 and close(after_equipment['capacity'],before_gold['capacity']+additions[0]) and after_equipment['hp']==before_gold['hp'] and after_equipment['wallet']==before_gold['wallet'] and after_equipment['count']==1 and after_equipment['instances']==instances and after_equipment['equipped'].count(gold['id'])==1,'Actual item-declared maxHP delta still required after explicit equipment, without healing, payment or duplicate ownership')
+    require(fixture['core_before']==fixture['core_after'],'Random-item equipment must not grant a core ability')
     boundary=data['before_boundary'];home=data['after_boundary']
     require(boundary['double'] is True and 'double_jump' in boundary['abilities'] and boundary['phase']==3 and boundary['map']==2 and boundary['manifest_compatible'] is True,'Real D ability/compatible run boundary required')
+    require(boundary['loadout']==after_equipment,'Actual core D choice preserves the distinct random-item inventory and equipment')
     require(any(all(meaning in row for meaning in ('后续地区尚在制作','返回家园结束本局','清除本局能力、金币和道具','已存入的音符保留')) for row in data['boundary_ui_text']),'Truthful current development boundary text required')
     outputs=boundary['manifest']['stages'][-1]['outputs']
     require(outputs['reward_claim']['item']=='forest_heart_gold' and outputs['core_ability_reward']['ability']=='double_jump','Real reward/core manifest receipts required')
-    require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['abilities']==[],'Actual HOME clears run')
+    require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['equipped']==[] and home['abilities']==[],'Actual HOME clears both owned/equipped items and core abilities')
     require(data['teardown']['observed_actors_alive']==[],'Actually observed actor/source WeakRefs must clear after teardown')
 
 def main():

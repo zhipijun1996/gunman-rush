@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261026T123623.504243Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6363957e71890608233f6dd6b4d68009f9599ef3af05baeacf7b23fd6b49525d",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793018190.4257004,
+      "ended_at_unix": 1793018191.5622873,
+      "duration_seconds": 1.137,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "295bd54c856144bbbd409e19265abf76",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261026T123623.504243Z/artifacts/creative-direction-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "07437ca2da8f603d85738338272933be10f3b2400a9c6ada308e20cd8d6a634f",
+  "working_files": {
+    "docs/quality/records/RUN-GEAR-MERGE-04.json": "575b642a9b19cd0228dc1811e9e57e51f9d86627ec7de201e9028aa2a706895d"
+  },
+  "commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+  "git_status": "?? docs/quality/records/RUN-GEAR-MERGE-04.json",
+  "diff": "",
+  "untracked": "docs/quality/records/RUN-GEAR-MERGE-04.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 12.765,
+  "jobs": 1,
+  "release": true
+}

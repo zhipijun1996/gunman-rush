@@ -1,5 +1,6 @@
 extends RefCounted
 
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 const DEMO := preload("res://scenes/demo/demo.tscn")
 var tree: SceneTree
 var check: Callable
@@ -53,24 +54,31 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		if route == 0:
 			app.purchase_item()
 			await frames(2)
-			check.call(app.build.item_ids().size() == 1 and app.wallet.balance == 5, "nearby shop UI intent buys one item for five run coins")
-			var old_items := app.build.item_ids()
+			check.call(GEAR.owned_ids(app.build).size() == 1 and app.build.item_ids().is_empty() and app.wallet.balance == 5, "nearby shop UI intent buys one item for five run coins")
+			var old_items := GEAR.owned_ids(app.build)
 			app.purchase_item()
 			await frames(2)
-			check.call(app.build.item_ids() == old_items and app.wallet.balance == 5, "depleted shop stock cannot charge a second transaction")
+			check.call(GEAR.owned_ids(app.build) == old_items and app.wallet.balance == 5, "depleted shop stock cannot charge a second transaction")
 		else:
 			var selected_id := app.current_reward.candidates[0].stable_id
 			var rejected_id := app.current_reward.candidates[1].stable_id
 			app.claim_item(selected_id)
 			app.claim_item(rejected_id)
 			await frames(2)
-			check.call(app.build.item_ids().size() == 1 and app.build.count_item(rejected_id) == 0, "demo item-room UI commits only one of two queued choices")
+			check.call(GEAR.owned_ids(app.build).size() == 1 and app.build.item_ids().is_empty() and app.build.count_item(rejected_id) == 0, "demo item-room UI commits only one of two queued choices")
+		# Acquisition is only ownership; the ordinary pause boundary enables a separate command.
+		app.toggle_pause()
+		var owned_instance: RunItemInstance = app.build.inventory.instances()[0]
+		check.call(tree.paused and GEAR.equip_ids(app.build, [owned_instance.instance_id]), "paused construction explicitly equips the purchased or claimed backpack instance")
+		app.menu.close_panel()
+		check.call(not tree.paused and app.build.item_ids().size() == 1, "closing pause resumes with exactly one equipped item")
+		var saved_owned := GEAR.owned_ids(app.build)
 		var saved_build := app.build.item_ids()
 		var saved_wallet := app.wallet.balance
 		app.policy.clock += 1.0
 		app._submit_damage(&"fixture_saw_2", DamageRequest.Kind.ENVIRONMENT, 1.0)
 		await frames(2)
-		check.call(app.build.item_ids() == saved_build and app.wallet.balance == saved_wallet, "return preserves committed build and wallet")
+		check.call(app.build.item_ids() == saved_build and GEAR.owned_ids(app.build) == saved_owned and app.wallet.balance == saved_wallet, "return preserves committed build and wallet")
 		if route == 0:
 			check.call(app.shop.quote(app._stage_id("shop_jump")).stock == 0, "return does not replenish shop stock")
 		else:
@@ -79,7 +87,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 		await frames(2)
 		app.choose_exit(app.director.offers[1].exit_id)
 		await frames(4)
-		check.call(app.director.stage_index == 3 and app.director.stage_type_id == &"boss", "both development penultimate exits lead to Boss")
+		check.call(app.director.stage_index == 3 and app.director.stage_type_id == &"boss" and app.build.item_ids() == saved_build and GEAR.owned_ids(app.build) == saved_owned, "both development penultimate exits lead to Boss while retaining equipped and owned instances")
 		var boss_health: HealthState = app.stage.boss.get_node("Encounter").health
 		queue_damage(app, &"boss", boss_health, 99.0, &"fixture_boss_defeat")
 		await frames(2)
@@ -160,7 +168,7 @@ func run(scene_tree: SceneTree, assertion: Callable) -> void:
 	check.call(app.director.state == DemoRunDirector.State.HOME and no_gold_rewards.get_offer(no_gold_id) == null, "simultaneous Boss/player death resolves failure with no gold reward")
 	app.start_demo("fresh")
 	await frames(4)
-	check.call(app.build.item_ids().is_empty() and app.wallet.balance == 0 and app.controller.actor_resources.health.current == 5.0, "next run starts fresh player resources, build and run coins")
+	check.call(app.build.item_ids().is_empty() and app.build.inventory.instances().is_empty() and app.build.equipment.snapshot().capacity == 8 and app.wallet.balance == 0 and app.controller.actor_resources.health.current == 5.0, "next run starts fresh player resources, build and run coins")
 	check.call(app.meta.snapshot().completed_runs == 2 and app.meta.snapshot().failed_runs == 4, "fresh run leaves completed/failed home progress separate")
 	app.abandon_run()
 	await frames(4)

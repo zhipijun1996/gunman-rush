@@ -52,6 +52,14 @@ func grant(id: StringName, enabled: bool = true) -> bool:
 	if not enabled: cancel()
 	return true
 
+# Query the independent core-ability owner; equipment never grants these rights.
+func has_capability(id: StringName) -> bool:
+	match id:
+		&"double_jump": return double_enabled
+		&"wall_climb": return wall_enabled
+		&"grapple": return hook_enabled
+	return false
+
 func busy() -> bool:
 	return state in [&"hook_cast", &"hook_fly", &"hook_pull", &"hook_miss", &"hook_retract", &"hook_contact_kick"]
 

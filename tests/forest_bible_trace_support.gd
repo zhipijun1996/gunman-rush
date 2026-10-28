@@ -103,7 +103,7 @@ static func process_reader(trace: Node) -> void:
 	else:state.unexpected_modal_frames=0
 
 static func duplicate_reader_snapshot(trace: Node) -> Dictionary:
-	return {"claimed":trace.stage.region_state.claimed.duplicate(true),"items":trace.app.build.item_ids(),"coins":trace.app.wallet.balance,"position":trace.pair(trace.player.global_position),"motion_steps":trace.player.motion_steps}
+	return {"claimed":trace.stage.region_state.claimed.duplicate(true),"items":trace.app.build.inventory.item_ids(),"coins":trace.app.wallet.balance,"position":trace.pair(trace.player.global_position),"motion_steps":trace.player.motion_steps}
 
 static func admission_evidence(trace: Node) -> Dictionary:
 	var state: Dictionary=trace.get_meta(STATE)

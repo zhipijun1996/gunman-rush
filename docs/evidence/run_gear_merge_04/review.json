@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_id": "RUN-GEAR-MERGE-04",
+  "reviewer": "/root/merge_guard_review",
+  "implementers": [
+    "/root"
+  ],
+  "independent_from_implementer": true,
+  "production_or_test_edits_by_reviewer": false,
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "reviewed_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+  "baseline_commit": "561846261608e226706d9697754b2cd19814c6f0",
+  "verdict": "ACCEPT",
+  "scope": "Single exact expected-version migration in tests/test_region_creative_direction.py; independent original10 Python tests, archives and retained stage gates. No full CI or merge approval substitution.",
+  "diff": {
+    "files": [
+      "tests/test_region_creative_direction.py"
+    ],
+    "line": 112,
+    "before": "self.assertEqual(task['creative_direction']['version'], 'creative-v16')",
+    "after": "self.assertEqual(task['creative_direction']['version'], 'creative-v17')",
+    "production_changes": false
+  },
+  "independent_execution": {
+    "reviewer": "/root/merge_guard_review",
+    "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "exit_code": 0,
+    "seconds": 1.1282121620024554,
+    "tests": 10,
+    "source_before": {
+      "tests/test_region_creative_direction.py": "1837cf1e8980763b59637011ad6571b61ac5f16726fe6b39c1fbef01544b09d0",
+      "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+      "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+      "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+      "docs/creative_direction/bibles/registry.json": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+      "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+      "docs/creative_direction/windchime_plains.json": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+      "docs/creative_direction/thorn_forest.json": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
+      "docs/creative_direction/archive/creative-v16/registry.json": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996",
+      "docs/creative_direction/archive/creative-v16/windchime_plains.json": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155",
+      "docs/creative_direction/archive/creative-v16/thorn_forest.json": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+    },
+    "source_after": {
+      "tests/test_region_creative_direction.py": "1837cf1e8980763b59637011ad6571b61ac5f16726fe6b39c1fbef01544b09d0",
+      "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+      "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+      "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+      "docs/creative_direction/bibles/registry.json": "5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+      "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json": "a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+      "docs/creative_direction/windchime_plains.json": "ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+      "docs/creative_direction/thorn_forest.json": "4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
+      "docs/creative_direction/archive/creative-v16/registry.json": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996",
+      "docs/creative_direction/archive/creative-v16/windchime_plains.json": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155",
+      "docs/creative_direction/archive/creative-v16/thorn_forest.json": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+    },
+    "source_stable": true,
+    "archive_v16_refusals": [
+      {
+        "path": "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+        "rejected": true,
+        "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+      },
+      {
+        "path": "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+        "rejected": true,
+        "reason": "Bible binding changed; impact analysis and independent review/rebind required; do not refresh downstream hashes"
+      }
+    ],
+    "scope": "Independent original 10 Python tests and explicit archived-v16 refusal checks only; no Godot, asset production, full CI or player/device approval."
+  },
+  "stdout": "..........\n----------------------------------------------------------------------\nRan 10 tests in 1.033s\n\nOK\n",
+  "stdout_sha256": "5d03512568684366fe22499a927950fd633b679a015a96151c6015442a7b2c57",
+  "actual_authority": {
+    "windchime_plains": "creative-v17",
+    "thorn_forest": "creative-v17",
+    "registry": "docs/creative_direction/bibles/registry.json",
+    "shared_style": "docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json"
+  },
+  "original_archive_bytes": [
+    {
+      "path": "docs/creative_direction/archive/creative-v16/registry.json",
+      "matches_main_predecessor": true,
+      "sha256": "3fbd71e0c6e5b93392a420044d3360f6287bb09ca17ca1e080b390cc2f466996"
+    },
+    {
+      "path": "docs/creative_direction/archive/creative-v16/windchime_plains.json",
+      "matches_main_predecessor": true,
+      "sha256": "d07216a7430a11e8aaa5c7de7269942cd6e6d6f08ee89d432a4e50acdaa46155"
+    },
+    {
+      "path": "docs/creative_direction/archive/creative-v16/thorn_forest.json",
+      "matches_main_predecessor": true,
+      "sha256": "a1b40b7e3ab66e6ee0a864fa8c96ae369bd2abbb9b2945bc3bfc1e61ee45967d"
+    }
+  ],
+  "retained_guards": [
+    "all10 original test methods retained",
+    "each mission specialist must bind thorn_forest and exact creative-v17",
+    "compact feedback_context",
+    "last task completion content",
+    "prior stage required_gates contains G2",
+    "formal_opening_authorized remains false",
+    "authority/hash/region-mismatch refusal tests retained",
+    "prototype stays G0/G1 and does not claim region",
+    "archived-v2/v10/v12 exact identities and rejection remain"
+  ],
+  "failure_chain": [
+    {
+      "source_commit": "561846261608e226706d9697754b2cd19814c6f0",
+      "observation": "Original CI40316936625 parallel creative-direction-tests rejected stale16 vs actual17; root hydrated-before reproduces10 tests1 failure",
+      "original_log": "build/merge_pr110/creative-hydrated-before.log"
+    },
+    {
+      "source_commit": "fae1799c869feb891f01afd5a912ab1b0fde3594",
+      "observation": "Original root Harness creative-direction-tests fresh passed; independent original test run10/0 and two archived-v16 refusal probes passed",
+      "original_harness": "build/verification/harness/20261026T123623.504243Z/report.json"
+    }
+  ],
+  "unverified": [
+    "Entire144-check CI and unfinished serial lane",
+    "Godot/gameplay/UI visual/audio acceptance",
+    "Physical devices and player acceptance",
+    "Whether main has been merged; root must verify actual GitHub state after CI"
+  ]
+}

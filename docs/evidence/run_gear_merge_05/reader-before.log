@@ -1,0 +1,16 @@
+...............................................F.......
+======================================================================
+FAIL: test_original_ecology_and_lift_strategies_stay_byte_identical (test_forest_bible_trace_consumers.BibleTraceConsumerTests.test_original_ecology_and_lift_strategies_stay_byte_identical)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_forest_bible_trace_consumers.py", line 100, in test_original_ecology_and_lift_strategies_stay_byte_identical
+    self.assertEqual(hashlib.sha256((ROOT / 'tests' / name).read_bytes()).hexdigest(), digest)
+AssertionError: 'e7265d2a6cb175053d22bd80afd75d004e610f6e5bc5e3ea6f4280238b7ffa11' != 'ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016'
+- e7265d2a6cb175053d22bd80afd75d004e610f6e5bc5e3ea6f4280238b7ffa11
++ ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016
+
+
+----------------------------------------------------------------------
+Ran 55 tests in 1.495s
+
+FAILED (failures=1)

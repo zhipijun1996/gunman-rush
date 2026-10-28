@@ -119,7 +119,7 @@ func _run() -> void:
 	menu.show_home_panel(&"achievements")
 	check(menu._content.find_children("*", "Button", true, false).size() == 1, "No fake achievement reward claim")
 	menu.show_pause("fixture build")
-	check(menu.visible_panel == &"pause", "Pause route retained")
+	check(menu.visible_panel == &"build", "Pause opens the backpack directly")
 	menu._confirm_home()
 	check(menu.visible_panel == &"confirm_home", "Destructive Run return still requires confirmation")
 	check(DemoMenu.atlas_region(Rect2(914, 278, 412, 363)).region == Rect2(914, 278, 412, 363), "PR33 atlas region preserves source geometry")

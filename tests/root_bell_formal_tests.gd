@@ -200,7 +200,7 @@ func run_manifest_replay(tree: SceneTree) -> Dictionary:
 			cases.append({"mode": mode, "case": "first_map_native_json_exact", "passed": first_ok, "version": first_native.versions.generated_layout})
 			if not first_ok: failures.append(mode + "/first_map_roundtrip")
 			# Explicit lawful Definition fixture; this is not a reward acquisition proof.
-			var item_added := app.build.add_item(&"run_manifest_replay_fixture", load("res://resources/items/brake_boots.tres"))
+			var item_added: bool = load("res://tests/gear_inventory_support.gd").add_and_equip(app.build, &"run_manifest_replay_fixture", load("res://resources/items/brake_boots.tres"))
 			var transitioned: bool = item_added and await load("res://tests/plains_campaign_fixture.gd").second_map(app, tree)
 			if not transitioned:
 				failures.append(mode + "/second_map_not_ready")

@@ -11,6 +11,7 @@ var _receipts: Dictionary = {}
 func configure(scope: DemoLifetime, state: BuildState) -> void:
 	lifetime = scope
 	build = state
+	build.equipment.bind_lifetime(scope)
 
 func create_offer(id: StringName, items: Array[ItemDefinition], source_id: StringName) -> RewardOffer:
 	return _create(id, items, source_id, false)
@@ -30,7 +31,7 @@ func _create(id: StringName, items: Array[ItemDefinition], source_id: StringName
 		if existing.source_id != source_id or existing.gold != gold or existing.candidates.size() != items.size():
 			return null
 		for index: int in items.size():
-			if items[index] == null or items[index].fingerprint() != existing.candidates[index].fingerprint():
+			if items[index] == null or not items[index].is_valid() or items[index].fingerprint() != existing.candidates[index].fingerprint():
 				return null
 		return existing.copy()
 	if _sources.has(source_id) or ((items.size()<1 or items.size()>2) if allow_single else items.size() != (1 if gold else 2)):
@@ -77,7 +78,7 @@ func claim(request: RewardClaimRequest) -> EconomyReceipt:
 	if selected == null or not build.can_add(selected):
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	offer.claimed = true
-	if not build.add_item(StringName("reward:%s" % offer.source_id), selected):
+	if not build.add_item(StringName("reward:%s" % offer.source_id), selected, &"reward"):
 		offer.claimed = false
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	offer.claimed = true
@@ -85,6 +86,7 @@ func claim(request: RewardClaimRequest) -> EconomyReceipt:
 	receipt.status = EconomyReceipt.Status.COMMITTED
 	receipt.event_id = request.claim_id
 	receipt.item_id = selected.stable_id
+	receipt.instance_id = build.inventory.instance_for_source(StringName("reward:%s" % offer.source_id)).instance_id
 	_receipts[request.claim_id] = {"payload": payload, "receipt": receipt.copy()}
 	claimed.emit(receipt.copy())
 	return receipt

@@ -1,4 +1,6 @@
 extends SceneTree
+
+const GEAR := preload("res://tests/gear_inventory_support.gd")
 ## D079 historical policy fixtures; current App/lab below consume formal v2.
 ## Exact original and item bytes: tests/fixtures/demo_ui_01_r3/history.json.
 ## Fixture placement only; damage, projectiles, refunds and locomotion are real.
@@ -125,15 +127,16 @@ func run() -> void:
 	await fixture()
 	var build:=BuildState.new();build.configure(actor)
 	var grip:=preload("res://tests/fixtures/demo_ui_01_r3/efficient_grip_d079.tres")
-	check(build.add_item(&"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"grip actually reduces energy cost from base")
-	check(build.add_item(&"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"same source is idempotent")
-	check(build.remove_source(&"grip") and actor.shot_energy.shot_energy_cost==20,"removing source restores base cost")
-	check(build.add_item(&"echo",preload("res://tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres")) and actor.shot_energy.hit_energy_recovery==25,"echo item actually increases committed-hit recovery")
-	check(build.add_item(&"hp",preload("res://resources/items/region_health_purple.tres")) and actor.actor_resources.health.capacity==6.5 and actor.actor_resources.health.current==5,"HP item changes capacity without fake healing")
+	check(GEAR.add_and_equip(build, &"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"grip actually reduces energy cost from base")
+	check(GEAR.add_and_equip(build, &"grip",grip) and is_equal_approx(actor.shot_energy.shot_energy_cost,16),"same source is idempotent")
+	check(GEAR.unequip_source(build, &"grip") and actor.shot_energy.shot_energy_cost==20,"removing source restores base cost")
+	build.clear() # The following card fixture owns just echo and HP.
+	check(GEAR.add_and_equip(build, &"echo",preload("res://tests/fixtures/demo_ui_01_r3/echo_magazine_d079.tres")) and actor.shot_energy.hit_energy_recovery==25,"echo item actually increases committed-hit recovery")
+	check(GEAR.add_and_equip(build, &"hp",preload("res://resources/items/region_health_purple.tres")) and actor.actor_resources.health.capacity==6.5 and actor.actor_resources.health.current==5,"HP item changes capacity without fake healing")
 	check(player.tuning.max_jumps==1 and player.tuning.max_air_shots==2,"new energy items preserve baseline action caps")
 	var menu:=DemoMenu.new();world.add_child(menu)
 	menu.show_pause("Fixture build",build.owned_items());menu.show_build("Fixture build");menu._back();menu.show_build("Fixture build")
-	check(menu._build_items.size()==2,"back and reopen keeps owned item cards")
+	check(menu._build_items.size()==2,"back and reopen retains the supplied backpack definition snapshot")
 	var shop:=ItemShopModal.new();world.add_child(shop)
 	var offer:=ShopOffer.new();offer.item=grip;offer.price=10;offer.stock=1
 	shop.show_offer(offer,0,true);check(shop.opened,"shop previews real icon and item")
@@ -143,7 +146,9 @@ func run() -> void:
 	var toast:=ItemAcquiredToast.new();world.add_child(toast);toast.show_item(grip);check(is_instance_valid(toast._root),"actual acquisition UI renders");toast.clear()
 	var broken:=ItemDefinition.new();broken.stable_id=&"overcost";broken.display_name="Invalid overcost"
 	var mod:=BuildModifier.new();mod.stat_id=&"shot_energy_cost";mod.operation=BuildModifier.Operation.ADD;mod.value=200;broken.modifiers=[mod]
-	check(not build.can_add(broken),"invalid cost above energy capacity cannot soft-lock shooting")
+	var cost_before := actor.shot_energy.shot_energy_cost
+	check(build.can_add(broken) and build.add_item(&"overcost", broken) and actor.shot_energy.shot_energy_cost == cost_before,"finite overcost data may be held without changing shooting")
+	check(not GEAR.add_and_equip(build, &"overcost", broken) and actor.shot_energy.shot_energy_cost == cost_before,"invalid equipped cost above energy capacity cannot soft-lock shooting")
 	var supported:=preload("res://assets/fonts/windkeeper_ui.ttf").get_supported_chars()
 	var dir:=DirAccess.open("res://resources/items")
 	for file: String in dir.get_files():
@@ -187,11 +192,15 @@ func run() -> void:
 	check(lab.module_id==&"energy_trial" and lab.controller.shot_energy!=null and not lab.controller.shot_energy.definition.shooting_consumes_energy and lab.controller.air_focus_ability.stamina_state==lab.controller.actor_resources.stamina and is_instance_valid(lab.energy_trial),"explicit development practice uses current shared time-energy policy")
 	lab.energy_trial.show_choice();check(paused and lab.energy_trial.modal.opened,"real practice reward opens shared item cards")
 	lab.energy_trial._choose(&"efficient_grip")
-	check(not paused and lab.energy_trial.claimed and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"shared reward service commits actual displayed item effect")
+	check(not paused and lab.energy_trial.claimed and lab.energy_trial.build.count_item(&"efficient_grip")==1 and lab.energy_trial.build.item_ids().is_empty() and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,45.0),"shared practice reward first enters backpack without automatic effect")
+	# Explicit development equipment fixture uses the real paused session command;
+	# it is not natural menu-operation evidence or a special automatic reward path.
+	check(GEAR.equip_all(lab.energy_trial.build),"explicit paused practice equipment fixture installs the legitimately claimed grip")
+	check(not paused and lab.energy_trial.claimed and is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"explicitly equipped practice reward applies its actual displayed item effect")
 	lab.energy_trial._choose(&"efficient_grip")
 	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,36.0),"duplicate practice claim never reapplies effect")
 	lab.restart_module();await frames(8)
-	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,45.0) and lab.energy_trial.build.item_ids().is_empty(),"new practice attempt discards local fixture reward")
+	check(is_equal_approx(lab.controller.motor.tuning.focus_stamina_drain,45.0) and lab.energy_trial.build.item_ids().is_empty() and lab.energy_trial.build.inventory.instances().is_empty(),"new practice attempt discards local fixture reward")
 	lab.free()
 	# Continuous locomotion: no resetting rounds, energy or position between shots.
 	await fixture(true)

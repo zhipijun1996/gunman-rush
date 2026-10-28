@@ -70,7 +70,9 @@ def read_fresh_receipt(path, since_ns):
 
 def expected_assertions(capture=False):
     # The authored arms service adds three route checks and one panel capture.
-    return 194 if capture else 184
+    # Pausing now opens the backpack; the actual Journey-page pointer adds
+    # exactly one visible-control assertion before the existing leave flow.
+    return 195 if capture else 185
 
 def verify(output, receipt, before, after, expected, exit_code=0):
     if exit_code != 0:
