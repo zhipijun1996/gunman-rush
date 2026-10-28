@@ -1,0 +1,2298 @@
+{
+  "schema_version": 1,
+  "task": "AUDIO-DIRECTOR-01",
+  "source_commit": "26e7f2a4459623f35613a857da8a75e89daa3e62",
+  "events": [
+    {
+      "event_id": "cue.focus_start",
+      "description": "慢瞄开始／二跳／钩索释放／旧武器阶段共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/focus_start.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 34,
+          "code": "if action in [&\"hook_cast\",&\"hook_kick\",&\"wall_kick\"]: GameAudio.cue(self,&\"jump\" if action in [&\"wall_kick\",&\"hook_kick\"] else &\"focus_start\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 58,
+          "code": "if _controller.active: GameAudio.cue(self, &\"focus_start\" if value else &\"focus_end\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 67,
+          "code": "if _controller.jump_ability.used_jumps >= 2: GameAudio.cue(self,&\"focus_start\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 55,
+          "code": "_cue(&\"focus_start\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 122,
+          "code": "_cue(&\"focus_start\" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &\"jump\" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 242,
+          "code": "if _timer<=0:_cue(&\"focus_start\");_timer+=def.beam_tick",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 44,
+          "code": "if visual.controller.jump_ability.used_jumps>=2: GameAudio.cue(self,&\"focus_start\")",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.focus_end",
+      "description": "慢瞄结束",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/focus_end.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 58,
+          "code": "if _controller.active: GameAudio.cue(self, &\"focus_start\" if value else &\"focus_end\"))",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.enemy_defeat",
+      "description": "敌人接受死亡（可被DeathAudio替换）",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/enemy_defeat.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 75,
+          "code": "if not _restoring_instance: GameAudio.cue(self, &\"enemy_defeat\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.door",
+      "description": "已接受关卡／区域门转换",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/door.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 340,
+          "code": "if director.stage_index > 1: GameAudio.cue(self, &\"door\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/generation/plains_region_assembler.gd",
+          "line": 80,
+          "code": "GameAudio.cue(self,&\"door\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/generation/thorn_forest_region_assembler.gd",
+          "line": 141,
+          "code": "GameAudio.cue(self, &\"door\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/generation/thorn_forest_region_assembler.gd",
+          "line": 164,
+          "code": "GameAudio.cue(self, &\"door\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.warning",
+      "description": "敌人／Boss攻击预告或封门",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/warning.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/bosses/bellstrider_presentation.gd",
+          "line": 39,
+          "code": "if _mode in [&\"roll_warning\",&\"ring_warning\",&\"lob_warning\"]: GameAudio.cue(self,&\"warning\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/boss_arena_seal.gd",
+          "line": 28,
+          "code": "GameAudio.cue(self,&\"warning\");queue_redraw();return true",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 206,
+          "code": "if next in [&\"pursuit_warning\",&\"bell_warning\"]: GameAudio.cue(self,&\"warning\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/thorn_forest_encounter.gd",
+          "line": 115,
+          "code": "if next in [&\"branch_warning\",&\"phase_transition\"]: GameAudio.cue(self,&\"warning\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 71,
+          "code": "elif _mode in [&\"stomp_warning\", &\"charge_warning\", &\"blade_warning\", &\"pier_warning\"]: GameAudio.cue(self, &\"warning\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 134,
+          "code": "if next == &\"telegraph\": GameAudio.cue(self, &\"warning\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.boss_impact",
+      "description": "Boss动作冲击及DefeatBurst",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/boss_impact.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/defeat_burst.gd",
+          "line": 7,
+          "code": "GameAudio.cue(self,&\"boss_impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/bellstrider_presentation.gd",
+          "line": 40,
+          "code": "elif _mode in [&\"roll\",&\"rings\",&\"lob\"]: GameAudio.cue(self,&\"boss_impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/boss_arena_seal.gd",
+          "line": 48,
+          "code": "GameAudio.cue(self,&\"boss_impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/boss_arrival_presentation.gd",
+          "line": 30,
+          "code": "GameAudio.cue(self,&\"boss_impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 72,
+          "code": "elif _mode in [&\"stomp\", &\"pier_impact\"]: GameAudio.cue(self, &\"boss_impact\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.click",
+      "description": "全部BaseButton pressed自动点击",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/click.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_audio.gd",
+          "line": 71,
+          "code": "play(&\"click\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.confirm",
+      "description": "接受交易、资源恢复和部分动作成功共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/confirm.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 51,
+          "code": "GameAudio.cue(self,&\"confirm\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/visual_language_sample.gd",
+          "line": 320,
+          "code": "GameAudio.cue(self,&\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 122,
+          "code": "_cue(&\"focus_start\" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &\"jump\" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 360,
+          "code": "_pose(&\"blade_catch\");item.dispose();_cue(&\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 365,
+          "code": "entity_transition.emit(item,&\"attached\");_cue(&\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1017,
+          "code": "GameAudio.cue(self, &\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1044,
+          "code": "GameAudio.cue(self, &\"confirm\" if receipt.accepted() else &\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1901,
+          "code": "GameAudio.cue(self, &\"confirm\" if result.accepted else &\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2118,
+          "code": "GameAudio.cue(self, &\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2267,
+          "code": "GameAudio.cue(self,&\"confirm\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2280,
+          "code": "GameAudio.cue(self,&\"confirm\" if receipt.accepted() else &\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2497,
+          "code": "GameAudio.cue(self, &\"confirm\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.coin",
+      "description": "金币及普通奖励",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/coin.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1851,
+          "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1889,
+          "code": "GameAudio.cue(self, &\"coin\" if pickup.kind == \"coin\" else &\"heal\" if pickup.kind == \"heart\" else &\"note\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2067,
+          "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.note",
+      "description": "音符／其他拾取",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/note.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1889,
+          "code": "GameAudio.cue(self, &\"coin\" if pickup.kind == \"coin\" else &\"heal\" if pickup.kind == \"heart\" else &\"note\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.victory",
+      "description": "运行成功／区域完成",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/victory.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1235,
+          "code": "GameAudio.cue(self, &\"victory\" if result.reason in [&\"biome_complete\", &\"success\"] else &\"death\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.jump",
+      "description": "经典主角起跳／蹬墙／钩索踢出及旧动作",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/jump.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 34,
+          "code": "if action in [&\"hook_cast\",&\"hook_kick\",&\"wall_kick\"]: GameAudio.cue(self,&\"jump\" if action in [&\"wall_kick\",&\"hook_kick\"] else &\"focus_start\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 66,
+          "code": "GameAudio.cue(self, &\"jump\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 122,
+          "code": "_cue(&\"focus_start\" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &\"jump\" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &\"confirm\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.land",
+      "description": "经典主角落地",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/land.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 71,
+          "code": "GameAudio.cue(self, &\"land\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.step",
+      "description": "主角累计移动距离脚步",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/step.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 109,
+          "code": "GameAudio.cue(self, &\"step\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.hurt",
+      "description": "敌人普通受击和主角受伤共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/hurt.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 195,
+          "code": "GameAudio.cue(self, &\"hurt\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 122,
+          "code": "GameAudio.cue(self, &\"hurt\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.shot",
+      "description": "旧版主角射击（新正式WeaponFeel委派关闭）",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/shot.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 78,
+          "code": "GameAudio.cue(self, &\"shot\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.impact",
+      "description": "旧弹体接触／钩索接触踢出／武器后备",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/impact.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 37,
+          "code": "GameAudio.cue(self,&\"impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 88,
+          "code": "GameAudio.cue(self, &\"impact\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 353,
+          "code": "item.dispose();_phase(&\"idle\");_cue(&\"impact\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.armour",
+      "description": "护甲／无效伤害反馈",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/armour.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/bosses/bellstrider_presentation.gd",
+          "line": 28,
+          "code": "encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&\"armour\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/thorn_damageable.gd",
+          "line": 9,
+          "code": "GameAudio.cue(self, &\"armour\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 43,
+          "code": "GameAudio.cue(self, &\"armour\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_damageable.gd",
+          "line": 10,
+          "code": "GameAudio.cue(self,&\"armour\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/root_bell_behavior.gd",
+          "line": 105,
+          "code": "GameAudio.cue(self, &\"armour\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.core",
+      "description": "Boss铃芯有效受击",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/core.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/bosses/bellstrider_presentation.gd",
+          "line": 27,
+          "code": "GameAudio.cue(self,&\"core\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 47,
+          "code": "GameAudio.cue(self, &\"core\"))",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.enemy_shot",
+      "description": "敌方攻击发射",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/enemy_shot.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/bosses/thorn_forest_encounter.gd",
+          "line": 107,
+          "code": "GameAudio.cue(self,&\"enemy_shot\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 113,
+          "code": "GameAudio.cue(self, &\"enemy_shot\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+          "line": 39,
+          "code": "GameAudio.cue(self, &\"enemy_shot\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.heal",
+      "description": "接受生命拾取／生命奖励",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/heal.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1851,
+          "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1889,
+          "code": "GameAudio.cue(self, &\"coin\" if pickup.kind == \"coin\" else &\"heal\" if pickup.kind == \"heart\" else &\"note\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2067,
+          "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.death",
+      "description": "主角死亡和运行失败共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/death.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 55,
+          "code": "GameAudio.cue(self, &\"death\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1235,
+          "code": "GameAudio.cue(self, &\"victory\" if result.reason in [&\"biome_complete\", &\"success\"] else &\"death\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.bell",
+      "description": "机关射铃／钩索连接／部分种子接触共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/bell.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 35,
+          "code": "if action == &\"hook_pull\": GameAudio.cue(self,&\"bell\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/bosses/thorn_seed_projectile.gd",
+          "line": 39,
+          "code": "GameAudio.cue(self, &\"bell\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/forest_seed_projectile.gd",
+          "line": 29,
+          "code": "GameAudio.cue(self, &\"bell\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/enemies/root_bell_behavior.gd",
+          "line": 43,
+          "code": "GameAudio.cue(self, &\"bell\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/world/forest_practice_bell.gd",
+          "line": 58,
+          "code": "GameAudio.cue(self, &\"bell\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/world/shot_latch.gd",
+          "line": 336,
+          "code": "if get_tree().get_first_node_in_group(&\"game_audio\") != null: GameAudio.cue(self, &\"bell\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.denied",
+      "description": "UI拒绝／射击拒绝／钩索失败共享",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/denied.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 42,
+          "code": "if action == &\"hook_miss\": GameAudio.cue(self,&\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 59,
+          "code": "_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &\"denied\"))",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/combat/weapon_action_runtime.gd",
+          "line": 363,
+          "code": "_cue(&\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1044,
+          "code": "GameAudio.cue(self, &\"confirm\" if receipt.accepted() else &\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1901,
+          "code": "GameAudio.cue(self, &\"confirm\" if result.accepted else &\"denied\")",
+          "scope": "runtime_source"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2280,
+          "code": "GameAudio.cue(self,&\"confirm\" if receipt.accepted() else &\"denied\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.roar",
+      "description": "牧风者阶段咆哮",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/audio/kenney/roar.ogg"
+      ],
+      "references": [
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 69,
+          "code": "GameAudio.cue(self, &\"roar\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.forest_wind",
+      "description": "森林每9秒风声（首次3秒）",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/forest_bible_v2/audio/forest_wind.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/presentation/forest_bible_ambience.gd",
+          "line": 79,
+          "code": "if _actor_node() != null: GameAudio.cue(self, &\"forest_wind\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.forest_fruit",
+      "description": "800wu内接受果枝钩索",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/forest_bible_v2/audio/forest_fruit.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/presentation/forest_bible_ambience.gd",
+          "line": 62,
+          "code": "GameAudio.cue(self, &\"forest_fruit\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "cue.forest_web",
+      "description": "800wu内真实蛛网生长状态进入",
+      "route": "GameAudio.cue → local game_audio service → shared 12-voice pool",
+      "assets": [
+        "assets/forest_bible_v2/audio/forest_web.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/presentation/forest_bible_ambience.gd",
+          "line": 72,
+          "code": "GameAudio.cue(self, &\"forest_web\")",
+          "scope": "runtime_source"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "motion.jump",
+      "description": "新版主角接受起跳",
+      "route": "PlayerMotionFeel → PlayerMotionAudio.motion_cue → same 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+        "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+        "assets/player_presentation_01/feel_audio_v1/jump_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 43,
+          "code": "audio.motion_cue(&\"jump\",.3,_owner)"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 21,
+          "code": "visual.motion_jump.connect(_jump)"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "motion.land",
+      "description": "新版主角轻落地",
+      "route": "PlayerMotionFeel → PlayerMotionAudio.motion_cue → same 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/feel_audio_v1/land_0.wav",
+        "assets/player_presentation_01/feel_audio_v1/land_1.wav",
+        "assets/player_presentation_01/feel_audio_v1/land_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 55,
+          "code": "audio.motion_cue(&\"heavy\" if heavy else &\"land\",strength,_owner)"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 22,
+          "code": "visual.motion_land.connect(_land)"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "motion.heavy",
+      "description": "新版主角重落地",
+      "route": "PlayerMotionFeel → PlayerMotionAudio.motion_cue → same 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
+        "assets/player_presentation_01/feel_audio_v1/heavy_1.wav",
+        "assets/player_presentation_01/feel_audio_v1/heavy_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 55,
+          "code": "audio.motion_cue(&\"heavy\" if heavy else &\"land\",strength,_owner)"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+          "line": 22,
+          "code": "visual.motion_land.connect(_land)"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.pulse",
+      "description": "接受普通枪及默认弹体射击／反冲同帧反馈",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 122,
+          "code": "_sound(&\"pulse\",\"cannon/%s/%s\" % [controller.shoot_ability.weapon_epoch,controller.shoot_ability.packet_id],10)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 78,
+          "code": "var cue: StringName = &\"blade\" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &\"machine\" if mode==WeaponDefinition.Mode.MACHINE else &\"pulse\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.machine",
+      "description": "接受机枪弹次",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/machine_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/machine_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/machine_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 78,
+          "code": "var cue: StringName = &\"blade\" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &\"machine\" if mode==WeaponDefinition.Mode.MACHINE else &\"pulse\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.blade",
+      "description": "手里剑／扇刃／实体掷出",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/blade_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blade_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blade_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 158,
+          "code": "_sound(&\"blade\",\"entity_launch/%s/%s/%s\" % [_epoch,entity.packet,Engine.get_physics_frames()],16)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 78,
+          "code": "var cue: StringName = &\"blade\" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &\"machine\" if mode==WeaponDefinition.Mode.MACHINE else &\"pulse\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.hit",
+      "description": "确认敌方HP伤害提交；不是固体接触",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/hit_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/hit_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/hit_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 68,
+          "code": "_sound(&\"hit\",\"enemy_hit/%s/%s/%s/%s\" % [_epoch,packet,shot,tick],10)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.wall",
+      "description": "真实地形接触或地雷附着",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/wall_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/wall_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/wall_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 58,
+          "code": "_sound(&\"wall\",\"wall/%s/%s/%s\" % [projectile.weapon_epoch,projectile.energy_receipt_id,Engine.get_physics_frames()],17)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 107,
+          "code": "_sound(&\"wall\",\"attached/%s/%s\" % [_epoch,entity.serial],19)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.blast",
+      "description": "接受爆炸",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/blast_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blast_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blast_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 128,
+          "code": "_sound(&\"blast\",\"blast/%s/%s/%s\" % [ability.weapon_epoch,ability.packet_id,Engine.get_physics_frames()],11)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 99,
+          "code": "var cue: StringName=&\"blackhole_burst\" if ability.weapon.mode==WeaponDefinition.Mode.SINGULARITY else &\"blast\""
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 73,
+          "code": "_sound(cue,\"loop/%s/%s/%s\" % [_epoch,controller.shoot_ability.packet_id,cue],profile.sustained_attenuation,true)"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 100,
+          "code": "_sound(cue,\"blast/%s/%s/%s\" % [_epoch,ability.packet_id,Engine.get_physics_frames()],9)"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.ion_start",
+      "description": "光束开始／蓄力／炮释放",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_start_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 80,
+          "code": "_sound(&\"ion_start\",\"ion_start/%s/%s\" % [_epoch,packet],10)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 86,
+          "code": "_sound(&\"ion_start\",\"charge/%s/%s\" % [_epoch,packet],13,true)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 93,
+          "code": "_sound(&\"ion_start\",\"cannon/%s/%s\" % [_epoch,packet],9)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.ion_loop",
+      "description": "光束持续阶段",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_loop_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 31,
+          "code": "if runtime.phase==&\"beam\": _loop(&\"ion_loop\")",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 81,
+          "code": "_loop(&\"ion_loop\")",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.ion_tail",
+      "description": "光束结束",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/ion_tail_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 88,
+          "code": "_sound(&\"ion_tail\",\"ion_tail/%s/%s\" % [_epoch,packet],15)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.blackhole_start",
+      "description": "奇点启动",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_start_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 83,
+          "code": "_sound(&\"blackhole_start\",\"blackhole_start/%s/%s\" % [_epoch,packet],11)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.blackhole_loop",
+      "description": "奇点持续阶段",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_loop_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 32,
+          "code": "elif runtime.phase==&\"singularity\": _loop(&\"blackhole_loop\")",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 84,
+          "code": "_loop(&\"blackhole_loop\")",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.blackhole_burst",
+      "description": "奇点爆发",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/blackhole_burst_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 99,
+          "code": "var cue: StringName=&\"blackhole_burst\" if ability.weapon.mode==WeaponDefinition.Mode.SINGULARITY else &\"blast\""
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 73,
+          "code": "_sound(cue,\"loop/%s/%s/%s\" % [_epoch,controller.shoot_ability.packet_id,cue],profile.sustained_attenuation,true)"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 100,
+          "code": "_sound(cue,\"blast/%s/%s/%s\" % [_epoch,ability.packet_id,Engine.get_physics_frames()],9)"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.mine_beep",
+      "description": "真实地雷age/fuse节奏提示",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/mine_beep_v3/timer_beep.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 125,
+          "code": "_sound(&\"mine_beep\",\"beep/%s/%s/%s\" % [_epoch,entity.serial,Engine.get_physics_frames()],lerpf(18,12,t))",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "weapon.boomerang_return",
+      "description": "回旋镖返回／自动接住",
+      "route": "PlayerWeaponFeelV2 + accepted controller/runtime events → weapon_cue → shared 12-voice pool",
+      "assets": [
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_0.wav",
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_1.wav",
+        "assets/player_presentation_01/weapon_audio_v2/boomerang_return_2.wav"
+      ],
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 105,
+          "code": "_sound(&\"boomerang_return\",\"return/%s/%s\" % [_epoch,entity.serial],10)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        },
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+          "line": 109,
+          "code": "_sound(&\"boomerang_return\",\"catch/%s/%s\" % [_epoch,entity.serial],17)",
+          "scope": "dev_or_formal_shared_requires_assembly_evidence"
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "music.home",
+      "description": "用户原BGM；由DemoApp真实状态选择",
+      "route": "DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+      "assets": [
+        "assets/audio/bgm/the_kindred_hearth.mp3"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_music.gd",
+          "line": 5,
+          "code": "&\"home\": preload(\"res://assets/audio/bgm/the_kindred_hearth.mp3\"),"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 116,
+          "code": "_music.request_track(&\"home\")"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1368,
+          "code": "var track: StringName = &\"home\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "music.plains",
+      "description": "用户原BGM；由DemoApp真实状态选择",
+      "route": "DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+      "assets": [
+        "assets/audio/bgm/where_the_path_bends.mp3"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_music.gd",
+          "line": 6,
+          "code": "&\"plains\": preload(\"res://assets/audio/bgm/where_the_path_bends.mp3\"),"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1371,
+          "code": "track = &\"forest\" if forest else &\"plains\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "music.plains_boss",
+      "description": "用户原BGM；由DemoApp真实状态选择",
+      "route": "DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+      "assets": [
+        "assets/audio/bgm/across_the_wooden_sails.mp3"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_music.gd",
+          "line": 7,
+          "code": "&\"plains_boss\": preload(\"res://assets/audio/bgm/across_the_wooden_sails.mp3\"),"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1375,
+          "code": "track = &\"forest_boss\" if forest else &\"plains_boss\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "music.forest",
+      "description": "用户原BGM；由DemoApp真实状态选择",
+      "route": "DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+      "assets": [
+        "assets/audio/bgm/vines_beneath_the_canopy.mp3"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_music.gd",
+          "line": 8,
+          "code": "&\"forest\": preload(\"res://assets/audio/bgm/vines_beneath_the_canopy.mp3\"),"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1371,
+          "code": "track = &\"forest\" if forest else &\"plains\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    },
+    {
+      "event_id": "music.forest_boss",
+      "description": "用户原BGM；由DemoApp真实状态选择",
+      "route": "DemoApp._sync_music → GameMusic.request_track → two crossfade voices",
+      "assets": [
+        "assets/audio/bgm/beyond_the_knotted_vines.mp3"
+      ],
+      "references": [
+        {
+          "path": "scripts/audio/game_music.gd",
+          "line": 9,
+          "code": "&\"forest_boss\": preload(\"res://assets/audio/bgm/beyond_the_knotted_vines.mp3\"),"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1375,
+          "code": "track = &\"forest_boss\" if forest else &\"plains_boss\""
+        }
+      ],
+      "mapping_status": "verified_static",
+      "listening_status": "subjective_pending"
+    }
+  ],
+  "all_audio_callsites": [
+    {
+      "path": "scripts/art/defeat_burst.gd",
+      "line": 7,
+      "code": "GameAudio.cue(self,&\"boss_impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 34,
+      "code": "if action in [&\"hook_cast\",&\"hook_kick\",&\"wall_kick\"]: GameAudio.cue(self,&\"jump\" if action in [&\"wall_kick\",&\"hook_kick\"] else &\"focus_start\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 35,
+      "code": "if action == &\"hook_pull\": GameAudio.cue(self,&\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 37,
+      "code": "GameAudio.cue(self,&\"impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 42,
+      "code": "if action == &\"hook_miss\": GameAudio.cue(self,&\"denied\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 51,
+      "code": "GameAudio.cue(self,&\"confirm\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 55,
+      "code": "GameAudio.cue(self, &\"death\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 58,
+      "code": "if _controller.active: GameAudio.cue(self, &\"focus_start\" if value else &\"focus_end\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 59,
+      "code": "_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &\"denied\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 66,
+      "code": "GameAudio.cue(self, &\"jump\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 67,
+      "code": "if _controller.jump_ability.used_jumps >= 2: GameAudio.cue(self,&\"focus_start\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 71,
+      "code": "GameAudio.cue(self, &\"land\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 78,
+      "code": "GameAudio.cue(self, &\"shot\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 88,
+      "code": "GameAudio.cue(self, &\"impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 109,
+      "code": "GameAudio.cue(self, &\"step\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "line": 195,
+      "code": "GameAudio.cue(self, &\"hurt\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/art/visual_language_sample.gd",
+      "line": 320,
+      "code": "GameAudio.cue(self,&\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 36,
+      "code": "service.play(id, stream_override)",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 71,
+      "code": "play(&\"click\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 92,
+      "code": "voice.play()",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/audio/game_music.gd",
+      "line": 74,
+      "code": "voice.play()",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "line": 27,
+      "code": "GameAudio.cue(self,&\"core\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "line": 28,
+      "code": "encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&\"armour\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "line": 39,
+      "code": "if _mode in [&\"roll_warning\",&\"ring_warning\",&\"lob_warning\"]: GameAudio.cue(self,&\"warning\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "line": 40,
+      "code": "elif _mode in [&\"roll\",&\"rings\",&\"lob\"]: GameAudio.cue(self,&\"boss_impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/boss_arena_seal.gd",
+      "line": 28,
+      "code": "GameAudio.cue(self,&\"warning\");queue_redraw();return true",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/boss_arena_seal.gd",
+      "line": 48,
+      "code": "GameAudio.cue(self,&\"boss_impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/boss_arrival_presentation.gd",
+      "line": 30,
+      "code": "GameAudio.cue(self,&\"boss_impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/rootbell_guardian_v2.gd",
+      "line": 206,
+      "code": "if next in [&\"pursuit_warning\",&\"bell_warning\"]: GameAudio.cue(self,&\"warning\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/thorn_damageable.gd",
+      "line": 9,
+      "code": "GameAudio.cue(self, &\"armour\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_encounter.gd",
+      "line": 107,
+      "code": "GameAudio.cue(self,&\"enemy_shot\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_encounter.gd",
+      "line": 115,
+      "code": "if next in [&\"branch_warning\",&\"phase_transition\"]: GameAudio.cue(self,&\"warning\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/thorn_seed_projectile.gd",
+      "line": 39,
+      "code": "GameAudio.cue(self, &\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "line": 43,
+      "code": "GameAudio.cue(self, &\"armour\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "line": 47,
+      "code": "GameAudio.cue(self, &\"core\"))",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "line": 69,
+      "code": "GameAudio.cue(self, &\"roar\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "line": 71,
+      "code": "elif _mode in [&\"stomp_warning\", &\"charge_warning\", &\"blade_warning\", &\"pier_warning\"]: GameAudio.cue(self, &\"warning\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "line": 72,
+      "code": "elif _mode in [&\"stomp\", &\"pier_impact\"]: GameAudio.cue(self, &\"boss_impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 48,
+      "code": "GameAudio.cue(actor().motor,id)",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 55,
+      "code": "_cue(&\"focus_start\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 122,
+      "code": "_cue(&\"focus_start\" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &\"jump\" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 242,
+      "code": "if _timer<=0:_cue(&\"focus_start\");_timer+=def.beam_tick",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 353,
+      "code": "item.dispose();_phase(&\"idle\");_cue(&\"impact\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 360,
+      "code": "_pose(&\"blade_catch\");item.dispose();_cue(&\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 363,
+      "code": "_cue(&\"denied\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "line": 365,
+      "code": "entity_transition.emit(item,&\"attached\");_cue(&\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 116,
+      "code": "_music.request_track(&\"home\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 340,
+      "code": "if director.stage_index > 1: GameAudio.cue(self, &\"door\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1017,
+      "code": "GameAudio.cue(self, &\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1044,
+      "code": "GameAudio.cue(self, &\"confirm\" if receipt.accepted() else &\"denied\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1235,
+      "code": "GameAudio.cue(self, &\"victory\" if result.reason in [&\"biome_complete\", &\"success\"] else &\"death\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1376,
+      "code": "_music.request_track(track)",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1851,
+      "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1889,
+      "code": "GameAudio.cue(self, &\"coin\" if pickup.kind == \"coin\" else &\"heal\" if pickup.kind == \"heart\" else &\"note\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 1901,
+      "code": "GameAudio.cue(self, &\"confirm\" if result.accepted else &\"denied\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 2067,
+      "code": "GameAudio.cue(self, &\"heal\" if director.stage_type_id == &\"health_reward\" else &\"coin\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 2118,
+      "code": "GameAudio.cue(self, &\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 2267,
+      "code": "GameAudio.cue(self,&\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 2280,
+      "code": "GameAudio.cue(self,&\"confirm\" if receipt.accepted() else &\"denied\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 2497,
+      "code": "GameAudio.cue(self, &\"confirm\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_audio.gd",
+      "line": 47,
+      "code": "voice.play()",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "line": 43,
+      "code": "audio.motion_cue(&\"jump\",.3,_owner)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "line": 44,
+      "code": "if visual.controller.jump_ability.used_jumps>=2: GameAudio.cue(self,&\"focus_start\")",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "line": 55,
+      "code": "audio.motion_cue(&\"heavy\" if heavy else &\"land\",strength,_owner)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio.gd",
+      "line": 40,
+      "code": "selected.play()",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+      "line": 31,
+      "code": "return super.weapon_cue(id,owner,event,attenuation,sustained)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 67,
+      "code": "audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 85,
+      "code": "else: _sound(cue,key)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 108,
+      "code": "_sound(&\"contact\",key,16)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 117,
+      "code": "_sound(&\"beam\",\"phase/%s/%s/%s\" % [controller.shoot_ability.weapon_epoch,controller.shoot_ability.packet_id,value],profile.sustained_attenuation,true)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 122,
+      "code": "_sound(&\"pulse\",\"cannon/%s/%s\" % [controller.shoot_ability.weapon_epoch,controller.shoot_ability.packet_id],10)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 128,
+      "code": "_sound(&\"blast\",\"blast/%s/%s/%s\" % [ability.weapon_epoch,ability.packet_id,Engine.get_physics_frames()],11)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 134,
+      "code": "_sound(&\"contact\",\"entity/%s/%s/%s\" % [controller.shoot_ability.weapon_epoch,entity.serial,value],20)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "line": 158,
+      "code": "_sound(&\"blade\",\"entity_launch/%s/%s/%s\" % [_epoch,entity.packet,Engine.get_physics_frames()],16)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 31,
+      "code": "if runtime.phase==&\"beam\": _loop(&\"ion_loop\")",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 32,
+      "code": "elif runtime.phase==&\"singularity\": _loop(&\"blackhole_loop\")",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 58,
+      "code": "_sound(&\"wall\",\"wall/%s/%s/%s\" % [projectile.weapon_epoch,projectile.energy_receipt_id,Engine.get_physics_frames()],17)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 68,
+      "code": "_sound(&\"hit\",\"enemy_hit/%s/%s/%s/%s\" % [_epoch,packet,shot,tick],10)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 73,
+      "code": "_sound(cue,\"loop/%s/%s/%s\" % [_epoch,controller.shoot_ability.packet_id,cue],profile.sustained_attenuation,true)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 80,
+      "code": "_sound(&\"ion_start\",\"ion_start/%s/%s\" % [_epoch,packet],10)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 81,
+      "code": "_loop(&\"ion_loop\")",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 83,
+      "code": "_sound(&\"blackhole_start\",\"blackhole_start/%s/%s\" % [_epoch,packet],11)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 84,
+      "code": "_loop(&\"blackhole_loop\")",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 86,
+      "code": "_sound(&\"ion_start\",\"charge/%s/%s\" % [_epoch,packet],13,true)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 88,
+      "code": "_sound(&\"ion_tail\",\"ion_tail/%s/%s\" % [_epoch,packet],15)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 93,
+      "code": "_sound(&\"ion_start\",\"cannon/%s/%s\" % [_epoch,packet],9)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 100,
+      "code": "_sound(cue,\"blast/%s/%s/%s\" % [_epoch,ability.packet_id,Engine.get_physics_frames()],9)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 105,
+      "code": "_sound(&\"boomerang_return\",\"return/%s/%s\" % [_epoch,entity.serial],10)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 107,
+      "code": "_sound(&\"wall\",\"attached/%s/%s\" % [_epoch,entity.serial],19)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 109,
+      "code": "_sound(&\"boomerang_return\",\"catch/%s/%s\" % [_epoch,entity.serial],17)",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "line": 125,
+      "code": "_sound(&\"mine_beep\",\"beep/%s/%s/%s\" % [_epoch,entity.serial,Engine.get_physics_frames()],lerpf(18,12,t))",
+      "scope": "dev_or_formal_shared_requires_assembly_evidence"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 75,
+      "code": "if not _restoring_instance: GameAudio.cue(self, &\"enemy_defeat\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 122,
+      "code": "GameAudio.cue(self, &\"hurt\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_behavior.gd",
+      "line": 113,
+      "code": "GameAudio.cue(self, &\"enemy_shot\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_behavior.gd",
+      "line": 134,
+      "code": "if next == &\"telegraph\": GameAudio.cue(self, &\"warning\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/forest_seed_projectile.gd",
+      "line": 29,
+      "code": "GameAudio.cue(self, &\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+      "line": 39,
+      "code": "GameAudio.cue(self, &\"enemy_shot\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/prototype_enemy_damageable.gd",
+      "line": 10,
+      "code": "GameAudio.cue(self,&\"armour\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/root_bell_behavior.gd",
+      "line": 43,
+      "code": "GameAudio.cue(self, &\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/enemies/root_bell_behavior.gd",
+      "line": 105,
+      "code": "GameAudio.cue(self, &\"armour\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/generation/plains_region_assembler.gd",
+      "line": 80,
+      "code": "GameAudio.cue(self,&\"door\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/generation/thorn_forest_region_assembler.gd",
+      "line": 141,
+      "code": "GameAudio.cue(self, &\"door\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/generation/thorn_forest_region_assembler.gd",
+      "line": 164,
+      "code": "GameAudio.cue(self, &\"door\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 62,
+      "code": "GameAudio.cue(self, &\"forest_fruit\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 72,
+      "code": "GameAudio.cue(self, &\"forest_web\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 79,
+      "code": "if _actor_node() != null: GameAudio.cue(self, &\"forest_wind\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/world/forest_practice_bell.gd",
+      "line": 58,
+      "code": "GameAudio.cue(self, &\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/world/shot_latch.gd",
+      "line": 336,
+      "code": "if get_tree().get_first_node_in_group(&\"game_audio\") != null: GameAudio.cue(self, &\"bell\")",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "scripts/world/shot_latch.gd",
+      "line": 337,
+      "code": "else: _bell_audio.play()",
+      "scope": "runtime_source"
+    },
+    {
+      "path": "tests/audio_lifecycle_runner.gd",
+      "line": 12,
+      "code": "check(audio.play(&\"click\"), \"real Ogg cue creates playback\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/audio_lifecycle_runner.gd",
+      "line": 19,
+      "code": "check(audio.play(&\"land\"), \"real playback accepted\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/audio_lifecycle_runner.gd",
+      "line": 22,
+      "code": "check(not audio.play(&\"click\"), \"shutdown rejects fresh cue\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 63,
+      "code": "check(music.request_track(&\"home\"), \"valid deferred title track accepted\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 81,
+      "code": "check(music.request_track(&\"home\") and music.starts == started, \"same-track request preserves actual playback\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 82,
+      "code": "check(not music.request_track(&\"missing\") and music.requested_track == &\"home\", \"unknown track cannot replace current request\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 84,
+      "code": "check(music.request_track(&\"forest\"), \"second track accepted\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 87,
+      "code": "check(music.request_track(&\"home\") and int(music.starts.get(&\"home\", 0)) == 1, \"rapid return reuses still-playing original track without restart\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 91,
+      "code": "music.request_track(id)",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 111,
+      "code": "departing.request_track(&\"home\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/bgm_integration/runner.gd",
+      "line": 264,
+      "code": "check(not app._music.request_track(&\"forest_boss\"), \"late requests after shutdown cannot resurrect music\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 88,
+      "code": "check(audio.play(id) and count_cue(id) == 1, \"actual pool accepts and counts \" + str(id))",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 91,
+      "code": "check(not audio.play(&\"note\") and count_cue(&\"note\") == 0, \"thirteenth simultaneous cue is dropped without count\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 109,
+      "code": "check(not audio.play(&\"forest_wind\"), \"service rejects a new regional world voice while paused\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 112,
+      "code": "check(audio.play(&\"click\"), \"same paused service still accepts original UI click\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 177,
+      "code": "check(audio.play(&\"victory\"), \"selective stop fixture starts an actual original cue\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 180,
+      "code": "for id: StringName in GameAudio.REGIONAL_CUE_PATHS: check(audio.play(id), \"selective stop fixture starts \" + str(id))",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 192,
+      "code": "check(not audio._shutting_down and audio.play(&\"roar\"), \"regional stop leaves service active for original cues\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/forest_bible_ambience_runner.gd",
+      "line": 197,
+      "code": "check(audio.play(id), \"unload fixture restarts \" + str(id))",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/menu_settings_lifecycle_runner.gd",
+      "line": 37,
+      "code": "check(audio.play(&\"bell\"), \"Real audio service starts an owned voice\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/plains_feedback_runner.gd",
+      "line": 27,
+      "code": "check(not audio.play(&\"click\"), \"repeated same-frame click does not overlap\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/plains_feedback_runner.gd",
+      "line": 29,
+      "code": "check(not audio.play(&\"jump\"), \"zero volume cannot create a voice\")",
+      "scope": "test_or_tool"
+    },
+    {
+      "path": "tests/player_presentation_01/feel_lifecycle.gd",
+      "line": 43,
+      "code": "check(not app.motion_audio.motion_cue(&\"heavy\",1,actor.get_instance_id()) and app.motion_audio.motion_events.size()==event_count,\"mute admits no new motion voice\")",
+      "scope": "test_or_tool"
+    }
+  ],
+  "missing_or_collapsed_event_semantics": [
+    {
+      "event": "hook.release / hook.connect / hook.pull / hook.miss",
+      "state": "existing shared cues, no dedicated family or sustained pull loop",
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 34,
+          "code": "if action in [&\"hook_cast\",&\"hook_kick\",&\"wall_kick\"]: GameAudio.cue(self,&\"jump\" if action in [&\"wall_kick\",&\"hook_kick\"] else &\"focus_start\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 35,
+          "code": "if action == &\"hook_pull\": GameAudio.cue(self,&\"bell\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 37,
+          "code": "GameAudio.cue(self,&\"impact\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 42,
+          "code": "if action == &\"hook_miss\": GameAudio.cue(self,&\"denied\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 51,
+          "code": "GameAudio.cue(self,&\"confirm\"))"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 55,
+          "code": "GameAudio.cue(self, &\"death\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 58,
+          "code": "if _controller.active: GameAudio.cue(self, &\"focus_start\" if value else &\"focus_end\"))"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 59,
+          "code": "_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &\"denied\"))"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 66,
+          "code": "GameAudio.cue(self, &\"jump\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 67,
+          "code": "if _controller.jump_ability.used_jumps >= 2: GameAudio.cue(self,&\"focus_start\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 71,
+          "code": "GameAudio.cue(self, &\"land\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 78,
+          "code": "GameAudio.cue(self, &\"shot\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 88,
+          "code": "GameAudio.cue(self, &\"impact\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 109,
+          "code": "GameAudio.cue(self, &\"step\")"
+        },
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 195,
+          "code": "GameAudio.cue(self, &\"hurt\")"
+        }
+      ]
+    },
+    {
+      "event": "player.hurt vs enemy.hurt",
+      "state": "same cue.hurt; independent scopes collide with global cooldown",
+      "references": [
+        {
+          "path": "scripts/art/player_feedback.gd",
+          "line": 195,
+          "code": "GameAudio.cue(self, &\"hurt\")"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 122,
+          "code": "GameAudio.cue(self, &\"hurt\")"
+        }
+      ]
+    },
+    {
+      "event": "recoil",
+      "state": "accepted shot supplies feedback; no standalone recoil audio layer observed",
+      "references": [
+        {
+          "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+          "line": 78,
+          "code": "var cue: StringName = &\"blade\" if mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN] else &\"machine\" if mode==WeaponDefinition.Mode.MACHINE else &\"pulse\""
+        }
+      ]
+    },
+    {
+      "event": "plains wind / gears / pendulum / material-specific footsteps / enemy species vocal identity",
+      "state": "no dedicated runtime event mapping found in audited source; not proof every future design requires one",
+      "references": []
+    }
+  ],
+  "conflicts": [
+    "Nonlethal enemy HP hit may trigger shared hurt plus weapon.hit; this is observed static layering, not a claim of audible clipping",
+    "All BaseButton pressed emits click; explicit confirm/denied can layer on the same interaction",
+    "Shared global cue cooldown can suppress unrelated origins (e.g. player.hurt after enemy.hurt)",
+    "motion and weapon serials cycle deterministically; no shuffle bag or per-family no-repeat policy",
+    "Most SFX have no spatial attenuation; forest has binary 800wu gate and standalone bell has 2D attenuation",
+    "Parent V1 bank and V2 timer files stay loaded although formal V2 replaces their playback mapping"
+  ]
+}

@@ -8,7 +8,7 @@ func _ready() -> void:
 	weapon_clips[&"mine_beep"]=[TIMER_BEEP,TIMER_BEEP,TIMER_BEEP]
 	super._ready()
 
-func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, sustained := false) -> bool:
+func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, sustained := false, weapon_id: StringName = &"") -> bool:
 	if _shutting_down or get_tree().paused or volume<=0 or not weapon_clips.has(id): return false
 	# Reserve four slots for original hurt/death/warning/UI consumers.
 	var own_count := 0
@@ -28,4 +28,4 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 		replacement.stop()
 		replacement.stream=null
 		weapon_preemptions+=1
-	return super.weapon_cue(id,owner,event,attenuation,sustained)
+	return super.weapon_cue(id,owner,event,attenuation,sustained,weapon_id)

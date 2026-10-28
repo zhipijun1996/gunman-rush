@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-02-RAW-RPG-ITEM-COINS-03-OGG",
+  "content_version": "audio-director-v2",
+  "source_path": "assets/audio/director_v2/_sources/rpg/item_coins_03.ogg",
+  "source_sha256": "cd89cae2221ab5e911f93c208e8b905290f695eea3b1830bc9012cc46f6c047b",
+  "tool": "tools/audio_candidates_v2.py; FFmpeg PCM decode and deterministic endpoint/gain processing",
+  "model": "not applicable",
+  "prompt_or_reference": "User rejected v1 A/B; retain original jump/land; choose distinct CC0 recorded takes with minimal processing",
+  "processing": "Single source take; original pitch; trim only outer sample silence; natural duration capped by event; 2ms/12ms edge fades and RMS/peak bounded gain",
+  "usage_scope": "Explicit Sound Lab V2 comparison only; not approved for default production",
+  "license_source": "config/audio_director/v2/sources.json and retained original page/CC0 text",
+  "license_status": "verified",
+  "runtime_paths": [],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "production_record_only",
+  "source_family": "AUDIO-DIRECTOR-02-SOURCE-LED-V2",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v2/_sources/rpg/source-page.html",
+      "sha256": "5fa896f7bf5b8d439b6e2e8c2072dbe03d32f60314a64c0d304891de4a478640",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/director_v2/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/v2/sources.json",
+      "sha256": "2d7b6495e057fb5938bbb01b6a6057459576ea249479ed5f739bf25bd59ab79c",
+      "role": "source_contract"
+    }
+  ],
+  "author": "rubberduck",
+  "source_url": "https://opengameart.org/content/80-cc0-rpg-sfx",
+  "original_filename": "item_coins_03.ogg",
+  "non_runtime_reason": "Selected CC0 original retained for reproducibility; .gdignore isolates it from Godot runtime export"
+}

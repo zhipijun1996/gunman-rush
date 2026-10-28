@@ -1,5 +1,20 @@
+# 最新交接 · 2026-10-28
+
+AUDIO-DIRECTOR-04已导入[用户原件](../config/audio_director/selected/user-20261028.json)与[14事件映射](../config/audio_director/selected/selected.json)，13明选/11新音色/2原版+1派生。按[本轮证据](evidence/audio_director_04/README.md)继续；原片运行a835、后验及网页/包来源分记，原失败不可覆盖。显式selected混合profile复用共享12voice池，正式默认original保留。需要后续选声时brief自动读当前偏好；完整组合/正式推广/实体设备需单列验证，不自动整套ABC采用。PR109继续review，不合main。
+
 # 当前交接（2026-10-24）
 
+最新工作线AUDIO-DIRECTOR-03按功能重做声音并交真实短录屏，继续feature/audio-director-01/PR109。先前V2网站保留，新录屏来源、实际采集/发布与失败以[第三轮证据](evidence/audio_director_03/README.md)为准；原jump/land和五BGM不改。恢复`python3 tools/audio_director.py brief '优化金币'`读取V3风格/事件/许可/配方，不复用旧掉落币方向。新[录屏工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)已发布Sites5；运行4d724a73/后验df22e376/UI c3f4fdf4，10片原音轨保留，正式默认original。126原生/9加工/12trace/8数值/48网页/33docs通过；旧相关性数值无效保留原报告，稳定后验另记。用户听感/真机/自然混音待验；本轮不合main。
+
+最新音效工作线为AUDIO-DIRECTOR-02，仍在feature/audio-director-01/PR109：已重选3套现成CC0、54 WAV及真实UI/拾取/战斗情境。拾取初始4/5生命静默配置，比较时不夹杂准备伤音；战斗受伤仍由真实敌弹。运行源08df881c/build1048defde2ef，Sites版本3已发布至[工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/?v=2&build=1048defde2ef)；20组真实Web、最终原生66/0、docs33/33通过。精确source/build/网站发布状态只以[第二轮证据](evidence/audio_director_02/README.md)为准，原v1拒绝不改签。恢复命令与试听方法见[Sound Lab V2](audio_director/listening_v2.md)。
+
+## 2026-10-26 AUDIO-DIRECTOR-01（最新独立工作线）
+
+分支 `feature/audio-director-01`，基线26e7f2a；运行实现58a9f0ac，音效版本audio-director-v1，Web90764dd14d4c。第一阶段审计/风格/来源/配方/64候选/统一12voice运行策略和手机工坊已实作，正式默认original，用户听感与实体设备保持review。五原MP3逐字节保留。独立PR面向main，不自行合并；当前原PR108历史记录不驱动重复合入。
+
+[音效总入口](audio_director/README.md)与[实际证据/最终部署收据](evidence/audio_director_01/README.md)。最小恢复：`python3 tools/audio_director.py brief '优化钩索声音'` →读绑定风格/事件/来源/配方 →按真实反馈制作。`validate`拒绝配方/来源/工具漂移；`run_audio_director_tests.py`60/0、Lab25/0，原生命周期37/0、原docs33/33。完整自然战斗/连续钩索听音、玩家、设备、Integration/Release未签。
+
+Sound Lab通过独立私有Sites交付；原预览站加恢复PCK达942341151B近900MiB，未删旧入口。初次新GitHub仓库创建被集成拒绝。Godot大资源用原分块重构，备用托管显式要求ServiceWorker+DecompressionStream。原Foundry缓存按原工具真实重建后导出，原生成输入归档在build，工作树恢复HEAD，不把生成缓存混入音频PR。最终URL/部署ID与准确源码见交付证据；源码与托管源码SHA分别记录。
 ## 2026-10-26 PR110：最终守门修订与合入恢复
 
 用户已授权合main，先核[PR110](https://github.com/zhipijun1996/gunman-rush/pull/110)真实state／head／checks，禁止因下方旧开发边界再询问授权。原head05200fc的CI40324535594为serial55成功、parallel73成功后style13／14测试失败，尾部15未跑；本地补跑发现持有统计旧指纹，其他14全部成功，原失败保留。

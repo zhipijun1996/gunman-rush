@@ -1,0 +1,644 @@
+{
+  "method": "Actual MP4 AAC decoded to mono48k. Match full frozen WAV in event-frame +-8 frames, stable local energy and direct-dot final verification. Shared-tick bomb launch/explosion fitted jointly; no isolated launch timing or subjective quality claim.",
+  "script_sha256": "a0d381c8d2a02755dee1f1155a43bb953906e3a866fc859b6273a6df19f2571d",
+  "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+  "matches": 63,
+  "unique_references": 42,
+  "non_launch_count": 60,
+  "non_launch_offset_ms_range": [
+    2.7083,
+    11.375
+  ],
+  "inputs": [
+    {
+      "reel": "chest_open",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "a9c63f0160b8f22c5cc8013852aca5115fe996262c897a090c70d34601125d69",
+      "trace_sha256": "9acdc74200be651d074bcef441caf26e04d36c50d8bff030ab575ccd38bf5d4c"
+    },
+    {
+      "reel": "coin",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "a3ece1acda21b33cfc32939e2d2e5fc72b4c284b664c874b079dbf4a4ea76454",
+      "trace_sha256": "93e48bd927ccbbb0c8d967ff7342cada851777fc822b91b214bb5d904298c0a5"
+    },
+    {
+      "reel": "enemy_hit",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "78ba8090da8e2de1b33409e4a641d04b9af670a439711e9e9a46849ad8c41870",
+      "trace_sha256": "8de7fdc34bf7432e251826fd91939e76b4bb7c1ae3408947556380e6108ac5e4"
+    },
+    {
+      "reel": "enemy_hurt",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "993faf160968c5a5a1dd064c1e3e98d39f8e0fdb5a85b37dcae29eaf8df53b3f",
+      "trace_sha256": "fb9f4594323a25d8e2c4a7b56b559cb35ffad864de7c4187e3df542d6878f732"
+    },
+    {
+      "reel": "heal",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "ce863df9fac3469fa44b3ae4ecc07419e18b65dac047a87f10f72e8af5559015",
+      "trace_sha256": "834847b3329cb70362c215080e0699fd1dd6a7c8b4c31df61bdf580912115213"
+    },
+    {
+      "reel": "hurt",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "0d34f97e3c1dc0fcaead4359545ec2f375e1268af74f8553b6206de82017e7bc",
+      "trace_sha256": "a339e72921f08081927d65f6a7e9a1360ffdbe62e92c9c65cab5994b86b71af8"
+    },
+    {
+      "reel": "item_get",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "3e30eb4f276cd5faa4ffcaf7ecbbfe7d9a5495e522250a1a01a5288b226bcdb5",
+      "trace_sha256": "013f12423c1f7faddfc34a07c92e0c8a62c1330e7a5c5c7aaea4b0810ec4a711"
+    },
+    {
+      "reel": "mix",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "1f3dcd64bb717f5af86749aab94c0da7eec29033d70e762e3aa34422d7090af9",
+      "trace_sha256": "cb338da5820cb5315f9df6b240918fca8dc8d4b9e3817d1c90ee1f78a5c6d144"
+    },
+    {
+      "reel": "ui",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "0d6a5e57b66f7e11361ca1b3c878d9d33369d6754c64d3f2ce1e26987b29a764",
+      "trace_sha256": "7ce4625e2765f861e997e9fd31cc7b61723ddedaa53fe7a422a8d4c3891bcda2"
+    },
+    {
+      "reel": "weapons",
+      "producer_commit": "4d724a73293aa6f9b94fe51e4884ff5102802ccc",
+      "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+      "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69"
+    }
+  ],
+  "naive_numerical_overshoots": [
+    {
+      "reel": "ui",
+      "candidate": "click_a",
+      "invalid_correlation": 79.57428244894257
+    },
+    {
+      "reel": "ui",
+      "candidate": "denied_a",
+      "invalid_correlation": 17396.87560675662
+    },
+    {
+      "reel": "ui",
+      "candidate": "click_b",
+      "invalid_correlation": 867.8445992800133
+    },
+    {
+      "reel": "ui",
+      "candidate": "denied_b",
+      "invalid_correlation": 11290.508458716708
+    },
+    {
+      "reel": "ui",
+      "candidate": "click_c",
+      "invalid_correlation": 73.71369789786365
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_pulse_b",
+      "invalid_correlation": 3443.634198610725
+    }
+  ],
+  "rows": [
+    {
+      "reel": "chest_open",
+      "candidate": "chest_open_a",
+      "movie_frame": 292,
+      "offset_ms": 9.375,
+      "correlation": 0.996835,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "chest_open",
+      "candidate": "chest_open_b",
+      "movie_frame": 509,
+      "offset_ms": 8.7083,
+      "correlation": 0.985291,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "chest_open",
+      "candidate": "chest_open_c",
+      "movie_frame": 726,
+      "offset_ms": 8.0417,
+      "correlation": 0.998498,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "coin",
+      "candidate": "coin_a",
+      "movie_frame": 246,
+      "offset_ms": 8.0417,
+      "correlation": 0.990886,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "coin",
+      "candidate": "coin_b",
+      "movie_frame": 429,
+      "offset_ms": 8.7083,
+      "correlation": 0.984053,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "coin",
+      "candidate": "coin_c",
+      "movie_frame": 612,
+      "offset_ms": 9.375,
+      "correlation": 0.99285,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "shot_pulse_a",
+      "movie_frame": 211,
+      "offset_ms": 4.7083,
+      "correlation": 0.998746,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "enemy_hit_a",
+      "movie_frame": 218,
+      "offset_ms": 5.375,
+      "correlation": 0.993841,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "shot_pulse_b",
+      "movie_frame": 385,
+      "offset_ms": 6.0417,
+      "correlation": 0.999413,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "enemy_hit_b",
+      "movie_frame": 392,
+      "offset_ms": 6.7083,
+      "correlation": 0.998264,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "shot_pulse_c",
+      "movie_frame": 559,
+      "offset_ms": 7.375,
+      "correlation": 0.998357,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hit",
+      "candidate": "enemy_hit_c",
+      "movie_frame": 566,
+      "offset_ms": 8.0417,
+      "correlation": 0.998434,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "shot_pulse_a",
+      "movie_frame": 211,
+      "offset_ms": 4.7083,
+      "correlation": 0.998746,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "enemy_hurt_a",
+      "movie_frame": 218,
+      "offset_ms": 5.375,
+      "correlation": 0.992802,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "shot_pulse_b",
+      "movie_frame": 385,
+      "offset_ms": 6.0417,
+      "correlation": 0.999413,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "enemy_hurt_b",
+      "movie_frame": 392,
+      "offset_ms": 6.7083,
+      "correlation": 0.993457,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "shot_pulse_c",
+      "movie_frame": 559,
+      "offset_ms": 7.375,
+      "correlation": 0.998452,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "enemy_hurt",
+      "candidate": "enemy_hurt_c",
+      "movie_frame": 566,
+      "offset_ms": 8.0417,
+      "correlation": 0.997113,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "heal",
+      "candidate": "heal_a",
+      "movie_frame": 246,
+      "offset_ms": 8.0417,
+      "correlation": 0.997914,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "heal",
+      "candidate": "heal_b",
+      "movie_frame": 429,
+      "offset_ms": 8.7083,
+      "correlation": 0.945579,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "heal",
+      "candidate": "heal_c",
+      "movie_frame": 612,
+      "offset_ms": 9.375,
+      "correlation": 0.997229,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "hurt",
+      "candidate": "hurt_a",
+      "movie_frame": 312,
+      "offset_ms": 6.7083,
+      "correlation": 0.999739,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "hurt",
+      "candidate": "hurt_b",
+      "movie_frame": 514,
+      "offset_ms": 10.7083,
+      "correlation": 0.994159,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "hurt",
+      "candidate": "hurt_c",
+      "movie_frame": 716,
+      "offset_ms": 4.0417,
+      "correlation": 0.990636,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "item_get",
+      "candidate": "item_get_a",
+      "movie_frame": 300,
+      "offset_ms": 4.0417,
+      "correlation": 0.992138,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "item_get",
+      "candidate": "item_get_b",
+      "movie_frame": 537,
+      "offset_ms": 11.375,
+      "correlation": 0.983972,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "item_get",
+      "candidate": "item_get_c",
+      "movie_frame": 774,
+      "offset_ms": 8.0417,
+      "correlation": 0.996961,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "coin_a",
+      "movie_frame": 484,
+      "offset_ms": 9.375,
+      "correlation": 0.943262,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "heal_a",
+      "movie_frame": 509,
+      "offset_ms": 8.7083,
+      "correlation": 0.978364,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "shot_pulse_a",
+      "movie_frame": 581,
+      "offset_ms": 3.375,
+      "correlation": 0.921647,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "enemy_hit_a",
+      "movie_frame": 588,
+      "offset_ms": 4.0417,
+      "correlation": 0.984069,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "hurt_a",
+      "movie_frame": 740,
+      "offset_ms": 9.3333,
+      "correlation": 0.577531,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "coin_b",
+      "movie_frame": 907,
+      "offset_ms": 10.0417,
+      "correlation": 0.874413,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "heal_b",
+      "movie_frame": 932,
+      "offset_ms": 9.375,
+      "correlation": 0.914733,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "shot_pulse_b",
+      "movie_frame": 1004,
+      "offset_ms": 4.0625,
+      "correlation": 0.887618,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "enemy_hit_b",
+      "movie_frame": 1011,
+      "offset_ms": 4.7083,
+      "correlation": 0.9919,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "hurt_b",
+      "movie_frame": 1163,
+      "offset_ms": 10.0417,
+      "correlation": 0.318209,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "coin_c",
+      "movie_frame": 1330,
+      "offset_ms": 10.7083,
+      "correlation": 0.934381,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "heal_c",
+      "movie_frame": 1355,
+      "offset_ms": 10.0417,
+      "correlation": 0.971317,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "shot_pulse_c",
+      "movie_frame": 1427,
+      "offset_ms": 4.7083,
+      "correlation": 0.91469,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "enemy_hit_c",
+      "movie_frame": 1434,
+      "offset_ms": 5.375,
+      "correlation": 0.989331,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "mix",
+      "candidate": "hurt_c",
+      "movie_frame": 1586,
+      "offset_ms": 10.7083,
+      "correlation": 0.560281,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "click_a",
+      "movie_frame": 253,
+      "offset_ms": 8.7083,
+      "correlation": 0.99835,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "confirm_a",
+      "movie_frame": 307,
+      "offset_ms": 4.7083,
+      "correlation": 0.998,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "denied_a",
+      "movie_frame": 361,
+      "offset_ms": 11.375,
+      "correlation": 0.988858,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "click_b",
+      "movie_frame": 469,
+      "offset_ms": 3.375,
+      "correlation": 0.990672,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "confirm_b",
+      "movie_frame": 523,
+      "offset_ms": 10.0417,
+      "correlation": 0.999591,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "denied_b",
+      "movie_frame": 577,
+      "offset_ms": 6.0417,
+      "correlation": 0.997113,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "click_c",
+      "movie_frame": 685,
+      "offset_ms": 8.7083,
+      "correlation": 0.997069,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "confirm_c",
+      "movie_frame": 739,
+      "offset_ms": 4.7083,
+      "correlation": 0.993918,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "ui",
+      "candidate": "denied_c",
+      "movie_frame": 793,
+      "offset_ms": 11.375,
+      "correlation": 0.994264,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_pulse_a",
+      "movie_frame": 376,
+      "offset_ms": 6.7083,
+      "correlation": 0.998783,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_shuriken_a",
+      "movie_frame": 475,
+      "offset_ms": 10.0417,
+      "correlation": 0.98606,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_bomb_a",
+      "movie_frame": 566,
+      "offset_ms": 8.0417,
+      "correlation": 0.197197,
+      "individual_timing_unverified": true
+    },
+    {
+      "reel": "weapons",
+      "candidate": "bomb_explode_a",
+      "movie_frame": 566,
+      "offset_ms": 8.0417,
+      "correlation": 0.978992,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_pulse_b",
+      "movie_frame": 715,
+      "offset_ms": 10.0417,
+      "correlation": 0.99941,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_shuriken_b",
+      "movie_frame": 814,
+      "offset_ms": 2.7083,
+      "correlation": 0.977653,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_bomb_b",
+      "movie_frame": 905,
+      "offset_ms": -75.4375,
+      "correlation": 0.286455,
+      "individual_timing_unverified": true
+    },
+    {
+      "reel": "weapons",
+      "candidate": "bomb_explode_b",
+      "movie_frame": 905,
+      "offset_ms": 11.375,
+      "correlation": 0.960525,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_pulse_c",
+      "movie_frame": 1054,
+      "offset_ms": 2.7083,
+      "correlation": 0.997555,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_shuriken_c",
+      "movie_frame": 1153,
+      "offset_ms": 6.0417,
+      "correlation": 0.986404,
+      "individual_timing_unverified": false
+    },
+    {
+      "reel": "weapons",
+      "candidate": "shot_bomb_c",
+      "movie_frame": 1244,
+      "offset_ms": 4.0417,
+      "correlation": 0.341286,
+      "individual_timing_unverified": true
+    },
+    {
+      "reel": "weapons",
+      "candidate": "bomb_explode_c",
+      "movie_frame": 1244,
+      "offset_ms": 4.0417,
+      "correlation": 0.942487,
+      "individual_timing_unverified": false
+    }
+  ],
+  "bomb_shared_onset_fits": [
+    {
+      "profile": "A",
+      "common_frame": 566,
+      "onset_offset_ms": 8.0417,
+      "launch_coefficient": 0.300833,
+      "blast_coefficient": 0.392868,
+      "joint_R2": 0.99821,
+      "blast_only_R2": 0.958426,
+      "joint_gain_R2": 0.039784
+    },
+    {
+      "profile": "B",
+      "common_frame": 905,
+      "onset_offset_ms": 11.375,
+      "launch_coefficient": 0.274591,
+      "blast_coefficient": 0.391699,
+      "joint_R2": 0.981901,
+      "blast_only_R2": 0.922608,
+      "joint_gain_R2": 0.059293
+    },
+    {
+      "profile": "C",
+      "common_frame": 1244,
+      "onset_offset_ms": 4.0417,
+      "launch_coefficient": 0.297398,
+      "blast_coefficient": 0.392904,
+      "joint_R2": 0.994682,
+      "blast_only_R2": 0.888282,
+      "joint_gain_R2": 0.1064
+    }
+  ]
+}

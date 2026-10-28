@@ -1,5 +1,20 @@
 # 当前状态
 
+## 2026-10-28 用户选声组合
+
+AUDIO-DIRECTOR-04继续PR109并同步最新main879b39ea。用户回传13项选择：金币/回血/宝箱/脉冲枪A，道具/UI三项/主角伤C，命中/敌伤B，手里剑/炸弹原版；爆炸项仅复合推导。原件与归一映射已入库，brief会读取。78.4秒真实Godot原音轨，10组原/所选20章；108新原生/126旧原生与20章网页验证通过，来源及原failed后验修正见[本轮证据](evidence/audio_director_04/README.md)。网页实际发布状态见该页收据，不以旧V3冒充。正式默认仍original，整体混音/自然战斗/真机未批准，不合main。
+
+## 2026-10-26 音效第三轮：功能音色与对比录屏
+
+AUDIO-DIRECTOR-03继续PR109：按用户最新反馈重选42个CC0候选，覆盖清脆金币、液体回血、宝箱、长道具获得、打击/受伤、3武器及UI；已交10支真实有声短片/12章节/48可选段，约157秒；[直接点播](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)，不必先下载完整游戏。原jump/land与五BGM保持。V2未取得本轮采用认可，旧素材/反馈保留；Sites版本5已发布新录屏入口；旧V2保留。[V3精确状态](evidence/audio_director_03/README.md)、[声音功能规范](audio_director/style_bible_v3.md)。
+
+## 2026-10-26 音效第二轮：3套现成CC0与真实情境
+
+AUDIO-DIRECTOR-02从用户拒绝v1 A/B的反馈继续：只重选UI、拾取、命中/受伤，3套×9事件×2实际take共54 WAV，原起跳/落地、未要求动作及五首原BGM保留。工坊加入正式Home/ShopService/拾取Area/真实弹体伤害的开发情境，原版与A/B/C同场切换；这是试听样板，不冒充自然完整流程。[新版手机工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/?v=2&build=1048defde2ef)、[第二轮入口与状态](audio_director/listening_v2.md)、[精确验证与最终部署](evidence/audio_director_02/README.md)。听感与实体手机待用户；PR109独立工作线不默认合main。下方第一阶段是原历史交付，不能用旧v1包替代本轮场景。
+
+## 2026-10-26 独立音效导演第一阶段
+
+AUDIO-DIRECTOR-01保持review，基线main26e7f2a，分支feature/audio-director-01；16事件A/B各2变体共64个CC0素材加工候选、来源/许可库、可重现pipeline、固定基线审计和真实Godot/手机Sound Lab已实现。正式默认original，保五首用户MP3原字节；工程验证不签用户听感或商业品质。[交付入口](audio_director/README.md)、[最终版本与证据](evidence/audio_director_01/README.md)、[交接](handoff.md)。不合main，旧主站和预览入口保留。
 ## 2026-10-26 PR110：最后的测试／输入契约修订
 
 用户明确合入main，授权持续有效。原CI40324535594在head05200fc的serial55全部成功、parallel73通过后因style精确期望13／实际14失败，剩余15未执行；完整CI仍失败。随后本地逐项补跑尾部，识别持有统计接口迁移的旧源码指纹断言，余14项全通过。

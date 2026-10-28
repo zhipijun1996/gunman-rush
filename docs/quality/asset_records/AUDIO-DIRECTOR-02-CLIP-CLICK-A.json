@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-02-CLIP-CLICK-A",
+  "content_version": "audio-director-v2",
+  "source_path": "assets/audio/director_v2/click_a.wav",
+  "source_sha256": "9d615a84166a883558fa97487e99fcf1c56fa96ac283005749029b70685714b1",
+  "tool": "tools/audio_candidates_v2.py; FFmpeg PCM decode and deterministic endpoint/gain processing",
+  "model": "not applicable",
+  "prompt_or_reference": "User rejected v1 A/B; retain original jump/land; choose distinct CC0 recorded takes with minimal processing",
+  "processing": "Single source take; original pitch; trim only outer sample silence; natural duration capped by event; 2ms/12ms edge fades and RMS/peak bounded gain",
+  "usage_scope": "Explicit Sound Lab V2 comparison only; not approved for default production",
+  "license_source": "config/audio_director/v2/sources.json and retained original page/CC0 text",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/audio/game_audio.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "limited_preview",
+  "source_family": "AUDIO-DIRECTOR-02-SOURCE-LED-V2",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v2/manifest.json",
+      "sha256": "1a80f75452fc64a4b0113f4b390de1a77a207fdffaa86071a2c91795dba2232d",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v2/recipes.json",
+      "sha256": "8ab5e65aadface151a5db12dfada8e9a8316cc30b94a32fd6c2611160a194135",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/v2/sources.json",
+      "sha256": "2d7b6495e057fb5938bbb01b6a6057459576ea249479ed5f739bf25bd59ab79c",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/audio_candidates_v2.py",
+      "sha256": "098260d93521f8204c02847cf00422800100ef3c024fa057cd24c0f1a2fc952f",
+      "role": "processing_record"
+    }
+  ],
+  "original_source_id": "ui/click1.wav",
+  "input_sha256": "359c8c98ecd48368f45b84d3a9b9d7e68cf3ac2fefcdbf32367b8482da76c9c7"
+}

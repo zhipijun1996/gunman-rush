@@ -64,7 +64,7 @@ func _sound(cue: StringName, key: String, attenuation := -1.0, sustained := fals
 	if not enabled_candidate or _sound_keys.has(key): return
 	_sound_keys[key]=true
 	if _sound_keys.size()>256: _sound_keys.erase(_sound_keys.keys()[0])
-	audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)
+	audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained,controller.shoot_ability.weapon.id)
 
 func _effect(kind: StringName, point: Vector2, axis: Vector2, life: float, radius := 12.0) -> void:
 	if not enabled_candidate: return

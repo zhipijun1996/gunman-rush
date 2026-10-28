@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-01-CANDIDATE-LAND-A-V2",
+  "content_version": "audio-director-v1",
+  "source_path": "assets/audio/director_candidates/land_a_v2.wav",
+  "source_sha256": "8f0b40b43c2611c4be56f16a2207c3f6e1cf1b4a2204977b4c0f20af76c196e9",
+  "tool": "tools/audio_design.py; ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "model": "not applicable; sample-based offline processing, no generative audio model",
+  "prompt_or_reference": "land / land_a / take 2; exact licensed originals and layer parameters in manifest.json",
+  "processing": "Trim leading silence; bounded cuts/pitch/tempo/EQ/fades; sample layering; PCM32 intermediate; family RMS normalization constrained to -4 dBFS sample peak; export 44100 Hz mono PCM16 WAV. Exact filters, input fingerprints and gain in manifest renders.",
+  "usage_scope": "Explicit opt-in Audio Director A/B preview only; existing GameAudio voices/event timing; legacy remains default; no user aesthetic approval.",
+  "license_source": "config/audio_director/sources.json: retained Kenney and OpenGameArt author CC0-1.0 licenses/pages; exact source IDs: 80-cc0-rpg-sfx/wood_03.ogg, kenney/land",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/audio/game_audio.gd",
+    "scripts/dev/audio_director_lab.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "limited_preview",
+  "source_family": "AUDIO-DIRECTOR-01-SFX-V1",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_candidates/manifest.json",
+      "sha256": "353a041977814db5f70d13f00af7546ade187326e49de051bf91311e3108eacd",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/recipes.json",
+      "sha256": "3794169a4864effc4e82f8ce688f678f72fa77e26c2783292495ea7ee910d350",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/sources.json",
+      "sha256": "5ed71bfd6e3951c9a83341ca141a62ce39d7d824e14ebe46a97f082ffd030b19",
+      "role": "source_contract"
+    }
+  ]
+}

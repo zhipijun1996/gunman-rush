@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-DIRECTOR-03-RAW-WATER-LOOP-WATER-01-OGG",
+  "content_version": "audio-director-v3",
+  "source_path": "assets/audio/director_v3/_sources/water/loop_water_01.ogg",
+  "source_sha256": "11ebdc63e0178f4de48167570e51a60a9ce968451ce60ff49a3c1faceabf1e0b",
+  "tool": "tools/audio_candidates_v3.py; licensed sampled layers, explicit pitch/envelope/timing and floating-point mix",
+  "model": "not applicable",
+  "prompt_or_reference": "User requests bright collected-coin contour, liquid healing, chest opening, longer item acquisition and three weapon identities; commercial game references are functional only, none of their audio copied",
+  "processing": "Trace in manifest: retained CC0 inputs; crop/pitch/filter/envelope/delay per layer; float mix and final RMS/peak bounded gain",
+  "usage_scope": "Audio Director V3 real-scene recording/audition only; no user timbre acceptance yet",
+  "license_source": "config/audio_director/v3/sources.json plus retained original source pages/licenses",
+  "license_status": "verified",
+  "runtime_paths": [],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "auditory_status": "awaiting_user",
+  "disposition": "production_record_only",
+  "source_family": "AUDIO-DIRECTOR-03-FUNCTIONAL-V3",
+  "author": "rubberduck",
+  "source_url": "https://opengameart.org/content/40-cc0-water-splash-slime-sfx",
+  "original_filename": "loop_water_01.ogg",
+  "associated_files": [
+    {
+      "path": "assets/audio/director_v3/_sources/water/source-page.html",
+      "sha256": "8b2e8cd5ed338341f414804feb67f3ecce1d07333cb2f6638375025fe876f334",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/director_v3/_sources/CC0-1.0.txt",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "role": "documentation"
+    },
+    {
+      "path": "config/audio_director/v3/sources.json",
+      "sha256": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+      "role": "source_contract"
+    }
+  ],
+  "non_runtime_reason": "Retained source sample/permission original for reproducibility; .gdignore excludes it from Godot runtime"
+}
