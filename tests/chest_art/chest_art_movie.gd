@@ -277,8 +277,28 @@ func _gallery_floor() -> Dictionary:
 				var hit: Dictionary = app.player.get_world_2d().direct_space_state.intersect_ray(ray)
 				if hit.is_empty() or absf(hit.position.y-center.y) > .1 or hit.normal.y > -.7 or not _surface_clear(point): valid = false; break
 			if valid: candidates.append({"foot":[center.x,center.y],"distance":center.distance_to(app.stage.spawn),"host_rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"module":str(module.definition.module_id)})
+	if app.stage.assembler is ThornForestRegionAssembler:
+		var assembler: ThornForestRegionAssembler = app.stage.assembler as ThornForestRegionAssembler
+		for row: Dictionary in assembler.forest_platforms:
+			var local: Rect2 = ThornForestRegionGenerator._rect(row.rect)
+			if local.size.x < 540: continue
+			var rect: Rect2 = Rect2(assembler.to_global(local.position),local.size)
+			_append_forest_gallery_candidate(candidates,rect,str(row.id))
 	candidates.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return float(a.distance) < float(b.distance))
 	return candidates[0] if not candidates.is_empty() else {}
+
+func _append_forest_gallery_candidate(candidates: Array[Dictionary], rect: Rect2, platform_id: String) -> void:
+	# Bible Forest owns physical platforms directly, not Plains module nodes.
+	# Apply the identical original seven-ray/normal/hazard/chest filters.
+	if rect.size.x < 540: return
+	var center: Vector2 = Vector2(rect.get_center().x,rect.position.y)
+	var valid: bool = true
+	for offset: float in [-240.0,-180.0,-108.0,-36.0,36.0,108.0,180.0]:
+		var point: Vector2 = center+Vector2(offset,0)
+		var ray: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(point+Vector2(0,-12),point+Vector2(0,4),1)
+		var hit: Dictionary = app.player.get_world_2d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or absf(hit.position.y-center.y) > .1 or hit.normal.y > -.7 or not _surface_clear(point): valid = false; break
+	if valid: candidates.append({"foot":[center.x,center.y],"distance":center.distance_to(app.stage.spawn),"host_rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"module":"forest_platform/"+platform_id})
 
 func _gallery() -> void:
 	var host_floor: Dictionary = _gallery_floor()
