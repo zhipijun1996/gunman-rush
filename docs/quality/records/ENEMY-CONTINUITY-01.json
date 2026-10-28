@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-CONTINUITY-01",
+  "task_type": "animation",
+  "workflow": "review",
+  "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "reviewed_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "content_version": "charger-audit-v1",
+  "owner": "/root",
+  "purpose": "以统一标准核对当前冲锋怪移动、受伤、恢复、死亡、留尸；先做源盘点，运行与视觉另验",
+  "player_experience": "让每个怪物的缺项和已验范围可比较，避免以共享受击组件或少量姿态冒充完整怪物",
+  "constraints": [
+    "沿原G0–G5、十一维与policy，不改生产字节、测试断言或预算",
+    "源存在与历史证据不冒称本轮运行或视觉验收",
+    "用户与设备认可不得由AI代签"
+  ],
+  "affected_paths": [
+    "docs/design/enemies/plains_charger.md",
+    "docs/evidence/enemy_completion_01/source_inventory.json"
+  ],
+  "deliverables": [
+    "docs/design/enemies/plains_charger.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "本轮核对对象、标准、两链及不变边界明确",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "已有局部技术实证，但fixture没有attack状态，不升签整阶段",
+      "evidence": [
+        "native",
+        "support",
+        "save",
+        "snapshot",
+        "trace"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "E03／E05实证不合格，其余完整动作和声音仍缺覆盖",
+      "evidence": [
+        "video",
+        "hurt_exit_a",
+        "hurt_exit_b"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "仅核对计划／范围明确，复用旧冲锋设计；不签整怪趣味或新身体批准",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "四项局部fresh均通过；完整行为／冲锋攻击及全部适用技术出口未闭合",
+      "evidence": [
+        "native",
+        "support",
+        "save",
+        "snapshot"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "CHR-VIS-01：当前charger正式链H退出有背部、壳体、肢体离散变化",
+      "evidence": [
+        "hurt_exit_a",
+        "hurt_exit_b"
+      ]
+    },
+    "animation": {
+      "status": "failed",
+      "reason": "CHR-VIS-01：两处相邻视频帧退出结构跳变；完整运动／攻击转换还未覆盖",
+      "evidence": [
+        "video",
+        "hurt_exit_a",
+        "hurt_exit_b"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "continuity_review.md为同作者self_review，没有独立审查，不能签ACCEPT",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "audit_scope",
+      "scenario": "按同一标准核对已有冲锋怪",
+      "method": "源盘点与任务合同",
+      "expected": "实现／实证分开且保留当前源边界",
+      "failure": "共享组件冒充整怪完成或改玩法",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "合同与完成卡已形成",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "local_native",
+      "scenario": "原接受命中、死亡、支撑与保存专项",
+      "method": "原四wrapper独立顺序实跑",
+      "expected": "原marker零失败、退出0、清洁退出",
+      "failure": "脚本错误、缺marker、非零或泄漏",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "458／199／72／147均0失败，仅专项",
+      "evidence": [
+        "native",
+        "support",
+        "save",
+        "snapshot"
+      ]
+    },
+    {
+      "id": "CHR-VIS-01",
+      "scenario": "当前Underworld charger两次受伤退出",
+      "method": "真实影片94→95与143→144相邻视频帧",
+      "expected": "身体轮廓／肢体／材质身份连续",
+      "failure": "不同身体结构瞬切",
+      "gate": "G2",
+      "dimension": "animation",
+      "status": "failed",
+      "reason": "两次均观察到结构突变，未以bbox或技术结果豁免",
+      "evidence": [
+        "video",
+        "hurt_exit_a",
+        "hurt_exit_b"
+      ]
+    },
+    {
+      "id": "CHR-COV-01",
+      "scenario": "完整冲锋攻击链与攻击中受伤",
+      "method": "检查780行charger实际state",
+      "expected": "真实attack及相应转换被观察",
+      "failure": "仅idle／telegraph／recovery却声称攻击完成",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "本fixture没有attack，需正式遭遇补证",
+      "evidence": [
+        "trace"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/design/enemies/plains_charger.md",
+      "sha256": "10b740e2ec117e71ea7692dbae2d64e7fdd460f4f6b79d49dbd91eef77baca92",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "当前源盘点与统一标准的核对合同；候选文档overlay，不是新素材认可",
+      "observed": "区分两链、身体／时钟／尸体所有者及E01–E12"
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/enemy_completion_01/underworld/after.mp4",
+      "sha256": "ae9f20366d55867c695a0952af638bf63ac6cb2fea6b5c8575718540761e7596",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "原Godot producer，Underworld两物种显式fixture；固定60fps",
+      "observed": "26.133秒、1568视频帧、正常速度文件与音轨；未声称完整播放器观看或试听"
+    },
+    {
+      "id": "trace",
+      "path": "docs/evidence/enemy_completion_01/underworld/after.json",
+      "sha256": "e87b2d612333e918fe6811dddfb534b99c4dc363e5ec1fa736ead22c6979ba23",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "真实InputRouter／弹体／HP回执及尸体记录",
+      "observed": "1560游戏记录、6次HP提交、2死亡、两case各210终态稳定可见记录"
+    },
+    {
+      "id": "hurt_exit_a",
+      "path": "docs/evidence/enemy_completion_01/inspection/hurt-exit-a.png",
+      "sha256": "04c8b10254c8ad07fe91cd314f9224589dd491f0946fa9fc11403b6299a1ed16",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "实际视频90–101帧1×解码裁区，逐格打开观察",
+      "observed": "94→95身体背部／壳轮廓／肢体突变；同作者专业判断，不是用户拒绝"
+    },
+    {
+      "id": "hurt_exit_b",
+      "path": "docs/evidence/enemy_completion_01/inspection/hurt-exit-b.png",
+      "sha256": "b1b93be807008e4e4a3f94a5214cee63dc2c4e451bb6cf4b6d3301980f21f822",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "实际视频140–151帧1×解码裁区",
+      "observed": "143→144第二次退出同类结构变化"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/enemy_completion_01/checks/native-01.log",
+      "sha256": "85cb1194681515fb0ec5f3d92859576e72fca7b8a0bb184a9ba15694de1f58d2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "原wrapper及原预算／断言；当前生产字节不改",
+      "observed": "本轮fresh 458项／0失败，退出0；限定原专项",
+      "command": "python3 tools/run_integration_four_tests.py --case enemy-feedback-native",
+      "exit_code": 0,
+      "environment": "Linux x86_64; locked Godot 4.7.2 Standard; fixed60; headless/Dummy; baseline production plus docs-only overlay"
+    },
+    {
+      "id": "support",
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-feedback-support-01.log",
+      "sha256": "d09ede88e6b680af9b504531e50800a8a48dc0e0e128475ce890417641ce9905",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "原wrapper及原预算／断言；当前生产字节不改",
+      "observed": "本轮fresh 199项／0失败，退出0；限定原专项",
+      "command": "python3 tools/run_integration_four_tests.py --case enemy-feedback-support",
+      "exit_code": 0,
+      "environment": "Linux x86_64; locked Godot 4.7.2 Standard; fixed60; headless/Dummy; baseline production plus docs-only overlay"
+    },
+    {
+      "id": "save",
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-save-01.log",
+      "sha256": "d9b28852ff7f6639e5176d80cdac5419df2ec17cc4d77b6c212cf68e04b852b1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "原wrapper及原预算／断言；当前生产字节不改",
+      "observed": "本轮fresh 72项／0失败，退出0；限定原专项",
+      "command": "python3 tools/run_integration_four_tests.py --case enemy-corpse-save",
+      "exit_code": 0,
+      "environment": "Linux x86_64; locked Godot 4.7.2 Standard; fixed60; headless/Dummy; baseline production plus docs-only overlay"
+    },
+    {
+      "id": "snapshot",
+      "path": "docs/evidence/enemy_completion_01/checks/enemy-corpse-snapshot-01.log",
+      "sha256": "78c7d9ec0edaaf282f67d15d1d6e0c43d996c8002de736d87777dd9e71e9d88c",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "charger-audit-v1",
+      "method": "原wrapper及原预算／断言；当前生产字节不改",
+      "observed": "本轮fresh 147项／0失败，退出0；限定原专项",
+      "command": "python3 tools/run_integration_four_tests.py --case enemy-corpse-snapshot",
+      "exit_code": 0,
+      "environment": "Linux x86_64; locked Godot 4.7.2 Standard; fixed60; headless/Dummy; baseline production plus docs-only overlay"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "E03／E05 CHR-VIS-01待统一live／H／D身体并复验；本轮只审不重画",
+    "CHR-COV-01：真实attack、攻击中受伤未覆盖；不是已证明AI故障",
+    "完整移动／转向表达与正常速度整体流畅未验；当前只解码抽帧及局部连续帧",
+    "原始表现链、自然正式场景、其他支撑／慢时／连续命中等未完整覆盖",
+    "未实际试听音轨；软件录制不签目标设备性能；独审／用户／实体设备未验"
+  ],
+  "skills": [
+    "game-quality-gate",
+    "enemy-creator",
+    "art-director",
+    "animation-vfx"
+  ]
+}

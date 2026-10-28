@@ -1,5 +1,7 @@
 # 质量体系使用入口
 
+普通怪物新建、补齐与逐物种盘点见[怪物完成标准](enemy_completion_standard.md)：E01–E12细化原G0–G5／十一维，并由[Enemy Design Sheet](../templates/enemy_design.md)记录实现、状态及缺口，不引入独立评分或另一套工作流。
+
 规范版本 **1**。总流程见 [development_quality](../development_quality.md)，当前产品事实继续由 [current_state](../current_state.md) 负责（即 project_status 职责，不另造副本）。生成事实见 [generation_current](../generation_current.md)，风格见 [visual_bible](../visual_bible.md)，动画见 [animation_vfx_standards](../animation_vfx_standards.md)。
 
 从仓库根目录开始：

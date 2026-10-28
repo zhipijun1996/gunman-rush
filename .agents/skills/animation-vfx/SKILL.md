@@ -5,6 +5,8 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 
 # animation-vfx
 
+怪物任务按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)及Enemy Design Sheet核完整状态与转换，重点E04–E08、E10。先实看移动→受伤→当前动作、攻击中受伤、连续命中、致死→终态，再逐帧定位；共享事件和特效不代签身体连续。留尸先明确支撑／保存／清理所有者；帧数与时长按物种，不硬套两个样板的4＋4。
+
 ## 当前生产入口：区域圣经先于制作
 
 先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。

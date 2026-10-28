@@ -1,0 +1,294 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "version": "v8-authored-frames",
+  "variant": "after",
+  "seed": "enemy-feedback-01-remains",
+  "chain": "underworld",
+  "status": "passed",
+  "source": {
+    "working_files": {
+      ".agents/skills/animation-vfx/SKILL.md": "64cb2dd151c01ec179e88c3884ccbf647df14776082cfc8691471d8fd1edcb3d",
+      ".agents/skills/art-director/SKILL.md": "58a53d2306f6ff078273eaeb57d5101b63c426ba68c235c167c01dafd531306b",
+      ".agents/skills/enemy-creator/SKILL.md": "aaac31e5797cf5fdf90d5bc793f8d2946683c85cedd8de3eac451a3ad0d4a357",
+      "docs/design/enemies/plains_charger.md": "83ae9d4eae1da011560a8af95ca06cdc6a0dcb8c3021f6881821075147256f96",
+      "docs/enemies_and_bosses.md": "482f2808ce82de47685a92b07f772fa6a9fba6749bcb8f7fbf977cf0bfe7794c",
+      "docs/evidence/enemy_completion_01/README.md": "c6f6cddab3cd2087570bdf57629cca3c7f94c845b438824d3bc6db8c232e95b7",
+      "docs/evidence/enemy_completion_01/source_inventory.json": "420f2ebac7f426cd4b93ccf383068a8e31319ae87139b1e1546218cc6bf1c832",
+      "docs/handoff.md": "85dcb49b3f2022fa34dd80ad93edc58ab164a523720b0198ebede0850acb170a",
+      "docs/quality/README.md": "20e37d0cfb24ce9a103e9a6334343753e61b3f7bf89aa289cb7a654c0e671193",
+      "docs/quality/enemy_completion_standard.md": "07b8128378d87da9fd7bc8aa524ba5884d397a451c92ada988e69e37af4ce3fd",
+      "docs/quality/records/ENEMY-COMPLETION-01.json": "28f3e25ea3b0b7749822b2067ab2e86e50e9af9a40063da623ca5894dc9c52e2",
+      "docs/quality/records/ENEMY-CONTINUITY-01.json": "078619a9e1cbec768ed0e9b6767aaa8a981c723ba78e5d8df7cb018289cd7934",
+      "docs/tasks.md": "4bf645f0496873c4e5d82af0e85976e1316787dcbe00d91c4f80def5826c3e7f",
+      "docs/templates/enemy_design.md": "336e12957fd8fc67ad05a71062051fc9478725a0bdb498250f3989f2b6a438ab"
+    },
+    "commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+    "git_status": "M .agents/skills/animation-vfx/SKILL.md\n M .agents/skills/art-director/SKILL.md\n M .agents/skills/enemy-creator/SKILL.md\n M docs/enemies_and_bosses.md\n M docs/handoff.md\n M docs/quality/README.md\n M docs/tasks.md\n M docs/templates/enemy_design.md\n?? docs/design/enemies/\n?? docs/evidence/enemy_completion_01/\n?? docs/quality/enemy_completion_standard.md\n?? docs/quality/records/ENEMY-COMPLETION-01.json\n?? docs/quality/records/ENEMY-CONTINUITY-01.json",
+    "diff": "diff --git a/.agents/skills/animation-vfx/SKILL.md b/.agents/skills/animation-vfx/SKILL.md\nindex 067fb74..6bc721b 100644\n--- a/.agents/skills/animation-vfx/SKILL.md\n+++ b/.agents/skills/animation-vfx/SKILL.md\n@@ -5,6 +5,8 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游\n \n # animation-vfx\n \n+怪物任务按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)及Enemy Design Sheet核完整状态与转换，重点E04–E08、E10。先实看移动→受伤→当前动作、攻击中受伤、连续命中、致死→终态，再逐帧定位；共享事件和特效不代签身体连续。留尸先明确支撑／保存／清理所有者；帧数与时长按物种，不硬套两个样板的4＋4。\n+\n ## 当前生产入口：区域圣经先于制作\n \n 先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。\ndiff --git a/.agents/skills/art-director/SKILL.md b/.agents/skills/art-director/SKILL.md\nindex ff2914e..4ac3d73 100644\n--- a/.agents/skills/art-director/SKILL.md\n+++ b/.agents/skills/art-director/SKILL.md\n@@ -5,6 +5,8 @@ description: 负责资产、地区视觉母版、模块化美术系列、AI 风\n \n # art-director\n \n+怪物任务同时按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)核E03及E04–E07的身体连续性：同物种live／hurt／death共用身份母版，真实比例、材质和锚点先合屏；独立姿态漂亮不代表进入／退出自然。来源与准入沿原资产记录，不复制新质量体系。\n+\n ## 当前生产入口：区域圣经先于制作\n \n 先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。\ndiff --git a/.agents/skills/enemy-creator/SKILL.md b/.agents/skills/enemy-creator/SKILL.md\nindex 5980bf2..d99bdf4 100644\n--- a/.agents/skills/enemy-creator/SKILL.md\n+++ b/.agents/skills/enemy-creator/SKILL.md\n@@ -1,17 +1,21 @@\n ---\n name: enemy-creator\n-description: 设计或实现新敌人及实质行为改造；不用于单纯修正已有敌人拼写。\n+description: 设计或实现新敌人、实质行为改造，以及按统一标准核对或补齐已有怪物完成度；不用于单纯修正拼写。\n ---\n \n # enemy-creator\n \n+## 每物种完成标准\n+\n+新怪与旧怪完成度核对先用[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)的E01–E12及扩展Enemy Design Sheet，共用原G0–G5／十一维。逐项分开记录实现事实与实际验收；共享命中模板、若干姿态或Lab通过不代表整怪完成。先统一身体、完整动作及进入／退出／中断，再验正式遭遇与生命周期。缺实现不得记不适用，不以平均完成率抵消缺项。旧怪纯表现补齐引用原机制，不强制新增AI；新物种仍需独特玩家判断。\n+\n ## 机制价值先于扩产（FOREST-DEPTH-02）\n \n 使用[黄金玩法假设对照](../../../docs/quality/review_method.md#黄金推广前玩法假设对照)：先比较真正不同的玩家体验假设，再在同条件真实消费者上记录目的打法、最便宜退化打法与关键动作／对象消融。由不同作者在原黄金审查阶段作继续／修改／淘汰决定，整合只消费被接受的具体机制范围。不得用技术通过、阶段编号、Hash、动作计数或“G5尚待玩家”跳过此处的专家设计淘汰；仍不能把专家判断签成玩家认可。共享组件可保留，缺少新增判断的候选允许删除；失败只阻断其后继。\n \n ## 触发与边界\n \n-设计或实现新敌人及实质行为改造；不用于单纯修正已有敌人拼写。 从仓库根目录调用 `$enemy-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。\n+设计或实现新敌人、实质行为改造，以及核对或补齐已有怪物完成度；不用于单纯修正拼写。 从仓库根目录调用 `$enemy-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。\n \n ## 输入与依赖\n \ndiff --git a/docs/enemies_and_bosses.md b/docs/enemies_and_bosses.md\nindex f1eab6c..12c900b 100644\n--- a/docs/enemies_and_bosses.md\n+++ b/docs/enemies_and_bosses.md\n@@ -1,5 +1,7 @@\n # 敌人、Actor与Boss契约\n \n+每物种制作与完成度核对使用[怪物完成标准](quality/enemy_completion_standard.md)和扩展[Enemy Sheet](templates/enemy_design.md)，逐项区分实现事实、当前证据与缺口；局部受击／死亡样板不代表完整怪物完成。\n+\n 当前敌人/Boss 制作使用 [质量门槛](development_quality.md)、[Enemy Sheet](templates/enemy_design.md) 和 [Boss Sheet](templates/boss_design.md)。本文保留已有运行契约；最新正式入口/两图 Boss 以 [当前状态](current_state.md) 为准，早期八关/末关说明只供历史回归。新规范不改变牧风者或鸣铃巡游机设计。\n \n D082 正式 Boss 完整入场警示震动后实体封门，环境回退/暂停重载留在场内，击败开门。封门后高台合法跳跃/反冲越旧触发框顶端不清射击资格，真实侧墙外/未封场/死亡仍拒绝。敌人掉落飞落/吸收、mini爆炸、Boss可见保证奖励，原支付幂等不重复。 详见 [D082实现](plains_cohesion.md) 与 [交接](handoff.md)。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex b4115f9..41e3feb 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,5 +1,11 @@\n # 最新交接 · 2026-10-28\n \n+## 2026-10-28 怪物完成标准与冲锋怪核对\n+\n+用户追加「现在每个怪物的实现完成度都不一样。要先有个完成标准」。本线从main `45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc`独立建`docs/enemy-continuity-01`，先制定[每物种标准](quality/enemy_completion_standard.md)，扩展原Enemy Sheet并接enemy／art／animation skills；原G0–G5／十一维／policy及生产字节不改。任务ENEMY-COMPLETION-01为process，ENEMY-CONTINUITY-01为现有冲锋怪的动画核对，不能用process结果签怪物完成。\n+\n+[冲锋怪制作卡](design/enemies/plains_charger.md)已盘点正式Underworld与原始链、live→H→live及D→尸体／保存所有权；源存在与历史验证不当作fresh通过。旧strict66/1与后续保存修复66/0分别保留，不按旧摘要重开已修问题。运行工具、检查结果与阻塞在[本轮证据](evidence/enemy_completion_01/README.md)收口；恢复先核Git状态和当前锁定引擎，不换版本救采证。分支不默认合main。\n+\n ## 2026-10-28 PR111合入与试玩发布授权（最新）\n \n 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。\ndiff --git a/docs/quality/README.md b/docs/quality/README.md\nindex 78e0c56..f094a03 100644\n--- a/docs/quality/README.md\n+++ b/docs/quality/README.md\n@@ -1,5 +1,7 @@\n # 质量体系使用入口\n \n+普通怪物新建、补齐与逐物种盘点见[怪物完成标准](enemy_completion_standard.md)：E01–E12细化原G0–G5／十一维，并由[Enemy Design Sheet](../templates/enemy_design.md)记录实现、状态及缺口，不引入独立评分或另一套工作流。\n+\n 规范版本 **1**。总流程见 [development_quality](../development_quality.md)，当前产品事实继续由 [current_state](../current_state.md) 负责（即 project_status 职责，不另造副本）。生成事实见 [generation_current](../generation_current.md)，风格见 [visual_bible](../visual_bible.md)，动画见 [animation_vfx_standards](../animation_vfx_standards.md)。\n \n 从仓库根目录开始：\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 7117e29..1414a77 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -91,6 +91,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| ENEMY-COMPLETION-01 | 每物种完成标准与制作卡统一 | — | review | [标准](quality/enemy_completion_standard.md)、[记录](quality/records/ENEMY-COMPLETION-01.json)；E01–E12映射原G0–G5／十一维，分开实现与实证，不给旧怪批量补PASS |\n+| ENEMY-CONTINUITY-01 | 冲锋怪完整链核对 | ENEMY-COMPLETION-01 | in_progress | [制作卡](design/enemies/plains_charger.md)、[记录](quality/records/ENEMY-CONTINUITY-01.json)；先统一标准，按当前源码区分两表现链，fresh运行／视觉及设备另验 |\n | AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | review | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |\n | AUDIO-DIRECTOR-04 | 用户逐事件选声与组合实景试听 | AUDIO-DIRECTOR-03 | review | 13明选、复合原版派生、共享混合profile及真实原声对照 |\n | AUDIO-DIRECTOR-02 | 现成CC0三套与真实情境工坊 | AUDIO-DIRECTOR-01 | review | 保原跳落；UI/拾取/战斗可重复比较，用户听感与设备待验 |\ndiff --git a/docs/templates/enemy_design.md b/docs/templates/enemy_design.md\nindex 4ddf78d..618c149 100644\n--- a/docs/templates/enemy_design.md\n+++ b/docs/templates/enemy_design.md\n@@ -1,5 +1,7 @@\n # Enemy Design Sheet\n \n+完整物种按[怪物完成标准](../quality/enemy_completion_standard.md)核对，共用原G0–G5和十一维。局部任务注明范围，不把制作卡或共享组件通过称为整怪完成。\n+\n ## 任务合同\n \n - task_id / task_type / workflow / owner / schema_version：\n@@ -22,6 +24,44 @@\n \n ## 场景化验收\n \n+### 物种制作与完成度\n+\n+- stable_id／地区／职责／运动方式／攻击方式／死亡政策及依据：\n+- 目标设备／正式入口／准入地形／能力前提／预算来源：\n+- live身体母版、实际资源／版本／SHA；比例、轮廓、肢体、材质、功能色及脚／附件／受击锚：\n+- 各表现链的Definition→Actor→AI／Motor／Health→安装／替换→资源→正式实例／生成池；当前链、历史链和fixture分列：\n+- 伤害、运动／中断、声音、掉落、尸体、支撑、保存的所有者与所需接口：\n+\n+| 完成项 | 当前实现事实／路径 | 状态（原四态） | 当前版本证据／具体缺口／下一动作 |\n+| --- | --- | --- | --- |\n+| E01 设计与玩家决策 | 待填 | unverified | 待填 |\n+| E02 感知／移动／交战 | 待填 | unverified | 待填 |\n+| E03 身体与材质母版 | 待填 | unverified | 待填 |\n+| E04 完整动作覆盖 | 待填 | unverified | 待填 |\n+| E05 转换／中断连续 | 待填 | unverified | 待填 |\n+| E06 接受命中反馈 | 待填 | unverified | 待填 |\n+| E07 死亡与终态 | 待填 | unverified | 待填 |\n+| E08 声音语义与试听 | 待填 | unverified | 待填 |\n+| E09 正式遭遇公平性 | 待填 | unverified | 待填 |\n+| E10 接入与生命周期 | 待填 | unverified | 待填 |\n+| E11 性能／回收／来源 | 待填 | unverified | 待填 |\n+| E12 独审／用户／设备 | 待填 | unverified | 待填 |\n+\n+### 状态与转换覆盖\n+\n+| 状态／实际转换 | 姿态与实际资源／程序方法 | 进入／退出／中断规则及真实时钟 | 身体／脚／附件／判定锚 | 正常速度片段／帧对与状态 |\n+| --- | --- | --- | --- | --- |\n+| 待机 ↔ 移动 ↔ 转向 | 待填 | 待填 | 待填 | unverified |\n+| 预警 → 攻击 → 攻击恢复 → 当前动作 | 待填 | 待填 | 待填 | unverified |\n+| 移动／攻击 → 受伤 → 当前动作；重复命中 | 待填 | 待填 | 待填 | unverified |\n+| 活态 → 致死 → 死亡 → 终态 | 待填 | 待填 | 待填 | unverified |\n+| 物种专属状态（飞行／落地等） | 待填 | 待填 | 待填 | unverified |\n+| 暂停／慢时／取消／卸载／恢复 | 待填 | 待填 | 待填 | unverified |\n+\n+不适用项保留设计依据；缺实现不记not_applicable。留尸写真实落尸位置、支撑身份／局部接触锚、持有／回收、保存恢复及零重播／零重复奖励证据。静图、状态名或相同bbox不证明连续性。\n+\n+### 逐场景验收\n+\n | ID | 场景/前置 | 方法 | 应观察结果 | 失败条件 |\n | --- | --- | --- | --- | --- |\n | E01 | 与已有敌人同场比较 | 设计对照+真实操作录像 | 玩家需要不同判断/走位/反冲策略 | 仅换名/图/HP/速度，决策不变 |",
+    "untracked": "docs/design/enemies/plains_charger.md\ndocs/evidence/enemy_completion_01/README.md\ndocs/evidence/enemy_completion_01/source_inventory.json\ndocs/quality/enemy_completion_standard.md\ndocs/quality/records/ENEMY-COMPLETION-01.json\ndocs/quality/records/ENEMY-CONTINUITY-01.json"
+  },
+  "driver_sha256": "fa3ddccaa4517a65ba3a8db2e307d58f46678e30d3fa9a696b809230e8c9e942",
+  "scope": "Two explicit spawn fixtures in the named rendering chain with actual AI, nonlethal/lethal shots and a long corpse hold; no campaign/device claim.",
+  "conditions": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "playback_speed": 1,
+    "camera": {
+      "center": [
+        575,
+        440
+      ],
+      "zoom": 2.5
+    },
+    "case_frames": 780,
+    "total_trace_frames": 1560,
+    "definitions": [
+      "resources/enemies/plains_charger.tres",
+      "resources/enemies/plains_diver.tres"
+    ],
+    "player_spawn": [
+      480,
+      482
+    ],
+    "enemy_spawn": [
+      [
+        640,
+        484
+      ],
+      [
+        640,
+        430
+      ]
+    ],
+    "floor_top": 500,
+    "shots_at_case_frames": [
+      50,
+      110,
+      170,
+      230
+    ],
+    "pause_at": [
+      70,
+      85
+    ],
+    "stable_visible_tail_frames": 210,
+    "renderer": "gl_compatibility/software GPU",
+    "input": "real Router aim/release; no HP, movement or feedback injection"
+  },
+  "expect_remains": true,
+  "expect_disappear": false,
+  "user_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_continuity_01/underworld-01/after.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_feedback_01_remains_capture.gd",
+    "--",
+    "--variant=after",
+    "--seed=enemy-feedback-01-remains",
+    "--trace=/workspace/gunman-rush/build/enemy_continuity_01/underworld-01/after.json",
+    "--chain=underworld",
+    "--expect-remains"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793207674.9713635,
+    "ended_at_unix": 1793207712.7647758,
+    "duration_seconds": 37.793,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_continuity_01/underworld-01/after.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_feedback_01_remains_capture.gd",
+      "--",
+      "--variant=after",
+      "--seed=enemy-feedback-01-remains",
+      "--trace=/workspace/gunman-rush/build/enemy_continuity_01/underworld-01/after.json",
+      "--chain=underworld",
+      "--expect-remains"
+    ],
+    "check_token": "5a7d20b7163840ba8538c39c4fb9bdc5"
+  },
+  "case_observations": [
+    {
+      "definition": "plains_charger",
+      "post_death_observation_frames": 598,
+      "stable_visible_tail_frames": 210,
+      "tail_observation": "3.5s stable visible world transform, component settled when exposed"
+    },
+    {
+      "definition": "plains_diver",
+      "post_death_observation_frames": 594,
+      "stable_visible_tail_frames": 210,
+      "tail_observation": "3.5s stable visible world transform, component settled when exposed"
+    }
+  ],
+  "mp4_sha256": "ae9f20366d55867c695a0952af638bf63ac6cb2fea6b5c8575718540761e7596",
+  "avi_sha256": "21dfe069f389ff069692fef16abcae314244ed8f7ecf556e5042bd0137a83b95",
+  "trace_sha256": "e87b2d612333e918fe6811dddfb534b99c4dc363e5ec1fa736ead22c6979ba23",
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 401408,
+        "duration": "26.133333",
+        "bit_rate": "367103",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1568",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1254384,
+        "duration": "26.133000",
+        "bit_rate": "37444",
+        "nb_frames": "1226",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_continuity_01/underworld-01/after.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "26.133333",
+      "size": "1364697",
+      "bit_rate": "417764",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "source_stable": true,
+  "seconds": 42.69365024400008
+}

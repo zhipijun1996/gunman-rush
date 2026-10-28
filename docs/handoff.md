@@ -1,5 +1,11 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-28 怪物完成标准与冲锋怪核对
+
+用户追加「现在每个怪物的实现完成度都不一样。要先有个完成标准」。本线从main `45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc`独立建`docs/enemy-continuity-01`，先制定[每物种标准](quality/enemy_completion_standard.md)，扩展原Enemy Sheet并接enemy／art／animation skills；原G0–G5／十一维／policy及生产字节不改。任务ENEMY-COMPLETION-01为process，ENEMY-CONTINUITY-01为现有冲锋怪的动画核对，不能用process结果签怪物完成。
+
+[冲锋怪制作卡](design/enemies/plains_charger.md)已盘点正式Underworld与原始链、live→H→live及D→尸体／保存所有权；源存在与历史验证不当作fresh通过。旧strict66/1与后续保存修复66/0分别保留，不按旧摘要重开已修问题。运行工具、检查结果与阻塞在[本轮证据](evidence/enemy_completion_01/README.md)收口；恢复先核Git状态和当前锁定引擎，不换版本救采证。分支不默认合main。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。

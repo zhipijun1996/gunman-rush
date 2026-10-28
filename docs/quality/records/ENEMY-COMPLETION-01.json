@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-COMPLETION-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "reviewed_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "content_version": "enemy-standard-v1",
+  "owner": "/root",
+  "purpose": "统一每物种完成标准、扩展原制作卡并接入skills；不修改运行内容",
+  "player_experience": "让每个怪物的缺项和已验范围可比较，避免以共享受击组件或少量姿态冒充完整怪物",
+  "constraints": [
+    "沿原G0–G5、十一维与policy，不改生产字节、测试断言或预算",
+    "源存在与历史证据不冒称本轮运行或视觉验收",
+    "用户与设备认可不得由AI代签"
+  ],
+  "affected_paths": [
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    "docs/quality/enemy_completion_standard.md",
+    "docs/templates/enemy_design.md",
+    "docs/enemies_and_bosses.md",
+    "docs/quality/README.md",
+    "docs/tasks.md",
+    "docs/handoff.md"
+  ],
+  "deliverables": [
+    "docs/quality/enemy_completion_standard.md",
+    "docs/templates/enemy_design.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户要求建立统一标准，已按既有policy形成可核对合同",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "仅标准／模板／skills文档，不修改游戏内容；该豁免不能用于怪物核对任务",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "仅标准／模板／skills文档，不修改游戏内容；该豁免不能用于怪物核对任务",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "仅标准／模板／skills文档，不修改游戏内容；该豁免不能用于怪物核对任务",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "仅标准／模板／skills文档，不修改游戏内容；该豁免不能用于怪物核对任务",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "统一交付完整性，物种方法／动作数量可不同；不新增评分体系",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "本process只交付文档流程；实际怪物由独立内容记录验收",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "completion_contract",
+      "scenario": "旧怪实现完成度不同",
+      "method": "标准／制作卡／skills交叉核对",
+      "expected": "12项统一出口且源码存在不等于PASS",
+      "failure": "省略完整动作或以平均数抵消缺陷",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "标准和原模板逐项对应",
+      "evidence": [
+        "spec"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/quality/enemy_completion_standard.md",
+      "sha256": "07b8128378d87da9fd7bc8aa524ba5884d397a451c92ada988e69e37af4ce3fd",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+      "content_version": "enemy-standard-v1",
+      "method": "既有G0–G5／十一维的每物种出口细化；新增候选文档overlay",
+      "observed": "E01–E12、状态／转换、证据、完成声明及skills分工一致"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "原docs profile及质量diff尚待实际执行结果；标准不向任何怪物继承PASS"
+  ],
+  "skills": [
+    "game-quality-gate",
+    "enemy-creator",
+    "art-director",
+    "animation-vfx"
+  ]
+}

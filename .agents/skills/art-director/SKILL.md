@@ -5,6 +5,8 @@ description: 负责资产、地区视觉母版、模块化美术系列、AI 风�
 
 # art-director
 
+怪物任务同时按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)核E03及E04–E07的身体连续性：同物种live／hurt／death共用身份母版，真实比例、材质和锚点先合屏；独立姿态漂亮不代表进入／退出自然。来源与准入沿原资产记录，不复制新质量体系。
+
 ## 当前生产入口：区域圣经先于制作
 
 先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
