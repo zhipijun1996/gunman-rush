@@ -1,8 +1,12 @@
 # 当前状态
 
+## 2026-10-28 用户选声组合
+
+AUDIO-DIRECTOR-04继续PR109并同步最新main879b39ea。用户回传13项选择：金币/回血/宝箱/脉冲枪A，道具/UI三项/主角伤C，命中/敌伤B，手里剑/炸弹原版；爆炸项仅复合推导。原件与归一映射已入库，brief会读取。78.4秒真实Godot原音轨，10组原/所选20章；108新原生/126旧原生与20章网页验证通过，来源及原failed后验修正见[本轮证据](evidence/audio_director_04/README.md)。网页实际发布状态见该页收据，不以旧V3冒充。正式默认仍original，整体混音/自然战斗/真机未批准，不合main。
+
 ## 2026-10-26 音效第三轮：功能音色与对比录屏
 
-AUDIO-DIRECTOR-03继续PR109：按用户最新反馈重选42个CC0候选，覆盖清脆金币、液体回血、宝箱、长道具获得、打击/受伤、3武器及UI；已交10支真实有声短片/12章节/48可选段，约157秒；[直接点播](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)，不必先下载完整游戏。原jump/land与五BGM保持。V2未取得本轮采用认可，旧素材/反馈保留；Sites版本4已发布新录屏入口；旧V2保留。[V3精确状态](evidence/audio_director_03/README.md)、[声音功能规范](audio_director/style_bible_v3.md)。
+AUDIO-DIRECTOR-03继续PR109：按用户最新反馈重选42个CC0候选，覆盖清脆金币、液体回血、宝箱、长道具获得、打击/受伤、3武器及UI；已交10支真实有声短片/12章节/48可选段，约157秒；[直接点播](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)，不必先下载完整游戏。原jump/land与五BGM保持。V2未取得本轮采用认可，旧素材/反馈保留；Sites版本5已发布新录屏入口；旧V2保留。[V3精确状态](evidence/audio_director_03/README.md)、[声音功能规范](audio_director/style_bible_v3.md)。
 
 ## 2026-10-26 音效第二轮：3套现成CC0与真实情境
 

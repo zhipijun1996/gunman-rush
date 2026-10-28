@@ -29,3 +29,9 @@ description: 为失序之钟设计或优化SFX、敌人声音、钩索、UI和�
 用户只要看着选时，复用tools/capture_audio_reels.py真实MovieMaker原音轨＋tools/audio_reels_lab.py打包；单事件/实际接受结果/正常速度/字幕与MovieWriter帧绑定，不能静图配音。使用新audio_reels_validation.py的稳定局部能量/直接dot后验及同帧双层联合证明，旧4d报告里无效的>1相关值不能作证；新后验不改旧媒体/回执，技术通过不代签听感。网页先fetch缓冲所选小MP4并用Blob URL跳段，兼容不支持Range的私有托管；验证Stop/换片时延迟下载不可迟播/覆盖，保留直接MP4/ZIP下载；手机/Safari另验。仅HTML更新可用--refresh-from复用已指纹验证的音画，不重录不改声音。
 
 [实际录屏交付](../../../docs/evidence/audio_director_03/README.md)保源/工具/发布身份、用户反馈与失败。默认original；用户逐事件选定后再制作所选组合混音并按授权推广，不把整套ABC自动采用。
+
+## 2026-10-28 用户选择
+
+先读取[保留选择原件与归一映射](../../../config/audio_director/selected/selected.json)。金币/回血/宝箱/脉冲枪A，道具/UI三项/主角伤C，命中/敌伤B，手里剑/炸弹原版；炸弹爆炸是复合原版选择推导，不伪造另一条用户明选。13明选仅批准单项偏好；整体混音、正式推广与实体设备另验。`brief`输出user_selection，不再把这些已选项写成全未选。
+
+后续收到JSON使用tools/audio_reel_choices.py按原reels/manifest/WAV指纹验证，原件逐字保留；缺选original并保unknown。`GameAudio.configure_selected_profiles`仅显式配置，`set_audio_profile("selected")`复用原voice池逐事件分派，未选保原消费者。重录可用`python3 tools/capture_selected_audio.py --output build/audio_director_04/FRESH`，录前重算原件映射，10场景original/selected对照，原生音轨与帧锚保留，不代签自然完整关卡。

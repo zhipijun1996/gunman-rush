@@ -1,3 +1,7 @@
+# 最新交接 · 2026-10-28
+
+AUDIO-DIRECTOR-04已导入[用户原件](../config/audio_director/selected/user-20261028.json)与[14事件映射](../config/audio_director/selected/selected.json)，13明选/11新音色/2原版+1派生。按[本轮证据](evidence/audio_director_04/README.md)继续；原片运行a835、后验及网页/包来源分记，原失败不可覆盖。显式selected混合profile复用共享12voice池，正式默认original保留。需要后续选声时brief自动读当前偏好；完整组合/正式推广/实体设备需单列验证，不自动整套ABC采用。PR109继续review，不合main。
+
 # 当前交接（2026-10-24）
 
 最新工作线AUDIO-DIRECTOR-03按功能重做声音并交真实短录屏，继续feature/audio-director-01/PR109。先前V2网站保留，新录屏来源、实际采集/发布与失败以[第三轮证据](evidence/audio_director_03/README.md)为准；原jump/land和五BGM不改。恢复`python3 tools/audio_director.py brief '优化金币'`读取V3风格/事件/许可/配方，不复用旧掉落币方向。新[录屏工坊](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)已发布Sites5；运行4d724a73/后验df22e376/UI c3f4fdf4，10片原音轨保留，正式默认original。126原生/9加工/12trace/8数值/48网页/33docs通过；旧相关性数值无效保留原报告，稳定后验另记。用户听感/真机/自然混音待验；本轮不合main。
