@@ -1,0 +1,27 @@
+extends SceneTree
+var checks := 0
+var failures := 0
+func check(value: bool, message: String) -> void:
+	checks += 1
+	if not value:
+		failures += 1
+		push_error(message)
+func _initialize() -> void:
+	_run.call_deferred()
+func _run() -> void:
+	var expected := ""
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--config-sha="): expected = arg.trim_prefix("--config-sha=")
+	check(not expected.is_empty() and FileAccess.get_sha256(ChestArtLibrary.CONFIG_PATH) == expected,"Exact chest JSON exported without checkout fallback")
+	check(ChestArtLibrary.diagnostics().valid,"Packed chest registry is valid")
+	for tier: StringName in ChestArtLibrary.TIERS:
+		for opened: bool in [false,true]:
+			var sprite := Sprite2D.new()
+			check(ChestArtLibrary.place_sprite(sprite,Vector2(100,200),tier,opened),"Packed actual tier pose loads")
+			check(sprite.texture != null and sprite.texture.get_width() > 0 and sprite.material != null,"Packed PNG region and existing shader resolve")
+			sprite.free()
+	check(ChestArtLibrary.texture(&"hard_optional",true) == ChestArtLibrary.texture(&"region_top",true),"Packed legacy alias remains presentation-only")
+	ChestArtLibrary.clear_cache()
+	await process_frame
+	print("CHEST PACK: %s assertions, %s failures" % [checks,failures])
+	quit(0 if failures == 0 else 1)

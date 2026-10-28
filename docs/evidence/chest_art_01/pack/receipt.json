@@ -1,0 +1,36 @@
+{
+  "schema": "chest-art-packed-contract-v1",
+  "source_commit": "5722ca742115ba9316ff4c1a5e2c38694c87081d",
+  "export_preset": "Web Playtest",
+  "export_command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--path",
+    ".",
+    "--export-pack",
+    "Web Playtest",
+    "build/chest_art_01/export-source-5722ca74.pck"
+  ],
+  "export_exit_code": 0,
+  "pck_sha256": "24da2988592725475cff11a6f694e65b903eda191adecad8e4e48bea78291038",
+  "pck_bytes": 201156304,
+  "isolated_cwd": "/workspace/scratch/chest-packed",
+  "probe_command": [
+    "bash",
+    "/workspace/gunman-rush/tools/godot.sh",
+    "--headless",
+    "--main-pack",
+    "/workspace/gunman-rush/build/chest_art_01/export-source-5722ca74.pck",
+    "--script",
+    "/workspace/scratch/chest-packed/probe.gd",
+    "--",
+    "--config-sha=ad641a9c79ba4f8a2540cc8b8497fa86ba3397f3e7cc94944195eccbf3f5fa04"
+  ],
+  "probe_sha256": "470f5c4b9b91d8dd62ec586645499b094e45c37d12d35a90f2ec4c01a9d0ed94",
+  "probe_exit_code": 0,
+  "assertions": 15,
+  "failures": 0,
+  "strict_errors_or_leaks": false,
+  "scope": "Actual exported PCK in isolated external cwd, exact chest JSON bytes, all6 PNG regions and shader references; no browser/device acceptance."
+}

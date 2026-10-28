@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "CHEST-ART-01",
   "task_type": "art",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "0f25921dd41949f220999293013f065ce758189d",
-  "reviewed_commit": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
+  "reviewed_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
   "content_version": "source04-user-adopted-v1",
   "owner": "/root",
   "purpose": "Three readable chest tiers, each with matched closed/open physical appearance, integrated into formal Plains/Forest",
@@ -34,7 +34,11 @@
     "assets/manifest.json",
     "docs/worklines/chest_art_01/spec.md",
     "docs/quality/records/CHEST-ART-01.json",
-    "scripts/demo/demo_app.gd"
+    "scripts/demo/demo_app.gd",
+    "tests/plains_campaign_map_runner.gd",
+    "tests/plains_region_lifecycle_runner.gd",
+    "tests/chest_art_runner.gd",
+    "tools/run_underworld_r3_object_tests.py"
   ],
   "deliverables": [
     "Shared three-tier/six-state art data in actual Plains and Forest",
@@ -62,12 +66,9 @@
     },
     "G1": {
       "status": "passed",
-      "reason": "Bounded actual native192/0 and pure guard161/0 plus source/assemblyaudit1025/0 observed. This does not sign final freeze, GL/visual or release completeness.",
+      "reason": "Actual reviewed runtime native trace; historical failures preserved. Broader final Harness tracked separately.",
       "evidence": [
-        "native02",
-        "guard-pure03",
-        "guard-audit03",
-        "guard-migration-final"
+        "current-native-trace"
       ]
     },
     "G2": {
@@ -104,41 +105,49 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "Current bounded technical executions: native02 192/0 clean, pure161/0 in94.476s under original180s, actual-audit1025/0. Earlier native/guard failures retained; final independent review and current GL/media are separate.",
+      "reason": "Current reviewed N2 runtime/test code identity and actual210clean native checks; broader current-Harness/pack supplemental artifacts keep their own source identities.",
       "evidence": [
-        "native02",
-        "guard-pure03",
-        "guard-audit03",
-        "guard-migration-final"
+        "current-native-command"
       ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "Production code and native tests load actual formal Plains/Forest stages; current-source two-regionGL, claim/reload continuous media and final freeze still pending. Native alone does not sign visible integration.",
+      "status": "passed",
+      "reason": "Actual existing Plains3-tier and Forest-high reward/claimed/reload consumers observed; original ownership remains gameplay-owned",
       "evidence": [
-        "native02",
-        "chest-v8-contract"
+        "formal-gui",
+        "live-index",
+        "inventory"
       ]
     },
     "visual": {
-      "status": "unverified",
-      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
-      "evidence": []
+      "status": "passed",
+      "reason": "Adopted source04 sixstaticposes inspected in both actual regions and sizes; no original bound failures relabeled",
+      "evidence": [
+        "actual-gold-open",
+        "actual-main-video",
+        "visual-review"
+      ]
     },
     "animation": {
-      "status": "unverified",
-      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
-      "evidence": []
+      "status": "not_applicable",
+      "reason": "Requested six static closed/open poses; no opening animation implemented or claimed.",
+      "evidence": [
+        "live-index"
+      ]
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
-      "evidence": []
+      "status": "not_applicable",
+      "reason": "No new audio or VFX in this static chest-art integration; original game audio retained, listening acceptance unverified.",
+      "evidence": [
+        "live-index"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "User adopted source04; current formal implementation and actual-scene verification in progress, prior failed contract retained separately",
-      "evidence": []
+      "reason": "Actual transaction and pose behavior observed technically; gameplay dimension requires user acceptance under project policy.",
+      "evidence": [
+        "live-index"
+      ]
     },
     "performance": {
       "status": "unverified",
@@ -147,9 +156,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Independent after-review SCOPED_TECHNICAL_ACCEPT for finite chest source gate/tests/fixture migration after confirmed fake-header repair. OriginalREVISE and exact before/after probe retained. No visual/runtime/G5 review signed.",
+      "reason": "Independent finite-guard/source, realinput and actual24PNG/trace review accepted within their explicit scopes; wholeG4 remains unverified.",
       "evidence": [
-        "guard-independent-after"
+        "visual-review"
       ]
     },
     "device": {
@@ -188,9 +197,10 @@
       "expected": "192/0 and no script/nativeERROR; unknown-tier negative warning remains diagnostic",
       "failure": "Any true script/nativeERROR, incomplete stage or relying only on local147/0 marker",
       "status": "passed",
-      "reason": "Native02 actual192/0 clean; native01 strictFAIL preserved. Formal visible capture still pending.",
+      "reason": "Actual210checks at source bytes exactly matching reviewed N2.",
       "evidence": [
-        "native02"
+        "current-native-command",
+        "current-native-trace"
       ]
     },
     {
@@ -201,8 +211,8 @@
       "method": "Full161-test pure stdlib run under original180s plus1025 source/assembly audit",
       "expected": "Zero failed/removed original tests; actual current source dispatch guarded, wrong live Stage/Objects rejected",
       "failure": "Dead-string/fake-header bypass, deleted original guard or source audit failure",
-      "status": "passed",
-      "reason": "161/0 in94.476s,1025/0 audit and after-fix original probe rejection observed. This is author verification, not final independent acceptance.",
+      "status": "unverified",
+      "reason": "Original actual artifact retains its source identity; not relabeled as reviewed N2. Direct facts remain in raw evidence and separate final reports.",
       "evidence": [
         "guard-pure03",
         "guard-audit03",
@@ -218,8 +228,8 @@
       "method": "Actual independent staticdiff/AST/exactSHA review plus before/after exact counterexample evidence and complete author test/audit logs",
       "expected": "Independent accepted scope states real fake-header bypass is closed without weakening original contracts",
       "failure": "Author tests treated as independent acceptance or oldREVISE overwritten",
-      "status": "passed",
-      "reason": "SCOPED_TECHNICAL_ACCEPT for finite source-gate/tests/fixtures only; firstREVISE preserved. Whole parser/runtime/visual/G5 are explicitly outside acceptance.",
+      "status": "unverified",
+      "reason": "Original actual artifact retains its source identity; not relabeled as reviewed N2. Direct facts remain in raw evidence and separate final reports.",
       "evidence": [
         "guard-independent-after",
         "guard-probe-after",
@@ -238,6 +248,81 @@
       "reason": "Native actual stages loaded, but current formalGL/movie/finalfreeze evidence not signed here.",
       "evidence": [
         "native02"
+      ]
+    },
+    {
+      "id": "formal-renderers",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "Actual original two-region claim, open-state and reload",
+      "method": "Actual scoped native/capture evidence with strict errors and original limits preserved",
+      "expected": "Original authoritative state and admitted full source recipes remain consistent",
+      "failure": "Any duplicate transaction, wrong pose/state, missing source data or failed strict check",
+      "status": "passed",
+      "reason": "Observed only within each explicit evidence scope",
+      "evidence": [
+        "formal-gui",
+        "live-index",
+        "inventory"
+      ]
+    },
+    {
+      "id": "six-pose-readability",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "All six static poses visible at normal and small viewport in actual backgrounds",
+      "method": "Actual scoped native/capture evidence with strict errors and original limits preserved",
+      "expected": "Original authoritative state and admitted full source recipes remain consistent",
+      "failure": "Any duplicate transaction, wrong pose/state, missing source data or failed strict check",
+      "status": "passed",
+      "reason": "Observed only within each explicit evidence scope",
+      "evidence": [
+        "actual-gold-open",
+        "actual-main-video",
+        "visual-review"
+      ]
+    },
+    {
+      "id": "transaction-state",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "Committed ownership and coin ledger survive original reload without repetition",
+      "method": "Actual scoped native/capture evidence with strict errors and original limits preserved",
+      "expected": "Original authoritative state and admitted full source recipes remain consistent",
+      "failure": "Any duplicate transaction, wrong pose/state, missing source data or failed strict check",
+      "status": "passed",
+      "reason": "Observed only within each explicit evidence scope",
+      "evidence": [
+        "live-index",
+        "visual-review"
+      ]
+    },
+    {
+      "id": "packed-data",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Exported exact chest JSON and six images load in isolated cwd",
+      "method": "Actual scoped native/capture evidence with strict errors and original limits preserved",
+      "expected": "Original authoritative state and admitted full source recipes remain consistent",
+      "failure": "Any duplicate transaction, wrong pose/state, missing source data or failed strict check",
+      "status": "unverified",
+      "reason": "Original actual artifact retains its source identity; not relabeled as reviewed N2. Direct facts remain in raw evidence and separate final reports.",
+      "evidence": [
+        "pack"
+      ]
+    },
+    {
+      "id": "independent-current-art-review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "Actual N2 game frames and trace reviewed independently with source-identity boundaries",
+      "method": "Independent24PNG and per-phase original trace review",
+      "expected": "Readable six-pose family and original reward state preserved withinV8",
+      "failure": "Wrong tier/state, source drift or duplicate actual transaction",
+      "status": "passed",
+      "reason": "Explicit scoped independent accept; fullG4/G5 not claimed",
+      "evidence": [
+        "visual-review"
       ]
     }
   ],
@@ -401,16 +486,163 @@
       "verdict": "ACCEPT",
       "original_report_verdict": "SCOPED_TECHNICAL_ACCEPT",
       "verdict_mapping_scope": "Quality schema normalization only; original report bytes/verdict unchanged. ACCEPT covers finite source gate/tests/fixture migration only; REVISE is a rejection until repaired, not historical PASS."
+    },
+    {
+      "id": "live-index",
+      "path": "docs/evidence/chest_art_01/live/index.json",
+      "sha256": "1186125ffb4b6a6fc3aba31756a1dee53feee2b1369f7eafd19dcdd0abe1b994",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual frozen full-source native GL captures, original trace/receipt/PNG/MP4 bytes, each source identity preserved",
+      "observed": "Main26.066667s105/0, Forest10.1s41/0; galleries32/0 and26/0 across1280/960, no errors/leaks/source drift. Fixtures disclosed; central reward modal occludes box during offers.",
+      "consumers": [
+        "plains-formal-chests",
+        "forest-formal-chests"
+      ]
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/chest_art_01/consumer-inventory.json",
+      "sha256": "ad8f2703ca0f7d8bbf53f0da3d5bb0cbcc55aa25cb67db52c579d39c0ae53f04",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Bounded actual consumer inventory curated from the real capture paths and receipts",
+      "observed": "Actual formal Plains/Forest renderers and explicit visual-only galleries observed, not natural Forest all-tier distribution."
+    },
+    {
+      "id": "pack",
+      "path": "docs/evidence/chest_art_01/pack/receipt.json",
+      "sha256": "3dfe26c8e8425a5f0595593ec22da774394ef23198861f709f6e2a2cc8dc07d4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5722ca742115ba9316ff4c1a5e2c38694c87081d",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Actual Web Playtest export and external isolated-cwd native probe",
+      "observed": "15 assertions/0failures, exact JSON SHA and all6 PNG regions/material load from PCK without checkout fallback."
+    },
+    {
+      "id": "visual-review",
+      "path": "docs/evidence/chest_art_01/final-independent-visual-review.json",
+      "sha256": "3c85d020eac8769af076aa10f89d46d7ca517b44ab38a964a1c7e3274f4ff7e8",
+      "kind": "review",
+      "producer": "/root/final_review",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Independent actual24PNG inspection, two independent MP4 frame extractions, every relevant trace/receipt state and source-identity review",
+      "observed": "Scoped V8 technical/visual accept; wholeG5, held-at-claim, physical devices/listening and full-HUD acceptance excluded.",
+      "reviewer": "/root/final_review",
+      "implementers": [
+        "/root",
+        "/root/item_art_runtime",
+        "/root/item_art_world",
+        "/root/authoring_catalog"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not implement runtime, producer, guard or data; inspected actual outputs and independently found the guard counterexample.",
+      "verdict": "ACCEPT",
+      "original_report_verdict": "SCOPED_TECHNICAL_AND_VISUAL_ACCEPT_V8",
+      "verdict_mapping_scope": "Schema ACCEPT is restricted to the original report approved_scope; not overall G5."
+    },
+    {
+      "id": "current-native-command",
+      "path": "docs/evidence/chest_art_01/native-current-source-identity.json",
+      "sha256": "b385ea50317caad16774a6997d5842dd0a21152a68d1c777b6b3ca12d67595b6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Exact original N2 code/output identity with explicit execution timing and raw source receipts preserved",
+      "observed": "Native210/0clean at exact source bytes now stored in N2; expected unknown-tier warning retained.",
+      "command": "bash tools/godot.sh --headless --path . --audio-driver Dummy --fixed-fps 60 --script tests/chest_art_runner.gd",
+      "exit_code": 0,
+      "environment": "Linux, Godot4.7.2 headless, Dummy audio"
+    },
+    {
+      "id": "current-native-trace",
+      "path": "docs/evidence/chest_art_01/native-current-source-identity.json",
+      "sha256": "b385ea50317caad16774a6997d5842dd0a21152a68d1c777b6b3ca12d67595b6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Exact original N2 code/output identity with explicit execution timing and raw source receipts preserved",
+      "observed": "Actual192old+18two-cache keyboard checks and complete original actor cleanup; source identities checked against N2."
+    },
+    {
+      "id": "formal-gui",
+      "path": "docs/evidence/chest_art_01/formal-gui-observation.json",
+      "sha256": "3e0058843f5227b5bae9f74948eee3fd955e6f4bda1c73d42b67a823821addaa",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Exact original N2 code/output identity with explicit execution timing and raw source receipts preserved",
+      "observed": "Actual original main/Forest viewport capture and native input,105/41 checks and no duplicate reload rewards.",
+      "consumers": [
+        "plains-formal-chests",
+        "forest-formal-chests"
+      ]
+    },
+    {
+      "id": "actual-gold-open",
+      "path": "docs/evidence/chest_art_01/live/main/region_top_open.png",
+      "sha256": "9ca6244fb7b4e20f59b93613e7f6cc510306fa7972eabd5e71c5e717c2ca9572",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Exact original N2 code/output identity with explicit execution timing and raw source receipts preserved",
+      "observed": "Actual N2 compact gold-open pose beside original player/platform; other23actualPNG inspected in scoped independent review."
+    },
+    {
+      "id": "actual-main-video",
+      "path": "docs/evidence/chest_art_01/live/main/movie.mp4",
+      "sha256": "dbce46801f5d9362221ab19b80c63fc561ac53601c085eee633e62906245a9be",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "0f7a5d1c401556b38f89d403ce781eda9798f0e6",
+      "content_version": "source04-user-adopted-v1",
+      "method": "Exact original N2 code/output identity with explicit execution timing and raw source receipts preserved",
+      "observed": "Actual continuous26.066667s native game movie, three original chest claims and reload. Explicit pose/camera fixtures; no opening animation claim."
     }
   ],
-  "consumer_coverage": null,
+  "consumer_coverage": {
+    "scope": "Actual existing Plains three-tier and Forest-high claims; explicit six-state visual fixtures use both real renderers. Not natural all-tier Forest distribution or physical-device acceptance.",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "plains-formal-chests",
+        "status": "passed",
+        "reason": "Three unchanged actual chestIDs/tiers; W/native reward UI/COMMITTED inactive ownership/open state/reload, disclosed actor/camera fixtures",
+        "output": "behavior",
+        "evidence": [
+          "formal-gui",
+          "live-index"
+        ]
+      },
+      {
+        "consumer": "forest-formal-chests",
+        "status": "passed",
+        "reason": "One unchanged actual high chest; actual layer reads stage-owned claimed rows, real claim/reload and ledger",
+        "output": "behavior",
+        "evidence": [
+          "formal-gui",
+          "live-index"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "Current formal two-regionGL, genuineclaim/reload and current-sourcemovie remain pending; native192/0 is scoped technical proof only.",
-    "Independent finite guard scope accepted; current formal GL/gameplay/art and wholeG4 remain unverified.",
-    "Final sourcefreeze/commit and current applicable broaderHarness remain root responsibility; reviewed_commit is b2 baseline with candidate uncommitted.",
-    "Physical Android/gamepad, low-endperformance and fullG5 remain unverified.",
-    "User adopted fixed source04 differences under v8; originalgrid/gutter/nativepixel/pair1wu/gold44-58FAIL stays historical, not rewrittenPASS.",
-    "No fifth image generation; byte-identical source04 only."
+    "Current broader Harness rerun remains in progress; original core pass/region fixture failure retained, not called full165 or all8passed.",
+    "Physical Android/gamepad, low-end performance, listening and fullG5 remain unverified.",
+    "Six static poses only; no opening animation.",
+    "Forest960 existing tutorial text overlaps upper-leftHUD in the inspected gallery; six chests remain readable, full HUD acceptance not claimed.",
+    "Old source04 geometry/gutter/native-grid failures retained; v8 user adoption does not rewrite their verdict.",
+    "Offer modal covers chest pixels; closed-state under modal is trace/texture evidence, not visible-pixel evidence."
   ],
   "technical_scope_note": {
     "baseline_commit_kept": "b2f92dcede97ac3a0f0a2075bcd01a552c9bf1d6",
@@ -439,5 +671,6 @@
       ],
       "reason": "Independent before REVISE and confirmed fake-header bypass preserved. Follow-up ACCEPT is separate after repair; old rejected review is not cited as PASS."
     }
-  ]
+  ],
+  "test_change_justification": "Preserve original guards, budgets, all old test methods/assertion labels and old failure bytes. Historical old-renderer alpha tests use immutable actual old-source fixtures; current finite dispatch gets independent dead-string counterexamples and161 strict tests. Obsolete single-offer shop fixtures migrate to actual V5 three-slot quotes/controls and real inventory/ledger ownership; no production bypass. Independent source/fixture and actual-pixel reviews are separate from device/G5 acceptance."
 }

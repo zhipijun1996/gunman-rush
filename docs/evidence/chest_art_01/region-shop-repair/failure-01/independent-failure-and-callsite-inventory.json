@@ -1,0 +1,174 @@
+{
+  "task_id": "CHEST-ART-01",
+  "reviewer": "/root/final_review",
+  "kind": "Actual final8check first-attempt region legacy-shop fixture failure; readonly inventory",
+  "observed_utc": "2026-10-28T11:32:59.784588+00:00",
+  "source_commit": "5722ca742115ba9316ff4c1a5e2c38694c87081d",
+  "harness_report": "build/verification/harness/20261028T112632.010227Z/report.json",
+  "actual_completed_checks": [
+    {
+      "id": "core",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 37.353
+    },
+    {
+      "id": "region",
+      "status": "failed",
+      "exit_code": 1,
+      "seconds": 137.59
+    }
+  ],
+  "failure_excerpt": [
+    "TERRAIN STUDY: solids=79 pieces=292 setup_ms=40",
+    "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"a6cd11bbed9908f7055ee62e6e5a95cffe5b8bcf1491d8041f863546c9b253af\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"two-map-ledger\"}",
+    "SCRIPT ERROR: Invalid access to property or key 'shop_id' on a base object of type 'Nil'.",
+    "Traceback (most recent call last):",
+    "  File \"/workspace/gunman-rush/tools/run_plains_region_tests.py\", line 173, in <module>",
+    "    main()",
+    "  File \"/workspace/gunman-rush/tools/run_plains_region_tests.py\", line 152, in main"
+  ],
+  "root_cause": "plains_campaign_map_runner old _region_purchase reaches legacy shop.quote(base_shop_id)=null while formal V5 merchants own three slot quotes. Test fixture must use actual V5 ShopPurchaseRequest/presenter; production must not be switched back to legacy.",
+  "scope_of_scan": "All15current SUITES literal list in unchanged original wrapper, source-only search. Not executed native by reviewer.",
+  "legacy_API_inventory": [
+    {
+      "suite": "tests/plains_cohesion_drops_runner.gd",
+      "timeout_seconds": 120,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_cohesion_lifecycle_runner.gd",
+      "timeout_seconds": 120,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_cohesion_runner.gd",
+      "timeout_seconds": 120,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_interactive_platforms_runner.gd",
+      "timeout_seconds": 120,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_interactive_lifecycle_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_platform_boss_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_exploration_pressure_runner.gd",
+      "timeout_seconds": 120,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_exploration_module_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_exploration_expansion_runner.gd",
+      "timeout_seconds": 150,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_experience_energy_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_pressure_boss_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_campaign_map_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": [
+        {
+          "line": 81,
+          "text": "check(app._region_purchase(),\"first merchant accepts finite purchase\")"
+        },
+        {
+          "line": 98,
+          "text": "check(app._region_shop_id()!=first_shop and app.shop.quote(first_shop).stock==0 and app.shop.quote(app._region_shop_id()).stock==1,\"map 2 merchant is a new bounded instance; old stock stays exhausted\")"
+        }
+      ]
+    },
+    {
+      "suite": "tests/plains_region_runner.gd",
+      "timeout_seconds": 300,
+      "same_legacy_API_hits": []
+    },
+    {
+      "suite": "tests/plains_region_lifecycle_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": [
+        {
+          "line": 50,
+          "text": "check(app._region_purchase(),\"actual merchant purchase succeeds\")"
+        },
+        {
+          "line": 51,
+          "text": "check(not app._region_purchase(),\"finite stock cannot be refreshed by another interaction\")"
+        },
+        {
+          "line": 52,
+          "text": "var quote:=app.shop.quote(app._region_shop_id())"
+        },
+        {
+          "line": 81,
+          "text": "check(app.shop.quote(app._region_shop_id()).stock==0,\"reload does not refresh merchant stock\")"
+        }
+      ]
+    },
+    {
+      "suite": "tests/plains_region_boss_runner.gd",
+      "timeout_seconds": 90,
+      "same_legacy_API_hits": []
+    }
+  ],
+  "other_merchant_consumer_note": "plains_experience_energy_runner only opens/closes actual formal merchant preview and standaloneItemShopModal UI; no legacy quote/purchase call.",
+  "only_two_legacy_call_sites_files": [
+    "tests/plains_campaign_map_runner.gd",
+    "tests/plains_region_lifecycle_runner.gd"
+  ],
+  "preservation_requirements": [
+    "Keep original wrapper15suites/1500soverall and individual90s budgets unchanged.",
+    "Preserve original other map/fog/Boss/mini-reward/cache/death/teardown assertions.",
+    "Use actual V5 slot stock/wallet/receipts/inventory; no _item_runtime=null or fake legacy service registration.",
+    "Across maps compare actual owned instances/levels in addition to equipped build.item_ids.",
+    "This failure is script Nil access, not timeout, art-recipe error or regression proved in actual productionV5shop."
+  ],
+  "records": [
+    {
+      "original_path": "build/verification/harness/20261028T112632.010227Z/report.json",
+      "archived": "original-harness-report.json.gz",
+      "original_bytes": 2559,
+      "original_sha256": "ce1f630f5a26f90ffb44986e521bd998dcf249625a97e8a2260b5b423b843268",
+      "gzip_sha256": "cb95cc4d5165a9e09bedcc831fa3001223fc802c9054d3afecdd1a6b6191a701"
+    },
+    {
+      "original_path": "build/verification/harness/20261028T112632.010227Z/region.log",
+      "archived": "original-region.log.gz",
+      "original_bytes": 47410,
+      "original_sha256": "151b7f77cbca3f1b0cbf311996d862d293c8c19c99893224d3096c36e3877ad2",
+      "gzip_sha256": "6d3d8490de21b11764da930e4352c6841353863291b8bfad8e240ac01128a20b"
+    },
+    {
+      "original_path": "build/verification/harness/20261028T112632.010227Z/core.log",
+      "archived": "original-core.log.gz",
+      "original_bytes": 9452,
+      "original_sha256": "671755c21293bd38d8e4f0555f5b0763a8627aab8163f0a762cf64c09e912bdc",
+      "gzip_sha256": "01fe0f751769e0ac342b6ca9e3240940132e92785647c61954de000a07f8a5ca"
+    }
+  ],
+  "reviewer_engine_started": false,
+  "production_or_tests_modified": false,
+  "new_run_or_fix_pass_claimed": false
+}
