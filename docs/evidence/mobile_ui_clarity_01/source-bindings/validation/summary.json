@@ -1,0 +1,113 @@
+{
+  "task_id": "MOBILE-UI-CLARITY-01",
+  "scope": "Pure current binding checks; original32+10 methods preserved, one bounded regression added to each. Original budgets enforced; no Godot or device/performance acceptance.",
+  "checks": [
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 0.154,
+      "log": "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-contract.log",
+      "sha256": "98ad2d5b87e17247a388dbe641aa47e8345c36e7c9100c9abb0c758189029616"
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 0.173,
+      "log": "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction.log",
+      "sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73"
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 25.691,
+      "log": "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-tests.log",
+      "sha256": "c5b8825c3769f063ffe5ca1174166c7c4d8201ce04706c9eea74822fde2a80e6"
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "seconds": 5.33,
+      "log": "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction-tests.log",
+      "sha256": "cfb581c0b999179c37f7b0ede44580ba05282a3e53128b15652323551c973700"
+    }
+  ],
+  "status": "passed",
+  "baseline_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "validated_sources": [
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+      "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "5fa60413ae54e66410730a0f682d0d929fbda8ed7264fc6ad91337e2b9c8a718"
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d"
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "sha256": "e915f7e38d5c3678235ff3f1cca0d9c696b40d38c9eb4916fed9780e4c952218"
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "sha256": "f4f92b576e6dcd83bda1e8d0f33d334e1e07a810acefc1a61ae351cf1c722aeb"
+    },
+    {
+      "path": "tests/test_region_creative_direction.py",
+      "sha256": "e313c00bf2d6af79f9d12a443b9049b82d0cd12f9d795cfa97ce79b8bc10e5cf"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "sha256": "3555c03c73187143177b401bbb2b0f6db5e3d27a0749e3bc90ecd730ff506482"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f"
+    },
+    {
+      "path": "scripts/ui/stage_reward_modal.gd",
+      "sha256": "e7b435f67374c73f40cd4d836100a92c5787796c750289cb2ca7d8b6821d89c5"
+    },
+    {
+      "path": "scripts/ui/home_item_codex.gd",
+      "sha256": "18d3e61a40e681afc029596a15e005eb2aaa23f4638930b7127f91b75def75d1"
+    }
+  ],
+  "method_counts": {
+    "original_bible": 32,
+    "original_creative": 10,
+    "added_bible": 1,
+    "added_creative": 1
+  },
+  "input_preflight": "build/mobile_ui_clarity_01/inputs-binding.json",
+  "source_commit_note": "Tests ran on these exact working-tree bytes before task owner commit; baseline alone is not claimed as modified source identity."
+}
