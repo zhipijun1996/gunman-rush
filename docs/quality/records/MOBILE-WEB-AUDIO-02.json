@@ -3,14 +3,14 @@
   "task_type": "small_fix",
   "constraints": [
     "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
-    "保原shader/PNG/输入/物理/资源/RNG/save及声音素材；只改已复现的总线创建和暂停状态写入",
+    "保原shader/PNG/输入/物理/资源/RNG/save和既有声音素材；恢复原选择装配，音频时序及线程对照限定独立入口",
     "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
     "只快速Web部署，不默认merge main；保原失败和预算"
   ],
   "task_id": "MOBILE-WEB-AUDIO-02",
   "workflow": "in_progress",
   "baseline_commit": "287f473635047d7329f838cc252a57fa53200114",
-  "reviewed_commit": "287f473635047d7329f838cc252a57fa53200114",
+  "reviewed_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe",
   "content_version": "selected-sfx-and-stream-diagnostic-v1",
   "owner": "root",
   "purpose": "恢复已选工坊音效并继续独立定位Stream断续",
@@ -23,7 +23,12 @@
     "tests/selected_sfx_runtime.gd.uid",
     "tests/selected_ambience_runtime.gd",
     "tools/mobile_web_perf/prepare_stream_diagnostic.py",
-    "tools/mobile_web_perf/run_stream_diagnostic.py"
+    "tools/mobile_web_perf/run_stream_diagnostic.py",
+    "tools/mobile_web_perf/verify_production_audio.py",
+    "tools/mobile_web_perf/prepare_comparison.py",
+    "tools/mobile_web_perf/instrument_stream_timing.py",
+    "tools/mobile_web_perf/stream_timing_observer.js",
+    "tools/mobile_web_perf/prepare_threaded_diagnostic.py"
   ],
   "deliverables": [
     "current Web baseline and independent AB receipts",
@@ -37,7 +42,7 @@
     {
       "id": "scope",
       "path": "docs/worklines/mobile_web_audio_02/scope.md",
-      "sha256": "c1dc037d82fd7f35201345a15a095732778e0d7f251c4f14359c7fe2d24dd218",
+      "sha256": "587b4f3eaf80111c142ac0a526ba210385d7115100dea8b9ff64f0f7bf890b3a",
       "kind": "spec",
       "producer": "root",
       "source_commit": "287f473635047d7329f838cc252a57fa53200114",
@@ -47,8 +52,8 @@
     }
   ],
   "unverified_items": [
-    "real selected SFX in official Web",
-    "phone Stream continuity and50/200 comparison",
+    "physical Honor60Pro Stream continuity and50/200/threaded comparison",
+    "full long BGM continuity and all11 selected cue audibility on phone",
     "physical acceptance"
   ],
   "gates": {
@@ -61,27 +66,27 @@
     },
     "G1": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
       "evidence": []
     }
   },
@@ -95,52 +100,52 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
       "evidence": []
     },
     "animation": {
-      "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
       "evidence": []
     }
   },

@@ -1,0 +1,1651 @@
+{
+  "status": "selected_Pulse_A_and_preserved_original_jump_confirmed_in_two_scene_destination_PCM",
+  "scope": "Independent pure-CPU review; no Godot/browser invocation; raw recordings/report unchanged. Local standard production export, not public deployment or physical-device acceptance.",
+  "build_info_as_recorded": {
+    "build_id": "1d3791a7c290",
+    "pack": "index.1d3791a7c290.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "34c54d5a04ef",
+    "pack_bytes": 208700940,
+    "download_bytes": 205569840,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+  },
+  "recorded_url": "http://127.0.0.1:8814/",
+  "inputs": [
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/report.json",
+      "bytes": 840321,
+      "sha256": "41c599e5b99bf3c33dbf0ece1b8c72c3f0347ea07ebf9ec69193473d45ac9ffa"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/home-menu.png",
+      "bytes": 31363,
+      "sha256": "900d23fc68c164f050c4f865f30fdecc1c25358aec0a3f786531634597ea9933"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/plains.png",
+      "bytes": 790563,
+      "sha256": "c32519340a2d64c8f9c9cfaf09a1ea6e0e7fa7c7849717af40dae9494e88a516"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/home.png",
+      "bytes": 742911,
+      "sha256": "ab5694529fc0e6d9dfc74e2989c3258631027882db5d78dc8b264bb1320d05b5"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/home-actions.wav",
+      "bytes": 1411244,
+      "sha256": "148f7289d290e75f7da3142487b0d742557d3fea47d27d39645077e5fa853cf7"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/browser.log",
+      "bytes": 923,
+      "sha256": "28fedc65e550e5746a491bd5b56c2c00a223de53dd04ff37efb062a1f322ce87"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/title.png",
+      "bytes": 1494740,
+      "sha256": "8e1b912223cf31e09b5f66c8b0d4b0e7659e11c65d6e5070b3926493142712fe"
+    },
+    {
+      "path": "build/mobile_web_audio_followup_02/selected-web-01/plains-actions.wav",
+      "bytes": 1411244,
+      "sha256": "6a48fa96534bd6762f6a4259543d31bfd4f0a181efb8c2fd5c309ae2b5296d97"
+    }
+  ],
+  "production_PCK": {
+    "path": "build/web/index.1d3791a7c290.pck",
+    "bytes": 208700940,
+    "sha256": "1d3791a7c29031550f5e950bcd5b68f2b3bec7aee0a2c75b02d849d2044e50e2"
+  },
+  "official_engine_files_verified": [
+    {
+      "path": "build/web/index.d20938d2db49.engine.js",
+      "bytes": 315645,
+      "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.wasm",
+      "bytes": 37902138,
+      "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    }
+  ],
+  "selector_start": {
+    "audio_owner_id": 261456135644,
+    "audio_profile": "selected",
+    "candidate_imports_verified": 11,
+    "configurations": 1,
+    "director_events": [
+      {
+        "bus": "UI",
+        "candidate": "click_c",
+        "id": "click",
+        "path": "res://assets/audio/director_v3/click_c.wav",
+        "priority": 40,
+        "tick": 205,
+        "variant": 0
+      }
+    ],
+    "event_profiles": {
+      "bomb_explode": "original",
+      "chest_open": "A",
+      "click": "C",
+      "coin": "A",
+      "confirm": "C",
+      "denied": "C",
+      "enemy_hit": "B",
+      "enemy_hurt": "B",
+      "heal": "A",
+      "hurt": "C",
+      "item_get": "C",
+      "shot_bomb": "original",
+      "shot_pulse": "A",
+      "shot_shuriken": "original"
+    },
+    "manifest_path": "res://assets/audio/director_v3/manifest.json",
+    "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+    "owner_app_id": 260751492392,
+    "rules_path": "res://config/audio_director/v3/runtime.json",
+    "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+    "selection_path": "res://config/audio_director/selected/selected.json",
+    "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+    "validation_error": "",
+    "validation_ok": true,
+    "version": "selected-sfx-runtime-v1"
+  },
+  "selection_source_fingerprints_verified": [
+    {
+      "path": "config/audio_director/selected/selected.json",
+      "bytes": 20828,
+      "sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483"
+    },
+    {
+      "path": "assets/audio/director_v3/manifest.json",
+      "bytes": 247134,
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+    },
+    {
+      "path": "config/audio_director/v3/runtime.json",
+      "bytes": 2090,
+      "sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58"
+    },
+    {
+      "path": "config/audio_director/selected/user-20261028.json",
+      "bytes": 7614,
+      "sha256": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072"
+    },
+    {
+      "path": "config/audio_director/selected/reels-user-20261028.json",
+      "bytes": 130136,
+      "sha256": "ac08d83ecadb0ef390779b2dba2045a9750b2ecbd88d4ebb8f8e51f5fc05e69a"
+    }
+  ],
+  "selection_original_explicit_choices": 13,
+  "effective_event_profiles": 14,
+  "selected_candidate_import_fingerprints_verified": [
+    {
+      "source_path": "res://assets/audio/director_v3/coin_a.wav",
+      "path": ".godot/imported/coin_a.wav-5a2263decb591717afe805fb8db2bcf6.sample",
+      "bytes": 3843,
+      "sha256": "71e2b0c747b35251b2a5b3cf31beb3b519ea5901628f2fda53d617bc0a0db76c"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/heal_a.wav",
+      "path": ".godot/imported/heal_a.wav-309ea4be16b163b223ee4003ecb770e7.sample",
+      "bytes": 10059,
+      "sha256": "bc06ccfdb5d651bb8a88a68e8995a7b313dfdd1595143ab17331e72a0751dac0"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/chest_open_a.wav",
+      "path": ".godot/imported/chest_open_a.wav-aefab7e287cc8e7f5385348ac9a6b3cd.sample",
+      "bytes": 10731,
+      "sha256": "618a90da631523704992631a0aea1a3595096239dec53d19ee235adb6f471963"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/item_get_c.wav",
+      "path": ".godot/imported/item_get_c.wav-d2540101ce439b8599306cc84ef5fcf2.sample",
+      "bytes": 32627,
+      "sha256": "17c2594d94cfcfbf9b45e916ea32cd5c6aeee2c8b6ec0a74d29143dab7b93ea1"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/click_c.wav",
+      "path": ".godot/imported/click_c.wav-e8f612a4aa48721f394c536fb017391a.sample",
+      "bytes": 1731,
+      "sha256": "bd5807afda6fdfc0ae36ebedb117dde7e05be349154e9729e0b66db35b39c918"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/confirm_c.wav",
+      "path": ".godot/imported/confirm_c.wav-9026cd54dc05c508b212cf7c4a85cbfb.sample",
+      "bytes": 2259,
+      "sha256": "8773486471ba12eba9a6f8ac1bd86c934d79ca3f67895e4ac86e472ee12d5d72"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/denied_c.wav",
+      "path": ".godot/imported/denied_c.wav-b4b0cd10e1cfddaefe8adc6b77cff200.sample",
+      "bytes": 2651,
+      "sha256": "7260f9de467e6fad08293ed6919ab92399f165f09697501b838e90151799a7e9"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/enemy_hit_b.wav",
+      "path": ".godot/imported/enemy_hit_b.wav-f9e39ad6481b4859ae89e5bc4e7f9342.sample",
+      "bytes": 2515,
+      "sha256": "ad1d6d26b42e1f273554bd08fcd6da62cd415208b6441d7ebfda34320e3d4474"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/enemy_hurt_b.wav",
+      "path": ".godot/imported/enemy_hurt_b.wav-b5ae0801518df37ac1aa1cb4f964f43e.sample",
+      "bytes": 2387,
+      "sha256": "65a550e5e18d659ffc9d5fe6190de1b5ddf7504430d0a790f73d8f1ba89700a5"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/hurt_c.wav",
+      "path": ".godot/imported/hurt_c.wav-d0cc8e3f8d9359fedad8474f04922d18.sample",
+      "bytes": 3539,
+      "sha256": "e60746356196984af4cceb63f11b8227d48cd8dc4f532a3a7dd2c5ee269c862d"
+    },
+    {
+      "source_path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+      "path": ".godot/imported/shot_pulse_a.wav-590667a6f5386e601d620573434bff31.sample",
+      "bytes": 2195,
+      "sha256": "a68a6cce1b373063131838dca92ea2d1c99c2fb00c03b28b3c6bbb0c92130bd7"
+    }
+  ],
+  "pulse_selection_row": {
+    "event_id": "shot_pulse",
+    "profile": "A",
+    "candidate_id": "shot_pulse_a",
+    "candidate_path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+    "candidate_sha256": "8159a5ecf56b12c5c89420432cbe1958a3fe4612e4ff1cfbf069c61a6c50e024",
+    "runtime_mode": "candidate",
+    "source_ids": [
+      "k/shot",
+      "rpg/lock_02.ogg"
+    ],
+    "selection_status": "explicit",
+    "user_selected": true,
+    "derived_from": null,
+    "evidence": {
+      "input_row": 10,
+      "clip_id": "shot_pulse",
+      "reel_candidate_id": "shot_pulse_a",
+      "video_version": "main",
+      "video": "media/weapons.mp4",
+      "movie_sha256": "7f290b30b582de4d4fdfddc065133524c773c4d9150453ba1e674d02504153dc",
+      "trace_sha256": "077702f9a43c2c93a6dfe486e73be74edb54310afd84471ce8ef165892d58b69",
+      "note": "",
+      "updated_at": "2026-10-28T01:25:50.407Z",
+      "start": 5.966666666666667,
+      "end": 7.816666666666666,
+      "event_ids": [
+        "shot_pulse"
+      ],
+      "reel_source_ids": [
+        "k/shot",
+        "rpg/lock_02.ogg",
+        "rpg/blade_01.ogg",
+        "material/keys_02.ogg",
+        "k/jump",
+        "rpg/lock_01.ogg",
+        "k/roar",
+        "hit/bfh1_breaking_01.ogg",
+        "rpg/stones_01.ogg"
+      ]
+    }
+  },
+  "reference_sources": [
+    {
+      "label": "legacy_pulse_0",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+      "bytes": 22124,
+      "sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+    },
+    {
+      "label": "legacy_pulse_1",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+      "bytes": 22124,
+      "sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+    },
+    {
+      "label": "legacy_pulse_2",
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav",
+      "bytes": 22124,
+      "sha256": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+    },
+    {
+      "label": "pulse_A",
+      "path": "assets/audio/director_v3/shot_pulse_a.wav",
+      "bytes": 8976,
+      "sha256": "8159a5ecf56b12c5c89420432cbe1958a3fe4612e4ff1cfbf069c61a6c50e024"
+    },
+    {
+      "label": "pulse_B",
+      "path": "assets/audio/director_v3/shot_pulse_b.wav",
+      "bytes": 5986,
+      "sha256": "2bd266831a3a10c47460a57cecdc6a872128d8cfefe27fa144465c5b1d291aaa"
+    },
+    {
+      "label": "pulse_C",
+      "path": "assets/audio/director_v3/shot_pulse_c.wav",
+      "bytes": 8876,
+      "sha256": "5765f3325f0ba303a6f6a9ca0b8bf589d990530405d8a751ab0329f84672310d"
+    },
+    {
+      "label": "jump_0",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+      "bytes": 16364,
+      "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+    },
+    {
+      "label": "jump_1",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+      "bytes": 16364,
+      "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+    },
+    {
+      "label": "jump_2",
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+      "bytes": 16364,
+      "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+    }
+  ],
+  "rows": [
+    {
+      "scene": "home",
+      "wave": {
+        "path": "build/mobile_web_audio_followup_02/selected-web-01/home-actions.wav",
+        "bytes": 1411244,
+        "sha256": "148f7289d290e75f7da3142487b0d742557d3fea47d27d39645077e5fa853cf7"
+      },
+      "wave_sha_matches_report": true,
+      "frames": 352800,
+      "sample_rate": 44100,
+      "seconds": 8.0,
+      "audio_window_seconds": [
+        32.9404081632653,
+        40.9404081632653
+      ],
+      "explicit_start_end_frame_guard_passed": true,
+      "selector_after": {
+        "audio_owner_id": 261456135644,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "configurations": 1,
+        "director_events": [
+          {
+            "bus": "UI",
+            "candidate": "click_c",
+            "id": "click",
+            "path": "res://assets/audio/director_v3/click_c.wav",
+            "priority": 40,
+            "tick": 205,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_a",
+            "id": "shot_pulse",
+            "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+            "priority": 70,
+            "tick": 497,
+            "variant": 0
+          }
+        ],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 260751492392,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      },
+      "new_scene_pulse_event": {
+        "bus": "SFX",
+        "candidate": "shot_pulse_a",
+        "id": "shot_pulse",
+        "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+        "priority": 70,
+        "tick": 497,
+        "variant": 0
+      },
+      "observer_checks": [
+        {
+          "when": "before",
+          "audio_errors": [],
+          "graph_observer_errors": 0,
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "audio_seconds": 32.702403628117914,
+              "sample_rate": 44100,
+              "base_latency": 0.01,
+              "output_latency": 0.032,
+              "output_timestamp": {
+                "contextTime": 32.660391,
+                "performanceTime": 129860
+              },
+              "state_changes": [
+                {
+                  "performance_ms": 92992.69999999925,
+                  "audio_seconds": 0,
+                  "state": "running"
+                },
+                {
+                  "performance_ms": 109267.09999999776,
+                  "audio_seconds": 15.290340136054422,
+                  "state": "running"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "when": "after",
+          "audio_errors": [],
+          "graph_observer_errors": 0,
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "audio_seconds": 45.68235827664399,
+              "sample_rate": 44100,
+              "base_latency": 0.01,
+              "output_latency": 0.032,
+              "output_timestamp": {
+                "contextTime": 45.640359000000004,
+                "performanceTime": 145690
+              },
+              "state_changes": [
+                {
+                  "performance_ms": 92992.69999999925,
+                  "audio_seconds": 0,
+                  "state": "running"
+                },
+                {
+                  "performance_ms": 109267.09999999776,
+                  "audio_seconds": 15.290340136054422,
+                  "state": "running"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "kind": "pulse",
+          "expected": "pulse_A",
+          "expected_rho": 0.9951064092434556,
+          "negative_control_max_rho_near_native": 0.2220505433828551,
+          "correct_margin_near_native": 0.7730558658606005,
+          "fitted_gain": 0.22177149141283392,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 4,
+            "source_id": 4,
+            "context_id": 1,
+            "performance_ms": 135087,
+            "audio_seconds": 37.42185941043084,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.10126984126984127,
+              "frames": 4466,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 8932,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 8818,
+              "nonzero": true,
+              "scanned_peak": 0.32160404324531555,
+              "scanned_rms": 0.07074849179519688
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_inside_WAV": true,
+          "source_onset_margin_seconds": 4.481451247165538,
+          "source_end_margin_seconds": 3.4172789115646225,
+          "matches_recorded_producer_numeric_fit": true,
+          "controls": [
+            {
+              "label": "pulse_A",
+              "expected": true,
+              "template_frames": 4466,
+              "native_anchored_fit": {
+                "offset_frames": 197634,
+                "offset_seconds": 4.481496598639456,
+                "rho": 0.9951064092434556,
+                "least_squares_gain": 0.22177149141283392,
+                "explained_window_variance_fraction": 0.9902367657174037,
+                "window_rms_centered": 0.015776898606724425,
+                "native_clock_delta_frames": 2
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4466,
+                "complete_window_count": 348335,
+                "best_positive_gain_match": {
+                  "offset_frames": 197634,
+                  "offset_seconds": 4.481496598639456,
+                  "rho": 0.9951064092434557,
+                  "least_squares_gain": 0.22177149141283395,
+                  "explained_window_variance_fraction": 0.9902367657174039,
+                  "window_rms_centered": 0.015776898606724425
+                },
+                "best_absolute_match": {
+                  "offset_frames": 197634,
+                  "offset_seconds": 4.481496598639456,
+                  "rho": 0.9951064092434557,
+                  "least_squares_gain": 0.22177149141283395,
+                  "explained_window_variance_fraction": 0.9902367657174039,
+                  "window_rms_centered": 0.015776898606724425
+                }
+              }
+            },
+            {
+              "label": "pulse_B",
+              "expected": false,
+              "template_frames": 2971,
+              "native_anchored_fit": {
+                "offset_frames": 197793,
+                "offset_seconds": 4.485102040816327,
+                "rho": 0.0802721304505107,
+                "least_squares_gain": 0.01978154365509446,
+                "explained_window_variance_fraction": 0.006443614927063806,
+                "window_rms_centered": 0.017442924779133718,
+                "native_clock_delta_frames": 161
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 2971,
+                "complete_window_count": 349830,
+                "best_positive_gain_match": {
+                  "offset_frames": 196978,
+                  "offset_seconds": 4.466621315192744,
+                  "rho": 0.37947878970375076,
+                  "least_squares_gain": 0.07691821191704355,
+                  "explained_window_variance_fraction": 0.1440041518350235,
+                  "window_rms_centered": 0.014347148439066558
+                },
+                "best_absolute_match": {
+                  "offset_frames": 196978,
+                  "offset_seconds": 4.466621315192744,
+                  "rho": 0.37947878970375076,
+                  "least_squares_gain": 0.07691821191704355,
+                  "explained_window_variance_fraction": 0.1440041518350235,
+                  "window_rms_centered": 0.014347148439066558
+                }
+              }
+            },
+            {
+              "label": "pulse_C",
+              "expected": false,
+              "template_frames": 4416,
+              "native_anchored_fit": {
+                "offset_frames": 197660,
+                "offset_seconds": 4.482086167800453,
+                "rho": 0.1724256161216421,
+                "least_squares_gain": 0.03864397500127031,
+                "explained_window_variance_fraction": 0.02973059309492788,
+                "window_rms_centered": 0.015865963849753806,
+                "native_clock_delta_frames": 28
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4416,
+                "complete_window_count": 348385,
+                "best_positive_gain_match": {
+                  "offset_frames": 198225,
+                  "offset_seconds": 4.494897959183674,
+                  "rho": 0.5980282587203297,
+                  "least_squares_gain": 0.12951326480536532,
+                  "explained_window_variance_fraction": 0.3576377982280696,
+                  "window_rms_centered": 0.015331300620977923
+                },
+                "best_absolute_match": {
+                  "offset_frames": 198225,
+                  "offset_seconds": 4.494897959183674,
+                  "rho": 0.5980282587203297,
+                  "least_squares_gain": 0.12951326480536532,
+                  "explained_window_variance_fraction": 0.3576377982280696,
+                  "window_rms_centered": 0.015331300620977923
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_0",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 197614,
+                "offset_seconds": 4.481043083900227,
+                "rho": 0.13248117538477275,
+                "least_squares_gain": 0.0037150888962856287,
+                "explained_window_variance_fraction": 0.017551261831330916,
+                "window_rms_centered": 0.010468822050001223,
+                "native_clock_delta_frames": -18
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 67794,
+                  "offset_seconds": 1.537278911564626,
+                  "rho": 0.26369404115696415,
+                  "least_squares_gain": 0.001707796664706462,
+                  "explained_window_variance_fraction": 0.0695345473416907,
+                  "window_rms_centered": 0.0024177902682168666
+                },
+                "best_absolute_match": {
+                  "offset_frames": 67794,
+                  "offset_seconds": 1.537278911564626,
+                  "rho": 0.26369404115696415,
+                  "least_squares_gain": 0.001707796664706462,
+                  "explained_window_variance_fraction": 0.0695345473416907,
+                  "window_rms_centered": 0.0024177902682168666
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_1",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 197625,
+                "offset_seconds": 4.4812925170068025,
+                "rho": 0.1359991185074391,
+                "least_squares_gain": 0.003995003129450995,
+                "explained_window_variance_fraction": 0.018495760234800464,
+                "window_rms_centered": 0.010468822050001223,
+                "native_clock_delta_frames": -7
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 68835,
+                  "offset_seconds": 1.5608843537414967,
+                  "rho": 0.2511176291407043,
+                  "least_squares_gain": 0.0015343185223110633,
+                  "explained_window_variance_fraction": 0.0630600636652483,
+                  "window_rms_centered": 0.0021774847029917372
+                },
+                "best_absolute_match": {
+                  "offset_frames": 68835,
+                  "offset_seconds": 1.5608843537414967,
+                  "rho": 0.2511176291407043,
+                  "least_squares_gain": 0.0015343185223110633,
+                  "explained_window_variance_fraction": 0.0630600636652483,
+                  "window_rms_centered": 0.0021774847029917372
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_2",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 197646,
+                "offset_seconds": 4.481768707482993,
+                "rho": 0.14226685920533402,
+                "least_squares_gain": 0.004127006074692307,
+                "explained_window_variance_fraction": 0.020239859228150334,
+                "window_rms_centered": 0.010468822050001223,
+                "native_clock_delta_frames": 14
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 68873,
+                  "offset_seconds": 1.5617460317460317,
+                  "rho": 0.23549107079358797,
+                  "least_squares_gain": 0.0014240012999750435,
+                  "explained_window_variance_fraction": 0.05545604442351066,
+                  "window_rms_centered": 0.002182239410172297
+                },
+                "best_absolute_match": {
+                  "offset_frames": 73080,
+                  "offset_seconds": 1.6571428571428573,
+                  "rho": -0.2671715062001294,
+                  "least_squares_gain": -0.0011017455393253167,
+                  "explained_window_variance_fraction": 0.07138061372524579,
+                  "window_rms_centered": 0.001488187373173705
+                }
+              }
+            },
+            {
+              "label": "pulse_A_reversed",
+              "expected": false,
+              "template_frames": 4466,
+              "native_anchored_fit": {
+                "offset_frames": 197861,
+                "offset_seconds": 4.486643990929705,
+                "rho": 0.2220505433828551,
+                "least_squares_gain": 0.04948661737815159,
+                "explained_window_variance_fraction": 0.049306443816621214,
+                "window_rms_centered": 0.01577688897924859,
+                "native_clock_delta_frames": 229
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4466,
+                "complete_window_count": 348335,
+                "best_positive_gain_match": {
+                  "offset_frames": 223652,
+                  "offset_seconds": 5.071473922902494,
+                  "rho": 0.3694020575702598,
+                  "least_squares_gain": 0.027465244810762252,
+                  "explained_window_variance_fraction": 0.13645788013714152,
+                  "window_rms_centered": 0.005263439133362036
+                },
+                "best_absolute_match": {
+                  "offset_frames": 223744,
+                  "offset_seconds": 5.073560090702948,
+                  "rho": -0.3826791716809575,
+                  "least_squares_gain": -0.028452405499117057,
+                  "explained_window_variance_fraction": 0.14644334843842374,
+                  "window_rms_centered": 0.005263439133362036
+                }
+              }
+            }
+          ],
+          "assessment": "clock_aligned_whole_waveform_presence_supported_in_actual_destination_mixed_PCM"
+        },
+        {
+          "kind": "jump",
+          "expected": "jump_0",
+          "expected_rho": 0.9990384579882625,
+          "negative_control_max_rho_near_native": 0.7260483469986982,
+          "correct_margin_near_native": 0.27299011098956427,
+          "fitted_gain": 0.17574214227813162,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 2,
+            "source_id": 2,
+            "context_id": 1,
+            "performance_ms": 131328.09999999776,
+            "audio_seconds": 33.892426303854876,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.17,
+              "frames": 7497,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 14994,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 14992,
+              "nonzero": true,
+              "scanned_peak": 0.6918686628341675,
+              "scanned_rms": 0.06418854380478724
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_inside_WAV": true,
+          "source_onset_margin_seconds": 0.9520181405895727,
+          "source_end_margin_seconds": 6.877981859410426,
+          "matches_recorded_producer_numeric_fit": true,
+          "controls": [
+            {
+              "label": "jump_0",
+              "expected": true,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 41986,
+                "offset_seconds": 0.9520634920634921,
+                "rho": 0.9990384579882625,
+                "least_squares_gain": 0.17574214227813162,
+                "explained_window_variance_fraction": 0.9980778405395654,
+                "window_rms_centered": 0.011305665305852449,
+                "native_clock_delta_frames": 2
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 41986,
+                  "offset_seconds": 0.9520634920634921,
+                  "rho": 0.9990384579882621,
+                  "least_squares_gain": 0.17574214227813154,
+                  "explained_window_variance_fraction": 0.9980778405395645,
+                  "window_rms_centered": 0.011305665305852449
+                },
+                "best_absolute_match": {
+                  "offset_frames": 41986,
+                  "offset_seconds": 0.9520634920634921,
+                  "rho": 0.9990384579882621,
+                  "least_squares_gain": 0.17574214227813154,
+                  "explained_window_variance_fraction": 0.9980778405395645,
+                  "window_rms_centered": 0.011305665305852449
+                }
+              }
+            },
+            {
+              "label": "jump_1",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 42053,
+                "offset_seconds": 0.9535827664399092,
+                "rho": 0.7260483469986982,
+                "least_squares_gain": 0.1325857556387783,
+                "explained_window_variance_fraction": 0.5271462021795421,
+                "window_rms_centered": 0.01110899203296419,
+                "native_clock_delta_frames": 69
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 42053,
+                  "offset_seconds": 0.9535827664399092,
+                  "rho": 0.7260483469986981,
+                  "least_squares_gain": 0.13258575563877828,
+                  "explained_window_variance_fraction": 0.527146202179542,
+                  "window_rms_centered": 0.01110899203296419
+                },
+                "best_absolute_match": {
+                  "offset_frames": 42053,
+                  "offset_seconds": 0.9535827664399092,
+                  "rho": 0.7260483469986981,
+                  "least_squares_gain": 0.13258575563877828,
+                  "explained_window_variance_fraction": 0.527146202179542,
+                  "window_rms_centered": 0.01110899203296419
+                }
+              }
+            },
+            {
+              "label": "jump_2",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 42118,
+                "offset_seconds": 0.9550566893424036,
+                "rho": 0.6259538118491836,
+                "least_squares_gain": 0.10384391989904661,
+                "explained_window_variance_fraction": 0.3918181745685232,
+                "window_rms_centered": 0.011052213220560742,
+                "native_clock_delta_frames": 134
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 42118,
+                  "offset_seconds": 0.9550566893424036,
+                  "rho": 0.6259538118491835,
+                  "least_squares_gain": 0.10384391989904658,
+                  "explained_window_variance_fraction": 0.391818174568523,
+                  "window_rms_centered": 0.011052213220560742
+                },
+                "best_absolute_match": {
+                  "offset_frames": 42118,
+                  "offset_seconds": 0.9550566893424036,
+                  "rho": 0.6259538118491835,
+                  "least_squares_gain": 0.10384391989904658,
+                  "explained_window_variance_fraction": 0.391818174568523,
+                  "window_rms_centered": 0.011052213220560742
+                }
+              }
+            },
+            {
+              "label": "jump_0_reversed",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 41892,
+                "offset_seconds": 0.9499319727891157,
+                "rho": 0.10783483481511714,
+                "least_squares_gain": 0.018969433912466804,
+                "explained_window_variance_fraction": 0.011628351599603601,
+                "window_rms_centered": 0.011305706542059162,
+                "native_clock_delta_frames": -92
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 234346,
+                  "offset_seconds": 5.313968253968254,
+                  "rho": 0.4141353364243712,
+                  "least_squares_gain": 0.00839937011035084,
+                  "explained_window_variance_fraction": 0.17150807687532713,
+                  "window_rms_centered": 0.0013034874222509786
+                },
+                "best_absolute_match": {
+                  "offset_frames": 234346,
+                  "offset_seconds": 5.313968253968254,
+                  "rho": 0.4141353364243712,
+                  "least_squares_gain": 0.00839937011035084,
+                  "explained_window_variance_fraction": 0.17150807687532713,
+                  "window_rms_centered": 0.0013034874222509786
+                }
+              }
+            }
+          ],
+          "assessment": "clock_aligned_whole_waveform_presence_supported_in_actual_destination_mixed_PCM"
+        }
+      ]
+    },
+    {
+      "scene": "plains",
+      "wave": {
+        "path": "build/mobile_web_audio_followup_02/selected-web-01/plains-actions.wav",
+        "bytes": 1411244,
+        "sha256": "6a48fa96534bd6762f6a4259543d31bfd4f0a181efb8c2fd5c309ae2b5296d97"
+      },
+      "wave_sha_matches_report": true,
+      "frames": 352800,
+      "sample_rate": 44100,
+      "seconds": 8.0,
+      "audio_window_seconds": [
+        65.9504761904762,
+        73.9504761904762
+      ],
+      "explicit_start_end_frame_guard_passed": true,
+      "selector_after": {
+        "audio_owner_id": 261456135644,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "configurations": 1,
+        "director_events": [
+          {
+            "bus": "UI",
+            "candidate": "click_c",
+            "id": "click",
+            "path": "res://assets/audio/director_v3/click_c.wav",
+            "priority": 40,
+            "tick": 205,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_a",
+            "id": "shot_pulse",
+            "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+            "priority": 70,
+            "tick": 497,
+            "variant": 0
+          },
+          {
+            "bus": "UI",
+            "candidate": "click_c",
+            "id": "click",
+            "path": "res://assets/audio/director_v3/click_c.wav",
+            "priority": 40,
+            "tick": 847,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "shot_pulse_a",
+            "id": "shot_pulse",
+            "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+            "priority": 70,
+            "tick": 1382,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "enemy_hurt_b",
+            "id": "enemy_hurt",
+            "path": "res://assets/audio/director_v3/enemy_hurt_b.wav",
+            "priority": 40,
+            "tick": 1442,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "enemy_hit_b",
+            "id": "enemy_hit",
+            "path": "res://assets/audio/director_v3/enemy_hit_b.wav",
+            "priority": 70,
+            "tick": 1442,
+            "variant": 0
+          },
+          {
+            "bus": "SFX",
+            "candidate": "hurt_c",
+            "id": "hurt",
+            "path": "res://assets/audio/director_v3/hurt_c.wav",
+            "priority": 90,
+            "tick": 1549,
+            "variant": 0
+          }
+        ],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 260751492392,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      },
+      "new_scene_pulse_event": {
+        "bus": "SFX",
+        "candidate": "shot_pulse_a",
+        "id": "shot_pulse",
+        "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+        "priority": 70,
+        "tick": 1382,
+        "variant": 0
+      },
+      "observer_checks": [
+        {
+          "when": "before",
+          "audio_errors": [],
+          "graph_observer_errors": 0,
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "audio_seconds": 65.30031746031746,
+              "sample_rate": 44100,
+              "base_latency": 0.01,
+              "output_latency": 0.032,
+              "output_timestamp": {
+                "contextTime": 65.260218,
+                "performanceTime": 167809.80000000075
+              },
+              "state_changes": [
+                {
+                  "performance_ms": 92992.69999999925,
+                  "audio_seconds": 0,
+                  "state": "running"
+                },
+                {
+                  "performance_ms": 109267.09999999776,
+                  "audio_seconds": 15.290340136054422,
+                  "state": "running"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "when": "after",
+          "audio_errors": [],
+          "graph_observer_errors": 0,
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "audio_seconds": 76.64036281179138,
+              "sample_rate": 44100,
+              "base_latency": 0.01,
+              "output_latency": 0.032,
+              "output_timestamp": {
+                "contextTime": 76.60020699999998,
+                "performanceTime": 181219.80000000075
+              },
+              "state_changes": [
+                {
+                  "performance_ms": 92992.69999999925,
+                  "audio_seconds": 0,
+                  "state": "running"
+                },
+                {
+                  "performance_ms": 109267.09999999776,
+                  "audio_seconds": 15.290340136054422,
+                  "state": "running"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "matches": [
+        {
+          "kind": "pulse",
+          "expected": "pulse_A",
+          "expected_rho": 0.9002863450871682,
+          "negative_control_max_rho_near_native": 0.2335008464050421,
+          "correct_margin_near_native": 0.6667854986821261,
+          "fitted_gain": 0.23143523795024573,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 8,
+            "source_id": 8,
+            "context_id": 1,
+            "performance_ms": 174058.80000000075,
+            "audio_seconds": 69.86013605442177,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.10126984126984127,
+              "frames": 4466,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 8932,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 8818,
+              "nonzero": true,
+              "scanned_peak": 0.32160404324531555,
+              "scanned_rms": 0.07074849179519688
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_inside_WAV": true,
+          "source_onset_margin_seconds": 3.9096598639455777,
+          "source_end_margin_seconds": 3.9890702947845824,
+          "matches_recorded_producer_numeric_fit": true,
+          "controls": [
+            {
+              "label": "pulse_A",
+              "expected": true,
+              "template_frames": 4466,
+              "native_anchored_fit": {
+                "offset_frames": 172418,
+                "offset_seconds": 3.909705215419501,
+                "rho": 0.9002863450871682,
+                "least_squares_gain": 0.23143523795024573,
+                "explained_window_variance_fraction": 0.8105155031504118,
+                "window_rms_centered": 0.018198444237829646,
+                "native_clock_delta_frames": 2
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4466,
+                "complete_window_count": 348335,
+                "best_positive_gain_match": {
+                  "offset_frames": 172418,
+                  "offset_seconds": 3.909705215419501,
+                  "rho": 0.9002863450871683,
+                  "least_squares_gain": 0.2314352379502458,
+                  "explained_window_variance_fraction": 0.8105155031504119,
+                  "window_rms_centered": 0.018198444237829646
+                },
+                "best_absolute_match": {
+                  "offset_frames": 172418,
+                  "offset_seconds": 3.909705215419501,
+                  "rho": 0.9002863450871683,
+                  "least_squares_gain": 0.2314352379502458,
+                  "explained_window_variance_fraction": 0.8105155031504119,
+                  "window_rms_centered": 0.018198444237829646
+                }
+              }
+            },
+            {
+              "label": "pulse_B",
+              "expected": false,
+              "template_frames": 2971,
+              "native_anchored_fit": {
+                "offset_frames": 172437,
+                "offset_seconds": 3.910136054421769,
+                "rho": 0.2335008464050421,
+                "least_squares_gain": 0.06707999647331138,
+                "explained_window_variance_fraction": 0.05452264527187106,
+                "window_rms_centered": 0.020334265537315467,
+                "native_clock_delta_frames": 21
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 2971,
+                "complete_window_count": 349830,
+                "best_positive_gain_match": {
+                  "offset_frames": 83505,
+                  "offset_seconds": 1.8935374149659865,
+                  "rho": 0.4463703354605441,
+                  "least_squares_gain": 0.12256147695557229,
+                  "explained_window_variance_fraction": 0.19924647637915868,
+                  "window_rms_centered": 0.01943491204885688
+                },
+                "best_absolute_match": {
+                  "offset_frames": 20283,
+                  "offset_seconds": 0.45993197278911563,
+                  "rho": -0.46602123524364053,
+                  "least_squares_gain": -0.03691524892497845,
+                  "explained_window_variance_fraction": 0.21717579169800855,
+                  "window_rms_centered": 0.005606915527788269
+                }
+              }
+            },
+            {
+              "label": "pulse_C",
+              "expected": false,
+              "template_frames": 4416,
+              "native_anchored_fit": {
+                "offset_frames": 172443,
+                "offset_seconds": 3.9102721088435373,
+                "rho": 0.16409048891861178,
+                "least_squares_gain": 0.042420518373516514,
+                "explained_window_variance_fraction": 0.026925688553549054,
+                "window_rms_centered": 0.01830117680312554,
+                "native_clock_delta_frames": 27
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4416,
+                "complete_window_count": 348385,
+                "best_positive_gain_match": {
+                  "offset_frames": 173009,
+                  "offset_seconds": 3.9231065759637187,
+                  "rho": 0.5486137522750785,
+                  "least_squares_gain": 0.1335544633375892,
+                  "explained_window_variance_fraction": 0.3009770491853412,
+                  "window_rms_centered": 0.01723368580980888
+                },
+                "best_absolute_match": {
+                  "offset_frames": 173009,
+                  "offset_seconds": 3.9231065759637187,
+                  "rho": 0.5486137522750785,
+                  "least_squares_gain": 0.1335544633375892,
+                  "explained_window_variance_fraction": 0.3009770491853412,
+                  "window_rms_centered": 0.01723368580980888
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_0",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 172595,
+                "offset_seconds": 3.913718820861678,
+                "rho": 0.13081748743604593,
+                "least_squares_gain": 0.0042764242869922225,
+                "explained_window_variance_fraction": 0.017113215019080034,
+                "window_rms_centered": 0.012203875370602876,
+                "native_clock_delta_frames": 179
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 86204,
+                  "offset_seconds": 1.9547392290249432,
+                  "rho": 0.2379243234758994,
+                  "least_squares_gain": 0.0015705751367643373,
+                  "explained_window_variance_fraction": 0.056607983701464415,
+                  "window_rms_centered": 0.0024643515109599064
+                },
+                "best_absolute_match": {
+                  "offset_frames": 86204,
+                  "offset_seconds": 1.9547392290249432,
+                  "rho": 0.2379243234758994,
+                  "least_squares_gain": 0.0015705751367643373,
+                  "explained_window_variance_fraction": 0.056607983701464415,
+                  "window_rms_centered": 0.0024643515109599064
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_1",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 172401,
+                "offset_seconds": 3.9093197278911567,
+                "rho": 0.13143876858708062,
+                "least_squares_gain": 0.004500953766257427,
+                "explained_window_variance_fraction": 0.01727614988768813,
+                "window_rms_centered": 0.01220387800270931,
+                "native_clock_delta_frames": -15
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 175889,
+                  "offset_seconds": 3.9884126984126986,
+                  "rho": 0.21150576886876793,
+                  "least_squares_gain": 0.0022154122726740404,
+                  "explained_window_variance_fraction": 0.04473469026476868,
+                  "window_rms_centered": 0.003732923820533947
+                },
+                "best_absolute_match": {
+                  "offset_frames": 175199,
+                  "offset_seconds": 3.972766439909297,
+                  "rho": -0.21657532620157938,
+                  "least_squares_gain": -0.0035630449996748343,
+                  "explained_window_variance_fraction": 0.046904871919320516,
+                  "window_rms_centered": 0.005863124515617772
+                }
+              }
+            },
+            {
+              "label": "legacy_pulse_2",
+              "expected": false,
+              "template_frames": 10143,
+              "native_anchored_fit": {
+                "offset_frames": 172431,
+                "offset_seconds": 3.91,
+                "rho": 0.14013614165825844,
+                "least_squares_gain": 0.004738943819609186,
+                "explained_window_variance_fraction": 0.019638138198863477,
+                "window_rms_centered": 0.01220387800270931,
+                "native_clock_delta_frames": 15
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 86207,
+                  "offset_seconds": 1.9548072562358276,
+                  "rho": 0.21758419769556456,
+                  "least_squares_gain": 0.0014858069032809443,
+                  "explained_window_variance_fraction": 0.047342883086822524,
+                  "window_rms_centered": 0.0024643448105814377
+                },
+                "best_absolute_match": {
+                  "offset_frames": 90342,
+                  "offset_seconds": 2.0485714285714285,
+                  "rho": -0.22928661867020397,
+                  "least_squares_gain": -0.0011601840690010896,
+                  "explained_window_variance_fraction": 0.05257235350121553,
+                  "window_rms_centered": 0.001826058309635879
+                }
+              }
+            },
+            {
+              "label": "pulse_A_reversed",
+              "expected": false,
+              "template_frames": 4466,
+              "native_anchored_fit": {
+                "offset_frames": 172645,
+                "offset_seconds": 3.9148526077097507,
+                "rho": 0.20033277030547675,
+                "least_squares_gain": 0.05149921813297865,
+                "explained_window_variance_fraction": 0.04013321885826691,
+                "window_rms_centered": 0.018198436584989156,
+                "native_clock_delta_frames": 229
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 4466,
+                "complete_window_count": 348335,
+                "best_positive_gain_match": {
+                  "offset_frames": 170170,
+                  "offset_seconds": 3.858730158730159,
+                  "rho": 0.29204475195721513,
+                  "least_squares_gain": 0.05916277622744767,
+                  "explained_window_variance_fraction": 0.08529013714575132,
+                  "window_rms_centered": 0.014341169855669782
+                },
+                "best_absolute_match": {
+                  "offset_frames": 170170,
+                  "offset_seconds": 3.858730158730159,
+                  "rho": 0.29204475195721513,
+                  "least_squares_gain": 0.05916277622744767,
+                  "explained_window_variance_fraction": 0.08529013714575132,
+                  "window_rms_centered": 0.014341169855669782
+                }
+              }
+            }
+          ],
+          "assessment": "clock_aligned_whole_waveform_presence_supported_in_actual_destination_mixed_PCM"
+        },
+        {
+          "kind": "jump",
+          "expected": "jump_1",
+          "expected_rho": 0.9918053799996952,
+          "negative_control_max_rho_near_native": 0.7220626449144817,
+          "correct_margin_near_native": 0.2697427350852135,
+          "fitted_gain": 0.17473927925531166,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 6,
+            "source_id": 6,
+            "context_id": 1,
+            "performance_ms": 170999.8999999985,
+            "audio_seconds": 67.28272108843538,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.17,
+              "frames": 7497,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 14994,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 14992,
+              "nonzero": true,
+              "scanned_peak": 0.6543337106704712,
+              "scanned_rms": 0.06076530204526239
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_inside_WAV": true,
+          "source_onset_margin_seconds": 1.3322448979591854,
+          "source_end_margin_seconds": 6.497755102040813,
+          "matches_recorded_producer_numeric_fit": true,
+          "controls": [
+            {
+              "label": "jump_0",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 58687,
+                "offset_seconds": 1.3307709750566894,
+                "rho": 0.7130539540726057,
+                "least_squares_gain": 0.11891133168054883,
+                "explained_window_variance_fraction": 0.5084459414185778,
+                "window_rms_centered": 0.010717741183283792,
+                "native_clock_delta_frames": -65
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 58687,
+                  "offset_seconds": 1.3307709750566894,
+                  "rho": 0.7130539540726056,
+                  "least_squares_gain": 0.1189113316805488,
+                  "explained_window_variance_fraction": 0.5084459414185776,
+                  "window_rms_centered": 0.010717741183283792
+                },
+                "best_absolute_match": {
+                  "offset_frames": 58687,
+                  "offset_seconds": 1.3307709750566894,
+                  "rho": 0.7130539540726056,
+                  "least_squares_gain": 0.1189113316805488,
+                  "explained_window_variance_fraction": 0.5084459414185776,
+                  "window_rms_centered": 0.010717741183283792
+                }
+              }
+            },
+            {
+              "label": "jump_1",
+              "expected": true,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 58754,
+                "offset_seconds": 1.3322902494331066,
+                "rho": 0.9918053799996952,
+                "least_squares_gain": 0.17473927925531166,
+                "explained_window_variance_fraction": 0.9836779117963398,
+                "window_rms_centered": 0.010717843431051428,
+                "native_clock_delta_frames": 2
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 58754,
+                  "offset_seconds": 1.3322902494331066,
+                  "rho": 0.9918053799996948,
+                  "least_squares_gain": 0.17473927925531155,
+                  "explained_window_variance_fraction": 0.9836779117963389,
+                  "window_rms_centered": 0.010717843431051428
+                },
+                "best_absolute_match": {
+                  "offset_frames": 58754,
+                  "offset_seconds": 1.3322902494331066,
+                  "rho": 0.9918053799996948,
+                  "least_squares_gain": 0.17473927925531155,
+                  "explained_window_variance_fraction": 0.9836779117963389,
+                  "window_rms_centered": 0.010717843431051428
+                }
+              }
+            },
+            {
+              "label": "jump_2",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 58819,
+                "offset_seconds": 1.3337641723356009,
+                "rho": 0.7220626449144817,
+                "least_squares_gain": 0.11428733582345389,
+                "explained_window_variance_fraction": 0.5213744631808969,
+                "window_rms_centered": 0.01054468718924749,
+                "native_clock_delta_frames": 67
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 58819,
+                  "offset_seconds": 1.3337641723356009,
+                  "rho": 0.7220626449144816,
+                  "least_squares_gain": 0.11428733582345388,
+                  "explained_window_variance_fraction": 0.5213744631808968,
+                  "window_rms_centered": 0.01054468718924749
+                },
+                "best_absolute_match": {
+                  "offset_frames": 58819,
+                  "offset_seconds": 1.3337641723356009,
+                  "rho": 0.7220626449144816,
+                  "least_squares_gain": 0.11428733582345388,
+                  "explained_window_variance_fraction": 0.5213744631808968,
+                  "window_rms_centered": 0.01054468718924749
+                }
+              }
+            },
+            {
+              "label": "jump_1_reversed",
+              "expected": false,
+              "template_frames": 7497,
+              "native_anchored_fit": {
+                "offset_frames": 59000,
+                "offset_seconds": 1.3378684807256236,
+                "rho": 0.12740214116784637,
+                "least_squares_gain": 0.02171134592521608,
+                "explained_window_variance_fraction": 0.016231305574151856,
+                "window_rms_centered": 0.010367005959642926,
+                "native_clock_delta_frames": 248
+              },
+              "global_full_template_scan": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 34501,
+                  "offset_seconds": 0.7823356009070295,
+                  "rho": 0.45750261877108345,
+                  "least_squares_gain": 0.009821237949928455,
+                  "explained_window_variance_fraction": 0.2093086461823993,
+                  "window_rms_centered": 0.0013059182080189078
+                },
+                "best_absolute_match": {
+                  "offset_frames": 34501,
+                  "offset_seconds": 0.7823356009070295,
+                  "rho": 0.45750261877108345,
+                  "least_squares_gain": 0.009821237949928455,
+                  "explained_window_variance_fraction": 0.2093086461823993,
+                  "window_rms_centered": 0.0013059182080189078
+                }
+              }
+            }
+          ],
+          "assessment": "clock_aligned_whole_waveform_presence_supported_in_actual_destination_mixed_PCM"
+        }
+      ]
+    }
+  ],
+  "raw_inputs_unchanged": true,
+  "method": {
+    "self_test": "passed_known_offset_gain_and_reverse_control",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matching": "Stereo-mean destination PCM16 vs original PCM WAV; rational resample_poly; centered Pearson complete-template FFT scan; least-squares gain. Near-native scan +/-256frames with independent full8second scan also reported.",
+    "asset_identity": "Native buffer duration alone is not unique identity; accepted runtime candidate/path, pinned source SHA, full waveform and audio-clock agreement are used together.",
+    "limitations": "QOA import and mixed background affect rho. High near-clock correct-template correlation and negative-control margin establish these cue presences, not all selected events or quality approval. Post-ended graph source_routes are not used as play-time reachability."
+  },
+  "findings": [
+    "Both actual Home and Plains accepted shot_pulse events select shot_pulse_a at different ticks; runtime profile selected, exact14mapping,11imports validated once.",
+    "Correct PulseA rho matches producer independently; compare oldpulse0/1/2, newPulseB/C and reversedPulseA near the same native onset plus full capture scans.",
+    "Original jump0(Home) and jump1(Plains) remain present. Allfour sources lie fully inside actual8second captures and bestcorrect alignment is native start+2samples.",
+    "No audio observer errors, graph observer errors or observed feedback cycles in before/after snapshots. This does not certify every intermediate graph instant.",
+    "No evidence here resolves reported BGM discontinuity. Not signing all11candidate outputs, all14events, physical-phone audio/FPS, fullBGMcontinuity or subjective sound approval."
+  ],
+  "native_test_results_as_reported_by_root_not_rerun": {
+    "selected_native_02": {
+      "checks": 63,
+      "failures": 0
+    },
+    "selected_ambience": {
+      "checks": 45,
+      "failures": 0
+    },
+    "selected_native_01_retained": {
+      "checks": 63,
+      "failures": 2,
+      "reason": "Forest debug-entry fixture attempted during activePlains; test now abandons run before debug entry."
+    }
+  }
+}

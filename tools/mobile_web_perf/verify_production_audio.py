@@ -57,14 +57,26 @@ async def run(args):
         page.on('pageerror', lambda error: log('PAGE ERROR: ' + str(error)))
         cdp = await context.new_cdp_session(page)
         try:
-            await page.goto(args.root_url, wait_until='domcontentloaded')
-            await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true', timeout=180000)
+            entry='audio-threaded/' if args.threaded else ''
+            await page.goto(args.root_url + entry + ('?audio_probe=1' if args.selected_sfx else ''), wait_until='domcontentloaded')
+            ready='window.THREADED_DIAGNOSTIC_READY===true' if args.threaded else 'window.PLAYTEST_LOADING_DONE===true'
+            await page.wait_for_function(ready, timeout=180000)
             await page.wait_for_timeout(2000)
             await page.screenshot(path=str(args.output / 'title.png'))
             primary = surfaces(args.output / 'title.png', [(195,163,102)])[0]
             await page.touchscreen.tap((primary[0]+primary[2]/2)/2.5, (primary[1]+primary[3]/2)/2.5)
             await page.wait_for_timeout(6000)
             await page.wait_for_function("window.MINIMAL_PCM_TAPS.length>0 && window.MINIMAL_PCM_TAPS[0].context.state==='running'", timeout=30000)
+            if args.threaded:
+                threaded=await page.evaluate('window.MOBILE_THREADED_DIAGNOSTIC.snapshot()')
+                assert threaded['cross_origin_isolated'] and threaded['threads'] and threaded['shared_ring_observed'],threaded
+                report['threaded_start']=threaded
+            if args.selected_sfx:
+                await page.wait_for_function("window.SELECTED_SFX_SNAPSHOT?.validation_ok===true", timeout=15000)
+                selection = await page.evaluate('window.SELECTED_SFX_SNAPSHOT')
+                expected = json.loads((ROOT/'config/audio_director/selected/selected.json').read_text())['event_profiles']
+                assert selection['audio_profile']=='selected' and selection['event_profiles']==expected, selection
+                report['selected_sfx_start'] = selection
             for scene in ('home', 'plains'):
                 if scene == 'plains':
                     await page.touchscreen.tap(*point(1202,42))
@@ -96,19 +108,23 @@ async def run(args):
                 rate, audio = read_wav(args.output / (scene + '-actions.wav'))
                 matches = []
                 for kind in ('jump', 'pulse'):
-                    for variant in range(3):
-                        path = template_path(kind,variant)
+                    variants = [0] if args.selected_sfx and kind=='pulse' else range(3)
+                    for variant in variants:
+                        path = ROOT/'assets/audio/director_v3/shot_pulse_a.wav' if args.selected_sfx and kind=='pulse' else template_path(kind,variant)
                         sr, source = read_wav(path)
                         divisor = gcd(rate,sr)
                         template = resample_poly(source,rate//divisor,sr//divisor)
                         fit = matched_filter(audio, template, rate)['best_positive_gain_match']
-                        fit.update(kind=kind, variant=variant, source_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+                        fit.update(kind=kind, variant=variant, source_path=str(path.relative_to(ROOT)), source_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
                         fit['absolute_audio_seconds'] = (wav['begin_audio_frame']+fit['offset_frames'])/rate
                         fit['closest_native_start_delta_ms'] = min(abs(fit['absolute_audio_seconds']-s['audio_seconds'])*1000 for s in after['audio']['native_starts'])
                         matches.append(fit)
                 row = {'scene':scene,'before':before,'after':after,'pcm':wav,'matches':matches,
                     'input':{'jump':jump,'right':right,'drag_to':drag},
                     'scope':'full-template matches must also align with native source time; mixed PCM alone is not asset identification'}
+                if args.selected_sfx:
+                    row['selected_sfx_after'] = await page.evaluate('window.SELECTED_SFX_SNAPSHOT')
+                    assert any(e.get('candidate')=='shot_pulse_a' for e in row['selected_sfx_after']['director_events']), row['selected_sfx_after']
                 report['results'].append(row)
                 save()
                 print(json.dumps({'scene':scene,'best':{kind:max((m for m in matches if m['kind']==kind),key=lambda m:m['rho']) for kind in ('jump','pulse')}}), flush=True)
@@ -126,4 +142,6 @@ if __name__ == '__main__':
     parser.add_argument('--expected-source', required=True)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--proxy-from-environment', action='store_true')
+    parser.add_argument('--selected-sfx', action='store_true')
+    parser.add_argument('--threaded', action='store_true')
     asyncio.run(run(parser.parse_args()))

@@ -41,9 +41,14 @@ def main():
 <h1>声音修复对照</h1><p>两个版本保留相同的 UI、画面和声音素材。请分别进入家园和关卡，比较跳跃、射击、拾取音效，以及播放中与打开菜单后的声音。</p>
 <a href="./?audio_compare=after">进入声音修复版 · AFTER_ID</a>
 <a href="audio-before/?audio_compare=before">进入修复前版本 · 2caa023125bd</a>
-<small>每次关闭上一个游戏标签，再打开另一版。声音修复仅处理总线创建及环境细节音反复重启；手机效果与背景音乐连续性等待实测。</small></html>'''.replace('AFTER_ID', after['build_id'])
+<p>持续声音断续：以下两组使用同一个新版游戏和已选音效，仅改变流式音频缓冲。进入家园／关卡后点击“记录游戏中”，打开游戏菜单后点击“记录菜单中”，最后下载检测记录。</p>
+<a href="audio-stream-test.html?latency=50&amp;audio_probe=1&amp;diag=timing-v1">主线程供音 · 50ms</a>
+<a href="audio-stream-test.html?latency=200&amp;audio_probe=1&amp;diag=timing-v1">主线程供音 · 200ms</a>
+<a href="audio-threaded/?latency=50&amp;audio_probe=1">独立音频线程 · 50ms</a>
+<p>独立线程版保持同一游戏包、画面和声音，用于核验供音是否受主线程阻塞。首次打开会自动重载以启用浏览器隔离。家园普通菜单与关卡暂停请分别记录。</p>
+<small>每次关闭上一个游戏标签，再打开另一版。新版启用你已选定的工坊音效；手机上的持续断续仍待实际对照确认。</small></html>'''.replace('AFTER_ID', after['build_id'])
     (args.output / 'audio-compare.html').write_text(page)
-    receipt = {'scope': 'Same accepted UI/art, frozen original versus two audio-only fixes; physical outcome unverified',
+    receipt = {'scope': 'Same accepted UI/art, frozen original versus audio fixes and selected SFX integration; physical continuity unverified',
         'after': after, 'before': before, 'unpacked_site_bytes': size,
         'comparison_path': 'audio-compare.html', 'raw_packs_verified_then_removed_for_git_transport': True}
     (args.output / 'audio-comparison.json').write_text(json.dumps(receipt, indent=2) + '\n')

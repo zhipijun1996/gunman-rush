@@ -1,0 +1,115 @@
+{
+  "task": "MOBILE-WEB-AUDIO-02",
+  "review_id": "threaded-diagnostic-static-01",
+  "reviewed_at_utc": "2026-10-29T16:22:41.791555+00:00",
+  "reviewer": "review_mobile_ui independent reviewer of style_rebind builder",
+  "reviewed_tool": "tools/mobile_web_perf/prepare_threaded_diagnostic.py",
+  "reviewed_tool_sha256": "ec9261e7a5148a39f4fbc4f54d70f43504cfd396f8337d1b0318d8310c2a39e7",
+  "verdict": "ACCEPT_STATIC_DIAGNOSTIC_SCOPE; ACTUAL_BROWSER_COI_AUDIO_AND_PHONE_UNVERIFIED",
+  "blocking_findings": [],
+  "scope": "Frozen diagnostic builder, its generated bootstrap/SW/shared-memory observer, template identities, presentation parity and downloadable evidence. No production edits, Godot/browser execution or full CI.",
+  "independence_boundary": {
+    "builder_author": "style_rebind, distinct from this reviewer",
+    "reviewer_authored_component": "tools/mobile_web_perf/stream_timing_observer.js",
+    "own_component_status": "Only exact-copy identity checked. Its RAF/LongTask implementation is author self-tested, not independently accepted by this receipt.",
+    "counter_component": "Existing root instrument_worklet diagnostic layer. Current generated counter worklet identity retained; this review reran builder/shared/SW/bootstrap mocks, not a fresh engine/audio render."
+  },
+  "confirmed": [
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:284",
+      "result": "Exact SHA guards require matching official threaded4.7.2 JS/WASM/worklet/position/html/SW/offline members from one pinned template. The twelve actual generated files independently hash-match their prepared receipt. JS/WASM/position bytes are copied unchanged; only separately named Godot worklet carries existing counter layer."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:97",
+      "result": "Official getMissingFeatures({threads:true}) checks genuine window.crossOriginIsolated and SharedArrayBuffer availability. Only isolation/SAB-only missing features enter repair path; WebGL/Fetch/insecure context failure does not trigger repair. Successful registration alone does not start engine or reload; exact directory scope and exact script URL must exist and reach activated. Redundant/wrong-scope/wrong-script failures are visible."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:112",
+      "result": "At most two automatic reloads per tab/build, persisted before navigation. Storage unavailable fails safely. Promise race bounds registration plus activation to2000ms; timeout produces visible error without success reload. A late activation cannot change an already rejected race into success. Feature-success branch clears reload key; readiness marker only follows official startGame resolution."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:348",
+      "result": "Official Engine.installServiceWorker registers the diagnostic script without explicit broader scope; script-directory default is audio-threaded/. Bootstrap rejects any other registration scope. Official SW cache deletion filters only unique gunman-rush-audio-threaded-diagnostic-sw-cache- prefix. A controlled diagnostic page parent-PCK subresource fetch can receive COOP/COEP even outside worker URL directory; this does not make the worker control ordinary root pages. Root index/cache worker are never written by builder."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:232",
+      "result": "Parent mainPack remains the exact actual content-addressed formal PCK, loaded by ../ URL without copying or rewriting. Source verifies full raw bytes or complete decompressed gzip-chunk stream against exact hash/length. Current artifact refers to1d3791a7c29031550f5e950bcd5b68f2b3bec7aee0a2c75b02d849d2044e50e2,208700940bytes."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:167",
+      "result": "Independently compared actual generated threaded HTML against ordinary HTML: viewport meta, entire canvas tag/body and both complete style blocks match byte-for-byte. Shared PCK retains viewport1280x720/stretch/HiDPI; no DPR, canvas size or project override is introduced. Fixed diagnostic controls are DOM overlay, not a game layout rewrite. This is static parity, not phone visual validation."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:291",
+      "result": "Default exporter pools8/4 and no GDExtensions are required and retained. Query latency is strictly50 or200ms, default50, and is appended as startup argument. No force-all-STREAM playback argument or resource rewrite is introduced. Other original startup arguments remain."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:33",
+      "result": "Shared observer records descriptors only after native start post succeeds, preserves native result/exception and bounds records/errors16 each. It does not access ring values, retain shared views or write ring memory. Snapshot distinguishes realCOI/SAB, start command, shared state/input/output buffers and actual counter threads flag."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py:196",
+      "result": "Manual game/menu buttons only snapshot, wait10s and snapshot; no input/menu/scene changes. Buttons disable during recording, stored observations are capped8, and JSON download contains build/source and engine/worklet identities, requested latency, context/audio/PCM/STREAM counters, selected SFX/ambience state, shared descriptors and bounded RAF/LongTasks."
+    }
+  ],
+  "independently_executed_readonly_checks": {
+    "actual_generated_file_hashes_match_receipt": 12,
+    "presentation_bytes": "PASS viewport/canvas/all2style blocks",
+    "node_syntax_checks": {
+      "passed": 3,
+      "failed": 0,
+      "subjects": [
+        "actual generated bootstrap",
+        "actual generated official-parameterized SW",
+        "shared observer"
+      ]
+    },
+    "pure_node_mocks": [
+      "PASS shared descriptors, native return value, original exception, no-thread negative control, bounded16/no-ring-write",
+      "PASS actual generated SW parent-PCK body retained with COOP/COEP; activation deletes own prefix only and retains ordinary root cache",
+      "PASS installing/activating waits; reload only after activated;2000ms deadline",
+      "PASS existing activated/nonCOI recovery; hard2reload limit; no start while official isolation features missing",
+      "PASS actual feature-success starts once and clears reload bound",
+      "PASS wrong scope/script, redundant worker, timeout, blocked storage and missing WebGL reject visibly without unbounded reload"
+    ],
+    "godot_executed": false,
+    "browser_executed": false,
+    "full_ci_executed": false
+  },
+  "runtime_reading_requirements": [
+    "THREADED_DIAGNOSTIC_READY only means official startGame resolved; do not use it alone to sign audio. Require actual cross_origin_isolated true, SAB available, actual start with3 shared views and a matching live thread=true STREAM counter.",
+    "Historical records.some(threads/shared_ring) prove wiring was observed, not that the current producer is progressing. Require same live STREAM read_frames to advance over window, plus valid requested/underrun counts. Nonzero mixed PCM alone can come from SAMPLE voices while STREAM is starved.",
+    "AudioProbe threads-start initial_samples remains0; derive actual shared output ring capacity from start_messages[].views[2].length, sample rate and actual counter channels. Requested50/200ms are not exact ring budget or total hardware latency.",
+    "Shared RAF observer has no threaded producer out_callback hooks: timing.begun/acknowledged remain0 by design. This is not zero producer latency or a threaded mixing profile.",
+    "Use before→after counter deltas and observed frame ranges, not startup cumulative ratios. Retain counter/PCM telemetry age and context state; no hardware acoustic claim.",
+    "Home navigation menu only blocks input and tree_paused remainsfalse; compare actual in-run pause separately using selected_ambience.tree_paused and active_context.",
+    "Downloaded data is adequate for bounded same-device audio-pipeline comparison. It does not independently capture UA, actual current canvas/CSS/DPR or requested BGM track; use existing browser-driver canvas report/screenshots and real device/context details for those claims.",
+    "A2second activation deadline can visibly reject a slow first install; this fails closed and is not a compatibility success. Unsupported audio worklet/dummy-audio fallback cannot qualify as successful threaded audio.",
+    "Builder site budget applies to the counted --site-root. Current generated receipt counted the standalone build/web site; its539894416byte projection is not proof of full before/after comparison-site size. Final prepared comparison must pass the same guard with its actual enclosing site root.",
+    "Threaded and single-threaded engines differ in work scheduling; matching PCK, pools, latency arms and presentation preserve content but do not establish phone performance/audio equivalence. No phone, BGM completeness, FPS or resolved-stutter claim."
+  ],
+  "evidence_sha256": {
+    "tools/mobile_web_perf/prepare_threaded_diagnostic.py": "ec9261e7a5148a39f4fbc4f54d70f43504cfd396f8337d1b0318d8310c2a39e7",
+    "build/web/audio-threaded/threaded-diagnostic.json": "04153252b0711f12fa9367e6e883b72b102a9509bc54f554f0f36bd127408d20",
+    "build/web/audio-threaded/index.html": "cc6080f3d7071a92239c35ed5c75d946fd29f800f09d05d7dbac01e98cb779e0",
+    "build/web/audio-threaded/diagnostic.service.worker.js": "dbecde2e84813b1260c9207ba3ee694eabbcbdbe2e94e94e36f00406cb47ca34",
+    "build/web/audio-threaded/shared-observer.js": "807ff315c7e0d4234060de41a484e4c599f49a11300fc6453a20a52ad30cf194",
+    "build/web/index.html": "4fc7ddd7a597686546714d11be237371ebd7d0836eac1e891e87be1d5bac627a",
+    "tools/mobile_web_perf/stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da"
+  },
+  "generated_official_and_diagnostic_file_hashes": {
+    "official-threaded.js": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657",
+    "official-threaded.wasm": "fcce8c3ae3a7277199985e8b50610bbc267f88386bf31ab4a69885c160ec9cc8",
+    "official-threaded.audio.worklet.js": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf",
+    "official-threaded.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "official.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "offline.html": "b0a5d443e78f58717adac780bac91c1431bfa3b801c41f4707d507fb5ad2e47f",
+    "shared-observer.js": "807ff315c7e0d4234060de41a484e4c599f49a11300fc6453a20a52ad30cf194",
+    "audio_probe.js": "8e8b8b0a50077f20f26c8ae7bef70d6940db9ff38f1d6368966afd224102bed4",
+    "pcm_worklet.js": "4acdb127f07d5b7dde7b765ca31053e34f889a9c95f6aba12d27645d5351e99c",
+    "stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da",
+    "index.html": "cc6080f3d7071a92239c35ed5c75d946fd29f800f09d05d7dbac01e98cb779e0",
+    "diagnostic.service.worker.js": "dbecde2e84813b1260c9207ba3ee694eabbcbdbe2e94e94e36f00406cb47ca34"
+  },
+  "pending": "Root actual threaded browser verification and actual phone comparison remain separately required; this receipt makes no runtime success claim."
+}
