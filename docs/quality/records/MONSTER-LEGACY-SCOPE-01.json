@@ -4,7 +4,7 @@
   "task_type": "process",
   "workflow": "review",
   "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
-  "reviewed_commit": "a72a313a3fabde570733265aa7e2d795d70768c3",
+  "reviewed_commit": "d431e3a8196d4bddefd5e6ae415052b712cf5b8b",
   "content_version": "current-registry-legacy-routing-v1",
   "owner": "/root",
   "purpose": "将冻结历史森林回放保留在手动legacy-compat，同时以真实当前registry/App消费者一换一保留默认守门；只验测试过程",
@@ -24,7 +24,6 @@
     "docs/worklines/plains_monster_revision_01/scope.md",
     "tests/forest_current_registry_runner.gd",
     "tests/forest_current_registry_runner.gd.uid",
-    "tests/test_production_plan.py",
     "tools/harness/profiles.json",
     "tools/run_forest_current_registry_tests.py"
   ],
@@ -111,8 +110,7 @@
       "status": "passed",
       "reason": "不同作者对精确干净d431的当前守门、严格reader与旧原件保留／profile一换一路由限定ACCEPT；不签最终完整运行或怪物美术",
       "evidence": [
-        "current-guard-code",
-        "planner-review"
+        "current-guard-code"
       ]
     },
     "device": {
@@ -160,24 +158,6 @@
       ],
       "independent": true,
       "independence_basis": "审查者没有编辑这些测试、profile或生产代码，独立读真实字节并执行reader破坏反例。",
-      "verdict": "ACCEPT"
-    },
-    {
-      "id": "planner-review",
-      "path": "docs/evidence/plains_monster_revision_01/current-registry/planner-scope-review.md",
-      "sha256": "d373767d7ea21219ce12b55656a35a5b25b66eb54f84c84ad8bbcbc21f9353b4",
-      "kind": "review",
-      "producer": "/root/planner_scope_review",
-      "source_commit": "a72a313a3fabde570733265aa7e2d795d70768c3",
-      "content_version": "current-registry-legacy-routing-v1",
-      "method": "独立逐字diff+实际原21测试+18破坏报告拒绝",
-      "observed": "限定守门适配ACCEPT：四原SHA、完整lane与总数守门保留；未签163或生产",
-      "reviewer": "/root/planner_scope_review",
-      "implementers": [
-        "/root"
-      ],
-      "independent": true,
-      "independence_basis": "审查者没有写测试或生产代码，独立运行原suite和内存反例。",
       "verdict": "ACCEPT"
     }
   ],

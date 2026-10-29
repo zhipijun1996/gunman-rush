@@ -625,3 +625,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
 
 | MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431代码/分流独审ACCEPT，reader48／0；开发native88／0不追签最终源；旧280／2与中断57marker原件保留，最终163待执行 |
+| MONSTER-PLANNER-SCOPE-01 | planner清单守门适配：保原四摘要与两lane | PLAINS-MONSTER-REVISION-01 | review | 精确a72a独审ACCEPT，原21suite与18破坏反例通过；保literal74/85与四旧SHA，最终163待执行 |

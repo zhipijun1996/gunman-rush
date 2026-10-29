@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "task_id": "MONSTER-PLANNER-SCOPE-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "reviewed_commit": "a72a313a3fabde570733265aa7e2d795d70768c3",
+  "content_version": "planner-current-registry-split-v1",
+  "owner": "/root",
+  "purpose": "适配已授权registry分流的planner历史清单守门，保原四SHA与完整lane",
+  "player_experience": "当前与历史测试职责准确分流，默认检查顺序/数量/两lane不被其他替换弱化",
+  "constraints": [
+    "只改清单守门测试，不改生产/profile/旧fixture或预算",
+    "只逆映射唯一current名称以核原四历史摘要，literal位置/唯一性/旧legacy归属另严格检查",
+    "不签完整163或怪物美术/用户/设备"
+  ],
+  "affected_paths": [
+    "tests/test_production_plan.py",
+    "docs/quality/records/MONSTER-PLANNER-SCOPE-01.json"
+  ],
+  "deliverables": [
+    "docs/evidence/plains_monster_revision_01/current-registry/planner-scope-review.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "最终冻结源完整执行与过程收口尚待；限定独审另列",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "最终冻结源完整执行与过程收口尚待；限定独审另列",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，无主观内容/正式画面/设备签认",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "最终冻结源新Harness与完整适用检查尚待；开发原件与独审分账",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "最终冻结源新Harness与完整适用检查尚待；开发原件与独审分账",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立21原suite与18损坏反例均符合，限定清单守门适配ACCEPT。",
+      "evidence": [
+        "planner-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯测试过程，不签主怪物内容质量",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "PLANNER-SCOPE-INDEPENDENT",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "默认历史回放换为实际当前registry消费者后保持清单保护",
+      "method": "四历史SHA原样保留、literal74/85、唯一性与legacy归属断言，独立21测试与18损坏反例",
+      "expected": "唯一授权替换通过，其他清单/顺序/分lane损坏拒绝",
+      "failure": "更新原hash掩盖额外变化或漏项/重复/位置变化仍通过",
+      "status": "passed",
+      "reason": "独立限定ACCEPT，未签最终163。",
+      "evidence": [
+        "planner-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "planner-review",
+      "path": "docs/evidence/plains_monster_revision_01/current-registry/planner-scope-review.md",
+      "sha256": "d373767d7ea21219ce12b55656a35a5b25b66eb54f84c84ad8bbcbc21f9353b4",
+      "kind": "review",
+      "producer": "/root/planner_scope_review",
+      "source_commit": "a72a313a3fabde570733265aa7e2d795d70768c3",
+      "content_version": "planner-current-registry-split-v1",
+      "method": "独立逐字diff+实际原21测试+18破坏报告拒绝",
+      "observed": "限定守门适配ACCEPT：四原SHA、完整lane与总数守门保留；未签163或生产",
+      "reviewer": "/root/planner_scope_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者没有写测试或生产代码，独立运行原suite和内存反例。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终冻结源完整163待执行；当前只原21suite及18反例独立通过",
+    "不签生产内容、美术、设备或用户认可"
+  ],
+  "test_change_justification": "实际full04在planner历史清单摘要失败，保29通过/1失败/133未执行原件。适配仅固定新项原位置与唯一性/历史项legacy归属，再将该唯一名称逆映射给四个原历史SHA；所有原SHA、顺序、166/91/75和预算不变。"
+}
