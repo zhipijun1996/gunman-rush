@@ -1,0 +1,390 @@
+{
+  "task": "ENEMY-ALL-02",
+  "group": "formal_boss",
+  "chains": "primary",
+  "species": null,
+  "seed_label": "enemy-all-review-02",
+  "status": "recorded_complete_coverage",
+  "source": {
+    "working_files": {},
+    "commit": "52d0a0ada2103b64b53ecc09d342dc85387111c3",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "5a037eefcf4088913652f8c7b8305bf13e31438b757b2609a3d7b87a27c1a3ed",
+  "scope": "Genuine Godot MovieMaker; explicit initial fixtures, real AI, InputRouter, projectiles, enemy and player FrameDamagePolicy. No natural-campaign claim.",
+  "user_acceptance": "pending",
+  "device_acceptance": "unverified",
+  "listening_acceptance": false,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_workshop_01/current-formal-storm-01/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_all_review_02_formal_boss_capture.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-formal-storm-01/trace.json",
+    "--group=formal_boss",
+    "--chains=primary",
+    "--seed=enemy-all-review-02",
+    "--seconds=45"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793279450.079433,
+    "ended_at_unix": 1793279504.9678388,
+    "duration_seconds": 54.888,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_workshop_01/current-formal-storm-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_all_review_02_formal_boss_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-formal-storm-01/trace.json",
+      "--group=formal_boss",
+      "--chains=primary",
+      "--seed=enemy-all-review-02",
+      "--seconds=45"
+    ],
+    "check_token": "82bff47d66804cb6bbaae6b549792b1f"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 816800,
+    "duration_seconds": 17.016666666666666,
+    "samples": 1633600,
+    "peak_s16": 17824,
+    "peak_normalized": 0.5439453125,
+    "rms_normalized": 0.06646491614100554,
+    "nonzero_samples": 1621626,
+    "nonzero_sample_ratio": 0.9926701762977473,
+    "seconds_containing_nonzero_pcm": 17,
+    "pcm_sha256": "930941b9d3b92a272e7ad26494fb51301f0f354b45836596f4f7ec4cfba0f2a1",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 9322,
+        "rms_normalized": 0.036173306331819005,
+        "nonzero_samples": 91622
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 945,
+        "rms_normalized": 0.005866611058278791,
+        "nonzero_samples": 95778
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 9238,
+        "rms_normalized": 0.025067024491736402,
+        "nonzero_samples": 95913
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 10962,
+        "rms_normalized": 0.066870079698656,
+        "nonzero_samples": 95952
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 13933,
+        "rms_normalized": 0.0885356885880605,
+        "nonzero_samples": 95957
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 13364,
+        "rms_normalized": 0.0843519725186446,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 16311,
+        "rms_normalized": 0.0793525358508568,
+        "nonzero_samples": 95944
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 12473,
+        "rms_normalized": 0.08172945820324354,
+        "nonzero_samples": 95956
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 12047,
+        "rms_normalized": 0.07983602611073753,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 12816,
+        "rms_normalized": 0.08848995902749962,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 17824,
+        "rms_normalized": 0.0830229953704643,
+        "nonzero_samples": 95974
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 12264,
+        "rms_normalized": 0.08912782609683641,
+        "nonzero_samples": 95965
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 13945,
+        "rms_normalized": 0.0834208374580496,
+        "nonzero_samples": 95966
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 11541,
+        "rms_normalized": 0.06661990483149703,
+        "nonzero_samples": 95939
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 2926,
+        "rms_normalized": 0.010468074202835716,
+        "nonzero_samples": 95875
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 1556,
+        "rms_normalized": 0.010520538104514691,
+        "nonzero_samples": 95877
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 1667,
+        "rms_normalized": 0.01187309309161035,
+        "nonzero_samples": 91028
+      },
+      {
+        "second": 17,
+        "samples": 1600,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 261376,
+        "duration": "17.016667",
+        "bit_rate": "5625835",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1021",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 816768,
+        "duration": "17.016000",
+        "bit_rate": "133958",
+        "nb_frames": "799",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_workshop_01/current-formal-storm-01/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "17.016667",
+      "size": "12280426",
+      "bit_rate": "5773363",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "trace_frame_count": 1011,
+  "chapters": [
+    {
+      "case": 0,
+      "id": "windkeeper_storm_formal_app",
+      "chain": "actual_formal_App",
+      "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+      "start_frame": 1,
+      "end_frame": 1011,
+      "start_seconds": 0.1,
+      "end_seconds": 16.9333333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "nonlethal_HP_commit": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "policy": "original actual App Boss exit and original stage reward readiness; no reward/reset callbacks invoked",
+        "terminal": true
+      }
+    }
+  ],
+  "coverage_gap_count": 0,
+  "mp4_sha256": "fd5b65c1b68ab4d2fd67ce7d7f3172685f109a8b189e5374a41aca845cd6f015",
+  "avi_sha256": "e1ffae8df9ef504f5373e435365c846cf885529ff211a48bceb792cc977f8338",
+  "trace_sha256": "ddd9114679a0951ae637a5a51b67b1db8058578dbcd98338db2814fe0d8664bc",
+  "raw_avi_retained": false,
+  "source_stable": true,
+  "seconds": 64.2333305630018
+}

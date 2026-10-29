@@ -1,5 +1,14 @@
 # 当前状态
 
+## 2026-10-29 怪物工坊已私密发布（最新）
+
+[打开怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)。用户授权参考音效工坊，现已交付25审核条目、当前／历史动作片段、动作定位／慢放／循环／步进／放大、具体版本与时间点意见、新怪物创意及云端“我的意见”／导出。主游戏机制与美术未批量改动，旧质量拒绝保留；未录到招式明确标待补录，认可只对应具体动作版本，不自动签整怪。
+
+站点源7843ec0已通过Sites原生私密发布，生产DB的两表实际建成；本机32API／UI测试、15实际浏览器检查与独立代码审查通过。Game录制代码52d0a0ad，5原MP4固定805d849d，原38当前链与37历史分列。Storm Lab缺口保留、正式补片及留尸尾段另证。技术／发布不代签怪物艺术、实体设备或用户认可。
+
+ENEMY-WORKSHOP-01进入review。游戏分支feature/enemy-workshop-01依赖PR114，不合main；站点独立源仓库的main是网站源码，不是主游戏main。[维护与读反馈](worklines/enemy_workshop_01/README.md)，[证据](evidence/enemy_workshop_01/README.md)。用户后续要求处理意见时，读取同项目Sites DB有界记录，保动作／revision／片段归属，不自动扩产或公开私密正文。
+
+
 ## 2026-10-29 全怪物程序重构已实现，完整166 CI通过（最新）
 
 ENEMY-STRUCTURE-01程序实现已进入review：普通14物种、2开发候选、8Boss场景／9配置统一创建登记／工厂、攻击策略、只读表现状态、最终身体绑定、生命周期、完整恢复同步及尸体能力。逐怪当前入口见[程序索引](worklines/enemy_structure_01/runtime-map.md)，职责见[架构](worklines/enemy_structure_01/architecture.md)。
