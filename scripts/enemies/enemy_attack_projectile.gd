@@ -36,10 +36,10 @@ func _physics_process(delta: float) -> void:
 	if remaining <= 0:
 		dispose()
 		return
-	for point: Vector2 in behavior.protected_points:
-		if DemoContactEmitter.segment_intersects_bounds(global_position, global_position + direction * speed * delta, Rect2(point - Vector2.ONE * behavior.actor.definition.protected_radius, Vector2.ONE * behavior.actor.definition.protected_radius * 2.0)):
-			dispose()
-			return
+	var motion := direction * speed * delta
+	if _crosses_protected_point(motion):
+		dispose()
+		return
 	_visual_age += delta
 	_visual_trail.append(global_position)
 	if _visual_trail.size() > 7: _visual_trail.pop_front()
@@ -47,10 +47,34 @@ func _physics_process(delta: float) -> void:
 		_visual_launched = true
 		UnderworldProjectileVisual.emit(self,global_position,direction,false,false)
 	queue_redraw()
+	_move_swept(motion)
+
+## Placement clearance only: no flight/lifetime/visual clock advances. Reuses
+## the ordinary real-volume sweep and original damage Policy/contact handling.
+func launch_to_muzzle(destination: Vector2) -> bool:
+	if spent: return false
+	if not destination.is_finite() or not is_inside_tree() or not is_instance_valid(behavior) or not behavior._active() or not behavior.lifetime.accepts(token):
+		dispose()
+		return false
+	var motion := destination-global_position
+	if motion.is_zero_approx(): return true
+	if _crosses_protected_point(motion):
+		dispose()
+		return false
+	_move_swept(motion)
+	return not spent
+
+func _crosses_protected_point(motion: Vector2) -> bool:
+	for point: Vector2 in behavior.protected_points:
+		if DemoContactEmitter.segment_intersects_bounds(global_position,global_position+motion,Rect2(point-Vector2.ONE*behavior.actor.definition.protected_radius,Vector2.ONE*behavior.actor.definition.protected_radius*2.0)):
+			return true
+	return false
+
+func _move_swept(motion: Vector2) -> void:
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0, global_position)
-	query.motion = direction * speed * delta
+	query.motion = motion
 	query.collision_mask = 1
 	query.exclude = [behavior.actor.motor.get_rid()]
 	var space := get_world_2d().direct_space_state

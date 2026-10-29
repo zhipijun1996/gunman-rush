@@ -41,7 +41,17 @@ func run() -> void:
 			check(actor.restore_instance_health(actor.definition.health_definition.max_health), label+" actual restore accepts live state")
 			check(not actor.health.terminal and motion.clock == 0.0 and motion.travel == 0.0, label+" live initialize has no old gait")
 			if chain == "underworld": check(host.visible and host.modulate.a == 1.0, label+" revived body is visible immediately")
-			if id in ["plains_charger", "plains_diver"]:
+			var revision := host.get("revision_visual") as PlainsRevisionVisual
+			if revision != null:
+				var rig := revision.rig
+				var source := rig.texture
+				var bounds := rig.bounds
+				motion.advance(actor,.137)
+				revision.refresh(0.0)
+				var handoff := revision.remains_view()
+				check(rig==revision.rig and source==revision.rig.texture and bounds==revision.rig.bounds,label+" live recovery retains the same continuous rig source and anchor")
+				check(handoff.rig==rig and (handoff.transform as Transform2D).origin.is_equal_approx(revision.global_position),label+" live and death handoff share actual rig and global foot anchor")
+			elif id in ["plains_charger", "plains_diver"]:
 				var frames: EnemyFeedback01Frames = host.get("feedback_frames")
 				check(frames.canonical_live_texture() == frames.texture(3) and frames.canonical_live_bounds() == frames.bounds(3), label+" H3 exits into exactly the same source/anchor")
 				motion.advance(actor, .137)

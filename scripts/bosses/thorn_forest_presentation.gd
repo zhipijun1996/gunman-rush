@@ -40,12 +40,6 @@ func _draw() -> void:
 	if heart_view.visible: draw_circle(heart,7+sin(age*5),Color(1,.82,.42))
 	else:
 		for side: int in [-1,1]: draw_line(heart+Vector2(side*9,-10),heart+Vector2(-side*9,10),Color(.4,.53,.26),4)
-	var mark := encounter.presentation_ground_mark()
-	if not mark.is_empty():
-		var goal := to_local(mark.position)
-		var width: float = mark.width
-		draw_line(goal-Vector2(width*.5,1),goal+Vector2(width*.5,-1),Color(1,.65,.35),4)
-		draw_arc(goal,width*.5,PI,TAU,24,Color(1,.65,.35,.8),2)
 func _exit_tree() -> void:
 	motion.dispose(encounter)
 

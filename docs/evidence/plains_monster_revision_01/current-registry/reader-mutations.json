@@ -1,0 +1,264 @@
+{
+  "scope": "Read-only final-reader/actual-report mutation and profile/source-preservation review; no Godot by reviewer",
+  "checks": 48,
+  "failures": 0,
+  "results": [
+    {
+      "case": "actual_dev04_report_with_final_reader",
+      "passed": true
+    },
+    {
+      "case": "zero_assertions",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "missing_ledger",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "false_ledger",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "true_integer_ledger",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "missing_case",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "extra_case",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "row_map_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "manifest_map_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "schema_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "failures_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "failures_nonzero",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "assertions_float",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "wrong_scope",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "missing_seed",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "duplicate_data_identity",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "wrong_layout",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "wrong_version",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "strict_validation_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "complete_output_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "unsupported_rehash_accepted",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "missing_manifest",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "missing_refusal",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "duplicate_refusal",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "refusal_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "refusal_kind_reordered",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_map_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "duplicate_app_map",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_home_unknown_unchanged_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_home_empty_unchanged_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_active_unchanged_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_unknown_snapshot_refused_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_malformed_snapshot_refused_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_reload_same_manifest_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_reload_same_state_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_reload_ledgers_health_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "app_complete_output_equal_false",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "saved_health_nan",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "saved_health_infinity",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "saved_health_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "saved_health_zero",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "saved_health_string",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "restored_health_nan",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "restored_health_infinity",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "restored_health_bool",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "restored_health_zero",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "restored_health_string",
+      "passed": true,
+      "rejected": true
+    },
+    {
+      "case": "equal_bool_health_masquerades_one",
+      "passed": true,
+      "rejected": true
+    }
+  ],
+  "actual_report_sha256": "196aef50361dda1bccfd8d355df8c878e82ed07cf994379af62a755081035381",
+  "actual_native_receipt": {
+    "base_commit": "b479775383c46527096ebc6e4e284924f66ccf48",
+    "passed": true,
+    "source_stable": true,
+    "seconds": 25.65631636499893,
+    "assertions": 88
+  },
+  "old_sources_unchanged_count": 11,
+  "full_count": 166,
+  "gameplay_count": 151,
+  "selected_union_count": 163,
+  "source_sha256": {
+    "tests/forest_current_registry_runner.gd": "c9c2344e2393fd8bdf53d237a325e05a1821309086c39fa3589f0c04af383851",
+    "tests/forest_current_registry_runner.gd.uid": "0143350db708a2512b81bb2824b1b4d1b720b803d3244266a218b1d0d201fef5",
+    "tools/run_forest_current_registry_tests.py": "1e98bef0ef30c4199da59672f419e88a21c8aa4aeb4934576293a4561f032311",
+    "tools/harness/profiles.json": "7e4309aaf8d6a5d30f05951db5035ed3e8f2fdb8bbcbae8413cc5d02379a05f9"
+  }
+}

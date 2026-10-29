@@ -1,0 +1,45 @@
+{
+  "phase": "data",
+  "sequence": 0,
+  "run_id": "01e734915e894791aac9c593ffb890ad",
+  "argv": [
+    "bash",
+    "/workspace/gunman-rush/tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/forest_depth_version_runner.gd",
+    "--",
+    "--output=res://build/forest_depth/versions/native/harness-8616e90005c240cdbc8d43fe6e6cce85/data.json",
+    "--run-id=01e734915e894791aac9c593ffb890ad"
+  ],
+  "timeout_seconds": 89.99999453200144,
+  "shared_elapsed_start": 5.4679985623806715e-06,
+  "source_sha256": {
+    "tools/run_forest_depth_versions.py": "b38a4861c8acfd04374fbb0362dcf6127aee90dc11d7e65d47ef290434eaf94c",
+    "tests/forest_depth_version_runner.gd": "f5fae251fcda79370ba3b8fac8bb4f66fee65bd85e6a63031dfd1420dce74750",
+    "tests/forest_depth_version_world_runner.gd": "4e9eed97587582285cef0a4d07438c30f34a84fc67c0b03ee1102f6f9de59059",
+    "tests/forest_depth_version_app_case.gd": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274",
+    "tools/test_forest_depth_versions.py": "a9c3a3f165bc3c199c6ce9df5423ed450fd4fc12df61707aa3ccd92b5fa978f6"
+  },
+  "status": "failed",
+  "exit_code": 1,
+  "rawlog": "build/forest_depth/versions/native/harness-8616e90005c240cdbc8d43fe6e6cce85/data.log",
+  "report": "build/forest_depth/versions/native/harness-8616e90005c240cdbc8d43fe6e6cce85/data.json",
+  "error": "RuntimeError: Godot returned 1",
+  "shared_elapsed_end": 17.494266319990857,
+  "duration_seconds": 17.494260851992294,
+  "rawlog_sha256": "e1083413b408668c16c401eda95ef8005cc0241cdaaa40dc3c6a85ca768dc8ae",
+  "native_identity": {
+    "engine_pid": 235224,
+    "phase": "data",
+    "run_id": "01e734915e894791aac9c593ffb890ad",
+    "script": "res://tests/forest_depth_version_runner.gd",
+    "script_sha256": "f5fae251fcda79370ba3b8fac8bb4f66fee65bd85e6a63031dfd1420dce74750"
+  },
+  "engine_pid": 235224,
+  "report_sha256": "144fe6b3d10f2e9e9dd3e31759e161b923de233d6614d056c523824abd2bb3c1"
+}

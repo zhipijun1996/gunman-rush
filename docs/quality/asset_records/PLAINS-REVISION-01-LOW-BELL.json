@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAINS-REVISION-01-LOW-BELL",
+  "task_id": "PLAINS-MONSTER-REVISION-01",
+  "content_version": "plains-monster-revision-v1",
+  "source_path": "assets/audio/plains_revision_01/root_bell_fall.wav",
+  "source_sha256": "6d59721d87c6cddfd2be662b7a140e6f304d0acb254b33ec1bba5d2ca4a059a9",
+  "runtime_paths": [
+    "assets/audio/plains_revision_01/root_bell_fall.wav"
+  ],
+  "tool": "ffmpeg",
+  "model": "not_applicable",
+  "prompt_or_reference": "assets/audio/plains_revision_01/provenance.json; existing Kenney bell pitched .72, trimmed .38sec, faded",
+  "processing": "Exact source SHA and ffmpeg argv retained in provenance; shared GameAudio pool, once at root-bell corpse contact; no BGM change.",
+  "usage_scope": "Root-bell collapse contact short low bell",
+  "license_status": "verified",
+  "license_source": "Kenney interface-sounds CC0, existing assets/audio/kenney/interface-sounds-LICENSE.txt and config/audio_director/sources.json kenney/bell; derived with retained source SHA/command in provenance",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/enemies/plains_revision_remains.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/audio/plains_revision_01/provenance.json",
+      "sha256": "4da8aa350e51e56c4b838cfc23ba137008aa7656b978ec244536e60d117a0c17",
+      "role": "processing_record"
+    }
+  ]
+}

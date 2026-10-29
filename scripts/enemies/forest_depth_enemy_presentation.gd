@@ -43,11 +43,11 @@ func _draw() -> void:
 		draw_set_transform(Vector2.ZERO)
 	if behavior is ForestThreadSpiderBehavior and alive:
 		var spider := behavior as ForestThreadSpiderBehavior
-		if state in [&"telegraph",&"extend",&"hold",&"retract"]:
+		# Silk is an attack object, not a preview of a future path. The body
+		# performs its loading pose before the strand begins to extend.
+		if state in [&"extend",&"hold",&"retract"]:
 			var a := to_local(spider.line_start)
 			var b := to_local(spider.line_end)
 			var color := Color("ffbc68") if not spider.line_active else Color("ef6065")
 			draw_line(a,b,Color(color,.20),(actor.definition as ForestEnemyDefinition).line_radius*2)
 			draw_line(a,b,color,2 if not spider.line_active else 4)
-			draw_circle(a,5,color,false,2)
-			draw_circle(b,5,color,false,2)

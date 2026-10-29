@@ -4404,6 +4404,20 @@
       "artifact_paths": [
         "build/enemy_structure"
       ]
+    },
+    "forest-current-registry": {
+      "argv": [
+        "python3",
+        "tools/run_forest_current_registry_tests.py",
+        "--output-dir",
+        "build/forest_current_registry/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_current_registry"
+      ]
     }
   },
   "profiles": {
@@ -4535,7 +4549,7 @@
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
-      "forest-depth-versions",
+      "forest-current-registry",
       "forest-depth-restore",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
@@ -4850,7 +4864,7 @@
       "forest-depth-guardian",
       "forest-depth-guardian-tolerance",
       "forest-depth-enemies",
-      "forest-depth-versions",
+      "forest-current-registry",
       "forest-depth-restore",
       "forest-depth-region",
       "forest-depth-campaign-guardian",
@@ -5048,7 +5062,8 @@
       "forest-depth-cavity-controls",
       "region-with-legacy-fixtures",
       "plains-autonomy-golden",
-      "plains-encounter-policy-with-legacy"
+      "plains-encounter-policy-with-legacy",
+      "forest-depth-versions"
     ],
     "item-v5": [
       "item-v5-data",

@@ -149,10 +149,13 @@ func _deform(point: Vector2, uv: Vector2, kind: StringName, terminal: bool, hurt
 				# The flying master has a diagonal dorsal wing fan and a bell
 				# abdomen. Wing roots and abdomen use independent pivots.
 				var wing := (1.0-smoothstep(0.48,0.69,uv.x))*(1.0-smoothstep(0.40,0.64,uv.y))
-				p = _joint(p,Vector2(0.58,0.56),sin(clock*17.0)*(0.19+travel*0.10)-tension*0.18+release*0.20,wing)
+				# Lock tilts the trunk; the wings fold against the dive, then
+				# spread well ahead of the abdomen to brake the real climb.
+				var flap := sin(clock*17.0)*(0.19+travel*0.10)*(1.0-release*.85)
+				p = _joint(p,Vector2(0.58,0.56),flap-tension*.12+release*.72-recovery*.30,wing)
 				var abdomen := (1.0-smoothstep(0.36,0.58,uv.x))*smoothstep(0.59,0.82,uv.y)
-				p = _joint(p,Vector2(0.53,0.62),-breath*2.0+tension*0.12-release*0.16+recoil*0.10,abdomen)
-				p = _joint(p,Vector2(0.65,0.65),sin(clock*6.0)*0.06+release*0.14,smoothstep(0.70,0.94,uv.y)*smoothstep(0.48,0.70,uv.x))
+				p = _joint(p,Vector2(0.53,0.62),-breath*2.0+tension*.12-release*.13+recovery*.18+recoil*.10,abdomen)
+				p = _joint(p,Vector2(0.65,0.65),sin(clock*6.0-.45)*.06+release*.20-recovery*.13,smoothstep(.70,.94,uv.y)*smoothstep(.48,.70,uv.x))
 		&"sentry", &"fan_sentry":
 			# Planted feet carry recoil; the chamber and barrel move at the
 			# neck, never the warning rays or the authoritative projectile.

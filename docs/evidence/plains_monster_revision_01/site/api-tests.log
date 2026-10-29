@@ -1,0 +1,28 @@
+
+> test
+> node --test tests/*.test.mjs
+
+✔ all private API data requires authenticated identity, while UI can render sign-in (33.872239ms)
+✔ real SQLite migration and owner-isolated review persistence preserve literal text (12.96239ms)
+✔ same UUID retries exactly once; conflicting changes cannot silently overwrite advice (5.520949ms)
+✔ unknown creatures, stale revisions, invalid actions and client ownership are refused (2.659906ms)
+✔ only a recorded specific action can be approved; missing actions can receive suggestions (3.606551ms)
+✔ timestamp must be an integer inside the original creature chapter (7.641663ms)
+✔ cross-origin, invalid JSON, unexpected body fields and excessive input cannot write (2.931434ms)
+✔ cursor pagination is stable, complete and owner-scoped (26.158799ms)
+MONSTER_WORKSHOP_REQUEST_FAILED /api/reviews Error
+MONSTER_WORKSHOP_REQUEST_FAILED /api/ideas Error
+MONSTER_WORKSHOP_REQUEST_FAILED /api/export Error
+✔ ideas persist as proposals and export excludes another user and internal identifiers (2.979267ms)
+✔ media proxy streams only catalog URLs, retaining Range and MP4 headers (2.081214ms)
+✔ database failures produce a retryable structured response, never false success (1.836886ms)
+✔ approval refuses recorded labels without a valid interval in this exact chapter (2.41681ms)
+✔ submission conflict and stale-revision conflict provide separate recoverable codes (5.842653ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.10614

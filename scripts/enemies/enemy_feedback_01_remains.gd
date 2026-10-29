@@ -397,7 +397,10 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	if not active or source == null: return
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(_face, 1))
+	# A real contact impulse: body rebounds once and comes fully to rest.
+	# The authored final wing-tip pose follows the earlier body contact.
+	var rebound := -.8*sin(PI*clampf(_contact_age/.18,0,1)) if _aerial and _landed and not settled and not restored and _contact_age<.18 else 0.0
+	draw_set_transform(Vector2(0,rebound), 0.0, Vector2(_face, 1))
 	draw_texture_rect(source, bounds, false)
 	draw_set_transform_matrix(Transform2D.IDENTITY)
 
