@@ -470,10 +470,75 @@
       "command": "run_tests.run_engine tests/home_codex/test_home_item_codex_ui.gd (35s) then tests/demo_ui_01/r2_runner.gd (120s), --headless --resolution1280x720 --fixed-fps60",
       "exit_code": 0,
       "environment": "Godot4.7.2 native headless, actual formal App and native Controls; no physical-device claim"
+    },
+    {
+      "id": "ui-consumers",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_ui_clarity_01/consumer-inventory.json",
+      "sha256": "6bc044fe2ea26b17c14a188b263fa8a586c1b9ea3dd5767c21f73bd5bc6a153d",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "Bounded migration of existing actual public mobile GUI evidence; not a rerun",
+      "observed": "Existing real Settings/Return/Home/Menu/resize observations",
+      "consumers": [
+        "public-mobile-settings-return",
+        "public-mobile-home-navigation",
+        "public-mobile-resize"
+      ]
+    },
+    {
+      "id": "ui-public-gui",
+      "kind": "gui",
+      "path": "docs/evidence/mobile_ui_clarity_01/public-browser/report.json",
+      "sha256": "210bbf871854572d345260edb0198a90794e155e2f54dcd979764a153c905885",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "Bounded migration of existing actual public mobile GUI evidence; not a rerun",
+      "observed": "Existing real Settings/Return/Home/Menu/resize observations",
+      "consumers": [
+        "public-mobile-settings-return",
+        "public-mobile-home-navigation",
+        "public-mobile-resize"
+      ]
     }
   ],
   "unverified_items": [
     "Honor60Pro physical-device visual/input/performance acceptance",
     "Gold pickup sound and frame-time root cause remain separate work"
-  ]
+  ],
+  "consumer_coverage": {
+    "scope": "Historical actual published 2caa mobile GUI outputs, taken from existing public-browser trace; no fresh execution and no full game/UI inventory claim.",
+    "inventory_evidence": "ui-consumers",
+    "observations": [
+      {
+        "consumer": "public-mobile-settings-return",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      },
+      {
+        "consumer": "public-mobile-home-navigation",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      },
+      {
+        "consumer": "public-mobile-resize",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      }
+    ]
+  }
 }

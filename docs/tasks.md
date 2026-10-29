@@ -1,12 +1,12 @@
 # 开发任务
 
-## 2026-10-29 MOBILE-WEB-PERF-01 · 已复现两条音频根因，验证Web中
+## 2026-10-29 MOBILE-WEB-PERF-01 · 音频修复已发布，awaiting-device
 
 | ID | 任务 | 依赖 | 状态 | 质量 |
 | --- | --- | --- | --- | --- |
-| MOBILE-WEB-PERF-01 | 移动Web总线与重复unpause根因复现、音频针对性修复 | MOBILE-UI-CLARITY-01 | in_progress | [记录](quality/records/MOBILE-WEB-PERF-01.json) |
+| MOBILE-WEB-PERF-01 | 移动Web总线与重复unpause根因复现、音频针对性修复 | MOBILE-UI-CLARITY-01 | awaiting-device | [记录](quality/records/MOBILE-WEB-PERF-01.json) |
 
-[冻结范围](worklines/mobile_web_perf_01/scope.md) · [证据](evidence/mobile_web_perf_01/README.md)。用户已确认UI/画面恢复且动作几乎流畅；最小Web与真实demo四case已复现总线Sample静音和每帧unpause重启。两处修复原生160／0，标准Web3866985a已导出，真实Web录音/部署进行中；不代签真机BGM连续性。
+[冻结范围](worklines/mobile_web_perf_01/scope.md) · [证据](evidence/mobile_web_perf_01/README.md)。用户已确认UI/画面恢复且动作几乎流畅；最小Web与真实demo四case已复现总线Sample静音和每帧unpause重启。两处修复原生160／0，标准Web3866985a四声实际PCM与独审通过，已发布[同UI前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)，公开两PCK完整SHA一致；不代签真机BGM连续性。
 
 ## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
 

@@ -1,14 +1,14 @@
 # 当前状态
 
-## 2026-10-29 MOBILE-WEB-PERF-01 · 音频根因已复现，正在验证标准Web
+## 2026-10-29 MOBILE-WEB-PERF-01 · 两处音频修复已部署，待真机
 
 最新真机反馈为“声音卡，动作几乎不卡；暂停页面声音正常”。以main1b29932c/Godot4.7.2核验，公开UI包2caa/source4707与原main618的四份音频/正式场景源相同，JS/WASM是同一官方4.7.2导出模板，不混称同一个PCK。
 
 最小Web真实PCM确认：默认add_bus()的-1路径会破坏Sample总线路由，单Master正常、多总线Sample静音但Stream正常；一段play每帧stream_paused=false会创建/启动/结束27个native Source，声音不断重启。正式demo.tscn原版/bus_only/pause_only/环境音真正停用四组已独立启动对照；bus_only的家园/平原跳跃射击均有真实混合波形匹配。首轮录音窗口错误、补录家园环境音关闭组未跳跃等边界完整保留，云端慢帧不代表手机画面卡顿。
 
-生产只改GameAudio用bus_count增长保同序创建、GameAmbience仅实际状态变化写pause，原生160／0及源码独审限定通过。保留用户已认可UI/画质/素材/音量/五BGM/玩法。标准Web源ccc11e1a，build3866985a1e8b，PCK208691528字节／SHA3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21；已导出及cache/bundle通过。当前尚待标准Web录音和真实公开部署，不能说已上线。
+生产只改GameAudio用bus_count增长保同序创建、GameAmbience仅实际状态变化写pause，原生160／0及源码独审限定通过。保留用户已认可UI/画质/素材/音量/五BGM/玩法。标准Web源ccc11e1a，build3866985a1e8b，PCK208691528字节／SHA3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21；已导出及cache/bundle通过。标准Web真实触屏进入家园/关卡，四声实际混音确认并经独立负控复核；Actions40896322142已成功，公开两PCK与8份engine文件完整HTTP字节一致。
 
-[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。后续完成标准Web输入/录音和公开完整包核验，再交真机前后独立入口；手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
+[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。[声音修复版](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b)与[前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)已公开；线上GUI正在最后核验。手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
 
 ## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
 

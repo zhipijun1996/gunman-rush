@@ -220,7 +220,10 @@ def item_art_consumers(root):
 # AUDIO-AMBIENCE-01: finite reviewed loader and the eight authored outputs only.
 # This is an asset-identity adapter, not an audio decoder or quality verdict.
 AMBIENCE_LOADER = 'scripts/audio/game_ambience.gd'
-AMBIENCE_LOADER_SHA256 = '344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3'
+# MOBILE-WEB-PERF-01: reviewed pause-state-only fix. Asset loading, authored
+# paths, manifest parsing and source selection remain unchanged. Keep an exact
+# binding so any future loader edit still requires a finite-adapter review.
+AMBIENCE_LOADER_SHA256 = 'baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48'
 AMBIENCE_ROOT = 'assets/audio/ambience_v1/'
 AMBIENCE_BEDS = {'plains_a': ('plains', 'A'), 'plains_b': ('plains', 'B'),
                  'forest_a': ('forest', 'A'), 'forest_b': ('forest', 'B')}

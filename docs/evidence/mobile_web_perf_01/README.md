@@ -1,6 +1,6 @@
 # MOBILE-WEB-PERF-01：音频与正式A/B证据归档
 
-最新用户反馈以声音断续为主，动作几乎不卡。本轮只确认下列音频机制和有限正式消费者结果；不签手机FPS、GPU瓶颈、BGM全程连续或用户听感。正式Web修复及保持同一UI的修复前后页面由root继续交付，本页发布状态待补。
+最新用户反馈以声音断续为主，动作几乎不卡。本轮只确认下列音频机制和有限正式消费者结果；不签手机FPS、GPU瓶颈、BGM全程连续或用户听感。两处修复已发布，保留相同UI的旧版作为独立对照；完整公开PCK与官方引擎文件均已HTTP下载核验。真机听感仍待验。
 
 ## 原件与压缩档
 
@@ -111,8 +111,23 @@ bus_only的动作WAV按真实variant取jump/pulse源，重采样并与原生起�
 
 初期ab/extra/route/official报告仅作历史定位。精确欠载来自明确标识的诊断worklet副本，不能把混合PCM零块直接等同欠载计数，也不把曾经SAMPLE原生start等同可听。全停音频对照、重复pause、旧坏图与旧候选失败均保留；当前不继续线程/GPU方向探索，也不由云端帧数代签用户真机。
 
-## 发布状态：待补
+## 标准生产包与已发布对照
 
-Root已完成标准Web导出：source `ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83`，build `3866985a1e8b`，PCK完整SHA `3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21`，208,691,528字节；build及web-cache/bundle检查已通过。`build/mobile_web_perf_01/production-pack-comparison.json`对比旧UI包2caa：仅GameAudio.gdc、GameAmbience.gdc及PCK内global-script/UID两缓存改变，3257项相同，无增删。该新生产收据由root后续单独补归档，不回写本轮冻结旧实验档。
+[修复版3866985a1e8b](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b) · [修复前2caa独立入口](https://zhipijun1996.github.io/gunman-rush/audio-before/) · [前后选择页](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)。两个目录各有实际固定PCK、metadata、原官方engine与cache worker，查询参数不承担切换旧包的功能。一次关闭上一游戏标签再比较。
 
-正式标准Web音频录制首attempt因真实cache ServiceWorker绕过observer route而404失效，失败保留；第二轮改observer blob及单顺序初始化，结果仍待root填写。保持相同UI的修复前后页面URL、实际线上metadata/完整PCK和点击/音频验证待补。本页没有把导出/校验通过写成已上线、main合并、BGM全连续或真机验收。
+标准修复包source `ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83`、PCK `3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21`／208691528字节。对旧UI包仅两份audio.gdc与两个引擎cache变化，3257项相同，无新增或移除entry；见[生产构建](production-build.json)。Godot4.7.2官方JS/WASM/worklets字节不变，不强制全Stream/Sample、不删功能或改声音素材。原生55+45+60=160／0，[源码独审](production-review.json)、[部署审查](delivery-review.json)、[守门审查](guard-review.json)限定通过。
+
+[标准Web实际触屏/录音](production-browser/report.json)使用未改PCK及官方引擎，普通触屏跳跃/射击、实际Home菜单Explore进入关卡；只在浏览器外接只读PCM tap。两段实际8秒WAV：[家园](production-browser/home-actions.wav)、[关卡](production-browser/plains-actions.wav)。[独立PCM复核](production-audio-analysis.json)确认：
+
+| 正式修复包场景 | jumpρ | pulseρ | 对应native时间差 |
+| --- | ---: | ---: | --- |
+| Home | 0.997125 | 0.999833 | 两声均+2采样／45µs |
+| Plains | 0.891302 | 0.994043 | 两声均+2采样／45µs |
+
+所有正确variant匹配均强于错variant及反序负控，完整窗口覆盖、observer错误0、graph无反馈环。仅签四个动作声存在，不签全部音色、完整长BGM连续性、实体设备或FPS。
+
+首轮标准包录音失败：真实cache ServiceWorker绕过Playwright route，observer Worklet404而就绪超时；PCK/engine不变。第二轮只读observer改为顺序单init与blob，成功。首轮、构建、其他验证失败和UID自动改写恢复见[日志档](production-run-failures-and-logs.tar.gz)与[成员SHA](production-log-index.json)，未追签旧失败。
+
+[Actions40896322142](https://github.com/zhipijun1996/gunman-rush/actions/runs/40896322142)已成功，[公开完整下载](public-download.json)实际读完两份PCK与两目录各四官方engine文件，10项均HTTP200且完整长度/SHA一致。[目录身份](comparison-builds.json)与[部署收据](deployment.json)保留。线上真实GUI冒烟仍在执行，完成后另附；不以发布代签main合并、完整CI、真机或玩家认可。
+
+有限资产adapter仍按GameAmbience精确单SHA守门，只重绑已审pause状态修改，原17项负例专项及57项quality测试通过。旧UI记录补的是既有公开source4707真实mobile GUI的有界库存引用，未补造fresh执行。实际base1b质量差异检查已通过，原失配与守门失败日志保留。

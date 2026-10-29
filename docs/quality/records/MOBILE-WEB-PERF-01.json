@@ -8,7 +8,7 @@
     "只快速Web部署，不默认merge main；保原失败和预算"
   ],
   "task_id": "MOBILE-WEB-PERF-01",
-  "workflow": "in_progress",
+  "workflow": "awaiting-device",
   "baseline_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
   "reviewed_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
   "content_version": "web-audio-bus-pause-v1",
@@ -42,7 +42,9 @@
     "tools/mobile_web_perf/minimal_audio_repro.gd.uid",
     "tools/mobile_web_perf/probe.gd.uid",
     "tools/mobile_web_perf/run_ab.py",
-    "tools/mobile_web_perf/prepare_comparison.py"
+    "tools/mobile_web_perf/prepare_comparison.py",
+    "tools/check_quality_diff.py",
+    "tools/mobile_web_perf/verify_published_audio.py"
   ],
   "deliverables": [
     "current Web baseline and independent AB receipts",
@@ -80,6 +82,20 @@
       "method": "实际项目工具链与既有真实消费者",
       "expected": "不再错误追加bus或重复unpause，不破坏已有音量和关闭契约",
       "failure": "运行ERROR/泄漏/消费者回归"
+    },
+    {
+      "id": "audio-formal",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "实际标准导出中的两个场景和四个动作声，不以简化App替代",
+      "evidence": [
+        "audio-web"
+      ],
+      "scenario": "普通触屏跳跃/射击、家园菜单Explore进入真实关卡",
+      "method": "真实官方PCK和engine；blob仅作只读PCM观察",
+      "expected": "动作声模板完整存在且匹配native音频时钟，菜单/区域路由无ERROR",
+      "failure": "native开始但PCM无完整对应波形或错用替代场景"
     }
   ],
   "evidence": [
@@ -136,12 +152,59 @@
       "command": "python3 tools/build.py web",
       "exit_code": 0,
       "environment": "Godot4.7.2 official native export; unchanged official single-threaded JS/WASM/worklets"
+    },
+    {
+      "id": "audio-web",
+      "path": "docs/evidence/mobile_web_perf_01/production-browser/report.json",
+      "sha256": "07e5ea98fd13bff34e853a64667ffeaaf2f60ca15b26e9637c0cc2f4ce43f09b",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Actual exported standard demo with ordinary native touches and Home Explore, browser-only PCM observer",
+      "observed": "Home/Plains jump and pulse full waveforms align with native start+2samples; browser/script/shader errors0; no FPS/device/full BGM claim",
+      "consumers": [
+        "standard-home-audio",
+        "standard-plains-audio"
+      ]
+    },
+    {
+      "id": "audio-consumers",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/consumer-inventory.json",
+      "sha256": "a804f93ff2b6d39664eaa9008627c1a33d2b729430df037c3056ddcac6ef7b5b",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Extract bounded actual standard-browser route observations",
+      "observed": "Home and Plains actual original game outputs; no simplified App or script scene replacement"
+    },
+    {
+      "id": "audio-production-analysis",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/production-audio-analysis.json",
+      "sha256": "533677ccaabdb0e31bcf7fc0081aa117d178862e18a91856408a9ef872f0a83c",
+      "producer": "independent subagent /root/style_rebind",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Independent PCM negative controls and exact native-clock window attribution",
+      "observed": "limited four-sound production PCM confirmation"
+    },
+    {
+      "id": "audio-public",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/public-download.json",
+      "sha256": "5498ee663451bdf292fec00599d5ef44d94419cc6566b68e940cefca482f5636",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Full HTTP download and SHA/length check against both exact prepared bundles",
+      "observed": "10 full files identical; no device acceptance"
     }
   ],
   "unverified_items": [
     "physical Honor/Huawei audio acceptance",
-    "long-duration BGM/environment continuity on physical mobile Chrome",
-    "combined production Web output and deployment verification pending"
+    "long-duration BGM/environment continuity on physical mobile Chrome"
   ],
   "gates": {
     "G0": {
@@ -196,9 +259,11 @@
       ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "等待实际证据，不代签真机",
-      "evidence": []
+      "status": "passed",
+      "reason": "限定当前标准PCK的Home实际触屏与菜单Explore进入Plains，四个动作声实际混音确认；完整游戏和长BGM未验",
+      "evidence": [
+        "audio-web"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -243,5 +308,28 @@
       "evidence": []
     }
   },
-  "consumer_coverage": null
+  "consumer_coverage": {
+    "scope": "Two actual standard demo route outputs observed from ordinary title touch and Home menu Explore, with original PCK/native sources/PCM. Not the complete audio bank, BGM continuity or physical-phone inventory.",
+    "inventory_evidence": "audio-consumers",
+    "observations": [
+      {
+        "consumer": "standard-home-audio",
+        "status": "passed",
+        "reason": "actual ordinary touch and recorded native-aligned four-sound output, limited to these observed outputs",
+        "output": "behavior",
+        "evidence": [
+          "audio-web"
+        ]
+      },
+      {
+        "consumer": "standard-plains-audio",
+        "status": "passed",
+        "reason": "actual ordinary touch and recorded native-aligned four-sound output, limited to these observed outputs",
+        "output": "behavior",
+        "evidence": [
+          "audio-web"
+        ]
+      }
+    ]
+  }
 }
