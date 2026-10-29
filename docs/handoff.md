@@ -1,5 +1,50 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
+
+用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。
+
+
+## 2026-10-29 AUDIO-HOME-01 · 已选择底声＋生活音
+
+用户在家园三模式交付后明确“底音+生活音”，选定当前home-quiet-01的life整体方案。config/audio_director/home/user-selected.json绑定manifest9da878...、床与8条生活素材SHA、原话与影片源a4b／UI745；brief自动读取并拒绝版本/文件漂移。保床额外−2dB、原BGM与每NPC12–22秒/全局6秒/最多1点声。区域A/A选择保持。
+
+本轮只记录当前整体声音选择、上下文与质量证据，不重制音频/重录/部署，不修改正式默认或main。同步PR113；正式接入时直接消费已选两区A/A＋家园life，不重问已确定方案。单素材独立排名、全自然路线、实体设备与完成推广未推导。下方“家园待选择”是此前交付状态，现由本条覆盖。
+
+
+## 2026-10-29 AUDIO-HOME-01 · 家园微风与生活声试听已发布
+
+[家园手机试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/)已由原Site v3部署（仍仅拥有者）；只加/home/，原root/previous-v1共54文件及hosting配置逐字节保持。托管源`1bfc4d6bb36807d78108a084d6803c3f798f9f7c`，原生影片producer`a4b2113aa786193a1d653080365f6067dd020880`，严格HTML身份/后包装源`745097b8c390502257a55c727444104c4f64cecf`分别记录。
+
+借用已选quiet-02 plains_a原字节再−2dB，新布料/木件/工具/册页各两条CC0生活拟音，4真实keeper脚底定位；12–22秒/全局6秒/至多1点声，静态NPC无假动作同步。原BGM与规则/正式HomeScene/DemoApp/共享音频/区域选择不改，显式开发候选，家园混音仍待用户试听。
+
+真实3×26秒/4969帧/7,900,638B（SHA d56076d...）原生轨音、3838源闭包与同路状态通过；家园60/0、原regional55/0、加工8项根/作者/独审均过。正常短片只听到1次近处cloth1，8条素材可单听。修后手机3章/9单听/11身份篡改反例通过；远端/home MP4全SHA、真实life指针/AAC45827字节/Stop及旧root元数据均实测。
+
+[实际证据与失败](evidence/audio_home_01/README.md)。原processor/两个runtime/typedArray scene/64像素headless/UID登记及HTML身份缺项全部保留，不改预算或伪签；新源技术/审查与用户、实体设备、完整CI/正式推广分开。继续PR113，不合main；下一步消费home-quiet-01真实选择JSON/听感，再按明确范围接入，不重做已选两区A/A。
+
+## 2026-10-29 AUDIO-AMBIENCE-01 · 两区quiet-02均已选A
+
+用户在轻微环境版交付后明确“两者都选A”：平原`plains_a`、森林`forest_a`，保当前−14dB床声／原BGM混音。精确记录`config/audio_director/ambience/user-selected.json`绑定quiet-02、manifest与两OGG SHA、原话和原生producer e55910ec；brief自动读取并拒绝指纹漂移。原B方案与较响首版不删，不推导四点声或真机认可。
+
+本次仅记录明确选择与后续上下文；运行默认original和main未改，无新录屏/重导出。沿PR113同步；下一步正式集成时使用此精确A/A选择，保原音乐和生命周期规则，不重问已确定的两区方案。下方“待选择”属于当时历史交接，现由本条覆盖。
+
+
+## 2026-10-29 AUDIO-AMBIENCE-01 · quiet-02轻微环境音已发布
+
+用户明确首版环境音过响盖住BGM；同PR113／`feature/audio-ambience-01`已迭代为quiet-02：保原归一/控峰后四床−14dB、四点−10dB，实际解码降幅已核。五MP3、MusicGain 0.16与玩法/动作保持。原生/影片源`e55910ec7d5be218735fb7cade4ebdd4f662552a`，6×26秒／9943帧、14,065,613B，714.952秒内完成原900秒预算，source/loop/轨迹/音轨均通过；不是后期配音。
+
+[原手机工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已更新Sites v2（仍仅拥有者）；托管源`060788289a4d04dd96b51904317beaa04c174320`。默认BGM混音，旧版27件原样保留[previous-v1/](https://clock-ambience-lab.zhipijun1996.chatgpt.site/previous-v1/)。新选择KEY与mix_revision隔离旧选择/旧包。真实本地12章节/4点声和4身份反例通过；远端全MP4 SHA、两指针/AAC解码/Stop通过。
+
+[新增证据与失败](evidence/audio_ambience_01/quiet-02/README.md)：加工9／适配17／旧quality57／原生55通过。新混音限定独立工程审查ACCEPT；原首轮工程审查与失败不改签，旧听感被拒绝；quiet-02用户听感、实体设备、完整CI和正式推广仍未验，默认original、不自动合main。下一步直接消费新试听反馈/选择JSON，不重做素材，不将工程检查当审美批准。
+
+## 2026-10-28 AUDIO-AMBIENCE-01 · 两区环境音候选已交付
+
+从main `45e98dbb` 独立创建 `feature/audio-ambience-01`。4个24秒CC0实录床声＋4个细节声、可追溯加工/许可、显式GameAudio环境组件和两区同Seed原音轨对照已实作。运行/影片源 `de6b36c6`，9943帧，原生音画14,049,972B；[本轮证据](evidence/audio_ambience_01/README.md)、[音效入口](audio_director/ambience.md)。
+
+[手机环境音工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)由Sites v1成功发布（仅拥有者账号）；12章节、单声/循环、BGM混音、4点声与选择JSON，原动作工坊和主站保留。托管源 `8d29d154` 与原生producer分记。无新可操作完整Web包，不把主站称本候选。正式默认仍original，点声未全图布设；用户听感/实体设备/完整CI不代签。技术记录review，不自动合main。
+
+恢复：`python3 tools/audio_director.py brief '优化森林环境音'`；来源与精确配方见manifest。四床source/loop/原音轨/同区物理时序已实际验证；独立工程审查通过，原导入/遮挡/未完成片/诊断超时全部保留。后续先消费用户环境音选择，再做组合混音或明确授权的正式推广。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。

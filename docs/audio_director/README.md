@@ -1,5 +1,7 @@
 # 失序之钟 · Audio Director
 
+环境音新工作线：两区真实录音A/B、显式环境床与距离点声、同Seed原生录屏见[两区环境音](ambience.md)。原单项SFX选择与环境音验收分开；发布状态以本轮证据为准。
+
 当前以**V3真实场景录屏**供用户选择：[手机点播](https://clock-audio-director-lab.silkyball18.chatgpt.site/reels-v3/)、[功能声音规范](style_bible_v3.md)、[事件/代码增量](event_catalog_v3.md)、[实际来源与验证](../evidence/audio_director_03/README.md)。42个CC0候选覆盖金币/液体回血/宝箱/长道具/打击/3武器/UI。原起跳/落地和五BGM保留，v1否决与V2未选历史保留；用户已回传13项选择，见[已选事件映射](../../config/audio_director/selected/selected.json)；11个新候选已选，手里剑/炸弹原声保留，整体混音与真机仍待验，不宣称商业品质。下方v1命令仅作旧原件追溯，以brief.next_command的当前版本为准。
 
 任务 **AUDIO-DIRECTOR-01**，第一阶段候选版本 `audio-director-v1`。目标是持续产出可听、可比、可追溯的游戏SFX。技术验证、用户听感与实体设备分别记录；当前没有商业品质批准。

@@ -1,0 +1,178 @@
+{
+  "task": "AUDIO-AMBIENCE-01",
+  "candidate_version": "audio-ambience-v1",
+  "prior_v1_status": "user-rejected; preserve original jump/land",
+  "request": "优化森林环境音",
+  "status": "production_brief",
+  "selected_events": [
+    "ambience_plains",
+    "ambience_forest"
+  ],
+  "inputs": [
+    {
+      "path": "docs/audio_director/style_bible.md",
+      "sha256": "28248cc9bf92b22af5c538b90c400f8daddfea116de21517ff486dcc730e398a"
+    },
+    {
+      "path": "docs/audio_director/event_catalog.json",
+      "sha256": "19a378a53fa26dfcd3ab617a50f34e04549d3e4ef0aad64ef82e3855ddbbd0c3"
+    },
+    {
+      "path": "config/audio_director/v3/sources.json",
+      "sha256": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a"
+    },
+    {
+      "path": "config/audio_director/v3/recipes.json",
+      "sha256": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8"
+    },
+    {
+      "path": "config/audio_director/v3/runtime.json",
+      "sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58"
+    },
+    {
+      "path": "assets/audio/director_v3/manifest.json",
+      "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+    },
+    {
+      "path": "docs/audio_director/style_bible_v3.md",
+      "sha256": "3a1d568aee20cde3b1a6d6acc4aedb30c9b34875ba7342641c5d09be63bcb895"
+    },
+    {
+      "path": "docs/audio_director/event_catalog_v3.md",
+      "sha256": "b3879cb14b08cb2412568317b0358f2fbc63112f062a26e864ab39f3ea437f3d"
+    },
+    {
+      "path": "docs/worklines/audio_director_03/scope.md",
+      "sha256": "8703b01a67944aad433fa2d5e2131d74496872001626a93b088b6e364f923c3f"
+    },
+    {
+      "path": "config/audio_director/selected/selected.json",
+      "sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483"
+    },
+    {
+      "path": "docs/audio_director/ambience_event_catalog.json",
+      "sha256": "a25b7826103ff3989183719cd55c9c5aad6b79fc488f9dc75c1be04eb9c8159f"
+    },
+    {
+      "path": "docs/audio_director/ambience.md",
+      "sha256": "d76df2755a5926fc8b4a7b0ff3b61955ad4c7663e4ab8cfe4c232b716db23876"
+    },
+    {
+      "path": "docs/audio_director/ambience_sources.md",
+      "sha256": "ad983be4d20809ae2419e1f39211c45cd6790cdf2c4337edbf41f91bb84d0c41"
+    },
+    {
+      "path": "docs/audio_director/ambience_runtime.md",
+      "sha256": "a2d002ad9bf005e92c3288bfd99b29b1d9355307113dd4315f62c7eb63720790"
+    },
+    {
+      "path": "docs/worklines/audio_ambience_01/authority.json",
+      "sha256": "7b40b741fbaff5de2ec93dd2425d7bc3a2ab6914855056b2941b961ebe0346e2"
+    },
+    {
+      "path": "config/audio_director/ambience/sources.json",
+      "sha256": "da32c79fe6f1ae43600c1caa3ce9ea6af15010398bfde86a00f484f279bad05d"
+    },
+    {
+      "path": "config/audio_director/ambience/recipes.json",
+      "sha256": "bb8e68c940fd89c8e8496e4e02d2bc06d03d35b7c0973d6c26189b4b1027ee34"
+    },
+    {
+      "path": "assets/audio/ambience_v1/manifest.json",
+      "sha256": "70ec7a2ade5ab5c5a514598a182a31eaca37f56d61a7d1693595399f080ab918"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "sha256": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3"
+    },
+    {
+      "path": "config/audio_director/ambience/user-selected.json",
+      "sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5"
+    }
+  ],
+  "workflow": [
+    "Read current functional Audio Style Bible, Event Catalog and selected family; inspect actual accepted consumers",
+    "Review mature-game function/timing references, then select licensed source files with original SHA and terms",
+    "Build and validate explicit versioned recipes; preserve prior versions and failed aesthetic feedback",
+    "Verify event/phase semantics, pause/death/reload and shared voice lifecycle",
+    "Deliver short real Godot recordings or interactive lab as requested; user alone approves timbre"
+  ],
+  "next_command": "python3 tools/audio_ambience_design.py build",
+  "limitation": "Brief routes context, not automatic creative completion. New enemies/areas need actual source selection and authored recipes. Commercial game references are not licensed production inputs.",
+  "user_selection": {
+    "path": "config/audio_director/selected/selected.json",
+    "event_profiles": {
+      "coin": "A",
+      "heal": "A",
+      "chest_open": "A",
+      "item_get": "C",
+      "click": "C",
+      "confirm": "C",
+      "denied": "C",
+      "enemy_hit": "B",
+      "enemy_hurt": "B",
+      "hurt": "C",
+      "shot_pulse": "A",
+      "shot_shuriken": "original",
+      "shot_bomb": "original",
+      "bomb_explode": "original"
+    },
+    "provenance": {
+      "input": {
+        "path": "user-20261028.json",
+        "sha256": "56a0dd359fe5c53169794e28dcd7f333cea686d9f1d147ca70d3a3419d2ed072",
+        "choice_rows": 13
+      },
+      "reels": {
+        "path": "reels-user-20261028.json",
+        "sha256": "ac08d83ecadb0ef390779b2dba2045a9750b2ecbd88d4ebb8f8e51f5fc05e69a",
+        "imported_from": "build/audio_director_v3/listen-blob-publish/reels.json"
+      },
+      "candidate_manifest": {
+        "path": "assets/audio/director_v3/manifest.json",
+        "sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f"
+      },
+      "importer_sha256": "63620d3527c0564daf3e46ceb53aa8bf491bfd2096b67a3f1b690c383945621b"
+    },
+    "scope": "User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing. No regional ambience choice is inferred."
+  },
+  "family": "regional_ambience",
+  "runtime_scope": "Explicit development audition only; preserve formal original ambience, five original BGM, and prior per-event SFX selections.",
+  "ambience_selection": {
+    "schema_version": 1,
+    "task": "AUDIO-AMBIENCE-01",
+    "selection_id": "ambience-quiet-02-user-20261029-aa",
+    "version": "audio-ambience-v1",
+    "mix_revision": "quiet-02",
+    "selection_method": "explicit_chat_confirmation",
+    "user_confirmation": {
+      "source": "Current conversation, following the quiet-02 workshop delivery",
+      "date": "2026-10-29",
+      "quote": "两者都选A"
+    },
+    "manifest_path": "assets/audio/ambience_v1/manifest.json",
+    "manifest_sha256": "70ec7a2ade5ab5c5a514598a182a31eaca37f56d61a7d1693595399f080ab918",
+    "producer_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+    "movie_sha256": "a502ceef2eba28176520451791b2aa44c8dfcd401d1929e5e1f73cbb51827309",
+    "scope": "Explicit preference for the two quiet-02 ambience beds. Does not infer standalone detail choices, device approval, or a completed formal runtime rollout.",
+    "runtime_status": "selection_recorded; formal default still original",
+    "events": [
+      {
+        "region": "plains",
+        "profile": "A",
+        "candidate_id": "plains_a",
+        "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+        "sha256": "ecee435be5c38c77b3bac2d9e728e4ce480abbac07fac37133abd101a5e330d0",
+        "output_gain_db": -14
+      },
+      {
+        "region": "forest",
+        "profile": "A",
+        "candidate_id": "forest_a",
+        "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+        "sha256": "48e9fb5c1616a81cbc59f0b15b2b259ba372f4db37b211532f6a4173cbbe1540",
+        "output_gain_db": -14
+      }
+    ]
+  }
+}

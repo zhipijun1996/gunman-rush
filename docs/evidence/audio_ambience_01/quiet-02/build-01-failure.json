@@ -1,0 +1,6 @@
+{
+  "command": "python3 tools/audio_ambience_design.py build",
+  "exit_code": 1,
+  "error": "Output level out of bounds: plains_a",
+  "reason": "Prior absolute lower guard was -45 dBFS; requested quiet target -45 exports about -45.2. Replace generic threshold with narrow authored target +/-0.5dB and retain ceiling, fingerprints, silence and seam guards."
+}

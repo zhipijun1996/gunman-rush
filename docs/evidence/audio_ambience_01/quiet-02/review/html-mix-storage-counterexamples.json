@@ -1,0 +1,35 @@
+{
+  "html_sha256": "cc542150bd64737d7fa6281be9a4bc3af6ab95471f33cfd0995e1eef1ba2bbbf",
+  "scope": "Independent execution of actual HTML script in Node VM with stub DOM/fetch/storage; version-rejection and old-choice isolation only, not browser media playback or listening",
+  "cases": [
+    {
+      "id": "old_both",
+      "old_package_rejected": true,
+      "only_quiet_storage_read": true,
+      "old_preference_not_imported": true,
+      "old_storage_unchanged": true
+    },
+    {
+      "id": "old_report",
+      "old_package_rejected": true,
+      "only_quiet_storage_read": true,
+      "old_preference_not_imported": true,
+      "old_storage_unchanged": true
+    },
+    {
+      "id": "old_candidates",
+      "old_package_rejected": true,
+      "only_quiet_storage_read": true,
+      "old_preference_not_imported": true,
+      "old_storage_unchanged": true
+    },
+    {
+      "id": "wrong_revision",
+      "old_package_rejected": true,
+      "only_quiet_storage_read": true,
+      "old_preference_not_imported": true,
+      "old_storage_unchanged": true
+    }
+  ],
+  "all_passed": true
+}
