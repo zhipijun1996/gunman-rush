@@ -43,8 +43,10 @@ static func ensure_buses() -> void:
 	# Unity buses preserve the original mix; candidates can be balanced separately.
 	for bus_name: StringName in [&"SFX", &"UI", &"Ambience", &"Music"]:
 		if AudioServer.get_bus_index(bus_name) >= 0: continue
-		AudioServer.add_bus()
-		var index := AudioServer.bus_count - 1
+		# Godot4.7.2 Web Sample addAt(-1) incorrectly moves the appended bus.
+		# Growing the count keeps the native and browser bus indices aligned.
+		var index := AudioServer.bus_count
+		AudioServer.bus_count = index + 1
 		AudioServer.set_bus_name(index, bus_name)
 		AudioServer.set_bus_send(index, &"Master")
 

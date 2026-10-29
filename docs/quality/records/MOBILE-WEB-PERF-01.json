@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "task_type": "small_fix",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save及声音素材；只改已复现的总线创建和暂停状态写入",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "task_id": "MOBILE-WEB-PERF-01",
+  "workflow": "in_progress",
+  "baseline_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+  "reviewed_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+  "content_version": "web-audio-bus-pause-v1",
+  "owner": "root",
+  "purpose": "移动Web音频根因复现及两处针对性修复",
+  "player_experience": "手机横屏稳定流畅且原BGM/环境音/动作音效保留",
+  "affected_paths": [
+    "scripts/audio/game_audio.gd",
+    "scripts/audio/game_ambience.gd",
+    ".github/workflows/deploy-prepared-playtest.yml",
+    "tools/mobile_web_perf/",
+    "docs/worklines/mobile_web_perf_01/scope.md"
+  ],
+  "deliverables": [
+    "current Web baseline and independent AB receipts",
+    "measured hotspot fix",
+    "physical-phone comparison build"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_web_perf_01/scope.md",
+      "sha256": "6299ac9c93acc29c9455f85f43f81fb131ddb4e5cc0173fdbf4a366718814755",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "current user requirements and actual public build identity",
+      "observed": "main1b实际最小复现与正式demo四case完成后，仅修总线创建与重复unpause"
+    }
+  ],
+  "unverified_items": [
+    "physical Honor/Huawei audio acceptance",
+    "long-duration BGM/environment continuity on physical mobile Chrome",
+    "combined production Web output and deployment verification pending"
+  ],
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "冻结当前已认可UI/Web基线与独立消融要求",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "用户要求保画质/功能/声音并逐项验证",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    }
+  }
+}

@@ -1,5 +1,13 @@
 # 开发任务
 
+## 2026-10-29 MOBILE-WEB-PERF-01 · 调查中
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-PERF-01 | 移动Web共享系统性能/音频独立消融与保画质修复 | MOBILE-UI-CLARITY-01 | in_progress | [记录](quality/records/MOBILE-WEB-PERF-01.json) |
+
+[冻结范围](worklines/mobile_web_perf_01/scope.md)。先核当前公开2caa023125bd，独立开关后再修实测热点，保用户已认可UI；真机未接入，不以云端签手机流畅。
+
 ## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
 
 运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
