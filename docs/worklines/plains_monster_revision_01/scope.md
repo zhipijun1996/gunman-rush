@@ -28,3 +28,11 @@
 碰撞适配另修冲锋require_floor支持探针：使用实际RectangleShape2D的脚底与leading halfwidth+1，射线从sole-2至sole+8（原10wu长度），避免旧硬编码在exact贴地时从地板边界开始漏检。旧339/2失败与修后340/0保留；其他require_floor=false调用及_hit_landing_supported未改，不能声称旧射线位置完全等价。
 
 完整回归另发现forest_vertical_expedition._ecology复用charger时写死旧16wu半高。仅该条spawn.y改为读取真实Definition.collision_size.y/2，保原脚底/横向边界assert、支持面、其他行、地形与RNG；新28高实际y比旧值低2wu，v14/v15 App均37项局部通过。平原录片源7edda9不受此森林技术适配影响，不给旧片改源标。
+
+## 当前守门与冻结历史回放的分流
+
+依据 AGENTS.md「2026-10-23 当前 Demo 优先与兼容延期」既有用户授权，冻结历史Manifest回放延期；原断言、fixture、预算与失败原件保留，不能把延期记通过。第三次适用完整回归实际有57个完成passed marker，随后原森林v11 data回放280／2失败；环境重启后没有最终聚合report，原327总账及world阶段未达。见[第三轮原件](../../evidence/plains_monster_revision_01/integration/attempt-03/README.md)。
+
+原 forest-depth-versions 是历史与当前职责混合，不能直接移走。新独立 current-registry 将当前V2／V15完整输出／严格准入、未知空值畸形拒绝、真实当前App HOME与active无副作用拒绝、两图当前状态保存重载及音频／owner释放留在默认检查。旧check完整字典／命令／210秒外层与原import/native预算、三native消费者、reader与11份源／fixture保持字节不变，仅明确纳入manual legacy-compat；新项在gameplay/full一换一，full166／gameplay151／适用并集163及物理lane91＋75不变，原Bible/debug/campaign检查均保留。
+
+此限定过程由[MONSTER-LEGACY-SCOPE-01](../../quality/records/MONSTER-LEGACY-SCOPE-01.json)单独记账；独审接受精确d431守门代码与分流，最终reader实际48／0含47拒绝反例。开发native88／0保原来源，不改签最终干净源fresh。完整适用回归及主怪物质量仍须另证，详见[当前守门证据](../../evidence/plains_monster_revision_01/current-registry/README.md)。

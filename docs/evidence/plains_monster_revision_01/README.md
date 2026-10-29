@@ -13,7 +13,7 @@
 
 [原始采集包](capture-originals.zip)保存两片各自trace、原PCM、完整report、日志及相关来源；不重复外置MP4。[全文件清单](manifest.json)记录字节大小和SHA256，ZIP内有原member清单。新片普通血量／辅助线与身体动作必须看实际画面；shader使用1wu nearest不自动证明与整体美术一致。
 
-当前为复审候选。[最终有限独审](review/plains_revision_visual_review_final.md)已确认死亡问题修复及实际同屏粒度可进入审核；用户审美、实体设备、完整正常速度听审及G5未签。新视频已原生私密发布至[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)，站点源c2de0bff；原75版本与意见归属保留，详见下方实际发布收据。原163回归attempt01只执行8项、在旧登记/任务索引处失败，修复后同一范围继续；未执行项不记通过。
+当前为复审候选。[最终有限独审](review/plains_revision_visual_review_final.md)已确认死亡问题修复及实际同屏粒度可进入审核；用户审美、实体设备、完整正常速度听审及G5未签。新视频已原生私密发布至[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)，站点源ec916080；原75版本与意见归属保留，详见下方实际发布收据。原163回归attempt01只执行8项、在旧登记/任务索引处失败，修复后同一范围继续；未执行项不记通过。
 
 ## 当前实现的明确边界
 
@@ -44,7 +44,7 @@
 
 ## 私密工坊新版已发布
 
-[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已原生Sites发布成功：站点源c2de0bff9db68bd6ab03af661e60823c10e6e880，部署与源码/归档见site/。25条目/88版本，原75版本原ID/revision/actions/provenance保留，新增7战斗片＋6实际平原同屏片。API13＋UI19测试、artifact验证均通过；两部原片完整HTTP200/SHA实核。D1/API/UI/schema不改，不写伪用户意见。
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已原生Sites发布成功：最新版站点源ec916080ffae288332c233cf01906fa02eeeb561，已明示本轮更新平原七怪，其他区域保留原实录；最新部署、32项测试和实际首页/媒体Range核验见[范围说明更新](site/scope-note-update/source.json)，原c2de发布原件仍保存在site/。25条目/88版本，原75版本原ID/revision/actions/provenance保留，新增7战斗片＋6实际平原同屏片。API13＋UI19测试、artifact验证均通过；两部原片完整HTTP200/SHA实核。D1/API/UI/schema不改，不写伪用户意见。
 
 原回归attempt01实际仅执行8项：7通过，quality因两旧registry source hash/新process任务索引缺失失败，后155未执行。保integration/attempt-01，不称全量跑完。技术登记追加证明与独审另保asset-registration/及review/；随后重跑同一163项。实际输入物化仅恢复3个原tracked文件共约1MB，不修改原内容/阈值。
 
@@ -53,3 +53,5 @@ comparison初页300条观测为movie9..308，声明可播10..308；转换器保�
 第二轮原163在generated-consumers进入真实Forest v14时触发旧16wu半高断言，实际34项通过／1失败／128未执行，保integration/attempt-02。局部只将该森林charger放置点按真实Definition半高定位，保原脚底断言、其他生态行/地形/RNG；App v14与当前v15局部37／0。随后先按原完整generated wrapper复验，再继续同一163范围；不由局部37签整个回归。
 
 生产站两部新片实际Range返回206、1024字节与原MP4前缀相同，见site/live-media-range.json；首个错误service header原401保留为工具验证失败，正确Bearer重试未修改网站权限或Worker。
+
+六页原始1280×720同屏PNG已外置在[同屏图目录](review/same-screen/)，便于直接检查像素粒度；它们与原片同源，未重采样。静态同屏粒度的有限独审通过单列为PRV-PIXEL-SAME-SCREEN，不将整怪visual或G2整体标通过。

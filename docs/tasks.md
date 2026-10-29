@@ -623,3 +623,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
 | ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
 | PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
+
+| MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431代码/分流独审ACCEPT，reader48／0；开发native88／0不追签最终源；旧280／2与中断57marker原件保留，最终163待执行 |
