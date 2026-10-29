@@ -46,6 +46,10 @@ var root_jump_held := false
 var wind_module: PlatformingModule
 var wind_cross_axis := 0.0
 var wind_jump_active := false
+var wind_jump_until := -1
+var wind_desired_x := 0.0
+var forest_jump_until := -1
+var forest_jump_held := false
 
 func _initialize() -> void:
 	for argument: String in OS.get_cmdline_user_args():
@@ -77,9 +81,9 @@ func start() -> void:
 	world.add_child(camera)
 	var overlay := CanvasLayer.new()
 	world.add_child(overlay)
-	heading = make_label("",Vector2(28,24),27)
+	heading = make_label("",Vector2(28,91),18)
 	overlay.add_child(heading)
-	detail = make_label("",Vector2(28,68),18)
+	detail = make_label("",Vector2(28,115),13)
 	overlay.add_child(detail)
 	overlay.add_child(make_label("ENEMY ALL 02 / BOSS / ACTUAL GODOT / 60 FPS / NORMAL SPEED / STEREO",Vector2(28,643),17))
 	overlay.add_child(make_label("Initial actual arena fixture. Real gates / AI / player damage. Missing actions or defeat are reported as coverage gaps.",Vector2(28,675),15))
@@ -127,6 +131,10 @@ func make_case() -> void:
 	wind_module = null
 	wind_cross_axis = 0
 	wind_jump_active = false
+	wind_jump_until = -1
+	wind_desired_x = 0
+	forest_jump_until = -1
+	forest_jump_held = false
 	geometry = {}
 	var id: String = manifest[index]
 	fixture = Node2D.new()
@@ -157,12 +165,14 @@ func make_case() -> void:
 		var arena: Array = geometry.boss_arena
 		arena_rect = Rect2(arena[0],arena[1],arena[2],arena[3])
 		player_spawn = point(geometry.counter_stands[0] if id == "rootbell_guardian_v2" else geometry.player_spawn)
+		if id=="thorn_queen_v2": player_spawn = Vector2(450,342)
 		boss_spawn = point(geometry.boss_position)
 	elif wind:
 		module = preload("res://scenes/generation/modules/plains_boss_arena.tscn").instantiate() as PlatformingModule
 		fixture.add_child(module)
 		wind_module = module
 		player_spawn = Vector2(350,452)
+		if id=="windkeeper_storm": player_spawn = Vector2(870,452)
 		boss_spawn = Vector2(735,535)
 		arena_rect = Rect2(220,70,820,530)
 		geometry = {"source":"res://scenes/generation/modules/plains_boss_arena.tscn","platforms":module.definition.platforms}
@@ -202,6 +212,10 @@ func make_case() -> void:
 	var setup: Dictionary = {}
 	if id == "rootbell_guardian_v2":
 		setup["initial_player_stand"] = "actual geometry.counter_stands[0], supported by the unmodified counter_branch; not a natural entrance traversal"
+	if id=="thorn_queen_v2":
+		setup["initial_player_stand"] = "midplatform (450,342), actual geometry platform Rect2(300,360,300,20); not a natural entrance traversal"
+	if id=="windkeeper_storm":
+		setup["initial_player_stand"] = "actual module right shelf (870,452), supported by original Rect2(810,470,190,20); not a natural entrance traversal"
 	if modern:
 		setup["bind_duel"] = bool(encounter.call("bind_duel",geometry,controller,policy,policy.lifetime))
 		if not setup.bind_duel: failures.append(id + ": actual bind_duel rejected geometry")
@@ -279,7 +293,24 @@ func make_case() -> void:
 	setup["activate"] = encounter.activate()
 	if not setup.activate: failures.append(id + ": original activation refused")
 	heading.text = "%02d / %02d   %s   [ACTUAL BOSS]" % [index+1,manifest.size(),id]
+	update_boss_camera(true)
 	await process_frame
+
+func update_boss_camera(immediate := false) -> void:
+	# The complete arena and current whole bodies fit in the safe display band
+	# y140..620. Original Boss HUD/seal labels own y0..85; capture labels use
+	# y91..135 and y643..700. No new frame/viewport or actor motion is created.
+	var bounds := arena_rect
+	bounds = bounds.merge(Rect2(controller.motor.global_position-Vector2(36,80),Vector2(72,110)))
+	var horizontal := maxf(90,encounter.definition.collision_size.x*.7)
+	var upper := maxf(125,encounter.definition.collision_size.y+40)
+	var lower := maxf(65,encounter.definition.collision_size.y*.6)
+	bounds = bounds.merge(Rect2(motor.global_position-Vector2(horizontal,upper),Vector2(horizontal*2,upper+lower)))
+	var desired_zoom := minf(1120.0/maxf(1,bounds.size.x),440.0/maxf(1,bounds.size.y))
+	var desired_position := bounds.get_center()+Vector2(0,-20.0/desired_zoom)
+	var weight := 1.0 if immediate else 1.0-exp(-8.0/60.0)
+	camera.zoom = camera.zoom.lerp(Vector2(desired_zoom,desired_zoom),weight)
+	camera.position = camera.position.lerp(desired_position,weight)
 
 func optional_property(object: Object, property_name: StringName) -> Variant:
 	if object == null: return null
@@ -300,6 +331,7 @@ func request_input(action: StringName,direction := Vector2.ZERO) -> void:
 	cases[index].inputs.append({"frame":frame,"local_frame":local_frame,"type":String(action),"direction":[direction.x,direction.y],"router_submitted":submitted})
 
 func clear_body_aim() -> Dictionary:
+	if encounter is ThornQueenV2: return weave_body_aim(encounter as ThornQueenV2)
 	# Same six physically ray-tested body offsets as the existing successful
 	# forest_depth_guardian_pilot.fire. Bell geometry remains real occlusion.
 	var half := encounter.definition.collision_size*.5-Vector2(4,4)
@@ -319,6 +351,50 @@ func clear_body_aim() -> Dictionary:
 			target += motor.velocity*lead+Vector2(0,.5*config.pursuit_gravity*lead*lead)
 		return {"target":target,"clear":true,"body_offset":[offset.x,offset.y]}
 	return {"target":motor.global_position+encounter.definition.collision_offset,"clear":false,"body_offset":null}
+
+func weave_future(queen: ThornQueenV2, seconds: float) -> Vector2:
+	var at := motor.global_position
+	var remaining := seconds
+	if queen.motion_mode=="perched": remaining = maxf(0,remaining-queen.motion_clock-(queen.definition as ThornQueenWeaveDefinition).migration_preview_seconds)
+	elif queen.motion_mode in ["migration_preview","phase_preview"]: remaining = maxf(0,remaining-queen.motion_clock)
+	var path := queen.motion_path()
+	for leg: int in range(queen.motion_leg,maxi(queen.motion_leg,path.size()-1)):
+		var goal: Vector2 = path[leg+1]
+		var duration := at.distance_to(goal)/(queen.definition as ThornQueenWeaveDefinition).migration_speed
+		if remaining<=duration: return at.move_toward(goal,remaining*(queen.definition as ThornQueenWeaveDefinition).migration_speed)
+		remaining -= duration
+		at = goal
+	return at
+
+func clear_projectile_segment(first: Vector2,last: Vector2) -> bool:
+	var circle := CircleShape2D.new()
+	circle.radius = controller.shoot_ability.tuning.projectile_radius
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = circle
+	query.transform = Transform2D(0,first)
+	query.collision_mask = 0xFFFFFFFF
+	query.collide_with_areas = true
+	query.exclude = [controller.motor.get_rid(),motor.get_rid()]
+	var space := motor.get_world_2d().direct_space_state
+	if not space.intersect_shape(query,1).is_empty(): return false
+	query.motion = last-first
+	var sweep := space.cast_motion(query)
+	return sweep.size()==2 and sweep[0]>=.99999
+
+func weave_body_aim(queen: ThornQueenV2) -> Dictionary:
+	var half := queen.definition.collision_size*.5-Vector2(2,2)
+	var samples: Array[Vector2] = [Vector2.ZERO,Vector2(0,-half.y),Vector2(-half.x,0),Vector2(half.x,0),Vector2(-half.x,-half.y),Vector2(half.x,-half.y),Vector2(-half.x,half.y),Vector2(half.x,half.y),Vector2(0,half.y)]
+	var visual := controller.motor.get_node("CourierVisual") as CourierVisual
+	for sample: Vector2 in samples:
+		var target := motor.global_position+sample
+		var aim := (target-controller.motor.global_position).normalized()
+		var muzzle := visual.muzzle_position(aim)
+		for unused: int in 4:
+			target = weave_future(queen,muzzle.distance_to(target)/controller.shoot_ability.tuning.projectile_speed)+sample
+			aim = (target-muzzle).normalized()
+			muzzle = visual.muzzle_position(aim)
+		if clear_projectile_segment(controller.motor.global_position,muzzle) and clear_projectile_segment(muzzle,target): return {"target":target,"clear":true,"body_offset":[sample.x,sample.y],"prediction":"actual motion_path/leg/clock, original projectile speed and swept radius"}
+	return {"target":motor.global_position,"clear":false,"body_offset":null}
 
 func rootbell_hook_input(bell: GuardianRootBellV2) -> void:
 	if controller.traversal.state!=&"free" or controller.traversal.hook_used or last_hook_bell==bell.get_instance_id() or bell.state not in [&"outbound",&"returning"]: return
@@ -346,34 +422,43 @@ func windkeeper_input(boss: WindkeeperEncounter) -> float:
 	if boss is BellstriderEncounter:
 		if boss.mode==&"roll" and signf(dx)==-boss.direction and absf(dx)<195 and grounded and wind_cross_axis==0:
 			wind_cross_axis = -boss.direction
-			request_input(&"jump")
-			wind_jump_active = true
+			wind_start_jump()
 		if wind_cross_axis!=0:
 			axis = wind_cross_axis
 			if grounded and not wind_jump_active: wind_cross_axis = 0
 		else:
 			var desired := clampf(motor.global_position.x-signf(dx)*220,arena_rect.position.x+55,arena_rect.end.x-55)
+			wind_desired_x = desired
 			axis = clampf((desired-player.global_position.x)/45,-1,1)
 		if boss.mode==&"rings" and grounded and boss.clock<.5 and not wind_jump_active:
-			request_input(&"jump")
-			wind_jump_active = true
+			wind_start_jump()
 	else:
 		var desired := motor.global_position.x-signf(dx)*240
 		if boss.stage_phase>=2 and is_instance_valid(wind_module):
 			var shelf_centers: Array[float] = []
 			for shelf: int in [1,2,3]: shelf_centers.append(wind_module.to_global(wind_module.definition.platforms[shelf].get_center()).x)
 			desired = shelf_centers[0] if boss.stage_phase==2 else shelf_centers[clampi(boss.chase_segment+1,0,2)]
+			if String(encounter.definition.resource_path).ends_with("windkeeper_storm.tres"): desired = wind_module.to_global(Vector2(870,452)).x
 			if grounded and player.global_position.y>boss._floor_y-130 and not wind_jump_active:
-				request_input(&"jump")
-				wind_jump_active = true
+				wind_start_jump()
+		wind_desired_x = desired
 		axis = clampf((desired-player.global_position.x)/45,-1,1)
 		if grounded and boss.mode==&"stomp_warning" and boss.clock<.3 and not wind_jump_active:
-			request_input(&"jump")
-			wind_jump_active = true
-	if wind_jump_active and player.normal_velocity.y>=0:
+			wind_start_jump()
+		if grounded and boss.stage_phase>=2 and player.global_position.distance_to(motor.global_position)<190 and not wind_jump_active: wind_start_jump()
+		if grounded and absf(axis)>.1 and not wind_jump_active:
+			var ahead := player.global_position+Vector2(signf(axis)*45,17)
+			var support := motor.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(ahead,ahead+Vector2(0,80),1,[player.get_rid()]))
+			if support.is_empty(): wind_start_jump()
+	if wind_jump_active and local_frame>=wind_jump_until:
 		request_input(&"jump_release")
 		wind_jump_active = false
 	return axis
+
+func wind_start_jump() -> void:
+	request_input(&"jump")
+	wind_jump_active = true
+	wind_jump_until = local_frame+23
 
 func drive() -> void:
 	if busy: return
@@ -427,13 +512,20 @@ func drive() -> void:
 			# with real horizontal input rather than rewriting weak_side.
 			var desired_x: float = motor.global_position.x+float((encounter as ThornForestEncounter).weak_side)*160
 			if absf(desired_x-controller.motor.global_position.x)>25: move_axis = signf(desired_x-controller.motor.global_position.x)
+			if controller.motor.is_on_floor() and absf(motor.global_position.x-controller.motor.global_position.x)<140 and not forest_jump_held:
+				request_input(&"jump")
+				forest_jump_held = true
+				forest_jump_until = local_frame+23
+		if forest_jump_held and local_frame>=forest_jump_until:
+			request_input(&"jump_release")
+			forest_jump_held = false
 		if encounter is WindkeeperEncounter: move_axis = windkeeper_input(encounter as WindkeeperEncounter)
 		# Original recoil remains active. Walk inward early enough that a real
 		# shot cannot push the player off the edge of the initial arena floor.
 		if not encounter is RootbellGuardianV2:
 			if controller.motor.global_position.x<arena_rect.position.x+165: move_axis = 1
 			if controller.motor.global_position.x>arena_rect.end.x-165: move_axis = -1
-		var jump_needed: bool = not encounter is RootbellGuardianV2 and not encounter is WindkeeperEncounter and (local_frame-last_attack_frame in range(12,22) or in_danger) and controller.motor.is_on_floor() and local_frame-last_jump_frame>65
+		var jump_needed: bool = id not in ["thorn_guardian","thorn_queen"] and not encounter is RootbellGuardianV2 and not encounter is WindkeeperEncounter and (local_frame-last_attack_frame in range(12,22) or in_danger) and controller.motor.is_on_floor() and local_frame-last_jump_frame>65
 		if jump_needed:
 			request_input(&"jump")
 			last_jump_frame = local_frame
@@ -445,17 +537,36 @@ func drive() -> void:
 	var predicted_recoil_x: float = controller.motor.global_position.x-direction.x*105
 	var recoil_stays_inside: bool = predicted_recoil_x>=arena_rect.position.x+30 and predicted_recoil_x<=arena_rect.end.x-30
 	var terrain_blocked: bool = not bool(aim_receipt.clear)
+	var original_receiver_direction_allowed := true
+	if id in ["thorn_guardian","thorn_queen"]:
+		var forest := encounter as ThornForestEncounter
+		original_receiver_direction_allowed = forest.core_open and forest.accepts_core_direction({"amount":1.0,"hit_direction":direction})
+	if encounter is WindkeeperEncounter and not (encounter as WindkeeperEncounter).continuous_combat():
+		var wind := encounter as WindkeeperEncounter
+		original_receiver_direction_allowed = wind.core_open and wind.accepts_core_direction({"amount":1.0,"hit_direction":direction})
+	var wind_reposition_fire_hold := false
+	if encounter is WindkeeperEncounter and not encounter is BellstriderEncounter and (encounter as WindkeeperEncounter).stage_phase>=2:
+		var wind := encounter as WindkeeperEncounter
+		var shelf_height: float = wind_module.to_global(wind_module.definition.platforms[1].position).y if is_instance_valid(wind_module) else wind._floor_y-130
+		wind_reposition_fire_hold = controller.motor.global_position.y+18>shelf_height+2 or (absf(wind_desired_x-controller.motor.global_position.x)>65 and signf(target.x-controller.motor.global_position.x)==signf(wind_desired_x-controller.motor.global_position.x))
+		if id=="windkeeper_storm":
+			var right_shelf: Rect2 = wind_module.definition.platforms[3]
+			var feet := controller.motor.global_position+Vector2(0,18)
+			var on_full_shelf: bool = controller.motor.is_on_floor() and absf(feet.y-right_shelf.position.y)<1 and feet.x-12>=right_shelf.position.x and feet.x+12<=right_shelf.end.x
+			if wind.stage_phase==2 and encounter.health.current<=13 and not on_full_shelf: wind_reposition_fire_hold = true
+			if predicted_recoil_x<right_shelf.position.x+12 or predicted_recoil_x>right_shelf.end.x-12: wind_reposition_fire_hold = true
 	var commitment_clearance := true
 	if encounter is RootbellGuardianV2 and state in ["pursuit_warning","pursuit_flight"]:
 		commitment_clearance = controller.motor.global_position.distance_to((encounter as RootbellGuardianV2).attack_goal-Vector2(0,18))>=encounter.definition.collision_size.x+24
 	if encounter is BellstriderEncounter and wind_cross_axis!=0 and signf(motor.global_position.x-controller.motor.global_position.x)==wind_cross_axis: commitment_clearance = false
-	if local_frame>=210 and accepted_attack and shot_clock_ready and recoil_stays_inside and commitment_clearance and not terrain_blocked and not controller.traversal.busy() and controller.traversal.state!=&"hook_kick" and not encounter.health.terminal and not controller.actor_resources.health.terminal:
+	if local_frame>=210 and accepted_attack and shot_clock_ready and recoil_stays_inside and commitment_clearance and original_receiver_direction_allowed and not wind_reposition_fire_hold and not terrain_blocked and not controller.traversal.busy() and controller.traversal.state!=&"hook_kick" and not encounter.health.terminal and not controller.actor_resources.health.terminal:
 		request_input(&"shoot_release",direction)
 		last_shot_frame = local_frame
 	var visual := visual_receipt()
-	rows.append({"frame":frame,"sampling_phase":"SceneTree.process_frame_before_node_process","movie_process_frame":Engine.get_process_frames(),"case":index,"local_frame":local_frame,"player_position":[controller.motor.global_position.x,controller.motor.global_position.y],"player_velocity":[controller.motor.velocity.x,controller.motor.velocity.y],"enemy_position":[motor.global_position.x,motor.global_position.y],"enemy_velocity":[motor.velocity.x,motor.velocity.y],"HP":encounter.health.current,"player_HP":controller.actor_resources.health.current,"state":state,"core_open":optional_property(encounter,&"core_open"),"aim_terrain_blocked":terrain_blocked,"predicted_recoil_inside_arena":recoil_stays_inside,"visual":visual})
+	update_boss_camera()
+	rows.append({"frame":frame,"sampling_phase":"SceneTree.process_frame_before_node_process","movie_process_frame":Engine.get_process_frames(),"case":index,"local_frame":local_frame,"camera_position":[camera.position.x,camera.position.y],"camera_zoom":camera.zoom.x,"camera_safe_screen_y":[140,620],"player_position":[controller.motor.global_position.x,controller.motor.global_position.y],"player_velocity":[controller.motor.velocity.x,controller.motor.velocity.y],"enemy_position":[motor.global_position.x,motor.global_position.y],"enemy_velocity":[motor.velocity.x,motor.velocity.y],"HP":encounter.health.current,"player_HP":controller.actor_resources.health.current,"state":state,"stage_phase":optional_property(encounter,&"stage_phase"),"weak_side":optional_property(encounter,&"weak_side"),"core_open":optional_property(encounter,&"core_open"),"aim_terrain_blocked":terrain_blocked,"aim_target":[target.x,target.y],"original_receiver_direction_allowed":original_receiver_direction_allowed,"wind_reposition_fire_hold":wind_reposition_fire_hold,"pilot_axis":move_axis,"predicted_recoil_inside_arena":recoil_stays_inside,"visual":visual})
 	if first_hit_frame>=0 and not encounter.health.terminal and frame-first_hit_frame>=30 and visual.hurt_remaining != null and float(visual.hurt_remaining)<=0: cases[index].coverage["recovered_after_nonlethal"] = true
-	detail.text = "AI: %s   BOSS HP: %.0f / %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs\n%s" % [state.to_upper(),encounter.health.current,encounter.health.capacity,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original exit policy" if encounter.health.terminal else "READ ORIGINAL ATTACKS / REAL AIM AND EVADE INPUT"]
+	detail.text = "AI: %s   BOSS HP: %.0f / %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs | %s" % [state.to_upper(),encounter.health.current,encounter.health.capacity,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original exit policy" if encounter.health.terminal else "REAL AIM / EVADE INPUT"]
 	var finished := death_frame>=0 and frame-death_frame>=HOLD_FRAMES and local_frame>=600
 	var player_out := controller.motor.global_position.y>arena_rect.end.y+250
 	if finished or local_frame>=MAX_FRAMES or ((controller.actor_resources.health.terminal or player_out) and local_frame>=600):

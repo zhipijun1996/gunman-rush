@@ -52,11 +52,11 @@ func start() -> void:
 	var overlay := CanvasLayer.new()
 	overlay.layer = 100
 	root.add_child(overlay)
-	heading = make_label("ENEMY ALL 02 / ACTUAL FORMAL STAGE / CONTINUOUS INPUT",Vector2(25,14),19)
+	heading = make_label("ENEMY ALL 02 / ACTUAL FORMAL STAGE / CONTINUOUS INPUT",Vector2(25,645),16)
 	overlay.add_child(heading)
-	detail = make_label("",Vector2(25,42),15)
+	detail = make_label("",Vector2(25,668),12)
 	overlay.add_child(detail)
-	overlay.add_child(make_label("Original stage spawn / terrain / AI / HUD / camera / HP / damage / drops. Automated Router input; no actor placement.",Vector2(25,688),14))
+	overlay.add_child(make_label("Original stage spawn / terrain / AI / HUD / camera / HP / damage / drops. Automated Router input; no actor placement.",Vector2(25,701),10))
 	var forest := group == "route_forest"
 	var started := app.start_debug_region(&"thorn_forest",1,seed_label) if forest else app.start_plains(seed_label)
 	if not started: failures.append("Original run entry refused")
@@ -162,7 +162,7 @@ func drive() -> void:
 			app.controller.router.set_source_axis(&"gamepad",0)
 	if terminal_frame<0 and ready and (not is_instance_valid(app.controller) or not app.lifetime.active): terminal_frame = frame
 	frames.append({"frame":frame,"sampling_phase":"SceneTree.process_frame_before_node_process","movie_process_frame":Engine.get_process_frames(),"case":0,"local_frame":gameplay_frame,"ready":ready,"player_position":[player_position.x,player_position.y],"player_HP":hp,"state":state,"enemies":visible_enemies})
-	detail.text = "%s / %s / %.1fs gameplay / %d actual HP commits / %d deaths\n%s" % [group,seed_label,float(gameplay_frame)/60,cases[0].events.size(),cases[0].deaths,"DEBUG MAP ENTRY; original map/spawn; no natural cross-region progression claim" if group=="route_forest" else "DEFAULT FORMAL ENTRY; original spawn; genuine walking, jumping and shooting"]
+	detail.text = "%s / %s / %.1fs gameplay / %d actual HP commits / %d deaths | %s" % [group,seed_label,float(gameplay_frame)/60,cases[0].events.size(),cases[0].deaths,"DEBUG MAP ENTRY; original map/spawn; no natural cross-region progression claim" if group=="route_forest" else "DEFAULT FORMAL ENTRY; original spawn; genuine walking, jumping and shooting"]
 	if (not ready and frame>=STARTUP_FRAME_BUDGET) or gameplay_frame>=route_seconds*60 or (terminal_frame>=0 and frame-terminal_frame>=210):
 		busy = true
 		finish.call_deferred()

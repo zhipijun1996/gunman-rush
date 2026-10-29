@@ -134,6 +134,7 @@ func crown_angle() -> float:
 	return direction*(warning*.07-action*.12+hurt*.09+death*.22)
 
 func draw_body(canvas: Node2D, texture: Texture2D, bounds: Rect2, kind: StringName, tint := Color.WHITE, facing := 1.0) -> void:
+	canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	# One cached indexed mesh, one draw command. UVs/indices are immutable;
 	# rebuilding its single surface updates vertices and its culling bounds.
 	# AtlasTexture UVs are resolved onto the real source page explicitly.

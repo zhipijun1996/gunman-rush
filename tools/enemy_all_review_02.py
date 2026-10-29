@@ -65,7 +65,7 @@ def original_audio_statistics(avi, folder):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--group", choices=("plains", "forest", "prototypes", "boss", "route_plains", "route_forest", "all"), default="plains", help="all combines ordinary species and development prototypes; Boss fights and original-stage routes use separate chapter drivers.")
+    parser.add_argument("--group", choices=("plains", "forest", "prototypes", "boss", "route_plains", "route_forest", "formal_plains", "formal_forest", "all"), default="plains", help="all combines ordinary species and development prototypes; Boss fights, original-stage routes and disclosed initial formal review stands use separate drivers.")
     parser.add_argument("--chains", choices=("primary", "all"), default="primary")
     parser.add_argument("--species", default="", help="One exact roster id; all chains requested for that id are retained.")
     parser.add_argument("--seed", default="enemy-all-review-02", help="Provenance label, not an injected production RNG seed.")
@@ -76,8 +76,9 @@ def main():
     folder = args.output.resolve()
     folder.mkdir(parents=True, exist_ok=False)
     source = harness.git_metadata()
-    route = args.group.startswith("route_")
-    driver = "tools/enemy_all_review_02_route_capture.gd" if route else ("tools/enemy_all_review_02_boss_capture.gd" if args.group == "boss" else "tools/enemy_all_review_02_capture.gd")
+    formal = args.group.startswith("formal_")
+    route = args.group.startswith("route_") or formal
+    driver = "tools/enemy_all_review_02_formal_capture.gd" if formal else ("tools/enemy_all_review_02_route_capture.gd" if route else ("tools/enemy_all_review_02_boss_capture.gd" if args.group == "boss" else "tools/enemy_all_review_02_capture.gd"))
     report = {
         "task": "ENEMY-ALL-02", "group": args.group, "chains": args.chains,
         "species": args.species or None, "seed_label": args.seed, "status": "running",
@@ -118,7 +119,7 @@ def main():
         report["command"] = command
         # Each chapter has a roster-dependent original bound. This is a new
         # recording budget, not a widened integration-test or lease timeout.
-        count = {"plains": 15 if args.chains == "all" else 7, "forest": 7, "prototypes": 2, "boss": 9, "route_plains": 1, "route_forest": 1, "all": 24 if args.chains == "all" else 16}[args.group]
+        count = {"plains": 15 if args.chains == "all" else 7, "forest": 7, "prototypes": 2, "boss": 9, "route_plains": 1, "route_forest": 1, "formal_plains": 1, "formal_forest": 1, "all": 24 if args.chains == "all" else 16}[args.group]
         if args.species:
             count = 3 if args.species == "plains_root_bell" and args.chains == "all" else (2 if args.group in ("plains", "all") and args.species.startswith(("patrol_", "plains_")) and args.chains == "all" else 1)
         budget = max(600, min(120, args.seconds) * 8) if route else max(180, count * (240 if args.group == "boss" else 100))
@@ -157,7 +158,7 @@ def main():
         (folder / "chapters.json").write_text(json.dumps(chapter_rows, indent=2, ensure_ascii=False) + "\n")
         # Engine process-frame timestamps include the original inter-case
         # spawn/free await intervals. No frame interpolation, speed-up or cuts.
-        chapter_text = ["# ENEMY-ALL-02 actual capture\n", "Original formal stage route. Human visual approval pending.\n" if route else "Initial arena fixtures; normal-speed AI/InputRouter/projectiles. Human visual approval pending.\n", "| Case | Species / chain | Movie process-frame seconds | Accepted enemy hits | Coverage gaps |", "| --- | --- | --- | --- | --- |"]
+        chapter_text = ["# ENEMY-ALL-02 actual capture\n", "Original formal stage encounter with one disclosed initial player review stand; not a natural route. Human visual approval pending.\n" if formal else ("Original formal stage route. Human visual approval pending.\n" if route else "Initial arena fixtures; normal-speed AI/InputRouter/projectiles. Human visual approval pending.\n"), "| Case | Species / chain | Movie process-frame seconds | Accepted enemy hits | Coverage gaps |", "| --- | --- | --- | --- | --- |"]
         for case in trace["cases"]:
             chapter_text.append(f"| {case['case'] + 1} | {case['id']} / {case['chain']} | {case['start_seconds']:.2f}–{case['end_seconds']:.2f} | {len(case['events'])} | {', '.join(case['coverage_gaps']) or 'none recorded'} |")
         (folder / "chapters.md").write_text("\n".join(chapter_text) + "\n")

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "task_id": "ENEMY-ALL-02",
-  "content_version": "enemy-all-02-local-consumers-v2",
+  "content_version": "enemy-all-02-local-consumers-v3",
   "status": "working-tree source snapshot; no runtime, visual, user or device acceptance",
-  "snapshot_utc": "2026-10-29T03:23:59.489803+00:00",
+  "snapshot_utc": "2026-10-29T03:57:50.310696+00:00",
   "baseline_commit": "20e67867b272a7e461eddce169a0cdb83353f4b6",
   "head_at_snapshot": "20e67867b272a7e461eddce169a0cdb83353f4b6",
   "implementation_commit": null,
@@ -475,8 +475,8 @@
     },
     {
       "path": "scripts/bosses/boss_motion_presentation.gd",
-      "sha256": "600a037ce4b499fcdeddb259183c68225dd1b9b7face330a66537d5702a18823",
-      "bytes": 10203,
+      "sha256": "618bcf157e15813e7a342f237465241ccfe80427e033f4cbad4c4d93dcf3f2f1",
+      "bytes": 10262,
       "role": "presentation_implementation"
     },
     {
@@ -493,8 +493,8 @@
     },
     {
       "path": "scripts/bosses/thorn_forest_presentation.gd",
-      "sha256": "2174e62d5815c072f465c1949bdc54273a76e8fcf250c0120d9df1f493319d24",
-      "bytes": 2804,
+      "sha256": "6d165c61ed51f157003c7403b3fa86c24bdaec78d9e7b19c77910f5cc90167fe",
+      "bytes": 2739,
       "role": "presentation_implementation"
     },
     {
@@ -505,8 +505,8 @@
     },
     {
       "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
-      "sha256": "1b0634754974e4ab033062948ab0f8a05099af85bd21e1818ce66df7988712ca",
-      "bytes": 1862,
+      "sha256": "321550291640267da8bcadd9d2c2a3cf3497a5b3f81a07a28681e2819dc027d2",
+      "bytes": 1656,
       "role": "presentation_implementation"
     },
     {
@@ -1658,69 +1658,24 @@
     "invalidation": "Any listed source, asset, scene, definition or authority byte change invalidates this snapshot for final-source evidence. Root must verify current hashes after commit; never update old evidence or inherit old visual/device acceptance."
   },
   "source_rebinding": {
-    "previous_snapshot": "docs/worklines/enemy_all_02/source-contract-v1.json",
-    "previous_snapshot_sha256": "7208aaa91a3b296a0f181af78756476d426b26cb1d72b6334937da166516fac3",
-    "reason": "Independent R1 ER03 live/death bob unification; ER04 paused epoch clear; ER05 prototype triangle inversion; ER06 saved Boss terminal no replay; ER07 forest hard-cut seams replaced by connected UV lattice. Added ordinary paused restore handling. No shared style-v18/creative-v21 authority changed. Fresh runtime/video evidence required; old proofs not promoted.",
+    "previous_snapshot": "docs/worklines/enemy_all_02/source-contract-v2.json",
+    "previous_snapshot_sha256": "bd23dfe46ee7a3f576fe8578415fd9dc8751a066d6e55b49653dc0457c7a4687",
+    "reason": "R2 ER08 replaces three historical graybox Boss bodies with literal, unchanged existing fine32 guardian/queen masters, calibrated uniform body/heart/foot anchors and nearest sampling. R2 ER09 records bounded review-camera/labels without changing production HUD. Five incomplete pilots and corpse settled hold are new tool versions; original failed films/traces remain unchanged. No global Bible authority changed. Fresh Boss native/video required.",
     "changed_inputs": [
       {
         "path": "scripts/bosses/boss_motion_presentation.gd",
-        "previous_sha256": "8ccbc102afd3639a9dbe62783812898604a8c5788264f61ebdf9f6d61ce33a77",
-        "sha256": "600a037ce4b499fcdeddb259183c68225dd1b9b7face330a66537d5702a18823"
+        "previous_sha256": "600a037ce4b499fcdeddb259183c68225dd1b9b7face330a66537d5702a18823",
+        "sha256": "618bcf157e15813e7a342f237465241ccfe80427e033f4cbad4c4d93dcf3f2f1"
       },
       {
-        "path": "scripts/enemies/enemy_presentation.gd",
-        "previous_sha256": "731cc23316ec1c0078bcd8291fe93e0b08beaaaaad5e19eb9a92c84ec074c359",
-        "sha256": "9b24a2da9bcaf0218882f1a3ea9871bc2b5a5ec7192fe1d931b6d1a642d47053"
+        "path": "scripts/bosses/thorn_forest_presentation.gd",
+        "previous_sha256": "2174e62d5815c072f465c1949bdc54273a76e8fcf250c0120d9df1f493319d24",
+        "sha256": "6d165c61ed51f157003c7403b3fa86c24bdaec78d9e7b19c77910f5cc90167fe"
       },
       {
-        "path": "scripts/enemies/forest_crossbranch_presentation.gd",
-        "previous_sha256": "ce39519165c7574e4a7560a08e69177d24587ada6599e5fe4a64f68d2a8b3fbe",
-        "sha256": "aee5c149683793f90ad1421b1610fd3b899002d477308921be9db1aa9fb9359f"
-      },
-      {
-        "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
-        "previous_sha256": "9fa23bc86ce682a22fcd4bedc07c18dcaa7f4ff90230efbefffd5fb6dba09f09",
-        "sha256": "bb80ec41599c45da5f4ce577a6aababdda0ea527f132a9b5634f21c8787230d4"
-      },
-      {
-        "path": "scripts/enemies/forest_enemy_presentation.gd",
-        "previous_sha256": "a084100135600351a4b562c9bd0d8253de8ca1091b2829f7b97d07989ac8e30a",
-        "sha256": "229faee5a89b4286499c8a52ade9d7b88a1259a41e92ea64a6a0cbd6380cb434"
-      },
-      {
-        "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
-        "previous_sha256": "758e813c02d15ba38a865c761025f93573d299b81b325ce3c11539e41fcb7c4c",
-        "sha256": "f9bddad2ff603138aa5d5074bec2f9d2b5efce9043053454db8db8b3820cad8c"
-      },
-      {
-        "path": "scripts/enemies/forest_motion_02.gd",
-        "previous_sha256": "170c72398e6b80975dbf66d34698d46b1da897c4712fbf3c8bd978004d116cdf",
-        "sha256": "937b74e8ab883a5d6c107811ce9b02dcc73e4b9bde66ce6159e3c773f661b26a"
-      },
-      {
-        "path": "scripts/enemies/plains_motion_02.gd",
-        "previous_sha256": "daab8d35f126be594c0029bfe90aada625effe8668555a930d54e13a71417a37",
-        "sha256": "43b792f1e41d13f0a3aacb4da1b75426cbceaafa0663cb40e8419dc7862caeb3"
-      },
-      {
-        "path": "scripts/enemies/prototype_enemy_presentation.gd",
-        "previous_sha256": "c8845bceb6c4745a4239a190f7522fa3d20defb5107c1684edf04747a9d97f10",
-        "sha256": "645e3f2ff98518a27580f5ae22c6d1dfcf14eb5413014db63474f4312331b30f"
-      },
-      {
-        "path": "scripts/enemies/root_bell_presentation.gd",
-        "previous_sha256": "7f8c035afed9199d9db9281e4f5adf2d746168a041e24d96a439fdfba30c7c3c",
-        "sha256": "16ce7d982fbc66547392b863026305c450353e9c29bff640723a99428c573b1e"
-      },
-      {
-        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
-        "previous_sha256": "0532114a5bc80c0be1ec0a1459203ad9b78ff70063b2de4bbcf5ba254df6bd04",
-        "sha256": "bbb81440735c8ba6d684a10c8a5efd8bc573fccc1ae42ee31cbd60161ce0dfca"
-      },
-      {
-        "path": "scripts/underworld_plains/underworld_enemy.gd",
-        "previous_sha256": "75ba4185468a4378ca127a8e5dff406c160b6449fe58566af04f33b0922cc91d",
-        "sha256": "01232c561efbbc9e116f56d9208d311a8fc0ad732f1129d9e90b3eec1157a451"
+        "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
+        "previous_sha256": "1b0634754974e4ab033062948ab0f8a05099af85bd21e1818ce66df7988712ca",
+        "sha256": "321550291640267da8bcadd9d2c2a3cf3497a5b3f81a07a28681e2819dc027d2"
       }
     ]
   },
@@ -1749,5 +1704,12 @@
       "path": "tests/enemy_all_02_plains_lifecycle.gd.uid",
       "sha256": "8e52d32d65db979f857d96823d6c9bfc15252c9470865eae83a45c6d0ddcab1d"
     }
-  ]
+  ],
+  "capture_versions": {
+    "first_candidate_commit": "94c95a80d4af831012fe7c1fc55e01abb95a30c1",
+    "first_captures": "build/enemy_all_02/final-v1",
+    "first_Boss_coverage_gaps": 14,
+    "formal_plains_original_route_enemy_hits": 0,
+    "next_capture_scope": "9 Boss scenes/Definition combos, 4 persistent-corpse chains, disclosed formal review encounter; ordinary bodies in prior clips unchanged"
+  }
 }

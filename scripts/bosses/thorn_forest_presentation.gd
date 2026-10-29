@@ -1,6 +1,14 @@
 class_name ThornForestPresentation
 extends Node2D
 @export var encounter: ThornForestEncounter
+# Reuse the admitted root/branch identities; no extra species or generated art.
+const GUARDIAN_BODY := preload("res://assets/forest_bible_v2/native/fine_32/guardian.png")
+const QUEEN_BODY := preload("res://assets/forest_bible_v2/native/fine_32/queen.png")
+# Source foot (36,94) maps to the existing ground foot y=48 at 1x.
+const GUARDIAN_BOUNDS := Rect2(-36,-46,72,96)
+# Source foot y=66 maps to y=48 at an integer uniform 2x; the painted
+# queen heart y=37 then maps to -10 beside the existing UI heart y=-9.
+const QUEEN_BOUNDS := Rect2(-72,-84,144,136)
 var age := 0.0
 var hit_template: EnemyHitTemplate
 var motion := BossMotionPresentation.new()
@@ -13,38 +21,24 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter == null: return
-	var alive := not encounter.health.terminal
-	var size := encounter.definition.collision_size
-	var bark := Color(.24,.3,.22) if alive else Color(.18,.2,.17)
-	bark = hit_template.tint(bark)
-	# The rooted foot and heart stay registered; the upper trunk bows between
-	# its real attack states, with separate shoulder, elbow and twig chains.
-	var shoulder_y := -size.y*.32+motion.death*size.y*.16
-	var top := Vector2(motion.crown_angle()*size.y*.18,-size.y*.5+motion.death*size.y*.20)
-	var trunk := PackedVector2Array([Vector2(-size.x*.5,size.y*.5),Vector2(-size.x*.5,shoulder_y),top+Vector2(-size.x*.42,0),top+Vector2(size.x*.42,0),Vector2(size.x*.5,shoulder_y),Vector2(size.x*.5,size.y*.5)])
-	draw_colored_polygon(trunk,bark)
-	var outline := PackedVector2Array(trunk)
-	outline.append(trunk[0])
-	draw_polyline(outline,bark.lightened(.2),3)
-	for side: int in [-1,1]:
-		var shoulder := Vector2(side*24,-8)
-		var elbow := shoulder+Vector2(side*20,-20).rotated(motion.limb_angle(side))
-		var tip := elbow+Vector2(side*16,-10).rotated(-motion.limb_angle(side)*.55)
-		draw_line(shoulder,elbow,bark.lightened(.12),14)
-		draw_line(elbow,tip,bark.lightened(.16),9)
-		for n: int in 3:
-			var p := shoulder.lerp(tip,float(n+1)/4.0)
-			draw_line(p,p+Vector2(side*15,-7).rotated(motion.limb_angle(side)),Color(.5,.34,.36),4)
+	var queen := (encounter.definition as ThornForestDefinition).queen
+	var body := QUEEN_BODY if queen else GUARDIAN_BODY
+	var bounds := QUEEN_BOUNDS if queen else GUARDIAN_BOUNDS
+	var body_tint := hit_template.tint(Color.WHITE.lerp(Color("818a75"),motion.death))
+	motion.draw_body(self,body,bounds,&"queen" if queen else &"guardian",body_tint)
+	# Dim the authored heart in its own source domain. The unique bright cue
+	# below stays on the real advertised weak_side, including a side change.
+	# This mirrors the existing formal Guardian's same-source heart dimming;
+	# no source pixels, actor geometry or material are edited/replaced.
+	var native_heart := Rect2(32,34,9,10) if queen else Rect2(28,34,18,16)
+	var uniform_scale := 2.0 if queen else 1.0
+	draw_texture_rect_region(body,Rect2(bounds.position+native_heart.position*uniform_scale,native_heart.size*uniform_scale),native_heart,Color(.20,.30,.22)*body_tint)
 	var heart := Vector2(encounter.weak_side*18 if encounter.stage_phase > 1 else 0, -9)
-	draw_circle(heart,18,Color(.16,.12,.17))
-	draw_arc(heart,19,0,TAU,32,Color(1,.78,.34) if encounter.core_open else Color(.5,.4,.25),3)
-	if encounter.core_open: draw_circle(heart,11+sin(age*5),Color(1,.82,.42))
+	draw_circle(heart,11,Color(.16,.12,.17))
+	draw_arc(heart,13,0,TAU,32,Color(1,.78,.34) if encounter.core_open else Color(.5,.4,.25),2)
+	if encounter.core_open: draw_circle(heart,7+sin(age*5),Color(1,.82,.42))
 	else:
-		for side: int in [-1,1]: draw_line(heart+Vector2(side*14,-15),heart+Vector2(-side*14,15),Color(.4,.53,.26),6)
-	if (encounter.definition as ThornForestDefinition).queen:
-		for i: int in 5:
-			var root := top+Vector2((i-2)*11,0)
-			draw_line(root,root+Vector2((i-2)*6,-23-abs(i-2)*4).rotated(motion.crown_angle()),Color(.62,.35,.43),6)
+		for side: int in [-1,1]: draw_line(heart+Vector2(side*9,-10),heart+Vector2(-side*9,10),Color(.4,.53,.26),4)
 	if encounter.has_ground_mark and encounter.mode in [&"branch_warning",&"seed_flight"]:
 		var goal := to_local(encounter.attack_goal)
 		var width := (encounter.definition as ThornForestDefinition).seed_zone_size.x

@@ -33,6 +33,8 @@ var local_frame := 0
 var last_shot_frame := -1000
 var death_frame := -1
 var first_hit_frame := -1
+var settled_frame := -1
+var persistent_remains_component := false
 var attack_seen := false
 var busy := false
 
@@ -112,6 +114,8 @@ func make_case() -> void:
 	last_shot_frame = -1000
 	death_frame = -1
 	first_hit_frame = -1
+	settled_frame = -1
+	persistent_remains_component = false
 	attack_seen = false
 	var id: String = manifest[index].id
 	fixture = Node2D.new()
@@ -232,9 +236,11 @@ func make_case() -> void:
 	actor.defeated.connect(func(_dead: EnemyActor) -> void: contact.enabled = false)
 	var case_index := index
 	var presentation := enemy.get_node("Presentation")
+	persistent_remains_component = optional_property(presentation,&"feedback_remains") is Node2D
 	cases.append({"case":index,"id":id,"definition":String(actor.definition.stable_id),"definition_path":definition_path,"scene":scene_path,"chain":chain,"renderer":(presentation.get_script() as Script).resource_path,"start_frame":frame+1,"start_seconds":float(Engine.get_process_frames()+1)/60,"active_start_seconds":float(frame)/60,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"geometry":geometry,"player_spawn":[player_spawn.x,player_spawn.y],"enemy_spawn":[enemy_spawn.x,enemy_spawn.y],"host_configuration":setup,"player_health":controller.actor_resources.health.current,"enemy_health":actor.health.current,"forest_bible_actor_art":id in FOREST,"differences":["explicit initial geometry and spawn","automated gamepad input replaces KeyboardMouseAdapter"],"production_AI_enabled":actor.is_physics_processing()},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	cases[case_index]["actual_strand_holds"] = []
 	cases[case_index]["strand_hold_events"] = []
+	cases[case_index]["persistent_remains_component"] = persistent_remains_component
 	actor.health.changed.connect(func(result: ActorResourceResult) -> void:
 		if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
 			cases[case_index].events.append({"frame":frame,"local_frame":local_frame,"event_id":String(result.event_id),"amount":result.amount_applied,"HP":result.snapshot.current,"epoch":result.snapshot.epoch,"terminal":result.snapshot.terminal})
@@ -317,6 +323,14 @@ func drive() -> void:
 	if busy: return
 	frame += 1
 	local_frame += 1
+	# Observe the completed previous render without advancing the component.
+	# Only species that already own persistent remains acquire a settled hold.
+	if persistent_remains_component and settled_frame<0 and death_frame>=0 and not rows.is_empty():
+		var previous: Dictionary = rows.back()
+		if int(previous.case)==index and previous.has("visual_after_draw"):
+			var remains: Dictionary = previous.visual_after_draw.remains
+			if not remains.is_empty() and bool(remains.get("settled",false)) and bool(remains.get("visible",false)) and float(remains.get("alpha",0))>.05:
+				settled_frame = int(previous.frame)
 	var id: String = manifest[index].id
 	var behavior := actor.attack_behavior
 	var state := String(behavior.state) if behavior != null else "patrol"
@@ -365,6 +379,7 @@ func drive() -> void:
 		cases[index].coverage["recovered_after_nonlethal"] = true
 	detail.text = "AI: %s   ENEMY HP: %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs\n%s" % [state.to_upper(),actor.health.current,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original death policy" if actor.health.terminal else ("COMBAT / real Router shots" if attack_seen else "OBSERVE / wait for actual AI commitment")]
 	var finished := death_frame >= 0 and frame-death_frame >= HOLD_FRAMES and local_frame >= 540
+	if persistent_remains_component: finished = finished and settled_frame>=0 and frame-settled_frame>=HOLD_FRAMES
 	if finished or local_frame >= MAX_CASE_FRAMES or (controller.actor_resources.health.terminal and local_frame >= 540):
 		busy = true
 		finish_case.call_deferred()
@@ -393,6 +408,8 @@ func finish_case() -> void:
 	result["active_end_seconds"] = float(frame)/60
 	result["movie_end_process_frame"] = Engine.get_process_frames()
 	result["post_death_observation_frames"] = frame-death_frame if death_frame >= 0 else 0
+	result["first_settled_post_draw_frame"] = settled_frame if settled_frame>=0 else null
+	result["post_settled_observation_frames"] = frame-settled_frame if settled_frame>=0 else 0
 	var coverage: Dictionary = result.coverage
 	coverage["actual_AI_commitment"] = attack_seen
 	coverage["nonlethal_HP_commit"] = first_hit_frame >= 0
@@ -435,6 +452,10 @@ func finish_case() -> void:
 		elif remains.position != anchor.position or remains.rotation != anchor.rotation or remains.scale != anchor.scale: stationary = false
 	result["terminal_policy_observation"] = {"visible_corpse_tail":corpse_tail and sampled==HOLD_FRAMES,"stationary_corpse_tail":corpse_tail and stationary and sampled==HOLD_FRAMES,"sampled_tail_frames":sampled,"final_visual":case_rows.back().visual,"interpretation":"Observed component/body visibility; human visual review remains pending."}
 	coverage["persistent_remains"] = corpse_tail and stationary and sampled==HOLD_FRAMES
+	if persistent_remains_component:
+		coverage["settled_remains_observed_210_frames"] = settled_frame>=0 and frame-settled_frame>=HOLD_FRAMES
+		if not coverage.settled_remains_observed_210_frames: result.coverage_gaps.append("persistent remains did not settle before a continuous 210-frame hold")
+		if not coverage.persistent_remains: result.coverage_gaps.append("required persistent remains missing or moving in final 210 frames")
 	for key: String in ["actual_AI_commitment","nonlethal_HP_commit","recovered_after_nonlethal","lethal_HP_commit","terminal_observed_210_frames","player_survived"]:
 		if not coverage[key]: result.coverage_gaps.append(key)
 	if require_remains and not coverage.persistent_remains: result.coverage_gaps.append("persistent_remains required but not observed")
