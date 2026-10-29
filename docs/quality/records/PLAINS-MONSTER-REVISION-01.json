@@ -80,6 +80,12 @@
     "docs/evidence/plains_monster_revision_01/integration/attempt-04/planner-after-fix.log",
     "docs/evidence/plains_monster_revision_01/integration/attempt-04/planner.log",
     "docs/evidence/plains_monster_revision_01/integration/attempt-04/report.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/README.md",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/console.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/originals.tar.gz",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/report.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/support-failure-runtime.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-05/support-failure.log",
     "docs/evidence/plains_monster_revision_01/manifest.json",
     "docs/evidence/plains_monster_revision_01/media/comparison.mp4",
     "docs/evidence/plains_monster_revision_01/media/plains.mp4",
@@ -95,6 +101,7 @@
     "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r2.md",
     "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r3.md",
     "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r4.md",
+    "docs/evidence/plains_monster_revision_01/review/restored-face-review.md",
     "docs/evidence/plains_monster_revision_01/review/same-screen/charger.png",
     "docs/evidence/plains_monster_revision_01/review/same-screen/fan_sentry.png",
     "docs/evidence/plains_monster_revision_01/review/same-screen/hopper.png",
@@ -393,11 +400,29 @@
       "independent": true,
       "independence_basis": "审查者未写生产/测试文件，独立解码真实影片并查看原像素。",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "restored-face-review",
+      "path": "docs/evidence/plains_monster_revision_01/review/restored-face-review.md",
+      "sha256": "1e8969d07ca046619b436f545f1ecff6255e11e3ae15c7aa13e85f4885c2fbc1",
+      "kind": "review",
+      "producer": "/root/restored_face_review",
+      "source_commit": "ad89bf4fb827d8e6f2f1a2d97abbcc5a50e791d7",
+      "content_version": "plains-monster-revision-v1",
+      "method": "独立状态机/逐字diff、真实失败/后继snapshot和clean3项原件读取，不代执行",
+      "observed": "仅保存尸体朝向修复ACCEPT；145/2→145/0，clean3fresh通过；未签whole163/艺术",
+      "reviewer": "/root/restored_face_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "未编辑生产或测试，独立读取真实原件与精确修复source。",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "工坊已私密发布v3；原163三轮失败/中断均保留。冻结历史回放按已有授权延期，新增同预算当前registry/App检查；最终适用163待实跑。",
+    "私密工坊v3已发布。原163前五轮失败/中断均保留；当前保存朝向缺陷已修，145/0与clean3专项通过，最终适用163待执行。",
     "所有相位/镜向/边界组合与动态精确碰撞fit未全观察",
     "正常速度完整视觉节奏、声音听感/AVsync、真机性能及用户G5未签",
     "森林/Boss/候选去线分支不由七平原片代签整套画面"

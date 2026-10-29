@@ -1,0 +1,7 @@
+# 第五轮适用163回归与保存朝向修复
+
+冻结bc9024ff40b052e41f131b1b6621f308b2616bc2：实际72通过、enemy-feedback-support 145/2失败，后90未执行；不是完整通过。原当前registry88/0与native484/0/formal66/0均为该冻结源实际结果。失败是两链保存健康先初始化、随后写入brain朝向时，隐藏live视觉不再更新_face缓存，导致尸体在正确x540/frame7/age0/starts0下仍face+1而非保存−1。
+
+生产只改remains_view：restored_terminal从brain读取最终朝向，accepted lethal仍使用最后可见_face以保连续交接。原支撑断言、wrapper和预算不改；后继原145/0是bc9024加这一处未提交生产修复的开发源。干净修复ad89bf4fb827d8e6f2f1a2d97abbcc5a50e791d7的corpse-save／corpse-snapshot／enemy-structure-native三项均fresh通过。完整原件及两份不同来源收据保在originals.tar.gz，不混写成同一次fresh。
+
+独立逐字与状态机/原artifact审查见../../review/restored-face-review.md。旧7edda9实录仍只按其原source复用；这处保存重建修复不改正常accepted致死路径，不把旧片追签为ad89实录。下一冻结源163结果另记。

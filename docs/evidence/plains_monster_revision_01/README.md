@@ -61,3 +61,5 @@ comparison初页300条观测为movie9..308，声明可播10..308；转换器保�
 原完整generated-consumers在森林charger半高修复后已26套通过。第三轮57个通过marker后发生冻结v11回放280／2，环境重启导致无聚合报告；[原件](integration/attempt-03/README.md)保持失败与中断，不补造完整通过。依AGENTS已有用户兼容延期授权，旧检查全部字节／预算保留到legacy-compat，另以同预算真实当前registry/App守门一换一保留默认163与物理91＋75。详见[独立分流审查](current-registry/code-review-final.md)。
 
 第四轮冻结0a51b7ec实际29通过、planner历史清单守门1失败、后133未执行，见[原报告](integration/attempt-04/report.json)。后继仅适配这个明确名称的一换一分流：原四历史摘要、位置／166总数／两lane与预算均保留；21项原测试后继通过，独审另附。最终冻结源适用163的实际结果另记。
+
+第五轮bc9024实际72通过、留尸支撑145／2失败、后90未执行，见[integration/attempt-05](integration/attempt-05/README.md)。当前registry88／0、原反馈native484／0和formal66／0均按该实际源保留。保存朝向缓存已仅在保存恢复路径修复，原145／0及clean ad89三个保存／结构专项fresh通过，[独审限定接受](review/restored-face-review.md)；原7edda9媒体来源不追签，完整163后继另记。
