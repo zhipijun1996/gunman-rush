@@ -134,7 +134,7 @@ def validate_native_audio(native, segments, manifest):
 def capture(output,smoke=False,scene_smoke=False):
     if output.exists(): raise ValueError('Use fresh output; retain original failures')
     output.mkdir(parents=True)
-    report={'status':'failed','task':'AUDIO-AMBIENCE-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
+    report={'status':'failed','task':'AUDIO-AMBIENCE-01','version':VERSION,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(), 'mix_revision':read(ROOT/'assets/audio/ambience_v1/manifest.json').get('mix_revision','initial-01')}
     started=time.monotonic(); display=None; override_owned=False; override=ROOT/'override.cfg'; lock=None; cleanup_error=None
     env=os.environ.copy(); env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='4')
     try:

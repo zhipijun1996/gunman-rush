@@ -23,7 +23,8 @@
           "gain_db": 0,
           "layer_rms_dbfs": -30
         }
-      ]
+      ],
+      "output_gain_db": -14
     },
     {
       "id": "plains_b",
@@ -48,7 +49,8 @@
           "gain_db": -11,
           "layer_rms_dbfs": -30
         }
-      ]
+      ],
+      "output_gain_db": -14
     },
     {
       "id": "forest_a",
@@ -65,7 +67,8 @@
           "gain_db": 0,
           "layer_rms_dbfs": -30
         }
-      ]
+      ],
+      "output_gain_db": -14
     },
     {
       "id": "forest_b",
@@ -90,7 +93,8 @@
           "gain_db": -10,
           "layer_rms_dbfs": -30
         }
-      ]
+      ],
+      "output_gain_db": -14
     }
   ],
   "details": [
@@ -112,7 +116,8 @@
       "lowpass_hz": 5000,
       "target_rms_dbfs": -29,
       "min_interval": 9,
-      "max_distance": 720
+      "max_distance": 720,
+      "output_gain_db": -10
     },
     {
       "id": "plains_chime_b",
@@ -132,7 +137,8 @@
       "lowpass_hz": 5000,
       "target_rms_dbfs": -29,
       "min_interval": 9,
-      "max_distance": 720
+      "max_distance": 720,
+      "output_gain_db": -10
     },
     {
       "id": "forest_wood",
@@ -153,7 +159,8 @@
       "lowpass_hz": 3600,
       "target_rms_dbfs": -30,
       "min_interval": 13,
-      "max_distance": 600
+      "max_distance": 600,
+      "output_gain_db": -10
     },
     {
       "id": "forest_leaf",
@@ -174,7 +181,9 @@
       "lowpass_hz": 5200,
       "target_rms_dbfs": -29,
       "min_interval": 6,
-      "max_distance": 320
+      "max_distance": 320,
+      "output_gain_db": -10
     }
-  ]
+  ],
+  "mix_revision": "quiet-02"
 }

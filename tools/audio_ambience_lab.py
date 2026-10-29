@@ -11,6 +11,7 @@ def build(capture, output):
     if output.exists(): raise ValueError('Use fresh delivery directory')
     report=read(capture/'report.json'); trace=read(capture/'trace.json'); manifest=read(ROOT/'assets/audio/ambience_v1/manifest.json')
     movie=capture/'ambience.mp4'
+    if report.get('mix_revision','initial-01') != manifest.get('mix_revision','initial-01'): raise ValueError('Capture mix revision differs from candidate manifest')
     if report.get('status')!='passed' or report.get('source_stable') is not True or report.get('source_before')!=report.get('source_after'): raise ValueError('Capture did not pass original frozen source guard')
     validate_capture_override(report,capture)
     if report['source_before'] != frozen_sources(): raise ValueError('Runtime or capture source changed since recording')
@@ -42,7 +43,7 @@ def build(capture, output):
         points.append({**point,'path':'audio/'+source.name,'scope':'Standalone library candidate; not automatically deployed throughout formal maps'})
     write(output/'sources.json',sources)
     write(output/'manifest.json',manifest)
-    write(output/'candidates.json',{'version':manifest['version'],'candidates':choices,'point_events':points,'manifest_sha256':sha(ROOT/'assets/audio/ambience_v1/manifest.json')})
+    write(output/'candidates.json',{'version':manifest['version'],'mix_revision':manifest.get('mix_revision','initial-01'),'candidates':choices,'point_events':points,'manifest_sha256':sha(ROOT/'assets/audio/ambience_v1/manifest.json')})
     # Compact browser metadata; full native trace/source fingerprints remain in Git evidence.
     summary={k:v for k,v in report.items() if k not in ['source_before','source_after','media']}
     summary['source_snapshot_sha256']=__import__('hashlib').sha256(json.dumps(report['source_before'],sort_keys=True).encode()).hexdigest()

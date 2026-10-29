@@ -1,5 +1,10 @@
 # 两区环境音 · audio-ambience-v1
 
+## quiet-02 · 用户反馈修订（2026-10-29）
+
+用户明确首版环境音太响、盖住BGM，要求微弱衬底。BGM原MUSIC_GAIN=0.16（约−15.9dB），不能只看环境源文件RMS判断混音。quiet-02保原选材与归一，输出末端床声−14dB、四点声−10dB；复现参数`output_gain_db`在配方内，先归一/控峰后衰减，避免峰值限制使降音量无效。原Music及五MP3不变。原版较响交付与此前技术证据保留，用户此反馈判定旧混音不接受；新混音仍待用户试听。
+
+
 任务AUDIO-AMBIENCE-01。[手机实景试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已发布，包含原版/A/B和BGM混音/环境单听；需拥有者账号。[本轮实际事件/引用](ambience_event_catalog.json)。当前为可淘汰的开发候选，用户听感和实体设备未验证。基于最新main45e98dbb；原Audio Inventory的26e7f2a基线保留，不回写历史审计。
 
 ## 已验证的原声音与消费者

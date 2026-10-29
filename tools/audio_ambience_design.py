@@ -166,6 +166,7 @@ def build() -> None:
             loop = normalize(loop, layer["layer_rms_dbfs"], -6.0)
             mixed += loop * 10 ** (layer["gain_db"] / 20)
         mixed = normalize(mixed, row["target_rms_dbfs"], recipe["peak_ceiling_dbfs"] - 0.5)
+        mixed *= 10 ** (row.get("output_gain_db", 0.0) / 20)
         path = DEST / (row["id"] + ".ogg")
         encode(mixed, path, rate)
         measured = metrics(decode(path, rate))
@@ -191,6 +192,7 @@ def build() -> None:
         samples[:fade_in] *= np.linspace(0, 1, fade_in)[:, None]
         samples[-fade_out:] *= np.linspace(1, 0, fade_out)[:, None]
         samples = normalize(samples, row["target_rms_dbfs"], recipe["peak_ceiling_dbfs"] - 0.5)
+        samples *= 10 ** (row.get("output_gain_db", 0.0) / 20)
         path = DEST / (row["id"] + ".wav")
         encode(samples, path, rate)
         take = {"id": row["id"], "path": "res://" + str(path.relative_to(ROOT)),
@@ -209,6 +211,7 @@ def build() -> None:
     # ffmpeg is reading it without changing its declared source fingerprint.
     check_sources(require_originals=True)
     manifest = {"schema_version": 1, "version": VERSION, "task": recipe["task"],
+                "mix_revision": recipe.get("mix_revision", "initial-01"),
                 **before, "sample_rate": rate, "channels": 2,
                 "peak_ceiling_dbfs": recipe["peak_ceiling_dbfs"],
                 "subjective_status": "awaiting-user", "device_status": "unverified",
@@ -230,6 +233,8 @@ def validate() -> None:
     if manifest.get("sources") != sources:
         raise ValueError("Source snapshot differs")
     recipe = read(CONFIG / "recipes.json")
+    if manifest.get("mix_revision", "initial-01") != recipe.get("mix_revision", "initial-01"):
+        raise ValueError("Mix revision changed")
     if manifest.get("version") != VERSION or manifest.get("sample_rate") != recipe["sample_rate"] or manifest.get("channels") != 2 or manifest.get("runtime_default") != "original":
         raise ValueError("Manifest identity/configuration changed")
     expected = {row["id"] for row in recipe["beds"] + recipe["details"]}
@@ -242,7 +247,12 @@ def validate() -> None:
         measured = metrics(decode(path, manifest["sample_rate"]))
         if measured != take["metrics"]:
             raise ValueError("Measured output metadata changed: " + take["id"])
-        if measured["peak_dbfs"] > manifest["peak_ceiling_dbfs"] or not -45 < measured["rms_dbfs"] < -20:
+        row = next(row for row in recipe["beds"] + recipe["details"] if row["id"] == take["id"])
+        output_gain = row.get("output_gain_db", 0.0)
+        # Preserve the original pre-trim fault bounds; deliberate output trim
+        # also lowers the peak ceiling. Peak-constrained transients need not
+        # reach the requested normalization RMS.
+        if type(output_gain) not in (int, float) or not -24 <= output_gain <= 0 or measured["peak_dbfs"] > manifest["peak_ceiling_dbfs"] + output_gain or not -45 < measured["rms_dbfs"] - output_gain < -20 or measured["rms_dbfs"] > row["target_rms_dbfs"] + output_gain + 0.5:
             raise ValueError("Output level out of bounds: " + take["id"])
         if max(abs(x) for x in measured["dc"]) > 0.003:
             raise ValueError("DC offset: " + take["id"])
