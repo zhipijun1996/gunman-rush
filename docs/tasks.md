@@ -1,12 +1,18 @@
 # 开发任务
 
-## 2026-10-29 MOBILE-UI-CLARITY-01 · 修复中
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
 
-| 任务 | 目标 | 依赖 | 状态 | 质量记录 |
+运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
+
+手机与电脑统一1280×720逻辑UI/世界比例；Web使用完整1280×720内部RT与真实DPR backing store/nearest呈现，原生保留canvas_items。标题/HUD/模态框去掉逆CSS放大，家园提示避开摇杆且仅保留一个菜单入口。原shader/PNG不改，前景保护矩形改用RT局部stretch坐标，避免黑边偏移。
+
+原生专项37／0、原UI合同149／0、Web密度8／0，最终源图鉴UI72／0、R2菜单输入208／0；这些检查执行后UI生产字节保持一致，后续导出守门要求原Foundry重建（36短语／18行程、0失败）并刷新验证basis，生成数据单独提交。实际桌面与模拟手机Web截图/指针通过，按钮逻辑边界最大差0.6wu；隔离GPU探针实测原生产mask函数与shader在黑边/DPR下透明位置正确。独审限定ACCEPT，最终定向Harness docs/web-cache/web-bundle三项全fresh通过，公网模拟手机实际设定/家园/菜单/resize通过。真实荣耀60Pro、帧率、金币音效、完整两区动态和玩家认可仍未验，质量awaiting-device。所有旧失败和验收边界见[本轮证据](evidence/mobile_ui_clarity_01/README.md)。
+
+恢复先核当前公开build-info及完整PCK；不要重做已通过UI修复或擅自合main。后续先收用户真机UI/清晰度反馈，再继续单独定位家园/关卡卡顿及拾取音效。
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
 | --- | --- | --- | --- | --- |
-| MOBILE-UI-CLARITY-01 | 修复共享UI比例与Web清晰度并快速部署 | 当前main | review | [记录](quality/records/MOBILE-UI-CLARITY-01.json) |
-
-用户要求先修手机UI比例与发糊，并快速部署试玩；最新补充要求手机/电脑画面内比例一致。分支`fix/mobile-ui-clarity-20261029`基于main1b29932，采用共享逻辑画布＋真实Web HiDPI，清理家园触控重叠；不改音频/物理/保存，不签真机卡顿已解决。验证和公开构建尚待完成，不把旧618eb971包称新修复。详见[范围](worklines/mobile_ui_clarity_01/scope.md)和[质量记录](quality/records/MOBILE-UI-CLARITY-01.json)。
+| MOBILE-UI-CLARITY-01 | 修复共享UI比例与Web清晰度并快速部署 | — | awaiting-device | [记录](quality/records/MOBILE-UI-CLARITY-01.json) |
 
 ## 2026-10-26 AUDIO-DIRECTOR-01
 
