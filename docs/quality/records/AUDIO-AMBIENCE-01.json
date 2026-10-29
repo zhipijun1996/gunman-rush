@@ -265,7 +265,8 @@
     "tools/capture_audio_ambience.py",
     "tools/check_quality_diff.py",
     "tools/sound_lab/ambience_index.html",
-    "tools/sound_lab/verify_ambience.mjs"
+    "tools/sound_lab/verify_ambience.mjs",
+    "config/audio_director/ambience/user-selected.json"
   ],
   "deliverables": [
     "assets/audio/ambience_v1/manifest.json",
@@ -286,6 +287,12 @@
       "status": "proposed",
       "decision": "quiet-02使用后归一输出trim：四床−14dB，四点−10dB；新选择KEY隔离旧选择",
       "basis": "实际输出波形降幅验证通过；具体新响度待用户试听，不作为已批准推广"
+    },
+    {
+      "status": "user_confirmed",
+      "decision": "quiet-02平原plains_a与森林forest_a均选A，保持本版轻微混音",
+      "basis": "用户原话“两者都选A”，直接承接quiet-02试听交付",
+      "evidence_id": "amb-q2-user-aa"
     }
   ],
   "formal_impact": true,
@@ -389,8 +396,10 @@
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "用户明确拒绝initial-01混音（环境过响盖BGM）；quiet-02待试听，不继承旧版或声音家族批准",
-      "evidence": []
+      "reason": "用户明确选择quiet-02两区A床声；独立点声、完整游戏/自然流程、实体设备及最终全内容认可仍未验",
+      "evidence": [
+        "amb-q2-user-aa"
+      ]
     }
   },
   "criteria": [
@@ -596,11 +605,29 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Different reviewer wrote no production code, ran separate processing/adapter/negative tests and native waveform analysis; root only owned engine and deployment."
+    },
+    {
+      "id": "amb-q2-user-aa",
+      "path": "config/audio_director/ambience/user-selected.json",
+      "sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Explicit chat selection after quiet-02 mobile delivery",
+      "observed": "User selected plains A and forest A in the current quiet mix",
+      "source": "Current conversation after quiet-02 delivery, 2026-10-29",
+      "quote": "两者都选A",
+      "accepted": true,
+      "covers": [
+        "audio_vfx"
+      ],
+      "scope": "Two quiet-02 bed candidates only; no standalone detail/device/formal rollout approval inferred"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "User quiet-02 choice/naturalness/masking/fatigue: initial-01 too loud explicitly rejected; revised level is not yet approved",
+    "Standalone detail choices, whole-game/natural-route hearing and any future regenerated ambience version; exact quiet-02 plains_a/forest_a selection is recorded",
     "Physical mobile/Safari/speakers/Bluetooth and performance",
     "Full Integration CI and new exported interactive Godot ambience lab",
     "Whole-map detail source placement, spatial panning/occlusion and formal rollout",

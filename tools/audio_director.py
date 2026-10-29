@@ -141,6 +141,18 @@ def brief(request,output):
         result['candidate_version']='audio-ambience-v1'
         result['next_command']='python3 tools/audio_ambience_design.py build'
         result['runtime_scope']='Explicit development audition only; preserve formal original ambience, five original BGM, and prior per-event SFX selections.'
+        ambience_selection_path='config/audio_director/ambience/user-selected.json'
+        if (ROOT/ambience_selection_path).is_file():
+            selection=read(ROOT/ambience_selection_path)
+            ambience_manifest=read(ROOT/'assets/audio/ambience_v1/manifest.json')
+            if selection['manifest_sha256']!=sha(ROOT/'assets/audio/ambience_v1/manifest.json') or selection['mix_revision']!=ambience_manifest.get('mix_revision'):
+                raise ValueError('Selected ambience version changed; preserve the original user choice and review new candidates')
+            for choice in selection['events']:
+                profile=ambience_manifest['regions'][choice['region']]['profiles'][choice['profile']]
+                if profile['candidate_id']!=choice['candidate_id'] or profile['bed']!=choice['path'] or sha(ROOT/choice['path'].removeprefix('res://'))!=choice['sha256']:
+                    raise ValueError('Selected ambience bytes or identity changed')
+            result['ambience_selection']=selection
+            result['inputs'].append({'path':ambience_selection_path,'sha256':sha(ROOT/ambience_selection_path)})
         if 'user_selection' in result: result['user_selection']['scope'] += ' No regional ambience choice is inferred.'
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 

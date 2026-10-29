@@ -1,5 +1,12 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 AUDIO-AMBIENCE-01 · 两区quiet-02均已选A
+
+用户在轻微环境版交付后明确“两者都选A”：平原`plains_a`、森林`forest_a`，保当前−14dB床声／原BGM混音。精确记录`config/audio_director/ambience/user-selected.json`绑定quiet-02、manifest与两OGG SHA、原话和原生producer e55910ec；brief自动读取并拒绝指纹漂移。原B方案与较响首版不删，不推导四点声或真机认可。
+
+本次仅记录明确选择与后续上下文；运行默认original和main未改，无新录屏/重导出。沿PR113同步；下一步正式集成时使用此精确A/A选择，保原音乐和生命周期规则，不重问已确定的两区方案。下方“待选择”属于当时历史交接，现由本条覆盖。
+
+
 ## 2026-10-29 AUDIO-AMBIENCE-01 · quiet-02轻微环境音已发布
 
 用户明确首版环境音过响盖住BGM；同PR113／`feature/audio-ambience-01`已迭代为quiet-02：保原归一/控峰后四床−14dB、四点−10dB，实际解码降幅已核。五MP3、MusicGain 0.16与玩法/动作保持。原生/影片源`e55910ec7d5be218735fb7cade4ebdd4f662552a`，6×26秒／9943帧、14,065,613B，714.952秒内完成原900秒预算，source/loop/轨迹/音轨均通过；不是后期配音。

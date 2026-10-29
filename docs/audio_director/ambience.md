@@ -1,11 +1,16 @@
 # 两区环境音 · audio-ambience-v1
 
+## 用户选择 · 2026-10-29
+
+用户在quiet-02交付后明确“两者都选A”：风铃平原`plains_a`与荆棘森林`forest_a`，保持轻微混音（床声输出−14dB，BGM不改）。[精确选择记录](../../config/audio_director/ambience/user-selected.json)绑定manifest/文件SHA、原话与真实录屏源；后续Audio Director brief自动读取，不得把这次选择套用到较响initial-01或重加工新版本。选择范围为两区床声；未推导独立点声、设备认可或已完成正式运行接入。
+
+
 ## quiet-02 · 用户反馈修订（2026-10-29）
 
-用户明确首版环境音太响、盖住BGM，要求微弱衬底。BGM原MUSIC_GAIN=0.16（约−15.9dB），不能只看环境源文件RMS判断混音。quiet-02保原选材与归一，输出末端床声−14dB、四点声−10dB；复现参数`output_gain_db`在配方内，先归一/控峰后衰减，避免峰值限制使降音量无效。原Music及五MP3不变。原版较响交付与此前技术证据保留，用户此反馈判定旧混音不接受；新混音仍待用户试听。
+用户明确首版环境音太响、盖住BGM，要求微弱衬底。BGM原MUSIC_GAIN=0.16（约−15.9dB），不能只看环境源文件RMS判断混音。quiet-02保原选材与归一，输出末端床声−14dB、四点声−10dB；复现参数`output_gain_db`在配方内，先归一/控峰后衰减，避免峰值限制使降音量无效。原Music及五MP3不变。原版较响交付与此前技术证据保留，用户此反馈判定旧混音不接受；quiet-02两区A已由用户明确选择，独立点声和后续重加工版本仍需各自依据。
 
 
-任务AUDIO-AMBIENCE-01。[手机实景试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已发布，包含原版/A/B和BGM混音/环境单听；需拥有者账号。[本轮实际事件/引用](ambience_event_catalog.json)。当前为可淘汰的开发候选，用户听感和实体设备未验证。基于最新main45e98dbb；原Audio Inventory的26e7f2a基线保留，不回写历史审计。
+任务AUDIO-AMBIENCE-01。[手机实景试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已发布，包含原版/A/B和BGM混音/环境单听；需拥有者账号。[本轮实际事件/引用](ambience_event_catalog.json)。当前quiet-02两区A已被用户选定，正式接入与实体设备仍未验证。基于最新main45e98dbb；原Audio Inventory的26e7f2a基线保留，不回写历史审计。
 
 ## 已验证的原声音与消费者
 
@@ -26,7 +31,7 @@
 
 A/B必须使用不同真实录音片段/层次与节奏，有可听的材质差别；不以整体变调或加响冒充方案。长床声使用经过接缝加工的Vorbis循环，点声不loop；淡入淡出避免入区突响，定位来自真实listener和声源位置。没有真实宿主的点声只在明确标注的开发fixture出现，不假称全地图已布点。
 
-用户选过的动作SFX与环境音是两项选择：本轮没有用户环境音批准，也不会因上一轮13项选择自动批准A/B。原jump/land与全部原BGM保留。
+用户选过的动作SFX与环境音是两项选择：本轮已有独立的quiet-02两区A用户选择；不从上一轮13项SFX选择推导任何环境选择。原jump/land与全部原BGM保留。
 
 ## 制作、运行与实景交付
 
