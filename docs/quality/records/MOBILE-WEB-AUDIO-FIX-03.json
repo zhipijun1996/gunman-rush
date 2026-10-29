@@ -33,7 +33,58 @@
   "creative_decisions": [],
   "formal_impact": true,
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "native-01",
+      "path": "docs/evidence/mobile_web_audio_fix_03/native-01/report.json",
+      "sha256": "93e123e2b8eca6617f28fb2c8c04d294d73505d267b3fd93c04b61c384338d4d",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "fb5dc84b12adcbfada2e7e43845acec9b81d2d9b",
+      "content_version": "threaded-production-v1",
+      "method": "Real demo SceneTree and original teardown; runtime source frozen fb5dc84b, test source committed27977c9c",
+      "observed": "31/0",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "res://tests/audio_fix_03.gd"
+      ],
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless; actual phone not claimed"
+    },
+    {
+      "id": "selected-01",
+      "path": "docs/evidence/mobile_web_audio_fix_03/selected-01/report.json",
+      "sha256": "166085cc93c39c61314b4f32881157754293bd7b7d76c3d78d0b8ed11ca4a344",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "fb5dc84b12adcbfada2e7e43845acec9b81d2d9b",
+      "content_version": "threaded-production-v1",
+      "method": "Real demo SceneTree and original teardown; runtime source frozen fb5dc84b, test source committed27977c9c",
+      "observed": "63/0",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "res://tests/selected_sfx_runtime.gd"
+      ],
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless; actual phone not claimed"
+    }
+  ],
   "unverified_items": [
     "本次正式入口、声音调整的技术验证和独审待执行",
     "新正式包长时实体设备听感待验"
@@ -45,9 +96,12 @@
       "evidence": []
     },
     "G1": {
-      "status": "unverified",
-      "reason": "当前正式接入验证执行中，不继承旧包结果",
-      "evidence": []
+      "status": "passed",
+      "reason": "小修实际运行专项通过，未代签最终完整CI",
+      "evidence": [
+        "native-01",
+        "selected-01"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -77,14 +131,20 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "当前正式接入验证执行中，不继承旧包结果",
-      "evidence": []
+      "status": "passed",
+      "reason": "实际demo专项31/0及原选择专项63/0；完整CI/Web最终main验证另列",
+      "evidence": [
+        "native-01",
+        "selected-01"
+      ]
     },
     "formal_integration": {
-      "status": "unverified",
-      "reason": "当前正式接入验证执行中，不继承旧包结果",
-      "evidence": []
+      "status": "passed",
+      "reason": "实际demo专项31/0及原选择专项63/0；完整CI/Web最终main验证另列",
+      "evidence": [
+        "native-01",
+        "selected-01"
+      ]
     },
     "visual": {
       "status": "not_applicable",
@@ -102,9 +162,12 @@
       "evidence": []
     },
     "gameplay": {
-      "status": "unverified",
-      "reason": "当前正式接入验证执行中，不继承旧包结果",
-      "evidence": []
+      "status": "passed",
+      "reason": "实际demo专项31/0及原选择专项63/0；完整CI/Web最终main验证另列",
+      "evidence": [
+        "native-01",
+        "selected-01"
+      ]
     },
     "performance": {
       "status": "unverified",

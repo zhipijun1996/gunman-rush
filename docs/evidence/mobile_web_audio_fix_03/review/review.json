@@ -1,0 +1,187 @@
+{
+  "task": "MOBILE-WEB-AUDIO-FIX-03",
+  "review_id": "formal-threaded-cache-audio-static-01",
+  "reviewed_at_utc": "2026-10-29T18:21:01.896425+00:00",
+  "reviewed_head": "27977c9c6d4cbd03f132501de06d0266442932c7",
+  "reviewer": "review_mobile_ui independent reviewer; did not author reviewed production changes",
+  "verdict": "ACCEPT_STATIC_AND_PURE_MOCK_SCOPE; ROOT_RUNTIME_MIGRATION_CI_AND_NEW_PHONE_VALIDATION_SEPARATE",
+  "blocking_findings": [],
+  "scope": "Formal threaded export/cache startup/COOP-COEP pass-through, archived before/diagnostic links, browser-only production observer, and three requested audio consumer files. Read-only production/tool audit; only new reviewer fixtures/receipts under this directory. No Godot/browser execution or loading-UI expansion.",
+  "source_sha256": {
+    "export_presets.cfg": "9810cd51abab460a33a55ae7e96509539ccaeaf6e1d63704d2c117c0b830ab15",
+    "tools/build.py": "f636bf6172fa4d20b07bd3e9af2fa4a899b23830e30986cc75f28fd2513ba8b6",
+    "tools/web/cache_worker.js": "cc4c8f086897af6d4c9108d73b6ec3ec71d61818bb5961baa1851cb8d58e317a",
+    "tools/web/cache_startup.js": "ccc1e4b556285a7dd32204d3bf6e9f9f4566e88bc63e7825e13bc5d1b59e1d5a",
+    "tools/mobile_web_perf/prepare_comparison.py": "82fb8f418136bdacd483f1d34124df166b6184c3d77afe3fbbe9fc6255414b9e",
+    "tools/mobile_web_perf/verify_production_audio.py": "f134c86c530be5c9fa2f5af5892b5dfbf2c91a0331325c8270d3eecd103bfda7",
+    "scripts/art/player_feedback.gd": "245a6c717a542b39f4bb67ce620668fdbd247db744c3159da34a47ba6cd3b2e8",
+    "scripts/audio/game_audio.gd": "693ccfad72da8097317da20e1e5952367b2f0e2983785cddbdb17031fe8be3a5",
+    "scripts/world/shot_latch.gd": "6d60a7ed5fe9045bf5375ee6cefd3646e5df5964c5b1aa6c7f242dc040152565",
+    "tests/audio_fix_03.gd": "e8e278d85fb7f3459210e6e7fef1e1c3c892c86a84439f0226e1ffbc72286493"
+  },
+  "independent_checks": {
+    "cache_migration_mock": {
+      "command": [
+        "node",
+        "build/mobile_web_audio_fix_03/review/cache_migration_mock.js"
+      ],
+      "exit_code": 0,
+      "passed": 13,
+      "failed": 0,
+      "tests": [
+        "cold_control_then_exact_handshake_one_reload",
+        "after_reload_actual_coi_ready_without_second_reload",
+        "persistent_noncoi_fails_without_reload_loop",
+        "old_worker_never_authorizes_reload_new_exact_worker_does",
+        "right_worker_wrong_pack_cannot_authorize",
+        "unsupported_insecure_denied_hung_storageblocked_noreply_bounded_failure",
+        "singlethread_compatibility_and_alreadycoi_without_storage",
+        "documented_outer_timeout_does_not_cancel_late_inner_one_reload",
+        "mutable_html_metadata_worker_passthrough_body_and_isolation_not_cached",
+        "old_immutable_cached_engine_bytes_retained_headers_upgraded",
+        "cold_tabs_share_one_immutable_fetch_independent_isolated_responses",
+        "nonget_crossorigin_outscope_not_intercepted",
+        "opaque_statuszero_response_identity_preserved"
+      ]
+    },
+    "real_template_loader_fixture": {
+      "command": [
+        "python3",
+        "build/mobile_web_audio_fix_03/review/build_fixture_check.py"
+      ],
+      "exit_code": 0,
+      "result_log": "build/mobile_web_audio_fix_03/review/build-fixture.log",
+      "coverage": "Actual pinned4.7.2HTML template through current tools/build.prepare_web_playtest with tiny fake resource bytes for single/threaded variants. Generated inline syntax, exact await-before-feature ordering,8/4pool metadata, canvas/meta parity, official missing-feature failure, actualCOI raw fallback, and two query/hash-preserving redirects. No valid PCK/WASM or engine execution claim."
+    },
+    "artifact_files": [
+      "build/mobile_web_audio_fix_03/review/build-fixture-result.json",
+      "build/mobile_web_audio_fix_03/review/build-fixture.log",
+      "build/mobile_web_audio_fix_03/review/build_fixture_check.py",
+      "build/mobile_web_audio_fix_03/review/cache-migration-result.json",
+      "build/mobile_web_audio_fix_03/review/cache-migration.log",
+      "build/mobile_web_audio_fix_03/review/cache_migration_mock.js",
+      "build/mobile_web_audio_fix_03/review/reviewer-fixture-corrections.json"
+    ]
+  },
+  "web_findings": [
+    {
+      "path": "export_presets.cfg:55",
+      "result": "Only Web Playtest thread_support toggles true; native export presets and authored1280viewport/HiDPI/art settings unchanged."
+    },
+    {
+      "path": "tools/build.py:99",
+      "result": "Generated startup IIFE becomes async and awaits cache readiness before official getMissingFeatures. Engine.startGame remains gated afterward. Mock real generated bootstrap makes no feature/start call before readiness; missing actualCOI fails visibly, while pre-existing genuineCOI can use raw fallback even if cache handshake fails. Default pools8/4 and official engine/worklet bytes are not rewritten."
+    },
+    {
+      "path": "tools/web/cache_startup.js:18",
+      "result": "Handshake validates expected new worker ID and exact content-addressed PCK, not any controller. Old worker cannot authorize isolation reload; current worker must control. Current nonCOI document reloads once per tab/worker-ID via sessionStorage, then genuine feature detection runs on new response. Persistent nonCOI/storage denial/unsupported/hung registration fails without loop."
+    },
+    {
+      "path": "tools/web/cache_worker.js:147",
+      "result": "Same-origin in-scope GET responses gain COOPsame-origin and COEPrequire-corp, including fresh HTML, metadata and worker scripts, plus immutable network/cached assets. Body/MIME/other headers retained. HTML/build-info remain uncached passthrough; status0/opaque response object retained. Cross-origin/out-of-scope/POST untouched. CacheStorage save stores are not touched. Old cached immutable engine bytes are retained and receive headers; no new PCK substitution. Two cold tabs share one immutable fetch with independent response bodies."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_comparison.py:49",
+      "result": "Ordinary after and frozen before bundles retain own metadata/resources/engine/cache SW; before reconstruction validates full actual content hash. Legacy audio-threaded and audio-stream-test redirects retain full query/hash and point into audio-before. root normal after link uses actual newPCKv query rather than pretending queries change engine versions. No new loading UI ships through these normal startup changes."
+    },
+    {
+      "path": "tools/mobile_web_perf/verify_production_audio.py:51",
+      "result": "--expect-threaded-root appends shared-start observer only to browser init script and visits ordinary root, preserving production worklet bytes. Actual native post must succeed before shared descriptors are recorded. This is test observation, not a production engine patch."
+    }
+  ],
+  "audio_production_findings": [
+    {
+      "path": "scripts/art/player_feedback.gd:59",
+      "result": "Only _ready changes: removes air_focus_ability.active_changed sound subscription. Actual slow-time/gameplay/recoil implementation and _shot accepted selected-weapon cue remain byte-identical. Recoil already has no separate cue; removing focus exit also prevents extra release cue. Shared focus_start cue stays for existing double-jump/hook consumers as scoped."
+    },
+    {
+      "path": "scripts/audio/game_audio.gd:5",
+      "result": "Adds exact existing plains_chime_a.wav under dedicated mechanism_bell key, uses existing12-voice pool/SFX bus and original pause/mute/min-interval/full-pool policies. Gain+6dB applies only to this key; all other attenuation branches and selected14event dispatch remain. Original five BGM and ambience asset/mix code untouched."
+    },
+    {
+      "path": "scripts/world/shot_latch.gd:335",
+      "result": "Changes only setup sound/gain and _play_bell cue. All hit eligibility/deferred request/epoch/session/health/cancel/duplicate and _commit_open guards are byte-identical to prior b740 source. Accepted normal, sequence-step and motion-mode commits reuse same chime call. With a service, only shared cue plays; isolated no-service fallback plays same source once. A miss/cancelled/stale/duplicate request cannot newly reach the sound path."
+    }
+  ],
+  "audio_verification_boundaries": {
+    "method_byte_comparison": {
+      "player_feedback": [
+        "only_ready_changed"
+      ],
+      "game_audio": [
+        "only_ready_and_play_original_changed_plus_constants"
+      ],
+      "shot_latch": [
+        "only_setup_and_play_bell_changed_plus_BELL_SOUND_constant"
+      ]
+    },
+    "native_root_run_evidence_reviewed": {
+      "docs/evidence/mobile_web_audio_fix_03/native-01/report.json": {
+        "status": "passed",
+        "exit_code": 0,
+        "marker": "AUDIO_FIX_03 checks=31 failures=0",
+        "script_error_count": 0,
+        "native_error_count": 0
+      },
+      "docs/evidence/mobile_web_audio_fix_03/selected-01/report.json": {
+        "status": "passed",
+        "exit_code": 0,
+        "marker": "SELECTED_SFX_RUNTIME checks=63 failures=0",
+        "script_error_count": 0,
+        "native_error_count": 0
+      }
+    },
+    "native_scope": "Root executed, reviewer read logs/test/source.31covers actual formal airborne slow-time start/stop/accepted pulse/recoil plus isolated real projectile→mechanism collision, miss,duplicate,cancel,pause,mute,budget/selected-map and teardown. It is not natural full-campaign GUI or acoustic evidence. Sequence/motion branches have unchanged eligibility/commit source but are not freshly rendered/listened here.",
+    "raw_chime_source": {
+      "path": "assets/audio/ambience_v1/plains_chime_a.wav",
+      "sha256": "1a7d4d8818d1cbd04c3d87aa1294cc2e5a53298fd9ece0e8929981e4296f15fc",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate": 48000,
+      "frames": 121170,
+      "source_peak": 0.105926513671875,
+      "single_source_peak_after6dB": 0.21135118088552798,
+      "limit": "Read-only raw PCM arithmetic, not listening or final mix clipping proof."
+    },
+    "negative_edges": "Existing shared pool can drop mechanism cue when all12voices occupied or global55ms cue interval rejects; no new unbounded fallback/voice pool. The2.524s source can occupy a voice longer than a short transient. Raw headroom does not guarantee simultaneous final mix never clips. Isolated no-service fallback has no session service volume policy, as before; formal service path honors pause/mute."
+  },
+  "nonblocking_boundaries": [
+    {
+      "id": "late-register",
+      "result": "Independent mock proves4s outer Promise.race does not cancel inner registration: a correct worker appearing at5s can perform the sole reload after original feature failure has been displayed. Still bounded once and no successful active threaded run exists before actualCOI. No additional retry/UI change requested."
+    },
+    {
+      "id": "same-pack-update-notification",
+      "result": "checkPlaytestUpdate only detects PCK build_id changes, not loader/engine-only upgrades. This round also changes requested production sound consumers and PCK, so frozen old1d sees a new build. Record as existing samePCK boundary, not this round blocker."
+    },
+    {
+      "id": "legacy-threaded-verifier",
+      "result": "After new redirects, --threaded at the new root intentionally runs archived old diagnostic while initial metadata fetch is from root. Use current --expect-threaded-root for new production; use audio-before as root_url when deliberately verifying archived --threaded. Do not bind redirected old runtime to new root build metadata."
+    },
+    {
+      "id": "archive-and-size",
+      "result": "Legacy child SW still follows browser cache/control lifecycle; pure URL mocks do not prove every existing cached tab navigation. Actual browser migration remains root-owned. prepare_comparison size check predates adding comparison/redirect/receipt files; final artifact must be independently counted with reconstructed raw PCKs and strict<1GiB. Caller supplies frozen old1d path; relaxed generic assertion alone does not pin old1d."
+    }
+  ],
+  "runtime_status": "Root reports ordinary cold GUI actualCOI/SAB/shared-ring and Home/Plains8sPCM/native-start waveform results complete, with official blocking-on-main warning/favicon404 retained. This receipt has not independently replayed/listened to those new artifacts. Root old-cache desktop GUI is in progress. Prior user device success covers old explicit threaded diagnostic; new formal build/long-session device behavior not signed.",
+  "pending": [
+    "Root actual old-cache migration GUI and new cold ordinary entry evidence",
+    "Exact final head full165CI/full_lanes; no green CI claimed here",
+    "New formal ordinary-entry phone/user listening duration separately from old diagnostic feedback",
+    "Final Pages source/build/PCK/official engine identities and complete reconstructed-site size"
+  ],
+  "final_scope": "Static/mock acceptance does not authorize skipping full CI, manufacture phone acceptance or treat mixed PCM as arbitrary cue identity. User has authorized merge to main after appropriate exact-head checks.",
+  "evidence_sha256": {
+    "docs/evidence/mobile_web_audio_fix_03/native-01/report.json": "93e123e2b8eca6617f28fb2c8c04d294d73505d267b3fd93c04b61c384338d4d",
+    "docs/evidence/mobile_web_audio_fix_03/native-01/native.log": "caeeb502be71514e244a134bbfec401f58c3b9f81e0cf8aa133187fe5afc5aed",
+    "docs/evidence/mobile_web_audio_fix_03/selected-01/report.json": "166085cc93c39c61314b4f32881157754293bd7b7d76c3d78d0b8ed11ca4a344",
+    "docs/evidence/mobile_web_audio_fix_03/selected-01/native.log": "b0e25bd8a6691d402d40d8038750f90fbe84c5213b437ee8d5be39794cfc39f6",
+    "build/mobile_web_audio_fix_03/review/cache_migration_mock.js": "cb75772b004c80ec81b85f163d9db2044653477fc087e2480f45c1fc56cc7e5e",
+    "build/mobile_web_audio_fix_03/review/build_fixture_check.py": "96ab9552d3ddbb95babf7abedb6a5f571f8405fa93a6bd46c24006cf8c093f62",
+    "build/mobile_web_audio_fix_03/review/cache-migration-result.json": "66179e624282ae5e3e5e526c10bab2f2b4707d683dc554a6abe4b565196239d4",
+    "build/mobile_web_audio_fix_03/review/cache-migration.log": "258001ce3cf902403e13551fd96d41b402cc853f1c190c1d10ef2dae35d9d5a1",
+    "build/mobile_web_audio_fix_03/review/build-fixture-result.json": "c77c2077b9c68bc27cc871dfd1deb659c29c7a830b1bc922cff20427d1a9a59a",
+    "build/mobile_web_audio_fix_03/review/build-fixture.log": "a0bf5d67e0259a537a33e923afc32dce8d5e6c060fbc56e0de3afcecd05759b9",
+    "build/mobile_web_audio_fix_03/review/reviewer-fixture-corrections.json": "89467433b08884d3e955c561b4d2bd023b12d7b546e3e2e173c3fc59a28ee121"
+  }
+}

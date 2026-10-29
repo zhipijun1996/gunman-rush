@@ -1,0 +1,25 @@
+{
+  "scope": "Desktop real Chromium with old production service worker, same-origin host without isolation headers; no phone claim",
+  "status": "passed",
+  "before": {
+    "isolated": false,
+    "controller": "http://127.0.0.1:8810/index.cache-sw.js"
+  },
+  "after": {
+    "isolated": true,
+    "sab": true,
+    "threads": true,
+    "canvas": [
+      1280,
+      720
+    ],
+    "saved": "keep",
+    "controller": "http://127.0.0.1:8810/index.cache-sw.js"
+  },
+  "errors": [],
+  "navigations": [
+    "http://127.0.0.1:8810/seed-old.html",
+    "http://127.0.0.1:8810/?migration=1",
+    "http://127.0.0.1:8810/?migration=1"
+  ]
+}

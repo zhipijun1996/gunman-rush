@@ -1,0 +1,22 @@
+{
+  "scope": "Reviewer harness authoring failures, not production test failures; original diagnostics retained and corrected before final run.",
+  "failures": [
+    {
+      "attempt": "initial JS mock",
+      "exit_code": 1,
+      "message": "SyntaxError: Unexpected token '+' at object key 'index.'+BUILD+'.pck'",
+      "correction": "Use computed object key syntax in reviewer fixture only."
+    },
+    {
+      "attempt": "initial builder bootstrap mock",
+      "exit_code": 1,
+      "message": "TypeError: v[1].includes is not a function",
+      "correction": "Official error notice appends BR elements as well as text; reviewer assertion now checks string type before includes."
+    }
+  ],
+  "final_mock": {
+    "passed": 13,
+    "failed": 0
+  },
+  "final_builder_fixture": "passed"
+}
