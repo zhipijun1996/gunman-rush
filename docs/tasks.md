@@ -2,6 +2,10 @@
 
 ## 2026-10-29 MOBILE-UI-CLARITY-01 · 修复中
 
+| 任务 | 目标 | 依赖 | 状态 | 质量记录 |
+| --- | --- | --- | --- | --- |
+| MOBILE-UI-CLARITY-01 | 修复共享UI比例与Web清晰度并快速部署 | 当前main | review | [记录](quality/records/MOBILE-UI-CLARITY-01.json) |
+
 用户要求先修手机UI比例与发糊，并快速部署试玩；最新补充要求手机/电脑画面内比例一致。分支`fix/mobile-ui-clarity-20261029`基于main1b29932，采用共享逻辑画布＋真实Web HiDPI，清理家园触控重叠；不改音频/物理/保存，不签真机卡顿已解决。验证和公开构建尚待完成，不把旧618eb971包称新修复。详见[范围](worklines/mobile_ui_clarity_01/scope.md)和[质量记录](quality/records/MOBILE-UI-CLARITY-01.json)。
 
 ## 2026-10-26 AUDIO-DIRECTOR-01
