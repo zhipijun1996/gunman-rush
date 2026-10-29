@@ -79,6 +79,7 @@ static func _install_tether_attachment(stage: Node2D, manifest: Dictionary, enem
 
 static func draw_tether_attachment(canvas: Node2D, actor: EnemyActor) -> void:
 	if not active(canvas) or not is_instance_valid(actor): return
+	if not canvas.has_meta(TETHER_ATTACHMENT_METADATA): return
 	var attachment: Variant = canvas.get_meta(TETHER_ATTACHMENT_METADATA, null)
 	if not attachment is Dictionary or attachment.get("actor_id") != actor.get_instance_id(): return
 	# A thin descending woody stalk, with no horizontal standable-looking cap.
@@ -111,10 +112,11 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 			elif behavior_id == &"forest_crossbranch" and state == &"blocked": tint = Color(0.74,0.43,0.43)
 		tint = EnemyHitTemplate.body_tint(canvas, tint)
 		canvas.draw_set_transform(hit_origin, 0.0, Vector2(facing*hit_pose.x, hit_pose.y))
-		if behavior_id == &"forest_lantern":
-			_draw_lantern(canvas, body.texture as Texture2D, age, actor.health.terminal, tint)
-		else:
-			canvas.draw_texture_rect(body.texture as Texture2D, body.bounds, false, tint)
+		if not ForestMotion02.draw_body(canvas, actor, body.texture as Texture2D, body.bounds, facing, tint):
+			if behavior_id == &"forest_lantern":
+				_draw_lantern(canvas, body.texture as Texture2D, age, actor.health.terminal, tint)
+			else:
+				canvas.draw_texture_rect(body.texture as Texture2D, body.bounds, false, tint)
 		canvas.draw_set_transform(Vector2.ZERO)
 		return true
 	if behavior_id == &"forest_bark_beetle":
@@ -122,7 +124,8 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 		if not is_instance_valid(actor.brain) or actor.brain.direction not in [-1, 1]: return false
 		# Mirror only the body. Restore local drawing before real shield/aim cues.
 		canvas.draw_set_transform(hit_origin, 0.0, Vector2(float(actor.brain.direction)*hit_pose.x, hit_pose.y))
-		canvas.draw_texture_rect(BEETLE_BODY, BEETLE_BOUNDS, false, EnemyHitTemplate.body_tint(canvas))
+		if not ForestMotion02.draw_body(canvas, actor, BEETLE_BODY, BEETLE_BOUNDS, float(actor.brain.direction), EnemyHitTemplate.body_tint(canvas)):
+			canvas.draw_texture_rect(BEETLE_BODY, BEETLE_BOUNDS, false, EnemyHitTemplate.body_tint(canvas))
 		canvas.draw_set_transform(Vector2.ZERO)
 		return true
 	if behavior_id != &"forest_thread_spider" and behavior_id != &"forest_bible_weaver": return false
@@ -130,7 +133,8 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 	if actor.health != null and actor.health.terminal: body_tint = WEAVER_TERMINAL_TINT
 	body_tint = EnemyHitTemplate.body_tint(canvas, body_tint)
 	canvas.draw_set_transform(hit_origin, 0.0, hit_pose)
-	canvas.draw_texture_rect(WEAVER_BODY, WEAVER_BOUNDS, false, body_tint)
+	if not ForestMotion02.draw_body(canvas, actor, WEAVER_BODY, WEAVER_BOUNDS, 1.0, body_tint):
+		canvas.draw_texture_rect(WEAVER_BODY, WEAVER_BOUNDS, false, body_tint)
 	canvas.draw_set_transform(Vector2.ZERO)
 	return true
 

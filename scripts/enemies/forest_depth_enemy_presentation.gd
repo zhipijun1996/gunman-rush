@@ -3,9 +3,23 @@ extends Node2D
 @export var actor: EnemyActor
 var age := 0.0
 var hit_template: EnemyHitTemplate
+var motion: ForestMotion02
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install(actor, self)
+	motion = ForestMotion02.install(self)
+	motion.sync_epoch(actor)
+	actor.health.changed.connect(_motion_initialized)
+func _motion_initialized(result: ActorResourceResult) -> void:
+	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
+	motion.sync_epoch(actor)
+	age = 0.0
+	queue_redraw()
+func _exit_tree() -> void:
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_motion_initialized):
+		actor.health.changed.disconnect(_motion_initialized)
 func _process(delta: float) -> void:
+	if get_tree().paused: return
+	motion.advance(actor, delta)
 	age += delta
 	queue_redraw()
 func _draw() -> void:

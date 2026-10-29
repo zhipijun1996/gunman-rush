@@ -68,6 +68,14 @@ func bounds(index: int) -> Rect2:
 	value.position.x += horizontal_offset
 	return value
 
+func canonical_live_texture() -> Texture2D:
+	# Recovery closes on H3; locomotion articulates that exact same master.
+	# This keeps horns, wings, shell and material stable at hurt -> live exit.
+	return texture(3)
+
+func canonical_live_bounds() -> Rect2:
+	return bounds(3)
+
 func hurt_index(sample: EnemyFeedback01) -> int:
 	if sample == null or sample.hurt_remaining <= 0: return -1
 	var elapsed := sample.tuning.hurt_seconds - sample.hurt_remaining

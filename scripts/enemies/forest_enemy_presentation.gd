@@ -3,9 +3,23 @@ extends Node2D
 @export var actor: EnemyActor
 var age := 0.0
 var hit_template: EnemyHitTemplate
+var motion: ForestMotion02
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install(actor, self)
+	motion = ForestMotion02.install(self)
+	motion.sync_epoch(actor)
+	actor.health.changed.connect(_motion_initialized)
+func _motion_initialized(result: ActorResourceResult) -> void:
+	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
+	motion.sync_epoch(actor)
+	age = 0.0
+	queue_redraw()
+func _exit_tree() -> void:
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_motion_initialized):
+		actor.health.changed.disconnect(_motion_initialized)
 func _process(delta: float) -> void:
+	if get_tree().paused: return
+	motion.advance(actor, delta)
 	age += delta
 	queue_redraw()
 func _draw() -> void:
@@ -22,7 +36,7 @@ func _draw() -> void:
 			draw_circle(Vector2.ZERO, 11, hit_template.tint(Color(.21, .4, .29) if alive else Color(.2, .2, .2)))
 			draw_arc(Vector2(0, 2), 7, 0, TAU, 20, hit_template.tint(Color(.96, .82, .35) if alive else Color(.4,.4,.4)), 3)
 			draw_set_transform(Vector2.ZERO)
-		if state == &"telegraph": draw_line(Vector2.ZERO, Vector2(actor.brain.direction * 22, 0), Color.WHITE, 2)
+		if alive and state == &"telegraph": draw_line(Vector2.ZERO, Vector2(actor.brain.direction * 22, 0), Color.WHITE, 2)
 	else:
 		if not bible_body:
 			hit_template.begin_body(self)
@@ -30,7 +44,7 @@ func _draw() -> void:
 			draw_circle(Vector2(0,-5), 14, hit_template.tint(Color(.45,.2,.35) if alive else Color(.2,.2,.2)))
 			for side: int in [-1,1]: draw_line(Vector2(side*20, 10), Vector2(0,-8), hit_template.tint(Color(.5,.65,.34)), 5)
 			draw_set_transform(Vector2.ZERO)
-		if state == &"telegraph":
+		if alive and state == &"telegraph":
 			draw_arc(Vector2(0,-5), 18, 0, TAU, 24, Color(1,.65,.3), 3)
 			var goal := to_local(actor.attack_behavior.attack_goal)
 			var size := actor.definition.pulse_size

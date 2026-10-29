@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-ALL-02",
+  "task_type": "animation",
+  "workflow": "in_progress",
+  "baseline_commit": "20e67867b272a7e461eddce169a0cdb83353f4b6",
+  "reviewed_commit": "20e67867b272a7e461eddce169a0cdb83353f4b6",
+  "content_version": "enemy-all-02-candidate-v1",
+  "owner": "/root",
+  "purpose": "按既有流程完善全部现存怪物同体动作并交付逐怪真实Godot视频审核",
+  "player_experience": "移动／蓄势／攻击／受伤／恢复／原死亡终态连贯，身份、脚点、警告与弱点稳定",
+  "constraints": [
+    "只读玩法权威，不改AI/HP/碰撞/奖励/存档",
+    "保留旧证据、原G0–G5及十一维、原预算",
+    "fixture与正式campaign、候选与正式怪物分别标明；不自签用户或设备通过"
+  ],
+  "affected_paths": [
+    "assets/enemy_all_02/prototype.provenance.json",
+    "assets/enemy_all_02/prototype_manifest.json",
+    "assets/enemy_all_02/prototype_sheet.png",
+    "assets/enemy_all_02/prototype_sheet.png.import",
+    "docs/evidence/enemy_all_02/README.md",
+    "docs/evidence/enemy_all_02/generation/prototype-prompt-round2.txt",
+    "docs/evidence/enemy_all_02/generation/prototype-prompt.txt",
+    "docs/evidence/enemy_all_02/generation/prototype-round2-rejected.png",
+    "docs/evidence/enemy_all_02/review/r1-binding.json",
+    "docs/evidence/enemy_all_02/review/r1.md",
+    "docs/evidence/enemy_all_02/roster.json",
+    "docs/quality/asset_records/enemy-all-02-prototype-contract-v1.json",
+    "docs/quality/asset_records/enemy-all-02-prototype-master-v1.json",
+    "docs/quality/records/ENEMY-ALL-02.json",
+    "docs/tasks.md",
+    "docs/worklines/enemy_all_02/bindings-plan.md",
+    "docs/worklines/enemy_all_02/boss-production-cards.md",
+    "docs/worklines/enemy_all_02/coverage_capture.md",
+    "docs/worklines/enemy_all_02/forest-mesh-diagnostics.json",
+    "docs/worklines/enemy_all_02/forest-production-cards.md",
+    "docs/worklines/enemy_all_02/forest-source.json",
+    "docs/worklines/enemy_all_02/plains-production-cards.md",
+    "docs/worklines/enemy_all_02/source-contract-v1.json",
+    "docs/worklines/enemy_all_02/source-contract.json",
+    "docs/worklines/enemy_all_02/spec.md",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_motion_presentation.gd",
+    "scripts/bosses/boss_motion_presentation.gd.uid",
+    "scripts/bosses/boss_presentation.gd",
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+    "scripts/bosses/thorn_forest_presentation.gd",
+    "scripts/bosses/thorn_queen_canopy_presentation.gd",
+    "scripts/bosses/thorn_queen_weave_presentation.gd",
+    "scripts/bosses/windkeeper_presentation.gd",
+    "scripts/enemies/enemy_feedback_01_body.gd",
+    "scripts/enemies/enemy_feedback_01_frames.gd",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/enemies/forest_crossbranch_presentation.gd",
+    "scripts/enemies/forest_depth_enemy_presentation.gd",
+    "scripts/enemies/forest_enemy_presentation.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd",
+    "scripts/enemies/forest_motion_02.gd",
+    "scripts/enemies/forest_motion_02.gd.uid",
+    "scripts/enemies/plains_motion_02.gd",
+    "scripts/enemies/plains_motion_02.gd.uid",
+    "scripts/enemies/prototype_enemy_presentation.gd",
+    "scripts/enemies/root_bell_presentation.gd",
+    "scripts/presentation/forest_bible_actor_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_all_02_boss_motion_lifecycle.gd",
+    "tests/enemy_all_02_boss_motion_lifecycle.gd.uid",
+    "tests/enemy_all_02_motion_lifecycle.gd",
+    "tests/enemy_all_02_motion_lifecycle.gd.uid",
+    "tests/enemy_all_02_plains_lifecycle.gd",
+    "tests/enemy_all_02_plains_lifecycle.gd.uid",
+    "tools/enemy_all_review_02.py",
+    "tools/enemy_all_review_02_boss_capture.gd",
+    "tools/enemy_all_review_02_boss_capture.gd.uid",
+    "tools/enemy_all_review_02_capture.gd",
+    "tools/enemy_all_review_02_capture.gd.uid",
+    "tools/enemy_all_review_02_inventory.py",
+    "tools/enemy_all_review_02_route_capture.gd",
+    "tools/enemy_all_review_02_route_capture.gd.uid"
+  ],
+  "deliverables": [
+    "docs/worklines/enemy_all_02/spec.md",
+    "docs/evidence/enemy_all_02/roster.json",
+    "docs/evidence/enemy_all_02/README.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "实机捕获与逐项返工进行中",
+    "独立像素与连续性审查待源码冻结",
+    "用户最终审核及真机预算未验"
+  ]
+}

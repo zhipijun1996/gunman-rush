@@ -5,9 +5,11 @@ var _counter_flash := 0.0
 var _counter_amount := 0.0
 var _counter_position := Vector2.ZERO
 var hit_template: EnemyHitTemplate
+var motion := BossMotionPresentation.new()
 
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
+	motion.bind(encounter)
 	if encounter is RootbellGuardianV2:
 		(encounter as RootbellGuardianV2).duel_event.connect(_duel_event)
 
@@ -19,6 +21,7 @@ func _duel_event(event: Dictionary) -> void:
 	_counter_position = encounter.motor.global_position
 
 func _process(delta: float) -> void:
+	motion.sample(encounter,delta)
 	_counter_flash = maxf(0,_counter_flash-delta)
 	queue_redraw()
 
@@ -26,11 +29,19 @@ func _draw() -> void:
 	if encounter == null: return
 	var color := Color("d5d273") if encounter.core_open else Color("365347")
 	var size := encounter.definition.collision_size
-	if not ForestBibleActors.draw_boss_body(self, encounter):
+	if ForestBibleActors.active(self) and encounter is RootbellGuardianV2 and encounter.definition.stable_id == &"rootbell_guardian_v2" and size == Vector2(72,96):
+		motion.draw_body(self,ForestBibleActors.GUARDIAN_BODY,ForestBibleActors.GUARDIAN_BOUNDS,&"guardian",hit_template.tint(Color.WHITE.lerp(Color("858b74"),motion.death)))
+		if not encounter.core_open:
+			draw_texture_rect_region(ForestBibleActors.GUARDIAN_BODY,Rect2(-6,-10,16,10),Rect2(30,36,16,10),Color(.30,.55,.38))
+	else:
 		draw_rect(Rect2(-size*.5,size),hit_template.tint(Color("3b4838")))
 		draw_circle(Vector2(0,-8),19,color)
-		draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
-		draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)
+		for side: int in [-1,1]:
+			var shoulder := Vector2(side*28,-35)
+			var elbow := shoulder+Vector2(side*20,-12).rotated(motion.limb_angle(side))
+			var tip := elbow+Vector2(side*14,-13).rotated(motion.limb_angle(side)*.5)
+			draw_line(shoulder,elbow,Color("7c6d43"),9)
+			draw_line(elbow,tip,Color("7c6d43"),7)
 	if not encounter is RootbellGuardianV2: return
 	var duel := encounter as RootbellGuardianV2
 	var config := duel.definition as BossDuelDefinition
@@ -116,3 +127,6 @@ func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color
 				screen.y=minf(screen.y,bell_center.y-radius.y-12)
 	screen.y=clampf(screen.y,viewport.position.y+font_size*canvas.y.length()+8,viewport.end.y-12)
 	draw_string(ThemeDB.fallback_font,canvas.affine_inverse()*screen,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
+
+func _exit_tree() -> void:
+	motion.dispose(encounter)

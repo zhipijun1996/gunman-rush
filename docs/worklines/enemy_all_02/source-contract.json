@@ -1,0 +1,1753 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-ALL-02",
+  "content_version": "enemy-all-02-local-consumers-v2",
+  "status": "working-tree source snapshot; no runtime, visual, user or device acceptance",
+  "snapshot_utc": "2026-10-29T03:23:59.489803+00:00",
+  "baseline_commit": "20e67867b272a7e461eddce169a0cdb83353f4b6",
+  "head_at_snapshot": "20e67867b272a7e461eddce169a0cdb83353f4b6",
+  "implementation_commit": null,
+  "implementation_commit_reason": "Root will commit the frozen implementation after all cards and records are written. Current hashes bind the files in this snapshot; HEAD is not a claim that uncommitted implementation exists in that commit.",
+  "binding_scope": "Local actual monster presentation inputs. Retains shared style-v18 and creative-v21 unchanged; no global style version or old evidence hash refresh. Source inventory does not prove dynamic runtime reachability or complete encounter coverage.",
+  "shared_authority": {
+    "style": {
+      "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+      "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510",
+      "bytes": 28284,
+      "role": "unchanged_shared_style"
+    },
+    "registry": {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "sha256": "de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d",
+      "bytes": 2949,
+      "role": "unchanged_registry"
+    },
+    "existing_reference_count": 81,
+    "existing_reference_mismatches_at_snapshot": [],
+    "existing_references_preserved": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254"
+      },
+      {
+        "role": "terrain_consumer",
+        "path": "scripts/art/plains_terrain_study.gd",
+        "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+      },
+      {
+        "role": "terrain_renderer",
+        "path": "scripts/underworld_plains/underworld_terrain.gd",
+        "sha256": "842fe139bf0882e1b53f0946eb918e3433e28531ce65033fa223ff722cffe95f"
+      },
+      {
+        "role": "material_shader",
+        "path": "shaders/formal_fine_boundary.gdshader",
+        "sha256": "34ce7ad20f890e3b3d437b334e0dc9dd515a45a7ba7477390ce4ea9e4d7737f2"
+      },
+      {
+        "role": "tile_build",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain_build.json",
+        "sha256": "d613c8730f1fbc202a80824794ab0ca79a4a9372235c042f63cae43e55125410"
+      },
+      {
+        "role": "tileset",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.tres",
+        "sha256": "bb2b0b8bbb967144f338f06852817c25088cb4697a3719898de168fef28f34b9"
+      },
+      {
+        "role": "atlas",
+        "path": "assets/underworld_plains/terrain/fine_32/terrain.png",
+        "sha256": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de"
+      },
+      {
+        "role": "source_pixels",
+        "path": "assets/underworld_plains/terrain/fine_32/source.png",
+        "sha256": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431"
+      },
+      {
+        "role": "adjacency",
+        "path": "scripts/art_foundation/blob47_rules.gd",
+        "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+      },
+      {
+        "role": "boundary",
+        "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+        "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+      },
+      {
+        "role": "boundary_sides",
+        "path": "scripts/art/plains_terrain_borders.gd",
+        "sha256": "e1f710bfe7f125bf64245406db0b07d70def3a3ee591309cfb53196cb45f2d34"
+      },
+      {
+        "role": "license",
+        "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+      },
+      {
+        "role": "player_style_reference",
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127"
+      },
+      {
+        "role": "player_animation_build",
+        "path": "assets/underworld_plains/player_animation/animation_build.json",
+        "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3"
+      },
+      {
+        "role": "player_run_pixels",
+        "path": "assets/underworld_plains/player_animation/run_sheet.png",
+        "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+      },
+      {
+        "role": "player_state_pixels",
+        "path": "assets/underworld_plains/player_animation/states_sheet.png",
+        "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+      },
+      {
+        "role": "core_material",
+        "path": "shaders/formal_fine_lit.gdshader",
+        "sha256": "26c22d0245301c575256ee94590f3d39819f1ea0fa25537cc98df28f5181ff39"
+      },
+      {
+        "role": "world_presentation",
+        "path": "scripts/underworld_plains/underworld_presentation.gd",
+        "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+      },
+      {
+        "role": "sprite_grid",
+        "path": "shaders/underworld_fine_sprite.gdshader",
+        "sha256": "8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188"
+      },
+      {
+        "role": "fine_source_provenance",
+        "path": "assets/authored_terrain_study/provenance.json",
+        "sha256": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a"
+      },
+      {
+        "role": "default_player_1",
+        "path": "scripts/art/player_presentation_runtime.gd",
+        "sha256": "8d88e0506cbbca7866c5a6fc26f7436950ca91c27ea5db64c196004965575f91"
+      },
+      {
+        "role": "default_player_2",
+        "path": "scripts/art/avatar_presentation.gd",
+        "sha256": "c935ed9ba7b7a7ec786c8c0ccf99b9336edb8bd1a67e5e88f30fe5651e580437"
+      },
+      {
+        "role": "default_player_3",
+        "path": "resources/art/avatars.json",
+        "sha256": "6f0f57bb29a8f44b8e9dfff036383dec839d0c81624a38edc656d7a3fc38ef65"
+      },
+      {
+        "role": "default_player_4",
+        "path": "scripts/demo/demo_app.gd",
+        "sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
+      },
+      {
+        "role": "default_player_5",
+        "path": "scripts/demo/home_scene.gd",
+        "sha256": "ade42db4a56d11769e7f840a036982dfa3514dc852a45b00de4e959182e4e0a0"
+      },
+      {
+        "role": "default_player_6",
+        "path": "scripts/dev/player_presentation_01/motion_visual.gd",
+        "sha256": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f"
+      },
+      {
+        "role": "default_player_7",
+        "path": "scripts/dev/player_presentation_01/motion_profile.gd",
+        "sha256": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77"
+      },
+      {
+        "role": "default_player_8",
+        "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+        "sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+      },
+      {
+        "role": "default_player_9",
+        "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+        "sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138"
+      },
+      {
+        "role": "default_player_10",
+        "path": "resources/player_presentation_01/motion_v1.tres",
+        "sha256": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688"
+      },
+      {
+        "role": "default_player_11",
+        "path": "resources/player_presentation_01/motion_clip_data.gd",
+        "sha256": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154"
+      },
+      {
+        "role": "default_player_12",
+        "path": "resources/player_presentation_01/landing_screen.gdshader",
+        "sha256": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c"
+      },
+      {
+        "role": "default_player_13",
+        "path": "resources/player_presentation_01/weapon_feel_v1.tres",
+        "sha256": "a1df276ec98310b60265c7e7a0afbbdb1f34134167fe15d4822cf3818b26bcb1"
+      },
+      {
+        "role": "default_player_14",
+        "path": "scripts/dev/player_presentation_01/weapon_profile.gd",
+        "sha256": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50"
+      },
+      {
+        "role": "default_player_15",
+        "path": "assets/player_presentation_01/motion_v1/motion_source.png",
+        "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280"
+      },
+      {
+        "role": "default_player_16",
+        "path": "assets/player_presentation_01/motion_v1/idle_fall.json",
+        "sha256": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+      },
+      {
+        "role": "item_feedback_view",
+        "path": "scripts/items/v5/item_effect_view.gd",
+        "sha256": "09ddea3f0ad634f62f6d7d8e11f6f50e48d5d394a019015cba4c9d8569921ced"
+      },
+      {
+        "role": "item_feedback_config",
+        "path": "config/item_v5_feedback.json",
+        "sha256": "d8652bb319fa19555c98c82cd2b812e36ab4bd34422f2ccdd747fdbd77f406ba"
+      },
+      {
+        "role": "item_entity_view",
+        "path": "scripts/items/v5/item_v5_entity.gd",
+        "sha256": "fe14c01acfec628c31273d97f64c457ab24a717950068173e4b778710cff15cd"
+      },
+      {
+        "role": "item_entity_config",
+        "path": "config/item_v5_entities.json",
+        "sha256": "22202b101e0488b15551121b5982380078184be52c121ea0b76f03eea178fa29"
+      },
+      {
+        "role": "item_defense_glyphs",
+        "path": "scripts/items/v5/item_defense_effects.gd",
+        "sha256": "3d3619d85220d87fab738f084ad3a4a549d7b460f71d3a6e4e94702fe7088c9c"
+      },
+      {
+        "role": "item_defense_visual_config",
+        "path": "config/item_v5_defense.json",
+        "sha256": "00a631f71797c6a0371012ba9eaad2a49265dc1e8d06174464519a2cf4279cc0"
+      },
+      {
+        "role": "item_resource_hud",
+        "path": "scripts/ui/actor_resources_hud.gd",
+        "sha256": "24f477caa1ea758dd487e52c22e7cdb8522eaf47ee706f66a6594df53c60f721"
+      },
+      {
+        "role": "item_pause_menu",
+        "path": "scripts/ui/demo_menu.gd",
+        "sha256": "327e17778ce960ea2cd3d4cca53f78472f51c7ee1030528b6497aaddfb3de990"
+      },
+      {
+        "role": "item_description",
+        "path": "scripts/ui/item_presentation.gd",
+        "sha256": "2a752e46dfa4286a73b9adb16325142b610f0024eda69ee84902d84fa93354ae"
+      },
+      {
+        "role": "item_card",
+        "path": "scripts/ui/item_card.gd",
+        "sha256": "e1d3b33ef38420ce24186c43d240b9c1f079bd19172ad2761515e4cbfd8bf1a8"
+      },
+      {
+        "role": "item_toast",
+        "path": "scripts/ui/item_acquired_toast.gd",
+        "sha256": "a2265913f9ec938811f931fb03eedca39b250593b16f0fad4239d360e243643b"
+      },
+      {
+        "role": "item_shop_modal",
+        "path": "scripts/ui/item_shop_modal.gd",
+        "sha256": "cadc8a613e64677aca6edbd38c0a2cb5705914e64165476e8c1b07e3812ab6a4"
+      },
+      {
+        "role": "item_reward_modal",
+        "path": "scripts/ui/stage_reward_modal.gd",
+        "sha256": "ba621c113362cffe13c0fa81941d1797e5f0e35c71c3d9309378047aa3b9e5fa"
+      },
+      {
+        "role": "item_touch_control",
+        "path": "scripts/ui/touch_overlay.gd",
+        "sha256": "419c6861e1db708737370f2de3b5f8b75d5c804b94ad466982a01577d5ae208f"
+      },
+      {
+        "role": "item_shop_presenter",
+        "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+        "sha256": "8335b5d879bf54eb4e720ab5fcf6163ae840de54c1ad3d94bd5b8b5d663b0cc4"
+      },
+      {
+        "role": "item_weapon_runtime",
+        "path": "scripts/combat/weapon_action_runtime.gd",
+        "sha256": "7ccc6526b43f67dfde1955a905e0fb154f76f4196fea496fb0ce74893c7d6160"
+      },
+      {
+        "role": "item_weapon_feel",
+        "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+        "sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b"
+      },
+      {
+        "role": "item_weapon_vfx",
+        "path": "scripts/dev/player_presentation_01/weapon_vfx_v2.gd",
+        "sha256": "11a23c9f7df178b8b82209c7f617f1be4b53e1da777a2986e49603063c85a676"
+      },
+      {
+        "role": "item_art_library",
+        "path": "scripts/items/v5/item_art_library.gd",
+        "sha256": "14021adaaf43cc82e25c54c8d6e862a53fbe20e317b35b1be393468a91e4c85d"
+      },
+      {
+        "role": "item_art_config",
+        "path": "config/item_v5_art.json",
+        "sha256": "708017d6913cea4605f94dcdc0635d48df397e8f1c89eafe9dc0f2512a482f9b"
+      },
+      {
+        "role": "item_icon_metadata",
+        "path": "config/item_v5_authoring.json",
+        "sha256": "a56669cea41f6aa8e179bf278fb115c8551d3a320dd9c326eb31a3e506dd69a7"
+      },
+      {
+        "role": "item_icon_atlas_first8",
+        "path": "assets/items/v5/icons/golden-02.source.png",
+        "sha256": "c7b2d0050da918cc2f189077c998d8840ac0d6c68b25f24a95637ae4d54baf15"
+      },
+      {
+        "role": "item_vfx_p24_source",
+        "path": "assets/items/v5/vfx/p24-01.source.png",
+        "sha256": "8fe6aef0d2a63fb63e1ed4302df2e9dba5bacb90cac9c299d460d95931a7458f"
+      },
+      {
+        "role": "item_vfx_p14_source",
+        "path": "assets/items/v5/vfx/p14-01.source.png",
+        "sha256": "f3be6822575d32eb8abaa53beae1797f79225ebda6aaf3c6a85c9a7182fa9231"
+      },
+      {
+        "role": "item_vfx_g16_source",
+        "path": "assets/items/v5/vfx/g16-01.source.png",
+        "sha256": "2312d11e188b85ce5ad681f47b874a9f62d838d67aa6391a52fce996db6caccf"
+      },
+      {
+        "role": "item_icon_atlas_catalog01",
+        "path": "assets/items/v5/icons/catalog-01.source.png",
+        "sha256": "1886eacd1441f03a9a3049dd7fc297183fc8e1fb74a8ca387347d99985ab676d"
+      },
+      {
+        "role": "item_icon_atlas_catalog02",
+        "path": "assets/items/v5/icons/catalog-02.source.png",
+        "sha256": "24f59cf059af977b901b13367ddc917b4255d34a5b132c1e844a4fd34f1cbfed"
+      },
+      {
+        "role": "item_icon_atlas_catalog03",
+        "path": "assets/items/v5/icons/catalog-03.source.png",
+        "sha256": "b2a96b978c0edeace1507f7c1393c8c7b8c99ca3ebb154dca99481086f223db3"
+      },
+      {
+        "role": "item_icon_atlas_catalog04",
+        "path": "assets/items/v5/icons/catalog-04.source.png",
+        "sha256": "242438a3157b514ebf7fdeaf2c7aa88cffe8d74b83d0ec355d866842faf21c31"
+      },
+      {
+        "role": "item_vfx_static_entities_source",
+        "path": "assets/items/v5/vfx/static-entities.source.png",
+        "sha256": "9aa8c5dd255d5bd01a1a9f90ad8bc31bcd53f5f2d678682822042190902f41ff"
+      },
+      {
+        "role": "item_vfx_static_procs_source",
+        "path": "assets/items/v5/vfx/static-procs.source.png",
+        "sha256": "bc9cebbd9319a0bd778076e65281c2e591102b43b7e62b38651a4507fc178885"
+      },
+      {
+        "role": "item_world_sampler_shader",
+        "path": "shaders/item_v5_world_sprite.gdshader",
+        "sha256": "debe289cd22658b5b75ba571c2b609c63d3ffd076c4fdda2308ac87a55f3bfd5"
+      },
+      {
+        "role": "home_codex_ui",
+        "path": "scripts/ui/home_item_codex.gd",
+        "sha256": "fde91311c6a3e5898326bb5f34a55e845762a66e4e09bfd6aa21a75394efbd5e"
+      },
+      {
+        "role": "home_codex_world",
+        "path": "scripts/underworld_plains/underworld_home_world.gd",
+        "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d"
+      },
+      {
+        "role": "home_item_catalog_policy",
+        "path": "scripts/meta/home_item_catalog.gd",
+        "sha256": "81ea5bcb72d5dd0c4d04dabc28a42b5a5b568ccd6531a788c8c4858a31d9f17e"
+      },
+      {
+        "role": "home_item_policy_config",
+        "path": "config/home_items.json",
+        "sha256": "e6e59aa54e5af4971c75f3d0e857b83a38047f137a28520e7f657ade135b0ebc"
+      },
+      {
+        "role": "home_item_profile_presenter",
+        "path": "scripts/meta/meta_progression.gd",
+        "sha256": "75c3c9167cc6b689376b21652ad939196030b8712a11433000e9b53efc4e8403"
+      },
+      {
+        "role": "chest_art_library",
+        "path": "scripts/art/chest_art_library.gd",
+        "sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e"
+      },
+      {
+        "role": "chest_art_layer",
+        "path": "scripts/art/chest_art_layer.gd",
+        "sha256": "4def1212d2a3e4369ba4d202cc42178829d1c0d3c11c306626d72a31ca226719"
+      },
+      {
+        "role": "chest_formal_dispatch",
+        "path": "scripts/underworld_plains/underworld_objects.gd",
+        "sha256": "a1b4681f8d527fa51ac06fadbecf4d4a0d53b112c31f77487bed2b686763da91"
+      },
+      {
+        "role": "chest_forest_presentation",
+        "path": "scripts/presentation/forest_bible_presentation.gd",
+        "sha256": "4e00cfc7d232b25ccfac81ac1a47a9a23743689c5b4815d85cb762c1d5130a44"
+      },
+      {
+        "role": "chest_forest_stage",
+        "path": "scripts/demo/thorn_forest_region_stage.gd",
+        "sha256": "d68cfb42650c771b815c04aefee427483a3739469f3407b9479e81b02f95ac10"
+      },
+      {
+        "role": "chest_cosmetic_boundary",
+        "path": "scripts/art/p1_unity_props.gd",
+        "sha256": "0a7d5976ae68146902efbc12aeee2d7656a76a0e9abe5ecdaca96b60bac70263"
+      },
+      {
+        "role": "chest_art_config",
+        "path": "config/chest_art.json",
+        "sha256": "ad641a9c79ba4f8a2540cc8b8497fa86ba3397f3e7cc94944195eccbf3f5fa04"
+      },
+      {
+        "role": "chest_source04_atlas",
+        "path": "assets/objects/chests/chest-tiers-v1.source.png",
+        "sha256": "3258e5cc78e4b0ea9e724a423a0e7ce5a58611471ad3b84cdb28360a8845f5d5"
+      }
+    ],
+    "bibles": [
+      {
+        "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+        "bytes": 15107,
+        "role": "unchanged_user_selected_bible"
+      },
+      {
+        "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+        "bytes": 26026,
+        "role": "unchanged_user_selected_bible"
+      }
+    ],
+    "creative_directions": [
+      {
+        "path": "docs/creative_direction/windchime_plains.json",
+        "sha256": "316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8",
+        "bytes": 12348,
+        "role": "unchanged_creative_v21"
+      },
+      {
+        "path": "docs/creative_direction/thorn_forest.json",
+        "sha256": "1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729",
+        "bytes": 14278,
+        "role": "unchanged_creative_v21"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "scripts/art_foundation/pixel_plains_enemy.gd",
+      "sha256": "babba1d1270e9ddca01373a1d5282187e2086a82899635a37edf58706a81d166",
+      "bytes": 6639,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "sha256": "1b4bb2a3cf08b6be2ba4a42676458a416a710dd54d2b3f82af1d4a9ee0e9218d",
+      "bytes": 5341,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/boss_motion_presentation.gd",
+      "sha256": "600a037ce4b499fcdeddb259183c68225dd1b9b7face330a66537d5702a18823",
+      "bytes": 10203,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/boss_presentation.gd",
+      "sha256": "804f0c84e3f51ebd938dd391cc1c7f74a0d2de76146cc6d1939eb847031846ac",
+      "bytes": 1885,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "sha256": "93c916afc4a24d3c16ddfd19f072d0d81d305f77774e1025afcce524e8bc11cc",
+      "bytes": 7061,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_presentation.gd",
+      "sha256": "2174e62d5815c072f465c1949bdc54273a76e8fcf250c0120d9df1f493319d24",
+      "bytes": 2804,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "sha256": "0103e931ebdc1d1b7d70168b85fe597f30ec355562f4b69bbe7900019a53e3b2",
+      "bytes": 2652,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
+      "sha256": "1b0634754974e4ab033062948ab0f8a05099af85bd21e1818ce66df7988712ca",
+      "bytes": 1862,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "sha256": "1047d2bee656168fb3d5b48226a0f807ce3bfde396da4f11e3c7b4927eafaf3c",
+      "bytes": 16391,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/demo/module_enemy_prototypes.gd",
+      "sha256": "d2c4947a6dfe85e26bd0a68acd6422ed1c3bf4dfe89b7273a8367d35add232a6",
+      "bytes": 2311,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01.gd",
+      "sha256": "b905e9ded3a2ceb14b488280cd8ced6b386bb013603c27c1dca829abd70ced27",
+      "bytes": 3961,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd",
+      "sha256": "96e459ec9f6921fedd369c444a22c67661a8f4465f628877f781c532801c8589",
+      "bytes": 1940,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_flash.gdshader",
+      "sha256": "7897bcaed80ef7953cd6f41d20a322280315b8b0d8a17920aae2e4d8a5f2aa8f",
+      "bytes": 3133,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "sha256": "5c57bef936f8cf3d5e2ab608071b90ddf984c7825fc272a8d47791022e9526e1",
+      "bytes": 3965,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+      "sha256": "70813d555ca9a7de5632daa902b2f011b04d6231fbe1b4fea00cc51be445f63f",
+      "bytes": 17619,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/enemy_hit_template.gd",
+      "sha256": "2efe932e7d7dc985eb3a82e6bdcf52bbfd0351c3a3e47f6ca72c836831f4a9fe",
+      "bytes": 4172,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "sha256": "9b24a2da9bcaf0218882f1a3ea9871bc2b5a5ec7192fe1d931b6d1a642d47053",
+      "bytes": 15679,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "sha256": "aee5c149683793f90ad1421b1610fd3b899002d477308921be9db1aa9fb9359f",
+      "bytes": 2089,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "sha256": "bb80ec41599c45da5f4ce577a6aababdda0ea527f132a9b5634f21c8787230d4",
+      "bytes": 2328,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/forest_enemy_presentation.gd",
+      "sha256": "229faee5a89b4286499c8a52ade9d7b88a1259a41e92ea64a6a0cbd6380cb434",
+      "bytes": 2900,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "sha256": "f9bddad2ff603138aa5d5074bec2f9d2b5efce9043053454db8db8b3820cad8c",
+      "bytes": 3793,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/forest_motion_02.gd",
+      "sha256": "937b74e8ab883a5d6c107811ce9b02dcc73e4b9bde66ce6159e3c773f661b26a",
+      "bytes": 12210,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/plains_motion_02.gd",
+      "sha256": "43b792f1e41d13f0a3aacb4da1b75426cbceaafa0663cb40e8419dc7862caeb3",
+      "bytes": 8554,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/prototype_enemy_damageable.gd",
+      "sha256": "62015764cd962c1d05d859c8e86a7f088daf5499bca74ba1e4f529b795c524e0",
+      "bytes": 531,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/prototype_enemy_presentation.gd",
+      "sha256": "645e3f2ff98518a27580f5ae22c6d1dfcf14eb5413014db63474f4312331b30f",
+      "bytes": 8748,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/enemies/prototype_moth_behavior.gd",
+      "sha256": "dd9fa8b62e1dbd514191f34ea4b4f57bda473d6d588150842109ff922796be4e",
+      "bytes": 802,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/enemies/root_bell_presentation.gd",
+      "sha256": "16ce7d982fbc66547392b863026305c450353e9c29bff640723a99428c573b1e",
+      "bytes": 5767,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "sha256": "bbb81440735c8ba6d684a10c8a5efd8bc573fccc1ae42ee31cbd60161ce0dfca",
+      "bytes": 11644,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "sha256": "49cee240d1b2f0984cfafbf976860c21d9ff9074190494619e597f30e655dfb5",
+      "bytes": 900,
+      "role": "unchanged_support_authority"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_enemy.gd",
+      "sha256": "01232c561efbbc9e116f56d9208d311a8fc0ad732f1129d9e90b3eec1157a451",
+      "bytes": 9031,
+      "role": "presentation_implementation"
+    },
+    {
+      "path": "assets/enemy_all_02/prototype_manifest.json",
+      "sha256": "c39643f690e0f87ca84b73666a8cb84b340117b189a87407a6a3173bebd7dde5",
+      "bytes": 1199,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_all_02/prototype_sheet.png",
+      "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4",
+      "bytes": 2000731,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+      "sha256": "4d025f1f0612e2ef9464df8a552e36c28e6ca93044189befc87af3141e2f1bf3",
+      "bytes": 1507146,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+      "sha256": "ed78d58c362d258ba0e3388922da118b70ae71ceba2816d52d16ae5a130cf562",
+      "bytes": 1686053,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/manifest.json",
+      "sha256": "ade5988d8743f618699f6d520dfdbfef281bd1ce84ca7ee49a40cfc2ad671e85",
+      "bytes": 4976,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+      "sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6",
+      "bytes": 1094111,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+      "sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6",
+      "bytes": 1104396,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/fonts/foundry_notes.otf",
+      "sha256": "95bb1b992e121a545e8048f89d88d835a16a5beb1a34eb4240f1e91f41e80a23",
+      "bytes": 3425372,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/beetle.png",
+      "sha256": "5b4916917b3519b4e935939001e5ee252e3046b5aea97b05130a02682fa00e5a",
+      "bytes": 2585,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/crossbranch.png",
+      "sha256": "61572653091d2452c61c4d343b22f41c69fa31ab3bd362cdbb3a616efe733b0c",
+      "bytes": 2470,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+      "sha256": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8",
+      "bytes": 9073,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/lantern.png",
+      "sha256": "9e07b6364e693bfb60a48e4bf994b9bd041aa7c5efa75648df586c8621d42e33",
+      "bytes": 2522,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+      "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+      "bytes": 6218,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/seed_sentry.png",
+      "sha256": "af931307394854be2d51da5efa05d574b4dacd6bf0c5a58d710ad1abf989534a",
+      "bytes": 2800,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/swing_pod.png",
+      "sha256": "203e9899c30ce2020831a8b1bce70e59860757f54ad74ff75b21197168d1c5d8",
+      "bytes": 1850,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+      "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+      "bytes": 667,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+      "sha256": "9d776395ca9c12bba978eea3517ce41008183aca1e3bca02505e7558c93ce09d",
+      "bytes": 2028072,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+      "sha256": "3259288c624b08a05ad687ecafb1e6bf943c8f120c291cbfc32abc47abc4a6cd",
+      "bytes": 6575,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+      "sha256": "741473bc4a93319ea3ea481943d48b8e0cf4a49a26966f0097b3e885e72b2d38",
+      "bytes": 2096333,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "bytes": 2693554,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v4/spatial/chassis.png",
+      "sha256": "42ed6ed092c4d21915bc80c644f320d4baace454930f4177f58b4a7697702aec",
+      "bytes": 2945609,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v4/windkeeper/body_actions.png",
+      "sha256": "cae013243a94eb2e79a4e27e7efed75883ea92398942525ba97fdefa42dfb231",
+      "bytes": 2770096,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/plains_v4/windkeeper/parts.png",
+      "sha256": "baabf6fb22fd10f5402d2b73517bf8c5c8c08b605703673c7ac8c5e296ff86c1",
+      "bytes": 1770141,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/manifest.json",
+      "sha256": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee",
+      "bytes": 1779,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+      "sha256": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+      "bytes": 2358027,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell_burst/manifest.json",
+      "sha256": "7d1acceab483048f06f1690e67e4cbf6c38b32a32de5f7e47307199611833d19",
+      "bytes": 2212,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+      "sha256": "81faabec82277e630cdabefd3f34188d8be4177318e31dca87be832679482d74",
+      "bytes": 2114644,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/aerial.png",
+      "sha256": "71809fe3b47597fe001ab9c5c572e3a5ca6d52ca99510a4d65fa9c350272f59f",
+      "bytes": 2672,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/charger.png",
+      "sha256": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+      "bytes": 2375,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/hopper.png",
+      "sha256": "f665bf113e0bcd4dede94a93aba429106d04091922383e397a7ab1d491b3ca07",
+      "bytes": 3299,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/patrol.png",
+      "sha256": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e",
+      "bytes": 2702,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/root_bell.png",
+      "sha256": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e",
+      "bytes": 2607,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "assets/underworld_plains/actors/sentry.png",
+      "sha256": "0568ca5a7b79181f7b3dde5cca0e1604aa1897a53fa69f262ba2073daf383cfd",
+      "bytes": 3203,
+      "role": "actual_body_asset_or_runtime_manifest"
+    },
+    {
+      "path": "resources/bosses/bellstrider.tres",
+      "sha256": "882af5e59b5999d1bb71213d1332ecc3bcd8f6019fa49cb7373312015f8f4c05",
+      "bytes": 819,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/clockwork_guardian.tres",
+      "sha256": "edc40af019144109e581c4cec5008a384b9b7cb514acb6943999fe29315ede72",
+      "bytes": 367,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/rootbell_guardian_v2.tres",
+      "sha256": "5023398fdeded85e7be849e0aaa0a7c99cb12778c4d3a51003004ef74647ffd4",
+      "bytes": 799,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/thorn_guardian.tres",
+      "sha256": "1d1f8693bbcb9c2d8e073c3cea4a3a026da5e39dc23c2defe4108c1a6937ccd2",
+      "bytes": 741,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/thorn_queen.tres",
+      "sha256": "c07006c759e38a7846e52e5d0e02d154a56b67703999f8c6cab57cf6c4d9509a",
+      "bytes": 728,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/thorn_queen_canopy.tres",
+      "sha256": "bbf920724f95209f89fdd5b117c2f6a8344941336cb2e0287258edf77c00aca6",
+      "bytes": 965,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/thorn_queen_v2.tres",
+      "sha256": "b618a46c4ad151067e428b3a81b13b8f572a1159245d0f7e0f075d8070c9152d",
+      "bytes": 901,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/windkeeper.tres",
+      "sha256": "0811c4fbda93a13b413dead97bb601631f5b97b8e5d06e3caf2578402d0b11bc",
+      "bytes": 530,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/bosses/windkeeper_storm.tres",
+      "sha256": "723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5",
+      "bytes": 810,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_bark_beetle.tres",
+      "sha256": "8154ef5c1e857f52e17343024626205e9115fb26fc77ea942effae61b48e803d",
+      "bytes": 887,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_bible_weaver.tres",
+      "sha256": "24e30294f4ab322116119d8165d0056c1d6eb02d16e11fd284904fc0ff415f6d",
+      "bytes": 836,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_crossbranch.tres",
+      "sha256": "01a836c7bacbd1900391f9fdafb167d008e40dbd158aa1af3369b4eab03a3d56",
+      "bytes": 1020,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_lantern.tres",
+      "sha256": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae",
+      "bytes": 673,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_seed_sentry.tres",
+      "sha256": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28",
+      "bytes": 821,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_swing_pod.tres",
+      "sha256": "55803c44fd97c04c681a2462d57ced90bdfc6d0c575365787eea6833372f3a67",
+      "bytes": 759,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/forest_thread_spider.tres",
+      "sha256": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928",
+      "bytes": 826,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/patrol_drone.tres",
+      "sha256": "833c276b6307cd098dcd41f229327189bf7b68f9d7bc895d562d392a6120398e",
+      "bytes": 509,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_charger.tres",
+      "sha256": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+      "bytes": 623,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_diver.tres",
+      "sha256": "35421393d53fcfba09e6702ef17180e5761065fa43f95e797b1a547038fddf54",
+      "bytes": 632,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_fan_sentry.tres",
+      "sha256": "8bb303dd2d5969ffb43d2fef4ff5d33f6f309610d7458cb2f8a9801bfecc3231",
+      "bytes": 697,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_hopper.tres",
+      "sha256": "b8a6aac30ee9c102941fea50b1c975e3925b18e3d669bb13ed0e0de0c3591a11",
+      "bytes": 620,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_root_bell.tres",
+      "sha256": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+      "bytes": 680,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "resources/enemies/plains_sentry.tres",
+      "sha256": "97a8f3e5a6bddadfe5c52fc21851eea72decd96ec4053b3e4f2f918fea1e6226",
+      "bytes": 598,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/bellstrider.tscn",
+      "sha256": "8b89b9b4ee457adbc7120288b5d4990b5130aa73520a77ec075c47ff6b5c0230",
+      "bytes": 1094,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/clockwork_guardian.tscn",
+      "sha256": "ad7cb1d51353792863a49915fcd9a93e030748acc8744132b3a7cc29b6dbaae4",
+      "bytes": 1082,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/rootbell_guardian_v2.tscn",
+      "sha256": "7a994dce78c84bd746757826793ffa91481fd6c276f48e3346f849a63b402736",
+      "bytes": 1119,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/thorn_guardian.tscn",
+      "sha256": "c2abd1e4afe419c83b531dce358e833d0b1ae806b8829ca56d0dbf25579f8aab",
+      "bytes": 1097,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/thorn_queen.tscn",
+      "sha256": "fffdcd28cac17ee8621e3d14965502f7908cff0545fa39f0b0eb40ab3c42474e",
+      "bytes": 1091,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/thorn_queen_canopy.tscn",
+      "sha256": "a5a566419a09816959acc6dbafe4991781f1ff96d73d95dcefe9f5146999252b",
+      "bytes": 1130,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/thorn_queen_v2.tscn",
+      "sha256": "38e391089c5e2669bddaba0e9cdddbb1836f57ec3ee7873948f5871cbee0e443",
+      "bytes": 1107,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/bosses/windkeeper.tscn",
+      "sha256": "56a567a803c393f9f4809e664ec4fa8ebda2f2e681a189b1da920125bd5ec038",
+      "bytes": 1090,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_bark_beetle.tscn",
+      "sha256": "79351c2151891138789c869897c8cc1e57bd18c1dcb95e767fe5f857f655ba56",
+      "bytes": 1296,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_bible_weaver.tscn",
+      "sha256": "2fd965713cd606173d4b665af43c55e6cabae449e81b1817ed73f79e446ce490",
+      "bytes": 1282,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_crossbranch.tscn",
+      "sha256": "b433acf4134b300182e273dbe56dc743559ebb4ffa427756cdc431319ac43426",
+      "bytes": 1280,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_lantern.tscn",
+      "sha256": "29dcd4c86b913094e6d82209b75b12841f8cb8e26e957feb349798f07286a30e",
+      "bytes": 1266,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_seed_sentry.tscn",
+      "sha256": "ddbafdc702f0150790ac174e511ed7cdcf7799a26493b4a67a57861a29ebb5f5",
+      "bytes": 1274,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_swing_pod.tscn",
+      "sha256": "f8d9574e8681efb31db7095a4913b5f623d9f498346cbdff83e512e7eb8d71e2",
+      "bytes": 1279,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/forest_thread_spider.tscn",
+      "sha256": "e1c7900d23b0f9de4395322ca98534d7c5de914ed9d9dc0027a4917490d66620",
+      "bytes": 1284,
+      "role": "scene_or_definition_authority"
+    },
+    {
+      "path": "scenes/enemies/patrol_drone.tscn",
+      "sha256": "a7675b05719e92969c599ce8b0dbc92fd224152824aa56bb5e0ac76f160257be",
+      "bytes": 1254,
+      "role": "scene_or_definition_authority"
+    }
+  ],
+  "literal_or_existing_finite_asset_edges": [
+    {
+      "consumer": "scripts/bosses/bellstrider_presentation.gd",
+      "input": "assets/fonts/foundry_notes.otf",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/bellstrider_presentation.gd",
+      "input": "assets/plains_v4/spatial/actors.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/bellstrider_presentation.gd",
+      "input": "assets/plains_v4/spatial/chassis.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/bellstrider_presentation.gd",
+      "input": "assets/plains_v4/windkeeper/parts.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/windkeeper_presentation.gd",
+      "input": "assets/fonts/foundry_notes.otf",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/windkeeper_presentation.gd",
+      "input": "assets/plains_v4/windkeeper/body_actions.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/bosses/windkeeper_presentation.gd",
+      "input": "assets/plains_v4/windkeeper/parts.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "input": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "input": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "input": "assets/enemy_feedback_01/frames_v8/manifest.json",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "input": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "input": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_presentation.gd",
+      "input": "assets/plains_v4/spatial/actors.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/prototype_enemy_presentation.gd",
+      "input": "assets/enemy_all_02/prototype_manifest.json",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/prototype_enemy_presentation.gd",
+      "input": "assets/enemy_all_02/prototype_sheet.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/root_bell_presentation.gd",
+      "input": "assets/region_production_v3/enemies/root_bell/manifest.json",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/root_bell_presentation.gd",
+      "input": "assets/region_production_v3/enemies/root_bell/source/master.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/root_bell_presentation.gd",
+      "input": "assets/region_production_v3/enemies/root_bell_burst/manifest.json",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/root_bell_presentation.gd",
+      "input": "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/beetle.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/crossbranch.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/guardian.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/lantern.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/queen.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/seed_sentry.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/fine_32/swing_pod.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "input": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/aerial.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/charger.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/hopper.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/patrol.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/root_bell.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/underworld_plains/underworld_enemy.gd",
+      "input": "assets/underworld_plains/actors/sentry.png",
+      "mapping": "literal resource reference in current consumer source"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_presentation.gd",
+      "input": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+      "mapping": "existing finite meadow_actions directory/manifest adapter; exact legacy family"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_presentation.gd",
+      "input": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+      "mapping": "existing finite meadow_actions directory/manifest adapter; exact legacy family"
+    },
+    {
+      "consumer": "scripts/enemies/enemy_presentation.gd",
+      "input": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+      "mapping": "existing finite meadow_actions directory/manifest adapter; exact legacy family"
+    }
+  ],
+  "renderer_chains": [
+    {
+      "id": "patrol_drone",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "patrol_drone",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_charger",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_charger",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_diver",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_diver",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_hopper",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_hopper",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_sentry",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_fan_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_fan_sentry",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "root_bell",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/root_bell_presentation.gd",
+      "installer": "scripts/demo/generated_demo_stage.gd:_spawn_enemies_from_plan",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "forest_bark_beetle",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_bark_beetle.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_swing_pod",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_swing_pod.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_lantern",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_lantern.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_seed_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_seed_sentry.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_thread_spider",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_thread_spider.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_crossbranch",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_crossbranch.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_bible_weaver",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_bible_weaver.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    }
+  ],
+  "boss_scenes": [
+    {
+      "id": "clockwork_guardian",
+      "scene": "scenes/bosses/clockwork_guardian.tscn",
+      "renderer": "scripts/bosses/boss_presentation.gd",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "bellstrider",
+      "scene": "scenes/bosses/bellstrider.tscn",
+      "renderer": "scripts/bosses/bellstrider_presentation.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "windkeeper",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "renderer": "scripts/bosses/windkeeper_presentation.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "thorn_guardian",
+      "scene": "scenes/bosses/thorn_guardian.tscn",
+      "renderer": "scripts/bosses/thorn_forest_presentation.gd",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "thorn_queen",
+      "scene": "scenes/bosses/thorn_queen.tscn",
+      "renderer": "scripts/bosses/thorn_forest_presentation.gd",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "rootbell_guardian_v2",
+      "scene": "scenes/bosses/rootbell_guardian_v2.tscn",
+      "renderer": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "thorn_queen_v2",
+      "scene": "scenes/bosses/thorn_queen_v2.tscn",
+      "renderer": "scripts/bosses/thorn_queen_weave_presentation.gd",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "thorn_queen_canopy",
+      "scene": "scenes/bosses/thorn_queen_canopy.tscn",
+      "renderer": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    }
+  ],
+  "boss_definition_override": {
+    "scene": "scenes/bosses/windkeeper.tscn",
+    "default_definition": "resources/bosses/windkeeper.tres",
+    "formal_definition": "resources/bosses/windkeeper_storm.tres",
+    "actual_consumer": "scripts/demo/plains_region_stage.gd:55",
+    "binding": "formal stage consumer remains in original shared81; no stage edit in this task"
+  },
+  "plains_body_contract": {
+    "helper": "scripts/enemies/plains_motion_02.gd",
+    "grid_cells": [
+      8,
+      8
+    ],
+    "vertices": 81,
+    "triangles": 128,
+    "mesh_draws_per_body": 1,
+    "clock": "actual displacement stride; original behavior state_time/Definition deadlines; explicit pause return; epoch reset; terminal stops live cycles",
+    "canonical_interface": {
+      "consumer_presenters": [
+        "scripts/enemies/enemy_presentation.gd",
+        "scripts/underworld_plains/underworld_enemy.gd"
+      ],
+      "loader": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "texture_method": "canonical_live_texture() == texture(3)",
+      "bounds_method": "canonical_live_bounds() == bounds(3)",
+      "original_hurt_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "original_death_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "continuity_claim": "implementation removes old live texture substitution at H3 exit; new continuous runtime pixel review still required"
+    },
+    "warnings_hp": "outside body mesh; source/destination observation fields retained",
+    "terminal_policy": "original owner and per-species remains/save/fade policies; no universal corpse policy added"
+  },
+  "development_prototypes": [
+    {
+      "id": "candidate_lure_guard",
+      "admission": "development candidate; not formal random pool or save schema",
+      "installer": "scripts/demo/module_enemy_prototypes.gd:setup",
+      "presenter": "scripts/enemies/prototype_enemy_presentation.gd",
+      "source": "assets/enemy_all_02/prototype_sheet.png",
+      "runtime_manifest": "assets/enemy_all_02/prototype_manifest.json",
+      "master": {
+        "region": [
+          0,
+          0,
+          362,
+          373
+        ],
+        "alpha_bounds": [
+          39,
+          58,
+          286,
+          306
+        ],
+        "anchor": [
+          182.0,
+          364
+        ],
+        "basis_px": [
+          286,
+          306
+        ],
+        "role": "One canonical same-body master; joint articulation generates phases. Other generated poses intentionally unused."
+      },
+      "uniform_source_to_world": 0.14705882352941177,
+      "draw_mapping": "6x8 connected UV grid of one neutral master; actual displacement and original phase drive local joints",
+      "generated_animation_frames_claimed": false,
+      "visual_acceptance": "unverified"
+    },
+    {
+      "id": "candidate_crosswind_moth",
+      "admission": "development candidate; not formal random pool or save schema",
+      "installer": "scripts/demo/module_enemy_prototypes.gd:setup",
+      "presenter": "scripts/enemies/prototype_enemy_presentation.gd",
+      "source": "assets/enemy_all_02/prototype_sheet.png",
+      "runtime_manifest": "assets/enemy_all_02/prototype_manifest.json",
+      "master": {
+        "region": [
+          0,
+          373,
+          362,
+          351
+        ],
+        "alpha_bounds": [
+          62,
+          3,
+          263,
+          323
+        ],
+        "anchor": [
+          193.5,
+          326
+        ],
+        "basis_px": [
+          263,
+          323
+        ],
+        "role": "One canonical same-body master; joint articulation generates phases. Other generated poses intentionally unused."
+      },
+      "uniform_source_to_world": 0.14551083591331268,
+      "draw_mapping": "6x8 connected UV grid of one neutral master; actual displacement and original phase drive local joints",
+      "generated_animation_frames_claimed": false,
+      "visual_acceptance": "unverified"
+    }
+  ],
+  "asset_registration": [
+    {
+      "path": "docs/quality/asset_records/enemy-all-02-prototype-master-v1.json",
+      "sha256": "308d7af0ea2ccc5179aae62f61892fca86e37bcb38f29b2966f610ec1a3a1928",
+      "bytes": 2831,
+      "role": "new_runtime_asset_record"
+    },
+    {
+      "path": "docs/quality/asset_records/enemy-all-02-prototype-contract-v1.json",
+      "sha256": "def90252bca883a82142070221e36653846cce398423453c622400f005ffa2e8",
+      "bytes": 2306,
+      "role": "new_runtime_manifest_record"
+    },
+    {
+      "path": "assets/enemy_all_02/prototype.provenance.json",
+      "sha256": "60d2bcf208a6d27e335d8f1852f4cb0d2b302c0b753847036e81a331b3ecd946",
+      "bytes": 3706,
+      "role": "original_generation_provenance"
+    }
+  ],
+  "validation": {
+    "performed_by_this_agent": "Static validate_asset yielded no errors for both new records; known_asset_consumers recognized exact PNG and manifest literals; unchanged generated round1 PNG byte SHA compared; source alpha>16 crop/basis/anchor measurements checked. No Godot or media run by this agent.",
+    "new_asset_runtime_names": [
+      "assets/enemy_all_02/prototype_sheet.png",
+      "assets/enemy_all_02/prototype_manifest.json"
+    ],
+    "unverified": [
+      "Godot parse/runtime and clean teardown for final frozen source",
+      "continuous moving/attacking hurt transitions and terminal pixels per actual rendering chain",
+      "formal encounter and natural campaign coverage",
+      "independent art/motion review",
+      "sound audition",
+      "target-device performance",
+      "user acceptance"
+    ],
+    "invalidation": "Any listed source, asset, scene, definition or authority byte change invalidates this snapshot for final-source evidence. Root must verify current hashes after commit; never update old evidence or inherit old visual/device acceptance."
+  },
+  "source_rebinding": {
+    "previous_snapshot": "docs/worklines/enemy_all_02/source-contract-v1.json",
+    "previous_snapshot_sha256": "7208aaa91a3b296a0f181af78756476d426b26cb1d72b6334937da166516fac3",
+    "reason": "Independent R1 ER03 live/death bob unification; ER04 paused epoch clear; ER05 prototype triangle inversion; ER06 saved Boss terminal no replay; ER07 forest hard-cut seams replaced by connected UV lattice. Added ordinary paused restore handling. No shared style-v18/creative-v21 authority changed. Fresh runtime/video evidence required; old proofs not promoted.",
+    "changed_inputs": [
+      {
+        "path": "scripts/bosses/boss_motion_presentation.gd",
+        "previous_sha256": "8ccbc102afd3639a9dbe62783812898604a8c5788264f61ebdf9f6d61ce33a77",
+        "sha256": "600a037ce4b499fcdeddb259183c68225dd1b9b7face330a66537d5702a18823"
+      },
+      {
+        "path": "scripts/enemies/enemy_presentation.gd",
+        "previous_sha256": "731cc23316ec1c0078bcd8291fe93e0b08beaaaaad5e19eb9a92c84ec074c359",
+        "sha256": "9b24a2da9bcaf0218882f1a3ea9871bc2b5a5ec7192fe1d931b6d1a642d47053"
+      },
+      {
+        "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+        "previous_sha256": "ce39519165c7574e4a7560a08e69177d24587ada6599e5fe4a64f68d2a8b3fbe",
+        "sha256": "aee5c149683793f90ad1421b1610fd3b899002d477308921be9db1aa9fb9359f"
+      },
+      {
+        "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+        "previous_sha256": "9fa23bc86ce682a22fcd4bedc07c18dcaa7f4ff90230efbefffd5fb6dba09f09",
+        "sha256": "bb80ec41599c45da5f4ce577a6aababdda0ea527f132a9b5634f21c8787230d4"
+      },
+      {
+        "path": "scripts/enemies/forest_enemy_presentation.gd",
+        "previous_sha256": "a084100135600351a4b562c9bd0d8253de8ca1091b2829f7b97d07989ac8e30a",
+        "sha256": "229faee5a89b4286499c8a52ade9d7b88a1259a41e92ea64a6a0cbd6380cb434"
+      },
+      {
+        "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+        "previous_sha256": "758e813c02d15ba38a865c761025f93573d299b81b325ce3c11539e41fcb7c4c",
+        "sha256": "f9bddad2ff603138aa5d5074bec2f9d2b5efce9043053454db8db8b3820cad8c"
+      },
+      {
+        "path": "scripts/enemies/forest_motion_02.gd",
+        "previous_sha256": "170c72398e6b80975dbf66d34698d46b1da897c4712fbf3c8bd978004d116cdf",
+        "sha256": "937b74e8ab883a5d6c107811ce9b02dcc73e4b9bde66ce6159e3c773f661b26a"
+      },
+      {
+        "path": "scripts/enemies/plains_motion_02.gd",
+        "previous_sha256": "daab8d35f126be594c0029bfe90aada625effe8668555a930d54e13a71417a37",
+        "sha256": "43b792f1e41d13f0a3aacb4da1b75426cbceaafa0663cb40e8419dc7862caeb3"
+      },
+      {
+        "path": "scripts/enemies/prototype_enemy_presentation.gd",
+        "previous_sha256": "c8845bceb6c4745a4239a190f7522fa3d20defb5107c1684edf04747a9d97f10",
+        "sha256": "645e3f2ff98518a27580f5ae22c6d1dfcf14eb5413014db63474f4312331b30f"
+      },
+      {
+        "path": "scripts/enemies/root_bell_presentation.gd",
+        "previous_sha256": "7f8c035afed9199d9db9281e4f5adf2d746168a041e24d96a439fdfba30c7c3c",
+        "sha256": "16ce7d982fbc66547392b863026305c450353e9c29bff640723a99428c573b1e"
+      },
+      {
+        "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+        "previous_sha256": "0532114a5bc80c0be1ec0a1459203ad9b78ff70063b2de4bbcf5ba254df6bd04",
+        "sha256": "bbb81440735c8ba6d684a10c8a5efd8bc573fccc1ae42ee31cbd60161ce0dfca"
+      },
+      {
+        "path": "scripts/underworld_plains/underworld_enemy.gd",
+        "previous_sha256": "75ba4185468a4378ca127a8e5dff406c160b6449fe58566af04f33b0922cc91d",
+        "sha256": "01232c561efbbc9e116f56d9208d311a8fc0ad732f1129d9e90b3eec1157a451"
+      }
+    ]
+  },
+  "new_counterexamples": [
+    {
+      "path": "tests/enemy_all_02_boss_motion_lifecycle.gd",
+      "sha256": "e3c5cafd4398ca9ca4dcf3a6d70750dbaee2265bb1e0194c6a189fcb51074ef5"
+    },
+    {
+      "path": "tests/enemy_all_02_boss_motion_lifecycle.gd.uid",
+      "sha256": "a7cecfab57bf4897fc70a929c9704b693fc0cd7fb4a087e96f8710b88675f18e"
+    },
+    {
+      "path": "tests/enemy_all_02_motion_lifecycle.gd",
+      "sha256": "67b804af82482d742234671c620fa3a55c685291571c0fe87d2fe4c66d7e4302"
+    },
+    {
+      "path": "tests/enemy_all_02_motion_lifecycle.gd.uid",
+      "sha256": "11f1d6351c0b16aba1aa2170f8f0d7e9dee9941b1521220b73c58496d6966c22"
+    },
+    {
+      "path": "tests/enemy_all_02_plains_lifecycle.gd",
+      "sha256": "75e64e8597824f681bfe63d5bc655fe6ec9d9d8a62d06fb86c3ec0594a566225"
+    },
+    {
+      "path": "tests/enemy_all_02_plains_lifecycle.gd.uid",
+      "sha256": "8e52d32d65db979f857d96823d6c9bfc15252c9470865eae83a45c6d0ddcab1d"
+    }
+  ]
+}

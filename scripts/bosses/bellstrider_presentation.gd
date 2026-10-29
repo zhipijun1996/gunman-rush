@@ -16,8 +16,10 @@ var flash:=0.0
 var death_age:=0.0
 var _body_scale := Vector2.ONE
 var hit_template: EnemyHitTemplate
+var motion := BossMotionPresentation.new()
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
+	motion.bind(encounter)
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,true)
 	get_parent().add_child.call_deferred(arrival)
@@ -28,6 +30,7 @@ func _ready() -> void:
 	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
 func _process(delta: float) -> void:
 	if get_tree().paused: return
+	motion.sample(encounter,delta)
 	clock+=delta
 	if encounter.health.terminal:death_age+=delta;modulate.a=maxf(0,1-death_age/.45)
 	wheel_angle+=(global_position.x-_last.x)/25
@@ -44,7 +47,13 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if encounter==null: return
 	if UnderworldActors.enabled(self):
-		UnderworldActors.draw_bellstrider(self,encounter,spring,wheel_angle,flash>0)
+		motion.draw_body(self,UnderworldActors.BELLSTRIDER,Rect2(-80,-91,160,157),&"bellstrider",hit_template.tint(),float(encounter.direction))
+		# Existing axle coordinates and accepted travel drive independent spokes.
+		for side: int in [-1,1]:
+			var hub := Vector2(side*40,40)
+			for spoke: int in 3:
+				var axis := Vector2.from_angle(wheel_angle+spoke*TAU/3)
+				PixelFormalActors.pixel_line(self,hub+axis*5,hub+axis*14,Color("7b6d3c"),2)
 	elif pixel_style:
 		PixelFormalActors.draw_bellstrider(self,encounter,clock,spring,wheel_angle,flash>0)
 	else:
@@ -57,7 +66,7 @@ func _draw() -> void:
 			draw_set_transform(center,wheel_angle)
 			draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
 		draw_set_transform(Vector2.ZERO)
-		draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean,_body_scale)
+		draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean-motion.hurt*.07*encounter.direction,_body_scale)
 		draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,hit_template.tint())
 		draw_set_transform(Vector2.ZERO)
 	if encounter.core_open:
@@ -87,3 +96,6 @@ func _draw() -> void:
 		draw_line(p-Vector2(33,0),p+Vector2(33,0),Color("f6d294"),2)
 		if encounter.stage_phase==2: draw_arc(p+Vector2(110*encounter.direction,-20),25,0,TAU,32,Color(1,.64,.3,.45),2)
 	if encounter.mode==&"ring_warning": draw_arc(Vector2(0,48),40+sin(clock*12)*5,PI,TAU,32,Color("f2d698"),3)
+
+func _exit_tree() -> void:
+	motion.dispose(encounter)

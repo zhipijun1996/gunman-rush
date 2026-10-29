@@ -31,8 +31,10 @@ var _rotor_angle:=0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
 var hit_template: EnemyHitTemplate
+var motion := BossMotionPresentation.new()
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
+	motion.bind(encounter)
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,false)
 	get_parent().add_child.call_deferred(arrival)
@@ -47,6 +49,7 @@ func _ready() -> void:
 				GameAudio.cue(self, &"core"))
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
+	motion.sample(encounter,delta)
 	visual_clock += delta
 	if encounter.health.terminal:_death_age+=delta
 	if pixel_style: modulate.a=maxf(0,1-_death_age/.65)
@@ -103,7 +106,16 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if encounter == null: return
 	if UnderworldActors.enabled(self):
-		UnderworldActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
+		var raised := (encounter.definition as WindkeeperDefinition).platform_trials
+		var old_height := 236.0 if raised and _old_form==3 else 198.0
+		var height := lerpf(old_height,236.0 if raised and encounter.stage_phase==3 else 198.0,smoothstep(0,1,_form_blend))
+		var body_tint := hit_template.tint()
+		if encounter.health.terminal: body_tint = body_tint.lerp(Color("818b76"),motion.death)
+		motion.draw_body(self,UnderworldActors.WINDKEEPER,Rect2(-92,65-height,184,height),&"windkeeper",body_tint,float(encounter.direction))
+		if not encounter.core_open and not encounter.health.terminal:
+			var bell := UnderworldActors.icon_texture(&"bell")
+			var bell_size := bell.get_size()*(32.0/bell.get_height())
+			draw_texture_rect(bell,Rect2(encounter.core_offset()-bell_size*.5,bell_size),false,Color.WHITE)
 		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
 			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle
 			PixelFormalActors.draw_rotor(self,Vector2(0,-75),angle)
@@ -254,4 +266,5 @@ func _roar_burst()->void:
 		var axis:Vector2=Vector2.from_angle(float(i)*2.399963)
 		_leaves.append({"point":encounter.motor.global_position+Vector2(0,-50),"velocity":axis*(65+float(i%5)*18)+Vector2(0,-45),"age":0.0})
 func _exit_tree()->void:
+	motion.dispose(encounter)
 	if is_instance_valid(_plain_camera):_plain_camera.offset=Vector2.ZERO

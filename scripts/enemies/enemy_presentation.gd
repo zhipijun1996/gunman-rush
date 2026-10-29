@@ -19,13 +19,16 @@ var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 var hit_template: EnemyHitTemplate
+var body_motion := PlainsMotion02.new(&"legacy")
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+		body_motion.sample = feedback_sample
 		feedback_frames = EnemyFeedback01Frames.new(&"legacy", actor.definition.stable_id, _feedback_body_size())
 		feedback_frames.horizontal_offset = feedback_anchor.x
 		feedback_body = EnemyFeedback01Body.new()
+		feedback_body.configure_motion(body_motion, actor)
 		feedback_body.name = "AcceptedHitBody"
 		feedback_body.show_behind_parent = true
 		feedback_body.visible = false
@@ -45,6 +48,7 @@ func _ready() -> void:
 	else:
 		actor.health.changed.connect(_health_changed)
 		hit_template = EnemyHitTemplate.install(actor, self)
+		body_motion.sample = hit_template.sample
 	queue_redraw()
 func _exit_tree() -> void:
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
@@ -55,12 +59,14 @@ func _feedback_initialized(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
 	_hurt_time = 0
 	_death_time = 0
+	body_motion.advance(actor, 0.0)
 	feedback_particles.clear_for_epoch()
 	_sync_feedback_body()
 	queue_redraw()
 func _process(delta: float) -> void:
 	if get_tree().paused: return
 	_clock += delta
+	body_motion.advance(actor, delta)
 	if feedback_sample != null:
 		feedback_sample.advance(delta)
 		_hurt_time = feedback_sample.hurt_remaining
@@ -84,6 +90,12 @@ func _process(delta: float) -> void:
 	_update_frame_weights(state,delta)
 	queue_redraw()
 func _health_changed(result: ActorResourceResult) -> void:
+	if result != null and result.operation == &"initialize" and result.snapshot.epoch == actor.health.epoch:
+		body_motion.advance(actor, 0.0)
+		_hurt_time = 0.0
+		_death_time = 1.0 if actor.health.terminal else 0.0
+		_weight = Vector2.ONE
+		_lean = 0.0
 	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
 		_hurt_time = 0.14
 	queue_redraw()
@@ -124,8 +136,8 @@ func _draw() -> void:
 			var alpha := maxf(0, 1.0 - _death_time / EnemyFeedback01.DEATH_SECONDS) if feedback_sample != null else maxf(0, 1.0 - _death_time * 1.6)
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, alpha))
 
-	if feedback_frame_index >= 0:
-		pass # The body child owns this authored hurt frame; retain HP/telegraphs.
+	if feedback_body != null:
+		pass # One coherent body child owns live and hurt; retain HP/telegraphs.
 	elif ForestBibleActors.draw_enemy_body(self, actor, _clock): return
 	elif actor.definition.aerial:
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
@@ -154,16 +166,14 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 		_action_manifest = JSON.parse_string(FileAccess.get_file_as_string(root + "manifest.json"))
 	var species := "sentry" if actor.definition.behavior_id in [&"sentry",&"fan_sentry"] else "beetle"
 	var data: Dictionary = _action_manifest.species[species]
-	var frame_id := "death" if actor.health.terminal else "idle_a" if state == &"idle" and int(_clock * 7) % 2 == 0 else "idle_b" if state == &"idle" else "recovery" if state==&"blocked" else str(state)
-	var total := 0.0
-	for weight: float in _frame_weights.values(): total += weight
-	for id: String in _frame_weights:
-		_draw_named_frame(data,species,id,facing,Color(tint,tint.a*float(_frame_weights[id])/maxf(total,.001)))
+	# Keep one live identity. State-specific movement comes from its limbs and
+	# load/release joints, rather than dissolving unrelated whole-body drawings.
+	_draw_named_frame(data,species,"death" if actor.health.terminal else "idle_a",facing,tint)
 
 func _remains_view() -> Dictionary:
 	var facing := float(actor.brain.direction)
 	if feedback_frames != null:
-		var bob := sin(_clock*7)*1.2 if actor.definition.aerial else 0.0
+		var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
 		return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, _size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(facing, 1), 0, Vector2(0, feedback_anchor.y+bob)), "face": facing, "angle": global_rotation, "readable_material": false}
 	if actor.definition.aerial:
 		var texture := AtlasTexture.new()
@@ -220,14 +230,18 @@ func _feedback_body_size() -> Vector2:
 
 func _sync_feedback_body() -> void:
 	feedback_frame_index = feedback_frames.hurt_index(feedback_sample)
-	feedback_body.visible = feedback_frame_index >= 0 and not actor.health.terminal
+	feedback_body.visible = not actor.health.terminal
 	if not feedback_body.visible:
 		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0)
 		feedback_body.flash_material.set_shader_parameter("authored_palette", 0.0)
 		feedback_body.flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
 		return
-	var bob := sin(_clock*7)*1.2 if actor.definition.aerial else 0.0
-	feedback_body.present(feedback_frames.texture(feedback_frame_index), feedback_frames.bounds(feedback_frame_index), Vector2(0, feedback_anchor.y+bob), 0, Vector2(float(actor.brain.direction), 1), Color.WHITE, feedback_sample.flash_strength())
+	# The exact H3 source/scale/anchor continues into live articulation. The
+	# motion object never restarts when an accepted hurt pose enters or exits.
+	var source := feedback_frames.texture(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_texture()
+	var bounds := feedback_frames.bounds(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_bounds()
+	var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
+	feedback_body.present(source,bounds,Vector2(0,feedback_anchor.y+bob),0.0,Vector2(float(actor.brain.direction),1.0),Color.WHITE,feedback_sample.flash_strength())
 
 func _remains_named_frame(data: Dictionary, id: String) -> Dictionary:
 	for frame: Dictionary in data.frames:
@@ -252,8 +266,12 @@ func _draw_named_frame(data: Dictionary, species: String, frame_id: String, faci
 			_action_textures[key] = atlas
 		var factor := float(data.uniform_scale_at_default_actor) * _size.y / 32.0
 		var origin := Vector2(0, _size.y / 2) - Vector2(frame.anchor_px[0], frame.anchor_px[1]) * factor
-		draw_set_transform_matrix(Transform2D(Vector2(facing*_weight.x,0),Vector2(_lean,_weight.y),Vector2(0,_size.y/2*(1-_weight.y))))
-		draw_texture_rect(_action_textures[key], Rect2(origin, Vector2(frame.region_xywh[2], frame.region_xywh[3]) * factor), false, tint)
+		if actor.health.terminal:
+			draw_set_transform_matrix(Transform2D(Vector2(facing*_weight.x,0),Vector2(_lean,_weight.y),Vector2(0,_size.y/2*(1-_weight.y))))
+			draw_texture_rect(_action_textures[key],Rect2(origin,Vector2(frame.region_xywh[2],frame.region_xywh[3])*factor),false,tint)
+		else:
+			draw_set_transform(Vector2.ZERO,0.0,Vector2(facing,1.0))
+			body_motion.draw_body(self,actor,_action_textures[key],Rect2(origin,Vector2(frame.region_xywh[2],frame.region_xywh[3])*factor),tint)
 		draw_set_transform(Vector2.ZERO)
 		return
 
