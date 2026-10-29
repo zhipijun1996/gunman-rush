@@ -132,6 +132,13 @@ func check_geometry(rig: PlainsRevisionSkin, label: String) -> void:
 				var point := rig.bounds.position+uv*rig.bounds.size
 				handoff_continuous = handoff_continuous and rig.deform(point,uv,captured).is_equal_approx(rig.deform(point,uv,lethal_pose))
 	check(handoff_continuous,label+" lethal death=0 preserves every sampled captured load/strike/hurt/turn/air joint")
+	if rig.kind == &"root_bell":
+		# A real opaque clapper-rim pixel from the unchanged neutral mother.
+		# Root/support settlement alone did not catch the visually floating bell.
+		var rim_uv := Vector2(394.0/453.0,218.0/376.0)
+		var rim := rig.deform(rig.bounds.position+rim_uv*rig.bounds.size,rim_uv,ended)
+		var mother := rig.texture.get_image()
+		check(mother.get_pixel(394,218).a>=0.5 and rim.y>=-1.0 and rim.y<=0.0,label+" actual opaque bell rim rests within one world pixel of support after collapse")
 	if rig.kind != &"patrol":
 		check(load_difference>1.0 and strike_difference>1.0,label+" load and release produce distinct body geometry")
 

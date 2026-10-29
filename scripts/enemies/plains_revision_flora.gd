@@ -200,7 +200,9 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 		var swing_progress := _window(0.72,1.00,d)
 		var swing := sin(swing_progress*TAU*1.25)*(1.0-swing_progress)*0.11
 		var bell_pose := moved_hanger+(point-hanger).rotated(swing)
-		var dead_bell := bell*_window(0.14,0.22,uv.y)
+		# Include the copper mouth and clapper down to their actual alpha rim.
+		# The live crown mask fades at y=.46 and cannot carry these lower pixels.
+		var dead_bell := _window(0.64,0.70,uv.x)*_window(0.12,0.18,uv.y)*(1.0-_window(0.62,0.67,uv.y))
 		p = p.lerp(bell_pose,dead_bell)
 		# Leaf attachments follow the appropriate stem segment, then their
 		# blades yield independently. They no longer hold a raised canopy.
