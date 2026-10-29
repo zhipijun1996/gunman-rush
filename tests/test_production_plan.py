@@ -179,10 +179,25 @@ class ProductionPlanTests(unittest.TestCase):
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
         self.assertFalse(set(parallel) & set(serial))
         self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
-        # Preserve the exact pre-V5 inventory/order from main879b39e; new
-        # families append to that baseline rather than replacing old coverage.
+        # AGENTS' current-Demo scope defers frozen history to legacy-compat.
+        # Require precisely the independently reviewed one-for-one replacement;
+        # normalize that name alone when checking the unchanged historic hashes.
+        current_registry = "forest-current-registry"
+        frozen_registry = "forest-depth-versions"
+        for names, slot in ((self.manifest["profiles"]["full"], 74), (full["checks"], 85)):
+            self.assertEqual(names.count(current_registry), 1)
+            self.assertEqual(names[slot], current_registry)
+            self.assertNotIn(frozen_registry, names)
+        self.assertIn(frozen_registry, self.manifest["profiles"]["legacy-compat"])
+        self.assertNotIn(current_registry, self.manifest["profiles"]["legacy-compat"])
+        self.assertEqual(self.manifest["checks"][current_registry]["timeout_seconds"],
+                         self.manifest["checks"][frozen_registry]["timeout_seconds"])
+        # Preserve the exact pre-V5 inventory/order from main879b39e except for
+        # that explicit scope split; new families still append to the baseline.
         original = self.manifest["profiles"]["full"][:144]
-        digest = lambda names: hashlib.sha256(json.dumps(names,separators=(",",":")).encode()).hexdigest()
+        digest = lambda names: hashlib.sha256(json.dumps(
+            [frozen_registry if name == current_registry else name for name in names],
+            separators=(",",":")).encode()).hexdigest()
         self.assertEqual(digest(original), "dd7ca8a04ea756fc112183fa3603a1cdcd75c4ff7677987702d659292d194bc2")
         self.assertEqual(digest(full["checks"][:144]), "392a72c601c87c22daa53f7e2786c3481026048ee93fddd1753564e40ece621e")
         additions = [
