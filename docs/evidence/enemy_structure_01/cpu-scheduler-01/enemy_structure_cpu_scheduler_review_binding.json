@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "3bc1759b17a0d06be94ef43f85f2116631437aef",
+  "reviewer": "/root/enemy_review",
+  "verdict": "ACCEPT",
+  "scope": "Source and pure-Python scheduling/telemetry only; no Godot/80corpus/fullCI/art/user/G5 acceptance",
+  "independent_run": {
+    "argv": [
+      "python3",
+      "/tmp/test_forest_region_scheduler_cpu_candidate.py",
+      "-q"
+    ],
+    "exit_code": 0,
+    "tests": 27,
+    "failures": 0,
+    "summary_seconds": 1.777
+  },
+  "original_test_classes_byte_identical": [
+    "RegionSchedulerTests",
+    "FourProcessSchedulerTests"
+  ],
+  "original_function_bodies_identical": [
+    "corpus_cases",
+    "schedule_cases",
+    "validate"
+  ],
+  "files": {
+    "/tmp/run_forest_depth_region_cpu_telemetry_candidate.patch": "bccb90cde9c039e677d839f67fbad28e540a7f3f85837452044ff95526954179",
+    "/tmp/test_forest_region_scheduler_cpu_candidate.patch": "fe82e85da545b481de10067392a750f070e6259a623fa4d8cdb86bb4260d476f",
+    "/tmp/run_forest_depth_region_cpu_telemetry_candidate.py": "781469d74f1b51520da10d94aed822e6b2e78cc1dc645b69bd49abeda0581667",
+    "/tmp/test_forest_region_scheduler_cpu_candidate.py": "1a114a93846247de19626817517e0c68f17b2a53a3420f5c9a7b81f1a44763b9",
+    "/tmp/enemy_structure_cpu_scheduler_independent.log": "4e2387ef50ff9589e631291aca69b1c830de20681ba85d088724d908e8f01ecd"
+  },
+  "applied_tool_sha256": "781469d74f1b51520da10d94aed822e6b2e78cc1dc645b69bd49abeda0581667",
+  "applied_tests_sha256": "d90f9d5b0a49ec4b278b54e9339b97bbb4d8b27914942f834aa85fbb1a99bb5c"
+}
