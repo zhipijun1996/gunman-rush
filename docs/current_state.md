@@ -1,5 +1,14 @@
 # 当前状态
 
+## 2026-10-29 AUDIO-ROLLOUT-01 · main 已合入，试玩已上线
+
+PR113 已在精确b6659cb1完整165项fresh／0复用与affected通过后普通合并，main为1b29932c。实际main Web版本618eb97114e6由原prepared流程发布，[可操作试玩](https://zhipijun1996.github.io/gunman-rush/?build=618eb97114e6)。公网完整PCK208689368B／SHA618eb97114e6715fc33856823c9bf23141e8e51802a886596bc9f223ed7ca691及source/build/许可核对通过。两区A/A与家园life已接正式入口。
+
+原生45／0、导出26／0、旧PNG30／0与前置实际Home/两区浏览器证明保留；公网Home实际输入、cloth1事件与原生非零混音已观测。完整公网GUI脚本、Master硬静音与实体手机/听感未代签，原量化底板/旁路探针失败不改签。原CI森林80例超时保留，同head重跑仅serial，原600秒预算下459.591秒全80通过；无门禁或规则放宽。[准确收据与边界](evidence/audio_rollout_01/public-main/README.md)。
+
+当前后续纯文档分支docs/audio-rollout-01-published-receipt只归档发布收据；已发布运行源固定main1b29932c，不另改音频或BGM。resources/foundry工作区差异是原工具重建的开发缓存，不当新玩法提交。下一步等待用户实际手机听感或读取audio-director brief按短指令迭代；不要重做已选候选/重复发布旧包。
+
+
 ## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
 
 用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。

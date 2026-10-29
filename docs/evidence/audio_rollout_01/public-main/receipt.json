@@ -1,0 +1,68 @@
+{
+  "status": "merged_and_published",
+  "task": "AUDIO-ROLLOUT-01",
+  "main_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "pr": 113,
+  "validated_pr_head": "b6659cb19988f3c9793e15422289c2bb1daf73b8",
+  "merged_tree_identical_to_validated_head": true,
+  "ci": {
+    "run": 40820328364,
+    "attempt": 2,
+    "status": "success",
+    "parallel_fresh_passed": 91,
+    "serial_fresh_passed": 74,
+    "reused": 0,
+    "affected_job": 123304174309,
+    "affected_status": "success",
+    "forest_corpus": {
+      "unique_cases": 80,
+      "budget_seconds": 600,
+      "duration_seconds": 459.591,
+      "status": "passed"
+    },
+    "attempt1_serial_timeout_preserved": true
+  },
+  "deployment": {
+    "workflow": "deploy-prepared-playtest.yml",
+    "run": 40832328245,
+    "status": "success",
+    "prepared_branch": "prepared/audio-rollout-1b29932c5333",
+    "prepared_commit": "ccaad01201d376713343ba0754d44b6c09b22da5"
+  },
+  "web": {
+    "url": "https://zhipijun1996.github.io/gunman-rush/",
+    "build_id": "618eb97114e6",
+    "pack_bytes": 208689368,
+    "pack_sha256": "618eb97114e6715fc33856823c9bf23141e8e51802a886596bc9f223ed7ca691",
+    "public_complete_pack_verified": true,
+    "public_source_and_build_verified": true,
+    "public_audio_credit_files_verified": 8
+  },
+  "adopted": {
+    "plains": "quiet-02 A",
+    "forest": "quiet-02 A",
+    "home": "home-quiet-01 life",
+    "home_bed_extra_gain_db": -2,
+    "other_sfx_profile": "original"
+  },
+  "verification": {
+    "native_formal_scene_checks": 45,
+    "native_formal_scene_failures": 0,
+    "raw_audio_export_positive_negative_checks": 26,
+    "raw_png_regression_checks": 30,
+    "legacy_export_python_tests": 2,
+    "actual_main_pack_raw_json_and_audio_files": 20,
+    "actual_main_normal_audio_import_derivatives": 16,
+    "premerge_and_main_audio_bytes_identical": true,
+    "premerge_real_browser": "Home life/mute/resume/normal Plains pause and ownership14 checks; separate forest5 checks plus actual mixedPCM pass. Same runtime source tree as merged main.",
+    "public_home": "Trusted native title click, real D movement, actual cloth1 event and native mixedPCM observed. Candidate path, unlocked state, stream advancement and volume0 bed-pause snapshot observed.",
+    "public_full_gui_script": "Incomplete. Earlier zero-gain analyser probes returned zero; consumed native recording fanout observed nonzero Home mixedPCM. The old volume0 whole-mix assertion failed with one 1/32768 sample; existing SFX/music volume floors are not a Master-bus hard mute. Original reports remain failed. Master-toggle/full public region sequence not claimed passed."
+  },
+  "unverified": [
+    "Physical phone/iOS Safari hearing and performance",
+    "Uninterrupted playback under very low-FPS cloud software GPU",
+    "Subjective whole-game/commercial quality",
+    "Complete public GUI script including Master mute and region sequence"
+  ],
+  "recorded_at_utc": "2026-10-29T07:33:20.058806+00:00"
+}

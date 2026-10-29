@@ -1,0 +1,262 @@
+{
+  "scope": "Passed Home mixedPCM subcase extracted from an overall FAILED diagnostic run; does not sign the complete script.",
+  "original_report_sha256": "a51e0ecb493fc53edad51b3bffd88d99ab185b5d610d126b90503f1ea347f830",
+  "original_status": "failed",
+  "main": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "build": "618eb97114e6",
+  "checks": [
+    {
+      "passed": true,
+      "assertion": "Actual served metadata equals new main/build"
+    },
+    {
+      "passed": true,
+      "assertion": "Actual loaded HTML badge equals new build"
+    },
+    {
+      "passed": true,
+      "assertion": "A/A/life applies without changing SFX profile"
+    },
+    {
+      "passed": true,
+      "assertion": "A normal near-place Home cloth cue actually plays"
+    },
+    {
+      "passed": true,
+      "assertion": "Actual volume-zero pauses continuous bed"
+    }
+  ],
+  "audio_observations": [
+    {
+      "label": "home-after-real-first-gesture",
+      "snapshots": [
+        [
+          {
+            "state": "running",
+            "current_time": 44.16145124716553,
+            "sample_rate": 44100,
+            "rms": 0.0021914131090023958,
+            "peak": 0.01708984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 340402
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 44.34140589569161,
+            "sample_rate": 44100,
+            "rms": 0.009665486268004024,
+            "peak": 0.032196044921875,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 349112
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 44.47201814058957,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 349112
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 44.640362811791384,
+            "sample_rate": 44100,
+            "rms": 0.006185943238477634,
+            "peak": 0.0319976806640625,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 349112
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 44.7912925170068,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 356856
+          }
+        ]
+      ],
+      "passed": true,
+      "kind": "actual WebAudio context/mixed-output observation",
+      "individual_track_identity": "unverified; mixed output does not identify MP3 filenames"
+    },
+    {
+      "label": "actual-home-volume-zero",
+      "snapshots": [
+        [
+          {
+            "state": "running",
+            "current_time": 59.11219954648526,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 578295
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 59.292154195011335,
+            "sample_rate": 44100,
+            "rms": 4.422005889652111e-06,
+            "peak": 3.0517578125e-05,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 578295
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 59.44018140589569,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 586373
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 59.61142857142857,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 586373
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 59.78267573696145,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 48719
+              },
+              {
+                "state": "running",
+                "time": 66069.79999999702
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 586373
+          }
+        ]
+      ],
+      "passed": false,
+      "kind": "actual WebAudio context/mixed-output observation",
+      "individual_track_identity": "unverified; mixed output does not identify MP3 filenames"
+    }
+  ],
+  "omitted_fields": [
+    "proxy hostname",
+    "full local pack detail",
+    "repeated waiting snapshots"
+  ]
+}

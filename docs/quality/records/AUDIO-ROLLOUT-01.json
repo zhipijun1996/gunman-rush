@@ -26,7 +26,10 @@
     "addons/runtime_raw_export/raw_exporter.gd",
     "tests/selected_audio_export.gd",
     "tests/selected_audio_export.gd.uid",
-    "docs/quality/records/AUDIO-DIRECTOR-01.json"
+    "docs/quality/records/AUDIO-DIRECTOR-01.json",
+    "docs/evidence/audio_rollout_01/public-main/receipt.json",
+    "docs/current_state.md",
+    "docs/handoff.md"
   ],
   "deliverables": [
     "正式主场景绑定已选区域A/A与Home life",
@@ -79,12 +82,12 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "正式场景45/0及导出26/0严格退出通过；最终CI/PCK/公开GUI仍待执行",
+      "reason": "原生45/0、导出26/0；精确源完整CI165fresh/0reuse、main实际PCK20raw+16imports及公网完整字节通过；不等于全部公网GUI通过",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "已在真实demo.tscn覆盖双App、Home、两区、死亡、暂停、mute、返回；公开Web未验",
+      "reason": "实际main已接入并发布，原生/前置两区和公网Home已验；完整公网GUI脚本有保留的观测失败，未代签",
       "evidence": []
     },
     "visual": {
@@ -190,11 +193,23 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Separate read-only agent /root/ambience_review; did not implement or modify production, verified author hashes and real root-run logs"
+    },
+    {
+      "id": "rollout-published-main",
+      "path": "docs/evidence/audio_rollout_01/public-main/receipt.json",
+      "sha256": "3d47848658909f8a498a10b860d39d7d7446eb18b8f74554014f52e4e05d18c2",
+      "kind": "runtime_trace",
+      "producer": "/root, original Web exporter + prepared deployment + public byte verifier",
+      "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+      "content_version": "selected-ambience-rollout-v1",
+      "method": "Actual merged-main export, original deployment, complete public PCK/source readback and scoped real native browser PCM; failed whole-script diagnostics retained",
+      "observed": "Main merge and public playtest delivered; 165 CI checks fresh passed. Only scoped public Home PCM confirmed, complete public GUI/device/aesthetic not signed."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "用户实体设备/全自然路线",
-    "当前精确head完整CI与正式Web部署待执行"
+    "实体手机/iOS Safari与用户实际混音听感",
+    "完整公网GUI脚本/Master硬静音/全自然路线",
+    "商业品质与低帧率软件GPU下连续播放"
   ]
 }
