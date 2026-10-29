@@ -1,0 +1,49 @@
+{
+  "run_id": 40964265759,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/40964265759",
+  "source_commit": "9034827f63cfc03c74df70ba7bb0d48639583057",
+  "actual_workflow_status": "completed",
+  "actual_workflow_conclusion": "success",
+  "checks": 166,
+  "fresh": 166,
+  "reused": 0,
+  "failed": 0,
+  "not_executed": 0,
+  "parallel": 91,
+  "serial": 75,
+  "source_entries": 30300,
+  "source_stable": true,
+  "git_clean": false,
+  "prepared_dirty_paths": 56,
+  "prepared_dirty_scope": "Existing resources/foundry/*.json preparation; identical across lanes; all3788 nonFoundry runtime sources independently match local903 bytes",
+  "artifacts": [
+    {
+      "id": 12940084938,
+      "name": "production-phase-proof-parallel",
+      "bytes": 2300739,
+      "sha256": "84ac8b1847bc21ef66c92ce47bf60fa9633d3bc29c1db1bd9d73f13e090af652",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12939833322,
+      "name": "production-phase-proof-serial",
+      "bytes": 2397157,
+      "sha256": "d48eec6818d5f101597708eeccd21eef0b62571981d9b9b9caca3e8db5ec5784",
+      "github_api_digest_matched": true
+    },
+    {
+      "id": 12940673542,
+      "name": "production-merged-proof-40964265759-1",
+      "bytes": 3690232,
+      "sha256": "98e4b611e58bd78ee2f9f5e7faf71b8c82b90d6a111751cd03cedee5a5cc2ed6",
+      "github_api_digest_matched": true
+    }
+  ],
+  "scope": "Full technical CI including original Web checks; not monster art, listening, device or user acceptance. Original frozen-v11 remains deferred/failed in explicit manual legacy profile.",
+  "independent_verification": {
+    "checks": 2191,
+    "failures": 0,
+    "reviewer": "/root/final_ci_receipts_review",
+    "scope": "Technical proof integrity and actual same-source full166 only; not artistic/user/device acceptance"
+  }
+}

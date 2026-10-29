@@ -63,3 +63,9 @@ comparison初页300条观测为movie9..308，声明可播10..308；转换器保�
 第四轮冻结0a51b7ec实际29通过、planner历史清单守门1失败、后133未执行，见[原报告](integration/attempt-04/report.json)。后继仅适配这个明确名称的一换一分流：原四历史摘要、位置／166总数／两lane与预算均保留；21项原测试后继通过，独审另附。最终冻结源适用163的实际结果另记。
 
 第五轮bc9024实际72通过、留尸支撑145／2失败、后90未执行，见[integration/attempt-05](integration/attempt-05/README.md)。当前registry88／0、原反馈native484／0和formal66／0均按该实际源保留。保存朝向缓存已仅在保存恢复路径修复，原145／0及clean ad89三个保存／结构专项fresh通过，[独审限定接受](review/restored-face-review.md)；原7edda9媒体来源不追签，完整163后继另记。
+
+## 最终完整技术结果
+
+冻结9034827f的[完整CI40964265759](integration/ci-40964265759/README.md)实际166／166 fresh通过，官方两lane及affected汇总success，0复用／0失败／0未执行。两通道30,300源项前后稳定，56项既有Foundry JSON预处理非clean明确保留；独立核验3,788个非Foundry运行源与本轮生产改动逐件一致。两原phase与merged ZIP均实际下载核API SHA。
+
+本地第6轮48marker后环境中断，无aggregate；第7轮81通过／1缺原preview输入失败／81未执行，恢复原11,645字节Git blob后8项专项通过；第8轮97通过后由同源官方完整166替代而停止，无aggregate。原件见integration/attempt-06、07、08，不伪称本地163完整通过。整怪视觉、正常速度听审、设备及用户G5仍未签，工坊候选等待具体版本意见。

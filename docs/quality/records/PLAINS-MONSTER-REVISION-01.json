@@ -86,6 +86,31 @@
     "docs/evidence/plains_monster_revision_01/integration/attempt-05/report.json",
     "docs/evidence/plains_monster_revision_01/integration/attempt-05/support-failure-runtime.json",
     "docs/evidence/plains_monster_revision_01/integration/attempt-05/support-failure.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-06/README.md",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-06/console.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-06/interruption.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-06/originals.tar.gz",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/README.md",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/console.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/input-plan.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/input-restoration.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/missing-input-failure.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/originals.tar.gz",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/report.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/restored-eight-checks-originals.tar.gz",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-07/restored-eight-checks-report.json",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-08/README.md",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-08/console.log",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-08/originals.tar.gz",
+    "docs/evidence/plains_monster_revision_01/integration/attempt-08/stopped.json",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/README.md",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/merged.zip",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/phase-parallel.zip",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/phase-serial.zip",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/receipt.json",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/report.json",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/review.json",
+    "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/review.md",
     "docs/evidence/plains_monster_revision_01/manifest.json",
     "docs/evidence/plains_monster_revision_01/media/comparison.mp4",
     "docs/evidence/plains_monster_revision_01/media/plains.mp4",
@@ -267,27 +292,27 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "现有完整166技术回归fresh通过；本主内容卡仍不把未穷尽的全动作／镜向／边界目标签为完成，原测试结果按实际903源另存。",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "当前真实App与正式消费者166技术CI通过；新七怪媒体仍为明示实验场及静态展位，未签自然完整遭遇与全部新体型动态边界。",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "六页原平原同屏静态粒度已限定独审接受，逐怪正常速度完整视觉与用户审美仍未签。",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "最终独审实际看7×20死亡样本及实际冲锋，但未观察全部中断／镜向／正常速度组合。",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "原引擎音轨与实际低铃cue保留；完整正常速度听审及AVsync未签。",
       "evidence": []
     },
     "gameplay": {
@@ -302,7 +327,7 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "已有代码、死亡样本、静态粒度与完整CI证据的限定独审；没有将这些局部接受扩为整怪综合独审。",
       "evidence": []
     },
     "device": {
@@ -418,13 +443,45 @@
       "independent": true,
       "independence_basis": "未编辑生产或测试，独立读取真实原件与精确修复source。",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "full-ci-166",
+      "path": "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/report.json",
+      "sha256": "20352ebd751d5f34b2fa75e2114f41f2e1c1f7b32cd8a616802c668c978248bb",
+      "kind": "command",
+      "producer": "GitHub Actions run40964265759/actual affected merge",
+      "source_commit": "9034827f63cfc03c74df70ba7bb0d48639583057",
+      "content_version": "plains-monster-revision-v1",
+      "method": "原full166两fresh lane＋真实preparedcheckout verify-lanes汇总，原API ZIP SHA实核",
+      "observed": "166/166fresh;91+75;0reuse/fail/notrun;30300stable;56Foundrypreparednonclean;不签视觉/听感/用户/设备",
+      "exit_code": 0,
+      "command": "python3 tools/harness.py --profile full --lane parallel --jobs 1 --release\npython3 tools/harness.py --profile full --lane serial --jobs 1 --release\npython3 tools/harness.py --profile full --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --jobs 1 --release",
+      "environment": "GitHub Actions ubuntu-latest; source903 with identical recorded56 Foundry prepared JSON changes; two lanes and actual affected verification succeeded."
+    },
+    {
+      "id": "full-ci-independent-review",
+      "path": "docs/evidence/plains_monster_revision_01/integration/ci-40964265759/review.md",
+      "sha256": "c832873e2c7339e64a7440f6cc66e03b1505485ece18188e4be0cce895316230",
+      "kind": "review",
+      "producer": "/root/final_ci_receipts_review",
+      "source_commit": "9034827f63cfc03c74df70ba7bb0d48639583057",
+      "content_version": "plains-monster-revision-v1",
+      "method": "独立2191项核原166fresh/日志/ZIP/合并元数据，3788非Foundry实际运行源逐件SHA",
+      "observed": "完整技术CI证据限定ACCEPT；不签整怪艺术/用户/设备",
+      "reviewer": "/root/final_ci_receipts_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "审查者没有修改生产、测试或仓库内容，独立读实际artifact、source和官方workflow结果。",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "私密工坊v3已发布。原163前五轮失败/中断均保留；当前保存朝向缺陷已修，145/0与clean3专项通过，最终适用163待执行。",
-    "所有相位/镜向/边界组合与动态精确碰撞fit未全观察",
-    "正常速度完整视觉节奏、声音听感/AVsync、真机性能及用户G5未签",
+    "私密工坊v3已发布；完整903源CI166fresh与官方汇总通过，所有本地失败/中断原件保留，非本地163完整通过。",
+    "所有相位／镜向／边界组合及动态精确碰撞fit未全观察",
+    "正常速度完整视觉节奏、听感／AVsync、真机性能及用户G5未签",
     "森林/Boss/候选去线分支不由七平原片代签整套画面"
   ],
   "test_change_justification": "用户改用同体连续rig后，旧charger的H/D frame消费者断言迁移为实际rig/source/material/pose/settled；保四组旧Frames资源独立检查与原accepted/epoch/暂停/慢时/支撑/保存/掉落/释放断言。观察区间检查移动到原有130帧之后，不增加原总预算；正式helper改用exact script identity及动态RefCounted读取避免已实际A/B复现的编译资源图泄漏，严格退出门禁未改。"

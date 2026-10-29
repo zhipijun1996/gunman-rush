@@ -1,5 +1,16 @@
 # 当前状态
 
+## 2026-10-29 平原七怪候选已交工坊，完整166技术CI通过（最新）
+
+[打开怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)。平原7个新版实际动作与6组玩家＋原俯冲＋修改怪物的原平原同屏对照已私密发布；沿现有1wu／nearest，独审限定接受静态同屏像素粒度进入复审。原75版本和意见归属保留；森林／Boss／候选条目仍用上轮实录，未冒称本轮重录。站点源ec916080，媒体仍按原7edda9源保留，不追签后继代码。
+
+冻结验证提交`9034827f63cfc03c74df70ba7bb0d48639583057`的完整CI[40964265759](https://github.com/zhipijun1996/gunman-rush/actions/runs/40964265759)实际166／166全部fresh通过（91parallel＋75serial，0复用／0失败／0未执行），官方affected汇总success。两通道前后30,300源项一致，既有56项Foundry JSON预处理明确非Git clean；本轮全部生产改动和3,788个非Foundry运行源独立逐件核SHA一致。原ZIP与GitHub API摘要一致，原报告／日志／独审见[完整证据](evidence/plains_monster_revision_01/integration/ci-40964265759/README.md)。
+
+已修复森林复用charger旧半高，以及真实保存恢复朝向缓存错误；原留尸支撑145／2→145／0，测试断言与预算不改。原冻结v11 280／2按AGENTS既有兼容延期保留manual，不记通过；同预算当前真实registry/App检查默认一换一，完整166及两lane数量保持。所有失败、中断和缺输入原件保留；本地第8轮97通过后因同源完整CI已核验而停止，无aggregate，不称本地全量通过。
+
+PLAINS-MONSTER-REVISION-01保持review。整怪正常速度视觉／声音听审、实体设备、动态全相位碰撞与用户G5仍未签。[制作卡](worklines/plains_monster_revision_01/consumer_coverage.md)记录逐怪边界。草稿[PR118](https://github.com/zhipijun1996/gunman-rush/pull/118)不自动合main；后续按具体怪物／动作／版本意见返工，不自动扩产。
+
+
 ## 2026-10-29 平原七怪返工候选（最新）
 
 用户逐怪规格与“像素粒度要对齐整体美术”已落实为同体关节候选；沿现有1wu/nearest，不改全局画风。冻结源 `7edda9f5f2a20c5406391ff3f7edebbeb2322047`：七怪实际AI连续片76.17秒／basic0gaps，原平原玩家＋原俯冲＋六新怪同屏片30.266667秒／六页。后者明确固定展位、停用AI，不称自然遭遇。新版工坊已原生私密发布，站点源ec916080（已明确本轮只更新平原七怪）；25条目/88版本，新增7战斗与6同屏片，原75版本与D1意见归属保留。详见[候选与失败链](evidence/plains_monster_revision_01/README.md)。
