@@ -6,4 +6,4 @@
 
 瞄准附加音从实际消费者关闭，不删除其他共用cue；反冲先检查是否存在独立cue，不能误删用户已选主枪声。机关复用现有可追溯清脆风铃原件、保持接受命中/冷却规则。
 
-验证：真实demo专项、标准Web冷启动与旧worker迁移、COI/SAB/shared-ring实际路径、Home/Plains实际声音、原UI比例；定向docs/web-cache/web-bundle及独立审查。部署到普通试玩入口，PR117保持draft不自动merge。最终长时真机听感另记，不能把云端软件渲染FPS当手机性能。
+验证：真实demo专项、标准Web冷启动与旧worker迁移、COI/SAB/shared-ring实际路径、Home/Plains实际声音、原UI比例；定向docs/web-cache/web-bundle及独立审查。部署到普通试玩入口，用户随后明确“完成后合入main”，本轮完整适用CI全绿后合并PR117，再导出实际main发布。最终长时真机听感另记，不能把云端软件渲染FPS当手机性能。
