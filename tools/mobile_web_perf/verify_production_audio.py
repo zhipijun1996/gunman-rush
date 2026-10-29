@@ -41,14 +41,20 @@ async def run(args):
             args=['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'], **options)
         context = await browser.new_context(viewport={'width':853,'height':290}, device_scale_factor=2.5,
             is_mobile=True, has_touch=True)
-        await context.route('**/minimal_pcm_worklet.js', lambda route: route.fulfill(
-            path=str(ROOT / 'tools/mobile_web_perf/formal_pcm_worklet.js'), content_type='application/javascript'))
-        await context.add_init_script(RECORDER_INIT)
-        await context.add_init_script(path=str(ROOT / 'tools/mobile_web_perf/audio_graph_probe.js'))
-        await context.add_init_script(path=str(ROOT / 'tools/mobile_web_perf/audio_probe.js'))
+        # One ordered init script. A worker fetch can bypass Playwright routing
+        # once the real cache worker controls this page, so use an opt-in blob
+        # for the observer alone; official engine worklets remain unmodified.
+        recorder = (ROOT / 'tools/mobile_web_perf/formal_pcm_worklet.js').read_text()
+        init = RECORDER_INIT + '\nwindow.MOBILE_AUDIO_PROBE_WORKLET_URL=URL.createObjectURL(new Blob([' + json.dumps(recorder) + '],{type:"application/javascript"}));\n'
+        init += (ROOT / 'tools/mobile_web_perf/audio_graph_probe.js').read_text()
+        init += '\n' + (ROOT / 'tools/mobile_web_perf/audio_probe.js').read_text()
+        await context.add_init_script(init)
         page = await context.new_page()
-        page.on('console', lambda message: logs.append(message.type + ': ' + message.text))
-        page.on('pageerror', lambda error: logs.append('PAGE ERROR: ' + str(error)))
+        def log(value):
+            logs.append(value)
+            (args.output / 'browser.log').write_text('\n'.join(logs))
+        page.on('console', lambda message: log(message.type + ': ' + message.text))
+        page.on('pageerror', lambda error: log('PAGE ERROR: ' + str(error)))
         cdp = await context.new_cdp_session(page)
         try:
             await page.goto(args.root_url, wait_until='domcontentloaded')

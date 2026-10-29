@@ -1,0 +1,125 @@
+{
+  "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+  "build_info": {
+    "build_id": "3866985a1e8b",
+    "pack": "index.3866985a1e8b.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "0829280c25b8",
+    "pack_bytes": 208691528,
+    "download_bytes": 205558913,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83"
+  },
+  "pack_comparison": {
+    "before": "2caa023125bd",
+    "after": "3866985a1e8b",
+    "changed_entries": [
+      ".godot/global_script_class_cache.cfg",
+      ".godot/uid_cache.bin",
+      "scripts/audio/game_ambience.gdc",
+      "scripts/audio/game_audio.gdc"
+    ],
+    "added": [],
+    "removed": [],
+    "unchanged_entries": 3257,
+    "production_diff": "diff --git a/scripts/audio/game_ambience.gd b/scripts/audio/game_ambience.gd\nindex c6c0b723..2a0db998 100644\n--- a/scripts/audio/game_ambience.gd\n+++ b/scripts/audio/game_ambience.gd\n@@ -8,7 +8,8 @@ var session_volume := 0.7:\n \tset(value):\n \t\tsession_volume = clampf(value, 0.0, 1.0) if is_finite(value) else 0.0\n \t\tif session_volume <= 0.0:\n-\t\t\tfor voice: AudioStreamPlayer in _beds + _details: voice.stream_paused = true\n+\t\t\tfor voice: AudioStreamPlayer in _beds + _details:\n+\t\t\t\tif not voice.stream_paused: voice.stream_paused = true\n var profile := \"original\"\n var region := \"\"\n var candidate := \"\"\n@@ -172,8 +173,11 @@ func _process(delta: float) -> void:\n \t\tclear()\n \t\treturn\n \tvar is_paused := get_tree().paused\n-\tfor voice: AudioStreamPlayer in _beds: voice.stream_paused = is_paused\n-\tfor voice: AudioStreamPlayer in _details: voice.stream_paused = is_paused\n+\tvar should_pause := is_paused or session_volume <= 0.0\n+\t# Web Sample unpause restarts its native AudioBufferSourceNode, even if it\n+\t# was already playing. Apply only real pause/mute state transitions.\n+\tfor voice: AudioStreamPlayer in _beds + _details:\n+\t\tif voice.stream_paused != should_pause: voice.stream_paused = should_pause\n \tif is_paused: return\n \tvar real_delta := delta / maxf(0.001, Engine.time_scale)\n \t_clock += real_delta\n@@ -183,7 +187,6 @@ func _process(delta: float) -> void:\n \t\tvar voice := _beds[index]\n \t\tvar linear := session_volume * _gains[index] * db_to_linear(float(voice.get_meta(\"gain_db\", 0.0)))\n \t\tvoice.volume_db = linear_to_db(maxf(0.00001, linear))\n-\t\tvoice.stream_paused = session_volume <= 0.0\n \t\tif _elapsed >= CROSSFADE_SECONDS and _targets[index] == 0.0:\n \t\t\tvoice.stop()\n \t\t\tvoice.stream = null\n@@ -195,7 +198,6 @@ func _process(delta: float) -> void:\n \t\tvar max_distance := float(voice.get_meta(\"max_distance\", 720.0))\n \t\tvar attenuation := clampf(1.0 - listener.global_position.distance_to(at) / max_distance, 0.0, 1.0)\n \t\tvoice.volume_db = linear_to_db(maxf(0.00001, session_volume * attenuation * db_to_linear(float(voice.get_meta(\"gain_db\", 0.0)))))\n-\t\tvoice.stream_paused = session_volume <= 0.0\n \t\tvoice.set_meta(\"attenuation\", attenuation)\n \t_playbacks = _playbacks.filter(func(reference: WeakRef) -> bool: return reference.get_ref() != null)\n \ndiff --git a/scripts/audio/game_audio.gd b/scripts/audio/game_audio.gd\nindex 7a592ac0..7d982df6 100644\n--- a/scripts/audio/game_audio.gd\n+++ b/scripts/audio/game_audio.gd\n@@ -43,8 +43,10 @@ static func ensure_buses() -> void:\n \t# Unity buses preserve the original mix; candidates can be balanced separately.\n \tfor bus_name: StringName in [&\"SFX\", &\"UI\", &\"Ambience\", &\"Music\"]:\n \t\tif AudioServer.get_bus_index(bus_name) >= 0: continue\n-\t\tAudioServer.add_bus()\n-\t\tvar index := AudioServer.bus_count - 1\n+\t\t# Godot4.7.2 Web Sample addAt(-1) incorrectly moves the appended bus.\n+\t\t# Growing the count keeps the native and browser bus indices aligned.\n+\t\tvar index := AudioServer.bus_count\n+\t\tAudioServer.bus_count = index + 1\n \t\tAudioServer.set_bus_name(index, bus_name)\n \t\tAudioServer.set_bus_send(index, &\"Master\")\n \n",
+    "scope": "Exact Pack directory size/MD5 comparison; exported project and imported asset bytes unchanged unless explicitly listed"
+  },
+  "command": "python3 tools/build.py web",
+  "exit_code": 0,
+  "environment": "Godot4.7.2 official native export; unchanged official single-threaded JS/WASM/worklets",
+  "build_log_sha256": "c47cdafee799116c5584ad5a74e70f47de6f7e5f43471281d6035add34480d33",
+  "build_log": "build/mobile_web_perf_01/production-web-build-01.log",
+  "additional_checks": {
+    "web_bundle": "passed; actual 2 cached resources and runtime closure",
+    "web_cache": "passed; unchanged complete 80MiB concurrent chunk budget"
+  },
+  "native_checks": {
+    "ambience": {
+      "receipt": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/audio_ambience_runtime.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 0.8720958890007751,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      },
+      "completion_markers": [
+        "AUDIO_AMBIENCE_RUNTIME checks=55 failures=0"
+      ],
+      "source_at_execution": "759a828b + two uncommitted production changes; exact two production SHA match ccc11e1a and independent review",
+      "game_audio_sha256": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e",
+      "game_ambience_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48"
+    },
+    "selected": {
+      "receipt": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/selected_ambience_runtime.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 17.099993971000004,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      },
+      "completion_markers": [
+        "SELECTED_AMBIENCE_RUNTIME checks=45 failures=0"
+      ],
+      "source_at_execution": "759a828b + two uncommitted production changes; exact two production SHA match ccc11e1a and independent review",
+      "game_audio_sha256": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e",
+      "game_ambience_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48"
+    },
+    "home": {
+      "receipt": {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--verbose",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "res://tests/audio_home_runtime.gd"
+        ],
+        "status": "passed",
+        "failure_kind": null,
+        "exit_code": 0,
+        "seconds": 27.996283754000615,
+        "timing_scope": "native process including audio teardown; not device acceptance"
+      },
+      "completion_markers": [
+        "AUDIO_HOME_RUNTIME checks=60 failures=0"
+      ],
+      "source_at_execution": "759a828b + two uncommitted production changes; exact two production SHA match ccc11e1a and independent review",
+      "game_audio_sha256": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e",
+      "game_ambience_sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48"
+    }
+  }
+}

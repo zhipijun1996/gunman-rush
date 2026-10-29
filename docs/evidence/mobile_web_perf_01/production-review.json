@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-PERF-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T14:39:33.784141+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Limited source-level acceptance of two production audio changes and equivalence to independently selected formal bus_only/pause_only treatments. Combined production runtime, all-cue audio continuity, user acceptance and physical-device behavior are not certified.",
+  "production_source_commit_context": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+  "audio_baseline_main": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "engine": "Godot4.7.2",
+  "production_sha256": {
+    "scripts/audio/game_audio.gd": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e",
+    "scripts/audio/game_ambience.gd": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48"
+  },
+  "production_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "independence": {
+    "production_files_modified_by_reviewer": 0,
+    "godot_or_browser_runs_by_reviewer": 0,
+    "only_written_file": "docs/evidence/mobile_web_perf_01/production-review.json",
+    "basis": "Root authored these production files; this reviewer read them and source/evidence independently. Reviewer previously authored the diagnostic pack generator, not production changes; formal browser measurements/PCM analysis are other producers, read here without relabelling them as reviewer execution."
+  },
+  "confirmed_findings": [
+    {
+      "status": "passed",
+      "path": "scripts/audio/game_audio.gd:42",
+      "detail": "Append via index=bus_count followed by bus_count=index+1 then original set_bus_name/send. Existing named buses are skipped. Native old indices/objects/state are retained; second ensure calls from GameAudio/GameMusic are idempotent. No engine patch or manual destination rewiring."
+    },
+    {
+      "status": "passed",
+      "path": "Godot4.7.2 AudioServer::set_bus_count -> AudioDriverWeb::set_sample_bus_count -> Bus.setCount -> Bus.create",
+      "detail": "Count growth bypasses Bus.addAt/Bus.move, preserving original JS Master at0 and null send. Explicit add_bus(old_count) would still normalize to-1 and remains rejected as a workaround."
+    },
+    {
+      "status": "passed",
+      "path": "scripts/audio/game_ambience.gd:8/170",
+      "detail": "Combined should_pause=tree_paused||session_volume<=0 is applied only when retained playback getter differs. Later bed/detail writes are removed; zero-volume property setter guards repeated true writes. Clamp/nonfinite policy, pause early return, crossfade clocks/gains, detail attenuation, play_detail gates, context cleanup, starts/cooldowns/RNG and original assets/playback types remain unchanged."
+    },
+    {
+      "status": "passed",
+      "path": "Godot4.7.2 AudioStreamPlayerInternal::set_stream_paused/get_stream_paused and SampleNode._unpause",
+      "detail": "Native setter forwards SAMPLE pause even when AudioServer ordinary playback-state update is a no-op. JS _unpause unconditionally restarts source. Active getters recognize bothPAUSED andFADE_OUT_TO_PAUSE, supporting real pause/resume change detection. Guard removes redundant restarts rather than substituting playback/quality policy."
+    },
+    {
+      "status": "passed",
+      "path": "formal-main-02 diagnostic source vs production",
+      "detail": "Removed common observation wrappers using recorded source-edits and specialized the exact bus_only/pause_only true branch. With comments/blank lines removed and only appended_index->index/desired_pause->should_pause renamed, production ensure_buses equals formal bus_only; the entire GameAmbience production file equals formal pause_only. No extra source-body changes found."
+    },
+    {
+      "status": "passed",
+      "path": "HomeAmbienceAudition/SelectedAmbienceRuntime consumers",
+      "detail": "Home life due/visible/global_gap/voice.playing gates and source_anchors snapshot body unchanged. GameAudio still updates session volume and standard mix; original player lifecycle and music routing are unchanged by these two files."
+    },
+    {
+      "status": "passed",
+      "path": "git diff --check",
+      "detail": "No whitespace errors observed. No engine or browser launched by reviewer."
+    }
+  ],
+  "compatibility_boundaries": [
+    "set_bus_count is prevention from a fresh, correctly aligned startup. It cannot repair a previously scrambled JS prefix during hot reload or an already running original session. Test/reload the newly built page rather than applying a root destination bypass.",
+    "Existing/custom buses retain index/name/send/gain/mute/solo/effects because only missing named buses are appended. Final native setup matches the original intent; temporary newly created default send is Master earlier than add_bus, and future insertion/move APIs are outside this workaround.",
+    "Engine get_stream_paused returnsfalse with no active playback and does not remember a pause set before play. This existing engine behavior is unchanged; inactive voices can still receive redundanttrue calls that have no playback to forward. Do not claim an unconditional zero setter-call count for inactive voices.",
+    "Mute0 pauses active voices immediately through session_volume setter; unmute resumes on next GameAmbience processing tick only if tree is unpaused. Tree-paused/unmuted remains paused. While muted but tree-running, original fade/cooldown clocks continue, matching previous scheduling policy.",
+    "Starting/stopping/changing streams and real node tree pause/unpause notifications still use the engine lifecycle. Original _transition pre-play pause behavior is unchanged. Actual native/Web mute/resume/owner exit/reentry should be covered in root current-source checks.",
+    "Browser SAMPLE bus graph failure and repeated SAMPLE unpause are separate from STREAM main-thread ring supply starvation. These fixes are not evidence of restored all BGM/bed continuity, lower frame cost or improved rendering FPS."
+  ],
+  "evidence_read": {
+    "minimal_status": "completed",
+    "minimal_engine_hashes_before_after_equal": true,
+    "minimal_rows_summary": [
+      {
+        "startup": "single",
+        "case": "sample_once",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 1,
+          "starts": 1,
+          "ended": 1,
+          "stops": 1
+        },
+        "pcm_nonzero_frames": 22589,
+        "pcm_peak": 0.8902220129966736
+      },
+      {
+        "startup": "single",
+        "case": "stream_once",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 0,
+          "starts": 0,
+          "ended": 0,
+          "stops": 0
+        },
+        "pcm_nonzero_frames": 22052,
+        "pcm_peak": 0.89019775390625
+      },
+      {
+        "startup": "single",
+        "case": "pause_none",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 1,
+          "starts": 1,
+          "ended": 1,
+          "stops": 1
+        },
+        "pcm_nonzero_frames": 22589,
+        "pcm_peak": 0.8902220129966736
+      },
+      {
+        "startup": "single",
+        "case": "pause_always_false",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 27,
+          "starts": 27,
+          "ended": 27,
+          "stops": 1
+        },
+        "pcm_nonzero_frames": 11426,
+        "pcm_peak": 0.00032533641206100583
+      },
+      {
+        "startup": "single",
+        "case": "pause_guard_false",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 1,
+          "starts": 1,
+          "ended": 1,
+          "stops": 1
+        },
+        "pcm_nonzero_frames": 22589,
+        "pcm_peak": 0.8902220129966736
+      },
+      {
+        "startup": "multi",
+        "case": "sample_once",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 1,
+          "starts": 1,
+          "ended": 1,
+          "stops": 1
+        },
+        "pcm_nonzero_frames": 0,
+        "pcm_peak": 0.0
+      },
+      {
+        "startup": "multi",
+        "case": "stream_once",
+        "gd_play_calls": 1,
+        "native_delta": {
+          "created": 0,
+          "starts": 0,
+          "ended": 0,
+          "stops": 0
+        },
+        "pcm_nonzero_frames": 22052,
+        "pcm_peak": 0.89019775390625
+      }
+    ],
+    "minimal_interpretation": "Single Master SAMPLE produces actual nonzero destination PCM; original multi ensure produces one accepted/ended SAMPLE with zero PCM while STREAM remains nonzero. Repeated false pause produces27browser starts from1GDplay and peak0.000325 versus0.890222 once/no-write/guard. These are actual minimal producer receipts, not reviewer reruns.",
+    "formal_pack_sha256": "0a4c582d3ad1a43083baf2e8ae959056ef5f2375fdd88d1776bce675d94a724f",
+    "formal_actions_summary": {
+      "all8_WAVs_actually8seconds": true,
+      "original_gameplay_actions_recorded": 15,
+      "all_recorded_native_action_sources_fully_covered": true,
+      "missing_original_gameplay_actions": [
+        {
+          "case": "ambience_off",
+          "scene": "home",
+          "kind": "jump"
+        }
+      ],
+      "bus_only_action_presence_supported": true,
+      "other_cases_supported_matches": [],
+      "limits": "Bus-only confirms these actual Home/Plains jump/pulse cues reached mixed output. Does not establish complete BGM/ambience continuity, all cues, listening approval, physical-device behavior or improved graphics/FPS."
+    },
+    "formal_interpretation": "Later8s windows support specific Home/Plains jump and pulse source presence for bus_only. Earlier2s windows failed to establish action restoration and remain retained. Pause-only and combined production are not relabelled as equivalent PCM passes.",
+    "sources": [
+      {
+        "path": "build/mobile_web_perf_01/minimal-01/attempt-01/summary.json",
+        "sha256": "7752aba8d3602cac7a8fd3cfad99f80e5733aa81d7f0cdf4e46070812fc97f11",
+        "bytes": 8618
+      },
+      {
+        "path": "docs/evidence/mobile_web_perf_01/formal-audio-analysis.json",
+        "sha256": "7b9d65bef5088aec9bc8cb4284ec6f5e9997776bb4440241262f2ad6566e930d",
+        "bytes": 294789
+      },
+      {
+        "path": "build/mobile_web_perf_01/formal-main-02/build-receipt.json",
+        "sha256": "b39db78b9b1fbdc835dc2010b3bb5572cc74b42ba77e97d60cdd21055846454f",
+        "bytes": 11388
+      },
+      {
+        "path": "build/mobile_web_perf_01/formal-main-02/source-edits.json",
+        "sha256": "4476546906cdff3f560a7dd83445e4dceb93754fa1e566ac09ba5f4c771d2887",
+        "bytes": 28477
+      }
+    ]
+  },
+  "unresolved_blocking_code_findings": [],
+  "runtime_or_acceptance_not_signed": [
+    "Current combined production two-file build parse/native regression, actual Web startup graph and independent bus volume/mute/solo controls need root current-source receipts.",
+    "Combined production Home/Plains/forest actual action/coin/UI cues, point sounds, mute/pause/resume/scene transition and BGM/bed continuity need actual output evidence.",
+    "No full all-cue or complete gameplay acceptance; formal observed cases and diagnostic/source equivalence retain their limited scope.",
+    "User corrected that actions are nearly smooth and primary issue is audio stuttering, with pause audio normal. No FPS improvement or physical Honor/Huawei phone fix is claimed.",
+    "No subjective listening, speaker/DAC output, real-device acceptance or player approval is provided by this review."
+  ],
+  "engine_source_fingerprints": [
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/audio/audio_server.cpp",
+      "sha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102",
+      "bytes": 76637
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/audio_driver_web.cpp",
+      "sha256": "489d76a21ee39e1b3eed732adfb5aed6b34e12f06a2ce61e41d0ce62e7462536",
+      "bytes": 17272
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/js/libs/library_godot_audio.js",
+      "sha256": "46e8983be587672d11d073dc65eee0bf89cb6b43acf612de1eb16f17abb1849e",
+      "bytes": 60513
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/audio/audio_stream_player.cpp",
+      "sha256": "a1ab2251330766aa01bf2fc5f743efafc2db673e9d340208aea21720c5062c85",
+      "bytes": 13057
+    },
+    {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/audio/audio_stream_player_internal.cpp",
+      "sha256": "5c1c5646ac29673fa22050feaaaf823b82323405ba1b55e3a94e823c4a7b1be9",
+      "bytes": 12782
+    }
+  ]
+}

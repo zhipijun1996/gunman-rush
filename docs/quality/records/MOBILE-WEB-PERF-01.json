@@ -10,7 +10,7 @@
   "task_id": "MOBILE-WEB-PERF-01",
   "workflow": "in_progress",
   "baseline_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
-  "reviewed_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+  "reviewed_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
   "content_version": "web-audio-bus-pause-v1",
   "owner": "root",
   "purpose": "移动Web音频根因复现及两处针对性修复",
@@ -19,8 +19,30 @@
     "scripts/audio/game_audio.gd",
     "scripts/audio/game_ambience.gd",
     ".github/workflows/deploy-prepared-playtest.yml",
-    "tools/mobile_web_perf/",
-    "docs/worklines/mobile_web_perf_01/scope.md"
+    "docs/worklines/mobile_web_perf_01/scope.md",
+    "tools/mobile_web_perf/analyze_formal_pcm.py",
+    "tools/mobile_web_perf/make_variants.py",
+    "tools/mobile_web_perf/pcm_worklet.js",
+    "tools/mobile_web_perf/probe.gd",
+    "tools/mobile_web_perf/gpu_probe.js",
+    "tools/mobile_web_perf/audio_probe.js",
+    "tools/mobile_web_perf/instrument_worklet.py",
+    "tools/mobile_web_perf/build_formal_audio_ab.py",
+    "tools/mobile_web_perf/verify_production_audio.py",
+    "tools/mobile_web_perf/minimal_pcm_worklet.js",
+    "tools/mobile_web_perf/official_baseline.py",
+    "tools/mobile_web_perf/audio_graph_probe.js",
+    "tools/mobile_web_perf/run_formal_audio_ab.py",
+    "tools/mobile_web_perf/minimal_audio_repro.gd",
+    "tools/mobile_web_perf/formal_pcm_worklet.js",
+    "tools/mobile_web_perf/serve_coi.py",
+    "tools/mobile_web_perf/build_probe.py",
+    "tools/mobile_web_perf/triage_audio.py",
+    "tools/mobile_web_perf/run_minimal.py",
+    "tools/mobile_web_perf/minimal_audio_repro.gd.uid",
+    "tools/mobile_web_perf/probe.gd.uid",
+    "tools/mobile_web_perf/run_ab.py",
+    "tools/mobile_web_perf/prepare_comparison.py"
   ],
   "deliverables": [
     "current Web baseline and independent AB receipts",
@@ -29,7 +51,37 @@
   ],
   "creative_decisions": [],
   "formal_impact": true,
-  "criteria": [],
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "用户最新音频优先、先A/B再修复的范围已记录",
+      "evidence": [
+        "scope"
+      ],
+      "scenario": "动作几乎流畅、游戏内声音卡而菜单正常",
+      "method": "用户反馈与独立复现",
+      "expected": "保已认可UI和画质，只修可证实音频路径",
+      "failure": "未经证据删光照/降分辨率/改全部Stream"
+    },
+    {
+      "id": "audio-technical",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "官方Web导出、160项原生及独立源码审查",
+      "evidence": [
+        "audio-build",
+        "audio-review"
+      ],
+      "scenario": "总线重复创建、暂停/静音/恢复/关闭",
+      "method": "实际项目工具链与既有真实消费者",
+      "expected": "不再错误追加bus或重复unpause，不破坏已有音量和关闭契约",
+      "failure": "运行ERROR/泄漏/消费者回归"
+    }
+  ],
   "evidence": [
     {
       "id": "scope",
@@ -41,6 +93,49 @@
       "content_version": "web-audio-bus-pause-v1",
       "method": "current user requirements and actual public build identity",
       "observed": "main1b实际最小复现与正式demo四case完成后，仅修总线创建与重复unpause"
+    },
+    {
+      "id": "audio-analysis",
+      "path": "docs/evidence/mobile_web_perf_01/formal-audio-analysis.json",
+      "sha256": "7b9d65bef5088aec9bc8cb4284ec6f5e9997776bb4440241262f2ad6566e930d",
+      "kind": "runtime_trace",
+      "producer": "style_rebind",
+      "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "independent source/PCM review",
+      "observed": "main1b正式四case；补录bus_only真实Home/Plains跳跃射击PCM；第一轮漏录保留"
+    },
+    {
+      "id": "audio-review",
+      "path": "docs/evidence/mobile_web_perf_01/production-review.json",
+      "sha256": "45fcece8db66df2fe8e11308f19abd3c86d0c0e46f32fa26d8bc758d1ad0b6f5",
+      "kind": "review",
+      "producer": "review_mobile_ui",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "independent source/PCM review",
+      "observed": "独立只读源码限定ACCEPT，生产与已测两case等价；不代签组合Web/实体手机",
+      "reviewer": "independent subagent /root/review_mobile_ui",
+      "implementers": [
+        "root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct readonly source reviewer; never edited the production files under review"
+    },
+    {
+      "id": "audio-build",
+      "path": "docs/evidence/mobile_web_perf_01/production-build.json",
+      "sha256": "3dd965f49e67dcb31c805f0774982c1cdf22a4bfbdaa2078218c53a955d1ea10",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "actual official export, whole-bundle verification and original native audio consumers",
+      "observed": "Web export/cache/bundle passed; ambience55+selected45+home60 checks, failures0",
+      "command": "python3 tools/build.py web",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 official native export; unchanged official single-threaded JS/WASM/worklets"
     }
   ],
   "unverified_items": [
@@ -72,9 +167,12 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "等待实际证据",
-      "evidence": []
+      "status": "passed",
+      "reason": "两个音频路径最小复现、真实场景独立消融及不同作者只读复核；组合正式Web仍需另列",
+      "evidence": [
+        "audio-build",
+        "audio-review"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -91,9 +189,11 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "等待实际证据，不代签真机",
-      "evidence": []
+      "status": "passed",
+      "reason": "限定两音频路径最小复现、160项原生及当前官方Web导出；不签手机连续性",
+      "evidence": [
+        "audio-build"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -126,9 +226,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "等待实际证据，不代签真机",
-      "evidence": []
+      "status": "passed",
+      "reason": "独立作者源码及PCM分析限定范围；不代签真机或完整BGM连续性",
+      "evidence": [
+        "audio-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -140,5 +242,6 @@
       "reason": "等待实际证据，不代签真机",
       "evidence": []
     }
-  }
+  },
+  "consumer_coverage": null
 }

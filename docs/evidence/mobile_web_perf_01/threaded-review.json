@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-PERF-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T13:17:58.641364+00:00",
+  "verdict": "Threaded STREAM is a source-supported, picture-preserving candidate for isolated measurement; not a verified fix or deployment approval.",
+  "execution": {
+    "production_or_tools_files_written": 0,
+    "godot_or_browser_runs": 0,
+    "large_downloads": 0,
+    "methods": [
+      "read local installed template ZIPs and cached TPZ directory",
+      "read exact4.7.2 engine source and version-labelled official docs over HTTPS",
+      "read current production loader/worker/audio code",
+      "ffprobe original asset metadata without decoding PCM",
+      "HTTP HEAD public document"
+    ],
+    "only_written_file": "docs/evidence/mobile_web_perf_01/threaded-review.json"
+  },
+  "baseline": {
+    "public_build": "2caa023125bd",
+    "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+    "web_thread_support": false,
+    "extension_support": false,
+    "pwa_enabled": false,
+    "observed_stream_ring": "4096 interleaved Float32 samples, stereo44100 =>2048frames/46.44ms; measured by root, not re-run here",
+    "worklet_path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+    "worklet_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+  },
+  "templates": {
+    "version": "4.7.2.stable",
+    "cached_tpz": "/workspace/scratch/Godot_v4.7.2-stable_export_templates.tpz",
+    "installed": [
+      {
+        "path": "/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable/web_release.zip",
+        "bytes": 10290815,
+        "sha256": "02f0dca13ed3d8343fa68f8f88ac80295562408d71aa67157e8b96ddebaa67a3",
+        "wasm_bytes": 38820072,
+        "js_bytes": 314653,
+        "worklet_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+        "shared_wasm_memory_literal": true,
+        "contains_official_coi_service_worker": true
+      },
+      {
+        "path": "/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable/web_nothreads_release.zip",
+        "bytes": 10245903,
+        "sha256": "d3ee2f08cef0cf3cf6678a6355a92a8db48ccdd35cbd2e8bfd5f0e8a0b4032a0",
+        "wasm_bytes": 39514754,
+        "js_bytes": 279815,
+        "worklet_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+        "shared_wasm_memory_literal": false,
+        "contains_official_coi_service_worker": true
+      }
+    ],
+    "conclusion": "Threaded and nothreads templates are already installed; no engine/template package download is necessary. Worklet source bytes match the currently published worklet and contain both branches. Threaded JS+WASM must be kept as their own paired/hash-labelled engine build."
+  },
+  "threaded_audio_path": {
+    "confirmed": [
+      "audio_driver_web.cpp:394-439 creates a dedicated Thread for AudioDriverWorklet::_audio_thread_func, calls _audio_driver_process then atomically increments shared STATE_SAMPLES_OUT, and waits on worklet notifications.",
+      "_audio_driver_process:72-94 invokes audio_server_process on that thread and writes output_rb Float32 samples; this includes STREAM mixing/decoding rather than a browser-main-thread chunk callback.",
+      "library_godot_audio.js:2129-2132 obtains heapSub views over HEAPF32/HEAP32 and passes shared state/input/output to worklet start. The threaded template creates shared:true WebAssembly.Memory.",
+      "audio.worklet.js start branch creates RingBuffer over shared typed-array views; read subtracts availability using Atomics and process_notify wakes the producer. No read/chunk round-trip through browser main JS is required for replenishment.",
+      "nothreads start_no_threads:1995-2064 instead receives read messages on browser main JS, calls out_callback synchronously and postMessage(chunk); this is precisely the supply dependency absent in the threaded route."
+    ],
+    "limits": [
+      "Independent producer scheduling addresses a measured main-thread supply mechanism but does not guarantee no underruns: total CPU saturation, OS scheduling, shared audio locks, browser suspension or worklet failure can still stall it.",
+      "Graphics resolution, original shaders/assets/audio sources/sample rate can remain unchanged. Threading alone does not fix slow frame rendering, coarse main-thread fade/duck updates or input response.",
+      "Release threaded JS defaults emscriptenPoolSize to8 unless configured otherwise; shared WASM heap is not duplicated eight times, but worker stacks/JS contexts and CPU/compatibility costs must be measured.",
+      "Verify actual SharedArrayBuffer-backed buffers/threads=true at worklet start and continuously measured underruns/PCM; successful export/feature availability alone is not audio continuity evidence."
+    ]
+  },
+  "hosting_and_minimum_preview": {
+    "observed_public_headers": {
+      "method": "HEAD",
+      "http_status": 200,
+      "COOP": null,
+      "COEP": null,
+      "CSP": null
+    },
+    "required_headers": {
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Embedder-Policy": "require-corp"
+    },
+    "minimum_changes_only_in_new_preview": [
+      "Create a dedicated child directory such as /gunman-rush/preview/mobile-web-perf-threaded/ (or separate origin). Self-host/pin the small MIT coi-serviceworker script under that directory; default worker scope must be exactly that child path.",
+      "Preview HTML/bootstrap registers the child worker before loading/starting the threaded engine, waits for its own expected scriptURL/scope to control the page, then performs at most a bounded reload so the navigation response contains COOP/COEP. Existing root cache worker controller is not proof the child COI worker is ready.",
+      "After reload require isSecureContext, crossOriginIsolated===true, SharedArrayBuffer/Atomics, AudioWorklet and WebGL2; Engine.getMissingFeatures({threads:true}) must report no missing required feature. AudioWorklet is separately required even though Godot feature checking treats audio as optional.",
+      "Load the paired threaded export JS/WASM and the same source-compatible PCK, keep1280x720 RT/original shaders/assets/audio and explicit build/engine/PCK identities. Ensure worker module and audio worklets resolve to the threaded engine location after renaming/stamping.",
+      "Do not load production cache_startup.js in the preview or register another Godot PWA worker for the same child scope. One controlling worker owns fetch interception. Root production loader/cache worker remain untouched.",
+      "Godot4.7.2 template already supplies an official COI-capable godot.service.worker.js; a preview-only PWA export with isolation headers is a supported alternative to coi-serviceworker, not a second simultaneous worker.",
+      "Present Play only after isolation is settled, then obtain a new real user gesture to unlock AudioContext; do not assume a pre-reload gesture is retained."
+    ],
+    "fallback": [
+      "If service workers, secure context, isolation, SAB, workers or AudioWorklet are unavailable or initialization fails, explicitly offer/use the already identified nothreads build. A threaded WASM cannot become a nothreads binary merely by setting threads:false.",
+      "Keep separate engine filenames/metadata for each variant; reuse only source-compatible PCK bytes. Label fallback mode in diagnostic results so its timings cannot be attributed to threaded.",
+      "Bound registration/activation/reload attempts with per-preview session markers; show a recoverable fallback instead of a reload loop. Do not unregister unrelated parent/root service workers or clear production caches."
+    ],
+    "security_and_compatibility": [
+      "A child worker must never use a widened root scope or Service-Worker-Allowed:/ override. Existing parent registration can initially control the child page, so validate actual controller identity.",
+      "Use same-origin engine/PCK/worklet resources and require-corp. There is no need to add third-party integrations, relax CORS or globally strip credentials. Opaque cross-origin responses cannot be transformed into permissive readable responses by this mechanism.",
+      "Stock coi-serviceworker has optional credentialless/degrade behavior and generic cross-origin CORP headers; pin/version-review it and avoid unnecessary credential changes for this same-origin-only preview.",
+      "COOP changes opener relationships; cross-origin embedding requires compatible ancestor isolation/permissions. Prefer top-level preview navigation. Existing auth/popups/third-party assets cannot be assumed compatible.",
+      "Android Chrome generally has the needed APIs, but exact Honor/Huawei Chrome version and private-mode/storage restrictions remain runtime checks. Other browsers, especially older Safari/iOS, require fallback.",
+      "Only allow existing origin-scoped assets, and keep proper WASM MIME plus current checksum/source identity checks. Do not silently loosen isolation or transport verification to force threaded startup."
+    ]
+  },
+  "sample_playback_tradeoff": {
+    "asset_metadata": [
+      {
+        "path": "assets/audio/bgm/across_the_wooden_sails.mp3",
+        "duration_seconds": 159.817083,
+        "source_sample_rate": 44100,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 53.771464235687255,
+        "stereo_float32_MiB_at_48000": 58.526763793945314
+      },
+      {
+        "path": "assets/audio/bgm/beyond_the_knotted_vines.mp3",
+        "duration_seconds": 160.914208,
+        "source_sample_rate": 44100,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 54.140598852539064,
+        "stereo_float32_MiB_at_48000": 58.92854296875
+      },
+      {
+        "path": "assets/audio/bgm/the_kindred_hearth.mp3",
+        "duration_seconds": 176.535458,
+        "source_sample_rate": 44100,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 59.39646681060791,
+        "stereo_float32_MiB_at_48000": 64.64921557617188
+      },
+      {
+        "path": "assets/audio/bgm/vines_beneath_the_canopy.mp3",
+        "duration_seconds": 158.406458,
+        "source_sample_rate": 44100,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 53.29685056915283,
+        "stereo_float32_MiB_at_48000": 58.01017749023437
+      },
+      {
+        "path": "assets/audio/bgm/where_the_path_bends.mp3",
+        "duration_seconds": 157.727292,
+        "source_sample_rate": 44100,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 53.06834089050293,
+        "stereo_float32_MiB_at_48000": 57.76145947265625
+      },
+      {
+        "path": "assets/audio/ambience_v1/plains_a.ogg",
+        "duration_seconds": 24.0,
+        "source_sample_rate": 48000,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 8.074951171875,
+        "stereo_float32_MiB_at_48000": 8.7890625
+      },
+      {
+        "path": "assets/audio/ambience_v1/forest_a.ogg",
+        "duration_seconds": 24.0,
+        "source_sample_rate": 48000,
+        "channels": 2,
+        "stereo_float32_MiB_at_44100": 8.074951171875,
+        "stereo_float32_MiB_at_48000": 8.7890625
+      }
+    ],
+    "five_bgm_float32_MiB": {
+      "44100": 273.67372135849,
+      "48000": 297.8761593017578
+    },
+    "five_bgm_plus_two_selected_beds_float32_MiB": {
+      "44100": 289.82362370224,
+      "48000": 315.4542843017578
+    },
+    "interpretation": "Metadata-derived stereo Float32 payload estimates, not measured RSS; actual Web mix/context rate determines frames. Five tracks sum273.67MiB@44.1k/297.88MiB@48k, plus two selected24s beds16.15/17.58MiB. The original compressed files and other game/WASM/texture memory are additional.",
+    "benefit": "Browser AudioBufferSource playback avoids repeated main-thread STREAM ring replenishment once buffers are registered, without reducing original sample rate or editing sound assets.",
+    "risks": [
+      "AudioDriverWeb::register_sample:215-267 synchronously decodes the complete stream into Vector<AudioFrame>, then duplicates into PackedFloat32Array. library_godot_audio.js:1649-1667 additionally creates browser AudioBuffer and temporary channel copies. Registration peak exceeds retained buffer size substantially.",
+      "GameMusic.TRACKS preloads all five stream resources. Two playback voices do not imply a two-buffer registry limit: visited SAMPLE registrations may accumulate while stream resources/JS sample registry remain alive. Explicit cache lifetime/cleanup must be proven.",
+      "Bulk conversion can create long synchronous startup/track-transition stalls and mobile memory pressure. A bounded current/next-track cache plus explicit unregister/GC observation could constrain it, but requires lifecycle work and repeated Home/plains/forest/boss tests.",
+      "Sample mode does not support all Godot AudioEffects/procedural/positional behavior. Current BGM/bed buses use volume/fade controls, but exact looping, crossfade, duck, pause, stop, gain, sample completion and bus semantics still need equivalence validation.",
+      "SAMPLE beds alone are modest memory but leave STREAM BGM starvation unresolved; it is a component experiment, not a complete fix."
+    ]
+  },
+  "latency_buffer_tradeoff": {
+    "verified_minimal_entry": "Exact4.7.2 main.cpp:1270 parses --audio-output-latency; current published Engine.startGame(override) updates config.args. An independent preview can pass args:[\"--audio-output-latency\",\"200\"] using the same existing engine/PCK before initialization, with no production-loader change or PCK rebuild.",
+    "default": "main.cpp:2847 sets Web default50ms. AudioDriverWeb:132 rounds requested frames to closest power of two. Read back actual worklet capacity/sample rate; CLI milliseconds are not the final exact latency.",
+    "capacity_table_44100": [
+      {
+        "frames": 2048,
+        "milliseconds": 46.439909297052154,
+        "stereo_float32_output_ring_MiB": 0.015625
+      },
+      {
+        "frames": 4096,
+        "milliseconds": 92.87981859410431,
+        "stereo_float32_output_ring_MiB": 0.03125
+      },
+      {
+        "frames": 8192,
+        "milliseconds": 185.75963718820861,
+        "stereo_float32_output_ring_MiB": 0.0625
+      },
+      {
+        "frames": 16384,
+        "milliseconds": 371.51927437641723,
+        "stereo_float32_output_ring_MiB": 0.125
+      },
+      {
+        "frames": 32768,
+        "milliseconds": 743.0385487528345,
+        "stereo_float32_output_ring_MiB": 0.25
+      }
+    ],
+    "benefit": "No asset/sample-rate/graphics change, tiny ring memory compared with full SAMPLE tracks, and a same-engine causal check for refill deadline pressure. Prefer bounded100/200ms trials first and report actual ring capacity.",
+    "limits": [
+      "Buffering absorbs only finite main-thread pauses and requires average producer throughput to keep up. If actual gaps are several hundred milliseconds,100/200ms remains insufficient;32768frames@44.1k is743.04ms and only0.25MiB output ring but adds large reaction delay.",
+      "Larger buffering delays STREAM start/stop/fade/duck and any streamed action cue. Existing browser-native SAMPLE short SFX use a different route and must not be misattributed to this ring.",
+      "Requesting higher AudioContext latencyHint alone is not proof that Godot output ring grows. Set the official initialization latency option and inspect the actual start message/ring size.",
+      "Do not patch chunk sizes, stretch audio, drop quality/sample rate, or extend silence to hide starvation. Preserve exact underrun and PCM observations, plus response latency.",
+      "A large buffer may trade audible continuity for unacceptable latency; it is not the preferred final answer to sustained slow rendering, and can remain an explicit diagnostic/fallback option."
+    ]
+  },
+  "recommended_order": [
+    "Keep the official no-GPU-query baseline and root precise-underrun/audio-off control results as their original evidence; no new timing was executed by this reviewer.",
+    "Use a separately identified same-engine buffer-latency preview as a low-change causal control; verify actual ring capacity and PCM continuity against input/gain response delay.",
+    "Prepare a child-scope isolated threaded preview retaining STREAM/assets/graphics. Measure equal-scene FPS/process/physics, exact worklet underrun, PCM, worker counts/memory and initialization/gesture/fallback behavior.",
+    "Prefer threaded STREAM if it removes deadline starvation with acceptable device resource/compatibility behavior. Keep fallback explicit. Consider bounded SAMPLE caching only if threading is unavailable or demonstrably insufficient, with memory/lifecycle evidence."
+  ],
+  "unverified": [
+    "No threaded build was exported or started in this review.",
+    "No actual COI worker lifecycle, browser fallback, device compatibility, memory RSS or audio continuity was tested.",
+    "No thread candidate is signed as resolving Honor/Huawei Chrome performance, SFX audibility or player acceptance."
+  ],
+  "external_sources": {
+    "audio_driver": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/audio_driver_web.cpp",
+      "bytes": 17272,
+      "sha256": "489d76a21ee39e1b3eed732adfb5aed6b34e12f06a2ce61e41d0ce62e7462536"
+    },
+    "audio_library": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/js/libs/library_godot_audio.js",
+      "bytes": 60513,
+      "sha256": "46e8983be587672d11d073dc65eee0bf89cb6b43acf612de1eb16f17abb1849e"
+    },
+    "features": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/js/engine/features.js",
+      "bytes": 3502,
+      "sha256": "d06649813f765782aae3f0e1006619d8fbfac10bd5dcade0b035bf6329522c7f"
+    },
+    "main": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/main/main.cpp",
+      "bytes": 210345,
+      "sha256": "1831257f5c8eb0707d278f04b21b1e4b3ba863f8dca5cab36022d4b19e36b8c1"
+    },
+    "official_web_docs": {
+      "url": "https://raw.githubusercontent.com/godotengine/godot-docs/4.6/tutorials/export/exporting_for_web.rst",
+      "bytes": 22682,
+      "sha256": "af95d52035ef1d887d42d73d51421d1e41fb8e26bc1976ac1705fe7ae7a5bfe2"
+    },
+    "coi_worker": {
+      "url": "https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.js",
+      "bytes": 6028,
+      "sha256": "e97bbac6017322d48aa54a5bc7ce473c725a4b7376ff245002e0ba71c3dcdd7e"
+    }
+  },
+  "local_source_sha256": {
+    "export_presets.cfg": "e1a84aa97c39cc2efa514ed4048dc563178f82d183f2310431d919b2f6471a54",
+    "tools/web/cache_worker.js": "9c0d9129986a26fc4c68fe5535d5b0878b042bc0871ccf291ec58436bdf9f35c",
+    "tools/web/cache_startup.js": "0e6a51b238ffdb84d5517512b5a84fc9a769b1b30863601efce9b2e7e0b55b4b",
+    "scripts/audio/game_music.gd": "6fe57ccecc3c68b5a9551f140bba5f50705a7276efd776453ff3c7b42499f3ed",
+    "scripts/audio/game_ambience.gd": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3"
+  }
+}

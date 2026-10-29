@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-PERF-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T12:27:32.874010+00:00",
+  "kind": "read-only source audit and experiment design; not performance measurement or implementation acceptance",
+  "baseline": {
+    "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+    "documentation_head": "759a828b",
+    "public_build": "2caa023125bd",
+    "pck_sha256": "2caa023125bd6fcf2b960dcdf5ac60a6a7abdbfeb643ef0b661f80f6a15d5a31",
+    "render_target": [
+      1280,
+      720
+    ]
+  },
+  "execution": {
+    "godot_processes_started": 0,
+    "browsers_started": 0,
+    "production_files_modified": 0,
+    "only_written_file": "docs/evidence/mobile_web_perf_01/review-notes.json"
+  },
+  "switches": [
+    {
+      "name": "ambience_off",
+      "location": "scripts/audio/selected_ambience_runtime.gd:_attach/_process/_clear_context; GameAmbience and HomeAmbienceAudition descendants",
+      "isolation": "Stop selected bed and life/detail playback/scheduling and prevent SelectedAmbienceRuntime from reactivating context. Retain original BGM, SFX, volume/mix/asset bytes. Muting a bus alone leaves scheduling/decoding/mixing active and is not a complete subsystem knockout.",
+      "risks": [
+        "An early return in runtime without clearing active bed/life tails is incomplete.",
+        "Only removing a GameAmbience processing callback does not stop AudioStreamPlayers.",
+        "Do not silently disable older forest visual ambience or unrelated SFX."
+      ]
+    },
+    {
+      "name": "foreground_render_off",
+      "location": "scripts/underworld_plains/underworld_foreground.gd:CanvasLayer.visible; retain _process/_refresh/_render_receipt",
+      "isolation": "Hide only the foreground layer, keep identical CPU protection/admission/lifetime updates and uniform uploads.",
+      "risks": [
+        "resident.drawn reports child sprite.visible only; report effective_drawn separately using layer visibility.",
+        "Do not set process false or skip uploads, which would confound CPU and raster work."
+      ]
+    },
+    {
+      "name": "foreground_update_off",
+      "location": "scripts/underworld_plains/underworld_foreground.gd:_process/_refresh and explicit refresh entry",
+      "isolation": "Warm baseline until an actually visible foreground resident exists, then freeze update while retaining sprite/material/current uniforms and layer visibility. Record freeze frame, drawn resident identities and current masks.",
+      "risks": [
+        "Freezing from startup leaves alpha0 after delta0 ready-refresh and removes raster work too.",
+        "Explicit refresh must not bypass the freeze.",
+        "Moving actors/camera produce stale masks and parallax during this diagnostic; never present this knockout as quality-preserving production.",
+        "Restoring baseline requires restoring the original continuously advanced state or replaying a fresh baseline, not treating frozen lifecycle history as equivalent."
+      ]
+    },
+    {
+      "name": "shadows_off",
+      "location": "scripts/underworld_plains/underworld_presentation.gd:add_lamp:117; lamp.shadow_enabled",
+      "isolation": "Disable only shadow_enabled; preserve lights, energy/color/radius, bloom, occluders, original PCF5 and other configuration for restoration. Add independent lights_off using Light2D.enabled=false while preserving additive bloom.",
+      "risks": [
+        "refresh:152 rewrites visible each frame; use enabled or explicitly guard refresh rather than one-time visible=false.",
+        "Disabling bloom alongside light changes alpha draw workload and is a separate experiment.",
+        "Both variants alter picture by design and remain diagnostic."
+      ]
+    },
+    {
+      "name": "hud_avoidance_off",
+      "location": "scripts/demo/demo_app.gd:1712 call of _layout_region_hud, or function entry",
+      "isolation": "Skip only dynamic world scanning/avoidance. Preserve present_context, touch/menu hit rectangles, present_navigation, status values and original action/input ownership.",
+      "risks": [
+        "Home never invokes this function; Home is a negative control.",
+        "Do not disable DemoGameHud._process or all HUD updates; that removes separate text/resource work.",
+        "Fixed positions can overlap actors; this diagnostic is not a production-quality visual fix."
+      ]
+    }
+  ],
+  "shared_hotspots": [
+    {
+      "owner": "foreground",
+      "location": "underworld_foreground.gd:_refresh:500",
+      "timers": [
+        "total _refresh",
+        "_protection",
+        "_sync_residents inclusive",
+        "_specifications nested/cache lookup separately labelled",
+        "_render_receipt"
+      ],
+      "counters": [
+        "tracked total and per-type visible/rejected counts",
+        "fixed_world count",
+        "raw/static/dynamic/merged protection count and overflow",
+        "exposed-region fragmentation/intersection work",
+        "resident total/effective drawn/admitted count",
+        "candidate cache hits/misses",
+        "mask intersections and uniforms/packed vec4 upload counts"
+      ],
+      "reason": "_render_receipt:532-550 uploads six uniforms and a resized64-vec4 array per resident even for hidden sprites. Resident budget64 versus drawn grass<=2/branch<=1 makes submission cost a plausible CPU hotspot, not a measured diagnosis. _add merges and exposed-region splitting can grow much faster than visible sprite count."
+    },
+    {
+      "owner": "lighting/presentation",
+      "location": "underworld_presentation.gd:refresh:142",
+      "timers": [
+        "refresh total",
+        "emitter duplicate/sort",
+        "terrain uniform updates",
+        "latch redraw requests"
+      ],
+      "counters": [
+        "total emitters",
+        "effective visible/enabled lights<=8",
+        "shadow-enabled effective lights",
+        "occluder nodes/polygons",
+        "terrain materials",
+        "visible latch redraws",
+        "bloom sprite count"
+      ],
+      "reason": "Home and both regions share this producer. All emitters are duplicated/sorted every refresh; terrain wind uniforms and visible ShotLatch redraws are submitted every active frame. Dynamic light/shadow passes require GPU-side or render-work counters beyond CPU timers."
+    },
+    {
+      "owner": "region HUD avoidance",
+      "location": "demo_app.gd:_layout_region_hud:1719 and _clear_ui_edge",
+      "timers": [
+        "avoidance total",
+        "world blocker construction",
+        "candidate scoring/intersections"
+      ],
+      "counters": [
+        "enemy/projectile scans",
+        "module/anchor scans",
+        "blockers",
+        "required/touch reservations",
+        "cards/navigation candidates",
+        "rectangle intersection count"
+      ],
+      "reason": "This is region-specific; Home lacks this path. GameHud itself also refreshes resources and text separately, so not all HUD cost belongs to avoidance."
+    }
+  ],
+  "menu_semantics": {
+    "home_navigation": "Home MENU -> DemoApp._open_home_navigation:1498 -> set_input_blocked(true) -> show_home_navigation -> show_home -> _begin(home,false). _begin emits menu_opened only when in_run. Ordinary Home navigation does not itself set SceneTree.paused. Measure actual tree_paused instead of assuming it.",
+    "home_codex": "DemoApp._open_home_codex:1522 explicitly sets paused=true; treat separately from ordinary Home navigation.",
+    "region_pause": "menu_opened -> DemoApp._pause_for_menu:1150 sets paused=true; region/player/presentation inherit PAUSABLE. DemoApp itself remains ALWAYS and still performs much HUD work.",
+    "foreground": "Foreground:64 is ALWAYS; paused calls _refresh(delta0), so protection/resident sync/uniform upload continue. Fullscreen menu ColorRect is tracked as UI and can collapse _protect into fullscreen, empty grass exposed regions, and change branch/mask work. Continuing callback does not imply equal CPU cost.",
+    "audio": "Home life stops details on input_blocked even without tree pause. GameAmbience pauses stream voices when SceneTree.paused. Thus menu improvement has multiple CPU/audio/render confounders and cannot identify a root cause alone."
+  },
+  "measurement_requirements": [
+    "Actual public baseline source/build/PCK identity must remain explicit. Current Web viewport1280x720 differs from older CSS-sized618eb971 baseline; do not transfer old timings.",
+    "Report wall-frame sample count, warmup, actual duration, mean FPS, P50/P95 wall frame time, window/DPR/renderer, foreground validity and scene/seed/position. Restore baseline between independent knockouts and reverse order/repeat to expose drift.",
+    "Collect Godot process/physics monitors plus independent inclusive/exclusive script buckets; nested bucket times are not additive. If GPU timestamps unavailable, label unavailable rather than using CPU submission time as GPU time.",
+    "Collect draw calls/objects/primitives, texture/buffer memory, effective lights/shadows/foreground/masks. Rendering unchanged opaque-menu background cannot be assumed culled without counters.",
+    "Do not call full Foreground.receipt() every measured frame; it materializes and deep-copies diagnostics. Accumulate numeric counters, export outside the measured interval at the same cadence in every group.",
+    "Audio requested/accepted/rejected counts need explicit reason categories; existing played/director_dropped alone do not account for all early returns. Engine playback acceptance and browser source start are distinct from actual AudioContext PCM.",
+    "Capture actual browser PCM and any available worklet underrun/callback timing; mixed PCM alone cannot prove a specific coin/action cue is audible. Keep natural-route and stress fixtures separate.",
+    "No Godot/browser runs were executed by this reviewer. All current performance hypotheses remain unverified until root measures."
+  ],
+  "historical_evidence_limits": [
+    "foreground-cpu first stage recorded same native case09 29.3286->18.7045s; second stage18.704511->15.798859s under explicitly constrained native conditions. These establish historical CPU susceptibility, not current Web/device FPS.",
+    "Prior FG optimization preserved explicit refresh semantics and documented sticky admission/entered-view/retirement differences. Do not remove guards or replace residents with a new lifecycle while claiming pixel/frame equivalence.",
+    "Current UI public PCK identity is independently archived; earlier UI37/149/8 and GPU mask probe prove contracts/alignment, not performance or physical-device acceptance."
+  ],
+  "pending": [
+    "root baseline+five independent knockout measurements",
+    "hotspot-targeted implementation diff",
+    "same-input image/semantic equivalence review",
+    "actual Honor/Huawei Chrome device A/B feedback"
+  ],
+  "source_evidence": [
+    {
+      "path": "scripts/underworld_plains/underworld_foreground.gd",
+      "sha256": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_presentation.gd",
+      "sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d"
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254"
+    },
+    {
+      "path": "scripts/ui/demo_ui_01/game_hud.gd",
+      "sha256": "e9f01c9954307e0100b6ef2e5510d5ec8b2be358dd5add1777c1024d8d1faf17"
+    },
+    {
+      "path": "scripts/ui/demo_menu.gd",
+      "sha256": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f"
+    },
+    {
+      "path": "scripts/audio/selected_ambience_runtime.gd",
+      "sha256": "a437c019dd5eaf4eefc507f43a93a76b65cd8fb272137e9b1ec322ce24f59955"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "sha256": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "sha256": "2207bce7b2ea5e48484d2adb32cd617d72b305d6975fb9e63bf04cc8d979f4b4"
+    },
+    {
+      "path": "shaders/underworld_foreground.gdshader",
+      "sha256": "e8c2c8ecd4d32ce2d35ee3de2f679d96b8558a1de847004731c4baa8a726a011"
+    },
+    {
+      "path": "docs/evidence/four_line_integration_20261023/foreground-cpu/README.md",
+      "sha256": "dcda2dde629c017d9ca9d3269a940ce582759cd92a82d01050b08739fa80872c"
+    },
+    {
+      "path": "docs/evidence/four_line_integration_20261023/foreground-cpu/second-pass/README.md",
+      "sha256": "cf74b435c4d9e0bbabcccd79b3844a5151f8b3c5ec6ea182abda2fc27e7b1324"
+    },
+    {
+      "path": "docs/evidence/mobile_ui_clarity_01/public-download.json",
+      "sha256": "751ed630e26f3c823f8e703c1a151d1426ceac602285ce4d242ca49302b84dd7"
+    }
+  ],
+  "followup_bus_audit": {
+    "reviewed_at_utc": "2026-10-29T13:44:17.045520+00:00",
+    "current_authoritative_scope": "Latest user instruction: baseline main1b29932c5333a9dad50759afc635762163ed79f5 / Godot4.7.2; first minimal startup reproduction and formal A/B, then fix. Threading direction paused. Earlier Web/UI notes retain historical provenance and do not redefine this new audio baseline.",
+    "execution": {
+      "production_files_modified": 0,
+      "godot_or_browser_processes_started": 0,
+      "portable_check": "Node executed exact extracted public-bundle Bus class against mock GainNodes only;4 assertions/0 failures. No actual Web Audio, engine or PCM claim."
+    },
+    "upstream": {
+      "issue": "https://github.com/godotengine/godot/issues/119026",
+      "pull_request": "https://github.com/godotengine/godot/pull/119027",
+      "archived_pr_state": "open",
+      "archived_pr_merged": false,
+      "archived_pr_merged_at": null,
+      "patch": "Adds index!==-1 guard in Bus.addAt; does not repair generic Bus.move insertion semantics. Open/unmerged upstream proposal is not part of the installed engine.",
+      "archive_evidence": [
+        {
+          "path": "/workspace/scratch/godot-119026.json",
+          "sha256": "f09ec03c5b10d47eecf56f88b4231a8f7c44eb32b34d3b86fda5c748d1efade7"
+        },
+        {
+          "path": "/workspace/scratch/godot-119027.json",
+          "sha256": "8deec6cdf21d13bed345d1ab5993a3bcd4a73ee21aa5709eaea7aaa0d8a9a68c"
+        },
+        {
+          "path": "/workspace/scratch/godot-119027-files.json",
+          "sha256": "1fdae2f0a92ae2354999c9dd16a5af5e08ad893f2c366015309d4f155ad6556b"
+        }
+      ]
+    },
+    "confirmed_source_chain": [
+      {
+        "location": "scripts/audio/game_audio.gd:42-49",
+        "finding": "ensure_buses scans SFX/UI/Ambience/Music, skips any existing named bus, then calls AudioServer.add_bus() with implicit-1 before setting last bus name and Master send. This source is byte-identical to main1b (SHA e08004d5fea8ddce976088dc64af43a0b2f3bdb2fb428a8699d25bd66c9e4609)."
+      },
+      {
+        "location": "Godot4.7.2 servers/audio/audio_server.cpp:873-937",
+        "finding": "add_bus(p_at_pos>=old_count) normalizes to-1, appends in native bus vector, then calls driver.add_sample_bus(-1). Passing explicit old_count is still normalized and therefore is not a workaround."
+      },
+      {
+        "location": "Godot4.7.2 platform/web/js/libs/library_godot_audio.js:871-910; exact bundled engine Bus class",
+        "finding": "addAt(-1) creates/appends, then calls move(newId,-1). move filters source then splice(toIndex-1), yielding splice(-2) and shifting JS object identities away from C++ indices. Subsequent index-based sends can reassign original Master and create a multi-bus cycle."
+      },
+      {
+        "location": "Godot4.7.2 servers/audio/audio_server.cpp:794-853",
+        "finding": "set_bus_count grows native vector in place, preserves old bus pointers/order, creates new buses at appended indices with default0dB/solo=false/mute=false/bypass=false and Master send, then directly calls AudioDriver.set_sample_bus_count(p_count) after unlock."
+      },
+      {
+        "location": "Godot4.7.2 platform/web/audio_driver_web.cpp:359-360; library_godot_audio.js:818-839/1838-1847",
+        "finding": "Web driver forwards count through godot_audio_sample_bus_set_count -> GodotAudio.set_sample_bus_count -> Bus.setCount; growth calls Bus.create directly, never addAt/move. JS original Master remains array index0 with send=null and destination connected."
+      },
+      {
+        "location": "Godot4.7.2 AudioServer::set_bus_layout",
+        "finding": "Layout replacement itself calls set_sample_bus_count and per-bus sends, not add_bus/addAt. Upstream issue wording about every>=2bus export is too broad for this source; reproduction must record how buses were created. Current project runtime add_bus path remains specifically implicated."
+      }
+    ],
+    "project_level_candidate": {
+      "location": "GameAudio.ensure_buses only; production not edited by reviewer",
+      "pseudocode": "for each absent required bus: index=AudioServer.bus_count; AudioServer.bus_count=index+1; AudioServer.set_bus_name(index,bus_name); AudioServer.set_bus_send(index,Master)",
+      "why_it_is_bounded": "Grows exactly one appended bus through existing public API. Preserves original required order, names, indices and final Master sends in native and Web. No engine, bundled JS, sound asset, playback route, sample rate, bus volume or other audio policy change.",
+      "native_semantics": "After ensure returns, intended new-bus names/index/send and default volume/mute/solo/bypass match original setup. set_bus_count initializes Master send earlier than original add_bus, so transient bus_layout_changed listener state is not claimed byte-for-byte equivalent; verify final initialization/idempotency and any listeners.",
+      "constraints": [
+        "Append only; never shrink/reset all buses or force bus_count=5. Preserve arbitrary preexisting named/custom buses and all their sends, gain, mute, solo and effect state.",
+        "Fresh startup is required. Bus.setCount(current_count) returns early and growth preserves already scrambled prefix; this is prevention, not a live graph repair.",
+        "No add_bus, move_bus or other insertion path should run before/after the candidate for these application-owned buses. Future insertion/reordering is outside this workaround and may encounter other unpatched move bugs.",
+        "Count growth uses native count bound<256; normal project startup target5 is well within it. Do not generalize this helper into unbounded bus allocation.",
+        "Do not label explicit add_bus(old_count), custom JS Root-to-destination connection, default SAMPLE->STREAM conversion or engine hotpatch as equivalent project-level fixes."
+      ]
+    },
+    "independent_portable_counterexample": {
+      "source": "build/web/index.d20938d2db49.engine.js exact Bus class extraction",
+      "bus_class_sha256": "2c75cca344469f4adbde5fb56a080a589ed4fd06055ebbfeb137d8543700da37",
+      "method": "Instantiate exact Bus class against mock GainNodes, initialize Master then apply four append+send calls in statically verified C++ order; compare addAt(-1) versus setCount(i+1).",
+      "before": {
+        "original_master_object_index": 4,
+        "send_indices": [
+          3,
+          0,
+          0,
+          4,
+          0
+        ],
+        "cycle": "0->3->4->0; every source reaches this cycle"
+      },
+      "candidate": {
+        "original_master_object_index": 0,
+        "send_indices": [
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cycles": []
+      },
+      "assertions": 4,
+      "failures": 0,
+      "limit": "Not a native engine execution, startup lifecycle proof or browser audio measurement. Exact generated JS array/send behavior only. It independently matches root-observed actual0->3->4->0 graph."
+    },
+    "root_graph_repair_boundary": "Root temporary connect-to-destination test changes one routing edge without restoring C++/JS bus identity/index/name/send correspondence. It cannot certify independent volume/solo/mute/send behavior and must remain a diagnostic. The actual failure is a0->3->4->0 cycle, not merely a single self_send.",
+    "stream_sample_separation": "This bus bug concerns browser-native SAMPLE bus graph and explains accepted coin/SFX samples with no destination PCM. STREAM GodotProcessor connects directly to AudioContext.destination; existing no-thread STREAM ring supply stalls require separate evidence. Do not claim this candidate fixes BGM/bed underruns merely because SAMPLE becomes audible.",
+    "required_next_evidence": [
+      "Audio agent alone runs actual Godot4.7.2 startup minimal: clean singleMaster SAMPLE reference, exact original add_bus multi-bus, count-growth candidate multi-bus. Preserve known source PCM and same engine/settings/gesture; report actual C++ bus count/name/index/send and actual JS object identity/send graph/reachability.",
+      "Minimal modes must distinguish runtime add_bus from set_bus_count and static default layout; number of buses alone is not the controlled variable.",
+      "Fresh formal main1b original versus candidate builds with only ensure_buses allocation path changed. Keep original engine files, audio assets/routing/playback type/sample rate and all visual/physics/seed inputs.",
+      "Verify repeated ensure is idempotent; after GameAudio and GameMusic both call it, exactly five intended default buses remain (or original custom prefix plus missing buses), original Master remains0 and send=null in JS, all non-master required buses route to0 with no cycles.",
+      "Check existing/custom bus preservation and native final bus/volume/mute/solo/send equivalence. Test named SFX/UI/Ambience/Music gain and mute/solo independently so wrong-index routing is not masked by a new root connection.",
+      "Confirm actual accepted SAMPLE cue source and destination PCM, including coin/action natural consumers where feasible. Separate aggregate mixed PCM from per-cue audibility and record explicit stress/isolated fixtures.",
+      "Continue exact STREAM underrun/PCM and main-thread-gap measurements independently. Do not convert upstream bug reproduction, portable Node checks or a repaired SAMPLE graph into a device/FPS/stream-audio fix claim."
+    ],
+    "status": "Candidate source chain confirmed; minimal startup and formal A/B pending. No production fix accepted yet.",
+    "external_source_fingerprints": [
+      {
+        "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/servers/audio/audio_server.cpp",
+        "bytes": 76637,
+        "sha256": "d7641ef5852aa86f75c4d506759de2838a2c3886c29f7eb25fd9e9310d87c102"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/audio_driver_web.cpp",
+        "bytes": 17272,
+        "sha256": "489d76a21ee39e1b3eed732adfb5aed6b34e12f06a2ce61e41d0ce62e7462536"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/platform/web/js/libs/library_godot_audio.js",
+        "bytes": 60513,
+        "sha256": "46e8983be587672d11d073dc65eee0bf89cb6b43acf612de1eb16f17abb1849e"
+      }
+    ]
+  }
+}
