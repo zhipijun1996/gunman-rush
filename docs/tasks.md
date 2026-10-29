@@ -91,7 +91,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| ENEMY-WORKFLOW-01 | 怪物开发skills与实际制作交接 | ENEMY-COMPLETION-01 | review | [手册](../.agents/skills/enemy-creator/references/development_workflow.md)、[记录](quality/records/ENEMY-WORKFLOW-01.json)；制作操作／实物／责任层／工具入口与走查，不签新怪物或生成能力 |
+| ENEMY-WORKFLOW-01 | 怪物开发skills与实际制作交接 | ENEMY-COMPLETION-01 | done | [手册](../.agents/skills/enemy-creator/references/development_workflow.md)、[记录](quality/records/ENEMY-WORKFLOW-01.json)；原33项docs fresh通过，仅签制作方法／交接／工具入口，不签新怪物或生成能力 |
 | ENEMY-COMPLETION-01 | 每物种完成标准与制作卡统一 | — | done | [标准](quality/enemy_completion_standard.md)、[记录](quality/records/ENEMY-COMPLETION-01.json)；原33项docs fresh通过，只签process标准／模板／skills接入，不给任何怪物继承PASS |
 | ENEMY-CONTINUITY-01 | 冲锋怪完整链核对 | ENEMY-COMPLETION-01 | review | [制作卡](design/enemies/plains_charger.md)、[记录](quality/records/ENEMY-CONTINUITY-01.json)；当前四专项通过，实录受伤退出CHR-VIS-01失败，完整攻击／正式体验及设备未验，不能签整怪完成 |
 | AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | review | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |

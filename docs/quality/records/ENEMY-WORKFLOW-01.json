@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ENEMY-WORKFLOW-01",
   "task_type": "process",
-  "workflow": "review",
+  "workflow": "done",
   "baseline_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
-  "reviewed_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "reviewed_commit": "99e5afa8d58374cf2a55a36bf2faefb7b6fef4d5",
   "content_version": "enemy-development-v1",
   "owner": "/root",
   "purpose": "将怪物完成标准落为现有开发skills的制作方法、实物交接和按层返工",
@@ -38,9 +38,11 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "本process目标与实际文件／方法明确",
+      "evidence": [
+        "spec"
+      ]
     },
     "G1": {
       "status": "not_applicable",
@@ -58,9 +60,11 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "按原process轻量G4执行文档检查；不签独立内容审查",
+      "evidence": [
+        "docs_profile"
+      ]
     },
     "G5": {
       "status": "not_applicable",
@@ -70,14 +74,18 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "从现有标准与真实缺陷导出制作操作／实物交接／失败路由，保持原政策",
+      "evidence": [
+        "spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原33项完整fresh通过；新路径／模板／记录一致性验证",
+      "evidence": [
+        "docs_profile"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -125,12 +133,65 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
-  "unverified_items": [
-    "原docs profile与quality diff待实际执行；图像生成／怪物实现／运行品质未在本process验证"
+  "criteria": [
+    {
+      "id": "production_methods",
+      "scenario": "完成标准已有，但开发技能缺具体操作和交接",
+      "method": "把源盘点与旧复盘方法落入手册／四skill／原模板",
+      "expected": "每步有操作、实物、下一验证和按层返工",
+      "failure": "只列验收条目或泛称交给其他skill",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "制作方法和目标路由已实现",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "original_validation",
+      "scenario": "新增skill引用与模板／质量记录",
+      "method": "原docs profile fresh33项",
+      "expected": "完整通过且不修改原checks／policy",
+      "failure": "缺输入／链接／字段或删断言换通过",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "33/33 fresh、0复用",
+      "evidence": [
+        "docs_profile"
+      ]
+    }
   ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": ".agents/skills/enemy-creator/references/development_workflow.md",
+      "sha256": "3a3497c784a6c86dc891b90721e010efaf2b2b5db4306abbfe60fabb4af90121",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "99e5afa8d58374cf2a55a36bf2faefb7b6fef4d5",
+      "content_version": "enemy-development-v1",
+      "method": "实际源／旧复盘／完成标准对应的制作方法",
+      "observed": "每工序给操作／实物／交接／验证；新怪与修复起点不同；未声称本轮新素材或运行实现"
+    },
+    {
+      "id": "docs_profile",
+      "path": "docs/evidence/enemy_workflow_01/docs-profile/report.json",
+      "sha256": "f718783560e1c6cff48d6854dd27fce9a6626797e5b1415b9d8c39e5ead1718b",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "99e5afa8d58374cf2a55a36bf2faefb7b6fef4d5",
+      "content_version": "enemy-development-v1",
+      "method": "原docs profile33项fresh执行",
+      "observed": "33/33 passed、0复用，仅文档／流程一致性",
+      "command": "python3 tools/harness.py --profile docs --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux x86_64; Python 3.12; original profile/checks/budgets; existing local inputs"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [],
   "skills": [
     "enemy-creator",
     "art-director",

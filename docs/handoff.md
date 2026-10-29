@@ -1,10 +1,12 @@
-# 最新交接 · 2026-10-28
+# 最新交接 · 2026-10-29
 
 ## 2026-10-29 怪物开发skills补齐
 
 用户追问「怎么达到标准的开发skills」。ENEMY-WORKFLOW-01在现有`docs/enemy-continuity-01`／草稿PR112继续，基线`75f23dfd`，main仍45e98db。新增[开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)，enemy-creator统筹实际制作，art-director交同身体母版／同族资源，animation-vfx交动作／过渡／事件反馈，遭遇／音频沿原专业；每步有操作、实物、下一验证和失败责任层。原Enemy／Art／Animation模板追加开发交接，当前旧排期／BGM说明改为读取实际当前权威，保原Bible／漂移／质量门槛。
 
 本任务为process，仅改方法／模板／文档，未重画或修改运行内容；冲锋怪仍review／CHR-VIS-01失败。已用现有样板做方法走查，[本轮证据](evidence/enemy_workflow_01/README.md)区分CLI可用、流程检查与真实生产未验。恢复核Git／PR与本轮记录；下一内容制作从统一live／H／D身体与退出开始，不重跑未变玩法来代替制作，也不把流程done签怪物完成。
+
+精确实现源`99e5afa8`原docs profile33／33 fresh通过、0复用；仅ENEMY-WORKFLOW-01 process done，原冲锋怪记录／规格／PNG字节不改，保CHR-VIS-01 failed。[实际验证](evidence/enemy_workflow_01/validation.json)与逐项日志保留；最终收据／任务元数据追加后只补相关quality／docs／diff守门，不冒称再次完整33或真实生产已通过。草稿PR112继续，不合main。
 
 ## 2026-10-28 怪物完成标准与冲锋怪核对
 
