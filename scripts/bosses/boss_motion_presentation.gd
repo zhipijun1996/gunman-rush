@@ -135,6 +135,7 @@ func crown_angle() -> float:
 
 func draw_body(canvas: Node2D, texture: Texture2D, bounds: Rect2, kind: StringName, tint := Color.WHITE, facing := 1.0) -> void:
 	canvas.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	if not body_mesh_visible(canvas,bounds): return
 	# One cached indexed mesh, one draw command. UVs/indices are immutable;
 	# rebuilding its single surface updates vertices and its culling bounds.
 	# AtlasTexture UVs are resolved onto the real source page explicitly.
@@ -220,3 +221,9 @@ func _joint_offset(uv: Vector2, size: Vector2, kind: StringName) -> Vector2:
 	var core := Vector2(.52,.43) if kind == &"guardian" else Vector2(.5,.5)
 	var core_lock := 1.0-smoothstep(.08,.20,uv.distance_to(core))
 	return offset*(1.0-core_lock)
+
+static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
+	# Cull only the pure body draw. State/epoch sampling, warnings and effects
+	# remain with their existing hosts and keep advancing outside the viewport.
+	var projected: Rect2 = canvas.get_global_transform_with_canvas()*bounds.grow(128.0)
+	return canvas.get_viewport_rect().intersects(projected,true)

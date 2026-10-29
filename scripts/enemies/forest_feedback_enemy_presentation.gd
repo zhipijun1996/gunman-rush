@@ -59,7 +59,10 @@ func _draw() -> void:
 				if attachment is Dictionary and attachment.get("actor_id") == actor.get_instance_id():
 					root_world = attachment.tether_root
 			var root := to_local(root_world)
-			draw_line(root,Vector2(0,-13),Color("718c4d"),3)
+			# The fine PNG's first opaque cap pixel is at -11.25wu. Reach
+			# slightly inside that cap, including the accepted hurt deformation;
+			# the old -13 endpoint stopped in its transparent source margin.
+			draw_line(root,Vector2(0,-10.5 if bible_body else -13),Color("718c4d"),3)
 			draw_circle(root,5,Color("9cae68"))
 		if not bible_body:
 			hit_template.begin_body(self)

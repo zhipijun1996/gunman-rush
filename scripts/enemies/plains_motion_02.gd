@@ -63,6 +63,7 @@ func draw_body(canvas: Node2D, actor: EnemyActor, texture: Texture2D, bounds: Re
 	# real displacement before advance() can turn it into a locomotion stride.
 	if _epoch != actor.health.epoch:
 		advance(actor, 0.0)
+	if not body_mesh_visible(canvas,bounds): return
 	if _source != texture or _bounds != bounds:
 		_prepare(texture, bounds)
 	var vertices := PackedVector2Array()
@@ -175,3 +176,9 @@ func _deform(point: Vector2, uv: Vector2, kind: StringName, terminal: bool, hurt
 				p = _joint(p,Vector2(0.52,0.37),sin(clock*4.5)*0.07+recoil*0.12,antenna)
 				p = _joint(p,Vector2(0.5,0.72),gait*0.015+breath,upper)
 	return p
+
+static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
+	# Cull only the pure body draw. State/epoch sampling, warnings and effects
+	# remain with their existing hosts and keep advancing outside the viewport.
+	var projected: Rect2 = canvas.get_global_transform_with_canvas()*bounds.grow(64.0)
+	return canvas.get_viewport_rect().intersects(projected,true)

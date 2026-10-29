@@ -214,6 +214,7 @@ func _deform_connected(point: Vector2,kind: StringName,foot_y: float) -> Vector2
 	return point+delta_position
 
 func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:
+	if not body_mesh_visible(canvas,bounds): return
 	if _mesh_texture!=texture or _mesh_bounds!=bounds: _prepare_mesh(texture,bounds)
 	var vertices := PackedVector2Array()
 	vertices.resize(_mesh_points.size())
@@ -222,3 +223,9 @@ func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds:
 	_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
 	canvas.draw_set_transform_matrix(body_transform)
 	canvas.draw_mesh(_mesh,texture,Transform2D.IDENTITY,tint)
+
+static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
+	# Cull only the pure body draw. State/epoch sampling, warnings and effects
+	# remain with their existing hosts and keep advancing outside the viewport.
+	var projected: Rect2 = canvas.get_global_transform_with_canvas()*bounds.grow(64.0)
+	return canvas.get_viewport_rect().intersects(projected,true)
