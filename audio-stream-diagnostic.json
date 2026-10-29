@@ -1,0 +1,30 @@
+{
+  "build_info": {
+    "build_id": "1d3791a7c290",
+    "pack": "index.1d3791a7c290.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "34c54d5a04ef",
+    "pack_bytes": 208700940,
+    "download_bytes": 205569840,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+  },
+  "latencies_ms": [
+    50,
+    200
+  ],
+  "files_sha256": {
+    "audio-stream-diagnostic.js": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4",
+    "audio-stream-diagnostic.wasm": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522",
+    "audio-stream-diagnostic.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "audio-stream-diagnostic.audio.worklet.js": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf"
+  },
+  "worklet_instrumentation": "{\n  \"status\": \"generated\",\n  \"scope\": \"Separate diagnostic worklet copy: counters only in ready output read/underflow branches. Original samples, ring reads/writes, notifications and original port messages unchanged. Added statistics are not part of the official baseline.\",\n  \"instrumented_worklet\": true,\n  \"official_source\": \"/workspace/gunman-rush-main/build/web/index.d20938d2db49.engine.audio.worklet.js\",\n  \"official_source_sha256\": \"5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3\",\n  \"diagnostic_output\": \"/workspace/gunman-rush-main/build/web/audio-stream-diagnostic.audio.worklet.js\",\n  \"diagnostic_sha256\": \"1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf\",\n  \"official_bytes_unchanged\": true,\n  \"guarded_replacements\": 3,\n  \"stats_command\": \"mobile_perf_stream_stats\",\n  \"report_seconds\": 0.25,\n  \"counter_frames\": \"per-channel audio frames; samples are interleaved\",\n  \"self_test\": \"passed\",\n  \"self_test_output\": \"PASS: not_ready\\nPASS: stopped\\nPASS: no_output\\nPASS: zero_available\\nPASS: nothread_1_short\\nPASS: nothread_1_read_refill\\nPASS: nothread_2_short\\nPASS: nothread_2_read_refill\\nPASS: thread_1_short\\nPASS: thread_1_read_refill\\nPASS: thread_2_short\\nPASS: thread_2_read_refill\\nPASS: nothread_input_passthrough\\nPASS: thread_input_passthrough\\nPASS: all14 scenarios preserve original output/return/read/input/notify traces; exact branch counters\\n\"\n}\n",
+  "normal_entry_unchanged": true,
+  "scope": "Diagnostic comparison only; not a confirmed fix or phone result"
+}
