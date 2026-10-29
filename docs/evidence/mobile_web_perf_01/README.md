@@ -128,6 +128,6 @@ bus_only的动作WAV按真实variant取jump/pulse源，重采样并与原生起�
 
 首轮标准包录音失败：真实cache ServiceWorker绕过Playwright route，observer Worklet404而就绪超时；PCK/engine不变。第二轮只读observer改为顺序单init与blob，成功。首轮、构建、其他验证失败和UID自动改写恢复见[日志档](production-run-failures-and-logs.tar.gz)与[成员SHA](production-log-index.json)，未追签旧失败。
 
-[Actions40896322142](https://github.com/zhipijun1996/gunman-rush/actions/runs/40896322142)已成功，[公开完整下载](public-download.json)实际读完两份PCK与两目录各四官方engine文件，10项均HTTP200且完整长度/SHA一致。[目录身份](comparison-builds.json)与[部署收据](deployment.json)保留。线上真实GUI冒烟仍在执行，完成后另附；不以发布代签main合并、完整CI、真机或玩家认可。
+[Actions40896322142](https://github.com/zhipijun1996/gunman-rush/actions/runs/40896322142)已成功，[公开完整下载](public-download.json)实际读完两份PCK与两目录各四官方engine文件，10项均HTTP200且完整长度/SHA一致。[目录身份](comparison-builds.json)与[部署收据](deployment.json)保留。[修复版公开GUI](public-gui-after/report.json)与[旧版公开GUI](public-gui-before/report.json)均通过：普通触屏点击设置/返回/进入家园/菜单HOME关闭及844×390调整，page/script/shader错误0。最终[三项定向Harness](validation/harness-report.json)全部fresh通过，原失败、57项quality测试、实际base质量差异和发布守门见[验证摘要](validation/summary.json)。源码[PR117](https://github.com/zhipijun1996/gunman-rush/pull/117)保持draft，未合main；不以发布代签main合并、完整CI、真机或玩家认可。
 
 有限资产adapter仍按GameAmbience精确单SHA守门，只重绑已审pause状态修改，原17项负例专项及57项quality测试通过。旧UI记录补的是既有公开source4707真实mobile GUI的有界库存引用，未补造fresh执行。实际base1b质量差异检查已通过，原失配与守门失败日志保留。

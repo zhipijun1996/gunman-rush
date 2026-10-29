@@ -8,7 +8,7 @@
 
 生产只改GameAudio用bus_count增长保同序创建、GameAmbience仅实际状态变化写pause，原生160／0及源码独审限定通过。保留用户已认可UI/画质/素材/音量/五BGM/玩法。标准Web源ccc11e1a，build3866985a1e8b，PCK208691528字节／SHA3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21；已导出及cache/bundle通过。标准Web真实触屏进入家园/关卡，四声实际混音确认并经独立负控复核；Actions40896322142已成功，公开两PCK与8份engine文件完整HTTP字节一致。
 
-[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。[声音修复版](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b)与[前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)已公开；线上GUI正在最后核验。手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
+[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。[声音修复版](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b)与[前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)已公开；两个独立目录的线上真实触屏GUI均已通过（设置/返回/家园/菜单/resize），page/script/shader错误0。定向docs/web-cache/web-bundle三项fresh通过（非full CI）；[PR117](https://github.com/zhipijun1996/gunman-rush/pull/117)保持draft未合main。手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
 
 ## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
 
