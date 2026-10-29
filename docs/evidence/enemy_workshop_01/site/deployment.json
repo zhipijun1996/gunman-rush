@@ -1,0 +1,52 @@
+{
+  "project_id": "appgprj_6ae33e53ec308191a0198fbda47d2df0",
+  "deployment_id": "appgdep_6ae3501e13048191a416c5af1282bb46",
+  "version_id": "appgprj_6ae33e53ec308191a0198fbda47d2df0~appgver_01dc3f72564081918ac5c839fb845fc6",
+  "status": "succeeded",
+  "url": "https://gunman-monster-workshop.zhipijun1996.chatgpt.site",
+  "updated_at": "2026-10-29T13:54:47.681672+00:00",
+  "source_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+  "binding": "DB",
+  "tables": [
+    {
+      "table_name": "monster_reviews",
+      "columns": [
+        "id",
+        "owner_id",
+        "monster_id",
+        "monster_name",
+        "action_id",
+        "action_label",
+        "revision",
+        "clip_id",
+        "clip_label",
+        "capture_source_commit",
+        "media_sha256",
+        "media_url",
+        "playback_ms",
+        "decision",
+        "comment",
+        "created_at",
+        "payload_hash"
+      ],
+      "rows_observed": 0,
+      "has_more": false
+    },
+    {
+      "table_name": "monster_ideas",
+      "columns": [
+        "id",
+        "owner_id",
+        "title",
+        "region",
+        "details",
+        "status",
+        "created_at",
+        "payload_hash"
+      ],
+      "rows_observed": 0,
+      "has_more": false
+    }
+  ],
+  "scope": "Native deployment succeeded and actual production schema inspected. No production visitor identity was forged and no test feedback was written to production."
+}
