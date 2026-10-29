@@ -1,0 +1,438 @@
+{
+  "task": "PLAINS-MONSTER-REVISION-01",
+  "kind": "staged_scale_comparison",
+  "source": {
+    "working_files": {},
+    "commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "status": "recorded_staged_scale_comparison",
+  "scope": "Original DemoApp plains terrain, explicitly held comparison samples/player. Not combat or natural traversal.",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/plains_revision_01/comparison-03/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/plains_revision_01_comparison.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/plains_revision_01/comparison-03/trace.json"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793304671.4714265,
+    "ended_at_unix": 1793304771.4299939,
+    "duration_seconds": 99.959,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/plains_revision_01/comparison-03/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/plains_revision_01_comparison.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/plains_revision_01/comparison-03/trace.json"
+    ],
+    "check_token": "c2daff61898542f6a083a891b98ed86a"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 1452800,
+    "duration_seconds": 30.266666666666666,
+    "samples": 2905600,
+    "peak_s16": 6416,
+    "peak_normalized": 0.19580078125,
+    "rms_normalized": 0.015456452807312624,
+    "nonzero_samples": 2892174,
+    "nonzero_sample_ratio": 0.9953792676211454,
+    "seconds_containing_nonzero_pcm": 31,
+    "pcm_sha256": "c482ae3135b8dc17ee798d425cd96b574237407562e0da4492b3410c4adc6810",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.0082411596145415,
+        "nonzero_samples": 93530
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 1556,
+        "rms_normalized": 0.012430493044261182,
+        "nonzero_samples": 95913
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 1667,
+        "rms_normalized": 0.010214906372958913,
+        "nonzero_samples": 95883
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 1436,
+        "rms_normalized": 0.011024791904372158,
+        "nonzero_samples": 95885
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 1614,
+        "rms_normalized": 0.013037930528878843,
+        "nonzero_samples": 95907
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 1716,
+        "rms_normalized": 0.011982971466446161,
+        "nonzero_samples": 95888
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 1595,
+        "rms_normalized": 0.011276201201625683,
+        "nonzero_samples": 95885
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 2406,
+        "rms_normalized": 0.012684600476241498,
+        "nonzero_samples": 95906
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 1718,
+        "rms_normalized": 0.011479779252319777,
+        "nonzero_samples": 95899
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 1668,
+        "rms_normalized": 0.011776321228787396,
+        "nonzero_samples": 95899
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 1536,
+        "rms_normalized": 0.0110195571221288,
+        "nonzero_samples": 95904
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 1467,
+        "rms_normalized": 0.012192901045850421,
+        "nonzero_samples": 95891
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 1491,
+        "rms_normalized": 0.010680079672402245,
+        "nonzero_samples": 95888
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 1637,
+        "rms_normalized": 0.011447758360220727,
+        "nonzero_samples": 95883
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 2316,
+        "rms_normalized": 0.019748948750138308,
+        "nonzero_samples": 95946
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 2001,
+        "rms_normalized": 0.017077356134077012,
+        "nonzero_samples": 95938
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 3471,
+        "rms_normalized": 0.0261490845530474,
+        "nonzero_samples": 95964
+      },
+      {
+        "second": 17,
+        "samples": 96000,
+        "peak_s16": 2330,
+        "rms_normalized": 0.019584319690990625,
+        "nonzero_samples": 95958
+      },
+      {
+        "second": 18,
+        "samples": 96000,
+        "peak_s16": 1740,
+        "rms_normalized": 0.013045651745667304,
+        "nonzero_samples": 95898
+      },
+      {
+        "second": 19,
+        "samples": 96000,
+        "peak_s16": 2029,
+        "rms_normalized": 0.01208838133621823,
+        "nonzero_samples": 95875
+      },
+      {
+        "second": 20,
+        "samples": 96000,
+        "peak_s16": 2500,
+        "rms_normalized": 0.018824718925226615,
+        "nonzero_samples": 95937
+      },
+      {
+        "second": 21,
+        "samples": 96000,
+        "peak_s16": 1904,
+        "rms_normalized": 0.015162495818595289,
+        "nonzero_samples": 95925
+      },
+      {
+        "second": 22,
+        "samples": 96000,
+        "peak_s16": 2109,
+        "rms_normalized": 0.017416167036197677,
+        "nonzero_samples": 95911
+      },
+      {
+        "second": 23,
+        "samples": 96000,
+        "peak_s16": 2543,
+        "rms_normalized": 0.017370288841914296,
+        "nonzero_samples": 95931
+      },
+      {
+        "second": 24,
+        "samples": 96000,
+        "peak_s16": 2167,
+        "rms_normalized": 0.01729644169289549,
+        "nonzero_samples": 95928
+      },
+      {
+        "second": 25,
+        "samples": 96000,
+        "peak_s16": 1839,
+        "rms_normalized": 0.012792992007923581,
+        "nonzero_samples": 95911
+      },
+      {
+        "second": 26,
+        "samples": 96000,
+        "peak_s16": 2476,
+        "rms_normalized": 0.01491184786217468,
+        "nonzero_samples": 95923
+      },
+      {
+        "second": 27,
+        "samples": 96000,
+        "peak_s16": 2626,
+        "rms_normalized": 0.01939412962218186,
+        "nonzero_samples": 95928
+      },
+      {
+        "second": 28,
+        "samples": 96000,
+        "peak_s16": 2772,
+        "rms_normalized": 0.020394311176360893,
+        "nonzero_samples": 95935
+      },
+      {
+        "second": 29,
+        "samples": 96000,
+        "peak_s16": 2965,
+        "rms_normalized": 0.023765340217406547,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 30,
+        "samples": 25600,
+        "peak_s16": 2331,
+        "rms_normalized": 0.019216338361555726,
+        "nonzero_samples": 17145
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 464896,
+        "duration": "30.266667",
+        "bit_rate": "916026",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1816",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1452768,
+        "duration": "30.266000",
+        "bit_rate": "129185",
+        "nb_frames": "1420",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/plains_revision_01/comparison-03/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "30.266667",
+      "size": "4004492",
+      "bit_rate": "1058456",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "mp4_sha256": "4956488e5a56b58c456fa919291c8b6f57950fc1f3c9c10c1480f3d2e5347ea4",
+  "avi_sha256": "b409d8099d30a836ff4cb8fae3c99e12724e466c9f1152c85326fa8c68569698",
+  "trace_sha256": "7f9adf56177cc6319a63795830da0431e415080c2aa93c939b5f44cea2de6732",
+  "source_stable": true,
+  "raw_avi_retained": false,
+  "seconds": 108.59917247399426
+}

@@ -29,3 +29,7 @@
 六个新中性体来自同一[master及派生清单](../../../assets/plains_revision_01/manifest.json)，实际调用与原图见[provenance](../../../assets/plains_revision_01/provenance.json)。每个身体使用固定比例、脚底锚和各自头／躯干／肢体关节，移动、攻击、受伤、死亡均延续同体；中性图不冒称已生成逐帧动作表。俯冲仍使用原 `assets/enemy_feedback_01/frames_v8/underworld_diver.png` 及原动作来源。
 
 接入入口为 `PlainsRevisionSkin`／`PlainsRevisionGround`／`PlainsRevisionFlora`、`PlainsRevisionVisual`与Stage持有的`PlainsRevisionRemains`；俯冲衔接在原`PlainsMotion02`与`EnemyFeedback01Remains`上精修。这里仅列正在实施的实际文件，不等于已完成引擎、实景或用户验收。完整源冻结后由root集中记录运行结果及失败链。
+
+## 实际进度
+
+逐怪当前片段/终态/未验分支见[实际覆盖制作卡](consumer_coverage.md)。目标栏保留为验收目标；最终片仍是待用户复审候选，不因技术计数自动全勾。

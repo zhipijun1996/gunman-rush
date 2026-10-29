@@ -2,15 +2,15 @@
   "schema_version": 1,
   "task_id": "PLAINS-MONSTER-REVISION-01",
   "task_type": "enemy",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
-  "reviewed_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "reviewed_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
   "content_version": "plains-monster-revision-v1",
   "owner": "implementer",
   "purpose": "落实用户逐只平原7怪修改：隐藏普通HP、删除纯辅助预告、以同体骨骼完成蓄势/出手/收招和差异受伤/死亡，并在工坊交真实实机片供复审",
   "player_experience": "正常游戏比例看清身体、朝向和攻击意图；死亡先失力落位，冲锋/俯冲稳定留尸，其余短留淡出；整体1wu fine像素粒度一致",
   "constraints": [
-    "原AI/HP/武器/玩家/伤害/奖励/保存权威保持",
+    "不重设计AI/HP/武器/玩家/伤害/奖励/保存权威；显式根铃/扇射/冲锋碰撞、草籽喷口与冲锋sole支持探针及其派生后果另记录",
     "新体型先真实平原玩家+diver同屏比较；碰撞核主要躯体，不把角翼外缘当整块碰撞",
     "32px/32wu地形和1wu nearest世界采样不变",
     "原用户品质拒绝与历史失败保留；不自动签用户/真机/G5"
@@ -39,6 +39,30 @@
     "assets/plains_revision_01/source/master.png",
     "assets/plains_revision_01/source/master.png.import",
     "assets/plains_revision_01/source/prompts.json",
+    "docs/current_state.md",
+    "docs/evidence/plains_monster_revision_01/README.md",
+    "docs/evidence/plains_monster_revision_01/capture-originals.zip",
+    "docs/evidence/plains_monster_revision_01/capture/add_plains_revision_catalog.py",
+    "docs/evidence/plains_monster_revision_01/capture/capture_plains_revision_comparison_03.py",
+    "docs/evidence/plains_monster_revision_01/capture/comparison-report.json",
+    "docs/evidence/plains_monster_revision_01/capture/plains-report.json",
+    "docs/evidence/plains_monster_revision_01/diagnostics-originals.zip",
+    "docs/evidence/plains_monster_revision_01/final-review-originals.zip",
+    "docs/evidence/plains_monster_revision_01/history-followup.zip",
+    "docs/evidence/plains_monster_revision_01/history-originals.zip",
+    "docs/evidence/plains_monster_revision_01/manifest.json",
+    "docs/evidence/plains_monster_revision_01/media/comparison.mp4",
+    "docs/evidence/plains_monster_revision_01/media/plains.mp4",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_code_review_r2.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_code_review_r3.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_collision_review.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_leak_review.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_review_r1.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_final.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r2.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r3.md",
+    "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_r4.md",
+    "docs/handoff.md",
     "docs/quality/asset_records/PLAINS-REVISION-01-CHARGER.json",
     "docs/quality/asset_records/PLAINS-REVISION-01-FAN_SENTRY.json",
     "docs/quality/asset_records/PLAINS-REVISION-01-HOPPER.json",
@@ -49,9 +73,13 @@
     "docs/quality/asset_records/PLAINS-REVISION-01-SOURCE-FIRST-PALETTE.json",
     "docs/quality/asset_records/PLAINS-REVISION-01-SOURCE-MASTER.json",
     "docs/quality/records/PLAINS-MONSTER-REVISION-01.json",
+    "docs/quality/records/PLAINS-REVISION-GUARD-01.json",
     "docs/tasks.md",
+    "docs/worklines/plains_monster_revision_01/consumer_coverage.md",
     "docs/worklines/plains_monster_revision_01/scope.md",
     "docs/worklines/plains_monster_revision_01/spec.md",
+    "resources/enemies/plains_charger.tres",
+    "resources/enemies/plains_fan_sentry.tres",
     "resources/enemies/plains_root_bell.tres",
     "resources/enemies/plains_sentry.tres",
     "scripts/art_foundation/pixel_plains_enemy.gd",
@@ -70,6 +98,7 @@
     "scripts/enemies/enemy_attack_projectile.gd",
     "scripts/enemies/enemy_definition.gd",
     "scripts/enemies/enemy_feedback_01_remains.gd",
+    "scripts/enemies/enemy_motor.gd",
     "scripts/enemies/enemy_presentation.gd",
     "scripts/enemies/forest_crossbranch_presentation.gd",
     "scripts/enemies/forest_depth_enemy_presentation.gd",
@@ -106,15 +135,21 @@
   ],
   "deliverables": [
     "docs/worklines/plains_monster_revision_01/spec.md",
-    "assets/plains_revision_01/manifest.json"
+    "assets/plains_revision_01/manifest.json",
+    "docs/worklines/plains_monster_revision_01/consumer_coverage.md",
+    "docs/evidence/plains_monster_revision_01/README.md",
+    "docs/evidence/plains_monster_revision_01/media/plains.mp4",
+    "docs/evidence/plains_monster_revision_01/media/comparison.mp4"
   ],
   "creative_decisions": [],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "逐怪目标、像素标准与真实复审范围已明确。",
+      "evidence": [
+        "spec"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -144,9 +179,11 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "按用户逐怪要求实现既定方向，不代签美术成品。",
+      "evidence": [
+        "spec"
+      ]
     },
     "technical": {
       "status": "unverified",
@@ -199,11 +236,83 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "PRV-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "用户七怪动作/死亡/留尸/去线与像素一致要求",
+      "method": "制作卡绑定实际消费者与正常尺寸合屏",
+      "expected": "范围具体可证伪，原拒绝/新候选/用户认可分开",
+      "failure": "按basic0代签整怪或删除旧失败",
+      "status": "passed",
+      "reason": "目标/片段/终态/未验边界已分列。",
+      "evidence": [
+        "spec"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/worklines/plains_monster_revision_01/spec.md",
+      "sha256": "c3d043e86e74269aa80336bb4147c11207deec3213f8084b81044bdcea386326",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "content_version": "plains-monster-revision-v1",
+      "method": "用户七怪原规格与追加像素要求制作卡",
+      "observed": "明确目标/真实观察/用户认可分列"
+    },
+    {
+      "id": "combat",
+      "path": "docs/evidence/plains_monster_revision_01/media/plains.mp4",
+      "sha256": "5596f4d050299e6a0dc10b8d4f56cc0b46ede1b2b31c87f466ead856e95711c4",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "content_version": "plains-monster-revision-v1",
+      "method": "原MovieMaker60fps/原引擎音轨，clean7edda9实录",
+      "observed": "76.17秒7actualcases/basic0；不称全部动作或自然整关通过"
+    },
+    {
+      "id": "scale",
+      "path": "docs/evidence/plains_monster_revision_01/media/comparison.mp4",
+      "sha256": "4956488e5a56b58c456fa919291c8b6f57950fc1f3c9c10c1480f3d2e5347ea4",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "content_version": "plains-monster-revision-v1",
+      "method": "原生成平原地形固定展位六页，原相机1.60",
+      "observed": "玩家/原俯冲/六怪同屏；静态粒度与比例复审，非战斗"
+    },
+    {
+      "id": "visual-review",
+      "path": "docs/evidence/plains_monster_revision_01/review/plains_revision_visual_review_final.md",
+      "sha256": "6980c7619db87ad6ec4f056a008e07d02c65cff09129193964481c73dd1fe8c2",
+      "kind": "review",
+      "producer": "/root/revision_r3_review",
+      "source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "content_version": "plains-monster-revision-v1",
+      "method": "独立实际看7×20死亡样本/真实冲锋/六页正式同屏；有限进入工坊复审",
+      "observed": "R2/R3问题已有实质改善；同屏粒度与玩家/原俯冲/草地接近。未签完整动作/听感/动态精确碰撞/设备/用户。",
+      "reviewer": "/root/revision_r3_review",
+      "implementers": [
+        "/root",
+        "/root/flora_revision_r3",
+        "/root/ground_rig_motion"
+      ],
+      "independent": true,
+      "independence_basis": "审查者未写生产/测试文件，独立解码真实影片并查看原像素。",
+      "verdict": "ACCEPT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
+    "工坊新版发布及最终适用回归待收口",
+    "所有相位/镜向/边界组合与动态精确碰撞fit未全观察",
+    "正常速度完整视觉节奏、声音听感/AVsync、真机性能及用户G5未签",
+    "森林/Boss/候选去线分支不由七平原片代签整套画面"
   ],
   "test_change_justification": "用户改用同体连续rig后，旧charger的H/D frame消费者断言迁移为实际rig/source/material/pose/settled；保四组旧Frames资源独立检查与原accepted/epoch/暂停/慢时/支撑/保存/掉落/释放断言。观察区间检查移动到原有130帧之后，不增加原总预算；正式helper改用exact script identity及动态RefCounted读取避免已实际A/B复现的编译资源图泄漏，严格退出门禁未改。"
 }
