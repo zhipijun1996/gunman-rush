@@ -4,7 +4,7 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "58fb249eb37d469c2ccb9ed22ff4d1311330e2fa",
-  "reviewed_commit": "58fb249eb37d469c2ccb9ed22ff4d1311330e2fa",
+  "reviewed_commit": "8fd71688c0671d9aa3836b318c6b137dd014ce9a",
   "content_version": "enemy-structure-v1",
   "owner": "/root",
   "purpose": "整体重构所有现有怪物的创建、只读表现状态、绑定、生命周期及恢复边界",
@@ -34,6 +34,12 @@
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_final_production_binding.json",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_production_review.md",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_review_acceptance.md",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_review_acceptance_binding.json",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_selector_independent.log",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_style_review.md",
     "docs/handoff.md",
     "docs/quality/records/ENEMY-STRUCTURE-01.json",
     "docs/tasks.md",
@@ -117,6 +123,7 @@
     "tests/enemy_all_02_motion_lifecycle.gd",
     "tests/enemy_structure_runner.gd",
     "tests/enemy_structure_runner.gd.uid",
+    "tests/test_production_plan.py",
     "tests/test_region_bible.py",
     "tests/test_region_creative_direction.py",
     "tools/harness/profiles.json",
@@ -202,9 +209,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "限定源码结构与已声明测试迁移独审接受；不包括完整运行／美术／用户验收。",
+      "evidence": [
+        "structure-code-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -217,12 +226,50 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "STRUCTURE-SOURCE-REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "全roster创建／状态／表现／生命周期及有限原测试迁移",
+      "method": "非生产作者逐diff＋实际selector21/0",
+      "expected": "无剩余结构阻断；原策略／机制及历史完整覆盖保留",
+      "failure": "行为／伤害／素材被偷改、错绑定／悬挂信号或检查缩减",
+      "status": "passed",
+      "reason": "仅源码及指定测试迁移ACCEPT，完整运行仍在后继验证。",
+      "evidence": [
+        "structure-code-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "structure-code-review",
+      "path": "docs/evidence/enemy_structure_01/review/enemy_structure_review_acceptance.md",
+      "sha256": "bc0c8f2424b626040b261a5b30475a5e591a63cad4687274dfea05ac3668a47b",
+      "kind": "review",
+      "producer": "/root",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/binding_plan",
+        "/root/forest_motion",
+        "/root/boss_motion",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production writes and did not author the style/motion/selector migrations; authored new contract tests are explicitly excluded from independent-test-authorship claims.",
+      "source_commit": "8fd71688c0671d9aa3836b318c6b137dd014ce9a",
+      "content_version": "enemy-structure-v1",
+      "verdict": "ACCEPT",
+      "method": "Read actual production diff and immutable old-source prefixes; independently ran selector21 tests against byte-identical8fd candidate in isolated worktree.",
+      "observed": "Limited static structure and specified test migrations accepted; full CI, local14 and visual/device/user not accepted by this evidence."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "实现与全部验证进行中；未宣称整体完成",
     "用户美术质量拒绝仍有效；设备/手感/正常速度音画未重新验收"
   ],
-  "test_change_justification": "原32/10方法与历史负例、预算、输入前缀保留；当前style19/creative22窄技术绑定新增历史冻结和严格差异断言。原motion生命周期候选fixture由错误charger/moth组合迁真实Factory review配方，708原断言与384pose网格阈值不改；静态迁移独审见工作线报告，最终引擎与完整审查另证。"
+  "test_change_justification": "原32/10方法与历史负例、预算、输入前缀保留；当前style19/creative22窄技术绑定新增历史冻结和严格差异断言。原motion生命周期候选fixture由错误charger/moth组合迁真实Factory review配方，708原断言与384pose网格阈值不改；静态迁移独审见工作线报告，最终引擎与完整审查另证。 Selector原21方法与原165精确前缀、双通道闭包及预算保留；仅显式追加新结构check，当前166/91/75，独立源码与实际21/0审查证据见structure-code-review。"
 }

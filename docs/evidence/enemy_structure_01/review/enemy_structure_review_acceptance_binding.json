@@ -1,0 +1,29 @@
+{
+  "candidate_commit": "8fd71688c0671d9aa3836b318c6b137dd014ce9a",
+  "candidate_parent": "4af16b8e49ecc6ea4ed6cbff957e06fe78fa9833",
+  "candidate_tree": "977c14d8ce9875f7e89fcad19bcdac40ebf261d6",
+  "changed_from_native_source": [
+    "tests/test_production_plan.py"
+  ],
+  "selector_candidate_sha256": "8f538b2595c4befe01c0efd7d28c9955cf57e01d1b67a2a5977d56befa3a2d83",
+  "independent_selector_run": {
+    "cwd": "/workspace/enemy-structure-selector-fix",
+    "argv": [
+      "python3",
+      "tests/test_production_plan.py"
+    ],
+    "original_budget_seconds": 30,
+    "exit_code": 0,
+    "tests": 21,
+    "failures": 0,
+    "summary_seconds": 0.111,
+    "log": "/tmp/enemy_structure_selector_independent.log",
+    "log_sha256": "974d58f70afff86c227a55da49db46ae2b53bd2c293614ab2c258f8664927686"
+  },
+  "production_evidence_source": "4af16b8e49ecc6ea4ed6cbff957e06fe78fa9833",
+  "production_source_report": "/tmp/enemy_structure_final_production_binding.json",
+  "production_byte_equivalence": "Only selector test differs between4af and8fd; no production change",
+  "native03_report_sha256": "a0c41a7798ae315aa73a10940cc672cdbe943484f4b4a4d6aef9d13d1801698f",
+  "native03_runtime_sha256": "216fb1ee01e1ad8b0aa142975a1e88c3bd9b8367ad58ee58691466af7cb93381",
+  "acceptance_scope": "Production source review and bounded original-test migrations/selector repair only; no full CI/local14, visual/user/device/G5 pass"
+}
