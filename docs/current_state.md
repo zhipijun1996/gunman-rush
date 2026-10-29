@@ -1,5 +1,7 @@
 # 当前状态
 
+怪物开发方法：[enemy-creator开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)已补齐从机制灰盒、同一身体母版、动作／退出、命中／死亡／声音到正式遭遇的操作、实物交接和按层返工；由技能自动补卡并调用实际工具。任务ENEMY-WORKFLOW-01只建设开发流程，不改变当前冲锋怪E03／E05 failed或替代真实生产验证。
+
 怪物工作入口：[统一完成标准](quality/enemy_completion_standard.md)与原Enemy Sheet现共用E01–E12／G0–G5／十一维。已有冲锋怪[制作卡](design/enemies/plains_charger.md)为review：本轮四项局部技术检查通过，但当前实录两次受伤退出的身体结构不连续（CHR-VIS-01，E03／E05 failed），完整攻击、正式自然场景、独审、用户与设备未验。流程标准建立不等于怪物完成；[来源与证据](evidence/enemy_completion_01/README.md)。
 
 ## 2026-10-28 PR111合入与试玩发布授权（最新）

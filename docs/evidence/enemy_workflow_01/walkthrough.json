@@ -1,0 +1,55 @@
+{
+  "kind": "same_author_source_walkthrough",
+  "actual_asset_generation": false,
+  "actual_runtime_execution": false,
+  "independent_content_review": false,
+  "source_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "inputs": [
+    {
+      "path": "docs/evidence/enemy_completion_01/inspection/hurt-exit-a.png",
+      "sha256": "04c8b10254c8ad07fe91cd314f9224589dd491f0946fa9fc11403b6299a1ed16",
+      "bytes": 160868
+    },
+    {
+      "path": "docs/evidence/enemy_completion_01/inspection/hurt-exit-b.png",
+      "sha256": "b1b93be807008e4e4a3f94a5214cee63dc2c4e451bb6cf4b6d3301980f21f822",
+      "bytes": 163830
+    },
+    {
+      "path": "assets/underworld_plains/actors/charger.png",
+      "sha256": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+      "bytes": 2375
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+      "sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6",
+      "bytes": 1094111
+    },
+    {
+      "path": "docs/design/enemies/plains_charger.md",
+      "sha256": "10b740e2ec117e71ea7692dbae2d64e7fdd460f4f6b79d49dbd91eef77baca92",
+      "bytes": 9698
+    }
+  ],
+  "cases": [
+    {
+      "input": "CHR-VIS-01: charger H exits change body structure",
+      "route": "art-director body master -> animation-vfx transition -> accepted event feedback -> formal encounter",
+      "next_real_output": "Versioned same-identity live/H/D references and representative poses, then real runtime transition clip; not produced in this process task",
+      "rejected_shortcut": "Change only particle size, bbox normalization or claim native PASS closes visual failure"
+    },
+    {
+      "input": "Current original fixture has no charger attack state",
+      "route": "enemy-creator real activation predicates and legal approach/initial fixture -> actual attack evidence",
+      "next_real_output": "Actual attack/avoid/hit receipts and attack/hurt/recovery media; not produced in this process task",
+      "rejected_shortcut": "Extend range, disable safety, force state or treat shoot request as hit"
+    },
+    {
+      "input": "New enemy versus existing cosmetic repair",
+      "route": "New: mechanism comparison and real greybox first; repair: reuse unchanged mechanics and start earliest failed dependency",
+      "next_real_output": "Enemy Sheet execution plan with concrete owners/files and bounded verification",
+      "rejected_shortcut": "Require every cosmetic repair to invent AI or batch-generate a fixed number of images"
+    }
+  ],
+  "limits": "This validates method routing against actual sources and known failures, not image quality, generated resources, game implementation or autonomous production."
+}

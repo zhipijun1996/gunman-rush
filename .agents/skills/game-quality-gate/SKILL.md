@@ -5,11 +5,15 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 # game-quality-gate
 
+## 怪物开发的执行路由
+
+要求制作／补齐怪物时由[enemy-creator](../enemy-creator/SKILL.md)主导[开发手册](../enemy-creator/references/development_workflow.md)的具体工序，专业技能交实际素材／动作／反馈／正式遭遇，共用一份原记录。先区分制作、局部修复、纯核对或纯流程任务；不要用检查表代替已授权制作，也不要把流程文档通过当实际生成／整怪能力通过。依据最早失败依赖选择下一操作，局部先专项，冻结后按原Integration／Release执行。
+
 ## 当前生产入口：区域圣经先于制作
 
 先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，排期以[AGENTS最新商业Demo优先级](../../../AGENTS.md#2026-10-22-商业-demo-多-cloud-生产)为准；两Bible与共享画风继续有效，不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
 
-所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；声音读取当前AGENTS／audio-director及已选来源，保留用户已提供BGM，不生成或替换。音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
 
 所有后续region create/optimize及缺Bible的proposed先读[当前共享画风与用户细粒度选择：style-v5](../../../docs/creative_direction/bibles/style-continuity-20261022-v5.json)：地形原生32px/32wu、世界表现1wu采样/nearest，保留Underworld家族、47邻接/精确边界与光照材质语言；区域特色来自形体、材料、生态、色光与构图。旧v4/16px只用于原版本复现，不能覆盖当前入口。worker绑定当前参考与实际消费者SHA；漂移按已有影响分析/重绑规则处理，不能只刷新hash。新地区先做跨区实际黄金对照再扩产；hash不签视觉。不同项目或用户明确另选全局画风时重新声明规格，不把本项目32px当通用数值。普通物理、global动作和无关文档不新增美术门。

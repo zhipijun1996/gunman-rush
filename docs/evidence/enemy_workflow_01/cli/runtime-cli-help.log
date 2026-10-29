@@ -1,0 +1,11 @@
+usage: run_integration_four_tests.py [-h] --case
+                                     {enemy-feedback-native,enemy-feedback-formal,enemy-feedback-support,enemy-corpse-save,enemy-corpse-snapshot,bgm-integration}
+
+Run existing integration consumers with their own strict completion markers.
+This adapter adds no assertions or acceptance claims. run_engine enforces
+native exit, script/shader errors, timeouts and clean teardown; each original
+consumer must also print its actual nonzero-check, zero-failure summary.
+
+options:
+  -h, --help            show this help message and exit
+  --case {enemy-feedback-native,enemy-feedback-formal,enemy-feedback-support,enemy-corpse-save,enemy-corpse-snapshot,bgm-integration}

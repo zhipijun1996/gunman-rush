@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-WORKFLOW-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "reviewed_commit": "75f23dfd0eeb561539ba62755f736915992f45fa",
+  "content_version": "enemy-development-v1",
+  "owner": "/root",
+  "purpose": "将怪物完成标准落为现有开发skills的制作方法、实物交接和按层返工",
+  "player_experience": "后续怪物制作能从实际缺口开始，统一身体／动作／反馈并在正式场景验证；本流程任务不签内容完成",
+  "constraints": [
+    "沿原G0–G5、十一维、四态和同一任务记录，不新增运行框架",
+    "不改生产脚本、PNG、配置、工具、测试、质量policy或预算",
+    "过程／CLI走查不冒充生成、运行或独立内容审查"
+  ],
+  "affected_paths": [
+    ".agents/skills/enemy-creator/SKILL.md",
+    ".agents/skills/enemy-creator/references/development_workflow.md",
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/animation-vfx/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    "docs/templates/enemy_design.md",
+    "docs/templates/art_asset_specification.md",
+    "docs/templates/animation_vfx_specification.md",
+    "docs/quality/README.md",
+    "docs/enemy_feedback_01_production_lessons.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    ".agents/skills/enemy-creator/references/development_workflow.md",
+    "docs/templates/enemy_design.md",
+    "docs/evidence/enemy_workflow_01/README.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "本任务只开发skills和模板，实际内容制作仍按原完整记录验收",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "本任务只开发skills和模板，实际内容制作仍按原完整记录验收",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "本任务只开发skills和模板，实际内容制作仍按原完整记录验收",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "本任务只开发skills和模板，实际内容制作仍按原完整记录验收",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯process文档方法，不改游戏；不能用此适用性给实际怪物豁免",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "原docs profile与quality diff待实际执行；图像生成／怪物实现／运行品质未在本process验证"
+  ],
+  "skills": [
+    "enemy-creator",
+    "art-director",
+    "animation-vfx",
+    "game-quality-gate"
+  ]
+}

@@ -7,11 +7,19 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 
 怪物任务按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)及Enemy Design Sheet核完整状态与转换，重点E04–E08、E10。先实看移动→受伤→当前动作、攻击中受伤、连续命中、致死→终态，再逐帧定位；共享事件和特效不代签身体连续。留尸先明确支撑／保存／清理所有者；帧数与时长按物种，不硬套两个样板的4＋4。
 
+## 怪物动作与反馈怎样实现
+
+按[怪物开发手册](../enemy-creator/references/development_workflow.md)第3–4步实际接入。先读最终可见身体、AI／Motor时钟和母版，再画承重／发力／收势关键姿态，按物种选逐帧／骨骼／程序方法。用真实位移／攻击相位排步态和动作，不用表现root motion搬Actor；固定clip比例、脚和附件锚，逐条实现进入、退出、转向、中断。
+
+先跑移动→受伤→当前合法动作，以及当前态→死亡→终态两条完整链，再扩攻击、左右、连续命中、慢时和暂停。受伤结束回到当时真实相位，死亡覆盖非致死反馈；身份不同回art-director修母版，身份正确但脚滑／突跳修锚、时钟或桥接。不得用淡化／辉光遮错误身体，也不得为配动画改判定／资源或新增stagger。
+
+身体成立后才调命中点／来向／材质的闪与碎屑；只消费真实接受回执并过滤重复／旧epoch，预警／HP独立。声音经audio-director读取当前选声并实战试听，沿原唯一事件／声音池。留尸先接现有Stage兄弟持有、真实支撑和保存锚，恢复直接终态、不重播。交实际资源、帧时／程序参数、manifest／宿主代码与正常速度样板；只生成sprite sheet不算完成实现。
+
 ## 当前生产入口：区域圣经先于制作
 
-先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，不重新提出2–3个区域方向；当前排期按[生产入口](../../../docs/cloud_production.md)与最新任务，不从历史先森林／再平原说明推断。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
 
-所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；声音读取当前AGENTS／audio-director及已选来源，保留用户已提供BGM，不生成或替换。音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
 
 所有后续region create/optimize及缺Bible的proposed先读[当前共享画风与用户细粒度选择：style-v5](../../../docs/creative_direction/bibles/style-continuity-20261022-v5.json)：地形原生32px/32wu、世界表现1wu采样/nearest，保留Underworld家族、47邻接/精确边界与光照材质语言；区域特色来自形体、材料、生态、色光与构图。旧v4/16px只用于原版本复现，不能覆盖当前入口。worker绑定当前参考与实际消费者SHA；漂移按已有影响分析/重绑规则处理，不能只刷新hash。新地区先做跨区实际黄金对照再扩产；hash不签视觉。不同项目或用户明确另选全局画风时重新声明规格，不把本项目32px当通用数值。普通物理、global动作和无关文档不新增美术门。
