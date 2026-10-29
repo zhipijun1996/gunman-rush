@@ -1,0 +1,3350 @@
+{
+  "task": "ENEMY-ALL-02",
+  "group": "all",
+  "chains": "all",
+  "species": null,
+  "seed_label": "enemy-all-review-02",
+  "status": "recorded_complete_coverage",
+  "source": {
+    "working_files": {},
+    "commit": "52d0a0ada2103b64b53ecc09d342dc85387111c3",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "27e0b5941e13da120362eb97807fe2abba1182870710b44f060309eb2f55b5d3",
+  "scope": "Genuine Godot MovieMaker; explicit initial fixtures, real AI, InputRouter, projectiles, enemy and player FrameDamagePolicy. No natural-campaign claim.",
+  "user_acceptance": "pending",
+  "device_acceptance": "unverified",
+  "listening_acceptance": false,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_workshop_01/current-all-01/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_all_review_02_capture.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-all-01/trace.json",
+    "--group=all",
+    "--chains=all",
+    "--seed=enemy-all-review-02"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793278354.563199,
+    "ended_at_unix": 1793278730.5703301,
+    "duration_seconds": 376.007,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_workshop_01/current-all-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_all_review_02_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-all-01/trace.json",
+      "--group=all",
+      "--chains=all",
+      "--seed=enemy-all-review-02"
+    ],
+    "check_token": "d69fdbf615054e648102a40863681d79"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 12949600,
+    "duration_seconds": 269.78333333333336,
+    "samples": 25899200,
+    "peak_s16": 22031,
+    "peak_normalized": 0.672332763671875,
+    "rms_normalized": 0.025335388822622065,
+    "nonzero_samples": 11735991,
+    "nonzero_sample_ratio": 0.45314106227219375,
+    "seconds_containing_nonzero_pcm": 211,
+    "pcm_sha256": "1715fb35f2854398738de9a406a633e41af42df3ea3e19ed691ac9023bbf2337",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006256862126078226,
+        "nonzero_samples": 74504
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 9245,
+        "rms_normalized": 0.048179523214600575,
+        "nonzero_samples": 43024
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004651985929473678,
+        "nonzero_samples": 59300
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 13756,
+        "rms_normalized": 0.04614298081705858,
+        "nonzero_samples": 73146
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.007459452226240051,
+        "nonzero_samples": 34380
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.043471803471636344,
+        "nonzero_samples": 90496
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006252555945421126,
+        "nonzero_samples": 35848
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 12,
+        "rms_normalized": 0.00023209440779794997,
+        "nonzero_samples": 38656
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 9245,
+        "rms_normalized": 0.048621115878367385,
+        "nonzero_samples": 79510
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.0123517433269159,
+        "nonzero_samples": 35588
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 11547,
+        "rms_normalized": 0.04540928378984679,
+        "nonzero_samples": 85628
+      },
+      {
+        "second": 17,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.04303805689249795,
+        "nonzero_samples": 45556
+      },
+      {
+        "second": 18,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004401064129595501,
+        "nonzero_samples": 53502
+      },
+      {
+        "second": 19,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 20,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 21,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006805400569671577,
+        "nonzero_samples": 72768
+      },
+      {
+        "second": 22,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0029865323508957062,
+        "nonzero_samples": 23633
+      },
+      {
+        "second": 23,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 24,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.03502984853050367,
+        "nonzero_samples": 18178
+      },
+      {
+        "second": 25,
+        "samples": 96000,
+        "peak_s16": 10884,
+        "rms_normalized": 0.03320672562187089,
+        "nonzero_samples": 80764
+      },
+      {
+        "second": 26,
+        "samples": 96000,
+        "peak_s16": 9990,
+        "rms_normalized": 0.047790652976270845,
+        "nonzero_samples": 50418
+      },
+      {
+        "second": 27,
+        "samples": 96000,
+        "peak_s16": 776,
+        "rms_normalized": 0.0033718865976601503,
+        "nonzero_samples": 48648
+      },
+      {
+        "second": 28,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.04326226273942572,
+        "nonzero_samples": 82580
+      },
+      {
+        "second": 29,
+        "samples": 96000,
+        "peak_s16": 17,
+        "rms_normalized": 0.00014258057230760743,
+        "nonzero_samples": 16478
+      },
+      {
+        "second": 30,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 31,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 32,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.0062601295542448285,
+        "nonzero_samples": 61867
+      },
+      {
+        "second": 33,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004005450082163463,
+        "nonzero_samples": 34534
+      },
+      {
+        "second": 34,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 35,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.00585519790936259,
+        "nonzero_samples": 7172
+      },
+      {
+        "second": 36,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.04723047881589455,
+        "nonzero_samples": 91894
+      },
+      {
+        "second": 37,
+        "samples": 96000,
+        "peak_s16": 9990,
+        "rms_normalized": 0.04767619451627678,
+        "nonzero_samples": 39424
+      },
+      {
+        "second": 38,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004721928374294178,
+        "nonzero_samples": 59642
+      },
+      {
+        "second": 39,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.04326052580175153,
+        "nonzero_samples": 71610
+      },
+      {
+        "second": 40,
+        "samples": 96000,
+        "peak_s16": 143,
+        "rms_normalized": 0.000413054367719836,
+        "nonzero_samples": 27448
+      },
+      {
+        "second": 41,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 42,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 43,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006254243031324538,
+        "nonzero_samples": 50952
+      },
+      {
+        "second": 44,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004014635288760525,
+        "nonzero_samples": 45449
+      },
+      {
+        "second": 45,
+        "samples": 96000,
+        "peak_s16": 262,
+        "rms_normalized": 0.00031810767893529783,
+        "nonzero_samples": 7402
+      },
+      {
+        "second": 46,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.003998262380185035,
+        "nonzero_samples": 32638
+      },
+      {
+        "second": 47,
+        "samples": 96000,
+        "peak_s16": 9244,
+        "rms_normalized": 0.04772636271788188,
+        "nonzero_samples": 89242
+      },
+      {
+        "second": 48,
+        "samples": 96000,
+        "peak_s16": 13756,
+        "rms_normalized": 0.04536505242298384,
+        "nonzero_samples": 34554
+      },
+      {
+        "second": 49,
+        "samples": 96000,
+        "peak_s16": 4014,
+        "rms_normalized": 0.011909261217121067,
+        "nonzero_samples": 66052
+      },
+      {
+        "second": 50,
+        "samples": 96000,
+        "peak_s16": 17291,
+        "rms_normalized": 0.0437774208337201,
+        "nonzero_samples": 59624
+      },
+      {
+        "second": 51,
+        "samples": 96000,
+        "peak_s16": 222,
+        "rms_normalized": 0.0010570962741534452,
+        "nonzero_samples": 35118
+      },
+      {
+        "second": 52,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 53,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 54,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006252555945421126,
+        "nonzero_samples": 35848
+      },
+      {
+        "second": 55,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004017268911248281,
+        "nonzero_samples": 59613
+      },
+      {
+        "second": 56,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 57,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 58,
+        "samples": 96000,
+        "peak_s16": 9247,
+        "rms_normalized": 0.04744073187599019,
+        "nonzero_samples": 78398
+      },
+      {
+        "second": 59,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.012350525219218754,
+        "nonzero_samples": 30096
+      },
+      {
+        "second": 60,
+        "samples": 96000,
+        "peak_s16": 11864,
+        "rms_normalized": 0.04536107456330941,
+        "nonzero_samples": 81134
+      },
+      {
+        "second": 61,
+        "samples": 96000,
+        "peak_s16": 17291,
+        "rms_normalized": 0.043569079163790186,
+        "nonzero_samples": 45558
+      },
+      {
+        "second": 62,
+        "samples": 96000,
+        "peak_s16": 880,
+        "rms_normalized": 0.004394925278641635,
+        "nonzero_samples": 49184
+      },
+      {
+        "second": 63,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 64,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 65,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006251326087500876,
+        "nonzero_samples": 24840
+      },
+      {
+        "second": 66,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004019175853874005,
+        "nonzero_samples": 71561
+      },
+      {
+        "second": 67,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 68,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 69,
+        "samples": 96000,
+        "peak_s16": 9248,
+        "rms_normalized": 0.046324700261118144,
+        "nonzero_samples": 66190
+      },
+      {
+        "second": 70,
+        "samples": 96000,
+        "peak_s16": 137,
+        "rms_normalized": 0.0005165969835509909,
+        "nonzero_samples": 31466
+      },
+      {
+        "second": 71,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.048267762014503335,
+        "nonzero_samples": 94870
+      },
+      {
+        "second": 72,
+        "samples": 96000,
+        "peak_s16": 14409,
+        "rms_normalized": 0.04242321383215279,
+        "nonzero_samples": 35622
+      },
+      {
+        "second": 73,
+        "samples": 96000,
+        "peak_s16": 960,
+        "rms_normalized": 0.005267470327832428,
+        "nonzero_samples": 64496
+      },
+      {
+        "second": 74,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 75,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 76,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006785843939758703,
+        "nonzero_samples": 65932
+      },
+      {
+        "second": 77,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0030307140051715697,
+        "nonzero_samples": 29529
+      },
+      {
+        "second": 78,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 79,
+        "samples": 96000,
+        "peak_s16": 10784,
+        "rms_normalized": 0.03123065138924313,
+        "nonzero_samples": 52332
+      },
+      {
+        "second": 80,
+        "samples": 96000,
+        "peak_s16": 6215,
+        "rms_normalized": 0.0360735953244552,
+        "nonzero_samples": 82158
+      },
+      {
+        "second": 81,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.048055722158590136,
+        "nonzero_samples": 43510
+      },
+      {
+        "second": 82,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004519345352220416,
+        "nonzero_samples": 55432
+      },
+      {
+        "second": 83,
+        "samples": 96000,
+        "peak_s16": 14409,
+        "rms_normalized": 0.04362301464822754,
+        "nonzero_samples": 75688
+      },
+      {
+        "second": 84,
+        "samples": 96000,
+        "peak_s16": 52,
+        "rms_normalized": 0.00017007989359668982,
+        "nonzero_samples": 23260
+      },
+      {
+        "second": 85,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 86,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006249728215536932,
+        "nonzero_samples": 12334
+      },
+      {
+        "second": 87,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004021660058800894,
+        "nonzero_samples": 84067
+      },
+      {
+        "second": 88,
+        "samples": 96000,
+        "peak_s16": 9019,
+        "rms_normalized": 0.03609908491510537,
+        "nonzero_samples": 81410
+      },
+      {
+        "second": 89,
+        "samples": 96000,
+        "peak_s16": 45,
+        "rms_normalized": 0.000536791805104734,
+        "nonzero_samples": 62706
+      },
+      {
+        "second": 90,
+        "samples": 96000,
+        "peak_s16": 11682,
+        "rms_normalized": 0.0496773565021821,
+        "nonzero_samples": 53480
+      },
+      {
+        "second": 91,
+        "samples": 96000,
+        "peak_s16": 590,
+        "rms_normalized": 0.0024718127794792575,
+        "nonzero_samples": 45464
+      },
+      {
+        "second": 92,
+        "samples": 96000,
+        "peak_s16": 11792,
+        "rms_normalized": 0.04596814723935733,
+        "nonzero_samples": 85660
+      },
+      {
+        "second": 93,
+        "samples": 96000,
+        "peak_s16": 10847,
+        "rms_normalized": 0.03019596816170889,
+        "nonzero_samples": 35424
+      },
+      {
+        "second": 94,
+        "samples": 96000,
+        "peak_s16": 15033,
+        "rms_normalized": 0.028931861754398706,
+        "nonzero_samples": 76756
+      },
+      {
+        "second": 95,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 96,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 97,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006253270867900844,
+        "nonzero_samples": 42248
+      },
+      {
+        "second": 98,
+        "samples": 96000,
+        "peak_s16": 5800,
+        "rms_normalized": 0.00990949551545136,
+        "nonzero_samples": 72711
+      },
+      {
+        "second": 99,
+        "samples": 96000,
+        "peak_s16": 9018,
+        "rms_normalized": 0.0349601493752221,
+        "nonzero_samples": 92511
+      },
+      {
+        "second": 100,
+        "samples": 96000,
+        "peak_s16": 23,
+        "rms_normalized": 0.0003578116627055926,
+        "nonzero_samples": 31744
+      },
+      {
+        "second": 101,
+        "samples": 96000,
+        "peak_s16": 10875,
+        "rms_normalized": 0.047279464557817355,
+        "nonzero_samples": 84374
+      },
+      {
+        "second": 102,
+        "samples": 96000,
+        "peak_s16": 11792,
+        "rms_normalized": 0.032705136358514054,
+        "nonzero_samples": 34402
+      },
+      {
+        "second": 103,
+        "samples": 96000,
+        "peak_s16": 12697,
+        "rms_normalized": 0.03406916328801884,
+        "nonzero_samples": 79240
+      },
+      {
+        "second": 104,
+        "samples": 96000,
+        "peak_s16": 15856,
+        "rms_normalized": 0.04304579150522003,
+        "nonzero_samples": 51950
+      },
+      {
+        "second": 105,
+        "samples": 96000,
+        "peak_s16": 683,
+        "rms_normalized": 0.0028456158535436404,
+        "nonzero_samples": 46824
+      },
+      {
+        "second": 106,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 107,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 108,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006805437407307193,
+        "nonzero_samples": 73020
+      },
+      {
+        "second": 109,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.02055961997544264,
+        "nonzero_samples": 71203
+      },
+      {
+        "second": 110,
+        "samples": 96000,
+        "peak_s16": 9018,
+        "rms_normalized": 0.030110980731275043,
+        "nonzero_samples": 80286
+      },
+      {
+        "second": 111,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.04082870006766189,
+        "nonzero_samples": 83903
+      },
+      {
+        "second": 112,
+        "samples": 96000,
+        "peak_s16": 9087,
+        "rms_normalized": 0.04370893612398756,
+        "nonzero_samples": 95799
+      },
+      {
+        "second": 113,
+        "samples": 96000,
+        "peak_s16": 13035,
+        "rms_normalized": 0.053040919383360065,
+        "nonzero_samples": 95944
+      },
+      {
+        "second": 114,
+        "samples": 96000,
+        "peak_s16": 766,
+        "rms_normalized": 0.003243334669108231,
+        "nonzero_samples": 44592
+      },
+      {
+        "second": 115,
+        "samples": 96000,
+        "peak_s16": 15109,
+        "rms_normalized": 0.04108301896397699,
+        "nonzero_samples": 81890
+      },
+      {
+        "second": 116,
+        "samples": 96000,
+        "peak_s16": 10,
+        "rms_normalized": 6.454696230381115e-05,
+        "nonzero_samples": 16430
+      },
+      {
+        "second": 117,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 118,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006245796982407631,
+        "nonzero_samples": 6242
+      },
+      {
+        "second": 119,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004027762710386573,
+        "nonzero_samples": 90159
+      },
+      {
+        "second": 120,
+        "samples": 96000,
+        "peak_s16": 9018,
+        "rms_normalized": 0.0344770115260403,
+        "nonzero_samples": 61298
+      },
+      {
+        "second": 121,
+        "samples": 96000,
+        "peak_s16": 7199,
+        "rms_normalized": 0.01143893313805499,
+        "nonzero_samples": 88529
+      },
+      {
+        "second": 122,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.05150834939348835,
+        "nonzero_samples": 92119
+      },
+      {
+        "second": 123,
+        "samples": 96000,
+        "peak_s16": 9087,
+        "rms_normalized": 0.030959180680887016,
+        "nonzero_samples": 95807
+      },
+      {
+        "second": 124,
+        "samples": 96000,
+        "peak_s16": 13035,
+        "rms_normalized": 0.052817384815723706,
+        "nonzero_samples": 95736
+      },
+      {
+        "second": 125,
+        "samples": 96000,
+        "peak_s16": 5582,
+        "rms_normalized": 0.013963491105742068,
+        "nonzero_samples": 30916
+      },
+      {
+        "second": 126,
+        "samples": 96000,
+        "peak_s16": 15109,
+        "rms_normalized": 0.03863729889094379,
+        "nonzero_samples": 83280
+      },
+      {
+        "second": 127,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 128,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 129,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006252355752477661,
+        "nonzero_samples": 34056
+      },
+      {
+        "second": 130,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.00401758047839275,
+        "nonzero_samples": 61405
+      },
+      {
+        "second": 131,
+        "samples": 96000,
+        "peak_s16": 9671,
+        "rms_normalized": 0.03280794705119924,
+        "nonzero_samples": 88866
+      },
+      {
+        "second": 132,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004011771817979947,
+        "nonzero_samples": 45160
+      },
+      {
+        "second": 133,
+        "samples": 96000,
+        "peak_s16": 14745,
+        "rms_normalized": 0.05026901564128907,
+        "nonzero_samples": 76150
+      },
+      {
+        "second": 134,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.01043985908830091,
+        "nonzero_samples": 29828
+      },
+      {
+        "second": 135,
+        "samples": 96000,
+        "peak_s16": 12544,
+        "rms_normalized": 0.04547455406278956,
+        "nonzero_samples": 82930
+      },
+      {
+        "second": 136,
+        "samples": 96000,
+        "peak_s16": 15628,
+        "rms_normalized": 0.04383412244608583,
+        "nonzero_samples": 43962
+      },
+      {
+        "second": 137,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004506395852918992,
+        "nonzero_samples": 54596
+      },
+      {
+        "second": 138,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 139,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 140,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006797080970178017,
+        "nonzero_samples": 67977
+      },
+      {
+        "second": 141,
+        "samples": 96000,
+        "peak_s16": 9671,
+        "rms_normalized": 0.03311359284706429,
+        "nonzero_samples": 55382
+      },
+      {
+        "second": 142,
+        "samples": 96000,
+        "peak_s16": 92,
+        "rms_normalized": 0.0005983965530924466,
+        "nonzero_samples": 67018
+      },
+      {
+        "second": 143,
+        "samples": 96000,
+        "peak_s16": 16426,
+        "rms_normalized": 0.037413682910961824,
+        "nonzero_samples": 53356
+      },
+      {
+        "second": 144,
+        "samples": 96000,
+        "peak_s16": 7222,
+        "rms_normalized": 0.03615210375710678,
+        "nonzero_samples": 81134
+      },
+      {
+        "second": 145,
+        "samples": 96000,
+        "peak_s16": 10689,
+        "rms_normalized": 0.04470598419761147,
+        "nonzero_samples": 45560
+      },
+      {
+        "second": 146,
+        "samples": 96000,
+        "peak_s16": 873,
+        "rms_normalized": 0.0043926165811618775,
+        "nonzero_samples": 48898
+      },
+      {
+        "second": 147,
+        "samples": 96000,
+        "peak_s16": 15629,
+        "rms_normalized": 0.04412450525780751,
+        "nonzero_samples": 77602
+      },
+      {
+        "second": 148,
+        "samples": 96000,
+        "peak_s16": 11,
+        "rms_normalized": 7.952828064336094e-05,
+        "nonzero_samples": 20772
+      },
+      {
+        "second": 149,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 150,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006245796982407631,
+        "nonzero_samples": 6242
+      },
+      {
+        "second": 151,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004027762710386573,
+        "nonzero_samples": 90159
+      },
+      {
+        "second": 152,
+        "samples": 96000,
+        "peak_s16": 9671,
+        "rms_normalized": 0.03280598082907493,
+        "nonzero_samples": 59938
+      },
+      {
+        "second": 153,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.002703598936152648,
+        "nonzero_samples": 56155
+      },
+      {
+        "second": 154,
+        "samples": 96000,
+        "peak_s16": 14745,
+        "rms_normalized": 0.05018379809971333,
+        "nonzero_samples": 65283
+      },
+      {
+        "second": 155,
+        "samples": 96000,
+        "peak_s16": 873,
+        "rms_normalized": 0.004180311297295133,
+        "nonzero_samples": 47104
+      },
+      {
+        "second": 156,
+        "samples": 96000,
+        "peak_s16": 10689,
+        "rms_normalized": 0.04492126029266071,
+        "nonzero_samples": 79130
+      },
+      {
+        "second": 157,
+        "samples": 96000,
+        "peak_s16": 5582,
+        "rms_normalized": 0.013963460357014621,
+        "nonzero_samples": 30368
+      },
+      {
+        "second": 158,
+        "samples": 96000,
+        "peak_s16": 15628,
+        "rms_normalized": 0.041864949923530306,
+        "nonzero_samples": 83272
+      },
+      {
+        "second": 159,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 160,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 161,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.0062529277153117275,
+        "nonzero_samples": 39176
+      },
+      {
+        "second": 162,
+        "samples": 96000,
+        "peak_s16": 12,
+        "rms_normalized": 0.00022185277063539377,
+        "nonzero_samples": 35328
+      },
+      {
+        "second": 163,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 164,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.004314291467761948,
+        "nonzero_samples": 25824
+      },
+      {
+        "second": 165,
+        "samples": 96000,
+        "peak_s16": 10549,
+        "rms_normalized": 0.03962161490855952,
+        "nonzero_samples": 95616
+      },
+      {
+        "second": 166,
+        "samples": 96000,
+        "peak_s16": 6305,
+        "rms_normalized": 0.011265520476108716,
+        "nonzero_samples": 95754
+      },
+      {
+        "second": 167,
+        "samples": 96000,
+        "peak_s16": 9247,
+        "rms_normalized": 0.04807881835638456,
+        "nonzero_samples": 84856
+      },
+      {
+        "second": 168,
+        "samples": 96000,
+        "peak_s16": 195,
+        "rms_normalized": 0.000890269326188157,
+        "nonzero_samples": 39922
+      },
+      {
+        "second": 169,
+        "samples": 96000,
+        "peak_s16": 11660,
+        "rms_normalized": 0.04760385521810534,
+        "nonzero_samples": 93532
+      },
+      {
+        "second": 170,
+        "samples": 96000,
+        "peak_s16": 13293,
+        "rms_normalized": 0.04005071391303816,
+        "nonzero_samples": 35620
+      },
+      {
+        "second": 171,
+        "samples": 96000,
+        "peak_s16": 1790,
+        "rms_normalized": 0.008777632997211399,
+        "nonzero_samples": 69300
+      },
+      {
+        "second": 172,
+        "samples": 96000,
+        "peak_s16": 19118,
+        "rms_normalized": 0.04069458907166635,
+        "nonzero_samples": 61158
+      },
+      {
+        "second": 173,
+        "samples": 96000,
+        "peak_s16": 195,
+        "rms_normalized": 0.0009061716695173789,
+        "nonzero_samples": 38128
+      },
+      {
+        "second": 174,
+        "samples": 96000,
+        "peak_s16": 11405,
+        "rms_normalized": 0.04038308864489972,
+        "nonzero_samples": 93314
+      },
+      {
+        "second": 175,
+        "samples": 96000,
+        "peak_s16": 9210,
+        "rms_normalized": 0.037702556570931654,
+        "nonzero_samples": 35304
+      },
+      {
+        "second": 176,
+        "samples": 96000,
+        "peak_s16": 1826,
+        "rms_normalized": 0.009102987523774404,
+        "nonzero_samples": 69558
+      },
+      {
+        "second": 177,
+        "samples": 96000,
+        "peak_s16": 22031,
+        "rms_normalized": 0.044407346568180586,
+        "nonzero_samples": 61922
+      },
+      {
+        "second": 178,
+        "samples": 96000,
+        "peak_s16": 195,
+        "rms_normalized": 0.0008397278225161986,
+        "nonzero_samples": 37334
+      },
+      {
+        "second": 179,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 180,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 181,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006256862126078226,
+        "nonzero_samples": 74504
+      },
+      {
+        "second": 182,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 183,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 184,
+        "samples": 96000,
+        "peak_s16": 9990,
+        "rms_normalized": 0.0467691670508839,
+        "nonzero_samples": 28412
+      },
+      {
+        "second": 185,
+        "samples": 96000,
+        "peak_s16": 1905,
+        "rms_normalized": 0.010175055537762507,
+        "nonzero_samples": 66036
+      },
+      {
+        "second": 186,
+        "samples": 96000,
+        "peak_s16": 14409,
+        "rms_normalized": 0.04269551989425769,
+        "nonzero_samples": 59620
+      },
+      {
+        "second": 187,
+        "samples": 96000,
+        "peak_s16": 227,
+        "rms_normalized": 0.001055981729038637,
+        "nonzero_samples": 34824
+      },
+      {
+        "second": 188,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 189,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 190,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006256862126078226,
+        "nonzero_samples": 74504
+      },
+      {
+        "second": 191,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 192,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 193,
+        "samples": 96000,
+        "peak_s16": 9244,
+        "rms_normalized": 0.04231167346383032,
+        "nonzero_samples": 23480
+      },
+      {
+        "second": 194,
+        "samples": 96000,
+        "peak_s16": 4612,
+        "rms_normalized": 0.02052040292062875,
+        "nonzero_samples": 80766
+      },
+      {
+        "second": 195,
+        "samples": 96000,
+        "peak_s16": 14728,
+        "rms_normalized": 0.042636354419216066,
+        "nonzero_samples": 55276
+      },
+      {
+        "second": 196,
+        "samples": 96000,
+        "peak_s16": 505,
+        "rms_normalized": 0.0018457322374870236,
+        "nonzero_samples": 39172
+      },
+      {
+        "second": 197,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 198,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 199,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006805379563797826,
+        "nonzero_samples": 72249
+      },
+      {
+        "second": 200,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.02055701778184614,
+        "nonzero_samples": 58565
+      },
+      {
+        "second": 201,
+        "samples": 96000,
+        "peak_s16": 9671,
+        "rms_normalized": 0.03280800577563553,
+        "nonzero_samples": 81921
+      },
+      {
+        "second": 202,
+        "samples": 96000,
+        "peak_s16": 10875,
+        "rms_normalized": 0.036154049199382185,
+        "nonzero_samples": 84072
+      },
+      {
+        "second": 203,
+        "samples": 96000,
+        "peak_s16": 8805,
+        "rms_normalized": 0.0367048766136719,
+        "nonzero_samples": 86332
+      },
+      {
+        "second": 204,
+        "samples": 96000,
+        "peak_s16": 11792,
+        "rms_normalized": 0.0489269178434401,
+        "nonzero_samples": 61694
+      },
+      {
+        "second": 205,
+        "samples": 96000,
+        "peak_s16": 764,
+        "rms_normalized": 0.0034887875886160163,
+        "nonzero_samples": 44546
+      },
+      {
+        "second": 206,
+        "samples": 96000,
+        "peak_s16": 15919,
+        "rms_normalized": 0.04283990783444542,
+        "nonzero_samples": 82242
+      },
+      {
+        "second": 207,
+        "samples": 96000,
+        "peak_s16": 10,
+        "rms_normalized": 6.645680004190195e-05,
+        "nonzero_samples": 16420
+      },
+      {
+        "second": 208,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 209,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006246988702943361,
+        "nonzero_samples": 7520
+      },
+      {
+        "second": 210,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004025914125007,
+        "nonzero_samples": 88881
+      },
+      {
+        "second": 211,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 212,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 213,
+        "samples": 96000,
+        "peak_s16": 10199,
+        "rms_normalized": 0.047071918783968617,
+        "nonzero_samples": 48812
+      },
+      {
+        "second": 214,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.00391608150368101,
+        "nonzero_samples": 50638
+      },
+      {
+        "second": 215,
+        "samples": 96000,
+        "peak_s16": 14680,
+        "rms_normalized": 0.04388297446182197,
+        "nonzero_samples": 93606
+      },
+      {
+        "second": 216,
+        "samples": 96000,
+        "peak_s16": 17,
+        "rms_normalized": 0.0001543695071645389,
+        "nonzero_samples": 18466
+      },
+      {
+        "second": 217,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 218,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006201647024711669,
+        "nonzero_samples": 2170
+      },
+      {
+        "second": 219,
+        "samples": 96000,
+        "peak_s16": 434,
+        "rms_normalized": 0.0008293960728367679,
+        "nonzero_samples": 72334
+      },
+      {
+        "second": 220,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.0026779169479326115,
+        "nonzero_samples": 21372
+      },
+      {
+        "second": 221,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0029859764527162286,
+        "nonzero_samples": 18668
+      },
+      {
+        "second": 222,
+        "samples": 96000,
+        "peak_s16": 9244,
+        "rms_normalized": 0.04486382366559574,
+        "nonzero_samples": 44264
+      },
+      {
+        "second": 223,
+        "samples": 96000,
+        "peak_s16": 876,
+        "rms_normalized": 0.004483300656098031,
+        "nonzero_samples": 50174
+      },
+      {
+        "second": 224,
+        "samples": 96000,
+        "peak_s16": 9796,
+        "rms_normalized": 0.04784438052967111,
+        "nonzero_samples": 75432
+      },
+      {
+        "second": 225,
+        "samples": 96000,
+        "peak_s16": 8981,
+        "rms_normalized": 0.016775659578499313,
+        "nonzero_samples": 56833
+      },
+      {
+        "second": 226,
+        "samples": 96000,
+        "peak_s16": 7773,
+        "rms_normalized": 0.03525919829326766,
+        "nonzero_samples": 86589
+      },
+      {
+        "second": 227,
+        "samples": 96000,
+        "peak_s16": 9015,
+        "rms_normalized": 0.03856194841789862,
+        "nonzero_samples": 45190
+      },
+      {
+        "second": 228,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004492992181336281,
+        "nonzero_samples": 54338
+      },
+      {
+        "second": 229,
+        "samples": 96000,
+        "peak_s16": 15635,
+        "rms_normalized": 0.04407720834513451,
+        "nonzero_samples": 76174
+      },
+      {
+        "second": 230,
+        "samples": 96000,
+        "peak_s16": 17,
+        "rms_normalized": 0.00017003613865064428,
+        "nonzero_samples": 22878
+      },
+      {
+        "second": 231,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 232,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006237421419732532,
+        "nonzero_samples": 3702
+      },
+      {
+        "second": 233,
+        "samples": 96000,
+        "peak_s16": 278,
+        "rms_normalized": 0.0004928465252124246,
+        "nonzero_samples": 70802
+      },
+      {
+        "second": 234,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004010896148097814,
+        "nonzero_samples": 39678
+      },
+      {
+        "second": 235,
+        "samples": 96000,
+        "peak_s16": 4,
+        "rms_normalized": 2.577862413115602e-06,
+        "nonzero_samples": 362
+      },
+      {
+        "second": 236,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 237,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 238,
+        "samples": 96000,
+        "peak_s16": 262,
+        "rms_normalized": 0.000256201479121405,
+        "nonzero_samples": 6136
+      },
+      {
+        "second": 239,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004002706004479533,
+        "nonzero_samples": 33904
+      },
+      {
+        "second": 240,
+        "samples": 96000,
+        "peak_s16": 10784,
+        "rms_normalized": 0.048312718818910416,
+        "nonzero_samples": 90766
+      },
+      {
+        "second": 241,
+        "samples": 96000,
+        "peak_s16": 14409,
+        "rms_normalized": 0.04154212494637586,
+        "nonzero_samples": 34598
+      },
+      {
+        "second": 242,
+        "samples": 96000,
+        "peak_s16": 3160,
+        "rms_normalized": 0.01356576384090549,
+        "nonzero_samples": 73138
+      },
+      {
+        "second": 243,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 244,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 245,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006258723550815139,
+        "nonzero_samples": 58602
+      },
+      {
+        "second": 246,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040076466799238665,
+        "nonzero_samples": 37799
+      },
+      {
+        "second": 247,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 248,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 249,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 250,
+        "samples": 96000,
+        "peak_s16": 9246,
+        "rms_normalized": 0.047978122564990185,
+        "nonzero_samples": 89896
+      },
+      {
+        "second": 251,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004010932101156093,
+        "nonzero_samples": 47534
+      },
+      {
+        "second": 252,
+        "samples": 96000,
+        "peak_s16": 9244,
+        "rms_normalized": 0.04336488618676598,
+        "nonzero_samples": 24230
+      },
+      {
+        "second": 253,
+        "samples": 96000,
+        "peak_s16": 4426,
+        "rms_normalized": 0.019933683206851623,
+        "nonzero_samples": 76526
+      },
+      {
+        "second": 254,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004003516326987454,
+        "nonzero_samples": 34660
+      },
+      {
+        "second": 255,
+        "samples": 96000,
+        "peak_s16": 13879,
+        "rms_normalized": 0.04290646853158548,
+        "nonzero_samples": 52212
+      },
+      {
+        "second": 256,
+        "samples": 96000,
+        "peak_s16": 584,
+        "rms_normalized": 0.002714616507429501,
+        "nonzero_samples": 42834
+      },
+      {
+        "second": 257,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 258,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 259,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.007429250032629527,
+        "nonzero_samples": 86161
+      },
+      {
+        "second": 260,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.02034252332771201,
+        "nonzero_samples": 57307
+      },
+      {
+        "second": 261,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.020341560142935523,
+        "nonzero_samples": 52028
+      },
+      {
+        "second": 262,
+        "samples": 96000,
+        "peak_s16": 10981,
+        "rms_normalized": 0.04688598914196364,
+        "nonzero_samples": 33423
+      },
+      {
+        "second": 263,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.02125359399713156,
+        "nonzero_samples": 90989
+      },
+      {
+        "second": 264,
+        "samples": 96000,
+        "peak_s16": 11005,
+        "rms_normalized": 0.0493356147199323,
+        "nonzero_samples": 93796
+      },
+      {
+        "second": 265,
+        "samples": 96000,
+        "peak_s16": 262,
+        "rms_normalized": 0.0005849159378777569,
+        "nonzero_samples": 31745
+      },
+      {
+        "second": 266,
+        "samples": 96000,
+        "peak_s16": 17232,
+        "rms_normalized": 0.043573070830327874,
+        "nonzero_samples": 93004
+      },
+      {
+        "second": 267,
+        "samples": 96000,
+        "peak_s16": 5,
+        "rms_normalized": 9.371016901317833e-06,
+        "nonzero_samples": 2594
+      },
+      {
+        "second": 268,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 269,
+        "samples": 75200,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 4143872,
+        "duration": "269.783333",
+        "bit_rate": "644827",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "16187",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 12949584,
+        "duration": "269.783000",
+        "bit_rate": "62280",
+        "nb_frames": "12648",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_workshop_01/current-all-01/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "269.783333",
+      "size": "24276508",
+      "bit_rate": "719881",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "trace_frame_count": 16113,
+  "chapters": [
+    {
+      "case": 0,
+      "id": "patrol_drone",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 1,
+      "end_frame": 634,
+      "start_seconds": 0.0166666666666667,
+      "end_seconds": 10.5666666666667,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "not_applicable_contact_only"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.08333333333331,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 201.972999369193,
+            "tension": 0.0,
+            "travel": 0.999999999926742
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 1,
+      "id": "patrol_drone",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 635,
+      "end_frame": 1268,
+      "start_seconds": 10.6166666666667,
+      "end_seconds": 21.1833333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "not_applicable_contact_only"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.09999999999998,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 202.444238267231,
+            "tension": 0.0,
+            "travel": 0.999999999926742
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 2,
+      "id": "plains_charger",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 1269,
+      "end_frame": 1932,
+      "start_seconds": 21.2333333333333,
+      "end_seconds": 32.3,
+      "post_death_observation_frames": 240,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.09999999999998,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 113.976996812045,
+            "tension": 0.0,
+            "travel": 0.999999939684232
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              654.5,
+              500.108428955078
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    },
+    {
+      "case": 3,
+      "id": "plains_charger",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 1933,
+      "end_frame": 2596,
+      "start_seconds": 32.35,
+      "end_seconds": 43.4166666666667,
+      "post_death_observation_frames": 240,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.09999999999998,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 113.976996812045,
+            "tension": 0.0,
+            "travel": 0.999999939684232
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              654.5,
+              500.466979980469
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    },
+    {
+      "case": 4,
+      "id": "plains_diver",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 2597,
+      "end_frame": 3262,
+      "start_seconds": 43.4666666666667,
+      "end_seconds": 54.5666666666667,
+      "post_death_observation_frames": 243,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.08333333333331,
+            "recovery": 6.294e-28,
+            "release": 0.0,
+            "stride": 167.615570315477,
+            "tension": 0.0,
+            "travel": 0.999990727188492
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              628.853088378906,
+              501.846160888672
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    },
+    {
+      "case": 5,
+      "id": "plains_diver",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 3263,
+      "end_frame": 3926,
+      "start_seconds": 54.6166666666667,
+      "end_seconds": 65.6833333333333,
+      "post_death_observation_frames": 241,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.08333333333331,
+            "recovery": 6.294e-28,
+            "release": 0.0,
+            "stride": 167.615570315477,
+            "tension": 0.0,
+            "travel": 0.999990727188492
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              628.853088378906,
+              500.50927734375
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    },
+    {
+      "case": 6,
+      "id": "plains_hopper",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 3927,
+      "end_frame": 4557,
+      "start_seconds": 65.7333333333333,
+      "end_seconds": 76.25,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.04999999999998,
+            "recovery": 3.48256573e-24,
+            "release": 6.1e-31,
+            "stride": 279.108595764044,
+            "tension": 0.0,
+            "travel": 0.99992960209073
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 7,
+      "id": "plains_hopper",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 4558,
+      "end_frame": 5188,
+      "start_seconds": 76.3,
+      "end_seconds": 86.8166666666667,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.04999999999998,
+            "recovery": 3.48256573e-24,
+            "release": 6.1e-31,
+            "stride": 279.108595764044,
+            "tension": 0.0,
+            "travel": 0.99992960209073
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 8,
+      "id": "plains_sentry",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 5189,
+      "end_frame": 5826,
+      "start_seconds": 86.8666666666667,
+      "end_seconds": 97.5,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.16666666666665,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 10.1787678675349,
+            "tension": 0.0,
+            "travel": 1.0075601104758e-10
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 9,
+      "id": "plains_sentry",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 5827,
+      "end_frame": 6464,
+      "start_seconds": 97.55,
+      "end_seconds": 108.183333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.16666666666665,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 10.1787678675349,
+            "tension": 0.0,
+            "travel": 1.0075601104758e-10
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 10,
+      "id": "plains_fan_sentry",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 6465,
+      "end_frame": 7103,
+      "start_seconds": 108.233333333333,
+      "end_seconds": 118.883333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.18333333333331,
+            "recovery": 4.32854124522321e-12,
+            "release": 8.7979621024e-22,
+            "stride": 10.1787282634166,
+            "tension": 2.7095967282e-22,
+            "travel": 1.62210088594826e-10
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 11,
+      "id": "plains_fan_sentry",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 7104,
+      "end_frame": 7742,
+      "start_seconds": 118.933333333333,
+      "end_seconds": 129.583333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.18333333333331,
+            "recovery": 4.32854124522321e-12,
+            "release": 8.7979621024e-22,
+            "stride": 10.1787282634166,
+            "tension": 2.7095967282e-22,
+            "travel": 1.62210088594826e-10
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 12,
+      "id": "plains_root_bell",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 7743,
+      "end_frame": 8378,
+      "start_seconds": 129.633333333333,
+      "end_seconds": 140.233333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.13333333333331,
+            "recovery": 2.434709206e-23,
+            "release": 0.0,
+            "stride": 0.0,
+            "tension": 0.0,
+            "travel": 0.0
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 13,
+      "id": "plains_root_bell",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 8379,
+      "end_frame": 9014,
+      "start_seconds": 140.283333333333,
+      "end_seconds": 150.883333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.13333333333331,
+            "recovery": 2.434709206e-23,
+            "release": 0.0,
+            "stride": 0.0,
+            "tension": 0.0,
+            "travel": 0.0
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 14,
+      "id": "plains_root_bell",
+      "chain": "root_bell",
+      "renderer": "res://scripts/enemies/root_bell_presentation.gd",
+      "start_frame": 9015,
+      "end_frame": 9650,
+      "start_seconds": 150.933333333333,
+      "end_seconds": 161.533333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.13333333333331,
+            "recovery": 2.434709206e-23,
+            "release": 0.0,
+            "stride": 0.0,
+            "tension": 0.0,
+            "travel": 0.0
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 15,
+      "id": "forest_bark_beetle",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "start_frame": 9651,
+      "end_frame": 10820,
+      "start_seconds": 161.583333333333,
+      "end_seconds": 181.083333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 16,
+      "id": "forest_swing_pod",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "start_frame": 10821,
+      "end_frame": 11360,
+      "start_seconds": 181.133333333333,
+      "end_seconds": 190.133333333333,
+      "post_death_observation_frames": 219,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "not_applicable_contact_only"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 17,
+      "id": "forest_lantern",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+      "start_frame": 11361,
+      "end_frame": 11900,
+      "start_seconds": 190.183333333333,
+      "end_seconds": 199.183333333333,
+      "post_death_observation_frames": 220,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 18,
+      "id": "forest_seed_sentry",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_enemy_presentation.gd",
+      "start_frame": 11901,
+      "end_frame": 12538,
+      "start_seconds": 199.233333333333,
+      "end_seconds": 209.866666666667,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 19,
+      "id": "forest_thread_spider",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+      "start_frame": 12539,
+      "end_frame": 13078,
+      "start_seconds": 209.916666666667,
+      "end_seconds": 218.916666666667,
+      "post_death_observation_frames": 219,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 20,
+      "id": "forest_crossbranch",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_crossbranch_presentation.gd",
+      "start_frame": 13079,
+      "end_frame": 13914,
+      "start_seconds": 218.966666666667,
+      "end_seconds": 232.9,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 21,
+      "id": "forest_bible_weaver",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/forest_depth_enemy_presentation.gd",
+      "start_frame": 13915,
+      "end_frame": 14657,
+      "start_seconds": 232.95,
+      "end_seconds": 245.333333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "authored_attack_variants": {
+          "actual_hold_ids": [
+            "upper",
+            "lower"
+          ],
+          "expected": [
+            "upper",
+            "lower"
+          ],
+          "source": "real state/strand_index/strand_rows, not a requested transition"
+        },
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {},
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": null,
+          "host_feedback_frame_index_source": "not exposed by this species renderer; procedural/shared hit pose has no authored frame index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "renderer does not expose authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 22,
+      "id": "candidate_lure_guard",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/prototype_enemy_presentation.gd",
+      "start_frame": 14658,
+      "end_frame": 15476,
+      "start_seconds": 245.383333333333,
+      "end_seconds": 259.033333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 0.0,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 0.0,
+            "tension": 0.0,
+            "travel": 0.0
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    },
+    {
+      "case": 23,
+      "id": "candidate_crosswind_moth",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/prototype_enemy_presentation.gd",
+      "start_frame": 15477,
+      "end_frame": 16113,
+      "start_seconds": 259.083333333333,
+      "end_seconds": 269.7,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 0.0,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 0.0,
+            "tension": 0.0,
+            "travel": 0.0
+          },
+          "death_frame_index": null,
+          "death_frame_index_reason": "original species terminal renderer has no exposed authored corpse cell",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": false,
+        "visible_corpse_tail": false
+      }
+    }
+  ],
+  "coverage_gap_count": 0,
+  "mp4_sha256": "a65b2c6efe7ad6c43db148001c7c25e9b853342ab48e3969d92693b981e7466e",
+  "avi_sha256": "95263e3cf852942c65e127db438bf4d9a9fc50484f6a9ef07a2893c4c96de0b2",
+  "trace_sha256": "eaa490e6a3b51baa13565cf21283c8cf871152a98c4565b24072159db2fa465d",
+  "raw_avi_retained": false,
+  "source_stable": true,
+  "seconds": 429.83391540099547
+}

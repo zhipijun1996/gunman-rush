@@ -1,0 +1,533 @@
+{
+  "task": "ENEMY-ALL-02",
+  "group": "plains",
+  "chains": "all",
+  "species": "plains_charger",
+  "seed_label": "enemy-all-review-02",
+  "status": "recorded_complete_coverage",
+  "source": {
+    "working_files": {},
+    "commit": "52d0a0ada2103b64b53ecc09d342dc85387111c3",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "27e0b5941e13da120362eb97807fe2abba1182870710b44f060309eb2f55b5d3",
+  "scope": "Genuine Godot MovieMaker; explicit initial fixtures, real AI, InputRouter, projectiles, enemy and player FrameDamagePolicy. No natural-campaign claim.",
+  "user_acceptance": "pending",
+  "device_acceptance": "unverified",
+  "listening_acceptance": false,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_workshop_01/current-corpse-charger-01/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_all_review_02_capture.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-corpse-charger-01/trace.json",
+    "--group=plains",
+    "--chains=all",
+    "--seed=enemy-all-review-02",
+    "--species=plains_charger",
+    "--require-remains"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793279883.9962869,
+    "ended_at_unix": 1793279917.392025,
+    "duration_seconds": 33.396,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_workshop_01/current-corpse-charger-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_all_review_02_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-corpse-charger-01/trace.json",
+      "--group=plains",
+      "--chains=all",
+      "--seed=enemy-all-review-02",
+      "--species=plains_charger",
+      "--require-remains"
+    ],
+    "check_token": "1f49da6f107d407c8b37529b2f8c0668"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 1068800,
+    "duration_seconds": 22.266666666666666,
+    "samples": 2137600,
+    "peak_s16": 15861,
+    "peak_normalized": 0.484039306640625,
+    "rms_normalized": 0.024320878331626487,
+    "nonzero_samples": 865974,
+    "nonzero_sample_ratio": 0.40511508233532934,
+    "seconds_containing_nonzero_pcm": 17,
+    "pcm_sha256": "a291e7bb68debf242879dbdd25877fd4938cd77dac9abc7c31bc10375e0b344f",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.0074318725766540986,
+        "nonzero_samples": 92592
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 6,
+        "rms_normalized": 1.1063498977457496e-05,
+        "nonzero_samples": 3809
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.04736419208132566,
+        "nonzero_samples": 40956
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 885,
+        "rms_normalized": 0.004651320266306769,
+        "nonzero_samples": 58110
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 10875,
+        "rms_normalized": 0.047278357185934136,
+        "nonzero_samples": 73132
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.007459452226240051,
+        "nonzero_samples": 34380
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.043471803471636344,
+        "nonzero_samples": 90496
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.007417787085655707,
+        "nonzero_samples": 83107
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 320,
+        "rms_normalized": 0.00045753700154461106,
+        "nonzero_samples": 12354
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 11312,
+        "rms_normalized": 0.046778822153692834,
+        "nonzero_samples": 29950
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 1877,
+        "rms_normalized": 0.008760323604162387,
+        "nonzero_samples": 69116
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 11469,
+        "rms_normalized": 0.04869684560876019,
+        "nonzero_samples": 61154
+      },
+      {
+        "second": 17,
+        "samples": 96000,
+        "peak_s16": 195,
+        "rms_normalized": 0.0009046886257584365,
+        "nonzero_samples": 37816
+      },
+      {
+        "second": 18,
+        "samples": 96000,
+        "peak_s16": 15861,
+        "rms_normalized": 0.044105722927015284,
+        "nonzero_samples": 93316
+      },
+      {
+        "second": 19,
+        "samples": 96000,
+        "peak_s16": 16,
+        "rms_normalized": 6.244757683939626e-05,
+        "nonzero_samples": 5606
+      },
+      {
+        "second": 20,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 21,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 22,
+        "samples": 25600,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 342016,
+        "duration": "22.266667",
+        "bit_rate": "658976",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1336",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1068768,
+        "duration": "22.266000",
+        "bit_rate": "57667",
+        "nb_frames": "1045",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_workshop_01/current-corpse-charger-01/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "22.266667",
+      "size": "2031754",
+      "bit_rate": "729971",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "trace_frame_count": 1328,
+  "chapters": [
+    {
+      "case": 0,
+      "id": "plains_charger",
+      "chain": "underworld",
+      "renderer": "res://scripts/underworld_plains/underworld_enemy.gd",
+      "start_frame": 1,
+      "end_frame": 664,
+      "start_seconds": 0.0166666666666667,
+      "end_seconds": 11.0666666666667,
+      "post_death_observation_frames": 240,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.08333333333331,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 113.505757914007,
+            "tension": 0.0,
+            "travel": 0.999999923469542
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 0.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": false,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              653.0,
+              500.108428955078
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    },
+    {
+      "case": 1,
+      "id": "plains_charger",
+      "chain": "scene",
+      "renderer": "res://scripts/enemies/enemy_presentation.gd",
+      "start_frame": 665,
+      "end_frame": 1328,
+      "start_seconds": 11.1166666666667,
+      "end_seconds": 22.1833333333333,
+      "post_death_observation_frames": 240,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "body_motion": {
+            "clock": 7.09999999999998,
+            "recovery": 0.0,
+            "release": 0.0,
+            "stride": 113.976996812045,
+            "tension": 0.0,
+            "travel": 0.999999939684232
+          },
+          "death_frame_index": 7,
+          "death_frame_index_reason": "Presentation.feedback_remains.frame_index",
+          "host_alpha": 1.0,
+          "host_feedback_frame_index": -1,
+          "host_feedback_frame_index_source": "Presentation.feedback_frame_index",
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "not currently in an authored hurt frame",
+          "hurt_remaining": 0.0,
+          "remains": {
+            "alpha": 1.0,
+            "frame_index": 7,
+            "position": [
+              654.5,
+              500.466979980469
+            ],
+            "rotation": 0.0,
+            "scale": [
+              1.0,
+              1.0
+            ],
+            "settled": true,
+            "visible": true
+          }
+        },
+        "interpretation": "Observed component/body visibility; human visual review remains pending.",
+        "sampled_tail_frames": 210,
+        "stationary_corpse_tail": true,
+        "visible_corpse_tail": true
+      }
+    }
+  ],
+  "coverage_gap_count": 0,
+  "mp4_sha256": "2df0fe87787496dfc16c112801f6ea5a5d71dcc0f1018e7b3967ffecbb794e65",
+  "avi_sha256": "7aa2cded6798c979f90ddcea3370a343fb882886134e6a741b019f1212ae4a4e",
+  "trace_sha256": "9bdc47e76a5e4330b5eaa47a8fc3de6cb0dc23aabc2d655a1a30531a14350a02",
+  "raw_avi_retained": false,
+  "source_stable": true,
+  "seconds": 38.13153208599397
+}
