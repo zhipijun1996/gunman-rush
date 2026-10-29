@@ -127,23 +127,6 @@ func strip_corners(first: Vector2,last: Vector2) -> PackedVector2Array:
 	return PackedVector2Array([first-normal,first+normal,last+normal,last-normal])
 func _draw() -> void:
 	if config==null or severed or suspended: return
-	var preview := current_segment(1)
-	draw_line(to_local(preview[0]),to_local(preview[1]),Color("dfb684"),2,true)
-	if rising():
-		# Authored full travel and the next second are readable, without inventing an unseen hazard.
-		var center := (start+tip)*.5
-		var upper := Vector2(0,-config.rising_travel)
-		draw_line(to_local(start+upper),to_local(tip+upper),Color("696c60"),1,true)
-		draw_line(to_local(center),to_local(center-Vector2(0,config.rising_travel)),Color("847d69"),1,true)
-		for index: int in 5:
-			draw_circle(to_local(center+rise_offset(age+float(index)/4)),2,Color("efc499"))
-	if rotating():
-		# Direction and the next second of motion are visible before entering the thread.
-		var angle := (preview[1]-preview[0]).angle()
-		for index: int in 5:
-			var future := angle+deg_to_rad(config.rotating_degrees_per_second)*float(index)/4
-			var point := start+Vector2.from_angle(future)*start.distance_to(tip)
-			draw_circle(to_local(point),2,Color("efc499"))
 	if growth>0 and _danger_polygon.size()>=3:
 		var local := PackedVector2Array()
 		for point: Vector2 in _danger_polygon: local.append(to_local(point))

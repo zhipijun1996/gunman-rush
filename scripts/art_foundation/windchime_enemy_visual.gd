@@ -57,5 +57,3 @@ func _draw() -> void:
 	draw_arc(Vector2(-8,-20),4,0,TAU,16,gold,2,true)
 	draw_arc(Vector2(0,-20),4,0,TAU,16,gold,2,true)
 	draw_set_transform(Vector2.ZERO)
-	for i: int in ceili(actor.health.current):
-		draw_circle(Vector2(-5+i*5,-31),1.4,Color("f2dfad"))

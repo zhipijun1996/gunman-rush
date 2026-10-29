@@ -83,22 +83,6 @@ func _draw() -> void:
 		else: draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
-		var remaining: float = core_view.remaining_fraction
-		draw_arc(p,29,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
-		draw_string(CORE_FONT,p+Vector2(25,-20),"收招" if encounter.continuous_combat() else "OPEN %.1fs" % maxf(0,observed.raw_clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
-	if observed.raw_mode==&"roll_warning":
-		var distance:=encounter.roll_warning_distance()
-		var end:=Vector2(observed.direction*distance,48)
-		draw_line(Vector2(0,48),end,Color(1,.67,.25,.7),4)
-		for i: int in 4:
-			var p:=Vector2(observed.direction*distance*(i+1)/5.0,44)
-			draw_line(p-Vector2(observed.direction*8,6),p,Color("f1d58d"),2)
-	if observed.raw_mode in [&"lob_warning",&"lob"]:
-		var p:=encounter.locked_point-global_position
-		draw_arc(p,25,0,TAU,32,Color(1,.64,.3,.8),3)
-		draw_line(p-Vector2(33,0),p+Vector2(33,0),Color("f6d294"),2)
-		if observed.phase==2: draw_arc(p+Vector2(110*observed.direction,-20),25,0,TAU,32,Color(1,.64,.3,.45),2)
-	if observed.raw_mode==&"ring_warning": draw_arc(Vector2(0,48),40+sin(clock*12)*5,PI,TAU,32,Color("f2d698"),3)
 
 func _exit_tree() -> void:
 	motion.dispose(encounter)

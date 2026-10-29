@@ -169,30 +169,11 @@ func _draw() -> void:
 		var charged: bool = rune.charged
 		if pixel_style: PixelFormalActors.bell(self,at,charged)
 		else: PlainsInteractiveArt.draw_sigil(self,at,1,42)
-		draw_arc(at,26,0,TAU,36,Color("aee8bc") if charged else Color("f4d887"),2)
-		var caption:String="RUNE READY / JUMP" if charged else "LAND ON LIT SHELF"
-		var size:Vector2=CORE_FONT.get_string_size(caption,HORIZONTAL_ALIGNMENT_LEFT,-1,12)
-		draw_rect(Rect2(at+Vector2(-size.x/2,-57),size+Vector2(4,8)),Color(.06,.12,.1,.94))
-		draw_string(CORE_FONT,at+Vector2(-size.x/2,-38),caption,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("ffe9a8"))
-	if observed.raw_mode in [&"charge_warning",&"stomp_warning",&"blade_warning",&"pier_warning",&"phase_transition"]:
-		draw_arc(Vector2(0,65),88,PI,TAU,24,Color(1,.65,.23,.7),4)
 	var core_view := encounter.presentation_core()
 	if core_view.visible:
 		var core: Vector2 = core_view.offset
-		if not encounter.continuous_combat() and (encounter.definition as WindkeeperDefinition).storm_profile and observed.phase>=2:
-			if pixel_style:
-				PixelFormalActors.pixel_line(self,core+Vector2(-12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
-				PixelFormalActors.pixel_line(self,core+Vector2(12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
-			else: PlainsInteractiveArt.draw_aim(self,core+Vector2(0,-66),44)
-			draw_line(core+Vector2(0,-50),core+Vector2(0,-25),Color("ffe9a8"),3)
-			draw_string(CORE_FONT,core+Vector2(-30,-55),"空中下射" if observed.phase==3 else "上侧射击",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
 		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
-		var remaining: float = core_view.remaining_fraction
-		draw_arc(core,30,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
-		draw_string(CORE_FONT,core+Vector2(30,-20),"收招" if encounter.continuous_combat() else "OPEN %.1fs" % maxf(0,observed.raw_clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
-		for side: int in [-1, 1]:
-			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
 		if UnderworldActors.enabled(self):
 			var bell := UnderworldActors.icon_texture(&"bell")
@@ -201,23 +182,15 @@ func _draw() -> void:
 		elif pixel_style: PixelFormalActors.bell(self,core,true,hurt_flash>0)
 		else: draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
-	if (encounter.definition as WindkeeperDefinition).storm_profile and observed.raw_mode in [&"blade_warning",&"blades"]:
+	if (encounter.definition as WindkeeperDefinition).storm_profile and observed.raw_mode == &"blades":
 		for i: int in 8:
 			var p:=Vector2(-180+fmod(visual_clock*-100+i*67+10000,360),-170+float(i%3)*45)
 			draw_line(p,p+Vector2(-28,0),Color(.85,.91,.69,.5),2)
-	if observed.phase == 2 and observed.raw_mode in [&"blade_warning", &"blades"]:
+	# These are the current damaging rotor arms, never a future attack path.
+	if bool(blades.active):
 		for arm: int in 4:
 			var axis := Vector2.from_angle(float(blades.angle) + arm * PI / 2)
-			draw_line(Vector2(0,-75) + axis * 15, Vector2(0,-75) + axis * 115, Color(1,.65,.3,.65 if observed.raw_mode == &"blades" else .25), 3)
-	if observed.raw_mode == &"phase_transition" and observed.phase == 3:
-		for x: float in [245,510,745]:
-			var point := Vector2(encounter.arena.left_x+x-encounter.motor.global_position.x,65)
-			draw_line(point-Vector2(25,0),point+Vector2(25,0),Color(1,.75,.35,.75),3)
-
-	var locked_aim := encounter.presentation_locked_aim()
-	if not locked_aim.is_empty():
-		var point: Vector2 = locked_aim.position-encounter.motor.global_position
-		draw_arc(point,24,0,TAU,32,Color(1,.69,.25,.7),2)
+			draw_line(Vector2(0,-75) + axis * 15, Vector2(0,-75) + axis * 115, Color(1,.65,.3,.65), 3)
 	for leaf:Dictionary in _leaves:
 		var point:Vector2=leaf.point-encounter.motor.global_position
 		if pixel_style: draw_rect(Rect2(point.snapped(Vector2(2,2)),Vector2(4,2)),Color(PixelFormalActors.MOSS,1-leaf.age/.9))

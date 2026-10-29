@@ -27,6 +27,18 @@ func check(ok: bool, label: String) -> void:
 		failures.append(label)
 		printerr("FAIL: ", label)
 
+func actual_final_body(art: UnderworldEnemy) -> bool:
+	var remains := art.feedback_remains
+	# Keep this consumer's dependency one-way. Inferring the nested rig type
+	# here retains a GDScript resource graph even in a load-only/no-instance
+	# probe; use the exact concrete script and actual runtime capability instead.
+	var visual: Variant = art.get("revision_visual")
+	if visual != null:
+		var rig: RefCounted = visual.get("rig") as RefCounted
+		return remains.get_script().resource_path=="res://scripts/enemies/plains_revision_remains.gd" and remains.frame_index==7 and bool(remains.get("_finished_death")) and remains.get("_rig")==rig and remains.source==rig.get("texture") and remains.bounds==rig.get("bounds")
+	var frames: RefCounted = art.get("feedback_frames") as RefCounted
+	return frames!=null and remains.frame_index==7 and remains.source==frames.call("texture",7) and remains.bounds==frames.call("bounds",7)
+
 func stage_ready(phase: String) -> bool:
 	var started := Time.get_ticks_msec()
 	var frames := 0
@@ -166,7 +178,7 @@ func verify_target(stable_id: StringName) -> void:
 	check(art.feedback_sample.flash_strength() == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_particles.emitted_bursts == ceili(initial_hp), "actual formal terminal replay adds no pixel burst and all impact effects expire")
 	await ticks(130, "formal_persistent_corpse_over_two_seconds")
 	check(art._death >= .65 and not art.visible and art.feedback_remains.active and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "actual generated corpse remains visible for over two seconds after inherited parent fade")
-	check(art.feedback_remains.frame_index == 7 and art.feedback_remains.source == art.feedback_frames.texture(7), "actual generated accepted corpse persists on authored rest frame 7")
+	check(actual_final_body(art), "actual generated accepted corpse persists on its final current rig source or authored rest frame 7")
 	check(art.feedback_remains.accepted_starts == 1 and JSON.stringify(app.region_state.drops) == drops_before, "persistent corpse and repeated formal settlement preserve one death and exact drop receipt")
 	results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "verified", "fixture": fixture, "initial_HP": initial_hp, "projectile_contexts": events.size() - before_events, "shots": shots.size() - before_shots, "drop": drop, "pickup_instances": duplicate_count, "hurt_count": art.feedback_sample.accepted_hit_count, "death_count": art.feedback_sample.accepted_death_count, "remains_age": art.feedback_remains.age, "remains_phase": str(art.feedback_remains.phase), "remains_accepted_starts": art.feedback_remains.accepted_starts})
 
@@ -210,7 +222,7 @@ func verify_actual_reload() -> void:
 			check(art != null and art.feedback_sample != null and art.feedback_sample.restored_terminal and not art.feedback_sample.death_active and art.feedback_sample.accepted_death_count == 0 and art.feedback_sample.accepted_hit_count == 0, "actual restored corpse never starts new hurt or death performance")
 			check(art.feedback_particles.emitted_bursts == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_sample.flash_strength() == 0, "official reload of dead actor emits no pixel particles or body flash")
 			check(art.feedback_remains.active and art.feedback_remains.restored and art.feedback_remains.settled and art.feedback_remains.accepted_starts == 0, "official dead snapshot reconstructs static remains without replaying death motion")
-			check(art.feedback_remains.frame_index == 7 and art.feedback_remains.source == art.feedback_frames.texture(7), "official dead reload directly reconstructs authored final frame without new death animation")
+			check(actual_final_body(art), "official dead reload directly reconstructs final current body source without new death animation")
 			check(art.feedback_remains.get_parent() == stage and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "official restored corpse stays visible despite hidden saved EnemyMotor")
 			var expected := 0 if result.drop.kind == "none" else 1
 			check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + str(result.id)).size() == expected, "official rebuild restores one existing drop instance")

@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-MONSTER-REVISION-01",
+  "task_type": "enemy",
+  "workflow": "in_progress",
+  "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "reviewed_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "content_version": "plains-monster-revision-v1",
+  "owner": "implementer",
+  "purpose": "落实用户逐只平原7怪修改：隐藏普通HP、删除纯辅助预告、以同体骨骼完成蓄势/出手/收招和差异受伤/死亡，并在工坊交真实实机片供复审",
+  "player_experience": "正常游戏比例看清身体、朝向和攻击意图；死亡先失力落位，冲锋/俯冲稳定留尸，其余短留淡出；整体1wu fine像素粒度一致",
+  "constraints": [
+    "原AI/HP/武器/玩家/伤害/奖励/保存权威保持",
+    "新体型先真实平原玩家+diver同屏比较；碰撞核主要躯体，不把角翼外缘当整块碰撞",
+    "32px/32wu地形和1wu nearest世界采样不变",
+    "原用户品质拒绝与历史失败保留；不自动签用户/真机/G5"
+  ],
+  "affected_paths": [
+    "assets/audio/plains_revision_01/provenance.json",
+    "assets/audio/plains_revision_01/root_bell_fall.wav",
+    "assets/audio/plains_revision_01/root_bell_fall.wav.import",
+    "assets/manifest.json",
+    "assets/plains_revision_01/charger.png",
+    "assets/plains_revision_01/charger.png.import",
+    "assets/plains_revision_01/fan_sentry.png",
+    "assets/plains_revision_01/fan_sentry.png.import",
+    "assets/plains_revision_01/hopper.png",
+    "assets/plains_revision_01/hopper.png.import",
+    "assets/plains_revision_01/manifest.json",
+    "assets/plains_revision_01/patrol.png",
+    "assets/plains_revision_01/patrol.png.import",
+    "assets/plains_revision_01/provenance.json",
+    "assets/plains_revision_01/root_bell.png",
+    "assets/plains_revision_01/root_bell.png.import",
+    "assets/plains_revision_01/sentry.png",
+    "assets/plains_revision_01/sentry.png.import",
+    "assets/plains_revision_01/source/first-palette.png",
+    "assets/plains_revision_01/source/first-palette.png.import",
+    "assets/plains_revision_01/source/master.png",
+    "assets/plains_revision_01/source/master.png.import",
+    "assets/plains_revision_01/source/prompts.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-CHARGER.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-FAN_SENTRY.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-HOPPER.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-LOW-BELL.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-PATROL.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-ROOT_BELL.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-SENTRY.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-SOURCE-FIRST-PALETTE.json",
+    "docs/quality/asset_records/PLAINS-REVISION-01-SOURCE-MASTER.json",
+    "docs/quality/records/PLAINS-MONSTER-REVISION-01.json",
+    "docs/tasks.md",
+    "docs/worklines/plains_monster_revision_01/scope.md",
+    "docs/worklines/plains_monster_revision_01/spec.md",
+    "resources/enemies/plains_root_bell.tres",
+    "resources/enemies/plains_sentry.tres",
+    "scripts/art_foundation/pixel_plains_enemy.gd",
+    "scripts/art_foundation/windchime_enemy_visual.gd",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_presentation.gd",
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+    "scripts/bosses/guardian_root_bell_v2.gd",
+    "scripts/bosses/thorn_forest_presentation.gd",
+    "scripts/bosses/thorn_queen_canopy_presentation.gd",
+    "scripts/bosses/thorn_queen_weave_band.gd",
+    "scripts/bosses/thorn_queen_weave_presentation.gd",
+    "scripts/bosses/windkeeper_presentation.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_attack_behavior.gd",
+    "scripts/enemies/enemy_attack_projectile.gd",
+    "scripts/enemies/enemy_definition.gd",
+    "scripts/enemies/enemy_feedback_01_remains.gd",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/enemies/forest_crossbranch_presentation.gd",
+    "scripts/enemies/forest_depth_enemy_presentation.gd",
+    "scripts/enemies/forest_enemy_presentation.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd",
+    "scripts/enemies/plains_motion_02.gd",
+    "scripts/enemies/plains_revision_flora.gd",
+    "scripts/enemies/plains_revision_flora.gd.uid",
+    "scripts/enemies/plains_revision_ground.gd",
+    "scripts/enemies/plains_revision_ground.gd.uid",
+    "scripts/enemies/plains_revision_remains.gd",
+    "scripts/enemies/plains_revision_remains.gd.uid",
+    "scripts/enemies/plains_revision_skin.gd",
+    "scripts/enemies/plains_revision_skin.gd.uid",
+    "scripts/enemies/plains_revision_skin.gdshader",
+    "scripts/enemies/plains_revision_skin.gdshader.uid",
+    "scripts/enemies/plains_revision_visual.gd",
+    "scripts/enemies/plains_revision_visual.gd.uid",
+    "scripts/enemies/prototype_enemy_presentation.gd",
+    "scripts/enemies/root_bell_presentation.gd",
+    "scripts/enemies/root_bell_pulse_art.gd",
+    "scripts/enemies/root_bell_pulse_art.gd.uid",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_all_02_plains_lifecycle.gd",
+    "tests/enemy_feedback_01_formal.gd",
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/plains_revision_01_muzzle.gd",
+    "tests/plains_revision_01_muzzle.gd.uid",
+    "tests/plains_revision_01_runner.gd",
+    "tests/plains_revision_01_runner.gd.uid",
+    "tools/enemy_all_review_02_capture.gd",
+    "tools/plains_revision_01_comparison.gd",
+    "tools/plains_revision_01_comparison.gd.uid"
+  ],
+  "deliverables": [
+    "docs/worklines/plains_monster_revision_01/spec.md",
+    "assets/plains_revision_01/manifest.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ],
+  "test_change_justification": "用户改用同体连续rig后，旧charger的H/D frame消费者断言迁移为实际rig/source/material/pose/settled；保四组旧Frames资源独立检查与原accepted/epoch/暂停/慢时/支撑/保存/掉落/释放断言。观察区间检查移动到原有130帧之后，不增加原总预算；正式helper改用exact script identity及动态RefCounted读取避免已实际A/B复现的编译资源图泄漏，严格退出门禁未改。"
+}

@@ -118,7 +118,6 @@ func _advance_body_pose(delta: float) -> void:
 func _draw() -> void:
 	if not lifecycle.is_bound(): return
 	if not is_instance_valid(actor) or _native_points.is_empty(): return
-	var phase: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var tint := hit_template.tint() if hit_template != null else Color.WHITE
 	if actor.health.terminal: tint.a = maxf(0.0,1.0-_death_time/0.6)
 	if tint.a<=0.0: return
@@ -135,13 +134,6 @@ func _draw() -> void:
 	_mesh.surface_update_vertex_region(0,0,destination.to_byte_array())
 	draw_mesh(_mesh,ATLAS,Transform2D.IDENTITY,tint)
 	draw_set_transform(Vector2.ZERO)
-	if not actor.health.terminal and phase==&"telegraph":
-		var aim: Vector2 = actor.attack_behavior.locked_direction
-		if moth:
-			for angle: float in [-0.35,0.35]: draw_line(aim.rotated(angle)*22,aim.rotated(angle)*65,Color(1,.82,.36,.55),1.5)
-		else:
-			var committed := float(actor.brain.direction)
-			draw_line(Vector2(committed*20,10),Vector2(committed*90,10),Color(1,.82,.36,.65),2)
 
 func _deform_master(point: Vector2) -> Vector2:
 	var death := smoothstep(0.0,0.45,_death_time) if actor.health.terminal else 0.0

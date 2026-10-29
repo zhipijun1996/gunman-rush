@@ -20,10 +20,18 @@ var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"legacy")
+var revision_visual: PlainsRevisionVisual
 var lifecycle := EnemyPresentationLifecycle.new()
 func _ready() -> void:
 	if EnemyPresentationBinding.bind_existing(actor,self,_presentation_profile()).is_empty(): return
 	_size = actor.definition.collision_size
+	if PlainsRevisionSkin.supports(actor.definition):
+		revision_visual = PlainsRevisionVisual.install(self,actor,body_motion)
+		feedback_sample = revision_visual.sample
+		feedback_particles = revision_visual.particles
+		feedback_remains = revision_visual.remains
+		lifecycle.bind(actor,self,_presentation_initialized,_health_changed,body_motion,feedback_sample,true)
+		return
 	if EnemyFeedback01.supports(actor.definition):
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		body_motion.sample = feedback_sample
@@ -92,6 +100,7 @@ func _process(delta: float) -> void:
 		_hurt_time = maxf(0, _hurt_time - delta)
 	if feedback_sample == null or not actor.health.terminal:
 		_advance_body_pose(delta)
+	if revision_visual != null: revision_visual.refresh(delta)
 	queue_redraw()
 
 func _advance_body_pose(delta: float) -> void:
@@ -115,26 +124,11 @@ func _draw() -> void:
 	if not lifecycle.is_bound(): return
 	if actor == null:
 		return
+	if revision_visual != null: return
 	if feedback_sample != null and actor.health.terminal: return
 	var texture := PlainsRefreshAssets.object_texture(&"enemy_left" if actor.brain.direction < 0 else &"enemy_right")
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var facing := float(actor.brain.direction)
-	if not actor.health.terminal:
-		if state == &"telegraph":
-			draw_arc(Vector2(0, -8), 27, -PI, 0, 16, Color("f8cf74"), 2)
-			draw_line(Vector2(0, -40), Vector2(0, -30), Color("fff3bc"), 3)
-			if actor.definition.behavior_id in [&"diver",&"hopper"]:
-				var goal:=to_local(actor.attack_behavior.attack_goal)
-				draw_arc(goal,18,0,TAU,24,Color(1,.75,.3,.75),2)
-				for i: int in 5:
-					draw_line(goal*float(i)/5.0,goal*(float(i)+.4)/5.0,Color(1,.75,.3,.35),1.5)
-			elif actor.definition.behavior_id in [&"sentry",&"fan_sentry"]:
-				var aim:=actor.attack_behavior.locked_direction
-				for angle: float in ([-.18,0.0,.18] if actor.definition.behavior_id==&"fan_sentry" else [0.0]):
-					draw_line(aim.rotated(angle)*25,aim.rotated(angle)*90,Color(1,.75,.3,.45),1.5)
-		elif state == &"attack":
-			draw_line(Vector2(-facing * 32, 2), Vector2(-facing * 15, 2), Color(0.95, 0.82, 0.50, 0.6), 3)
-			draw_line(Vector2(-facing * 28, 8), Vector2(-facing * 10, 8), Color(0.95, 0.82, 0.50, 0.4), 2)
 	var size := Vector2(_size.x * 1.45, _size.y * 1.45)
 	var bob := sin(_clock * 7) * 1.2 if not actor.health.terminal else 0.0
 	size *= _weight
@@ -150,7 +144,7 @@ func _draw() -> void:
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, alpha))
 
 	if feedback_body != null:
-		pass # One coherent body child owns live and hurt; retain HP/telegraphs.
+		pass # One coherent body child owns live and hurt.
 	elif ForestBibleActors.draw_enemy_body(self, actor, _clock): return
 	elif EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
@@ -164,14 +158,6 @@ func _draw() -> void:
 		else:
 			draw_texture_rect(texture, Rect2(Vector2(-size.x / 2, -size.y / 2 + bob), size), false, tint)
 	draw_set_transform(Vector2.ZERO)
-	if actor.health.capacity>8:
-		var bar := Rect2(-_size.x/2,-_size.y/2-12,_size.x,4)
-		draw_rect(bar,Color(.15,.2,.15,.8))
-		bar.size.x*=actor.health.current/actor.health.capacity
-		draw_rect(bar,Color(1,.76,.42))
-	else:
-		for index: int in ceili(actor.health.current):
-			draw_circle(Vector2(-8 + index * 8, -_size.y / 2 - 9), 2.0, Color(1, 0.76, 0.42))
 
 func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 	var root := "res://assets/plains_v3/enemies/meadow_actions/"
@@ -242,6 +228,9 @@ func _feedback_body_size() -> Vector2:
 	return visible_body.size
 
 func _sync_feedback_body() -> void:
+	if revision_visual != null:
+		revision_visual.refresh(0.0)
+		return
 	feedback_frame_index = feedback_frames.hurt_index(feedback_sample)
 	feedback_body.visible = not actor.health.terminal
 	if not feedback_body.visible:

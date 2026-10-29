@@ -39,7 +39,6 @@ func _draw() -> void:
 	if actor.health.terminal and motion.death_elapsed >= ForestMotion02.DEATH_SECONDS:return
 	var behavior:=actor.attack_behavior
 	var phase: StringName=lifecycle.read_state().get("state",&"idle")
-	var warning:=phase==&"telegraph" and not actor.health.terminal
 	var bible_body := ForestBibleActors.draw_enemy_body(self, actor)
 	if actor.definition.behavior_id==&"forest_bark_beetle":
 		var facing:=float(actor.brain.direction)
@@ -56,10 +55,6 @@ func _draw() -> void:
 			draw_set_transform(Vector2.ZERO)
 		elif shield_flash > 0 and not actor.health.terminal:
 			draw_line(Vector2(facing*17,-11),Vector2(facing*17,11),Color("ffdd99"),2)
-		if warning and behavior!=null:
-			var goal:=to_local(behavior.attack_goal)
-			draw_line(Vector2(0,13),goal+Vector2(0,13),Color("ffc36b"),3)
-			draw_line(goal+Vector2(-facing*8,7),goal+Vector2(0,13),Color("ffc36b"),2)
 	else:
 		if bible_body: ForestBibleActors.draw_tether_attachment(self, actor)
 		if behavior!=null:
@@ -79,4 +74,3 @@ func _draw() -> void:
 			draw_colored_polygon(PackedVector2Array([Vector2(0,-15),Vector2(13,-5),Vector2(10,11),Vector2(0,15),Vector2(-10,11),Vector2(-13,-5)]),hit_template.tint(Color("b6bc65") if phase!=&"blocked" else Color("8b7863")))
 			draw_arc(Vector2.ZERO,8,-PI*.8,PI*.8,18,Color("ece9ac"),2)
 			draw_set_transform(Vector2.ZERO)
-		if not actor.health.terminal and phase==&"turn":draw_arc(Vector2.ZERO,20,0,TAU,24,Color("bde0a4"),2)

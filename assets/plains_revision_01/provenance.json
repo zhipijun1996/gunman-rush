@@ -1,0 +1,247 @@
+{
+  "task_id": "PLAINS-MONSTER-REVISION-01",
+  "content_version": "plains-monster-revision-v1",
+  "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "branch": "feature/plains-monster-revision-01",
+  "status": "in_progress; current candidates require actual game and per-monster review",
+  "tool": "image_gen.imagegen",
+  "model": "unknown: not exposed",
+  "license": "unknown: not exposed",
+  "user_direction": "Direct user message in the current conversation specifies seven monsters; additional verbatim instruction: 像素粒度要对齐整体美术。 Direction and production authorization are not final art acceptance.",
+  "prompt_record": {
+    "path": "assets/plains_revision_01/source/prompts.json",
+    "sha256": "85d7ffcdd41c44dfa2b9ce99976e8c104dd1362dbbbe7b24decc47425b05e22c",
+    "kind": "verbatim tool prompts retained by root, not reconstructed"
+  },
+  "generation_accounting": {
+    "successful_outputs": 2,
+    "schema_rejections_without_image": 1,
+    "note": "First attempted request exceeded five image references and was rejected before an image was produced; both successful PNG outputs are retained."
+  },
+  "schema_rejection": {
+    "tool": "image_gen.imagegen",
+    "error": "referenced_image_paths must contain at most 5 paths",
+    "image_generated": false,
+    "prompt_record": "assets/plains_revision_01/source/prompts.json#schema_rejection"
+  },
+  "outputs": [
+    {
+      "path": "assets/plains_revision_01/source/first-palette.png",
+      "sha256": "5e217bf0c26f3c2b369621060cfdb9ea2355b79b1927e691085827a211cc1ff7",
+      "bytes": 2096356,
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "tool": "image_gen.imagegen",
+      "prompt_record": "assets/plains_revision_01/source/prompts.json",
+      "prompt_index": 0,
+      "transparent_background_requested": true,
+      "model": "unknown: not exposed",
+      "license": "unknown: not exposed",
+      "status": "retained first palette candidate, not current body source",
+      "references": [
+        {
+          "path": "assets/underworld_plains/actors/patrol.png",
+          "sha256": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e"
+        },
+        {
+          "path": "assets/underworld_plains/actors/hopper.png",
+          "sha256": "f665bf113e0bcd4dede94a93aba429106d04091922383e397a7ab1d491b3ca07"
+        },
+        {
+          "path": "assets/underworld_plains/actors/root_bell.png",
+          "sha256": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e"
+        },
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+          "sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6"
+        },
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+          "sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6"
+        }
+      ]
+    },
+    {
+      "path": "assets/plains_revision_01/source/master.png",
+      "sha256": "9026ddb9db0f9933b421b8de76712b90cf73834dc4608fa6f406ca613a653555",
+      "bytes": 2063769,
+      "width": 1024,
+      "height": 1536,
+      "mode": "RGBA",
+      "tool": "image_gen.imagegen",
+      "prompt_record": "assets/plains_revision_01/source/prompts.json",
+      "prompt_index": 1,
+      "transparent_background_requested": true,
+      "model": "unknown: not exposed",
+      "license": "unknown: not exposed",
+      "status": "current six-neutral-body source candidate; acceptance unverified",
+      "references": [
+        {
+          "path": "assets/plains_revision_01/source/first-palette.png",
+          "sha256": "5e217bf0c26f3c2b369621060cfdb9ea2355b79b1927e691085827a211cc1ff7"
+        }
+      ],
+      "original_tool_workspace_path": "/workspace/generated_images/exec-d7b00dcf-b40a-404a-b73b-7c57dd63b723.png"
+    }
+  ],
+  "source_png_bytes": "Both successful PNGs copied byte-identical from tool outputs; original images and embedded metadata retained.",
+  "manifest": {
+    "path": "assets/plains_revision_01/manifest.json",
+    "sha256": "f18be3b4e03bc640e21762498066ec782706b0de693c005d0f82510a6a166828"
+  },
+  "derivation": "Connected alpha>=128 components, tight integer crop, original RGB/RGBA values retained inside silhouette; no resize/repaint. Runtime uses binary alpha and 1wu raster sampling.",
+  "derivation_boundary": "The six crops select connected silhouettes and tight integer regions with alpha>=128; no resizing or repainting. Original source PNGs remain unchanged. Alpha threshold is the declared crop rule, not a visual acceptance result.",
+  "runtime_pixel_policy": {
+    "implementation": "scripts/enemies/plains_revision_skin.gdshader",
+    "sampling": "1 world unit raster lattice; nearest filtering; binary alpha at runtime",
+    "acceptance": "Actual GPU comparison with player, terrain and unchanged diver remains a separate required check; source resolution alone is not proof."
+  },
+  "derived_assets": [
+    {
+      "path": "assets/plains_revision_01/patrol.png",
+      "sha256": "12269d5e2abeb78245d4d5a201f4cff7007fae7b23768da83816d25828315f45",
+      "bytes": 208342,
+      "width": 354,
+      "height": 342,
+      "mode": "RGBA",
+      "species": "patrol",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        91,
+        123,
+        354,
+        342
+      ],
+      "anchor_px": [
+        177.0,
+        342
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    },
+    {
+      "path": "assets/plains_revision_01/charger.png",
+      "sha256": "1e74096275fb4c492f9ec68983438eba39a9e90261dbcffa115c70912eaa662b",
+      "bytes": 253210,
+      "width": 474,
+      "height": 297,
+      "mode": "RGBA",
+      "species": "charger",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        531,
+        168,
+        474,
+        297
+      ],
+      "anchor_px": [
+        237.0,
+        297
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    },
+    {
+      "path": "assets/plains_revision_01/hopper.png",
+      "sha256": "c8cbd2f86a93e0e1f4fe61c482c624ad018f5ec8e7dcc8423dba2e133cc3e79f",
+      "bytes": 209744,
+      "width": 397,
+      "height": 293,
+      "mode": "RGBA",
+      "species": "hopper",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        73,
+        639,
+        397,
+        293
+      ],
+      "anchor_px": [
+        198.5,
+        293
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    },
+    {
+      "path": "assets/plains_revision_01/sentry.png",
+      "sha256": "0203c8354d9f9d612ef60628d1fc5adddd70d5aab9f4aa5d3a6f4730018dee1b",
+      "bytes": 245869,
+      "width": 431,
+      "height": 333,
+      "mode": "RGBA",
+      "species": "sentry",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        557,
+        610,
+        431,
+        333
+      ],
+      "anchor_px": [
+        215.5,
+        333
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    },
+    {
+      "path": "assets/plains_revision_01/fan_sentry.png",
+      "sha256": "48ecaea34430a5a93d7a50d1cf91c077861165e01cfc3ec4a2e1a5166bcb619b",
+      "bytes": 308703,
+      "width": 544,
+      "height": 360,
+      "mode": "RGBA",
+      "species": "fan_sentry",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        18,
+        1058,
+        544,
+        360
+      ],
+      "anchor_px": [
+        272.0,
+        360
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    },
+    {
+      "path": "assets/plains_revision_01/root_bell.png",
+      "sha256": "f51e9794dfa005b12e98a0a1aacfcbf26a517f5124b851ceb1f358507c983696",
+      "bytes": 285805,
+      "width": 454,
+      "height": 377,
+      "mode": "RGBA",
+      "species": "root_bell",
+      "source": "assets/plains_revision_01/source/master.png",
+      "source_xywh": [
+        551,
+        1079,
+        454,
+        377
+      ],
+      "anchor_px": [
+        227.0,
+        377
+      ],
+      "use": "neutral articulated body, not an authored action-frame sheet",
+      "status": "runtime candidate; visual/action/device/user acceptance unverified"
+    }
+  ],
+  "diver": {
+    "new_generation": false,
+    "retained_body": {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+      "sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6",
+      "bytes": 1104396,
+      "width": 1774,
+      "height": 887,
+      "mode": "RGBA"
+    },
+    "scope": "Preserve size and palette; refine existing articulation and landing/death continuity only."
+  },
+  "review_boundary": "No source hash, neutral PNG, code presence or tool success signs off complete movement, damage, recovery, death, corpse/fade, sound, independent review, device or user G5. Original rejected versions remain historical evidence."
+}

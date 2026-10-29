@@ -12,9 +12,18 @@ var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"underworld")
+var revision_visual: PlainsRevisionVisual
 
 func _ready() -> void:
 	if EnemyPresentationBinding.bind_existing(actor,self,&"underworld").is_empty(): return
+	if actor.definition.behavior_id==&"root_bell": RootBellPulseArt.configure(self)
+	if PlainsRevisionSkin.supports(actor.definition):
+		revision_visual = PlainsRevisionVisual.install(self,actor,body_motion)
+		feedback_sample = revision_visual.sample
+		feedback_particles = revision_visual.particles
+		feedback_remains = revision_visual.remains
+		lifecycle.bind(actor,self,_presentation_initialized,_presentation_health_changed,body_motion,feedback_sample,true)
+		return
 	if EnemyFeedback01.supports(actor.definition):
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
@@ -58,8 +67,12 @@ func _advance_presentation(delta: float) -> void:
 		_hurt = feedback_sample.hurt_remaining
 		accepted_hurt_count = feedback_sample.accepted_hit_count
 		_sync_feedback_body()
+	if revision_visual != null: revision_visual.refresh(delta)
 
 func _sync_feedback_body() -> void:
+	if revision_visual != null:
+		revision_visual.refresh(0.0)
+		return
 	feedback_frame_index = feedback_frames.hurt_index(feedback_sample)
 	feedback_body.visible = not actor.health.terminal
 	if not feedback_body.visible:
@@ -74,7 +87,8 @@ func _sync_feedback_body() -> void:
 	var source := feedback_frames.texture(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_texture()
 	var bounds := feedback_frames.bounds(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_bounds()
 	var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
-	feedback_body.present(source, bounds, Vector2(0, feedback_anchor.y+bob), 0.0, Vector2(float(actor.brain.direction), 1.0), Color.WHITE, feedback_sample.flash_strength())
+	var lean := (body_motion.tension*.15+body_motion.release*.12-body_motion.recovery*.10)*float(actor.brain.direction) if actor.definition.behavior_id==&"diver" else 0.0
+	feedback_body.present(source, bounds, Vector2(0, feedback_anchor.y+bob), lean, Vector2(float(actor.brain.direction), 1.0), Color.WHITE, feedback_sample.flash_strength())
 
 func _original_body_size(texture: Texture2D) -> Vector2:
 	var size := actor.definition.collision_size
@@ -130,6 +144,7 @@ func _draw() -> void:
 	var behavior := String(actor.definition.behavior_id)
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
 	if not actor.health.terminal: _telegraph(state,StringName(behavior))
+	if revision_visual != null: return
 	var key := String(EnemyPresentationBinding.view(self).body_key)
 	if not SPRITES.has(key): return
 	var source: Texture2D = SPRITES[key]
@@ -149,10 +164,3 @@ func _draw() -> void:
 
 	draw_set_transform(Vector2.ZERO)
 	if actor.health.terminal: return
-	var top := -size.y*.5
-	var half := maxf(12,size.x*.5)
-	if actor.health.capacity>8:
-		draw_rect(Rect2(-half,top-12,half*2,4),Color("111b17"))
-		draw_rect(Rect2(-half,top-12,half*2*actor.health.current/actor.health.capacity,2),Color("d4c893"))
-	else:
-		for i: int in ceili(actor.health.current):draw_rect(Rect2(-8+i*6,top-12,4,2),Color("d4c893"))

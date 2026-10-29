@@ -45,19 +45,6 @@ func _draw() -> void:
 			draw_line(shoulder,elbow,Color("7c6d43"),9)
 			draw_line(elbow,tip,Color("7c6d43"),7)
 	if not is_duel: return
-	if observed.active and not observed.terminal:
-		if observed.phase == 2:
-			# The owner reports its actual combat phase; body and Bell remain
-			# independent, and no presenter reads a mutable Bell node.
-			draw_rect(Rect2(-size*.5-Vector2(5,5),size+Vector2(10,10)),Color("91d9df"),false,2)
-			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"),true)
-		var pursuit := encounter.presentation_pursuit_warning()
-		if not pursuit.is_empty(): _draw_body_warning(pursuit)
-		var bell_warning := encounter.presentation_bell_warning()
-		if not bell_warning.is_empty():
-			draw_arc(to_local(bell_warning.origin),float(bell_warning.radius)+8,0,TAU,32,Color("ffc276"),3)
-			for point: Vector2 in bell_warning.points:
-				draw_circle(to_local(point),3,Color("ffc276"))
 	if _counter_flash > 0:
 		var progress := 1.0-_counter_flash/.55
 		var impact := to_local(_counter_position)
@@ -67,22 +54,6 @@ func _draw() -> void:
 			var direction := Vector2.from_angle(TAU*index/8.0)
 			draw_line(impact+direction*(25+progress*30),impact+direction*(45+progress*65),flash,3)
 		_draw_visible_label(impact+Vector2(-66,-68-progress*18),"BELL COUNTER  -%s" % int(_counter_amount),16,flash)
-
-func _draw_body_warning(warning: Dictionary) -> void:
-	var size: Vector2 = warning.body_size
-	var previous := to_local(warning.origin)
-	# The Encounter publishes the original projected footprint sweep. Drawing
-	# cannot choose a gravity, flight clock, lock target or collision extent.
-	for point: Vector2 in warning.centers:
-		var center := to_local(point)
-		draw_rect(Rect2(center-size*.5,size),Color(1,.58,.3,.10))
-		draw_rect(Rect2(center-size*.5,size),Color(1,.65,.35,.38),false,1)
-		draw_line(previous,center,Color(1,.67,.4,.55),2)
-		previous = center
-	var mark := to_local(warning.landing)
-	draw_rect(Rect2(mark-Vector2(size.x*.5,size.y),size),Color("ffbf6b"),false,3)
-	draw_line(mark-Vector2(size.x*.5,0),mark+Vector2(size.x*.5,0),Color("ffbf6b"),5)
-	_draw_visible_label(mark+Vector2(-size.x*.5,-size.y-10),"LOCKED LANDING",13,Color("ffd3a0"))
 
 func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color, avoid_bell := false) -> void:
 	# A moving Boss may reach the screen edge. Clamp only the cue's drawing;

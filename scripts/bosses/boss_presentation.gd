@@ -33,8 +33,6 @@ func _draw() -> void:
 		# Keep the original authored dead key and its existing retained fade.
 		draw_texture_rect(PlainsActorAssets.texture("enemies",key),destination,false,tint)
 	draw_set_transform(Vector2.ZERO)
-	if alive and observed.telegraphing:
-		draw_arc(Vector2.ZERO, size.length() * 0.6, 0, TAU, 40, Color(1.0, 0.45, 0.18, 0.5 + observed.warning_progress * 0.5), 3.0)
 	var bar := Rect2(-size.x * 0.5, -size.y * 0.5 - 15, size.x, 6)
 	draw_rect(bar, Color(0.15, 0.15, 0.18))
 	bar.size.x *= encounter.health.current / maxf(1.0, encounter.health.capacity)

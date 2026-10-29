@@ -121,12 +121,18 @@ func _fire() -> void:
 	for i: int in range(_projectiles.size()-1,-1,-1):
 		if not is_instance_valid(_projectiles[i]) or _projectiles[i].spent: _projectiles.remove_at(i)
 	var angles: Array = strategy.projectile_angles()
+	var origin := actor.motor.global_position
+	var pivot := actor.definition.projectile_muzzle_pivot
+	var muzzle := origin+Vector2(pivot.x*actor.brain.direction,pivot.y)+locked_direction.normalized()*actor.definition.projectile_muzzle_reach
 	for angle: float in angles:
 		_serial += 1
 		var shot := EnemyAttackProjectile.new()
 		shot.configure(self, StringName("%s:seed:%s" % [source_id, _serial]), locked_direction.rotated(angle))
 		actor.motor.get_parent().add_child(shot)
-		shot.global_position = actor.motor.global_position
+		shot.global_position = origin
+		# Clearance from the body to the configured mouth uses the real seed
+		# volume. A wall or close player cannot be skipped by spawning beyond it.
+		if not muzzle.is_equal_approx(origin): shot.launch_to_muzzle(muzzle)
 		_projectiles.append(shot)
 
 func _begin_recovery() -> void:

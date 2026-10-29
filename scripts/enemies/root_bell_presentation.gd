@@ -17,11 +17,16 @@ var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"legacy")
 var _body_textures: Dictionary = {}
 var lifecycle := EnemyPresentationLifecycle.new()
+var revision_visual: PlainsRevisionVisual
 
 func _ready() -> void:
 	if EnemyPresentationBinding.bind_existing(actor,self,&"scene").is_empty(): return
-	hit_template = EnemyHitTemplate.install(actor, self)
-	body_motion.sample = hit_template.sample
+	RootBellPulseArt.configure(self)
+	if PlainsRevisionSkin.supports(actor.definition):
+		revision_visual = PlainsRevisionVisual.install(self,actor,body_motion)
+	else:
+		hit_template = EnemyHitTemplate.install(actor, self)
+		body_motion.sample = hit_template.sample
 	var path := "res://assets/region_production_v3/enemies/root_bell/manifest.json"
 	if FileAccess.file_exists(path):
 		_manifest = JSON.parse_string(FileAccess.get_file_as_string(path))
@@ -30,8 +35,8 @@ func _ready() -> void:
 	if FileAccess.file_exists(burst_path):
 		_burst_manifest = JSON.parse_string(FileAccess.get_file_as_string(burst_path))
 		_burst_atlas = load("res://assets/region_production_v3/enemies/root_bell_burst/source/master.png") as Texture2D
-	lifecycle.bind(actor,self,_presentation_initialized,_health_changed,body_motion)
-	lifecycle.own_cleanup(hit_template.dispose)
+	lifecycle.bind(actor,self,_presentation_initialized,_health_changed,body_motion,revision_visual.sample if revision_visual!=null else null,revision_visual!=null)
+	if hit_template != null: lifecycle.own_cleanup(hit_template.dispose)
 
 func _presentation_initialized() -> void:
 	_hurt = 0.0
@@ -40,10 +45,15 @@ func _presentation_initialized() -> void:
 	_burst_tail = false
 	_previous_state = &"idle"
 	_transition_time = 1.0
+	if revision_visual != null: revision_visual.refresh(0.0)
 	queue_redraw()
 
 func synchronize_presentation() -> void:
 	lifecycle.synchronize()
+	if revision_visual != null: revision_visual.refresh(0.0)
+
+func presentation_remains() -> EnemyFeedback01Remains:
+	return revision_visual.remains if revision_visual != null else null
 
 func _exit_tree() -> void:
 	lifecycle.dispose()
@@ -53,6 +63,7 @@ func _health_changed(result: ActorResourceResult) -> void:
 
 func _process(delta: float) -> void:
 	if not lifecycle.advance(delta): return
+	if revision_visual != null: revision_visual.refresh(delta)
 	_clock += delta
 	_hurt = maxf(0, _hurt - delta)
 	if actor.health.terminal: _death += delta
@@ -74,26 +85,17 @@ func _draw() -> void:
 		var behavior := actor.attack_behavior as RootBellBehavior
 		var center := to_local(behavior.attack_goal)
 		if behavior.state == &"telegraph":
-			var progress := clampf(behavior.state_time / actor.definition.telegraph_duration, 0, 1)
-			var half := actor.definition.pulse_size.x * .5
-			draw_line(center + Vector2(-half, -1), center + Vector2(half, -1), Color("df9c48"), 3)
-			draw_arc(center + Vector2(0, -8), half, PI, PI + TAU * .5 * progress, 24, Color("ffd686"), 2)
-			for side: int in [-1, 1]:
-				draw_line(center + Vector2(side * half, 0), center + Vector2(side * half, -12), Color("f9d285"), 2)
-			if actor.definition.telegraph_duration-behavior.state_time < .06: _draw_burst(center,"emerge",.8)
+			pass # Intent is carried by the bending stem and raised bell.
 		elif behavior.state == &"attack":
 			_draw_burst(center,"strike" if behavior.state_time < actor.definition.attack_duration*.5 else "bend",1)
 		elif behavior.state == &"recovery" and _burst_tail and behavior.state_time < .10:
 			_draw_burst(center,"fold" if behavior.state_time < .05 else "settled",1-behavior.state_time/.10)
-	if _atlas != null and not _manifest.is_empty():
+	if revision_visual == null and _atlas != null and not _manifest.is_empty():
 		var tint := Color(1, .65, .45) if _hurt > 0 else Color.WHITE
 		if hit_template != null: tint = hit_template.tint()
 		tint.a = maxf(0, 1 - _death / .8) if actor.health.terminal else 1
 		_draw_pose("death" if actor.health.terminal else "idle", tint)
 	draw_set_transform(Vector2.ZERO)
-	if not actor.health.terminal:
-		for i: int in ceili(actor.health.current):
-			draw_circle(Vector2(-8 + i * 8, -actor.definition.collision_size.y * .5 - 9), 2, Color("f6cd80"))
 
 func _draw_pose(id: String, tint: Color) -> void:
 	var frame: Dictionary = _manifest.frames[id]
@@ -114,11 +116,4 @@ func _draw_pose(id: String, tint: Color) -> void:
 	draw_set_transform(Vector2.ZERO)
 
 func _draw_burst(center: Vector2, id: String, opacity: float) -> void:
-	if _burst_atlas == null or _burst_manifest.is_empty(): return
-	var frame: Dictionary = _burst_manifest.frames[id]
-	var raw: Array = frame.region_xywh
-	var size_data: Array = frame.display_size
-	var size := Vector2(size_data[0],size_data[1])
-	# Active frames exactly cover the actual pulse envelope, on its fixed foot.
-	if id in ["strike","bend"]: size = actor.definition.pulse_size
-	draw_texture_rect_region(_burst_atlas,Rect2(center-Vector2(size.x*.5,size.y),size),Rect2(raw[0],raw[1],raw[2],raw[3]),Color(1,1,1,opacity))
+	RootBellPulseArt.draw(self,actor.definition,center,id,opacity)

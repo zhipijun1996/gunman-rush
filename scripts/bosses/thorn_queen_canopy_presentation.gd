@@ -34,15 +34,6 @@ func _draw() -> void:
 		var label_at := to_local(knot.position)+Vector2(-13,-23)
 		draw_rect(Rect2(label_at+Vector2(-3,-15),Vector2(34,20)),Color("282331"))
 		draw_string(ThemeDB.fallback_font,label_at,"%s/2"%int(knot.health),HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("fff1cd"))
-	var preview := encounter.presentation_motion_preview()
-	if not preview.is_empty():
-		var path: PackedVector2Array = preview.path
-		for index: int in path.size()-1:
-			var first := to_local(path[index]);var last := to_local(path[index+1])
-			draw_line(first,last,Color("e7c38e"),2,true)
-			var direction := (last-first).normalized()
-			draw_line(last,last-direction.rotated(.5)*12,Color("e7c38e"),2,true)
-			draw_line(last,last-direction.rotated(-.5)*12,Color("e7c38e"),2,true)
 
 func _exit_tree() -> void:
 	motion.dispose(encounter)

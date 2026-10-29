@@ -245,6 +245,9 @@ func make_case() -> void:
 	var case_index := index
 	var presentation := enemy.get_node("Presentation")
 	persistent_remains_component = optional_property(presentation,&"feedback_remains") is Node2D
+	var remains_owner: Variant = optional_property(presentation,&"feedback_remains")
+	if remains_owner is PlainsRevisionRemains:
+		persistent_remains_component = (remains_owner as PlainsRevisionRemains).keeps_corpse()
 	cases.append({"case":index,"id":id,"definition":String(actor.definition.stable_id),"definition_path":definition_path,"scene":scene_path,"chain":chain,"renderer":(presentation.get_script() as Script).resource_path,"start_frame":frame+1,"start_seconds":float(Engine.get_process_frames()+1)/60,"active_start_seconds":float(frame)/60,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"geometry":geometry,"player_spawn":[player_spawn.x,player_spawn.y],"enemy_spawn":[enemy_spawn.x,enemy_spawn.y],"host_configuration":setup,"player_health":controller.actor_resources.health.current,"enemy_health":actor.health.current,"forest_bible_actor_art":id in FOREST,"body_theme":String(EnemyPresentationBinding.view(presentation).get("body_theme",&"")),"differences":["explicit initial geometry and spawn","automated gamepad input replaces KeyboardMouseAdapter"],"production_AI_enabled":actor.is_physics_processing()},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	cases[case_index]["actual_strand_holds"] = []
 	cases[case_index]["strand_hold_events"] = []
@@ -385,7 +388,7 @@ func drive() -> void:
 	rows.append({"frame":frame,"sampling_phase":"SceneTree.process_frame_before_node_process","movie_process_frame":Engine.get_process_frames(),"case":index,"local_frame":local_frame,"strand_id":strand_id if not strand_id.is_empty() else null,"strand_index":strand_index if strand_index>=0 else null,"camera_position":[camera.position.x,camera.position.y],"camera_zoom":camera.zoom.x,"player_position":[controller.motor.global_position.x,controller.motor.global_position.y],"player_velocity":[controller.motor.velocity.x,controller.motor.velocity.y],"enemy_position":[enemy.global_position.x,enemy.global_position.y],"enemy_velocity":[enemy.velocity.x,enemy.velocity.y],"HP":actor.health.current,"player_HP":controller.actor_resources.health.current,"state":state,"visual":visual})
 	if first_hit_frame >= 0 and not actor.health.terminal and frame-first_hit_frame >= 30 and visual.hurt_remaining != null and float(visual.hurt_remaining) <= 0:
 		cases[index].coverage["recovered_after_nonlethal"] = true
-	detail.text = "AI: %s   ENEMY HP: %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs\n%s" % [state.to_upper(),actor.health.current,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original death policy" if actor.health.terminal else ("COMBAT / real Router shots" if attack_seen else "OBSERVE / wait for actual AI commitment")]
+	detail.text = "AI: %s   PLAYER HP: %.0f   SHOTS: %d   %.1fs\n%s" % [state.to_upper(),controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / actual death policy" if actor.health.terminal else ("COMBAT / real Router shots" if attack_seen else "OBSERVE / wait for actual AI commitment")]
 	var finished := death_frame >= 0 and frame-death_frame >= HOLD_FRAMES and local_frame >= 540
 	if persistent_remains_component: finished = finished and settled_frame>=0 and frame-settled_frame>=HOLD_FRAMES
 	# MAX_CASE_FRAMES is the combat bound. Accepted deaths retain their full
