@@ -1,5 +1,16 @@
 # 当前状态
 
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 工坊音色恢复，供音线程对照已公开
+
+用户确认旧386仍卡且音色是旧版，旧两处Sample修复不能视为任务完成。已发现formal只装配环境选择，V3已选动作未启用；新SelectedSfxRuntime一次装配原14映射，原生63/0＋环境45/0，标准Web与公开真实Home/Plains实际PCM均确认已选pulse A。运行源b7406284，普通build1d3791a7c290／PCK208700940字节，四份官方nothreads引擎仍d209；不动已接受UI/美术/五BGM。
+
+持续卡音的云端时序证据指向STREAM补给等待主线程：50ms Home请求等待P50/P95约473/769ms，混音0.3/1.7ms。同正式PCK/原画面/DPR2.5、真实RUN SEED输入mobile-audio-stream-01、同Manifest f3a63393...156a，单线程Home/Plains欠载88.24%/80.62%，官方threaded独立供音四个窗口均0且共享环实际read推进；主线程长RAF仍存在。不是手机FPS，也不证明shader/GPU/物理哪项是手机热点。Home普通菜单不暂停tree，关卡暂停另验。线程四窗之外仍有1408帧欠载，公网动作较宽窗口Home0.322%欠载保留；不能声称全会话无断供。
+
+诊断工具源f21b221f，prepared84ddcb0，Actions40911443229成功。普通入口与已选音效保留；[独立线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-threaded/?latency=50&audio_probe=1)和[主线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-stream-test.html?latency=50&audio_probe=1&diag=timing-v1)为同包对照。公网完整PCK/threaded WASM与11HTML/JS/worklet SHA匹配，真实COI/SAB/threads三项及Home→Plains触屏动作成功；两段各8秒原BGM逐半秒匹配连续无跳/重启，已选pulse A胜旧pulse/B/C负控。首个本地安装竞争、首个公网redundant安装失败及官方blocking-on-main警告保留；后者失败当时原因未抓到，后续同字节通过，不追签旧失败。
+
+f21b定向docs/web-cache/web-bundle三项fresh通过，非full CI。[证据与完整边界](evidence/mobile_web_audio_02/README.md)。任务in_progress/awaiting-device，PR117仍draft未合main；荣耀60Pro Chrome真机连续性、长时BGM/玩家认可未验。页面手动记录游戏/菜单10秒后下载JSON，下一步读取真机记录及反馈；若线程仍卡，按实际thread ring/PCM/主线程长任务继续定位，不降画质或改全Stream。恢复勿重导PCK/重跑既有native，先核公开身份与最新手机反馈。
+
+
 ## 2026-10-29 MOBILE-WEB-PERF-01 · 两处音频修复已部署，待真机
 
 最新真机反馈为“声音卡，动作几乎不卡；暂停页面声音正常”。以main1b29932c/Godot4.7.2核验，公开UI包2caa/source4707与原main618的四份音频/正式场景源相同，JS/WASM是同一官方4.7.2导出模板，不混称同一个PCK。

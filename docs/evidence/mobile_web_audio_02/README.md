@@ -29,3 +29,30 @@
 独立threaded官方4.7.2引擎对照使用同PCK、同原viewport/canvas/CSS与原8/4线程池。实际COI、共享环、音频线程true、PCM及underrun必须在浏览器确认后才可交付；仅导出或存在SharedArrayBuffer不算成功。当前运行结果另附，不能提前签修复。
 
 本任务保持in_progress，PR117保持draft、不合main。手机连续性与用户最终听感未验。
+
+## 同种子正式场景对照与公开交付
+
+独立review见fixed-seed-stream-review.json。两版都从真实标题进入Home，通过原Home导航RUN SEED输入框填写`mobile-audio-stream-01`再Explore。正式关卡`debug_entry=false`，Manifest均为`f3a63393145ea3b96d4f0bd0cdfe0fe1cafd544353e0cb40b42c932997ec156a`；无替换DemoApp、无移动/冻结世界注入。两版canvas2132×725、CSS852×290、DPR2.5（整个viewport截图2133×725）相同。
+
+| 观测窗口 | 单线程Stream欠载 | 独立线程Stream欠载 | 线程实际读取帧数 |
+| --- | ---: | ---: | ---: |
+| Home | 88.2430% | 0% | 423168 |
+| Home普通导航菜单，tree未暂停 | 91.1774% | 0% | 423168 |
+| Plains | 80.6240% | 0% | 423168 |
+| Plains暂停菜单，tree已暂停 | 86.2976% | 0% | 467712 |
+
+这是云端SwiftShader、同50ms请求缓冲和同PCK的四个counter窗口；counter区间约8.84–10.61audio秒，不冒充准确10秒wall采样或手机数据。线程四窗新增混合PCM块均非全零，STREAM read_frames持续推进，实际COI、共享三视图、threads=true均成立。主线程长RAF仍在（线程Home P50/P95约269/628ms），音频没有随渲染继续大量断供，支持供音依赖主事件循环是此复现的主要环节。此结果不定位为单一shader、GPU或GDS物理耗时，也不说明图形FPS提升。
+
+四窗之外、场景/菜单过渡期间仍累计1408欠载frames≈31.93ms，最长连续1024frames≈23.22ms；不能写全会话完全零欠载。官方threaded模板输出了Emscripten blocking-on-main的error级警告，favicon404也保留，不能称console完全clean。没有SCRIPT/SHADER/PAGE异常。
+
+诊断工具冻结f21b221f355fb21d25d26c87fbd960bd22271207，prepared84ddcb0fe502dbf8ffa0db188d285bc1efefbb27。Actions40911443229成功，重建全站1002703008字节，低于1GiB；普通index/PCK/官方nothreads引擎保留，threaded用匹配4.7.2官方另一套JS/WASM和独立作用域COI worker。新worker版本由其静态文件集合指纹派生；首次本地安装竞争通过等待activated及最多两次reload处理，保原2秒deadline，无绕隔离或加预算。
+
+公网新诊断11份HTML/JS/worklet全部完整HTTP SHA匹配；同PCK208700940字节及官方threaded WASM38349395字节也完整下载匹配。首次公网worker变redundant并180秒超时的失败保留，未抓到当时安装异常，不能断定网络/缓存原因；后续同字节网络探针已COI成功，第二次全新浏览器真实Home→Plains动作也成功，不再盲改worker。
+
+公网实际两段8秒混合WAV确认新pulse A与jump在原生Source时间对齐45µs；线程版Home/Plains pulse相关系数0.766872/0.675617，普通新版公网为0.995612/0.994351。背景音乐现在持续混入会降低单声相关度，具体负控与原BGM逐段匹配另见public-threaded-output-review.json，不能只看相关度升降评质量。公网动作前后较宽counter窗口Home仍1792/556800欠载≈0.322%、Plains0/478848，保留其差异，不拿本地四窗0冒称所有公开窗口0。
+
+[线程对照](https://zhipijun1996.github.io/gunman-rush/audio-threaded/?latency=50&audio_probe=1) · [同版主线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-stream-test.html?latency=50&audio_probe=1&diag=timing-v1) · [全部对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)。页面可手动记录游戏/菜单各10秒并下载JSON。请区分Home导航与关卡暂停；手机/桌面保相同逻辑比例，不改原画质。
+
+f21b源定向docs/web-cache/web-bundle三项全fresh通过，见targeted-harness；不是完整CI。原始证据`followup-raw.tar.gz`及逐文件SHA见followup-raw-index.json，包含63/2旧native准备失败、threaded首次本地启动失败和公网首次安装失败。手机连续声音、长时BGM和最终玩家认可仍awaiting-device；根因结论仅限已测环境，PR117不合main。
+
+公网声音独立负控复核已完成：Home原BGM整8秒rho0.986599/gain0.112087，Plains rho0.930016/gain0.112112（原0.16×0.7=0.112）；各16个连续半秒片段，参考时间逐帧推进且偏差0，没有重启/跳帧，错曲/反序负控显著更低。每个真实8秒WAV落入counter包围区间，窗内underrun增量0；较宽动作counter窗口的Home1792欠载发生在录音窗外。已选pulse A比旧pulse/B/C/reverse负控的相关度优势Home0.529422、Plains0.484071。报告public-threaded-output-review.json保全部区间与负控，不签完整曲目或手机。
