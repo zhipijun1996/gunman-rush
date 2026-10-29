@@ -3,6 +3,16 @@ extends EditorExportPlugin
 ## The preset is the one explicit raw-file list. Family manifests bind its bytes.
 ## add_file never skips/remaps the normal Texture2D export/imported derivatives.
 var editor_tree: SceneTree
+const SELECTED_AUDIO_SOURCES: Array[String] = [
+	"assets/audio/ambience_v1/plains_a.ogg", "assets/audio/ambience_v1/plains_b.ogg",
+	"assets/audio/ambience_v1/forest_a.ogg", "assets/audio/ambience_v1/forest_b.ogg",
+	"assets/audio/ambience_v1/plains_chime_a.wav", "assets/audio/ambience_v1/plains_chime_b.wav",
+	"assets/audio/ambience_v1/forest_wood.wav", "assets/audio/ambience_v1/forest_leaf.wav",
+	"assets/audio/ambience_v1/home/home_cloth_1.wav", "assets/audio/ambience_v1/home/home_cloth_2.wav",
+	"assets/audio/ambience_v1/home/home_wood_1.wav", "assets/audio/ambience_v1/home/home_wood_2.wav",
+	"assets/audio/ambience_v1/home/home_tools_1.wav", "assets/audio/ambience_v1/home/home_tools_2.wav",
+	"assets/audio/ambience_v1/home/home_page_1.wav", "assets/audio/ambience_v1/home/home_page_2.wav",
+]
 const UNDERWORLD_SOURCES: Array[String] = [
 	"assets/underworld_plains/backgrounds/far.png",
 	"assets/underworld_plains/backgrounds/middle.png",
@@ -64,6 +74,45 @@ static func source_plan(includes: String, excludes: String, underworld_bindings:
 		if path not in sources: sources.append(path)
 	return {"ok": true, "sources": sources}
 
+static func selected_audio_contract() -> Dictionary:
+	var result: Dictionary = {}
+	for manifest_path: String in ["res://assets/audio/ambience_v1/manifest.json", "res://assets/audio/ambience_v1/home/manifest.json"]:
+		var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
+		if not manifest is Dictionary or manifest.get("version") != "audio-ambience-v1": return {}
+		var renders: Variant = manifest.get("renders")
+		if not renders is Array or renders.size() != 8: return {}
+		for row: Variant in renders:
+			if not row is Dictionary: return {}
+			var path := str(row.get("path", "")).trim_prefix("res://")
+			if path not in SELECTED_AUDIO_SOURCES or result.has(path): return {}
+			result[path] = {"sha256": row.get("sha256"), "bytes": row.get("bytes")}
+	return result if result.size() == SELECTED_AUDIO_SOURCES.size() else {}
+
+static func selected_audio_plan(includes: String, excludes: String, bindings: Variant = null) -> Dictionary:
+	var contract: Dictionary = selected_audio_contract() if bindings == null else bindings
+	var sources: Array[String] = []
+	for entry: String in includes.split(",", false):
+		var path := entry.strip_edges()
+		if not path.begins_with("assets/audio/ambience_v1/") or not (path.ends_with(".ogg") or path.ends_with(".wav")): continue
+		if path not in SELECTED_AUDIO_SOURCES or sources.has(path):
+			return {"ok": false, "error": "Selected audio must be one unique explicit raw file: " + path}
+		for excluded: String in excludes.split(",", false):
+			if path.matchn(excluded.strip_edges()):
+				return {"ok": false, "error": "Selected raw audio conflicts with exclusion: " + path}
+		var row: Variant = contract.get(path)
+		if not row is Dictionary or not row.get("sha256") is String or str(row.sha256).length() != 64:
+			return {"ok": false, "error": "Selected raw audio lacks its exact render fingerprint: " + path}
+		var count: Variant = row.get("bytes")
+		if not (count is int or count is float) or not is_finite(float(count)) or float(count) <= 0 or floorf(float(count)) != float(count):
+			return {"ok": false, "error": "Selected raw audio has invalid length: " + path}
+		var bytes := FileAccess.get_file_as_bytes("res://" + path)
+		if bytes.size() != int(count) or FileAccess.get_sha256("res://" + path) != row.sha256:
+			return {"ok": false, "error": "Selected raw audio differs from its render fingerprint: " + path}
+		sources.append(path)
+	if sources.size() != SELECTED_AUDIO_SOURCES.size():
+		return {"ok": false, "error": "Selected audio export requires the complete explicit sixteen-file closure"}
+	return {"ok": true, "sources": sources}
+
 func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String, _flags: int) -> void:
 	var preset := get_export_preset()
 	var planned := source_plan(preset.get_include_filter(), preset.get_exclude_filter())
@@ -79,3 +128,16 @@ func _export_begin(_features: PackedStringArray, _is_debug: bool, _path: String,
 			return
 		add_file("res://" + path, bytes, false)
 	print("RUNTIME RAW EXPORT: %d source PNGs preserved alongside normal imports" % planned.sources.size())
+	var audio := selected_audio_plan(preset.get_include_filter(), preset.get_exclude_filter())
+	if not audio.ok:
+		push_error(str(audio.error))
+		editor_tree.quit(1)
+		return
+	for path: String in audio.sources:
+		var bytes := FileAccess.get_file_as_bytes("res://" + path)
+		if bytes.is_empty():
+			push_error("Selected raw audio became unreadable during export: " + path)
+			editor_tree.quit(1)
+			return
+		add_file("res://" + path, bytes, false)
+	print("SELECTED AUDIO RAW EXPORT: %d original audio files preserved alongside normal imports" % audio.sources.size())
