@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<title>Gunman Rush · threaded audio diagnostic</title>
+		<style>
+html, body, #canvas {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	color: white;
+	background-color: black;
+	overflow: hidden;
+	touch-action: none;
+}
+
+#canvas {
+	display: block;
+}
+
+#canvas:focus {
+	outline: none;
+}
+
+#status, #status-splash, #status-progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+#status, #status-splash {
+	top: 0;
+	bottom: 0;
+}
+
+#status {
+	background-color: #242424;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+}
+
+#status-splash {
+	max-height: 100%;
+	max-width: 100%;
+	margin: auto;
+}
+
+#status-splash.show-image--false {
+	display: none;
+}
+
+#status-splash.fullsize--true {
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+#status-splash.use-filter--false {
+	image-rendering: pixelated;
+}
+
+#status-progress, #status-notice {
+	display: none;
+}
+
+#status-progress {
+	bottom: 10%;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#status-notice {
+	background-color: #5b3943;
+	border-radius: 0.5rem;
+	border: 1px solid #9b3943;
+	color: #e0e0e0;
+	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
+	line-height: 1.3;
+	margin: 0 2rem;
+	overflow: hidden;
+	padding: 1rem;
+	text-align: center;
+	z-index: 1;
+}
+		</style>
+<style id="playtest-pixel-canvas">#canvas { image-rendering: pixelated; }</style>
+		<script src="audio_probe.js"></script><script src="shared-observer.js"></script><script src="stream_timing_observer.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas">
+			Your browser does not support the canvas tag.
+		</canvas>
+
+		<noscript>
+			Your browser does not support JavaScript.
+		</noscript>
+
+		<div id="status">
+			<img id="status-splash" class="show-image--false" src="data:," alt="">
+			<progress id="status-progress"></progress>
+			<div id="status-notice"></div>
+		</div>
+
+		<script src="official-threaded.js"></script>
+		<script>
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"official-threaded","experimentalVK":true,"fileSizes":{"official-threaded.wasm":38349395,"../index.1d3791a7c290.pck":208700940},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"mainPack":"../index.1d3791a7c290.pck","serviceWorker":"diagnostic.service.worker.js"};
+const GODOT_THREADS_ENABLED = true;
+const diagnosticLatency = Number(new URLSearchParams(location.search).get('latency') || 50);
+if (![50, 200].includes(diagnosticLatency)) throw new Error('Only50/200ms diagnostic cases allowed');
+GODOT_CONFIG.args = GODOT_CONFIG.args.concat(['--audio-output-latency', String(diagnosticLatency)]);
+const diagnosticIsolationKey = 'mobile-audio-threaded-coi:' + new URL('./', location.href).href + ':' + "1d3791a7c290";
+const engine = new Engine(GODOT_CONFIG);
+
+(function () {
+	const statusOverlay = document.getElementById('status');
+	const statusProgress = document.getElementById('status-progress');
+	const statusNotice = document.getElementById('status-notice');
+
+	let initializing = true;
+	let statusMode = '';
+
+	function setStatusMode(mode) {
+		if (statusMode === mode || !initializing) {
+			return;
+		}
+		if (mode === 'hidden') {
+			statusOverlay.remove();
+			initializing = false;
+			return;
+		}
+		statusOverlay.style.visibility = 'visible';
+		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
+		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
+		statusMode = mode;
+	}
+
+	function setStatusNotice(text) {
+		while (statusNotice.lastChild) {
+			statusNotice.removeChild(statusNotice.lastChild);
+		}
+		const lines = text.split('\n');
+		lines.forEach((line) => {
+			statusNotice.appendChild(document.createTextNode(line));
+			statusNotice.appendChild(document.createElement('br'));
+		});
+	}
+
+	function displayFailureNotice(err) {
+		console.error(err);
+		if (err instanceof Error) {
+			setStatusNotice(err.message);
+		} else if (typeof err === 'string') {
+			setStatusNotice(err);
+		} else {
+			setStatusNotice('An unknown error occurred.');
+		}
+		setStatusMode('notice');
+		initializing = false;
+	}
+
+	const missing = Engine.getMissingFeatures({
+		threads: GODOT_THREADS_ENABLED,
+	});
+
+	if (missing.length !== 0) {
+		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
+			const isolationOnly = missing.every(feature =>
+				feature.startsWith('Cross-Origin Isolation') || feature.startsWith('SharedArrayBuffer'));
+			if (!isolationOnly) {
+				displayFailureNotice(new Error('Missing features cannot be repaired by isolation:\n' + missing.join('\n')));
+				return;
+			}
+			let attempts;
+			try {
+				attempts = Number(sessionStorage.getItem(diagnosticIsolationKey) || 0);
+				if (!Number.isSafeInteger(attempts) || attempts < 0) attempts = 0;
+			} catch (err) {
+				displayFailureNotice(new Error('Cannot safely bound isolation reloads: session storage unavailable.'));
+				return;
+			}
+			if (attempts >= 2) {
+				displayFailureNotice(new Error('Isolation unavailable after2 automatic reloads:\n' + missing.join('\n')));
+				return;
+			}
+			let activationTimer;
+			const activated = Promise.resolve().then(() => engine.installServiceWorker()).then(registration => {
+				if (!registration || registration.scope !== new URL('./', location.href).href) {
+					throw new Error('Unexpected isolation service worker scope.');
+				}
+				const expectedScript = new URL(GODOT_CONFIG.serviceWorker, location.href).href;
+				return new Promise((resolve, reject) => {
+					const worker = registration.active || registration.installing || registration.waiting;
+					if (!worker || worker.scriptURL !== expectedScript) {
+						reject(new Error('Expected isolation worker is unavailable.'));
+						return;
+					}
+					function changed() {
+						if (worker.state === 'activated') {
+							worker.removeEventListener('statechange', changed);
+							resolve(registration);
+						} else if (worker.state === 'redundant') {
+							worker.removeEventListener('statechange', changed);
+							reject(new Error('Isolation worker became redundant.'));
+						}
+					}
+					worker.addEventListener('statechange', changed);
+					changed();
+				});
+			});
+			Promise.race([
+				activated,
+				new Promise((resolve, reject) => {
+					activationTimer = setTimeout(() => reject(new Error('Isolation worker activation exceeded2000ms.')), 2000);
+				}),
+			]).then(() => {
+				sessionStorage.setItem(diagnosticIsolationKey, String(attempts + 1));
+				window.location.reload();
+			}).catch(displayFailureNotice).finally(() => clearTimeout(activationTimer));
+		} else {
+			// Display the message as usual
+			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
+			displayFailureNotice(missingMsg + missing.join('\n'));
+		}
+	} else {
+		try { sessionStorage.removeItem(diagnosticIsolationKey); } catch (_) {}
+		setStatusMode('progress');
+		engine.startGame({
+			'onProgress': function (current, total) {
+				if (current > 0 && total > 0) {
+					statusProgress.value = current;
+					statusProgress.max = total;
+				} else {
+					statusProgress.removeAttribute('value');
+					statusProgress.removeAttribute('max');
+				}
+			},
+		}).then(() => {
+			window.THREADED_DIAGNOSTIC_READY = true;
+			setStatusMode('hidden');
+		}, displayFailureNotice);
+	}
+}());
+		</script>
+	<div id="threaded-audio-panel" style="position:fixed;left:4px;bottom:30px;z-index:100;color:#fff;background:#15222be8;padding:6px;font:12px sans-serif">
+<span id="threaded-audio-label"></span><button id="threaded-record-game">记录游戏中</button><button id="threaded-record-menu">记录菜单中</button><button id="threaded-audio-save">下载检测记录</button></div>
+<script>
+window.THREADED_AUDIO_RECORDING = Object.assign({"version": 1, "build_info": {"build_id": "1d3791a7c290", "pack": "index.1d3791a7c290.pck", "engine_id": "d20938d2db49", "cache_schema": 2, "loader_id": "34c54d5a04ef", "pack_bytes": 208700940, "download_bytes": 205569840, "chunk_bytes": 524288, "wasm_bytes": 37902138, "wasm_gzip_bytes": 10027646, "jump": "tap/hold", "playtest": "web", "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"}, "official_threaded_engine_js_sha256": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657", "official_threaded_wasm_sha256": "fcce8c3ae3a7277199985e8b50610bbc267f88386bf31ab4a69885c160ec9cc8", "official_worklet_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3", "diagnostic_worklet_sha256": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf", "scope": "Manual real game/menu observations; no automatic gameplay/menu changes. Diagnostic threaded engine, not a confirmed phone/BGM fix."}, {latency_ms:diagnosticLatency,observations:[]});
+const threadedLabel=document.getElementById('threaded-audio-label');
+threadedLabel.textContent='音频线程检测 '+diagnosticLatency+'ms ';
+function threadedSnapshot(phase){return {phase,performance_ms:performance.now(),diagnostic:window.MOBILE_THREADED_DIAGNOSTIC.snapshot()};}
+async function threadedRecord(phase){
+ const controls=['threaded-record-game','threaded-record-menu'].map(id=>document.getElementById(id));
+ controls.forEach(button=>button.disabled=true);
+ try {
+  const row={phase,before:threadedSnapshot(phase)};
+  const rows=window.THREADED_AUDIO_RECORDING.observations;rows.push(row);if(rows.length>8)rows.shift();
+  threadedLabel.textContent='记录中，请保持当前状态10秒 ';
+  await new Promise(resolve=>setTimeout(resolve,10000));
+  row.after=threadedSnapshot(phase);threadedLabel.textContent='已记录 '+(phase==='game'?'游戏中':'菜单中')+' · '+diagnosticLatency+'ms ';
+ } catch(error){threadedLabel.textContent='记录失败：'+String(error?.name||'Error');}
+ finally{controls.forEach(button=>button.disabled=false);}
+}
+document.getElementById('threaded-record-game').onclick=()=>threadedRecord('game');
+document.getElementById('threaded-record-menu').onclick=()=>threadedRecord('menu');
+document.getElementById('threaded-audio-save').onclick=()=>{
+ const data=JSON.stringify(window.THREADED_AUDIO_RECORDING,null,2);
+ const url=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='audio-threaded-'+diagnosticLatency+'ms.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+</script>
+</body>
+</html>

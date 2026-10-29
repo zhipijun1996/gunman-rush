@@ -1,0 +1,85 @@
+{
+  "version": "stream-timing-v1",
+  "sample_every_successful_read": 32,
+  "official_sha256": {
+    "js": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4",
+    "wasm": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522",
+    "worklet": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+  },
+  "counter_layer_sha256": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf",
+  "restoration": "Exact reverse of timing insertions restores guarded official JS and pre-existing counter worklet; counter insertion itself reverses to guarded official worklet.",
+  "node_tests": {
+    "passed": 13,
+    "failed": 0,
+    "tests": [
+      "original_trace_and_exception_normal",
+      "sampled_read_chunk_correlations_and_timestamps",
+      "original_trace_and_exception_mix",
+      "original_trace_and_exception_post",
+      "original_trace_and_exception_request",
+      "original_trace_and_exception_write",
+      "missing_observer_keeps_original_audio",
+      "delayed_main_delivery_audio_clock_correlation",
+      "bounded_rows_pending_contexts",
+      "raf_return_receiver_arguments_exception_and_bounds",
+      "longtask_bounds_and_snapshot_isolation",
+      "throwing_observer_cannot_interrupt_original_audio",
+      "unknown_command_path_retained"
+    ]
+  },
+  "scope": "Separate diagnostic output only; no PCM/data/read/chunk sizes, gain, graph, queue, playback or scheduling policy changes. 1/32 successful reads carry metadata; unsampled original messages unchanged. Synchronous out_callback span includes mixing/decoding, not isolated decoder cost. AudioContext/main comparisons are quantum-quantized estimates. Bounded observer RAF/LongTasks and pending/completed timing; no real browser/device verification.",
+  "official_adjacent_position_sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+  "files_sha256": {
+    "audio-stream-timing-v1.js": "3c1cd3fafbe52ec60b54faa3829dfb78e0578bd2e3eb3a7e33046d27369cc5b8",
+    "audio-stream-timing-v1.wasm": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522",
+    "audio-stream-timing-v1.audio.worklet.js": "3045f1f1ffe2e35b0c59fc13a35ed211651d6c09498eb7386b32c5ca847f03a9",
+    "audio-stream-timing-v1.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da"
+  },
+  "replacements": {
+    "js": [
+      [
+        "start_no_threads:function(p_out_buf,p_out_size,out_callback,p_in_buf,p_in_size,in_callback){function RingBuffer(){",
+        "start_no_threads:function(p_out_buf,p_out_size,out_callback,p_in_buf,p_in_size,in_callback){function mobileTimingCall(name,...args){try{const observer=globalThis.MOBILE_STREAM_TIMING;return observer&&typeof observer[name]===\"function\"?observer[name](...args):null}catch(_){return null}}function RingBuffer(){"
+      ],
+      [
+        "function send(port){if(pending_samples===0){return}",
+        "function send(port,mobileTiming){if(pending_samples===0){return}"
+      ],
+      [
+        "const tot_sent=pending_samples;out_callback(wpos,pending_samples);",
+        "const tot_sent=pending_samples;if(mobileTiming){mobileTiming.mix_wpos=wpos;mobileTiming.mix_samples=pending_samples;mobileTimingCall(\"mark\",mobileTiming,\"mix_start\",GodotAudio.ctx)}let mobileMixOK=false;try{out_callback(wpos,pending_samples);mobileMixOK=true}finally{if(mobileTiming){mobileTiming.mix_succeeded=mobileMixOK;mobileTimingCall(\"mark\",mobileTiming,\"mix_end\",GodotAudio.ctx)}}"
+      ],
+      [
+        "port.postMessage({cmd:\"chunk\",data:wbuf.subarray(0,tot_sent)});",
+        "if(mobileTiming){mobileTiming.chunk_samples=tot_sent;mobileTimingCall(\"mark\",mobileTiming,\"chunk_post_start\",GodotAudio.ctx);let mobilePostOK=false;try{port.postMessage({cmd:\"chunk\",data:wbuf.subarray(0,tot_sent),mobile_stream_timing:mobileTiming});mobilePostOK=true}finally{mobileTiming.chunk_post_succeeded=mobilePostOK;mobileTimingCall(\"mark\",mobileTiming,\"chunk_post_end\",GodotAudio.ctx)}}else{port.postMessage({cmd:\"chunk\",data:wbuf.subarray(0,tot_sent)});}"
+      ],
+      [
+        "this.consumed=function(size,port){pending_samples+=size;send(port)}",
+        "this.consumed=function(size,port,mobileTiming){pending_samples+=size;send(port,mobileTiming)}"
+      ],
+      [
+        "if(!GodotAudioWorklet.worklet){return}if(event.data[\"cmd\"]===\"read\"){",
+        "if(!GodotAudioWorklet.worklet){return}if(event.data[\"cmd\"]===\"mobile_stream_timing\"){mobileTimingCall(\"ack\",event.data[\"data\"],GodotAudio.ctx,node);return}if(event.data[\"cmd\"]===\"read\"){"
+      ],
+      [
+        "const read=event.data[\"data\"];GodotAudioWorklet.ring_buffer.consumed(read,GodotAudioWorklet.worklet.port)",
+        "const read=event.data[\"data\"];const mobileTiming=mobileTimingCall(\"begin\",event.data.mobile_stream_timing,GodotAudio.ctx,node);GodotAudioWorklet.ring_buffer.consumed(read,GodotAudioWorklet.worklet.port,mobileTiming)"
+      ]
+    ],
+    "worklet_on_counter_layer": [
+      [
+        "\t\tthis.input_buffer = new Float32Array();\n",
+        "\t\tthis.input_buffer = new Float32Array();\n\t\tthis._mobile_timing_read_seq = 0;\n"
+      ],
+      [
+        "\t\t\tthis.parse_message(cmd, data);",
+        "\t\t\tconst timing = event.data.mobile_stream_timing;\n\t\t\tif (cmd === \"chunk\" && timing && timing.version === 1 && Number.isSafeInteger(timing.seq)) {\n\t\t\t\tconst frame = currentFrame;\n\t\t\t\tconst before = this.output ? this.output.data_left() : null;\n\t\t\t\tlet succeeded = false;\n\t\t\t\ttry { this.parse_message(cmd, data); succeeded = true; } finally {\n\t\t\t\t\ttry { this.port.postMessage({cmd: \"mobile_stream_timing\", data: {...timing,\n\t\t\t\t\t\tchunk_receive_frame: frame, chunk_receive_sample_rate: sampleRate,\n\t\t\t\t\t\tchunk_ring_before_samples: before,\n\t\t\t\t\t\tchunk_ring_after_samples: this.output ? this.output.data_left() : null,\n\t\t\t\t\t\tchunk_write_succeeded: succeeded}}); } catch (_) {}\n\t\t\t\t}\n\t\t\t} else { this.parse_message(cmd, data); }"
+      ],
+      [
+        "\t\t\t\t\tthis.port.postMessage({ 'cmd': 'read', 'data': chunk });",
+        "\t\t\t\t\tthis._mobile_timing_read_seq++;\n\t\t\t\t\tif (this._mobile_timing_read_seq % 32 === 1) {\n\t\t\t\t\t\tthis.port.postMessage({cmd: \"read\", data: chunk, mobile_stream_timing: {\n\t\t\t\t\t\t\tversion: 1, seq: this._mobile_timing_read_seq, request_frame: currentFrame,\n\t\t\t\t\t\t\tsample_rate: sampleRate, request_samples: chunk,\n\t\t\t\t\t\t\tring_after_read_samples: this.output.data_left()}});\n\t\t\t\t\t} else { this.port.postMessage({ 'cmd': 'read', 'data': chunk }); }"
+      ]
+    ]
+  }
+}

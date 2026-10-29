@@ -176,7 +176,7 @@ setInterval(checkPlaytestUpdate, 60000);
 document.addEventListener('visibilitychange', checkPlaytestUpdate);
 
 </script>
-<script src="audio_probe.js"></script></head>
+<script src="audio_probe.js"></script><script src="stream_timing_observer.js"></script></head>
 	<body>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
@@ -192,9 +192,9 @@ document.addEventListener('visibilitychange', checkPlaytestUpdate);
 			<div id="status-notice"></div>
 		</div>
 
-		<script src="audio-stream-diagnostic.js"></script>
+		<script src="audio-stream-timing-v1.js"></script>
 		<script>
-const GODOT_CONFIG = {"args": [], "canvasResizePolicy": 2, "emscriptenPoolSize": 8, "ensureCrossOriginIsolationHeaders": false, "executable": "audio-stream-diagnostic", "experimentalVK": true, "fileSizes": {"index.1d3791a7c290.pck": 208700940, "audio-stream-diagnostic.wasm": 37902138}, "focusCanvas": true, "gdextensionLibs": [], "godotPoolSize": 4, "mainPack": "index.1d3791a7c290.pck"};
+const GODOT_CONFIG = {"args": [], "canvasResizePolicy": 2, "emscriptenPoolSize": 8, "ensureCrossOriginIsolationHeaders": false, "executable": "audio-stream-timing-v1", "experimentalVK": true, "fileSizes": {"index.1d3791a7c290.pck": 208700940, "audio-stream-timing-v1.wasm": 37902138}, "focusCanvas": true, "gdextensionLibs": [], "godotPoolSize": 4, "mainPack": "index.1d3791a7c290.pck"};
 const GODOT_THREADS_ENABLED = false;
 
 const audioLatency=Number(new URLSearchParams(location.search).get('latency')||50);
@@ -307,10 +307,15 @@ const engine = new Engine(GODOT_CONFIG);
 <div id="audio-diagnostic-panel" style="position:fixed;left:4px;bottom:30px;z-index:100;color:#fff;background:#15222be8;padding:6px;font:12px sans-serif">
 <span id="audio-case-label"></span><button id="audio-mark-game">记录游戏中</button><button id="audio-mark-menu">记录菜单中</button><button id="audio-save">下载检测记录</button></div>
 <script>
-window.AUDIO_STREAM_DIAGNOSTIC={version:1,latency_ms:audioLatency,build:{"build_id": "1d3791a7c290", "pack": "index.1d3791a7c290.pck", "engine_id": "d20938d2db49", "cache_schema": 2, "loader_id": "34c54d5a04ef", "pack_bytes": 208700940, "download_bytes": 205569840, "chunk_bytes": 524288, "wasm_bytes": 37902138, "wasm_gzip_bytes": 10027646, "jump": "tap/hold", "playtest": "web", "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"},observations:[],scope:'Same standard PCK; counter-only diagnostic worklet. Browser audio ring underruns, not hardware speaker output.'};
+window.AUDIO_STREAM_DIAGNOSTIC={version:2,latency_ms:audioLatency,build:{"build_id": "1d3791a7c290", "pack": "index.1d3791a7c290.pck", "engine_id": "d20938d2db49", "cache_schema": 2, "loader_id": "34c54d5a04ef", "pack_bytes": 208700940, "download_bytes": 205569840, "chunk_bytes": 524288, "wasm_bytes": 37902138, "wasm_gzip_bytes": 10027646, "jump": "tap/hold", "playtest": "web", "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"},observations:[],scope:'Same standard PCK/WASM; diagnostic JS/worklet tracks underruns and 1/32 supply requests. Browser output, not hardware speaker output.'};
 document.getElementById('audio-case-label').textContent='音频检测 '+audioLatency+'ms ';
-function audioSnapshot(phase){return {phase,at:performance.now(),audio:window.MOBILE_AUDIO_PROBE.snapshot(),ambience:window.SELECTED_AMBIENCE_SNAPSHOT||null,sfx:window.SELECTED_SFX_SNAPSHOT||null};}
-async function audioRecord(phase){const row={phase,before:audioSnapshot(phase)};window.AUDIO_STREAM_DIAGNOSTIC.observations.push(row);document.getElementById('audio-case-label').textContent='记录中，请保持10秒 ';await new Promise(r=>setTimeout(r,10000));row.after=audioSnapshot(phase);document.getElementById('audio-case-label').textContent='已记录 '+phase+' · '+audioLatency+'ms ';}
+function audioSnapshot(phase){return {phase,at:performance.now(),audio:window.MOBILE_AUDIO_PROBE.snapshot(),timing:window.MOBILE_STREAM_TIMING.snapshot(),ambience:window.SELECTED_AMBIENCE_SNAPSHOT||null,sfx:window.SELECTED_SFX_SNAPSHOT||null};}
+async function audioRecord(phase){
+ const controls=['audio-mark-game','audio-mark-menu'].map(id=>document.getElementById(id));
+ controls.forEach(button=>button.disabled=true);
+ try{const row={phase,before:audioSnapshot(phase)},rows=window.AUDIO_STREAM_DIAGNOSTIC.observations;rows.push(row);if(rows.length>8)rows.shift();document.getElementById('audio-case-label').textContent='记录中，请保持10秒 ';await new Promise(r=>setTimeout(r,10000));row.after=audioSnapshot(phase);document.getElementById('audio-case-label').textContent='已记录 '+phase+' · '+audioLatency+'ms ';}
+ finally{controls.forEach(button=>button.disabled=false);}
+}
 document.getElementById('audio-mark-game').onclick=()=>audioRecord('game');
 document.getElementById('audio-mark-menu').onclick=()=>audioRecord('menu');
 document.getElementById('audio-save').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(window.AUDIO_STREAM_DIAGNOSTIC,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='audio-'+audioLatency+'ms.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};

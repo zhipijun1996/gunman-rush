@@ -1,0 +1,204 @@
+{
+  "status": "prepared_not_browser_verified",
+  "build_info": {
+    "build_id": "1d3791a7c290",
+    "pack": "index.1d3791a7c290.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "34c54d5a04ef",
+    "pack_bytes": 208700940,
+    "download_bytes": 205569840,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+  },
+  "parent_pack": {
+    "url": "../index.1d3791a7c290.pck",
+    "bytes": 208700940,
+    "sha256": "1d3791a7c29031550f5e950bcd5b68f2b3bec7aee0a2c75b02d849d2044e50e2",
+    "copied": false,
+    "present_on_disk": true,
+    "verification": "full_raw_pack",
+    "serve_requirement": "Parent content-addressed PCK must exist; run existing standard reconstruction before local/static serving if absent."
+  },
+  "scope": "Independent diagnostic only; actual formal PCK/scene and official matched threaded JS/WASM. No production or ordinary entry edits; no phone/FPS/BGM acceptance.",
+  "template": {
+    "path": "/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable/web_debug.zip",
+    "bytes": 10342534,
+    "sha256": "5e6696b42ce07f908fce1698cc227e11807399456b6ab986e69a125eae3596ee"
+  },
+  "official_members_sha256": {
+    "godot.js": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657",
+    "godot.wasm": "fcce8c3ae3a7277199985e8b50610bbc267f88386bf31ab4a69885c160ec9cc8",
+    "godot.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "godot.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "godot.html": "3a5f265e788646513c32494fc0faead64c6b7f92ef005bf475da0c622bd481f4",
+    "godot.service.worker.js": "c72e9a688cd06978be343fd8481130e89dd81439267e1cfd8aef8343ea9f4139",
+    "godot.offline.html": "b0a5d443e78f58717adac780bac91c1431bfa3b801c41f4707d507fb5ad2e47f"
+  },
+  "engine_js_wasm_position_worklet_unchanged": true,
+  "instrumented_worklet": true,
+  "worklet": {
+    "official_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "diagnostic_sha256": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf",
+    "official_copy": "official.audio.worklet.js",
+    "runtime_copy": "official-threaded.audio.worklet.js",
+    "scope": "Counter-only guarded ready read/underflow branches; not official baseline; supports threads and nonthreads."
+  },
+  "godot_config": {
+    "args": [],
+    "canvasResizePolicy": 2,
+    "emscriptenPoolSize": 8,
+    "ensureCrossOriginIsolationHeaders": true,
+    "executable": "official-threaded",
+    "experimentalVK": true,
+    "fileSizes": {
+      "official-threaded.wasm": 38349395,
+      "../index.1d3791a7c290.pck": 208700940
+    },
+    "focusCanvas": true,
+    "gdextensionLibs": [],
+    "godotPoolSize": 4,
+    "mainPack": "../index.1d3791a7c290.pck",
+    "serviceWorker": "diagnostic.service.worker.js"
+  },
+  "presentation_parity": {
+    "viewport": {
+      "count": 1,
+      "identical_to_standard": true,
+      "sha256": [
+        "08b12a1476e143f6c287823cc1fb4339d51b4e0eb21b6e1fe10ca0ff2c5676ef"
+      ],
+      "html": "<meta name=\"viewport\" content=\"width=device-width, user-scalable=no, initial-scale=1.0\">"
+    },
+    "canvas": {
+      "count": 1,
+      "identical_to_standard": true,
+      "sha256": [
+        "935960e3e6b771921ac06405c6a2f829993144eb3c3882a3eaa6774a4a9568a5"
+      ]
+    },
+    "styles": {
+      "count": 2,
+      "identical_to_standard": true,
+      "sha256": [
+        "1fa1dddab7de20f7715519ad9a770c38a09bb480a5cce48fb0afb89d5c873877",
+        "8553c61546c14e2b1d9f4b6c0dbdbcf3c1eb123f1e2f0ae2b3b28c42e7235924"
+      ]
+    },
+    "engine_canvas_config_inherited_unchanged": {
+      "canvasResizePolicy": 2,
+      "focusCanvas": true,
+      "experimentalVK": true
+    },
+    "internal_resolution_and_HiDPI": "Same exact parent PCK/project.godot; no project override, canvas width/height override or DPR override added.",
+    "scope": "Static parity only; actual threaded browser rendering/phone presentation still requires verification."
+  },
+  "latency_comparison": {
+    "query_values_ms": [
+      50,
+      200
+    ],
+    "default_ms": 50,
+    "startup_args_only": true,
+    "manual_recording_seconds": 10,
+    "observation_limit": 8,
+    "menu_state": "User opens actual game menu manually; diagnostic buttons only snapshot and wait."
+  },
+  "service_worker": {
+    "scope": "./audio-threaded/",
+    "registration": "official Engine.installServiceWorker with default script-directory scope",
+    "cache_prefix": "gunman-rush-audio-threaded-diagnostic-sw-cache-",
+    "coi_headers": true,
+    "parent_pack_fetch": "Official noncacheable fetch branch also inserts COOP/COEP; same-origin parent URL is supported.",
+    "html_adaptation": "Official feature detection/COI gate and Engine.installServiceWorker retained. Wait for expected exact-scope/script worker activated before reload; existing active worker on a nonCOI page may reload. Original2000ms activation deadline; at most2 automatic reloads per tab/build. Persistent failure is displayed; no isolation bypass.",
+    "cache_version": "1d3791a7c290-diagnostic-c0aa1fd2c067fd72",
+    "static_files_sha256_before_SW": "c0aa1fd2c067fd7244151096249c4bb1009d2006775672a7906f171fd1a4dd38",
+    "cache_version_inputs": "Sorted generated filenames + complete file SHA256, excluding SW and receipt; includes HTML/bootstrap and all observers.",
+    "bootstrap_timeout_ms": 2000,
+    "automatic_reload_limit": 2,
+    "ordinary_root_worker_touched": false
+  },
+  "observer": {
+    "api": "window.MOBILE_THREADED_DIAGNOSTIC.snapshot()",
+    "records_limit": 16,
+    "shared_memory": "Descriptors of actual start state/input/output typed-array backing buffers, after successful native post; no ring memory read/write or retained views.",
+    "timing": "Exact same stream_timing_observer.js bytes as no-thread diagnostic, before engine: RAF callback envelopes and LongTask only. Official threaded engine has no instrumented chunk callbacks; begun/acknowledged remain0 and do not measure producer latency.",
+    "required_runtime_guards": [
+      "cross_origin_isolated===true",
+      "threads===true",
+      "shared_ring_observed===true",
+      "audio.streams[].underrun_stats.threads===true",
+      "audio.destinations[].status ready with actual mixed PCM"
+    ],
+    "unverified_until_browser_run": true
+  },
+  "files": {
+    "official-threaded.js": {
+      "bytes": 358342,
+      "sha256": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657"
+    },
+    "official-threaded.wasm": {
+      "bytes": 38349395,
+      "sha256": "fcce8c3ae3a7277199985e8b50610bbc267f88386bf31ab4a69885c160ec9cc8"
+    },
+    "official-threaded.audio.worklet.js": {
+      "bytes": 9718,
+      "sha256": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf"
+    },
+    "official-threaded.audio.position.worklet.js": {
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    "official.audio.worklet.js": {
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    "offline.html": {
+      "bytes": 971,
+      "sha256": "b0a5d443e78f58717adac780bac91c1431bfa3b801c41f4707d507fb5ad2e47f"
+    },
+    "shared-observer.js": {
+      "bytes": 2810,
+      "sha256": "807ff315c7e0d4234060de41a484e4c599f49a11300fc6453a20a52ad30cf194"
+    },
+    "audio_probe.js": {
+      "bytes": 15536,
+      "sha256": "8e8b8b0a50077f20f26c8ae7bef70d6940db9ff38f1d6368966afd224102bed4"
+    },
+    "pcm_worklet.js": {
+      "bytes": 2478,
+      "sha256": "4acdb127f07d5b7dde7b765ca31053e34f889a9c95f6aba12d27645d5351e99c"
+    },
+    "stream_timing_observer.js": {
+      "bytes": 7875,
+      "sha256": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da"
+    },
+    "index.html": {
+      "bytes": 10534,
+      "sha256": "cc6080f3d7071a92239c35ed5c75d946fd29f800f09d05d7dbac01e98cb779e0"
+    },
+    "diagnostic.service.worker.js": {
+      "bytes": 5968,
+      "sha256": "dbecde2e84813b1260c9207ba3ee694eabbcbdbe2e94e94e36f00406cb47ca34"
+    }
+  },
+  "self_test": "passed",
+  "worklet_equivalence_output": "PASS: not_ready\nPASS: stopped\nPASS: no_output\nPASS: zero_available\nPASS: nothread_1_short\nPASS: nothread_1_read_refill\nPASS: nothread_2_short\nPASS: nothread_2_read_refill\nPASS: thread_1_short\nPASS: thread_1_read_refill\nPASS: thread_2_short\nPASS: thread_2_read_refill\nPASS: nothread_input_passthrough\nPASS: thread_input_passthrough\nPASS: all14 scenarios preserve original output/return/read/input/notify traces; exact branch counters\n",
+  "shared_observer_output": "PASS shared/native-result/exception/nothread/bounded16/no-ring-write observer\n",
+  "official_service_worker_output": "PASS actual officialSW parentPCK body/COOP/COEP; activation keeps ordinary root cache\n",
+  "bootstrap_output": "PASS register/installing/activating wait; reload only after activated; deadline2000\nPASS existing activated/nonCOI recovery; hard2reload bound, no start without isolation\nPASS genuine missing-features empty starts exactly once, clears reload bound\nPASS wrongscope/wrongscript/redundant/timeout/storageblocked/WebGL negative controls; failures visible, no unbounded reload\n",
+  "site_size_before": {
+    "stored_static_bytes_excluding_git": 501110741,
+    "missing_standard_packs_reconstructed_at_deploy": [],
+    "projected_served_bytes": 501110741,
+    "limit_bytes": 1073741824
+  },
+  "output_directory": "/workspace/gunman-rush-main/build/web/audio-threaded",
+  "entry": "audio-threaded/?audio_probe=1",
+  "new_directory_bytes": 38783675,
+  "projected_served_site_bytes": 539894416
+}
