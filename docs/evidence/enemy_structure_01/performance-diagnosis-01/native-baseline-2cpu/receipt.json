@@ -1,0 +1,37 @@
+{
+  "scope": "One exact original route; CPU affinity constrained for diagnosis, not claimed same CI hardware",
+  "affinity": [
+    0,
+    1
+  ],
+  "cgroup_cpu_max": "400000 100000",
+  "source_code": "5b083938 production plus docs-only working tree",
+  "wall_seconds": 39.41439995700057,
+  "run": {
+    "seed": "forest-depth-hollow-00",
+    "map": 2,
+    "route": "growth",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_depth_region_runner.gd",
+      "--",
+      "--seed=forest-depth-hollow-00",
+      "--map=2",
+      "--route=growth",
+      "--output=build/enemy_structure/performance-diagnosis-01/native-baseline-2cpu/09-map2-growth/capture.json"
+    ],
+    "status": "passed",
+    "errors": [],
+    "exit_code": 0,
+    "log_sha256": "b9730fc685217ad0f0c68b2a033d87b4c773a461527f77215f4e077f35d3c6af",
+    "capture_sha256": "4f010722b72cff100558df250b7ae0e226e6e6d119057a7ff1a8d8a937cbaad4",
+    "seconds": 39.34391668099852
+  }
+}

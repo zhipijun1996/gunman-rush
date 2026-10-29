@@ -23,7 +23,7 @@ EXPECTED_CASES = {f"ordinary/{identity}/{profile}" for identity in PLAINS for pr
 EXPECTED_CASES |= {f"ordinary/{identity}/forest" for identity in FOREST}
 EXPECTED_CASES |= {f"candidate/{identity}/{context}" for identity in ("candidate_lure_guard", "candidate_crosswind_moth") for context in ("lab", "studio")}
 EXPECTED_CASES |= {f"boss/{identity}" for identity in BOSSES}
-EXPECTED_CASES |= {"ordinary/root_bell/root_bell", "registry/refusals", "binding/replacements", "lifecycle/rebind", "boss-lifecycle/rebind"}
+EXPECTED_CASES |= {"ordinary/root_bell/root_bell", "registry/refusals", "binding/replacements", "lifecycle/rebind", "boss-lifecycle/rebind", "forest-cache/parity"}
 MARKER = re.compile(r"^ENEMY STRUCTURE: ([1-9]\d*) checks, 0 failures$", re.M)
 
 

@@ -11,6 +11,18 @@ var _mesh_texture: Texture2D
 var _mesh_bounds := Rect2()
 var _mesh_points := PackedVector2Array()
 var _joints: Array[Dictionary] = []
+var _influence_layout: Array = []
+var _influence_kind: StringName = &""
+var _influence_foot_y := 0.0
+var _influence_ready := false
+var _influence_indices: Array[PackedInt32Array] = []
+var _influence_weights: Array[PackedFloat64Array] = []
+var _influence_totals := PackedFloat64Array()
+var _influence_masks := PackedFloat64Array()
+var _influence_clamp_y := PackedByteArray()
+var _influence_has_mask := false
+var _influence_pivots := PackedVector2Array()
+var _influence_angles := PackedFloat64Array()
 var clock := 0.0
 var stride := 0.0
 var tension := 0.0
@@ -112,6 +124,11 @@ func _draw(canvas: Node2D, actor: EnemyActor, texture: Texture2D, bounds: Rect2,
 		hit_pose = _last_body_pose.lerp(Vector2.ONE, smoothstep(0.0,0.12,death_elapsed))
 	else:
 		_last_body_pose = hit_pose
+	# Keep accepted pose bookkeeping before a pure body-math cull. The host
+	# still draws warnings/HP/effects after this returns in identity coordinates.
+	if not body_mesh_visible(canvas,bounds):
+		canvas.draw_set_transform(Vector2.ZERO)
+		return
 	var hit_origin := Vector2.ZERO if actor.definition.aerial else Vector2(0, actor.definition.collision_size.y * 0.5 * (1.0-hit_pose.y))
 	if actor.definition.behavior_id == &"forest_swing_pod":
 		hit_origin = Vector2(0,-13)*(Vector2.ONE-hit_pose)
@@ -178,6 +195,7 @@ static func _part(canvas: Node2D, _texture: Texture2D, bounds: Rect2, source: Re
 	motion._joints.append({"region":destination,"margin":ratio*6.0,"pivot":pivot,"angle":angle})
 
 func _prepare_mesh(texture: Texture2D,bounds: Rect2) -> void:
+	_influence_ready = false
 	_mesh_texture = texture
 	_mesh_bounds = bounds
 	_mesh_points = PackedVector2Array()
@@ -228,13 +246,82 @@ func _deform_connected(point: Vector2,kind: StringName,foot_y: float) -> Vector2
 		delta_position.y = minf(0.0,delta_position.y)
 	return point+delta_position
 
+func _prepare_influences(kind: StringName,foot_y: float) -> void:
+	# Geometry is keyed by actual influence data, not species identity alone.
+	# Angles stay dynamic and are read even on a cache hit.
+	var layout: Array = []
+	_influence_angles = PackedFloat64Array()
+	for joint: Dictionary in _joints:
+		layout.append(joint.region)
+		layout.append(joint.margin)
+		layout.append(joint.pivot)
+		_influence_angles.append(float(joint.angle))
+	if _influence_ready and layout==_influence_layout and kind==_influence_kind and foot_y==_influence_foot_y: return
+	_influence_layout = layout
+	_influence_kind = kind
+	_influence_foot_y = foot_y
+	_influence_indices.clear()
+	_influence_weights.clear()
+	_influence_totals = PackedFloat64Array()
+	_influence_masks = PackedFloat64Array()
+	_influence_clamp_y = PackedByteArray()
+	_influence_pivots = PackedVector2Array()
+	for joint: Dictionary in _joints: _influence_pivots.append(joint.pivot)
+	_influence_has_mask = kind in [&"forest_seed_sentry",&"forest_crossbranch",&"forest_swing_pod",&"forest_thread_spider",&"forest_bible_weaver",&"forest_lantern"]
+	for point: Vector2 in _mesh_points:
+		var joint_indices := PackedInt32Array()
+		var weights := PackedFloat64Array()
+		var total := 0.0
+		for joint_index: int in _joints.size():
+			var joint: Dictionary = _joints[joint_index]
+			var region: Rect2 = joint.region
+			var margin: Vector2 = joint.margin
+			var wx := smoothstep(region.position.x-margin.x,region.position.x+margin.x,point.x)*(1.0-smoothstep(region.end.x-margin.x,region.end.x+margin.x,point.x))
+			var wy := smoothstep(region.position.y-margin.y,region.position.y+margin.y,point.y)*(1.0-smoothstep(region.end.y-margin.y,region.end.y+margin.y,point.y))
+			var weight := wx*wy
+			# Sum the same doubles in the same order as the reference consumer.
+			total += weight
+			if weight != 0.0:
+				joint_indices.append(joint_index)
+				weights.append(weight)
+		_influence_indices.append(joint_indices)
+		_influence_weights.append(weights)
+		_influence_totals.append(total)
+		var uv := (point-_mesh_bounds.position)/_mesh_bounds.size
+		var mask := 1.0
+		if kind==&"forest_seed_sentry": mask = 1.0-smoothstep(0.88,0.97,uv.y)
+		elif kind==&"forest_crossbranch": mask = 1.0-smoothstep(0.65,0.95,uv.y)
+		elif kind==&"forest_swing_pod": mask = smoothstep(0.15,0.60,uv.y)
+		elif kind in [&"forest_thread_spider",&"forest_bible_weaver",&"forest_lantern"]: mask = smoothstep(0.0,4.0,point.length())
+		_influence_masks.append(mask)
+		_influence_clamp_y.append(1 if kind==&"forest_bark_beetle" and point.y>=foot_y-1.0 else 0)
+	_influence_ready = true
+
+func _deform_cached(index: int) -> Vector2:
+	var point := _mesh_points[index]
+	var delta_position := Vector2.ZERO
+	var indices: PackedInt32Array = _influence_indices[index]
+	var weights: PackedFloat64Array = _influence_weights[index]
+	# Keep the reference Vector2 operations and nonzero-joint accumulation order.
+	# No transform/sin/cos substitution or per-term pre-normalization is used.
+	for influence: int in indices.size():
+		var joint_index := indices[influence]
+		var pivot := _influence_pivots[joint_index]
+		delta_position += ((point-pivot).rotated(_influence_angles[joint_index])+pivot-point)*weights[influence]
+	var total := _influence_totals[index]
+	if total>0.0: delta_position *= MOTION_GAIN/total
+	if _influence_has_mask: delta_position *= _influence_masks[index]
+	elif _influence_clamp_y[index]!=0: delta_position.y = minf(0.0,delta_position.y)
+	return point+delta_position
+
 func _draw_connected(canvas: Node2D,actor: EnemyActor,texture: Texture2D,bounds: Rect2,body_transform: Transform2D,tint: Color) -> void:
 	if not body_mesh_visible(canvas,bounds): return
 	if _mesh_texture!=texture or _mesh_bounds!=bounds: _prepare_mesh(texture,bounds)
+	_prepare_influences(actor.definition.behavior_id,actor.definition.collision_size.y*0.5)
 	var vertices := PackedVector2Array()
 	vertices.resize(_mesh_points.size())
 	for index: int in _mesh_points.size():
-		vertices[index] = _deform_connected(_mesh_points[index],actor.definition.behavior_id,actor.definition.collision_size.y*0.5)
+		vertices[index] = _deform_cached(index)
 	_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
 	canvas.draw_set_transform_matrix(body_transform)
 	canvas.draw_mesh(_mesh,texture,Transform2D.IDENTITY,tint)
@@ -246,6 +333,15 @@ static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
 	return canvas.get_viewport_rect().intersects(projected,true)
 
 func dispose() -> void:
+	_influence_ready = false
+	_influence_layout.clear()
+	_influence_indices.clear()
+	_influence_weights.clear()
+	_influence_totals = PackedFloat64Array()
+	_influence_masks = PackedFloat64Array()
+	_influence_clamp_y = PackedByteArray()
+	_influence_pivots = PackedVector2Array()
+	_influence_angles = PackedFloat64Array()
 	_feedback = null
 	_mesh_texture = null
 	_mesh_points = PackedVector2Array()

@@ -368,6 +368,17 @@ func lifecycle() -> void:
 	await frames()
 	finish_case("lifecycle/rebind",before)
 
+func forest_cache_parity() -> void:
+	var before:=failures.size()
+	var source: Script=load("res://tests/enemy_forest_cache_contract.gd")
+	var probe: RefCounted=source.new()
+	var observation: Dictionary=probe.call("run")
+	check(int(observation.get("checks",0))>0,"forest cache helper executes nonzero contract checks")
+	for label: String in observation.get("failures",[]): check(false,"forest cache: "+label)
+	check((observation.get("failures",[]) as Array).is_empty(),"forest cache strict reference parity and invalidation pass")
+	check(int(observation.get("compared_cases",0))>=756 and int(observation.get("compared_vertices",0))>=218484,"forest cache independently required parity envelope completed")
+	finish_case("forest-cache/parity",before,{"checks":observation.get("checks",0),"compared_cases":observation.get("compared_cases",0),"compared_vertices":observation.get("compared_vertices",0),"scope":observation.get("scope","")})
+
 func run() -> void:
 	registry=load("res://scripts/enemies/enemy_behavior_registry.gd")
 	factory=load("res://scripts/enemies/enemy_factory.gd")
@@ -386,6 +397,7 @@ func run() -> void:
 	for identity: String in BOSSES: await boss(identity)
 	await boss_rebind()
 	await lifecycle()
+	forest_cache_parity()
 	paused=false
 	var audio_ok: bool=await preload("res://tests/audio_teardown.gd").drain_world(world)
 	check(audio_ok,"owned native test audio actually released")

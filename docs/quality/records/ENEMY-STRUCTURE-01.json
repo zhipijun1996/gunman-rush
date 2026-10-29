@@ -4,7 +4,7 @@
   "task_type": "mechanic",
   "workflow": "in_progress",
   "baseline_commit": "58fb249eb37d469c2ccb9ed22ff4d1311330e2fa",
-  "reviewed_commit": "8fd71688c0671d9aa3836b318c6b137dd014ce9a",
+  "reviewed_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
   "content_version": "enemy-structure-v1",
   "owner": "/root",
   "purpose": "整体重构所有现有怪物的创建、只读表现状态、绑定、生命周期及恢复边界",
@@ -34,20 +34,155 @@
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
+    "docs/evidence/enemy_structure_01/README.md",
+    "docs/evidence/enemy_structure_01/failures/ci-40843714099/prepare.log",
+    "docs/evidence/enemy_structure_01/failures/ci-40844941490/artifacts-serial-finished.json",
+    "docs/evidence/enemy_structure_01/failures/ci-40844941490/serial-job.log",
+    "docs/evidence/enemy_structure_01/failures/ci-40844941490/serial-proof.zip",
+    "docs/evidence/enemy_structure_01/failures/ci-40844941490/summary.json",
+    "docs/evidence/enemy_structure_01/failures/old-moth-fixture/native.log",
+    "docs/evidence/enemy_structure_01/failures/old-moth-fixture/report.json",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/display.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-center.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-center.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-left-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-left-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-mirrored.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-mirrored.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-outside.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-outside.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-right-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/boss-right-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/display.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-center.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-center.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-left-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-left-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-mirrored.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-mirrored.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-outside.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-outside.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-right-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/forest-right-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/gpu.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/native.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-center.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-center.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-left-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-left-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-mirrored.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-mirrored.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-outside.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-outside.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-right-edge.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/plains-right-edge.png.import",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl-output/runtime.json",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/draw-gl.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl-output/boss-after.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl-output/boss-before.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl-output/ordinary-after.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl-output/ordinary-before.png",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl-output/runtime.json",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-gl.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-native-output/runtime.json",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/hit-native.log",
+    "docs/evidence/enemy_structure_01/gpu-and-hit-05/report.json",
+    "docs/evidence/enemy_structure_01/gpu-perf-08/display.log",
+    "docs/evidence/enemy_structure_01/gpu-perf-08/draw-gl.log",
+    "docs/evidence/enemy_structure_01/gpu-perf-08/hit-gl.log",
+    "docs/evidence/enemy_structure_01/gpu-perf-08/report.json",
+    "docs/evidence/enemy_structure_01/manifest.json",
+    "docs/evidence/enemy_structure_01/motion-lifecycle-02/native.log",
+    "docs/evidence/enemy_structure_01/motion-lifecycle-02/report.json",
+    "docs/evidence/enemy_structure_01/motion-lifecycle-02/runtime.json",
+    "docs/evidence/enemy_structure_01/native-01/native.log",
+    "docs/evidence/enemy_structure_01/native-01/report.json",
+    "docs/evidence/enemy_structure_01/native-01/runtime.json",
+    "docs/evidence/enemy_structure_01/native-02/native.log",
+    "docs/evidence/enemy_structure_01/native-02/report.json",
+    "docs/evidence/enemy_structure_01/native-02/runtime.json",
+    "docs/evidence/enemy_structure_01/native-03/native.log",
+    "docs/evidence/enemy_structure_01/native-03/report.json",
+    "docs/evidence/enemy_structure_01/native-03/runtime.json",
+    "docs/evidence/enemy_structure_01/native-04/native.log",
+    "docs/evidence/enemy_structure_01/native-04/report.json",
+    "docs/evidence/enemy_structure_01/native-05/native.log",
+    "docs/evidence/enemy_structure_01/native-05/report.json",
+    "docs/evidence/enemy_structure_01/native-05/runtime.json",
+    "docs/evidence/enemy_structure_01/native-06-perf-candidate/native.log",
+    "docs/evidence/enemy_structure_01/native-06-perf-candidate/report.json",
+    "docs/evidence/enemy_structure_01/native-06-perf-candidate/runtime.json",
+    "docs/evidence/enemy_structure_01/native-07-perf-contract/native.log",
+    "docs/evidence/enemy_structure_01/native-07-perf-contract/report.json",
+    "docs/evidence/enemy_structure_01/native-07-perf-contract/runtime.json",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/instrumented-route/native.log",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/instrumented-route/receipt.json",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/mesh-microbench.json",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/mesh-microbench.log",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/native-baseline-2cpu/receipt.json",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/native-candidate-2cpu/receipt.json",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/validator-top.txt",
+    "docs/evidence/enemy_structure_01/performance-diagnosis-01/validator.json",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_appendix.md",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_binding.json",
     "docs/evidence/enemy_structure_01/review/enemy_structure_final_production_binding.json",
     "docs/evidence/enemy_structure_01/review/enemy_structure_production_review.md",
     "docs/evidence/enemy_structure_01/review/enemy_structure_review_acceptance.md",
     "docs/evidence/enemy_structure_01/review/enemy_structure_review_acceptance_binding.json",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_runtime_observation_5b.md",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_runtime_observation_5b_binding.json",
     "docs/evidence/enemy_structure_01/review/enemy_structure_selector_independent.log",
     "docs/evidence/enemy_structure_01/review/enemy_structure_style_review.md",
+    "docs/evidence/enemy_structure_01/source-equivalence.json",
+    "docs/evidence/enemy_structure_01/static-5b/docs-08.log",
+    "docs/evidence/enemy_structure_01/static-5b/quality-07.log",
+    "docs/evidence/enemy_structure_01/static-5b/quality-diff-07.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/creative-direction-tests.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/creative-direction-tests.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/creative-direction.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/creative-direction.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/region-bible-contract.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/region-bible-contract.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/region-bible-tests.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/region-bible-tests.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-01/summary.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/creative-direction-tests.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/creative-direction-tests.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/creative-direction.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/creative-direction.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/region-bible-contract.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/region-bible-contract.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/region-bible-tests.json",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/region-bible-tests.log",
+    "docs/evidence/enemy_structure_01/style19-bindings-02/summary.json",
+    "docs/evidence/enemy_structure_01/targeted14-4af/core.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/enemy-corpse-save.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/enemy-corpse-snapshot.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/enemy-feedback-formal.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/enemy-feedback-native.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/enemy-feedback-support.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-enemies.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-guardian-tolerance.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-guardian.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-queen-canopy.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-queen.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/forest-depth-region.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/report.json",
+    "docs/evidence/enemy_structure_01/targeted14-4af/terrain-family-tests.log",
+    "docs/evidence/enemy_structure_01/targeted14-4af/underworld-continuous-bosses.log",
     "docs/handoff.md",
     "docs/quality/records/ENEMY-STRUCTURE-01.json",
     "docs/tasks.md",
+    "docs/worklines/enemy_structure_01/README.md",
     "docs/worklines/enemy_structure_01/architecture.md",
     "docs/worklines/enemy_structure_01/enemy_lifecycle_refactor_handoff.md",
     "docs/worklines/enemy_structure_01/enemy_structure_boss_implementation.md",
+    "docs/worklines/enemy_structure_01/enemy_structure_ci_performance_diagnosis.md",
     "docs/worklines/enemy_structure_01/enemy_structure_factory_implementation.md",
+    "docs/worklines/enemy_structure_01/enemy_structure_performance_candidate_review.md",
+    "docs/worklines/enemy_structure_01/enemy_structure_performance_guardrails.md",
     "docs/worklines/enemy_structure_01/enemy_structure_style_review.md",
+    "docs/worklines/enemy_structure_01/performance.md",
     "docs/worklines/enemy_structure_01/scope.md",
     "scripts/art_foundation/pixel_formal_style_installer.gd",
     "scripts/art_foundation/pixel_plains_enemy.gd",
@@ -121,6 +256,8 @@
     "scripts/underworld_plains/underworld_actor_installer.gd",
     "scripts/underworld_plains/underworld_enemy.gd",
     "tests/enemy_all_02_motion_lifecycle.gd",
+    "tests/enemy_forest_cache_contract.gd",
+    "tests/enemy_forest_cache_contract.gd.uid",
     "tests/enemy_structure_runner.gd",
     "tests/enemy_structure_runner.gd.uid",
     "tests/test_production_plan.py",
@@ -137,14 +274,19 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "用户授权整体程序重构，冻结职责及保留约束。",
+      "evidence": [
+        "structure-scope"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "原生／GL技术合同通过；完整G1的正式行为／trace及完整CI分账，未以fixture补签整批玩法。",
+      "evidence": [
+        "native-current",
+        "gpu-hit-current"
+      ]
     },
     "G2": {
       "status": "unverified",
@@ -157,8 +299,8 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "failed",
+      "reason": "完整CI40844941490串行forest-depth-region600秒超时；已完成52条均passed，原预算／全部80／断言保留，正在性能诊断返工。",
       "evidence": []
     },
     "G5": {
@@ -169,14 +311,19 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "仅程序职责与接口合同已落实，非怪物美术／机制创意验收。",
+      "evidence": [
+        "structure-scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "当前公开运行源原生730与原426／44／12通过；完整166 CI仍单列等待。",
+      "evidence": [
+        "native-current",
+        "gpu-hit-current"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -210,9 +357,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "限定源码结构与已声明测试迁移独审接受；不包括完整运行／美术／用户验收。",
+      "reason": "限定代码结构与历史测试迁移、5b闭包复核接受，不签成品和新runner独立设计充分性。",
       "evidence": [
-        "structure-code-review"
+        "source-review-current"
       ]
     },
     "device": {
@@ -238,7 +385,36 @@
       "status": "passed",
       "reason": "仅源码及指定测试迁移ACCEPT，完整运行仍在后继验证。",
       "evidence": [
-        "structure-code-review"
+        "source-review-current"
+      ]
+    },
+    {
+      "id": "STRUCTURE-CONTRACT",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "全普通／候选／Boss既有结构统一",
+      "method": "按已授权范围落实运行消费者及所有权",
+      "expected": "创建、只读状态、表现绑定、生命周期一致，特殊机制保留",
+      "failure": "仅搬文件／通用God类或改素材／原玩法冒充结构统一",
+      "status": "passed",
+      "reason": "代码与逐组移交已落实；非创意／美术通过。",
+      "evidence": [
+        "structure-scope"
+      ]
+    },
+    {
+      "id": "CURRENT-RUNTIME-CONTRACT",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "39真实实例链与暂停／恢复／终态／重复bind／dispose、原伤害反馈及GL输出",
+      "method": "当前源原生730＋原native426／GL44／GL12",
+      "expected": "全部0失败、严格完成、源稳定、无ERROR或退出泄漏",
+      "failure": "未知路由静默通过、写回机制、双重反馈或悬挂信号、越界裁剪／弱点变色",
+      "status": "passed",
+      "reason": "原报告与日志保当前5b来源，不代签正常速度动画或完整CI。",
+      "evidence": [
+        "native-current",
+        "gpu-hit-current"
       ]
     }
   ],
@@ -264,12 +440,77 @@
       "verdict": "ACCEPT",
       "method": "Read actual production diff and immutable old-source prefixes; independently ran selector21 tests against byte-identical8fd candidate in isolated worktree.",
       "observed": "Limited static structure and specified test migrations accepted; full CI, local14 and visual/device/user not accepted by this evidence."
+    },
+    {
+      "id": "structure-scope",
+      "path": "docs/worklines/enemy_structure_01/scope.md",
+      "sha256": "a22efdb850ebc699e21de64d89f062d169830621b34750c39aef3d0e41b7f796",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "content_version": "enemy-structure-v1",
+      "method": "用户整体重构授权与既有结构盘点落地",
+      "observed": "统一所有既有怪物的创建／只读状态／绑定／生命周期，保原机制和素材，不采用验收草案。"
+    },
+    {
+      "id": "native-current",
+      "path": "docs/evidence/enemy_structure_01/native-05/report.json",
+      "sha256": "c8a4310f2ce87baa45478b58886a8f0fbb0d8d025dacc3d463b0c5c2888e491e",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "content_version": "enemy-structure-v1",
+      "method": "原工具import90秒＋native180秒，实际Godot4.7.2，完整39case列表及严格非零完成标记",
+      "observed": "clean5b；730断言、39case、0失败、source_stable=true。仅结构fixture。",
+      "exit_code": 0,
+      "command": "python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/native-05",
+      "environment": "Linux x86_64; Godot4.7.2.stable.official.ed1daf0bf; fixed60fps; Dummy audio; Xvfb/software GL for pixel fixtures, no device claim."
+    },
+    {
+      "id": "gpu-hit-current",
+      "path": "docs/evidence/enemy_structure_01/gpu-and-hit-05/report.json",
+      "sha256": "2010339f6b5f37c394db37e8985e6c4e151bbdd142aeed01d16d9d2e7e68f4f2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "content_version": "enemy-structure-v1",
+      "method": "原accepted-hit fixture及两原GL测试，独占Xvfb／软件GL，每case120秒，不改原断言",
+      "observed": "clean5b source稳定；native426、GL裁剪44、身体／弱点RGB12均通过。不签动画／听感／设备。",
+      "exit_code": 0,
+      "command": "bash tools/godot.sh --headless --audio-driver Dummy --fixed-fps 60 --path . --script tests/enemy_hit_template_tests.gd\nbash tools/godot.sh --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --path . --script tests/enemy_all_02_draw_culling.gd -- --verify-pixels\nbash tools/godot.sh --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --path . --script tests/enemy_hit_template_pixels.gd",
+      "environment": "Linux x86_64; Godot4.7.2.stable.official.ed1daf0bf; fixed60fps; Dummy audio; Xvfb/software GL for pixel fixtures, no device claim."
+    },
+    {
+      "id": "source-review-current",
+      "path": "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_appendix.md",
+      "sha256": "9af42d086864f355e24a82bcdf768a80fcfac488ad2f06342085596fdb977f5e",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "content_version": "enemy-structure-v1",
+      "method": "非生产作者核Git实对象、父提交限定审查与后继全部代码／测试闭包字节相等",
+      "observed": "5b仅增加7docs；沿已接受的8fd生产结构／测试迁移范围，不签full CI／成品质量。",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/binding_plan",
+        "/root/forest_motion",
+        "/root/boss_motion",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production writes; new native runner authored by reviewer is excluded from independent-test-design claims.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "实现与全部验证进行中；未宣称整体完成",
-    "用户美术质量拒绝仍有效；设备/手感/正常速度音画未重新验收"
+    "性能返工：40844941490串行原80/600超时（17通过＋1超时，后57未执行）；候选仅缓存静态网格权重与减少只读快照重复复制，等待当前源实跑；旧5b通过不改签新代码。",
+    "当前完整CI40844941490尚未收口；旧40843714099 prepare清单断言失败保留。",
+    "全14原专项确为clean4af fresh，生产闭包与5b相同但不重标fresh5b；原80路线547.301／600秒。",
+    "旧怪物成品美术已被用户拒绝；本轮未批量重画或采用验收skills讨论稿。",
+    "正常速度音画／听感、趣味、用户与实体设备仍未重新认可；结构通过不代签它们。",
+    "本轮按无直接创作变更的System Engineering工程报告交付；没有用旧视频或旧网页冒充新候选。"
   ],
   "test_change_justification": "原32/10方法与历史负例、预算、输入前缀保留；当前style19/creative22窄技术绑定新增历史冻结和严格差异断言。原motion生命周期候选fixture由错误charger/moth组合迁真实Factory review配方，708原断言与384pose网格阈值不改；静态迁移独审见工作线报告，最终引擎与完整审查另证。 Selector原21方法与原165精确前缀、双通道闭包及预算保留；仅显式追加新结构check，当前166/91/75，独立源码与实际21/0审查证据见structure-code-review。"
 }
