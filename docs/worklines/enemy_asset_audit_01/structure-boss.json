@@ -1,0 +1,2142 @@
+{
+  "task": "enemy_structure_boss_readonly",
+  "snapshot_commit": "9b76f0044f0fe4d729f2bc894abf153a4f238564",
+  "scope": {
+    "scenes": 8,
+    "definition_combinations": 9,
+    "implemented_restructure": false,
+    "repo_writes": false,
+    "Godot_run": false,
+    "quality_or_unification_approval": false,
+    "method": "静态读取实际scene/Resource/脚本/Stage-App消费者；只/tmp文件，无运行推断PASS。"
+  },
+  "base_contract": {
+    "scene_skeleton": "CharacterBody2D Motor root / CollisionShape2D / Damageable / Encounter / Presentation；没有普通Actor和PatrolAI节点",
+    "ordinary_reference_scene": {
+      "path": "scenes/enemies/patrol_drone.tscn",
+      "nodes": [
+        {
+          "name": "PatrolDrone",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/enemies/enemy_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "PatrolAI",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/enemies/enemy_patrol_ai.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/combat/damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Actor",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/enemies/enemy_actor.gd",
+          "node_paths": {
+            "motor": "..",
+            "brain": "../PatrolAI",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/enemies/patrol_drone.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/enemies/enemy_presentation.gd",
+          "node_paths": {
+            "actor": "../Actor"
+          }
+        }
+      ]
+    },
+    "health": "所有Boss继承BossEncounter.health同一资源模型；有core时primary与core receiver共health，不应复制HP",
+    "pause": "BossEncounter PROCESS_MODE_PAUSABLE；SceneTree menu freezes encounter/projectiles；额外leaf paused guard不构成新统一pause API"
+  },
+  "combinations": [
+    {
+      "combination": "clockwork_guardian",
+      "scene": "scenes/bosses/clockwork_guardian.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/clockwork_guardian.tres",
+        "runtime_resource": "resources/bosses/clockwork_guardian.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "ClockworkGuardian",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/combat/damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/boss_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/clockwork_guardian.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/boss_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "BossEncounter"
+        ],
+        "Definition": [
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Presentation": "scripts/bosses/boss_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "BossPhaseController.phase + BossAttackPattern.telegraphing/warning_progress/_clock；无mode/clock字段",
+        "phase": "phases.update按生命触发1→2"
+      },
+      "motion": "BossMotor.step(direction,travel_limit,delta)，横向move_and_collide",
+      "target_and_context_binding": "configure_arena(left,right,PlayerMotor Node2D)保存_target；无额外bind_duel",
+      "damage_and_contact_gates": "Damageable通用阵营/actor_id/epoch/event去重；body_contact_enabled=active&&!terminal",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "无Boss通用reset/restore_combat_state；只ready配置、activate、cancel",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "BossEncounter._on_defeat取消projectiles/停止motor/关闭两碰撞mask，emit defeated；Presentation原dead键/保留fade",
+      "extra_owned_objects": [],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "_ready",
+          "line": 21
+        },
+        {
+          "name": "configure_arena",
+          "line": 36
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 42
+        },
+        {
+          "name": "activate",
+          "line": 45
+        },
+        {
+          "name": "_physics_process",
+          "line": 51
+        },
+        {
+          "name": "physics_tick",
+          "line": 54
+        },
+        {
+          "name": "_fire",
+          "line": 70
+        },
+        {
+          "name": "_cancel_projectiles",
+          "line": 86
+        },
+        {
+          "name": "cancel",
+          "line": 92
+        },
+        {
+          "name": "_on_defeat",
+          "line": 99
+        },
+        {
+          "name": "_exit_tree",
+          "line": 106
+        }
+      ]
+    },
+    {
+      "combination": "bellstrider",
+      "scene": "scenes/bosses/bellstrider.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/bellstrider.tres",
+        "runtime_resource": "resources/bosses/bellstrider.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "Bellstrider",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/windkeeper_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/bellstrider_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/bellstrider.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/bellstrider_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "BellstriderEncounter",
+          "WindkeeperEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "WindkeeperDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/windkeeper_damageable.gd",
+        "Presentation": "scripts/bosses/bellstrider_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "继承mode:StringName/clock，roll_warning/roll/ring_warning/rings/lob_warning/lob/neck；pattern_index/volley/_roll_age",
+        "phase": "自身physics_tick每tick按半血写stage_phase，不用BossPhaseController.update"
+      },
+      "motion": "BossMotor.step；roll按_roll_age提速，其他模式stop",
+      "target_and_context_binding": "继承configure_arena、动态BellCore、Windkeeper目标/arena管线；Stage对Windkeeper统一bind_stage_geometry",
+      "damage_and_contact_gates": "WindkeeperDamageable连续配置走真实body可伤；历史窗口资源仍走core_open/receive_core，body与core同health",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "combat_snapshot扩父字典；restore_combat_state先super再pattern_index/locked_point/volley/roll_age；无单一restore事务",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "继承cancel清projectiles；叶death_age .45淡出；不统一改留尸",
+      "extra_owned_objects": [
+        "BellCore/CollisionShape2D/Damageable动态子树",
+        "当continuous且contact_size!=0时BodyContactVolume动态子树"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "activate",
+          "line": 9
+        },
+        {
+          "name": "core_offset",
+          "line": 14
+        },
+        {
+          "name": "roll_warning_distance",
+          "line": 16
+        },
+        {
+          "name": "objective",
+          "line": 21
+        },
+        {
+          "name": "physics_tick",
+          "line": 30
+        },
+        {
+          "name": "_cool_down",
+          "line": 75
+        },
+        {
+          "name": "_ring_pair",
+          "line": 79
+        },
+        {
+          "name": "_launch",
+          "line": 83
+        },
+        {
+          "name": "_spawn",
+          "line": 87
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 98
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 103
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 108
+        }
+      ]
+    },
+    {
+      "combination": "windkeeper",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/windkeeper.tres",
+        "runtime_resource": "resources/bosses/windkeeper.tres",
+        "override": null,
+        "identity_warning": "default/storm共享scene及stable_id；以resource path/version区分，不新增物种"
+      },
+      "nodes": [
+        {
+          "name": "Windkeeper",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/windkeeper_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/windkeeper_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/windkeeper.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/windkeeper_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "WindkeeperEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "WindkeeperDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/windkeeper_damageable.gd",
+        "Presentation": "scripts/bosses/windkeeper_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "mode:StringName/clock，intro/phase_transition + ground/stomp/charge/neck、blade/blades/back、chase/pier_*；blade_angle/chase_segment/rune_platform等",
+        "phase": "stage_phase按2个生命阈值三阶段；继承phases/pattern对象仍存在但physics_tick不走通用pattern"
+      },
+      "motion": "BossMotor.step；Encounter设speed/direction；WindkeeperArena改变原地板，风场可queue_local_velocity到PlayerMotor",
+      "target_and_context_binding": "configure_arena存_target与_floor_y/_home_x；bind_stage_geometry(module,controller,policy,lifetime,SegmentRespawn,supports)另绑几何/断桥/符文",
+      "damage_and_contact_gates": "默认scene旧窗口：BellCore圆Area2D(radius18)与primary共health；根据core_open/accepts_core_direction；正式storm连续可伤由Definition开关区分",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "Stage先restore Health/phase/mode/clock，叶restore_combat_state恢复附加模式字段；_clear_attacks递增attack_epoch/清rune/projectiles/玩家localvelocity",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "继承_on_defeat→虚派发cancel清旧攻击；不同绘制分支有原.65 fade或暗化，保原父级结算",
+      "extra_owned_objects": [
+        "BellCore/CollisionShape2D/Damageable动态子树",
+        "BodyContactVolume(仅config.contact_size非零)",
+        "WindkeeperArena与其fall emitter/segment anchors"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "continuous_combat",
+          "line": 33
+        },
+        {
+          "name": "accepts_combat_damage",
+          "line": 36
+        },
+        {
+          "name": "body_contact_rect",
+          "line": 40
+        },
+        {
+          "name": "_update_combat_shapes",
+          "line": 44
+        },
+        {
+          "name": "_ready",
+          "line": 51
+        },
+        {
+          "name": "configure_arena",
+          "line": 90
+        },
+        {
+          "name": "activate",
+          "line": 96
+        },
+        {
+          "name": "physics_tick",
+          "line": 103
+        },
+        {
+          "name": "_enter",
+          "line": 147
+        },
+        {
+          "name": "objective",
+          "line": 156
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 171
+        },
+        {
+          "name": "core_offset",
+          "line": 184
+        },
+        {
+          "name": "_ground_pattern",
+          "line": 188
+        },
+        {
+          "name": "_wave",
+          "line": 213
+        },
+        {
+          "name": "_wind_pattern",
+          "line": 224
+        },
+        {
+          "name": "_chase_pattern",
+          "line": 260
+        },
+        {
+          "name": "_clear_attacks",
+          "line": 302
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 311
+        },
+        {
+          "name": "skip_intro",
+          "line": 317
+        },
+        {
+          "name": "cancel",
+          "line": 320
+        },
+        {
+          "name": "_blade_sweeps_target",
+          "line": 326
+        },
+        {
+          "name": "_prune_attacks",
+          "line": 345
+        },
+        {
+          "name": "bind_stage_geometry",
+          "line": 352
+        },
+        {
+          "name": "reward_stand_position",
+          "line": 360
+        },
+        {
+          "name": "_storm_fan",
+          "line": 365
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 379
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 382
+        },
+        {
+          "name": "register_rune_shot",
+          "line": 397
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 402
+        }
+      ]
+    },
+    {
+      "combination": "windkeeper_storm",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/windkeeper.tres",
+        "runtime_resource": "resources/bosses/windkeeper_storm.tres",
+        "override": "PlainsRegionStage map2 before add_child swaps to windkeeper_storm.tres",
+        "identity_warning": "default/storm共享scene及stable_id；以resource path/version区分，不新增物种"
+      },
+      "nodes": [
+        {
+          "name": "Windkeeper",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/windkeeper_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/windkeeper_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/windkeeper.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/windkeeper_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "WindkeeperEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "WindkeeperDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/windkeeper_damageable.gd",
+        "Presentation": "scripts/bosses/windkeeper_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "mode:StringName/clock，intro/phase_transition + ground/stomp/charge/neck、blade/blades/back、chase/pier_*；blade_angle/chase_segment/rune_platform等",
+        "phase": "资源阈值三阶段；platform_trials真，最近pier、断桥与原windkeeper时钟配合"
+      },
+      "motion": "BossMotor.step；Encounter设speed/direction；WindkeeperArena改变原地板，风场可queue_local_velocity到PlayerMotor",
+      "target_and_context_binding": "configure_arena存_target与_floor_y/_home_x；bind_stage_geometry(module,controller,policy,lifetime,SegmentRespawn,supports)另绑几何/断桥/符文",
+      "damage_and_contact_gates": "与default同scene但storm resource continuous_combat=true：active&&!terminal&&mode!=intro，body/core同Health可伤；contact volume与完整shootable body可分离；旧窗口/rune门不生效",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "Stage先restore Health/phase/mode/clock，叶restore_combat_state恢复附加模式字段；_clear_attacks递增attack_epoch/清rune/projectiles/玩家localvelocity",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "继承_on_defeat→虚派发cancel清旧攻击；不同绘制分支有原.65 fade或暗化，保原父级结算",
+      "extra_owned_objects": [
+        "BellCore/CollisionShape2D/Damageable动态子树",
+        "BodyContactVolume(仅config.contact_size非零)",
+        "WindkeeperArena与其fall emitter/segment anchors"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "continuous_combat",
+          "line": 33
+        },
+        {
+          "name": "accepts_combat_damage",
+          "line": 36
+        },
+        {
+          "name": "body_contact_rect",
+          "line": 40
+        },
+        {
+          "name": "_update_combat_shapes",
+          "line": 44
+        },
+        {
+          "name": "_ready",
+          "line": 51
+        },
+        {
+          "name": "configure_arena",
+          "line": 90
+        },
+        {
+          "name": "activate",
+          "line": 96
+        },
+        {
+          "name": "physics_tick",
+          "line": 103
+        },
+        {
+          "name": "_enter",
+          "line": 147
+        },
+        {
+          "name": "objective",
+          "line": 156
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 171
+        },
+        {
+          "name": "core_offset",
+          "line": 184
+        },
+        {
+          "name": "_ground_pattern",
+          "line": 188
+        },
+        {
+          "name": "_wave",
+          "line": 213
+        },
+        {
+          "name": "_wind_pattern",
+          "line": 224
+        },
+        {
+          "name": "_chase_pattern",
+          "line": 260
+        },
+        {
+          "name": "_clear_attacks",
+          "line": 302
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 311
+        },
+        {
+          "name": "skip_intro",
+          "line": 317
+        },
+        {
+          "name": "cancel",
+          "line": 320
+        },
+        {
+          "name": "_blade_sweeps_target",
+          "line": 326
+        },
+        {
+          "name": "_prune_attacks",
+          "line": 345
+        },
+        {
+          "name": "bind_stage_geometry",
+          "line": 352
+        },
+        {
+          "name": "reward_stand_position",
+          "line": 360
+        },
+        {
+          "name": "_storm_fan",
+          "line": 365
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 379
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 382
+        },
+        {
+          "name": "register_rune_shot",
+          "line": 397
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 402
+        }
+      ]
+    },
+    {
+      "combination": "thorn_guardian",
+      "scene": "scenes/bosses/thorn_guardian.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/thorn_guardian.tres",
+        "runtime_resource": "resources/bosses/thorn_guardian.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "thorn_guardian",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_forest_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/thorn_guardian.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/thorn_forest_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "ThornForestEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "ThornForestDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Presentation": "scripts/bosses/thorn_forest_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "mode:StringName/clock，intro/observe/branch_warning/seed_flight/thorn_patch/heart_open/phase_transition；has_ground_mark/attack_goal/weak_side",
+        "phase": "stage_phase；旧Guardian两阶段；physics_tick还写phases.phase"
+      },
+      "motion": "BossMotor但ready碰撞mask=0，rooted不横移；种子/落区独立projectile",
+      "target_and_context_binding": "configure_arena保存PlayerMotor及_target_session；configure_forest_floor另设floor；physics_tick检查controller.active/terminal/session",
+      "damage_and_contact_gates": "ThornDamageable需active/core_open；accepts_core_direction第1阶段任意、后阶段真实incoming.x*weak_side门",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "restore_combat_state恢复有限账本，但取消旧目标/弹体/groundmark后回observe，不续旧seed/heart窗口",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "ThornForest.cancel闭core/清mark/attack_epoch++后Boss.cancel；身体保原终态，奖励外层拥有",
+      "extra_owned_objects": [],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "_ready",
+          "line": 20
+        },
+        {
+          "name": "configure_arena",
+          "line": 24
+        },
+        {
+          "name": "configure_forest_floor",
+          "line": 30
+        },
+        {
+          "name": "activate",
+          "line": 32
+        },
+        {
+          "name": "physics_tick",
+          "line": 39
+        },
+        {
+          "name": "_lock_branch",
+          "line": 79
+        },
+        {
+          "name": "_launch_seed",
+          "line": 89
+        },
+        {
+          "name": "_enter",
+          "line": 110
+        },
+        {
+          "name": "objective",
+          "line": 116
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 124
+        },
+        {
+          "name": "combat_target_active",
+          "line": 129
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 133
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 136
+        },
+        {
+          "name": "skip_intro",
+          "line": 141
+        },
+        {
+          "name": "cancel",
+          "line": 143
+        },
+        {
+          "name": "reward_stand_position",
+          "line": 148
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 150
+        },
+        {
+          "name": "serialize_combat_state",
+          "line": 152
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "combination": "thorn_queen",
+      "scene": "scenes/bosses/thorn_queen.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/thorn_queen.tres",
+        "runtime_resource": "resources/bosses/thorn_queen.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "thorn_queen",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_forest_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/thorn_queen.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/thorn_forest_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "ThornForestEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "ThornForestDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Presentation": "scripts/bosses/thorn_forest_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "mode:StringName/clock，intro/observe/branch_warning/seed_flight/thorn_patch/heart_open/phase_transition；has_ground_mark/attack_goal/weak_side",
+        "phase": "queen=true按两个HP阈值走3阶段；phase2弱侧交替，phase3按原attack_goal选侧；同步phases.phase"
+      },
+      "motion": "BossMotor但ready碰撞mask=0，rooted不横移；种子/落区独立projectile",
+      "target_and_context_binding": "configure_arena保存PlayerMotor及_target_session；configure_forest_floor另设floor；physics_tick检查controller.active/terminal/session",
+      "damage_and_contact_gates": "ThornDamageable需active/core_open；accepts_core_direction第1阶段任意、后阶段真实incoming.x*weak_side门",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "restore_combat_state恢复有限账本，但取消旧目标/弹体/groundmark后回observe，不续旧seed/heart窗口",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "ThornForest.cancel闭core/清mark/attack_epoch++后Boss.cancel；身体保原终态，奖励外层拥有",
+      "extra_owned_objects": [],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "_ready",
+          "line": 20
+        },
+        {
+          "name": "configure_arena",
+          "line": 24
+        },
+        {
+          "name": "configure_forest_floor",
+          "line": 30
+        },
+        {
+          "name": "activate",
+          "line": 32
+        },
+        {
+          "name": "physics_tick",
+          "line": 39
+        },
+        {
+          "name": "_lock_branch",
+          "line": 79
+        },
+        {
+          "name": "_launch_seed",
+          "line": 89
+        },
+        {
+          "name": "_enter",
+          "line": 110
+        },
+        {
+          "name": "objective",
+          "line": 116
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 124
+        },
+        {
+          "name": "combat_target_active",
+          "line": 129
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 133
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 136
+        },
+        {
+          "name": "skip_intro",
+          "line": 141
+        },
+        {
+          "name": "cancel",
+          "line": 143
+        },
+        {
+          "name": "reward_stand_position",
+          "line": 148
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 150
+        },
+        {
+          "name": "serialize_combat_state",
+          "line": 152
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "combination": "rootbell_guardian_v2",
+      "scene": "scenes/bosses/rootbell_guardian_v2.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/rootbell_guardian_v2.tres",
+        "runtime_resource": "resources/bosses/rootbell_guardian_v2.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "RootbellGuardianV2",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/forest_boss_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/rootbell_guardian_v2.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/rootbell_guardian_v2.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "RootbellGuardianV2",
+          "ThornForestEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "BossDuelDefinition",
+          "ThornForestDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/forest_boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Presentation": "scripts/bosses/forest_boss_duel_presentation_v2.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "mode/clock，intro/observe/bell_warning/bell_watch/pursuit_warning/pursuit_flight/landing_recovery/bell_stagger；_bell/_counter_pending/_flight_token",
+        "phase": "stage_phase按真实cycle与HP门进2；phase_changed.emit而未同步继承phases.phase"
+      },
+      "motion": "ForestBossMotor.advance_duel(velocity,delta)真实sweep返回碰撞；Encounter持有弹道、重力、fall/recovery速度",
+      "target_and_context_binding": "configure_arena继承Node2D目标；bind_duel geometry+PlayerController+FrameDamagePolicy+DemoLifetime；独有_bound_actor_epoch和session守门；再次bind要求同controller对象",
+      "damage_and_contact_gates": "仍ThornDamageable，但_override accepts_core_direction仅core_open，_enter使active非intro通常可伤；Bell独立不可破坏grapple_target，可真实到达返击",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "valid_duel_snapshot+restore_combat_state；取消旧Bell/飞行token，不重播旧扑落；保存bell_stagger可保有界剩余，否则落地恢复；last_restore_accepted外部读取",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "cancel在terminal时故意不先清_counter_pending(等待真实Policy同帧结算)，取消Bell并super；exit先清Bell再super",
+      "extra_owned_objects": [
+        "GuardianRootBellV2 sibling独立实体/真实grapple target",
+        "policy.batch_resolved回调",
+        "flight token / vertical motion debt"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "_ready",
+          "line": 23
+        },
+        {
+          "name": "bind_duel",
+          "line": 26
+        },
+        {
+          "name": "physics_tick",
+          "line": 40
+        },
+        {
+          "name": "_lock_landing_support",
+          "line": 103
+        },
+        {
+          "name": "_launch_body",
+          "line": 114
+        },
+        {
+          "name": "_flight_step",
+          "line": 126
+        },
+        {
+          "name": "_fall_step",
+          "line": 146
+        },
+        {
+          "name": "_ensure_bell",
+          "line": 151
+        },
+        {
+          "name": "_receive_counter_impact",
+          "line": 159
+        },
+        {
+          "name": "_counter_batch",
+          "line": 179
+        },
+        {
+          "name": "_cancel_bell",
+          "line": 193
+        },
+        {
+          "name": "cancel",
+          "line": 197
+        },
+        {
+          "name": "_enter",
+          "line": 201
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 207
+        },
+        {
+          "name": "objective",
+          "line": 208
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 215
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 224
+        },
+        {
+          "name": "valid_duel_snapshot",
+          "line": 232
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 254
+        },
+        {
+          "name": "_event",
+          "line": 276
+        },
+        {
+          "name": "_exit_tree",
+          "line": 282
+        }
+      ]
+    },
+    {
+      "combination": "thorn_queen_v2",
+      "scene": "scenes/bosses/thorn_queen_v2.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/thorn_queen_v2.tres",
+        "runtime_resource": "resources/bosses/thorn_queen_v2.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "thorn_queen_v2",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/thorn_queen_weave_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_queen_v2.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/thorn_queen_v2.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/thorn_queen_weave_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "ThornQueenV2",
+          "ThornForestEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "ThornQueenWeaveDefinition",
+          "ThornForestDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/thorn_queen_weave_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Presentation": "scripts/bosses/thorn_queen_weave_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "network stage_phase + route_phase独立；motion_mode:String/motion_clock才是物理迁移状态，mode为同步别名；perched/migration_preview/flight/phase_preview/phase_flight",
+        "phase": "network HP/剪网升phase、路线phase延后在合法段切换；_start_phase与restore同步phases.phase"
+      },
+      "motion": "ThornQueenWeaveMotor.travel_to(goal,speed,delta)，原路径多段move_and_collide；可返回到达bool与movement_observed",
+      "target_and_context_binding": "bind_duel验证版本/geometry/bands/policy/life，绑定_weave_controller并给新player motor碰撞exception；允许同geometry/life重绑controller；configure_arena仍另存_target/session",
+      "damage_and_contact_gates": "ThornDamageable继承core_open入口，override只需active&&!terminal&&amount>0；身体不是grapple_target，活Knots才是独立实体/可剪锚",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "schema13严格validate→restore knot HP/band/pending phase/path/position→attack_epoch++；last_restore_accepted；字段在active时resume；cancel_pending仅epoch++，cancel才pause bands",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "cancel pause持续fields后ThornForest/Boss取消；不会通用删除所有网；卸载节点树释放",
+      "extra_owned_objects": [
+        "3组ThornQueenWeaveKnot/ThornQueenWeaveBand",
+        "living knots的独立HealthState",
+        "collision exceptions与持续field ledger"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "_ready",
+          "line": 28
+        },
+        {
+          "name": "bind_duel",
+          "line": 31
+        },
+        {
+          "name": "_bind_current_player_collision",
+          "line": 62
+        },
+        {
+          "name": "_spawn_field",
+          "line": 69
+        },
+        {
+          "name": "activate",
+          "line": 90
+        },
+        {
+          "name": "origin_at",
+          "line": 99
+        },
+        {
+          "name": "perch_at",
+          "line": 101
+        },
+        {
+          "name": "normal_path",
+          "line": 103
+        },
+        {
+          "name": "transition_path",
+          "line": 116
+        },
+        {
+          "name": "motion_path",
+          "line": 127
+        },
+        {
+          "name": "_start_phase",
+          "line": 129
+        },
+        {
+          "name": "_start_route",
+          "line": 136
+        },
+        {
+          "name": "physics_tick",
+          "line": 145
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 177
+        },
+        {
+          "name": "objective",
+          "line": 179
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 181
+        },
+        {
+          "name": "cancel",
+          "line": 182
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 187
+        },
+        {
+          "name": "serialize_combat_state",
+          "line": 193
+        },
+        {
+          "name": "valid_duel_snapshot",
+          "line": 194
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 242
+        },
+        {
+          "name": "_on_normal_route",
+          "line": 257
+        },
+        {
+          "name": "_point",
+          "line": 264
+        },
+        {
+          "name": "_valid_point",
+          "line": 265
+        },
+        {
+          "name": "_valid_number",
+          "line": 267
+        },
+        {
+          "name": "_valid_integer",
+          "line": 269
+        }
+      ]
+    },
+    {
+      "combination": "thorn_queen_canopy",
+      "scene": "scenes/bosses/thorn_queen_canopy.tscn",
+      "definition_source": {
+        "scene_default": "resources/bosses/thorn_queen_canopy.tres",
+        "runtime_resource": "resources/bosses/thorn_queen_canopy.tres",
+        "override": null,
+        "identity_warning": null
+      },
+      "nodes": [
+        {
+          "name": "thorn_queen_canopy",
+          "parent": null,
+          "type": "CharacterBody2D",
+          "script": "scripts/bosses/thorn_queen_weave_motor.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "CollisionShape2D",
+          "parent": ".",
+          "type": "CollisionShape2D",
+          "script": null,
+          "node_paths": {}
+        },
+        {
+          "name": "Damageable",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_damageable.gd",
+          "node_paths": {}
+        },
+        {
+          "name": "Encounter",
+          "parent": ".",
+          "type": "Node",
+          "script": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "node_paths": {
+            "motor": "..",
+            "damageable": "../Damageable"
+          },
+          "definition_resource": "resources/bosses/thorn_queen_canopy.tres"
+        },
+        {
+          "name": "Presentation",
+          "parent": ".",
+          "type": "Node2D",
+          "script": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+          "node_paths": {
+            "encounter": "../Encounter"
+          }
+        }
+      ],
+      "class_hierarchy": {
+        "Encounter": [
+          "ThornQueenCanopyEncounter",
+          "ThornForestEncounter",
+          "BossEncounter"
+        ],
+        "Definition": [
+          "ThornQueenCanopyDefinition",
+          "ThornQueenWeaveDefinition",
+          "ThornForestDefinition",
+          "BossDefinition"
+        ],
+        "Motor": "scripts/bosses/thorn_queen_weave_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Presentation": "scripts/bosses/thorn_queen_canopy_presentation.gd"
+      },
+      "health_owner": "BossEncounter.health唯一HealthState；继承Damageable.bind_health；core receiver若有共用同一HealthState，不是第二条Boss血量",
+      "state_and_phase": {
+        "state": "stage_phase为网场阶段；motion_mode:String/motion_clock + motion_section/leg/cycles；intro/migration_preview/flight，mode同步别名；last/locked_receiver",
+        "phase": "按HP顺序_start_phase1→2→3，保身体路径；同步phases.phase；只有2个field而非继承Weave的3场"
+      },
+      "motion": "ThornQueenWeaveMotor.travel_to按geometry.motion_paths连续闭环；到段终点preview不虚造perched",
+      "target_and_context_binding": "bind_duel重建Definition.build_geometry并逐关键域比对，保存_controller/_life/_policy；更新旧/新玩家碰撞exception；configure_arena仍继承目标/session",
+      "damage_and_contact_gates": "active&&!terminal&&数值amount>0；独立body_contact_enabled再检查combat_target与非intro；Knot/Band为独立可剪目标",
+      "presentation": {
+        "export": "@export var encounter:具体Encounter类型；不与普通Presentation.actor同型",
+        "shared_observers": [
+          "EnemyHitTemplate.install_boss(encounter,self)",
+          "BossMotionPresentation.bind/sample/dispose"
+        ],
+        "coupling": "原叶及共享采样器直接读取具体mode/clock/phase/geometry/private字段；无稳定公共状态快照接口"
+      },
+      "reset_restore": "canopy_schema1严格validate后恢复2field/路径/岸/epoch，_restored使activate不重启intro；cancel_pending即pause fields，不等于删除fields",
+      "pause": "BossEncounter设PROCESS_MODE_PAUSABLE；Engine/SceneTree pause冻结phys/process；部分presentation另显式paused guard；菜单不调用cancel所有Boss",
+      "terminal_and_cleanup": "cancel_pending先pause持续fields再super.cancel；已终态不重建动作，表现terminal reset由health initialize观察",
+      "extra_owned_objects": [
+        "2组Knot/Band",
+        "真实支撑岸采样及locked receiver字段",
+        "collision exceptions"
+      ],
+      "declared_functions_in_concrete_encounter": [
+        {
+          "name": "config",
+          "line": 24
+        },
+        {
+          "name": "_ready",
+          "line": 25
+        },
+        {
+          "name": "bind_duel",
+          "line": 30
+        },
+        {
+          "name": "activate",
+          "line": 50
+        },
+        {
+          "name": "motion_path",
+          "line": 60
+        },
+        {
+          "name": "_preview",
+          "line": 64
+        },
+        {
+          "name": "_receiver_row",
+          "line": 67
+        },
+        {
+          "name": "_observe_receiver",
+          "line": 71
+        },
+        {
+          "name": "_spawn_field",
+          "line": 79
+        },
+        {
+          "name": "_start_phase",
+          "line": 98
+        },
+        {
+          "name": "physics_tick",
+          "line": 106
+        },
+        {
+          "name": "accepts_core_direction",
+          "line": 131
+        },
+        {
+          "name": "body_contact_enabled",
+          "line": 133
+        },
+        {
+          "name": "objective",
+          "line": 135
+        },
+        {
+          "name": "cancel_pending_attacks",
+          "line": 140
+        },
+        {
+          "name": "cancel",
+          "line": 144
+        },
+        {
+          "name": "reward_stand_position",
+          "line": 147
+        },
+        {
+          "name": "combat_snapshot",
+          "line": 149
+        },
+        {
+          "name": "serialize_combat_state",
+          "line": 154
+        },
+        {
+          "name": "valid_duel_snapshot",
+          "line": 155
+        },
+        {
+          "name": "restore_combat_state",
+          "line": 186
+        }
+      ]
+    }
+  ],
+  "ordinary_comparison": [
+    {
+      "responsibility": "Definition/Health/Damageable",
+      "ordinary": "EnemyActor owning EnemyDefinition+HealthState+Damageable，bind Encounter behavior另做",
+      "boss": "BossEncounter owning BossDefinition+HealthState+Damageable，特殊core共health",
+      "common": "既有资源事务和Damageable可作为共同协议基础"
+    },
+    {
+      "responsibility": "Decision/state",
+      "ordinary": "EnemyPatrolAI→EnemyIntent + optional EnemyAttackBehavior",
+      "boss": "Encounter多phase/arena/Bell/path/field状态机",
+      "common": "只统一观察/生命周期，保持决策实现差异"
+    },
+    {
+      "responsibility": "Movement",
+      "ordinary": "EnemyMotor patrol/ground/knockback/attraction",
+      "boss": "BossMotor horizontal / Forest ballistic sweep / Queen path travel",
+      "common": "共享事实与所有权约束，不强行相同commands"
+    },
+    {
+      "responsibility": "Hurt/skills",
+      "ordinary": "真实accepted_hit可带普通hurt audio、stun、knockback；排除grapple/skill特殊动作",
+      "boss": "共享视觉hit template无通用Boss knockback，counter stagger由真实机制拥有",
+      "common": "accepted事件格式可共有，反应policy不能硬套"
+    },
+    {
+      "responsibility": "Reset/restore",
+      "ordinary": "reset回_spawn并新health epoch；restore_instance_health以guard抑制恢复死亡音",
+      "boss": "Stage/App/专Encounter恢复health+phase+position+独立targets/ledger；旧/现代续相位政策不同",
+      "common": "统一adapter合同与restore标记，不改语义"
+    },
+    {
+      "responsibility": "Terminal",
+      "ordinary": "取消behavior、停motor、关闭collision、set_physics_process(false)、defeated",
+      "boss": "取消attack/专节点、停motor、关collision、defeated；大多physics_tick靠terminal guard，presentation继续原终态",
+      "common": "共有terminal通知/一次结果/清理责任，死亡可见/留尸政策保具体角色"
+    }
+  ],
+  "findings": [
+    {
+      "id": "BS01",
+      "observation": "共有节点骨架和事务Health已经存在，但不是统一Actor协议",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_encounter.gd",
+          "line": 10,
+          "token": "var health :=",
+          "fact": "BossEncounter持有HealthState、arena、phases、pattern、目标、projectile owner"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 9,
+          "token": "var health :=",
+          "fact": "EnemyActor同样持有HealthState但组合brain/attack_behavior，职责入口不同"
+        }
+      ],
+      "minimum_direction": "先统一只读身份/health/receivers/生命周期能力接口，保留不同controller。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS02",
+      "observation": "阶段与状态存在多套真实语义，不能用同名字段硬替代",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_encounter.gd",
+          "line": 57,
+          "token": "if phases.update",
+          "fact": "Clockwork由通用phases与pattern驱动"
+        },
+        {
+          "path": "scripts/bosses/bellstrider_encounter.gd",
+          "line": 33,
+          "token": "stage_phase=2",
+          "fact": "Bell自己写stage_phase"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 57,
+          "token": "stage_phase = wanted_phase",
+          "fact": "Rootbell自行写stage_phase和emit"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_v2.gd",
+          "line": 10,
+          "token": "var route_phase",
+          "fact": "Weave路线phase独立于网络phase"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "line": 6,
+          "token": "var motion_mode",
+          "fact": "Canopy另一套运动mode/clock"
+        }
+      ],
+      "minimum_direction": "只读公共snapshot明确main/aux phase、实际state与时钟域；不强制3种phase合一，不按字段名猜冷却/窗口。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS03",
+      "observation": "继承用于复用 plumbing，也携带不适用的旧机制字段",
+      "evidence": [
+        {
+          "path": "scripts/bosses/bellstrider_encounter.gd",
+          "line": 2,
+          "token": "extends WindkeeperEncounter",
+          "fact": "轮式Bell继承所有Windkeeper状态/核心/风桥基础"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 2,
+          "token": "extends ThornForestEncounter",
+          "fact": "独立投铃/扑落仍继承seed/弱侧字段"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_definition.gd",
+          "line": 2,
+          "token": "extends ThornQueenWeaveDefinition",
+          "fact": "Canopy参数继承旧Weave但不是旧三网/巢行为"
+        }
+      ],
+      "minimum_direction": "能力分层/adapter先行；不把父类全部字段当每个Boss真实攻击；晚些再评是否拆旧plumbing。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS04",
+      "observation": "目标/context绑定分散且重绑约定不同",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_encounter.gd",
+          "line": 36,
+          "token": "func configure_arena",
+          "fact": "基础目标是Node2D，arena一起绑定"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_encounter.gd",
+          "line": 352,
+          "token": "func bind_stage_geometry",
+          "fact": "额外controller/policy/life/segment/supports绑定"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 27,
+          "token": "if not geometry.is_empty(): return",
+          "fact": "Rootbell二次绑定要求同controller"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_v2.gd",
+          "line": 62,
+          "token": "func _bind_current_player_collision",
+          "fact": "Weave支持新PlayerMotor collision exception替换"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "line": 41,
+          "token": "if is_instance_valid(_collision_player)",
+          "fact": "Canopy同样维护新旧玩家exception"
+        }
+      ],
+      "minimum_direction": "提出CombatContext入口adapter，明确bind/rebind能力和失败结果，保原geometry验证与epoch/session规则。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS05",
+      "observation": "Damageable共有协议下仍有完全不同的合法可伤语义",
+      "evidence": [
+        {
+          "path": "scripts/bosses/windkeeper_damageable.gd",
+          "line": 13,
+          "token": "if encounter.continuous_combat():",
+          "fact": "同scene可为连续body可伤或窗口core路由"
+        },
+        {
+          "path": "scripts/bosses/thorn_damageable.gd",
+          "line": 6,
+          "token": "if not is_instance_valid(encounter)",
+          "fact": "旧Forest从core_open及方向门入"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 207,
+          "token": "func accepts_core_direction",
+          "fact": "Rootbell名称虽core_direction实际只问core_open"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "line": 131,
+          "token": "func accepts_core_direction",
+          "fact": "Canopy只检查active/terminal/数值amount"
+        }
+      ],
+      "minimum_direction": "统一query_damage_eligibility语义/理由接口但由原控制器决策，不能统一成core_open或移除special receivers。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS06",
+      "observation": "保存恢复在Stage/App/Encounter三处分工，返回及续相位政策不同",
+      "evidence": [
+        {
+          "path": "scripts/demo/plains_region_stage.gd",
+          "line": 63,
+          "token": "restored.initial_current",
+          "fact": "平原Stage直接配置health并逐字段恢复phase/mode/clock"
+        },
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 127,
+          "token": "if not encounter.has_method(\"bind_duel\")",
+          "fact": "旧Forest在Stage恢复；duel延后App"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2194,
+          "token": "func _restore_forest_duel",
+          "fact": "App验证health/position/body_position一致再配置health/rebind/restore"
+        },
+        {
+          "path": "scripts/bosses/thorn_forest_encounter.gd",
+          "line": 160,
+          "token": "# A restored attack never",
+          "fact": "旧Forest明确清旧攻击回observe"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "line": 186,
+          "token": "func restore_combat_state",
+          "fact": "现代场地恢复fields/路径与last_restore_accepted"
+        }
+      ],
+      "minimum_direction": "统一capture/validate/restore adapter与显式restore policy；保各存档schema、旧目标失效和一次奖励账本，不统一成reset。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS07",
+      "observation": "cancel_pending、cancel、menu pause并非同一操作",
+      "evidence": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 1156,
+          "token": "# Pause freezes encounter state",
+          "fact": "菜单冻结状态/敌弹，不reset Boss"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_v2.gd",
+          "line": 181,
+          "token": "func cancel_pending_attacks() -> void: attack_epoch+=1",
+          "fact": "Weave pending取消仅改epoch"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+          "line": 140,
+          "token": "func cancel_pending_attacks",
+          "fact": "Canopy pending取消会pause fields"
+        },
+        {
+          "path": "scripts/bosses/rootbell_guardian_v2.gd",
+          "line": 198,
+          "token": "if not health.terminal: _counter_pending.clear()",
+          "fact": "Rootbell terminal故意保pending counter直到同帧Policy结算"
+        }
+      ],
+      "minimum_direction": "最小生命周期协议必须带reason/scope；不能一键clear所有网/弹/Bell/counter，不把pause当cancel。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS08",
+      "observation": "运动命令接口异构且碰撞/重力归属不同",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_motor.gd",
+          "line": 13,
+          "token": "func step",
+          "fact": "基础只做水平step/limit"
+        },
+        {
+          "path": "scripts/bosses/forest_boss_motor.gd",
+          "line": 7,
+          "token": "func advance_duel",
+          "fact": "Forest接受速度sweep返回KinematicCollision2D，重力在Encounter"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_weave_motor.gd",
+          "line": 6,
+          "token": "func travel_to",
+          "fact": "Queen接受path goal/speed返回到达，发真实movement_observed"
+        },
+        {
+          "path": "scripts/enemies/enemy_motor.gd",
+          "line": 20,
+          "token": "func step(intent: EnemyIntent",
+          "fact": "普通Motor接受EnemyIntent且有knockback/ground策略"
+        }
+      ],
+      "minimum_direction": "可统一运动观测facts，先保专门运动commands，避免把扑落/曲线路径硬改横向EnemyIntent。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS09",
+      "observation": "Presentation仍知道AI具体类及私有状态，shared helper不等于职责解耦",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_motion_presentation.gd",
+          "line": 73,
+          "token": "if encounter is WindkeeperEncounter",
+          "fact": "共享采样器通过具体类型读取不同状态/时钟"
+        },
+        {
+          "path": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+          "line": 55,
+          "token": "is_instance_valid(duel._bell)",
+          "fact": "表现访问私有Bell用于原轨迹"
+        },
+        {
+          "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
+          "line": 25,
+          "token": "if encounter._weave_bound",
+          "fact": "表现知道内部绑定状态"
+        }
+      ],
+      "minimum_direction": "提出只读presentation sample/anchors/attack geometry view；特有预告仍可专用view，不让helper生成新判定/状态。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS10",
+      "observation": "受击事件与终态视觉具有多个所有者，需要明确边界",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_hit_template.gd",
+          "line": 20,
+          "token": "static func install_boss",
+          "fact": "Boss共享accepted tint/contact，不套普通体变形"
+        },
+        {
+          "path": "scripts/bosses/boss_motion_presentation.gd",
+          "line": 29,
+          "token": "func _reset_epoch_pose",
+          "fact": "health initialize的恢复dead与新accepted death分开"
+        },
+        {
+          "path": "scripts/bosses/bellstrider_presentation.gd",
+          "line": 35,
+          "token": "if encounter.health.terminal:death_age",
+          "fact": "Bell仍有独立fade clock"
+        },
+        {
+          "path": "scripts/bosses/windkeeper_presentation.gd",
+          "line": 54,
+          "token": "if encounter.health.terminal:_death_age",
+          "fact": "Windkeeper还保旧分支death clock"
+        }
+      ],
+      "minimum_direction": "统一accepted/initialize消息语义及视图reset/detach；保每Boss原fade/终态政策，不签已有全部clock统一。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS11",
+      "observation": "硬并EnemyActor会带入Boss不具备的能力和战斗副作用",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 26,
+          "token": "motor.add_to_group(&\"grapple_target\")",
+          "fact": "普通Actor ready默认身体加入可钩组"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 65,
+          "token": "motor.reset_at(_spawn)",
+          "fact": "reset会回出生点/重配健康"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 129,
+          "token": "_damage_stun_remaining = damage_feedback",
+          "fact": "普通accepted hurt带硬直/击退；Boss当前没有通用同类副作用"
+        }
+      ],
+      "minimum_direction": "可共享Combatant协议但不能把所有Boss改继承普通AI；保Bell/Knot独立grapple、Body不可钩、持续路径和原counter硬直。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS12",
+      "observation": "App仍拥有入场/射击资格/接触/奖励协调，controller统一不能吞并业务层",
+      "evidence": [
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2213,
+          "token": "func _start_generated_boss",
+          "fact": "App把policy sink包入boss_started/core/lifetime/actor-epoch射击资格门"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2190,
+          "token": "func _record_boss_shot",
+          "fact": "App只记录合法入场的session/shot actor_epoch"
+        },
+        {
+          "path": "scripts/bosses/boss_encounter.gd",
+          "line": 103,
+          "token": "# Coordinator resolves",
+          "fact": "Boss只发defeated，协调者同帧结算Health后选胜负奖励"
+        }
+      ],
+      "minimum_direction": "最小协议保外部policy与coordinator ownership，迁移不能让通用Actor直接扣HP/发奖。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    },
+    {
+      "id": "BS13",
+      "observation": "ready中Health绑定与died订阅顺序在Boss/普通Actor不同",
+      "evidence": [
+        {
+          "path": "scripts/bosses/boss_encounter.gd",
+          "line": 30,
+          "token": "damageable.bind_health(health)",
+          "fact": "Boss先bind_health，再下一行连接died；bind_health会同步_state_changed(null)。"
+        },
+        {
+          "path": "scripts/combat/damageable.gd",
+          "line": 71,
+          "token": "func bind_health",
+          "fact": "bind_health最后同步_state_changed；terminal会即时emit died。"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 32,
+          "token": "damageable.died.connect",
+          "fact": "普通Actor先连接died/damaged，再reset初始化/绑定Health。"
+        }
+      ],
+      "minimum_direction": "统一生命周期协议前单列cold terminal Definition、post-ready saved terminal configure、paused restore与new accepted lethal顺序；这是静态差异/需验证风险，不凭本报告签存在运行Bug或改奖励。",
+      "status": "static_observation_and_migration_risk_not_runtime_bug_verdict"
+    }
+  ],
+  "minimum_protocol_proposal": [
+    {
+      "name": "IdentityAndCapabilities",
+      "suggestion": "稳定只读identity(scene, resource_path, definition_version, stable_id, admission)；暴露health_owner、receivers及grapple/arena/persistent_field等能力。",
+      "preserve": "default/storm同stable_id但不同Def；不创造新Boss/扩池。"
+    },
+    {
+      "name": "CombatContextAdapter",
+      "suggestion": "以适配器整理target PlayerController/Motor、FrameDamagePolicy、DemoLifetime、arena/geometry/segment/supports绑定；明确bind与rebind结果。",
+      "preserve": "每Boss自己验证geometry和对象重绑；不复制第二套配置默认值。"
+    },
+    {
+      "name": "ReadOnlyCombatView",
+      "suggestion": "给表现/调试稳定只读快照：actual state、phase axes、clock域、方向/真实速度、终态、锚点、真实attack geometry、damage/contact资格与理由。",
+      "preserve": "不猜mode后缀代表窗口，不合并network phase/route phase/motion phase；特有视图可扩。"
+    },
+    {
+      "name": "AcceptedFeedbackEvents",
+      "suggestion": "共用既有ActorResourceResult(APPLIED+epoch+event_id)与Damageable.damaged真实接触上下文；initialize明确restore，不作为新hurt/defeat。",
+      "preserve": "不重复触发fan/audio；恢复终态settled，新致死动作；Boss不自动获得普通击退。"
+    },
+    {
+      "name": "ScopedLifecycleAdapter",
+      "suggestion": "cancel_pending(reason,scope)、snapshot/validate/restore、presentation bind/reset/detach有清楚边界与返回结果；暂停仍由SceneTree时钟冻结。",
+      "preserve": "保原schema/ledger、持续网、反击同帧pending、actor_epoch、接触/投射物去重；cancel不等于reset/clear all。"
+    },
+    {
+      "name": "MotionFactsNotOneAI",
+      "suggestion": "可统一position/velocity/contact/grounding观测；水平step、弹道sweep、path travel保原专用commands与controller。",
+      "preserve": "不引入Actor root-motion、BossBody grapple或通用stagger，不能把所有怪物brain改同一种AI。"
+    }
+  ],
+  "migration_risks": [
+    "迁移基类会影响is/type checks、metadata gated renderer与独有几何合同；先用适配器/只读view验证，不批量换继承。",
+    "不同phase axes/clock/持久field不能扁平到单个state enum；否则恢复路径/阶段窗口可能漂移。",
+    "旧存档v1、Rootbell duel、Weave schema13、Canopy schema1均须保版本化验证与重建顺序；不得刷新hash绕过历史。",
+    "Scene ready/health binding/died连接先后、paused initialize、已经terminal的cold bind、新accepted lethal要分案；不把复位当新死亡奖励。",
+    "App真实入场/shot资格/FrameDamagePolicy及同帧胜负奖励保持唯一所有者；新通用接口不可旁路。",
+    "独立Bell/Knot/网、断桥/风/segment anchor有自己的lifetime；不能通用free所有secondary nodes。",
+    "普通Actor默认grapple/stun/knockback/回_spawn reset不可无条件带给Boss。",
+    "Rootbell terminal保留pending counter结算是已有明确语义；清理统一须保同帧去重/ledger。"
+  ],
+  "not_done": [
+    "未重构/未修改生产、测试、资源、流程或档案。",
+    "未运行Godot、没有行为/保存/暂停/终态统一通过结论。",
+    "未据共享BossMotion/EnemyHitTemplate自签程序已统一。"
+  ],
+  "audio_clarification": "当前生产未发现configure_selected_profiles安装selected配置调用；GameAudio默认original；本结构审计不把已选素材配置当已播放。",
+  "accepted_feedback_actual_paths": {
+    "Boss_lifecycle": [
+      "BossEncounter._ready: damageable.bind_health(health); damageable.died.connect(_on_defeat)",
+      "Damageable.receive_damage -> health.apply_damage -> HealthState.changed(APPLIED), damaged(context), _notify_commit"
+    ],
+    "Boss_visual": [
+      "EnemyHitTemplate.install_boss -> EnemyFeedback01(health) + EnemyFeedback01Particles(receiver.damaged)",
+      "BossMotionPresentation.bind -> health.changed/_health_changed + projectile_created；initialize/epoch重置与新damage区分；dispose断开两订阅并clear mesh cache"
+    ],
+    "Boss_local_audio": [
+      "WindkeeperPresentation/BellstriderPresentation另订阅health.changed APPLIED到core cue，armour_hit到armour cue",
+      "这些是另一路表现音频观察，不是额外HP或普通击退"
+    ],
+    "ordinary_difference": [
+      "EnemyActor._ready另订阅Damageable.damaged -> _accepted_hit；普通audio/stun/knockback由Actor处理",
+      "Boss没有把该普通Actor._accepted_hit搬入控制器，不能在统一时默认新增Boss硬直/击退"
+    ],
+    "audio_production_limit": "GameAudio默认original；当前生产未找到selected配置安装调用。EnemyFeedback01DeathAudio当前仅自身类与测试，没有生产configure调用；本报告不把配置存在算成实际播放。"
+  }
+}

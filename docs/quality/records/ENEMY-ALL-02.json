@@ -156,6 +156,33 @@
     "docs/worklines/enemy_all_02/source-contract-v3.json",
     "docs/worklines/enemy_all_02/source-contract.json",
     "docs/worklines/enemy_all_02/spec.md",
+    "docs/worklines/enemy_asset_audit_01/README.md",
+    "docs/worklines/enemy_asset_audit_01/boss-details.md",
+    "docs/worklines/enemy_asset_audit_01/boss-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/boss-summary.md",
+    "docs/worklines/enemy_asset_audit_01/discussion.md",
+    "docs/worklines/enemy_asset_audit_01/first-findings.md",
+    "docs/worklines/enemy_asset_audit_01/forest-details.md",
+    "docs/worklines/enemy_asset_audit_01/forest-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/forest-summary.md",
+    "docs/worklines/enemy_asset_audit_01/inventory-index.json",
+    "docs/worklines/enemy_asset_audit_01/materials.html",
+    "docs/worklines/enemy_asset_audit_01/plains-details.md",
+    "docs/worklines/enemy_asset_audit_01/plains-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/plains-summary.md",
+    "docs/worklines/enemy_asset_audit_01/preview-provenance.json",
+    "docs/worklines/enemy_asset_audit_01/program-structure.md",
+    "docs/worklines/enemy_asset_audit_01/review-postmortem.md",
+    "docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md",
+    "docs/worklines/enemy_asset_audit_01/structure-boss.json",
+    "docs/worklines/enemy_asset_audit_01/structure-boss.md",
+    "docs/worklines/enemy_asset_audit_01/structure-forest.json",
+    "docs/worklines/enemy_asset_audit_01/structure-forest.md",
+    "docs/worklines/enemy_asset_audit_01/structure-plains.json",
+    "docs/worklines/enemy_asset_audit_01/structure-plains.md",
+    "docs/worklines/enemy_asset_audit_01/structure-review.md",
+    "docs/worklines/enemy_asset_audit_01/structure-source-equivalence.json",
+    "docs/worklines/enemy_asset_audit_01/user-feedback.md",
     "scripts/bosses/bellstrider_presentation.gd",
     "scripts/bosses/boss_motion_presentation.gd",
     "scripts/bosses/boss_motion_presentation.gd.uid",
@@ -262,9 +289,11 @@
       ]
     },
     "G5": {
-      "status": "unverified",
-      "reason": "无用户最终成品采用、游戏体验认可、音频听审或物理设备测量；保持未验。",
-      "evidence": []
+      "status": "failed",
+      "reason": "本轮成品被用户明确拒绝；先停产盘点，再共同讨论品质门槛和生产流程。",
+      "evidence": [
+        "user_rejected_candidate_20261029"
+      ]
     }
   },
   "dimensions": {
@@ -337,10 +366,12 @@
       ]
     },
     "independent_review": {
-      "status": "passed",
-      "reason": "R4在精确d91源/新森林影片及限定旧片复用范围独立ACCEPT：基本链候选可供用户审核；不扩签全变体、正常全速、音轨、设备、用户或G5。",
+      "status": "unverified",
+      "reason": "原R3/R4有限技术/像素观察保留，但不能支持整批成品质量；用户拒绝后，验收方法与逐怪实际消费重新审计。",
       "evidence": [
-        "r4_d91_limited"
+        "r4_d91_limited",
+        "user_rejected_candidate_20261029",
+        "review_postmortem_20261029"
       ]
     },
     "device": {
@@ -349,9 +380,11 @@
       "evidence": []
     },
     "player_acceptance": {
-      "status": "unverified",
-      "reason": "用户只授权制作和交审核；没有对本轮成品视觉/动作/声音/玩法的最终接受原话。",
-      "evidence": []
+      "status": "failed",
+      "reason": "用户明确拒绝本轮成品整体制作质量；具体逐怪问题尚待本次盘点和共同对照，不推断所有怪物同一种失败。",
+      "evidence": [
+        "user_rejected_candidate_20261029"
+      ]
     }
   },
   "criteria": [
@@ -644,10 +677,51 @@
       "content_version": "enemy-all-02-candidate-v1",
       "method": "HTTP GET complete MP4 bodies; SHA256 compared with committed local media, no Range/HEAD-only check",
       "observed": "All11 public MP4 HTTP200 complete body downloads,178500792 bytes; actual SHA matches committed media. Availability/integrity only, not audio/user/device acceptance."
+    },
+    {
+      "id": "user_rejected_candidate_20261029",
+      "path": "docs/worklines/enemy_asset_audit_01/user-feedback.md",
+      "sha256": "3f944183977b35e315b8dfec40fe6ba2e37a0664ba8398e8b49eaac6eeb58261",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Direct user reply to the delivered candidate; verbatim feedback preserved.",
+      "observed": "User rejects overall production quality and requests asset/design inventory before jointly revising acceptance and workflow. No per-monster defect attribution inferred.",
+      "source": "This conversation, user message on2026-10-29 following ENEMY-ALL-02 video delivery.",
+      "quote": "完全不行，制作质量参差不齐。先整理现在，各个怪物有什么资料，有什么素材。然后和我一起看看怎么去修改验收机制以及生产流程。",
+      "covers": [
+        "player_acceptance"
+      ],
+      "accepted": false
+    },
+    {
+      "id": "review_postmortem_20261029",
+      "path": "docs/worklines/enemy_asset_audit_01/review-postmortem.md",
+      "sha256": "0200ab0da5df7e2ad813f809cdc46978b9e22e9756efb0991e763b6e516d94aa",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Read-only supplementary review of old R1–R4, existing skills/standards and concrete current-render branch counterexample. No engine run or art production.",
+      "observed": "Prior candidate ACCEPT missed uneven final production quality; existing full-speed, final-leaf and golden-before-expansion requirements were not fully executed. New workflow suggestions remain discussion only.",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/forest_motion",
+        "/root/boss_motion",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production/shared-document writes; supplement only in/tmp; no new art or Godot runs.",
+      "verdict": "UNVERIFIED"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
+    "用户追加全怪程序结构整理统一：当前完成只读结构盘点/统一方案，尚未实施重构或运行验证；先发现问题、不批量做仍有效。",
+    "用户指定“平原第5个”接近目标并要求先发现问题、禁止批量做；视频第五段与物种第五种待澄清，不将参考升级为整怪接受。",
+    "用户已拒绝本轮制作质量：当前先盘点各怪资料、素材及真实消费；不继续扩产，不将旧有限ACCEPT提升为成品质检。",
     "当前保持review：用户对本轮视觉/动作/听感/玩法的最终成品接受未签。",
     "实体安卓/手柄/触屏/低端帧时，以及完整设备预算未验。",
     "最新精确PR头全165远端CI以实际Actions为准，未签通过；旧67森林80/600超时保留，d91本地原80/80已通过。",
