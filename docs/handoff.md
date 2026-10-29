@@ -1,5 +1,55 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
+
+普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。
+
+6614e119完整CI的parallel因新验收卡格式/超范围PASS失败，已保原日志并修正记录；游戏源不变，未跳过165检查。冻结修正head后重新执行完整CI，通过再正常合PR117并从实际main导出。[证据](evidence/mobile_web_audio_fix_03/README.md)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 线程供音正式修复，已授权合main
+
+用户确认原独立线程测试页加载后声音正常，并要求修复后关闭空中瞄准/慢时附加声、机关清脆风铃，随后授权“完成后合入main”。生产fb5dc84b已导出683cf2cce4d6，正式threads=true，原UI/画质/工坊选择/五BGM不变；实际demo31/0和selected63/0已过。普通入口Web、缓存迁移、独审和精确head完整CI正在验证，通过后合PR117并导出实际main发布。[本轮证据](evidence/mobile_web_audio_fix_03/README.md)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 新反馈明确属于普通主页
+
+用户：“一开始进家园还不是很卡，慢慢越来越卡…后台声音正常，切到前台就卡…暂停也有点卡，没有关卡那么卡”，随后明确“普通试玩主页…画面和操作都不卡，只有声音卡”。本次当前公开1d主页仍threads=false，threaded独立入口同PCK；不能把普通版反馈记成线程版失败，也不能冒签其真机通过。手机具体缓存build未给出。
+
+本轮仅只读静态复核和公开入口身份检查，未新增长时/后台/降频实测、未改生产、未重新部署。先请用户用现有audio-threaded链接连续运行数分钟并比较前后台、关卡暂停，获取记录；继续沿音频供给排队定位，不能先认定Shader、泄漏或热降频。见[原话与范围](evidence/mobile_web_audio_02/device-feedback-03.json)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 工坊音色恢复，供音线程对照已公开
+
+用户确认旧386仍卡且音色是旧版，旧两处Sample修复不能视为任务完成。已发现formal只装配环境选择，V3已选动作未启用；新SelectedSfxRuntime一次装配原14映射，原生63/0＋环境45/0，标准Web与公开真实Home/Plains实际PCM均确认已选pulse A。运行源b7406284，普通build1d3791a7c290／PCK208700940字节，四份官方nothreads引擎仍d209；不动已接受UI/美术/五BGM。
+
+持续卡音的云端时序证据指向STREAM补给等待主线程：50ms Home请求等待P50/P95约473/769ms，混音0.3/1.7ms。同正式PCK/原画面/DPR2.5、真实RUN SEED输入mobile-audio-stream-01、同Manifest f3a63393...156a，单线程Home/Plains欠载88.24%/80.62%，官方threaded独立供音四个窗口均0且共享环实际read推进；主线程长RAF仍存在。不是手机FPS，也不证明shader/GPU/物理哪项是手机热点。Home普通菜单不暂停tree，关卡暂停另验。线程四窗之外仍有1408帧欠载，公网动作较宽窗口Home0.322%欠载保留；不能声称全会话无断供。
+
+诊断工具源f21b221f，prepared84ddcb0，Actions40911443229成功。普通入口与已选音效保留；[独立线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-threaded/?latency=50&audio_probe=1)和[主线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-stream-test.html?latency=50&audio_probe=1&diag=timing-v1)为同包对照。公网完整PCK/threaded WASM与11HTML/JS/worklet SHA匹配，真实COI/SAB/threads三项及Home→Plains触屏动作成功；两段各8秒原BGM逐半秒匹配连续无跳/重启，已选pulse A胜旧pulse/B/C负控。首个本地安装竞争、首个公网redundant安装失败及官方blocking-on-main警告保留；后者失败当时原因未抓到，后续同字节通过，不追签旧失败。
+
+f21b定向docs/web-cache/web-bundle三项fresh通过，非full CI。[证据与完整边界](evidence/mobile_web_audio_02/README.md)。任务in_progress/awaiting-device，PR117仍draft未合main；荣耀60Pro Chrome真机连续性、长时BGM/玩家认可未验。页面手动记录游戏/菜单10秒后下载JSON，下一步读取真机记录及反馈；若线程仍卡，按实际thread ring/PCM/主线程长任务继续定位，不降画质或改全Stream。恢复勿重导PCK/重跑既有native，先核公开身份与最新手机反馈。
+
+
+## 2026-10-29 MOBILE-WEB-PERF-01 · 两处音频修复已部署，待真机
+
+最新真机反馈为“声音卡，动作几乎不卡；暂停页面声音正常”。以main1b29932c/Godot4.7.2核验，公开UI包2caa/source4707与原main618的四份音频/正式场景源相同，JS/WASM是同一官方4.7.2导出模板，不混称同一个PCK。
+
+最小Web真实PCM确认：默认add_bus()的-1路径会破坏Sample总线路由，单Master正常、多总线Sample静音但Stream正常；一段play每帧stream_paused=false会创建/启动/结束27个native Source，声音不断重启。正式demo.tscn原版/bus_only/pause_only/环境音真正停用四组已独立启动对照；bus_only的家园/平原跳跃射击均有真实混合波形匹配。首轮录音窗口错误、补录家园环境音关闭组未跳跃等边界完整保留，云端慢帧不代表手机画面卡顿。
+
+生产只改GameAudio用bus_count增长保同序创建、GameAmbience仅实际状态变化写pause，原生160／0及源码独审限定通过。保留用户已认可UI/画质/素材/音量/五BGM/玩法。标准Web源ccc11e1a，build3866985a1e8b，PCK208691528字节／SHA3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21；已导出及cache/bundle通过。标准Web真实触屏进入家园/关卡，四声实际混音确认并经独立负控复核；Actions40896322142已成功，公开两PCK与8份engine文件完整HTTP字节一致。
+
+[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。[声音修复版](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b)与[前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)已公开；两个独立目录的线上真实触屏GUI均已通过（设置/返回/家园/菜单/resize），page/script/shader错误0。定向docs/web-cache/web-bundle三项fresh通过（非full CI）；[PR117](https://github.com/zhipijun1996/gunman-rush/pull/117)保持draft未合main。手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
+
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
+
+运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
+
+手机与电脑统一1280×720逻辑UI/世界比例；Web使用完整1280×720内部RT与真实DPR backing store/nearest呈现，原生保留canvas_items。标题/HUD/模态框去掉逆CSS放大，家园提示避开摇杆且仅保留一个菜单入口。原shader/PNG不改，前景保护矩形改用RT局部stretch坐标，避免黑边偏移。
+
+原生专项37／0、原UI合同149／0、Web密度8／0，最终源图鉴UI72／0、R2菜单输入208／0；这些检查执行后UI生产字节保持一致，后续导出守门要求原Foundry重建（36短语／18行程、0失败）并刷新验证basis，生成数据单独提交。实际桌面与模拟手机Web截图/指针通过，按钮逻辑边界最大差0.6wu；隔离GPU探针实测原生产mask函数与shader在黑边/DPR下透明位置正确。独审限定ACCEPT，最终定向Harness docs/web-cache/web-bundle三项全fresh通过，公网模拟手机实际设定/家园/菜单/resize通过。真实荣耀60Pro、帧率、金币音效、完整两区动态和玩家认可仍未验，质量awaiting-device。所有旧失败和验收边界见[本轮证据](evidence/mobile_ui_clarity_01/README.md)。
+
+恢复先核当前公开build-info及完整PCK；不要重做已通过UI修复或擅自合main。后续先收用户真机UI/清晰度反馈，再继续单独定位家园/关卡卡顿及拾取音效。
+
 ## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
 
 用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。

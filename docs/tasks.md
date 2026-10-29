@@ -1,5 +1,36 @@
 # 开发任务
 
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-AUDIO-FIX-03 | 独立供音接入普通Web；关闭瞄准附加声，修复机关风铃 | MOBILE-WEB-AUDIO-02 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-FIX-03.json) |
+| MOBILE-WEB-AUDIO-02 | 已恢复工坊音色；定位主线程供音排队并发布同包线程对照，待真机 | MOBILE-WEB-PERF-01 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-02.json) |
+
+[范围](worklines/mobile_web_audio_02/scope.md)。386真机仍卡；发现正式场景始终original，既有14项工坊选择未接入。前轮旧pulse匹配不签用户选择恢复。本轮不降低画质或重制声音。
+
+## 2026-10-29 MOBILE-WEB-PERF-01 · 音频修复已发布，awaiting-device
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-PERF-01 | 移动Web总线与重复unpause根因复现、音频针对性修复 | MOBILE-UI-CLARITY-01 | awaiting-device | [记录](quality/records/MOBILE-WEB-PERF-01.json) |
+
+[冻结范围](worklines/mobile_web_perf_01/scope.md) · [证据](evidence/mobile_web_perf_01/README.md)。用户已确认UI/画面恢复且动作几乎流畅；最小Web与真实demo四case已复现总线Sample静音和每帧unpause重启。两处修复原生160／0，标准Web3866985a四声实际PCM与独审通过，已发布[同UI前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)，公开两PCK完整SHA一致；不代签真机BGM连续性。
+
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
+
+运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
+
+手机与电脑统一1280×720逻辑UI/世界比例；Web使用完整1280×720内部RT与真实DPR backing store/nearest呈现，原生保留canvas_items。标题/HUD/模态框去掉逆CSS放大，家园提示避开摇杆且仅保留一个菜单入口。原shader/PNG不改，前景保护矩形改用RT局部stretch坐标，避免黑边偏移。
+
+原生专项37／0、原UI合同149／0、Web密度8／0，最终源图鉴UI72／0、R2菜单输入208／0；这些检查执行后UI生产字节保持一致，后续导出守门要求原Foundry重建（36短语／18行程、0失败）并刷新验证basis，生成数据单独提交。实际桌面与模拟手机Web截图/指针通过，按钮逻辑边界最大差0.6wu；隔离GPU探针实测原生产mask函数与shader在黑边/DPR下透明位置正确。独审限定ACCEPT，最终定向Harness docs/web-cache/web-bundle三项全fresh通过，公网模拟手机实际设定/家园/菜单/resize通过。真实荣耀60Pro、帧率、金币音效、完整两区动态和玩家认可仍未验，质量awaiting-device。所有旧失败和验收边界见[本轮证据](evidence/mobile_ui_clarity_01/README.md)。
+
+恢复先核当前公开build-info及完整PCK；不要重做已通过UI修复或擅自合main。后续先收用户真机UI/清晰度反馈，再继续单独定位家园/关卡卡顿及拾取音效。
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-UI-CLARITY-01 | 修复共享UI比例与Web清晰度并快速部署 | — | awaiting-device | [记录](quality/records/MOBILE-UI-CLARITY-01.json) |
+
 ## 2026-10-26 AUDIO-DIRECTOR-01
 
 第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。

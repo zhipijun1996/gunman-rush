@@ -238,9 +238,9 @@ func present_context(location_text: String, coins: int, notes: int, reduced: boo
 	_location.text = location_text.replace("WINDCHIME PLAINS", "风铃平原").replace("THORN FOREST", "荆棘森林").replace("TUTORIAL", "初行")
 	_money.text = "金币 %s  ·  音符 %s" % [coins, notes]
 	var viewport := get_viewport_rect().size
-	var pixel_scale := preload("res://scripts/ui/demo_ui_01/modal_metrics.gd").pixel_scale(get_viewport())
+	var pixel_scale := DemoUiModalMetrics.ui_scale(get_viewport())
 	var factor := clampf(1.0 / pixel_scale, 1.0, 1.8)
-	var physical_width := viewport.x * get_viewport().get_screen_transform().get_scale().abs().x
+	var physical_width := viewport.x
 	var narrow := physical_width < 600
 	_rows.scale = Vector2.ONE * factor
 	_rows.size.x = maxf(140, minf(180, physical_width - 247.0)) / maxf(0.01, factor * pixel_scale) if narrow else 300.0
@@ -267,7 +267,7 @@ func present_touch_menu(overlay: TouchOverlay) -> void:
 	# handling and pause signal remain the sole touch consumer.
 	_touch_menu.visible = overlay.enabled
 	if not overlay.enabled: return
-	var scale := maxf(0.1, get_viewport().get_screen_transform().get_scale().abs().y)
+	var scale := DemoUiModalMetrics.ui_scale(get_viewport())
 	var safe := preload("res://scripts/ui/demo_ui_01/modal_metrics.gd").safe_rect(get_viewport())
 	var target_size := Vector2(108, 48) / minf(1, scale)
 	var rect := Rect2(Vector2(safe.end.x - 24.0 / scale - target_size.x, safe.position.y + 18.0 / scale), target_size)
@@ -316,7 +316,7 @@ func present_navigation(map_button: Control, pause_button: Button, touch_menu_re
 	pause_button.theme = _chrome_theme
 	pause_button.theme_type_variation = &"CompactButton"
 	var viewport := get_viewport_rect().size
-	var pixel_scale := maxf(0.1, get_viewport().get_screen_transform().get_scale().abs().y)
+	var pixel_scale := DemoUiModalMetrics.ui_scale(get_viewport())
 	var factor := clampf(1.0 / pixel_scale, 1.0, 1.8)
 	var right := 24.0 / minf(1, pixel_scale)
 	var top := 18.0 / minf(1, pixel_scale)

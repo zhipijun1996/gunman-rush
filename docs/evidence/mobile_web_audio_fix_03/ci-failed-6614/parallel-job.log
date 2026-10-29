@@ -1,0 +1,1418 @@
+﻿2026-10-29T18:33:41.6988117Z Current runner version: '2.338.0'
+2026-10-29T18:33:41.7025456Z ##[group]Runner Image Provisioner
+2026-10-29T18:33:41.7026829Z Hosted Compute Agent
+2026-10-29T18:33:41.7027822Z Version: 20261021.618
+2026-10-29T18:33:41.7029029Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-29T18:33:41.7030372Z Build Date: 2026-10-21T00:45:21Z
+2026-10-29T18:33:41.7031735Z Worker ID: {e98be878-257c-45f2-9247-a19c863b1ddc}
+2026-10-29T18:33:41.7033341Z Region: eastus
+2026-10-29T18:33:41.7034357Z Cloud: Azure
+2026-10-29T18:33:41.7035297Z ##[endgroup]
+2026-10-29T18:33:41.7038046Z ##[group]Operating System
+2026-10-29T18:33:41.7039289Z Ubuntu
+2026-10-29T18:33:41.7040185Z 26.04.1
+2026-10-29T18:33:41.7041167Z LTS
+2026-10-29T18:33:41.7042056Z ##[endgroup]
+2026-10-29T18:33:41.7043397Z ##[group]Runner Image
+2026-10-29T18:33:41.7044506Z Image: ubuntu-26.04
+2026-10-29T18:33:41.7045456Z Version: 20261025.179.1
+2026-10-29T18:33:41.7047669Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+2026-10-29T18:33:41.7050464Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+2026-10-29T18:33:41.7052233Z ##[endgroup]
+2026-10-29T18:33:41.7054564Z ##[group]GITHUB_TOKEN Permissions
+2026-10-29T18:33:41.7057651Z Contents: read
+2026-10-29T18:33:41.7058645Z Metadata: read
+2026-10-29T18:33:41.7059631Z ##[endgroup]
+2026-10-29T18:33:41.7063239Z Secret source: Actions
+2026-10-29T18:33:41.7065010Z Cache mode: write
+2026-10-29T18:33:41.7066845Z Prepare workflow directory
+2026-10-29T18:33:41.7695531Z Prepare all required actions
+2026-10-29T18:33:41.7770120Z Getting action download info
+2026-10-29T18:33:41.9837675Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-29T18:33:42.0978547Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-29T18:33:42.1677265Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-29T18:33:42.2393696Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-29T18:33:42.3984091Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-29T18:33:42.4979800Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-29T18:33:42.7540170Z Complete job name: full_checks (parallel)
+2026-10-29T18:33:42.8771879Z ##[group]Run actions/checkout@v4
+2026-10-29T18:33:42.8773573Z with:
+2026-10-29T18:33:42.8774500Z   ref: 6614e1196e0006a8a4b1a1288a5f072950f3bf19
+2026-10-29T18:33:42.8775653Z   fetch-depth: 0
+2026-10-29T18:33:42.8776587Z   sparse-checkout: /*
+!/docs/evidence/
+
+2026-10-29T18:33:42.8777728Z   sparse-checkout-cone-mode: false
+2026-10-29T18:33:42.8778818Z   persist-credentials: false
+2026-10-29T18:33:42.8779877Z   repository: zhipijun1996/gunman-rush
+2026-10-29T18:33:42.8788773Z   token: ***
+2026-10-29T18:33:42.8789644Z   ssh-strict: true
+2026-10-29T18:33:42.8790544Z   ssh-user: git
+2026-10-29T18:33:42.8791377Z   clean: true
+2026-10-29T18:33:42.8792220Z   fetch-tags: false
+2026-10-29T18:33:42.8793270Z   show-progress: true
+2026-10-29T18:33:42.8794192Z   lfs: false
+2026-10-29T18:33:42.8795014Z   submodules: false
+2026-10-29T18:33:42.8795927Z   set-safe-directory: true
+2026-10-29T18:33:42.8796952Z   allow-unsafe-pr-checkout: false
+2026-10-29T18:33:42.8798283Z env:
+2026-10-29T18:33:42.8799174Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:42.8800129Z ##[endgroup]
+2026-10-29T18:33:43.2046509Z Syncing repository: zhipijun1996/gunman-rush
+2026-10-29T18:33:43.2049164Z ##[group]Getting Git version info
+2026-10-29T18:33:43.2050023Z Working directory is '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-29T18:33:43.2051245Z [command]/usr/bin/git version
+2026-10-29T18:33:43.2051880Z git version 2.56.0
+2026-10-29T18:33:43.2070963Z ##[endgroup]
+2026-10-29T18:33:43.2095513Z Temporarily overriding HOME='/home/runner/work/_temp/42aa3937-d4e4-4345-8186-fc2497ea3ea9' before making global git config changes
+2026-10-29T18:33:43.2097448Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T18:33:43.2098716Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-29T18:33:43.2181097Z Deleting the contents of '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-29T18:33:43.2186738Z ##[group]Initializing the repository
+2026-10-29T18:33:43.2190803Z [command]/usr/bin/git init /home/runner/work/gunman-rush/gunman-rush
+2026-10-29T18:33:43.2305319Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-29T18:33:43.2306505Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-29T18:33:43.2307491Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-29T18:33:43.2308217Z hint: call:
+2026-10-29T18:33:43.2308601Z hint:
+2026-10-29T18:33:43.2309163Z hint: 	git config --global init.defaultBranch <name>
+2026-10-29T18:33:43.2309811Z hint:
+2026-10-29T18:33:43.2310178Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-29T18:33:43.2310763Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-29T18:33:43.2311213Z hint:
+2026-10-29T18:33:43.2311514Z hint: 	git branch -m <name>
+2026-10-29T18:33:43.2311800Z hint:
+2026-10-29T18:33:43.2312195Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-29T18:33:43.2319447Z Initialized empty Git repository in /home/runner/work/gunman-rush/gunman-rush/.git/
+2026-10-29T18:33:43.2333354Z [command]/usr/bin/git remote add origin https://github.com/zhipijun1996/gunman-rush
+2026-10-29T18:33:43.2389992Z ##[endgroup]
+2026-10-29T18:33:43.2391083Z ##[group]Disabling automatic garbage collection
+2026-10-29T18:33:43.2397047Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-29T18:33:43.2433010Z ##[endgroup]
+2026-10-29T18:33:43.2433931Z ##[group]Setting up auth
+2026-10-29T18:33:43.2441379Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:33:43.2478327Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:33:43.2991631Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:33:43.3029340Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:33:43.3312152Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-29T18:33:43.3352982Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-29T18:33:43.3630440Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-29T18:33:43.3675003Z ##[endgroup]
+2026-10-29T18:33:43.3675645Z ##[group]Fetching the repository
+2026-10-29T18:33:43.3687255Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules --filter=blob:none origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-29T18:33:43.8173573Z From https://github.com/zhipijun1996/gunman-rush
+2026-10-29T18:33:43.8175099Z  * [new branch]      art/formal-fine-depth   -> origin/art/formal-fine-depth
+2026-10-29T18:33:43.8176184Z  * [new branch]      chore/cloud-production-system -> origin/chore/cloud-production-system
+2026-10-29T18:33:43.8176944Z  * [new branch]      chore/game-quality-system -> origin/chore/game-quality-system
+2026-10-29T18:33:43.8177952Z  * [new branch]      chore/project-harness-skills -> origin/chore/project-harness-skills
+2026-10-29T18:33:43.8179100Z  * [new branch]      chore/wave-01-dispatch  -> origin/chore/wave-01-dispatch
+2026-10-29T18:33:43.8181103Z  * [new branch]      delivery/style-lab-source-d2d469f81582 -> origin/delivery/style-lab-source-d2d469f81582
+2026-10-29T18:33:43.8183089Z  * [new branch]      delivery/underworld-plains-source-4b01de439c24 -> origin/delivery/underworld-plains-source-4b01de439c24
+2026-10-29T18:33:43.8185030Z  * [new branch]      delivery/underworld-plains-source-6b3093b929c0 -> origin/delivery/underworld-plains-source-6b3093b929c0
+2026-10-29T18:33:43.8186836Z  * [new branch]      delivery/underworld-plains-source-7915c17348c0 -> origin/delivery/underworld-plains-source-7915c17348c0
+2026-10-29T18:33:43.8188385Z  * [new branch]      deploy/mobile-ui-clarity-20261029 -> origin/deploy/mobile-ui-clarity-20261029
+2026-10-29T18:33:43.8189650Z  * [new branch]      deploy/mobile-web-audio-20261029 -> origin/deploy/mobile-web-audio-20261029
+2026-10-29T18:33:43.8190820Z  * [new branch]      deploy/pr-67-web-20261015 -> origin/deploy/pr-67-web-20261015
+2026-10-29T18:33:43.8192268Z  * [new branch]      docs/audio-rollout-01-published-receipt -> origin/docs/audio-rollout-01-published-receipt
+2026-10-29T18:33:43.8193976Z  * [new branch]      docs/biome-challenge-design -> origin/docs/biome-challenge-design
+2026-10-29T18:33:43.8195207Z  * [new branch]      docs/disordered-clock-story -> origin/docs/disordered-clock-story
+2026-10-29T18:33:43.8196280Z  * [new branch]      docs/enemy-continuity-01 -> origin/docs/enemy-continuity-01
+2026-10-29T18:33:43.8197605Z  * [new branch]      docs/forest-v13-playtest-delivery -> origin/docs/forest-v13-playtest-delivery
+2026-10-29T18:33:43.8198985Z  * [new branch]      docs/modular-world-abilities -> origin/docs/modular-world-abilities
+2026-10-29T18:33:43.8200401Z  * [new branch]      docs/player-action-harness-plan -> origin/docs/player-action-harness-plan
+2026-10-29T18:33:43.8201680Z  * [new branch]      docs/procedural-layout-design -> origin/docs/procedural-layout-design
+2026-10-29T18:33:43.8203139Z  * [new branch]      docs/roguelike-run-contracts -> origin/docs/roguelike-run-contracts
+2026-10-29T18:33:43.8204347Z  * [new branch]      docs/thorn-forest-region-design -> origin/docs/thorn-forest-region-design
+2026-10-29T18:33:43.8205560Z  * [new branch]      docs/windkeeper-main-evidence -> origin/docs/windkeeper-main-evidence
+2026-10-29T18:33:43.8206617Z  * [new branch]      docs/world-story-anchor -> origin/docs/world-story-anchor
+2026-10-29T18:33:43.8207901Z  * [new branch]      evidence/main-playtest-45e98dbb -> origin/evidence/main-playtest-45e98dbb
+2026-10-29T18:33:43.8209135Z  * [new branch]      feature/actor-resources-framework -> origin/feature/actor-resources-framework
+2026-10-29T18:33:43.8210244Z  * [new branch]      feature/ai-level-design-v1 -> origin/feature/ai-level-design-v1
+2026-10-29T18:33:43.8211338Z  * [new branch]      feature/ai-platforming-foundry -> origin/feature/ai-platforming-foundry
+2026-10-29T18:33:43.8212939Z  * [new branch]      feature/art-direction-reexploration -> origin/feature/art-direction-reexploration
+2026-10-29T18:33:43.8214136Z  * [new branch]      feature/audio-ambience-01 -> origin/feature/audio-ambience-01
+2026-10-29T18:33:43.8214815Z  * [new branch]      feature/audio-director-01 -> origin/feature/audio-director-01
+2026-10-29T18:33:43.8215452Z  * [new branch]      feature/biome-style-review -> origin/feature/biome-style-review
+2026-10-29T18:33:43.8216110Z  * [new branch]      feature/blob47-art-foundation -> origin/feature/blob47-art-foundation
+2026-10-29T18:33:43.8216866Z  * [new branch]      feature/cloud-env-platform-foundation -> origin/feature/cloud-env-platform-foundation
+2026-10-29T18:33:43.8217626Z  * [new branch]      feature/complete-actor-actions -> origin/feature/complete-actor-actions
+2026-10-29T18:33:43.8218308Z  * [new branch]      feature/core02-combat-controls -> origin/feature/core02-combat-controls
+2026-10-29T18:33:43.8218941Z  * [new branch]      feature/demo-plains-art -> origin/feature/demo-plains-art
+2026-10-29T18:33:43.8219507Z  * [new branch]      feature/demo-ui-01      -> origin/feature/demo-ui-01
+2026-10-29T18:33:43.8220626Z  * [new branch]      feature/dynamic-platforming-modules -> origin/feature/dynamic-platforming-modules
+2026-10-29T18:33:43.8221861Z  * [new branch]      feature/enemy-completion-02 -> origin/feature/enemy-completion-02
+2026-10-29T18:33:43.8223115Z  * [new branch]      feature/enemy-feedback-01 -> origin/feature/enemy-feedback-01
+2026-10-29T18:33:43.8223902Z  * [new branch]      feature/enemy-feedback-01-accepted-sample -> origin/feature/enemy-feedback-01-accepted-sample
+2026-10-29T18:33:43.8224674Z  * [new branch]      feature/enemy-workshop-01 -> origin/feature/enemy-workshop-01
+2026-10-29T18:33:43.8225284Z  * [new branch]      feature/enemy01-patrol  -> origin/feature/enemy01-patrol
+2026-10-29T18:33:43.8225872Z  * [new branch]      feature/item-v5-catalog -> origin/feature/item-v5-catalog
+2026-10-29T18:33:43.8226490Z  * [new branch]      feature/lab-main-feedback -> origin/feature/lab-main-feedback
+2026-10-29T18:33:43.8227173Z  * [new branch]      feature/level-design-harness-v2 -> origin/feature/level-design-harness-v2
+2026-10-29T18:33:43.8227856Z  * [new branch]      feature/loop-boss-modules -> origin/feature/loop-boss-modules
+2026-10-29T18:33:43.8228484Z  * [new branch]      feature/p1-native-pilot -> origin/feature/p1-native-pilot
+2026-10-29T18:33:43.8229169Z  * [new branch]      feature/p1-random-plains-avatars -> origin/feature/p1-random-plains-avatars
+2026-10-29T18:33:43.8229929Z  * [new branch]      feature/painted-terrain-grammar -> origin/feature/painted-terrain-grammar
+2026-10-29T18:33:43.8230712Z  * [new branch]      feature/painted-terrain-production -> origin/feature/painted-terrain-production
+2026-10-29T18:33:43.8231450Z  * [new branch]      feature/painterly-plains-v2 -> origin/feature/painterly-plains-v2
+2026-10-29T18:33:43.8232316Z  * [new branch]      feature/plains-art-integration -> origin/feature/plains-art-integration
+2026-10-29T18:33:43.8233784Z  * [new branch]      feature/plains-art-language -> origin/feature/plains-art-language
+2026-10-29T18:33:43.8234459Z  * [new branch]      feature/plains-art-v3   -> origin/feature/plains-art-v3
+2026-10-29T18:33:43.8235588Z  * [new branch]      feature/plains-branch-challenges -> origin/feature/plains-branch-challenges
+2026-10-29T18:33:43.8237083Z  * [new branch]      feature/plains-capability-generation -> origin/feature/plains-capability-generation
+2026-10-29T18:33:43.8238660Z  * [new branch]      feature/plains-cohesion-and-pressure -> origin/feature/plains-cohesion-and-pressure
+2026-10-29T18:33:43.8240427Z  * [new branch]      feature/plains-connected-region -> origin/feature/plains-connected-region
+2026-10-29T18:33:43.8241955Z  * [new branch]      feature/plains-designed-exploration -> origin/feature/plains-designed-exploration
+2026-10-29T18:33:43.8243602Z  * [new branch]      feature/plains-eight-room-graph -> origin/feature/plains-eight-room-graph
+2026-10-29T18:33:43.8244937Z  * [new branch]      feature/plains-environment-grammar -> origin/feature/plains-environment-grammar
+2026-10-29T18:33:43.8246428Z  * [new branch]      feature/plains-experience-energy -> origin/feature/plains-experience-energy
+2026-10-29T18:33:43.8247941Z  * [new branch]      feature/plains-exploration-expansion -> origin/feature/plains-exploration-expansion
+2026-10-29T18:33:43.8249218Z  * [new branch]      feature/plains-golden-01 -> origin/feature/plains-golden-01
+2026-10-29T18:33:43.8250446Z  * [new branch]      feature/plains-interactive-platforms -> origin/feature/plains-interactive-platforms
+2026-10-29T18:33:43.8251744Z  * [new branch]      feature/plains-joint-challenge -> origin/feature/plains-joint-challenge
+2026-10-29T18:33:43.8253297Z  * [new branch]      feature/plains-joint-place-synthesis -> origin/feature/plains-joint-place-synthesis
+2026-10-29T18:33:43.8254773Z  * [new branch]      feature/plains-landform-first -> origin/feature/plains-landform-first
+2026-10-29T18:33:43.8255776Z  * [new branch]      feature/plains-place-grammar -> origin/feature/plains-place-grammar
+2026-10-29T18:33:43.8256501Z  * [new branch]      feature/plains-polish-home -> origin/feature/plains-polish-home
+2026-10-29T18:33:43.8257505Z  * [new branch]      feature/plains-pressure-boss-redesign -> origin/feature/plains-pressure-boss-redesign
+2026-10-29T18:33:43.8258301Z  * [new branch]      feature/plains-production-v3 -> origin/feature/plains-production-v3
+2026-10-29T18:33:43.8259053Z  * [new branch]      feature/plains-regional-synthesis -> origin/feature/plains-regional-synthesis
+2026-10-29T18:33:43.8259787Z  * [new branch]      feature/plains-room-grammar -> origin/feature/plains-room-grammar
+2026-10-29T18:33:43.8260517Z  * [new branch]      feature/plains-spatial-combat-art -> origin/feature/plains-spatial-combat-art
+2026-10-29T18:33:43.8261811Z  * [new branch]      feature/plains-ten-generated -> origin/feature/plains-ten-generated
+2026-10-29T18:33:43.8263274Z  * [new branch]      feature/plains-two-maps-fog -> origin/feature/plains-two-maps-fog
+2026-10-29T18:33:43.8264001Z  * [new branch]      feature/plains-world-rebuild -> origin/feature/plains-world-rebuild
+2026-10-29T18:33:43.8264748Z  * [new branch]      feature/platforming-module-lab -> origin/feature/platforming-module-lab
+2026-10-29T18:33:43.8265455Z  * [new branch]      feature/playable-demo-loop -> origin/feature/playable-demo-loop
+2026-10-29T18:33:43.8266137Z  * [new branch]      feature/playable-thorn-forest -> origin/feature/playable-thorn-forest
+2026-10-29T18:33:43.8266855Z  * [new branch]      feature/player-presentation-01 -> origin/feature/player-presentation-01
+2026-10-29T18:33:43.8267755Z  * [new branch]      feature/player-presentation-01-motion-candidate -> origin/feature/player-presentation-01-motion-candidate
+2026-10-29T18:33:43.8268695Z  * [new branch]      feature/production-capability-repair -> origin/feature/production-capability-repair
+2026-10-29T18:33:43.8269597Z  * [new branch]      feature/quality-review-and-production-loop -> origin/feature/quality-review-and-production-loop
+2026-10-29T18:33:43.8270406Z  * [new branch]      feature/random-stage-preview -> origin/feature/random-stage-preview
+2026-10-29T18:33:43.8271302Z  * [new branch]      feature/region-bible-v2-forest -> origin/feature/region-bible-v2-forest
+2026-10-29T18:33:43.8272277Z  * [new branch]      feature/run-gear-inventory -> origin/feature/run-gear-inventory
+2026-10-29T18:33:43.8273227Z  * [new branch]      feature/seamless-mixed-modules -> origin/feature/seamless-mixed-modules
+2026-10-29T18:33:43.8274377Z  * [new branch]      feature/snappy-shot-burst -> origin/feature/snappy-shot-burst
+2026-10-29T18:33:43.8275961Z  * [new branch]      feature/spatial-golden-production -> origin/feature/spatial-golden-production
+2026-10-29T18:33:43.8277291Z  * [new branch]      feature/ten-stage-menus -> origin/feature/ten-stage-menus
+2026-10-29T18:33:43.8278482Z  * [new branch]      feature/theme-driven-production -> origin/feature/theme-driven-production
+2026-10-29T18:33:43.8279704Z  * [new branch]      feature/thorn-forest-depth -> origin/feature/thorn-forest-depth
+2026-10-29T18:33:43.8280853Z  * [new branch]      feature/title-home-ui   -> origin/feature/title-home-ui
+2026-10-29T18:33:43.8282224Z  * [new branch]      feature/underworld-combat-world-feedback -> origin/feature/underworld-combat-world-feedback
+2026-10-29T18:33:43.8284010Z  * [new branch]      feature/underworld-plains-production -> origin/feature/underworld-plains-production
+2026-10-29T18:33:43.8285340Z  * [new branch]      feature/visual-director-golden -> origin/feature/visual-director-golden
+2026-10-29T18:33:43.8286605Z  * [new branch]      feature/visual-language-production -> origin/feature/visual-language-production
+2026-10-29T18:33:43.8287875Z  * [new branch]      feature/windchime-five-style-lab -> origin/feature/windchime-five-style-lab
+2026-10-29T18:33:43.8289417Z  * [new branch]      feature/windkeeper-plains-release -> origin/feature/windkeeper-plains-release
+2026-10-29T18:33:43.8290350Z  * [new branch]      fix/action-menu-label-width -> origin/fix/action-menu-label-width
+2026-10-29T18:33:43.8291071Z  * [new branch]      fix/ci-verification-efficiency -> origin/fix/ci-verification-efficiency
+2026-10-29T18:33:43.8292083Z  * [new branch]      fix/forest-focus-and-interwoven-routes -> origin/fix/forest-focus-and-interwoven-routes
+2026-10-29T18:33:43.8293095Z  * [new branch]      fix/foundry-mobile-menu -> origin/fix/foundry-mobile-menu
+2026-10-29T18:33:43.8293816Z  * [new branch]      fix/grapple-range-and-moving-target -> origin/fix/grapple-range-and-moving-target
+2026-10-29T18:33:43.8294624Z  * [new branch]      fix/main-playtest-feedback-20261024 -> origin/fix/main-playtest-feedback-20261024
+2026-10-29T18:33:43.8295421Z  * [new branch]      fix/mobile-ui-clarity-20261029 -> origin/fix/mobile-ui-clarity-20261029
+2026-10-29T18:33:43.8296692Z  * [new branch]      fix/mobile-web-performance-20261029 -> origin/fix/mobile-web-performance-20261029
+2026-10-29T18:33:43.8298100Z  * [new branch]      fix/one-way-platform-boundaries -> origin/fix/one-way-platform-boundaries
+2026-10-29T18:33:43.8298883Z  * [new branch]      fix/plains-combat-variety-audio -> origin/fix/plains-combat-variety-audio
+2026-10-29T18:33:43.8299621Z  * [new branch]      fix/plains-experience-polish -> origin/fix/plains-experience-polish
+2026-10-29T18:33:43.8300286Z  * [new branch]      fix/web-loading-resilience -> origin/fix/web-loading-resilience
+2026-10-29T18:33:43.8301006Z  * [new branch]      integration/forest-plains-20261019 -> origin/integration/forest-plains-20261019
+2026-10-29T18:33:43.8301743Z  * [new branch]      integration/four-lines-20261023 -> origin/integration/four-lines-20261023
+2026-10-29T18:33:43.8302412Z  * [new branch]      integration/latest-to-main -> origin/integration/latest-to-main
+2026-10-29T18:33:43.8303427Z  * [new branch]      integration/main-closeout-20261022 -> origin/integration/main-closeout-20261022
+2026-10-29T18:33:43.8304263Z  * [new branch]      integration/main-foundry-refresh-20261019 -> origin/integration/main-foundry-refresh-20261019
+2026-10-29T18:33:43.8305251Z  * [new branch]      main                    -> origin/main
+2026-10-29T18:33:43.8306302Z  * [new branch]      playtest/blob47-45c1a10f8767 -> origin/playtest/blob47-45c1a10f8767
+2026-10-29T18:33:43.8307651Z  * [new branch]      playtest/forest-bbf5b24-12ac19e2ec02 -> origin/playtest/forest-bbf5b24-12ac19e2ec02
+2026-10-29T18:33:43.8309290Z  * [new branch]      playtest/forest-places-e361af714d54-20261022 -> origin/playtest/forest-places-e361af714d54-20261022
+2026-10-29T18:33:43.8310823Z  * [new branch]      playtest/forest-v13-91280a1ade48 -> origin/playtest/forest-v13-91280a1ade48
+2026-10-29T18:33:43.8312817Z  * [new branch]      playtest/forest-v16-11eb4046-a443c2ec6642 -> origin/playtest/forest-v16-11eb4046-a443c2ec6642
+2026-10-29T18:33:43.8314364Z  * [new branch]      playtest/grapple-c1562ae6a885 -> origin/playtest/grapple-c1562ae6a885
+2026-10-29T18:33:43.8315734Z  * [new branch]      playtest/main-integration-2985982ee612 -> origin/playtest/main-integration-2985982ee612
+2026-10-29T18:33:43.8317143Z  * [new branch]      playtest/pixel-plains-d2c684ef8fc0 -> origin/playtest/pixel-plains-d2c684ef8fc0
+2026-10-29T18:33:43.8318647Z  * [new branch]      playtest/prepared-feedback-20261024 -> origin/playtest/prepared-feedback-20261024
+2026-10-29T18:33:43.8320168Z  * [new branch]      playtest/prepared-feedback-hud-20261024 -> origin/playtest/prepared-feedback-hud-20261024
+2026-10-29T18:33:43.8321628Z  * [new branch]      playtest/publish-main-cd4989-20261024 -> origin/playtest/publish-main-cd4989-20261024
+2026-10-29T18:33:43.8323241Z  * [new branch]      playtest/source-feedback-hud-20261024 -> origin/playtest/source-feedback-hud-20261024
+2026-10-29T18:33:43.8324655Z  * [new branch]      playtest/underworld-plains-4b01de439c24 -> origin/playtest/underworld-plains-4b01de439c24
+2026-10-29T18:33:43.8326098Z  * [new branch]      playtest/underworld-plains-6b3093b929c0 -> origin/playtest/underworld-plains-6b3093b929c0
+2026-10-29T18:33:43.8327670Z  * [new branch]      playtest/underworld-plains-7915c17348c0 -> origin/playtest/underworld-plains-7915c17348c0
+2026-10-29T18:33:43.8328523Z  * [new branch]      playtest/underworld-r3-74431d31fbfd -> origin/playtest/underworld-r3-74431d31fbfd
+2026-10-29T18:33:43.8329531Z  * [new branch]      playtest/underworld-r3-9529cabc239a -> origin/playtest/underworld-r3-9529cabc239a
+2026-10-29T18:33:43.8330320Z  * [new branch]      playtest/underworld-r3-e0d5ca2bd5b9 -> origin/playtest/underworld-r3-e0d5ca2bd5b9
+2026-10-29T18:33:43.8331158Z  * [new branch]      playtest/windchime-styles-d2d469f81582 -> origin/playtest/windchime-styles-d2d469f81582
+2026-10-29T18:33:43.8331984Z  * [new branch]      prepared/audio-rollout-1b29932c5333 -> origin/prepared/audio-rollout-1b29932c5333
+2026-10-29T18:33:43.8333188Z  * [new branch]      prepared/playtest-main-45e98dbb -> origin/prepared/playtest-main-45e98dbb
+2026-10-29T18:33:43.8334367Z  * [new branch]      prepared/pr111-09a900b2 -> origin/prepared/pr111-09a900b2
+2026-10-29T18:33:43.8335700Z  * [new branch]      review/player-presentation-01-baseline-methods -> origin/review/player-presentation-01-baseline-methods
+2026-10-29T18:33:43.8337532Z [command]/usr/bin/git rev-parse --verify --quiet 6614e1196e0006a8a4b1a1288a5f072950f3bf19^{object}
+2026-10-29T18:33:43.8338118Z 6614e1196e0006a8a4b1a1288a5f072950f3bf19
+2026-10-29T18:33:43.8339007Z ##[endgroup]
+2026-10-29T18:33:43.8339454Z ##[group]Determining the checkout info
+2026-10-29T18:33:43.8339930Z ##[endgroup]
+2026-10-29T18:33:43.8340368Z ##[group]Setting up sparse checkout
+2026-10-29T18:33:43.8340759Z [command]/usr/bin/git config core.sparseCheckout true
+2026-10-29T18:33:43.8341607Z [command]/usr/bin/git rev-parse --git-path info/sparse-checkout
+2026-10-29T18:33:43.8342046Z .git/info/sparse-checkout
+2026-10-29T18:33:43.8343211Z ##[endgroup]
+2026-10-29T18:33:43.8343645Z ##[group]Checking out the ref
+2026-10-29T18:33:43.8344151Z [command]/usr/bin/git checkout --progress --force 6614e1196e0006a8a4b1a1288a5f072950f3bf19
+2026-10-29T18:33:52.2584264Z Updating files:   0% (1/6797)
+2026-10-29T18:33:52.3635208Z Updating files:   1% (68/6797)
+2026-10-29T18:33:52.3768994Z Updating files:   2% (136/6797)
+2026-10-29T18:33:52.3850726Z Updating files:   3% (204/6797)
+2026-10-29T18:33:52.3937709Z Updating files:   4% (272/6797)
+2026-10-29T18:33:52.4019841Z Updating files:   5% (340/6797)
+2026-10-29T18:33:52.4211829Z Updating files:   6% (408/6797)
+2026-10-29T18:33:52.4305688Z Updating files:   7% (476/6797)
+2026-10-29T18:33:52.4369864Z Updating files:   8% (544/6797)
+2026-10-29T18:33:52.4408278Z Updating files:   9% (612/6797)
+2026-10-29T18:33:52.4991793Z Updating files:  10% (680/6797)
+2026-10-29T18:33:52.5448328Z Updating files:  11% (748/6797)
+2026-10-29T18:33:52.5635733Z Updating files:  12% (816/6797)
+2026-10-29T18:33:52.5891427Z Updating files:  13% (884/6797)
+2026-10-29T18:33:52.5919374Z Updating files:  14% (952/6797)
+2026-10-29T18:33:52.6578342Z Updating files:  15% (1020/6797)
+2026-10-29T18:33:52.7676538Z Updating files:  16% (1088/6797)
+2026-10-29T18:33:52.8875511Z Updating files:  17% (1156/6797)
+2026-10-29T18:33:52.9028898Z Updating files:  18% (1224/6797)
+2026-10-29T18:33:53.0107074Z Updating files:  18% (1226/6797)
+2026-10-29T18:33:53.0190297Z Updating files:  19% (1292/6797)
+2026-10-29T18:33:53.0267237Z Updating files:  20% (1360/6797)
+2026-10-29T18:33:53.0435281Z Updating files:  21% (1428/6797)
+2026-10-29T18:33:53.0717273Z Updating files:  22% (1496/6797)
+2026-10-29T18:33:53.1209333Z Updating files:  23% (1564/6797)
+2026-10-29T18:33:53.2587161Z Updating files:  24% (1632/6797)
+2026-10-29T18:33:53.3172386Z Updating files:  25% (1700/6797)
+2026-10-29T18:33:53.3871951Z Updating files:  26% (1768/6797)
+2026-10-29T18:33:53.4555490Z Updating files:  27% (1836/6797)
+2026-10-29T18:33:53.5135482Z Updating files:  28% (1904/6797)
+2026-10-29T18:33:53.5659200Z Updating files:  29% (1972/6797)
+2026-10-29T18:33:53.5917425Z Updating files:  30% (2040/6797)
+2026-10-29T18:33:53.7207164Z Updating files:  31% (2108/6797)
+2026-10-29T18:33:53.8742863Z Updating files:  32% (2176/6797)
+2026-10-29T18:33:53.8937701Z Updating files:  33% (2244/6797)
+2026-10-29T18:33:53.9575092Z Updating files:  33% (2251/6797)
+2026-10-29T18:33:54.0683159Z Updating files:  34% (2311/6797)
+2026-10-29T18:33:54.0913300Z Updating files:  35% (2379/6797)
+2026-10-29T18:33:54.0970551Z Updating files:  36% (2447/6797)
+2026-10-29T18:33:54.1023104Z Updating files:  37% (2515/6797)
+2026-10-29T18:33:54.1087867Z Updating files:  38% (2583/6797)
+2026-10-29T18:33:54.1189054Z Updating files:  39% (2651/6797)
+2026-10-29T18:33:54.1255111Z Updating files:  40% (2719/6797)
+2026-10-29T18:33:54.1313917Z Updating files:  41% (2787/6797)
+2026-10-29T18:33:54.1338759Z Updating files:  42% (2855/6797)
+2026-10-29T18:33:54.1364992Z Updating files:  43% (2923/6797)
+2026-10-29T18:33:54.1389757Z Updating files:  44% (2991/6797)
+2026-10-29T18:33:54.1414027Z Updating files:  45% (3059/6797)
+2026-10-29T18:33:54.1440230Z Updating files:  46% (3127/6797)
+2026-10-29T18:33:54.1464948Z Updating files:  47% (3195/6797)
+2026-10-29T18:33:54.1495151Z Updating files:  48% (3263/6797)
+2026-10-29T18:33:54.1523824Z Updating files:  49% (3331/6797)
+2026-10-29T18:33:54.1554618Z Updating files:  50% (3399/6797)
+2026-10-29T18:33:54.1608820Z Updating files:  51% (3467/6797)
+2026-10-29T18:33:54.1701836Z Updating files:  52% (3535/6797)
+2026-10-29T18:33:54.1791332Z Updating files:  53% (3603/6797)
+2026-10-29T18:33:54.1848715Z Updating files:  54% (3671/6797)
+2026-10-29T18:33:54.1957556Z Updating files:  55% (3739/6797)
+2026-10-29T18:33:54.2019744Z Updating files:  56% (3807/6797)
+2026-10-29T18:33:54.4464014Z Updating files:  57% (3875/6797)
+2026-10-29T18:33:54.4520207Z Updating files:  58% (3943/6797)
+2026-10-29T18:33:54.4737862Z Updating files:  59% (4011/6797)
+2026-10-29T18:33:54.4831324Z Updating files:  60% (4079/6797)
+2026-10-29T18:33:54.4856640Z Updating files:  61% (4147/6797)
+2026-10-29T18:33:54.4883833Z Updating files:  62% (4215/6797)
+2026-10-29T18:33:54.4905930Z Updating files:  63% (4283/6797)
+2026-10-29T18:33:54.4930072Z Updating files:  64% (4351/6797)
+2026-10-29T18:33:54.4964846Z Updating files:  65% (4419/6797)
+2026-10-29T18:33:54.4995713Z Updating files:  66% (4487/6797)
+2026-10-29T18:33:54.5023807Z Updating files:  67% (4554/6797)
+2026-10-29T18:33:54.5053993Z Updating files:  68% (4622/6797)
+2026-10-29T18:33:54.5088917Z Updating files:  69% (4690/6797)
+2026-10-29T18:33:54.5122272Z Updating files:  70% (4758/6797)
+2026-10-29T18:33:54.5150098Z Updating files:  71% (4826/6797)
+2026-10-29T18:33:54.5190869Z Updating files:  72% (4894/6797)
+2026-10-29T18:33:54.5230244Z Updating files:  73% (4962/6797)
+2026-10-29T18:33:54.5268659Z Updating files:  74% (5030/6797)
+2026-10-29T18:33:54.5299440Z Updating files:  75% (5098/6797)
+2026-10-29T18:33:54.5327409Z Updating files:  76% (5166/6797)
+2026-10-29T18:33:54.5355736Z Updating files:  77% (5234/6797)
+2026-10-29T18:33:54.5385999Z Updating files:  78% (5302/6797)
+2026-10-29T18:33:54.5413044Z Updating files:  79% (5370/6797)
+2026-10-29T18:33:54.5447394Z Updating files:  80% (5438/6797)
+2026-10-29T18:33:54.5485182Z Updating files:  81% (5506/6797)
+2026-10-29T18:33:54.5559759Z Updating files:  82% (5574/6797)
+2026-10-29T18:33:54.5605445Z Updating files:  83% (5642/6797)
+2026-10-29T18:33:54.5642555Z Updating files:  84% (5710/6797)
+2026-10-29T18:33:54.5675791Z Updating files:  85% (5778/6797)
+2026-10-29T18:33:54.5722506Z Updating files:  86% (5846/6797)
+2026-10-29T18:33:54.5759694Z Updating files:  87% (5914/6797)
+2026-10-29T18:33:54.5798678Z Updating files:  88% (5982/6797)
+2026-10-29T18:33:54.5837633Z Updating files:  89% (6050/6797)
+2026-10-29T18:33:54.5875813Z Updating files:  90% (6118/6797)
+2026-10-29T18:33:54.5928387Z Updating files:  91% (6186/6797)
+2026-10-29T18:33:54.5979431Z Updating files:  92% (6254/6797)
+2026-10-29T18:33:54.6022000Z Updating files:  93% (6322/6797)
+2026-10-29T18:33:54.6063538Z Updating files:  94% (6390/6797)
+2026-10-29T18:33:54.6113661Z Updating files:  95% (6458/6797)
+2026-10-29T18:33:54.6159587Z Updating files:  96% (6526/6797)
+2026-10-29T18:33:54.6219668Z Updating files:  97% (6594/6797)
+2026-10-29T18:33:54.6272036Z Updating files:  98% (6662/6797)
+2026-10-29T18:33:54.6327467Z Updating files:  99% (6730/6797)
+2026-10-29T18:33:54.6327944Z Updating files: 100% (6797/6797)
+2026-10-29T18:33:54.6328576Z Updating files: 100% (6797/6797), done.
+2026-10-29T18:33:54.6645324Z Note: switching to '6614e1196e0006a8a4b1a1288a5f072950f3bf19'.
+2026-10-29T18:33:54.6645824Z 
+2026-10-29T18:33:54.6646100Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-29T18:33:54.6646766Z changes and commit them, and you can discard any commits you make in this
+2026-10-29T18:33:54.6647422Z state without impacting any branches by switching back to a branch.
+2026-10-29T18:33:54.6647800Z 
+2026-10-29T18:33:54.6648040Z If you want to create a new branch to retain commits you create, you may
+2026-10-29T18:33:54.6648648Z do so (now or later) by using -c with the switch command. Example:
+2026-10-29T18:33:54.6648993Z 
+2026-10-29T18:33:54.6649132Z   git switch -c <new-branch-name>
+2026-10-29T18:33:54.6649356Z 
+2026-10-29T18:33:54.6649489Z Or undo this operation with:
+2026-10-29T18:33:54.6649892Z 
+2026-10-29T18:33:54.6649981Z   git switch -
+2026-10-29T18:33:54.6650106Z 
+2026-10-29T18:33:54.6650335Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-29T18:33:54.6650659Z 
+2026-10-29T18:33:54.6650935Z HEAD is now at 6614e119 Record production threaded Web playback and cache migration verification
+2026-10-29T18:33:54.6754099Z ##[endgroup]
+2026-10-29T18:33:54.6805338Z [command]/usr/bin/git log -1 --format=%H
+2026-10-29T18:33:54.6830517Z 6614e1196e0006a8a4b1a1288a5f072950f3bf19
+2026-10-29T18:33:54.6873622Z ##[group]Removing auth
+2026-10-29T18:33:54.6874523Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:33:54.6881500Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:33:54.7203732Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:33:54.7228299Z http.https://github.com/.extraheader
+2026-10-29T18:33:54.7238884Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-29T18:33:54.7274047Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:33:54.7594840Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-29T18:33:54.7629623Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-29T18:33:54.7948428Z ##[endgroup]
+2026-10-29T18:33:54.8209106Z ##[group]Run actions/setup-python@v5
+2026-10-29T18:33:54.8209405Z with:
+2026-10-29T18:33:54.8209607Z   python-version: 3.12
+2026-10-29T18:33:54.8209826Z   cache: pip
+2026-10-29T18:33:54.8210088Z   cache-dependency-path: tools/requirements_art.txt
+2026-10-29T18:33:54.8210409Z   check-latest: false
+2026-10-29T18:33:54.8213085Z   token: ***
+2026-10-29T18:33:54.8213351Z   update-environment: true
+2026-10-29T18:33:54.8213609Z   allow-prereleases: false
+2026-10-29T18:33:54.8213845Z   freethreaded: false
+2026-10-29T18:33:54.8214052Z env:
+2026-10-29T18:33:54.8214250Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:54.8214472Z ##[endgroup]
+2026-10-29T18:33:54.9669347Z ##[group]Installed versions
+2026-10-29T18:33:54.9787514Z (node:2467) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:33:54.9788654Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:33:54.9789398Z Successfully set up CPython (3.12.15)
+2026-10-29T18:33:54.9790151Z ##[endgroup]
+2026-10-29T18:33:55.0203009Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+2026-10-29T18:33:55.3333800Z /home/runner/.cache/pip
+2026-10-29T18:33:55.4444526Z Cache hit for: setup-python-Linux-x64-26.04-Ubuntu-python-3.12.15-pip-c768ca19d568f9d9ebfb12f1fb950e233fd7c86e7e86619d16335d674b8b5ece
+2026-10-29T18:33:55.4554684Z (node:2467) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:33:55.8427051Z Received 59774800 of 59774800 (100.0%), 157.5 MBs/sec
+2026-10-29T18:33:55.8427672Z Cache Size: ~57 MB (59774800 B)
+2026-10-29T18:33:55.8457181Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6759e41e-457b-4ba0-a133-9e7465db7953/cache.tzst -P -C /home/runner/work/gunman-rush/gunman-rush --use-compress-program unzstd
+2026-10-29T18:33:55.9444444Z Cache restored successfully
+2026-10-29T18:33:55.9473789Z Cache restored from key: setup-python-Linux-x64-26.04-Ubuntu-python-3.12.15-pip-c768ca19d568f9d9ebfb12f1fb950e233fd7c86e7e86619d16335d674b8b5ece
+2026-10-29T18:33:55.9693618Z ##[group]Run actions/setup-node@v4
+2026-10-29T18:33:55.9693938Z with:
+2026-10-29T18:33:55.9694140Z   node-version: 22
+2026-10-29T18:33:55.9694353Z   always-auth: false
+2026-10-29T18:33:55.9694588Z   check-latest: false
+2026-10-29T18:33:55.9696910Z   token: ***
+2026-10-29T18:33:55.9697111Z env:
+2026-10-29T18:33:55.9697298Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:55.9697605Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:55.9698061Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:33:55.9698493Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:55.9698877Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:55.9699260Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:55.9699639Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:33:55.9699961Z ##[endgroup]
+2026-10-29T18:33:56.1195306Z (node:2502) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:33:56.1196224Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:33:56.1203585Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+2026-10-29T18:33:56.1204422Z ##[group]Environment details
+2026-10-29T18:33:56.5861307Z node: v22.23.4
+2026-10-29T18:33:56.5861780Z npm: 10.9.9
+2026-10-29T18:33:56.5862143Z yarn: 1.22.22
+2026-10-29T18:33:56.5863796Z ##[endgroup]
+2026-10-29T18:33:56.6007555Z ##[group]Run echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+2026-10-29T18:33:56.6008223Z [36;1mecho "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"[0m
+2026-10-29T18:33:56.6048899Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:33:56.6049265Z env:
+2026-10-29T18:33:56.6049473Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:56.6049797Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6050249Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:33:56.6050696Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6051115Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6051505Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6051913Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:33:56.6052260Z ##[endgroup]
+2026-10-29T18:33:56.6198975Z ##[group]Run actions/download-artifact@v4
+2026-10-29T18:33:56.6199282Z with:
+2026-10-29T18:33:56.6199510Z   name: production-context-40930231480
+2026-10-29T18:33:56.6199819Z   path: build/verification/production-ci/
+2026-10-29T18:33:56.6200118Z   merge-multiple: false
+2026-10-29T18:33:56.6200366Z   repository: zhipijun1996/gunman-rush
+2026-10-29T18:33:56.6200633Z   run-id: 40930231480
+2026-10-29T18:33:56.6200844Z env:
+2026-10-29T18:33:56.6201032Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:56.6201333Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6201765Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:33:56.6202364Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6203065Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6203461Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:56.6203885Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:33:56.6204307Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:33:56.6204660Z ##[endgroup]
+2026-10-29T18:33:56.7750142Z Downloading single artifact
+2026-10-29T18:33:56.7894336Z (node:2534) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:33:56.7895311Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:33:56.8870736Z Preparing to download the following artifacts:
+2026-10-29T18:33:56.8872898Z - production-context-40930231480 (ID: 12923575624, Size: 10003, Expected Digest: sha256:e687252e66602d69c2ec6db87f5c746da5e4f6765b2c780842e68980133d3e5e)
+2026-10-29T18:33:57.0285516Z Redirecting to blob download url: https://productionresultssa17.blob.core.windows.net/actions-results/291efa5f-aad6-8a09-9492-d26678666b2f/workflow-job-run-8521e3f6-907b-5fd9-9e0b-b542ecad1f31/artifacts/7e89dba3181b5124e5e3ad225498ccc664fa644cff61563b03f9b6b2d61ed7a8.zip
+2026-10-29T18:33:57.0288429Z Starting download of artifact to: /home/runner/work/gunman-rush/gunman-rush/build/verification/production-ci
+2026-10-29T18:33:57.0823793Z (node:2534) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-29T18:33:57.0871124Z SHA256 digest of downloaded artifact is e687252e66602d69c2ec6db87f5c746da5e4f6765b2c780842e68980133d3e5e
+2026-10-29T18:33:57.0873835Z Artifact download completed successfully.
+2026-10-29T18:33:57.0874843Z Total of 1 artifact(s) downloaded
+2026-10-29T18:33:57.0878026Z Download artifact has finished successfully
+2026-10-29T18:33:57.1153246Z ##[group]Run actions/download-artifact@v4
+2026-10-29T18:33:57.1153801Z with:
+2026-10-29T18:33:57.1154194Z   name: production-validated-foundry
+2026-10-29T18:33:57.1154707Z   path: resources/foundry/
+2026-10-29T18:33:57.1155158Z   merge-multiple: false
+2026-10-29T18:33:57.1155600Z   repository: zhipijun1996/gunman-rush
+2026-10-29T18:33:57.1156092Z   run-id: 40930231480
+2026-10-29T18:33:57.1156469Z env:
+2026-10-29T18:33:57.1156809Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:57.1157369Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.1158156Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:33:57.1158943Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.1159639Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.1160346Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.1161097Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:33:57.1161860Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:33:57.1162490Z ##[endgroup]
+2026-10-29T18:33:57.2720557Z Downloading single artifact
+2026-10-29T18:33:57.2853026Z (node:2546) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:33:57.2854386Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:33:57.3755854Z Preparing to download the following artifacts:
+2026-10-29T18:33:57.3757642Z - production-validated-foundry (ID: 12923890072, Size: 488222, Expected Digest: sha256:728cacf0536770456044d799b5f997f2a3e104cf0954653b1fea87bb7e06986b)
+2026-10-29T18:33:57.5155347Z Redirecting to blob download url: https://productionresultssa17.blob.core.windows.net/actions-results/291efa5f-aad6-8a09-9492-d26678666b2f/workflow-job-run-8521e3f6-907b-5fd9-9e0b-b542ecad1f31/artifacts/5978101b23445508a5b39db7f490479a63c2ab7d54e48ec2ddaa070074b66326.zip
+2026-10-29T18:33:57.5157449Z Starting download of artifact to: /home/runner/work/gunman-rush/gunman-rush/resources/foundry
+2026-10-29T18:33:57.6251882Z (node:2546) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-29T18:33:57.6778320Z SHA256 digest of downloaded artifact is 728cacf0536770456044d799b5f997f2a3e104cf0954653b1fea87bb7e06986b
+2026-10-29T18:33:57.6779641Z Artifact download completed successfully.
+2026-10-29T18:33:57.6780480Z Total of 1 artifact(s) downloaded
+2026-10-29T18:33:57.6784135Z Download artifact has finished successfully
+2026-10-29T18:33:57.6958014Z ##[group]Run python3 - <<'PYCODE'
+2026-10-29T18:33:57.6958396Z [36;1mpython3 - <<'PYCODE'[0m
+2026-10-29T18:33:57.6958701Z [36;1mimport json, subprocess, sys[0m
+2026-10-29T18:33:57.6959011Z [36;1mfrom pathlib import Path[0m
+2026-10-29T18:33:57.6959519Z [36;1mplan=json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())[0m
+2026-10-29T18:33:57.6960175Z [36;1mmanifest=json.loads(Path('tools/harness/profiles.json').read_text())[0m
+2026-10-29T18:33:57.6960762Z [36;1mif (plan['ci_route']!='full_lanes' or set(plan['checks'])!=set(manifest['profiles']['full'])[0m
+2026-10-29T18:33:57.6961444Z [36;1m        or plan['source_commit']!=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()):[0m
+2026-10-29T18:33:57.6962036Z [36;1m    raise SystemExit('Not the same-source exact full plan')[0m
+2026-10-29T18:33:57.6963090Z [36;1mcommand=[sys.executable,'tools/cloud_inputs.py','--materialize','--output','build/verification/production-ci/lane-inputs.json'][0m
+2026-10-29T18:33:57.6963800Z [36;1mfor check in plan['checks']: command.extend(['--check',check])[0m
+2026-10-29T18:33:57.6964350Z [36;1mwith Path('build/verification/production-ci/lane-inputs.log').open('w') as log:[0m
+2026-10-29T18:33:57.6964918Z [36;1m    result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)[0m
+2026-10-29T18:33:57.6965567Z [36;1mif result.returncode: print(Path('build/verification/production-ci/lane-inputs.log').read_text())[0m
+2026-10-29T18:33:57.6966116Z [36;1mraise SystemExit(result.returncode)[0m
+2026-10-29T18:33:57.6966417Z [36;1mPYCODE[0m
+2026-10-29T18:33:57.6996897Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:33:57.6997248Z env:
+2026-10-29T18:33:57.6997450Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:33:57.6997769Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.6998221Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:33:57.6998672Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.6999071Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.6999506Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:33:57.6999922Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:33:57.7000361Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:33:57.7000731Z ##[endgroup]
+2026-10-29T18:42:05.7093571Z ##[group]Run if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+2026-10-29T18:42:05.7094248Z [36;1mif ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then[0m
+2026-10-29T18:42:05.7094939Z [36;1m  for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do[0m
+2026-10-29T18:42:05.7096017Z [36;1m    if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi[0m
+2026-10-29T18:42:05.7096828Z [36;1m  done[0m
+2026-10-29T18:42:05.7097291Z [36;1m  sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/media-install.log[0m
+2026-10-29T18:42:05.7098156Z [36;1m  sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg 2>&1 | tee -a build/verification/production-ci/media-install.log[0m
+2026-10-29T18:42:05.7099004Z [36;1mfi[0m
+2026-10-29T18:42:05.7099682Z [36;1mpython3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt 2>&1 | tee build/verification/production-ci/python-install.log[0m
+2026-10-29T18:42:05.7129865Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:42:05.7130220Z env:
+2026-10-29T18:42:05.7130432Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:42:05.7130769Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:05.7131215Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:42:05.7131659Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:05.7132062Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:05.7132457Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:05.7133170Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:42:05.7133629Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:42:05.7134002Z ##[endgroup]
+2026-10-29T18:42:05.8184962Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]
+2026-10-29T18:42:05.8458851Z Get:6 https://packages.microsoft.com/ubuntu/26.04/prod resolute InRelease [3964 B]
+2026-10-29T18:42:05.8756841Z Get:7 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main amd64 Packages [127 kB]
+2026-10-29T18:42:05.8944754Z Get:8 https://packages.microsoft.com/ubuntu/26.04/prod resolute/main arm64 Packages [116 kB]
+2026-10-29T18:42:06.0667947Z Hit:2 https://archive.ubuntu.com/ubuntu resolute InRelease
+2026-10-29T18:42:06.0819624Z Get:3 https://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+2026-10-29T18:42:06.1349605Z Get:4 https://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+2026-10-29T18:42:06.1584677Z Get:5 https://archive.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+2026-10-29T18:42:06.1780880Z Get:9 https://archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [804 kB]
+2026-10-29T18:42:06.2241607Z Get:10 https://archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [184 kB]
+2026-10-29T18:42:06.2404081Z Get:11 https://archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages [375 kB]
+2026-10-29T18:42:06.2581902Z Get:12 https://archive.ubuntu.com/ubuntu resolute-updates/universe Translation-en [118 kB]
+2026-10-29T18:42:06.2757526Z Get:13 https://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64v3 Packages [543 kB]
+2026-10-29T18:42:06.2960478Z Get:14 https://archive.ubuntu.com/ubuntu resolute-updates/restricted Translation-en [112 kB]
+2026-10-29T18:42:06.3148271Z Get:15 https://archive.ubuntu.com/ubuntu resolute-security/main amd64v3 Packages [608 kB]
+2026-10-29T18:42:06.3350952Z Get:16 https://archive.ubuntu.com/ubuntu resolute-security/main Translation-en [141 kB]
+2026-10-29T18:42:06.3499258Z Get:17 https://archive.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages [206 kB]
+2026-10-29T18:42:06.3650397Z Get:18 https://archive.ubuntu.com/ubuntu resolute-security/universe Translation-en [67.9 kB]
+2026-10-29T18:42:08.3977178Z Fetched 3817 kB in 1s (6092 kB/s)
+2026-10-29T18:42:09.0789090Z Reading package lists...
+2026-10-29T18:42:09.1137640Z Reading package lists...
+2026-10-29T18:42:09.2888080Z Building dependency tree...
+2026-10-29T18:42:09.2895858Z Reading state information...
+2026-10-29T18:42:09.3792994Z Solving dependencies...
+2026-10-29T18:42:09.4624532Z The following additional packages will be installed:
+2026-10-29T18:42:09.4625970Z   libass9 libasyncns0 libavc1394-0 libavcodec62 libavdevice62 libavfilter11
+2026-10-29T18:42:09.4633600Z   libavformat62 libavutil60 libbluray3 libbs2b0 libcdio-cdda2t64
+2026-10-29T18:42:09.4648148Z   libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1 libcodec2-1.2
+2026-10-29T18:42:09.4649144Z   libdav1d7 libdc1394-25 libdecor-0-0 libdvdnav4 libdvdread8t64 libflac14
+2026-10-29T18:42:09.4650384Z   libflite1 libgme0 libgsm1 libiec61883-0 libjack-jackd2-0 liblilv-0-0
+2026-10-29T18:42:09.4651325Z   libmbedcrypto16 libmp3lame0 libmpg123-0t64 libmysofa1 libopenal-data
+2026-10-29T18:42:09.4651943Z   libopenal1 libopenmpt0t64 libopus0 libplacebo360 libpulse0 librav1e0.8
+2026-10-29T18:42:09.4652971Z   libraw1394-11 librist4 librubberband3 libsamplerate0 libsdl2-2.0-0
+2026-10-29T18:42:09.4653590Z   libsdl2-classic libserd-0-0 libshine3 libsndfile1 libsord-0-0 libsoxr0
+2026-10-29T18:42:09.4654169Z   libspeex1 libsratom-0-0 libsrt1.5-gnutls libssh-4 libsvtav1enc2
+2026-10-29T18:42:09.4654746Z   libswresample6 libswscale9 libtheoradec2 libtheoraenc2 libtwolame0
+2026-10-29T18:42:09.4655433Z   libudfread3 libunibreak6 libva-drm2 libva-x11-2 libva2 libvdpau1
+2026-10-29T18:42:09.4656004Z   libvidstab1.1 libvorbisenc2 libvpl2 libvpx12 libx264-165 libx265-215
+2026-10-29T18:42:09.4656593Z   libxcb-shape0 libxv1 libxvidcore4 libzimg2 libzix-0-0 libzvbi-common
+2026-10-29T18:42:09.4657071Z   libzvbi0t64 ocl-icd-libopencl1
+2026-10-29T18:42:09.4657530Z Suggested packages:
+2026-10-29T18:42:09.4658008Z   ffmpeg-doc libcuda1 libnvcuvid1 libnvidia-encode1 libbluray-bdj libdvdcss2
+2026-10-29T18:42:09.4658668Z   jackd2 libportaudio2 opus-tools pulseaudio libraw1394-doc serdi sordi speex
+2026-10-29T18:42:09.4659131Z   opencl-icd
+2026-10-29T18:42:09.4659369Z Recommended packages:
+2026-10-29T18:42:09.4659890Z   libaacs0 default-libdecor-0-plugin-1 | libdecor-0-plugin-1
+2026-10-29T18:42:09.4660562Z   libpipewire-0.3-0t64
+2026-10-29T18:42:09.5001721Z The following NEW packages will be installed:
+2026-10-29T18:42:09.5003056Z   ffmpeg libass9 libasyncns0 libavc1394-0 libavcodec62 libavdevice62
+2026-10-29T18:42:09.5004278Z   libavfilter11 libavformat62 libavutil60 libbluray3 libbs2b0 libcdio-cdda2t64
+2026-10-29T18:42:09.5005548Z   libcdio-paranoia2t64 libcdio19t64 libchromaprint1 libcjson1 libcodec2-1.2
+2026-10-29T18:42:09.5006742Z   libdav1d7 libdc1394-25 libdecor-0-0 libdvdnav4 libdvdread8t64 libflac14
+2026-10-29T18:42:09.5007923Z   libflite1 libgme0 libgsm1 libiec61883-0 libjack-jackd2-0 liblilv-0-0
+2026-10-29T18:42:09.5009062Z   libmbedcrypto16 libmp3lame0 libmpg123-0t64 libmysofa1 libopenal-data
+2026-10-29T18:42:09.5010054Z   libopenal1 libopenmpt0t64 libopus0 libplacebo360 libpulse0 librav1e0.8
+2026-10-29T18:42:09.5010967Z   libraw1394-11 librist4 librubberband3 libsamplerate0 libsdl2-2.0-0
+2026-10-29T18:42:09.5011892Z   libsdl2-classic libserd-0-0 libshine3 libsndfile1 libsord-0-0 libsoxr0
+2026-10-29T18:42:09.5013022Z   libspeex1 libsratom-0-0 libsrt1.5-gnutls libssh-4 libsvtav1enc2
+2026-10-29T18:42:09.5013637Z   libswresample6 libswscale9 libtheoradec2 libtheoraenc2 libtwolame0
+2026-10-29T18:42:09.5014224Z   libudfread3 libunibreak6 libva-drm2 libva-x11-2 libva2 libvdpau1
+2026-10-29T18:42:09.5014808Z   libvidstab1.1 libvorbisenc2 libvpl2 libvpx12 libx264-165 libx265-215
+2026-10-29T18:42:09.5015397Z   libxcb-shape0 libxv1 libxvidcore4 libzimg2 libzix-0-0 libzvbi-common
+2026-10-29T18:42:09.5015878Z   libzvbi0t64 ocl-icd-libopencl1
+2026-10-29T18:42:09.5240649Z 0 upgraded, 81 newly installed, 0 to remove and 15 not upgraded.
+2026-10-29T18:42:09.5241306Z Need to get 66.4 MB of archives.
+2026-10-29T18:42:09.5241797Z After this operation, 174 MB of additional disk space will be used.
+2026-10-29T18:42:09.5242347Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [139 B]
+2026-10-29T18:42:09.6030746Z Get:2 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libva2 amd64 2.23.0-1ubuntu1 [77.0 kB]
+2026-10-29T18:42:09.6510698Z Get:3 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libva-drm2 amd64 2.23.0-1ubuntu1 [7126 B]
+2026-10-29T18:42:09.6652771Z Get:4 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libva-x11-2 amd64 2.23.0-1ubuntu1 [12.2 kB]
+2026-10-29T18:42:09.6795846Z Get:5 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libvdpau1 amd64 1.5-4 [27.7 kB]
+2026-10-29T18:42:09.6956589Z Get:6 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libvpl2 amd64 1:2.16.0-1 [135 kB]
+2026-10-29T18:42:09.7244410Z Get:7 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 ocl-icd-libopencl1 amd64 2.3.4-1 [41.0 kB]
+2026-10-29T18:42:09.7392142Z Get:8 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libavutil60 amd64 7:8.0.1-3ubuntu2 [485 kB]
+2026-10-29T18:42:09.7752784Z Get:9 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libcodec2-1.2 amd64 1.2.0-4 [9016 kB]
+2026-10-29T18:42:09.8655638Z Get:10 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libdav1d7 amd64 1.5.3-1 [561 kB]
+2026-10-29T18:42:09.8829115Z Get:11 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libgsm1 amd64 1.0.23-2 [30.2 kB]
+2026-10-29T18:42:09.8972454Z Get:12 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libmpg123-0t64 amd64 1.33.3-2 [180 kB]
+2026-10-29T18:42:09.9123988Z Get:13 https://archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 libmp3lame0 amd64 3.101~svn6525+dfsg-2ubuntu0.1 [123 kB]
+2026-10-29T18:42:09.9271527Z Get:14 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libopus0 amd64 1.6.1-1 [3557 kB]
+2026-10-29T18:42:09.9638331Z Get:15 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 librav1e0.8 amd64 0.8.1-7 [1062 kB]
+2026-10-29T18:42:09.9843080Z Get:16 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libshine3 amd64 3.1.1-3build1 [24.9 kB]
+2026-10-29T18:42:09.9982866Z Get:17 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libspeex1 amd64 1.2.1-3build1 [65.0 kB]
+2026-10-29T18:42:10.0133135Z Get:18 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libsvtav1enc2 amd64 2.3.0+dfsg-1build1 [2782 kB]
+2026-10-29T18:42:10.0450489Z Get:19 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libsoxr0 amd64 0.1.3-4.1 [82.0 kB]
+2026-10-29T18:42:10.0598353Z Get:20 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libswresample6 amd64 7:8.0.1-3ubuntu2 [80.9 kB]
+2026-10-29T18:42:10.1293080Z Get:21 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libtheoradec2 amd64 1.2.0+dfsg-6 [56.5 kB]
+2026-10-29T18:42:10.1438618Z Get:22 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libtheoraenc2 amd64 1.2.0+dfsg-6 [108 kB]
+2026-10-29T18:42:10.1587176Z Get:23 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libtwolame0 amd64 0.4.0-2build4 [53.3 kB]
+2026-10-29T18:42:10.1730656Z Get:24 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libvorbisenc2 amd64 1.3.7-3build2 [79.9 kB]
+2026-10-29T18:42:10.1877236Z Get:25 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libvpx12 amd64 1.16.0-3 [1257 kB]
+2026-10-29T18:42:10.2104341Z Get:26 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libx264-165 amd64 2:0.165.3222+gitb35605ac-3build1 [610 kB]
+2026-10-29T18:42:10.2279899Z Get:27 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libx265-215 amd64 4.1-4 [1321 kB]
+2026-10-29T18:42:10.2500072Z Get:28 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libxvidcore4 amd64 2:1.3.7-3 [221 kB]
+2026-10-29T18:42:10.2656258Z Get:29 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libzvbi-common all 0.2.44-1ubuntu2 [43.0 kB]
+2026-10-29T18:42:10.2805466Z Get:30 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libzvbi0t64 amd64 0.2.44-1ubuntu2 [266 kB]
+2026-10-29T18:42:10.2960569Z Get:31 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libavcodec62 amd64 7:8.0.1-3ubuntu2 [10.2 MB]
+2026-10-29T18:42:10.3758846Z Get:32 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libraw1394-11 amd64 2.1.2-2build4 [26.3 kB]
+2026-10-29T18:42:10.3899615Z Get:33 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libavc1394-0 amd64 0.5.4-5build4 [15.9 kB]
+2026-10-29T18:42:10.4039288Z Get:34 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libunibreak6 amd64 6.1-3build1 [25.0 kB]
+2026-10-29T18:42:10.4180823Z Get:35 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libass9 amd64 1:0.17.4-2 [117 kB]
+2026-10-29T18:42:10.4328099Z Get:36 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libudfread3 amd64 1.2.0-2 [17.2 kB]
+2026-10-29T18:42:10.4484517Z Get:37 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libbluray3 amd64 1:1.4.1-1 [133 kB]
+2026-10-29T18:42:10.4631651Z Get:38 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libchromaprint1 amd64 1.6.0-2build1 [34.0 kB]
+2026-10-29T18:42:10.4773454Z Get:39 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libdvdread8t64 amd64 7.0.1-1 [63.8 kB]
+2026-10-29T18:42:10.5462128Z Get:40 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libdvdnav4 amd64 7.0.0-2 [40.0 kB]
+2026-10-29T18:42:10.5602317Z Get:41 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libgme0 amd64 0.6.4-1 [145 kB]
+2026-10-29T18:42:10.5757439Z Get:42 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libopenmpt0t64 amd64 0.8.4-1 [749 kB]
+2026-10-29T18:42:10.5939302Z Get:43 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libcjson1 amd64 1.7.19-2 [22.9 kB]
+2026-10-29T18:42:10.6084647Z Get:44 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libmbedcrypto16 amd64 3.6.5-0.1ubuntu2 [262 kB]
+2026-10-29T18:42:10.6243258Z Get:45 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 librist4 amd64 0.2.11+dfsg-1build1 [76.9 kB]
+2026-10-29T18:42:10.6399371Z Get:46 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libsrt1.5-gnutls amd64 1.5.4-3 [342 kB]
+2026-10-29T18:42:10.6570712Z Get:47 https://archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 libssh-4 amd64 0.11.3-1ubuntu2.1 [209 kB]
+2026-10-29T18:42:10.6724973Z Get:48 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libavformat62 amd64 7:8.0.1-3ubuntu2 [1330 kB]
+2026-10-29T18:42:10.6945982Z Get:49 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libbs2b0 amd64 3.1.0+dfsg-8build1 [11.5 kB]
+2026-10-29T18:42:10.7094715Z Get:50 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libflite1 amd64 2.2-7build1 [13.5 MB]
+2026-10-29T18:42:10.8009283Z Get:51 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libserd-0-0 amd64 0.32.6-1 [44.5 kB]
+2026-10-29T18:42:10.8150418Z Get:52 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libzix-0-0 amd64 0.8.0-1 [25.2 kB]
+2026-10-29T18:42:10.8291433Z Get:53 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libsord-0-0 amd64 0.16.20-1 [16.2 kB]
+2026-10-29T18:42:10.8432118Z Get:54 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libsratom-0-0 amd64 0.6.20-1 [17.9 kB]
+2026-10-29T18:42:10.8574181Z Get:55 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 liblilv-0-0 amd64 0.26.2-1 [44.4 kB]
+2026-10-29T18:42:10.8719010Z Get:56 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libmysofa1 amd64 1.3.3+dfsg-1ubuntu2 [1159 kB]
+2026-10-29T18:42:10.8928085Z Get:57 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libplacebo360 amd64 7.360.0-3 [2985 kB]
+2026-10-29T18:42:10.9244367Z Get:58 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libsamplerate0 amd64 0.2.2-4build2 [1342 kB]
+2026-10-29T18:42:10.9458156Z Get:59 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 librubberband3 amd64 4.0.0+dfsg-2ubuntu1 [154 kB]
+2026-10-29T18:42:11.0154399Z Get:60 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libswscale9 amd64 7:8.0.1-3ubuntu2 [544 kB]
+2026-10-29T18:42:11.0322382Z Get:61 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libvidstab1.1 amd64 1.1.0-2.1 [40.2 kB]
+2026-10-29T18:42:11.0468997Z Get:62 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libzimg2 amd64 3.0.6+ds1-1 [196 kB]
+2026-10-29T18:42:11.0620834Z Get:63 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libavfilter11 amd64 7:8.0.1-3ubuntu2 [5073 kB]
+2026-10-29T18:42:11.1052377Z Get:64 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libcdio19t64 amd64 2.2.0-4build1 [64.8 kB]
+2026-10-29T18:42:11.1194116Z Get:65 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libcdio-cdda2t64 amd64 10.2+2.0.2-2 [17.1 kB]
+2026-10-29T18:42:11.1336068Z Get:66 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libcdio-paranoia2t64 amd64 10.2+2.0.2-2 [17.3 kB]
+2026-10-29T18:42:11.1475421Z Get:67 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libdc1394-25 amd64 2.2.6-6 [101 kB]
+2026-10-29T18:42:11.1622981Z Get:68 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libiec61883-0 amd64 1.2.0-8 [26.0 kB]
+2026-10-29T18:42:11.1768646Z Get:69 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libjack-jackd2-0 amd64 1.9.22~dfsg-5build1 [294 kB]
+2026-10-29T18:42:11.1925485Z Get:70 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libopenal-data all 1:1.25.1-2 [163 kB]
+2026-10-29T18:42:11.2076880Z Get:71 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libopenal1 amd64 1:1.25.1-2 [775 kB]
+2026-10-29T18:42:11.2260255Z Get:72 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libasyncns0 amd64 0.8-7 [12.5 kB]
+2026-10-29T18:42:11.2400114Z Get:73 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libflac14 amd64 1.5.0+ds-5 [172 kB]
+2026-10-29T18:42:11.2548483Z Get:74 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libsndfile1 amd64 1.2.2-4 [229 kB]
+2026-10-29T18:42:11.2704111Z Get:75 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libpulse0 amd64 1:17.0+dfsg1-2ubuntu4 [295 kB]
+2026-10-29T18:42:11.2857774Z Get:76 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libxcb-shape0 amd64 1.17.0-2ubuntu1 [6196 B]
+2026-10-29T18:42:11.2996766Z Get:77 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libxv1 amd64 2:1.0.13-1 [11.0 kB]
+2026-10-29T18:42:11.3138900Z Get:78 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 libavdevice62 amd64 7:8.0.1-3ubuntu2 [76.5 kB]
+2026-10-29T18:42:11.3821586Z Get:79 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libdecor-0-0 amd64 0.2.5-1 [16.5 kB]
+2026-10-29T18:42:11.3964705Z Get:80 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libsdl2-classic amd64 2.32.10+dfsg-6 [716 kB]
+2026-10-29T18:42:11.4144217Z Get:81 https://archive.ubuntu.com/ubuntu resolute/main amd64v3 libsdl2-2.0-0 amd64 2.32.10+dfsg-6 [14.0 kB]
+2026-10-29T18:42:11.4289963Z Get:82 https://archive.ubuntu.com/ubuntu resolute/universe amd64v3 ffmpeg amd64 7:8.0.1-3ubuntu2 [2036 kB]
+2026-10-29T18:42:11.8263961Z Fetched 66.4 MB in 2s (34.4 MB/s)
+2026-10-29T18:42:11.8518177Z Selecting previously unselected package libva2:amd64.
+2026-10-29T18:42:11.8810635Z (Reading database ... 
+2026-10-29T18:42:11.8810992Z (Reading database ... 5%
+2026-10-29T18:42:11.8811289Z (Reading database ... 10%
+2026-10-29T18:42:11.8811578Z (Reading database ... 15%
+2026-10-29T18:42:11.8811852Z (Reading database ... 20%
+2026-10-29T18:42:11.8812126Z (Reading database ... 25%
+2026-10-29T18:42:11.8812392Z (Reading database ... 30%
+2026-10-29T18:42:11.8813245Z (Reading database ... 35%
+2026-10-29T18:42:11.8813695Z (Reading database ... 40%
+2026-10-29T18:42:11.8814123Z (Reading database ... 45%
+2026-10-29T18:42:11.8814632Z (Reading database ... 50%
+2026-10-29T18:42:11.9814142Z (Reading database ... 55%
+2026-10-29T18:42:12.1370063Z (Reading database ... 60%
+2026-10-29T18:42:12.3307883Z (Reading database ... 65%
+2026-10-29T18:42:12.4758817Z (Reading database ... 70%
+2026-10-29T18:42:12.6304067Z (Reading database ... 75%
+2026-10-29T18:42:12.7758632Z (Reading database ... 80%
+2026-10-29T18:42:12.9789562Z (Reading database ... 85%
+2026-10-29T18:42:13.2012806Z (Reading database ... 90%
+2026-10-29T18:42:13.3438161Z (Reading database ... 95%
+2026-10-29T18:42:13.3438711Z (Reading database ... 100%
+2026-10-29T18:42:13.3439497Z (Reading database ... 212715 files and directories currently installed.)
+2026-10-29T18:42:13.3479880Z Preparing to unpack .../00-libva2_2.23.0-1ubuntu1_amd64v3.deb ...
+2026-10-29T18:42:13.3513306Z Unpacking libva2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:13.3774650Z Selecting previously unselected package libva-drm2:amd64.
+2026-10-29T18:42:13.3914137Z Preparing to unpack .../01-libva-drm2_2.23.0-1ubuntu1_amd64v3.deb ...
+2026-10-29T18:42:13.3923287Z Unpacking libva-drm2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:13.4164184Z Selecting previously unselected package libva-x11-2:amd64.
+2026-10-29T18:42:13.4299779Z Preparing to unpack .../02-libva-x11-2_2.23.0-1ubuntu1_amd64v3.deb ...
+2026-10-29T18:42:13.4309801Z Unpacking libva-x11-2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:13.4547517Z Selecting previously unselected package libvdpau1:amd64.
+2026-10-29T18:42:13.4680888Z Preparing to unpack .../03-libvdpau1_1.5-4_amd64v3.deb ...
+2026-10-29T18:42:13.4690198Z Unpacking libvdpau1:amd64 (1.5-4) ...
+2026-10-29T18:42:13.4937901Z Selecting previously unselected package libvpl2.
+2026-10-29T18:42:13.5072866Z Preparing to unpack .../04-libvpl2_1%3a2.16.0-1_amd64v3.deb ...
+2026-10-29T18:42:13.5089123Z Unpacking libvpl2 (1:2.16.0-1) ...
+2026-10-29T18:42:13.5342885Z Selecting previously unselected package ocl-icd-libopencl1:amd64.
+2026-10-29T18:42:13.5475847Z Preparing to unpack .../05-ocl-icd-libopencl1_2.3.4-1_amd64v3.deb ...
+2026-10-29T18:42:13.5485558Z Unpacking ocl-icd-libopencl1:amd64 (2.3.4-1) ...
+2026-10-29T18:42:13.5769106Z Selecting previously unselected package libavutil60:amd64.
+2026-10-29T18:42:13.5904520Z Preparing to unpack .../06-libavutil60_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:13.5913331Z Unpacking libavutil60:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:13.6214280Z Selecting previously unselected package libcodec2-1.2:amd64.
+2026-10-29T18:42:13.6349255Z Preparing to unpack .../07-libcodec2-1.2_1.2.0-4_amd64v3.deb ...
+2026-10-29T18:42:13.6358899Z Unpacking libcodec2-1.2:amd64 (1.2.0-4) ...
+2026-10-29T18:42:13.7171481Z Selecting previously unselected package libdav1d7:amd64.
+2026-10-29T18:42:13.7305298Z Preparing to unpack .../08-libdav1d7_1.5.3-1_amd64v3.deb ...
+2026-10-29T18:42:13.7314073Z Unpacking libdav1d7:amd64 (1.5.3-1) ...
+2026-10-29T18:42:13.7610724Z Selecting previously unselected package libgsm1:amd64.
+2026-10-29T18:42:13.7748254Z Preparing to unpack .../09-libgsm1_1.0.23-2_amd64v3.deb ...
+2026-10-29T18:42:13.7758188Z Unpacking libgsm1:amd64 (1.0.23-2) ...
+2026-10-29T18:42:13.7993205Z Selecting previously unselected package libmpg123-0t64:amd64.
+2026-10-29T18:42:13.8129011Z Preparing to unpack .../10-libmpg123-0t64_1.33.3-2_amd64v3.deb ...
+2026-10-29T18:42:13.8138346Z Unpacking libmpg123-0t64:amd64 (1.33.3-2) ...
+2026-10-29T18:42:13.8393459Z Selecting previously unselected package libmp3lame0:amd64.
+2026-10-29T18:42:13.8528372Z Preparing to unpack .../11-libmp3lame0_3.101~svn6525+dfsg-2ubuntu0.1_amd64v3.deb ...
+2026-10-29T18:42:13.8537896Z Unpacking libmp3lame0:amd64 (3.101~svn6525+dfsg-2ubuntu0.1) ...
+2026-10-29T18:42:13.8784162Z Selecting previously unselected package libopus0:amd64.
+2026-10-29T18:42:13.8920081Z Preparing to unpack .../12-libopus0_1.6.1-1_amd64v3.deb ...
+2026-10-29T18:42:13.8929446Z Unpacking libopus0:amd64 (1.6.1-1) ...
+2026-10-29T18:42:13.9338139Z Selecting previously unselected package librav1e0.8:amd64.
+2026-10-29T18:42:13.9470703Z Preparing to unpack .../13-librav1e0.8_0.8.1-7_amd64v3.deb ...
+2026-10-29T18:42:13.9479366Z Unpacking librav1e0.8:amd64 (0.8.1-7) ...
+2026-10-29T18:42:13.9837828Z Selecting previously unselected package libshine3:amd64.
+2026-10-29T18:42:13.9970853Z Preparing to unpack .../14-libshine3_3.1.1-3build1_amd64v3.deb ...
+2026-10-29T18:42:13.9980706Z Unpacking libshine3:amd64 (3.1.1-3build1) ...
+2026-10-29T18:42:14.0223244Z Selecting previously unselected package libspeex1:amd64.
+2026-10-29T18:42:14.0357584Z Preparing to unpack .../15-libspeex1_1.2.1-3build1_amd64v3.deb ...
+2026-10-29T18:42:14.0366927Z Unpacking libspeex1:amd64 (1.2.1-3build1) ...
+2026-10-29T18:42:14.0607412Z Selecting previously unselected package libsvtav1enc2:amd64.
+2026-10-29T18:42:14.0741292Z Preparing to unpack .../16-libsvtav1enc2_2.3.0+dfsg-1build1_amd64v3.deb ...
+2026-10-29T18:42:14.0752199Z Unpacking libsvtav1enc2:amd64 (2.3.0+dfsg-1build1) ...
+2026-10-29T18:42:14.1362411Z Selecting previously unselected package libsoxr0:amd64.
+2026-10-29T18:42:14.1499430Z Preparing to unpack .../17-libsoxr0_0.1.3-4.1_amd64v3.deb ...
+2026-10-29T18:42:14.1509941Z Unpacking libsoxr0:amd64 (0.1.3-4.1) ...
+2026-10-29T18:42:14.1750053Z Selecting previously unselected package libswresample6:amd64.
+2026-10-29T18:42:14.1884292Z Preparing to unpack .../18-libswresample6_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:14.1893401Z Unpacking libswresample6:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:14.2138074Z Selecting previously unselected package libtheoradec2:amd64.
+2026-10-29T18:42:14.2276125Z Preparing to unpack .../19-libtheoradec2_1.2.0+dfsg-6_amd64v3.deb ...
+2026-10-29T18:42:14.2285237Z Unpacking libtheoradec2:amd64 (1.2.0+dfsg-6) ...
+2026-10-29T18:42:14.2520271Z Selecting previously unselected package libtheoraenc2:amd64.
+2026-10-29T18:42:14.2655778Z Preparing to unpack .../20-libtheoraenc2_1.2.0+dfsg-6_amd64v3.deb ...
+2026-10-29T18:42:14.2664429Z Unpacking libtheoraenc2:amd64 (1.2.0+dfsg-6) ...
+2026-10-29T18:42:14.2909568Z Selecting previously unselected package libtwolame0:amd64.
+2026-10-29T18:42:14.3043839Z Preparing to unpack .../21-libtwolame0_0.4.0-2build4_amd64v3.deb ...
+2026-10-29T18:42:14.3053917Z Unpacking libtwolame0:amd64 (0.4.0-2build4) ...
+2026-10-29T18:42:14.3288901Z Selecting previously unselected package libvorbisenc2:amd64.
+2026-10-29T18:42:14.3421937Z Preparing to unpack .../22-libvorbisenc2_1.3.7-3build2_amd64v3.deb ...
+2026-10-29T18:42:14.3430015Z Unpacking libvorbisenc2:amd64 (1.3.7-3build2) ...
+2026-10-29T18:42:14.3683332Z Selecting previously unselected package libvpx12:amd64.
+2026-10-29T18:42:14.3818689Z Preparing to unpack .../23-libvpx12_1.16.0-3_amd64v3.deb ...
+2026-10-29T18:42:14.3828118Z Unpacking libvpx12:amd64 (1.16.0-3) ...
+2026-10-29T18:42:14.4196739Z Selecting previously unselected package libx264-165:amd64.
+2026-10-29T18:42:14.4329423Z Preparing to unpack .../24-libx264-165_2%3a0.165.3222+gitb35605ac-3build1_amd64v3.deb ...
+2026-10-29T18:42:14.4337661Z Unpacking libx264-165:amd64 (2:0.165.3222+gitb35605ac-3build1) ...
+2026-10-29T18:42:14.4647031Z Selecting previously unselected package libx265-215:amd64.
+2026-10-29T18:42:14.4780416Z Preparing to unpack .../25-libx265-215_4.1-4_amd64v3.deb ...
+2026-10-29T18:42:14.4790174Z Unpacking libx265-215:amd64 (4.1-4) ...
+2026-10-29T18:42:14.5472393Z Selecting previously unselected package libxvidcore4:amd64.
+2026-10-29T18:42:14.5605432Z Preparing to unpack .../26-libxvidcore4_2%3a1.3.7-3_amd64v3.deb ...
+2026-10-29T18:42:14.5611999Z Unpacking libxvidcore4:amd64 (2:1.3.7-3) ...
+2026-10-29T18:42:14.5853036Z Selecting previously unselected package libzvbi-common.
+2026-10-29T18:42:14.5986793Z Preparing to unpack .../27-libzvbi-common_0.2.44-1ubuntu2_all.deb ...
+2026-10-29T18:42:14.5992947Z Unpacking libzvbi-common (0.2.44-1ubuntu2) ...
+2026-10-29T18:42:14.6597677Z Selecting previously unselected package libzvbi0t64:amd64.
+2026-10-29T18:42:14.6731353Z Preparing to unpack .../28-libzvbi0t64_0.2.44-1ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:14.6738490Z Unpacking libzvbi0t64:amd64 (0.2.44-1ubuntu2) ...
+2026-10-29T18:42:14.6996404Z Selecting previously unselected package libavcodec62:amd64.
+2026-10-29T18:42:14.7130690Z Preparing to unpack .../29-libavcodec62_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:14.7139007Z Unpacking libavcodec62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:14.8438672Z Selecting previously unselected package libraw1394-11:amd64.
+2026-10-29T18:42:14.8575995Z Preparing to unpack .../30-libraw1394-11_2.1.2-2build4_amd64v3.deb ...
+2026-10-29T18:42:14.8582507Z Unpacking libraw1394-11:amd64 (2.1.2-2build4) ...
+2026-10-29T18:42:14.8813622Z Selecting previously unselected package libavc1394-0:amd64.
+2026-10-29T18:42:14.8950076Z Preparing to unpack .../31-libavc1394-0_0.5.4-5build4_amd64v3.deb ...
+2026-10-29T18:42:14.8957471Z Unpacking libavc1394-0:amd64 (0.5.4-5build4) ...
+2026-10-29T18:42:14.9185540Z Selecting previously unselected package libunibreak6:amd64.
+2026-10-29T18:42:14.9319665Z Preparing to unpack .../32-libunibreak6_6.1-3build1_amd64v3.deb ...
+2026-10-29T18:42:14.9328449Z Unpacking libunibreak6:amd64 (6.1-3build1) ...
+2026-10-29T18:42:14.9565570Z Selecting previously unselected package libass9:amd64.
+2026-10-29T18:42:14.9701342Z Preparing to unpack .../33-libass9_1%3a0.17.4-2_amd64v3.deb ...
+2026-10-29T18:42:14.9708544Z Unpacking libass9:amd64 (1:0.17.4-2) ...
+2026-10-29T18:42:14.9946083Z Selecting previously unselected package libudfread3:amd64.
+2026-10-29T18:42:15.0080037Z Preparing to unpack .../34-libudfread3_1.2.0-2_amd64v3.deb ...
+2026-10-29T18:42:15.0087820Z Unpacking libudfread3:amd64 (1.2.0-2) ...
+2026-10-29T18:42:15.0309982Z Selecting previously unselected package libbluray3:amd64.
+2026-10-29T18:42:15.0445618Z Preparing to unpack .../35-libbluray3_1%3a1.4.1-1_amd64v3.deb ...
+2026-10-29T18:42:15.0454468Z Unpacking libbluray3:amd64 (1:1.4.1-1) ...
+2026-10-29T18:42:15.0705459Z Selecting previously unselected package libchromaprint1:amd64.
+2026-10-29T18:42:15.0842919Z Preparing to unpack .../36-libchromaprint1_1.6.0-2build1_amd64v3.deb ...
+2026-10-29T18:42:15.0849380Z Unpacking libchromaprint1:amd64 (1.6.0-2build1) ...
+2026-10-29T18:42:15.1081063Z Selecting previously unselected package libdvdread8t64:amd64.
+2026-10-29T18:42:15.1216270Z Preparing to unpack .../37-libdvdread8t64_7.0.1-1_amd64v3.deb ...
+2026-10-29T18:42:15.1223820Z Unpacking libdvdread8t64:amd64 (7.0.1-1) ...
+2026-10-29T18:42:15.1456889Z Selecting previously unselected package libdvdnav4:amd64.
+2026-10-29T18:42:15.1593882Z Preparing to unpack .../38-libdvdnav4_7.0.0-2_amd64v3.deb ...
+2026-10-29T18:42:15.1601047Z Unpacking libdvdnav4:amd64 (7.0.0-2) ...
+2026-10-29T18:42:15.1840107Z Selecting previously unselected package libgme0:amd64.
+2026-10-29T18:42:15.1976513Z Preparing to unpack .../39-libgme0_0.6.4-1_amd64v3.deb ...
+2026-10-29T18:42:15.1983768Z Unpacking libgme0:amd64 (0.6.4-1) ...
+2026-10-29T18:42:15.2229133Z Selecting previously unselected package libopenmpt0t64:amd64.
+2026-10-29T18:42:15.2365357Z Preparing to unpack .../40-libopenmpt0t64_0.8.4-1_amd64v3.deb ...
+2026-10-29T18:42:15.2372947Z Unpacking libopenmpt0t64:amd64 (0.8.4-1) ...
+2026-10-29T18:42:15.2687341Z Selecting previously unselected package libcjson1:amd64.
+2026-10-29T18:42:15.2824600Z Preparing to unpack .../41-libcjson1_1.7.19-2_amd64v3.deb ...
+2026-10-29T18:42:15.2833323Z Unpacking libcjson1:amd64 (1.7.19-2) ...
+2026-10-29T18:42:15.3066603Z Selecting previously unselected package libmbedcrypto16:amd64.
+2026-10-29T18:42:15.3204914Z Preparing to unpack .../42-libmbedcrypto16_3.6.5-0.1ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:15.3213118Z Unpacking libmbedcrypto16:amd64 (3.6.5-0.1ubuntu2) ...
+2026-10-29T18:42:15.3482765Z Selecting previously unselected package librist4:amd64.
+2026-10-29T18:42:15.3617404Z Preparing to unpack .../43-librist4_0.2.11+dfsg-1build1_amd64v3.deb ...
+2026-10-29T18:42:15.3625253Z Unpacking librist4:amd64 (0.2.11+dfsg-1build1) ...
+2026-10-29T18:42:15.3858845Z Selecting previously unselected package libsrt1.5-gnutls:amd64.
+2026-10-29T18:42:15.3993370Z Preparing to unpack .../44-libsrt1.5-gnutls_1.5.4-3_amd64v3.deb ...
+2026-10-29T18:42:15.4001346Z Unpacking libsrt1.5-gnutls:amd64 (1.5.4-3) ...
+2026-10-29T18:42:15.4271410Z Selecting previously unselected package libssh-4:amd64.
+2026-10-29T18:42:15.4412042Z Preparing to unpack .../45-libssh-4_0.11.3-1ubuntu2.1_amd64v3.deb ...
+2026-10-29T18:42:15.4419570Z Unpacking libssh-4:amd64 (0.11.3-1ubuntu2.1) ...
+2026-10-29T18:42:15.4677061Z Selecting previously unselected package libavformat62:amd64.
+2026-10-29T18:42:15.4812755Z Preparing to unpack .../46-libavformat62_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:15.4819761Z Unpacking libavformat62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:15.5182769Z Selecting previously unselected package libbs2b0:amd64.
+2026-10-29T18:42:15.5319050Z Preparing to unpack .../47-libbs2b0_3.1.0+dfsg-8build1_amd64v3.deb ...
+2026-10-29T18:42:15.5326827Z Unpacking libbs2b0:amd64 (3.1.0+dfsg-8build1) ...
+2026-10-29T18:42:15.5579870Z Selecting previously unselected package libflite1:amd64.
+2026-10-29T18:42:15.5716217Z Preparing to unpack .../48-libflite1_2.2-7build1_amd64v3.deb ...
+2026-10-29T18:42:15.5723516Z Unpacking libflite1:amd64 (2.2-7build1) ...
+2026-10-29T18:42:15.6838414Z Selecting previously unselected package libserd-0-0:amd64.
+2026-10-29T18:42:15.6972383Z Preparing to unpack .../49-libserd-0-0_0.32.6-1_amd64v3.deb ...
+2026-10-29T18:42:15.6979258Z Unpacking libserd-0-0:amd64 (0.32.6-1) ...
+2026-10-29T18:42:15.7210183Z Selecting previously unselected package libzix-0-0:amd64.
+2026-10-29T18:42:15.7345151Z Preparing to unpack .../50-libzix-0-0_0.8.0-1_amd64v3.deb ...
+2026-10-29T18:42:15.7351954Z Unpacking libzix-0-0:amd64 (0.8.0-1) ...
+2026-10-29T18:42:15.7578342Z Selecting previously unselected package libsord-0-0:amd64.
+2026-10-29T18:42:15.7714775Z Preparing to unpack .../51-libsord-0-0_0.16.20-1_amd64v3.deb ...
+2026-10-29T18:42:15.7724747Z Unpacking libsord-0-0:amd64 (0.16.20-1) ...
+2026-10-29T18:42:15.7950605Z Selecting previously unselected package libsratom-0-0:amd64.
+2026-10-29T18:42:15.8084214Z Preparing to unpack .../52-libsratom-0-0_0.6.20-1_amd64v3.deb ...
+2026-10-29T18:42:15.8091570Z Unpacking libsratom-0-0:amd64 (0.6.20-1) ...
+2026-10-29T18:42:15.8314882Z Selecting previously unselected package liblilv-0-0:amd64.
+2026-10-29T18:42:15.8450569Z Preparing to unpack .../53-liblilv-0-0_0.26.2-1_amd64v3.deb ...
+2026-10-29T18:42:15.8459003Z Unpacking liblilv-0-0:amd64 (0.26.2-1) ...
+2026-10-29T18:42:15.8688261Z Selecting previously unselected package libmysofa1:amd64.
+2026-10-29T18:42:15.8824538Z Preparing to unpack .../54-libmysofa1_1.3.3+dfsg-1ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:15.8831760Z Unpacking libmysofa1:amd64 (1.3.3+dfsg-1ubuntu2) ...
+2026-10-29T18:42:15.9103082Z Selecting previously unselected package libplacebo360:amd64.
+2026-10-29T18:42:15.9236532Z Preparing to unpack .../55-libplacebo360_7.360.0-3_amd64v3.deb ...
+2026-10-29T18:42:15.9243837Z Unpacking libplacebo360:amd64 (7.360.0-3) ...
+2026-10-29T18:42:15.9842510Z Selecting previously unselected package libsamplerate0:amd64.
+2026-10-29T18:42:15.9978887Z Preparing to unpack .../56-libsamplerate0_0.2.2-4build2_amd64v3.deb ...
+2026-10-29T18:42:15.9986949Z Unpacking libsamplerate0:amd64 (0.2.2-4build2) ...
+2026-10-29T18:42:16.0274703Z Selecting previously unselected package librubberband3:amd64.
+2026-10-29T18:42:16.0410061Z Preparing to unpack .../57-librubberband3_4.0.0+dfsg-2ubuntu1_amd64v3.deb ...
+2026-10-29T18:42:16.0417658Z Unpacking librubberband3:amd64 (4.0.0+dfsg-2ubuntu1) ...
+2026-10-29T18:42:16.0663725Z Selecting previously unselected package libswscale9:amd64.
+2026-10-29T18:42:16.0798634Z Preparing to unpack .../58-libswscale9_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:16.0806037Z Unpacking libswscale9:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:16.1093641Z Selecting previously unselected package libvidstab1.1:amd64.
+2026-10-29T18:42:16.1230334Z Preparing to unpack .../59-libvidstab1.1_1.1.0-2.1_amd64v3.deb ...
+2026-10-29T18:42:16.1237991Z Unpacking libvidstab1.1:amd64 (1.1.0-2.1) ...
+2026-10-29T18:42:16.1463298Z Selecting previously unselected package libzimg2:amd64.
+2026-10-29T18:42:16.1597831Z Preparing to unpack .../60-libzimg2_3.0.6+ds1-1_amd64v3.deb ...
+2026-10-29T18:42:16.1604529Z Unpacking libzimg2:amd64 (3.0.6+ds1-1) ...
+2026-10-29T18:42:16.1852063Z Selecting previously unselected package libavfilter11:amd64.
+2026-10-29T18:42:16.1989576Z Preparing to unpack .../61-libavfilter11_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:16.1997443Z Unpacking libavfilter11:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:16.2883006Z Selecting previously unselected package libcdio19t64:amd64.
+2026-10-29T18:42:16.3021256Z Preparing to unpack .../62-libcdio19t64_2.2.0-4build1_amd64v3.deb ...
+2026-10-29T18:42:16.3029539Z Unpacking libcdio19t64:amd64 (2.2.0-4build1) ...
+2026-10-29T18:42:16.3280645Z Selecting previously unselected package libcdio-cdda2t64:amd64.
+2026-10-29T18:42:16.3419499Z Preparing to unpack .../63-libcdio-cdda2t64_10.2+2.0.2-2_amd64v3.deb ...
+2026-10-29T18:42:16.3427156Z Unpacking libcdio-cdda2t64:amd64 (10.2+2.0.2-2) ...
+2026-10-29T18:42:16.3661712Z Selecting previously unselected package libcdio-paranoia2t64:amd64.
+2026-10-29T18:42:16.3799681Z Preparing to unpack .../64-libcdio-paranoia2t64_10.2+2.0.2-2_amd64v3.deb ...
+2026-10-29T18:42:16.3807933Z Unpacking libcdio-paranoia2t64:amd64 (10.2+2.0.2-2) ...
+2026-10-29T18:42:16.4042048Z Selecting previously unselected package libdc1394-25:amd64.
+2026-10-29T18:42:16.4177041Z Preparing to unpack .../65-libdc1394-25_2.2.6-6_amd64v3.deb ...
+2026-10-29T18:42:16.4184894Z Unpacking libdc1394-25:amd64 (2.2.6-6) ...
+2026-10-29T18:42:16.4434070Z Selecting previously unselected package libiec61883-0:amd64.
+2026-10-29T18:42:16.4567698Z Preparing to unpack .../66-libiec61883-0_1.2.0-8_amd64v3.deb ...
+2026-10-29T18:42:16.4575097Z Unpacking libiec61883-0:amd64 (1.2.0-8) ...
+2026-10-29T18:42:16.4808215Z Selecting previously unselected package libjack-jackd2-0:amd64.
+2026-10-29T18:42:16.4941707Z Preparing to unpack .../67-libjack-jackd2-0_1.9.22~dfsg-5build1_amd64v3.deb ...
+2026-10-29T18:42:16.4949777Z Unpacking libjack-jackd2-0:amd64 (1.9.22~dfsg-5build1) ...
+2026-10-29T18:42:16.5211526Z Selecting previously unselected package libopenal-data.
+2026-10-29T18:42:16.5345453Z Preparing to unpack .../68-libopenal-data_1%3a1.25.1-2_all.deb ...
+2026-10-29T18:42:16.5352945Z Unpacking libopenal-data (1:1.25.1-2) ...
+2026-10-29T18:42:16.5607019Z Selecting previously unselected package libopenal1:amd64.
+2026-10-29T18:42:16.5741354Z Preparing to unpack .../69-libopenal1_1%3a1.25.1-2_amd64v3.deb ...
+2026-10-29T18:42:16.5749645Z Unpacking libopenal1:amd64 (1:1.25.1-2) ...
+2026-10-29T18:42:16.6049008Z Selecting previously unselected package libasyncns0:amd64.
+2026-10-29T18:42:16.6184436Z Preparing to unpack .../70-libasyncns0_0.8-7_amd64v3.deb ...
+2026-10-29T18:42:16.6191195Z Unpacking libasyncns0:amd64 (0.8-7) ...
+2026-10-29T18:42:16.6419942Z Selecting previously unselected package libflac14:amd64.
+2026-10-29T18:42:16.6555812Z Preparing to unpack .../71-libflac14_1.5.0+ds-5_amd64v3.deb ...
+2026-10-29T18:42:16.6563479Z Unpacking libflac14:amd64 (1.5.0+ds-5) ...
+2026-10-29T18:42:16.6813276Z Selecting previously unselected package libsndfile1:amd64.
+2026-10-29T18:42:16.6949857Z Preparing to unpack .../72-libsndfile1_1.2.2-4_amd64v3.deb ...
+2026-10-29T18:42:16.6957227Z Unpacking libsndfile1:amd64 (1.2.2-4) ...
+2026-10-29T18:42:16.7216226Z Selecting previously unselected package libpulse0:amd64.
+2026-10-29T18:42:16.7352257Z Preparing to unpack .../73-libpulse0_1%3a17.0+dfsg1-2ubuntu4_amd64v3.deb ...
+2026-10-29T18:42:16.7359599Z Unpacking libpulse0:amd64 (1:17.0+dfsg1-2ubuntu4) ...
+2026-10-29T18:42:16.7674435Z Selecting previously unselected package libxcb-shape0:amd64.
+2026-10-29T18:42:16.7809735Z Preparing to unpack .../74-libxcb-shape0_1.17.0-2ubuntu1_amd64v3.deb ...
+2026-10-29T18:42:16.7817375Z Unpacking libxcb-shape0:amd64 (1.17.0-2ubuntu1) ...
+2026-10-29T18:42:16.8039935Z Selecting previously unselected package libxv1:amd64.
+2026-10-29T18:42:16.8177746Z Preparing to unpack .../75-libxv1_2%3a1.0.13-1_amd64v3.deb ...
+2026-10-29T18:42:16.8185264Z Unpacking libxv1:amd64 (2:1.0.13-1) ...
+2026-10-29T18:42:16.8423098Z Selecting previously unselected package libavdevice62:amd64.
+2026-10-29T18:42:16.8562955Z Preparing to unpack .../76-libavdevice62_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:16.8570103Z Unpacking libavdevice62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:16.8832164Z Selecting previously unselected package libdecor-0-0:amd64.
+2026-10-29T18:42:16.8972728Z Preparing to unpack .../77-libdecor-0-0_0.2.5-1_amd64v3.deb ...
+2026-10-29T18:42:16.8980437Z Unpacking libdecor-0-0:amd64 (0.2.5-1) ...
+2026-10-29T18:42:16.9243882Z Selecting previously unselected package libsdl2-classic:amd64.
+2026-10-29T18:42:16.9381962Z Preparing to unpack .../78-libsdl2-classic_2.32.10+dfsg-6_amd64v3.deb ...
+2026-10-29T18:42:16.9389251Z Unpacking libsdl2-classic:amd64 (2.32.10+dfsg-6) ...
+2026-10-29T18:42:16.9714781Z Selecting previously unselected package libsdl2-2.0-0:amd64.
+2026-10-29T18:42:16.9852270Z Preparing to unpack .../79-libsdl2-2.0-0_2.32.10+dfsg-6_amd64v3.deb ...
+2026-10-29T18:42:16.9859142Z Unpacking libsdl2-2.0-0:amd64 (2.32.10+dfsg-6) ...
+2026-10-29T18:42:17.0093055Z Selecting previously unselected package ffmpeg.
+2026-10-29T18:42:17.0229731Z Preparing to unpack .../80-ffmpeg_7%3a8.0.1-3ubuntu2_amd64v3.deb ...
+2026-10-29T18:42:17.0248092Z Unpacking ffmpeg (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.1065137Z Setting up libgme0:amd64 (0.6.4-1) ...
+2026-10-29T18:42:17.1102463Z Setting up libchromaprint1:amd64 (1.6.0-2build1) ...
+2026-10-29T18:42:17.1141836Z Setting up libdvdread8t64:amd64 (7.0.1-1) ...
+2026-10-29T18:42:17.1157577Z Setting up libraw1394-11:amd64 (2.1.2-2build4) ...
+2026-10-29T18:42:17.1174628Z Setting up libudfread3:amd64 (1.2.0-2) ...
+2026-10-29T18:42:17.1191017Z Setting up libspeex1:amd64 (1.2.1-3build1) ...
+2026-10-29T18:42:17.1208470Z Setting up libshine3:amd64 (3.1.1-3build1) ...
+2026-10-29T18:42:17.1224869Z Setting up libvpl2 (1:2.16.0-1) ...
+2026-10-29T18:42:17.1248225Z Setting up libtwolame0:amd64 (0.4.0-2build4) ...
+2026-10-29T18:42:17.1265224Z Setting up libgsm1:amd64 (1.0.23-2) ...
+2026-10-29T18:42:17.1283076Z Setting up libsoxr0:amd64 (0.1.3-4.1) ...
+2026-10-29T18:42:17.1301729Z Setting up libzix-0-0:amd64 (0.8.0-1) ...
+2026-10-29T18:42:17.1318283Z Setting up libx264-165:amd64 (2:0.165.3222+gitb35605ac-3build1) ...
+2026-10-29T18:42:17.1334829Z Setting up libcodec2-1.2:amd64 (1.2.0-4) ...
+2026-10-29T18:42:17.1353665Z Setting up libmysofa1:amd64 (1.3.3+dfsg-1ubuntu2) ...
+2026-10-29T18:42:17.1371632Z Setting up libxcb-shape0:amd64 (1.17.0-2ubuntu1) ...
+2026-10-29T18:42:17.1389515Z Setting up libcdio19t64:amd64 (2.2.0-4build1) ...
+2026-10-29T18:42:17.1419803Z Setting up libmpg123-0t64:amd64 (1.33.3-2) ...
+2026-10-29T18:42:17.1437168Z Setting up libcjson1:amd64 (1.7.19-2) ...
+2026-10-29T18:42:17.1457188Z Setting up libxvidcore4:amd64 (2:1.3.7-3) ...
+2026-10-29T18:42:17.1473649Z Setting up libtheoraenc2:amd64 (1.2.0+dfsg-6) ...
+2026-10-29T18:42:17.1494022Z Setting up libcdio-cdda2t64:amd64 (10.2+2.0.2-2) ...
+2026-10-29T18:42:17.1510245Z Setting up librav1e0.8:amd64 (0.8.1-7) ...
+2026-10-29T18:42:17.1528272Z Setting up libtheoradec2:amd64 (1.2.0+dfsg-6) ...
+2026-10-29T18:42:17.1551630Z Setting up libvpx12:amd64 (1.16.0-3) ...
+2026-10-29T18:42:17.1571061Z Setting up libva2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:17.1588488Z Setting up libsvtav1enc2:amd64 (2.3.0+dfsg-1build1) ...
+2026-10-29T18:42:17.1607552Z Setting up libopus0:amd64 (1.6.1-1) ...
+2026-10-29T18:42:17.1624921Z Setting up libcdio-paranoia2t64:amd64 (10.2+2.0.2-2) ...
+2026-10-29T18:42:17.1643652Z Setting up libdc1394-25:amd64 (2.2.6-6) ...
+2026-10-29T18:42:17.1660288Z Setting up libxv1:amd64 (2:1.0.13-1) ...
+2026-10-29T18:42:17.1679723Z Setting up libflac14:amd64 (1.5.0+ds-5) ...
+2026-10-29T18:42:17.1696581Z Setting up libssh-4:amd64 (0.11.3-1ubuntu2.1) ...
+2026-10-29T18:42:17.1723385Z Setting up libplacebo360:amd64 (7.360.0-3) ...
+2026-10-29T18:42:17.1743459Z Setting up libvidstab1.1:amd64 (1.1.0-2.1) ...
+2026-10-29T18:42:17.1760615Z Setting up libsrt1.5-gnutls:amd64 (1.5.4-3) ...
+2026-10-29T18:42:17.1782962Z Setting up libflite1:amd64 (2.2-7build1) ...
+2026-10-29T18:42:17.1800560Z Setting up libdav1d7:amd64 (1.5.3-1) ...
+2026-10-29T18:42:17.1817694Z Setting up libva-drm2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:17.1837769Z Setting up ocl-icd-libopencl1:amd64 (2.3.4-1) ...
+2026-10-29T18:42:17.1855210Z Setting up libasyncns0:amd64 (0.8-7) ...
+2026-10-29T18:42:17.1887712Z Setting up libvdpau1:amd64 (1.5-4) ...
+2026-10-29T18:42:17.1916079Z Setting up libbs2b0:amd64 (3.1.0+dfsg-8build1) ...
+2026-10-29T18:42:17.1935139Z Setting up libdecor-0-0:amd64 (0.2.5-1) ...
+2026-10-29T18:42:17.1954480Z Setting up libzimg2:amd64 (3.0.6+ds1-1) ...
+2026-10-29T18:42:17.1971972Z Setting up libopenal-data (1:1.25.1-2) ...
+2026-10-29T18:42:17.1998168Z Setting up libbluray3:amd64 (1:1.4.1-1) ...
+2026-10-29T18:42:17.2015786Z Setting up libunibreak6:amd64 (6.1-3build1) ...
+2026-10-29T18:42:17.2052164Z Setting up libmbedcrypto16:amd64 (3.6.5-0.1ubuntu2) ...
+2026-10-29T18:42:17.2071679Z Setting up libx265-215:amd64 (4.1-4) ...
+2026-10-29T18:42:17.2095001Z Setting up libsamplerate0:amd64 (0.2.2-4build2) ...
+2026-10-29T18:42:17.2115221Z Setting up libva-x11-2:amd64 (2.23.0-1ubuntu1) ...
+2026-10-29T18:42:17.2132434Z Setting up libopenmpt0t64:amd64 (0.8.4-1) ...
+2026-10-29T18:42:17.2152978Z Setting up libzvbi-common (0.2.44-1ubuntu2) ...
+2026-10-29T18:42:17.2170099Z Setting up libmp3lame0:amd64 (3.101~svn6525+dfsg-2ubuntu0.1) ...
+2026-10-29T18:42:17.2193911Z Setting up libvorbisenc2:amd64 (1.3.7-3build2) ...
+2026-10-29T18:42:17.2212960Z Setting up libdvdnav4:amd64 (7.0.0-2) ...
+2026-10-29T18:42:17.2230581Z Setting up libiec61883-0:amd64 (1.2.0-8) ...
+2026-10-29T18:42:17.2250293Z Setting up libserd-0-0:amd64 (0.32.6-1) ...
+2026-10-29T18:42:17.2267939Z Setting up libavc1394-0:amd64 (0.5.4-5build4) ...
+2026-10-29T18:42:17.2287740Z Setting up libzvbi0t64:amd64 (0.2.44-1ubuntu2) ...
+2026-10-29T18:42:17.2304990Z Setting up libavutil60:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2323326Z Setting up libopenal1:amd64 (1:1.25.1-2) ...
+2026-10-29T18:42:17.2353646Z Setting up librist4:amd64 (0.2.11+dfsg-1build1) ...
+2026-10-29T18:42:17.2370700Z Setting up libass9:amd64 (1:0.17.4-2) ...
+2026-10-29T18:42:17.2390103Z Setting up libswscale9:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2406922Z Setting up librubberband3:amd64 (4.0.0+dfsg-2ubuntu1) ...
+2026-10-29T18:42:17.2423783Z Setting up libswresample6:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2443191Z Setting up libjack-jackd2-0:amd64 (1.9.22~dfsg-5build1) ...
+2026-10-29T18:42:17.2459780Z Setting up libsord-0-0:amd64 (0.16.20-1) ...
+2026-10-29T18:42:17.2477069Z Setting up libsratom-0-0:amd64 (0.6.20-1) ...
+2026-10-29T18:42:17.2501276Z Setting up libsndfile1:amd64 (1.2.2-4) ...
+2026-10-29T18:42:17.2520093Z Setting up liblilv-0-0:amd64 (0.26.2-1) ...
+2026-10-29T18:42:17.2543812Z Setting up libpulse0:amd64 (1:17.0+dfsg1-2ubuntu4) ...
+2026-10-29T18:42:17.2568297Z Setting up libavcodec62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2588214Z Setting up libsdl2-classic:amd64 (2.32.10+dfsg-6) ...
+2026-10-29T18:42:17.2606691Z Setting up libavformat62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2625671Z Setting up libavfilter11:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2668946Z Setting up libsdl2-2.0-0:amd64 (2.32.10+dfsg-6) ...
+2026-10-29T18:42:17.2688561Z Setting up libavdevice62:amd64 (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2706630Z Setting up ffmpeg (7:8.0.1-3ubuntu2) ...
+2026-10-29T18:42:17.2731210Z Processing triggers for man-db (2.13.1-1build1) ...
+2026-10-29T18:42:17.2756520Z Not building database; man-db/auto-update is not 'true'.
+2026-10-29T18:42:17.2768015Z Processing triggers for libc-bin (2.43-2ubuntu2.4) ...
+2026-10-29T18:42:17.9809677Z 
+2026-10-29T18:42:17.9810524Z Running kernel seems to be up-to-date.
+2026-10-29T18:42:17.9810887Z 
+2026-10-29T18:42:17.9811060Z Restarting services...
+2026-10-29T18:42:17.9901424Z 
+2026-10-29T18:42:17.9902125Z Service restarts being deferred:
+2026-10-29T18:42:17.9905165Z  systemctl restart hosted-compute-agent.service
+2026-10-29T18:42:17.9905616Z 
+2026-10-29T18:42:17.9906625Z No containers need to be restarted.
+2026-10-29T18:42:17.9906958Z 
+2026-10-29T18:42:17.9907272Z No user sessions are running outdated binaries.
+2026-10-29T18:42:17.9907664Z 
+2026-10-29T18:42:17.9908168Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-29T18:42:19.6474860Z Collecting Pillow==12.3.0 (from -r tools/requirements_art.txt (line 2))
+2026-10-29T18:42:19.6489408Z   Using cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-10-29T18:42:19.8370788Z Collecting NumPy<3,>=2.0 (from -r tools/requirements_art.txt (line 5))
+2026-10-29T18:42:19.8384251Z   Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-10-29T18:42:19.9541978Z Collecting SciPy<2,>=1.14 (from -r tools/requirements_art.txt (line 6))
+2026-10-29T18:42:19.9555727Z   Using cached scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-10-29T18:42:19.9733491Z Using cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+2026-10-29T18:42:19.9771204Z Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-10-29T18:42:19.9849154Z Using cached scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+2026-10-29T18:42:20.1327979Z Installing collected packages: Pillow, NumPy, SciPy
+2026-10-29T18:42:26.8192045Z 
+2026-10-29T18:42:26.8206317Z Successfully installed NumPy-2.5.4 Pillow-12.3.0 SciPy-1.18.1
+2026-10-29T18:42:26.9727078Z ##[group]Run actions/cache/restore@v4
+2026-10-29T18:42:26.9727419Z with:
+2026-10-29T18:42:26.9728007Z   path: /home/runner/work/_temp/gunman-toolchains/godot
+/home/runner/work/_temp/gunman-toolchains/user-data/godot/export_templates
+
+2026-10-29T18:42:26.9728899Z   key: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-29T18:42:26.9729437Z   enableCrossOsArchive: false
+2026-10-29T18:42:26.9729718Z   fail-on-cache-miss: false
+2026-10-29T18:42:26.9729974Z   lookup-only: false
+2026-10-29T18:42:26.9730199Z env:
+2026-10-29T18:42:26.9730398Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:42:26.9730721Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:26.9731194Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:42:26.9731644Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:26.9732036Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:26.9732480Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:26.9733222Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:42:26.9733664Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:42:26.9734017Z ##[endgroup]
+2026-10-29T18:42:27.0889727Z (node:59594) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:42:27.0891172Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:42:27.1616742Z Cache hit for: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-29T18:42:27.1738125Z (node:59594) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:42:28.2161667Z Received 264241152 of 1338978793 (19.7%), 252.0 MBs/sec
+2026-10-29T18:42:29.2164582Z Received 536870912 of 1338978793 (40.1%), 255.9 MBs/sec
+2026-10-29T18:42:30.2170431Z Received 834666496 of 1338978793 (62.3%), 265.2 MBs/sec
+2026-10-29T18:42:31.2175163Z Received 1119879168 of 1338978793 (83.6%), 266.9 MBs/sec
+2026-10-29T18:42:32.0481160Z Received 1338978793 of 1338978793 (100.0%), 264.3 MBs/sec
+2026-10-29T18:42:32.0485003Z Cache Size: ~1277 MB (1338978793 B)
+2026-10-29T18:42:32.0619626Z [command]/usr/bin/tar -xf /home/runner/work/_temp/95dcab33-7f5b-4faa-9e3b-776f95996db5/cache.tzst -P -C /home/runner/work/gunman-rush/gunman-rush --use-compress-program unzstd
+2026-10-29T18:42:35.5443206Z Cache restored successfully
+2026-10-29T18:42:36.7314185Z Cache restored from key: godot-standard-4.7.2-v2-Linux-60db3e7510168f2893430f1b18ca34d0ce9802508628a5a593cc54112aa80705
+2026-10-29T18:42:36.7752434Z ##[group]Run bash tools/cloud_setup.sh --godot-only 2>&1 | tee build/verification/production-ci/toolchain.log
+2026-10-29T18:42:36.7753646Z [36;1mbash tools/cloud_setup.sh --godot-only 2>&1 | tee build/verification/production-ci/toolchain.log[0m
+2026-10-29T18:42:36.7754208Z [36;1mif ! command -v Xvfb >/dev/null; then[0m
+2026-10-29T18:42:36.7754795Z [36;1m  for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources /etc/apt/apt-mirrors.txt; do[0m
+2026-10-29T18:42:36.7755932Z [36;1m    if [ -f "$apt_source" ]; then sudo sed -i -E ':azure_mirror; s#(^|[[:space:]])https?://azure\.archive\.ubuntu\.com/ubuntu([/[:space:]]|$)#\1https://archive.ubuntu.com/ubuntu\2#g; t azure_mirror' "$apt_source"; fi[0m
+2026-10-29T18:42:36.7756792Z [36;1m  done[0m
+2026-10-29T18:42:36.7757275Z [36;1m  sudo apt-get -o Acquire::Retries=1 update 2>&1 | tee build/verification/production-ci/display-install.log[0m
+2026-10-29T18:42:36.7758478Z [36;1m  sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends xvfb xauth 2>&1 | tee -a build/verification/production-ci/display-install.log[0m
+2026-10-29T18:42:36.7759422Z [36;1mfi[0m
+2026-10-29T18:42:36.7794762Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:42:36.7795123Z env:
+2026-10-29T18:42:36.7795347Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:42:36.7795877Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:36.7796370Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:42:36.7796857Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:36.7797280Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:36.7797701Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:36.7798111Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:42:36.7798561Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:42:36.7798937Z ##[endgroup]
+2026-10-29T18:42:37.8456030Z {
+2026-10-29T18:42:37.8456461Z   "system": "Linux",
+2026-10-29T18:42:37.8456766Z   "architecture": "x86_64",
+2026-10-29T18:42:37.8457075Z   "scope": "godot-windows",
+2026-10-29T18:42:37.8457333Z   "checks": [
+2026-10-29T18:42:37.8457550Z     {
+2026-10-29T18:42:37.8457766Z       "name": "git",
+2026-10-29T18:42:37.8458048Z       "command": "git --version",
+2026-10-29T18:42:37.8458366Z       "exit_code": 0,
+2026-10-29T18:42:37.8458620Z       "passed": true,
+2026-10-29T18:42:37.8458902Z       "output": "git version 2.56.0"
+2026-10-29T18:42:37.8459188Z     },
+2026-10-29T18:42:37.8459385Z     {
+2026-10-29T18:42:37.8459601Z       "name": "python",
+2026-10-29T18:42:37.8459886Z       "command": "python3 --version",
+2026-10-29T18:42:37.8460178Z       "exit_code": 0,
+2026-10-29T18:42:37.8460412Z       "passed": true,
+2026-10-29T18:42:37.8460696Z       "output": "Python 3.12.15"
+2026-10-29T18:42:37.8460963Z     },
+2026-10-29T18:42:37.8461155Z     {
+2026-10-29T18:42:37.8461404Z       "name": "godot_standard",
+2026-10-29T18:42:37.8461755Z       "command": "bash $REPO/tools/godot.sh --version",
+2026-10-29T18:42:37.8462099Z       "exit_code": 0,
+2026-10-29T18:42:37.8462334Z       "passed": true,
+2026-10-29T18:42:37.8462897Z       "output": "4.7.2.stable.official.ed1daf0bf"
+2026-10-29T18:42:37.8463231Z     },
+2026-10-29T18:42:37.8463437Z     {
+2026-10-29T18:42:37.8463675Z       "name": "templates_version",
+2026-10-29T18:42:37.8464025Z       "command": "read templates/version.txt",
+2026-10-29T18:42:37.8464345Z       "exit_code": 0,
+2026-10-29T18:42:37.8464581Z       "passed": true,
+2026-10-29T18:42:37.8464846Z       "output": "4.7.2.stable"
+2026-10-29T18:42:37.8465101Z     },
+2026-10-29T18:42:37.8465300Z     {
+2026-10-29T18:42:37.8465564Z       "name": "template:windows_debug_x86_64.exe",
+2026-10-29T18:42:37.8465936Z       "command": "file exists and nonempty",
+2026-10-29T18:42:37.8466241Z       "exit_code": 0,
+2026-10-29T18:42:37.8466477Z       "passed": true
+2026-10-29T18:42:37.8466721Z     },
+2026-10-29T18:42:37.8467201Z     {
+2026-10-29T18:42:37.8467514Z       "name": "template:windows_release_x86_64.exe",
+2026-10-29T18:42:37.8467886Z       "command": "file exists and nonempty",
+2026-10-29T18:42:37.8468187Z       "exit_code": 0,
+2026-10-29T18:42:37.8468432Z       "passed": true
+2026-10-29T18:42:37.8468659Z     },
+2026-10-29T18:42:37.8468861Z     {
+2026-10-29T18:42:37.8469118Z       "name": "template:linux_debug.x86_64",
+2026-10-29T18:42:37.8469462Z       "command": "file exists and nonempty",
+2026-10-29T18:42:37.8469760Z       "exit_code": 0,
+2026-10-29T18:42:37.8469997Z       "passed": true
+2026-10-29T18:42:37.8470222Z     },
+2026-10-29T18:42:37.8470418Z     {
+2026-10-29T18:42:37.8470679Z       "name": "template:linux_release.x86_64",
+2026-10-29T18:42:37.8471032Z       "command": "file exists and nonempty",
+2026-10-29T18:42:37.8471331Z       "exit_code": 0,
+2026-10-29T18:42:37.8471732Z       "passed": true
+2026-10-29T18:42:37.8471960Z     }
+2026-10-29T18:42:37.8472156Z   ],
+2026-10-29T18:42:37.8472369Z   "missing_or_failed": [],
+2026-10-29T18:42:37.8472930Z   "limitations": [
+2026-10-29T18:42:37.8473295Z     "Windows execution requires separate Windows validation",
+2026-10-29T18:42:37.8473856Z     "Android device input, performance and feel require physical-device validation",
+2026-10-29T18:42:37.8474376Z     "SDK availability does not demonstrate APK export"
+2026-10-29T18:42:37.8474699Z   ]
+2026-10-29T18:42:37.8474909Z }
+2026-10-29T18:42:37.8748050Z 4.7.2.stable.official.ed1daf0bf
+2026-10-29T18:42:37.8749243Z Toolchain setup report: /home/runner/work/gunman-rush/gunman-rush/build/verification/environment/setup-report.json
+2026-10-29T18:42:37.8871114Z ##[group]Run python3 tools/harness.py --profile full --release --jobs 1 --lane parallel
+2026-10-29T18:42:37.8871763Z [36;1mpython3 tools/harness.py --profile full --release --jobs 1 --lane parallel[0m
+2026-10-29T18:42:37.8902385Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:42:37.8902988Z env:
+2026-10-29T18:42:37.8903218Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:42:37.8903556Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:37.8904016Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:42:37.8904478Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:37.8904884Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:37.8905298Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:42:37.8905707Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:42:37.8906210Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:42:37.8906577Z ##[endgroup]
+2026-10-29T18:42:37.9709775Z {"profiles": ["full"], "changed_paths": [], "checks": ["docs", "world", "world-design-tests", "structure", "harness-tests", "quality-drills", "quality-tests", "quality", "core", "generated-consumers", "region", "art-art", "art-painterly_pack", "art-plains_v3", "art-meadow_enemy_art", "art-plains_ground_art", "art-windkeeper_art", "art-plains_spatial_art", "art-plains_item_art", "web-cache", "production-loop-tests", "quality-review-engine", "terrain-tile-tests", "terrain-production", "consumer-coverage-tests", "wood-platforms", "actor-actions", "grapple-feel", "forest-interwoven-contract", "forest-player-aim", "all-weapons", "studio-input", "weapon-feel", "action-budget", "capture-tests", "level-design-contracts", "mechanism-comparisons", "level-design-analysis", "level-design-routing", "level-design-golden-tests", "level-region-context", "level-experience", "level-formal-receipts", "plains-redesign-golden", "visual-director-tests", "visual-director-space", "directed-space-tests", "root-bell-current", "root-bell-spaces", "root-bell-ecology", "web-resource-contract-tests", "runtime-raw-export-tests", "asset-family-tests", "connected-family-tests", "forest-depth-guardian", "forest-depth-guardian-tolerance", "forest-depth-enemies", "forest-depth-versions", "forest-depth-restore", "forest-depth-campaign-guardian", "forest-depth-crossbranch-lifecycle", "forest-depth-queen-canopy", "forest-depth-campaign-canopy", "forest-vertical-shortcut", "blob47-foundation", "creative-direction", "creative-direction-tests", "visual-director-terrain", "parallel-region-presentation", "underworld-pipeline", "forest-region-scheduler-tests", "underworld-home-guard-tests", "region-bible-contract", "region-bible-tests", "forest-bible-reader-tests", "forest-bible-av-reader-tests", "harness-artifact-archive-tests", "cloud-production-planner-tests", "cloud-delivery-tests", "cloud-inputs-tests", "portable-frozen-assets", "demo-ui-time-energy", "enemy-feedback-native", "enemy-feedback-formal", "enemy-feedback-support", "enemy-corpse-save", "enemy-corpse-snapshot", "bgm-integration", "player-default-integration", "item-v5-data", "item-authoring-tools"]}
+2026-10-29T18:42:59.1563247Z Running docs (fresh); log: build/verification/harness/20261029T184237.969664Z/docs.log
+2026-10-29T18:43:00.6755886Z docs: passed
+2026-10-29T18:43:00.7451624Z Running world (fresh); log: build/verification/harness/20261029T184237.969664Z/world.log
+2026-10-29T18:43:02.0138153Z world: passed
+2026-10-29T18:43:02.0865720Z Running world-design-tests (fresh); log: build/verification/harness/20261029T184237.969664Z/world-design-tests.log
+2026-10-29T18:43:03.4675412Z world-design-tests: passed
+2026-10-29T18:43:03.5393928Z Running structure (fresh); log: build/verification/harness/20261029T184237.969664Z/structure.log
+2026-10-29T18:43:04.8577936Z structure: passed
+2026-10-29T18:43:04.9298760Z Running harness-tests (fresh); log: build/verification/harness/20261029T184237.969664Z/harness-tests.log
+2026-10-29T18:43:16.0616898Z harness-tests: passed
+2026-10-29T18:43:16.1341484Z Running quality-drills (fresh); log: build/verification/harness/20261029T184237.969664Z/quality-drills.log
+2026-10-29T18:43:17.3979921Z quality-drills: passed
+2026-10-29T18:43:17.4715582Z Running quality-tests (fresh); log: build/verification/harness/20261029T184237.969664Z/quality-tests.log
+2026-10-29T18:43:19.7361768Z quality-tests: passed
+2026-10-29T18:43:19.8093156Z Running quality (fresh); log: build/verification/harness/20261029T184237.969664Z/quality.log
+2026-10-29T18:43:24.2764266Z quality: failed
+2026-10-29T18:43:32.6404590Z Evidence: build/verification/harness/20261029T184237.969664Z/report.json
+2026-10-29T18:43:32.6631599Z ##[error]Process completed with exit code 1.
+2026-10-29T18:43:32.6686994Z ##[group]Run python3 - <<'PYCODE'
+2026-10-29T18:43:32.6687397Z [36;1mpython3 - <<'PYCODE'[0m
+2026-10-29T18:43:32.6687670Z [36;1mimport json[0m
+2026-10-29T18:43:32.6687906Z [36;1mimport os[0m
+2026-10-29T18:43:32.6688149Z [36;1mfrom pathlib import Path[0m
+2026-10-29T18:43:32.6688432Z [36;1mimport shutil[0m
+2026-10-29T18:43:32.6688679Z [36;1mimport stat[0m
+2026-10-29T18:43:32.6688928Z [36;1mROOT = Path.cwd().resolve()[0m
+2026-10-29T18:43:32.6689234Z [36;1mdef no_links(path):[0m
+2026-10-29T18:43:32.6689567Z [36;1m    path = path if path.is_absolute() else ROOT / path[0m
+2026-10-29T18:43:32.6690051Z [36;1m    if not path.is_relative_to(ROOT) or '..' in path.relative_to(ROOT).parts:[0m
+2026-10-29T18:43:32.6690571Z [36;1m        raise SystemExit('Proof path is outside repository root')[0m
+2026-10-29T18:43:32.6690956Z [36;1m    current = ROOT[0m
+2026-10-29T18:43:32.6691273Z [36;1m    for component in path.relative_to(ROOT).parts:[0m
+2026-10-29T18:43:32.6691668Z [36;1m        current = current / component[0m
+2026-10-29T18:43:32.6691983Z [36;1m        if current.is_symlink():[0m
+2026-10-29T18:43:32.6692407Z [36;1m            raise SystemExit('Proof path or repository ancestor is a symlink')[0m
+2026-10-29T18:43:32.6693122Z [36;1m    return path[0m
+2026-10-29T18:43:32.6693376Z [36;1mdef regular(path):[0m
+2026-10-29T18:43:32.6693646Z [36;1m    path = no_links(path)[0m
+2026-10-29T18:43:32.6693970Z [36;1m    if not stat.S_ISREG(path.lstat().st_mode):[0m
+2026-10-29T18:43:32.6694416Z [36;1m        raise SystemExit('Original proof input must be a regular file')[0m
+2026-10-29T18:43:32.6694810Z [36;1m    return path[0m
+2026-10-29T18:43:32.6695106Z [36;1mno_links(Path('build/verification/harness'))[0m
+2026-10-29T18:43:32.6695556Z [36;1mreports = list(Path('build/verification/harness').glob('*/report.json'))[0m
+2026-10-29T18:43:32.6695975Z [36;1mif len(reports) != 1:[0m
+2026-10-29T18:43:32.6696381Z [36;1m    raise SystemExit('Expected exactly one original Harness phase report')[0m
+2026-10-29T18:43:32.6696819Z [36;1mreport = regular(reports[0])[0m
+2026-10-29T18:43:32.6697292Z [36;1mproof = no_links(Path('build/verification/ci-lane-proof') / os.environ['HARNESS_LANE'])[0m
+2026-10-29T18:43:32.6697807Z [36;1mproof.mkdir(parents=True, exist_ok=False)[0m
+2026-10-29T18:43:32.6698176Z [36;1mshutil.copy2(report, proof / 'report.json')[0m
+2026-10-29T18:43:32.6698488Z [36;1mseen = set()[0m
+2026-10-29T18:43:32.6698839Z [36;1mfor check in json.loads(report.read_text())['checks']:[0m
+2026-10-29T18:43:32.6699406Z [36;1m    relative = Path(check['log'])[0m
+2026-10-29T18:43:32.6699939Z [36;1m    if relative.is_absolute() or '..' in relative.parts or relative in seen or relative == Path('report.json'):[0m
+2026-10-29T18:43:32.6700579Z [36;1m        raise SystemExit('Invalid or repeated original check log path')[0m
+2026-10-29T18:43:32.6700987Z [36;1m    seen.add(relative)[0m
+2026-10-29T18:43:32.6701310Z [36;1m    source = regular(report.parent / relative)[0m
+2026-10-29T18:43:32.6701673Z [36;1m    target = no_links(proof / relative)[0m
+2026-10-29T18:43:32.6702056Z [36;1m    target.parent.mkdir(parents=True, exist_ok=True)[0m
+2026-10-29T18:43:32.6702424Z [36;1m    shutil.copy2(source, target)[0m
+2026-10-29T18:43:32.6702955Z [36;1mPYCODE[0m
+2026-10-29T18:43:32.6732918Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:43:32.6733289Z env:
+2026-10-29T18:43:32.6733509Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:43:32.6733853Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.6734308Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:43:32.6734760Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.6735159Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.6735569Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.6735996Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:43:32.6736620Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:43:32.6737009Z   HARNESS_LANE: parallel
+2026-10-29T18:43:32.6737262Z ##[endgroup]
+2026-10-29T18:43:32.7664624Z ##[group]Run python3 - <<'PY'
+2026-10-29T18:43:32.7664991Z [36;1mpython3 - <<'PY'[0m
+2026-10-29T18:43:32.7665264Z [36;1mimport json[0m
+2026-10-29T18:43:32.7665523Z [36;1mfrom pathlib import Path[0m
+2026-10-29T18:43:32.7665951Z [36;1mreports = sorted(Path('build/verification/harness').glob('*/report.json'))[0m
+2026-10-29T18:43:32.7666409Z [36;1mif reports:[0m
+2026-10-29T18:43:32.7666655Z [36;1m    report = reports[-1][0m
+2026-10-29T18:43:32.7667030Z [36;1m    for check in json.loads(report.read_text()).get('checks', []):[0m
+2026-10-29T18:43:32.7667492Z [36;1m        if check.get('status') not in {'failed', 'timeout'}:[0m
+2026-10-29T18:43:32.7667855Z [36;1m            continue[0m
+2026-10-29T18:43:32.7668177Z [36;1m        log = (report.parent / check['log']).resolve()[0m
+2026-10-29T18:43:32.7668518Z [36;1m        tail = ''[0m
+2026-10-29T18:43:32.7668896Z [36;1m        if log.is_relative_to(report.parent.resolve()) and log.is_file():[0m
+2026-10-29T18:43:32.7669462Z [36;1m            tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])[0m
+2026-10-29T18:43:32.7670168Z [36;1m        print('Failed check:', check['id'], check['status'])[0m
+2026-10-29T18:43:32.7670790Z [36;1m        print(tail)[0m
+2026-10-29T18:43:32.7671276Z [36;1m        detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:][0m
+2026-10-29T18:43:32.7671894Z [36;1m        detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')[0m
+2026-10-29T18:43:32.7672426Z [36;1m        print('::error title=Harness ' + check['id'] + '::' + detail)[0m
+2026-10-29T18:43:32.7673068Z [36;1mPY[0m
+2026-10-29T18:43:32.7703019Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-29T18:43:32.7703386Z env:
+2026-10-29T18:43:32.7703614Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:43:32.7703954Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.7704419Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:43:32.7704889Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.7705316Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.7705725Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.7706334Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:43:32.7706782Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:43:32.7707147Z ##[endgroup]
+2026-10-29T18:43:32.8432332Z Failed check: quality failed
+2026-10-29T18:43:32.8433804Z MOBILE-WEB-AUDIO-FIX-03.json: Command evidence needs command, integer exit_code and environment: native-01
+2026-10-29T18:43:32.8435359Z MOBILE-WEB-AUDIO-FIX-03.json: Command evidence needs command, integer exit_code and environment: selected-01
+2026-10-29T18:43:32.8436286Z MOBILE-WEB-AUDIO-FIX-03.json: Wrong evidence kind for dimension: formal_integration
+2026-10-29T18:43:32.8437037Z MOBILE-WEB-AUDIO-FIX-03.json: Wrong evidence kind for dimension: gameplay
+2026-10-29T18:43:32.8437663Z MOBILE-WEB-AUDIO-FIX-03.json: Gate evidence incomplete: G1
+2026-10-29T18:43:32.8438184Z MOBILE-WEB-AUDIO-FIX-03.json: Gate G1 bypasses G0
+2026-10-29T18:43:32.8438756Z MOBILE-WEB-AUDIO-FIX-03.json: Formal PASS without consumer coverage
+2026-10-29T18:43:32.8453803Z ##[error]failed: nonzero_exit
+MOBILE-WEB-AUDIO-FIX-03.json: Command evidence needs command, integer exit_code and environment: native-01
+MOBILE-WEB-AUDIO-FIX-03.json: Command evidence needs command, integer exit_code and environment: selected-01
+MOBILE-WEB-AUDIO-FIX-03.json: Wrong evidence kind for dimension: formal_integration
+MOBILE-WEB-AUDIO-FIX-03.json: Wrong evidence kind for dimension: gameplay
+MOBILE-WEB-AUDIO-FIX-03.json: Gate evidence incomplete: G1
+MOBILE-WEB-AUDIO-FIX-03.json: Gate G1 bypasses G0
+MOBILE-WEB-AUDIO-FIX-03.json: Formal PASS without consumer coverage
+2026-10-29T18:43:32.8530155Z ##[group]Run actions/upload-artifact@v4
+2026-10-29T18:43:32.8530493Z with:
+2026-10-29T18:43:32.8530746Z   name: production-phase-proof-parallel
+2026-10-29T18:43:32.8531047Z   overwrite: true
+2026-10-29T18:43:32.8531327Z   path: build/verification/ci-lane-proof/parallel/
+2026-10-29T18:43:32.8531676Z   if-no-files-found: error
+2026-10-29T18:43:32.8531935Z   retention-days: 14
+2026-10-29T18:43:32.8532191Z   compression-level: 6
+2026-10-29T18:43:32.8532444Z   include-hidden-files: false
+2026-10-29T18:43:32.8533062Z env:
+2026-10-29T18:43:32.8533282Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:43:32.8533608Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.8534065Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:43:32.8534528Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.8534949Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.8535397Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:32.8535808Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:43:32.8536254Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:43:32.8536621Z ##[endgroup]
+2026-10-29T18:43:33.0254310Z (node:61773) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:43:33.0255317Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:43:33.0329695Z With the provided path, there will be 9 files uploaded
+2026-10-29T18:43:33.1533980Z Artifact name is valid!
+2026-10-29T18:43:33.1534568Z Root directory input is valid!
+2026-10-29T18:43:33.3389964Z Beginning upload of artifact content to blob storage
+2026-10-29T18:43:33.4777180Z (node:61773) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:43:33.5999711Z Uploaded bytes 1265602
+2026-10-29T18:43:33.6188001Z Finished uploading artifact content to blob storage!
+2026-10-29T18:43:33.6189343Z SHA256 digest of uploaded artifact zip is 7c6a5ece2d018c505363806eabe475b0fe69e012b466406df33ab427733818f8
+2026-10-29T18:43:33.6190431Z Finalizing artifact upload
+2026-10-29T18:43:34.0063181Z Artifact production-phase-proof-parallel.zip successfully finalized. Artifact ID 12924605029
+2026-10-29T18:43:34.0065617Z Artifact production-phase-proof-parallel has been successfully uploaded! Final size is 1265602 bytes. Artifact ID is 12924605029
+2026-10-29T18:43:34.0072186Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/40930231480/artifacts/12924605029
+2026-10-29T18:43:34.0267930Z ##[group]Run actions/upload-artifact@v4
+2026-10-29T18:43:34.0268518Z with:
+2026-10-29T18:43:34.0268983Z   name: production-lane-parallel-40930231480-1
+2026-10-29T18:43:34.0269588Z   path: build/verification/
+
+2026-10-29T18:43:34.0270100Z   if-no-files-found: error
+2026-10-29T18:43:34.0270556Z   retention-days: 14
+2026-10-29T18:43:34.0270987Z   compression-level: 6
+2026-10-29T18:43:34.0271411Z   overwrite: false
+2026-10-29T18:43:34.0271853Z   include-hidden-files: false
+2026-10-29T18:43:34.0272331Z env:
+2026-10-29T18:43:34.0273003Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-29T18:43:34.0273619Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:34.0274481Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-29T18:43:34.0275288Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:34.0276024Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:34.0276811Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-29T18:43:34.0277578Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-29T18:43:34.0278358Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-29T18:43:34.0278996Z ##[endgroup]
+2026-10-29T18:43:34.2000081Z (node:61787) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-29T18:43:34.2001498Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-29T18:43:34.2178680Z With the provided path, there will be 33 files uploaded
+2026-10-29T18:43:34.2185282Z Artifact name is valid!
+2026-10-29T18:43:34.2186120Z Root directory input is valid!
+2026-10-29T18:43:34.4425029Z Beginning upload of artifact content to blob storage
+2026-10-29T18:43:34.8276765Z (node:61787) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-29T18:43:34.9503259Z Uploaded bytes 3726222
+2026-10-29T18:43:34.9688234Z Finished uploading artifact content to blob storage!
+2026-10-29T18:43:34.9689227Z SHA256 digest of uploaded artifact zip is e999ff1720eed8fa877f37e537b5db6436e8d88828bdabfc564df28ba2334446
+2026-10-29T18:43:34.9691162Z Finalizing artifact upload
+2026-10-29T18:43:35.3901930Z Artifact production-lane-parallel-40930231480-1.zip successfully finalized. Artifact ID 12923318099
+2026-10-29T18:43:35.3903473Z Artifact production-lane-parallel-40930231480-1 has been successfully uploaded! Final size is 3726222 bytes. Artifact ID is 12923318099
+2026-10-29T18:43:35.3909769Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/40930231480/artifacts/12923318099
+2026-10-29T18:43:35.4151921Z Post job cleanup.
+2026-10-29T18:43:35.5076651Z [command]/usr/bin/git version
+2026-10-29T18:43:35.5125369Z git version 2.56.0
+2026-10-29T18:43:35.5170449Z Temporarily overriding HOME='/home/runner/work/_temp/57e93d6d-3bce-41f6-83ff-c24606f73c38' before making global git config changes
+2026-10-29T18:43:35.5172069Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-29T18:43:35.5177651Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-29T18:43:35.5223449Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-29T18:43:35.5265826Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-29T18:43:35.5637895Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-29T18:43:35.5684410Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-29T18:43:35.6058545Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-29T18:43:35.6103902Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-29T18:43:35.6594117Z Cleaning up orphan processes
+2026-10-29T18:43:35.6969670Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4, actions/checkout@v4, actions/download-artifact@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

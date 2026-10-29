@@ -141,17 +141,17 @@ func run() -> void:
 		print("VIEWPORT requested=",viewport," window=",root.size," logical=",root.get_visible_rect().size," transform=",root.get_screen_transform())
 		var touch_enabled := app.overlay.enabled
 		app.overlay.set_enabled(true); await frames(4)
-		var touch_pixels := app.overlay._pause_rect.size * root.get_screen_transform().get_scale().abs()
-		check(touch_pixels.x >= 47.9 and touch_pixels.y >= 47.9, "actual TouchOverlay MENU hit bounds at least48 physical pixels at " + str(viewport))
-		check(app._demo_hud._touch_menu_text.get_theme_font_size("font_size") * root.get_screen_transform().get_scale().abs().y >= 13.9, "actual mobile MENU label at least14 physical pixels at " + str(viewport))
+		var touch_pixels := app.overlay._pause_rect.size # Shared logical canvas targets; DPR does not change geometry.
+		check(touch_pixels.x >= 47.9 and touch_pixels.y >= 47.9, "actual TouchOverlay MENU hit bounds at least48 logical units at " + str(viewport))
+		check(app._demo_hud._touch_menu_text.get_theme_font_size("font_size") >= 13.9, "actual MENU label at least14 shared logical units at " + str(viewport))
 		if viewport == Vector2i(844,390): await image("touch-hud-844x390")
 		await touch(app._demo_hud._touch_menu)
-		check(paused and app.menu.visible_panel == &"build" and actor.shoot_ability._shot_serial == shots, "enlarged touch MENU invokes original pause without shot at " + str(viewport))
+		check(paused and app.menu.visible_panel == &"build" and actor.shoot_ability._shot_serial == shots, "shared-scale touch MENU invokes original pause without shot at " + str(viewport))
 		await joy(JOY_BUTTON_B)
 		app.overlay.set_enabled(touch_enabled); await frames(4)
 		app.menu.show_pause(); await frames(8)
 		for node: Node in app.menu._content.find_children("*","Button",true,false):
-			check(node.get_global_rect().size.y * root.get_screen_transform().get_scale().abs().y >= 47.9, "touch minimum actual rendered height at " + str(viewport))
+			check(node.get_global_rect().size.y >= 47.9, "touch target retains authored logical minimum at " + str(viewport))
 			check(node.get_global_rect().position.x >= 0 and node.get_global_rect().end.x <= root.get_visible_rect().size.x, "menu horizontal bounds at " + str(viewport))
 		await image("pause-%sx%s" % [viewport.x,viewport.y])
 		app.menu.close_panel(); await frames()

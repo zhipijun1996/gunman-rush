@@ -51,7 +51,7 @@ func show_offer(offer: RewardOffer, next_label: String, level_by_id: Dictionary 
 
 func _fit_options() -> void:
 	if not is_instance_valid(_options): return
-	var physical_width := get_viewport().get_visible_rect().size.x * DemoUiModalMetrics.pixel_scale(get_viewport())
+	var physical_width := get_viewport().get_visible_rect().size.x * DemoUiModalMetrics.ui_scale(get_viewport())
 	_options.columns = 2 if physical_width >= 720 else 1
 
 func _select(id: StringName) -> void:

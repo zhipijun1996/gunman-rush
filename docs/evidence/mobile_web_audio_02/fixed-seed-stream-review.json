@@ -1,0 +1,1567 @@
+{
+  "task": "MOBILE-WEB-AUDIO-02",
+  "review_id": "fixed-seed-formal-stream-03",
+  "reviewed_at_utc": "2026-10-29T16:36:01.965027+00:00",
+  "reviewer": "review_mobile_ui, independent data and actual-image reviewer",
+  "verdict": "ACCEPT_CLOUD_FIXED_SEED_WINDOW_COMPARISON_ONLY; PHONE_AUDIO_AND_FINAL_FIX_UNVERIFIED",
+  "scope": "Root-run formal Home, Home navigation, Plains and actual in-run pause at50ms. Offline data and ten actual PNGs only; no Godot/browser or production/tool edit.",
+  "independence_boundary": "I authored instrument_stream_timing.py and stream_timing_observer.js. Their1/32 refill timing and RAF/LongTask metrics are clearly secondary author-instrumented data; arithmetic reanalysis is not independent implementation approval. Core comparison uses root counter-layer deltas, advancing live thread counters, actual shared/COI metadata, PCM meter and actual formal seed/manifest/images.",
+  "controlled_inputs": {
+    "seed": "mobile-audio-stream-01",
+    "actual_formal_region_event_identical": {
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": false,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "f3a63393145ea3b96d4f0bd0cdfe0fe1cafd544353e0cb40b42c932997ec156a",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "mobile-audio-stream-01"
+    },
+    "seed_entry": "Both actually viewed seed-entered.png show this text in the original RUN SEED field. Driver uses real mouse/keyboard.type then actual Explore, not direct RNG or scene replacement.",
+    "requested_latency_ms": 50,
+    "same_actual_ring_samples": 4096,
+    "ring_capacity_audio_ms": 46.439909297052154,
+    "all_eight_reported_canvas_equal": true,
+    "canvas_backing_pixels": [
+      2132,
+      725
+    ],
+    "canvas_css_pixels": [
+      0,
+      0,
+      852,
+      290
+    ],
+    "DPR": 2.5,
+    "actual_PNG_pixels": [
+      2133,
+      725
+    ],
+    "pixel_note": "Screenshot is the full853CSS-wide page rounded atDPR2.5; canvas records852CSS-wide/2132backing. Both arms match; screenshot width is not canvas width.",
+    "parent_pack": {
+      "url": "../index.1d3791a7c290.pck",
+      "bytes": 208700940,
+      "sha256": "1d3791a7c29031550f5e950bcd5b68f2b3bec7aee0a2c75b02d849d2044e50e2",
+      "copied": false,
+      "present_on_disk": true,
+      "verification": "full_raw_pack",
+      "serve_requirement": "Parent content-addressed PCK must exist; run existing standard reconstruction before local/static serving if absent."
+    },
+    "single_build_info": {
+      "build_id": "1d3791a7c290",
+      "pack": "index.1d3791a7c290.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "34c54d5a04ef",
+      "pack_bytes": 208700940,
+      "download_bytes": 205569840,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+    },
+    "threaded_build_info": {
+      "build_id": "1d3791a7c290",
+      "pack": "index.1d3791a7c290.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "34c54d5a04ef",
+      "pack_bytes": 208700940,
+      "download_bytes": 205569840,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+    },
+    "identity_limit": "Reports do not embed full historical served engine/PCK response hashes; colocated prepared contracts bind intended same formal PCK. Static presentation/official-template identity were separately reviewed."
+  },
+  "method": {
+    "window": "Each before→after pair; single outer at markers, threaded normalized audio.performance_ms markers. No startup cumulative ratios. Counter and PCM frame ranges/telemetry age are separately reported.",
+    "counter_checks": "Recomputed frame/sample/block partitions and128frames/block; end_frame delta equals requested delta in all8windows. Same live stream thread flag before/after; actual read_frames advances.",
+    "RAF": "Filter callback start_ms within each wall window; nearest-rank P50/P95, never convert callback count to FPS. Authored observer implementation is not independently accepted.",
+    "PCM": "Subtract before/after block and zero-block counters; not a waveform match or hardware recording.",
+    "visual": "Actually opened ten original PNGs. No video or audio was played/listened to."
+  },
+  "paired_underrun_percent": {
+    "game": {
+      "single": 88.24302134646962,
+      "threaded": 0.0
+    },
+    "menu": {
+      "single": 91.17738428083256,
+      "threaded": 0.0
+    },
+    "plains": {
+      "single": 80.623973727422,
+      "threaded": 0.0
+    },
+    "plains_menu": {
+      "single": 86.29764065335753,
+      "threaded": 0.0
+    }
+  },
+  "windows": [
+    {
+      "arm": "single",
+      "phase": "game",
+      "wall_window_performance_ms": [
+        84027.30000000075,
+        94705.5
+      ],
+      "window_marker": "outer before.at/after.at",
+      "wall_seconds": 10.678199999999254,
+      "stream_id": 1,
+      "stream_mode": "no_threads",
+      "stream_threads_before_after": [
+        false,
+        false
+      ],
+      "counter_delta": {
+        "total_requested_frames": 389760,
+        "read_frames": 45824,
+        "underrun_frames": 343936,
+        "total_requested_blocks": 3045,
+        "read_blocks": 358,
+        "underrun_blocks": 2687,
+        "total_requested_samples": 779520,
+        "read_samples": 91648,
+        "underrun_samples": 687872
+      },
+      "underrun_fraction": 0.8824302134646962,
+      "counter_audio_seconds": 8.838095238095239,
+      "counter_end_frame_bounds": [
+        1166848,
+        1556608
+      ],
+      "counter_age_ms": [
+        1.0,
+        639.6000000014901
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "initial start_nothreads data"
+      },
+      "cumulative_underrun_frames_before_after": [
+        438016,
+        781952
+      ],
+      "cumulative_longest_underrun_frames": 103424,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3045,
+        "exact_zero_blocks_delta": 2687,
+        "nonzero_blocks_delta": 358,
+        "zero_fraction": 0.8824302134646962,
+        "audio_seconds_delta": 8.838095238095239,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          0.9000000022351742,
+          639.6000000014901
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 40,
+          "p50": 236.10000000149012,
+          "p95": 279.69999999925494,
+          "max": 764.0999999977648
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 39,
+          "p50": 238,
+          "p95": 280,
+          "max": 768
+        },
+        "longtask_recorded_window_fraction": 0.9231893015677444,
+        "retained_raf_ms": [
+          44927.60000000149,
+          94687.19999999925
+        ],
+        "retained_longtask_ms": [
+          237.19999999925494,
+          94046.60000000149
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 11,
+        "request_wait_ms": {
+          "n": 11,
+          "p50": 417.9591836734673,
+          "p95": 478.9115646258537,
+          "max": 478.9115646258537
+        },
+        "mix_sync_ms": {
+          "n": 11,
+          "p50": 0.10000000149011612,
+          "p95": 0.30000000074505806,
+          "max": 0.30000000074505806
+        },
+        "post_ms": {
+          "n": 11,
+          "p50": 0.10000000149011612,
+          "p95": 0.20000000298023224,
+          "max": 0.20000000298023224
+        }
+      },
+      "state": {
+        "active_context": "home",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "home_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": null,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "single",
+      "phase": "menu",
+      "wall_window_performance_ms": [
+        102870.39999999851,
+        113025.60000000149
+      ],
+      "window_marker": "outer before.at/after.at",
+      "wall_seconds": 10.15520000000298,
+      "stream_id": 1,
+      "stream_mode": "no_threads",
+      "stream_threads_before_after": [
+        false,
+        false
+      ],
+      "counter_delta": {
+        "total_requested_frames": 412032,
+        "read_frames": 36352,
+        "underrun_frames": 375680,
+        "total_requested_blocks": 3219,
+        "read_blocks": 284,
+        "underrun_blocks": 2935,
+        "total_requested_samples": 824064,
+        "read_samples": 72704,
+        "underrun_samples": 751360
+      },
+      "underrun_fraction": 0.9117738428083255,
+      "counter_audio_seconds": 9.343129251700681,
+      "counter_end_frame_bounds": [
+        1912960,
+        2324992
+      ],
+      "counter_age_ms": [
+        0.5999999977648258,
+        2.600000001490116
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "initial start_nothreads data"
+      },
+      "cumulative_underrun_frames_before_after": [
+        1088896,
+        1464576
+      ],
+      "cumulative_longest_underrun_frames": 103424,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3255,
+        "exact_zero_blocks_delta": 2971,
+        "nonzero_blocks_delta": 284,
+        "zero_fraction": 0.9127496159754225,
+        "audio_seconds_delta": 9.447619047619048,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          0.5,
+          4.100000001490116
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 31,
+          "p50": 302.69999999925494,
+          "p95": 406.9000000022352,
+          "max": 644.6000000014901
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 31,
+          "p50": 303,
+          "p95": 407,
+          "max": 655
+        },
+        "longtask_recorded_window_fraction": 0.9805813770282297,
+        "retained_raf_ms": [
+          45410.10000000149,
+          113015.19999999925
+        ],
+        "retained_longtask_ms": [
+          72313.69999999925,
+          113015.19999999925
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 9,
+        "request_wait_ms": {
+          "n": 9,
+          "p50": 545.6689342403678,
+          "p95": 1062.3129251700689,
+          "max": 1062.3129251700689
+        },
+        "mix_sync_ms": {
+          "n": 9,
+          "p50": 0.30000000074505806,
+          "p95": 0.6000000014901161,
+          "max": 0.6000000014901161
+        },
+        "post_ms": {
+          "n": 9,
+          "p50": 0.10000000149011612,
+          "p95": 3.399999998509884,
+          "max": 3.399999998509884
+        }
+      },
+      "state": {
+        "active_context": "home",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": true,
+        "beds": [
+          {
+            "candidate": "home_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": null,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "single",
+      "phase": "plains",
+      "wall_window_performance_ms": [
+        158512.30000000075,
+        168756.1000000015
+      ],
+      "window_marker": "outer before.at/after.at",
+      "wall_seconds": 10.243800000000745,
+      "stream_id": 1,
+      "stream_mode": "no_threads",
+      "stream_threads_before_after": [
+        false,
+        false
+      ],
+      "counter_delta": {
+        "total_requested_frames": 389760,
+        "read_frames": 75520,
+        "underrun_frames": 314240,
+        "total_requested_blocks": 3045,
+        "read_blocks": 590,
+        "underrun_blocks": 2455,
+        "total_requested_samples": 779520,
+        "read_samples": 151040,
+        "underrun_samples": 628480
+      },
+      "underrun_fraction": 0.80623973727422,
+      "counter_audio_seconds": 8.838095238095239,
+      "counter_end_frame_bounds": [
+        4184704,
+        4574464
+      ],
+      "counter_age_ms": [
+        1.1000000014901161,
+        251.70000000298023
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "initial start_nothreads data"
+      },
+      "cumulative_underrun_frames_before_after": [
+        3102080,
+        3416320
+      ],
+      "cumulative_longest_underrun_frames": 556672,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3080,
+        "exact_zero_blocks_delta": 2479,
+        "nonzero_blocks_delta": 601,
+        "zero_fraction": 0.8048701298701298,
+        "audio_seconds_delta": 8.93968253968254,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          1.1000000014901161,
+          115.90000000223517
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 68,
+          "p50": 122.5,
+          "p95": 239.30000000074506,
+          "max": 748.1000000014901
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 68,
+          "p50": 123,
+          "p95": 240,
+          "max": 758
+        },
+        "longtask_recorded_window_fraction": 0.9566762334289314,
+        "retained_raf_ms": [
+          47193.300000000745,
+          168755.19999999925
+        ],
+        "retained_longtask_ms": [
+          144093.69999999925,
+          168755.30000000075
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 19,
+        "request_wait_ms": {
+          "n": 19,
+          "p50": 229.2970521541946,
+          "p95": 333.7868480725632,
+          "max": 333.7868480725632
+        },
+        "mix_sync_ms": {
+          "n": 19,
+          "p50": 0.29999999701976776,
+          "p95": 7.600000001490116,
+          "max": 7.600000001490116
+        },
+        "post_ms": {
+          "n": 19,
+          "p50": 0.10000000149011612,
+          "p95": 6,
+          "max": 6
+        }
+      },
+      "state": {
+        "active_context": "plains",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "plains_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": null,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "single",
+      "phase": "plains_menu",
+      "wall_window_performance_ms": [
+        175260.8999999985,
+        185584.30000000075
+      ],
+      "window_marker": "outer before.at/after.at",
+      "wall_seconds": 10.323400000002236,
+      "stream_id": 1,
+      "stream_mode": "no_threads",
+      "stream_threads_before_after": [
+        false,
+        false
+      ],
+      "counter_delta": {
+        "total_requested_frames": 423168,
+        "read_frames": 57984,
+        "underrun_frames": 365184,
+        "total_requested_blocks": 3306,
+        "read_blocks": 453,
+        "underrun_blocks": 2853,
+        "total_requested_samples": 846336,
+        "read_samples": 115968,
+        "underrun_samples": 730368
+      },
+      "underrun_fraction": 0.8629764065335753,
+      "counter_audio_seconds": 9.595646258503402,
+      "counter_end_frame_bounds": [
+        4841728,
+        5264896
+      ],
+      "counter_age_ms": [
+        232.79999999701977,
+        202.40000000223517
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "initial start_nothreads data"
+      },
+      "cumulative_underrun_frames_before_after": [
+        3639296,
+        4004480
+      ],
+      "cumulative_longest_underrun_frames": 556672,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3255,
+        "exact_zero_blocks_delta": 2816,
+        "nonzero_blocks_delta": 439,
+        "zero_fraction": 0.8651305683563748,
+        "audio_seconds_delta": 9.447619047619048,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          2.699999999254942,
+          206.80000000074506
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 52,
+          "p50": 187.5,
+          "p95": 238.29999999701977,
+          "max": 251.70000000298023
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 52,
+          "p50": 189,
+          "p95": 240,
+          "max": 252
+        },
+        "longtask_recorded_window_fraction": 0.9776817715091748,
+        "retained_raf_ms": [
+          47943.199999999255,
+          185583.5
+        ],
+        "retained_longtask_ms": [
+          163822.69999999925,
+          185583.8999999985
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 13,
+        "request_wait_ms": {
+          "n": 13,
+          "p50": 345.3968253968327,
+          "p95": 397.641723356017,
+          "max": 397.641723356017
+        },
+        "mix_sync_ms": {
+          "n": 13,
+          "p50": 0.09999999776482582,
+          "p95": 0.20000000298023224,
+          "max": 0.20000000298023224
+        },
+        "post_ms": {
+          "n": 13,
+          "p50": 0,
+          "p95": 0.10000000149011612,
+          "max": 0.10000000149011612
+        }
+      },
+      "state": {
+        "active_context": "plains",
+        "tree_paused_before_after": [
+          true,
+          true
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "plains_a",
+            "playing": false,
+            "paused": true
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": null,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "threaded",
+      "phase": "game",
+      "wall_window_performance_ms": [
+        34431.43499999866,
+        46171.41000000015
+      ],
+      "window_marker": "normalized before.audio.performance_ms/after.audio.performance_ms; outer at absent",
+      "wall_seconds": 11.73997500000149,
+      "stream_id": 1,
+      "stream_mode": "threads",
+      "stream_threads_before_after": [
+        true,
+        true
+      ],
+      "counter_delta": {
+        "total_requested_frames": 423168,
+        "read_frames": 423168,
+        "underrun_frames": 0,
+        "total_requested_blocks": 3306,
+        "read_blocks": 3306,
+        "underrun_blocks": 0,
+        "total_requested_samples": 846336,
+        "read_samples": 846336,
+        "underrun_samples": 0
+      },
+      "underrun_fraction": 0.0,
+      "counter_audio_seconds": 9.595646258503402,
+      "counter_end_frame_bounds": [
+        1195776,
+        1618944
+      ],
+      "counter_age_ms": [
+        247.01499999687076,
+        0.9400000013411045
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "actual shared output view"
+      },
+      "cumulative_underrun_frames_before_after": [
+        0,
+        0
+      ],
+      "cumulative_longest_underrun_frames": 0,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3325,
+        "exact_zero_blocks_delta": 0,
+        "nonzero_blocks_delta": 3325,
+        "zero_fraction": 0.0,
+        "audio_seconds_delta": 9.65079365079365,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          6.334999997168779,
+          0.7300000004470348
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 35,
+          "p50": 269.32499999925494,
+          "p95": 628.3150000013411,
+          "max": 1000.015000000596
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 35,
+          "p50": 273,
+          "p95": 814,
+          "max": 1004
+        },
+        "longtask_recorded_window_fraction": 0.9692524898901876,
+        "retained_raf_ms": [
+          185.62999999895692,
+          46163.90500000119
+        ],
+        "retained_longtask_ms": [
+          2193.109999999404,
+          46167.80999999866
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 0,
+        "request_wait_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "mix_sync_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "post_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "state": {
+        "active_context": "home",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "home_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": {
+        "cross_origin_isolated": true,
+        "shared_array_buffer_available": true,
+        "threads": true,
+        "shared_ring_observed": true,
+        "controller_script": "http://127.0.0.1:8814/audio-threaded/diagnostic.service.worker.js",
+        "expected_service_worker_scope": "http://127.0.0.1:8814/audio-threaded/",
+        "observer_errors": [],
+        "timing_mode": "raf_and_longtask_only_no_threaded_audio_callback_hooks",
+        "actual_shared_start": {
+          "cmd": "start",
+          "threads": true,
+          "performance_ms": 21631.52499999851,
+          "audio_seconds": 15.240997732426305,
+          "views": [
+            {
+              "type": "[object Int32Array]",
+              "shared": true,
+              "byte_length": 16,
+              "length": 4
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            }
+          ],
+          "shared_ring_observed": true
+        }
+      },
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "threaded",
+      "phase": "menu",
+      "wall_window_performance_ms": [
+        55722.359999999404,
+        66589.45500000194
+      ],
+      "window_marker": "normalized before.audio.performance_ms/after.audio.performance_ms; outer at absent",
+      "wall_seconds": 10.867095000002534,
+      "stream_id": 1,
+      "stream_mode": "threads",
+      "stream_threads_before_after": [
+        true,
+        true
+      ],
+      "counter_delta": {
+        "total_requested_frames": 423168,
+        "read_frames": 423168,
+        "underrun_frames": 0,
+        "total_requested_blocks": 3306,
+        "read_blocks": 3306,
+        "underrun_blocks": 0,
+        "total_requested_samples": 846336,
+        "read_samples": 846336,
+        "underrun_samples": 0
+      },
+      "underrun_fraction": 0.0,
+      "counter_audio_seconds": 9.595646258503402,
+      "counter_end_frame_bounds": [
+        2008704,
+        2431872
+      ],
+      "counter_age_ms": [
+        4.724999997764826,
+        1.2650000005960464
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "actual shared output view"
+      },
+      "cumulative_underrun_frames_before_after": [
+        128,
+        128
+      ],
+      "cumulative_longest_underrun_frames": 128,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3290,
+        "exact_zero_blocks_delta": 0,
+        "nonzero_blocks_delta": 3290,
+        "zero_fraction": 0.0,
+        "audio_seconds_delta": 9.549206349206349,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          4.769999999552965,
+          3.900000002235174
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 19,
+          "p50": 490.23000000044703,
+          "p95": 938.015000000596,
+          "max": 938.015000000596
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 19,
+          "p50": 500,
+          "p95": 939,
+          "max": 939
+        },
+        "longtask_recorded_window_fraction": 0.919380938511872,
+        "retained_raf_ms": [
+          185.62999999895692,
+          66563.6950000003
+        ],
+        "retained_longtask_ms": [
+          2193.109999999404,
+          66085.1099999994
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 0,
+        "request_wait_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "mix_sync_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "post_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "state": {
+        "active_context": "home",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": true,
+        "beds": [
+          {
+            "candidate": "home_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": {
+        "cross_origin_isolated": true,
+        "shared_array_buffer_available": true,
+        "threads": true,
+        "shared_ring_observed": true,
+        "controller_script": "http://127.0.0.1:8814/audio-threaded/diagnostic.service.worker.js",
+        "expected_service_worker_scope": "http://127.0.0.1:8814/audio-threaded/",
+        "observer_errors": [],
+        "timing_mode": "raf_and_longtask_only_no_threaded_audio_callback_hooks",
+        "actual_shared_start": {
+          "cmd": "start",
+          "threads": true,
+          "performance_ms": 21631.52499999851,
+          "audio_seconds": 15.240997732426305,
+          "views": [
+            {
+              "type": "[object Int32Array]",
+              "shared": true,
+              "byte_length": 16,
+              "length": 4
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            }
+          ],
+          "shared_ring_observed": true
+        }
+      },
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "threaded",
+      "phase": "plains",
+      "wall_window_performance_ms": [
+        117785.90500000119,
+        128122.36500000209
+      ],
+      "window_marker": "normalized before.audio.performance_ms/after.audio.performance_ms; outer at absent",
+      "wall_seconds": 10.336460000000894,
+      "stream_id": 1,
+      "stream_mode": "threads",
+      "stream_threads_before_after": [
+        true,
+        true
+      ],
+      "counter_delta": {
+        "total_requested_frames": 423168,
+        "read_frames": 423168,
+        "underrun_frames": 0,
+        "total_requested_blocks": 3306,
+        "read_blocks": 3306,
+        "underrun_blocks": 0,
+        "total_requested_samples": 846336,
+        "read_samples": 846336,
+        "underrun_samples": 0
+      },
+      "underrun_fraction": 0.0,
+      "counter_audio_seconds": 9.595646258503402,
+      "counter_end_frame_bounds": [
+        4480896,
+        4904064
+      ],
+      "counter_age_ms": [
+        0.39499999955296516,
+        154.6850000023842
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "actual shared output view"
+      },
+      "cumulative_underrun_frames_before_after": [
+        1408,
+        1408
+      ],
+      "cumulative_longest_underrun_frames": 1024,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3325,
+        "exact_zero_blocks_delta": 0,
+        "nonzero_blocks_delta": 3325,
+        "zero_fraction": 0.0,
+        "audio_seconds_delta": 9.65079365079365,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          0.4450000002980232,
+          0.6800000034272671
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 64,
+          "p50": 145.36500000208616,
+          "p95": 234.29000000283122,
+          "max": 417.160000000149
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 63,
+          "p50": 147,
+          "p95": 234,
+          "max": 421
+        },
+        "longtask_recorded_window_fraction": 0.9592258858447807,
+        "retained_raf_ms": [
+          185.62999999895692,
+          128120.5850000009
+        ],
+        "retained_longtask_ms": [
+          98510.31500000134,
+          127966.70500000194
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 0,
+        "request_wait_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "mix_sync_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "post_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "state": {
+        "active_context": "plains",
+        "tree_paused_before_after": [
+          false,
+          false
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "plains_a",
+            "playing": true,
+            "paused": false
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": {
+        "cross_origin_isolated": true,
+        "shared_array_buffer_available": true,
+        "threads": true,
+        "shared_ring_observed": true,
+        "controller_script": "http://127.0.0.1:8814/audio-threaded/diagnostic.service.worker.js",
+        "expected_service_worker_scope": "http://127.0.0.1:8814/audio-threaded/",
+        "observer_errors": [],
+        "timing_mode": "raf_and_longtask_only_no_threaded_audio_callback_hooks",
+        "actual_shared_start": {
+          "cmd": "start",
+          "threads": true,
+          "performance_ms": 21631.52499999851,
+          "audio_seconds": 15.240997732426305,
+          "views": [
+            {
+              "type": "[object Int32Array]",
+              "shared": true,
+              "byte_length": 16,
+              "length": 4
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            }
+          ],
+          "shared_ring_observed": true
+        }
+      },
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    },
+    {
+      "arm": "threaded",
+      "phase": "plains_menu",
+      "wall_window_performance_ms": [
+        133932.6700000018,
+        144882.1400000006
+      ],
+      "window_marker": "normalized before.audio.performance_ms/after.audio.performance_ms; outer at absent",
+      "wall_seconds": 10.949469999998808,
+      "stream_id": 1,
+      "stream_mode": "threads",
+      "stream_threads_before_after": [
+        true,
+        true
+      ],
+      "counter_delta": {
+        "total_requested_frames": 467712,
+        "read_frames": 467712,
+        "underrun_frames": 0,
+        "total_requested_blocks": 3654,
+        "read_blocks": 3654,
+        "underrun_blocks": 0,
+        "total_requested_samples": 935424,
+        "read_samples": 935424,
+        "underrun_samples": 0
+      },
+      "underrun_fraction": 0.0,
+      "counter_audio_seconds": 10.605714285714285,
+      "counter_end_frame_bounds": [
+        5137920,
+        5605632
+      ],
+      "counter_age_ms": [
+        188.02500000223517,
+        341.304999999702
+      ],
+      "counter_invariants": "PASS frame/sample/block partitions,128frames/block,end-frame coverage",
+      "ring": {
+        "output_samples": 4096,
+        "channels": 2,
+        "sample_rate": 44100,
+        "capacity_ms": 46.439909297052154,
+        "measured_from": "actual shared output view"
+      },
+      "cumulative_underrun_frames_before_after": [
+        1408,
+        1408
+      ],
+      "cumulative_longest_underrun_frames": 1024,
+      "pcm": {
+        "status": "metering",
+        "blocks_delta": 3640,
+        "exact_zero_blocks_delta": 0,
+        "nonzero_blocks_delta": 3640,
+        "zero_fraction": 0.0,
+        "audio_seconds_delta": 10.565079365079365,
+        "clipping_samples_after": 0,
+        "context_states": [
+          "running"
+        ],
+        "meter_age_ms": [
+          187.464999999851,
+          2.9299999997019768
+        ],
+        "scope": "Mixed observed graph, not cue/fidelity/BGM completeness or acoustic proof"
+      },
+      "main_thread_metrics_arithmetic_only_from_author_observer": {
+        "raf_callback_ms_nearest_rank": {
+          "n": 38,
+          "p50": 234.75,
+          "p95": 436.79499999806285,
+          "max": 457.070000000298
+        },
+        "longtask_ms_nearest_rank": {
+          "n": 37,
+          "p50": 237,
+          "p95": 437,
+          "max": 458
+        },
+        "longtask_recorded_window_fraction": 0.9449772454740847,
+        "retained_raf_ms": [
+          185.62999999895692,
+          144878.37000000104
+        ],
+        "retained_longtask_ms": [
+          118606.6649999991,
+          144539.375
+        ]
+      },
+      "secondary_refill_timings_author_instrumentation_not_independent_approval": {
+        "filter": "window contains main_receive_ms; no startup summaries",
+        "n": 0,
+        "request_wait_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "mix_sync_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "post_ms": {
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "state": {
+        "active_context": "plains",
+        "tree_paused_before_after": [
+          true,
+          true
+        ],
+        "home_input_blocked": false,
+        "beds": [
+          {
+            "candidate": "plains_a",
+            "playing": false,
+            "paused": true
+          },
+          {
+            "candidate": "",
+            "playing": false,
+            "paused": false
+          }
+        ],
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "sfx_configurations": 1,
+        "ambience_valid": true
+      },
+      "threaded_runtime_guards": {
+        "cross_origin_isolated": true,
+        "shared_array_buffer_available": true,
+        "threads": true,
+        "shared_ring_observed": true,
+        "controller_script": "http://127.0.0.1:8814/audio-threaded/diagnostic.service.worker.js",
+        "expected_service_worker_scope": "http://127.0.0.1:8814/audio-threaded/",
+        "observer_errors": [],
+        "timing_mode": "raf_and_longtask_only_no_threaded_audio_callback_hooks",
+        "actual_shared_start": {
+          "cmd": "start",
+          "threads": true,
+          "performance_ms": 21631.52499999851,
+          "audio_seconds": 15.240997732426305,
+          "views": [
+            {
+              "type": "[object Int32Array]",
+              "shared": true,
+              "byte_length": 16,
+              "length": 4
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            },
+            {
+              "type": "[object Float32Array]",
+              "shared": true,
+              "byte_length": 16384,
+              "length": 4096
+            }
+          ],
+          "shared_ring_observed": true
+        }
+      },
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5
+      },
+      "audio_probe_errors": []
+    }
+  ],
+  "actual_pngs_viewed": [
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/seed-entered.png",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/game.png",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/menu.png",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/plains.png",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/plains_menu.png",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/seed-entered.png",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/game.png",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/menu.png",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/plains.png",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/plains_menu.png"
+  ],
+  "visual_observations": [
+    "Both seed-entered images visibly show mobile-audio-stream-01 in actual RUN SEED. Identical region_assembled event confirms it reached real Plains generation: manifest f3a63393145ea3b96d4f0bd0cdfe0fe1cafd544353e0cb40b42c932997ec156a,debug_entry=false,map_index1.",
+    "Home images have same buildings/platforms, hero spawn and HUD/control scale. Windmill/cloth/smoke animation phase differs; no animation-rate/pixel-perfect temporal equivalence claimed.",
+    "Home menu images show the real navigation/Explore panel. Snapshot tree_paused=false; Home input is blocked. It is not an in-run pause.",
+    "Plains images show same starting ledge/gap, background structure, hero position and HUD scale. Manifest confirms same map.",
+    "Plains-menu images show the same empty inventory/pause overlay; snapshots tree_paused=true in both."
+  ],
+  "confirmed_bounded_results": [
+    "Single-thread four window underrun fractions are88.243021%,91.177384%,80.623974%,86.297641%; threaded four window deltas are0%.",
+    "Threaded read_frames increases423168/423168/423168/467712, matching all requested frames. All4runtime rows have genuineCOI/SAB, actual3shared start views, matching thread counters and child SW controller; not a build-label-only inference.",
+    "Threaded four PCM windows add3325/3290/3325/3640observed blocks with0exact-zero blocks, running context and0reported clipping. This supports non-silent mixed output, not specific selected-SFX/BGM/acoustic acceptance.",
+    "Both capacities are4096interleaved samples/stereo44100Hz≈46.440ms. Threaded improvement is not explained by an enlarged ring.",
+    "Main callback envelopes remain slow in threaded runs: Home P50/P95269.325/628.315ms vs236.1/279.7ms single; Home-menu490.23/938.015 vs302.7/406.9; Plains145.365/234.29 vs122.5/239.3; actual pause234.75/436.795 vs187.5/238.3. No rendering/FPS improvement is established. Audio supply can improve despite persistent main-thread stalls."
+  ],
+  "outside_window_failure_retained": {
+    "threaded_cumulative_before_after_by_phase": {
+      "game": [
+        0,
+        0
+      ],
+      "menu": [
+        128,
+        128
+      ],
+      "plains": [
+        1408,
+        1408
+      ],
+      "plains_menu": [
+        1408,
+        1408
+      ]
+    },
+    "last_cumulative_underrun_frames": 1408,
+    "cumulative_audio_ms": 31.92743764172336,
+    "longest_run_frames": 1024,
+    "longest_run_audio_ms": 23.219954648526077,
+    "interpretation": "Threaded whole session is NOT zero-underrun:128frames accrue between Home and Home-menu windows; another1280before Plains window. Transition/unsampled deficits remain. Claim only four observed windows0%, not uninterrupted session."
+  },
+  "logs_preserved": {
+    "single": [
+      "error:Failed to load resource: the server responded with a status of 404 (File not found)",
+      "log:Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "log:OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "log:Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+      "log:PLAINS REGION: family=linked_rings areas=20 fallback=",
+      "log:TERRAIN STUDY: solids=84 pieces=325 setup_ms=362",
+      "log:FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"f3a63393145ea3b96d4f0bd0cdfe0fe1cafd544353e0cb40b42c932997ec156a\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"mobile-audio-stream-01\"}"
+    ],
+    "threaded": [
+      "error:Failed to load resource: the server responded with a status of 404 (File not found)",
+      "log:Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+      "log:OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+      "log:Build configuration: Emscripten 4.0.20, multi-threaded, no GDExtension support.",
+      "error:Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+      "log:PLAINS REGION: family=linked_rings areas=20 fallback=",
+      "log:TERRAIN STUDY: solids=84 pieces=325 setup_ms=163",
+      "log:FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"f3a63393145ea3b96d4f0bd0cdfe0fe1cafd544353e0cb40b42c932997ec156a\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"mobile-audio-stream-01\"}"
+    ],
+    "console_clean": false,
+    "required_disclosure": "Both retain an unattributed404. Threaded additionally has official Emscripten error-level Blocking on the main thread is very dangerous warning. Do not claim console/error-clean. No SCRIPT ERROR/SHADER ERROR/PAGE ERROR appears in these reports; this does not erase existing error-level messages."
+  },
+  "limits": [
+    "One sequential pair on cloud Chromium/SwiftShader, not Honor60Pro/Chrome, actual mobileFPS or user listening. Supports threaded audio-supply candidate in this host, not a phone fix.",
+    "SamePCK/seed/manifest/presentation/ring budget remove major confounders. Engine variants still differ in thread scheduling and single-thread-only1/32timing overhead; not a pure one-line scheduling experiment or complete causal profiler.",
+    "Wall windows≈10.16–11.74s but counter audio coverage≈8.84–10.61s; PCM has its own boundaries. Reporting lag and audio-clock/host scheduling differ. Zero counted ring underrun during processed quanta does not prove uninterrupted acoustic output for every wall millisecond or no host-level skipped processing.",
+    "Counters cover ready-output branches. Nonzero mixed PCM/zero fractions cannot identify chosen pulse, establish all selected new sounds, waveform equivalence or all BGM; no audio was listened to here.",
+    "RAF/LongTask data is from my authored observer: arithmetic is reviewed, implementation not independently approved. Threaded empty producer-timing rows are expected without out_callback hooks, not zero producer latency.",
+    "Actual screenshots are endpoints, not continuous input/action/animation verification or complete campaign/RNG/save/UI-device acceptance.",
+    "Entire-session transition underflows and blocking-on-main warning remain open. Public real-action PCM and Pages/phone validation are separate root-owned work."
+  ],
+  "evidence_sha256": {
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/report.json": "7051b7627f89f82bcf29d7c4f9c9667f243d951c47d18cf47ce389496164166f",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/browser.log": "26dc1de4208bac46939405622bcf39ce515d942afcc1490f9b6fabcc0fb2c40c",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/seed-entered.png": "f848cf7b279485d587a7aba26706b56ea67763f68087db75ff3a8c8f2a53df40",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/game.png": "043ba656862153f27ddd2deb3f7735c800ff896639e4b442306f0cd454d28813",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/menu.png": "db99e28850ef7e7d156b77fd09e91b824676a998cf43f6bafb4c83d321a80b86",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/plains.png": "1811e81946749949eb5dd1e6d5ee43c6bd6627b458078e04cbcba20756c90511",
+    "build/mobile_web_audio_followup_02/single-fixed-seed-03/50/plains_menu.png": "e000ea96053836dd8c003d9f25f50e3937fd395f55bc6e4cb0032b00e530eabd",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/report.json": "29523a11a54aa3c7b202ece5d0e28a644a0cb1d76870248fd3208d3dcbd16748",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/browser.log": "59fe692225332b520027a16a49cb158fdec696f05e23d0942a1437ddb25b6cb2",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/seed-entered.png": "87970f287af1a466d8a1fa2c4c18d06d3d639f32668d51633d05608ba402aa60",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/game.png": "60447fd0619a9331e9fa6a7b45bd87dae4396ef49b43d33e925986d1c39c2162",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/menu.png": "4e963afd361f40e31b9f664d8ea1a042316f720ca029a92a8da28ca0f02ad78d",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/plains.png": "66f34f685534c3df29613ff730fbe684823ff50130bfdec77dbca0b63fd8311d",
+    "build/mobile_web_audio_followup_02/threaded-fixed-seed-03/50/plains_menu.png": "22e1b7d9cb5db06e675b48d46db9e1f532923936c97c6dc73eacf7869b6f88c7",
+    "tools/mobile_web_perf/run_stream_diagnostic.py": "64e0779f200115516555d91df55801f26f873896ce5bf1a806c631bb029fd723",
+    "build/web/audio-threaded/threaded-diagnostic.json": "04153252b0711f12fa9367e6e883b72b102a9509bc54f554f0f36bd127408d20",
+    "build/web/audio-stream-diagnostic.json": "8b4829aa31a53083e7162324c24d2ce9dbe702b1084a98960b520d5ae38abc05",
+    "tools/mobile_web_perf/stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da",
+    "tools/mobile_web_perf/instrument_stream_timing.py": "e42431f666ff1f2765256e2f123251a9d0ef4024460238cf6bab1f599628549d"
+  },
+  "pending": [
+    "Actual phone fresh-page same-seed/state paired test with exported counters and user listening",
+    "Transition/startup underrun and main-thread blocking warning evaluation before promotion",
+    "Specific chosen-SFX natural-action waveform and retainedBGM checks separately",
+    "Actual Pages serving/COI/content verification separately from this local run"
+  ]
+}

@@ -1,0 +1,544 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-UI-CLARITY-01",
+  "task_type": "small_fix",
+  "workflow": "awaiting-device",
+  "baseline_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "reviewed_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+  "content_version": "shared-canvas-hidpi-v1",
+  "owner": "root",
+  "purpose": "修正手机UI逆缩放和低DPI画布，兼容电脑且维持共同UI/世界比例，快速交付Web试玩",
+  "player_experience": "手机与电脑比例一致，中文字形/细像素清楚，家园提示不再压住摇杆",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save/audio",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/archive/creative-v21/registry.json",
+    "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v21/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+    "docs/creative_direction/revision_creative_v22.md",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
+    "docs/evidence/mobile_ui_clarity_01/README.md",
+    "docs/evidence/mobile_ui_clarity_01/browser/desktop-home-menu.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/desktop-home-resumed.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/desktop-home.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/desktop-title-normalized.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/desktop-title.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/first-driver.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-home-menu.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-home-resized.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-home-resumed.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-home.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-title-normalized.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/mobile-title.png",
+    "docs/evidence/mobile_ui_clarity_01/browser/report-first-content-threshold.json",
+    "docs/evidence/mobile_ui_clarity_01/browser/report.json",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/browser.log",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/browser_driver.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/build_fixture.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/mask.png",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/probe.gd",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/result.json",
+    "docs/evidence/mobile_ui_clarity_01/mask-probe/source.json",
+    "docs/evidence/mobile_ui_clarity_01/prepared-check.json",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-browser.log",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-home-menu.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-home-resized.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-home-resumed.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-home.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-settings.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-title-returned.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/mobile-title.png",
+    "docs/evidence/mobile_ui_clarity_01/public-browser/report.json",
+    "docs/evidence/mobile_ui_clarity_01/public-download.json",
+    "docs/evidence/mobile_ui_clarity_01/review.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/demo_menu.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_item_codex.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_scene.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/manifest.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/registry.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/stage_reward_modal.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/style-continuity-20261028-v18-chest-art.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_bible.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_creative_direction.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/thorn_forest.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/windchime_plains.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/first-attempt-input-failures.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction-tests.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-contract.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-tests.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/summary.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/contract-01-failed.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/contract-02.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/contract.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/density-02.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/docs-direct-02-failed.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/docs-direct-first-failed.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/foundry-build.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/foundry-stamp.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-docs.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-final.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-final/docs.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-final/report.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-final/web-bundle.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/harness-final/web-cache.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/hydration-summary.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/import-01.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/import-02.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/native-01.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/native-01.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/native-02.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/native.json",
+    "docs/evidence/mobile_ui_clarity_01/validation/quality-first-rejected.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/quality.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/remaining-native.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/web-build-01.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/web-build-02.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/web-bundle.log",
+    "docs/evidence/mobile_ui_clarity_01/validation/web-cache.log",
+    "docs/handoff.md",
+    "docs/quality/records/MOBILE-UI-CLARITY-01.json",
+    "docs/tasks.md",
+    "docs/worklines/mobile_ui_clarity_01/scope.md",
+    "project.godot",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scripts/demo/home_scene.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/demo_ui_01/game_hud.gd",
+    "scripts/ui/demo_ui_01/game_typography.gd",
+    "scripts/ui/demo_ui_01/modal_metrics.gd",
+    "scripts/ui/demo_ui_01/modal_shell.gd",
+    "scripts/ui/demo_ui_01/title_backdrop.gd",
+    "scripts/ui/home_item_codex.gd",
+    "scripts/ui/plains_region_map_modal.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "scripts/underworld_plains/underworld_foreground.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/demo_ui_01/r2_runner.gd",
+    "tests/home_codex/test_home_item_codex_ui.gd",
+    "tests/mobile_ui_clarity/runner.gd",
+    "tests/mobile_ui_clarity/runner.gd.uid",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/web_pixel_density/runner.gd",
+    "tools/build.py",
+    "tools/harness/profiles.json",
+    "tools/verify_mobile_ui_clarity_browser.py"
+  ],
+  "deliverables": [
+    "shared logical UI metrics and Web HiDPI",
+    "Home touch layout",
+    "actual Web build and public playtest fingerprint"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户范围和当前合同已记录",
+      "evidence": [
+        "ui-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "小修限定原生/正式UI合同/实际Web与独审通过，公网完整PCK一致",
+      "evidence": [
+        "ui-native",
+        "ui-contract",
+        "ui-web",
+        "ui-mask",
+        "ui-review",
+        "ui-public",
+        "ui-remaining-native"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "明确用户修复/快速Web/跨设备比例要求",
+      "evidence": [
+        "ui-scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定共享UI与所观察Web消费者通过；不签荣耀真机、帧率或完整玩法",
+      "evidence": [
+        "ui-native",
+        "ui-web",
+        "ui-mask",
+        "ui-remaining-native"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "限定共享UI与所观察Web消费者通过；不签荣耀真机、帧率或完整玩法",
+      "evidence": [
+        "ui-contract",
+        "ui-public",
+        "ui-web"
+      ]
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "限定共享UI与所观察Web消费者通过；不签荣耀真机、帧率或完整玩法",
+      "evidence": [
+        "ui-web",
+        "ui-review",
+        "ui-screen"
+      ]
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮不生产或修改动画/音频",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮不生产或修改动画/音频",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "限定共享UI与所观察Web消费者通过；不签荣耀真机、帧率或完整玩法",
+      "evidence": [
+        "ui-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "用户明确的共享比例与快速Web要求已记录",
+      "evidence": [
+        "ui-scope"
+      ],
+      "scenario": "phone and desktop share game-space UI scale",
+      "method": "current user request and scoped implementation",
+      "expected": "same logical canvas, no audio/physics/save change",
+      "failure": "device-specific UI size drift or scope expansion"
+    },
+    {
+      "id": "ui-scale",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "四尺寸原生、桌面/模拟手机实际导出Web与mask GPU通过",
+      "evidence": [
+        "ui-native",
+        "ui-web",
+        "ui-mask"
+      ],
+      "scenario": "desktop1280x720DPR1 and mobile853x290DPR2.5 plus844x390resize",
+      "method": "actual Controls geometry and native pixel surface detection/screenshots/input",
+      "expected": "same normalized title/HUD proportions and HiDPI framebuffer",
+      "failure": "UI changes logical size with DPR, unreadable/clipped controls or offset mask"
+    },
+    {
+      "id": "ui-formal",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "正式UI149断言与公开新Web包完整SHA一致",
+      "evidence": [
+        "ui-contract",
+        "ui-public"
+      ],
+      "scenario": "existing UI consumers and deployed playtest",
+      "method": "original native consumer contract and full public pack download",
+      "expected": "callbacks intact and actual public package equals frozen source build",
+      "failure": "callbacks regress or stale/mismatched deployed package"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ui-scope",
+      "path": "docs/worklines/mobile_ui_clarity_01/scope.md",
+      "sha256": "3376767ded895f3d58a1500d5ad255b08b4283dd12822c59804d13eb55b02313",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "明确当前用户指令与真实消费者合同",
+      "observed": "先修UI/清晰度、跨设备比例一致、快速Web，不签性能"
+    },
+    {
+      "id": "ui-native",
+      "path": "docs/evidence/mobile_ui_clarity_01/validation/native.json",
+      "sha256": "3a7c28d7591d4e8d12700741fd1716537c226b181a3124443e7b8b7816893f98",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "actual native Controls across four window sizes and original input callbacks",
+      "observed": "37 checks, 0 failures",
+      "command": "bash tools/godot.sh --headless --path . --script tests/mobile_ui_clarity/runner.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 native headless Controls geometry; not phone rendering"
+    },
+    {
+      "id": "ui-contract",
+      "path": "docs/evidence/mobile_ui_clarity_01/validation/contract.json",
+      "sha256": "667512053aef67e2b1e4c6743a3396db6669960c7d25dbe2f73c6783f9a86bda",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "original integrated UI contract, migrated physical-to-logical shared-size expectations",
+      "observed": "149 checks, 0 failures"
+    },
+    {
+      "id": "ui-web",
+      "path": "docs/evidence/mobile_ui_clarity_01/browser/report.json",
+      "sha256": "cc04edc455e1e2a87f6cb9a1a5f27dbc63a4d14bbafab59c105cb6e3f7383668",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "actual exported Web screenshots and ordinary mouse/touch at desktop1x and mobile2.5x",
+      "observed": "normalized primary control maximum delta0.6wu; page_errors empty"
+    },
+    {
+      "id": "ui-mask",
+      "path": "docs/evidence/mobile_ui_clarity_01/mask-probe/result.json",
+      "sha256": "1b36d0a57bc2aabc822e3f3a0418a38e9b24ffcab77a5bc7605601f32c68ff16",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "isolated GPU fixture calling unchanged production _render_receipt and shader; not formal gameplay",
+      "observed": "RT1280x720 with screen origin422,0; protected pixel blue, two outside pixels foreground"
+    },
+    {
+      "id": "ui-review",
+      "path": "docs/evidence/mobile_ui_clarity_01/review.json",
+      "sha256": "c9786a7b58f936351eee4c81927fca1f35ab6197d45a1df3191df2796fcb1143",
+      "kind": "review",
+      "producer": "independent subagent /root/review_mobile_ui",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "static consumer-chain review and nine actual Web screenshots",
+      "observed": "limited ACCEPT; no physical device/performance acceptance",
+      "reviewer": "independent subagent /root/review_mobile_ui",
+      "implementers": [
+        "root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Read-only reviewer did not edit production or run Godot; separate agent verified screenshots and consumer chain"
+    },
+    {
+      "id": "ui-public",
+      "path": "docs/evidence/mobile_ui_clarity_01/public-download.json",
+      "sha256": "751ed630e26f3c823f8e703c1a151d1426ceac602285ce4d242ca49302b84dd7",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "HTTP200 full208691576-byte PCK download and SHA256 vs cache resource map",
+      "observed": "actual public build2caa023125bd matches production4707b9ef"
+    },
+    {
+      "id": "ui-screen",
+      "path": "docs/evidence/mobile_ui_clarity_01/browser/mobile-home.png",
+      "sha256": "3cebf7f539adfeb71c411740834b76702308fa0f399997e00e531a63b1270fb5",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "Actual exported Web, Chromium853x290DPR2.5 screenshot",
+      "observed": "shared HUD and Home with touch controls; physical phone unverified"
+    },
+    {
+      "id": "ui-remaining-native",
+      "path": "docs/evidence/mobile_ui_clarity_01/validation/remaining-native.log",
+      "sha256": "3891103009288d98e0e245039a0e781a0ab08150ddaa84ef33f4a3abae0e6cac",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "original codex UI and R2 native consumers; strict run_tests.run_engine abort/error/cleanup checks",
+      "observed": "HOME ITEM CODEX UI72/0; DEMO UI R2 208/0; no native/script/shader errors",
+      "command": "run_tests.run_engine tests/home_codex/test_home_item_codex_ui.gd (35s) then tests/demo_ui_01/r2_runner.gd (120s), --headless --resolution1280x720 --fixed-fps60",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 native headless, actual formal App and native Controls; no physical-device claim"
+    },
+    {
+      "id": "ui-consumers",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_ui_clarity_01/consumer-inventory.json",
+      "sha256": "6bc044fe2ea26b17c14a188b263fa8a586c1b9ea3dd5767c21f73bd5bc6a153d",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "Bounded migration of existing actual public mobile GUI evidence; not a rerun",
+      "observed": "Existing real Settings/Return/Home/Menu/resize observations",
+      "consumers": [
+        "public-mobile-settings-return",
+        "public-mobile-home-navigation",
+        "public-mobile-resize"
+      ]
+    },
+    {
+      "id": "ui-public-gui",
+      "kind": "gui",
+      "path": "docs/evidence/mobile_ui_clarity_01/public-browser/report.json",
+      "sha256": "210bbf871854572d345260edb0198a90794e155e2f54dcd979764a153c905885",
+      "producer": "root",
+      "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "Bounded migration of existing actual public mobile GUI evidence; not a rerun",
+      "observed": "Existing real Settings/Return/Home/Menu/resize observations",
+      "consumers": [
+        "public-mobile-settings-return",
+        "public-mobile-home-navigation",
+        "public-mobile-resize"
+      ]
+    }
+  ],
+  "unverified_items": [
+    "Honor60Pro physical-device visual/input/performance acceptance",
+    "Gold pickup sound and frame-time root cause remain separate work"
+  ],
+  "consumer_coverage": {
+    "scope": "Historical actual published 2caa mobile GUI outputs, taken from existing public-browser trace; no fresh execution and no full game/UI inventory claim.",
+    "inventory_evidence": "ui-consumers",
+    "observations": [
+      {
+        "consumer": "public-mobile-settings-return",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      },
+      {
+        "consumer": "public-mobile-home-navigation",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      },
+      {
+        "consumer": "public-mobile-resize",
+        "status": "passed",
+        "reason": "attributed existing actual public mobile click/resize output; source unchanged",
+        "output": "behavior",
+        "evidence": [
+          "ui-public-gui"
+        ]
+      }
+    ]
+  }
+}

@@ -100,7 +100,7 @@ func _fit_controls() -> void:
 	if not is_instance_valid(_controls): return
 	var viewport := get_viewport()
 	var viewport_size := viewport.get_visible_rect().size
-	var scale := METRICS.pixel_scale(viewport)
+	var scale := METRICS.ui_scale(viewport)
 	var safe := METRICS.safe_rect(viewport)
 	var is_compact := METRICS.compact(viewport)
 	var edge := 16.0 / scale if is_compact else 24.0

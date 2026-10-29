@@ -1,0 +1,27 @@
+{
+  "scope": "Historical actual published 2caa mobile GUI outputs, taken from existing public-browser trace; no fresh execution and no full game/UI inventory claim.",
+  "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+  "producer_report": "docs/evidence/mobile_ui_clarity_01/public-browser/report.json",
+  "producer_report_sha256": "210bbf871854572d345260edb0198a90794e155e2f54dcd979764a153c905885",
+  "consumers": [
+    {
+      "id": "public-mobile-settings-return",
+      "checks": [
+        "actual title Settings click and Escape return"
+      ]
+    },
+    {
+      "id": "public-mobile-home-navigation",
+      "checks": [
+        "actual Home menu click; rendered HOME located with OCR",
+        "actual HOME button closes navigation"
+      ]
+    },
+    {
+      "id": "public-mobile-resize",
+      "checks": [
+        "non-16:9 resize to 844x390"
+      ]
+    }
+  ]
+}

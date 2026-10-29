@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "task_type": "small_fix",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save和既有声音素材；恢复原选择装配，音频时序及线程对照限定独立入口",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "task_id": "MOBILE-WEB-AUDIO-02",
+  "workflow": "in_progress",
+  "baseline_commit": "287f473635047d7329f838cc252a57fa53200114",
+  "reviewed_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe",
+  "content_version": "selected-sfx-and-stream-diagnostic-v1",
+  "owner": "root",
+  "purpose": "恢复已选工坊音效并继续独立定位Stream断续",
+  "player_experience": "手机横屏稳定流畅且原BGM/环境音/动作音效保留",
+  "affected_paths": [
+    "scenes/demo/demo.tscn",
+    "scripts/audio/selected_sfx_runtime.gd",
+    "scripts/audio/selected_sfx_runtime.gd.uid",
+    "tests/selected_sfx_runtime.gd",
+    "tests/selected_sfx_runtime.gd.uid",
+    "tests/selected_ambience_runtime.gd",
+    "tools/mobile_web_perf/prepare_stream_diagnostic.py",
+    "tools/mobile_web_perf/run_stream_diagnostic.py",
+    "tools/mobile_web_perf/verify_production_audio.py",
+    "tools/mobile_web_perf/prepare_comparison.py",
+    "tools/mobile_web_perf/instrument_stream_timing.py",
+    "tools/mobile_web_perf/stream_timing_observer.js",
+    "tools/mobile_web_perf/prepare_threaded_diagnostic.py"
+  ],
+  "deliverables": [
+    "current Web baseline and independent AB receipts",
+    "measured hotspot fix",
+    "physical-phone comparison build"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_web_audio_02/scope.md",
+      "sha256": "587b4f3eaf80111c142ac0a526ba210385d7115100dea8b9ff64f0f7bf890b3a",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "287f473635047d7329f838cc252a57fa53200114",
+      "content_version": "selected-sfx-and-stream-diagnostic-v1",
+      "method": "current user failure feedback and actual formal source/pack inventory",
+      "observed": "missing V3 selection activation confirmed; Stream underrun hypothesis pending device comparison"
+    },
+    {
+      "id": "fixed-seed-stream-review",
+      "path": "docs/evidence/mobile_web_audio_02/fixed-seed-stream-review.json",
+      "sha256": "f81c116cd1ee1a354d93012a3c8c697cda87997f2fa22546e7c8d8f9e38416ab",
+      "kind": "measurement",
+      "producer": "independent audio evidence review; code ownership boundaries stated in receipt",
+      "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe",
+      "content_version": "selected-sfx-and-stream-diagnostic-v1",
+      "method": "same exported PCK; diagnostic tools frozen f21b221f and official matched threaded engine; see source/asset fingerprints in receipt",
+      "observed": "same formal seed/Manifest/canvas; actual shared STREAM reads and four counter windows compared; cloud only",
+      "device": "Cloud Chromium software WebGL; not Honor60Pro",
+      "environment": "Linux Chromium headless SwiftShader, Godot4.7.2 official Web runtime",
+      "scenario": "Actual demo.tscn Home/Plains and captured mixed PCM; individual receipt defines windows",
+      "budget_source": "Diagnostic comparison only; no phone performance acceptance budget applied"
+    },
+    {
+      "id": "public-threaded-output-review",
+      "path": "docs/evidence/mobile_web_audio_02/public-threaded-output-review.json",
+      "sha256": "890dcbd1c22da25b78b51901077fc5383d801773a60013693a622b2d7e75c275",
+      "kind": "measurement",
+      "producer": "independent audio evidence review; code ownership boundaries stated in receipt",
+      "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe",
+      "content_version": "selected-sfx-and-stream-diagnostic-v1",
+      "method": "same exported PCK; diagnostic tools frozen f21b221f and official matched threaded engine; see source/asset fingerprints in receipt",
+      "observed": "actual public mixed PCM: selected pulse A controls and two8-second original BGM continuously aligned; no phone/whole-track acceptance",
+      "device": "Cloud Chromium software WebGL; not Honor60Pro",
+      "environment": "Linux Chromium headless SwiftShader, Godot4.7.2 official Web runtime",
+      "scenario": "Actual demo.tscn Home/Plains and captured mixed PCM; individual receipt defines windows",
+      "budget_source": "Diagnostic comparison only; no phone performance acceptance budget applied"
+    }
+  ],
+  "unverified_items": [
+    "Honor60Pro Chrome actual50/200/threaded result and request/queue/PCM traces",
+    "long-duration original BGM continuity and all11 selected cue physical audibility",
+    "physical/player acceptance; early public install redundant cause not captured"
+  ],
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "真机反馈与两条独立目标已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前音色装配原生63/0与环境45/0、Web家园/平原新pulse实际PCM已核；持续Stream断续仍在定位，完整门槛未关闭",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "真机反馈与两条独立目标已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本轮部分技术/PCM证据见mobile_web_audio_02索引；持续卡音和完整真机目标未验证，不继承旧386通过",
+      "evidence": []
+    }
+  },
+  "consumer_coverage": null
+}

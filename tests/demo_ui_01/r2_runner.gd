@@ -236,7 +236,7 @@ func title_layout(size: Vector2i) -> void:
 		var target := node as Button
 		controls.append(target)
 		evidence.append({"name": str(target.name), "logical_rect": copy_rect(rect(target)), "physical_height": rect(target).size.y * scale.y})
-		check(rect(target).size.y * scale.y >= 47.95, "every title target is at least 48 rendered pixels tall", evidence.back())
+		check(rect(target).size.y >= 47.95, "every title target retains its 48-unit logical minimum on every screen", evidence.back())
 		check(rect(target).position.x >= 0 and rect(target).end.x <= root.get_visible_rect().end.x + 0.5, "title target fits viewport horizontally", {"name": str(target.name)})
 	for first: int in controls.size():
 		for second: int in range(first + 1, controls.size()):

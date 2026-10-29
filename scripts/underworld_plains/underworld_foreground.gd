@@ -518,6 +518,10 @@ func _refresh(delta: float) -> void:
 
 func _render_receipt(center: Vector2,size: Vector2) -> void:
 	var view:=Rect2(Vector2.ZERO,size)
+	# The shader uses render-target-local pixels. Stretch into that backing
+	# store without the screen transform's window/letterbox placement offset.
+	var raster_transform := get_viewport().get_stretch_transform()
+	var raster_scale := raster_transform.get_scale().abs()
 	# Grow each protection rectangle once per synchronous render, preserving order.
 	var strict_masks: Array[Rect2]=[]
 	var soft_masks: Array[Rect2]=[]
@@ -534,13 +538,14 @@ func _render_receipt(center: Vector2,size: Vector2) -> void:
 		for i: int in strict_masks.size():
 			var strict:=strict_masks[i]
 			if soft_masks[i].intersects(wind_bounds):
-				masks.append(Vector4(strict.position.x,strict.position.y,strict.end.x,strict.end.y))
+				var raster: Rect2 = raster_transform * strict
+				masks.append(Vector4(raster.position.x,raster.position.y,raster.end.x,raster.end.y))
 		resident.mask_rect_count=masks.size()
 		masks.resize(MAX_PROTECTION)
 		material.set_shader_parameter("protection_rects",masks)
 		material.set_shader_parameter("protection_count",mini(int(resident.mask_rect_count),MAX_PROTECTION))
 		material.set_shader_parameter("protection_overflow",_overflow)
-		material.set_shader_parameter("mask_soft_margin",MASK_SOFT_MARGIN)
+		material.set_shader_parameter("mask_soft_margin",MASK_SOFT_MARGIN * minf(raster_scale.x,raster_scale.y))
 		material.set_shader_parameter("root_visibility",float(resident.root_gate))
 		material.set_shader_parameter("wind_time",_wind_time)
 		sprite.position=resident.position

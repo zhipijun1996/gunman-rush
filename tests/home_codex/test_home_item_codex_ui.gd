@@ -246,9 +246,9 @@ func layout_contract(rows: Array[Dictionary]) -> void:
 		var scroll := codex.find_child("CodexCatalogScroll",true,false) as ScrollContainer
 		var grid := codex.find_child("CodexGrid",true,false) as GridContainer
 		var safe := DemoUiModalMetrics.safe_rect(root)
-		var scale := DemoUiModalMetrics.pixel_scale(root)
+		var scale := DemoUiModalMetrics.ui_scale(root)
 		check(close != null and safe.grow(1).encloses(close.get_global_rect()),"close remains inside the landscape safe area at "+str(dimensions))
-		check(close != null and close.size.y*scale >= 47.9,"close has a48px physical touch target at "+str(dimensions))
+		check(close != null and close.size.y*scale >= 47.9,"close retains its48-unit logical touch target at "+str(dimensions))
 		check(scroll != null and scroll.get_v_scroll_bar().max_value > scroll.get_v_scroll_bar().page,"full catalog uses the original scrolling control at "+str(dimensions))
 		check(grid != null and grid.get_child_count() == rows.size(),"all catalog entries remain reachable at "+str(dimensions))
 		var known := tile(&"B03")

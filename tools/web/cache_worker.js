@@ -1,4 +1,4 @@
-/* Generated immutable-resource cache. Never intercept saves, HTML or build-info. */
+/* Immutable resource cache and same-origin Web thread isolation. Saves are never touched. */
 const RESOURCE_MAP = __RESOURCE_MAP__;
 const WORKER_ID = __WORKER_ID__;
 const CACHE_NAME = 'gunman-rush-runtime-v1';
@@ -144,6 +144,15 @@ async function immutableResponse(request, name, clientId) {
     }
     return response;
 }
+function isolatedResponse(response) {
+    // Preserve opaque/redirect errors. These cannot be reconstructed safely.
+    if (response.status === 0) return response;
+    const headers = new Headers(response.headers);
+    headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+    headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+    return new Response(response.body, {status: response.status,
+        statusText: response.statusText, headers});
+}
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET') return;
     const url = new URL(event.request.url);
@@ -158,6 +167,10 @@ self.addEventListener('fetch', event => {
             inFlight.set(url.href, pending);
             pending.finally(() => inFlight.delete(url.href)).catch(() => {});
         }
-        event.respondWith(inFlight.get(url.href).then(response => response.clone()));
+        event.respondWith(inFlight.get(url.href).then(response => isolatedResponse(response.clone())));
+    } else {
+        // HTML and worker scripts need isolation headers on GitHub Pages.
+        // Pass through fresh: never cache a mutable page or build-info response.
+        event.respondWith(fetch(event.request).then(isolatedResponse));
     }
 });

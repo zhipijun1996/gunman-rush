@@ -3,13 +3,33 @@ extends RefCounted
 ## Rendered-pixel sizing and local focus routing shared by the Demo modal owners.
 const BASE_MINIMUM := &"demo_modal_base_minimum"
 const BASE_FONT := &"demo_modal_base_font"
+static var _web_density := 1.0
+static var _density_window := Vector2i.ZERO
+static var _density_updated := -1000
+
+static func render_density(viewport: Viewport) -> float:
+	if not OS.has_feature("web"): return 1.0
+	var window_size := viewport.get_window().size
+	var now := Time.get_ticks_msec()
+	if window_size != _density_window or now - _density_updated > 500:
+		_density_window = window_size
+		_density_updated = now
+		# Read the actual backing store rather than assuming browser DPR. This
+		# also handles zoom, address-bar resizing and browser density overrides.
+		var value: Variant = JavaScriptBridge.eval("(()=>{const c=document.getElementById('canvas');if(!c)return 1;const r=c.getBoundingClientRect();return r.width>0?c.width/r.width:1})()")
+		if value is float or value is int: _web_density = clampf(float(value), 0.1, 8.0)
+	return _web_density
 
 static func pixel_scale(viewport: Viewport) -> float:
 	var scale := viewport.get_screen_transform().get_scale().abs()
-	return maxf(0.01, minf(scale.x, scale.y))
+	return maxf(0.01, minf(scale.x, scale.y) / render_density(viewport))
+
+static func ui_scale(_viewport: Viewport) -> float:
+	# Relative geometry follows the logical game canvas on every platform.
+	return 1.0
 
 static func compact(viewport: Viewport) -> bool:
-	var physical := viewport.get_visible_rect().size * viewport.get_screen_transform().get_scale().abs()
+	var physical := viewport.get_visible_rect().size
 	return physical.x < 1000 or physical.y < 600
 
 static func safe_rect(viewport: Viewport) -> Rect2:
@@ -32,11 +52,11 @@ static func signature(owner: Control) -> Array:
 	for node: Node in controls:
 		var control := node as Control
 		states.append([control.get_instance_id(), control.is_visible_in_tree(), control.disabled if control is BaseButton else false])
-	return [viewport.get_visible_rect().size, viewport.get_screen_transform(), window.size, window.position, safe_rect(viewport), states]
+	return [viewport.get_visible_rect().size, viewport.get_screen_transform(), pixel_scale(viewport), window.size, window.position, safe_rect(viewport), states]
 
 static func apply(owner: Control) -> void:
 	var viewport := owner.get_viewport()
-	var scale := pixel_scale(viewport)
+	var scale := ui_scale(viewport)
 	var is_compact := compact(viewport)
 	var font_factor := clampf(1.0 / scale, 1.0, 1.8) if is_compact else 1.0
 	for node: Node in owner.find_children("*", "Control", true, false):

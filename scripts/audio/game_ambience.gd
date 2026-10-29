@@ -8,7 +8,8 @@ var session_volume := 0.7:
 	set(value):
 		session_volume = clampf(value, 0.0, 1.0) if is_finite(value) else 0.0
 		if session_volume <= 0.0:
-			for voice: AudioStreamPlayer in _beds + _details: voice.stream_paused = true
+			for voice: AudioStreamPlayer in _beds + _details:
+				if not voice.stream_paused: voice.stream_paused = true
 var profile := "original"
 var region := ""
 var candidate := ""
@@ -172,8 +173,11 @@ func _process(delta: float) -> void:
 		clear()
 		return
 	var is_paused := get_tree().paused
-	for voice: AudioStreamPlayer in _beds: voice.stream_paused = is_paused
-	for voice: AudioStreamPlayer in _details: voice.stream_paused = is_paused
+	var should_pause := is_paused or session_volume <= 0.0
+	# Web Sample unpause restarts its native AudioBufferSourceNode, even if it
+	# was already playing. Apply only real pause/mute state transitions.
+	for voice: AudioStreamPlayer in _beds + _details:
+		if voice.stream_paused != should_pause: voice.stream_paused = should_pause
 	if is_paused: return
 	var real_delta := delta / maxf(0.001, Engine.time_scale)
 	_clock += real_delta
@@ -183,7 +187,6 @@ func _process(delta: float) -> void:
 		var voice := _beds[index]
 		var linear := session_volume * _gains[index] * db_to_linear(float(voice.get_meta("gain_db", 0.0)))
 		voice.volume_db = linear_to_db(maxf(0.00001, linear))
-		voice.stream_paused = session_volume <= 0.0
 		if _elapsed >= CROSSFADE_SECONDS and _targets[index] == 0.0:
 			voice.stop()
 			voice.stream = null
@@ -195,7 +198,6 @@ func _process(delta: float) -> void:
 		var max_distance := float(voice.get_meta("max_distance", 720.0))
 		var attenuation := clampf(1.0 - listener.global_position.distance_to(at) / max_distance, 0.0, 1.0)
 		voice.volume_db = linear_to_db(maxf(0.00001, session_volume * attenuation * db_to_linear(float(voice.get_meta("gain_db", 0.0)))))
-		voice.stream_paused = session_volume <= 0.0
 		voice.set_meta("attenuation", attenuation)
 	_playbacks = _playbacks.filter(func(reference: WeakRef) -> bool: return reference.get_ref() != null)
 

@@ -58,7 +58,7 @@ func _fit() -> void:
 	var viewport := get_viewport()
 	var viewport_size := viewport.get_visible_rect().size
 	var safe := METRICS.safe_rect(viewport)
-	var scale := METRICS.pixel_scale(viewport)
+	var scale := METRICS.ui_scale(viewport)
 	var is_compact := METRICS.compact(viewport)
 	var edge := 16.0 / scale if is_compact else 24.0
 	_safe_margin.add_theme_constant_override("margin_left", ceili(safe.position.x + edge))

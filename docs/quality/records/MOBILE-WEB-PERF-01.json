@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "task_type": "small_fix",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save及声音素材；只改已复现的总线创建和暂停状态写入",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "task_id": "MOBILE-WEB-PERF-01",
+  "workflow": "awaiting-device",
+  "baseline_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+  "reviewed_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+  "content_version": "web-audio-bus-pause-v1",
+  "owner": "root",
+  "purpose": "移动Web音频根因复现及两处针对性修复",
+  "player_experience": "手机横屏稳定流畅且原BGM/环境音/动作音效保留",
+  "affected_paths": [
+    "scripts/audio/game_audio.gd",
+    "scripts/audio/game_ambience.gd",
+    ".github/workflows/deploy-prepared-playtest.yml",
+    "docs/worklines/mobile_web_perf_01/scope.md",
+    "tools/mobile_web_perf/analyze_formal_pcm.py",
+    "tools/mobile_web_perf/make_variants.py",
+    "tools/mobile_web_perf/pcm_worklet.js",
+    "tools/mobile_web_perf/probe.gd",
+    "tools/mobile_web_perf/gpu_probe.js",
+    "tools/mobile_web_perf/audio_probe.js",
+    "tools/mobile_web_perf/instrument_worklet.py",
+    "tools/mobile_web_perf/build_formal_audio_ab.py",
+    "tools/mobile_web_perf/verify_production_audio.py",
+    "tools/mobile_web_perf/minimal_pcm_worklet.js",
+    "tools/mobile_web_perf/official_baseline.py",
+    "tools/mobile_web_perf/audio_graph_probe.js",
+    "tools/mobile_web_perf/run_formal_audio_ab.py",
+    "tools/mobile_web_perf/minimal_audio_repro.gd",
+    "tools/mobile_web_perf/formal_pcm_worklet.js",
+    "tools/mobile_web_perf/serve_coi.py",
+    "tools/mobile_web_perf/build_probe.py",
+    "tools/mobile_web_perf/triage_audio.py",
+    "tools/mobile_web_perf/run_minimal.py",
+    "tools/mobile_web_perf/minimal_audio_repro.gd.uid",
+    "tools/mobile_web_perf/probe.gd.uid",
+    "tools/mobile_web_perf/run_ab.py",
+    "tools/mobile_web_perf/prepare_comparison.py",
+    "tools/check_quality_diff.py",
+    "tools/mobile_web_perf/verify_published_audio.py"
+  ],
+  "deliverables": [
+    "current Web baseline and independent AB receipts",
+    "measured hotspot fix",
+    "physical-phone comparison build"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "用户最新音频优先、先A/B再修复的范围已记录",
+      "evidence": [
+        "scope"
+      ],
+      "scenario": "动作几乎流畅、游戏内声音卡而菜单正常",
+      "method": "用户反馈与独立复现",
+      "expected": "保已认可UI和画质，只修可证实音频路径",
+      "failure": "未经证据删光照/降分辨率/改全部Stream"
+    },
+    {
+      "id": "audio-technical",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "官方Web导出、160项原生及独立源码审查",
+      "evidence": [
+        "audio-build",
+        "audio-review"
+      ],
+      "scenario": "总线重复创建、暂停/静音/恢复/关闭",
+      "method": "实际项目工具链与既有真实消费者",
+      "expected": "不再错误追加bus或重复unpause，不破坏已有音量和关闭契约",
+      "failure": "运行ERROR/泄漏/消费者回归"
+    },
+    {
+      "id": "audio-formal",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "实际标准导出中的两个场景和四个动作声，不以简化App替代",
+      "evidence": [
+        "audio-web"
+      ],
+      "scenario": "普通触屏跳跃/射击、家园菜单Explore进入真实关卡",
+      "method": "真实官方PCK和engine；blob仅作只读PCM观察",
+      "expected": "动作声模板完整存在且匹配native音频时钟，菜单/区域路由无ERROR",
+      "failure": "native开始但PCM无完整对应波形或错用替代场景"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_web_perf_01/scope.md",
+      "sha256": "6299ac9c93acc29c9455f85f43f81fb131ddb4e5cc0173fdbf4a366718814755",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "759a828b33d32f87ccaff37a0b564c9b10fb7274",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "current user requirements and actual public build identity",
+      "observed": "main1b实际最小复现与正式demo四case完成后，仅修总线创建与重复unpause"
+    },
+    {
+      "id": "audio-analysis",
+      "path": "docs/evidence/mobile_web_perf_01/formal-audio-analysis.json",
+      "sha256": "7b9d65bef5088aec9bc8cb4284ec6f5e9997776bb4440241262f2ad6566e930d",
+      "kind": "runtime_trace",
+      "producer": "style_rebind",
+      "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "independent source/PCM review",
+      "observed": "main1b正式四case；补录bus_only真实Home/Plains跳跃射击PCM；第一轮漏录保留"
+    },
+    {
+      "id": "audio-review",
+      "path": "docs/evidence/mobile_web_perf_01/production-review.json",
+      "sha256": "45fcece8db66df2fe8e11308f19abd3c86d0c0e46f32fa26d8bc758d1ad0b6f5",
+      "kind": "review",
+      "producer": "review_mobile_ui",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "independent source/PCM review",
+      "observed": "独立只读源码限定ACCEPT，生产与已测两case等价；不代签组合Web/实体手机",
+      "reviewer": "independent subagent /root/review_mobile_ui",
+      "implementers": [
+        "root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct readonly source reviewer; never edited the production files under review"
+    },
+    {
+      "id": "audio-build",
+      "path": "docs/evidence/mobile_web_perf_01/production-build.json",
+      "sha256": "3dd965f49e67dcb31c805f0774982c1cdf22a4bfbdaa2078218c53a955d1ea10",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "actual official export, whole-bundle verification and original native audio consumers",
+      "observed": "Web export/cache/bundle passed; ambience55+selected45+home60 checks, failures0",
+      "command": "python3 tools/build.py web",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 official native export; unchanged official single-threaded JS/WASM/worklets"
+    },
+    {
+      "id": "audio-web",
+      "path": "docs/evidence/mobile_web_perf_01/production-browser/report.json",
+      "sha256": "07e5ea98fd13bff34e853a64667ffeaaf2f60ca15b26e9637c0cc2f4ce43f09b",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Actual exported standard demo with ordinary native touches and Home Explore, browser-only PCM observer",
+      "observed": "Home/Plains jump and pulse full waveforms align with native start+2samples; browser/script/shader errors0; no FPS/device/full BGM claim",
+      "consumers": [
+        "standard-home-audio",
+        "standard-plains-audio"
+      ]
+    },
+    {
+      "id": "audio-consumers",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/consumer-inventory.json",
+      "sha256": "a804f93ff2b6d39664eaa9008627c1a33d2b729430df037c3056ddcac6ef7b5b",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Extract bounded actual standard-browser route observations",
+      "observed": "Home and Plains actual original game outputs; no simplified App or script scene replacement"
+    },
+    {
+      "id": "audio-production-analysis",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/production-audio-analysis.json",
+      "sha256": "533677ccaabdb0e31bcf7fc0081aa117d178862e18a91856408a9ef872f0a83c",
+      "producer": "independent subagent /root/style_rebind",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Independent PCM negative controls and exact native-clock window attribution",
+      "observed": "limited four-sound production PCM confirmation"
+    },
+    {
+      "id": "audio-public",
+      "kind": "runtime_trace",
+      "path": "docs/evidence/mobile_web_perf_01/public-download.json",
+      "sha256": "5498ee663451bdf292fec00599d5ef44d94419cc6566b68e940cefca482f5636",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Full HTTP download and SHA/length check against both exact prepared bundles",
+      "observed": "10 full files identical; no device acceptance"
+    },
+    {
+      "id": "audio-delivery",
+      "kind": "gui",
+      "path": "docs/evidence/mobile_web_perf_01/validation/summary.json",
+      "sha256": "eb2c36a8ef268cb420ec4e00b96ccbcfbe3b7ee65d20c89db5bc355e99629282",
+      "producer": "root",
+      "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83",
+      "content_version": "web-audio-bus-pause-v1",
+      "method": "Both exact published bundles checked via ordinary touch GUI, metadata and full downloads; targeted checks on6adf13a source descendants",
+      "observed": "Both before/after GUI passed; docs/cache/bundle fresh3/0; physical device and full BGM continuity unverified"
+    }
+  ],
+  "unverified_items": [
+    "physical Honor/Huawei audio acceptance",
+    "long-duration BGM/environment continuity on physical mobile Chrome"
+  ],
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "冻结当前已认可UI/Web基线与独立消融要求",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "两个音频路径最小复现、真实场景独立消融及不同作者只读复核；组合正式Web仍需另列",
+      "evidence": [
+        "audio-build",
+        "audio-review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "等待实际证据",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "用户要求保画质/功能/声音并逐项验证",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定两音频路径最小复现、160项原生及当前官方Web导出；不签手机连续性",
+      "evidence": [
+        "audio-build"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "限定当前标准PCK的Home实际触屏与菜单Explore进入Plains，四个动作声实际混音确认；完整游戏和长BGM未验",
+      "evidence": [
+        "audio-web"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立作者源码及PCM分析限定范围；不代签真机或完整BGM连续性",
+      "evidence": [
+        "audio-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "等待实际证据，不代签真机",
+      "evidence": []
+    }
+  },
+  "consumer_coverage": {
+    "scope": "Two actual standard demo route outputs observed from ordinary title touch and Home menu Explore, with original PCK/native sources/PCM. Not the complete audio bank, BGM continuity or physical-phone inventory.",
+    "inventory_evidence": "audio-consumers",
+    "observations": [
+      {
+        "consumer": "standard-home-audio",
+        "status": "passed",
+        "reason": "actual ordinary touch and recorded native-aligned four-sound output, limited to these observed outputs",
+        "output": "behavior",
+        "evidence": [
+          "audio-web"
+        ]
+      },
+      {
+        "consumer": "standard-plains-audio",
+        "status": "passed",
+        "reason": "actual ordinary touch and recorded native-aligned four-sound output, limited to these observed outputs",
+        "output": "behavior",
+        "evidence": [
+          "audio-web"
+        ]
+      }
+    ]
+  }
+}
