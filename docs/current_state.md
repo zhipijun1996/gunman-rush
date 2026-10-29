@@ -1,5 +1,10 @@
 # 当前状态
 
+## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
+
+用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。
+
+
 ## 2026-10-29 AUDIO-HOME-01 · 已选择底声＋生活音
 
 用户在家园三模式交付后明确“底音+生活音”，选定当前home-quiet-01的life整体方案。config/audio_director/home/user-selected.json绑定manifest9da878...、床与8条生活素材SHA、原话与影片源a4b／UI745；brief自动读取并拒绝版本/文件漂移。保床额外−2dB、原BGM与每NPC12–22秒/全局6秒/最多1点声。区域A/A选择保持。
