@@ -56,3 +56,9 @@
 f21b源定向docs/web-cache/web-bundle三项全fresh通过，见targeted-harness；不是完整CI。原始证据`followup-raw.tar.gz`及逐文件SHA见followup-raw-index.json，包含63/2旧native准备失败、threaded首次本地启动失败和公网首次安装失败。手机连续声音、长时BGM和最终玩家认可仍awaiting-device；根因结论仅限已测环境，PR117不合main。
 
 公网声音独立负控复核已完成：Home原BGM整8秒rho0.986599/gain0.112087，Plains rho0.930016/gain0.112112（原0.16×0.7=0.112）；各16个连续半秒片段，参考时间逐帧推进且偏差0，没有重启/跳帧，错曲/反序负控显著更低。每个真实8秒WAV落入counter包围区间，窗内underrun增量0；较宽动作counter窗口的Home1792欠载发生在录音窗外。已选pulse A比旧pulse/B/C/reverse负控的相关度优势Home0.529422、Plains0.484071。报告public-threaded-output-review.json保全部区间与负控，不签完整曲目或手机。
+
+## 后续真机澄清：普通主页，只有声音卡
+
+用户补充：家园初进较好，逐渐加重；网页后台声音正常，回前台卡；暂停较关卡轻。随后明确“普通试玩主页，然后画面和操作都不卡，只有声音卡”。原话见device-feedback-03.json。此反馈不能记作独立线程版在手机上失败，也不能因其动作流畅便排除供音排队。
+
+本次重新读取公开身份：普通主页build1d3791a7c290且GODOT_THREADS_ENABLED=false；独立线程对照仍复用同一PCK，见public-entry-clarification.json。手机当时缓存的具体build未提供，不能用当前HTTP身份冒充手机身份。版本澄清后不重复云端短窗A/B，本轮只做静态生命周期/前景审查，没有新增连续运行、前后台切换或热降频实测。下一步是同手机在现有audio-threaded入口连续运行数分钟，记录游戏、暂停及前后台的变化；结果出来后再决定普通主页供音配置与进一步热点测量。

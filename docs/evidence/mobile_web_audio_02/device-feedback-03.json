@@ -1,0 +1,15 @@
+{
+  "task": "MOBILE-WEB-AUDIO-02",
+  "quotes": [
+    "一开始进家园还不是很卡，慢慢越来越卡。网页在后台声音正常，切到前台就卡。打开暂停菜单也有点卡，没有关卡那么卡",
+    "普通试玩主页，然后画面和操作都不卡，只有声音卡"
+  ],
+  "reported_entry": "ordinary_homepage",
+  "reported_device": "Honor60Pro / Chrome from prior user information",
+  "actual_phone_build": "not supplied; current public build is not proof of cached phone identity",
+  "observed_problem": "audio-only stutter, worsens over time, background improves, foreground/level worse than menu",
+  "threaded_device_result": "not reported; do not classify this as threaded comparison failure",
+  "interpretation": "Compatible with foreground work affecting Stream supply. Does not establish a particular shader hotspot, resource leak, thermal throttling, or physical threaded improvement.",
+  "next": "Use existing same-PCK threaded comparison on same phone for several minutes and foreground/background transition; collect diagnostic record before changing production rendering or default engine.",
+  "new_runtime_measurements_this_followup": false
+}
