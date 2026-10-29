@@ -353,7 +353,19 @@ def comparison_variants(trace, identity, game_commit):
         end = integer(page['end_movie_process_frame'], 'comparison.end')
         bounds = (start / 60, end / 60)
         require(0 <= bounds[0] < bounds[1] <= identity['duration'] + 1e-6, 'Comparison page outside movie')
-        require(all(start <= row['movie_process_frame'] <= end for row in rows), 'Comparison row escaped page')
+        observed = [integer(row['movie_process_frame'], 'comparison.row') for row in rows]
+        require(observed == list(range(observed[0], observed[0] + len(observed))),
+                'Comparison page frames are missing, repeated or reordered')
+        require(observed[-1] == end, 'Comparison page end disagrees with last actual row')
+        # The initial deferred page is already sampled in its assembly frame;
+        # its declared playback begins one frame later. Keep the safer declared
+        # clip, disclose that excluded sample, and never move the source trace.
+        initial_deferred_sample = page['page'] == 0 and observed[0] == start - 1
+        require(observed[0] == start or initial_deferred_sample,
+                'Comparison page start disagrees with actual rows')
+        clip_rows = [row for row in rows if start <= row['movie_process_frame'] <= end]
+        require(len(clip_rows) == len(rows) - (1 if initial_deferred_sample else 0),
+                'Comparison rows escaped safe playback interval')
         variant_id = species + '-scale-comparison-' + game_commit[:12] + '-' + identity['media_sha256'][:12]
         revision = game_commit + ':' + identity['media_sha256'] + ':page=' + str(page['page']) + ':chain=staged_scale_comparison:entry=' + species
         note = ('实际DemoApp平原、原玩家与保留俯冲怪同屏；该展示样本AI／玩家输入被明确held，'
@@ -364,11 +376,14 @@ def comparison_variants(trace, identity, game_commit):
                                  bounds, note + ' 没有本页八项战斗动作证据；认可只针对这段同屏比例。', actions)
         variants.append((species, variant))
         posters.append({'variant': variant_id,
-                        'frame': integer(rows[0]['movie_process_frame'], 'comparison.poster'),
+                        'frame': integer(clip_rows[0]['movie_process_frame'], 'comparison.poster'),
                         'species': species, 'basis': 'First actual comparison-page movie process frame'})
         proofs.append({'species': species, 'page': page['page'],
                        'movie_start_process_frame': start, 'movie_end_process_frame': end,
-                       'observed_frames': page['observed_frames'], 'combat_evidence': False})
+                       'observed_frames': page['observed_frames'], 'combat_evidence': False,
+                       'actual_first_observation_frame': observed[0],
+                       'excluded_before_declared_playback': observed[:1] if initial_deferred_sample else [],
+                       'playback_policy': 'Declared interval retained; initial deferred one-frame sample disclosed and excluded'})
     return variants, posters, proofs
 
 

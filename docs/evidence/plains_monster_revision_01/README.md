@@ -13,7 +13,7 @@
 
 [原始采集包](capture-originals.zip)保存两片各自trace、原PCM、完整report、日志及相关来源；不重复外置MP4。[全文件清单](manifest.json)记录字节大小和SHA256，ZIP内有原member清单。新片普通血量／辅助线与身体动作必须看实际画面；shader使用1wu nearest不自动证明与整体美术一致。
 
-当前为复审候选。用户审美、实体设备、完整正常速度听审及G5未签；最终独立视觉报告尚在出具。此归档时新视频尚未发布到[既有私密怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)，原站点版本不能代签本轮更新。最终适用163项Harness尚待执行，历史技术通过不记为当前源全量通过。后续发布／回归收据由root另补实际结果。
+当前为复审候选。[最终有限独审](review/plains_revision_visual_review_final.md)已确认死亡问题修复及实际同屏粒度可进入审核；用户审美、实体设备、完整正常速度听审及G5未签。新视频已原生私密发布至[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)，站点源c2de0bff；原75版本与意见归属保留，详见下方实际发布收据。原163回归attempt01只执行8项、在旧登记/任务索引处失败，修复后同一范围继续；未执行项不记通过。
 
 ## 当前实现的明确边界
 
@@ -41,3 +41,11 @@
 [三份旧测试守门迁移独审](review/plains_revision_code_review_r3.md)限定接受真实rig消费者适配，并独立核三测试在最终7edda9源的字节与原R3一致。它不签整怪视觉，也不把此前native/formal执行追签为最终head新执行。旧Frames四组资源、真实受伤／死亡／暂停／慢时／epoch／支撑／保存／掉落／释放与严格退出仍各有守门。
 
 [来源清单](manifest.json)列各原始文件；[目录转换helper](capture/add_plains_revision_catalog.py)要求真实视频／trace／captureSHA和可读取的media commit，保旧版本与反馈归属；[平原比较录制wrapper](capture/capture_plains_revision_comparison_03.py)保实际生成场景与声明范围。Sites反馈DB、旧视频及历史意见继续保留，新版发布实际收据另列。
+
+## 私密工坊新版已发布
+
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已原生Sites发布成功：站点源c2de0bff9db68bd6ab03af661e60823c10e6e880，部署与源码/归档见site/。25条目/88版本，原75版本原ID/revision/actions/provenance保留，新增7战斗片＋6实际平原同屏片。API13＋UI19测试、artifact验证均通过；两部原片完整HTTP200/SHA实核。D1/API/UI/schema不改，不写伪用户意见。
+
+原回归attempt01实际仅执行8项：7通过，quality因两旧registry source hash/新process任务索引缺失失败，后155未执行。保integration/attempt-01，不称全量跑完。技术登记追加证明与独审另保asset-registration/及review/；随后重跑同一163项。实际输入物化仅恢复3个原tracked文件共约1MB，不修改原内容/阈值。
+
+comparison初页300条观测为movie9..308，声明可播10..308；转换器保持原可播区、排除首个前导观测并取poster10，不改原trace/影片，其他5页无排除。独立46项回归及18篡改拒绝见site/comparison-safeclip-*。

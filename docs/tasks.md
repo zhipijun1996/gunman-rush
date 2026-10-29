@@ -619,6 +619,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
 
-| PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7edda9候选实机76.17秒/basic0＋原平原同屏六页；专项340／0；历史拒绝保留，最终回归与工坊新版待交付，用户/真机/听感未签 |
+| PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7edda9候选实机76.17秒/basic0＋原平原同屏六页；专项340／0；历史拒绝保留，工坊新版已私密发布，最终回归继续，用户/真机/听感未签 |
 | ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
 | ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
+| PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
