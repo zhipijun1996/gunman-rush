@@ -44,18 +44,7 @@
       "content_version": "threaded-production-v1",
       "method": "Real demo SceneTree and original teardown; runtime source frozen fb5dc84b, test source committed27977c9c",
       "observed": "31/0",
-      "command": [
-        "bash",
-        "tools/godot.sh",
-        "--headless",
-        "--verbose",
-        "--fixed-fps",
-        "60",
-        "--path",
-        ".",
-        "--script",
-        "res://tests/audio_fix_03.gd"
-      ],
+      "command": "bash tools/godot.sh --headless --verbose --fixed-fps 60 --path . --script res://tests/audio_fix_03.gd",
       "exit_code": 0,
       "environment": "Linux Godot4.7.2 headless; actual phone not claimed"
     },
@@ -69,18 +58,7 @@
       "content_version": "threaded-production-v1",
       "method": "Real demo SceneTree and original teardown; runtime source frozen fb5dc84b, test source committed27977c9c",
       "observed": "63/0",
-      "command": [
-        "bash",
-        "tools/godot.sh",
-        "--headless",
-        "--verbose",
-        "--fixed-fps",
-        "60",
-        "--path",
-        ".",
-        "--script",
-        "res://tests/selected_sfx_runtime.gd"
-      ],
+      "command": "bash tools/godot.sh --headless --verbose --fixed-fps 60 --path . --script res://tests/selected_sfx_runtime.gd",
       "exit_code": 0,
       "environment": "Linux Godot4.7.2 headless; actual phone not claimed"
     }
@@ -96,8 +74,8 @@
       "evidence": []
     },
     "G1": {
-      "status": "passed",
-      "reason": "小修实际运行专项通过，未代签最终完整CI",
+      "status": "unverified",
+      "reason": "专项通过，完整门槛所需证据与完整CI待完成；不以command-only记录代签",
       "evidence": [
         "native-01",
         "selected-01"
@@ -139,8 +117,8 @@
       ]
     },
     "formal_integration": {
-      "status": "passed",
-      "reason": "实际demo专项31/0及原选择专项63/0；完整CI/Web最终main验证另列",
+      "status": "unverified",
+      "reason": "实际demo专项31/0和选择专项63/0已执行，但没有本卡完整consumer_coverage及所需类型的证据；撤回超范围PASS，不改变原日志/断言/门槛",
       "evidence": [
         "native-01",
         "selected-01"
@@ -162,8 +140,8 @@
       "evidence": []
     },
     "gameplay": {
-      "status": "passed",
-      "reason": "实际demo专项31/0及原选择专项63/0；完整CI/Web最终main验证另列",
+      "status": "unverified",
+      "reason": "实际demo专项31/0和选择专项63/0已执行，但没有本卡完整consumer_coverage及所需类型的证据；撤回超范围PASS，不改变原日志/断言/门槛",
       "evidence": [
         "native-01",
         "selected-01"

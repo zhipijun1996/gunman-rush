@@ -1,5 +1,12 @@
 # 当前状态
 
+## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
+
+普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。
+
+6614e119完整CI的parallel因新验收卡格式/超范围PASS失败，已保原日志并修正记录；游戏源不变，未跳过165检查。冻结修正head后重新执行完整CI，通过再正常合PR117并从实际main导出。[证据](evidence/mobile_web_audio_fix_03/README.md)。
+
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 线程供音正式修复，已授权合main
 
 用户确认原独立线程测试页加载后声音正常，并要求修复后关闭空中瞄准/慢时附加声、机关清脆风铃，随后授权“完成后合入main”。生产fb5dc84b已导出683cf2cce4d6，正式threads=true，原UI/画质/工坊选择/五BGM不变；实际demo31/0和selected63/0已过。普通入口Web、缓存迁移、独审和精确head完整CI正在验证，通过后合PR117并导出实际main发布。[本轮证据](evidence/mobile_web_audio_fix_03/README.md)。
