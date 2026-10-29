@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-UI-CLARITY-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+  "reviewed_commit": null,
+  "content_version": "shared-canvas-hidpi-v1",
+  "owner": "root",
+  "purpose": "修正手机UI逆缩放和低DPI画布，兼容电脑且维持共同UI/世界比例，快速交付Web试玩",
+  "player_experience": "手机与电脑比例一致，中文字形/细像素清楚，家园提示不再压住摇杆",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save/audio",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "affected_paths": [
+    "docs/creative_direction/archive/creative-v21/registry.json",
+    "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v21/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+    "docs/creative_direction/revision_creative_v22.md",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/demo_menu.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_item_codex.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/home_scene.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/manifest.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/registry.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/stage_reward_modal.gd.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/style-continuity-20261028-v18-chest-art.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_bible.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/test_region_creative_direction.py.txt",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/thorn_forest.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/windchime_plains.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/first-attempt-input-failures.json",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction-tests.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/creative-direction.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-contract.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/region-bible-tests.log",
+    "docs/evidence/mobile_ui_clarity_01/source-bindings/validation/summary.json",
+    "docs/handoff.md",
+    "docs/quality/records/MOBILE-UI-CLARITY-01.json",
+    "docs/tasks.md",
+    "docs/worklines/mobile_ui_clarity_01/scope.md",
+    "project.godot",
+    "scripts/demo/home_scene.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/demo_ui_01/game_hud.gd",
+    "scripts/ui/demo_ui_01/game_typography.gd",
+    "scripts/ui/demo_ui_01/modal_metrics.gd",
+    "scripts/ui/demo_ui_01/modal_shell.gd",
+    "scripts/ui/demo_ui_01/title_backdrop.gd",
+    "scripts/ui/home_item_codex.gd",
+    "scripts/ui/plains_region_map_modal.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "scripts/underworld_plains/underworld_foreground.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/demo_ui_01/r2_runner.gd",
+    "tests/home_codex/test_home_item_codex_ui.gd",
+    "tests/mobile_ui_clarity/runner.gd",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/web_pixel_density/runner.gd",
+    "tools/build.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "shared logical UI metrics and Web HiDPI",
+    "Home touch layout",
+    "actual Web build and public playtest fingerprint"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户范围和当前合同已记录",
+      "evidence": [
+        "ui-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "等待实际验证",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "明确用户修复/快速Web/跨设备比例要求",
+      "evidence": [
+        "ui-scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮不生产或修改动画/音频",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮不生产或修改动画/音频",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "等待实际验证；真机/性能未验",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ui-scale",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "待实测",
+      "evidence": [],
+      "scenario": "desktop and mobile landscape at multiple DPR",
+      "method": "native geometry + actual exported Web screenshots and pointer input",
+      "expected": "same normalized title/HUD proportions and DPR-sized framebuffer",
+      "failure": "UI changes size with DPR or input misses controls"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ui-scope",
+      "path": "docs/worklines/mobile_ui_clarity_01/scope.md",
+      "sha256": "3376767ded895f3d58a1500d5ad255b08b4283dd12822c59804d13eb55b02313",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "1b29932c5333a9dad50759afc635762163ed79f5",
+      "content_version": "shared-canvas-hidpi-v1",
+      "method": "明确当前用户指令与真实消费者合同",
+      "observed": "先修UI/清晰度、跨设备比例一致、快速Web，不签性能"
+    }
+  ],
+  "unverified_items": [
+    "Honor60Pro physical-device visual/input/performance acceptance",
+    "Gold pickup sound and frame-time root cause remain separate work"
+  ]
+}

@@ -1,5 +1,9 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 修复中
+
+用户要求先修手机UI比例与发糊，并快速部署试玩；最新补充要求手机/电脑画面内比例一致。分支`fix/mobile-ui-clarity-20261029`基于main1b29932，采用共享逻辑画布＋真实Web HiDPI，清理家园触控重叠；不改音频/物理/保存，不签真机卡顿已解决。验证和公开构建尚待完成，不把旧618eb971包称新修复。详见[范围](worklines/mobile_ui_clarity_01/scope.md)和[质量记录](quality/records/MOBILE-UI-CLARITY-01.json)。
+
 ## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
 
 用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。

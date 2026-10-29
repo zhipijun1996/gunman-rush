@@ -1,5 +1,9 @@
 # 开发任务
 
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 修复中
+
+用户要求先修手机UI比例与发糊，并快速部署试玩；最新补充要求手机/电脑画面内比例一致。分支`fix/mobile-ui-clarity-20261029`基于main1b29932，采用共享逻辑画布＋真实Web HiDPI，清理家园触控重叠；不改音频/物理/保存，不签真机卡顿已解决。验证和公开构建尚待完成，不把旧618eb971包称新修复。详见[范围](worklines/mobile_ui_clarity_01/scope.md)和[质量记录](quality/records/MOBILE-UI-CLARITY-01.json)。
+
 ## 2026-10-26 AUDIO-DIRECTOR-01
 
 第一阶段声音审计/统一风格/许可原料/64可听候选、共享运行规范与手机Sound Lab；[工作线](worklines/audio_director_01/scope.md)、[交付入口](audio_director/README.md)。正式默认original，新声用户试听未验；原五曲MP3字节保留，内容保持review。

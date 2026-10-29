@@ -20,6 +20,12 @@ var _controls: HBoxContainer
 var overlay: TouchOverlay
 var _resource_hud: DemoGameHud
 var _hud: CanvasLayer
+var _home_top: HBoxContainer
+var _menu_button: Button
+var _prompt_backing: ColorRect
+var _interaction: Button
+var _layout_signature: Array = []
+var _notes := 0
 
 func _ready() -> void:
 	world=UnderworldHomeWorld.new()
@@ -71,6 +77,7 @@ func _ready() -> void:
 	_hud.layer = 10
 	add_child(_hud)
 	var top := HBoxContainer.new()
+	_home_top = top
 	top.theme = preload("res://scripts/ui/menu_theme.gd").create_theme()
 	top.position = Vector2(370, 16)
 	top.size = Vector2(886, 52)
@@ -85,11 +92,13 @@ func _ready() -> void:
 	_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(_status)
 	var menu_button := Button.new()
-	menu_button.text = "MENU / SETTINGS"
+	_menu_button = menu_button
+	menu_button.text = "菜单"
 	menu_button.custom_minimum_size = Vector2(200, 48)
 	menu_button.pressed.connect(func() -> void: requested_navigation.emit())
 	top.add_child(menu_button)
 	var prompt_backing:=ColorRect.new();prompt_backing.position=Vector2(325,544);prompt_backing.size=Vector2(650,82);prompt_backing.color=Color(.055,.10,.095,.84);prompt_backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(prompt_backing)
+	_prompt_backing = prompt_backing
 	_prompt = Label.new()
 	_prompt.position = Vector2(340, 550)
 	_prompt.size = Vector2(600, 62)
@@ -106,7 +115,8 @@ func _ready() -> void:
 	_controls.add_theme_constant_override("separation", 12)
 	_hud.add_child(_controls)
 	var interaction := Button.new()
-	interaction.text = "INTERACT"
+	_interaction = interaction
+	interaction.text = "互动"
 	interaction.custom_minimum_size = Vector2(150, 60)
 	interaction.pressed.connect(func() -> void:
 		if not input_blocked:
@@ -120,6 +130,7 @@ func _ready() -> void:
 	# HomeScene -> presentation -> scenery -> stage -> DemoApp class cycle.
 	var presentation:=load("res://scripts/underworld_plains/underworld_presentation.gd") as Script
 	presentation.attach(self,world,player)
+	_layout_home_hud()
 
 func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	var body := StaticBody2D.new()
@@ -136,7 +147,8 @@ func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	add_child(body)
 
 func set_meta_state(snapshot: Dictionary) -> void:
-	if _resource_hud != null: _resource_hud.present_context("风铃聚落 / HOME", 0, int(snapshot.get("notes", 0)))
+	_notes = int(snapshot.get("notes", 0))
+	if _resource_hud != null: _resource_hud.present_context("风铃聚落", 0, _notes)
 	if _status != null:
 		_status.text = "风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % snapshot.get("notes", 0)
 
@@ -164,7 +176,7 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	nearest_id = nearest_candidate(player.position) if player.is_on_floor() else &""
-	_prompt.text = "空中工坊 · Space 跳跃 / S 下穿平台\n向东走出聚落 → 风铃平原"
+	_prompt.text = "Space 跳跃 · S 下穿平台\n向右走出聚落 → 风铃平原"
 	if not nearest_id.is_empty():
 		_prompt.text = "%s\nW / Left stick up / INTERACT" % FUNCTION_NAMES[str(nearest_id)]
 	reserved_id=""
@@ -173,6 +185,15 @@ func _physics_process(_delta: float) -> void:
 			if not bool(entry.active) and player.is_on_floor() and absf(player.position.x-float(entry.x))<90 and absf(player.position.y+18-float(entry.get("y",FLOOR_Y)))<32:
 				reserved_id=str(entry.id)
 				_prompt.text=str(entry.label)+" · 功能预留，尚未开放"
+	if overlay.enabled:
+		_prompt.text = str(FUNCTION_NAMES[str(nearest_id)]).split(" / ")[0] if not nearest_id.is_empty() else "功能预留，尚未开放" if not reserved_id.is_empty() else ""
+		_prompt.visible = not _prompt.text.is_empty()
+		_prompt_backing.visible = _prompt.visible
+		_interaction.disabled = nearest_id.is_empty()
+	else:
+		_prompt.show()
+		_prompt_backing.show()
+		_interaction.disabled = false
 	world.update_focus(player.position,camera.get_screen_center_position().x)
 	_controls.visible = not input_blocked and controller.router.touch_enabled and controller.router.current_device != &"gamepad"
 	overlay.visible=not input_blocked and overlay.enabled and controller.router.current_device!=&"gamepad"
@@ -217,3 +238,34 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if is_instance_valid(player) and is_instance_valid(camera):
 		camera.position.x=clampf(player.position.x,640.0,float(world.specification.world_width)-640.0)
+	if is_instance_valid(_resource_hud):
+		var metrics := [get_viewport_rect().size, DemoUiModalMetrics.ui_scale(get_viewport()), overlay.enabled]
+		if metrics != _layout_signature: _layout_home_hud()
+		_resource_hud.present_touch_menu(overlay)
+
+func _layout_home_hud() -> void:
+	if not is_instance_valid(_interaction): return
+	var viewport := get_viewport()
+	var pixel_scale := DemoUiModalMetrics.ui_scale(viewport)
+	var safe := DemoUiModalMetrics.safe_rect(viewport)
+	_layout_signature = [get_viewport_rect().size, pixel_scale, overlay.enabled]
+	_resource_hud.present_context("风铃聚落", 0, _notes)
+	_resource_hud.present_touch_menu(overlay)
+	# Location and currency already belong to the shared HUD. Keep one menu
+	# target on touch, with the original overlay signal owning navigation.
+	_status.hide()
+	_home_top.visible = not overlay.enabled
+	_menu_button.custom_minimum_size = Vector2(108, 48)
+	_home_top.position = Vector2(safe.end.x - 132, safe.position.y + 18)
+	_home_top.size = Vector2(108, 48)
+	var button_size := Vector2(150, 60) / minf(1.0, pixel_scale)
+	_interaction.custom_minimum_size = button_size
+	_interaction.add_theme_font_size_override("font_size", 20)
+	_controls.size = button_size
+	_controls.position = Vector2(safe.get_center().x - button_size.x * 0.5, safe.end.y - button_size.y - 24.0 / pixel_scale)
+	var prompt_size := Vector2(minf(400.0, safe.size.x * 0.44), 52.0)
+	_prompt.size = prompt_size
+	_prompt.position = Vector2(safe.get_center().x - prompt_size.x * 0.5, _controls.position.y - prompt_size.y - 6.0 / pixel_scale)
+	_prompt.add_theme_font_size_override("font_size", 20)
+	_prompt_backing.position = _prompt.position - Vector2(4, 3) / pixel_scale
+	_prompt_backing.size = prompt_size + Vector2(8, 6) / pixel_scale

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v21",
+  "version": "creative-v22",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
-    "supplemental_authority_sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+    "supplemental_authority_sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d",
+    "registry_sha256": "5fa60413ae54e66410730a0f682d0d929fbda8ed7264fc6ad91337e2b9c8a718",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -189,6 +189,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
       "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+      "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
     }
   ],
   "historical_direction": {
@@ -197,28 +201,18 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "CHEST-ART-01",
-    "scope": "Source04 actual three-tier/two-state formal Plains/Forest chest presentation within selected whole-game style; only one old73 leaf updated and8 actual visual leaves appended. Published17/20 immutable. No new generation/global style change/reward mechanics or inherited old-source art acceptance.",
-    "previous_direction": "docs/creative_direction/archive/creative-v20/thorn_forest.json",
-    "previous_sha256": "d74ef213098bb9984f5807eb1637c4d1a58b9474433d7e157363e6ed909b22e8",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
-    "shared_style_sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510",
+    "task_id": "MOBILE-UI-CLARITY-01",
+    "scope": "Finite technical UI/HiDPI shared logical-canvas correction.4 actual visual-consumer SHA changes; other77/PNG/shaders/Bible exact. No new style or inherited acceptance.",
+    "previous_direction": "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+    "previous_sha256": "1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+    "shared_style_sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e",
     "affected_consumers": [
-      "scripts/demo/plains_region_stage.gd",
-      "scripts/art/chest_art_library.gd",
-      "scripts/art/chest_art_layer.gd",
-      "scripts/underworld_plains/underworld_objects.gd",
-      "scripts/presentation/forest_bible_presentation.gd",
-      "scripts/demo/thorn_forest_region_stage.gd",
-      "scripts/art/p1_unity_props.gd",
-      "config/chest_art.json",
-      "assets/objects/chests/chest-tiers-v1.source.png"
+      "scripts/demo/home_scene.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/ui/stage_reward_modal.gd",
+      "scripts/ui/home_item_codex.gd"
     ],
-    "validation": "Fresh original32+10/four scoped checks and actual current-source formal game capture/review separate; original four-generation budget/failed candidates preserved; source04 adoption is not old44/58 validation.",
-    "candidate_iteration_input_resume": {
-      "previous_direction": "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/thorn_forest.json",
-      "previous_sha256": "7be88d13236407b8f3bb47265def8b9efa91cdbab664be784e1007033be20133",
-      "scope": "Same unpublished21: existing DemoApp chest modal input resume only; all other80 references/PNG/config/shader/Library exact. Earlier18 pass not inherited; fresh actual checks required."
-    }
+    "validation": "Fresh original32+10/four pure checks and finite v19/22 stale-pointer validation; actual runtime/browser evidence separately recorded. Physical devices/performance/player acceptance unverified."
   }
 }
