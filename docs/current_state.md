@@ -1,5 +1,12 @@
 # 当前状态
 
+## 2026-10-29 AUDIO-HOME-01 · 家园平静与生活声音制作中
+
+继续PR113活跃音频线，前置7b28301f／main45e98不变。用户要求家园有平原的平静与NPC生活声；已读完整平原Bible/实际Home规则，注册[新范围](worklines/audio_home_01/scope.md)与authority。计划借用已选plains_a原字节，家园另−2dB，不改旧A/A manifest/选择、五BGM或shared loader。8个CC0短点声对应真实4keeper（织时匠/维修/武器/档案），静态NPC无动作帧，称所在地工坊内生活拟音。
+
+素材、运行适配与真实HomeLab按隔离写集实现；root独占Godot与Sites/质量。正式HomeScene/DemoApp/Underworld/81项style技术绑定均保持。新代码初步落盘，窄导入/parse开始；尚未录制/发布家园，不拿旧两区影片称家园。恢复先看build/audio_home_01和新scope、核所有writer/单引擎租约；不要在冻结录屏阶段改源。
+
+
 ## 2026-10-29 AUDIO-AMBIENCE-01 · 两区quiet-02均已选A
 
 用户在轻微环境版交付后明确“两者都选A”：平原`plains_a`、森林`forest_a`，保当前−14dB床声／原BGM混音。精确记录`config/audio_director/ambience/user-selected.json`绑定quiet-02、manifest与两OGG SHA、原话和原生producer e55910ec；brief自动读取并拒绝指纹漂移。原B方案与较响首版不删，不推导四点声或真机认可。

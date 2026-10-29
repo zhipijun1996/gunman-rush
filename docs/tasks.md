@@ -6,6 +6,7 @@
 | 任务 | 目标 | 依赖 | 状态 | 质量记录 |
 | --- | --- | --- | --- | --- |
 | AUDIO-AMBIENCE-01 | 两区环境音候选、轻微衬底混音与真实场景试听 | AUDIO-DIRECTOR-04 | review | [范围](worklines/audio_ambience_01/scope.md) · [质量记录](quality/records/AUDIO-AMBIENCE-01.json) |
+| AUDIO-HOME-01 | 家园平静底声与NPC生活音试听 | AUDIO-AMBIENCE-01 | in_progress | [范围](worklines/audio_home_01/scope.md) · [质量记录](quality/records/AUDIO-HOME-01.json) |
 | MAIN-MERGE-WEB-111 | PR111正常合入与实际main网页试玩 | CHEST-ART-01 | in_progress | [范围](worklines/main_merge_web_111/scope.md) · [质量记录](quality/records/MAIN-MERGE-WEB-111.json) |
 | CHEST-ART-01 | 三档宝箱关闭／开启六态美术与正式地图辨识 | ITEM-ART-01 | review | [规格](worklines/chest_art_01/spec.md) · [质量记录](quality/records/CHEST-ART-01.json) |
 | ITEM-AUTHOR-01 | 道具配置覆写、下架与数据式新增 | ITEM-V5-01 | review | [维护说明](item_authoring.md) · [范围](worklines/item_authoring_01/scope.md) · [质量记录](quality/records/ITEM-AUTHOR-01.json) |

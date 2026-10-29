@@ -41,3 +41,7 @@ description: 为失序之钟设计或优化SFX、敌人声音、钩索、UI和�
 “开发/优化环境音”先运行brief并读取[环境音工作线](../../../docs/audio_director/ambience.md)、两区完整原Bible与ambience sources/recipes/manifest。使用tools/audio_ambience_design.py的fetch/build/validate恢复真实CC0录音，不把V3短事件加工器当环境生产入口。大录音留忽略cache，按URL/SHA可恢复；许可页与原件记录保留。GameAudio拥有的GameAmbience仅显式开发启用，2床/2点声独立预算，原12短SFX池与正式original默认保留；点声只声源真实定位或明确fixture，不能声称完成全地图布点。
 
 用tools/capture_audio_ambience.py原生MovieMaker交两区同Seed/输入original/A/B；tools/audio_ambience_lab.py打包手机章节、原生BGM混音与淡出后环境单听、许可、选择导出。波形/循环接缝/实际播放通过仅签技术，不签自然感、录音污染、疲劳或用户认可。原先13项SFX选择不推导环境音选择；推广到正式仍按明确用户选择与授权。
+
+## 家园与NPC生活音
+
+“家园环境音”先读[家园工作线](../../../docs/audio_director/home_ambience.md)和brief的AUDIO-HOME-01上下文。复用已选quiet-02平原A原字节、单独home manifest，不重建或改签两区选择；tools/audio_home_design.py生产8条获许可生活拟音，HomeAmbienceAudition只绑定实际keeper/home_root，静态NPC无动画动作信号不能假称同步。真实Home原BGM对照由tools/capture_audio_home.py与tools/audio_home_lab.py交付；原工坊/root与previous-v1保留，子页/home/是新候选。

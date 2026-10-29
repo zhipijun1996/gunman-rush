@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-HOME-01",
+  "task_type": "animation",
+  "workflow": "in_progress",
+  "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "reviewed_commit": "7b28301f8c63b0bca0078284b8d611795bddf686",
+  "content_version": "audio-home-v1",
+  "owner": "Audio Director",
+  "purpose": "家园平原安静底声与真实NPC所在地稀疏生活拟音",
+  "player_experience": "在原家园BGM下感到安全、平静，靠近有人居住的工坊才听到轻微生活活动",
+  "constraints": [
+    "保五原BGM和已选quiet-02两区A/A字节",
+    "不改变Home规则/输入/物理/资源/存档/游戏RNG/美术母版",
+    "静态NPC无动作帧，不伪称拟音与挥锤动画同步"
+  ],
+  "affected_paths": [
+    ".agents/skills/audio-director/SKILL.md",
+    "assets/audio/ambience_v1/home/_sources/.gdignore",
+    "assets/audio/ambience_v1/home/_sources/fabric-rustling.html",
+    "assets/audio/ambience_v1/home/_sources/rustling.ogg",
+    "assets/audio/ambience_v1/home/home_cloth_1.wav",
+    "assets/audio/ambience_v1/home/home_cloth_1.wav.import",
+    "assets/audio/ambience_v1/home/home_cloth_2.wav",
+    "assets/audio/ambience_v1/home/home_cloth_2.wav.import",
+    "assets/audio/ambience_v1/home/home_page_1.wav",
+    "assets/audio/ambience_v1/home/home_page_1.wav.import",
+    "assets/audio/ambience_v1/home/home_page_2.wav",
+    "assets/audio/ambience_v1/home/home_page_2.wav.import",
+    "assets/audio/ambience_v1/home/home_tools_1.wav",
+    "assets/audio/ambience_v1/home/home_tools_1.wav.import",
+    "assets/audio/ambience_v1/home/home_tools_2.wav",
+    "assets/audio/ambience_v1/home/home_tools_2.wav.import",
+    "assets/audio/ambience_v1/home/home_wood_1.wav",
+    "assets/audio/ambience_v1/home/home_wood_1.wav.import",
+    "assets/audio/ambience_v1/home/home_wood_2.wav",
+    "assets/audio/ambience_v1/home/home_wood_2.wav.import",
+    "assets/audio/ambience_v1/home/manifest.json",
+    "config/audio_director/home/recipes.json",
+    "config/audio_director/home/sources.json",
+    "docs/audio_director/home_ambience.md",
+    "docs/audio_director/home_runtime.md",
+    "docs/audio_director/home_sources.md",
+    "docs/current_state.md",
+    "docs/evidence/audio_home_01/README.md",
+    "docs/evidence/audio_home_01/actions-01/native.log",
+    "docs/evidence/audio_home_01/actions-01/report.json",
+    "docs/evidence/audio_home_01/actions-01/trace.json",
+    "docs/evidence/audio_home_01/brief-home.json",
+    "docs/evidence/audio_home_01/brief-route-checks.json",
+    "docs/evidence/audio_home_01/design-build-02.log",
+    "docs/evidence/audio_home_01/design-tests-01.log",
+    "docs/evidence/audio_home_01/design-tests-root-01.log",
+    "docs/evidence/audio_home_01/development-plan-summary.json",
+    "docs/evidence/audio_home_01/import-01.log",
+    "docs/evidence/audio_home_01/mix-reference.json",
+    "docs/evidence/audio_home_01/probe-01/native.log",
+    "docs/evidence/audio_home_01/probe-01/probe.json",
+    "docs/evidence/audio_home_01/review-design-tests.json",
+    "docs/evidence/audio_home_01/review-design-tests.log",
+    "docs/evidence/audio_home_01/review-finite-path-counterexamples.json",
+    "docs/evidence/audio_home_01/review-preflight.md",
+    "docs/evidence/audio_home_01/review-source-license-check.json",
+    "docs/evidence/audio_home_01/review-static-consumer-inventory.json",
+    "docs/evidence/audio_home_01/runtime-01/native.log",
+    "docs/evidence/audio_home_01/runtime-01/report.json",
+    "docs/evidence/audio_home_01/runtime-02/native.log",
+    "docs/evidence/audio_home_01/runtime-02/report.json",
+    "docs/evidence/audio_home_01/runtime-03/native.log",
+    "docs/evidence/audio_home_01/runtime-03/report.json",
+    "docs/evidence/audio_home_01/scene-smoke-01/capture-override.cfg",
+    "docs/evidence/audio_home_01/scene-smoke-01/native.log",
+    "docs/evidence/audio_home_01/scene-smoke-01/report.json",
+    "docs/evidence/audio_home_01/scene-smoke-01/stop-reason.json",
+    "docs/evidence/audio_home_01/scene-smoke-02/capture-override.cfg",
+    "docs/evidence/audio_home_01/scene-smoke-02/home.png",
+    "docs/evidence/audio_home_01/scene-smoke-02/native.log",
+    "docs/evidence/audio_home_01/scene-smoke-02/report.json",
+    "docs/evidence/audio_home_01/scene-smoke-02/trace.json",
+    "docs/evidence/audio_home_01/source-research.json",
+    "docs/handoff.md",
+    "docs/quality/asset_records/audio-home-v1.json",
+    "docs/tasks.md",
+    "docs/worklines/audio_home_01/authority.json",
+    "docs/worklines/audio_home_01/scope.md",
+    "scenes/dev/audio_home_lab.tscn",
+    "scripts/audio/home_ambience_audition.gd",
+    "scripts/demo/audio_home_lab.gd",
+    "tests/audio_home_runtime.gd",
+    "tests/test_audio_home_design.py",
+    "tools/audio_director.py",
+    "tools/audio_home_capture.gd",
+    "tools/audio_home_design.py",
+    "tools/audio_home_lab.py",
+    "tools/capture_audio_home.py",
+    "tools/sound_lab/home_index.html",
+    "tools/sound_lab/verify_home.mjs"
+  ],
+  "deliverables": [
+    "真实Home三段正常BGM原音轨对比",
+    "8个可追溯CC0生活点声/低响床引用",
+    "手机/home/试听页",
+    "显式运行适配与必要最小验证"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "复用选定平原A再−2dB与四种近距轻生活声作为家园候选",
+      "basis": "用户要求平原的平静和NPC生活声；精确新混音未获听感确认"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "真实用户目标、现有家园与已选平原风格、写集/音画边界已固定",
+      "evidence": [
+        "home-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "既有家园/平原语言和真实NPC生活来源假设已定义，具体音色待听",
+      "evidence": [
+        "home-scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "无新美术或角色动画；新声音不伪称静态NPC有动作帧",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "无新美术或角色动画；新声音不伪称静态NPC有动作帧",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "home-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "音频候选范围与真实Home宿主固定",
+      "evidence": [
+        "home-scope"
+      ],
+      "scenario": "既有风铃家园和四静态keeper",
+      "method": "读取实际源、已选声音、原Bible并绑定SHA",
+      "expected": "安静家园/近距生活有真实宿主且无规则变更",
+      "failure": "淹没BGM、无宿主声或假动作同步"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "home-scope",
+      "path": "docs/worklines/audio_home_01/scope.md",
+      "sha256": "3140820ecdd56ccd5944bff15970eb39e9268dbf897654d3430cb3664bb055c8",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "7b28301f8c63b0bca0078284b8d611795bddf686",
+      "content_version": "audio-home-v1",
+      "method": "Actual Home/Bible/source/approved quiet sound read; bounded opt-in audition scope",
+      "observed": "Existing4static keepers and home/player/music are actual consumers; no new region or movement"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新家园听感/素材生活语义/自然感",
+    "真实实体手机/Safari/扬声器",
+    "完整CI与正式推广",
+    "自然上层NPC全路线/动画同步未制作"
+  ]
+}

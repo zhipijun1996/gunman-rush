@@ -132,7 +132,8 @@ def brief(request,output):
     if selected_path in inputs:
         selection=read(ROOT/selected_path)
         result['user_selection']={'path':selected_path,'event_profiles':selection['event_profiles'],'provenance':selection['provenance'],'scope':'User selected individual event sounds on 2026-10-28; combined mix, formal rollout and device quality remain unapproved. Preserve original shuriken, bomb, jump and landing.'}
-    if any(word in request.lower() for word in ['环境', 'ambien', '风声', '鸟鸣', '叶声', '氛围声']):
+    home_request = ('家园' in request and any(word in request for word in ['音', '声音', '生活', '氛围'])) or ('home' in request.lower() and any(word in request.lower() for word in ['audio', 'sound', 'ambien'])) or ('npc' in request.lower() and '生活' in request)
+    if home_request or any(word in request.lower() for word in ['环境', 'ambien', '风声', '鸟鸣', '叶声', '氛围声']):
         ambience_inputs=['docs/audio_director/ambience_event_catalog.json','docs/audio_director/ambience.md','docs/audio_director/ambience_sources.md','docs/audio_director/ambience_runtime.md','docs/worklines/audio_ambience_01/authority.json','config/audio_director/ambience/sources.json','config/audio_director/ambience/recipes.json','assets/audio/ambience_v1/manifest.json','scripts/audio/game_ambience.gd']
         result['family']='regional_ambience'
         result['task']='AUDIO-AMBIENCE-01'
@@ -154,6 +155,15 @@ def brief(request,output):
             result['ambience_selection']=selection
             result['inputs'].append({'path':ambience_selection_path,'sha256':sha(ROOT/ambience_selection_path)})
         if 'user_selection' in result: result['user_selection']['scope'] += ' No regional ambience choice is inferred.'
+        if home_request:
+            home_inputs=['docs/worklines/audio_home_01/scope.md','docs/worklines/audio_home_01/authority.json','docs/audio_director/home_ambience.md','docs/audio_director/home_sources.md','docs/audio_director/home_runtime.md','config/audio_director/home/recipes.json','config/audio_director/home/sources.json','assets/audio/ambience_v1/home/manifest.json','scripts/audio/home_ambience_audition.gd']
+            result['task']='AUDIO-HOME-01'
+            result['family']='home_ambience'
+            result['candidate_version']='audio-home-v1'
+            result['selected_events']=['ambience_home','home_cloth','home_wood','home_tools','home_page']
+            result['inputs'] += [{'path':p,'sha256':sha(ROOT/p)} for p in home_inputs if (ROOT/p).is_file()]
+            result['next_command']='python3 tools/audio_home_design.py build'
+            result['runtime_scope']='Explicit real Home audition; selected quiet plains A borrowed unchanged, home mix and NPC-place Foley await listening; preserve original BGM and gameplay.'
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

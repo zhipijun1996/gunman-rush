@@ -1,0 +1,34 @@
+{
+  "task": "AUDIO-HOME-01",
+  "date": "2026-10-29",
+  "attempts": [
+    {
+      "source_url": "https://kenney.nl/assets/rpg-audio",
+      "phase": "source page",
+      "status": "downloaded",
+      "retained": "source-cache/kenney-rpg-audio-source-page.html"
+    },
+    {
+      "source_url": "https://kenney.nl/download-link/6173736574732f7270672d617564696f",
+      "phase": "download-link endpoint",
+      "status": "failed",
+      "http_status": 403,
+      "effect": "No cloth2 or Kenney archive obtained; not used."
+    },
+    {
+      "source_url": "https://opengameart.org/sites/default/files/80-CC0-RPG-SFX_0.zip",
+      "phase": "archive",
+      "status": "downloaded",
+      "retained": "source-cache/rubberduck-80-CC0-RPG-SFX.zip",
+      "sha256": "1c2f06ff4e8563b5b8b745b23cf213c1474142a69bb82bd8f5e10d9b3f7a7bbd",
+      "effect": "Matches existing registry; inspected listing has no cloth files. Whole pack not added to runtime/Git."
+    },
+    {
+      "source_url": "https://opengameart.org/content/fabric-rustling",
+      "phase": "CC0 page and direct audio",
+      "status": "downloaded",
+      "retained": "assets/audio/ambience_v1/home/_sources/fabric-rustling.html; assets/audio/ambience_v1/home/_sources/rustling.ogg",
+      "effect": "Selected different recorded time windows; used."
+    }
+  ]
+}

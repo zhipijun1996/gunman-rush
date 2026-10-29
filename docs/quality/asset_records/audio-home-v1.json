@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "asset_id": "audio-home-v1",
+  "content_version": "audio-home-v1",
+  "source_path": "tools/audio_home_design.py",
+  "source_sha256": "9bf3a3c5946867281e3669d2d484e3a8ede352f63f6a5df64d3cd7b25f2c9110",
+  "runtime_paths": [
+    "assets/audio/ambience_v1/home/home_cloth_1.wav",
+    "assets/audio/ambience_v1/home/home_cloth_2.wav",
+    "assets/audio/ambience_v1/home/home_page_1.wav",
+    "assets/audio/ambience_v1/home/home_page_2.wav",
+    "assets/audio/ambience_v1/home/home_tools_1.wav",
+    "assets/audio/ambience_v1/home/home_tools_2.wav",
+    "assets/audio/ambience_v1/home/home_wood_1.wav",
+    "assets/audio/ambience_v1/home/home_wood_2.wav",
+    "assets/audio/ambience_v1/home/manifest.json"
+  ],
+  "tool": "FFmpeg/NumPy exact CC0 recording edits, stereo48000Hz PCM16; original selected Vorbis bed referenced unchanged",
+  "model": "not_applicable; licensed recordings, no audio synthesis model",
+  "prompt_or_reference": "docs/worklines/audio_home_01/authority.json; home sources/recipes; selected quiet-02 plains_a",
+  "processing": "Eight explicit recorded crops, EQ, short fades, peak-constrained low-RMS output; per-file metadata and source SHA in manifest. Borrowed bed no new render; runtime -2dB.",
+  "usage_scope": "Explicit developer HomeAmbienceAudition on real HomeScene; four real keeper anchors, sparse interior-place Foley; no gesture animation or formal rollout claim.",
+  "license_status": "verified",
+  "license_source": "CC0 source grant per retained pages/registry and full text; new Fabric Rustling author/original hash plus inherited exact CC0 originals; commercial use allowed, attribution not required.",
+  "visual_status": "unverified",
+  "audio_listening_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_files": [
+    "scripts/audio/home_ambience_audition.gd",
+    "scripts/demo/audio_home_lab.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "config/audio_director/home/recipes.json",
+      "sha256": "d9ef10ad8cf12f7574fd2e2a43d3bd7eeb2c25943b08406afab08cb85baeddc0",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/home/sources.json",
+      "sha256": "4937f589b660f539729d3ecc25cd6a776bfcdf418e63c54047fd86ca6fa733aa",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/home/manifest.json",
+      "sha256": "9da87898c0f3d924af67eb011d7427213a20754384eb375e9b61cbc79e25f90e",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/ambience/user-selected.json",
+      "sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/audio/ambience_v1/home/_sources/fabric-rustling.html",
+      "sha256": "276c84d003f8d30e90d2034a6430a06d2b6ede749b7c7bbc42758fbfc628d2cd",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/home/_sources/rustling.ogg",
+      "sha256": "897c0937041afdf3581427b80a7546f99d219d0008e12ff5500c2afdfa4b7a1e",
+      "role": "reference"
+    },
+    {
+      "path": "assets/audio/ambience_v1/home/_sources/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "documentation"
+    }
+  ]
+}
