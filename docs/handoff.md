@@ -1,5 +1,13 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 AUDIO-AMBIENCE-01 · quiet-02轻微环境音已发布
+
+用户明确首版环境音过响盖住BGM；同PR113／`feature/audio-ambience-01`已迭代为quiet-02：保原归一/控峰后四床−14dB、四点−10dB，实际解码降幅已核。五MP3、MusicGain 0.16与玩法/动作保持。原生/影片源`e55910ec7d5be218735fb7cade4ebdd4f662552a`，6×26秒／9943帧、14,065,613B，714.952秒内完成原900秒预算，source/loop/轨迹/音轨均通过；不是后期配音。
+
+[原手机工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已更新Sites v2（仍仅拥有者）；托管源`060788289a4d04dd96b51904317beaa04c174320`。默认BGM混音，旧版27件原样保留[previous-v1/](https://clock-ambience-lab.zhipijun1996.chatgpt.site/previous-v1/)。新选择KEY与mix_revision隔离旧选择/旧包。真实本地12章节/4点声和4身份反例通过；远端全MP4 SHA、两指针/AAC解码/Stop通过。
+
+[新增证据与失败](evidence/audio_ambience_01/quiet-02/README.md)：加工9／适配17／旧quality57／原生55通过。新混音限定独立工程审查ACCEPT；原首轮工程审查与失败不改签，旧听感被拒绝；quiet-02用户听感、实体设备、完整CI和正式推广仍未验，默认original、不自动合main。下一步直接消费新试听反馈/选择JSON，不重做素材，不将工程检查当审美批准。
+
 ## 2026-10-28 AUDIO-AMBIENCE-01 · 两区环境音候选已交付
 
 从main `45e98dbb` 独立创建 `feature/audio-ambience-01`。4个24秒CC0实录床声＋4个细节声、可追溯加工/许可、显式GameAudio环境组件和两区同Seed原音轨对照已实作。运行/影片源 `de6b36c6`，9943帧，原生音画14,049,972B；[本轮证据](evidence/audio_ambience_01/README.md)、[音效入口](audio_director/ambience.md)。

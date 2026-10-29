@@ -4,10 +4,10 @@
   "task_type": "animation",
   "workflow": "review",
   "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
-  "reviewed_commit": "de6b36c62f0640d9322973fffb687472755d25b7",
+  "reviewed_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
   "content_version": "audio-ambience-v1",
   "owner": "Audio Director",
-  "purpose": "两区真实环境音候选、显式运行支持和实际场景试听",
+  "purpose": "两区真实环境音候选与quiet-02微弱衬底混音迭代（首版过响被用户拒绝）",
   "player_experience": "在同场景听出风草/树冠的区域差异，同时保持动作与用户音乐可读",
   "constraints": [
     "不改变物理伤害操作资源玩法RNG存档",
@@ -47,6 +47,7 @@
     "docs/audio_director/ambience_event_catalog.json",
     "docs/audio_director/ambience_runtime.md",
     "docs/audio_director/ambience_sources.md",
+    "docs/audio_director/style_bible.md",
     "docs/current_state.md",
     "docs/evidence/audio_ambience_01/README.md",
     "docs/evidence/audio_ambience_01/actions-01/native.log",
@@ -133,9 +134,67 @@
     "docs/evidence/audio_ambience_01/quality-diff-04.log",
     "docs/evidence/audio_ambience_01/quality-diff-final-01.log",
     "docs/evidence/audio_ambience_01/quality-diff-final-02.log",
+    "docs/evidence/audio_ambience_01/quality-diff-final-03.log",
     "docs/evidence/audio_ambience_01/quality-final-01.log",
     "docs/evidence/audio_ambience_01/quality-final-02.log",
     "docs/evidence/audio_ambience_01/quality-final-03.log",
+    "docs/evidence/audio_ambience_01/quality-final-04.log",
+    "docs/evidence/audio_ambience_01/quiet-02/README.md",
+    "docs/evidence/audio_ambience_01/quiet-02/adapter-tests-01.log",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-01/choices.json",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-01/mobile.png",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-01/report.json",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-identity-01/qa-export.json",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-identity-01/report.json",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-identity-runner.log",
+    "docs/evidence/audio_ambience_01/quiet-02/browser-runner.log",
+    "docs/evidence/audio_ambience_01/quiet-02/build-01-failure.json",
+    "docs/evidence/audio_ambience_01/quiet-02/build-02.log",
+    "docs/evidence/audio_ambience_01/quiet-02/build-03.log",
+    "docs/evidence/audio_ambience_01/quiet-02/build-04.log",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/ambience.mp4",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/capture-override.cfg",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/chapters.json",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/encode.log",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/forest_B_action.png",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/frames.json",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/native.log",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/plains_A_action.png",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/report.json",
+    "docs/evidence/audio_ambience_01/quiet-02/capture/trace.json",
+    "docs/evidence/audio_ambience_01/quiet-02/deployment.json",
+    "docs/evidence/audio_ambience_01/quiet-02/design-tests-02.log",
+    "docs/evidence/audio_ambience_01/quiet-02/development-plan-summary.json",
+    "docs/evidence/audio_ambience_01/quiet-02/gain-verification.json",
+    "docs/evidence/audio_ambience_01/quiet-02/import-01.log",
+    "docs/evidence/audio_ambience_01/quiet-02/lab-build-01.log",
+    "docs/evidence/audio_ambience_01/quiet-02/old-quality-tests-01.log",
+    "docs/evidence/audio_ambience_01/quiet-02/old-quality-tests-02.log",
+    "docs/evidence/audio_ambience_01/quiet-02/previous-site-preserved.json",
+    "docs/evidence/audio_ambience_01/quiet-02/quality-diff-01.log",
+    "docs/evidence/audio_ambience_01/quiet-02/remote-browser-01/mobile.png",
+    "docs/evidence/audio_ambience_01/quiet-02/remote-browser-01/report.json",
+    "docs/evidence/audio_ambience_01/quiet-02/remote-driver.mjs",
+    "docs/evidence/audio_ambience_01/quiet-02/review.md",
+    "docs/evidence/audio_ambience_01/quiet-02/review/adapter-independent.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/adapter-independent.log",
+    "docs/evidence/audio_ambience_01/quiet-02/review/capture-identity-check.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/corrected-level-delta-check.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/design-independent.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/design-independent.log",
+    "docs/evidence/audio_ambience_01/quiet-02/review/gain-and-mix-counterexamples.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/html-mix-storage-counterexamples.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/initial-level-delta-failure.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/levels-and-preserved-inputs.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/native-amplitude-and-bgm-check.json",
+    "docs/evidence/audio_ambience_01/quiet-02/review/native_mix_measure.py",
+    "docs/evidence/audio_ambience_01/quiet-02/review/site-and-browser-receipt-check.json",
+    "docs/evidence/audio_ambience_01/quiet-02/runtime-01/native.log",
+    "docs/evidence/audio_ambience_01/quiet-02/runtime-01/report.json",
+    "docs/evidence/audio_ambience_01/quiet-02/runtime-runner.log",
+    "docs/evidence/audio_ambience_01/quiet-02/site-source.json",
+    "docs/evidence/audio_ambience_01/quiet-02/user-feedback.json",
+    "docs/evidence/audio_ambience_01/quiet-02/verify-mix-identity.mjs",
     "docs/evidence/audio_ambience_01/remote-browser-01/failure.json",
     "docs/evidence/audio_ambience_01/remote-browser-01/reason.txt",
     "docs/evidence/audio_ambience_01/remote-browser-02/failure.json",
@@ -222,7 +281,13 @@
     "docs/evidence/audio_ambience_01/capture/ambience.mp4",
     "docs/evidence/audio_ambience_01/browser-01/report.json"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "quiet-02使用后归一输出trim：四床−14dB，四点−10dB；新选择KEY隔离旧选择",
+      "basis": "实际输出波形降幅验证通过；具体新响度待用户试听，不作为已批准推广"
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
@@ -272,11 +337,12 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "Scoped actual source/recipe/media/trajectory/loop/transport and native cleanup checks passed; complete project CI not inferred",
+      "reason": "quiet-02 actual processing delta/native source/loop/media and mobile transport checks passed; full project CI and hearing not inferred",
       "evidence": [
-        "amb-native",
-        "amb-trace",
-        "amb-gui"
+        "amb-q2-native",
+        "amb-q2-trace",
+        "amb-q2-gui",
+        "amb-q2-identity"
       ]
     },
     "formal_integration": {
@@ -311,9 +377,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Different reviewer independently checked source and actual waveforms/negative cases and selected images; hearing/device excluded",
+      "reason": "quiet-02 different reviewer independently verified native amplitude/output and BGM unchanged plus specific source/browser/site evidence; hearing excluded",
       "evidence": [
-        "amb-review"
+        "amb-q2-review"
       ]
     },
     "device": {
@@ -323,7 +389,7 @@
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Human hearing/device or whole-game integration beyond the explicitly verified candidate scope remains open",
+      "reason": "用户明确拒绝initial-01混音（环境过响盖BGM）；quiet-02待试听，不继承旧版或声音家族批准",
       "evidence": []
     }
   },
@@ -347,12 +413,13 @@
       "gate": "G4",
       "dimension": "technical",
       "status": "passed",
-      "reason": "Complete actual native source/loop/audio identity; real mobile-sized transport",
+      "reason": "quiet-02 actual native source/trajectory/loop/audio plus new mobile transport and old-version rejection",
       "evidence": [
-        "amb-native",
-        "amb-trace",
-        "amb-video",
-        "amb-gui"
+        "amb-q2-native",
+        "amb-q2-trace",
+        "amb-q2-video",
+        "amb-q2-gui",
+        "amb-q2-identity"
       ],
       "scenario": "Two explicitly configured regional candidate profiles on original seeded formal stage consumers",
       "method": "Complete actual native source/loop/audio identity; real mobile-sized transport",
@@ -364,9 +431,9 @@
       "gate": "G4",
       "dimension": "independent_review",
       "status": "passed",
-      "reason": "Independent actual source/media and negative checks; subjective listening excluded",
+      "reason": "quiet-02 independent actual amplitude/BGM/negative tests and source/media/site scope review",
       "evidence": [
-        "amb-review"
+        "amb-q2-review"
       ],
       "scenario": "Two explicitly configured regional candidate profiles on original seeded formal stage consumers",
       "method": "Independent actual source/media and negative checks; subjective listening excluded",
@@ -453,11 +520,87 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Different spawned reviewer /root/ambience_review wrote no production source; performed separate read-only tests/source and real media checks. Implementers listed separately; no user/device identity claim."
+    },
+    {
+      "id": "amb-q2-native",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/capture/report.json",
+      "sha256": "f98ed9ec149d686400c95904e6714fcc56611115ec8cc16d189c00e32d973930",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual native MovieMaker with unchanged original strict source/trace/loop/override/audio checks",
+      "observed": "quiet-02 full6x26 seconds passed,9943frames; source stable; original900s cap unchanged",
+      "command": "python3 tools/capture_audio_ambience.py --output build/audio_ambience_01/capture-06",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard/llvmpipe/Dummy recorded nativePCM,FFmpegAAC; not physical device"
+    },
+    {
+      "id": "amb-q2-trace",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/capture/trace.json",
+      "sha256": "3b24fc92bc09f16c95d2ee59ce4acf97a4e0de299cb387b84394917e8be305ad",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual per-physics-tick formal same-Seed/actions state",
+      "observed": "All6segments/4backend wraps and per-region state/timing equal"
+    },
+    {
+      "id": "amb-q2-video",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/capture/ambience.mp4",
+      "sha256": "a502ceef2eba28176520451791b2aa44c8dfcd401d1929e5e1f73cbb51827309",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual native Godot movie encoded without post-dubbing",
+      "observed": "quiet-02 14,065,613B/9943frames/60FPS,original BGM unchanged"
+    },
+    {
+      "id": "amb-q2-gui",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/browser-01/report.json",
+      "sha256": "357eb22638223798ac59a50539fdbcb26d7a005769095cb0f369cede825713ea",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual390px Chromium pointer chapters and AAC decoded byte counters",
+      "observed": "12chapter/4points and loop/stop/cancel/export passed"
+    },
+    {
+      "id": "amb-q2-identity",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/browser-identity-01/report.json",
+      "sha256": "e691ff9e76957c4ba8a21195c640bf7c8a10b09cf929cf4f506ed08676986e9a",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Actual Chromium old-key seed, export, request interception counterexamples",
+      "observed": "4 checks: no inherited preference,revision export,old metadata rejected"
+    },
+    {
+      "id": "amb-q2-review",
+      "path": "docs/evidence/audio_ambience_01/quiet-02/review.md",
+      "sha256": "ceed708cca741be9f84d8ec12c3313d995cbe866fb3fcddbb8b34c0f34954e3c",
+      "kind": "review",
+      "producer": "/root/ambience_review",
+      "source_commit": "e55910ec7d5be218735fb7cade4ebdd4f662552a",
+      "content_version": "audio-ambience-v1",
+      "method": "Independent output/native amplitude fits, unchanged BGM windows, negative tests, actual action frames and browser/site receipt cross-checks",
+      "observed": "Scoped engineering ACCEPT; no human hearing or device approval",
+      "reviewer": "/root/ambience_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different reviewer wrote no production code, ran separate processing/adapter/negative tests and native waveform analysis; root only owned engine and deployment."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "User ambience choice/naturalness/masking/fatigue and modern recording contamination",
+    "User quiet-02 choice/naturalness/masking/fatigue: initial-01 too loud explicitly rejected; revised level is not yet approved",
     "Physical mobile/Safari/speakers/Bluetooth and performance",
     "Full Integration CI and new exported interactive Godot ambience lab",
     "Whole-map detail source placement, spatial panning/occlusion and formal rollout",

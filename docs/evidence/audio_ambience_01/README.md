@@ -1,5 +1,10 @@
 # AUDIO-AMBIENCE-01 · 真实录音环境音候选
 
+## 最新反馈：quiet-02（2026-10-29）
+
+首轮被用户明确指出环境音盖BGM，不接受该响度。现四床实际降低约14dB、四点10dB并重新录制，原BGM不变；[新媒体/真实手机验证/独审与失败](quiet-02/README.md)。主工坊已更新Sites v2为轻微版，原v1在previous-v1/原样保留；下方为首轮历史记录，不覆盖新反馈，不代表用户接受quiet-02。
+
+
 当前：首轮候选与真实实景已交付，内容保持review。手机[环境音工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已由Sites v1成功发布，需以拥有者账号访问；[MP4](https://clock-ambience-lab.zhipijun1996.chatgpt.site/ambience.mp4)与[完整包](https://clock-ambience-lab.zhipijun1996.chatgpt.site/ambience-comparison.zip)可下载。旧动作工坊/主站不替换。准确原生/托管/发布身份见[发布收据](deployment.json)。
 
 基线main `45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc`；工作分支`feature/audio-ambience-01`，冻结运行/录屏源以最终capture报告为准。两区原Bible与既有用户选择在[工作线权威绑定](../../worklines/audio_ambience_01/authority.json)。

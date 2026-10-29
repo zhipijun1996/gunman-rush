@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "old choices do not approve new mix; real BGM context is default",
+      "status": "passed",
+      "actual": {
+        "key": "clock-audio-ambience-v1-quiet-02-choices",
+        "values": [
+          "",
+          ""
+        ],
+        "notes": [
+          "",
+          ""
+        ],
+        "revision": "quiet-02",
+        "defaultContext": "mix"
+      }
+    },
+    {
+      "name": "export explicit mix and unselected IDs",
+      "status": "passed",
+      "scope": "QA-generated unselected export; not user preference"
+    },
+    {
+      "name": "reject old candidates.json before playback",
+      "status": "passed",
+      "actual": {
+        "ready": false,
+        "error": "试听混音版本不匹配，请刷新当前工坊",
+        "disabled": true
+      }
+    },
+    {
+      "name": "reject old report.json before playback",
+      "status": "passed",
+      "actual": {
+        "ready": false,
+        "error": "试听混音版本不匹配，请刷新当前工坊",
+        "disabled": true
+      }
+    }
+  ],
+  "scope": "Browser mix identity and choice isolation only; no hearing/device approval"
+}
