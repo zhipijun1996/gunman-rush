@@ -156,7 +156,7 @@ def brief(request,output):
             result['inputs'].append({'path':ambience_selection_path,'sha256':sha(ROOT/ambience_selection_path)})
         if 'user_selection' in result: result['user_selection']['scope'] += ' No regional ambience choice is inferred.'
         if home_request:
-            home_inputs=['docs/worklines/audio_home_01/scope.md','docs/worklines/audio_home_01/authority.json','docs/audio_director/home_ambience.md','docs/audio_director/home_sources.md','docs/audio_director/home_runtime.md','config/audio_director/home/recipes.json','config/audio_director/home/sources.json','assets/audio/ambience_v1/home/manifest.json','scripts/audio/home_ambience_audition.gd']
+            home_inputs=['docs/audio_director/home_event_catalog.json','docs/worklines/audio_home_01/scope.md','docs/worklines/audio_home_01/authority.json','docs/audio_director/home_ambience.md','docs/audio_director/home_sources.md','docs/audio_director/home_runtime.md','config/audio_director/home/recipes.json','config/audio_director/home/sources.json','assets/audio/ambience_v1/home/manifest.json','scripts/audio/home_ambience_audition.gd']
             result['task']='AUDIO-HOME-01'
             result['family']='home_ambience'
             result['candidate_version']='audio-home-v1'

@@ -1,6 +1,6 @@
 # 家园声音 · audio-home-v1 / home-quiet-01
 
-用户希望家园有平原的平静和NPC生活声。沿已选quiet-02 plains_a原OGG字节，家园运行额外−2dB；五原BGM与MusicGain0.16完全保持。[来源](home_sources.md)／[运行](home_runtime.md)／[范围与真实权威](../worklines/audio_home_01/scope.md)。这是新的家园候选，不把两区A/A选择当作家园生活音已批准。
+用户希望家园有平原的平静和NPC生活声。沿已选quiet-02 plains_a原OGG字节，家园运行额外−2dB；五原BGM与MusicGain0.16完全保持。[实际事件与代码](home_event_catalog.json)／[来源](home_sources.md)／[运行](home_runtime.md)／[范围与真实权威](../worklines/audio_home_01/scope.md)。这是新的家园候选，不把两区A/A选择当作家园生活音已批准。
 
 声音分为静听的柔风草叶，以及靠近真实居民所在地才出现的稀疏生活拟音：织时匠整理布料、维修工坊木件收放、武器工坊收放小工具、档案员整理册页，各两变体。当前NPC是静态精灵，没有挥锤或翻页动作帧；声音归于NPC所在工作处内部日常，不宣称动作同步。未开放且无NPC的预留建筑无生活声。
 
