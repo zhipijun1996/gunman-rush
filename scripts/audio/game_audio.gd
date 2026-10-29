@@ -2,6 +2,10 @@ class_name GameAudio
 extends Node
 ## Local presentation consumer: bounded voices, no gameplay or random-stream writes.
 const MAX_VOICES := 12
+const MECHANISM_BELL_SOUND := preload("res://assets/audio/ambience_v1/plains_chime_a.wav")
+# Existing quiet-02 bell recording: lift only the accepted mechanism transient,
+# without changing the selected ambience asset/mix or any other cue's gain.
+const MECHANISM_BELL_GAIN_DB := 6.0
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
@@ -144,6 +148,7 @@ func _ready() -> void:
 		_streams[id] = load("res://assets/audio/kenney/%s.ogg" % id)
 	for id: StringName in REGIONAL_CUE_PATHS:
 		_streams[id] = load(REGIONAL_CUE_PATHS[id])
+	_streams[&"mechanism_bell"] = MECHANISM_BELL_SOUND
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -199,7 +204,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null) -> bool
 		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact"] else 20 if id == &"step" else 50)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
-		var attenuation := 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
+		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation
 		voice.play()

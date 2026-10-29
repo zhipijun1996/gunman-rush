@@ -48,6 +48,9 @@ async def run(args):
         init = RECORDER_INIT + '\nwindow.MOBILE_AUDIO_PROBE_WORKLET_URL=URL.createObjectURL(new Blob([' + json.dumps(recorder) + '],{type:"application/javascript"}));\n'
         init += (ROOT / 'tools/mobile_web_perf/audio_graph_probe.js').read_text()
         init += '\n' + (ROOT / 'tools/mobile_web_perf/audio_probe.js').read_text()
+        if args.expect_threaded_root:
+            from prepare_threaded_diagnostic import SHARED_OBSERVER
+            init += '\n' + SHARED_OBSERVER
         await context.add_init_script(init)
         page = await context.new_page()
         def log(value):
@@ -67,7 +70,7 @@ async def run(args):
             await page.touchscreen.tap((primary[0]+primary[2]/2)/2.5, (primary[1]+primary[3]/2)/2.5)
             await page.wait_for_timeout(6000)
             await page.wait_for_function("window.MINIMAL_PCM_TAPS.length>0 && window.MINIMAL_PCM_TAPS[0].context.state==='running'", timeout=30000)
-            if args.threaded:
+            if args.threaded or args.expect_threaded_root:
                 threaded=await page.evaluate('window.MOBILE_THREADED_DIAGNOSTIC.snapshot()')
                 assert threaded['cross_origin_isolated'] and threaded['threads'] and threaded['shared_ring_observed'],threaded
                 report['threaded_start']=threaded
@@ -144,4 +147,5 @@ if __name__ == '__main__':
     parser.add_argument('--proxy-from-environment', action='store_true')
     parser.add_argument('--selected-sfx', action='store_true')
     parser.add_argument('--threaded', action='store_true')
+    parser.add_argument('--expect-threaded-root', action='store_true', help='Observe shared audio ring in ordinary production entry without changing its worklet')
     asyncio.run(run(parser.parse_args()))

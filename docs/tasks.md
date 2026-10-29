@@ -4,6 +4,7 @@
 
 | ID | 任务 | 依赖 | 状态 | 质量 |
 | --- | --- | --- | --- | --- |
+| MOBILE-WEB-AUDIO-FIX-03 | 独立供音接入普通Web；关闭瞄准附加声，修复机关风铃 | MOBILE-WEB-AUDIO-02 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-FIX-03.json) |
 | MOBILE-WEB-AUDIO-02 | 已恢复工坊音色；定位主线程供音排队并发布同包线程对照，待真机 | MOBILE-WEB-PERF-01 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-02.json) |
 
 [范围](worklines/mobile_web_audio_02/scope.md)。386真机仍卡；发现正式场景始终original，既有14项工坊选择未接入。前轮旧pulse匹配不签用户选择恢复。本轮不降低画质或重制声音。

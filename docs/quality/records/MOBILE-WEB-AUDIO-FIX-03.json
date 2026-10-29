@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_type": "small_fix",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保画面/物理/RNG/save和选定工坊原件；用户授权正式启用独立供音及关闭瞄准附加声/机关清脆风铃",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "task_id": "MOBILE-WEB-AUDIO-FIX-03",
+  "workflow": "in_progress",
+  "baseline_commit": "334688527b6658c44988b5b6496777e3acdafbe8",
+  "reviewed_commit": "",
+  "content_version": "threaded-production-v1",
+  "owner": "root",
+  "purpose": "正式Web独立供音及用户指定的瞄准/机关声音调整",
+  "player_experience": "手机横屏稳定流畅且原BGM/环境音/动作音效保留",
+  "affected_paths": [
+    "export_presets.cfg",
+    "tools/build.py",
+    "tools/web/cache_worker.js",
+    "tools/web/cache_startup.js",
+    "scripts/art/player_feedback.gd",
+    "scripts/world/shot_latch.gd"
+  ],
+  "deliverables": [
+    "current Web baseline and independent AB receipts",
+    "measured hotspot fix",
+    "physical-phone comparison build"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "criteria": [],
+  "evidence": [],
+  "unverified_items": [
+    "本次正式入口、声音调整的技术验证和独审待执行",
+    "新正式包长时实体设备听感待验"
+  ],
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮不修改原美术/动画；对照保持同PCK和相同viewport/canvas/CSS",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前正式接入验证执行中，不继承旧包结果",
+      "evidence": []
+    }
+  },
+  "consumer_coverage": null
+}

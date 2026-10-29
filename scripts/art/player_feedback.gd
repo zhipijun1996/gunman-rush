@@ -56,8 +56,8 @@ func _ready() -> void:
 	_controller.died.connect(func() -> void:
 		GameAudio.cue(self, &"death")
 		clear())
-	_controller.air_focus_ability.active_changed.connect(func(value: bool) -> void:
-		if _controller.active: GameAudio.cue(self, &"focus_start" if value else &"focus_end"))
+	# Accepted air aim/slow-time changes are intentionally silent. The shot and
+	# its existing recoil still own their one selected weapon sound on release.
 	_controller.shoot_ability.shot_rejected.connect(func(_reason: StringName) -> void: GameAudio.cue(self, &"denied"))
 
 func clear() -> void:
