@@ -1,11 +1,14 @@
 # 最新交接 · 2026-10-28
 
-## 2026-10-29 AUDIO-HOME-01 · 家园平静与生活声音制作中
+## 2026-10-29 AUDIO-HOME-01 · 家园微风与生活声试听已发布
 
-继续PR113活跃音频线，前置7b28301f／main45e98不变。用户要求家园有平原的平静与NPC生活声；已读完整平原Bible/实际Home规则，注册[新范围](worklines/audio_home_01/scope.md)与authority。计划借用已选plains_a原字节，家园另−2dB，不改旧A/A manifest/选择、五BGM或shared loader。8个CC0短点声对应真实4keeper（织时匠/维修/武器/档案），静态NPC无动作帧，称所在地工坊内生活拟音。
+[家园手机试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/)已由原Site v3部署（仍仅拥有者）；只加/home/，原root/previous-v1共54文件及hosting配置逐字节保持。托管源`1bfc4d6bb36807d78108a084d6803c3f798f9f7c`，原生影片producer`a4b2113aa786193a1d653080365f6067dd020880`，严格HTML身份/后包装源`745097b8c390502257a55c727444104c4f64cecf`分别记录。
 
-素材、运行适配与真实HomeLab按隔离写集实现；root独占Godot与Sites/质量。正式HomeScene/DemoApp/Underworld/81项style技术绑定均保持。新代码初步落盘，窄导入/parse开始；尚未录制/发布家园，不拿旧两区影片称家园。恢复先看build/audio_home_01和新scope、核所有writer/单引擎租约；不要在冻结录屏阶段改源。
+借用已选quiet-02 plains_a原字节再−2dB，新布料/木件/工具/册页各两条CC0生活拟音，4真实keeper脚底定位；12–22秒/全局6秒/至多1点声，静态NPC无假动作同步。原BGM与规则/正式HomeScene/DemoApp/共享音频/区域选择不改，显式开发候选，家园混音仍待用户试听。
 
+真实3×26秒/4969帧/7,900,638B（SHA d56076d...）原生轨音、3838源闭包与同路状态通过；家园60/0、原regional55/0、加工8项根/作者/独审均过。正常短片只听到1次近处cloth1，8条素材可单听。修后手机3章/9单听/11身份篡改反例通过；远端/home MP4全SHA、真实life指针/AAC45827字节/Stop及旧root元数据均实测。
+
+[实际证据与失败](evidence/audio_home_01/README.md)。原processor/两个runtime/typedArray scene/64像素headless/UID登记及HTML身份缺项全部保留，不改预算或伪签；新源技术/审查与用户、实体设备、完整CI/正式推广分开。继续PR113，不合main；下一步消费home-quiet-01真实选择JSON/听感，再按明确范围接入，不重做已选两区A/A。
 
 ## 2026-10-29 AUDIO-AMBIENCE-01 · 两区quiet-02均已选A
 

@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "AUDIO-HOME-01",
   "task_type": "animation",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
-  "reviewed_commit": "7b28301f8c63b0bca0078284b8d611795bddf686",
+  "reviewed_commit": "745097b8c390502257a55c727444104c4f64cecf",
   "content_version": "audio-home-v1",
   "owner": "Audio Director",
   "purpose": "家园平原安静底声与真实NPC所在地稀疏生活拟音",
@@ -39,6 +39,7 @@
     "config/audio_director/home/recipes.json",
     "config/audio_director/home/sources.json",
     "docs/audio_director/home_ambience.md",
+    "docs/audio_director/home_event_catalog.json",
     "docs/audio_director/home_runtime.md",
     "docs/audio_director/home_sources.md",
     "docs/current_state.md",
@@ -46,20 +47,58 @@
     "docs/evidence/audio_home_01/actions-01/native.log",
     "docs/evidence/audio_home_01/actions-01/report.json",
     "docs/evidence/audio_home_01/actions-01/trace.json",
+    "docs/evidence/audio_home_01/actions-02/native.log",
+    "docs/evidence/audio_home_01/actions-02/report.json",
+    "docs/evidence/audio_home_01/actions-02/trace.json",
     "docs/evidence/audio_home_01/brief-home.json",
     "docs/evidence/audio_home_01/brief-route-checks.json",
+    "docs/evidence/audio_home_01/browser-02/choices.json",
+    "docs/evidence/audio_home_01/browser-02/mobile.png",
+    "docs/evidence/audio_home_01/browser-02/report.json",
+    "docs/evidence/audio_home_01/browser-agent-01/choices.json",
+    "docs/evidence/audio_home_01/browser-agent-01/mobile.png",
+    "docs/evidence/audio_home_01/browser-agent-01/report.json",
+    "docs/evidence/audio_home_01/capture/bed.png",
+    "docs/evidence/audio_home_01/capture/capture-override.cfg",
+    "docs/evidence/audio_home_01/capture/chapters.json",
+    "docs/evidence/audio_home_01/capture/encode.log",
+    "docs/evidence/audio_home_01/capture/frames.json",
+    "docs/evidence/audio_home_01/capture/home.mp4",
+    "docs/evidence/audio_home_01/capture/life.png",
+    "docs/evidence/audio_home_01/capture/native.log",
+    "docs/evidence/audio_home_01/capture/original.png",
+    "docs/evidence/audio_home_01/capture/report.json",
+    "docs/evidence/audio_home_01/capture/trace.json",
+    "docs/evidence/audio_home_01/deployment.json",
     "docs/evidence/audio_home_01/design-build-02.log",
     "docs/evidence/audio_home_01/design-tests-01.log",
     "docs/evidence/audio_home_01/design-tests-root-01.log",
     "docs/evidence/audio_home_01/development-plan-summary.json",
     "docs/evidence/audio_home_01/import-01.log",
     "docs/evidence/audio_home_01/mix-reference.json",
+    "docs/evidence/audio_home_01/post-package.json",
+    "docs/evidence/audio_home_01/post-package.log",
     "docs/evidence/audio_home_01/probe-01/native.log",
     "docs/evidence/audio_home_01/probe-01/probe.json",
+    "docs/evidence/audio_home_01/quality-diff-01-failure.log",
+    "docs/evidence/audio_home_01/remote-browser-01/mobile.png",
+    "docs/evidence/audio_home_01/remote-browser-01/report.json",
+    "docs/evidence/audio_home_01/remote-home.mjs",
+    "docs/evidence/audio_home_01/review-authority-lock.json",
+    "docs/evidence/audio_home_01/review-delivery-local.json",
     "docs/evidence/audio_home_01/review-design-tests.json",
     "docs/evidence/audio_home_01/review-design-tests.log",
+    "docs/evidence/audio_home_01/review-final.md",
     "docs/evidence/audio_home_01/review-finite-path-counterexamples.json",
+    "docs/evidence/audio_home_01/review-frozen-baseline.json",
+    "docs/evidence/audio_home_01/review-native/life-ground-route.png",
+    "docs/evidence/audio_home_01/review-native/life-near-tailor.png",
+    "docs/evidence/audio_home_01/review-native/measure.py",
+    "docs/evidence/audio_home_01/review-native/result.json",
+    "docs/evidence/audio_home_01/review-native/run.log",
     "docs/evidence/audio_home_01/review-preflight.md",
+    "docs/evidence/audio_home_01/review-remote-receipt.json",
+    "docs/evidence/audio_home_01/review-site-archive.json",
     "docs/evidence/audio_home_01/review-source-license-check.json",
     "docs/evidence/audio_home_01/review-static-consumer-inventory.json",
     "docs/evidence/audio_home_01/runtime-01/native.log",
@@ -77,19 +116,26 @@
     "docs/evidence/audio_home_01/scene-smoke-02/native.log",
     "docs/evidence/audio_home_01/scene-smoke-02/report.json",
     "docs/evidence/audio_home_01/scene-smoke-02/trace.json",
+    "docs/evidence/audio_home_01/site-preserved.json",
+    "docs/evidence/audio_home_01/site-source.json",
     "docs/evidence/audio_home_01/source-research.json",
     "docs/handoff.md",
     "docs/quality/asset_records/audio-home-v1.json",
+    "docs/quality/records/AUDIO-HOME-01.json",
     "docs/tasks.md",
     "docs/worklines/audio_home_01/authority.json",
     "docs/worklines/audio_home_01/scope.md",
     "scenes/dev/audio_home_lab.tscn",
     "scripts/audio/home_ambience_audition.gd",
+    "scripts/audio/home_ambience_audition.gd.uid",
     "scripts/demo/audio_home_lab.gd",
+    "scripts/demo/audio_home_lab.gd.uid",
     "tests/audio_home_runtime.gd",
+    "tests/audio_home_runtime.gd.uid",
     "tests/test_audio_home_design.py",
     "tools/audio_director.py",
     "tools/audio_home_capture.gd",
+    "tools/audio_home_capture.gd.uid",
     "tools/audio_home_design.py",
     "tools/audio_home_lab.py",
     "tools/capture_audio_home.py",
@@ -153,9 +199,13 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Current-head postvalidation verifies unchanged real native audio/runtime/source and strict new GUI identity; not fullCI or hearing",
+      "evidence": [
+        "home-post",
+        "home-gui",
+        "home-video"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -174,8 +224,10 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Actual original soundtrack and low-level source identity verified; new Home tone/density needs user listening",
+      "evidence": [
+        "home-video"
+      ]
     },
     "gameplay": {
       "status": "unverified",
@@ -188,9 +240,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent scoped engineering review of745 UI and unchanged a4b native source, actual waveform/negative/source/archive evidence",
+      "evidence": [
+        "home-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -217,6 +271,36 @@
       "method": "读取实际源、已选声音、原Bible并绑定SHA",
       "expected": "安静家园/近距生活有真实宿主且无规则变更",
       "failure": "淹没BGM、无宿主声或假动作同步"
+    },
+    {
+      "id": "home-audio-engineering",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual native/current postvalidation and mobile transport verified within Home audition scope",
+      "evidence": [
+        "home-post",
+        "home-gui",
+        "home-video"
+      ],
+      "scenario": "Real Home3mode same normal walk, oldmusic constant",
+      "method": "Native PCM differences/source closure and actual mobile GUI rejection tests",
+      "expected": "Audible candidate files correspond to real added voices under unchangedmusic",
+      "failure": "Wrong bytes, stale labels, silence/wrong source, gameplay drift or rejected check fails"
+    },
+    {
+      "id": "home-review-engineering",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Different reviewer completed actual scoped checks and native/GUI/source/media review",
+      "evidence": [
+        "home-review"
+      ],
+      "scenario": "Real quiet Home borrowed bed, sparse keeper-place Foley and private mobile delivery",
+      "method": "Independent source and real decoded audio, negative cases and exact archive/current source comparison",
+      "expected": "Actual attributable technical behavior with all known failures retained",
+      "failure": "Wrong identity/bytes/source/levels or widened claims rejects scoped engineering"
     }
   ],
   "evidence": [
@@ -230,6 +314,88 @@
       "content_version": "audio-home-v1",
       "method": "Actual Home/Bible/source/approved quiet sound read; bounded opt-in audition scope",
       "observed": "Existing4static keepers and home/player/music are actual consumers; no new region or movement"
+    },
+    {
+      "id": "home-native",
+      "path": "docs/evidence/audio_home_01/capture/report.json",
+      "sha256": "b410c8c1baf69bfecfe0768e4df0e03508d619d71dd76376dd89555a287c9a14",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "a4b2113aa786193a1d653080365f6067dd020880",
+      "content_version": "audio-home-v1",
+      "method": "Actual MovieMaker nativePCM, strict source/physical route/level/differential audio checks",
+      "observed": "3x26s passed; 4969frames,source stable,original900s unchanged",
+      "command": "python3 tools/capture_audio_home.py --output build/audio_home_01/capture-01",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard/llvmpipe/nativePCM48k,FFmpegAAC; no physical-device claim"
+    },
+    {
+      "id": "home-video",
+      "path": "docs/evidence/audio_home_01/capture/home.mp4",
+      "sha256": "d56076d5610af5f50b7f835046e28b51f8b6286c6d195b299b164bd86cf843a4",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "a4b2113aa786193a1d653080365f6067dd020880",
+      "content_version": "audio-home-v1",
+      "method": "Actual game/native soundtrack without postdubbing",
+      "observed": "7,900,638B SHA d56076d... 3 normal music modes"
+    },
+    {
+      "id": "home-trace",
+      "path": "docs/evidence/audio_home_01/capture/trace.json",
+      "sha256": "14c93dac345c6a5817e2bf6491e5b716a7c68831a3e7c159386907e61bc36225",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a4b2113aa786193a1d653080365f6067dd020880",
+      "content_version": "audio-home-v1",
+      "method": "Actual per-physics-tick Home state and accepted sound event",
+      "observed": "3x1560 positions/HP/camera equal; normal cloth1 once, not all8"
+    },
+    {
+      "id": "home-post",
+      "path": "docs/evidence/audio_home_01/post-package.json",
+      "sha256": "e053ede12969acd81467c0940f1a957e5a243790d04a50ba55deba5027f1253f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "745097b8c390502257a55c727444104c4f64cecf",
+      "content_version": "audio-home-v1",
+      "method": "Current-head strict packager revalidates original runtime3838-file closure and native PCM; new HTML identity guard packaged",
+      "observed": "Passed original audio/source/trace/chapters; new candidate/report/manifestSHA identity matches",
+      "command": "python3 tools/audio_home_lab.py --capture build/audio_home_01/capture-01 --output build/audio_home_01/lab-final",
+      "exit_code": 0,
+      "environment": "Python/FFmpeg/SciPy current-head postvalidation; original native producer a4b separately attributed"
+    },
+    {
+      "id": "home-gui",
+      "path": "docs/evidence/audio_home_01/browser-02/report.json",
+      "sha256": "84f79658b98e493d25aee6fb38f2f7176e65f510dfd927f606c68dbbf02629f4",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "745097b8c390502257a55c727444104c4f64cecf",
+      "content_version": "audio-home-v1",
+      "method": "Actual390px Chromium real pointer/decodedAAC and standalone/source controls on byte-identical final HTML/media",
+      "observed": "3chapters/9single sounds; 11 actual metadata-byte mismatches rejected before media"
+    },
+    {
+      "id": "home-review",
+      "path": "docs/evidence/audio_home_01/review-final.md",
+      "sha256": "7e4f5621dbb66d0d1d0b11644c6b4703704cb59f1b396a0f290b1e5df4c1b7d7",
+      "kind": "review",
+      "producer": "/root/ambience_review",
+      "source_commit": "745097b8c390502257a55c727444104c4f64cecf",
+      "content_version": "audio-home-v1",
+      "method": "Independent actual source/license/path negative checks, native PCM amplitude/BGM analysis, media images and GUI/archive/remote receipt scope cross-check",
+      "observed": "Scoped engineering ACCEPT; user hearing and physical device remain UNVERIFIED",
+      "reviewer": "/root/ambience_review",
+      "implementers": [
+        "/root",
+        "/root/ambience_sources",
+        "/root/ambience_runtime",
+        "/root/ambience_scene"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different reviewer wrote no production files, ran separate processing and negative checks and decoded actual native PCM; did not run Godot or impersonate user/device."
     }
   ],
   "consumer_coverage": null,

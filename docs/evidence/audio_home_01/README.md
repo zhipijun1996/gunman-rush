@@ -13,3 +13,17 @@
 新家园原音轨、手机GUI/公开部署和独立后验待最终收据；历史失败不冲销。用户听感、实体设备、完整CI和正式推广均未签；不是新完整Godot Web导出。
 
 Fresh actions02在deferred显式1280×720下3×1560帧同路通过，27.329秒、源稳定；实际正常生活事件home_cloth_1在clock17.583秒/真实NPC距50.667wu出现。无排程强触，不冒称8素材都在短片出现；8独立素材另供试听。窄smoke实际960画面已看，最终原生全片仍需当前源验证。
+
+## 新完整原生片
+
+producer`a4b2113aa786193a1d653080365f6067dd020880`，3×26秒/4969帧/60FPS，原生录制4分42秒、全包络325.023秒；7,900,638B，SHA `d56076d5610af5f50b7f835046e28b51f8b6286c6d195b299b164bd86cf843a4`。3838源before/after稳定，自有override清理，真实world/HP/位置/镜头/输入逐帧一致。床/音乐实际runtime增益与原native PCM差分验证通过，home_cloth_1一次正常近处事件在17.583秒。原BGM全程保留，片中不强触其它7素材。
+
+首版Home HTML被独审发现内容版本/mix/manifestSHA一致守门不足，未发布。仅新HTML修复、fresh lab02与GUI反例另列；原片和音效不变，不重录。
+
+## 手机交付
+
+[家园/home/](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/)已部署Site v3；source1bfc4d6...，只新增home，旧54文件/hosting原字节保留（独审直接核旧/新TAR）。nativeproducer a4b；UI/后验包装745分记，没重录/重标旧捕获。实际390px GUI3章/9单听、正常播放/循环/取消/导出与11个身份/manifest原字节反例全过；修前lab01/positive历史保留、只发布修后同字节lab-final。
+
+远端/home全7,900,638B MP4 SHA实核、manifest原字节校验、真实life指针/AAC decoded45827字节/960×540/Stop通过；旧root及previous-v1/manifest HTTP200且SHA仍匹配。参见remote-browser-01、deployment.json、site-source.json、site-preserved.json与独立review-site-archive.json。仍不是实体手机或人耳听感验收。
+
+最终限定工程独审[review-final.md](review-final.md)已冻结，SHA7e4f5621dbb66d0d1d0b11644c6b4703704cb59f1b396a0f290b1e5df4c1b7d7。任务保持review；用户新家园听感/素材选择、实体设备、完整CI和正式推广未签，不自动合main。
