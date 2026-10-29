@@ -1,6 +1,6 @@
 # ENEMY-ALL-02 森林身体制作卡
 
-本卡补原[森林生态设计](../../design/forest_enemy_ecology_v2.md)、[森林反馈生态](../../design/forest_feedback_ecology.md)及[Forest Depth v2](../../design/forest_depth_v2/README.md)的开发实现事实。采用 enemy-creator → art-director → animation-vfx 顺序，E01–E12/G0–G5口径不变。状态为 **REVIEW / unverified**：本代理只完成静态实现，未运行Godot、未签连续像素、音频、设备或用户审美。
+本卡补原[森林生态设计](../../design/forest_enemy_ecology_v2.md)、[森林反馈生态](../../design/forest_feedback_ecology.md)及[Forest Depth v2](../../design/forest_depth_v2/README.md)的开发实现事实。采用 enemy-creator → art-director → animation-vfx 顺序，E01–E12/G0–G5口径不变。状态为 **REVIEW**：本轮实现与基本链真实Godot实录已交付，根代理实跑及独立像素审查见末尾当前结果；音频听感、设备或用户审美未签。
 
 ## 真实消费者与身体
 
@@ -44,3 +44,21 @@
 5. pause/resume、慢时、同实例health.initialize、切区恢复terminal、卸载重进；无旧epoch姿态残留或死亡重播。原唯一音频沿真实接受事件实听；有声轨不代签听感。
 
 E01/E02/E09原机制和准入按原证据，不升签；E03/E04/E05/E07本轮实现候选，E06/E08沿原accepted实现且待新源回归；E10只静态无新生命周期对象；E11/E12性能/设备/玩家与用户实机视频审查待root集中采证。不能以本表代替录像或独审。
+
+## 本轮采证与完成口径（2026-10-29，当前）
+
+本段覆盖上文制作阶段的“root仍需执行／静态未验”描述。当前为 **review：制作与基本链采证已交付，等用户审核**；不签done或G5。当前运行实现源为`d91b27377c88e039560140deb87e0a67052a716b`，旧片保留94／b71实际来源；森林荚帽绳端与保守屏外裁剪后已按d91重录7种。逐链时间、真实phase／HP和终态见[采证矩阵](completion_matrix.md)及[影片索引](../../evidence/enemy_all_02/README.md)。
+
+| 标准 | 本轮实际结果／保留边界 |
+| --- | --- |
+| E01／E02 身份、母版与准入 | 复用既有物种家族，实际消费者逐链分列；2候选仅开发、旧/正式Definition分列，不扩大随机池 |
+| E03／E04 身体与动作 | 每例真实AI承诺及同体动作有连续影片；独审R1/R2返工、R3限定接受，R4绑定d91；不穷尽所有招式变体 |
+| E05 受伤与恢复 | 每例真实非致死HP提交后观察恢复；charger/diver的H3→live同母版，旧CHR-VIS-01历史失败原件不改 |
+| E06 反馈 | 仍由accepted事件驱动，警告／功能胸心／HP独立；原引擎音轨与PCM保留，听感未签 |
+| E07 死亡与原终态 | 各例致死及至少210帧终态；charger/diver另精确settled后210帧×4链；其他保原隐藏／暗色／Boss政策 |
+| E08／E09 权威与消费 | 真实Router、AI、发射物、双方伤害；实验台与实际App分列，不写玩法权威、不代签自然全campaign |
+| E10 生命周期 | d91原生90／708／209及hit-template426均0失败，暂停／epoch／终态恢复／卸载断连反例；原b71的五套反馈／保存检查另保实际来源 |
+| E11 技术预算 | 原森林80图矩阵540.378秒／600预算通过；GPU裁剪44／0；不是实体设备帧时通过，完整远端CI另记 |
+| E12 导演／用户 | R3/R4仅独立审查的候选范围；成品审美、完整全速观看、音轨听审、实体设备与玩家乐趣等审核 |
+
+真实命令、源与原失败见[验证摘要](../../evidence/enemy_all_02/validation/summary.json)；完整原件归档附SHA。不以本卡或零gap自动签整怪完成。

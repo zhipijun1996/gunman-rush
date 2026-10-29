@@ -1,0 +1,84 @@
+{
+  "source": {
+    "working_files": {},
+    "commit": "d91b27377c88e039560140deb87e0a67052a716b",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "checks": [
+    {
+      "id": "plains-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_plains_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.7698857590003172
+    },
+    {
+      "id": "forest-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_motion_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.5710074230009923
+    },
+    {
+      "id": "boss-lifecycle",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_all_02_boss_motion_lifecycle.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.9441949739994016
+    },
+    {
+      "id": "hit-template",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tests/enemy_hit_template_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 2.427826527000434
+    }
+  ]
+}

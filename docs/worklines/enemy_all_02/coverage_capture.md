@@ -1,46 +1,42 @@
-# ENEMY-ALL-02：库存与真实实录
+# ENEMY-ALL-02：库存、录制覆盖与当前交付状态
 
-本页是制作、采证工具说明。库存不代表逐怪完成，视频不代表玩家已经批准。
+最终媒体目录为`docs/evidence/enemy_all_02/candidate_v5/`，相对媒体路径见该目录实际manifest。当前可交用户审片的候选包括14种普通怪、22条宿主渲染链、2个开发候选、8个Boss场景／9个实际Definition组合。完整逐怪时间表见[实机审核索引](../../evidence/enemy_all_02/README.md)，结构清单见[roster.json](../../evidence/enemy_all_02/roster.json)。本页记录覆盖语义，不能用库存数或零gap代签完成。
 
-## 当前库存
+## 口径与真实消费者
 
-可重新读取的结构化清单见 [`roster.json`](../../evidence/enemy_all_02/roster.json)。
+| 类别 | 数量 | 范围 |
+| --- | ---: | --- |
+| 普通物种 | 14 | 平原7＋森林7 |
+| 普通宿主链 | 22 | 平原7×scene/Underworld，森林7×scene，再加根铃独立RootBell链 |
+| 开发候选 | 2 | candidate_lure_guard／candidate_crosswind_moth，不进正式随机池及保存契约 |
+| Boss场景 | 8 | 原场景各自运行；不能把孤立plains_bell_warden资源多算为已准入Boss |
+| Boss scene/Definition组合 | 9 | windkeeper原scene默认12HP与正式storm36HP必须分列 |
 
-| 类别 | 现有对象 | 统计口径 |
-| --- | --- | --- |
-| 普通物种 | 14 | 平原 7（含 patrol_drone）＋森林 7 |
-| 普通宿主渲染链 | 22 | 平原 7 × scene/underworld ＋森林 7 × scene ＋ RootBellPresentation 独立链 |
-| Boss 场景 | 8 | clockwork、bellstrider、windkeeper、thorn_guardian、thorn_queen、rootbell_v2、weave_v2、canopy |
-| 有运行消费者的 Boss scene/Definition 组合 | 9 | windkeeper 默认旧 12HP 版与正式 storm 36HP 连续可伤版必须分列 |
-| 开发候选 | 2 | candidate_lure_guard、candidate_crosswind_moth；不进入正式随机池或存档承诺 |
-| 孤立 Boss 资源 | 1 | plains_bell_warden.tres；未找到 scripts 消费者，不多算一个已准入怪物 |
+森林正式身体通过`forest_bible_actor_art=true`，Underworld正式身体通过`underworld_formal_style=true`选择；相同scene的备用几何不能冒充正式身体。实际renderer、Definition、安装器、来源SHA均在库存／trace／局部源合同中分列。全局style-v18／creative-v21及原81引用不因本轮叶改动机械刷新。
 
-22 是原有宿主链计数。相同 scene 还会受祖先 metadata 影响：森林正式身体需要 `forest_bible_actor_art=true`，Underworld 正式身体需要 `underworld_formal_style=true`。采证必须写出此选择，避免用备用几何冒充正式身体。
+## 已有媒体与覆盖边界
 
-## 实录工具
+- 正式实机总览56.68秒：00:00.00–00:09.43平原既有冲锋怪；00:09.55–00:39.55森林正式map1原出生点输入；00:39.77–00:56.60正式App的storm36HP牧风者。按完整章节拼接，不能称同一条自然campaign。
+- 平原159.55秒：15链；森林83.85秒：7物种；候选24.42秒：2例。各组技术事件覆盖零gap，仍须逐怪身体／声音／用户审核。森林7种现为d91干净源新录制。
+- Boss总览257.97秒：前240.95秒是8原场景实验台，随后正式App storm；9组合分列零技术gap。原scene素材／行为／弱点／HP政策均保留，不以实验台计自然准入。
+- 冲锋22.27秒、俯冲22.30秒两份严格补录：各两链，精确检查settled之后210帧，visible／settled／alpha／位置／旋转／缩放／D7恒定。普通主片仅“death后210帧”的旧读数保留原含义，不能冒称settled后证明。
 
-```bash
-python tools/enemy_all_review_02.py --group plains --chains all --output build/enemy_all_02/plains
-python tools/enemy_all_review_02.py --group forest --output build/enemy_all_02/forest
-python tools/enemy_all_review_02.py --group prototypes --output build/enemy_all_02/prototypes
-```
+平原正式片与formal storm仅在开始前有一次公开披露的玩家审核站位；原生成地形、原有怪物、HUD、StageCameraRig和双方伤害权威不改，战中仅Router输入。森林debug直入正式map1后使用原出生点，片内只观察棘籽哨、未见悬荚，不能签自然跨区解锁或全部地图完成。
 
-调试单怪可加 `--species plains_charger`。`--require-remains` 只用于 charger/diver 等现有政策明确留尸的单怪审查；不能对所有物种强制套用同一死亡政策。
+实验台在开始前配置真实支持、线段／双入口或两岸；之后原Controller／Router／真实武器弹体／双方FrameDamagePolicy／敌AI均运行，不直接写HP、强开state／弱点、暂停AI或战中搬角色。场景与目标窗口不同于正式随机遭遇，必须保留fixture标签。
 
-工具真实调用 Godot MovieMaker，1280×720、60 FPS、正常速度，编码出含双声道音轨的 `review.mp4`。同时保留 `trace.json`、`chapters.json`、`chapters.md`、引擎原始日志、媒体属性、源文件指纹与报告。未压缩 AVI 在校验 MP4 与 SHA-256 后默认清理，可用 `--retain-avi` 保留。
+## 采证工具与原声
 
-每例仅在开始前设置地形与站位。玩家 Controller、InputRouter、武器、资源、物理、敌人 AI 保持运行；只由脚本替代实体键鼠适配器提供输入。玩家与怪物都注册真实 FrameDamagePolicy，敌人接触与弹体伤害仍然结算。驱动不直接写 HP、不强开 AI state/弱点、不在过程中搬移角色、不关闭 AI。
+使用`tools/enemy_all_review_02.py`和对应普通／Boss／formal／route driver，Godot4.7.2 MovieMaker、1280×720、60fps、正常速度；每组保存review.mp4、原report、chapters、完整trace和引擎原PCM归档。驱动输入、实际shot、accepted HP、phase、死亡、process前／post_draw观察分别记账。音轨仅来自引擎，存在音轨不等于听感通过。
 
-逐例先等待真实攻击承诺；保留警告、动作与恢复，再每 100 帧请求一发真实射击以分开非致死受击和恢复，最后致死并连续观察至少 210 帧。盾甲虫通过真实跳跃与移动绕过盾面；原型守卫等待真实 recovery 窗口。实际输入、射击、伤害事件与终态分别记账。
+每例先等待真实攻击或相应接触移动承诺，分隔非致死命中以观察hurt退出，再致死并观察终态。接触巡逻、摆荡荚、铃囊萤、跃枝怪使用自身真实相位；固定生根对象不伪造locomotion。原型守卫按真实recovery窗口命中，盾甲虫按真实角度／绕盾规则。
 
-接触型物种不虚构远程攻击：patrol 为巡逻接触；lantern 为 dwell/telegraph/travel；swing 为 swing/turn；crossbranch 为 rest/telegraph/flight/settle。固定生根的物种不伪造位移需求。森林蜘蛛、双线织网、跃枝怪使用生产接口配置线段、双线或两岸实体支持，这些初始数据进入 trace。
+`recorded_complete_coverage`仅表示该驱动要求的事件已出现；缺攻击、命中、hurt恢复、terminal或足够尾帧一律`recorded_with_coverage_gaps`并保留可审片。引擎错误、泄漏、源漂移、媒体不完整记failed，原失败不覆盖、不提高预算掩盖。玩家／设备／导演判断不由driver自动签署。
 
-## 判定边界
+## 审查与当前源
 
-`recorded_complete_coverage` 只表示驱动记录到本页要求的技术动作事件；画面清晰度、同体连续性、正式自然路线和真人设备性能仍须分别审核。
+R3独立审查在67d生产身体／b71采证源与所绑定媒体中接受“可供用户逐怪审核的实现候选”；没有签所有招式、全部阶段打断、全速观看、声音、设备或G5。根铃本片返铃反击次数0，织网结点分支及边角策略仍未穷尽。
 
-`recorded_with_coverage_gaps` 会保留可审核视频并列明逐怪缺口，绝不改成通过；例如玩家死亡、无攻击、真实子弹未命中、未见非致死恢复、未进入 terminal。引擎错误、泄漏/严格运行器失败、源漂移或媒体不完整记 `failed`，不通过增加预算掩盖。
+当前最新d91源的森林80图矩阵已实际80／80通过：`forest-depth-region`单个Harness check，原600秒预算内540.378秒、exit0、0复用、精确干净d91，Harness总墙钟553.226秒，实际report为`build/verification/harness/20261029T051735.820131Z/report.json`。森林屏外裁剪与荚帽绳端修正后的新逐怪影片已入最终manifest；R4独审另限定可见旧片的复用范围，旧媒体原source身份不改。旧94c普通片／b71正式片和旧R3保留真实来源；不能把它们重标为d91通过，也没有在本草稿宣布全CI绿。物理设备帧时、原音轨听审和用户最终视觉／趣味仍保持未验。
 
-charger/diver 记录持久尸体及稳定变换。其余普通怪与 Boss 按原有终态记录身体保留或退场，避免把“没有新增尸体”误记成机制失败。已有 receiver 测试中的禁 AI、直接 Damageable 和强开弱点不属于本实录的完整战斗证据。
-
-运行前须由 root 取得 Godot 引擎租约并让源码静止。当前工具已完成 Python 语法/CLI 检查，尚未运行 Godot，尚未产生任何实录通过结论。
+最终manifest／media及当前源矩阵结果已归档，公开下载按实际收据核验；本页命令、静态清单与历史通过不替代新执行证据。

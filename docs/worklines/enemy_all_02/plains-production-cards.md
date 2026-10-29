@@ -1,12 +1,12 @@
 # ENEMY-ALL-02 平原身体制作卡
 
-本卡记录本轮实现候选，采用现有 enemy-creator → art-director → animation-vfx 流程及E01–E12/G0–G5；不签画面、完整实录、声音、用户或设备通过。所有源SHA见[局部源合同](source-contract.json)，运行证据以root冻结commit后的实际影片与收据为准。
+本卡记录本轮实现候选，采用现有 enemy-creator → art-director → animation-vfx 流程及E01–E12/G0–G5；基本连续链已完成真实实录与限定独审，详见末尾当前结果；声音听感、用户或设备未签。所有源SHA见[局部源合同](source-contract.json)，运行证据以root冻结commit后的实际影片与收据为准。
 
 ## 消费者与同体母版
 
 平原7物种各有scene与Underworld两个宿主链；root_bell另有实际RootBellPresentation链，共15条平原宿主链。正式Underworld样式由原installer/metadata选择，不能以legacy镜头冒称正式身体。EnemyFeedback01的authored身体／留尸仍仅支持charger/diver，未扩大supports或改accepted计数。
 
-冲锋／俯冲两个skin的live统一读 `EnemyFeedback01Frames.canonical_live_texture()/canonical_live_bounds()`，精确返回原 `texture(3)/bounds(3)`。原H0–3及D4–7共8个distinct像素、固定clip比例／锚点、Shader材质、尸体source接口不变；仅移除hurt退出时换回另一张小原图的身份跳变路径。受伤进入与退出沿同一个PlainsMotion02实例、真实当前位移与phase推进，不重启动作。此实现针对旧CHR-VIS-01故障，仍须新连续像素验证才能关闭问题。
+冲锋／俯冲两个skin的live统一读 `EnemyFeedback01Frames.canonical_live_texture()/canonical_live_bounds()`，精确返回原 `texture(3)/bounds(3)`。原H0–3及D4–7共8个distinct像素、固定clip比例／锚点、Shader材质、尸体source接口不变；仅移除hurt退出时换回另一张小原图的身份跳变路径。受伤进入与退出沿同一个PlainsMotion02实例、真实当前位移与phase推进，不重启动作。此实现针对旧CHR-VIS-01故障，新片受伤出口已经R2/R3限定复核；旧失败证据保持原样。
 
 其余live用原透明母版：Underworld的6张sprites原图、legacy meadow_actions的idle_a（地面甲虫／炮哨）及独立rootbell idle。动作来自母版内部关节；不靠全身体积缩放或两个全身PNG交叉淡化。原PNG／manifest／provenance未覆盖重写，不宣称重新生产了美术。
 
@@ -37,3 +37,21 @@ accepted sample仍由原健康事件驱动，body.source/destination等旧验证
 优先看片：charger移动或attack→hurt0–3→真实当前动作，尤其旧94→95/143→144对应的退出边界；diver真实attack而非仅telegraph取消；hopper承重／离地／落点；两炮哨发射与预警坐标；rootbell独立链pulse真实脚。每链需实际非致死恢复、死亡和原终态尾段，缺口明确记unverified。声音沿原唯一事件和当前选声，本卡不签听感。
 
 E01/E02/E09沿原权威与准入；E03/E04/E05/E07为实现候选，E06/E08沿原反馈并待新源回归，E10仅静态无新事件订阅／Timer／节点持有，E11/E12帧时、实体设备、玩家与用户审核均未验。影片实际完整性、正式遭遇与导演连续性分别记录，不将本制作卡标done。
+
+## 本轮采证与完成口径（2026-10-29，当前）
+
+本段覆盖上文制作阶段的“root仍需执行／静态未验”描述。当前为 **review：制作与基本链采证已交付，等用户审核**；不签done或G5。当前运行实现源为`d91b27377c88e039560140deb87e0a67052a716b`，旧片保留94／b71实际来源；森林荚帽绳端与保守屏外裁剪后已按d91重录7种。逐链时间、真实phase／HP和终态见[采证矩阵](completion_matrix.md)及[影片索引](../../evidence/enemy_all_02/README.md)。
+
+| 标准 | 本轮实际结果／保留边界 |
+| --- | --- |
+| E01／E02 身份、母版与准入 | 复用既有物种家族，实际消费者逐链分列；2候选仅开发、旧/正式Definition分列，不扩大随机池 |
+| E03／E04 身体与动作 | 每例真实AI承诺及同体动作有连续影片；独审R1/R2返工、R3限定接受，R4绑定d91；不穷尽所有招式变体 |
+| E05 受伤与恢复 | 每例真实非致死HP提交后观察恢复；charger/diver的H3→live同母版，旧CHR-VIS-01历史失败原件不改 |
+| E06 反馈 | 仍由accepted事件驱动，警告／功能胸心／HP独立；原引擎音轨与PCM保留，听感未签 |
+| E07 死亡与原终态 | 各例致死及至少210帧终态；charger/diver另精确settled后210帧×4链；其他保原隐藏／暗色／Boss政策 |
+| E08／E09 权威与消费 | 真实Router、AI、发射物、双方伤害；实验台与实际App分列，不写玩法权威、不代签自然全campaign |
+| E10 生命周期 | d91原生90／708／209及hit-template426均0失败，暂停／epoch／终态恢复／卸载断连反例；原b71的五套反馈／保存检查另保实际来源 |
+| E11 技术预算 | 原森林80图矩阵540.378秒／600预算通过；GPU裁剪44／0；不是实体设备帧时通过，完整远端CI另记 |
+| E12 导演／用户 | R3/R4仅独立审查的候选范围；成品审美、完整全速观看、音轨听审、实体设备与玩家乐趣等审核 |
+
+真实命令、源与原失败见[验证摘要](../../evidence/enemy_all_02/validation/summary.json)；完整原件归档附SHA。不以本卡或零gap自动签整怪完成。

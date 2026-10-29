@@ -1,5 +1,14 @@
 # 当前状态
 
+## 2026-10-29 全现存怪物动作候选与实机审核（当前）
+
+ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)，不自动合main。14普通物种／22宿主链、2开发候选、8Boss场景／9实际Definition组合已补同体关节动作、accepted受伤恢复及原死亡终态。冲锋／俯冲live统一H3母版；旧三Boss用原fine32同族身体，原AI／HP／碰撞／奖励／保存不改。原ENEMY-CONTINUITY卡与失败hash保留，新卡与实录另立。
+
+[审核目录](evidence/enemy_all_02/README.md)含56.68秒正式App总览、平原15链159.55秒、森林7种83.85秒、两候选24.42秒、Boss9组合257.97秒，以及四链settled后210帧留尸补录。真正Godot4.7.2／60fps／原PCM，实验台、debug入口、初始审核站位逐段披露，不称自然全campaign。当前实现源d91，森林按其重录；其他片保原94／b71源，以R4限定复用，未追签源相同。
+
+原67远端CI森林80图600秒超时真实保留。保守屏外绘制裁剪后，d91完整原80图540.378秒通过（1个专项check，非full165），GPU44／0，当前native90／708／209／426全0失败；b71原11job通过另保来源。[验证摘要](evidence/enemy_all_02/validation/summary.json)。R1/R2失败及R3/R4限定复审保留；任务保持review，成品用户／实体设备／听感／全部变体与G5未签。最新远端CI以PR实际head为准。
+
+
 怪物开发方法：[enemy-creator开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)已补齐从机制灰盒、同一身体母版、动作／退出、命中／死亡／声音到正式遭遇的操作、实物交接和按层返工；由技能自动补卡并调用实际工具。任务ENEMY-WORKFLOW-01只建设开发流程，不改变当前冲锋怪E03／E05 failed或替代真实生产验证。
 
 怪物工作入口：[统一完成标准](quality/enemy_completion_standard.md)与原Enemy Sheet现共用E01–E12／G0–G5／十一维。已有冲锋怪[制作卡](design/enemies/plains_charger.md)为review：本轮四项局部技术检查通过，但当前实录两次受伤退出的身体结构不连续（CHR-VIS-01，E03／E05 failed），完整攻击、正式自然场景、独审、用户与设备未验。流程标准建立不等于怪物完成；[来源与证据](evidence/enemy_completion_01/README.md)。

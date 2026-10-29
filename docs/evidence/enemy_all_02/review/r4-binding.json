@@ -1,0 +1,80 @@
+{
+  "reviewer": "/root/enemy_review",
+  "review_scope": "draw-only conservative viewport culling, pod rope-cap connection, unchanged in-viewport old evidence reuse",
+  "production_source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+  "current_worktree": "root documentation/evidence updates exist; no production/source edits by reviewer",
+  "code_identity_proof": {
+    "scripts/enemies/plains_motion_02.gd": {
+      "original_draw_and_math_equal_after_removing_new_draw_only_guard": true,
+      "sha256": "6e30386f0c4a8506709358d60875b5f8c81df4bb3c9f630bb82ee4e85f4a24a5",
+      "old_sha256": "43b792f1e41d13f0a3aacb4da1b75426cbceaafa0663cb40e8419dc7862caeb3"
+    },
+    "scripts/enemies/forest_motion_02.gd": {
+      "original_draw_and_math_equal_after_removing_new_draw_only_guard": true,
+      "sha256": "edb41daf64ec4be6f70e52d28254cc7051909fe9ec444ca27f5a69060449af1a",
+      "old_sha256": "937b74e8ab883a5d6c107811ce9b02dcc73e4b9bde66ce6159e3c773f661b26a"
+    },
+    "scripts/bosses/boss_motion_presentation.gd": {
+      "original_draw_and_math_equal_after_removing_new_draw_only_guard": true,
+      "sha256": "ae7cbbc508c998f9b87be01f08181e2cf13813630c24655857499e9ce0d01d39",
+      "old_sha256": "618bcf157e15813e7a342f237465241ccfe80427e033f4cbad4c4d93dcf3f2f1"
+    }
+  },
+  "pod_presenter_sha256": "c4e361d92de2652aa765e1ce0b6f63650ee37de0292e772fbefec1c374c2c2e6",
+  "gpu_44_report_sha256": "4e408cc1e741ae351cc3dd21442353b8f7f996b4e1d47d7fb124c25ba1e8475e",
+  "gpu_log_sha256": "bac55de22a592ecd9cc80369bc1d8745ea0ade4302f8539d1973e2715b0b7fab",
+  "forest_v5": {
+    "source": {
+      "working_files": {},
+      "commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "git_status": "",
+      "diff": "",
+      "untracked": ""
+    },
+    "source_stable": true,
+    "status": "recorded_complete_coverage",
+    "coverage_gap_count": 0,
+    "mp4_sha256": "85fb57d47d04eea0d06a9a50b71fa458b1f3cbda30e352f30f990877243d2e20",
+    "trace_sha256": "e4bb77a11fc6d0150b7f6b37c8aee5eebda24de2c6daeaf7667c11fdbde16f38"
+  },
+  "old_video_metadata": "preserve original R3 and earlier 94c/b71 exact source; no hash refresh or upgraded old-source claims",
+  "gpu_png_sha256": {
+    "boss-center.png": "aca8ca0f4d048780db5ca80fde7d3851e5cd2a415031251dc69354c3557f8385",
+    "boss-left-edge.png": "9e042a63c0fb7ea721522e350662366558ce1a3a9e5c4d4807aef01baba8095e",
+    "boss-mirrored.png": "5be713d11cf1d2f66b87dff6bab26f691abc0a1725820c4f4630e923567396d6",
+    "boss-outside.png": "d493cea330aeb64a5725d1ca1a7b9d90c74f846272e0fa36fe8715299a4c3870",
+    "boss-right-edge.png": "96786d13535545d5462c0db1a25f98eaf2e642e3c671ae68ee975764b0ca510d",
+    "forest-center.png": "f38afcb6f940de96f8e17a80ec26e6eb68a3d2363d131cc674ec7ba860949aca",
+    "forest-left-edge.png": "0dbac069f8fe8c09f25b8a281e701128bbaf3565a4a1cf5c93b5c746481b2d10",
+    "forest-mirrored.png": "5c74779e71d7c48ab24fb757ba6a76c190438315d3d59ac954281f60ffcebbd4",
+    "forest-outside.png": "d493cea330aeb64a5725d1ca1a7b9d90c74f846272e0fa36fe8715299a4c3870",
+    "forest-right-edge.png": "3f9de623dbf19001f3844e2e3ef0364b17b81ab98cac668655f3739314b6a481",
+    "plains-center.png": "8ed5fb29a51b5d448ab42ea229c6f88c3387b60025718fcec4cb837899721bc9",
+    "plains-left-edge.png": "bdb1dd4e3b7215d91b839f9c0d508b9b439b56e2ebfee6793058444de370a889",
+    "plains-mirrored.png": "e0daccf381fd368d731decfb2212de1d2e43cddff8dd77bc841982592916e926",
+    "plains-outside.png": "d493cea330aeb64a5725d1ca1a7b9d90c74f846272e0fa36fe8715299a4c3870",
+    "plains-right-edge.png": "0763733bd2f595cc5cdd4ae5924d52f2b90f128802043ffc94f8220517af2c62"
+  },
+  "forest_region_80": {
+    "report_path": "build/verification/harness/20261029T051735.820131Z/report.json",
+    "report_sha256": "32178f6b80c4cafcf8985631c2cfbc5bb83cdd68110a146e1a9f8e50236f74be",
+    "corpus_receipt_sha256": "4e0b428bc5c8311521e84bf189540191e851ca8eca4ce66ccac01bd355557ee3",
+    "scope": "one targeted original 80-route check, not full165 CI",
+    "check_seconds": 540.378,
+    "timeout_seconds": 600
+  },
+  "observed_video_frames": {
+    "forest_species": 7,
+    "representative_body_frames": 42,
+    "pod_cap_contact_frames": 6,
+    "pod_trace_frames": [
+      1386,
+      1389,
+      1393,
+      1400,
+      1413,
+      1423
+    ],
+    "playback": "actual MP4 decode/PNG inspection; no normal-speed full playback/audio/device claim"
+  }
+}

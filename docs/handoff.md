@@ -1,5 +1,14 @@
 # 最新交接 · 2026-10-29
 
+## 2026-10-29 全现存怪物动作候选与实机审核（当前）
+
+ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)，不自动合main。14普通物种／22宿主链、2开发候选、8Boss场景／9实际Definition组合已补同体关节动作、accepted受伤恢复及原死亡终态。冲锋／俯冲live统一H3母版；旧三Boss用原fine32同族身体，原AI／HP／碰撞／奖励／保存不改。原ENEMY-CONTINUITY卡与失败hash保留，新卡与实录另立。
+
+[审核目录](evidence/enemy_all_02/README.md)含56.68秒正式App总览、平原15链159.55秒、森林7种83.85秒、两候选24.42秒、Boss9组合257.97秒，以及四链settled后210帧留尸补录。真正Godot4.7.2／60fps／原PCM，实验台、debug入口、初始审核站位逐段披露，不称自然全campaign。当前实现源d91，森林按其重录；其他片保原94／b71源，以R4限定复用，未追签源相同。
+
+原67远端CI森林80图600秒超时真实保留。保守屏外绘制裁剪后，d91完整原80图540.378秒通过（1个专项check，非full165），GPU44／0，当前native90／708／209／426全0失败；b71原11job通过另保来源。[验证摘要](evidence/enemy_all_02/validation/summary.json)。R1/R2失败及R3/R4限定复审保留；任务保持review，成品用户／实体设备／听感／全部变体与G5未签。最新远端CI以PR实际head为准。
+
+
 ## 2026-10-29 怪物开发skills补齐
 
 用户追问「怎么达到标准的开发skills」。ENEMY-WORKFLOW-01在现有`docs/enemy-continuity-01`／草稿PR112继续，基线`75f23dfd`，main仍45e98db。新增[开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)，enemy-creator统筹实际制作，art-director交同身体母版／同族资源，animation-vfx交动作／过渡／事件反馈，遭遇／音频沿原专业；每步有操作、实物、下一验证和失败责任层。原Enemy／Art／Animation模板追加开发交接，当前旧排期／BGM说明改为读取实际当前权威，保原Bible／漂移／质量门槛。

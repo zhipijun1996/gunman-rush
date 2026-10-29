@@ -1,0 +1,85 @@
+{
+  "path": "in-game-overview/review.mp4",
+  "parts": [
+    "formal-plains",
+    "formal-forest",
+    "boss-formal-storm"
+  ],
+  "sha256": "2e47afcd43492ba8be5d910568c46fc8033542a87c8831350a8b9c825e3c0eb3",
+  "frames": 3401,
+  "seconds": 56.68333333333333,
+  "audio_sample_frames": 2720800,
+  "original_pcm_payload_sha256": "2a7b6d368c9408651b0932de6293339ef2358f554441bd17342382eea37221f0",
+  "chapters": [
+    {
+      "source": "formal-plains",
+      "id": "formal_plains_initial_review_stand",
+      "chain": "actual_DemoApp_generated_stage",
+      "start_seconds": 0.0,
+      "end_seconds": 9.43333333333333,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 9.43333333333333,
+      "coverage_gaps": []
+    },
+    {
+      "source": "formal-forest",
+      "id": "formal_forest_map1_debug_entry",
+      "chain": "actual_DemoApp_generated_stage",
+      "start_seconds": 9.55,
+      "end_seconds": 39.55,
+      "source_start_seconds": 0.0,
+      "source_end_seconds": 30.0,
+      "coverage_gaps": []
+    },
+    {
+      "source": "boss-formal-storm",
+      "id": "windkeeper_storm_formal_app",
+      "chain": "actual_formal_App",
+      "start_seconds": 39.766666666666666,
+      "end_seconds": 56.599999999999966,
+      "source_start_seconds": 0.1,
+      "source_end_seconds": 16.9333333333333,
+      "coverage_gaps": []
+    }
+  ],
+  "method": "Concatenate complete chapters only; video packets copied without re-encoding, dropping or interpolating frames. Original engine PCM samples concatenated without resampling, silence, added music or intra-chapter edits, then encoded to AAC once. Chapter boundaries are explicit, not a continuous natural campaign.",
+  "commands": [
+    [
+      "ffmpeg",
+      "-y",
+      "-f",
+      "concat",
+      "-safe",
+      "0",
+      "-i",
+      "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-concat.txt",
+      "-map",
+      "0:v:0",
+      "-an",
+      "-c:v",
+      "copy",
+      "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-only.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-y",
+      "-i",
+      "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/video-only.mp4",
+      "-i",
+      "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/original-concatenated.wav",
+      "-map",
+      "0:v:0",
+      "-map",
+      "1:a:0",
+      "-c:v",
+      "copy",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "192k",
+      "-movflags",
+      "+faststart",
+      "/workspace/gunman-rush/build/enemy_all_02/delivery_staging/in-game-overview/review.mp4"
+    ]
+  ]
+}
