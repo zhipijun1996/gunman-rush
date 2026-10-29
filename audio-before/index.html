@@ -109,7 +109,7 @@ window.PLAYTEST_CACHE_READY = (async () => {
                     const timer = setTimeout(() => { channel.port1.close(); resolve(false); }, 250);
                     channel.port1.onmessage = event => {
                         clearTimeout(timer); channel.port1.close();
-                        resolve(event.data?.id === "21b92b1443fb" && event.data.packs.includes('index.' + "2caa023125bd" + '.pck'));
+                        resolve(event.data?.id === "34c54d5a04ef" && event.data.packs.includes('index.' + "1d3791a7c290" + '.pck'));
                     };
                     controller.postMessage({type: 'playtest-cache-version'}, [channel.port2]);
                 });
@@ -154,7 +154,7 @@ async function checkPlaytestUpdate() {
         const response = await fetch(manifest, {cache: 'no-store'});
         if (!response.ok) return;
         const live = await response.json();
-        if (!live || live.build_id === "2caa023125bd" || !/^[a-f0-9]{12}$/.test(live.build_id)) return;
+        if (!live || live.build_id === "1d3791a7c290" || !/^[a-f0-9]{12}$/.test(live.build_id)) return;
         if (document.getElementById('playtest-update')) return;
         const button = document.createElement('button');
         button.id = 'playtest-update';
@@ -194,7 +194,7 @@ document.addEventListener('visibilitychange', checkPlaytestUpdate);
 
 		<script src="index.d20938d2db49.engine.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index.d20938d2db49.engine","experimentalVK":true,"fileSizes":{"index.2caa023125bd.pck":208691576,"index.d20938d2db49.engine.wasm":37902138},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"mainPack":"index.2caa023125bd.pck"};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":false,"executable":"index.d20938d2db49.engine","experimentalVK":true,"fileSizes":{"index.1d3791a7c290.pck":208700940,"index.d20938d2db49.engine.wasm":37902138},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4,"mainPack":"index.1d3791a7c290.pck"};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -299,7 +299,7 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 }());
 		</script>
-	<div id="playtest-version" data-build-id="2caa023125bd" style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;font:10px sans-serif;color:#9ba7b6">试玩 2caa0231</div>
+	<div id="playtest-version" data-build-id="1d3791a7c290" style="position:fixed;bottom:3px;left:5px;z-index:9;pointer-events:none;font:10px sans-serif;color:#9ba7b6">试玩 1d3791a7</div>
 </body>
 </html>
 

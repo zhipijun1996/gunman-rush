@@ -1,6 +1,16 @@
 {
-  "scope": "Same accepted UI/art, frozen original versus audio fixes and selected SFX integration; physical continuity unverified",
+  "scope": "Same accepted UI/art; frozen ordinary single-thread baseline and its original diagnostics versus production threaded audio and requested cue changes; new full-session phone continuity unverified",
   "after": {
+    "scope": "exact PCK reconstruction for static Pages transport",
+    "source_commit": "fb5dc84b12adcbfada2e7e43845acec9b81d2d9b",
+    "build_id": "683cf2cce4d6",
+    "pack": "index.683cf2cce4d6.pck",
+    "pack_bytes": 208700796,
+    "pack_sha256": "683cf2cce4d684659be9a8c82bbf3275474824d4c95dd00df737a77c9cee54d1",
+    "reconstructed": true,
+    "failed": 0
+  },
+  "before": {
     "scope": "exact PCK reconstruction for static Pages transport",
     "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe",
     "build_id": "1d3791a7c290",
@@ -10,17 +20,7 @@
     "reconstructed": true,
     "failed": 0
   },
-  "before": {
-    "scope": "exact PCK reconstruction for static Pages transport",
-    "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
-    "build_id": "2caa023125bd",
-    "pack": "index.2caa023125bd.pck",
-    "pack_bytes": 208691576,
-    "pack_sha256": "2caa023125bd6fcf2b960dcdf5ac60a6a7abdbfeb643ef0b661f80f6a15d5a31",
-    "reconstructed": true,
-    "failed": 0
-  },
-  "unpacked_site_bytes": 1002703008,
+  "unpacked_site_bytes": 1003426438,
   "comparison_path": "audio-compare.html",
   "raw_packs_verified_then_removed_for_git_transport": true
 }
