@@ -2,6 +2,8 @@
 
 ## 2026-10-29 全现存怪物动作候选与实机审核（当前）
 
+审核包已冻结于`c59661b7c4182e4efdfce5206dd7477ac5dceb4a`并推送PR114；原docs33／33 fresh、0复用／0失败。11段公开MP4实际HTTP200整文件178,500,792字节，SHA全匹配，[下载收据](evidence/enemy_all_02/public-download.json)。后续仅收据／交接账本追加和相关静态守门，不重签媒体source、完整33或全165。PR说明已更新审核入口，仍OPEN/draft/未合并。
+
 ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)，不自动合main。14普通物种／22宿主链、2开发候选、8Boss场景／9实际Definition组合已补同体关节动作、accepted受伤恢复及原死亡终态。冲锋／俯冲live统一H3母版；旧三Boss用原fine32同族身体，原AI／HP／碰撞／奖励／保存不改。原ENEMY-CONTINUITY卡与失败hash保留，新卡与实录另立。
 
 [审核目录](evidence/enemy_all_02/README.md)含56.68秒正式App总览、平原15链159.55秒、森林7种83.85秒、两候选24.42秒、Boss9组合257.97秒，以及四链settled后210帧留尸补录。真正Godot4.7.2／60fps／原PCM，实验台、debug入口、初始审核站位逐段披露，不称自然全campaign。当前实现源d91，森林按其重录；其他片保原94／b71源，以R4限定复用，未追签源相同。

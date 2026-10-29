@@ -122,7 +122,7 @@ R3已在当时源与选定媒体内看过新守卫／女王同族身体、功能
 - 当前最新源`d91b27377c88e039560140deb87e0a67052a716b`仅增加保守屏外绘制裁剪，并修正悬荚绳端与不透明荚帽的接合。旧R3结论只属于其绑定源；d91的`forest-depth-region --corpus`专项已实际80图／80图通过，原600秒预算内540.378秒，exit0、0复用，精确干净d91源，报告为`build/verification/harness/20261029T051735.820131Z/report.json`（Harness总墙钟553.226秒）。森林7种已按d91重录，屏外裁剪对可见旧片复用已获R4独审限定ACCEPT；不能借旧source_stable追签新源或声称全CI绿。
 - 用户仍需审核同体风格、动作连续性、反馈可读性和战斗趣味；原音轨听审、实体安卓／手柄／低端帧时和全部边角打断策略均单列未验。正式App片、实验台片、物种库存、工程回归和玩家认可分别记账。
 
-制作与状态入口：[规格](../../worklines/enemy_all_02/spec.md)、[库存](roster.json)、[平原卡](../../worklines/enemy_all_02/plains-production-cards.md)、[森林卡](../../worklines/enemy_all_02/forest-production-cards.md)、[Boss卡](../../worklines/enemy_all_02/boss-production-cards.md)。各片完整SHA见manifest；公开下载核验收据将在上传后按实际结果归档。
+制作与状态入口：[规格](../../worklines/enemy_all_02/spec.md)、[库存](roster.json)、[平原卡](../../worklines/enemy_all_02/plains-production-cards.md)、[森林卡](../../worklines/enemy_all_02/forest-production-cards.md)、[Boss卡](../../worklines/enemy_all_02/boss-production-cards.md)。各片完整SHA见manifest；11段MP4已实际HTTP200完整下载、178,500,792字节全部SHA匹配，见[公开下载收据](public-download.json)。
 
 技术实跑与旧CI超时见[验证摘要](validation/summary.json)、[完整原日志／80条轨迹归档](validation/original-validation-artifacts.zip)；独审[R1](review/r1.md)、[R2](review/r2.md)、[R3](review/r3.md)、[R4](review/r4.md)按各自精确源和范围有效。当前PR为[114](https://github.com/zhipijun1996/gunman-rush/pull/114)，保持草稿，不自动合main。
 

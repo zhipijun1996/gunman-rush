@@ -116,6 +116,7 @@
     "docs/evidence/enemy_all_02/generation/prototype-prompt-round2.txt",
     "docs/evidence/enemy_all_02/generation/prototype-prompt.txt",
     "docs/evidence/enemy_all_02/generation/prototype-round2-rejected.png",
+    "docs/evidence/enemy_all_02/public-download.json",
     "docs/evidence/enemy_all_02/review/r1-binding.json",
     "docs/evidence/enemy_all_02/review/r1.md",
     "docs/evidence/enemy_all_02/review/r2.md",
@@ -201,11 +202,13 @@
     "tools/enemy_all_review_02_route_capture.gd.uid"
   ],
   "deliverables": [
-    "docs/worklines/enemy_all_02/spec.md",
-    "docs/evidence/enemy_all_02/roster.json",
     "docs/evidence/enemy_all_02/README.md",
     "docs/evidence/enemy_all_02/candidate_v5/manifest.json",
-    "docs/evidence/enemy_all_02/validation/summary.json"
+    "docs/evidence/enemy_all_02/public-download.json",
+    "docs/evidence/enemy_all_02/roster.json",
+    "docs/evidence/enemy_all_02/validation/summary.json",
+    "docs/worklines/enemy_all_02/completion_matrix.md",
+    "docs/worklines/enemy_all_02/spec.md"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -630,16 +633,26 @@
       "command": "python3 tools/harness.py --profile docs --release --jobs 1",
       "exit_code": 0,
       "environment": "Managed cloud; Python3.12.14; locked original manifest and budgets; actual worktree metadata in receipt."
+    },
+    {
+      "id": "public_mp4_downloads",
+      "path": "docs/evidence/enemy_all_02/public-download.json",
+      "sha256": "4d0983f326ea5968561adbbda9cb808b525d01223db65093db998ca226ad3243",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "c59661b7c4182e4efdfce5206dd7477ac5dceb4a",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "HTTP GET complete MP4 bodies; SHA256 compared with committed local media, no Range/HEAD-only check",
+      "observed": "All11 public MP4 HTTP200 complete body downloads,178500792 bytes; actual SHA matches committed media. Availability/integrity only, not audio/user/device acceptance."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "workflow=review，不是done或G5；G1/technical仅当前已验专项，不能推导全165/latest远端CI通过。",
-    "用户最终美术/动作/声音听审/趣味认可、实体设备与原预算测量均unverified。",
-    "远端draftPR114仍67，原CI串行forest80真实timeout保留；本地d91原80绿不代签远端旧红已解决。",
-    "消费者完整当前源runtime inventory/逐consumer实际输出尚待结构化归档；static roster和helper不能替代正式覆盖。",
-    "本轮基本链不穷尽全部招式/打断/边角；Rootbell返铃反击和织网保结/切结等分支按R3仍未验。",
-    "影片混合capture版本均保原source_commit；只对d91 fresh森林签当前采集，不更新旧媒体来源或清除失败。",
-    "公开11段MP4完整下载与SHA核验待上传后实际收据；最新全165远端CI未签通过。"
+    "当前保持review：用户对本轮视觉/动作/听感/玩法的最终成品接受未签。",
+    "实体安卓/手柄/触屏/低端帧时，以及完整设备预算未验。",
+    "最新精确PR头全165远端CI以实际Actions为准，未签通过；旧67森林80/600超时保留，d91本地原80/80已通过。",
+    "未穷尽所有招式/阶段打断/边缘分支；Rootbell返铃反击本片0次、织网保结/切结等按R3保留未验。",
+    "完整当前源正式runtime consumer inventory及逐consumer输出尚未按schema归档；静态roster与实验台/正式片分列，不代签正式整包覆盖。",
+    "R3/R4仅限定接受审核候选，不绕过G2/G3或签完整G4/G5。"
   ]
 }
