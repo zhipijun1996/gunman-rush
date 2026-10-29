@@ -36,3 +36,5 @@
 原 forest-depth-versions 是历史与当前职责混合，不能直接移走。新独立 current-registry 将当前V2／V15完整输出／严格准入、未知空值畸形拒绝、真实当前App HOME与active无副作用拒绝、两图当前状态保存重载及音频／owner释放留在默认检查。旧check完整字典／命令／210秒外层与原import/native预算、三native消费者、reader与11份源／fixture保持字节不变，仅明确纳入manual legacy-compat；新项在gameplay/full一换一，full166／gameplay151／适用并集163及物理lane91＋75不变，原Bible/debug/campaign检查均保留。
 
 此限定过程由[MONSTER-LEGACY-SCOPE-01](../../quality/records/MONSTER-LEGACY-SCOPE-01.json)单独记账；独审接受精确d431守门代码与分流，最终reader实际48／0含47拒绝反例。开发native88／0保原来源，不改签最终干净源fresh。完整适用回归及主怪物质量仍须另证，详见[当前守门证据](../../evidence/plains_monster_revision_01/current-registry/README.md)。
+
+后继planner清单守门保四个原历史摘要，仅对已独审current-registry名称做逆映射；新项在manifest74／排序plan85、唯一性与legacy归属另有严格断言。实际full04失败原件保留，不把21项局部后继通过签完整163。
