@@ -78,7 +78,7 @@ func exercise() -> void:
 	check(helper.validation_ok, "Selected modes, pinned manifests and all sixteen actual audio fingerprints validate")
 	check(audio != other_audio and int(helper.snapshot().audio_owner_id) == audio.get_instance_id(), "Assembly uses only its direct App-owned service rather than the earlier global-group member")
 	check(app.menu.visible_panel == &"title" and helper.active_context.is_empty() and audio.ambience == null, "Initial title remains silent without allocating an ambience pool")
-	check(audio.audio_profile == "original", "Thirteen SFX choices are not activated by this ambience rollout")
+	check(audio.audio_profile == "selected", "Formal selected-SFX assembly coexists with the ambience assembly")
 	var regions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SelectedAmbienceRuntime.REGION_SELECTION))
 	var home_choice: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SelectedAmbienceRuntime.HOME_SELECTION))
 	check(SelectedAmbienceRuntime.selections_valid(regions, home_choice), "Actual preserved selection records validate independently")
@@ -138,7 +138,7 @@ func exercise() -> void:
 	check(app.start_plains("selected-ambience-formal"), "Actual App starts the formal plains consumer")
 	await frames(8)
 	check(app.stage is PlainsRegionStage and helper.active_context == "plains" and helper.snapshot().expected_path == SelectedAmbienceRuntime.BEDS.plains, "Real plains stage and manifest select regional A")
-	check(audio.ambience.candidate == "plains_a" and audio.audio_profile == "original", "Regional A ambience preserves original SFX dispatch")
+	check(audio.ambience.candidate == "plains_a" and audio.audio_profile == "selected", "Regional A ambience preserves the separately selected SFX dispatch")
 	configured = helper.configurations
 	await frames(8)
 	check(helper.configurations == configured, "Unchanged plains context does not restart")

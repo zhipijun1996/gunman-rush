@@ -1,5 +1,13 @@
 # 开发任务
 
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-AUDIO-02 | 接入工坊既有选择，记录Stream缓冲耗尽并提供真机对照 | MOBILE-WEB-PERF-01 | in_progress | [记录](quality/records/MOBILE-WEB-AUDIO-02.json) |
+
+[范围](worklines/mobile_web_audio_02/scope.md)。386真机仍卡；发现正式场景始终original，既有14项工坊选择未接入。前轮旧pulse匹配不签用户选择恢复。本轮不降低画质或重制声音。
+
 ## 2026-10-29 MOBILE-WEB-PERF-01 · 音频修复已发布，awaiting-device
 
 | ID | 任务 | 依赖 | 状态 | 质量 |

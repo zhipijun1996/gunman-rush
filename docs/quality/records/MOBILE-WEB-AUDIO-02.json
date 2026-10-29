@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "task_type": "small_fix",
+  "constraints": [
+    "同一1280×720逻辑游戏画布，DPR只改变绘制清晰度",
+    "保原shader/PNG/输入/物理/资源/RNG/save及声音素材；只改已复现的总线创建和暂停状态写入",
+    "不把云端软件WebGL或浏览器模拟签成荣耀60Pro性能、观感或玩家认可",
+    "只快速Web部署，不默认merge main；保原失败和预算"
+  ],
+  "task_id": "MOBILE-WEB-AUDIO-02",
+  "workflow": "in_progress",
+  "baseline_commit": "287f473635047d7329f838cc252a57fa53200114",
+  "reviewed_commit": "287f473635047d7329f838cc252a57fa53200114",
+  "content_version": "selected-sfx-and-stream-diagnostic-v1",
+  "owner": "root",
+  "purpose": "恢复已选工坊音效并继续独立定位Stream断续",
+  "player_experience": "手机横屏稳定流畅且原BGM/环境音/动作音效保留",
+  "affected_paths": [
+    "scenes/demo/demo.tscn",
+    "scripts/audio/selected_sfx_runtime.gd",
+    "scripts/audio/selected_sfx_runtime.gd.uid",
+    "tests/selected_sfx_runtime.gd",
+    "tests/selected_sfx_runtime.gd.uid",
+    "tests/selected_ambience_runtime.gd",
+    "tools/mobile_web_perf/prepare_stream_diagnostic.py",
+    "tools/mobile_web_perf/run_stream_diagnostic.py"
+  ],
+  "deliverables": [
+    "current Web baseline and independent AB receipts",
+    "measured hotspot fix",
+    "physical-phone comparison build"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/mobile_web_audio_02/scope.md",
+      "sha256": "c1dc037d82fd7f35201345a15a095732778e0d7f251c4f14359c7fe2d24dd218",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "287f473635047d7329f838cc252a57fa53200114",
+      "content_version": "selected-sfx-and-stream-diagnostic-v1",
+      "method": "current user failure feedback and actual formal source/pack inventory",
+      "observed": "missing V3 selection activation confirmed; Stream underrun hypothesis pending device comparison"
+    }
+  ],
+  "unverified_items": [
+    "real selected SFX in official Web",
+    "phone Stream continuity and50/200 comparison",
+    "physical acceptance"
+  ],
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "真机反馈与两条独立目标已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "真机反馈与两条独立目标已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "当前新增接入与诊断待验证，旧原声音色证明不代签",
+      "evidence": []
+    }
+  },
+  "consumer_coverage": null
+}
