@@ -195,12 +195,22 @@ class ProductionPlanTests(unittest.TestCase):
             "item-v5-authoring", "item-authoring-tools", "item-v5-art",
             "home-codex",
         ]
-        self.assertEqual(self.manifest["profiles"]["full"][144:], additions)
-        self.assertEqual(full["checks"][144:], additions)
+        # Retain the complete original165 inventory/order as a frozen prefix;
+        # the new native contract appends without replacing either lane's set.
+        self.assertEqual(self.manifest["profiles"]["full"][:165], original + additions)
+        self.assertEqual(full["checks"][144:165], additions)
+        self.assertEqual(digest(self.manifest["profiles"]["full"][:165]), "ac963a4c96ca823555c367dcb10f039ccf0b24c762bb7e7e4fe16df01f63a463")
+        self.assertEqual(digest(full["checks"][:165]), "e88cea4aab3d566a2eaf8a4689f4a0f7011b69df67ac5f02ff028852994d9750")
+        structure_additions = ["enemy-structure-native"]
+        expected_additions = additions + structure_additions
+        self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
+        self.assertEqual(full["checks"][144:], expected_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][165:], structure_additions)
+        self.assertEqual(full["checks"][165:], structure_additions)
         added_parallel = ["item-v5-data", "item-authoring-tools"]
         self.assertEqual([name for name in parallel if name not in original], added_parallel)
-        self.assertEqual([name for name in serial if name not in original], [name for name in additions if name not in added_parallel])
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (165,91,74))
+        self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (166,91,75))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
