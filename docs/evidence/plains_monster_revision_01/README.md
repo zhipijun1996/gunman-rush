@@ -49,3 +49,7 @@
 原回归attempt01实际仅执行8项：7通过，quality因两旧registry source hash/新process任务索引缺失失败，后155未执行。保integration/attempt-01，不称全量跑完。技术登记追加证明与独审另保asset-registration/及review/；随后重跑同一163项。实际输入物化仅恢复3个原tracked文件共约1MB，不修改原内容/阈值。
 
 comparison初页300条观测为movie9..308，声明可播10..308；转换器保持原可播区、排除首个前导观测并取poster10，不改原trace/影片，其他5页无排除。独立46项回归及18篡改拒绝见site/comparison-safeclip-*。
+
+第二轮原163在generated-consumers进入真实Forest v14时触发旧16wu半高断言，实际34项通过／1失败／128未执行，保integration/attempt-02。局部只将该森林charger放置点按真实Definition半高定位，保原脚底断言、其他生态行/地形/RNG；App v14与当前v15局部37／0。随后先按原完整generated wrapper复验，再继续同一163范围；不由局部37签整个回归。
+
+生产站两部新片实际Range返回206、1024字节与原MP4前缀相同，见site/live-media-range.json；首个错误service header原401保留为工具验证失败，正确Bearer重试未修改网站权限或Worker。

@@ -26,3 +26,5 @@
 正式同屏复审发现原扇射碰撞28×32超过核心腹，现v3改为22×18：包含约14wu腹体及其约3.3wu镜向中心偏移，翼面不作为整块实体；冲锋v3由28×32改28×28，去掉旧框高出新壳顶的部分。保Actor中心与原朝向/存档/枪口语义，不额外添加偏移权威；具体动态擦边仍按实际物理和画面复审。
 
 碰撞适配另修冲锋require_floor支持探针：使用实际RectangleShape2D的脚底与leading halfwidth+1，射线从sole-2至sole+8（原10wu长度），避免旧硬编码在exact贴地时从地板边界开始漏检。旧339/2失败与修后340/0保留；其他require_floor=false调用及_hit_landing_supported未改，不能声称旧射线位置完全等价。
+
+完整回归另发现forest_vertical_expedition._ecology复用charger时写死旧16wu半高。仅该条spawn.y改为读取真实Definition.collision_size.y/2，保原脚底/横向边界assert、支持面、其他行、地形与RNG；新28高实际y比旧值低2wu，v14/v15 App均37项局部通过。平原录片源7edda9不受此森林技术适配影响，不给旧片改源标。

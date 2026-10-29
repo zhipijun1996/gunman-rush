@@ -189,7 +189,8 @@ static func _ecology(m: Dictionary) -> void:
 		var surface:=API._platform_by_id(m,str(spec[1]));var r:=BASE._rect(surface.rect)
 		rows.append({"id":spec[0],"behavior":"forest_seed_sentry","support":surface.id,"position":[r.end.x-80.0,r.position.y-18.0],"radius":0.0,"role":"recovery root seed warning; retained wide retry bank lets the player shoot, wait or change height"})
 	var catch_surface:=API._platform_by_id(m,"root_spiral__recovery");var catch_rect:=BASE._rect(catch_surface.rect)
-	rows.append({"id":"root_catch_charger","behavior":"charger","support":catch_surface.id,"position":[catch_rect.position.x+110.0,catch_rect.position.y-16.0],"radius":35.0,"role":"root-floor lunge encourages a height change during recovery, away from the first departure"})
+	var charger_half_height := (load("res://resources/enemies/plains_charger.tres") as EnemyDefinition).collision_size.y * 0.5
+	rows.append({"id":"root_catch_charger","behavior":"charger","support":catch_surface.id,"position":[catch_rect.position.x+110.0,catch_rect.position.y-charger_half_height],"radius":35.0,"role":"root-floor lunge encourages a height change during recovery, away from the first departure"})
 	for row: Dictionary in rows:
 		var path: String="res://resources/enemies/plains_charger.tres" if row.behavior=="charger" else "res://resources/enemies/"+str(row.behavior)+".tres"
 		var definition: EnemyDefinition=load(path)
