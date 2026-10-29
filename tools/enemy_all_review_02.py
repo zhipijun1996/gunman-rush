@@ -65,20 +65,22 @@ def original_audio_statistics(avi, folder):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--group", choices=("plains", "forest", "prototypes", "boss", "route_plains", "route_forest", "formal_plains", "formal_forest", "all"), default="plains", help="all combines ordinary species and development prototypes; Boss fights, original-stage routes and disclosed initial formal review stands use separate drivers.")
+    parser.add_argument("--group", choices=("plains", "forest", "prototypes", "boss", "route_plains", "route_forest", "formal_plains", "formal_forest", "formal_boss", "all"), default="plains", help="all combines ordinary species and development prototypes; Boss fights, original-stage routes and disclosed initial formal review stands use separate drivers.")
     parser.add_argument("--chains", choices=("primary", "all"), default="primary")
-    parser.add_argument("--species", default="", help="One exact roster id; all chains requested for that id are retained.")
+    parser.add_argument("--species", default="", help="Exact roster id; Boss group also accepts a comma-separated explicit subset. A subset is not whole-roster proof.")
     parser.add_argument("--seed", default="enemy-all-review-02", help="Provenance label, not an injected production RNG seed.")
     parser.add_argument("--require-remains", action="store_true", help="Apply only to species whose original terminal policy requires a persistent corpse.")
     parser.add_argument("--retain-avi", action="store_true", help="Retain uncompressed MovieMaker intermediate after verifying MP4 and SHA-256.")
     parser.add_argument("--seconds", type=int, default=45, help="Original formal-route gameplay bound, 15–120 seconds; not a campaign completion claim.")
     args = parser.parse_args()
+    if "," in args.species and args.group != "boss":
+        parser.error("Comma-separated subsets are supported only by the Boss driver")
     folder = args.output.resolve()
     folder.mkdir(parents=True, exist_ok=False)
     source = harness.git_metadata()
     formal = args.group.startswith("formal_")
     route = args.group.startswith("route_") or formal
-    driver = "tools/enemy_all_review_02_formal_capture.gd" if formal else ("tools/enemy_all_review_02_route_capture.gd" if route else ("tools/enemy_all_review_02_boss_capture.gd" if args.group == "boss" else "tools/enemy_all_review_02_capture.gd"))
+    driver = "tools/enemy_all_review_02_formal_boss_capture.gd" if args.group == "formal_boss" else ("tools/enemy_all_review_02_formal_capture.gd" if formal else ("tools/enemy_all_review_02_route_capture.gd" if route else ("tools/enemy_all_review_02_boss_capture.gd" if args.group == "boss" else "tools/enemy_all_review_02_capture.gd")))
     report = {
         "task": "ENEMY-ALL-02", "group": args.group, "chains": args.chains,
         "species": args.species or None, "seed_label": args.seed, "status": "running",
@@ -119,9 +121,9 @@ def main():
         report["command"] = command
         # Each chapter has a roster-dependent original bound. This is a new
         # recording budget, not a widened integration-test or lease timeout.
-        count = {"plains": 15 if args.chains == "all" else 7, "forest": 7, "prototypes": 2, "boss": 9, "route_plains": 1, "route_forest": 1, "formal_plains": 1, "formal_forest": 1, "all": 24 if args.chains == "all" else 16}[args.group]
+        count = {"plains": 15 if args.chains == "all" else 7, "forest": 7, "prototypes": 2, "boss": 9, "route_plains": 1, "route_forest": 1, "formal_plains": 1, "formal_forest": 1, "formal_boss": 1, "all": 24 if args.chains == "all" else 16}[args.group]
         if args.species:
-            count = 3 if args.species == "plains_root_bell" and args.chains == "all" else (2 if args.group in ("plains", "all") and args.species.startswith(("patrol_", "plains_")) and args.chains == "all" else 1)
+            count = len(set(args.species.split(","))) if args.group == "boss" else (3 if args.species == "plains_root_bell" and args.chains == "all" else (2 if args.group in ("plains", "all") and args.species.startswith(("patrol_", "plains_")) and args.chains == "all" else 1))
         budget = max(600, min(120, args.seconds) * 8) if route else max(180, count * (240 if args.group == "boss" else 100))
         result = harness.run_check({"argv": command, "timeout_seconds": budget, "success_pattern": r"^ENEMY ALL REVIEW 02: complete; cases=\d+; frames=\d+; coverage_gaps=\d+$"}, folder / "capture.log", ROOT, env)
         report["execution"] = result

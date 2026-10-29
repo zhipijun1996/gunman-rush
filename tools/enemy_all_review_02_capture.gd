@@ -380,7 +380,11 @@ func drive() -> void:
 	detail.text = "AI: %s   ENEMY HP: %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs\n%s" % [state.to_upper(),actor.health.current,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original death policy" if actor.health.terminal else ("COMBAT / real Router shots" if attack_seen else "OBSERVE / wait for actual AI commitment")]
 	var finished := death_frame >= 0 and frame-death_frame >= HOLD_FRAMES and local_frame >= 540
 	if persistent_remains_component: finished = finished and settled_frame>=0 and frame-settled_frame>=HOLD_FRAMES
-	if finished or local_frame >= MAX_CASE_FRAMES or (controller.actor_resources.health.terminal and local_frame >= 540):
+	# MAX_CASE_FRAMES is the combat bound. Accepted deaths retain their full
+	# observed terminal hold; no case can exceed MAX_CASE_FRAMES+HOLD_FRAMES.
+	var combat_budget_exhausted: bool = local_frame>=MAX_CASE_FRAMES and death_frame<0
+	var absolute_budget_exhausted: bool = local_frame>=MAX_CASE_FRAMES+HOLD_FRAMES
+	if finished or combat_budget_exhausted or absolute_budget_exhausted or (controller.actor_resources.health.terminal and local_frame >= 540):
 		busy = true
 		finish_case.call_deferred()
 
@@ -477,7 +481,7 @@ func finish() -> void:
 	if not await audio.shutdown(): failures.append("GameAudio ownership did not release")
 	var gaps := 0
 	for result: Dictionary in cases: gaps += result.coverage_gaps.size()
-	var output := {"task":"ENEMY-ALL-02","complete":true,"seed_label":seed_label,"group":group,"chains":chains,"frames":rows,"cases":cases,"failures":failures,"coverage_gap_count":gaps,"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"camera":{"mode":"smooth observed player/enemy/complete authored attack envelope","zoom_bounds":[1.4,2.8],"camera_state_recorded_per_frame":true},"max_case_frames":MAX_CASE_FRAMES,"terminal_hold_frames":HOLD_FRAMES,"source_HP_state_AI_injection":false,"scope":"Explicit initial fixture, genuine Godot AI/InputRouter/projectile/damage. Not natural formal campaign traversal."},"not_verified":["natural campaign route","physical device performance","human visual approval"]}
+	var output := {"task":"ENEMY-ALL-02","complete":true,"seed_label":seed_label,"group":group,"chains":chains,"frames":rows,"cases":cases,"failures":failures,"coverage_gap_count":gaps,"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"camera":{"mode":"smooth observed player/enemy/complete authored attack envelope","zoom_bounds":[1.4,2.8],"camera_state_recorded_per_frame":true},"max_case_frames":MAX_CASE_FRAMES+HOLD_FRAMES,"combat_frame_budget":MAX_CASE_FRAMES,"absolute_frame_budget":MAX_CASE_FRAMES+HOLD_FRAMES,"terminal_hold_frames":HOLD_FRAMES,"source_HP_state_AI_injection":false,"scope":"Explicit initial fixture, genuine Godot AI/InputRouter/projectile/damage. Not natural formal campaign traversal."},"not_verified":["natural campaign route","physical device performance","human visual approval"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write complete capture trace: ",trace_path)

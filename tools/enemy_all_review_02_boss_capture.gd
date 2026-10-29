@@ -68,7 +68,7 @@ func make_label(value: String, point: Vector2, font_size: int) -> Label:
 func start() -> void:
 	root.size = Vector2i(1280,720)
 	for id: String in BOSSES:
-		if only_species.is_empty() or id == only_species: manifest.append(id)
+		if only_species.is_empty() or id in only_species.split(","): manifest.append(id)
 	if manifest.is_empty():
 		printerr("Unsupported actual Boss id: ",only_species)
 		quit(1)
@@ -336,6 +336,7 @@ func clear_body_aim() -> Dictionary:
 	# forest_depth_guardian_pilot.fire. Bell geometry remains real occlusion.
 	var half := encounter.definition.collision_size*.5-Vector2(4,4)
 	var offsets: Array[Vector2] = [Vector2.ZERO,Vector2(-half.x,-half.y),Vector2(half.x,-half.y),Vector2(0,-half.y),Vector2(-half.x,half.y),Vector2(half.x,half.y)]
+	if encounter is WindkeeperEncounter and (encounter as WindkeeperEncounter).continuous_combat(): offsets.push_front(Vector2(0,-95))
 	if encounter is WindkeeperEncounter and not (encounter as WindkeeperEncounter).continuous_combat(): offsets = [(encounter as WindkeeperEncounter).core_offset()]
 	for offset: Vector2 in offsets:
 		var target := motor.global_position+offset
@@ -437,8 +438,10 @@ func windkeeper_input(boss: WindkeeperEncounter) -> float:
 		if boss.stage_phase>=2 and is_instance_valid(wind_module):
 			var shelf_centers: Array[float] = []
 			for shelf: int in [1,2,3]: shelf_centers.append(wind_module.to_global(wind_module.definition.platforms[shelf].get_center()).x)
-			desired = shelf_centers[0] if boss.stage_phase==2 else shelf_centers[clampi(boss.chase_segment+1,0,2)]
-			if String(encounter.definition.resource_path).ends_with("windkeeper_storm.tres"): desired = wind_module.to_global(Vector2(870,452)).x
+			# Historical core needs no rune/shore password. Keep its receiving
+			# shelf instead of crossing the broken bridge to follow each pier.
+			desired = wind_module.to_global(Vector2(440,452)).x
+			if String(encounter.definition.resource_path).ends_with("windkeeper_storm.tres"): desired = wind_module.to_global(Vector2(920,452)).x
 			if grounded and player.global_position.y>boss._floor_y-130 and not wind_jump_active:
 				wind_start_jump()
 		wind_desired_x = desired
@@ -534,7 +537,11 @@ func drive() -> void:
 	var accepted_attack: bool = not cases[index].attacks.is_empty()
 	var recovered_shot_cadence: bool = first_hit_frame>=0 and frame-first_hit_frame>100
 	var shot_clock_ready: bool = (controller.shoot_ability.cooldown_remaining<=0 and controller.shoot_ability.rounds_remaining==0) if recovered_shot_cadence else local_frame-last_shot_frame>=100
-	var predicted_recoil_x: float = controller.motor.global_position.x-direction.x*105
+	var queued_jump: bool = encounter is WindkeeperEncounter and wind_jump_active
+	var fire_grounded: bool = controller.motor.is_on_floor() and not queued_jump
+	var actual_recoil_distance: float = controller.motor.weapon_motion.base_distance(controller.motor.tuning,fire_grounded)
+	var predicted_recoil_x: float = controller.motor.global_position.x+controller.motor.velocity.x/60.0-direction.x*actual_recoil_distance+controller.motor.normal_velocity.x*.06
+	if not encounter is WindkeeperEncounter or encounter is BellstriderEncounter: predicted_recoil_x = controller.motor.global_position.x-direction.x*105
 	var recoil_stays_inside: bool = predicted_recoil_x>=arena_rect.position.x+30 and predicted_recoil_x<=arena_rect.end.x-30
 	var terrain_blocked: bool = not bool(aim_receipt.clear)
 	var original_receiver_direction_allowed := true
@@ -547,14 +554,12 @@ func drive() -> void:
 	var wind_reposition_fire_hold := false
 	if encounter is WindkeeperEncounter and not encounter is BellstriderEncounter and (encounter as WindkeeperEncounter).stage_phase>=2:
 		var wind := encounter as WindkeeperEncounter
-		var shelf_height: float = wind_module.to_global(wind_module.definition.platforms[1].position).y if is_instance_valid(wind_module) else wind._floor_y-130
-		wind_reposition_fire_hold = controller.motor.global_position.y+18>shelf_height+2 or (absf(wind_desired_x-controller.motor.global_position.x)>65 and signf(target.x-controller.motor.global_position.x)==signf(wind_desired_x-controller.motor.global_position.x))
-		if id=="windkeeper_storm":
-			var right_shelf: Rect2 = wind_module.definition.platforms[3]
-			var feet := controller.motor.global_position+Vector2(0,18)
-			var on_full_shelf: bool = controller.motor.is_on_floor() and absf(feet.y-right_shelf.position.y)<1 and feet.x-12>=right_shelf.position.x and feet.x+12<=right_shelf.end.x
-			if wind.stage_phase==2 and encounter.health.current<=13 and not on_full_shelf: wind_reposition_fire_hold = true
-			if predicted_recoil_x<right_shelf.position.x+12 or predicted_recoil_x>right_shelf.end.x-12: wind_reposition_fire_hold = true
+		var shelf: Rect2 = wind_module.definition.platforms[3 if id=="windkeeper_storm" else 1]
+		var expected_full_foot: bool = predicted_recoil_x-12>=shelf.position.x+2 and predicted_recoil_x+12<=shelf.end.x-2
+		var support_ray := PhysicsRayQueryParameters2D.create(Vector2(predicted_recoil_x,shelf.position.y-3),Vector2(predicted_recoil_x,shelf.position.y+5),1,[controller.motor.get_rid(),motor.get_rid()])
+		var support := motor.get_world_2d().direct_space_state.intersect_ray(support_ray)
+		var actual_support: bool = not support.is_empty() and support.get("collider") is StaticBody2D and (support.normal as Vector2).y<-.5
+		wind_reposition_fire_hold = not expected_full_foot or not actual_support or controller.motor.global_position.y+18>shelf.position.y+2 or controller.motor.recoil_burst_remaining>0
 	var commitment_clearance := true
 	if encounter is RootbellGuardianV2 and state in ["pursuit_warning","pursuit_flight"]:
 		commitment_clearance = controller.motor.global_position.distance_to((encounter as RootbellGuardianV2).attack_goal-Vector2(0,18))>=encounter.definition.collision_size.x+24
@@ -569,7 +574,11 @@ func drive() -> void:
 	detail.text = "AI: %s   BOSS HP: %.0f / %.0f   PLAYER HP: %.0f   SHOTS: %d   %.1fs | %s" % [state.to_upper(),encounter.health.current,encounter.health.capacity,controller.actor_resources.health.current,cases[index].shots.size(),float(local_frame)/60,"TERMINAL OBSERVATION / original exit policy" if encounter.health.terminal else "REAL AIM / EVADE INPUT"]
 	var finished := death_frame>=0 and frame-death_frame>=HOLD_FRAMES and local_frame>=600
 	var player_out := controller.motor.global_position.y>arena_rect.end.y+250
-	if finished or local_frame>=MAX_FRAMES or ((controller.actor_resources.health.terminal or player_out) and local_frame>=600):
+	# The combat budget remains 3600 frames. A death already committed within
+	# that bound gets its original 210-frame observation, without more combat.
+	var combat_budget_exhausted: bool = local_frame>=MAX_FRAMES and death_frame<0
+	var absolute_budget_exhausted: bool = local_frame>=MAX_FRAMES+HOLD_FRAMES
+	if finished or combat_budget_exhausted or absolute_budget_exhausted or ((controller.actor_resources.health.terminal or player_out) and local_frame>=600):
 		if player_out: cases[index].coverage_gaps.append("player left supported arena through real motion")
 		busy = true
 		finish_case.call_deferred()
@@ -633,7 +642,7 @@ func finish() -> void:
 	if not await audio.shutdown(): failures.append("GameAudio ownership did not release")
 	var gaps := 0
 	for result: Dictionary in cases: gaps += result.coverage_gaps.size()
-	var output := {"task":"ENEMY-ALL-02","complete":cases.size()==manifest.size(),"seed_label":seed_label,"group":"boss","chains":"actual","frames":rows,"cases":cases,"failures":failures,"coverage_gap_count":gaps,"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"max_case_frames":MAX_FRAMES,"terminal_hold_frames":HOLD_FRAMES,"source_HP_state_AI_injection":false,"scope":"Explicit actual arena/initial spawn, original Boss AI and receiver gates, real input and player damage. Default Windkeeper and formal storm are distinct cases."},"not_verified":["natural campaign route","physical device performance","human visual approval"]}
+	var output := {"task":"ENEMY-ALL-02","complete":cases.size()==manifest.size(),"seed_label":seed_label,"group":"boss","chains":"actual","frames":rows,"cases":cases,"failures":failures,"coverage_gap_count":gaps,"audio_events":sound_events,"conditions":{"fps":60,"resolution":[1280,720],"playback_speed":1,"max_case_frames":MAX_FRAMES+HOLD_FRAMES,"combat_frame_budget":MAX_FRAMES,"absolute_frame_budget":MAX_FRAMES+HOLD_FRAMES,"terminal_hold_frames":HOLD_FRAMES,"source_HP_state_AI_injection":false,"scope":"Explicit actual arena/initial spawn, original Boss AI and receiver gates, real input and player damage. Default Windkeeper and formal storm are distinct cases."},"not_verified":["natural campaign route","physical device performance","human visual approval"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write complete Boss capture trace")

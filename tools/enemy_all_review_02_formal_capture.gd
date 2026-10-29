@@ -99,8 +99,9 @@ func safe_stand_near(motor: EnemyMotor) -> Dictionary:
 
 func select_initial_review_stand() -> void:
 	initial_spawn = app.player.global_position
-	var priorities: Array[String] = ["forest_lantern","forest_bark_beetle"] if group=="formal_forest" else ["plains_charger","plains_diver"]
-	if not only_species.is_empty(): priorities = [only_species]
+	var priorities: Array[String] = []
+	priorities.assign(["forest_lantern","forest_bark_beetle"] if group=="formal_forest" else ["plains_charger","plains_diver"])
+	if not only_species.is_empty(): priorities.assign([only_species])
 	for ident: String in priorities:
 		for motor: EnemyMotor in all_actual_enemies():
 			var actor := motor.get_node("Actor") as EnemyActor
