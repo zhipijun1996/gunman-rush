@@ -1,5 +1,14 @@
 # 最新交接 · 2026-10-29
 
+## 2026-10-29 全怪物程序重构已实现，完整166 CI通过（最新）
+
+ENEMY-STRUCTURE-01程序实现已进入review：普通14物种、2开发候选、8Boss场景／9配置统一创建登记／工厂、攻击策略、只读表现状态、最终身体绑定、生命周期、完整恢复同步及尸体能力。逐怪当前入口见[程序索引](worklines/enemy_structure_01/runtime-map.md)，职责见[架构](worklines/enemy_structure_01/architecture.md)。
+
+验证代码源`596a2eee230eb1b9d23dc2ff878c1ff3259cf293`：本地clean原生733／40case、docs33全部fresh通过；完整CI40860669611实际166／166通过（parallel91＋serial75，0复用／0未执行），affected合流success。森林原80唯一路线404.511／原600秒，原断言／预算／60Hz保留。CI实际含相同56项Foundry准备改动，30,040源项前后稳定，不称Git clean；[完整收据](evidence/enemy_structure_01/ci-40860669611/RESULT.md)。后继只补文档证据，运行代码与测试不再改动。
+
+[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)仍draft／未合main。旧CI失败及用户旧美术拒绝保留；无新图／素材替换／验收skills采用。当前完成程序工程验证，整怪动作／声音／审美、实体设备及用户验收仍未重新签。下一步按用户要求逐怪发现问题，与用户共同修改验收机制，再决定黄金样板和生产流程；不批量美术扩产。
+
+
 ## 2026-10-29 怪物重构：原80本地通过，冻结后继CI候选（最新）
 
 全怪物创建／状态／绑定／生命周期重构已实现；3bc冻结源原80路线505.552／600秒全部通过，native733／40case与原GL44＋12通过。后继仅CPU自动并发与三段wall遥测，保原80／前16顺序、90／240／600、60Hz与全部验证；原14调度测试完整保留，新增13项，27／27实跑通过。下一完整166 CI待实际执行；上一40844941490串行超时原件保留，不能把本地通过升签远端。见[性能收口](worklines/enemy_structure_01/performance.md)。PR114保持draft，不合main；不重画美术、不撤用户拒绝、不采用skills讨论稿。

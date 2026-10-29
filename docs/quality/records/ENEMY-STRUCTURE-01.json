@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ENEMY-STRUCTURE-01",
   "task_type": "mechanic",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "58fb249eb37d469c2ccb9ed22ff4d1311330e2fa",
-  "reviewed_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+  "reviewed_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
   "content_version": "enemy-structure-v1",
   "owner": "/root",
   "purpose": "整体重构所有现有怪物的创建、只读表现状态、绑定、生命周期及恢复边界",
@@ -35,6 +35,21 @@
     "docs/creative_direction/windchime_plains.json",
     "docs/current_state.md",
     "docs/evidence/enemy_structure_01/README.md",
+    "docs/evidence/enemy_structure_01/ci-40860669611/RESULT.md",
+    "docs/evidence/enemy_structure_01/ci-40860669611/archive-index.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/check-hashes.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/context-proof.zip",
+    "docs/evidence/enemy_structure_01/ci-40860669611/contract-transition.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/final-artifacts.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/final-audit.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/final-jobs.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/final-run.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/forest80-summary.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/merge-binding.json",
+    "docs/evidence/enemy_structure_01/ci-40860669611/merged-proof.zip",
+    "docs/evidence/enemy_structure_01/ci-40860669611/parallel-proof.zip",
+    "docs/evidence/enemy_structure_01/ci-40860669611/serial-proof.zip",
+    "docs/evidence/enemy_structure_01/ci-40860669611/zip-receipts.json",
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/candidate-metadata.json",
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/enemy_structure_cpu_scheduler_independent.log",
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/enemy_structure_cpu_scheduler_review.md",
@@ -42,11 +57,53 @@
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/python.log",
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/run_forest_depth_region_cpu_telemetry_candidate.patch",
     "docs/evidence/enemy_structure_01/cpu-scheduler-01/test_forest_region_scheduler_cpu_candidate.patch",
+    "docs/evidence/enemy_structure_01/docs-33-596a/asset-family-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/capture-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/cloud-delivery-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/cloud-inputs-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/cloud-production-planner-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/consumer-coverage-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/creative-direction-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/creative-direction.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/docs.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/harness-artifact-archive-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/harness-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-design-analysis.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-design-contracts.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-design-golden-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-design-routing.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-experience.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-formal-receipts.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/level-region-context.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/mechanism-comparisons.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/portable-frozen-assets.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/production-loop-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/quality-drills.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/quality-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/quality.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/region-bible-contract.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/region-bible-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/report.json",
+    "docs/evidence/enemy_structure_01/docs-33-596a/structure.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/terrain-tile-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/underworld-home-guard-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/underworld-pipeline.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/visual-director-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/world-design-tests.log",
+    "docs/evidence/enemy_structure_01/docs-33-596a/world.log",
     "docs/evidence/enemy_structure_01/failures/ci-40843714099/prepare.log",
     "docs/evidence/enemy_structure_01/failures/ci-40844941490/artifacts-serial-finished.json",
     "docs/evidence/enemy_structure_01/failures/ci-40844941490/serial-job.log",
     "docs/evidence/enemy_structure_01/failures/ci-40844941490/serial-proof.zip",
     "docs/evidence/enemy_structure_01/failures/ci-40844941490/summary.json",
+    "docs/evidence/enemy_structure_01/failures/local-docs-input-01/report.json",
+    "docs/evidence/enemy_structure_01/failures/local-docs-input-01/structure.log",
+    "docs/evidence/enemy_structure_01/failures/local-docs-source-change-02/production-loop-tests.log",
+    "docs/evidence/enemy_structure_01/failures/local-docs-source-change-02/report.json",
+    "docs/evidence/enemy_structure_01/failures/local-docs-source-change-02/wrapper.log",
+    "docs/evidence/enemy_structure_01/failures/local-quality-evidence-03/README.md",
+    "docs/evidence/enemy_structure_01/failures/local-quality-evidence-03/quality.log",
+    "docs/evidence/enemy_structure_01/failures/local-quality-evidence-03/report.json",
     "docs/evidence/enemy_structure_01/failures/old-moth-fixture/native.log",
     "docs/evidence/enemy_structure_01/failures/old-moth-fixture/report.json",
     "docs/evidence/enemy_structure_01/gpu-and-hit-05/display.log",
@@ -122,6 +179,9 @@
     "docs/evidence/enemy_structure_01/native-07-perf-contract/native.log",
     "docs/evidence/enemy_structure_01/native-07-perf-contract/report.json",
     "docs/evidence/enemy_structure_01/native-07-perf-contract/runtime.json",
+    "docs/evidence/enemy_structure_01/native-09/native.log",
+    "docs/evidence/enemy_structure_01/native-09/report.json",
+    "docs/evidence/enemy_structure_01/native-09/runtime.json",
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/instrumented-route/native.log",
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/instrumented-route/receipt.json",
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/mesh-microbench.json",
@@ -130,6 +190,7 @@
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/native-candidate-2cpu/receipt.json",
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/validator-top.txt",
     "docs/evidence/enemy_structure_01/performance-diagnosis-01/validator.json",
+    "docs/evidence/enemy_structure_01/review/enemy_structure_596a_source_appendix.md",
     "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_appendix.md",
     "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_binding.json",
     "docs/evidence/enemy_structure_01/review/enemy_structure_final_production_binding.json",
@@ -192,6 +253,7 @@
     "docs/worklines/enemy_structure_01/enemy_structure_performance_guardrails.md",
     "docs/worklines/enemy_structure_01/enemy_structure_style_review.md",
     "docs/worklines/enemy_structure_01/performance.md",
+    "docs/worklines/enemy_structure_01/runtime-map.md",
     "docs/worklines/enemy_structure_01/scope.md",
     "scripts/art_foundation/pixel_formal_style_installer.gd",
     "scripts/art_foundation/pixel_plains_enemy.gd",
@@ -293,7 +355,7 @@
     },
     "G1": {
       "status": "unverified",
-      "reason": "原生／GL技术合同通过；完整G1的正式行为／trace及完整CI分账，未以fixture补签整批玩法。",
+      "reason": "精确源原生结构与完整技术CI通过；正式行为／runtime_trace和完整消费者覆盖仍分账，未用fixture代签整批玩法。",
       "evidence": [
         "native-current",
         "gpu-hit-current"
@@ -310,9 +372,14 @@
       "evidence": []
     },
     "G4": {
-      "status": "failed",
-      "reason": "完整CI40844941490串行forest-depth-region600秒超时；已完成52条均passed，原预算／全部80／断言保留，正在性能诊断返工。",
-      "evidence": []
+      "status": "unverified",
+      "reason": "精确596a完整166 CI及affected合流已通过，独立源码／测试迁移审查另证；旧CI失败原件保留。总G4按内容门槛仍依赖未完成G1–G3与完整成品覆盖，不以技术CI代签。",
+      "evidence": [
+        "source-review-current",
+        "native-current",
+        "docs-current",
+        "ci-full-current"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -330,15 +397,16 @@
     },
     "technical": {
       "status": "passed",
-      "reason": "当前公开运行源原生730与原426／44／12通过；完整166 CI仍单列等待。",
+      "reason": "精确clean596a原生733／40case与docs33通过；同596a加原Foundry准备资源的完整166 CI全部fresh通过，原80为404.511／600秒。",
       "evidence": [
         "native-current",
-        "gpu-hit-current"
+        "docs-current",
+        "ci-full-current"
       ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "完整CI的既有正式消费者回归通过；整批正式场景连续GUI与consumer_coverage尚未新签。",
       "evidence": []
     },
     "visual": {
@@ -363,12 +431,12 @@
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "CI原80／600回归预算已通过（404.511秒），本地原80与cache/math/GL各保来源；实体目标设备性能仍未测。",
       "evidence": []
     },
     "independent_review": {
       "status": "passed",
-      "reason": "限定代码结构与历史测试迁移、5b闭包复核接受，不签成品和新runner独立设计充分性。",
+      "reason": "限定代码结构与历史测试迁移接受；精确596a生产性能叶及CPU工具／测试闭包已由非生产作者复核，不签成品或新helper独立测试设计充分性。",
       "evidence": [
         "source-review-current"
       ]
@@ -390,7 +458,7 @@
       "gate": "G4",
       "dimension": "independent_review",
       "scenario": "全roster创建／状态／表现／生命周期及有限原测试迁移",
-      "method": "非生产作者逐diff＋实际selector21/0",
+      "method": "非生产作者逐diff、原selector21／0与CPU调度27／0、3bc→596a精确源闭包复核",
       "expected": "无剩余结构阻断；原策略／机制及历史完整覆盖保留",
       "failure": "行为／伤害／素材被偷改、错绑定／悬挂信号或检查缩减",
       "status": "passed",
@@ -417,15 +485,28 @@
       "id": "CURRENT-RUNTIME-CONTRACT",
       "gate": "G1",
       "dimension": "technical",
-      "scenario": "39真实实例链与暂停／恢复／终态／重复bind／dispose、原伤害反馈及GL输出",
-      "method": "当前源原生730＋原native426／GL44／GL12",
+      "scenario": "40结构case：真实实例链、暂停／恢复／终态／重复bind／dispose及网格缓存",
+      "method": "当前clean596a原生733／40case",
       "expected": "全部0失败、严格完成、源稳定、无ERROR或退出泄漏",
-      "failure": "未知路由静默通过、写回机制、双重反馈或悬挂信号、越界裁剪／弱点变色",
+      "failure": "未知路由静默通过、写回机制、双重反馈或悬挂信号、缓存顶点差异",
       "status": "passed",
-      "reason": "原报告与日志保当前5b来源，不代签正常速度动画或完整CI。",
+      "reason": "精确clean596a原生通过；原GL保各自来源，技术与视觉结果分别记账。",
       "evidence": [
-        "native-current",
-        "gpu-hit-current"
+        "native-current"
+      ]
+    },
+    {
+      "id": "CI-FULL-REGRESSION",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原完整166双通道＋精确合流，森林原80唯一请求及完成标记",
+      "method": "实际Production impact run40860669611，原91／75 lane及affected",
+      "expected": "166全执行／全pass／fresh，全部原预算／断言、源稳定、无严格ERROR／泄漏",
+      "failure": "遗漏／复用／预算提高、失败／超时或未执行、来源或原日志SHA不匹配",
+      "status": "passed",
+      "reason": "原始phase与实际merged证明完整技术通过，独立纯收据审计复核；不签成品／用户／设备。",
+      "evidence": [
+        "ci-full-current"
       ]
     }
   ],
@@ -465,16 +546,16 @@
     },
     {
       "id": "native-current",
-      "path": "docs/evidence/enemy_structure_01/native-05/report.json",
-      "sha256": "c8a4310f2ce87baa45478b58886a8f0fbb0d8d025dacc3d463b0c5c2888e491e",
+      "path": "docs/evidence/enemy_structure_01/native-09/report.json",
+      "sha256": "0b370a31db3d5b86e45cd689b321b757c15f234288c96bd43a454fa7b22aad1b",
       "kind": "command",
       "producer": "/root",
-      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "source_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
       "content_version": "enemy-structure-v1",
-      "method": "原工具import90秒＋native180秒，实际Godot4.7.2，完整39case列表及严格非零完成标记",
-      "observed": "clean5b；730断言、39case、0失败、source_stable=true。仅结构fixture。",
+      "method": "原工具import90秒＋native180秒，实际Godot4.7.2，原39case＋1cachecase与严格完整标记",
+      "observed": "clean596a；733断言、40case、0失败、source_stable=true。仅结构fixture。",
       "exit_code": 0,
-      "command": "python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/native-05",
+      "command": "python3 tools/run_enemy_structure_tests.py --output-dir build/enemy_structure/native-09",
       "environment": "Linux x86_64; Godot4.7.2.stable.official.ed1daf0bf; fixed60fps; Dummy audio; Xvfb/software GL for pixel fixtures, no device claim."
     },
     {
@@ -493,14 +574,14 @@
     },
     {
       "id": "source-review-current",
-      "path": "docs/evidence/enemy_structure_01/review/enemy_structure_5b_source_appendix.md",
-      "sha256": "9af42d086864f355e24a82bcdf768a80fcfac488ad2f06342085596fdb977f5e",
+      "path": "docs/evidence/enemy_structure_01/review/enemy_structure_596a_source_appendix.md",
+      "sha256": "6202fe59795f63908a1145852bcdbe56befa4057bde927aa64a46f6464271271",
       "kind": "review",
       "producer": "/root",
-      "source_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+      "source_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
       "content_version": "enemy-structure-v1",
-      "method": "非生产作者核Git实对象、父提交限定审查与后继全部代码／测试闭包字节相等",
-      "observed": "5b仅增加7docs；沿已接受的8fd生产结构／测试迁移范围，不签full CI／成品质量。",
+      "method": "非生产作者逐Git对象比对：3bc性能叶同已接受候选、596a生产闭包与3bc相同，工具及测试正是接受SHA",
+      "observed": "限定源码与测试迁移ACCEPT，原Python27/27与候选GL保持实际来源；不签完整CI或成品质量。",
       "reviewer": "/root/enemy_review",
       "implementers": [
         "/root",
@@ -512,16 +593,44 @@
       "independent": true,
       "independence_basis": "Reviewer made no production writes; new native runner authored by reviewer is excluded from independent-test-design claims.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "docs-current",
+      "path": "docs/evidence/enemy_structure_01/docs-33-596a/report.json",
+      "sha256": "0c6d92f9a1839bd767b3408d3eaa0e9fe911e47180506f4d08e3335632275bce",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
+      "content_version": "enemy-structure-v1",
+      "method": "冻结源完整docs profile，所有原33项fresh、0复用",
+      "observed": "clean596a，33／33 passed，265.815秒；原生／画面／设备分账。",
+      "exit_code": 0,
+      "command": "python3 tools/harness.py --profile docs --jobs 1",
+      "environment": "Linux x86_64; Python3.12.14; original Harness docs profile; clean596a source before/after."
+    },
+    {
+      "id": "ci-full-current",
+      "path": "docs/evidence/enemy_structure_01/ci-40860669611/merged-proof.zip",
+      "sha256": "ed86f069fc3bb11ed45edc34bd668c5f7d7795665f2f2b5ac2491c139f08c20e",
+      "kind": "command",
+      "producer": "GitHub Actions / production.yml",
+      "source_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
+      "content_version": "enemy-structure-v1",
+      "method": "实际两原full lane＋affected原合流器，API档案SHA／每check inputdigest／原log SHA／唯一完整集合及严格退出独立核对。",
+      "observed": "166／166 fresh passed，91＋75，0复用／超时／未执行；原80完整通过404.511／600秒。30,040源项前后稳定、56 Foundry准备差异，非Git clean；只技术范围。",
+      "exit_code": 0,
+      "command": "python3 tools/harness.py --profile full --lane parallel --jobs 1 --release\npython3 tools/harness.py --profile full --lane serial --jobs 1 --release\npython3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile full",
+      "environment": "GitHub Actions ubuntu-latest Linux; Python3.12.15; Godot4.7.2; source596a plus recorded56 Foundry prepared resources; actual CPU capacity unobserved."
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "3bc冻结源本地原80全部通过（505.552／600秒），native733／40case及实际GL通过；下一CPU调度候选仅27项纯Python通过，完整CI仍待实跑。原40844941490超时与所有失败保留，不追签新源。",
-    "当前完整CI40844941490尚未收口；旧40843714099 prepare清单断言失败保留。",
-    "全14原专项确为clean4af fresh，生产闭包与5b相同但不重标fresh5b；原80路线547.301／600秒。",
-    "旧怪物成品美术已被用户拒绝；本轮未批量重画或采用验收skills讨论稿。",
-    "正常速度音画／听感、趣味、用户与实体设备仍未重新认可；结构通过不代签它们。",
-    "本轮按无直接创作变更的System Engineering工程报告交付；没有用旧视频或旧网页冒充新候选。"
+    "整体内容G1–G3／G5及正式消费者连续GUI覆盖仍未重新签；完整166技术CI不能替代它们。",
+    "旧怪物成品美术已被用户拒绝；本轮无美术扩产／素材替换或验收skills讨论稿采用。",
+    "正常速度动作与声音、趣味、用户审美及实体设备／低端性能仍未重新认可。",
+    "原4af14专项、5b GL及性能候选报告保各自source，不重标fresh596a；旧失败原件保留。",
+    "CI共享56项Foundry准备改动，未称Git clean；未读取大lane CPU receipt，不推断CI核数。",
+    "本轮为System Engineering工程报告交付；PR114仍draft／未合main，没有把旧视频或网页当成新候选。"
   ],
   "test_change_justification": "原32/10方法与历史负例、预算、输入前缀保留；当前style19/creative22窄技术绑定新增历史冻结和严格差异断言。原motion生命周期候选fixture由错误charger/moth组合迁真实Factory review配方，708原断言与384pose网格阈值不改；静态迁移独审见工作线报告，最终引擎与完整审查另证。 Selector原21方法与原165精确前缀、双通道闭包及预算保留；仅显式追加新结构check，当前166/91/75，独立源码与实际21/0审查证据见structure-code-review。 CPU调度修正保留原scheduler两类／14方法全部原文与原80／前16顺序、90／240／600预算；仅追加13项CPU选择／真实小进程计时反例，27实跑通过。工具仅默认并发按实际可见CPU选原1／2／4档、显式值优先、读取失败回退4，追加wall遥测；独立审查原件见工作线cpu-scheduler-01，不代签CI已解决。"
 }

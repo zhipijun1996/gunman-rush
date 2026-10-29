@@ -619,4 +619,4 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
 
-| ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | in_progress | 用户2026-10-29授权；统一创建/状态/绑定/生命周期，保机制与原素材；不代签美术验收 |
+| ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |

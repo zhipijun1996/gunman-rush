@@ -1,4 +1,12 @@
-# CI性能返工（进行中）
+# CI性能返工与验证
+
+## 最终冻结源验证
+
+代码源`596a2eee230eb1b9d23dc2ff878c1ff3259cf293`的完整CI40860669611已成功结束：91＋75全部fresh通过，实际affected完整合流也通过；原80路线完整唯一集合、完成标记和严格退出均通过，耗时404.511／600秒。原165检查定义、原80请求／前16顺序、原60Hz和90／240／600预算保留。两lane及merged/context共享同一preparedsource，30,040项前后稳定、含原56项Foundry准备差异，不称Git clean。[原收据与逐项审计](../../evidence/enemy_structure_01/ci-40860669611/RESULT.md)。
+
+CI仅收小phase-proof/context/merged原件，未下载106MB大lane，因此cpu_capacity原receipt未读取，不推断CI核数。新case三段wall与原日志可核；CPU配额是上限，不是跑分。新旧CI不是受控同硬件A/B，不把时差全部归因缓存或自动并发。本地同硬件cache/math/GL验证仍保各自来源。当前只签原回归预算，实体设备性能另验。
+
+## 返工过程（历史阶段）
 
 原5b完整CI40844941490：并行通道通过；串行75项在forest-depth-region原600秒超时，前17项passed、此项timeout、后57未执行。52条已完成路线均passed，不写成80完成。原请求80／60Hz／逐case240秒／总600秒不改，原proof ZIP与job log保留。CI带准备后的Foundry差异，不称clean5b；原日志未打印有效CPU，不按ubuntu标签推断2核。
 

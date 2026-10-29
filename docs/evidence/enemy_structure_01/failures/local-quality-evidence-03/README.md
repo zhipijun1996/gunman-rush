@@ -1,0 +1,1 @@
+质量守门正确拒绝把旧5b GL命令用于新reviewed_commit596a的passed技术项。原GL证据未改source或删除；当前passed技术项与结构criterion改为只引用精确596a原生733和docs33，旧GL仍以原5b来源留在历史证据／unverified项。当前record单项质量一致性复验通过，非内容品质完成。
