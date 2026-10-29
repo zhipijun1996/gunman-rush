@@ -205,6 +205,14 @@ func make_case() -> void:
 		root_bell.name = "Presentation"
 		root_bell.actor = actor
 		enemy.add_child(root_bell)
+	if id in FOREST:
+		# Current formal bodies use the explicit binding installed by
+		# ForestBibleActors, rather than ancestor metadata alone.
+		fixture.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		var forest_host := enemy.get_node("Presentation")
+		var binding := EnemyPresentationBinding.bind_existing(actor, forest_host, &"forest", &"forest_bible")
+		if binding.is_empty() or binding.get("body_theme") != &"forest_bible":
+			failures.append(id + ": current formal forest body binding rejected")
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = DemoLifetime.new()
 	fixture.add_child(policy)
@@ -237,7 +245,7 @@ func make_case() -> void:
 	var case_index := index
 	var presentation := enemy.get_node("Presentation")
 	persistent_remains_component = optional_property(presentation,&"feedback_remains") is Node2D
-	cases.append({"case":index,"id":id,"definition":String(actor.definition.stable_id),"definition_path":definition_path,"scene":scene_path,"chain":chain,"renderer":(presentation.get_script() as Script).resource_path,"start_frame":frame+1,"start_seconds":float(Engine.get_process_frames()+1)/60,"active_start_seconds":float(frame)/60,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"geometry":geometry,"player_spawn":[player_spawn.x,player_spawn.y],"enemy_spawn":[enemy_spawn.x,enemy_spawn.y],"host_configuration":setup,"player_health":controller.actor_resources.health.current,"enemy_health":actor.health.current,"forest_bible_actor_art":id in FOREST,"differences":["explicit initial geometry and spawn","automated gamepad input replaces KeyboardMouseAdapter"],"production_AI_enabled":actor.is_physics_processing()},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
+	cases.append({"case":index,"id":id,"definition":String(actor.definition.stable_id),"definition_path":definition_path,"scene":scene_path,"chain":chain,"renderer":(presentation.get_script() as Script).resource_path,"start_frame":frame+1,"start_seconds":float(Engine.get_process_frames()+1)/60,"active_start_seconds":float(frame)/60,"movie_start_process_frame":Engine.get_process_frames()+1,"fixture":{"geometry":geometry,"player_spawn":[player_spawn.x,player_spawn.y],"enemy_spawn":[enemy_spawn.x,enemy_spawn.y],"host_configuration":setup,"player_health":controller.actor_resources.health.current,"enemy_health":actor.health.current,"forest_bible_actor_art":id in FOREST,"body_theme":String(EnemyPresentationBinding.view(presentation).get("body_theme",&"")),"differences":["explicit initial geometry and spawn","automated gamepad input replaces KeyboardMouseAdapter"],"production_AI_enabled":actor.is_physics_processing()},"events":[],"player_events":[],"inputs":[],"shots":[],"states":[],"deaths":0,"coverage":{},"coverage_gaps":[]})
 	cases[case_index]["actual_strand_holds"] = []
 	cases[case_index]["strand_hold_events"] = []
 	cases[case_index]["persistent_remains_component"] = persistent_remains_component
