@@ -147,6 +147,34 @@ func lifecycle_case(kind: StringName, air: bool = false, chain: String = "underw
 	var failure_before := failures.size()
 	await setup(kind,air,chain)
 	if motor == null: return
+	if kind in [&"charger",&"fan_sentry"]:
+		# Actual physics sweeps at the core and the former oversized top edge,
+		# with the unchanged real player-projectile radius. This is a geometry
+		# fixture, not a claim to a naturally aimed combat shot.
+		var bullet: Node = load("res://scripts/combat/player_projectile.gd").new()
+		var circle := CircleShape2D.new()
+		circle.radius = float(bullet.get("radius"))
+		bullet.free()
+		var probe := PhysicsShapeQueryParameters2D.new()
+		probe.shape = circle
+		probe.collision_mask = 4
+		probe.margin = 0.0
+		var space := motor.get_world_2d().direct_space_state
+		for face: int in [-1,1]:
+			probe.transform = Transform2D(0.0,motor.global_position+Vector2(-100.0*face,0))
+			probe.motion = Vector2(200.0*face,0)
+			var core := space.cast_motion(probe)
+			check(core[0]<1.0,label+" real player-radius sweep hits core from side "+str(face))
+			probe.transform.origin.y += -13.0 if kind==&"fan_sentry" else -18.0
+			var outside := space.cast_motion(probe)
+			check(is_equal_approx(outside[0],1.0),label+" real player-radius sweep clears former oversized top edge from side "+str(face))
+	if kind == &"charger":
+		for face: int in [-1,1]:
+			var before_move := motor.global_position
+			check(motor.move_attack(Vector2(float(face),0),true,1.0/60.0) and is_equal_approx(motor.global_position.x,before_move.x+float(face)),label+" resized body still charges on real support from side "+str(face))
+	if kind == &"charger":
+		var before_ledge := motor.global_position
+		check(not motor.move_attack(Vector2(600,0),true,1.0/60.0) and motor.global_position.is_equal_approx(before_ledge),label+" real unsupported charge is refused without moving through a ledge")
 	var motion := host.get("body_motion") as PlainsMotion02
 	var sample: EnemyFeedback01 = host.get("feedback_sample") if chain != "root_bell" else (host.get("revision_visual") as PlainsRevisionVisual).sample
 	var remains := EnemyPresentationBinding.remains(host)
