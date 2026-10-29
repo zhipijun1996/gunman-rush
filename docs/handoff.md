@@ -1,5 +1,12 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-29 AUDIO-HOME-01 · 已选择底声＋生活音
+
+用户在家园三模式交付后明确“底音+生活音”，选定当前home-quiet-01的life整体方案。config/audio_director/home/user-selected.json绑定manifest9da878...、床与8条生活素材SHA、原话与影片源a4b／UI745；brief自动读取并拒绝版本/文件漂移。保床额外−2dB、原BGM与每NPC12–22秒/全局6秒/最多1点声。区域A/A选择保持。
+
+本轮只记录当前整体声音选择、上下文与质量证据，不重制音频/重录/部署，不修改正式默认或main。同步PR113；正式接入时直接消费已选两区A/A＋家园life，不重问已确定方案。单素材独立排名、全自然路线、实体设备与完成推广未推导。下方“家园待选择”是此前交付状态，现由本条覆盖。
+
+
 ## 2026-10-29 AUDIO-HOME-01 · 家园微风与生活声试听已发布
 
 [家园手机试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/)已由原Site v3部署（仍仅拥有者）；只加/home/，原root/previous-v1共54文件及hosting配置逐字节保持。托管源`1bfc4d6bb36807d78108a084d6803c3f798f9f7c`，原生影片producer`a4b2113aa786193a1d653080365f6067dd020880`，严格HTML身份/后包装源`745097b8c390502257a55c727444104c4f64cecf`分别记录。

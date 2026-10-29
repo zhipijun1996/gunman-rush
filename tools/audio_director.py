@@ -164,6 +164,23 @@ def brief(request,output):
             result['inputs'] += [{'path':p,'sha256':sha(ROOT/p)} for p in home_inputs if (ROOT/p).is_file()]
             result['next_command']='python3 tools/audio_home_design.py build'
             result['runtime_scope']='Explicit real Home audition; selected quiet plains A borrowed unchanged, home mix and NPC-place Foley await listening; preserve original BGM and gameplay.'
+            home_selection_path='config/audio_director/home/user-selected.json'
+            if (ROOT/home_selection_path).is_file():
+                selection=read(ROOT/home_selection_path)
+                home_manifest_path=ROOT/'assets/audio/ambience_v1/home/manifest.json'
+                home_manifest=read(home_manifest_path)
+                if selection['manifest_sha256']!=sha(home_manifest_path) or selection['content_version']!=home_manifest['content_version'] or selection['mix_revision']!=home_manifest['mix_revision'] or selection['mode'] not in ['original','bed','life']:
+                    raise ValueError('Selected Home mix version changed; preserve the original choice before designing a new version')
+                expected_bed={**home_manifest['bed_reference'],'runtime_gain_db':home_manifest['regions']['home']['profiles']['A']['gain_db']}
+                expected_takes=[{key:take[key] for key in ['id','path','sha256']} for take in home_manifest['renders']]
+                if selection['bed']!=expected_bed or selection['point_takes']!=expected_takes:
+                    raise ValueError('Selected Home palette or gain reference changed')
+                for take in [home_manifest['bed_reference'],*home_manifest['renders']]:
+                    if sha(ROOT/take['path'].removeprefix('res://'))!=take['sha256']:
+                        raise ValueError('Selected Home audio bytes changed')
+                result['home_selection']=selection
+                result['inputs'].append({'path':home_selection_path,'sha256':sha(ROOT/home_selection_path)})
+                result['runtime_scope']='User selected the exact Home '+selection['mix_revision']+' '+selection['mode']+' mix; preserve low gains, sparse schedule, original BGM and prior regional A/A. Formal rollout and device validation are separate.'
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

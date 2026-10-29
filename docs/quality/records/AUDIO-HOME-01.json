@@ -140,7 +140,8 @@
     "tools/audio_home_lab.py",
     "tools/capture_audio_home.py",
     "tools/sound_lab/home_index.html",
-    "tools/sound_lab/verify_home.mjs"
+    "tools/sound_lab/verify_home.mjs",
+    "config/audio_director/home/user-selected.json"
   ],
   "deliverables": [
     "真实Home三段正常BGM原音轨对比",
@@ -153,6 +154,12 @@
       "status": "proposed",
       "decision": "复用选定平原A再−2dB与四种近距轻生活声作为家园候选",
       "basis": "用户要求平原的平静和NPC生活声；精确新混音未获听感确认"
+    },
+    {
+      "status": "user_confirmed",
+      "decision": "家园home-quiet-01选择底声＋稀疏生活音life，保持当前低响度与节奏",
+      "basis": "用户原话“底音+生活音”，承接三模式真实家园试听",
+      "evidence_id": "home-user-life"
     }
   ],
   "formal_impact": false,
@@ -224,9 +231,10 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Actual original soundtrack and low-level source identity verified; new Home tone/density needs user listening",
+      "reason": "当前整体life方案已由用户选定；单素材排名、全自然路线/动画同步和未来重加工版本没有推导认可",
       "evidence": [
-        "home-video"
+        "home-video",
+        "home-user-life"
       ]
     },
     "gameplay": {
@@ -253,8 +261,10 @@
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "当前家园life整体混音已获明确用户选择；独立素材排名、完整自然玩法/设备/全内容最终验收仍未验",
+      "evidence": [
+        "home-user-life"
+      ]
     }
   },
   "criteria": [
@@ -396,11 +406,29 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Different reviewer wrote no production files, ran separate processing and negative checks and decoded actual native PCM; did not run Godot or impersonate user/device."
+    },
+    {
+      "id": "home-user-life",
+      "path": "config/audio_director/home/user-selected.json",
+      "sha256": "2219390277435c2e8d861dd49f16917d2cc32119cf0e4735c2643d5e7cba069e",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "745097b8c390502257a55c727444104c4f64cecf",
+      "content_version": "audio-home-v1",
+      "method": "Explicit chat confirmation after the three-mode Home workshop delivery",
+      "observed": "User selects current home-quiet-01 overall life mode",
+      "source": "Current conversation, after Home audition delivery, 2026-10-29",
+      "quote": "底音+生活音",
+      "accepted": true,
+      "covers": [
+        "audio_vfx"
+      ],
+      "scope": "Current Home overall mix and sparse life mode; not per-take ranking/device/full natural route or completed deployment"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "新家园听感/素材生活语义/自然感",
+    "Per-take ranking, full natural route and future regenerated Home versions; exact home-quiet-01 life overall mix is user-selected",
     "真实实体手机/Safari/扬声器",
     "完整CI与正式推广",
     "自然上层NPC全路线/动画同步未制作"

@@ -1,9 +1,14 @@
 # 家园声音 · audio-home-v1 / home-quiet-01
 
+## 用户选择 · 2026-10-29
+
+用户在三模式家园试听后明确“底音+生活音”，选择当前home-quiet-01的life整体混音。保留平原A借用床额外−2dB与12–22秒／全局6秒／至多1生活声的正常稀疏节奏。[精确选择](../../config/audio_director/home/user-selected.json)保存原话、manifest／全部音频SHA与真实录屏源。后续brief自动读取；不套用到重加工新版本，不把整体选择说成8素材各自排名或真机验收。
+
+
 [手机实际场景试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/) · [MP4](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/home.mp4) · [对比包](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/home-comparison.zip)（拥有者账号）。
 
 
-用户希望家园有平原的平静和NPC生活声。沿已选quiet-02 plains_a原OGG字节，家园运行额外−2dB；五原BGM与MusicGain0.16完全保持。[实际事件与代码](home_event_catalog.json)／[来源](home_sources.md)／[运行](home_runtime.md)／[范围与真实权威](../worklines/audio_home_01/scope.md)。这是新的家园候选，不把两区A/A选择当作家园生活音已批准。
+用户希望家园有平原的平静和NPC生活声。沿已选quiet-02 plains_a原OGG字节，家园运行额外−2dB；五原BGM与MusicGain0.16完全保持。[实际事件与代码](home_event_catalog.json)／[来源](home_sources.md)／[运行](home_runtime.md)／[范围与真实权威](../worklines/audio_home_01/scope.md)。该家园life整体方案已有独立明确的用户选择，不由先前两区A/A推导。
 
 声音分为静听的柔风草叶，以及靠近真实居民所在地才出现的稀疏生活拟音：织时匠整理布料、维修工坊木件收放、武器工坊收放小工具、档案员整理册页，各两变体。当前NPC是静态精灵，没有挥锤或翻页动作帧；声音归于NPC所在工作处内部日常，不宣称动作同步。未开放且无NPC的预留建筑无生活声。
 
@@ -15,4 +20,4 @@
 
 运行入口：`res://scenes/dev/audio_home_lab.tscn`，明确开发试听、Meta不落盘。后续简短“优化家园环境音”由Audio Director brief读取新风格/许可/参数和原选择，不自动重做两区或改BGM。
 
-自动检查只签来源、波形、电平、正常节奏/生命周期与真实路由。自然感、是否过响/过密、真实手机与新家园音色选择等待用户试听。
+自动检查只签来源、波形、电平、正常节奏/生命周期与真实路由。自然感、是否过响/过密、当前life整体选择已记录；真实手机、未来重加工新版本和素材单独排名仍需各自依据。
