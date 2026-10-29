@@ -22,11 +22,15 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO,7,Color("efc591") if not encounter.health.terminal else Color("8d7b6d"))
 	draw_arc(Vector2.ZERO,11,0,TAU,24,Color("fae4b4") if not encounter.health.terminal else Color("837363"),1)
 
-	if encounter._weave_bound and encounter.motion_mode in ["migration_preview","phase_preview"]:
-		var path := encounter.motion_path()
+	var preview := encounter.presentation_motion_preview()
+	if not preview.is_empty():
+		var path: PackedVector2Array = preview.path
 		for index: int in path.size()-1:
 			draw_dashed_line(to_local(path[index]),to_local(path[index+1]),Color("dfb684"),2,10,true,true)
 			draw_circle(to_local(path[index+1]),7,Color("efc591"))
 
 func _exit_tree() -> void:
 	motion.dispose(encounter)
+
+func synchronize_presentation() -> void:
+	motion.synchronize(encounter)

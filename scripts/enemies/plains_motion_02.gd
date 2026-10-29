@@ -24,33 +24,49 @@ var _units := PackedVector2Array()
 func _init(style: StringName = &"underworld") -> void:
 	skin = style
 
-func advance(actor: EnemyActor, delta: float) -> void:
-	if not is_instance_valid(actor) or actor.health == null: return
-	if _epoch != actor.health.epoch:
-		_epoch = actor.health.epoch
-		_last_position = actor.motor.global_position
-		clock = 0.0
-		stride = 0.0
-		tension = 0.0
-		release = 0.0
-		recovery = 0.0
-		travel = 0.0
-	var current: Vector2 = actor.motor.global_position
+func sync_epoch(actor: EnemyActor, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)): return
+	if _epoch == int(state.epoch): return
+	_epoch = int(state.epoch)
+	_last_position = state.position
+	clock = 0.0
+	stride = 0.0
+	tension = 0.0
+	release = 0.0
+	recovery = 0.0
+	travel = 0.0
+
+func synchronize(actor: EnemyActor, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)): return
+	sync_epoch(actor,state)
+	_last_position = state.position
+
+func advance(actor: EnemyActor, delta: float, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)): return
+	sync_epoch(actor,state)
+	var current: Vector2 = state.position
 	var distance := current.distance_to(_last_position)
 	_last_position = current
 	# Restored/accepted terminal images retain their existing owner and policy.
-	if actor.health.terminal or delta <= 0.0: return
+	if bool(state.terminal) or delta <= 0.0: return
 	clock += delta
 	# Real displacement drives the feet; teleports do not produce a gait cycle.
 	if distance < 48.0:
 		stride += distance * TAU / 20.0
 	var moving := clampf(distance / maxf(delta, 0.0001) / maxf(actor.definition.patrol_speed, 1.0), 0.0, 1.0) if distance < 48.0 else 0.0
 	travel = lerpf(travel, moving, 1.0-exp(-delta/0.07))
-	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
-	var state_time: float = actor.attack_behavior.state_time if actor.attack_behavior != null else 0.0
-	var load := smoothstep(0.0, maxf(actor.definition.telegraph_duration, 0.001), state_time) if state == &"telegraph" else 0.0
-	var strike := 1.0-smoothstep(0.0, maxf(actor.definition.attack_duration, 0.001), state_time) if state == &"attack" else 0.0
-	var settle := 1.0-smoothstep(0.0, maxf(actor.definition.recovery_duration, 0.001), state_time) if state in [&"recovery", &"blocked"] else 0.0
+	var phase: StringName = state.state
+	var state_time: float = state.state_time
+	var durations: Dictionary = state.phase_durations
+	var load := smoothstep(0.0, maxf(float(durations.telegraph), 0.001), state_time) if phase == &"telegraph" else 0.0
+	var strike := 1.0-smoothstep(0.0, maxf(float(durations.attack), 0.001), state_time) if phase == &"attack" else 0.0
+	var settle := 1.0-smoothstep(0.0, maxf(float(durations.recovery), 0.001), state_time) if phase in [&"recovery", &"blocked"] else 0.0
 	var blend := 1.0-exp(-delta/0.045)
 	tension = lerpf(tension, load, blend)
 	release = lerpf(release, strike, blend)
@@ -62,7 +78,7 @@ func draw_body(canvas: Node2D, actor: EnemyActor, texture: Texture2D, bounds: Re
 	# Only synchronize a changed epoch; sampling delta=0 every draw would consume
 	# real displacement before advance() can turn it into a locomotion stride.
 	if _epoch != actor.health.epoch:
-		advance(actor, 0.0)
+		sync_epoch(actor)
 	if not body_mesh_visible(canvas,bounds): return
 	if _source != texture or _bounds != bounds:
 		_prepare(texture, bounds)
@@ -182,3 +198,12 @@ static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
 	# remain with their existing hosts and keep advancing outside the viewport.
 	var projected: Rect2 = canvas.get_global_transform_with_canvas()*bounds.grow(64.0)
 	return canvas.get_viewport_rect().intersects(projected,true)
+
+func dispose() -> void:
+	sample = null
+	_source = null
+	_texture = null
+	_points = PackedVector2Array()
+	_units = PackedVector2Array()
+	_mesh.clear_surfaces()
+	_epoch = -1

@@ -4,31 +4,41 @@ extends Node2D
 var shield_flash := 0.0
 var hit_template: EnemyHitTemplate
 var motion: ForestMotion02
+var lifecycle := EnemyPresentationLifecycle.new()
+var _shield_receiver: ForestBarkDamageable
 func _ready() -> void:
+	if EnemyPresentationBinding.bind_existing(actor,self,&"forest").is_empty(): return
 	hit_template = EnemyHitTemplate.install(actor, self)
 	motion = ForestMotion02.install(self)
-	motion.sync_epoch(actor)
-	actor.health.changed.connect(_motion_initialized)
+	lifecycle.bind(actor,self,_presentation_initialized,Callable(),motion)
+	lifecycle.own_cleanup(hit_template.dispose)
 	if actor.damageable is ForestBarkDamageable:
-		(actor.damageable as ForestBarkDamageable).shield_contact.connect(func(_context: Dictionary)->void:shield_flash=.12)
-func _motion_initialized(result: ActorResourceResult) -> void:
-	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
-	motion.sync_epoch(actor)
+		_shield_receiver = actor.damageable as ForestBarkDamageable
+		_shield_receiver.shield_contact.connect(_shield_contact)
+		lifecycle.own_cleanup(_disconnect_shield_contact)
+func _shield_contact(_context: Dictionary) -> void:
+	shield_flash = .12
+func _disconnect_shield_contact() -> void:
+	if is_instance_valid(_shield_receiver) and _shield_receiver.shield_contact.is_connected(_shield_contact):
+		_shield_receiver.shield_contact.disconnect(_shield_contact)
+	_shield_receiver = null
+func _presentation_initialized() -> void:
 	shield_flash = 0.0
 	queue_redraw()
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
 func _exit_tree() -> void:
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_motion_initialized):
-		actor.health.changed.disconnect(_motion_initialized)
+	lifecycle.dispose()
 func _process(delta: float) -> void:
-	if get_tree().paused: return
-	motion.advance(actor, delta)
+	if not lifecycle.advance(delta): return
 	shield_flash=maxf(0,shield_flash-delta)
 	queue_redraw()
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if not is_instance_valid(actor):return
 	if actor.health.terminal and motion.death_elapsed >= ForestMotion02.DEATH_SECONDS:return
 	var behavior:=actor.attack_behavior
-	var phase: StringName=behavior.state if behavior else &"idle"
+	var phase: StringName=lifecycle.read_state().get("state",&"idle")
 	var warning:=phase==&"telegraph" and not actor.health.terminal
 	var bible_body := ForestBibleActors.draw_enemy_body(self, actor)
 	if actor.definition.behavior_id==&"forest_bark_beetle":

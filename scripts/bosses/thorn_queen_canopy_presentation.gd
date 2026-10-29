@@ -30,13 +30,13 @@ func _draw() -> void:
 	if not encounter.active: return
 	# Living knots retain their original collisions/health; expose the remaining
 	# cut decision at gameplay scale rather than relying on two-pixel dots.
-	for knot: ThornQueenWeaveKnot in encounter.knots:
-		if not is_instance_valid(knot) or knot.health.terminal: continue
-		var label_at := to_local(knot.global_position)+Vector2(-13,-23)
+	for knot: Dictionary in encounter.presentation_knots():
+		var label_at := to_local(knot.position)+Vector2(-13,-23)
 		draw_rect(Rect2(label_at+Vector2(-3,-15),Vector2(34,20)),Color("282331"))
-		draw_string(ThemeDB.fallback_font,label_at,"%s/2"%int(knot.health.current),HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("fff1cd"))
-	if encounter.motion_mode=="migration_preview":
-		var path := encounter.motion_path()
+		draw_string(ThemeDB.fallback_font,label_at,"%s/2"%int(knot.health),HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("fff1cd"))
+	var preview := encounter.presentation_motion_preview()
+	if not preview.is_empty():
+		var path: PackedVector2Array = preview.path
 		for index: int in path.size()-1:
 			var first := to_local(path[index]);var last := to_local(path[index+1])
 			draw_line(first,last,Color("e7c38e"),2,true)
@@ -46,3 +46,6 @@ func _draw() -> void:
 
 func _exit_tree() -> void:
 	motion.dispose(encounter)
+
+func synchronize_presentation() -> void:
+	motion.synchronize(encounter)

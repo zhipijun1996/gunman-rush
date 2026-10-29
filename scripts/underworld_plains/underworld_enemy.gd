@@ -14,11 +14,12 @@ var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"underworld")
 
 func _ready() -> void:
+	if EnemyPresentationBinding.bind_existing(actor,self,&"underworld").is_empty(): return
 	if EnemyFeedback01.supports(actor.definition):
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		body_motion.sample = feedback_sample
-		var original: Texture2D = SPRITES["aerial" if actor.definition.aerial else String(actor.definition.behavior_id)]
+		var original: Texture2D = SPRITES[String(EnemyPresentationBinding.view(self).body_key)]
 		var dimensions := _original_body_size(original)
 		var visible_body := EnemyFeedback01Frames.visible_bounds(original, Rect2(-dimensions.x*.5, actor.definition.collision_size.y*.5-dimensions.y, dimensions.x, dimensions.y))
 		feedback_anchor = Vector2(visible_body.get_center().x, visible_body.end.y)
@@ -26,7 +27,7 @@ func _ready() -> void:
 		feedback_frames.horizontal_offset = feedback_anchor.x
 		feedback_body = EnemyFeedback01Body.new()
 		feedback_body.configure_motion(body_motion, actor)
-		feedback_body.configure_underworld_palette(actor.definition.aerial)
+		feedback_body.configure_underworld_palette(EnemyPresentationBinding.view(self).body_key == &"aerial")
 		feedback_body.name = "AcceptedHitBody"
 		# Keep the actor's world layer; only put its own HP/telegraphs above it.
 		feedback_body.show_behind_parent = true
@@ -36,7 +37,6 @@ func _ready() -> void:
 		feedback_particles.z_index = 1
 		add_child(feedback_particles)
 		feedback_particles.bind(feedback_sample, actor.damageable)
-		actor.health.changed.connect(_feedback_initialized)
 		_sync_feedback_body()
 		feedback_remains = EnemyFeedback01Remains.new()
 		feedback_remains.name = "AcceptedEnemyRemains"
@@ -46,18 +46,15 @@ func _ready() -> void:
 		stage.move_child(feedback_remains, 0)
 		feedback_remains.bind(feedback_sample, actor.damageable, actor.health, actor.motor, self, actor.definition.aerial, _remains_view)
 	else:
-		super._ready()
-		actor.health.changed.connect(_accepted_damage)
 		hit_template = EnemyHitTemplate.install(actor, self)
 		body_motion.sample = hit_template.sample
+	lifecycle.bind(actor,self,_presentation_initialized,_presentation_health_changed,body_motion,feedback_sample,feedback_sample!=null)
+	if hit_template != null: lifecycle.own_cleanup(hit_template.dispose)
 
-func _process(delta: float) -> void:
-	if get_tree().paused: return
-	body_motion.advance(actor, delta)
-	# Parent retains exclusive ownership of death timing, alpha and visibility.
-	super._process(delta)
+func _advance_presentation(delta: float) -> void:
+	# Pixel parent retains exactly its existing death/visibility/clock policy.
+	super._advance_presentation(delta)
 	if feedback_sample != null:
-		feedback_sample.advance(delta)
 		_hurt = feedback_sample.hurt_remaining
 		accepted_hurt_count = feedback_sample.accepted_hit_count
 		_sync_feedback_body()
@@ -71,7 +68,7 @@ func _sync_feedback_body() -> void:
 		feedback_body.flash_material.set_shader_parameter("authored_palette", 0.0)
 		feedback_body.flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
 		return
-	feedback_body.configure_underworld_palette(actor.definition.aerial)
+	feedback_body.configure_underworld_palette(EnemyPresentationBinding.view(self).body_key == &"aerial")
 	# H0..H3 and the live neutral share one family/anchor and the same ongoing
 	# wing/leg joints. No old SPRITES body is swapped in at hurt exit.
 	var source := feedback_frames.texture(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_texture()
@@ -94,35 +91,27 @@ func _remains_view() -> Dictionary:
 	var flutter := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
 	return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, actor.definition.collision_size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2(0, feedback_anchor.y+flutter)), "face": face, "angle": global_rotation, "readable_material": true}
 
-func _feedback_initialized(result: ActorResourceResult) -> void:
-	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
-	# Initialization can happen while paused. Clear cached drawing immediately;
-	# do not depend on the next pausable process tick or touch parent death clocks.
-	_hurt = 0
-	_death = .65 if actor.health.terminal else 0.0
-	visible = not actor.health.terminal
-	modulate.a = 0.0 if actor.health.terminal else 1.0
-	body_motion.advance(actor, 0.0)
-	feedback_particles.clear_for_epoch()
-	_sync_feedback_body()
+func _presentation_initialized() -> void:
+	super._presentation_initialized()
+	if feedback_sample != null:
+		feedback_particles.clear_for_epoch()
+		_sync_feedback_body()
 	queue_redraw()
+
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
+	if feedback_sample != null: _sync_feedback_body()
+
+func presentation_remains() -> EnemyFeedback01Remains:
+	return feedback_remains if is_instance_valid(feedback_remains) else null
 
 func _exit_tree() -> void:
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
-	if feedback_sample != null: feedback_sample.dispose()
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_feedback_initialized): actor.health.changed.disconnect(_feedback_initialized)
+	lifecycle.dispose()
 
-func _accepted_damage(result: ActorResourceResult) -> void:
-	if result != null and result.operation == &"initialize" and result.snapshot.epoch == actor.health.epoch:
-		body_motion.advance(actor, 0.0)
-		_hurt = 0.0
-		_death = .65 if actor.health.terminal else 0.0
-		visible = not actor.health.terminal
-		modulate.a = 0.0 if actor.health.terminal else 1.0
-		queue_redraw()
-		return
-	if result == null or result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
+func _presentation_health_changed(result: ActorResourceResult) -> void:
+	if feedback_sample != null: return
+	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
 	_hurt = feedback.hurt_seconds
 	accepted_hurt_count += 1
 
@@ -135,12 +124,14 @@ const SPRITES := {
 	"root_bell":preload("res://assets/underworld_plains/actors/root_bell.png")}
 
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if actor == null: return
 	if feedback_sample != null and actor.health.terminal: return
 	var behavior := String(actor.definition.behavior_id)
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
 	if not actor.health.terminal: _telegraph(state,StringName(behavior))
-	var key := "aerial" if actor.definition.aerial else "sentry" if behavior in ["sentry","fan_sentry"] else behavior if SPRITES.has(behavior) else "patrol"
+	var key := String(EnemyPresentationBinding.view(self).body_key)
+	if not SPRITES.has(key): return
 	var source: Texture2D = SPRITES[key]
 	var size := actor.definition.collision_size
 	var width := maxf(size.x+8,28)

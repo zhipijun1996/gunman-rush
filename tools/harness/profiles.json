@@ -2590,7 +2590,21 @@
         "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/registry.json",
         "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/windchime_plains.json",
         "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/thorn_forest.json",
-        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/demo_app.gd.txt"
+        "docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/demo_app.gd.txt",
+        "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+        "docs/creative_direction/archive/creative-v21/manifest.json",
+        "docs/creative_direction/archive/creative-v21/registry.json",
+        "docs/creative_direction/archive/creative-v21/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v21/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v21/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v21/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v21/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/manifest.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/style19.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/registry.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/windchime_plains.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/demo_app.gd.txt"
       ],
       "weight_seconds": 0.5
     },
@@ -4358,6 +4372,37 @@
       "artifact_paths": [
         "build/home_codex_01"
       ]
+    },
+    "enemy-structure-native": {
+      "argv": [
+        "python3",
+        "tools/run_enemy_structure_tests.py",
+        "--output-dir",
+        "build/enemy_structure/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: enemy structure native contracts \\(not visual acceptance\\)$",
+      "serial": true,
+      "cacheable": false,
+      "weight_seconds": 90,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "project.godot",
+        "tools/run_enemy_structure_tests.py",
+        "tools/run_tests.py",
+        "tools/harness.py",
+        "tools/harness",
+        "tests/enemy_structure_runner.gd",
+        "tests/audio_teardown.gd"
+      ],
+      "artifact_paths": [
+        "build/enemy_structure"
+      ]
     }
   },
   "profiles": {
@@ -4578,7 +4623,8 @@
       "item-v5-authoring",
       "item-authoring-tools",
       "item-v5-art",
-      "home-codex"
+      "home-codex",
+      "enemy-structure-native"
     ],
     "art": [
       "docs",
@@ -4676,7 +4722,8 @@
       "cloud-preview-runtime",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "home-codex"
+      "home-codex",
+      "enemy-structure-native"
     ],
     "web": [
       "docs",
@@ -4892,7 +4939,8 @@
       "item-v5-authoring",
       "item-authoring-tools",
       "item-v5-art",
-      "home-codex"
+      "home-codex",
+      "enemy-structure-native"
     ],
     "creative-feedback": [
       "docs",

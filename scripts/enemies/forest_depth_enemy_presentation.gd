@@ -4,29 +4,30 @@ extends Node2D
 var age := 0.0
 var hit_template: EnemyHitTemplate
 var motion: ForestMotion02
+var lifecycle := EnemyPresentationLifecycle.new()
 func _ready() -> void:
+	if EnemyPresentationBinding.bind_existing(actor,self,&"forest").is_empty(): return
 	hit_template = EnemyHitTemplate.install(actor, self)
 	motion = ForestMotion02.install(self)
-	motion.sync_epoch(actor)
-	actor.health.changed.connect(_motion_initialized)
-func _motion_initialized(result: ActorResourceResult) -> void:
-	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
-	motion.sync_epoch(actor)
+	lifecycle.bind(actor,self,_presentation_initialized,Callable(),motion)
+	lifecycle.own_cleanup(hit_template.dispose)
+func _presentation_initialized() -> void:
 	age = 0.0
 	queue_redraw()
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
 func _exit_tree() -> void:
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_motion_initialized):
-		actor.health.changed.disconnect(_motion_initialized)
+	lifecycle.dispose()
 func _process(delta: float) -> void:
-	if get_tree().paused: return
-	motion.advance(actor, delta)
+	if not lifecycle.advance(delta): return
 	age += delta
 	queue_redraw()
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if not is_instance_valid(actor): return
 	var alive := not actor.health.terminal
 	var behavior := actor.attack_behavior
-	var state: StringName = behavior.state if behavior else &"idle"
+	var state: StringName = lifecycle.read_state().get("state",&"idle")
 	var body_color := Color("756248") if alive else Color("393f38")
 	body_color = hit_template.tint(body_color)
 	if not ForestBibleActors.draw_enemy_body(self, actor, age):

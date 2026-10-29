@@ -23,10 +23,8 @@ extends EnemyDefinition
 @export var crossbranch_max_flight_seconds := 2.5
 
 func is_valid() -> bool:
-	# Base validates only its own behavior registry. Keep its contract untouched.
-	if behavior_id not in [&"forest_thread_spider",&"forest_crossbranch",&"forest_bark_beetle",&"forest_swing_pod"]: return false
-	if stable_id.is_empty() or definition_version < 1 or faction.is_empty() or health_definition == null or not health_definition.is_valid(): return false
-	if not collision_size.is_finite() or collision_size.x <= 0 or collision_size.y <= 0 or initial_direction not in [-1,1]: return false
+	if EnemyBehaviorRegistry.validation_family(behavior_id) != &"forest": return false
+	if not has_valid_identity() or not EnemyBehaviorRegistry.definition_error(behavior_id,stable_id).is_empty(): return false
 	if behavior_id in [&"forest_bark_beetle",&"forest_swing_pod"]:
 		for value: float in [patrol_speed,patrol_half_width,telegraph_duration,attack_duration,recovery_duration,attack_speed,activation_range,protected_radius,bark_rest_seconds,swing_period_seconds,swing_rise,bark_shield_half_angle_degrees]:
 			if not is_finite(value) or value<0:return false

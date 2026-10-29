@@ -4,18 +4,41 @@ extends Node2D
 var actor: EnemyActor
 var _clock := 0.0
 var _hurt := 0.0
+var lifecycle := EnemyPresentationLifecycle.new()
+
+func _presentation_profile() -> StringName:
+	return &"windchime"
 
 func _ready() -> void:
-	actor.health.changed.connect(func(result: ActorResourceResult) -> void:
-		if result.amount_applied < 0: _hurt = .12)
+	if EnemyPresentationBinding.bind_existing(actor,self,_presentation_profile()).is_empty(): return
+	lifecycle.bind(actor,self,_presentation_initialized,_presentation_health_changed)
+
+func _presentation_initialized() -> void:
+	_hurt = 0.0
+	visible = not actor.health.terminal
+	queue_redraw()
+
+func _presentation_health_changed(result: ActorResourceResult) -> void:
+	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0: _hurt = .12
+
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
+
+func _exit_tree() -> void:
+	lifecycle.dispose()
 
 func _process(delta: float) -> void:
+	if not lifecycle.advance(delta): return
+	_advance_presentation(delta)
+
+func _advance_presentation(delta: float) -> void:
 	_clock += delta
 	_hurt = maxf(0, _hurt - delta)
 	visible = not actor.health.terminal
 	queue_redraw()
 
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if actor == null or actor.health.terminal: return
 	var facing := float(actor.brain.direction)
 	var ink := Color("2c4137")

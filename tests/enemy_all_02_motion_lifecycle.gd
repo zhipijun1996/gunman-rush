@@ -21,7 +21,8 @@ func make_actor(id: String,initial_terminal: bool) -> EnemyActor:
 	var source := "patrol_drone" if prototype else id
 	var motor := (load("res://scenes/enemies/%s.tscn" % source) as PackedScene).instantiate() as EnemyMotor
 	var actor := motor.get_node("Actor") as EnemyActor
-	actor.definition = (load("res://resources/enemies/%s.tres" % ("plains_charger" if prototype else id)) as EnemyDefinition).duplicate(true)
+	# Candidate identity/behavior must come from the same review recipe as its actual factory.
+	actor.definition = EnemyFactory.candidate_definition(StringName(id),&"review") if prototype else (load("res://resources/enemies/%s.tres" % id) as EnemyDefinition).duplicate(true)
 	actor.definition.health_definition = actor.definition.health_definition.duplicate(true) as HealthDefinition
 	if initial_terminal: actor.definition.health_definition.initial_current = 0.0
 	if prototype:

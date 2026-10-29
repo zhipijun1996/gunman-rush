@@ -34,32 +34,46 @@ static func install(canvas: Node2D) -> ForestMotion02:
 	canvas.set_meta(METADATA, motion)
 	return motion
 
-func sync_epoch(actor: EnemyActor) -> void:
-	if not is_instance_valid(actor) or actor.health == null: return
-	if _epoch != actor.health.epoch:
-		_epoch = actor.health.epoch
-		_last_position = actor.motor.global_position
-		clock = 0.0
-		stride = 0.0
-		tension = 0.0
-		release = 0.0
-		flight = 0.0
-		_terminal = actor.health.terminal
-		_facing = float(actor.brain.direction)
-		_turn_to = _facing
-		_turn_from = _facing
-		_turn_elapsed = 0.12
-		_last_body_pose = Vector2.ONE
-		# Restored terminal is a pose, never a replay of the lethal event.
-		death_elapsed = DEATH_SECONDS if _terminal and (_feedback == null or _feedback.restored_terminal) else 0.0
+func sync_epoch(actor: EnemyActor, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)) or _epoch == int(state.epoch): return
+	_epoch = int(state.epoch)
+	_last_position = state.position
+	clock = 0.0
+	stride = 0.0
+	tension = 0.0
+	release = 0.0
+	flight = 0.0
+	_terminal = bool(state.terminal)
+	_facing = float(state.facing)
+	_turn_to = _facing
+	_turn_from = _facing
+	_turn_elapsed = 0.12
+	_last_body_pose = Vector2.ONE
+	# Restored terminal is a pose, never a replay of the lethal event.
+	death_elapsed = DEATH_SECONDS if _terminal and (_feedback == null or _feedback.restored_terminal) else 0.0
 
-func advance(actor: EnemyActor, delta: float) -> void:
-	if not is_instance_valid(actor) or actor.health == null: return
-	sync_epoch(actor)
-	var position_now: Vector2 = actor.motor.global_position
+func synchronize(actor: EnemyActor, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)): return
+	sync_epoch(actor,state)
+	_last_position = state.position
+	_facing = float(state.facing)
+	_turn_to = _facing
+	_turn_from = _facing
+	_turn_elapsed = 0.12
+
+func advance(actor: EnemyActor, delta: float, state: Dictionary = {}) -> void:
+	if not is_instance_valid(actor): return
+	if state.is_empty(): state = actor.presentation_state()
+	if not bool(state.get("valid",false)): return
+	sync_epoch(actor,state)
+	var position_now: Vector2 = state.position
 	var distance := position_now.distance_to(_last_position)
 	_last_position = position_now
-	if actor.health.terminal:
+	if bool(state.terminal):
 		_terminal = true
 		death_elapsed = minf(DEATH_SECONDS, death_elapsed + delta)
 		tension = move_toward(tension, 0.0, delta/DEATH_SECONDS)
@@ -68,8 +82,9 @@ func advance(actor: EnemyActor, delta: float) -> void:
 		_facing = lerpf(_facing, _turn_to, minf(1.0, delta/0.05))
 		if death_elapsed >= DEATH_SECONDS: _facing = _turn_to
 		return
+	if delta <= 0.0: return
 	clock += delta
-	var target_facing := float(actor.brain.direction)
+	var target_facing := float(state.facing)
 	if target_facing != _turn_to:
 		_turn_from = _facing
 		_turn_to = target_facing
@@ -78,7 +93,7 @@ func advance(actor: EnemyActor, delta: float) -> void:
 	_facing = lerpf(_turn_from, _turn_to, smoothstep(0.0, 0.12, _turn_elapsed))
 	# Distance, not wall time, owns walking feet. Ignore restoration/teleport jumps.
 	if distance < 32.0: stride += distance * 0.32
-	var phase: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+	var phase: StringName = state.state
 	var blend := 1.0 - exp(-delta / 0.065)
 	tension = lerpf(tension, 1.0 if phase in [&"telegraph", &"hold", &"turn"] else 0.0, blend)
 	release = lerpf(release, 1.0 if phase in [&"attack", &"extend", &"travel", &"swing"] else 0.0, blend)
@@ -229,3 +244,11 @@ static func body_mesh_visible(canvas: Node2D,bounds: Rect2) -> bool:
 	# remain with their existing hosts and keep advancing outside the viewport.
 	var projected: Rect2 = canvas.get_global_transform_with_canvas()*bounds.grow(64.0)
 	return canvas.get_viewport_rect().intersects(projected,true)
+
+func dispose() -> void:
+	_feedback = null
+	_mesh_texture = null
+	_mesh_points = PackedVector2Array()
+	_joints.clear()
+	_mesh.clear_surfaces()
+	_epoch = -1

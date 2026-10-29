@@ -82,18 +82,45 @@ func _on_death() -> void:
 
 func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:
 	if definition.behavior_id == &"patrol" or attack_behavior != null: return
-	match definition.behavior_id:
-		&"root_bell": attack_behavior = RootBellBehavior.new()
-		&"forest_lantern": attack_behavior = ForestLanternBehavior.new()
-		&"forest_seed_sentry": attack_behavior = ForestSeedSentryBehavior.new()
-		&"forest_thread_spider": attack_behavior = ForestThreadSpiderBehavior.new()
-		&"forest_bible_weaver": attack_behavior = ForestBibleWeaverBehavior.new()
-		&"forest_crossbranch": attack_behavior = ForestCrossbranchBehavior.new()
-		&"forest_bark_beetle": attack_behavior = ForestBarkBeetleBehavior.new()
-		&"forest_swing_pod": attack_behavior = ForestSwingPodBehavior.new()
-		_: attack_behavior = EnemyAttackBehavior.new()
+	attack_behavior = EnemyBehaviorRegistry.create_behavior(definition)
+	if attack_behavior == null:
+		push_error("Registered enemy behavior could not be constructed: " + String(definition.behavior_id))
+		return
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)
+
+# Read-only presentation input. Does not advance any clock or cache a phase.
+# Health epoch and encounter target actor_epoch intentionally remain separate.
+func presentation_state() -> Dictionary:
+	var valid := definition != null and is_instance_valid(motor) and is_instance_valid(brain) and health != null and health.epoch > 0
+	if not valid:
+		return _freeze_presentation_value({"valid":false,"reason":"actor_not_initialized","epoch":health.epoch if health != null else -1})
+	var phase: StringName = attack_behavior.state if is_instance_valid(attack_behavior) else &"idle"
+	var elapsed: float = attack_behavior.state_time if is_instance_valid(attack_behavior) else 0.0
+	var durations := {&"telegraph":definition.telegraph_duration,&"attack":definition.attack_duration,&"recovery":definition.recovery_duration}
+	var result := {"valid":true,"state":phase,"state_time":elapsed,"phase_durations":durations,"phase_duration":float(durations.get(phase,0.0)),"facing":brain.direction,"position":motor.global_position,"velocity":motor.velocity,"epoch":health.epoch,"terminal":health.terminal,"stable_id":definition.stable_id,"behavior_id":definition.behavior_id,"source_phase":phase,"source_kind":&"behavior" if is_instance_valid(attack_behavior) else &"patrol","source_behavior_script":(attack_behavior.get_script() as Script).resource_path if is_instance_valid(attack_behavior) else ""}
+	# Specialized phases may supply their own read-only phase values. Identity,
+	# epoch, actual Motor coordinates and terminal authority cannot be replaced.
+	if is_instance_valid(attack_behavior) and attack_behavior.has_method("presentation_state"):
+		var details: Variant = attack_behavior.call("presentation_state")
+		if details is Dictionary:
+			for key: String in ["state","state_time","phase_duration","phase_durations"]:
+				if details.has(key): result[key] = details[key]
+			result.source_phase = result.state
+	return _freeze_presentation_value(result)
+
+static func _freeze_presentation_value(value: Variant) -> Variant:
+	if value is Dictionary:
+		var frozen: Dictionary = value.duplicate()
+		for key: Variant in frozen: frozen[key] = _freeze_presentation_value(frozen[key])
+		frozen.make_read_only()
+		return frozen
+	if value is Array:
+		var frozen: Array = []
+		for item: Variant in value: frozen.append(_freeze_presentation_value(item))
+		frozen.make_read_only()
+		return frozen
+	return value
 
 # Explicit region unload/rebuild consumer. Shared HealthState emits the restored
 # terminal pose once; restoration is not a new accepted defeat/audio/drop event.

@@ -68,21 +68,16 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","forest_bible_weaver":"res://scenes/enemies/forest_bible_weaver.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
-		if not sources.has(row.behavior_id):
-			assembly_ok = false
-			push_error("Unknown recorded forest enemy behavior")
-			return
-		var scene: PackedScene = load(sources[row.behavior_id])
-		var creature := scene.instantiate() as EnemyMotor
-		creature.position = Vector2(row.position[0],row.position[1])
-		var actor := creature.get_node("Actor") as EnemyActor
-		actor.definition = preload("res://resources/enemies/plains_charger.tres").duplicate(true) if row.behavior_id == "charger" else actor.definition.duplicate(true)
+		var overrides := {&"patrol_half_width":float(row.patrol_radius)}
 		if row.behavior_id=="forest_bark_beetle" and row.has("initial_direction"):
 			if not row.initial_direction is int or row.initial_direction not in [-1,1]:
 				assembly_ok=false;push_error("Recorded bark facing rejected");return
-			actor.definition.initial_direction=int(row.initial_direction)
-		actor.definition.patrol_half_width = float(row.patrol_radius)
+			overrides[&"initial_direction"] = int(row.initial_direction)
+		var creature := EnemyFactory.create_for_behavior(StringName(row.behavior_id), overrides)
+		if creature == null:
+			assembly_ok=false;push_error("Recorded forest enemy construction rejected");return
+		creature.position = Vector2(row.position[0],row.position[1])
+		var actor := creature.get_node("Actor") as EnemyActor
 		add_child(creature)
 		if region_state.actors.has(row.id):
 			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod","forest_bible_weaver"]:
@@ -114,8 +109,9 @@ func _ready() -> void:
 	var boss_path := ThornForestRegionGenerator.boss_scene_path(forest_version,map_index,generated.manifest)
 	if boss_path.is_empty():
 		assembly_ok=false;push_error("Recorded forest Boss content is not in the version whitelist");return
-	var boss_scene: PackedScene = load(boss_path)
-	boss = boss_scene.instantiate()
+	boss = BossFactory.create_recorded(boss_path, "")
+	if boss == null:
+		assembly_ok=false;push_error("Recorded forest Boss construction rejected");return
 	var boss_point: Array = generated.manifest.get("boss_geometry",{}).get("boss_position",[boss_arena.get_center().x,boss_arena.end.y-100])
 	boss.position = Vector2(boss_point[0],boss_point[1])
 	add_child(boss)

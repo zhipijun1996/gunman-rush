@@ -19,12 +19,34 @@ var _last_position := Vector2.ZERO
 var _position_seen := false
 var _epoch := -1
 var _meshes: Dictionary = {}
+var _bound_encounter: BossEncounter
 
 func bind(encounter: BossEncounter) -> void:
+	if not is_instance_valid(encounter): return
+	if _bound_encounter == encounter:
+		synchronize(encounter)
+		return
+	dispose()
+	_bound_encounter = encounter
 	_epoch = encounter.health.epoch
 	_reset_epoch_pose(encounter.health.terminal)
 	encounter.health.changed.connect(_health_changed)
 	encounter.projectile_created.connect(_projectile_created)
+
+func synchronize(encounter: BossEncounter) -> void:
+	if not is_instance_valid(encounter): return
+	if _bound_encounter != encounter:
+		bind(encounter)
+	var observed := encounter.presentation_state()
+	if _epoch != observed.health_epoch:
+		_epoch = observed.health_epoch
+		_reset_epoch_pose(observed.terminal)
+	# A same-epoch synchronization changes only the movement/facing baseline.
+	# Hurt, death, warning/recovery and mode age keep their accepted clocks.
+	_last_position = observed.position
+	_position_seen = true
+	speed = 0.0
+	direction = observed.direction
 
 func _reset_epoch_pose(terminal: bool) -> void:
 	# A restored terminal resource already owns its settled pose, including
@@ -50,11 +72,13 @@ func _health_changed(result: ActorResourceResult) -> void:
 	elif result.snapshot.epoch == _epoch and result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
 		_hurt_left = .24
 
-func dispose(encounter: BossEncounter) -> void:
+func dispose(encounter: BossEncounter = null) -> void:
 	_meshes.clear()
-	if not is_instance_valid(encounter): return
-	if encounter.health.changed.is_connected(_health_changed): encounter.health.changed.disconnect(_health_changed)
-	if encounter.projectile_created.is_connected(_projectile_created): encounter.projectile_created.disconnect(_projectile_created)
+	var owner := _bound_encounter if is_instance_valid(_bound_encounter) else encounter
+	_bound_encounter = null
+	if not is_instance_valid(owner): return
+	if owner.health.changed.is_connected(_health_changed): owner.health.changed.disconnect(_health_changed)
+	if owner.projectile_created.is_connected(_projectile_created): owner.projectile_created.disconnect(_projectile_created)
 
 func _projectile_created(_projectile: BossProjectile) -> void:
 	# A committed projectile, including a real second volley, drives the kick.
@@ -62,48 +86,19 @@ func _projectile_created(_projectile: BossProjectile) -> void:
 
 func sample(encounter: BossEncounter, delta: float) -> void:
 	if encounter == null or encounter.definition == null: return
-	if _epoch != encounter.health.epoch:
-		_epoch = encounter.health.epoch
-		_reset_epoch_pose(encounter.health.terminal)
-	var next: StringName = &"patrol"
-	var remaining := 0.0
-	var duration := encounter.definition.telegraph_duration
-	phase = encounter.phases.phase
-	direction = float(encounter.direction)
-	if encounter is WindkeeperEncounter:
-		var machine := encounter as WindkeeperEncounter
-		next = machine.mode
-		remaining = machine.clock
-		phase = machine.stage_phase
-		duration = (machine.definition as WindkeeperDefinition).warning_seconds
-		if next == &"pier_warning": duration = (machine.definition as WindkeeperDefinition).pier_warning_seconds
-		elif next == &"phase_transition": duration = (machine.definition as WindkeeperDefinition).phase_warning_seconds
-	elif encounter is ThornForestEncounter:
-		var forest := encounter as ThornForestEncounter
-		next = forest.mode
-		remaining = forest.clock
-		phase = forest.stage_phase
-		if next == &"phase_transition": duration = (forest.definition as ThornForestDefinition).phase_warning_seconds
-		if forest is ThornQueenV2:
-			next = StringName((forest as ThornQueenV2).motion_mode)
-			remaining = (forest as ThornQueenV2).motion_clock
-			duration = (forest.definition as ThornQueenWeaveDefinition).migration_preview_seconds
-		elif forest is ThornQueenCanopyEncounter:
-			next = StringName((forest as ThornQueenCanopyEncounter).motion_mode)
-			remaining = (forest as ThornQueenCanopyEncounter).motion_clock
-			duration = (forest.definition as ThornQueenCanopyDefinition).canopy_preview
-		elif next == &"bell_warning" and forest.definition is BossDuelDefinition:
-			duration = (forest.definition as BossDuelDefinition).bell_warning_seconds
-	elif encounter.pattern.telegraphing:
-		next = &"projectile_warning"
-		remaining = duration * (1.0-encounter.pattern.warning_progress)
+	var observed := encounter.presentation_state()
+	if _epoch != observed.health_epoch:
+		_epoch = observed.health_epoch
+		_reset_epoch_pose(observed.terminal)
+	var next := observed.state_id
+	phase = observed.phase
+	direction = observed.direction
 	if next != mode:
 		mode = next
 		mode_age = 0.0
 	mode_age += delta
-	var warning_mode := String(mode).ends_with("warning") or String(mode).ends_with("preview") or mode == &"phase_transition"
-	warning = clampf(1.0-remaining/maxf(.01,duration),0.0,1.0) if warning_mode else 0.0
-	var at := encounter.motor.global_position
+	warning = observed.warning_progress
+	var at := observed.position
 	speed = at.distance_to(_last_position)/maxf(delta,.001) if _position_seen else 0.0
 	_last_position = at
 	_position_seen = true
@@ -111,14 +106,11 @@ func sample(encounter: BossEncounter, delta: float) -> void:
 	_hurt_left = maxf(0.0,_hurt_left-delta)
 	_shot_left = maxf(0.0,_shot_left-delta)
 	hurt = sin(PI*_hurt_left/.24) if _hurt_left > 0.0 else 0.0
-	var releasing := mode in [&"stomp",&"pier_impact",&"seed_flight",&"rings",&"lob",&"bell_watch"]
-	var travelling := mode in [&"charge",&"chase",&"roll",&"blades",&"pursuit_flight",&"flight",&"phase_flight"]
-	var target := maxf(exp(-mode_age/.18) if releasing else 0.0, _shot_left/.22)
-	if travelling: target = maxf(target,.65)
+	var target := maxf(exp(-mode_age/.18) if observed.release_action else 0.0, _shot_left/.22)
+	if observed.sustained_action: target = maxf(target,.65)
 	action = lerpf(action,target,1.0-exp(-delta/.045))
-	var recovering := mode in [&"neck",&"back",&"pier_open",&"final_hold",&"heart_open",&"landing_recovery",&"bell_stagger",&"perched"]
-	recovery = lerpf(recovery,1.0 if recovering else 0.0,1.0-exp(-delta/.12))
-	if encounter.health.terminal:
+	recovery = lerpf(recovery,1.0 if observed.recovery_active else 0.0,1.0-exp(-delta/.12))
+	if observed.terminal:
 		death = minf(1.0,death+delta/.55)
 		warning = 0.0
 		action = 0.0

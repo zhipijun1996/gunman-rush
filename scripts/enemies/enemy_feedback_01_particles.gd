@@ -100,8 +100,13 @@ func clear_for_epoch() -> void:
 	set_process(false)
 	queue_redraw()
 
-func _exit_tree() -> void:
+func dispose() -> void:
+	set_process(false)
 	if is_instance_valid(receiver) and receiver.damaged.is_connected(_committed_impact): receiver.damaged.disconnect(_committed_impact)
 	_bursts.clear()
 	sample = null
 	receiver = null
+	queue_redraw()
+
+func _exit_tree() -> void:
+	dispose()

@@ -50,9 +50,7 @@ func _ready() -> void:
 			if saved.has("position"): enemies[index].position=Vector2(saved.position[0],saved.position[1])
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
-	boss = preload("res://scenes/bosses/bellstrider.tscn").instantiate() if map_index==1 else preload("res://scenes/bosses/windkeeper.tscn").instantiate()
-	if map_index==2:
-		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/windkeeper_storm.tres")
+	boss = BossFactory.create(&"bellstrider" if map_index == 1 else &"windkeeper_storm")
 	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
@@ -156,9 +154,7 @@ func _ready() -> void:
 
 func _enemy_remains(motor: EnemyMotor) -> EnemyFeedback01Remains:
 	var presentation := motor.get_node_or_null("Presentation")
-	if presentation is UnderworldEnemy: return presentation.feedback_remains
-	if presentation is EnemyPresentation: return presentation.feedback_remains
-	return null
+	return EnemyPresentationBinding.remains(presentation)
 
 func _remains_support_identity(support: Node2D) -> Dictionary:
 	if not is_instance_valid(support) or support.is_queued_for_deletion(): return {}

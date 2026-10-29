@@ -37,18 +37,13 @@ static func install(stage: Node2D, manifest: Dictionary, enemies: Array[EnemyMot
 	for index: int in enemies.size():
 		var body: EnemyMotor = enemies[index]
 		var actor := body.get_node_or_null("Actor") as EnemyActor
+		if actor != null:
+			var host := body.get_node_or_null("Presentation")
+			if host != null: EnemyPresentationBinding.bind_existing(actor, host, &"forest", &"forest_bible")
 		if actor != null and actor.definition != null and actor.definition.behavior_id == &"forest_swing_pod":
 			_install_tether_attachment(stage, manifest, enemy_manifest, index, actor)
 		if actor == null or actor.definition == null or actor.definition.behavior_id != &"charger": continue
-		var old := body.get_node_or_null("Presentation")
-		if old is UnderworldEnemy: continue
-		if old != null:
-			body.remove_child(old)
-			old.queue_free()
-		var art := UnderworldEnemy.new()
-		art.actor = actor
-		art.name = "Presentation"
-		body.add_child(art)
+		EnemyPresentationBinding.replace(actor, &"underworld")
 
 static func _install_tether_attachment(stage: Node2D, manifest: Dictionary, enemy_manifest: Array[Dictionary], index: int, actor: EnemyActor) -> void:
 	# Exact serialized placement/host binding; never search the nearest branch.
@@ -93,7 +88,9 @@ static func active(canvas: Node) -> bool:
 	return false
 
 static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0) -> bool:
-	if not active(canvas) or not is_instance_valid(actor) or actor.definition == null: return false
+	if not is_instance_valid(actor) or actor.definition == null: return false
+	var binding := EnemyPresentationBinding.view(canvas)
+	if binding.get("body_theme") != &"forest_bible" or binding.get("actor_id") != actor.get_instance_id(): return false
 	var behavior_id: StringName = actor.definition.behavior_id
 	var hit_pose := EnemyHitTemplate.body_pose(canvas)
 	var hit_origin := Vector2.ZERO if actor.definition.aerial else Vector2(0, actor.definition.collision_size.y*.5*(1.0-hit_pose.y))

@@ -18,13 +18,14 @@ func configure(owner_encounter: WindkeeperEncounter, visual: Node2D, wheels: boo
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(encounter) or not is_instance_valid(subject):return
-	var intro:=encounter.active and encounter.mode==&"intro"
+	var observed := encounter.presentation_intro()
+	var intro: bool = observed.active
 	if intro and not _was_intro:
-		duration=maxf(encounter.intro_duration if encounter.intro_duration>0 else (encounter.definition as WindkeeperDefinition).intro_seconds,.01)
-		_impact_played=(1-encounter.clock/duration)>=.64
+		duration = observed.duration
+		_impact_played=(1-float(observed.raw_clock)/duration)>=.64
 	if intro:
-		progress=clampf(1-encounter.clock/duration,0,1)
-		subject.position=pose_offset(progress,rolling,encounter.direction)
+		progress=clampf(1-float(observed.raw_clock)/duration,0,1)
+		subject.position=pose_offset(progress,rolling,int(observed.direction))
 		if progress>=.64 and not _impact_played:
 			_impact_played=true
 			GameAudio.cue(self,&"boss_impact")

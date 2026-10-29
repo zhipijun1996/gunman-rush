@@ -23,8 +23,6 @@ var _hurt_joint := 0.0
 
 func _ready() -> void:
 	super._ready()
-	_sync_prototype_epoch()
-	actor.health.changed.connect(_motion_initialized)
 	var manifest: Variant = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST_PATH))
 	if not manifest is Dictionary or not manifest.get("frames") is Dictionary:
 		push_error("Prototype body master manifest is missing or invalid")
@@ -64,15 +62,23 @@ func _build_master_grid() -> void:
 	arrays[Mesh.ARRAY_INDEX] = indices
 	_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES | Mesh.ARRAY_FLAG_USE_DYNAMIC_UPDATE)
 
-func _motion_initialized(result: ActorResourceResult) -> void:
-	if result == null or result.snapshot == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
-	_sync_prototype_epoch()
-	queue_redraw()
+func _presentation_profile() -> StringName:
+	return &"prototype"
 
-func _exit_tree() -> void:
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_motion_initialized):
-		actor.health.changed.disconnect(_motion_initialized)
-	super._exit_tree()
+func _presentation_motion() -> RefCounted:
+	# The prototype owns its canonical mesh. Parent legacy motion is not advanced.
+	return null
+
+func _presentation_initialized() -> void:
+	super._presentation_initialized()
+	_sync_prototype_epoch()
+
+func synchronize_presentation() -> void:
+	super.synchronize_presentation()
+	var state := lifecycle.read_state()
+	if not bool(state.get("valid",false)): return
+	_last_position = state.position
+	_display_facing = float(state.facing)
 
 func _sync_prototype_epoch() -> void:
 	if not is_instance_valid(actor) or actor.health == null: return
@@ -93,25 +99,24 @@ func _sync_prototype_epoch() -> void:
 		_lean = 0.0
 		_last_position = actor.motor.global_position
 
-func _process(delta: float) -> void:
-	if get_tree().paused or not is_instance_valid(actor): return
-	_sync_prototype_epoch()
-	super._process(delta)
-	var phase: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
-	var alive := not actor.health.terminal
+func _advance_body_pose(delta: float) -> void:
+	var state := lifecycle.snapshot
+	var phase: StringName = state.state
+	var alive := not bool(state.terminal)
 	var blend := 1.0-exp(-delta/0.065)
 	_loading = lerpf(_loading,1.0 if alive and phase==&"telegraph" else 0.0,blend)
 	_releasing = lerpf(_releasing,1.0 if alive and phase==&"attack" else 0.0,blend)
 	_recovering = lerpf(_recovering,1.0 if alive and phase==&"recovery" else 0.0,blend)
-	_display_facing = lerpf(_display_facing,float(actor.brain.direction),1.0-exp(-delta/0.045))
-	var distance := actor.motor.global_position.distance_to(_last_position)
-	_last_position = actor.motor.global_position
+	_display_facing = lerpf(_display_facing,float(state.facing),1.0-exp(-delta/0.045))
+	var distance := (state.position as Vector2).distance_to(_last_position)
+	_last_position = (state.position as Vector2)
 	if alive and distance<32.0: _stride += distance*0.28
 	_walking = lerpf(_walking,1.0 if alive and distance>0.05 else 0.0,blend)
 	var accepted_pose := hit_template.pose() if hit_template != null else Vector2.ONE
 	_hurt_joint = clampf(absf(1.0-accepted_pose.y)*5.0,0.0,0.6) if alive else lerpf(_hurt_joint,0.0,blend)
 
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if not is_instance_valid(actor) or _native_points.is_empty(): return
 	var phase: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var tint := hit_template.tint() if hit_template != null else Color.WHITE

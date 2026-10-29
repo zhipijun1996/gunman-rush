@@ -205,3 +205,22 @@ static func _integer(value: Variant) -> bool: return _number(value) and float(va
 static func _point_ok(value: Variant) -> bool: return value is Array and value.size()==2 and _number(value[0]) and _number(value[1])
 static func _point(value: Array) -> Vector2: return Vector2(value[0],value[1])
 static func _rect(value: Array) -> Rect2: return Rect2(value[0],value[1],value[2],value[3])
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase},"damage_model":&"continuous_body","core_hint_visible":core_open},true)
+	return _presentation_countdown(values,StringName(motion_mode),motion_clock,config().canopy_preview,motion_mode == "migration_preview",false,motion_mode == "flight",false,&"motion")
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["motion_preview","receiver_weave","combat_state"])
+
+func presentation_motion_preview() -> Dictionary:
+	if not _bound or motion_mode != "migration_preview": return {}
+	return {"path":PackedVector2Array(motion_path()),"phase_axes":{"combat":stage_phase}}
+
+func presentation_knots() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for knot: ThornQueenWeaveKnot in knots:
+		if not is_instance_valid(knot) or knot.health.terminal: continue
+		result.append({"position":knot.global_position,"health":knot.health.current,"capacity":knot.health.capacity})
+	return result

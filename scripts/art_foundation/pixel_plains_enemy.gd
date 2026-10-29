@@ -4,8 +4,19 @@ extends WindchimeEnemyVisual
 var _death := 0.0
 var _previous_state: StringName = &"idle"
 var _burst_tail := false
-func _process(delta: float) -> void:
-	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+func _presentation_profile() -> StringName:
+	return &"pixel"
+
+func _presentation_initialized() -> void:
+	super._presentation_initialized()
+	_death = .65 if actor.health.terminal else 0.0
+	_previous_state = &"idle"
+	_burst_tail = false
+	visible = not actor.health.terminal
+	modulate.a = 0.0 if actor.health.terminal else 1.0
+
+func _advance_presentation(delta: float) -> void:
+	var state: StringName = lifecycle.snapshot.get("state",&"idle")
 	if state != _previous_state:
 		_burst_tail = state==&"attack" or (state==&"recovery" and _previous_state==&"attack")
 		_previous_state = state
@@ -17,6 +28,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if actor == null: return
 	var ink := PixelFormalActors.INK
 	var brass := PixelFormalActors.BRASS if _hurt<=0 else PixelFormalActors.CREAM
@@ -42,7 +54,7 @@ func _draw() -> void:
 		PixelFormalActors.bell(self,Vector2(0,top+16),state==&"telegraph",_hurt>0)
 		for side: int in [-1,1]:
 			PixelFormalActors.pixel_line(self,Vector2(side*half,floor_y-6),Vector2(side*(half+8),floor_y),ink,4)
-	elif actor.definition.aerial:
+	elif EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var wing_y := -8.0 if int(_clock*8)%2==0 else 0.0
 		draw_rect(Rect2(-half,top+8,half*2,floor_y-top-14),ink)
 		draw_rect(Rect2(-half+4,top+10,half*2-8,10),brass)

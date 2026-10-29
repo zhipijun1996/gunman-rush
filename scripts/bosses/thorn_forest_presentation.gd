@@ -33,16 +33,21 @@ func _draw() -> void:
 	var native_heart := Rect2(32,34,9,10) if queen else Rect2(28,34,18,16)
 	var uniform_scale := 2.0 if queen else 1.0
 	draw_texture_rect_region(body,Rect2(bounds.position+native_heart.position*uniform_scale,native_heart.size*uniform_scale),native_heart,Color(.20,.30,.22)*body_tint)
-	var heart := Vector2(encounter.weak_side*18 if encounter.stage_phase > 1 else 0, -9)
+	var heart_view := encounter.presentation_heart()
+	var heart: Vector2 = heart_view.offset
 	draw_circle(heart,11,Color(.16,.12,.17))
-	draw_arc(heart,13,0,TAU,32,Color(1,.78,.34) if encounter.core_open else Color(.5,.4,.25),2)
-	if encounter.core_open: draw_circle(heart,7+sin(age*5),Color(1,.82,.42))
+	draw_arc(heart,13,0,TAU,32,Color(1,.78,.34) if heart_view.visible else Color(.5,.4,.25),2)
+	if heart_view.visible: draw_circle(heart,7+sin(age*5),Color(1,.82,.42))
 	else:
 		for side: int in [-1,1]: draw_line(heart+Vector2(side*9,-10),heart+Vector2(-side*9,10),Color(.4,.53,.26),4)
-	if encounter.has_ground_mark and encounter.mode in [&"branch_warning",&"seed_flight"]:
-		var goal := to_local(encounter.attack_goal)
-		var width := (encounter.definition as ThornForestDefinition).seed_zone_size.x
+	var mark := encounter.presentation_ground_mark()
+	if not mark.is_empty():
+		var goal := to_local(mark.position)
+		var width: float = mark.width
 		draw_line(goal-Vector2(width*.5,1),goal+Vector2(width*.5,-1),Color(1,.65,.35),4)
 		draw_arc(goal,width*.5,PI,TAU,24,Color(1,.65,.35,.8),2)
 func _exit_tree() -> void:
 	motion.dispose(encounter)
+
+func synchronize_presentation() -> void:
+	motion.synchronize(encounter)

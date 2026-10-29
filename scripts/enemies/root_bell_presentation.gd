@@ -16,9 +16,10 @@ var _atlas: Texture2D
 var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"legacy")
 var _body_textures: Dictionary = {}
+var lifecycle := EnemyPresentationLifecycle.new()
 
 func _ready() -> void:
-	actor.health.changed.connect(_health_changed)
+	if EnemyPresentationBinding.bind_existing(actor,self,&"scene").is_empty(): return
 	hit_template = EnemyHitTemplate.install(actor, self)
 	body_motion.sample = hit_template.sample
 	var path := "res://assets/region_production_v3/enemies/root_bell/manifest.json"
@@ -29,27 +30,33 @@ func _ready() -> void:
 	if FileAccess.file_exists(burst_path):
 		_burst_manifest = JSON.parse_string(FileAccess.get_file_as_string(burst_path))
 		_burst_atlas = load("res://assets/region_production_v3/enemies/root_bell_burst/source/master.png") as Texture2D
+	lifecycle.bind(actor,self,_presentation_initialized,_health_changed,body_motion)
+	lifecycle.own_cleanup(hit_template.dispose)
+
+func _presentation_initialized() -> void:
+	_hurt = 0.0
+	_death = .8 if actor.health.terminal else 0.0
+	_pose = "death" if actor.health.terminal else "idle"
+	_burst_tail = false
+	_previous_state = &"idle"
+	_transition_time = 1.0
+	queue_redraw()
+
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
+
+func _exit_tree() -> void:
+	lifecycle.dispose()
 
 func _health_changed(result: ActorResourceResult) -> void:
-	if result != null and result.operation == &"initialize" and result.snapshot.epoch == actor.health.epoch:
-		body_motion.advance(actor, 0.0)
-		_hurt = 0.0
-		_death = .8 if actor.health.terminal else 0.0
-		_pose = "death" if actor.health.terminal else "idle"
-		_burst_tail = false
-		_previous_state = &"idle"
-		_transition_time = 1.0
-		queue_redraw()
-		return
-	if result != null and result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0: _hurt = .16
+	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0: _hurt = .16
 
 func _process(delta: float) -> void:
-	if get_tree().paused: return
+	if not lifecycle.advance(delta): return
 	_clock += delta
-	body_motion.advance(actor, delta)
 	_hurt = maxf(0, _hurt - delta)
 	if actor.health.terminal: _death += delta
-	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+	var state: StringName = lifecycle.snapshot.get("state",&"idle")
 	var next := "death" if actor.health.terminal else "hurt" if _hurt > 0 else "telegraph" if state == &"telegraph" else "attack" if state == &"attack" else "recovery" if state == &"recovery" else "idle"
 	if state != _previous_state:
 		_burst_tail = state == &"attack" or (state == &"recovery" and _previous_state == &"attack")
@@ -61,6 +68,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if actor == null: return
 	if not actor.health.terminal and actor.attack_behavior is RootBellBehavior:
 		var behavior := actor.attack_behavior as RootBellBehavior

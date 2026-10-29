@@ -731,6 +731,7 @@ func _load_stage() -> void:
 						abandon_run()
 						return
 			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
+			EnemyPresentationBinding.synchronize(actor)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
 			_completion_target = (encounter_stage.enemies[0].get_node("Actor") as EnemyActor).health
@@ -791,6 +792,7 @@ func _load_stage() -> void:
 		if encounter is WindkeeperEncounter:
 			_boss_contact.contact_rect_provider = encounter.body_contact_rect
 		_boss_contact.enabled = not generated_plains
+		EnemyPresentationBinding.synchronize(encounter)
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
 		if director.profile.development_only:
@@ -2232,6 +2234,7 @@ func _start_generated_boss() -> void:
 					return
 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
 		(stage as PlainsRegionStage).restored_boss.clear()
+	EnemyPresentationBinding.synchronize(encounter)
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
 	if _boss_started:
 		_status = ("BOSS ACTIVE / Branch seals close after full entry." if active_region_id == &"thorn_forest" else "BOSS ACTIVE / Wind gates close after full entry.") if connected_region else "BOSS ACTIVE / Core entered. Retreat into the entrance is safe; Boss health persists."

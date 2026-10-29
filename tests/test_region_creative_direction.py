@@ -318,12 +318,12 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(old['version'],'creative-v20')
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(path,name)
-            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v21/'+name+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v21')
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
-            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v21/registry.json').read_bytes())['shared_style_authority'])
 
         # First21/source18 pass remains exact and stale after the bounded
         # DemoApp input-resume correction within this unpublished candidate.
@@ -345,8 +345,62 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(old['version'],'creative-v21')
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(path,name)
-            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v21/'+name+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v21')
+            for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v21/registry.json').read_bytes())['shared_style_authority'])
+
+        # Published21 remains exact and stale;22 appends only the technical
+        # style19 authority, retaining all direction/content/acceptance fields.
+        published_chest = {
+            'registry':'de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d',
+            'windchime_plains':'316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8',
+            'thorn_forest':'1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729',
+        }
+        for name,digest in published_chest.items():
+            path = 'docs/creative_direction/archive/creative-v21/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v21')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v22')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+
+        # Bind01/source19 receipts are immutable after the two actual Boss
+        # restore notifications. Same22 content/authority prefix is retained.
+        bind01 = {
+            'registry':'7624d24f07686121f7f7063785fbfdabba882d7b98b50063073b28e7608d9b02',
+            'windchime_plains':'f4ccf685f0580bb6f6b44b76a1d5b813ec3dc2db7e75f3380bc1037b2de69298',
+            'thorn_forest':'aa13e9a4322cc8b331b7b90cbc03ffd57298f2c22843aa8d541c2680b0f1c737',
+        }
+        for name,digest in bind01.items():
+            path = 'docs/creative_direction/archive/creative-v22/before-boss-restore-notification/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v22')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v22')
             for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
@@ -401,7 +455,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v21')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v22')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

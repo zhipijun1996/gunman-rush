@@ -20,7 +20,9 @@ var feedback_particles: EnemyFeedback01Particles
 var feedback_remains: EnemyFeedback01Remains
 var hit_template: EnemyHitTemplate
 var body_motion := PlainsMotion02.new(&"legacy")
+var lifecycle := EnemyPresentationLifecycle.new()
 func _ready() -> void:
+	if EnemyPresentationBinding.bind_existing(actor,self,_presentation_profile()).is_empty(): return
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
@@ -38,7 +40,6 @@ func _ready() -> void:
 		feedback_particles.z_index = 1
 		add_child(feedback_particles)
 		feedback_particles.bind(feedback_sample, actor.damageable)
-		actor.health.changed.connect(_feedback_initialized)
 		feedback_remains = EnemyFeedback01Remains.new()
 		feedback_remains.name = "AcceptedEnemyRemains"
 		var stage := actor.motor.get_parent()
@@ -46,39 +47,55 @@ func _ready() -> void:
 		stage.move_child(feedback_remains, 0)
 		feedback_remains.bind(feedback_sample, actor.damageable, actor.health, actor.motor, self, actor.definition.aerial, _remains_view)
 	else:
-		actor.health.changed.connect(_health_changed)
 		hit_template = EnemyHitTemplate.install(actor, self)
 		body_motion.sample = hit_template.sample
+	lifecycle.bind(actor,self,_presentation_initialized,_health_changed,_presentation_motion(),feedback_sample,feedback_sample!=null)
+	if hit_template != null: lifecycle.own_cleanup(hit_template.dispose)
 	queue_redraw()
+
+func _presentation_profile() -> StringName:
+	return &"scene"
+
+func _presentation_motion() -> RefCounted:
+	return body_motion
+
 func _exit_tree() -> void:
 	if is_instance_valid(feedback_remains): feedback_remains.dispose()
-	if feedback_sample != null: feedback_sample.dispose()
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)
-	if is_instance_valid(actor) and actor.health.changed.is_connected(_feedback_initialized): actor.health.changed.disconnect(_feedback_initialized)
-func _feedback_initialized(result: ActorResourceResult) -> void:
-	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
-	_hurt_time = 0
-	_death_time = 0
-	body_motion.advance(actor, 0.0)
-	feedback_particles.clear_for_epoch()
-	_sync_feedback_body()
-	queue_redraw()
-func _process(delta: float) -> void:
-	if get_tree().paused: return
-	_clock += delta
-	body_motion.advance(actor, delta)
+	lifecycle.dispose()
+
+func presentation_remains() -> EnemyFeedback01Remains:
+	return feedback_remains if is_instance_valid(feedback_remains) else null
+
+func synchronize_presentation() -> void:
+	lifecycle.synchronize()
+	if feedback_sample != null: _sync_feedback_body()
+
+func _presentation_initialized() -> void:
+	_hurt_time = 0.0
+	_death_time = 0.0 if feedback_sample != null or not actor.health.terminal else 1.0
+	_weight = Vector2.ONE
+	_lean = 0.0
 	if feedback_sample != null:
-		feedback_sample.advance(delta)
+		feedback_particles.clear_for_epoch()
+		_sync_feedback_body()
+	queue_redraw()
+
+func _process(delta: float) -> void:
+	if not lifecycle.advance(delta): return
+	_clock += delta
+	if feedback_sample != null:
 		_hurt_time = feedback_sample.hurt_remaining
 		_death_time = feedback_sample.death_elapsed
 		_sync_feedback_body()
 	else:
 		if actor.health.terminal: _death_time += delta
 		_hurt_time = maxf(0, _hurt_time - delta)
-	if feedback_sample != null and actor.health.terminal:
-		queue_redraw()
-		return
-	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+	if feedback_sample == null or not actor.health.terminal:
+		_advance_body_pose(delta)
+	queue_redraw()
+
+func _advance_body_pose(delta: float) -> void:
+	var state: StringName = lifecycle.snapshot.get("state",&"idle")
 	var desired := Vector2(1.12,.9) if state in [&"telegraph",&"attack"] else Vector2(.97,1.025) if state == &"recovery" else Vector2.ONE
 	if actor.health.terminal: desired = Vector2(1.12,.45)
 	if feedback_sample != null:
@@ -88,18 +105,14 @@ func _process(delta: float) -> void:
 	_weight = _weight.lerp(desired,1-exp(-delta/.075))
 	_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))
 	_update_frame_weights(state,delta)
-	queue_redraw()
+
 func _health_changed(result: ActorResourceResult) -> void:
-	if result != null and result.operation == &"initialize" and result.snapshot.epoch == actor.health.epoch:
-		body_motion.advance(actor, 0.0)
-		_hurt_time = 0.0
-		_death_time = 1.0 if actor.health.terminal else 0.0
-		_weight = Vector2.ONE
-		_lean = 0.0
+	if feedback_sample != null: return
 	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
 		_hurt_time = 0.14
 	queue_redraw()
 func _draw() -> void:
+	if not lifecycle.is_bound(): return
 	if actor == null:
 		return
 	if feedback_sample != null and actor.health.terminal: return
@@ -139,7 +152,7 @@ func _draw() -> void:
 	if feedback_body != null:
 		pass # One coherent body child owns live and hurt; retain HP/telegraphs.
 	elif ForestBibleActors.draw_enemy_body(self, actor, _clock): return
-	elif actor.definition.aerial:
+	elif EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
 		var tilt := _lean + sin(_clock*2)*.035 + (feedback_sample.tilt() if feedback_sample != null else 0.0)
 		draw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))
@@ -175,7 +188,7 @@ func _remains_view() -> Dictionary:
 	if feedback_frames != null:
 		var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
 		return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, _size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(facing, 1), 0, Vector2(0, feedback_anchor.y+bob)), "face": facing, "angle": global_rotation, "readable_material": false}
-	if actor.definition.aerial:
+	if EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var texture := AtlasTexture.new()
 		texture.atlas = preload("res://assets/plains_v4/spatial/actors.png")
 		texture.region = Rect2(935, 570, 580, 445)
@@ -211,7 +224,7 @@ func _remains_view() -> Dictionary:
 	return primary
 
 func _feedback_body_size() -> Vector2:
-	if actor.definition.aerial:
+	if EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var source := AtlasTexture.new()
 		source.atlas = preload("res://assets/plains_v4/spatial/actors.png")
 		source.region = Rect2(935, 570, 580, 445)
