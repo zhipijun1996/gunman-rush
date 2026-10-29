@@ -218,28 +218,62 @@ static func _charger_dead(point: Vector2, uv: Vector2, size: Vector2, death: flo
 	return p
 
 static func _hopper_dead(point: Vector2, uv: Vector2, size: Vector2, death: float) -> Vector2:
-	var p := point
 	var hind := _hopper_hind(uv)
 	var fore := _front_leg(uv)
-	var release := smoothstep(0.01, 0.37, death)
+	var release := smoothstep(0.01, 0.60, death)
 	var belly_drop := smoothstep(0.17, 0.63, death)
 	var head_drop := smoothstep(0.48, 0.81, death)
 	var stop := smoothstep(0.78, 0.94, death)
-	p = _joint(p, Vector2(0.49, 0.60), size, -0.61 * release, hind)
-	p.x -= size.x * 0.09 * release * hind
-	p = _joint(p, Vector2(0.76, 0.68), size, 0.65 * release, fore)
-	p.x += size.x * 0.065 * release * fore
-	# The pale abdomen remains round after contact. Sprawled legs lower its
-	# support; they do not squeeze the belly into the former compressed strip.
-	var depth := lerpf(1.0, 0.72, belly_drop)
-	p.y *= depth
-	var neck := _at(Vector2(0.79, 0.52), size)
-	neck.y *= depth
-	p = _joint_at(p, neck, 0.33 * head_drop, _hopper_head(uv))
-	p.x += size.x * 0.025 * head_drop * _hopper_head(uv)
-	p.y += size.y * 0.04 * head_drop * _hopper_head(uv)
-	# One bounded involuntary contraction after the abdomen has found support.
 	var twitch := sin(clampf((death - 0.66) / 0.25, 0.0, 1.0) * PI) * (1.0 - stop)
-	p = _joint(p, Vector2(0.49, 0.60), size, 0.11 * twitch, hind)
-	p.y -= size.y * 0.018 * twitch * _upper(uv)
+	# The round abdomen's lower rim is y=.81 in the master. Translate that
+	# mass to contact instead of squeezing its height and leaving a standing hip.
+	var body_shift := Vector2(0.0, size.y * (0.19 * belly_drop - 0.012 * twitch))
+	var p := point + body_shift
+	var old_hip := _at(Vector2(0.49, 0.60), size)
+	var old_knee := _at(Vector2(0.20, 0.09), size)
+	var old_foot := _at(Vector2(0.05, 0.98), size)
+	var hip := old_hip + body_shift
+	var thigh_length := old_hip.distance_to(old_knee)
+	var shin_length := old_knee.distance_to(old_foot)
+	# Commit the final foot beside the animal first. The near-straight chain is
+	# outside the abdomen, and its toe has enough height for its actual thickness
+	# rather than relying on the outer floor clamp to cut away a hanging shin.
+	var foot := (old_foot + body_shift).lerp(Vector2(hip.x - (thigh_length + shin_length) * 0.97, -size.y * 0.06), release)
+	var knee := _hopper_knee(hip, foot, thigh_length, shin_length)
+	var thigh_point := _hopper_segment_map(point, old_hip, old_knee, hip, knee)
+	var shin_point := _hopper_segment_map(point, old_knee, old_foot, knee, foot)
+	var thigh_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_hip, old_knee))
+	var shin_distance := point.distance_to(Geometry2D.get_closest_point_to_segment(point, old_knee, old_foot))
+	# Both transforms meet at the knee; only the small joint neighbourhood blends.
+	var shin_weight := smoothstep(-size.x * 0.035, size.x * 0.035, thigh_distance - shin_distance)
+	var hind_point := thigh_point.lerp(shin_point, shin_weight)
+	p = p.lerp(hind_point, hind)
+	# The short front limbs similarly roll outward to the right of the belly.
+	# Their hip follows the translated mass; their foot retains its bone length.
+	var old_front_hip := _at(Vector2(0.76, 0.68), size)
+	var old_front_foot := _at(Vector2(0.95, 0.98), size)
+	var front_hip := old_front_hip + body_shift
+	var front_length := old_front_hip.distance_to(old_front_foot)
+	var front_y := -size.y * 0.04
+	var front_dy := clampf(front_y - front_hip.y, -front_length * 0.96, front_length * 0.96)
+	var spread_front := front_hip + Vector2(sqrt(maxf(0.0, front_length * front_length - front_dy * front_dy)), front_dy)
+	var front_foot := (old_front_foot + body_shift).lerp(spread_front, release)
+	p = p.lerp(_hopper_segment_map(point, old_front_hip, old_front_foot, front_hip, front_foot), fore)
+	# Head descent is a child of the lowered abdomen, and happens after contact.
+	var neck := _at(Vector2(0.79, 0.52), size) + body_shift
+	p = _joint_at(p, neck, 0.56 * head_drop, _hopper_head(uv))
+	p.x += size.x * 0.025 * head_drop * _hopper_head(uv)
+	p.y += size.y * 0.085 * head_drop * _hopper_head(uv)
 	return p
+
+static func _hopper_segment_map(point: Vector2, old_start: Vector2, old_end: Vector2, new_start: Vector2, new_end: Vector2) -> Vector2:
+	return new_start + (point - old_start).rotated((old_end - old_start).angle_to(new_end - new_start))
+
+static func _hopper_knee(hip: Vector2, foot: Vector2, thigh_length: float, shin_length: float) -> Vector2:
+	var to_foot := foot - hip
+	var distance := clampf(to_foot.length(), absf(thigh_length - shin_length) + 0.0001, thigh_length + shin_length - 0.0001)
+	var direction := to_foot.normalized()
+	var along := (thigh_length * thigh_length - shin_length * shin_length + distance * distance) / (2.0 * distance)
+	var height := sqrt(maxf(0.0, thigh_length * thigh_length - along * along))
+	# Leftward leg uses the upper branch, keeping the knee clear of the ground.
+	return hip + direction * along + Vector2(-direction.y, direction.x) * height

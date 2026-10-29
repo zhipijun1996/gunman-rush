@@ -501,7 +501,28 @@ func one_case(path: String, underworld: bool) -> void:
 		check(rig_hurt_samples.size()>1 and float(rig_hurt_samples.front().hurt)>float(rig_hurt_samples.back().hurt) and max_deformation>0.0,"real accepted projectile traverses distinct continuous hurt joints and recovers monotonically")
 	else:
 		check(hurt_frames_seen == [0, 1, 2, 3], "a real accepted nonlethal projectile traverses all four authored hurt poses in order")
-	check(int(art.get("feedback_frame_index")) == -1, "bounded hurt returns to the original live presentation")
+	if revision_body()!=null:
+		var recovered := revision_body()
+		var actual_pose: Dictionary = recovered.pose.duplicate(true)
+		var current_pose: Dictionary = actual_pose.duplicate(true)
+		var current_motion := art.get("body_motion") as PlainsMotion02
+		var current_fields := {"clock":current_motion.clock,"stride":current_motion.stride,"travel":current_motion.travel,"load":current_motion.tension,"strike":current_motion.release,"recovery":current_motion.recovery}
+		var uses_current_phase := true
+		for key: String in current_fields:
+			uses_current_phase = uses_current_phase and is_equal_approx(float(actual_pose.get(key,-999.0)),float(current_fields[key]))
+			current_pose[key] = current_fields[key]
+		current_pose["hurt"] = 0.0
+		check(is_zero_approx(float(actual_pose.get("hurt",-1.0))) and uses_current_phase,"bounded hurt exits into actual current locomotion/load/release/recovery pose without cached pre-hit phase")
+		check(texture_digest(recovered.rig.texture)==frame_profile.pixel_sha256 and recovered.rig.bounds==frame_profile.bounds,"recovered current pose retains the same mother pixels and fixed world anchor")
+		var current_geometry := true
+		for y: int in 7:
+			for x: int in 7:
+				var unit := Vector2(float(x)/6,float(y)/6)
+				var point := recovered.rig.bounds.position+unit*recovered.rig.bounds.size
+				current_geometry = current_geometry and recovered.rig.deform(point,unit,actual_pose).is_equal_approx(recovered.rig.deform(point,unit,current_pose))
+		check(current_geometry,"actual recovered rig vertices equal current-phase geometry with hurt explicitly zero")
+	else:
+		check(int(art.get("feedback_frame_index"))==-1,"bounded authored hurt returns to the original live frame presentation")
 	check(float(sample.hurt_remaining) == 0, "hurt clock recovers without another accepted event")
 	check(sample.impact_remaining == 0 and sample.flash_strength() == 0 and particles.active_bursts() == 0 and particles.emitted_bursts == 1, "nonlethal flash and pixel particles clear within the bounded recovery window")
 	for _hit: int in ceili(initial_hp) - 1:

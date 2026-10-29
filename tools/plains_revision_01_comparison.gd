@@ -7,6 +7,7 @@ const STARTUP_FRAME_BUDGET := 3600
 const SPECIES: Array[StringName] = [&"patrol",&"charger",&"hopper",&"sentry",&"fan_sentry",&"root_bell"]
 const SOURCE_PATHS: Array[String] = [
 	"res://tools/plains_revision_01_comparison.gd",
+	"res://scripts/audio/game_audio.gd",
 	"res://scripts/demo/demo_app.gd", "res://scripts/demo/plains_region_stage.gd",
 	"res://scripts/generation/stage_camera_rig.gd",
 	"res://scripts/enemies/enemy_factory.gd", "res://scripts/enemies/enemy_actor.gd",
@@ -30,7 +31,7 @@ const SOURCE_PATHS: Array[String] = [
 var trace_path := ""
 var seed_label := "plains-revision-01-scale"
 var app: DemoApp
-var audio: GameAudio
+var audio: Node
 var heading: Label
 var detail: Label
 var reference: EnemyMotor
@@ -55,6 +56,8 @@ var git_before: Dictionary = {}
 var native_inventory: Array[Dictionary] = []
 var player_health_at_start := -1.0
 var original_camera_zoom := Vector2.ONE
+var stand_search: Array[Dictionary] = []
+var space_sync_receipt: Dictionary = {}
 
 func _initialize() -> void:
 	for argument: String in OS.get_cmdline_user_args():
@@ -80,8 +83,13 @@ func start() -> void:
 	source_before = _source_hashes()
 	if source_before.values().has("missing"): failures.append("A direct comparison source resource is missing")
 	git_before = _git_source()
-	audio = GameAudio.new()
+	# Keep this dynamic formal consumer's dependency one-way, as with the
+	# runtime body observations below. This is the same actual owned service.
+	var audio_source: Script = load("res://scripts/audio/game_audio.gd") as Script
+	audio = audio_source.new() as Node
 	root.add_child(audio)
+	if audio.get_script().resource_path!="res://scripts/audio/game_audio.gd" or not audio.has_method("shutdown"):
+		failures.append("Owned audio service does not match actual GameAudio implementation")
 	app = DemoApp.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
@@ -112,6 +120,69 @@ func _support_record(hit: Dictionary) -> Dictionary:
 			shape_rows.append({"path":String(collider.get_path()),"shape_class":collider.shape.get_class(),"world_aabb":_rect(collider.global_transform*collider.shape.get_rect()),"one_way":collider.one_way_collision})
 	return {"path":String(body.get_path()),"class":body.get_class(),"point":_vec(hit.position),"normal":_vec(hit.normal),"shape_index":int(hit.shape),"actual_collision_shapes":shape_rows}
 
+func _add_stand_candidate(candidates: Array[Dictionary], seen: Dictionary, x: float, top: float, bottom: float, source: String) -> void:
+	if not is_finite(x) or not is_finite(top) or not is_finite(bottom): return
+	var key := "%0.2f/%0.2f" % [x,top]
+	if seen.has(key): return
+	seen[key] = true
+	candidates.append({"x":x,"ray_from_y":top-4.0,"ray_to_y":maxf(top+8.0,bottom+4.0),"surface_candidate_y":top,"source":source,"distance_squared_from_original_spawn":Vector2(x,top).distance_squared_to(original_spawn)})
+
+func _add_surface_candidates(candidates: Array[Dictionary], seen: Dictionary, rect: Rect2, source: String) -> void:
+	if not rect.has_area(): return
+	# Candidate geometry only. Even a large AABB must pass the unchanged real
+	# 17-ray support, overhead, SegmentRespawn and danger checks below.
+	_add_stand_candidate(candidates,seen,rect.get_center().x,rect.position.y,rect.end.y,source)
+	if rect.size.x>=256.0:
+		var left := rect.position.x+128.0
+		var right := rect.end.x-128.0
+		_add_stand_candidate(candidates,seen,clampf(original_spawn.x,left,right),rect.position.y,rect.end.y,source)
+		for index: int in ceili((right-left)/64.0)+1:
+			_add_stand_candidate(candidates,seen,minf(right,left+index*64.0),rect.position.y,rect.end.y,source)
+
+func _candidate_before(first: Dictionary, second: Dictionary) -> bool:
+	if float(first.distance_squared_from_original_spawn)!=float(second.distance_squared_from_original_spawn):
+		return float(first.distance_squared_from_original_spawn)<float(second.distance_squared_from_original_spawn)
+	if float(first.x)!=float(second.x): return float(first.x)<float(second.x)
+	return float(first.surface_candidate_y)<float(second.surface_candidate_y)
+
+func _stand_candidates() -> Array[Dictionary]:
+	var candidates: Array[Dictionary] = []
+	var seen: Dictionary = {}
+	for offset: float in [0.0,64.0,128.0,-64.0,192.0,-128.0,256.0,320.0]:
+		_add_stand_candidate(candidates,seen,original_spawn.x+offset,original_spawn.y-92.0,original_spawn.y+188.0,"original_spawn_neighborhood")
+	for node: Node in app.stage.find_children("*","StaticBody2D",true,false):
+		var body := node as StaticBody2D
+		if body==null or body.is_queued_for_deletion() or (body.collision_layer & 1)==0: continue
+		for child: Node in body.get_children():
+			if child is CollisionShape2D:
+				var collider := child as CollisionShape2D
+				if collider.disabled or collider.shape==null: continue
+				var surface: Rect2 = collider.global_transform*collider.shape.get_rect()
+				_add_surface_candidates(candidates,seen,surface,String(collider.get_path()))
+			elif child is CollisionPolygon2D:
+				var polygon := child as CollisionPolygon2D
+				if polygon.disabled or polygon.polygon.is_empty(): continue
+				var polygon_surface := Rect2(polygon.global_transform*polygon.polygon[0],Vector2.ZERO)
+				for point: Vector2 in polygon.polygon: polygon_surface = polygon_surface.expand(polygon.global_transform*point)
+				_add_surface_candidates(candidates,seen,polygon_surface,String(polygon.get_path()))
+	# Actual manifest geometry provides additional centres where a broad bank
+	# is assembled from several narrow bodies. It grants no support by itself.
+	var manifest: Dictionary = (app.stage as PlainsRegionStage).generated.manifest
+	for row: Variant in manifest.get("ground_supports",[]):
+		if row is Array and row.size()==4:
+			_add_surface_candidates(candidates,seen,Rect2(float(row[0]),float(row[1]),float(row[2]),float(row[3])),"actual_manifest.ground_supports")
+	for row: Variant in manifest.get("nodes",[]):
+		if row is Dictionary and row.get("offset") is Array and row.offset.size()==2:
+			_add_stand_candidate(candidates,seen,float(row.offset[0]),float(row.offset[1])-92.0,float(row.offset[1])+188.0,"actual_manifest.node/"+str(row.get("id","")))
+	candidates.sort_custom(_candidate_before)
+	return candidates
+
+func _reject_stand(candidate: Dictionary, reason: String) -> void:
+	var receipt := candidate.duplicate()
+	receipt["accepted"] = false
+	receipt["reason"] = reason
+	stand_search.append(receipt)
+
 func _find_stand() -> Dictionary:
 	var player_shape := app.player.get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if player_shape == null or not player_shape.shape is RectangleShape2D: return {}
@@ -119,13 +190,17 @@ func _find_stand() -> Dictionary:
 	var space := app.player.get_world_2d().direct_space_state
 	# A single continuous real shore must carry all three sample positions.
 	# No failed search is repaired by moving a platform or inserting geometry.
-	for offset: float in [0.0,64.0,128.0,-64.0,192.0,-128.0,256.0,320.0]:
-		var x := original_spawn.x+offset
-		var center := _ray(x,original_spawn.y-96.0,original_spawn.y+192.0)
-		if center.is_empty() or not center.collider is StaticBody2D or (center.normal as Vector2).dot(Vector2.UP)<0.7: continue
+	for candidate: Dictionary in _stand_candidates():
+		var x: float = candidate.x
+		var center := _ray(x,float(candidate.ray_from_y),float(candidate.ray_to_y))
+		if center.is_empty() or not center.collider is StaticBody2D or (center.normal as Vector2).dot(Vector2.UP)<0.7:
+			_reject_stand(candidate,"center ray has no actual standable StaticBody2D")
+			continue
 		var y: float = center.position.y
 		var location := Vector2(x,y-rectangle.size.y*.5-player_shape.position.y)
-		if app.segment == null or not app.segment.is_safe(location): continue
+		if app.segment == null or not app.segment.is_safe(location):
+			_reject_stand(candidate,"original SegmentRespawn.is_safe refused actual player shape")
+			continue
 		var checks: Array[Dictionary] = []
 		var continuous := true
 		for step: int in range(-128,129,16):
@@ -134,7 +209,9 @@ func _find_stand() -> Dictionary:
 				continuous = false
 				break
 			checks.append(_support_record(hit))
-		if not continuous: continue
+		if not continuous:
+			_reject_stand(candidate,"17-ray 256wu continuous same-height static shore refused")
+			continue
 		var query := PhysicsShapeQueryParameters2D.new()
 		query.shape = RectangleShape2D.new()
 		(query.shape as RectangleShape2D).size = Vector2(254,100)
@@ -142,18 +219,33 @@ func _find_stand() -> Dictionary:
 		query.collision_mask = 1
 		query.margin = 0.0
 		query.exclude = [app.player.get_rid()]
-		if not space.intersect_shape(query).is_empty(): continue
+		if not space.intersect_shape(query).is_empty():
+			_reject_stand(candidate,"100wu overhead actual shape clearance refused")
+			continue
 		var safe := true
 		var exhibit := Rect2(Vector2(x-128,y-100),Vector2(256,100))
 		for danger: Rect2 in app.segment.danger_bounds:
 			if danger.intersects(exhibit,true): safe = false
-		if not safe: continue
-		return {"player_location":location,"floor_y":y,"center":_support_record(center),"continuous_shore_probes":checks,"checks":"17 real layer1 UP rays across256wu +100wu overhead real shape clearance + original SegmentRespawn safe stand/danger bounds"}
+		if not safe:
+			_reject_stand(candidate,"original danger bounds intersect 256x100wu exhibit")
+			continue
+		var accepted := candidate.duplicate()
+		accepted["accepted"] = true
+		stand_search.append(accepted)
+		return {"player_location":location,"floor_y":y,"candidate":candidate,"center":_support_record(center),"continuous_shore_probes":checks,"checks":"17 real layer1 UP rays across256wu +100wu overhead real shape clearance + original SegmentRespawn safe stand/danger bounds"}
 	return {}
 
 func prepare() -> void:
 	original_spawn = app.player.global_position
 	manifest_json = JSON.stringify((app.stage as PlainsRegionStage).generated.manifest)
+	# Stage ready means assembly completed, not that all deferred physics-body
+	# registrations have reached the space queried by SegmentRespawn/rays.
+	space_sync_receipt = {"ready_process_frame":Engine.get_process_frames(),"original_player_position":_vec(original_spawn),"physics_ticks":4}
+	for _space_tick: int in 4:
+		await physics_frame
+		await process_frame
+	space_sync_receipt["synchronized_process_frame"] = Engine.get_process_frames()
+	space_sync_receipt["player_after_original_physics"] = _vec(app.player.global_position)
 	for child: Node in app.stage.find_children("*","",true,false):
 		if child is EnemyMotor:
 			var actor := child.get_node("Actor") as EnemyActor
@@ -271,27 +363,36 @@ func _player_report() -> Dictionary:
 	var collision := app.player.get_node("CollisionShape2D") as CollisionShape2D
 	return {"scene":"res://scenes/player/player.tscn","position":_vec(app.player.global_position),"actual_shape_class":collision.shape.get_class(),"actual_shape_world_aabb":_rect(collision.global_transform*collision.shape.get_rect()),"actual_on_floor":app.player.is_on_floor(),"underworld_stature_world_units":UnderworldActors.HUMANOID_HEIGHT,"source":"unchanged actual DemoApp player and UnderworldPlayer; no visual scale override"}
 
+func _visible_body_bounds(texture: Texture2D, destination: Rect2) -> Rect2:
+	# Preserve the real alpha>16 measurement while avoiding a compiled nested
+	# Frames/Body dependency edge in this dynamic formal consumer. The original
+	# formal teardown repair uses the same Object.get/runtime-call boundary.
+	var library: Script = load("res://scripts/enemies/enemy_feedback_01_frames.gd") as Script
+	var visible: Rect2 = library.call("visible_bounds",texture,destination)
+	return visible
+
 func _sample_report(motor: EnemyMotor) -> Dictionary:
 	var actor := motor.get_node("Actor") as EnemyActor
 	var host := motor.get_node("Presentation") as Node2D
 	var collision := motor.get_node("CollisionShape2D") as CollisionShape2D
-	var shape_world := collision.global_transform*collision.shape.get_rect()
+	var shape_world: Rect2 = collision.global_transform*collision.shape.get_rect()
 	var body_world := Rect2()
 	var texture: Texture2D
 	var authored := Rect2()
 	var visual := host.get_node_or_null("ArticulatedBody") as Node2D
 	if visual != null:
-		var rig: Variant = _optional(visual,&"rig")
-		if rig is Object:
-			texture = _optional(rig,&"texture") as Texture2D
-			authored = _optional(rig,&"bounds")
-			if texture != null: body_world = visual.global_transform*EnemyFeedback01Frames.visible_bounds(texture,authored)
+		var rig: RefCounted = _optional(visual,&"rig") as RefCounted
+		if rig != null:
+			texture = rig.get("texture") as Texture2D
+			authored = rig.get("bounds")
+			if texture != null: body_world = visual.global_transform*_visible_body_bounds(texture,authored)
 	else:
-		var body := _optional(host,&"feedback_body") as EnemyFeedback01Body
-		if body != null and body.source != null:
-			texture = body.source
-			authored = body.destination
-			body_world = body.global_transform*EnemyFeedback01Frames.visible_bounds(texture,authored)
+		var body: Node2D = _optional(host,&"feedback_body") as Node2D
+		if body != null:
+			texture = body.get("source") as Texture2D
+			if texture != null:
+				authored = body.get("destination")
+				body_world = body.global_transform*_visible_body_bounds(texture,authored)
 	var normalized := Rect2()
 	if body_world.has_area(): normalized = Rect2((shape_world.position-body_world.position)/body_world.size,shape_world.size/body_world.size)
 	var binding := EnemyPresentationBinding.view(host)
@@ -337,9 +438,13 @@ func finish() -> void:
 	var player_receipt := _player_report() if ready else {}
 	app.abandon_run()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app): failures.append("Original DemoApp fallback audio failed to release")
-	var sound_events: Dictionary = audio.played.duplicate(true)
-	if not await audio.shutdown(): failures.append("GameAudio ownership did not release")
-	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"DemoApp.start_plains","stage_script":"res://scripts/demo/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
+	var played: Variant = audio.get("played")
+	var sound_events: Dictionary = {}
+	if played is Dictionary: sound_events = played.duplicate(true)
+	else: failures.append("Actual GameAudio played-event dictionary is unavailable")
+	var audio_released: Variant = await audio.call("shutdown")
+	if audio_released!=true: failures.append("GameAudio ownership did not release")
+	var output := {"task":"PLAINS-MONSTER-REVISION-01","kind":"staged_scale_comparison","complete":failures.is_empty(),"seed":seed_label,"entry":"DemoApp.start_plains","stage_script":"res://scripts/demo/plains_region_stage.gd","resolution":[1280,720],"fps":60,"playback_speed":1,"pages":pages,"frames":frames,"failures":failures,"camera":camera_receipt,"player":player_receipt,"support":support,"stand_search":stand_search,"physics_space_sync":space_sync_receipt,"original_spawn":_vec(original_spawn),"staged_player_stand":_vec(stand),"original_manifest_sha256":manifest_json.sha256_text(),"original_manifest_unchanged":manifest_same,"original_enemy_inventory":native_inventory,"source_before":source_before,"source_after":source_after,"git_before":git_before,"git_after":git_after,"source_stable":source_before==source_after and git_before.head==git_after.head and git_before.status==git_after.status,"source_guard_scope":"Finite direct driver/player/renderer/body/definition resources listed in source_before; not a claim to a complete project dependency closure","audio_events":sound_events,"disclosed_differences":["initial player review relocation to nearest verified original wide static shore; full same-stage static/manifest candidate search disclosed in stand_search","six page-cut placements of factory-created display samples on one original safe static shore","comparison sample Actor physics disabled; original body process clocks continue","comparison samples have no combat/encounter/drop binding","original player initial reset_at, four real physics settling ticks, then controller/input held inactive","original camera/zoom retained and camera following held fixed","permanent meta persistence disabled"],"not_verified":["combat readability","attack or death continuity","natural campaign traversal","human scale/color approval","physical device performance"]}
 	var file := FileAccess.open(trace_path,FileAccess.WRITE)
 	if file == null:
 		printerr("Cannot write staged scale comparison trace")

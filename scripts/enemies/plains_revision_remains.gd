@@ -128,7 +128,7 @@ func _physics_process(delta: float) -> void:
 		_contact_age += delta
 		global_position = _floor_point
 		var progress := 1.0 if _finished_death or restored else clampf(_contact_age / _death_seconds, 0.0, 1.0)
-		if not restored and not _bell_played and _rig != null and _rig.get("kind")==&"root_bell" and progress>=.56:
+		if not restored and not _bell_played and _rig != null and _rig.get("kind")==&"root_bell" and progress>=.72:
 			_bell_played = true
 			var audio := get_tree().get_first_node_in_group(&"game_audio") as GameAudio
 			if audio != null: audio.play(&"bell",LOW_BELL)

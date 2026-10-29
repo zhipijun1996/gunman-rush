@@ -47,22 +47,41 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary
 	var p := point
 	if bool(pose.get("dead", false)):
 		var d := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
-		var deflate := _window(0.00, 0.31, d)
-		var muzzle_drop := _window(0.12, 0.54, d)
-		var front_fold := _window(0.27, 0.59, d)
-		var rear_fold := _window(0.35, 0.69, d)
-		var topple := _window(0.43, 0.86, d)
-		var leaf_drop := _window(0.68, 1.00, d)
-		# The chamber empties before its support is lost. A substantial hollow
-		# shell remains; this is not a whole sprite shrink/fade death.
-		p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 - 0.19 * deflate, 1.0 - 0.23 * deflate), sac)
-		p = _joint(p, Vector2(0.70, 0.34), size, 0.80 * muzzle_drop, muzzle)
-		p = _joint(p, Vector2(0.60, 0.75), size, -0.91 * front_fold, legs * front)
-		p = _joint(p, Vector2(0.32, 0.76), size, 0.80 * rear_fold, legs * (1.0 - front))
-		p = _joint(p, Vector2(0.42, 0.86), size, 0.56 * topple, upper)
-		p.y += size.y * 0.23 * topple * upper
-		p = _joint(p, Vector2(0.47, 0.51), size, (0.46 if uv.x > 0.48 else -0.50) * leaf_drop, leaves)
-		return p
+		var deflate := _window(0.00, 0.32, d)
+		var topple := _window(0.28, 0.78, d)
+		var leaf_drop := _window(0.65, 1.00, d)
+		var center := _pivot(Vector2(0.30, 0.53), size)
+		var parent_angle := 0.70 * topple
+		# The sac carries its nozzle and leaves. Their hinges are transformed
+		# with this parent, rather than rotating about abandoned upright pivots.
+		var body_target := center + Vector2(size.x * 0.06, size.y * 0.28) * topple
+		var emptied := _scale_part(point, Vector2(0.30, 0.53), size, Vector2(1.0 - 0.12 * deflate, 1.0 - 0.36 * deflate), sac)
+		var carried := body_target + (emptied - center).rotated(parent_angle)
+		var nozzle_hinge := body_target + (_pivot(Vector2(0.70, 0.34),size)-center).rotated(parent_angle)
+		var nozzle := nozzle_hinge + (carried-nozzle_hinge).rotated(-0.76 * _window(0.13,0.78,d))
+		carried = carried.lerp(nozzle,muzzle)
+		# Upper, rear and front leaves have separate attachments. Late droop
+		# lays their tips beside the emptied chamber instead of making a pole.
+		var leaf_hinge_uv := Vector2(0.47,0.31)
+		var leaf_angle := -1.48
+		if uv.y < 0.23:
+			leaf_hinge_uv = Vector2(0.43,0.23)
+			leaf_angle = -1.58
+		elif uv.x < 0.39:
+			leaf_hinge_uv = Vector2(0.42,0.32)
+			leaf_angle = -1.22
+		var leaf_hinge := body_target + (_pivot(leaf_hinge_uv,size)-center).rotated(parent_angle)
+		carried = carried.lerp(leaf_hinge+(carried-leaf_hinge).rotated(leaf_angle*leaf_drop),leaves)
+		# Folding legs stop supporting the parent mass. Their hips travel with
+		# the chamber; feet release outward instead of remaining planted props.
+		var hip_uv := Vector2(0.61,0.74) if front>0.5 else Vector2(0.34,0.75)
+		var hip := _pivot(hip_uv,size)
+		var moved_hip := body_target+(hip-center).rotated(parent_angle)
+		var fold := _window(0.25 if front>0.5 else 0.34,0.68 if front>0.5 else 0.76,d)
+		var leg_angle := -1.12 if front>0.5 else 1.18
+		var folded_leg := moved_hip+(point-hip).rotated(leg_angle*fold)
+		return carried.lerp(folded_leg,legs)
+
 	var clock := float(pose.get("clock", 0.0))
 	var load := clampf(float(pose.get("load", 0.0)), 0.0, 1.0)
 	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
@@ -158,23 +177,50 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 	var p := point
 	if bool(pose.get("dead", false)):
 		var d := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
-		var lower_fold := _window(0.03, 0.43, d)
-		var upper_fold := _window(0.20, 0.66, d)
-		var bell_drop := _window(0.41, 0.83, d)
-		var leaf_wilt := _window(0.67, 1.00, d)
-		var ring_settle := _window(0.75, 1.00, d)
-		# Three connected stem segments yield in order. Their root weights are
-		# exactly zero at the foot, so the root does not slide during collapse.
-		p = _joint(p, Vector2(0.50, 0.94), size, 0.38 * lower_fold, main_stem)
-		p = _joint(p, Vector2(0.50, 0.68), size, 0.46 * upper_fold, upper_stem)
-		p = _joint(p, Vector2(0.70, 0.20), size, 0.51 * bell_drop, bell)
-		p.y += size.y * 0.17 * bell_drop * upper_stem
-		# One damped contact swing, expressed in progress rather than a clock;
-		# death=1 is bit-for-bit static on all subsequent draws.
-		var swing := sin(ring_settle * TAU * 1.25) * (1.0 - ring_settle) * 0.16
-		p = _joint(p, Vector2(0.70, 0.20), size, swing, bell)
-		p = _joint(p, Vector2(0.50, 0.58), size, (-0.54 if uv.x < 0.5 else 0.63) * leaf_wilt, leaf)
-		return p
+		var fold := _window(0.03,0.72,d)
+		var droop := _window(0.58,1.00,d)
+		var root := _pivot(Vector2(0.43,0.90),size)
+		var elbow := _pivot(Vector2(0.43,0.55),size)
+		var crown := _pivot(Vector2(0.61,0.17),size)
+		var destination := crown.lerp(_pivot(Vector2(0.55,0.58),size),fold)
+		var bent := _fold_elbow(root,elbow,crown,destination)
+		var stem := _carry_stem(point,uv.y,root,elbow,crown,bent,destination)
+		# The lower root remains fixed; both stem bones deliver their real
+		# moving endpoint to the crown. Nothing rotates about the old arch.
+		var lower_angle := (bent-root).angle()-(elbow-root).angle()
+		var upper_angle := (destination-bent).angle()-(crown-elbow).angle()
+		var crown_angle := upper_angle*(1.0-fold)
+		var crown_body := destination+(point-crown).rotated(crown_angle)
+		var upper_weight := 1.0-_window(0.32,0.48,uv.y)
+		p = stem.lerp(crown_body,upper_weight)
+		# Bell orientation remains hanging under gravity while its hanger is
+		# transported down. Its actual clapper/rim reaches the floor at d=.72.
+		var hanger := _pivot(Vector2(0.72,0.20),size)
+		var moved_hanger := destination+(hanger-crown).rotated(crown_angle)
+		var swing_progress := _window(0.72,1.00,d)
+		var swing := sin(swing_progress*TAU*1.25)*(1.0-swing_progress)*0.11
+		var bell_pose := moved_hanger+(point-hanger).rotated(swing)
+		var dead_bell := bell*_window(0.14,0.22,uv.y)
+		p = p.lerp(bell_pose,dead_bell)
+		# Leaf attachments follow the appropriate stem segment, then their
+		# blades yield independently. They no longer hold a raised canopy.
+		var hinge_uv := Vector2(0.43,0.40) if uv.y<0.47 else Vector2(0.46,0.62)
+		if uv.y<0.17: hinge_uv=Vector2(0.62,0.17)
+		var top_left := (1.0-_window(0.48,0.56,uv.x))*_window(0.20,0.29,uv.x)*(1.0-_window(0.30,0.38,uv.y))
+		var top_right := _window(0.52,0.61,uv.x)*(1.0-_window(0.13,0.22,uv.y))
+		if top_left>0.3: hinge_uv=Vector2(0.43,0.34)
+		elif top_right>0.3: hinge_uv=Vector2(0.62,0.17)
+		var hinge := _pivot(hinge_uv,size)
+		var moved_hinge := _carry_stem(hinge,hinge_uv.y,root,elbow,crown,bent,destination)
+		if hinge_uv.y<0.32: moved_hinge=destination+(hinge-crown).rotated(crown_angle)
+		var attached_angle := upper_angle if hinge_uv.y<0.55 else lower_angle
+		var leaf_angle := (-0.98 if uv.x<0.46 else 0.80)*droop
+		if top_left>0.3: leaf_angle=-2.1*droop
+		elif top_right>0.3: leaf_angle=1.2*droop
+		var leaf_pose := moved_hinge+(point-hinge).rotated(attached_angle*(1.0-droop)+leaf_angle)
+		var leaf_mask := maxf(leaf,maxf(top_left,top_right))*(1.0-dead_bell)
+		return p.lerp(leaf_pose,leaf_mask)
+
 	var clock := float(pose.get("clock", 0.0))
 	var load := clampf(float(pose.get("load", 0.0)), 0.0, 1.0)
 	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
@@ -191,3 +237,23 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 	var leaf_lag := sin((1.0 - recovery) * PI * 2.0) * recovery * 0.09
 	p = _joint(p, Vector2(0.50, 0.58), size, (1.0 if uv.x > 0.5 else -1.0) * (0.09 * load - 0.15 * strike + leaf_lag + breath), leaf)
 	return p
+
+# Two connected rigid stem bones, with the bend directed to the slack side.
+static func _fold_elbow(root:Vector2, elbow:Vector2, tip:Vector2, target:Vector2)->Vector2:
+	var first := root.distance_to(elbow)
+	var second := elbow.distance_to(tip)
+	var delta := target-root
+	var distance := clampf(delta.length(),absf(first-second)+0.001,first+second-0.001)
+	var along := (first*first-second*second+distance*distance)/(2.0*distance)
+	var height := sqrt(maxf(0.0,first*first-along*along))
+	var axis := delta.normalized()
+	return root+axis*along+Vector2(axis.y,-axis.x)*height
+
+static func _carry_stem(point:Vector2, uv_y:float, root:Vector2, elbow:Vector2, tip:Vector2, bent:Vector2, target:Vector2)->Vector2:
+	var lower_angle := (bent-root).angle()-(elbow-root).angle()
+	var upper_angle := (target-bent).angle()-(tip-elbow).angle()
+	var lower := root+(point-root).rotated(lower_angle)
+	var upper := bent+(point-elbow).rotated(upper_angle)
+	var joint_blend := 1.0-_window(0.50,0.60,uv_y)
+	var carried := lower.lerp(upper,joint_blend)
+	return point.lerp(carried,1.0-_window(0.87,0.97,uv_y))
