@@ -9,6 +9,12 @@ var editor_tree: SceneTree
 func _get_name() -> String:
 	return "PinnedMapgenDelivery"
 
+func _export_file(path: String, _type: String, _features: PackedStringArray) -> void:
+	# Each delivery/config path is emitted once as exact source bytes above.
+	# A JSON referenced literally by a script can also enter normal dependencies.
+	if path.begins_with(ROOT) or path == "res://config/mapgen_930001.json":
+		skip()
+
 func _export_begin(_features: PackedStringArray, _debug: bool, _path: String, _flags: int) -> void:
 	if FileAccess.get_sha256(ROOT + "manifest.json") != MANIFEST_SHA256:
 		push_error("Pinned delivery manifest changed")
