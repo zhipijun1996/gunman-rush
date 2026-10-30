@@ -53,6 +53,7 @@ var supported_escape_delay := 0
 var supported_escape_key := ""
 var supported_escape_origin := Vector2.ZERO
 var supported_escape_boss := Vector2.ZERO
+var supported_escape_vertical := false
 
 
 func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictionary]) -> void:
@@ -464,7 +465,9 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		# already verified grounded run, rather than jump into the upper fan.
 		jump=false
 		jump_until=frame-1
-	if jump and frame >= jump_until and frame >= jump_rearm_until:
+	# Assault must actually release the Router key for one tick before a
+	# renewed general jump; extending a true latch never creates a jump edge.
+	if jump and frame >= jump_until+(1 if mode=="active_assault" else 0) and frame >= jump_rearm_until:
 		jump_until = frame + jump_hold_ticks
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent})
 	router.set_jump_held(&"keyboard_mouse", frame < jump_until)
@@ -581,10 +584,11 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 	var boss: Vector2=encounter.motor.global_position
 	var gap:=absf(boss.x-at.x)
 	var warning_key:="%s:%s:%s" % [group,encounter.combat_metrics().get("attack_index",0),state]
-	var eligible:=frame==state_start and grounded and ((state=="lunge_warning" and gap<=300) or (state=="sweep_warning" and slab.size.x>0 and at.y<boss.y-35 and gap<=200))
+	var ground_vertical:=state=="sweep_warning" and slab.size.x<=0 and not bool(encounter.sweep_high) and gap<=150
+	var eligible:=frame==state_start and grounded and ((state=="lunge_warning" and gap<=300) or (state=="sweep_warning" and slab.size.x>0 and at.y<boss.y-35 and gap<=200) or ground_vertical)
 	if supported_escape_start<0:
 		if not eligible or warning_key==supported_escape_key:return false
-		var support_kind:="raised_platform" if slab.size.x>0 else "arena_floor"
+		var support_kind:="arena_floor_vertical_recoil" if ground_vertical else "raised_platform" if slab.size.x>0 else "arena_floor"
 		var ground_support:Dictionary={}
 		if slab.size.x<=0:
 			var foot:=at+Vector2(0,17)
@@ -593,6 +597,7 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 			if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7:return false
 			ground_support={"point":_v(hit.position),"normal":_v(hit.normal),"collider":str(hit.collider.get_path())}
 		supported_escape_start=frame
+		supported_escape_vertical=ground_vertical
 		supported_escape_axis=signf(boss.x-at.x)
 		if is_zero_approx(supported_escape_axis):supported_escape_axis=float(encounter.locked_direction)
 		supported_escape_delay=0 if gap<=200 else 12
@@ -606,25 +611,25 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 		leaf_escape_air=-1
 		leaf_escape_boosted=false
 		jump_until=frame-1
-		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_escape_begin","actual_state":state,"state_age":encounter.combat_metrics().get("state_age",0),"remaining_warning":encounter.clock,"group":group,"phase":phase,"gap":gap,"axis":supported_escape_axis,"delay_frames":supported_escape_delay,"player":_v(at),"boss":_v(boss),"actual_slab":[slab.position.x,slab.position.y,slab.size.x,slab.size.y],"support_kind":support_kind,"actual_ground_support":ground_support,"sweep_high":bool(encounter.sweep_high),"scope":"controlled-probe input recipe; mirrored/full-fight outcome requires actual receipt"})
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_escape_begin","actual_state":state,"state_age":encounter.combat_metrics().get("state_age",0),"remaining_warning":encounter.clock,"group":group,"phase":phase,"gap":gap,"axis":0.0 if supported_escape_vertical else supported_escape_axis,"frozen_toward_axis":supported_escape_axis,"vertical_recoil":supported_escape_vertical,"delay_frames":supported_escape_delay,"player":_v(at),"boss":_v(boss),"actual_slab":[slab.position.x,slab.position.y,slab.size.x,slab.size.y],"support_kind":support_kind,"actual_ground_support":ground_support,"sweep_high":bool(encounter.sweep_high),"scope":"controlled-probe input recipe; mirrored/full-fight outcome requires actual receipt"})
 	var elapsed:=frame-supported_escape_start
 	if elapsed>=108:
-		preferred_side=supported_escape_axis
+		preferred_side=-supported_escape_axis if supported_escape_vertical else supported_escape_axis
 		supported_escape_start=-1
 		hold_destination=Vector2.INF
 		escape_destination=Vector2.INF
 		return false
-	var axis:=supported_escape_axis if elapsed>=supported_escape_delay else 0.0
+	var axis:=supported_escape_axis if elapsed>=supported_escape_delay and not supported_escape_vertical else 0.0
 	var jump_held:=elapsed>=supported_escape_delay and elapsed<supported_escape_delay+29
 	var router: Node=app.controller.router
 	router.set_jump_held(&"keyboard_mouse",jump_held)
 	router.set_source_axis(&"keyboard_mouse",axis)
-	intent="active_assault: continuous supported jump/recoil escape using actual normal inputs"
+	intent="active_assault: supported vertical jump/downward recoil over ground low sweep" if supported_escape_vertical else "active_assault: continuous supported jump/recoil escape using actual normal inputs"
 	if elapsed==supported_escape_delay:
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent,"elapsed_warning_frames":elapsed,"hold_frames":29,"player":_v(at),"boss":_v(boss)})
 	if elapsed==supported_escape_delay+18:
 		var controller: PlayerController=app.controller
-		var direction:=Vector2(-supported_escape_axis*.65,1).normalized()
+		var direction:=Vector2.DOWN if supported_escape_vertical else Vector2(-supported_escape_axis*.65,1).normalized()
 		var ready: bool=controller.shoot_ability.cooldown_remaining<=0 and controller.action_resources.shot_charges>0 and (controller.shot_energy==null or controller.shot_energy.can_fire())
 		var submitted: bool=router.request_action(&"shoot_release",direction) if ready else false
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"proven_escape_recoil_shot","direction":_v(direction),"submitted":submitted,"resource_ready":ready,"group":group,"elapsed_warning_frames":elapsed,"jump_elapsed_frames":18,"actual_cooldown":controller.shoot_ability.cooldown_remaining,"actual_charges":controller.action_resources.shot_charges,"player":_v(at),"boss":_v(boss),"note":"one request at the controlled-probe offset; failure is retained without refill or retiming"})
