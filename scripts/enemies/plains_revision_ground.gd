@@ -228,14 +228,19 @@ static func _patrol_dead(point: Vector2, uv: Vector2, size: Vector2, death: floa
 	# trunk without removing its ribcage volume. Keep a full, rounded side.
 	var depth := lerpf(1.0, 0.68, topple)
 	p.y *= depth
+	# Folded toes already meet the support plane. Lower the ribcage onto them
+	# instead of leaving the chest suspended above those few contact pixels.
+	var chest_drop := size.y * 0.12 * topple
+	p.y += chest_drop * _upper(uv)
 	p.x += size.x * (0.045 * stumble + 0.055 * topple) * _upper(uv)
 	# Bend at the lowered neck, not its old upright coordinate. The pale face
 	# comes to rest ahead of the chest rather than being driven into its pixels.
 	var neck := _at(Vector2(0.74, 0.49), size)
 	neck.y *= depth
+	neck.y += chest_drop * _upper(Vector2(0.74, 0.49))
 	p = _joint_at(p, neck, 0.34 * head_drop, _patrol_head(uv))
 	p.x += size.x * 0.055 * head_drop * _patrol_head(uv)
-	p.y += size.y * 0.035 * head_drop * _patrol_head(uv)
+	p.y += size.y * 0.09 * head_drop * _patrol_head(uv)
 	return p
 
 static func _charger_dead(point: Vector2, uv: Vector2, size: Vector2, death: float) -> Vector2:

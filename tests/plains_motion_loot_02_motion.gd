@@ -106,6 +106,14 @@ static func _geometry(kind: StringName, report: Dictionary) -> void:
 	_check(report,handoff,String(kind)+" death0 preserves captured drive, appendage and hurt anatomy")
 	_check(report,settled,String(kind)+" death1 ignores changed clock, motion, drive and attack inputs")
 	_check(report,above_floor,String(kind)+" settled opaque samples stay above the support plane")
+	if kind == &"patrol":
+		var head_bottom := -INF
+		for uv: Vector2 in units:
+			if uv.x < .66 or uv.y < .30 or uv.y > .58: continue
+			var point := rig.bounds.position+uv*rig.bounds.size
+			head_bottom=maxf(head_bottom,rig.deform(point,uv,ended).y)
+		_check(report,is_finite(head_bottom) and head_bottom>=-1.0 and head_bottom<=0.0001,"patrol opaque head actually reaches the support band, instead of passing only an above-floor test")
+		report.samples.append({"id":"patrol_head_contact","opaque_head_bottom_y":head_bottom,"support_y":0.0,"tolerance_wu":1.0,"scope":"Actual opaque head probes; raster/chest mass appearance requires the separate real GPU review"})
 	report.samples.append({"id":"opaque_anatomy/"+String(kind),"opaque_points":units.size(),"idle_max":largest,"upper_max":upper_largest,"nonrigid_spread":nonrigid,"foot_max":foot_largest})
 
 static func _values(motion: PlainsMotion02) -> Array:

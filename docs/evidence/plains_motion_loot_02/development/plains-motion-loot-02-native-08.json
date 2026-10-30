@@ -1,0 +1,2304 @@
+{
+	"assertions": 344,
+	"failures": [],
+	"samples": [
+		{
+			"assertions": 84,
+			"checks": [
+				{
+					"label": "patrol uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "patrol sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "patrol idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "patrol idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "patrol planted-foot probes are actual opaque source pixels",
+					"passed": true
+				},
+				{
+					"label": "patrol idle supports stay within a subpixel band while the upper body moves",
+					"passed": true
+				},
+				{
+					"label": "patrol death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "patrol death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "patrol settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "patrol opaque head actually reaches the support band, instead of passing only an above-floor test",
+					"passed": true
+				},
+				{
+					"label": "charger uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "charger sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "charger idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "charger idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "charger planted-foot probes are actual opaque source pixels",
+					"passed": true
+				},
+				{
+					"label": "charger idle supports stay within a subpixel band while the upper body moves",
+					"passed": true
+				},
+				{
+					"label": "charger death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "charger death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "charger settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "hopper uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "hopper sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "hopper idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "hopper idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "hopper planted-foot probes are actual opaque source pixels",
+					"passed": true
+				},
+				{
+					"label": "hopper idle supports stay within a subpixel band while the upper body moves",
+					"passed": true
+				},
+				{
+					"label": "hopper death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "hopper death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "hopper settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "sentry uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "sentry sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "sentry idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "sentry idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "sentry planted-foot probes are actual opaque source pixels",
+					"passed": true
+				},
+				{
+					"label": "sentry idle supports stay within a subpixel band while the upper body moves",
+					"passed": true
+				},
+				{
+					"label": "sentry death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "sentry death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "sentry settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "fan_sentry settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "root_bell uses at least12 actually opaque source probes",
+					"passed": true
+				},
+				{
+					"label": "root_bell sampled idle anatomy remains finite",
+					"passed": true
+				},
+				{
+					"label": "root_bell idle moves visible upper anatomy, not feet alone",
+					"passed": true
+				},
+				{
+					"label": "root_bell idle opaque points do not share one rigid image translation",
+					"passed": true
+				},
+				{
+					"label": "root_bell planted-foot probes are actual opaque source pixels",
+					"passed": true
+				},
+				{
+					"label": "root_bell idle supports stay within a subpixel band while the upper body moves",
+					"passed": true
+				},
+				{
+					"label": "root_bell death0 preserves captured drive, appendage and hurt anatomy",
+					"passed": true
+				},
+				{
+					"label": "root_bell death1 ignores changed clock, motion, drive and attack inputs",
+					"passed": true
+				},
+				{
+					"label": "root_bell settled opaque samples stay above the support plane",
+					"passed": true
+				},
+				{
+					"label": "observer uses the actual patrol factory",
+					"passed": true
+				},
+				{
+					"label": "observer samples actual installed articulated motion/visual",
+					"passed": true
+				},
+				{
+					"label": "real Actor snapshot displacement produces gait and travel",
+					"passed": true
+				},
+				{
+					"label": "start-up has positive drive and ordered mass/appendage follow",
+					"passed": true
+				},
+				{
+					"label": "repeated installed visual refresh0 cannot advance observer clocks or inertia",
+					"passed": true
+				},
+				{
+					"label": "zero-delta observer call cannot advance clocks or inertia",
+					"passed": true
+				},
+				{
+					"label": "actual lifecycle rejects paused motion clock advancement",
+					"passed": true
+				},
+				{
+					"label": "stopping produces a separate bounded braking response",
+					"passed": true
+				},
+				{
+					"label": "idle settles all observer inertia without a persistent gait",
+					"passed": true
+				},
+				{
+					"label": "stationary observation never invents another footstep",
+					"passed": true
+				},
+				{
+					"label": "teleport rebases follow without manufacturing gait or impact inertia",
+					"passed": true
+				},
+				{
+					"label": "actual HealthState accepts observer epoch reset",
+					"passed": true
+				},
+				{
+					"label": "new health epoch clears every observer clock and follow value",
+					"passed": true
+				},
+				{
+					"label": "official instance restore prepares terminal observer fixture",
+					"passed": true
+				},
+				{
+					"label": "terminal observer does not advance live clock, gait or inertia",
+					"passed": true
+				},
+				{
+					"label": "observer fixture releases actual Motor, visual and remains owners",
+					"passed": true
+				},
+				{
+					"label": "legacy diver uses actual factory",
+					"passed": true
+				},
+				{
+					"label": "legacy diver observes actual frame source and motion",
+					"passed": true
+				},
+				{
+					"label": "legacy diver probes actual opaque anatomy with finite joints",
+					"passed": true
+				},
+				{
+					"label": "legacy diver wing/rotor and body both participate in idle",
+					"passed": true
+				},
+				{
+					"label": "legacy diver motion is carried by anatomy without a host image bob",
+					"passed": true
+				},
+				{
+					"label": "legacy diver terminal bypass ignores live clock and drive; corpse owner tested separately",
+					"passed": true
+				},
+				{
+					"label": "legacy diver fixture releases its actual Motor and owner",
+					"passed": true
+				},
+				{
+					"label": "underworld diver uses actual factory",
+					"passed": true
+				},
+				{
+					"label": "diver uses actual formal Underworld installer",
+					"passed": true
+				},
+				{
+					"label": "underworld diver observes actual frame source and motion",
+					"passed": true
+				},
+				{
+					"label": "underworld diver probes actual opaque anatomy with finite joints",
+					"passed": true
+				},
+				{
+					"label": "underworld diver wing/rotor and body both participate in idle",
+					"passed": true
+				},
+				{
+					"label": "underworld diver motion is carried by anatomy without a host image bob",
+					"passed": true
+				},
+				{
+					"label": "underworld diver terminal bypass ignores live clock and drive; corpse owner tested separately",
+					"passed": true
+				},
+				{
+					"label": "underworld diver fixture releases its actual Motor and owner",
+					"passed": true
+				}
+			],
+			"failures": [],
+			"samples": [
+				{
+					"id": "patrol_head_contact",
+					"opaque_head_bottom_y": -0.216192245483398,
+					"scope": "Actual opaque head probes; raster/chest mass appearance requires the separate real GPU review",
+					"support_y": 0.0,
+					"tolerance_wu": 1.0
+				},
+				{
+					"foot_max": 0.0,
+					"id": "opaque_anatomy/patrol",
+					"idle_max": 0.5547234416008,
+					"nonrigid_spread": 0.53102171421051,
+					"opaque_points": 581,
+					"upper_max": 0.5547234416008
+				},
+				{
+					"foot_max": 0.0176737532019615,
+					"id": "opaque_anatomy/charger",
+					"idle_max": 0.400388807058334,
+					"nonrigid_spread": 0.606726706027985,
+					"opaque_points": 623,
+					"upper_max": 0.375877946615219
+				},
+				{
+					"foot_max": 0.00104299664963037,
+					"id": "opaque_anatomy/hopper",
+					"idle_max": 0.45696634054184,
+					"nonrigid_spread": 0.582648098468781,
+					"opaque_points": 615,
+					"upper_max": 0.45696634054184
+				},
+				{
+					"foot_max": 0.0495815277099609,
+					"id": "opaque_anatomy/sentry",
+					"idle_max": 2.01746034622192,
+					"nonrigid_spread": 3.44175291061401,
+					"opaque_points": 595,
+					"upper_max": 1.75609529018402
+				},
+				{
+					"foot_max": 0.0,
+					"id": "opaque_anatomy/fan_sentry",
+					"idle_max": 5.3967080116272,
+					"nonrigid_spread": 6.70891237258911,
+					"opaque_points": 476,
+					"upper_max": 4.83841133117676
+				},
+				{
+					"foot_max": 0.000780556118115783,
+					"id": "opaque_anatomy/root_bell",
+					"idle_max": 4.93668651580811,
+					"nonrigid_spread": 4.14157485961914,
+					"opaque_points": 507,
+					"upper_max": 4.16802930831909
+				},
+				{
+					"epoch_after_reset": 3,
+					"epoch_before_reset": 1,
+					"id": "actual_motion_observer",
+					"scope": "Scripted Motor positions; real Actor snapshots/observer/lifecycle, not natural movement or combat",
+					"start_drive": 0.43926086780057,
+					"stop_drive": -0.437375550829462
+				},
+				{
+					"body_max": 0.238270804286003,
+					"host_bob": 0.0,
+					"id": "opaque_diver/legacy",
+					"opaque_points": 294,
+					"scope": "Actual installed canonical source; body observer only, not full corpse animation or visual approval",
+					"upper_max": 0.424924790859222
+				},
+				{
+					"body_max": 0.678454875946045,
+					"host_bob": 0.0,
+					"id": "opaque_diver/underworld",
+					"opaque_points": 213,
+					"scope": "Actual installed canonical source; body observer only, not full corpse animation or visual approval",
+					"upper_max": 0.695172607898712
+				}
+			],
+			"scope": "Six real opaque skins plus both real diver skins; scripted locomotion-observer inputs, no combat/pixel/listening acceptance"
+		},
+		{
+			"assertions": 123,
+			"checks": [
+				{
+					"label": "real tracked JSON configuration loads with JSON number semantics",
+					"passed": true
+				},
+				{
+					"label": "explicit seven-species guaranteed configuration is valid",
+					"passed": true
+				},
+				{
+					"label": "integral JSON float coin amounts remain valid",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 0",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 1",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 2",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 3",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 4",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 5",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 6",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 7",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 8",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 9",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 10",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 11",
+					"passed": true
+				},
+				{
+					"label": "invalid configured coin amount refused / 12",
+					"passed": true
+				},
+				{
+					"label": "malformed coin table refused / []",
+					"passed": true
+				},
+				{
+					"label": "malformed coin table refused / totals",
+					"passed": true
+				},
+				{
+					"label": "malformed coin table refused / <null>",
+					"passed": true
+				},
+				{
+					"label": "malformed coin table refused / 7",
+					"passed": true
+				},
+				{
+					"label": "non-string configured species key refused",
+					"passed": true
+				},
+				{
+					"label": "nonboolean guarantee policy refused",
+					"passed": true
+				},
+				{
+					"label": "empty reward root seed refused",
+					"passed": true
+				},
+				{
+					"label": "empty stable stage identity refused",
+					"passed": true
+				},
+				{
+					"label": "empty enemy identity never settles",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 1",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 1",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 2",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 2",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 3",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 3",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 4",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 4",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 5",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 5",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 6",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 6",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 7",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 7",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 8",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 8",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 9",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 9",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 10",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 10",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 11",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 11",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 12",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 12",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 13",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 13",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 14",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 14",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 15",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 15",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 16",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 16",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 17",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 17",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 18",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 18",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 19",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 19",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 20",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 20",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 21",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 21",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 22",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 22",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 23",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 23",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 24",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 24",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 25",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 25",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 26",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 26",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 27",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 27",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 28",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 28",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 29",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 29",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 30",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 30",
+					"passed": true
+				},
+				{
+					"label": "exact finite independent 1/5 denomination entitlement / 31",
+					"passed": true
+				},
+				{
+					"label": "same drop identity has reproducible cosmetic spray / 31",
+					"passed": true
+				},
+				{
+					"label": "seven coins is precisely one five and two ones",
+					"passed": true
+				},
+				{
+					"label": "multi-unit spray uses both sides and varies velocity",
+					"passed": true
+				},
+				{
+					"label": "five denomination has larger physical footprint",
+					"passed": true
+				},
+				{
+					"label": "coin note and healing entitlements coexist without aliasing receipts or values",
+					"passed": true
+				},
+				{
+					"label": "no reward cannot create decorative collectible value",
+					"passed": true
+				},
+				{
+					"label": "paired old/current reward streams initialize",
+					"passed": true
+				},
+				{
+					"label": "256 same identities preserve original draw and exact note/heart result, with no additional reward RNG",
+					"passed": true
+				},
+				{
+					"label": "all 256 configured enemies guarantee their exact coin amount regardless of original roll kind",
+					"passed": true
+				},
+				{
+					"label": "paired cohort actually exercises both bonuses and both no-bonus outcomes",
+					"passed": true
+				},
+				{
+					"label": "second death settlement for same enemy returns no entitlement",
+					"passed": true
+				},
+				{
+					"label": "reversing actual kill order cannot change any enemy reward record",
+					"passed": true
+				},
+				{
+					"label": "twenty cosmetic sprays cannot advance the reward stream",
+					"passed": true
+				},
+				{
+					"label": "unconfigured species retains the explicit old single-reward contract",
+					"passed": true
+				},
+				{
+					"label": "explicit probability-policy switch preserves old contract",
+					"passed": true
+				},
+				{
+					"label": "ballistic fixture begins in an unpaused tree",
+					"passed": true
+				},
+				{
+					"label": "actual gravity trajectory first ejects all denominations upward",
+					"passed": true
+				},
+				{
+					"label": "all swept contacts keep translated real floor beneath item footprint",
+					"passed": true
+				},
+				{
+					"label": "all real wide-floor items settle within bounded four seconds",
+					"passed": true
+				},
+				{
+					"label": "each denomination rebounds once or twice before rest",
+					"passed": true
+				},
+				{
+					"label": "large coin has less bounce energy than the small denominations",
+					"passed": true
+				},
+				{
+					"label": "ballistics cannot claim, rename or change the seven-coin entitlement",
+					"passed": true
+				},
+				{
+					"label": "settled translated footprints independently intersect actual authored floor",
+					"passed": true
+				},
+				{
+					"label": "reload restores the exact entitlement at rest without replaying spray",
+					"passed": true
+				},
+				{
+					"label": "claimed item cannot resume physics or create another value",
+					"passed": true
+				},
+				{
+					"label": "zero-delta observation does not advance loot clocks or coordinates",
+					"passed": true
+				},
+				{
+					"label": "genuine void item returns to the supplied real safe floor and settles",
+					"passed": true
+				},
+				{
+					"label": "void recovery is visible entitlement movement, never an offscreen auto-grant",
+					"passed": true
+				},
+				{
+					"label": "removing the actual floor releases a previously settled entitlement into a fall",
+					"passed": true
+				},
+				{
+					"label": "support loss cannot rename or repay the settled coin",
+					"passed": true
+				},
+				{
+					"label": "missing safe geometry never produces a floating resting item or automatic heal",
+					"passed": true
+				},
+				{
+					"label": "ballistic fixture and its geometric support unload without strong-owner residue",
+					"passed": true
+				},
+				{
+					"label": "upward ejection strikes the real low roof without its visual footprint crossing the underside",
+					"passed": true
+				},
+				{
+					"label": "roof contact does not claim or alter the denomination",
+					"passed": true
+				},
+				{
+					"label": "lateral spray reflects off actual side wall without crossing its left face",
+					"passed": true
+				},
+				{
+					"label": "side-wall response keeps the same unclaimed one-coin entitlement",
+					"passed": true
+				},
+				{
+					"label": "roof and wall fixture releases its owned geometry",
+					"passed": true
+				}
+			],
+			"failures": [],
+			"samples": [
+				{
+					"amounts": [
+						5,
+						1,
+						1
+					],
+					"id": "seven-denominations",
+					"ids": [
+						"drop_seven",
+						"drop_seven/unit_1",
+						"drop_seven/unit_2"
+					],
+					"origin": [
+						21.0,
+						-19.0
+					],
+					"velocities": [
+						[
+							-35.2799987792969,
+							-133.199996948242
+						],
+						[
+							52.0,
+							-153.0
+						],
+						[
+							-41.0,
+							-161.0
+						]
+					]
+				},
+				{
+					"id": "paired-bonus-observations",
+					"identities": 256,
+					"original_kind_counts": {
+						"coin": 141,
+						"heart": 16,
+						"none": 45,
+						"note": 54
+					},
+					"scope": "Exact paired outcomes, not a statistical probability estimate"
+				},
+				{
+					"amounts": [
+						5,
+						1,
+						1
+					],
+					"end_positions": [
+						[
+							-35.1680030822754,
+							288.0
+						],
+						[
+							53.3792610168457,
+							292.0
+						],
+						[
+							-53.9121437072754,
+							292.0
+						]
+					],
+					"id": "translated-real-floor",
+					"rebound_heights": [
+						3.77963256835938,
+						11.5706481933594,
+						11.9253540039062
+					],
+					"rebounds": [
+						1,
+						2,
+						2
+					],
+					"world_offset": [
+						12000.0,
+						-5000.0
+					]
+				},
+				{
+					"id": "real-void-and-missing-floor",
+					"returned": [
+						0.0,
+						292.0
+					],
+					"returned_amount": 1,
+					"scope": "Explicit floor deletion and safe-anchor fixtures, not natural route",
+					"unsupported_y": 1136.3330078125
+				},
+				{
+					"id": "actual-low-roof-and-side-wall",
+					"roof_min_center_y": 211.0,
+					"roof_underside": 199,
+					"scope": "Explicit translated solid fixtures; actual physics sweeps, no Sprite-only collision claim",
+					"wall_left": 38,
+					"wall_max_center_x": 30.0
+				}
+			],
+			"scope": "Configured reward receipts and actual ray/terrain ballistics in an explicit translated floor fixture; no natural route, App transaction or art/audio approval"
+		},
+		{
+			"assertions": 91,
+			"checks": [
+				{
+					"label": "caps fixture owns the sole actual GameAudio service",
+					"passed": true
+				},
+				{
+					"label": "actual service constructs exactly12 shared voices",
+					"passed": true
+				},
+				{
+					"label": "detached owner cannot start a material voice",
+					"passed": true
+				},
+				{
+					"label": "real attached owner starts exactly one shared material voice",
+					"passed": true
+				},
+				{
+					"label": "weak-owner cleanup stops live voice after actual owner leaves tree",
+					"passed": true
+				},
+				{
+					"label": "owner cleanup does not create a new audio event",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framehurt burst reaches declared cap without extra nodes",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst retains material cap3 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-framedeath burst reaches declared cap without extra nodes",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst retains material cap2 and global12",
+					"passed": true
+				},
+				{
+					"label": "same-frameland burst reaches declared cap without extra nodes",
+					"passed": true
+				},
+				{
+					"label": "excess light/contact cues refuse while rapid deaths replace bounded tails",
+					"passed": true
+				},
+				{
+					"label": "paused world rejects new material playback without a delayed event",
+					"passed": true
+				},
+				{
+					"label": "caps actual audio backend releases within original1000ms teardown bound",
+					"passed": true
+				},
+				{
+					"label": "caps world/service nodes released without a retained owner",
+					"passed": true
+				},
+				{
+					"label": "actual legacy critical cue fills real priority90 voice: hurt",
+					"passed": true
+				},
+				{
+					"label": "actual legacy critical cue fills real priority90 voice: death",
+					"passed": true
+				},
+				{
+					"label": "actual legacy critical cue fills real priority90 voice: warning",
+					"passed": true
+				},
+				{
+					"label": "actual legacy critical cue fills real priority90 voice: enemy_defeat",
+					"passed": true
+				},
+				{
+					"label": "actual legacy critical cue fills real priority90 voice: boss_impact",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: coin",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: note",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: door",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: roar",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: core",
+					"passed": true
+				},
+				{
+					"label": "actual legacy ordinary cue fills real priority50 voice: armour",
+					"passed": true
+				},
+				{
+					"label": "one actual material hurt completes full12-voice load",
+					"passed": true
+				},
+				{
+					"label": "preemption fixture contains five real critical, six ordinary and one hurt voice",
+					"passed": true
+				},
+				{
+					"label": "full pool accepts material death by preemption",
+					"passed": true
+				},
+				{
+					"label": "death specifically preempts the lower-priority hurt before normal/critical voices",
+					"passed": true
+				},
+				{
+					"label": "material death preserves every actual critical90 voice identity and cue",
+					"passed": true
+				},
+				{
+					"label": "light hurt and contact cannot preempt a full protected/death pool",
+					"passed": true
+				},
+				{
+					"label": "rapid kill0 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill1 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill2 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill3 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill4 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill5 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill6 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill7 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill8 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill9 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill10 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "rapid kill11 retains death3/global12 and every critical90 voice",
+					"passed": true
+				},
+				{
+					"label": "critical actual audio backend releases within original1000ms teardown bound",
+					"passed": true
+				},
+				{
+					"label": "critical world/service nodes released without a retained owner",
+					"passed": true
+				},
+				{
+					"label": "actual factory creates charger for accepted-audio lifecycle fixture",
+					"passed": true
+				},
+				{
+					"label": "actual presentation exposes its stage-owned corpse consumer",
+					"passed": true
+				},
+				{
+					"label": "actual Damageable commits nonfatal HP loss before hurt audio",
+					"passed": true
+				},
+				{
+					"label": "accepted ordinary hit plays only one short material hurt",
+					"passed": true
+				},
+				{
+					"label": "actual Damageable commits lethal HP result",
+					"passed": true
+				},
+				{
+					"label": "lethal accepted Actor event adds distinct death and stops own hurt without another full hurt",
+					"passed": true
+				},
+				{
+					"label": "terminal actor rejects actual lethal receipt replay",
+					"passed": true
+				},
+				{
+					"label": "duplicate visual death request cannot replay accepted death sound",
+					"passed": true
+				},
+				{
+					"label": "actual saved-dead initialization accepted without forged damage",
+					"passed": true
+				},
+				{
+					"label": "saved-dead reconciliation plays neither new death nor landing audio",
+					"passed": true
+				},
+				{
+					"label": "actual restore-live starts a new health epoch",
+					"passed": true
+				},
+				{
+					"label": "new epoch accepts a new genuine lethal Damageable commit",
+					"passed": true
+				},
+				{
+					"label": "real accepted corpse settles on explicit actual support",
+					"passed": true
+				},
+				{
+					"label": "actual body landing generates exactly one material contact voice",
+					"passed": true
+				},
+				{
+					"label": "resting corpse never loops its landing sound",
+					"passed": true
+				},
+				{
+					"label": "real stage-owned remains has an observable active contact tail before disposal",
+					"passed": true
+				},
+				{
+					"label": "disposing still-in-tree remains stops only its owned contact tail without replay",
+					"passed": true
+				},
+				{
+					"label": "existing disposal queues its stage sibling for release after immediately stopping the owned tail",
+					"passed": true
+				},
+				{
+					"label": "actual host unload releases the Motor",
+					"passed": true
+				},
+				{
+					"label": "existing queued disposal releases the stage-owned corpse sibling",
+					"passed": true
+				},
+				{
+					"label": "host and corpse unload leave no orphaned playing voice or replayed event",
+					"passed": true
+				},
+				{
+					"label": "actor actual audio backend releases within original1000ms teardown bound",
+					"passed": true
+				},
+				{
+					"label": "actor world/service nodes released without a retained owner",
+					"passed": true
+				}
+			],
+			"failures": [],
+			"samples": [
+				{
+					"accepted": {
+						"death": 8,
+						"hurt": 3,
+						"land": 2
+					},
+					"case": "same_frame_pool_caps",
+					"death": 3,
+					"dropped": 11,
+					"hurt": 3,
+					"land": 2,
+					"preemptions": 5,
+					"voices": 12
+				},
+				{
+					"after": {
+						"479207622794": "hurt",
+						"479241177698": "death",
+						"479274732128": "warning",
+						"479308286558": "enemy_defeat",
+						"479341840988": "boss_impact"
+					},
+					"case": "critical_pool_preemption",
+					"critical": {
+						"479207622794": "hurt",
+						"479241177698": "death",
+						"479274732128": "warning",
+						"479308286558": "enemy_defeat",
+						"479341840988": "boss_impact"
+					},
+					"death": 3,
+					"preemptions": 13,
+					"voices": 12
+				},
+				{
+					"case": "actual_actor_audio_lifecycle",
+					"contact": 2,
+					"death": 2,
+					"events": [
+						{
+							"clock": 0.05,
+							"event": "plains_enemy_hurt",
+							"origin_id": 612787816512,
+							"species": "plains_charger",
+							"stream": "res://assets/audio/plains_feedback_02/shell_hurt.wav"
+						},
+						{
+							"clock": 0.05,
+							"event": "plains_enemy_death",
+							"origin_id": 612787816512,
+							"species": "plains_charger",
+							"stream": "res://assets/audio/plains_feedback_02/shell_death.wav"
+						},
+						{
+							"clock": 0.166666666666667,
+							"event": "plains_enemy_death",
+							"origin_id": 612787816512,
+							"species": "plains_charger",
+							"stream": "res://assets/audio/plains_feedback_02/shell_death.wav"
+						},
+						{
+							"clock": 1.03333333333333,
+							"event": "plains_enemy_land",
+							"origin_id": 613056252482,
+							"species": "plains_charger",
+							"stream": "res://assets/audio/plains_feedback_02/shell_land.wav"
+						},
+						{
+							"clock": 2.03333333333333,
+							"event": "plains_enemy_land",
+							"origin_id": 613056252482,
+							"species": "plains_charger",
+							"stream": "res://assets/audio/plains_feedback_02/shell_land.wav"
+						}
+					],
+					"hurt": 1,
+					"release": {
+						"events_unchanged": true,
+						"host_released": true,
+						"orphaned_playing_voices": 0,
+						"remains_released": true
+					},
+					"scope": "Explicit supported charger/Damageable accepted fixture; final contact-tail replay is declared lifecycle stimulus, not natural combat"
+				}
+			],
+			"scope": "Actual12voice pool/caps/preemption, accepted Actor hurt/death and restored/unloaded owner lifecycle; explicit isolated fixtures, not normal-speed listening or natural combat"
+		},
+		{
+			"actual_app_inventory": [
+				{
+					"behavior": "charger",
+					"drop": {
+						"amount": 2,
+						"behavior": "charger",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/tutorial",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 14,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/tutorial",
+					"position": [
+						-644.5,
+						0.0
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "note",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_0_2/area_1_2_0/ferry_air_intercept",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							},
+							{
+								"amount": 1,
+								"kind": "note"
+							}
+						],
+						"roll": 56,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_0_2/area_1_2_0/ferry_air_intercept",
+					"position": [
+						606.156066894531,
+						432.494567871094
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 3,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept",
+					"position": [
+						2226.15600585938,
+						400.494537353516
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/deep_region_top_ferry/bell_window_intercept",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 13,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/deep_region_top_ferry/bell_window_intercept",
+					"position": [
+						3406.15600585938,
+						-1197.50549316406
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "heart",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/gear_landing_intercept",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							},
+							{
+								"amount": 1,
+								"kind": "heart"
+							}
+						],
+						"roll": 86,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_1_0/area_2_0_0/gear_landing_intercept",
+					"position": [
+						2271.15600585938,
+						-809.505493164062
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "note",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_3_2/area_4_2_0/gear_landing_intercept",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 62,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_3_2/area_4_2_0/gear_landing_intercept",
+					"position": [
+						5061.1552734375,
+						400.494384765625
+					]
+				},
+				{
+					"behavior": "fan_sentry",
+					"drop": {
+						"amount": 5,
+						"behavior": "fan_sentry",
+						"bonus_roll_kind": "coin",
+						"coin_total": 5,
+						"config_version": 1.0,
+						"configured_coin_total": 5,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_0_2/area_1_2_0/ferry_fan_crossfire",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 5,
+								"kind": "coin"
+							}
+						],
+						"roll": 10,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_0_2/area_1_2_0/ferry_fan_crossfire",
+					"position": [
+						480.0,
+						375.0
+					]
+				},
+				{
+					"behavior": "fan_sentry",
+					"drop": {
+						"amount": 5,
+						"behavior": "fan_sentry",
+						"bonus_roll_kind": "coin",
+						"coin_total": 5,
+						"config_version": 1.0,
+						"configured_coin_total": 5,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/window/plains/passage/area_3_3/area_4_3_0/ferry_fan_crossfire",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 5,
+								"kind": "coin"
+							}
+						],
+						"roll": 32,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/window/plains/passage/area_3_3/area_4_3_0/ferry_fan_crossfire",
+					"position": [
+						4820.0,
+						885.0
+					]
+				},
+				{
+					"behavior": "hopper",
+					"drop": {
+						"amount": 2,
+						"behavior": "hopper",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/landing/plains/passage/area_2_2/area_3_2_0",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 17,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/landing/plains/passage/area_2_2/area_3_2_0",
+					"position": [
+						3850.5,
+						510.0
+					]
+				},
+				{
+					"behavior": "sentry",
+					"drop": {
+						"amount": 3,
+						"behavior": "sentry",
+						"bonus_roll_kind": "coin",
+						"coin_total": 3,
+						"config_version": 1.0,
+						"configured_coin_total": 3,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 3,
+								"kind": "coin"
+							}
+						],
+						"roll": 36,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+					"position": [
+						1330.0,
+						-700.0
+					]
+				},
+				{
+					"behavior": "charger",
+					"drop": {
+						"amount": 2,
+						"behavior": "charger",
+						"bonus_roll_kind": "note",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/lane/plains/passage/area_0_2/area_1_2_join",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							},
+							{
+								"amount": 1,
+								"kind": "note"
+							}
+						],
+						"roll": 79,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/lane/plains/passage/area_0_2/area_1_2_join",
+					"position": [
+						1290.5,
+						510.0
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "note",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_0_0",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							},
+							{
+								"amount": 1,
+								"kind": "note"
+							}
+						],
+						"roll": 56,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_0_0",
+					"position": [
+						-123.54940032959,
+						-757.726928710938
+					]
+				},
+				{
+					"behavior": "diver",
+					"drop": {
+						"amount": 2,
+						"behavior": "diver",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_1_0",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 14,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_1_0",
+					"position": [
+						1636.45056152344,
+						-757.726928710938
+					]
+				},
+				{
+					"behavior": "hopper",
+					"drop": {
+						"amount": 2,
+						"behavior": "hopper",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_2_0",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 54,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_2_0",
+					"position": [
+						3060.5,
+						-700.0
+					]
+				},
+				{
+					"behavior": "sentry",
+					"drop": {
+						"amount": 3,
+						"behavior": "sentry",
+						"bonus_roll_kind": "coin",
+						"coin_total": 3,
+						"config_version": 1.0,
+						"configured_coin_total": 3,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_3_1",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 3,
+								"kind": "coin"
+							}
+						],
+						"roll": 44,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_3_1",
+					"position": [
+						4210.0,
+						0.0
+					]
+				},
+				{
+					"behavior": "charger",
+					"drop": {
+						"amount": 2,
+						"behavior": "charger",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_0_2",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 44,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_0_2",
+					"position": [
+						140.5,
+						510.0
+					]
+				},
+				{
+					"behavior": "charger",
+					"drop": {
+						"amount": 2,
+						"behavior": "charger",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_3_2",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 48,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_3_2",
+					"position": [
+						4480.5,
+						510.0
+					]
+				},
+				{
+					"behavior": "hopper",
+					"drop": {
+						"amount": 2,
+						"behavior": "hopper",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_4_2",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 49,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_4_2",
+					"position": [
+						5860.5,
+						510.0
+					]
+				},
+				{
+					"behavior": "hopper",
+					"drop": {
+						"amount": 2,
+						"behavior": "hopper",
+						"bonus_roll_kind": "coin",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_3_3",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 54,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_3_3",
+					"position": [
+						4480.5,
+						1020.0
+					]
+				},
+				{
+					"behavior": "hopper",
+					"drop": {
+						"amount": 2,
+						"behavior": "hopper",
+						"bonus_roll_kind": "none",
+						"coin_total": 2,
+						"config_version": 1.0,
+						"configured_coin_total": 2,
+						"content_version": "plains-enemy-drops-v2",
+						"drop_revision": 2,
+						"enemy_id": "plains/enemy/area_4_3",
+						"kind": "coin",
+						"rewards": [
+							{
+								"amount": 2,
+								"kind": "coin"
+							}
+						],
+						"roll": 98,
+						"stream_namespace": "enemy_drops",
+						"stream_position": 1
+					},
+					"id": "plains/enemy/area_4_3",
+					"position": [
+						5860.5,
+						1020.0
+					]
+				}
+			]
+		},
+		{
+			"assertions": 45,
+			"checks": [
+				{
+					"label": "actual registered enemy receives the explicit native damage request",
+					"passed": true
+				},
+				{
+					"label": "native request commits terminal original enemy health",
+					"passed": true
+				},
+				{
+					"label": "actual App death creates stable denomination units",
+					"passed": true
+				},
+				{
+					"label": "actual spawned denominations sum to manifest-configured enemy coins",
+					"passed": true
+				},
+				{
+					"label": "repeat death scan does not create duplicate units or bonus rewards",
+					"passed": true
+				},
+				{
+					"label": "same-position early pickup is refused without money",
+					"passed": true
+				},
+				{
+					"label": "real App pause freezes pickup ballistics and eligibility clock",
+					"passed": true
+				},
+				{
+					"label": "actual stage-owned units reach stable floor positions",
+					"passed": true
+				},
+				{
+					"label": "real ready coin commits its original independent wallet receipt",
+					"passed": true
+				},
+				{
+					"label": "wallet delta equals that physical denomination",
+					"passed": true
+				},
+				{
+					"label": "same physical coin cannot be claimed twice",
+					"passed": true
+				},
+				{
+					"label": "real ready coin commits its original independent wallet receipt",
+					"passed": true
+				},
+				{
+					"label": "wallet delta equals that physical denomination",
+					"passed": true
+				},
+				{
+					"label": "same physical coin cannot be claimed twice",
+					"passed": true
+				},
+				{
+					"label": "all physical coins pay exactly the configured total",
+					"passed": true
+				},
+				{
+					"label": "accepted coins remain visible for their short collection flight",
+					"passed": true
+				},
+				{
+					"label": "collection flight ends without retaining visible paid coins",
+					"passed": true
+				},
+				{
+					"label": "declared seed naturally includes the original probability-selected healing bonus",
+					"passed": true
+				},
+				{
+					"label": "actual policy accepts the explicit wounded-player fixture",
+					"passed": true
+				},
+				{
+					"label": "healing fixture is genuinely missing current HP",
+					"passed": true
+				},
+				{
+					"label": "actual second enemy death produces its recorded probability bonus",
+					"passed": true
+				},
+				{
+					"label": "actual App materializes the separate life-orb entitlement",
+					"passed": true
+				},
+				{
+					"label": "real life orb commits HEAL_CURRENT",
+					"passed": true
+				},
+				{
+					"label": "actual healing changes current HP only and respects its cap",
+					"passed": true
+				},
+				{
+					"label": "player glow uses the committed healing amount",
+					"passed": true
+				},
+				{
+					"label": "accepted heal reaches the actual visible child-sprite canvas through inherited modulation",
+					"passed": true
+				},
+				{
+					"label": "life-orb receipt and healing cannot replay",
+					"passed": true
+				},
+				{
+					"label": "automatic pickup fixture uses another genuinely alive non-healing enemy",
+					"passed": true
+				},
+				{
+					"label": "automatic counterpart starts with another real accepted death",
+					"passed": true
+				},
+				{
+					"label": "automatic counterpart produces actual independently receipted coins",
+					"passed": true
+				},
+				{
+					"label": "real automatic proximity ticks cannot bypass the initial spray lock",
+					"passed": true
+				},
+				{
+					"label": "actual App automatic tick queues and commits the approached ready coin",
+					"passed": true
+				},
+				{
+					"label": "actual App automatic tick queues and commits the approached ready coin",
+					"passed": true
+				},
+				{
+					"label": "automatic queue and commit pay the full configured amount exactly once",
+					"passed": true
+				},
+				{
+					"label": "automatically collected receipt rejects subsequent manual replay",
+					"passed": true
+				},
+				{
+					"label": "automatically collected receipt rejects subsequent manual replay",
+					"passed": true
+				},
+				{
+					"label": "translated proximity fixture uses an existing unclaimed authored coin",
+					"passed": true
+				},
+				{
+					"label": "old apparent local proximity cannot claim a distant translated world pickup",
+					"passed": true
+				},
+				{
+					"label": "actual translated world proximity commits the original authored receipt",
+					"passed": true
+				},
+				{
+					"label": "translated world receipt cannot replay",
+					"passed": true
+				},
+				{
+					"label": "same saved physical unit restores its claimed receipt",
+					"passed": true
+				},
+				{
+					"label": "same saved physical unit restores its claimed receipt",
+					"passed": true
+				},
+				{
+					"label": "reload restores exact unit count without new death spray",
+					"passed": true
+				},
+				{
+					"label": "reload never pays previously claimed units again",
+					"passed": true
+				},
+				{
+					"label": "reload retains per-enemy death ledger",
+					"passed": true
+				}
+			],
+			"failures": [],
+			"samples": [
+				{
+					"actual_healed": 1.0,
+					"hp_after_collect": 4.0,
+					"hp_before_collect": 3.0,
+					"wounded": 3.0
+				},
+				{
+					"automatic_coin_total": 2,
+					"automatic_enemy": "plains/enemy/window/plains/passage/area_0_2/area_1_2_0/ferry_air_intercept",
+					"automatic_wallet_delta": 2.0,
+					"scope": "Actual App tick/queue/commit with explicit player approach, not natural traversal"
+				},
+				{
+					"actual_amount": 2,
+					"scope": "Explicit rigid Stage translation; no entitlement or target position replacement",
+					"stage_offset": [
+						640,
+						180
+					],
+					"translated_pickup": "plains/coin/0",
+					"wallet_delta": 2.0
+				},
+				{
+					"configured_coin_total": 2,
+					"enemy": "plains/enemy/tutorial",
+					"paid_coin_total": 2,
+					"physical_coin_total": 2,
+					"restored_unit_count": 2,
+					"saved_unit_count": 2,
+					"wallet_delta": 6.0
+				}
+			],
+			"scope": "Actual DemoApp ordinary death/pickup/save consumers with explicit native damage and player positions; no Router combat or natural traversal claim"
+		}
+	]
+}

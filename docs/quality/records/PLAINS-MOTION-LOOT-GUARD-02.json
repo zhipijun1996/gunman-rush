@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-MOTION-LOOT-GUARD-02",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+  "reviewed_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+  "content_version": "plains-motion-loot-guard-v1",
+  "owner": "/root",
+  "purpose": "保留原测试门禁并适配真实1/5掉落、版本化绑定和新增167真实检查",
+  "player_experience": "本卡只保证测试继续能发现重复领取、自动拾取和版本漂移回归；不签游戏成品体验",
+  "constraints": [
+    "不改生产源码/素材/玩法；六现有guard/adapter路径限定",
+    "保原17标签/等待预算和原失败，旧drop与新增实际自动近距counterpart必须联合执行",
+    "保冻结144/165摘要、原166序列、原34/12测试方法/历史SHA以及368输入前缀",
+    "纯Python执行、既有原生日志观察、完整CI和艺术/设备/用户认可分开"
+  ],
+  "affected_paths": [
+    "tests/test_production_plan.py",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tests/plains_cohesion_drops_runner.gd",
+    "tools/harness/profiles.json",
+    "tools/run_integration_four_tests.py",
+    "docs/quality/records/PLAINS-MOTION-LOOT-GUARD-02.json",
+    "docs/worklines/plains_motion_loot_02/guard_migration.md"
+  ],
+  "deliverables": [
+    "docs/quality/records/PLAINS-MOTION-LOOT-GUARD-02.json",
+    "docs/worklines/plains_motion_loot_02/guard_migration.md",
+    "docs/evidence/plains_motion_loot_02/review/guard-review.md",
+    "docs/evidence/plains_motion_loot_02/review/guard-review.json",
+    "docs/evidence/plains_motion_loot_02/review/guard-proof.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "迁移范围/保持条件和原失败/新增真实闭包已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "实际纯Python与有限独审通过；不是完整167、原生重跑或游戏验收",
+      "evidence": [
+        "planner",
+        "bible",
+        "creative",
+        "audit",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "迁移目标/保留合同/原失败/联合门禁与非内容边界具体可证伪",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "独立实际纯Python22/35/13及只读审计333全部0失败；未升级为原生或完整CI通过",
+      "evidence": [
+        "planner",
+        "bible",
+        "creative",
+        "audit"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "新审查者未编写六个被审查guard/adapter；限定ACCEPT且保留自动链联合条件",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者/绑定/清单迁移，不是运行内容、GUI或主观质量验收；主enemy任务另行记录。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "GUARD-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "只迁移既有测试消费者/清单/技术绑定",
+      "method": "固定六文件SHA和保持/补验条件",
+      "expected": "不隐含生产或完整质量认可",
+      "failure": "用process卡隐藏生产改动或把旧runner单独当自动链证明",
+      "status": "passed",
+      "reason": "本卡证据明确覆盖该限定条件，未延伸到游戏质量",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "GUARD-EXACT-PRESERVATION",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "166追加167及20/23冻结到21/24、17标签消费者补强",
+      "method": "纯Python22/35/13加只读333审计",
+      "expected": "旧方法/digest/有序前缀/预算保持，新增真实四helper，不绕过失败",
+      "failure": "删旧反例、降预算、空runner或误签原native来源",
+      "status": "passed",
+      "reason": "本卡证据明确覆盖该限定条件，未延伸到游戏质量",
+      "evidence": [
+        "planner",
+        "bible",
+        "creative",
+        "audit"
+      ]
+    },
+    {
+      "id": "GUARD-INDEPENDENCE",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "逐项核对迁移等价和真实自动counterpart条件",
+      "method": "新审查者核源码/原archive/实际日志",
+      "expected": "限定接受并明确必须联合运行旧drop与新native",
+      "failure": "自己审自己或以标签相同替代实际生产链",
+      "status": "passed",
+      "reason": "本卡证据明确覆盖该限定条件，未延伸到游戏质量",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/plains_motion_loot_02/guard_migration.md",
+      "sha256": "a130326c09d652ebf02e06a4094dad4d7c11af32f3d39ed546e61b3e7bb78610",
+      "kind": "spec",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "限定原测试消费者/版本绑定/清单追加的独立审查范围",
+      "observed": "明确原失败、完整167未执行和游戏质量不在本卡的边界"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_motion_loot_02/review/guard-review.md",
+      "sha256": "b9bd267c8f5b6d52153c2167d062cabc03a612c4fe448b55c6ef2517c3d33712",
+      "kind": "review",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "逐件核对原archive/前后diff/实际4helper及原日志，六文件与9e9 HEAD字节核对",
+      "observed": "限定ACCEPT；旧drop必须与新增自动近距counterpart联合；未运行Godot",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "/root",
+        "/root/merge_style_bindings_round2",
+        "/root/loot_boundary_tests_round2"
+      ],
+      "independent": true,
+      "independence_basis": "审查者为新独立角色，没有编写被审查的生产、测试、profile、adapter或资产元数据；只有/tmp审查脚本/报告写入。",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "planner",
+      "path": "docs/evidence/plains_motion_loot_02/review/guard-planner.log",
+      "sha256": "64584a63a0c5f27c6b65d348282d17415fa72bc572e1c5485f22f6e7f87224a0",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "独立实际执行纯Python；未启动引擎",
+      "observed": "22 tests,0 failures",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "managed cloud Linux /workspace/gunman-rush; exact six guard paths match9e9ae8a2; Python3, no Godot"
+    },
+    {
+      "id": "bible",
+      "path": "docs/evidence/plains_motion_loot_02/review/guard-bible.log",
+      "sha256": "6e3ad06d7872543c9e537934e9d47635e94445f53992c7b7a9874990375e2c9d",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "独立实际执行纯Python；未启动引擎",
+      "observed": "35 tests,0 failures",
+      "command": "python3 tests/test_region_bible.py",
+      "exit_code": 0,
+      "environment": "managed cloud Linux /workspace/gunman-rush; exact six guard paths match9e9ae8a2; Python3, no Godot"
+    },
+    {
+      "id": "creative",
+      "path": "docs/evidence/plains_motion_loot_02/review/guard-creative.log",
+      "sha256": "f8ebb387fa223240dc3a6287e992a3432027bb0deb3e0e18bf0e61679e978233",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "独立实际执行纯Python；未启动引擎",
+      "observed": "13 tests,0 failures",
+      "command": "python3 tests/test_region_creative_direction.py",
+      "exit_code": 0,
+      "environment": "managed cloud Linux /workspace/gunman-rush; exact six guard paths match9e9ae8a2; Python3, no Godot"
+    },
+    {
+      "id": "audit",
+      "path": "docs/evidence/plains_motion_loot_02/review/guard-proof.json",
+      "sha256": "db9467e738aa8b92bc89a6835c88ac04d13fa5ef4a0c7e30f9c0dedb31e9c4e1",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+      "content_version": "plains-motion-loot-guard-v1",
+      "method": "只读检查原方法/SHA/archive/profile和真实App counterpart；既有native07只读观察不追签",
+      "observed": "333 checks,0 failures; source9e9六文件一致",
+      "command": "python3 /tmp/independent_guard_proof.py",
+      "exit_code": 0,
+      "environment": "managed cloud Linux /workspace/gunman-rush; exact six guard paths match9e9ae8a2; no engine execution"
+    }
+  ],
+  "consumer_coverage": null,
+  "test_change_justification": "真实掉落由旧单一cosmetic token变为分别收据的1/5面额，原17标签/等待/环境/Boss/重载守门保留，并加每枚sum/ID/replay；旧自动链被手动逐枚替换，必须联合执行新App真实早期拒绝→ready靠近→tick→queue→commit的counterpart（既有native07 343/0由独审读取，未冒称新跑）。技术绑定保initial20/23固定archive、原34/12方法/历史SHA与368输入前缀，再增21/24实引用验证。原planner保原144/165 digest与166顺序和21方法/负例，仅为真实四helper case追加到167/92/75，不减预算/不空跑；旧CI21/1和原17/4均保留。新独审角色实际22/35/13纯测试+333审计通过，明确不签完整CI/运行质量。",
+  "unverified_items": [
+    "主enemy内容完整167当前CI、可见尸体落地、正常速度艺术/听感、经济平衡、实体设备与用户认可不在本process卡范围；由PLAINS-MOTION-LOOT-02另行记录。"
+  ]
+}

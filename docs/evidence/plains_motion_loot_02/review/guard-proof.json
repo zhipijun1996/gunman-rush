@@ -1,0 +1,1371 @@
+{
+  "reviewer": "/root/guard_review_recovery",
+  "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+  "files": {
+    "tests/test_production_plan.py": "0055cc9a0894441220ff62ec1e58c132e1b722e246c5bee510cc8f921a8bcada",
+    "tests/test_region_bible.py": "d2cea1a05bd5d4ff35582577b57ac5a9de654898391229c419e823aba1c40d38",
+    "tests/test_region_creative_direction.py": "a698cb3ef286117457692a2c16a48a48e15f866c47a9b5b45c273712305f6df4",
+    "tests/plains_cohesion_drops_runner.gd": "7ff80c6b8575bda5b2b09cb7d93bdd3faa0ef8e35540119bc3cbe9dcb2867ea9",
+    "tools/harness/profiles.json": "19b782445d7b6d1299f5b36d69dd0c3e88c65923dca012c79a997bef688a1b95",
+    "tools/run_integration_four_tests.py": "721b8e14ad9dcdaa8cb57f2f1b1c0d378626681de0595ac8bcbc1d2ee9312991"
+  },
+  "checks": [
+    {
+      "label": "reviewed path matches exact HEAD: tests/test_production_plan.py",
+      "passed": true
+    },
+    {
+      "label": "reviewed path matches exact HEAD: tests/test_region_bible.py",
+      "passed": true
+    },
+    {
+      "label": "reviewed path matches exact HEAD: tests/test_region_creative_direction.py",
+      "passed": true
+    },
+    {
+      "label": "reviewed path matches exact HEAD: tests/plains_cohesion_drops_runner.gd",
+      "passed": true
+    },
+    {
+      "label": "reviewed path matches exact HEAD: tools/harness/profiles.json",
+      "passed": true
+    },
+    {
+      "label": "reviewed path matches exact HEAD: tools/run_integration_four_tests.py",
+      "passed": true
+    },
+    {
+      "label": "planner retains original21 methods and adds exactly1",
+      "passed": true
+    },
+    {
+      "label": "planner20 original methods remain byte-identical",
+      "passed": true
+    },
+    {
+      "label": "planner only existing exact-full-suffix method migrates",
+      "passed": true
+    },
+    {
+      "label": "planner historical digest preserved dd7ca8a04ea756fc112183fa3603a1cdcd75c4ff7677987702d659292d194bc2",
+      "passed": true
+    },
+    {
+      "label": "planner historical digest preserved 392a72c601c87c22daa53f7e2786c3481026048ee93fddd1753564e40ece621e",
+      "passed": true
+    },
+    {
+      "label": "planner historical digest preserved ac963a4c96ca823555c367dcb10f039ccf0b24c762bb7e7e4fe16df01f63a463",
+      "passed": true
+    },
+    {
+      "label": "planner historical digest preserved e88cea4aab3d566a2eaf8a4689f4a0f7011b69df67ac5f02ff028852994d9750",
+      "passed": true
+    },
+    {
+      "label": "all original methods retained plus1: tests/test_region_bible.py",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 8a7599713c3335b8db484608d6aef75efb44c5685e59f8f57e9fa7f30e1db4fc",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 9b655c34c32ec6921932f2e5312a06560aa82d44da42fa13dd03c564fe19eff5",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 1748d7171770ba8bfdaaa415a5a1fd11e6b04d5353fa4bd0076b18debae49a62",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 15338e2ffc77252855f40e6ba83b8a44fa96035a4f7942539000dc859e5d7262",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 411db2a5b5d59f447f20465559cb7869cc96c0bcf49a0ef3244abd7ec47906aa",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: d2ca9013df23b0d6488dc9c8638a5b09f6b27dcd64c0e4cbe78d5b4e8ae57efb",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 7693e9159827ca55aeb61bf068b58675e31926abfdf85bd25300a085db7c6615",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 9b0f3e344a95cab2320894659b6a76828fdbbf2b2a947df0d71f05b67d1e54dc",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 2e0bd3e6c34bfe331ea71e368f0f59486595aa0fa5107d5e6a75fe7390138858",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 9dcfa6c4aa17c84f7d54492df8aefa78718adf17c2346c91823d14bea4b25e42",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: f440dee12a1bbcc1eb77ab897a079f52b8465ee00018068f0d4e1b73e8e8272a",
+      "passed": true
+    },
+    {
+      "label": "immutable original test snapshot matches exact2ac: tests/test_region_bible.py",
+      "passed": true
+    },
+    {
+      "label": "all original methods retained plus1: tests/test_region_creative_direction.py",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 8f07e1c3d8fdd3553f7bf373075a52b2b900aac703b4789cead2cc5ebeeb0fa4",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: c79445e94ed41217ec326b0a928f1b6e723a754d66a8cc3eabcfd08e6c01b150",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ed1581a9c966e6fb0b20d0cce28bcde6d8eb5d16a2182a23c7716ad581d7b438",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 88b0b6fff129087952d4215d0a3e554171a8fd482234cacfb2e54a4359764ad3",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 3fe9f26a2eaba441f2fd7eee6900969cb6cbbb1a058c64b2aae732b2233b71ca",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 5d1e3bd9544d960f8dfc359682293f7729b02c7cc15d76b20115431e9e67b1d8",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ea67a36b0ce4a1606bca185c87879048493546d1602d8772b802f0d94ae93849",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 4a61fefb33edffd734302eb32fa1a8dbe3b0f06f8212d3dc21923a92665860f8",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 706ebe31662101266b55bb832cfab6ccf4a9b7b00b6d36ee62d30a7d1ec788ec",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 3fc390336ca7650562b287b9082279a7e647a9e89cc302170c088c9c015d5ca9",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: d48147cf7ee5b6648cff51b579a6f776620263d30ef7528f5094bf27cc0fef20",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 25992f7d338eef1135807bba9b55e34913d60802d86465ddbbfa878ee1cc198c",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: f203d9d0cb4afdd1be85764134be6dcaa1d8047985f46347abd3e5897c6ace5c",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 9f4b7ea857a83c8518191d3839009ba838d5fb9ef6bcb6a3ca01dc6e43b13f68",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 17e3228cb0a155cf06f0db1676aca86c0b9dca90a086a87f2b86ac246e6bd238",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ab5c33c51a12d1763a6352c1b7c55e45e6952eec7ca14a33edba64d8b1b706e9",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: d4239c72db564136a4033c08f05ff899cac9b765b2705b0e1a6757e681802a2b",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 654ddbc7343fcfd956ee1f7f49bffd5635c8a6362b9ebefe338cc08f80522212",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 17dd6ce7a53ec4cc4b1d7d17d24b4f8aa396f2356047fca6a662dea620ee4b67",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 8ee67a31efc0ddeceb63544dbb745d0a29950c9da8b45c39a3285d215b92a907",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 5756b99012a0ca430b3d0ee7705ffcf6a9080ea4c6b6432fc4f76e2648ec3e2a",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 76f850ef4b56b3331bce30c997e6552428e92449cc56e6651c2026306999cac5",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: b019e95a3ada136c2b2eb8be59d6307fadd877a1a04f7a304d30066aa5741d6b",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 0d905ad097c0be7fd0f1868f20fd68524d6b151046c7be95f03beec1bc405699",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 0aaf8181a0f9ca5b338739e355bb444ae20da0a0384d7a0843c40f831088af0e",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ca997ede2d07e5d0d2df01455706b4fa74d10168c1cc1783a496ea5f5568c81d",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 79fe26430b3c03ddf3a08bee636ac4fd9e2f36805fbaeb62d5c3180898ab487e",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: bfeb1faf2ada8b93481b24968bc5fd6c9ded39a2145dfde4eff7439ca0b4fbc3",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: dd475ed3828e1b94067603b83f85e9e29379042c0240eef36ed445cae4e7d58c",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: ad269e01f7a0393375419802b400cf9ee1587bea8f32008b1fa6c0b9a2517583",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: c8754c5a2e940da1553dc78cd411b2f05d8fb83a76620eed23a797107a80494a",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: bd3c3f8dc13536c20510c23bc7b740c8464aef4aceebd9f0d8499a1e4ac39697",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 210db55d8db4b01e6697074e13a3bfd596f5a2854df76a6de00ed7db67755d02",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: e4d7c2527921b864bb3f8bbc4074ac9ba603f59661088aaa9978c6dcbf728673",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: d74ef213098bb9984f5807eb1637c4d1a58b9474433d7e157363e6ed909b22e8",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 188ab18e9228e5c8e60db7667489fbdcef62b89c159d3d6c9b1adf93bb13072b",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 3bc73b1c98bf3d8d8df693ed7c648cb7cdd8cbbc8d533a6284600aee99e2c7c0",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 7be88d13236407b8f3bb47265def8b9efa91cdbab664be784e1007033be20133",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 7624d24f07686121f7f7063785fbfdabba882d7b98b50063073b28e7608d9b02",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: f4ccf685f0580bb6f6b44b76a1d5b813ec3dc2db7e75f3380bc1037b2de69298",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: aa13e9a4322cc8b331b7b90cbc03ffd57298f2c22843aa8d541c2680b0f1c737",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8",
+      "passed": true
+    },
+    {
+      "label": "frozen historical SHA literal retained: 1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729",
+      "passed": true
+    },
+    {
+      "label": "immutable original test snapshot matches exact2ac: tests/test_region_creative_direction.py",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: registry.json",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: windchime_plains.json",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: thorn_forest.json",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: style20.json",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: revision_creative_v23.md.txt",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: test_region_bible.py.txt",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: test_region_creative_direction.py.txt",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: region-bible-inputs.json",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: sources/demo_app.gd.txt",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: sources/plains_region_stage.gd.txt",
+      "passed": true
+    },
+    {
+      "label": "frozen archive exact bytes: sources/thorn_forest_region_stage.gd.txt",
+      "passed": true
+    },
+    {
+      "label": "only one real native check appended",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: docs",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: world",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: structure",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: harness-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: environment",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: core",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: region",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-painterly_pack",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-plains_v3",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-meadow_enemy_art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-plains_ground_art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-windkeeper_art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-plains_spatial_art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: art-plains_item_art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: web-cache",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: web-build",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: web-bundle",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: quality",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: quality-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: quality-drills",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: production-loop-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: quality-review-engine",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: terrain-tile-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: terrain-production",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: consumer-coverage-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: wood-platforms",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: actor-actions",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: all-weapons",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: studio-input",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: weapon-feel",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: action-budget",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: generated-consumers",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: capture-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-contracts",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-analysis",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-routing",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-golden-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-runtime",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-design-golden",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-region-context",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-experience",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: world-design-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-formal-receipts",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: level-formal-runtime",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-autonomy-golden",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-action-golden",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-redesign-golden",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-redesign-spatial",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-experience-golden",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-encounter-policy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-redesign-scene",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: visual-director-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: visual-director-space",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: directed-space-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: root-bell-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-h-slice",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: terrain-family-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: web-resource-contract-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: runtime-raw-export-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: asset-family-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: root-bell-spaces",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: root-bell-ecology",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: connected-family-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-ecology",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-progression",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-campaign",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-debug",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-traversal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-formal-combat",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-region-matrix",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: mechanism-comparisons",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-guardian",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-guardian-tolerance",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-enemies",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-versions",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-restore",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-queen",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-cavity",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-cavity-controls",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-region",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-campaign-guardian",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-campaign-queen",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-ecology-expedition",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-root-entry",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-crossbranch-lifecycle",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-queen-canopy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-depth-campaign-canopy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-air-chain",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: grapple-feel",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: aim-save-compat",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-vertical-shortcut",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: blob47-foundation",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: windchime-plains",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: pixel-plains",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: pixel-formal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: creative-direction",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: creative-direction-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-current-slice",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: visual-director-terrain",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-places-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-places-capture-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-regional-art-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-regional-art-counterexamples",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-regional-art-graph-counterexamples",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-landform-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-art-language-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-world-rebuild-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: parallel-region-presentation",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: style-exploration",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-pipeline",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-scenery",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-hazards",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-terrain",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-formal-terrain",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-formal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-raw-export",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-player-animation",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-mechanisms",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-home",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-ui",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-region-scheduler-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-interwoven-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-player-aim",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-damage-feedback",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-projectile-vfx",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-world-objects",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-continuous-bosses",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: underworld-home-guard-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-camera-stability",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-hazard-records",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-fruit-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: region-bible-contract",
+      "passed": true
+    },
+    {
+      "label": "Bible inputs exact368 prefix and13 finite additions; all remaining fields equal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-weaver-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-discoveries-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-integration-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-connection",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-backbranch",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-sfx-source",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-ambience",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-app-discoveries",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-practice-bell-restore",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-connection-map1",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-backbranch-map1",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-world-spiral",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-versions",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-reader-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-bible-av-reader-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: harness-artifact-archive-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-exploration-contract",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-exploration-body-reader",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-exploration-exchange-reader",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-exploration-wrapper-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-varied-feedback",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-places-feedback",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-library-feedback",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: cloud-production-planner-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: cloud-delivery-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: cloud-preview-runtime",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: cloud-inputs-tests",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: portable-frozen-assets",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: demo-ui-time-energy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-feedback-native",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-feedback-formal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-feedback-support",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-corpse-save",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-corpse-snapshot",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: bgm-integration",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: player-default-integration",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: root-bell-current",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: region-with-legacy-fixtures",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: plains-encounter-policy-with-legacy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: gear-inventory",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: gear-ui",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-data",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-catalog",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-pool",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-inventory",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-combat",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-actives",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-economy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-defense",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-ui",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-formal",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-review",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-boss-time",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-core-effects",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-synergy-economy",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-pause-escape",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-random-context",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-manifest",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-authoring",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-authoring-tools",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: item-v5-art",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: home-codex",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: enemy-structure-native",
+      "passed": true
+    },
+    {
+      "label": "original check unchanged: forest-current-registry",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: docs",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: core",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: gameplay",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: art",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: web",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: full",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: creative-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: history",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: creative-prototype",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: regional-art-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: region-bible-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: forest-exploration-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: forest-varied-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: forest-places-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: forest-library-feedback",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: legacy-compat",
+      "passed": true
+    },
+    {
+      "label": "original profile preserved: item-v5",
+      "passed": true
+    },
+    {
+      "label": "full inventory actual167",
+      "passed": true
+    },
+    {
+      "label": "old17 assertion labels retained",
+      "passed": true
+    },
+    {
+      "label": "all original bounded frame waits preserve exact order",
+      "passed": true
+    },
+    {
+      "label": "native actual automatic-counterpart retained with early and ready queue/commit checks",
+      "passed": true
+    },
+    {
+      "label": "real helper called by registered native runner: motion",
+      "passed": true
+    },
+    {
+      "label": "real helper called by registered native runner: loot",
+      "passed": true
+    },
+    {
+      "label": "real helper called by registered native runner: audio",
+      "passed": true
+    },
+    {
+      "label": "real helper called by registered native runner: app",
+      "passed": true
+    },
+    {
+      "label": "migrated old drop runner remains in original region suites",
+      "passed": true
+    },
+    {
+      "label": "adapter original execution/strict exit functions unchanged",
+      "passed": true
+    },
+    {
+      "label": "observed original native07 artifact343/0 (not newly executed)",
+      "passed": true
+    },
+    {
+      "label": "observed original clean strict exit log: native-07",
+      "passed": true
+    },
+    {
+      "label": "observed original clean strict exit log: old-drop-02",
+      "passed": true
+    }
+  ],
+  "assertions": 333,
+  "failures": [],
+  "original_native_artifact_samples": [
+    {
+      "assertions": 83,
+      "failures": [],
+      "scope": "Six real opaque skins plus both real diver skins; scripted locomotion-observer inputs, no combat/pixel/listening acceptance"
+    },
+    {
+      "assertions": 123,
+      "failures": [],
+      "scope": "Configured reward receipts and actual ray/terrain ballistics in an explicit translated floor fixture; no natural route, App transaction or art/audio approval"
+    },
+    {
+      "assertions": 91,
+      "failures": [],
+      "scope": "Actual12voice pool/caps/preemption, accepted Actor hurt/death and restored/unloaded owner lifecycle; explicit isolated fixtures, not normal-speed listening or natural combat"
+    },
+    {
+      "assertions": 45,
+      "failures": [],
+      "scope": "Actual DemoApp ordinary death/pickup/save consumers with explicit native damage and player positions; no Router combat or natural traversal claim"
+    }
+  ],
+  "independence": "New reviewer, authored none of the reviewed production, tests, profiles, adapters or provenance. Read-only except /tmp review outputs. No Godot execution."
+}
