@@ -1,0 +1,1189 @@
+{
+  "status": "failed",
+  "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "build": "80377273a40d",
+  "scope": "Passive inline analyser only (no MediaRecorder or MediaStream destination); real local Chromium, exact staged chunk-only package over normal HTTP; explicit allowed/blocked autoplay policies, trusted touches. No private deployed-origin/physical-phone/aesthetic claim.",
+  "checks": [
+    {
+      "name": "allowed cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_a",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_a.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 13.731700680272109,
+            "sample_rate": 44100,
+            "rms": 0.003245887661976611,
+            "peak": 0.0092926025390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        "coi": true,
+        "sab": true
+      }
+    },
+    {
+      "name": "allowed actual Web assembly uses explicit new hurt direction A",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_a",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_a.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Allowed autoplay: title produces real BGM PCM before any user input",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 15.38031746031746,
+            "sample_rate": 44100,
+            "rms": 0.01622227803992428,
+            "peak": 0.0401458740234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.670566893424036,
+            "sample_rate": 44100,
+            "rms": 0.0026132605735519425,
+            "peak": 0.0084991455078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.960816326530612,
+            "sample_rate": 44100,
+            "rms": 0.0031960977616524214,
+            "peak": 0.0075531005859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.210430839002267,
+            "sample_rate": 44100,
+            "rms": 0.00165729077779028,
+            "peak": 0.003997802734375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.471655328798185,
+            "sample_rate": 44100,
+            "rms": 0.002012399977685297,
+            "peak": 0.0049285888671875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.72126984126984,
+            "sample_rate": 44100,
+            "rms": 0.0017348323409084202,
+            "peak": 0.0037078857421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.991201814058957,
+            "sample_rate": 44100,
+            "rms": 0.010921801621375132,
+            "peak": 0.024871826171875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.261133786848074,
+            "sample_rate": 44100,
+            "rms": 0.017025748122935988,
+            "peak": 0.0393829345703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.531065759637187,
+            "sample_rate": 44100,
+            "rms": 0.0056401178521158606,
+            "peak": 0.0146484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.812607709750566,
+            "sample_rate": 44100,
+            "rms": 0.0010730207673452662,
+            "peak": 0.0033111572265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 18.09124716553288,
+            "sample_rate": 44100,
+            "rms": 0.0006053441619719726,
+            "peak": 0.001922607421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 18.3524716553288,
+            "sample_rate": 44100,
+            "rms": 0.00022098380049860442,
+            "peak": 0.0005950927734375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 18.61079365079365,
+            "sample_rate": 44100,
+            "rms": 0.00012927520578949112,
+            "peak": 0.00042724609375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 18.860408163265305,
+            "sample_rate": 44100,
+            "rms": 0.015227094803360522,
+            "peak": 0.0326080322265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 19.11002267573696,
+            "sample_rate": 44100,
+            "rms": 0.013175238911249654,
+            "peak": 0.0340118408203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "allowed stays on title without a dedicated music enable button",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "allowed same title session reaches Home with actual native audio",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 23.980408163265306,
+            "sample_rate": 44100,
+            "rms": 0.015996161906565273,
+            "peak": 0.037933349609375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.282267573696146,
+            "sample_rate": 44100,
+            "rms": 0.01302187405830089,
+            "peak": 0.0385284423828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.610249433106574,
+            "sample_rate": 44100,
+            "rms": 0.02640726973794596,
+            "peak": 0.0462188720703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.961451247165535,
+            "sample_rate": 44100,
+            "rms": 0.027857671045453686,
+            "peak": 0.065399169921875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 25.29233560090703,
+            "sample_rate": 44100,
+            "rms": 0.021347195460730002,
+            "peak": 0.04266357421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 25.64063492063492,
+            "sample_rate": 44100,
+            "rms": 0.01746232162723887,
+            "peak": 0.037689208984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 25.991836734693877,
+            "sample_rate": 44100,
+            "rms": 0.019329512831217647,
+            "peak": 0.0423583984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 26.351746031746032,
+            "sample_rate": 44100,
+            "rms": 0.02497914041328673,
+            "peak": 0.0679168701171875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 26.752290249433106,
+            "sample_rate": 44100,
+            "rms": 0.011411584830001174,
+            "peak": 0.0322265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.022222222222222,
+            "sample_rate": 44100,
+            "rms": 0.008198543009689392,
+            "peak": 0.02557373046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.3124716553288,
+            "sample_rate": 44100,
+            "rms": 0.009980339326379203,
+            "peak": 0.0301361083984375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.66077097505669,
+            "sample_rate": 44100,
+            "rms": 0.010917584054210455,
+            "peak": 0.0326385498046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 28.122267573696146,
+            "sample_rate": 44100,
+            "rms": 0.04386576710577686,
+            "peak": 0.0899505615234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 28.621496598639457,
+            "sample_rate": 44100,
+            "rms": 0.02068101370248839,
+            "peak": 0.0513153076171875,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 29.02204081632653,
+            "sample_rate": 44100,
+            "rms": 0.01573122942792938,
+            "peak": 0.0412750244140625,
+            "states": [
+              {
+                "state": "running",
+                "time": 56465.6950000003
+              },
+              {
+                "state": "running",
+                "time": 69021.01999999955
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Real Home action retains selected pulse A",
+      "passed": true,
+      "data": [
+        {
+          "bus": "UI",
+          "candidate": "click_c",
+          "id": "click",
+          "path": "res://assets/audio/director_v3/click_c.wav",
+          "priority": 40,
+          "tick": 519,
+          "variant": 0
+        },
+        {
+          "bus": "SFX",
+          "candidate": "shot_pulse_a",
+          "id": "shot_pulse",
+          "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+          "priority": 70,
+          "tick": 883,
+          "variant": 0
+        }
+      ]
+    },
+    {
+      "name": "allowed no script/shader/page errors",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "blocked cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_b",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_b.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 12.431383219954649,
+            "sample_rate": 44100,
+            "rms": 0.007739815592044378,
+            "peak": 0.0191650390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        "coi": true,
+        "sab": true
+      }
+    },
+    {
+      "name": "blocked actual Web assembly uses explicit new hurt direction B",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_b",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_b.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Blocked autoplay: real suspended context remains silent before trusted input",
+      "passed": false,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 14.050975056689342,
+            "sample_rate": 44100,
+            "rms": 0.005381285301513938,
+            "peak": 0.0116424560546875,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.280272108843537,
+            "sample_rate": 44100,
+            "rms": 0.009501595106304533,
+            "peak": 0.0220489501953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.631473922902494,
+            "sample_rate": 44100,
+            "rms": 0.002788522154539545,
+            "peak": 0.0084991455078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.011700680272108,
+            "sample_rate": 44100,
+            "rms": 0.0028309306648744816,
+            "peak": 0.0062103271484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.261315192743764,
+            "sample_rate": 44100,
+            "rms": 0.0020979830327690213,
+            "peak": 0.0056610107421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.51092970521542,
+            "sample_rate": 44100,
+            "rms": 0.0018623562436163729,
+            "peak": 0.00396728515625,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.772154195011337,
+            "sample_rate": 44100,
+            "rms": 0.020238702325222898,
+            "peak": 0.044036865234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.03047619047619,
+            "sample_rate": 44100,
+            "rms": 0.014092663102050151,
+            "peak": 0.0387725830078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.26267573696145,
+            "sample_rate": 44100,
+            "rms": 0.017915350060914433,
+            "peak": 0.045745849609375,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.512290249433107,
+            "sample_rate": 44100,
+            "rms": 0.003881315807612005,
+            "peak": 0.009033203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 16.770612244897958,
+            "sample_rate": 44100,
+            "rms": 0.001117504377483288,
+            "peak": 0.0033111572265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.01151927437642,
+            "sample_rate": 44100,
+            "rms": 0.0006607825868107293,
+            "peak": 0.0023956298828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.232108843537414,
+            "sample_rate": 44100,
+            "rms": 0.0005248346257330518,
+            "peak": 0.001373291015625,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.441088435374148,
+            "sample_rate": 44100,
+            "rms": 0.00015213160540418098,
+            "peak": 0.0004119873046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 17.670385487528346,
+            "sample_rate": 44100,
+            "rms": 0.010222039677497359,
+            "peak": 0.027740478515625,
+            "states": [
+              {
+                "state": "running",
+                "time": 41206.39499999955
+              },
+              {
+                "state": "running",
+                "time": 52683.47499999963
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  ],
+  "error": "blocked: Blocked autoplay: real suspended context remains silent before trusted input",
+  "traceback": "Traceback (most recent call last):\n  File \"/workspace/gunman-main/build/audio_feedback_06/web_qa-02.py\", line 37, in main\n    check(bool(before['pcm']) and all(v['state']=='suspended' for v in before['pcm']) and all(v.get('peak',0)==0 for row in pcm for v in row),'Blocked autoplay: real suspended context remains silent before trusted input',pcm)\n  File \"/workspace/gunman-main/build/audio_feedback_06/web_qa-02.py\", line 11, in check\n    report['checks'].append({'name':name,'passed':bool(ok),'data':data});save();assert ok,name\n                                                                                       ^^\nAssertionError: Blocked autoplay: real suspended context remains silent before trusted input\n"
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T045106.432211Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "audio-feedback",
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "2c59200d099a75cede606d37406a080a22f4cf68483d6a350032761711989da6",
+      "log": "audio-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335911.911684,
+      "ended_at_unix": 1793335953.0043023,
+      "duration_seconds": 41.093,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "check_token": "fdf58958135c44feaef2ad6d17cfb0de",
+      "artifact_directory": "/workspace/gunman-main/build/verification/harness/20261030T045106.432211Z/artifacts/audio-feedback",
+      "reused": false
+    },
+    {
+      "id": "bgm-integration",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "95958bc86130ddf448dfc80ea04dafa760ccb58da04d030f60f05caf2a6e8c04",
+      "log": "bgm-integration.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335869.497442,
+      "ended_at_unix": 1793335909.642825,
+      "duration_seconds": 40.145,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "check_token": "402f53e39e054c7d868633c5f91ca8cc",
+      "artifact_directory": "/workspace/gunman-main/build/verification/harness/20261030T045106.432211Z/artifacts/bgm-integration",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "7bbf8336009636ef4f353a56770c50418a37f9715729a6aa4413279e062fea03",
+  "working_files": {
+    "docs/evidence/audio_feedback_06/review-checks.json": "8f24c8176309adedd7741a1d906cb0c03cd046d17d728100a58ee5428a8c85df",
+    "docs/evidence/audio_feedback_06/review.json": "4c2ba1b80d417c39714dcc8a587586bf9583a871d03fffaf34f703efd37be858",
+    "docs/quality/asset_records/AUDIO-FEEDBACK-06-SOURCE-RECORDS.json": "573fdb14b9f82ba6940101b5ac4a9fd990eecbb18a4833e96c24ed591c90108b",
+    "docs/quality/records/AUDIO-FEEDBACK-06.json": "b26b530fd531fac6b1c29628db900ae0056554ba146ae43b1cd649351b20d851",
+    "tools/audio_feedback_06_lab.py": "bcfe21803f8fc92e295d1475de2139b2694f9bc2ea9c0289fb17219c36210587"
+  },
+  "commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "git_status": "M docs/quality/records/AUDIO-FEEDBACK-06.json\n?? docs/evidence/audio_feedback_06/\n?? docs/quality/asset_records/AUDIO-FEEDBACK-06-SOURCE-RECORDS.json\n?? tools/audio_feedback_06_lab.py",
+  "diff": "diff --git a/docs/quality/records/AUDIO-FEEDBACK-06.json b/docs/quality/records/AUDIO-FEEDBACK-06.json\nindex 7bd92542..0d5fc0d1 100644\n--- a/docs/quality/records/AUDIO-FEEDBACK-06.json\n+++ b/docs/quality/records/AUDIO-FEEDBACK-06.json\n@@ -4,7 +4,7 @@\n   \"task_type\": \"ui_feedback\",\n   \"workflow\": \"in_progress\",\n   \"baseline_commit\": \"f0778c4c9e14e5cb05a63cf5e027da011a63db54\",\n-  \"reviewed_commit\": \"f0778c4c9e14e5cb05a63cf5e027da011a63db54\",\n+  \"reviewed_commit\": \"d8a894c28957aca4f5b7ab1bd55827d4f93259c7\",\n   \"content_version\": \"audio-feedback-06-v1\",\n   \"owner\": \"root\",\n   \"purpose\": \"Title auto-start, trial wall take1 and fresh sampled hero damage candidates\",\n@@ -15,18 +15,58 @@\n     \"Browser policy and subjective approval remain separate\"\n   ],\n   \"affected_paths\": [\n+    \"assets/audio/feedback_06/_sources/.gdignore\",\n+    \"assets/audio/feedback_06/_sources/crunch-sounds-cucumber.html\",\n+    \"assets/audio/feedback_06/_sources/crunch_1_0.ogg\",\n+    \"assets/audio/feedback_06/_sources/crunch_2_0.ogg\",\n+    \"assets/audio/feedback_06/_sources/ghost-breath.html\",\n+    \"assets/audio/feedback_06/_sources/ghostbreath.flac\",\n+    \"assets/audio/feedback_06/_sources/swish-bamboo-stick-weapon-swhoshes.html\",\n+    \"assets/audio/feedback_06/_sources/swosh-03.flac\",\n+    \"assets/audio/feedback_06/_sources/swosh-05.flac\",\n+    \"assets/audio/feedback_06/hurt_a.wav\",\n+    \"assets/audio/feedback_06/hurt_a.wav.import\",\n+    \"assets/audio/feedback_06/hurt_b.wav\",\n+    \"assets/audio/feedback_06/hurt_b.wav.import\",\n+    \"assets/audio/feedback_06/hurt_c.wav\",\n+    \"assets/audio/feedback_06/hurt_c.wav.import\",\n+    \"assets/audio/feedback_06/manifest.json\",\n+    \"config/audio_director/feedback_06/recipes.json\",\n+    \"config/audio_director/feedback_06/sources.json\",\n+    \"docs/audio_director/feedback_06.md\",\n+    \"docs/creative_direction/archive/creative-v23/manifest.json\",\n+    \"docs/creative_direction/archive/creative-v23/registry.json\",\n+    \"docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt\",\n+    \"docs/creative_direction/archive/creative-v23/thorn_forest.json\",\n+    \"docs/creative_direction/archive/creative-v23/windchime_plains.json\",\n+    \"docs/creative_direction/bibles/registry.json\",\n+    \"docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json\",\n+    \"docs/creative_direction/thorn_forest.json\",\n+    \"docs/creative_direction/windchime_plains.json\",\n+    \"docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-A.json\",\n+    \"docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-B.json\",\n+    \"docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-C.json\",\n+    \"docs/quality/records/AUDIO-FEEDBACK-06.json\",\n+    \"docs/tasks.md\",\n+    \"docs/worklines/audio_feedback_06/binding-migration.md\",\n+    \"docs/worklines/audio_feedback_06/scope.md\",\n     \"scripts/audio/game_music.gd\",\n-    \"scripts/ui/demo_menu.gd\",\n-    \"scripts/dev/player_presentation_01/weapon_audio_v2.gd\",\n     \"scripts/audio/selected_sfx_runtime.gd\",\n-    \"assets/audio/feedback_06/\",\n-    \"config/audio_director/feedback_06/\",\n-    \"tools/audio_hurt_design.py\",\n+    \"scripts/dev/player_presentation_01/weapon_audio_v2.gd\",\n+    \"scripts/ui/demo_menu.gd\",\n+    \"tests/audio_feedback_05.gd\",\n+    \"tests/bgm_integration/runner.gd\",\n+    \"tests/selected_sfx_runtime.gd\",\n+    \"tests/test_region_bible.py\",\n+    \"tests/test_region_creative_direction.py\",\n     \"tools/audio_director.py\",\n-    \"tools/build.py\",\n     \"tools/audio_feedback_06_capture.gd\",\n+    \"tools/audio_feedback_06_capture.gd.uid\",\n+    \"tools/audio_feedback_06_lab.py\",\n+    \"tools/audio_hurt_design.py\",\n+    \"tools/build.py\",\n     \"tools/capture_audio_hurt.py\",\n-    \"tools/audio_feedback_06_lab.py\"\n+    \"tools/harness/profiles.json\"\n   ],\n   \"deliverables\": [\n     \"Actual sampled candidates and reproducible licensed processing\",\n@@ -109,9 +149,11 @@\n       \"evidence\": []\n     },\n     \"independent_review\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"passed\",\n+      \"reason\": \"Frozen actual independent engineering scope only\",\n+      \"evidence\": [\n+        \"review\"\n+      ]\n     },\n     \"device\": {\n       \"status\": \"unverified\",\n@@ -125,11 +167,33 @@\n     }\n   },\n   \"criteria\": [],\n-  \"evidence\": [],\n+  \"evidence\": [\n+    {\n+      \"id\": \"review\",\n+      \"path\": \"docs/evidence/audio_feedback_06/review.json\",\n+      \"sha256\": \"4c2ba1b80d417c39714dcc8a587586bf9583a871d03fffaf34f703efd37be858\",\n+      \"kind\": \"review\",\n+      \"producer\": \"root/ambience_review\",\n+      \"source_commit\": \"d8a894c28957aca4f5b7ab1bd55827d4f93259c7\",\n+      \"content_version\": \"audio-feedback-06-v1\",\n+      \"method\": \"Read-only separate engineer; exact old/new diff, licensed source/locked input checks and9 actual rejection cases\",\n+      \"observed\": \"Limited engineering ACCEPT for current fixed source; Web/hearing/device separate\",\n+      \"reviewer\": \"root/ambience_review\",\n+      \"implementers\": [\n+        \"root\",\n+        \"root/ambience_runtime\",\n+        \"root/audio_runtime\"\n+      ],\n+      \"independent\": true,\n+      \"independence_basis\": \"Different read-only agent, no implementation writes\",\n+      \"verdict\": \"ACCEPT\"\n+    }\n+  ],\n   \"consumer_coverage\": null,\n   \"unverified_items\": [\n     \"New hurt aesthetics\",\n     \"Physical phone and browser autoplay policy\",\n     \"Final scoped checks and deployed build not yet run\"\n-  ]\n+  ],\n+  \"test_change_justification\": \"Independent original-method/assert retention review: title tests now require immediateplay and nonrestarting gestures; fixedwall all three transport slots checked; native checks30→55 and selected original63 retained; Bible34→35/assert332→358 and direction12→13/assert155→168, frozen old versions retained; original budgets/profile members not removed.\"\n }",
+  "untracked": "docs/evidence/audio_feedback_06/review-checks.json\ndocs/evidence/audio_feedback_06/review.json\ndocs/quality/asset_records/AUDIO-FEEDBACK-06-SOURCE-RECORDS.json\ntools/audio_feedback_06_lab.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 88.706,
+  "jobs": 1,
+  "release": true
+}

@@ -4,7 +4,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |
 | --- | --- | --- | --- | --- |
-| AUDIO-FEEDBACK-06 | 标题即播、碰墙固定新版1、参考空洞骑士重做受伤候选 | AUDIO-FEEDBACK-05 | in_progress | [范围](worklines/audio_feedback_06/scope.md) · [记录](quality/records/AUDIO-FEEDBACK-06.json) |
+| AUDIO-FEEDBACK-06 | 标题即播、碰墙固定新版1、参考空洞骑士重做受伤候选 | AUDIO-FEEDBACK-05 | review | [范围](worklines/audio_feedback_06/scope.md) · [记录](quality/records/AUDIO-FEEDBACK-06.json) |
 
 ## 2026-10-30 AUDIO-FEEDBACK-05 · 正式试玩声音反馈
 

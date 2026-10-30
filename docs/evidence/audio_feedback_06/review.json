@@ -1,0 +1,240 @@
+{
+  "task": "AUDIO-FEEDBACK-06",
+  "kind": "independent_engineering_review",
+  "reviewer": "/root/ambience_review",
+  "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "reviewed_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "baseline_commit": "f0778c4c9e14e5cb05a63cf5e027da011a63db54",
+  "decision": "ACCEPT",
+  "acceptance_scope": "Limited engineering acceptance of the frozen title-player request behavior, fixed wall1 route, current three hurt06 candidates/recipes and versioned style21/creative24 binding at d8. Browser/publishing and subjective sound quality are separate, currently unverified by this review.",
+  "independent_read_only_checks": {
+    "detailed_evidence": {
+      "path": "docs/evidence/audio_feedback_06/review-checks.json",
+      "sha256": "8f24c8176309adedd7741a1d906cb0c03cd046d17d728100a58ee5428a8c85df"
+    },
+    "actual_pipeline_validate": {
+      "argv": [
+        "python3",
+        "tools/audio_hurt_design.py",
+        "validate"
+      ],
+      "exit_code": 0,
+      "stdout": "AUDIO_HURT_DESIGN_OK candidates=3 licensed_sources=6 old_audio_unchanged=true"
+    },
+    "actual_python_cli_checks": [
+      {
+        "argv": [
+          "python3",
+          "tools/region_creative_direction.py",
+          "--check-bibles"
+        ],
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "tools/region_creative_direction.py",
+          "--directory",
+          "docs/creative_direction"
+        ],
+        "exit_code": 0
+      },
+      {
+        "argv": [
+          "python3",
+          "tests/test_production_plan.py"
+        ],
+        "exit_code": 0,
+        "tests": 21,
+        "failures": 0,
+        "reported_seconds": 0.153
+      }
+    ],
+    "negative_controls_rejected": 9,
+    "original_license_pages_and_source_bytes_checked": 6,
+    "locked_previous_audio_BGM_processor_inputs_byte_equal_baseline": 16,
+    "source_files_equal_committed_d8": {
+      "assets/audio/feedback_06/_sources/.gdignore": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "assets/audio/feedback_06/_sources/crunch-sounds-cucumber.html": "2f6876e5b2e5a654de104aa48f43f4ede9f7d3eac9c047c32ec830ba83f9653d",
+      "assets/audio/feedback_06/_sources/crunch_1_0.ogg": "46db1080f2c53217a2e7e88e3b886a1ff5df935d3a511922cfcb6748eb1e3340",
+      "assets/audio/feedback_06/_sources/crunch_2_0.ogg": "22da4073f8922e5eb35ed7b6fc579f2ecdb98601af5f81ad5f330ee555294651",
+      "assets/audio/feedback_06/_sources/ghost-breath.html": "978033a7cc2df9b4133d7007b5cce56d67479ca0caf30107ad6d2838812a164a",
+      "assets/audio/feedback_06/_sources/ghostbreath.flac": "f371839853a5dff7dbd5a8c81368f5cfab587f567df5ba962e981d4392c530bc",
+      "assets/audio/feedback_06/_sources/swish-bamboo-stick-weapon-swhoshes.html": "49941d0ec55fd938e111ab35ecf130eb3ec26adec6339be244855602e2dfbf6f",
+      "assets/audio/feedback_06/_sources/swosh-03.flac": "2111003e4c61b8f3589f926f549ffc36094319da7b99238624c7d64e91bddc09",
+      "assets/audio/feedback_06/_sources/swosh-05.flac": "f8e711a61eb4d6f271a2ce71ba355148bc6f53628b21292338a27a9b7673cc1e",
+      "assets/audio/feedback_06/hurt_a.wav": "53445f070f73fd213860fd3c8f290403fc5718ba3d0e3d0ed8f36f1628aa1c84",
+      "assets/audio/feedback_06/hurt_a.wav.import": "a61025cc89fe06d6089a346464e933cab7c4ed548d8a45fd7046a3424e375a90",
+      "assets/audio/feedback_06/hurt_b.wav": "8ccb23583863eb44a8780e69fc4583b71a9142714ad44f0ceb73c7c07034a181",
+      "assets/audio/feedback_06/hurt_b.wav.import": "aa4fa5db620d25e703ee71308f4abeac5cdde1fd87101ca7d4f4a9360a20afa5",
+      "assets/audio/feedback_06/hurt_c.wav": "be4e1e79f39a55f3e71cad4efefac662b84b231dcbde9acc502eae5d17a18445",
+      "assets/audio/feedback_06/hurt_c.wav.import": "ab26dfe6513bc3e039cfb0dfb205eba9f8664b098447d2a6fb6f9ed5a0985f21",
+      "assets/audio/feedback_06/manifest.json": "02a353ffef06851c42052e018038a61c83668ff3e9b7eca7dfa0e795ef6c53f9",
+      "config/audio_director/feedback_06/recipes.json": "b147bb998cc6607647a61063837e8976535a73fb61f9d9765412f9b75c7cb9f1",
+      "config/audio_director/feedback_06/sources.json": "be37caadf1145989baa4070426bb7dfde37450092aa6f63b02d44a1241c11bf9",
+      "docs/creative_direction/archive/creative-v23/manifest.json": "d4d6c6026932c114c0f24e54b7008069b74f11b43065e03e3d1343134e450e96",
+      "docs/creative_direction/archive/creative-v23/registry.json": "d82579efc0fdd3313d71bed1ad225fd450be90e6d511d30fa2035c59f60ff0c0",
+      "docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt": "af2f5a92ca800bcbe4340c23d3007e9d37b93dff96e9720df102cb17040c930d",
+      "docs/creative_direction/archive/creative-v23/thorn_forest.json": "4eb43e7bd2bb0868b6957b2e8e66ed42b1d7fc406876b859f5e724dc76911fb8",
+      "docs/creative_direction/archive/creative-v23/windchime_plains.json": "eb285418637b24afdd9e0c621d61245642547335d77ddbe9874aa8574b8f07e8",
+      "docs/creative_direction/bibles/registry.json": "20985784ab3ba6fcf8b29817f7ee7beb3d38979ff66100370bcff213274a7d35",
+      "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de",
+      "docs/creative_direction/thorn_forest.json": "06eaf697f2d994ef111d25a06ea40a7eb06ff42ff0ee5f4016b9f35e69f35b75",
+      "docs/creative_direction/windchime_plains.json": "fa660deffa2b0e8b894e337a9f5c2e76e4133e6ec1191d1e6effb680df172a61",
+      "scripts/audio/game_music.gd": "9b9102ef798b517b3e009d9d1cf97ce420e3514233841996842ea05b60155b80",
+      "scripts/audio/selected_sfx_runtime.gd": "2e4b6f92b22b3fd832388b621ca1ab260931b9c17fcc5437ff328eb6e6e43832",
+      "scripts/dev/player_presentation_01/weapon_audio_v2.gd": "31d9209e8b349edb578e245893978c2d6781ecc521a775fbad50f77a2814962c",
+      "scripts/ui/demo_menu.gd": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f",
+      "tests/audio_feedback_05.gd": "2e57686824a95608bf8dbcc6f659374934fb20427d2d34b88ffc41433c664452",
+      "tests/bgm_integration/runner.gd": "17babd3540696753788e046e1ad05666a5319fc9e42bbbf710a74c1cc2087a37",
+      "tests/selected_sfx_runtime.gd": "8367e46f1527e5585032e7b327700d18af32616beeeec9a78b5dbb2d5e605d39",
+      "tests/test_region_bible.py": "35d2e697a35a1b46713b5ffa2ef7d11ff61d108ab1590b0efac71f55d07073cd",
+      "tests/test_region_creative_direction.py": "4a01b3a686c7e9f7c5aaa0f3007665389ba58b4229d77748373383316695d0ec",
+      "tools/audio_director.py": "b5754b53f9f09d3c076b4d866d095a44e4304a01b4b22207180288b160a57429",
+      "tools/audio_feedback_06_capture.gd": "ebd84ab9cf43a8a1678a867b661671e2d10cc84b7f989dbced6d1daa26f607c6",
+      "tools/audio_feedback_06_capture.gd.uid": "9f48544afea88fecda7f237fb9c131c906b897b0bb033ea3bfee56692c3e26cf",
+      "tools/audio_hurt_design.py": "27e03612ce0e54cdf9f2bfc318d3515f0c024ac292a28bbea3f9925f6e7a2195",
+      "tools/build.py": "bc33c5baffddb63039bb84c7f604b582c0c71953a8b2d581f9f8078ed0dd90cc",
+      "tools/capture_audio_hurt.py": "9930e93982f1c63d6bc856e1d8e1283454f6ebfb0e9e94300c104e9e8f8a3a1e",
+      "tools/harness/profiles.json": "7bbf8336009636ef4f353a56770c50418a37f9715729a6aa4413279e062fea03"
+    }
+  },
+  "implementation_assessment": [
+    {
+      "area": "Title music",
+      "finding": "Actual title requests its original Home MP3 player immediately rather than waiting for the app-level _unlocked flag. Real gesture observation remains for existing ambience, does not consume input or restart the same player. Two-player/0.16/session gain/0.9s later crossfade/lifecycle code preserved. Separate title music link is removed and exact original subtitle/menu source restored. Browser policies can still suspend output."
+    },
+    {
+      "area": "Solid contact",
+      "finding": "All three inherited modulo3 slots alias feedback05/wall_1 rather than being misreported as three authored takes. Existing 60ms/two-wall-voice/twelve-voice pool and attenuation logic unchanged. Real floor projectile contact is observed in native tests/capture; no damage, physics, RNG or enemy-hit choice changes."
+    },
+    {
+      "area": "Hurt presentation",
+      "finding": "A/B/C are separately named sample-derived injury directions in the original GameAudio revision interface/pool. The Web query accepts exact A/B/C only and defaults to provisional A. It changes no saved choice, frozen historical C, accepted HP transaction or gameplay random stream. Explicit old-C audition and previous05 files remain. No HK production audio input or claimed listening/reconstruction."
+    },
+    {
+      "area": "Sources and derivation",
+      "finding": "Six CC0 declared source recordings and pages/license SHA checked; five new small originals plus one previously audited bank hit. Authored crop/filter/pitch/envelope/bounded layer normalization and final RMS/peak processing derive the actual three output fingerprints. The three material choices remain aesthetic proposals with food/wood/air associations explicitly awaiting listening."
+    },
+    {
+      "area": "Binding and test retention",
+      "finding": "81 role/path/order references preserved; only actual DemoMenu SHA changes and other80 identical. Oldstyle20/creative23 exact archive5 equal baseline Git originals. Old331 Harness input prefix retained with6 appended to337; every other profile object identical. Bible34 to35 methods/332 to358 assert calls and creative12 to13/155 to168; all old method counts retained. Oldcurrent20 assertion migrated to actual21 after preserved failure. Historical20/v23 tests now read their genuine frozen originals; old stale bindings remain rejected."
+    }
+  ],
+  "reviewer_new_finding": {
+    "id": "AF06-REVIEW-01",
+    "severity": "nonblocking future-authoring limitation",
+    "current_frozen_candidates_affected": false,
+    "location": "tools/audio_hurt_design.py inputs() / render()",
+    "reproduction": "In memory set recipes.candidates[0].profile to Z while retaining its id hurt_feedback_06_a; inputs() accepts and render would name hurt_z.wav, whereas runtime A still points to hurt_a.wav. No repository bytes modified.",
+    "recommendation": "Before any later recipe profile edits, validate exact ordered (id,profile) A/B/C pairs against runtime paths. This review accepts the actual current three fixed profiles, not arbitrary future profile mapping changes.",
+    "notified_implementation_owner": true
+  },
+  "native_receipts_inspected": {
+    "cases": [
+      {
+        "case": "feedback",
+        "checks": 55,
+        "failures": 0,
+        "exit_code": 0,
+        "report_sha256": "017d7020af99f52c2a92703499f49a074bc2a682be85351ff838cfb87806e5f1",
+        "native_log_sha256": "620ff38536745a10e5d502f76c8ba6204b1198f44b0628a7d681973bf9e0e454",
+        "seconds": 6.993460681000215
+      },
+      {
+        "case": "rewards",
+        "checks": 70,
+        "failures": 0,
+        "exit_code": 0,
+        "report_sha256": "23399c199a4155fe04c19d0dc832582058495a8eb64879b2e39274e338031270",
+        "native_log_sha256": "5226a782b8f37258f5d76e164f6230641de8676a6919809341c4a6ed1e20d53a",
+        "seconds": 11.222163372998693
+      },
+      {
+        "case": "selected",
+        "checks": 63,
+        "failures": 0,
+        "exit_code": 0,
+        "report_sha256": "fb664bea0e3ecd701ee0668a7dd610aad4e0077216467b11376f91669751828f",
+        "native_log_sha256": "7a7391842e60bc864692f96dc8e90bd3394328748086425eca2a83abdfc9999d",
+        "seconds": 10.881760509999367
+      },
+      {
+        "case": "previous-fix",
+        "checks": 31,
+        "failures": 0,
+        "exit_code": 0,
+        "report_sha256": "abb13c2d2f6caeebe44ab3b931aa663f62cbb83f6f32dfbc651fbbed8f34072b",
+        "native_log_sha256": "7c3936ca4744787265e294b9d7cbc2ee6e29a1ef2b16c6cba5f6c7d0882b9417",
+        "seconds": 7.742635689999588
+      }
+    ],
+    "total_checks": 219,
+    "failure_count": 0,
+    "reviewer_executed_engine": false,
+    "source_scope_note": "The case reports do not embed a commit; the frozen source/test blob identities and actual root-supplied receipt ordering are used. Capture independently embeds d8 and verifies all3879 current production/producer fingerprints. No older05 run is relabelled as a new219 execution."
+  },
+  "python_suite_receipts_inspected": [
+    {
+      "path": "build/audio_feedback_06/bible-tests-02.log",
+      "sha256": "460aad0f6bac41ead6fc34f07e07aedb8fb7906c6f1a50c4d0c7a2516d09ad17",
+      "status": "passed",
+      "scope": "Actual root-supplied suite output inspected, not rerun by reviewer."
+    },
+    {
+      "path": "build/audio_feedback_06/direction-tests.log",
+      "sha256": "36e1e490b5e3e1dec6d593b5d6a0beb0699ecf18bb68abaccaa011df89243e6b",
+      "status": "passed",
+      "scope": "Actual root-supplied suite output inspected, not rerun by reviewer."
+    }
+  ],
+  "preserved_first_bible_failure": {
+    "path": "build/audio_feedback_06/bible-tests.log",
+    "sha256": "4d82317a3bc269f7b393530da295b2871588f9ad3ae4b9ec22b32edb28780473",
+    "tests": 35,
+    "failures": 1,
+    "cause": "Current technical style assertion still expected20 before correction to actual21; original failed log retained."
+  },
+  "actual_native_movie_scope": {
+    "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+    "report_sha256": "4e89af6cfe51915dd9e7c5ce4baddb453fdf1bc23a09a2cf23e0f04c2c955514",
+    "actual_movie_sha256": "6d4f00e6b1b2d0af5f3711d9c8cc105f07f8035d5c036d7153dbc2d5cf1b6558",
+    "actual_pcm_sha256": "1c75767748171a0eeaea9a396588d5d81eb671fd3ffe21dc76abefab803d9a73",
+    "frames": 1213,
+    "source_before_after_equal": true,
+    "source_files_current_bytes_checked": 3879,
+    "actual_trace_and_chapters_revalidated": true,
+    "actual_pcm_chapters_revalidated": true,
+    "subjective_audio_listened": false,
+    "rendering": [
+      960,
+      540
+    ],
+    "fps": 60,
+    "duration_seconds": 20.216667,
+    "reviewer_viewed_image": "build/audio_feedback_06/capture-01/hurt-a.png",
+    "pixel_observation": "Actual Home grounded protagonist visible near left ground; world buildings unobstructed. Top central caption discloses A and explicit damage/heal fixture, outside left hearts. One screenshot only; no full movie playback or hearing claim.",
+    "scope": "Actual formal title120 no-input frames, Home entry2, Router jump/downward shot360, then three240-frame explicit 1HP damage/heal transactions at same grounded Home/camera. Original native mixed PCM revalidated chapter-by-chapter and live hurt A/B/C voice paths/transactions checked; no dubbed audio or natural enemy attack claim. Nonzero mixed PCM alone does not isolate every event or certify audibility/masking."
+  },
+  "frozen_previous05_reviews_unchanged": {
+    "docs/evidence/audio_feedback_05/review.md": "4bb6eb07e0b744c3cf125bb2ea0a671ef99c07ba3ea7065b2aa46887c94f3827",
+    "docs/evidence/audio_feedback_05/review-binding.json": "873a21f7aca0ba7b91734ac773cf84e5ed85c6168c9eac4daf00dc5d1abfb86b",
+    "docs/evidence/audio_feedback_05/review-binding-migration.md": "d6155dfef067a73fff3315086412e9dfdd6d330f54c57d8390e9638a1a7f17c2",
+    "docs/evidence/audio_feedback_05/review-final-commit.json": "f08e57cf0285e79ca69fe409b7666f28d9cacdcdeae4e64c90fbb64ca642991e",
+    "docs/evidence/audio_feedback_05/ci-selector/review.json": "2d0bf3463a76e054850d9d6129b6d188f0c0b2d04e903c71adb67f5fd0a8309d"
+  },
+  "unverified": {
+    "new_web_cold_and_allowed_autoplay_policies": "Awaiting root actual browser receipts; native playing/gesture flags do not prove browser output.",
+    "new_lab_export_and_deployment": "Not reviewed; newly authored lab tool outside d8 production scope.",
+    "Hollow_Knight_reference_listening": "No reviewer audition of commercial reference or new candidate audio.",
+    "subjective_new_hurt_wall_acceptance": "User has not confirmed new06 candidates; provisionalA is not a new accepted user choice.",
+    "full_movie_playback": "One actual A screenshot viewed; reviewer did not play or hear the whole movie.",
+    "physical_phone_iOS_lowend_latency": "Unverified.",
+    "long_natural_campaign_combat_full166_CI_main_merge": "Not signed by these limited receipts."
+  },
+  "reviewer_write_scope": [
+    "docs/evidence/audio_feedback_06/review-checks.json",
+    "docs/evidence/audio_feedback_06/review.json"
+  ],
+  "final_frozen": true
+}

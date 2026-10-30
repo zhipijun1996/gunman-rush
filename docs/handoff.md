@@ -1,3 +1,11 @@
+## 2026-10-30 AUDIO-FEEDBACK-06 · 标题即播／碰墙1／新受伤ABC
+
+PR121同线续改，分支fix/audio-playtest-feedback-20261030，main仍5f55716a；实际运行/影片/Web源d8a894c2，build80377273a40d。标题立即请求原BGM，浏览器限制由真实手势恢复；取消专用按钮。墙地只用feedback05/wall_1，原60ms/2wall/12池/混音不变。旧C与05hurt两条用户否决且原件保留，新CC0断裂/竹条/气息ABC均待选，默认A是开发试听；不复制或声称实测HK原轨。
+
+原Harness实际219/0+原BGM89/0、真实MovieMaker1213帧/20.2167秒、无激活CDP双策略Web16、手机尺寸工坊GUI14、Bible35/direction13与原CLI/selector21通过，旧失败都留存。style21/creative24仅menu1/81技术重绑，另80与旧原件不变。查看[本轮证据](evidence/audio_feedback_06/README.md)、[范围](worklines/audio_feedback_06/scope.md)。[新试听子页](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site/feedback06/)已原生发布succeeded，沿原owner-private Site；[收据](evidence/audio_feedback_06/publication.json)绑定source ddc59b94，不复用旧包冒充。
+
+内容保持review，不自动合main。实体手机/用户听感/私有线上账号GUI/完整166仍未验；历史docs缺件量超剩余磁盘，不签本地full通过。已完成源码和短片不要重生成；收到试听反馈再沿brief/当前配方迭代，若CI具体失败只定位原失败。复核git状态、当前PR与精确build，保持root单Godot/WASM租约。
+
 # 最新交接 · 2026-10-30
 
 ## 2026-10-30 AUDIO-FEEDBACK-05 · 五项修复候选已发布
