@@ -12,3 +12,5 @@
 - [生产清单迁移22项检查](production-plan-tests-02.log)：原168项顺序及摘要保留，新增Pressure串行专项后为169项、92并行/77串行；只证明选择器迁移，不等于169项实际执行。
 
 第三阶段支撑与原失败详见[返工说明](../../worklines/windkeeper_pressure_01/support-repair.md)。旧v5终态第三阶段地形兼容按用户授权延期，当前v6快照/断桥/伤害/奖励不豁免。原BGM、受伤A、玩家物理、现有身体PNG、1wu/nearest规格未替换。用户审美、手感、实体设备及完整电影仍待实际审核。
+
+追加共享原消费者结果：core5686/0、enemy-structure733/0、boss-time1182/0。原boss-time变帧率失败、同一脚本固定60Hz诊断及实际wrapper复跑原日志均见 original-consumers/；只复用已有固定帧率适配，原计时与碰撞断言、120/240秒预算不改。最新headless11和active02仍失败，后续platform2仅改变正常操作策略，不能预签胜利。

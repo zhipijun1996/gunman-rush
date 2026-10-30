@@ -44,6 +44,9 @@ var leaf_escape_air := -1
 var leaf_escape_boosted := false
 var active_extra_interval := -1
 var active_extra_rows: Array[Dictionary] = []
+var platform_hold_start := -1
+var platform_hold_group := -1
+var platform_hold_phase := -1
 
 
 func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictionary]) -> void:
@@ -83,6 +86,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		jump_rearm_until = frame + 2
 	previous_grounded = grounded
 	var phase := int(encounter.stage_phase)
+	var current_slab := _platform2_current_slab(app,at) if mode=="platform2" else Rect2()
 	var contact_bounds: Rect2 = encounter.body_contact_rect()
 	var actual_touch: bool = encounter.body_contact_sweep(boss.global_position,at-boss.global_position,at,Vector2(12,18))
 	var above_body: bool = at.y+18 < contact_bounds.position.y-10
@@ -134,6 +138,12 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	elif state == "intro":
 		axis = 0
 		intent = "actual autonomous intro; stand at entry"
+		if mode=="platform2" and not shelves.is_empty():
+			var entry_goal := shelves[0]+Vector2(-55,0)
+			axis=_toward(at.x,entry_goal.x,5)
+			if grounded and at.x>=entry_goal.x-75 and at.y>entry_goal.y+35:jump=true
+			camp_finished=true
+			intent="platform2: normal intro run/jump onto the existing left shelf; not pressure evidence"
 	elif encounter.health.terminal:
 		intent = "watch actual mechanical collapse, then collect physical coins"
 		if float(metrics.get("death_age", 0)) >= _number(encounter.definition, "death_seconds", 1.9):
@@ -177,6 +187,8 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			if state in ["lunge_warning", "lunge"]:
 				intent = "read locked lunge and jump across before the wall removes retreat room"
 				var away_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
+				if mode=="platform2" and current_slab.size.x>0:
+					away_room=at.x-current_slab.position.x-13 if dx>0 else current_slab.end.x-13-at.x
 				var roomy_retreat := phase<3 and away_room>200
 				# The first part of a readable warning plants toward the Boss.
 				# Starting the jump320wu away made the old crossing descend onto
@@ -221,6 +233,9 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 					escape_destination = Vector2(clampf(destination_x,arena.position.x+seed_margin,arena.end.x-seed_margin),at.y)
 				if escape_destination.is_finite(): axis = _toward(at.x,escape_destination.x,12)
 				if grounded and phase == 3 and _gap_ahead(player,axis): jump = true
+				if mode=="platform2" and state=="seeds_warning" and grounded and float(encounter.clock)<=.30:
+					jump=true
+					intent="platform2: normal late-warning jump above the already locked seed fan"
 			elif state in ["sweep_warning", "sweep"]:
 				intent = "read shoulder/leaf height, preserve room through actual sweep"
 				if absf(dx) < 250: axis = -signf(dx)
@@ -280,6 +295,8 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	# ordinary jump/recoil change of side while180–300wu still remain.
 	var early_read := state in ["observe","approach","turn"] or (state.ends_with("_warning") and float(metrics.get("state_age",0))<.25)
 	var corner_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
+	if mode=="platform2" and current_slab.size.x>0:
+		corner_room=at.x-current_slab.position.x-13 if dx>0 else current_slab.end.x-13-at.x
 	if phase>=2 and early_read and not support_motion and not support_escape_active and cross_axis==0 and grounded and corner_room<180 and absf(dx)>=180 and absf(dx)<=300:
 		cross_axis=signf(dx)
 		cross_started=frame
@@ -351,6 +368,11 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		if edge.is_finite():
 			axis=_toward(at.x,edge.x,7)
 			if state!="recover" or recovery_shots>=2: intent="plant on current safe support edge before reading next landing"
+	if mode=="platform2" and phase<3 and not encounter.health.terminal and cross_axis==0 and not support_escape_active and not actual_touch and not seed_imminent and state in ["observe","approach","turn","link","recover"]:
+		var platform_motion := _platform2_ordinary_motion(app,encounter,at,current_slab,axis)
+		axis=float(platform_motion.axis)
+		jump=jump or bool(platform_motion.jump)
+		intent="platform2: retain or regain a real shelf with ordinary run/jump input"
 	if leaf_escape_key=="%s:%s" % [group,metrics.get("attack_index",0)] and state in ["sweep_warning","sweep"]:
 		if not grounded and leaf_escape_air<0:leaf_escape_air=frame
 		if grounded and leaf_escape_air<0:jump=true
@@ -413,8 +435,57 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent})
 	router.set_jump_held(&"keyboard_mouse", frame < jump_until)
 	router.set_source_axis(&"keyboard_mouse", axis)
-	if mode=="active2":_active_extra_shot(app,encounter,state,at,aim)
+	if mode in ["active2","platform2"]:_active_extra_shot(app,encounter,state,at,aim)
+	if mode=="platform2":_platform2_observe_hold(app,encounter,axis,at,state,group,phase)
 	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":frame<jump_until,"group":group,"intent":intent})
+
+
+func _platform2_current_slab(app: Node, at: Vector2) -> Rect2:
+	if not app.player.is_on_floor():return Rect2()
+	for module: PlatformingModule in app.stage.assembler.modules:
+		if module.definition.module_id!=&"plains_boss_arena":continue
+		for index: int in [1,2,3]:
+			var local: Rect2=module.definition.platforms[index]
+			var rect:=Rect2(module.to_global(local.position),local.size)
+			if absf(at.y+18-rect.position.y)<4 and at.x>=rect.position.x and at.x<=rect.end.x:return rect
+	return Rect2()
+
+
+func _platform2_ordinary_motion(app: Node, encounter: Node, at: Vector2, slab: Rect2, fallback: float) -> Dictionary:
+	var boss: Vector2=encounter.motor.global_position
+	if slab.size.x>0:
+		var target:=INF
+		var best:=INF
+		for index: int in 7:
+			var x:=lerpf(slab.position.x+13,slab.end.x-13,float(index)/6.0)
+			var point:=Vector2(x,slab.position.y-18)
+			if absf(x-boss.x)<150 or (x-boss.x)*(at.x-boss.x)<=0:continue
+			if encounter.body_contact_sweep(boss,point-boss,point,Vector2(24,18)):continue
+			if absf(x-boss.x)<best:best=absf(x-boss.x);target=x
+		if is_finite(target):return {"axis":_toward(at.x,target,7),"jump":false}
+	elif app.player.is_on_floor():
+		var goal:=Vector2.INF
+		var best:=INF
+		for point: Vector2 in _shelves(app):
+			if absf(point.x-boss.x)<170 or (point.x-boss.x)*(at.x-boss.x)<=0:continue
+			var distance:=absf(point.x-at.x)
+			if distance<best and distance<320:best=distance;goal=point
+		if goal.is_finite():return {"axis":_toward(at.x,goal.x,10),"jump":best<100 and goal.y<at.y-35}
+	return {"axis":fallback,"jump":false}
+
+
+func _platform2_observe_hold(app: Node, encounter: Node, axis: float, at: Vector2, state: String, identity: int, phase: int) -> void:
+	# Observation only: the Boss receives no command and every hold is logged,
+	# even if its measured movement later fails the wrapper's pressure guard.
+	var stationary: bool=not encounter.health.terminal and app.player.is_on_floor() and is_zero_approx(axis) and app.player.recoil_burst_remaining<=0 and app.player.normal_velocity.is_zero_approx()
+	if platform_hold_start<0:
+		if stationary and state=="approach" and absf(encounter.motor.global_position.x-at.x)>300:
+			platform_hold_start=frame
+			platform_hold_group=identity
+			platform_hold_phase=phase
+	elif not stationary or state!="approach":
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"stationary_observation_end","actual_state":state,"held_seconds":float(frame-platform_hold_start)/60,"player":_v(at),"boss":_v(encounter.motor.global_position),"group":platform_hold_group,"phase":platform_hold_phase,"hold_scope":"platform2_later_actual_stationary_hold","note":"intro positioning is not pressure proof; assess actual frame positions"})
+		platform_hold_start=-1
 
 
 func _cross_motion_safe(app: Node, encounter: Node, forward: float) -> bool:

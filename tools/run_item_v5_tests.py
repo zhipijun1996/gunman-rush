@@ -44,7 +44,7 @@ def main():
         "--headless", "--resolution", "1280x720", "--audio-driver", "Dummy",
         "--path", ".", "--script", script,
     ]
-    if args.suite == "pause-escape": argv += ["--fixed-fps", "60"]
+    if args.suite in {"pause-escape", "boss-time"}: argv += ["--fixed-fps", "60"]
     if args.suite == "art": argv += ["--", "--require-all-icons"]
     output = run_engine(argv, 120)
     if re.search(r"(?m)^ERROR:|^SCRIPT ERROR:|^SHADER ERROR:", output):

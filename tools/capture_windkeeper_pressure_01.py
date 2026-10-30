@@ -122,7 +122,7 @@ def trace_findings(trace):
                              "initial_gap": abs(start["boss_position"][0] - start["player_position"][0]),
                              "final_gap": abs(finish["boss_position"][0] - finish["player_position"][0]),
                              "seconds": start["movie_seconds"], "end_seconds": finish["movie_seconds"]})
-            chapters.append({"label": "initial stationary player / actual active Boss approach",
+            chapters.append({"label": "stationary player / actual active Boss approach" if hold.get("hold_scope") else "initial stationary player / actual active Boss approach",
                              "seconds": start["movie_seconds"], "end_seconds": finish["movie_seconds"]})
     return {"chapters": chapters, "moves": moves,
             "all_six_attacks_observed": all(item["observed"] for item in moves.values()),
@@ -134,7 +134,7 @@ def trace_findings(trace):
             "stationary_pressure": pressure, "injuries": injuries,
             "active_extra_requests": [item for item in trace.get("inputs", []) if item.get("action") == "active_extra_shot"],
             "actual_ground_attack_phase_shots": [shot for shot in shots if shot.get("grounded") and shot.get("state") in ["approach","turn","stomp_warning","seeds_warning","gust_warning","sweep_warning","platform_warning"]],
-            "input_profile_scope": "Attack-phase extra shots are part of active2's disclosed strategy; this does not prove cautious2 victory or the two-shot window.",
+            "input_profile_scope": "Attack-phase extra shots are part of active2/platform2's disclosed strategy; this does not prove cautious2 victory or the two-shot window.",
             "final_metrics": trace.get("combat_metrics", {}),
             "player_hp_final": rows[-1].get("player_HP") if rows else None,
             "wallet_delta": trace.get("wallet_delta")}
@@ -144,7 +144,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed", default="windkeeper-pressure-01")
-    parser.add_argument("--pilot", choices=("cautious2", "greed3", "active2"), default="cautious2")
+    parser.add_argument("--pilot", choices=("cautious2", "greed3", "active2", "platform2"), default="cautious2")
     parser.add_argument("--max-battle-seconds", type=float, default=240)
     parser.add_argument("--timeout-seconds", type=int, default=900,
                         help="This wrapper's own bounded wall-clock budget; no harness changes")
@@ -164,7 +164,7 @@ def main():
               "scope": "One uncut exact formal map2 encounter through existing public DemoApp.start_debug_region plains2. Debug entry is disclosed, not natural campaign progression. One initial precombat player position; thereafter only normal Router/mouse inputs. No encounter, HP, resource, RNG, clock or camera injection.",
               "human_play_acceptance": False, "listening_acceptance": False,
               "device_acceptance": "unverified", "pilot": args.pilot,
-              "input_profile": "active2: additional guarded ground shots in attack preparation plus at-most-two final-recovery shots; does not prove cautious2 victory/two-shot safety" if args.pilot == "active2" else args.pilot + ": recovery-shot review",
+              "input_profile": "platform2: legal intro/platform run-jump, guarded attack-phase extra shots and at-most-two final-recovery shots; not cautious2/two-shot safety proof" if args.pilot == "platform2" else "active2: additional guarded ground shots in attack preparation plus at-most-two final-recovery shots; does not prove cautious2 victory/two-shot safety" if args.pilot == "active2" else args.pilot + ": recovery-shot review",
               "diagnostic_headless": args.diagnostic_headless}
     (folder / "source-before.json").write_text(json.dumps({"source": source, "files": before}, ensure_ascii=False, indent=2) + "\n")
     env = os.environ.copy()
@@ -230,19 +230,19 @@ def main():
                 errors.append("No actual two-shot recovery counterattack observed")
             if args.pilot == "greed3" and not findings["third_shot_observations"]:
                 errors.append("Requested greedy pilot recorded no actual third recovery shot")
-            if args.pilot == "active2":
+            if args.pilot in ("active2", "platform2"):
                 extras = findings["active_extra_requests"]
                 if not extras or not findings["actual_ground_attack_phase_shots"]:
-                    errors.append("active2 recorded no guarded attack-phase extra shots")
+                    errors.append(args.pilot + " recorded no guarded attack-phase extra shots")
                 if len({item["interval_start"] for item in extras}) != len(extras):
-                    errors.append("active2 submitted more than one extra shot in an approach/warning interval")
+                    errors.append(args.pilot + " submitted more than one extra shot in an approach/warning interval")
                 recovery_requests = {}
                 for item in trace.get("inputs", []):
                     if item.get("action") == "shoot_release" and item.get("actual_state") == "recover" and item.get("submitted"):
                         identity = item.get("group", -1)
                         recovery_requests[identity] = recovery_requests.get(identity, 0) + 1
                 if any(count > 2 for count in recovery_requests.values()):
-                    errors.append("active2 requested more than two final-recovery shots in a group")
+                    errors.append(args.pilot + " requested more than two final-recovery shots in a group")
             if not any(abs(item["actual_player_x_displacement"]) < 8 and item["initial_gap"]-item["final_gap"] > 25 for item in findings["stationary_pressure"]):
                 errors.append("Stationary observation did not show meaningful active Boss approach")
         else:
