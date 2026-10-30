@@ -1,0 +1,861 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T045118.322667Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "19975434587368aef3e8e2fbb7d4044b9a7c1874e5620c1269565af3a620faa0",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335908.316886,
+      "ended_at_unix": 1793335908.9025903,
+      "duration_seconds": 0.586,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "0921019a372e43c49b8438bc2bcbd11b",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f29a029d4ad9d86c44b8b913208893317a14f24a72ad9b50d2d9442318395987",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335910.2922852,
+      "ended_at_unix": 1793335910.4715679,
+      "duration_seconds": 0.179,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "20244b3e44bf4486969710e3bfdabe4d",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "72bc6669bee9e596bdfca4fac15ae35217a77ca8928f182519a562f3cc32f7fc",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335911.901633,
+      "ended_at_unix": 1793335912.1913793,
+      "duration_seconds": 0.29,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "6b8a0d8b17c14e04a0a54ff937083de6",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "baa3a4dcda747a3541c6bfff17fb026af1225c72c392e7172a6803c340406337",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335913.996773,
+      "ended_at_unix": 1793335914.2621129,
+      "duration_seconds": 0.265,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "3ccc14c449f7450bb43482cafc08bea1",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f4d5b497d292531f25e4199b3de01d4467034edb3f2278245085e28120f30348",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335915.9149418,
+      "ended_at_unix": 1793335935.8579295,
+      "duration_seconds": 19.943,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "8d4902c1f8e245c5ac40905daf3bc1f9",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "8ea4ac9bcd3f404431e2cc64e489d38e956f59550597c19a26e1df4579642368",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335937.3189132,
+      "ended_at_unix": 1793335937.524234,
+      "duration_seconds": 0.205,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "2d9d0aad1477470c819174b80d5d561e",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "25c417e2c5a97ef59994bb5fc2be50e6b9fc95347b69b7860d45cc81510f2a5c",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335939.2531137,
+      "ended_at_unix": 1793335940.5622578,
+      "duration_seconds": 1.309,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "f726fe6b293a492aa2e0a9b2522eb467",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2b4a4e4e40a0179c4e1920f2c8b6533bb916640c18ba8a19906cebcd4539bfb0",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335941.816551,
+      "ended_at_unix": 1793335952.3326037,
+      "duration_seconds": 10.516,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "3118096c6e8a42b88a95fd4200c76c8f",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "6a0b1897decdf615f87f0d87971e2f168a64fd87878084a49bd8f4fe285038a0",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335953.637621,
+      "ended_at_unix": 1793336040.29379,
+      "duration_seconds": 86.656,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "check_token": "23e594706185424684557a664632472d",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "cd656bfa9fe1690a7e30306b11b1afd11066e40f0ea500613a5a94a2ecd1d994",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336041.94266,
+      "ended_at_unix": 1793336042.2666717,
+      "duration_seconds": 0.324,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "check_token": "148ebf608abe4510a499e07a4649696b",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "448a85779c1ca7463b39d07b9083d20411cf51e4d6a0910ac5b6a905d94cb2c4",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336043.5298254,
+      "ended_at_unix": 1793336043.8128786,
+      "duration_seconds": 0.283,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "check_token": "edf8d21d068e4046879f2ca62159b51a",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "506cfc71b3740741b334507ca4712d050f52465d41b74ba12ff5c07461c61f39",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336044.9921916,
+      "ended_at_unix": 1793336045.2856581,
+      "duration_seconds": 0.293,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_capture_actions.py"
+      ],
+      "check_token": "1338e02a1666417987dc5ba89935bfdd",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6f4633fd14776ad921ade2850917a6c150ccce5e41bd169eacb42d5ec0aabbe1",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336046.585166,
+      "ended_at_unix": 1793336060.7558873,
+      "duration_seconds": 14.171,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "check_token": "0c3a886ac1674f6fb0206d5c72cede39",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "mechanism-comparisons",
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c28441610059f863d98d5276fa7a9bd020b98f20ce4577131965595d44ead499",
+      "log": "mechanism-comparisons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336062.1062639,
+      "ended_at_unix": 1793336062.454687,
+      "duration_seconds": 0.348,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "check_token": "b0935ffc92074aa495182deaa75328bc",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/mechanism-comparisons",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "169c8a5d8ce27fda979b9a33620c2d647d3047b3dcb75a140841f65ecd02da0b",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336063.6268764,
+      "ended_at_unix": 1793336064.3499448,
+      "duration_seconds": 0.723,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "check_token": "77021d268c2747c3b829d14df8cc7849",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f52f7efe629cc531ff69c0e9daf2f75d0b8e769ae372e92dd7517eda4ffac6b2",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336065.6103377,
+      "ended_at_unix": 1793336074.6578948,
+      "duration_seconds": 9.048,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "check_token": "585d94a8ea9f4ad0a41a5e674c9cdb62",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c917488edf5a816c7fd93cc3e8759ef1309f228463beed4c8f5b144312f390ac",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336075.9699118,
+      "ended_at_unix": 1793336076.9981554,
+      "duration_seconds": 1.028,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "4773c91a0bcf417a8472592a118231f2",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1775c3254d11c91d3432652a332def3035434886a3ae856c9f05f9b39fdccb29",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336078.1937072,
+      "ended_at_unix": 1793336079.2900207,
+      "duration_seconds": 1.096,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "bd36621a85e7417fb012511c7e5c65d4",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e2a857d24858081e743b45074738c81908b2f1e2c5858b366242313c65db0bce",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336080.4759111,
+      "ended_at_unix": 1793336087.797642,
+      "duration_seconds": 7.322,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "check_token": "362e735408904d52b299e1c4674f43dd",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "475994ff7b726f0deff92620e5a5dc0d49e855670130e7ecf88a685bee35f1b0",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336089.1350358,
+      "ended_at_unix": 1793336092.6832335,
+      "duration_seconds": 3.548,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "check_token": "44905062211f4856a7a0d3e7a1127734",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "72de77eece1ad4794e8eef2e20a1d41e1e9594d9228f6c6e0f7d9935cf45e87f",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336093.8110266,
+      "ended_at_unix": 1793336118.0009468,
+      "duration_seconds": 24.19,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_visual_director.py"
+      ],
+      "check_token": "7f775a297e3e4be8b6d42f2c2f4b61ab",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336119.4443622,
+      "ended_at_unix": 1793336119.8429105,
+      "duration_seconds": 0.399,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_asset_family.py"
+      ],
+      "check_token": "baef1f42e7674b339aecbcb674a9896a",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "150df48b9820b569a283f9077f833ba4881551e69fd72e889040e9f1b192f9c2",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336121.2980192,
+      "ended_at_unix": 1793336121.6899083,
+      "duration_seconds": 0.392,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "cc758173d2d34fbaba2f90fd38961f3a",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1c13ee325b01c3b0fb99108e019b3cf7dd0859d117ae45a6572d2a454f57f17b",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336123.329575,
+      "ended_at_unix": 1793336128.0755372,
+      "duration_seconds": 4.746,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "1c3ccf1b5c3b429383b916b0f23ba8d6",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "a7a203ec4ff46b9c45fc8db83bfa2af24b5a1896230006dfbff33e41d3244126",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336129.4052854,
+      "ended_at_unix": 1793336266.1988587,
+      "duration_seconds": 136.794,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "check_token": "f67518bea0dc49c0b12c7c882242d274",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "6a3991ea2329c45f9d38214c9ff699ce971f698d6288c80317401b457c8a66e8",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336267.631857,
+      "ended_at_unix": 1793336267.957782,
+      "duration_seconds": 0.326,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "check_token": "ccb69bd6c1c245e8a541a817c36d528a",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "22aa3b7b1eee59dd191e741645a076b9b0f94ffea90c49ad9968a993a5a9f629",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336269.288299,
+      "ended_at_unix": 1793336269.6820521,
+      "duration_seconds": 0.394,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "977c1191d338435c81c5dde94ec842ad",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "047766e2193ffeab618a7fd85ba59654e00cd7d7fe81a8d381d44eed99b3c005",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336272.427041,
+      "ended_at_unix": 1793336292.6322424,
+      "duration_seconds": 20.205,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "0914b7de60614b858571a16431c7dc37",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "56f69c6a3535bcac61c0b0f5a8c4fc5fa8b560e7d968e85826308072e3b33f42",
+      "log": "harness-artifact-archive-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336293.9583728,
+      "ended_at_unix": 1793336297.844405,
+      "duration_seconds": 3.886,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "check_token": "9f888ad6abde4c9998dbe48840dc39b5",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/harness-artifact-archive-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b81eac1255735ebe8c9314d81aa5a1f58c3659a9b5167af617aa5182e26e13cb",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336299.090058,
+      "ended_at_unix": 1793336299.5696301,
+      "duration_seconds": 0.48,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "aa673a437962470dae6a812323a9eb3b",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e122a797463ef08550f69e2a9d416f687ed28d765c799b5f4b78fa39e92dd5c0",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336303.24703,
+      "ended_at_unix": 1793336333.2653162,
+      "duration_seconds": 30.018,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "0438ca3a6d9e41dea07c57d855e1b084",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f2f04594c861b05f1ba74a0fae4c0a8a046d81680ede5298864b29fc6cfdae54",
+      "log": "cloud-inputs-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336334.4560812,
+      "ended_at_unix": 1793336338.5205207,
+      "duration_seconds": 4.064,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "check_token": "be38bb03733248fbb1734fa469535aa3",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/cloud-inputs-tests",
+      "reused": false
+    },
+    {
+      "id": "portable-frozen-assets",
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7fd214bf2941e673f0371675c9a5d92e3a68813e90028c51124bd13a955b15b2",
+      "log": "portable-frozen-assets.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793336339.792698,
+      "ended_at_unix": 1793336342.0441449,
+      "duration_seconds": 2.251,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "check_token": "1d20af28346146ffa9e402b74d655b52",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T045118.322667Z/artifacts/portable-frozen-assets",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "3555c03c73187143177b401bbb2b0f6db5e3d27a0749e3bc90ecd730ff506482",
+  "working_files": {
+    "docs/current_state.md": "ed38fcfd5ce7b6f54e0a68355383f53394d885bddd0d1361227a167ad7a59662",
+    "docs/evidence/mobile_web_fps_04/README.md": "2dd48ad4c93162f1dfc55b6949cde7d4605542c67553a415b619d8aa450db437",
+    "docs/evidence/mobile_web_fps_04/actions/README.md": "bde5a66857255ec12faa24b77a0b491a56443be99a32426b5cc20fa37a1c5ba6",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/baseline-pair-03-pair-receipt.json": "e0d78d0f255314b64fa77d5cb59fe0878531983581c4daf3fa4f1d680ee3179c",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/build-info.json": "3764ff9a00bffc7db37c349725347611128230aee947ca0bdddcc2034f390f69",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/candidate-pair-01-pair-receipt.json": "144f3e87e57c74d3e12537b01a6887f03160c6f2a4b1014e09277d80931fcdf1",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/class-cache-comparison.json": "7ba64e050cc04f56aa66e5855cfda6a5df22f9a9363f0ba3475b61b4f6d2b84b",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/deploy-watch-01.log": "d64ffb340aed8f015d49af72232c170cb4999dbdb8914014d7cd5eaf23b062b3",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-final-01.log": "eee15558c14c0211f8c85a7c4a8974f64bed67057bc8a9a7fb279efe715b0421",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-final-02.log": "c93a6c8f5573bb5dd93fa7058af597ee536b9caca67c66400f54a6380eadb410",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/docs/check.log": "9d84b4b636f151a300884a6aaeca66b545e6e7208b4926123c69858528e77ccb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/harness-tests/check.log": "fdd8f031adc9297fe01afb828b85302599114176b3af97d0c9b44785703d6bba",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality-drills/check.log": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality-tests/check.log": "3a67e0c473f62b89bd42ea71b4df3f5e6e8b9d4365d8e04cf656fae2ade76e67",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality/check.log": "11335c5b43ca2886bdbc2fe9f08ddfde6df6d49e4e6444af5fa7a268c21233cb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/structure/check.log": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/world-design-tests/check.log": "0c314a0751e1721c46f143c81199712befc47791b3f4e18979cc63fad035eced",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/world/check.log": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/docs.log": "9d84b4b636f151a300884a6aaeca66b545e6e7208b4926123c69858528e77ccb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/harness-tests.log": "fdd8f031adc9297fe01afb828b85302599114176b3af97d0c9b44785703d6bba",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality-drills.log": "71d46ef0f204ab6281898f01c91708767f5e3a439d9995e98ad68f13f03f5c64",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality-tests.log": "3a67e0c473f62b89bd42ea71b4df3f5e6e8b9d4365d8e04cf656fae2ade76e67",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality.log": "11335c5b43ca2886bdbc2fe9f08ddfde6df6d49e4e6444af5fa7a268c21233cb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/report.json": "d7249e6726cdfe1e9a1fa0585b93ad079a8ad6c67cd833606e03a6c35b4f6184",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/structure.log": "3d3dc810b1f346fe5773e40704eb32ca4b74e049677bd6a8bf2d8caf0f889002",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/world-design-tests.log": "0c314a0751e1721c46f143c81199712befc47791b3f4e18979cc63fad035eced",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/world.log": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-inputs-summary.json": "f9dc64e82e38286614685d6b217987c2dac2dc485ffeaac7f7b9ca4d553f254e",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/docs/check.log": "9d84b4b636f151a300884a6aaeca66b545e6e7208b4926123c69858528e77ccb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/structure/check.log": "12217332c834cb9cc0bf99345569f0016c0eae23923a069352464663695631a0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/world-design-tests/check.log": "1822e087313c63643806534667202591c83ac2d5a5db377f3c9f836e91dd8ad4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/world/check.log": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/docs.log": "9d84b4b636f151a300884a6aaeca66b545e6e7208b4926123c69858528e77ccb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/report.json": "c2065540d212921f5ac24bb5399942b4938a63b096bf106e1e409563cb06bb0f",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/structure.log": "12217332c834cb9cc0bf99345569f0016c0eae23923a069352464663695631a0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/world-design-tests.log": "1822e087313c63643806534667202591c83ac2d5a5db377f3c9f836e91dd8ad4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/world.log": "c6cdace62c4895a2b606d56fb4efd9d21af36b409376e1847d8eac844a4babd4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/isolation-restoration.json": "122c91f621637f5691397722d493e793a14db54f47f953d87e806bfd26e31d8a",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/local-replica-cleanup.json": "560aa0a3b1579a6a0eb8fa3233437ab33a36adfd020180ca82439f0da04cd5b8",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-01.json": "27f30a99b705a839f6c1ca8f42f155a659711f0efb2933291bd6b31cc6561d34",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-02.json": "134b7e37b3079bcaa187e13139669406ae948efc33f00d47d7f527a75ef8671e",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/production-pack-diff.json": "298a51ab916a3fbbdc3644441be53416f992c7917c004233353e120970d938aa",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.json": "91dca06164940f1c26d82b2fa340d9df1dcb712c5cdf448184a5813fbc727a08",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.log": "06a466a34c5e891b7bcae8999e7dbd28a05860107df7b3ed6998fab9942696b6",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01.log": "4d16a38fb1a71877a1c8f6e307554040fe4b275448d1b72b7619cae83c551582",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/browser.log": "b54fbb830913166521b8c1f581d10a3a03f38c41a869b31fd3791d77b6f9202e",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-actions.wav": "66df3d683b13c887679e19a061a3882f2ce91eb4a0155acb25d0566e216f21b5",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-menu.png": "623de54686d27870ff272174b7ce6ecd9c5efb160bde8cd5e2a2e1bf9c7767b0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home.png": "1ab951aedd39ee6ebb215ff43a1076f4c1316a6b65d797dc78c4ec675260bb20",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains-actions.wav": "bde97e45a6dae8bc570a09fa3e392f4c5b80d0f538e3872b2bcd87e05904cffb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains.png": "e948a5b710e787da804018efc3622316767626885caf6e4561596e99c71f58ba",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/report.json": "a86af45672ab178036bcd1ae2726c6c18a6297167b16dd0ce2551cfe8b568a63",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/title.png": "b9d5218baaec8795a257a1860649b721fa4d3a1b66f5e43fe3c7064a9a9a046a",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/quality-action-01.log": "15ba4d47596cd6fdcac79f8889c33e604510335473b4162ec7fb0c19f722b19c",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/quality-diff-01.log": "5b58a15f5ead6d3c6743e3e8850e681a06686702c4fd622d20134da4927e26a4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/quality-global-03.log": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/reconstruct-01.log": "d0dfd77df68215e0ad0bb30b64baa46b45b327911aef6190573d322ef061ff60",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/summary.json": "39d5f7408a6d740676425fa9075a130c981bae95f3fd145fea34d7536b7fabad",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/verify_public_files.py": "d4b2475547edd03601e2e7276803cad77347495d3c7e602c7d97cad2179a9edb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-build-01.log": "89d03363757a10452a150a275cac70b2b6474b5f06c66fcc8f12ab5636f6f9a0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-bundle-01.log": "887e9487354b125b607dfaea879eeb2fe7b5c25fcc82ac0f216e1abd3c623c4f",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-cache-01.log": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+    "docs/evidence/mobile_web_fps_04/actions/formal-action-02.log": "1729b7df96d85be7c2786f3c582a6ef228b79677b3a2b9d276f233ced942f001",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/artifacts/underworld-formal/check.log": "5a8c83a35d162d47a1122af29b09f6311c27bf526b44257bacba7dead95c80dd",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json": "8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/underworld-formal.log": "5a8c83a35d162d47a1122af29b09f6311c27bf526b44257bacba7dead95c80dd",
+    "docs/evidence/mobile_web_fps_04/actions/native-property-02/report.json": "be3ecef9f495893ad57cb42b1857499045cfec1cfe1dd02a884337f956f10123",
+    "docs/handoff.md": "fcd93395159d0c8830ae3c9b15faa0870c9081af9c864d9f7037081d7f3b720a",
+    "docs/quality/records/MOBILE-WEB-FPS-04.json": "1220766334edd1a8f1c841c8ece1b98cf6037fa46901b43f29220419b49202fe",
+    "docs/tasks.md": "cb71ae1aeb8857ad221cefef25e2c9f774910db0c01b2a95588759fbc778c6c0",
+    "docs/worklines/mobile_web_fps_04/review.md": "42c54006216817a268705dbbbb2fce05c47236a1e978e9c6a3def300843b2076"
+  },
+  "commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+  "git_status": "M docs/current_state.md\n M docs/evidence/mobile_web_fps_04/README.md\n M docs/evidence/mobile_web_fps_04/actions/README.md\n M docs/handoff.md\n M docs/quality/records/MOBILE-WEB-FPS-04.json\n M docs/tasks.md\n M docs/worklines/mobile_web_fps_04/review.md\n?? docs/evidence/mobile_web_fps_04/actions/delivery/\n?? docs/evidence/mobile_web_fps_04/actions/formal-action-02.log\n?? docs/evidence/mobile_web_fps_04/actions/formal-harness/\n?? docs/evidence/mobile_web_fps_04/actions/native-property-02/",
+  "diff": "diff --git a/docs/current_state.md b/docs/current_state.md\nindex e5f63146..c1a9df99 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,5 +1,16 @@\n # 当前状态\n \n+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查\n+\n+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生两次正反复测局部约减少76%／73%；冻结源fresh为191.4→51.0μs，原96＋等价444通过。\n+\n+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。\n+\n+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。\n+\n+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。旧头6858的parallel通过、serial forest-depth-region600秒超时，完整最新CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。\n+\n+\n ## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查\n \n 用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。\ndiff --git a/docs/evidence/mobile_web_fps_04/README.md b/docs/evidence/mobile_web_fps_04/README.md\nindex e763125d..15fe0f1f 100644\n--- a/docs/evidence/mobile_web_fps_04/README.md\n+++ b/docs/evidence/mobile_web_fps_04/README.md\n@@ -1,6 +1,6 @@\n # MOBILE-WEB-FPS-04：保持画质的性能调查\n \n-最新续查见[大地图跳跃／攻击A/B/A](actions/README.md)：已增加无schema缓存的弹体属性发现优化，原生局部耗时约减少76%，整体FPS稳定收益仍未成立。下文保留前一候选的测量与发布历史。\n+[最新试玩f94fd4124f5f](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)。最新续查见[大地图跳跃／攻击A/B/A](actions/README.md)：已增加无schema缓存的弹体属性发现优化，原生局部耗时约减少76%，整体FPS稳定收益仍未成立。下文保留前一候选的测量与发布历史。\n \n 当前结论：未取得荣耀60Pro的FPS/P95，不能报告手机已稳定60帧。官方Release引擎没有显示可靠的整体收益，本轮不切换导出模式。固定几何保护缓存能减少静止镜头时的重复CPU计算，但整体Web帧率收益尚未确立；移动镜头时还有少量缓存失效成本。候选不自动合main。\n \ndiff --git a/docs/evidence/mobile_web_fps_04/actions/README.md b/docs/evidence/mobile_web_fps_04/actions/README.md\nindex 8bfe5887..f3cc6740 100644\n--- a/docs/evidence/mobile_web_fps_04/actions/README.md\n+++ b/docs/evidence/mobile_web_fps_04/actions/README.md\n@@ -39,3 +39,17 @@\n ## 未解决范围\n \n 局部反射优化不等于全部偶发慢帧根因。`_shot`还包含selected音频同步load/赋stream/play和leaf入树；没有分段测量前不把它们定为根因，也不改音频。不降低分辨率、不删光照，不做美术或玩法重构。手机FPS与长时体验保持未验证。\n+\n+## 当前交付\n+\n+[新试玩 f94fd4124f5f](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f) · [旧候选1394](https://zhipijun1996.github.io/gunman-rush/perf-04/?v=1394d114df73) · [原主页](https://zhipijun1996.github.io/gunman-rush/?v=ad78f8ae3998) · [PR120](https://github.com/zhipijun1996/gunman-rush/pull/120)。运行源eec08e9b；正常导出不含诊断probe。deploy41003568533成功，四入口metadata与新候选7个完整公网文件SHA／长度实际核对通过；旧入口prepared文件无改动，本轮未重下载旧PCK。\n+\n+冻结源[fresh Harness](formal-harness/report.json)通过原96＋扩展444，exit0、原预算、严格退出、源稳定性均保留。正常Web bundle／缓存策略通过；包内3260项payload相同，变化精确为foreground.gdc与两份Godot索引。实际包比对首轮旧pack路径已被构建清理、次轮guard误排除预期foreground.gdc的失败保留；最终精确三路径检查通过。\n+\n+公开真实GUI进入家园与平原并实际触屏跳跃／射击；两个8秒混合PCM均352800非零帧、无clipping。工坊shot_pulse_a与输出相关0.432／0.856，距原生start均约0.045ms；家园混合结果相关较弱，不能单独签强资产识别。平原实际所选音效匹配成立；混合非零不证明全程无音频断续，手机与长时仍待验证。[交付明细](delivery/summary.json)。\n+\n+文档守门首轮因稀疏工作区缺少已跟踪的build／preview导入隔离标记失败；从原HEAD恢复原字节后，原structure检查通过，随后重跑docs。它们未改变生产源码。已单独核对正常包两份global class cache：全部类定义集合相同，仅顺序不同，无临时类进入运行索引。\n+\n+最终冻结源fresh原生复测（[native-property-02](native-property-02/report.json)）两轮均值191.4→51.0微秒，减少73.4%；与首轮76.1%的局部结果同方向。仍不外推整帧或手机。\n+\n+第二轮docs在全局quality处发现历史音频／动作等证据缺件，失败保留。按原`cloud_inputs --profile docs --materialize`恢复约1.016GB被选中的原提交输入，status ready、无blocker，未改变稀疏规则或放宽检查；原quality runner随后通过。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex caebe0c5..a7f18903 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,5 +1,16 @@\n # 最新交接 · 2026-10-28\n \n+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查\n+\n+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生两次正反复测局部约减少76%／73%；冻结源fresh为191.4→51.0μs，原96＋等价444通过。\n+\n+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。\n+\n+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。\n+\n+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。旧头6858的parallel通过、serial forest-depth-region600秒超时，完整最新CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。\n+\n+\n ## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查\n \n 用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。\ndiff --git a/docs/quality/records/MOBILE-WEB-FPS-04.json b/docs/quality/records/MOBILE-WEB-FPS-04.json\nindex 90bda683..d470b90e 100644\n--- a/docs/quality/records/MOBILE-WEB-FPS-04.json\n+++ b/docs/quality/records/MOBILE-WEB-FPS-04.json\n@@ -2,9 +2,9 @@\n   \"schema_version\": 1,\n   \"task_id\": \"MOBILE-WEB-FPS-04\",\n   \"task_type\": \"small_fix\",\n-  \"workflow\": \"in_progress\",\n+  \"workflow\": \"awaiting-device\",\n   \"baseline_commit\": \"5f55716a838a754a938997920ff18cb3b17452b5\",\n-  \"reviewed_commit\": \"5caf4d4f3b619b8413fd416743614edf3f1ea7af\",\n+  \"reviewed_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n   \"content_version\": \"action-candidate-v2\",\n   \"owner\": \"root\",\n   \"purpose\": \"Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements\",\n@@ -30,7 +30,8 @@\n   \"deliverables\": [\n     \"docs/evidence/mobile_web_fps_04/README.md\",\n     \"Draft PR120\",\n-    \"Isolated perf-04 preview; ordinary main unchanged\"\n+    \"Isolated perf-04 preview; ordinary main unchanged\",\n+    \"Independent perf-actions normal Web preview; preserve main/audio-before/perf-04\"\n   ],\n   \"creative_decisions\": [],\n   \"formal_impact\": true,\n@@ -73,10 +74,11 @@\n       \"evidence\": []\n     },\n     \"technical\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"上一轮96+383结果保留；动作窗口与新无损优化待本轮实测。\",\n+      \"status\": \"passed\",\n+      \"reason\": \"冻结源fresh underworld-formal通过原96及等价444，严格退出/原预算保留；三组真实Web动作窗口身份和接受动作一致。整体帧率和手机另列。\",\n       \"evidence\": [\n-        \"formal-cache\"\n+        \"formal-actions\",\n+        \"action-comparison\"\n       ]\n     },\n     \"formal_integration\": {\n@@ -106,14 +108,15 @@\n     },\n     \"performance\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"静止固定前缀CPU有收益，移动miss有额外成本；原版反序控制显示整体FPS差异不足以成立，手机未知。详见本轮证据。\",\n+      \"reason\": \"六类属性发现两次原生均值206.6→49.3、191.4→51.0us（局部减少76%/73%）；Web A/B/A FPS7.66/7.78/7.47，P95波动，未证稳定整体收益。\",\n       \"evidence\": []\n     },\n     \"independent_review\": {\n       \"status\": \"unverified\",\n       \"reason\": \"生产缓存/计时/runner/tests已有独立限定审查；pair helper由root另审。本卡不以局部review签整项性能/设备接受。\",\n       \"evidence\": [\n-        \"review\"\n+        \"review\",\n+        \"review-actions\"\n       ]\n     },\n     \"device\": {\n@@ -159,6 +162,51 @@\n         \"/root/perf_browser_runner\"\n       ],\n       \"verdict\": \"ACCEPT\"\n+    },\n+    {\n+      \"id\": \"formal-actions\",\n+      \"path\": \"docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json\",\n+      \"sha256\": \"8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6\",\n+      \"kind\": \"command\",\n+      \"producer\": \"root\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Fresh selected Harness on frozen source; shared120s budget and strict exits unchanged\",\n+      \"observed\": \"Original formal96/0 plus equivalence444/0; source stable; notfull165\",\n+      \"command\": \"python3 tools/harness.py --check underworld-formal --jobs 1\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU\"\n+    },\n+    {\n+      \"id\": \"action-comparison\",\n+      \"path\": \"docs/evidence/mobile_web_fps_04/actions/comparison.json\",\n+      \"sha256\": \"52ab22def2c6733fdaa1a3569cd235b80946bf462d0f9e713ade3671768bb260\",\n+      \"kind\": \"command\",\n+      \"producer\": \"root\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Three sequential real demo Web30s windows; exact same probe/seed/input/viewport; one foreground delta\",\n+      \"observed\": \"Four accepted jumps/shots/airborne rounds each, no HP loss; no stable wholeFPS claim\",\n+      \"command\": \"python3 build/mobile_web_fps_04/actions/summarize_actions.py\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU\"\n+    },\n+    {\n+      \"id\": \"review-actions\",\n+      \"path\": \"docs/worklines/mobile_web_fps_04/review.md\",\n+      \"sha256\": \"42c54006216817a268705dbbbb2fce05c47236a1e978e9c6a3def300843b2076\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/perf_release_pair\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Independent read-only production/test/probe review; root separately reviewed other agent runner\",\n+      \"observed\": \"No blocking production correctness issue; CPU method scope only; no device/FPS approval\",\n+      \"reviewer\": \"/root/perf_release_pair\",\n+      \"implementers\": [\n+        \"root\",\n+        \"/root/perf_browser_runner\"\n+      ],\n+      \"verdict\": \"ACCEPT\"\n     }\n   ],\n   \"consumer_coverage\": null,\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 201b3065..02cbfa8e 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,7 +4,7 @@\n \n | ID | 任务 | 依赖 | 状态 | 质量 |\n | --- | --- | --- | --- | --- |\n-| MOBILE-WEB-FPS-04 | 正式Web帧时间基线、Release对照及保持质量的热点优化；PR120／perf-04候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |\n+| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR120／perf-actions候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |\n \n \n ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位\ndiff --git a/docs/worklines/mobile_web_fps_04/review.md b/docs/worklines/mobile_web_fps_04/review.md\nindex d0afcfb0..9f496857 100644\n--- a/docs/worklines/mobile_web_fps_04/review.md\n+++ b/docs/worklines/mobile_web_fps_04/review.md\n@@ -97,3 +97,5 @@ root 的 `summarize_profiles_02.py` 和 `profile-comparison-audit-02.json` 已\n 计时审查：path hash隔离父子同名实现，原super和返回值保留；observe分类是同一elapsed的副本，父子_shot与_emit_round为inclusive，均不可相加。heavy_landing只表示入参命中，不能证明Shader实际显示。root另审agent动作runner：真实CDP多指输入、完整RAF末尾、原30秒窗口和27秒输入边界、实际跳跃/射击/airborne/HP/位置守门保留；本地软件渲染不签手机FPS。\n \n 后续待证热点：selected音效每次同步load/赋stream/play和leaf入树。没有分段实测前不修改音频；不能把整个_shot耗时归因于前景反射。\n+\n+最终结果独审（同一独立审查者，仅只读）：三组raw与汇总逐项核对，首末A完整identity一致，B仅foreground源不同；probe／观察器／输入／manifest／初始角色相机视口与保护计数一致。三组均4跳4枪4air，HP5→5、node1441→1441，无page errors；RAF覆盖99.57%／99.59%／99.64%。原生444／0、19个trail案例及eec08e9b fresh Harness exit0／reused=false实际成立。README没有把76.1%局部原生微基准外推整体FPS／手机。限定无阻断；稳定整帧收益与真机体验仍未验证。",
+  "untracked": "docs/evidence/mobile_web_fps_04/actions/delivery/baseline-pair-03-pair-receipt.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/build-info.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/candidate-pair-01-pair-receipt.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/class-cache-comparison.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/deploy-watch-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-final-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-final-02.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/docs/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/harness-tests/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality-drills/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality-tests/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/quality/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/structure/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/world-design-tests/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/artifacts/world/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/docs.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/harness-tests.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality-drills.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality-tests.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/quality.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/report.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/structure.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/world-design-tests.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-historical-inputs-02/world.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-inputs-summary.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/docs/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/structure/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/world-design-tests/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/artifacts/world/check.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/docs.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/report.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/structure.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/world-design-tests.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/docs-missing-isolation-01/world.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/isolation-restoration.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/local-replica-cleanup.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-01.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-02.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/production-pack-diff.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/browser.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-actions.wav\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-menu.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains-actions.wav\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/report.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/title.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/quality-action-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/quality-diff-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/quality-global-03.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/reconstruct-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/summary.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/verify_public_files.py\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-build-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-bundle-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-cache-01.log\ndocs/evidence/mobile_web_fps_04/actions/formal-action-02.log\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/artifacts/underworld-formal/check.log\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/report.json\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/underworld-formal.log\ndocs/evidence/mobile_web_fps_04/actions/native-property-02/report.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 472.543,
+  "jobs": 1,
+  "release": false
+}

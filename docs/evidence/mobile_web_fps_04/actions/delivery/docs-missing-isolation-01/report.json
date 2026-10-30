@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T044017.408668Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a93fd3287c8951bdad6690d77bc21606d05349d6a58395bbe201555b6e5bc222",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335233.6013727,
+      "ended_at_unix": 1793335233.9771895,
+      "duration_seconds": 0.376,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "d552bd38904340058f301fc2cf5d7340",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T044017.408668Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d6af4ea4f94658d8c8ecc478684e13f01c05eabb85d41e57669d31c3ca354fe5",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335235.1193674,
+      "ended_at_unix": 1793335235.327382,
+      "duration_seconds": 0.208,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "44539886a6e747cc9c57344a96d10338",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T044017.408668Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "142af89e66250ad209a16170bdf220c06475fc9de4c82e1e52ad156a2f8436f5",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793335236.448851,
+      "ended_at_unix": 1793335236.789026,
+      "duration_seconds": 0.34,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "5d6fb74cb2af4fc5ba59c9335c35f2af",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T044017.408668Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "64c8b5df39df725b85f9884ae5ed05a728beee1651c90e19fd08516f8898663d",
+      "log": "structure.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1793335237.9842343,
+      "ended_at_unix": 1793335238.2761743,
+      "duration_seconds": 0.292,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "92403e9b76f54909aa8b0fe9a9a21684",
+      "artifact_directory": "/workspace/gunman-rush-perf-04/build/verification/harness/20261030T044017.408668Z/artifacts/structure",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "3555c03c73187143177b401bbb2b0f6db5e3d27a0749e3bc90ecd730ff506482",
+  "working_files": {
+    "docs/current_state.md": "8af134c9e196dc3963fd06dbcc2b01b727c3621bcc17d07a90561574712e76d0",
+    "docs/evidence/mobile_web_fps_04/README.md": "2dd48ad4c93162f1dfc55b6949cde7d4605542c67553a415b619d8aa450db437",
+    "docs/evidence/mobile_web_fps_04/actions/README.md": "175cd168f2c8bdfd14a2475c31a4b487b27c6652f9a5b3b057fc23c3cc50d52c",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/build-info.json": "3764ff9a00bffc7db37c349725347611128230aee947ca0bdddcc2034f390f69",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/deploy-watch-01.log": "d64ffb340aed8f015d49af72232c170cb4999dbdb8914014d7cd5eaf23b062b3",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-01.json": "27f30a99b705a839f6c1ca8f42f155a659711f0efb2933291bd6b31cc6561d34",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-02.json": "134b7e37b3079bcaa187e13139669406ae948efc33f00d47d7f527a75ef8671e",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/production-pack-diff.json": "298a51ab916a3fbbdc3644441be53416f992c7917c004233353e120970d938aa",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.json": "91dca06164940f1c26d82b2fa340d9df1dcb712c5cdf448184a5813fbc727a08",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.log": "06a466a34c5e891b7bcae8999e7dbd28a05860107df7b3ed6998fab9942696b6",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01.log": "4d16a38fb1a71877a1c8f6e307554040fe4b275448d1b72b7619cae83c551582",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/browser.log": "b54fbb830913166521b8c1f581d10a3a03f38c41a869b31fd3791d77b6f9202e",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-actions.wav": "66df3d683b13c887679e19a061a3882f2ce91eb4a0155acb25d0566e216f21b5",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-menu.png": "623de54686d27870ff272174b7ce6ecd9c5efb160bde8cd5e2a2e1bf9c7767b0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home.png": "1ab951aedd39ee6ebb215ff43a1076f4c1316a6b65d797dc78c4ec675260bb20",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains-actions.wav": "bde97e45a6dae8bc570a09fa3e392f4c5b80d0f538e3872b2bcd87e05904cffb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains.png": "e948a5b710e787da804018efc3622316767626885caf6e4561596e99c71f58ba",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/report.json": "a86af45672ab178036bcd1ae2726c6c18a6297167b16dd0ce2551cfe8b568a63",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/title.png": "b9d5218baaec8795a257a1860649b721fa4d3a1b66f5e43fe3c7064a9a9a046a",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/quality-action-01.log": "15ba4d47596cd6fdcac79f8889c33e604510335473b4162ec7fb0c19f722b19c",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/quality-diff-01.log": "5b58a15f5ead6d3c6743e3e8850e681a06686702c4fd622d20134da4927e26a4",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/reconstruct-01.log": "d0dfd77df68215e0ad0bb30b64baa46b45b327911aef6190573d322ef061ff60",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/summary.json": "f119ee21591f6a99d20d465ab37e49d64e60d89731c9d7d6e06ae6d292845038",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/verify_public_files.py": "d4b2475547edd03601e2e7276803cad77347495d3c7e602c7d97cad2179a9edb",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-build-01.log": "89d03363757a10452a150a275cac70b2b6474b5f06c66fcc8f12ab5636f6f9a0",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-bundle-01.log": "887e9487354b125b607dfaea879eeb2fe7b5c25fcc82ac0f216e1abd3c623c4f",
+    "docs/evidence/mobile_web_fps_04/actions/delivery/web-cache-01.log": "a3d52a87c57f305d7b6300f98f6d821fc738b5c7b0ecd48692760ffa0c15b6bc",
+    "docs/evidence/mobile_web_fps_04/actions/formal-action-02.log": "1729b7df96d85be7c2786f3c582a6ef228b79677b3a2b9d276f233ced942f001",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/artifacts/underworld-formal/check.log": "5a8c83a35d162d47a1122af29b09f6311c27bf526b44257bacba7dead95c80dd",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json": "8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6",
+    "docs/evidence/mobile_web_fps_04/actions/formal-harness/underworld-formal.log": "5a8c83a35d162d47a1122af29b09f6311c27bf526b44257bacba7dead95c80dd",
+    "docs/evidence/mobile_web_fps_04/actions/native-property-02/report.json": "be3ecef9f495893ad57cb42b1857499045cfec1cfe1dd02a884337f956f10123",
+    "docs/handoff.md": "fdf41a1843b3ecbc2907499d6b1607b8ec3e879f72122353c77bab53c1cb1cb9",
+    "docs/quality/records/MOBILE-WEB-FPS-04.json": "be4e213b13fd86cae8677b10350a7e668ed9e03a4b0f5d49b7310a049cb45b44",
+    "docs/tasks.md": "cb71ae1aeb8857ad221cefef25e2c9f774910db0c01b2a95588759fbc778c6c0",
+    "docs/worklines/mobile_web_fps_04/review.md": "42c54006216817a268705dbbbb2fce05c47236a1e978e9c6a3def300843b2076"
+  },
+  "commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+  "git_status": "M docs/current_state.md\n M docs/evidence/mobile_web_fps_04/README.md\n M docs/evidence/mobile_web_fps_04/actions/README.md\n M docs/handoff.md\n M docs/quality/records/MOBILE-WEB-FPS-04.json\n M docs/tasks.md\n M docs/worklines/mobile_web_fps_04/review.md\n?? docs/evidence/mobile_web_fps_04/actions/delivery/\n?? docs/evidence/mobile_web_fps_04/actions/formal-action-02.log\n?? docs/evidence/mobile_web_fps_04/actions/formal-harness/\n?? docs/evidence/mobile_web_fps_04/actions/native-property-02/",
+  "diff": "diff --git a/docs/current_state.md b/docs/current_state.md\nindex e5f63146..825cafb1 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,5 +1,16 @@\n # 当前状态\n \n+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查\n+\n+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生正反平均206.6→49.3μs（局部约76%减少），冻结源fresh原96＋等价444通过。\n+\n+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。\n+\n+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。\n+\n+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。旧头6858的parallel通过、serial forest-depth-region600秒超时，完整最新CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。\n+\n+\n ## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查\n \n 用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。\ndiff --git a/docs/evidence/mobile_web_fps_04/README.md b/docs/evidence/mobile_web_fps_04/README.md\nindex e763125d..15fe0f1f 100644\n--- a/docs/evidence/mobile_web_fps_04/README.md\n+++ b/docs/evidence/mobile_web_fps_04/README.md\n@@ -1,6 +1,6 @@\n # MOBILE-WEB-FPS-04：保持画质的性能调查\n \n-最新续查见[大地图跳跃／攻击A/B/A](actions/README.md)：已增加无schema缓存的弹体属性发现优化，原生局部耗时约减少76%，整体FPS稳定收益仍未成立。下文保留前一候选的测量与发布历史。\n+[最新试玩f94fd4124f5f](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)。最新续查见[大地图跳跃／攻击A/B/A](actions/README.md)：已增加无schema缓存的弹体属性发现优化，原生局部耗时约减少76%，整体FPS稳定收益仍未成立。下文保留前一候选的测量与发布历史。\n \n 当前结论：未取得荣耀60Pro的FPS/P95，不能报告手机已稳定60帧。官方Release引擎没有显示可靠的整体收益，本轮不切换导出模式。固定几何保护缓存能减少静止镜头时的重复CPU计算，但整体Web帧率收益尚未确立；移动镜头时还有少量缓存失效成本。候选不自动合main。\n \ndiff --git a/docs/evidence/mobile_web_fps_04/actions/README.md b/docs/evidence/mobile_web_fps_04/actions/README.md\nindex 8bfe5887..0954d807 100644\n--- a/docs/evidence/mobile_web_fps_04/actions/README.md\n+++ b/docs/evidence/mobile_web_fps_04/actions/README.md\n@@ -39,3 +39,11 @@\n ## 未解决范围\n \n 局部反射优化不等于全部偶发慢帧根因。`_shot`还包含selected音频同步load/赋stream/play和leaf入树；没有分段测量前不把它们定为根因，也不改音频。不降低分辨率、不删光照，不做美术或玩法重构。手机FPS与长时体验保持未验证。\n+\n+## 当前交付\n+\n+[新试玩 f94fd4124f5f](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f) · [旧候选1394](https://zhipijun1996.github.io/gunman-rush/perf-04/?v=1394d114df73) · [原主页](https://zhipijun1996.github.io/gunman-rush/?v=ad78f8ae3998) · [PR120](https://github.com/zhipijun1996/gunman-rush/pull/120)。运行源eec08e9b；正常导出不含诊断probe。deploy41003568533成功，四入口metadata与新候选7个完整公网文件SHA／长度实际核对通过；旧入口prepared文件无改动，本轮未重下载旧PCK。\n+\n+冻结源[fresh Harness](formal-harness/report.json)通过原96＋扩展444，exit0、原预算、严格退出、源稳定性均保留。正常Web bundle／缓存策略通过；包内3260项payload相同，变化精确为foreground.gdc与两份Godot索引。实际包比对首轮旧pack路径已被构建清理、次轮guard误排除预期foreground.gdc的失败保留；最终精确三路径检查通过。\n+\n+公开真实GUI进入家园与平原并实际触屏跳跃／射击；两个8秒混合PCM均352800非零帧、无clipping。工坊shot_pulse_a与输出相关0.432／0.856，距原生start均约0.045ms；家园混合结果相关较弱，不能单独签强资产识别。平原实际所选音效匹配成立；混合非零不证明全程无音频断续，手机与长时仍待验证。[交付明细](delivery/summary.json)。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex caebe0c5..9fda8c6d 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,5 +1,16 @@\n # 最新交接 · 2026-10-28\n \n+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查\n+\n+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生正反平均206.6→49.3μs（局部约76%减少），冻结源fresh原96＋等价444通过。\n+\n+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。\n+\n+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。\n+\n+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。旧头6858的parallel通过、serial forest-depth-region600秒超时，完整最新CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。\n+\n+\n ## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查\n \n 用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。\ndiff --git a/docs/quality/records/MOBILE-WEB-FPS-04.json b/docs/quality/records/MOBILE-WEB-FPS-04.json\nindex 90bda683..dbbc2550 100644\n--- a/docs/quality/records/MOBILE-WEB-FPS-04.json\n+++ b/docs/quality/records/MOBILE-WEB-FPS-04.json\n@@ -2,9 +2,9 @@\n   \"schema_version\": 1,\n   \"task_id\": \"MOBILE-WEB-FPS-04\",\n   \"task_type\": \"small_fix\",\n-  \"workflow\": \"in_progress\",\n+  \"workflow\": \"awaiting-device\",\n   \"baseline_commit\": \"5f55716a838a754a938997920ff18cb3b17452b5\",\n-  \"reviewed_commit\": \"5caf4d4f3b619b8413fd416743614edf3f1ea7af\",\n+  \"reviewed_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n   \"content_version\": \"action-candidate-v2\",\n   \"owner\": \"root\",\n   \"purpose\": \"Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements\",\n@@ -30,7 +30,8 @@\n   \"deliverables\": [\n     \"docs/evidence/mobile_web_fps_04/README.md\",\n     \"Draft PR120\",\n-    \"Isolated perf-04 preview; ordinary main unchanged\"\n+    \"Isolated perf-04 preview; ordinary main unchanged\",\n+    \"Independent perf-actions normal Web preview; preserve main/audio-before/perf-04\"\n   ],\n   \"creative_decisions\": [],\n   \"formal_impact\": true,\n@@ -73,10 +74,11 @@\n       \"evidence\": []\n     },\n     \"technical\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"上一轮96+383结果保留；动作窗口与新无损优化待本轮实测。\",\n+      \"status\": \"passed\",\n+      \"reason\": \"冻结源fresh underworld-formal通过原96及等价444，严格退出/原预算保留；三组真实Web动作窗口身份和接受动作一致。整体帧率和手机另列。\",\n       \"evidence\": [\n-        \"formal-cache\"\n+        \"formal-actions\",\n+        \"action-comparison\"\n       ]\n     },\n     \"formal_integration\": {\n@@ -106,14 +108,15 @@\n     },\n     \"performance\": {\n       \"status\": \"unverified\",\n-      \"reason\": \"静止固定前缀CPU有收益，移动miss有额外成本；原版反序控制显示整体FPS差异不足以成立，手机未知。详见本轮证据。\",\n+      \"reason\": \"六类属性发现原生平均206.6→49.3us；Web A/B/A FPS7.66/7.78/7.47，P95波动，未证稳定整体收益。\",\n       \"evidence\": []\n     },\n     \"independent_review\": {\n       \"status\": \"unverified\",\n       \"reason\": \"生产缓存/计时/runner/tests已有独立限定审查；pair helper由root另审。本卡不以局部review签整项性能/设备接受。\",\n       \"evidence\": [\n-        \"review\"\n+        \"review\",\n+        \"review-actions\"\n       ]\n     },\n     \"device\": {\n@@ -159,6 +162,51 @@\n         \"/root/perf_browser_runner\"\n       ],\n       \"verdict\": \"ACCEPT\"\n+    },\n+    {\n+      \"id\": \"formal-actions\",\n+      \"path\": \"docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json\",\n+      \"sha256\": \"8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6\",\n+      \"kind\": \"command\",\n+      \"producer\": \"root\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Fresh selected Harness on frozen source; shared120s budget and strict exits unchanged\",\n+      \"observed\": \"Original formal96/0 plus equivalence444/0; source stable; notfull165\",\n+      \"command\": \"python3 tools/harness.py --check underworld-formal --jobs 1\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU\"\n+    },\n+    {\n+      \"id\": \"action-comparison\",\n+      \"path\": \"docs/evidence/mobile_web_fps_04/actions/comparison.json\",\n+      \"sha256\": \"52ab22def2c6733fdaa1a3569cd235b80946bf462d0f9e713ade3671768bb260\",\n+      \"kind\": \"command\",\n+      \"producer\": \"root\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Three sequential real demo Web30s windows; exact same probe/seed/input/viewport; one foreground delta\",\n+      \"observed\": \"Four accepted jumps/shots/airborne rounds each, no HP loss; no stable wholeFPS claim\",\n+      \"command\": \"python3 build/mobile_web_fps_04/actions/summarize_actions.py\",\n+      \"exit_code\": 0,\n+      \"environment\": \"Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU\"\n+    },\n+    {\n+      \"id\": \"review-actions\",\n+      \"path\": \"docs/worklines/mobile_web_fps_04/review.md\",\n+      \"sha256\": \"42c54006216817a268705dbbbb2fce05c47236a1e978e9c6a3def300843b2076\",\n+      \"kind\": \"review\",\n+      \"producer\": \"/root/perf_release_pair\",\n+      \"source_commit\": \"eec08e9b3b6d12493233f5f0d489be6651121fa3\",\n+      \"content_version\": \"action-candidate-v2\",\n+      \"method\": \"Independent read-only production/test/probe review; root separately reviewed other agent runner\",\n+      \"observed\": \"No blocking production correctness issue; CPU method scope only; no device/FPS approval\",\n+      \"reviewer\": \"/root/perf_release_pair\",\n+      \"implementers\": [\n+        \"root\",\n+        \"/root/perf_browser_runner\"\n+      ],\n+      \"verdict\": \"ACCEPT\"\n     }\n   ],\n   \"consumer_coverage\": null,\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 201b3065..02cbfa8e 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,7 +4,7 @@\n \n | ID | 任务 | 依赖 | 状态 | 质量 |\n | --- | --- | --- | --- | --- |\n-| MOBILE-WEB-FPS-04 | 正式Web帧时间基线、Release对照及保持质量的热点优化；PR120／perf-04候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |\n+| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR120／perf-actions候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |\n \n \n ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位\ndiff --git a/docs/worklines/mobile_web_fps_04/review.md b/docs/worklines/mobile_web_fps_04/review.md\nindex d0afcfb0..9f496857 100644\n--- a/docs/worklines/mobile_web_fps_04/review.md\n+++ b/docs/worklines/mobile_web_fps_04/review.md\n@@ -97,3 +97,5 @@ root 的 `summarize_profiles_02.py` 和 `profile-comparison-audit-02.json` 已\n 计时审查：path hash隔离父子同名实现，原super和返回值保留；observe分类是同一elapsed的副本，父子_shot与_emit_round为inclusive，均不可相加。heavy_landing只表示入参命中，不能证明Shader实际显示。root另审agent动作runner：真实CDP多指输入、完整RAF末尾、原30秒窗口和27秒输入边界、实际跳跃/射击/airborne/HP/位置守门保留；本地软件渲染不签手机FPS。\n \n 后续待证热点：selected音效每次同步load/赋stream/play和leaf入树。没有分段实测前不修改音频；不能把整个_shot耗时归因于前景反射。\n+\n+最终结果独审（同一独立审查者，仅只读）：三组raw与汇总逐项核对，首末A完整identity一致，B仅foreground源不同；probe／观察器／输入／manifest／初始角色相机视口与保护计数一致。三组均4跳4枪4air，HP5→5、node1441→1441，无page errors；RAF覆盖99.57%／99.59%／99.64%。原生444／0、19个trail案例及eec08e9b fresh Harness exit0／reused=false实际成立。README没有把76.1%局部原生微基准外推整体FPS／手机。限定无阻断；稳定整帧收益与真机体验仍未验证。",
+  "untracked": "docs/evidence/mobile_web_fps_04/actions/delivery/build-info.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/deploy-watch-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-01.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/pack-diff-attempt-02.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/production-pack-diff.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-files-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/browser.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-actions.wav\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home-menu.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/home.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains-actions.wav\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/plains.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/report.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/public-gui-audio-01/title.png\ndocs/evidence/mobile_web_fps_04/actions/delivery/quality-action-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/quality-diff-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/reconstruct-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/summary.json\ndocs/evidence/mobile_web_fps_04/actions/delivery/verify_public_files.py\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-build-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-bundle-01.log\ndocs/evidence/mobile_web_fps_04/actions/delivery/web-cache-01.log\ndocs/evidence/mobile_web_fps_04/actions/formal-action-02.log\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/artifacts/underworld-formal/check.log\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/report.json\ndocs/evidence/mobile_web_fps_04/actions/formal-harness/underworld-formal.log\ndocs/evidence/mobile_web_fps_04/actions/native-property-02/report.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 26.935,
+  "jobs": 1,
+  "release": false
+}

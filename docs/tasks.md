@@ -1,5 +1,11 @@
 # 开发任务
 
+## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-MERGE-120-121 | 采用确切受伤A，保历史整合PR120+121并通过原完整门禁后合main | AUDIO-FEEDBACK-06 | review | [范围](worklines/audio_merge_120_121/scope.md) · [记录](quality/records/AUDIO-MERGE-120-121.json) |
+
 ## 2026-10-30 AUDIO-FEEDBACK-06 · 标题自动音乐与主角受伤再选材
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |
@@ -14,6 +20,13 @@
 | --- | --- | --- | --- | --- |
 | AUDIO-FEEDBACK-CI-01 | 精确selector尾部新增回归清单同步 | AUDIO-FEEDBACK-05 | review | [记录](quality/records/AUDIO-FEEDBACK-CI-01.json) |
 | AUDIO-FEEDBACK-05 | 五项实玩声音修复及新版hurt/wall | — | review | [记录](quality/records/AUDIO-FEEDBACK-05.json) |
+
+## 2026-10-30 MOBILE-WEB-FPS-04
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR120／perf-actions候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |
+
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
 

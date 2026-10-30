@@ -2,6 +2,7 @@ class_name SelectedSfxRuntime
 extends Node
 ## Formal-scene assembly only. Original choices/assets and shared12-voice service remain authoritative.
 const SELECTION_PATH := "res://config/audio_director/selected/selected.json"
+const HURT_SELECTION_PATH := "res://config/audio_director/selected/hurt-20261030.json"
 const MANIFEST_PATH := "res://assets/audio/director_v3/manifest.json"
 const RULES_PATH := "res://config/audio_director/v3/runtime.json"
 const HURT_CANDIDATES := {
@@ -10,6 +11,7 @@ const HURT_CANDIDATES := {
 	"C": {"id": "hurt_feedback_06_c", "variants": ["res://assets/audio/feedback_06/hurt_c.wav"]}
 }
 const PINNED_JSON := {
+	HURT_SELECTION_PATH: "ba02fb2fe2c3667870386ab17cd2336751d201a19306b8dfa04240ead2985d43",
 	"res://config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
 	"res://assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
 	"res://config/audio_director/v3/runtime.json": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
@@ -155,6 +157,9 @@ static func selection_validation_error(selection: Variant, manifest: Variant, ru
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_process(false)
+	var hurt_choice: Variant = read_json(HURT_SELECTION_PATH)
+	if hurt_choice is Dictionary and HURT_CANDIDATES.has(hurt_choice.get("profile", "")):
+		_hurt_audition = str(hurt_choice.profile)
 	if OS.has_feature("web"):
 		_probe_enabled = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_probe') === '1'"))
 		# Explicit Sound Lab links select a development candidate, never rewrite

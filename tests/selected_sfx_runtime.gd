@@ -82,6 +82,10 @@ func exercise() -> void:
 		other.free()
 		return
 	check(helper.validation_ok and helper.configurations == 1, "Formal startup selection configured exactly once")
+	var accepted_hurt: Variant = RUNTIME.read_json(RUNTIME.HURT_SELECTION_PATH)
+	check(accepted_hurt is Dictionary and accepted_hurt.profile == "A" and accepted_hurt.candidate_id == "hurt_feedback_06_a", "Latest user choice names exact accepted hurt A")
+	check(FileAccess.get_sha256(RUNTIME.HURT_SELECTION_PATH) == RUNTIME.PINNED_JSON[RUNTIME.HURT_SELECTION_PATH], "Actual accepted choice file is pinned before formal assembly")
+	check(helper._hurt_audition == accepted_hurt.profile and audio._candidate_revisions[&"hurt"].id == accepted_hurt.candidate_id, "Formal default consumes the accepted choice ledger")
 	check(audio != other_audio and helper.snapshot().audio_owner_id == audio.get_instance_id(), "Only the direct formal App service is selected, never the earlier global-group service")
 	check(audio.audio_profile == "selected" and audio._voices.size() == 12, "Formal profile selected with unchanged12-voice pool")
 	check(helper.snapshot().event_profiles == selection.event_profiles, "Runtime consumes exact original14-event mapping")

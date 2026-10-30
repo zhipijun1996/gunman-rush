@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-MERGE-120-121",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+  "reviewed_commit": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+  "content_version": "hurt-a-merge-v1",
+  "owner": "root",
+  "purpose": "Record exact user-approved hurt A and normally integrate PR120/121",
+  "player_experience": "Selected A remains the normal hero damage sound alongside foreground optimization and all accepted audio fixes",
+  "constraints": [
+    "Keep exact approved WAV and five original BGM unchanged",
+    "Preserve both histories/old failures and original166 gates/budgets",
+    "No physics/damage/transaction/RNG/save edits or device/FPS inference"
+  ],
+  "affected_paths": [
+    "config/audio_director/selected/hurt-20261030.json",
+    "scripts/audio/selected_sfx_runtime.gd",
+    "tools/audio_director.py",
+    "tests/selected_sfx_runtime.gd",
+    "AGENTS.md",
+    "docs/tasks.md",
+    "docs/current_state.md",
+    "docs/handoff.md"
+  ],
+  "deliverables": [
+    "Pinned exact hurt A acceptance and brief context",
+    "Both PR histories integrated and original complete CI green before main merge",
+    "Actual main/PR merge and deployment receipt"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Exact combined-head full166 CI and actual main merge still pending at this source commit",
+    "Precommit formal96/cache444/audio222 passed with explicit merged working-tree receipts; not standalone parent-head proof",
+    "Physical device/full-system aesthetics/FPS not covered by the specific hurt-A choice"
+  ],
+  "production_snapshot": "70ae4f58e102e5b0abfdc3f2117ff3a56fa0a9f629b56e7c9c5580f6a4cf0f40"
+}

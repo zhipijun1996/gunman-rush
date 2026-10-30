@@ -1,0 +1,213 @@
+{
+  "baseline_info": {
+    "build_id": "1394d114df73",
+    "pack": "index.1394d114df73.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "2fa18f4cc435",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 208701132,
+    "download_bytes": 205680782,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af"
+  },
+  "baseline_pack_sha256": "1394d114df73bb3f483ff6b938634ca3f03b715f27ae84015fd2faceb17f748e",
+  "diagnostic_pack_sha256": "dd29a440c42da37a2588696f0afdbe4f535e296ed72f678a77d5a944a90cf861",
+  "replaced": [
+    {
+      "path": "scripts/underworld_plains/underworld_foreground.gd",
+      "baseline_source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+      "source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+      "instrumented_sha256": "5b95e336e159549012782e020a208ee8ff8bd929e42c3e23e9decfe5cd60b0fc",
+      "methods": [
+        "_refresh",
+        "_protection",
+        "_sync_residents",
+        "_render_receipt",
+        "_observe"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_presentation.gd",
+      "baseline_source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "instrumented_sha256": "1bd1780ae5d243a8c634129dde60f1b669026eb2ea09a3729e7c584ad5c4ef2c",
+      "methods": [
+        "refresh",
+        "install_item"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_parallax.gd",
+      "baseline_source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+      "source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+      "instrumented_sha256": "8656a76c0d0644149acf45ca755b40f1edbcc6cbcb02892d14825d9ea6ceb7ac",
+      "methods": [
+        "_update"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "baseline_source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "instrumented_sha256": "a1b094f6e894546204dded06e5673d0de3a924a888e58b060f0b9d759bc1e1a4",
+      "methods": [
+        "update_focus"
+      ]
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "baseline_source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "instrumented_sha256": "dbb6ea06f72757f672b54145d21a38c949f8b1659a01ff824c1adbde5a659c5c",
+      "methods": [
+        "_process",
+        "_physics_process",
+        "_layout_region_hud"
+      ]
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "baseline_source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "instrumented_sha256": "70131e7df6a10cb596b76739b94c08c82cd65c13fe584b7150766a0e39f96245",
+      "methods": [
+        "_process",
+        "_physics_process"
+      ]
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "baseline_source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "instrumented_sha256": "e5d7f0f5c6eee6c6eae23d3a6f88155e73e737f459d24407a91db1f5b07bbf80",
+      "methods": [
+        "_physics_process",
+        "capture_state",
+        "_update_context_signs"
+      ]
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "baseline_source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "instrumented_sha256": "512bdc4a1c9b47bc7512f6724c2e580466824b522e5a9e5c63f4171100177a83",
+      "methods": [
+        "_physics_process"
+      ]
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "baseline_source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+      "source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+      "instrumented_sha256": "5f232d05668c489bd3a3c400c5435d9b7e01db97d504f3a9c27af5b60aa9d378",
+      "methods": [
+        "_physics_process"
+      ]
+    },
+    {
+      "path": "scripts/art/chest_art_library.gd",
+      "baseline_source_sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+      "source_sha256": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+      "instrumented_sha256": "5e8e144015fc5314286573bd8f912539f5116a19b5bec72663b600223761d75e",
+      "methods": [
+        "pose",
+        "place_sprite",
+        "texture",
+        "draw_chest"
+      ]
+    },
+    {
+      "path": "scripts/combat/shoot_ability.gd",
+      "baseline_source_sha256": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+      "source_sha256": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+      "instrumented_sha256": "87cb8c0a8d7dadfbd91ba27c2a6c87aac167f2e13fcd7827e82425b9667e3727",
+      "methods": [
+        "_emit_round"
+      ]
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "baseline_source_sha256": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+      "source_sha256": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+      "instrumented_sha256": "9f940d133eeb0e4fd8ad0e729f3cddede8b5583d2af8ac32ee6179621a5ca1dc",
+      "methods": [
+        "advance"
+      ]
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel.gd",
+      "baseline_source_sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b",
+      "source_sha256": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b",
+      "instrumented_sha256": "b0790fdef463b4a6a4bd329796a41edb996cbae88209795584678f0c619aa743",
+      "methods": [
+        "_shot"
+      ]
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_feel_v2.gd",
+      "baseline_source_sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+      "source_sha256": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+      "instrumented_sha256": "a9720ed894c90ac3b04161f2c598499ac564d05b7539fdcf55cd6a9cfd1a34df",
+      "methods": [
+        "_shot"
+      ]
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_feel.gd",
+      "baseline_source_sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327",
+      "source_sha256": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327",
+      "instrumented_sha256": "6ab524bdbde5b7f5c4756f6f62e1173379f3ae720dd7e160b2559ba8feb9c973",
+      "methods": [
+        "_land"
+      ]
+    }
+  ],
+  "removed_remaps": [
+    "scripts/art/chest_art_library.gd.remap",
+    "scripts/combat/player_projectile.gd.remap",
+    "scripts/combat/shoot_ability.gd.remap",
+    "scripts/demo/demo_app.gd.remap",
+    "scripts/demo/home_scene.gd.remap",
+    "scripts/demo/plains_region_stage.gd.remap",
+    "scripts/dev/player_presentation_01/motion_feel.gd.remap",
+    "scripts/dev/player_presentation_01/weapon_feel.gd.remap",
+    "scripts/dev/player_presentation_01/weapon_feel_v2.gd.remap",
+    "scripts/enemies/enemy_actor.gd.remap",
+    "scripts/player/player_controller.gd.remap",
+    "scripts/underworld_plains/underworld_foreground.gd.remap",
+    "scripts/underworld_plains/underworld_home_world.gd.remap",
+    "scripts/underworld_plains/underworld_parallax.gd.remap",
+    "scripts/underworld_plains/underworld_presentation.gd.remap"
+  ],
+  "source_sha256": {
+    "scripts/underworld_plains/underworld_foreground.gd": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+    "scripts/underworld_plains/underworld_presentation.gd": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+    "scripts/underworld_plains/underworld_parallax.gd": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+    "scripts/underworld_plains/underworld_home_world.gd": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+    "scripts/demo/demo_app.gd": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+    "scripts/demo/home_scene.gd": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+    "scripts/demo/plains_region_stage.gd": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+    "scripts/enemies/enemy_actor.gd": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+    "scripts/player/player_controller.gd": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+    "scripts/art/chest_art_library.gd": "6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e",
+    "scripts/combat/shoot_ability.gd": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1",
+    "scripts/combat/player_projectile.gd": "f4db4e4da68cf2e1d663fddcf9e354c04cc6ddf86ba4e6cf22a6d55a27a40743",
+    "scripts/dev/player_presentation_01/weapon_feel.gd": "a358263dc29937e5e1382ae86afebe301fd2355b8b959f64bcef9b771424309b",
+    "scripts/dev/player_presentation_01/weapon_feel_v2.gd": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+    "scripts/dev/player_presentation_01/motion_feel.gd": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327"
+  },
+  "probe_sha256": "1d524fed800f00d9d3a4b76b05edba3d8688882a80dfde3ffda0c39e368974e3",
+  "unchanged_entries": 3248,
+  "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+  "foreground_candidate": null,
+  "candidate_sources": [],
+  "action_detail": true,
+  "main_scene": "Unchanged original exported demo.tscn and project.binary",
+  "scope": "Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim."
+}

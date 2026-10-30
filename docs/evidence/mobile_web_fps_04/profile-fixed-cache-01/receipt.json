@@ -1,0 +1,140 @@
+{
+  "baseline_info": {
+    "build_id": "ad78f8ae3998",
+    "pack": "index.ad78f8ae3998.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "6b267e5cd410",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 208700796,
+    "download_bytes": 205689099,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5"
+  },
+  "baseline_pack_sha256": "ad78f8ae3998a1283025f11d926a4304a9ee5501328e1d0bd9427c0a5c541271",
+  "diagnostic_pack_sha256": "0664a4d2254b05d3e46097d5f6b7e42f9028097e4ea23ad116d73d28ddc6bbd5",
+  "replaced": [
+    {
+      "path": "scripts/underworld_plains/underworld_foreground.gd",
+      "baseline_source_sha256": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3",
+      "source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+      "instrumented_sha256": "b7d07af305ad53849ea321caaa491864cf105f3a383c4cf9df029e6c41422ae4",
+      "methods": [
+        "_refresh",
+        "_protection",
+        "_sync_residents",
+        "_render_receipt"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_presentation.gd",
+      "baseline_source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+      "instrumented_sha256": "1776b6a87e6c9d936189fb92bbf6cb9a0518efc4b8ea179eaa0897653c80f1ba",
+      "methods": [
+        "refresh"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_parallax.gd",
+      "baseline_source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+      "source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+      "instrumented_sha256": "b1d468a72a85ba3bf129da18731209246c4f6d7de0396fba425c693ccd497189",
+      "methods": [
+        "_update"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "baseline_source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+      "instrumented_sha256": "6559fa139854f3175607bd2fc246eb6b366ba29668d0c2e2768b70431c098e69",
+      "methods": [
+        "update_focus"
+      ]
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "baseline_source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "instrumented_sha256": "341ee933b6f83ed5b757e98675c64acafa6ed200637cfc6720e17de222442157",
+      "methods": [
+        "_process",
+        "_physics_process",
+        "_layout_region_hud"
+      ]
+    },
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "baseline_source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+      "instrumented_sha256": "da793cfc1d82f03ff3c613f684d08129ca6db48cb5503b942a3d6e4679728bfd",
+      "methods": [
+        "_process",
+        "_physics_process"
+      ]
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "baseline_source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "instrumented_sha256": "e5a916fa18549ffde36d16716938005c31e2e49bba92686179f51b567dc9a575",
+      "methods": [
+        "_physics_process",
+        "capture_state",
+        "_update_context_signs"
+      ]
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "baseline_source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "instrumented_sha256": "1b98de4f14e01e81828a0c4ec5eab63b8fa3a67e9d119231af1ea7b30af830c0",
+      "methods": [
+        "_physics_process"
+      ]
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "baseline_source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+      "source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+      "instrumented_sha256": "e67251f86767282e182f73bb9eabfa9a03d9229f25dbecf374d7f893ce5093f0",
+      "methods": [
+        "_physics_process"
+      ]
+    }
+  ],
+  "removed_remaps": [
+    "scripts/demo/demo_app.gd.remap",
+    "scripts/demo/home_scene.gd.remap",
+    "scripts/demo/plains_region_stage.gd.remap",
+    "scripts/enemies/enemy_actor.gd.remap",
+    "scripts/player/player_controller.gd.remap",
+    "scripts/underworld_plains/underworld_foreground.gd.remap",
+    "scripts/underworld_plains/underworld_home_world.gd.remap",
+    "scripts/underworld_plains/underworld_parallax.gd.remap",
+    "scripts/underworld_plains/underworld_presentation.gd.remap"
+  ],
+  "source_sha256": {
+    "scripts/underworld_plains/underworld_foreground.gd": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+    "scripts/underworld_plains/underworld_presentation.gd": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+    "scripts/underworld_plains/underworld_parallax.gd": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+    "scripts/underworld_plains/underworld_home_world.gd": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+    "scripts/demo/demo_app.gd": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+    "scripts/demo/home_scene.gd": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+    "scripts/demo/plains_region_stage.gd": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+    "scripts/enemies/enemy_actor.gd": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+    "scripts/player/player_controller.gd": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c"
+  },
+  "probe_sha256": "daefad793e2a3984c799b3bc2d858c50cedf09024195f68f12414ebb842c3577",
+  "unchanged_entries": 3254,
+  "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "foreground_candidate": "scripts/underworld_plains/underworld_foreground.gd",
+  "main_scene": "Unchanged original exported demo.tscn and project.binary",
+  "scope": "Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim."
+}
