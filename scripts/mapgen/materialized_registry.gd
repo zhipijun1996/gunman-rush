@@ -1,7 +1,8 @@
 extends RefCounted
 ## Fixed delivery consumer. No original PackedScene is instantiated.
-const ROOT = "res://third_party/mapgen/0.1.0"
-const MANIFEST_SHA256 = "bef5b567fcd367913be474a02df3bdbb62cf8c8d2902c380861055f272e9cbc0"
+const IDENTITY = preload("res://scripts/mapgen/delivery_identity.gd")
+const ROOT = IDENTITY.ROOT
+const MANIFEST_SHA256 = IDENTITY.MANIFEST_SHA256
 const SEAL = preload("res://scripts/mapgen/gear_seal.gd")
 const ADAPTERS = {
 	"module_loader-17439d47c98c.gd": preload("res://scripts/mapgen/adapters/module_loader.gd"),

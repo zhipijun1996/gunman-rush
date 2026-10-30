@@ -92,7 +92,14 @@ func run() -> void:
 	app._open_home_navigation()
 	await click(button(app.menu._root,"Explore"))
 	await frames(12)
-	check(app.connected_region and app.stage is PlainsRegionStage, "Home navigation pointer starts formal region for retained HUD cases")
+	check(app.connected_region and app._is_delivery_stage() and app.stage.registry.map_data.seed == 930001, "Ordinary Home pointer enters the fixed delivery map")
+	# Keep the original generated-region HUD/fog regressions on their explicit
+	# developer entry; they no longer describe the ordinary Home departure.
+	app.abandon_run()
+	await frames(12)
+	check(app.start_plains("level-design-v2-baseline/08"), "Explicit generated-region consumer remains available for retained HUD cases")
+	await frames(12)
+	check(app.connected_region and app.stage is PlainsRegionStage, "Explicit generated-region consumer loads retained HUD/fog cases")
 	check(app._demo_hud.actor == app.controller and app._demo_hud.visible and not app._hud_frame.visible, "formal consumer binds new HUD and removes old black board")
 	check(app._demo_hud.hearts.capacity == app.controller.actor_resources.health.capacity, "hearts use actual maximum")
 	await image("formal-hud")

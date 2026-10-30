@@ -13,6 +13,7 @@ const HEALTH_ITEM := preload("res://resources/items/health_blue.tres")
 const GOLD_ITEM := preload("res://resources/items/power_gold.tres")
 const FOREST_GOLD_ITEM := preload("res://resources/items/forest_heart_gold.tres")
 const MODULE_LAB := preload("res://scenes/demo/module_lab.tscn")
+const DELIVERY := preload("res://scripts/mapgen/delivery_identity.gd")
 var meta_persistence_enabled := true
 var generated_plains := false
 var home_scene: HomeScene
@@ -34,6 +35,9 @@ var _pixel_plains: PixelPlainsPreview
 var _style_lab: Node
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
+var _ordinary_fixed_map := false
+var _delivery_retry_pending := false
+var _delivery_map_button: Button
 var lifetime := DemoLifetime.new()
 var director := DemoRunDirector.new(lifetime)
 var meta := MetaProgression.new()
@@ -224,8 +228,22 @@ func _explicit_plains_candidate() -> bool:
 	return spatial_golden_requested or plains_environment_candidate_requested or plains_regional_art_candidate_requested or bool(get_meta("plains_world_rebuild_candidate",false))
 
 func start_plains(seed_value: String = "plains-run") -> bool:
+	# Explicit generated-region entry retained for its labs/replay consumers.
+	# Ordinary Home departure is wired to start_fixed_plains below.
+	if director.state == DemoRunDirector.State.HOME: _ordinary_fixed_map = false
 	_debug_region = &""
 	return start_demo(seed_value, true)
+
+func start_fixed_plains(_seed_value: String = "930001") -> bool:
+	if director.state != DemoRunDirector.State.HOME: return false
+	_ordinary_fixed_map = true
+	_debug_region = &""
+	if start_demo("930001", true): return true
+	_ordinary_fixed_map = false
+	return false
+
+func _is_delivery_stage() -> bool:
+	return _ordinary_fixed_map and is_instance_valid(stage) and stage.get("hosted") == true
 
 func start_debug_region(region: StringName, map_index: int, seed_value: String, content_version: String = "", layout_version: String = "") -> bool:
 	if region not in [&"plains", &"thorn_forest"] or map_index not in [1,2]: return false
@@ -234,6 +252,7 @@ func start_debug_region(region: StringName, map_index: int, seed_value: String, 
 	# Rejected entries must not replace the next run's region/version request.
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab): return false
 	_debug_region = region
+	_ordinary_fixed_map = false
 	_debug_map = map_index
 	_requested_forest_version = content_version
 	_requested_forest_layout = layout_version
@@ -283,6 +302,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_requested_forest_layout = ""
 	campaign = RunCampaignProgression.new()
 	campaign.debug_entry = region_map and not _debug_region.is_empty()
+	if _ordinary_fixed_map: campaign.abilities.append(&"grapple")
 	if active_region_id == &"thorn_forest": campaign.abilities.append(&"grapple")
 	_progression_token = null
 	_root_bell_run_mode = "v3" if root_bell_space_pilot_requested else "v2" if root_bell_pilot_requested else "v3" if PlainsRootBellEncounterV3.PRODUCTION_ADMITTED else "v2" if PlainsRootBellEncounterV2.PRODUCTION_ADMITTED else "legacy_v10"
@@ -298,7 +318,13 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	director.biome_id = active_region_id if generated_plains else &"demo_ruins"
 	get_tree().paused = false
 	player = PLAYER.instantiate()
-	player.process_mode = Node.PROCESS_MODE_PAUSABLE
+	# The ordinary fixed map must not move this new actor before its floor
+	# exists. Enabling it after assembly preserves resources without the legacy
+	# return_to_segment reset used by generated-stage loading.
+	player.process_mode = Node.PROCESS_MODE_DISABLED if _ordinary_fixed_map else Node.PROCESS_MODE_PAUSABLE
+	if _ordinary_fixed_map:
+		var point: Array = DELIVERY.host_config().spawn.local_position_pixels
+		player.position = Vector2(point[0], point[1])
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	if not home_weapons.apply(controller):
@@ -311,6 +337,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	controller.shoot_ability.shot_fired.connect(_pixel_projectiles)
 	if connected_region and not controller.enable_shot_energy(): return false
 	if active_region_id == &"thorn_forest": controller.traversal.grant(&"grapple")
+	if _ordinary_fixed_map: controller.traversal.grant(&"grapple") # Initial run loadout, once at actor creation.
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
 	controller.router.reconfigure(_session_input)
@@ -362,7 +389,8 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_resources_hud.show()
 	_hud_frame.show()
 	_pause_button.show()
-	var started := director.start(seed_value, RunProfile.formal() if connected_region else RunProfile.development()).accepted()
+	var profile := RunProfile.fixed_delivery() if _ordinary_fixed_map else RunProfile.formal() if connected_region else RunProfile.development()
+	var started := director.start(seed_value, profile).accepted()
 	if started and connected_region:
 		_grant_home_carry()
 	return started
@@ -397,6 +425,9 @@ func _load_stage() -> void:
 	if is_instance_valid(stage):
 		remove_child(stage)
 		stage.queue_free()
+	if _ordinary_fixed_map:
+		_load_delivery_stage()
+		return
 	if connected_region and _region_loaded_map != director.stage_index:
 		_region_loaded_map=director.stage_index
 		region_state=region_states.get(_region_loaded_map,PlainsRegionState.new())
@@ -527,35 +558,7 @@ func _load_stage() -> void:
 					return
 			else:
 				director.manifest.enable_development_generation((stage as GeneratedDemoStage).generated.stage_generator_version)
-		var initial_character := {"id": "prototype_player", "weapon": String(controller.shoot_ability.weapon.id), "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
-		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
-		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
-		config_hashes.gear_capacity = FileAccess.get_sha256(GearCapacityPolicy.PATH)
-		director.manifest.record_output(director.stage_index, &"equipment_contract", {"version": 1, "acquisition": "inventory_only", "initial_capacity": build.equipment.snapshot().capacity, "gear_policy_sha256": config_hashes.gear_capacity})
-		if generated_plains:
-			var meta_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/meta_upgrades.json"))
-			initial_character.current_health = controller.actor_resources.health.current
-			initial_character.maximum_health = controller.actor_resources.health.capacity
-			initial_character.permanent_upgrades = meta.snapshot().upgrades.duplicate(true)
-			initial_character.meta_content_version = meta_config.version
-			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
-			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
-		var content_definitions: Array = [
-			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
-			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
-			{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
-			{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version},
-			{"id": String(FOREST_GOLD_ITEM.stable_id), "version": FOREST_GOLD_ITEM.definition_version},
-			{"id": String(DAMAGE_ITEM.stable_id), "version": DAMAGE_ITEM.definition_version},
-			{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
-			{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
-			{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
-			{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}]
-		if _item_runtime != null:
-			config_hashes.items_v5 = FileAccess.get_sha256(ItemCatalogV5.CONFIG_PATH)
-			for definition: ItemDefinition in ItemCatalogV5.all_items():
-				content_definitions.append({"id":String(definition.stable_id),"version":definition.definition_version,"catalog_version":definition.catalog_version,"fingerprint":definition.fingerprint()})
-		director.manifest.record_configuration(content_definitions, config_hashes, initial_character)
+		_record_run_configuration()
 	add_child(stage)
 	_sync_region_presentation()
 	if stage is PlainsRegionStage and active_region_id == &"plains" and not _explicit_plains_candidate() and (p1_random_plains_requested or "--p1-random-plains" in OS.get_cmdline_user_args()):
@@ -827,16 +830,7 @@ func _load_stage() -> void:
 		director.manifest.record_output(director.stage_index, &"stage_generator", {"version": random_stage.generated.stage_generator_version})
 	else:
 		director.manifest.record_output(director.stage_index, &"fixed_layout", {"version": 1, "layout_id": "demo_fixed_1", "spawn": [100, 580], "anchor": [660, 580], "hazard": "oscillating_saw_1", "enemy": "patrol_drone" if stage.enemy != null else "", "boss": "clockwork_guardian" if stage.boss != null else ""})
-	var capability_snapshot := {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)}
-	if _item_runtime != null:
-		var equipment_snapshot := build.equipment.snapshot()
-		# Content replay needs the exact equipped modifier provenance, including
-		# level and breakage. This is not a mid-run actor/resource save file.
-		capability_snapshot.item_sources_version = 1
-		capability_snapshot.item_sources = build.manifest_item_sources()
-		capability_snapshot.gear_capacity = int(equipment_snapshot.capacity)
-		capability_snapshot.gear_level = int(equipment_snapshot.level)
-	director.manifest.record_output(director.stage_index, &"capability_snapshot", capability_snapshot)
+	_record_capability_snapshot()
 	if current_reward != null:
 		_record_reward()
 	if director.stage_type_id == &"shop":
@@ -876,7 +870,129 @@ func _load_stage() -> void:
 		var actual_boss: BossEncounter=stage.boss.get_node("Encounter") as BossEncounter
 		print("FOREST_UI_EVENT " + JSON.stringify({"event":"region_assembled","region":String(active_region_id),"map_index":director.region_map_index,"seed":_region_seed(),"content_version":actual_manifest.version,"layout_version":actual_manifest.get("layout_version", ""),"manifest_hash":actual_manifest.manifest_hash,"boss_definition":actual_boss.definition.resource_path,"boss_scene":stage.boss.scene_file_path,"abilities":Array(campaign.abilities),"debug_entry":campaign.debug_entry}))
 
+func _record_run_configuration(layout_id := "") -> void:
+	var initial_character := {"id": "prototype_player", "weapon": String(controller.shoot_ability.weapon.id), "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
+	var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
+	config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
+	config_hashes.gear_capacity = FileAccess.get_sha256(GearCapacityPolicy.PATH)
+	director.manifest.record_output(director.stage_index, &"equipment_contract", {"version": 1, "acquisition": "inventory_only", "initial_capacity": build.equipment.snapshot().capacity, "gear_policy_sha256": config_hashes.gear_capacity})
+	if generated_plains:
+		var meta_config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/meta_upgrades.json"))
+		initial_character.current_health = controller.actor_resources.health.current
+		initial_character.maximum_health = controller.actor_resources.health.capacity
+		initial_character.permanent_upgrades = meta.snapshot().upgrades.duplicate(true)
+		initial_character.meta_content_version = meta_config.version
+		initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
+		config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
+	var content_definitions: Array = [
+		{"id": layout_id if not layout_id.is_empty() else "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
+		{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
+		{"id": String(SHOT_ITEM.stable_id), "version": SHOT_ITEM.definition_version},
+		{"id": String(GOLD_ITEM.stable_id), "version": GOLD_ITEM.definition_version},
+		{"id": String(FOREST_GOLD_ITEM.stable_id), "version": FOREST_GOLD_ITEM.definition_version},
+		{"id": String(DAMAGE_ITEM.stable_id), "version": DAMAGE_ITEM.definition_version},
+		{"id": String(RECOIL_ITEM.stable_id), "version": RECOIL_ITEM.definition_version},
+		{"id": String(HEALTH_ITEM.stable_id), "version": HEALTH_ITEM.definition_version},
+		{"id": String(COIN_REWARD.stable_id), "version": COIN_REWARD.definition_version},
+		{"id": String(HEAL_REWARD.stable_id), "version": HEAL_REWARD.definition_version}]
+	if _item_runtime != null:
+		config_hashes.items_v5 = FileAccess.get_sha256(ItemCatalogV5.CONFIG_PATH)
+		for definition: ItemDefinition in ItemCatalogV5.all_items():
+			content_definitions.append({"id":String(definition.stable_id),"version":definition.definition_version,"catalog_version":definition.catalog_version,"fingerprint":definition.fingerprint()})
+	director.manifest.record_configuration(content_definitions, config_hashes, initial_character)
+
+func _record_capability_snapshot() -> void:
+	var capability_snapshot := {"max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "items": build.item_ids(), "abilities":Array(campaign.abilities)}
+	if _item_runtime != null:
+		var equipment_snapshot := build.equipment.snapshot()
+		# Content replay needs the exact equipped modifier provenance, including
+		# level and breakage. This is not a mid-run actor/resource save file.
+		capability_snapshot.item_sources_version = 1
+		capability_snapshot.item_sources = build.manifest_item_sources()
+		capability_snapshot.gear_capacity = int(equipment_snapshot.capacity)
+		capability_snapshot.gear_level = int(equipment_snapshot.level)
+	director.manifest.record_output(director.stage_index, &"capability_snapshot", capability_snapshot)
+
+func _load_delivery_stage() -> void:
+	var scene := load("res://scenes/mapgen/seed_930001.tscn") as PackedScene
+	if scene == null:
+		_delivery_load_failed("fixed_scene_missing")
+		return
+	policy = FrameDamagePolicy.new()
+	policy.lifetime = lifetime
+	add_child(policy)
+	policy.register_target(&"player", controller.actor_resources.health, true)
+	policy.register_player_controller(controller)
+	policy.player_fatal.connect(_player_fatal)
+	policy.environment_return_requested.connect(_environment_return)
+	policy.batch_resolved.connect(_damage_resolved.bind(policy, lifetime.stage_epoch, lifetime.epoch))
+	segment = SegmentRespawn.new()
+	segment.configure(controller, lifetime)
+	stage = scene.instantiate() as DemoStage
+	var services := {"policy":policy,"lifetime":lifetime,"wallet":wallet,"segment":segment,"meta":meta,"region_state":region_state}
+	if not stage.bind_existing(controller, services, _run_receipt_prefix, avatar_selection_id):
+		stage.free()
+		stage = null
+		_delivery_load_failed("existing_services_rejected")
+		return
+	stage.encounter_completed.connect(_delivery_victory)
+	stage.home_requested.connect(abandon_run)
+	stage.restart_requested.connect(_retry_delivery)
+	stage.load_failed.connect(_delivery_load_failed)
+	# The stage supplies the single map camera/parallax; the App retains its
+	# native actor, input adapters, HUD, item runtime, music and run ownership.
+	(get_node("PixelPlainsParallax") as CanvasLayer).hide()
+	(get_node("PlainsBackground") as CanvasLayer).hide()
+	add_child(stage)
+	var loading_token := lifetime.token()
+	for frame: int in 120:
+		if not lifetime.accepts(loading_token) or not is_instance_valid(stage): return
+		if stage.loaded: break
+		await get_tree().physics_frame
+	if not stage.loaded:
+		_delivery_load_failed("fixed_scene_not_ready")
+		return
+	director.manifest.record_fixed_delivery()
+	_record_run_configuration("mapgen_fixed_delivery_930001")
+	_record_capability_snapshot()
+	var tuning: Dictionary = {}
+	for key: String in JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json")):
+		tuning[key] = controller.motor.tuning.get(key)
+	director.manifest.record_output(1, &"stage_tuning", tuning)
+	director.manifest.record_output(1, &"initial_loadout", {"abilities":Array(campaign.abilities),"weapon":String(home_weapons.selected_id),"items":build.item_ids(),"actor_id":player.get_instance_id()})
+	player.process_mode = Node.PROCESS_MODE_PAUSABLE
+	_stage_pending = false
+	_status = "MAP 930001 / Shoot the first bell, then explore."
+	_shown_actions = ""
+	if _item_runtime != null:
+		var item_map := StringName(_run_receipt_prefix + "/delivery/930001")
+		for instance: Node2D in stage.registry.instances.values():
+			for actor: EnemyActor in instance.find_children("*", "EnemyActor", true, false):
+				actor.motor.set_meta("item_v5_enemy_id", str(actor.damageable.actor_id))
+		stage.boss.set_meta("item_v5_enemy_id", String(stage.boss_binding.target_id))
+		var item_view := ItemEffectView.new()
+		item_view.name = "ItemEffects"
+		stage.add_child(item_view)
+		if not item_view.configure(_item_runtime): push_error("V5 fixed-map visual binding rejected")
+		_item_runtime.bind_world(stage, item_map)
+	print("MAPGEN_MAIN_READY ", JSON.stringify({"seed":930001,"map_id":stage.registry.map_data.map_id,"player_id":player.get_instance_id(),"profile":String(director.profile.profile_id),"ordinary_departure":true}))
+
+func _delivery_load_failed(reason: String) -> void:
+	_status = "GENERATION FAILED / delivery: " + reason
+	abandon_run()
+
+func _delivery_victory() -> void:
+	if not _is_delivery_stage() or not lifetime.active or controller.actor_resources.health.terminal: return
+	if not stage.boss_binding.completed or not stage.boss_binding.encounter.health.terminal: return
+	var token := lifetime.token()
+	if director.complete_stage(token): director.finish_delivery(token, _next_id("delivery_complete"))
+
+func _retry_delivery() -> void:
+	_delivery_retry_pending = true
+	abandon_run()
+
 func _physics_process(_delta: float) -> void:
+	if _is_delivery_stage(): return # Native delivery consumers own their actual hazards and Boss.
 	if get_tree().paused or _stage_pending or not lifetime.active or not is_instance_valid(stage) or not is_instance_valid(controller):
 		return
 	if director.state != DemoRunDirector.State.IN_STAGE:
@@ -949,6 +1065,9 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	if _stage_pending or director.state != DemoRunDirector.State.IN_STAGE:
 		return
 	if batch_policy != null and (batch_policy != policy or batch_stage_epoch != lifetime.stage_epoch or batch_run_epoch != lifetime.epoch):
+		return
+	if _is_delivery_stage():
+		_flush_actions()
 		return
 	var was_complete := director.stage_complete
 	var claimed := (current_reward != null and rewards.get_offer(current_reward.offer_id).claimed) or (simple_reward != null and simple_reward.claimed)
@@ -1063,6 +1182,9 @@ func _player_fatal() -> void:
 func _commit_interact() -> void:
 	if not _can_interact():
 		return
+	if _is_delivery_stage():
+		stage._interact()
+		return
 	if connected_region:
 		_region_interact()
 		return
@@ -1147,6 +1269,10 @@ func _can_interact() -> bool:
 	return lifetime.active and not _stage_pending and director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(controller) and not controller.actor_resources.health.terminal and not get_tree().paused
 
 func open_region_map() -> bool:
+	if _is_delivery_stage():
+		if stage._native_reward_modal_open() or _stage_pending or not menu.visible_panel.is_empty() or not lifetime.active: return false
+		stage._toggle_map()
+		return true
 	if not connected_region or not _can_interact() or map_modal.opened or reward_modal.opened or exit_modal.opened: return false
 	_pause_for_menu()
 	map_modal.show_map(stage as PlainsRegionStage)
@@ -1161,6 +1287,11 @@ func close_region_map() -> void:
 	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
 
 func toggle_pause() -> void:
+	if _is_delivery_stage():
+		if stage._native_reward_modal_open(): return
+		if stage._map_view:
+			stage._toggle_map()
+			return
 	if is_instance_valid(progression_modal) and progression_modal.opened: return
 	if _forest_reader_open(): return
 	if is_instance_valid(shop_modal) and shop_modal.opened: return
@@ -1399,7 +1530,8 @@ func _run_ended(result: DemoRunResult) -> void:
 	if is_instance_valid(shop_modal): shop_modal.close()
 	if is_instance_valid(item_toast): item_toast.clear()
 	if is_instance_valid(map_modal): map_modal.close()
-	GameAudio.cue(self, &"victory" if result.reason in [&"biome_complete", &"success"] else &"death")
+	var victory := result.reason in [&"biome_complete", &"success", &"delivery_complete"]
+	GameAudio.cue(self, &"victory" if victory else &"death")
 	_cancel_enemy_attacks()
 	_cancel_stage_shot_latches(true)
 	var generation_failure := _status if _status.begins_with("GENERATION FAILED") else ""
@@ -1411,15 +1543,16 @@ func _run_ended(result: DemoRunResult) -> void:
 	_queued_actions.clear()
 	var summary := {"stage": director.stage_index, "items": build.inventory.item_ids(), "equipped_items": build.item_ids(), "run_coins_discarded": wallet.balance, "seed": director.seed}
 	var settlement_id := StringName("%s/run_%s_%s" % [_run_receipt_prefix, result.run_epoch, result.event_id])
-	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, result.reason == &"success", summary)
+	var settled := meta.settle_biome(settlement_id, summary) if result.reason == &"biome_complete" else meta.settle(settlement_id, victory, summary)
 	_status = "BIOME COMPLETE / GOLD CLAIMED" if result.reason == &"biome_complete" else ("VICTORY / GOLD CLAIMED" if result.reason == &"success" else "RUN ENDED / RETURNED HOME")
+	if result.reason == &"delivery_complete": _status = "VICTORY / MAP 930001 COMPLETE"
 	if connected_region and result.reason == &"biome_complete":
 		_status = _region_name()+" COMPLETE / Next regions are in development. Run ended; run abilities cleared."
 	if not generation_failure.is_empty():
 		_status += " / " + generation_failure
 	if not settled:
 		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
-	_ui_run_report = {"success": result.reason in [&"biome_complete", &"success"], "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.inventory.item_ids().size(), meta.snapshot().get("notes", 0)]}
+	_ui_run_report = {"success": victory, "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.inventory.item_ids().size(), meta.snapshot().get("notes", 0)]}
 	if not settled: _ui_run_report.summary += "\n保存摘要失败 · 已存入音符保持原值"
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
@@ -1443,9 +1576,15 @@ func _cleanup_run() -> void:
 	controller = null
 	policy = null
 	segment = null
+	_ordinary_fixed_map = false
 	director.return_home()
 	campaign = RunCampaignProgression.new()
 	_show_home()
+	if _delivery_retry_pending:
+		_delivery_retry_pending = false
+		_ui_run_report = {}
+		start_fixed_plains.call_deferred()
+		return
 	if not _ui_run_report.is_empty():
 		home_scene.set_input_blocked(true)
 		menu.show_run_end(_ui_run_report)
@@ -1457,6 +1596,7 @@ func _hide_run_hud() -> void:
 	_boss_status.hide()
 	_resources_hud.hide()
 	_pause_button.hide()
+	if is_instance_valid(_delivery_map_button): _delivery_map_button.hide()
 	_hud.text = ""
 	_hint.text = ""
 	_title.text = ""
@@ -1646,7 +1786,9 @@ func _home_item_reason(reason: String) -> String:
 func _sync_music() -> void:
 	if not is_instance_valid(_music): return
 	var track: StringName = &"home"
-	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(controller) and not controller.actor_resources.health.terminal:
+	if _is_delivery_stage() and lifetime.active and not controller.actor_resources.health.terminal:
+		track = &"plains_boss" if stage.boss_binding.started and not stage.boss_binding.completed else &"plains"
+	elif director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(controller) and not controller.actor_resources.health.terminal:
 		var forest := active_region_id == &"thorn_forest"
 		track = &"forest" if forest else &"plains"
 		if not _stage_pending and is_instance_valid(stage) and is_instance_valid(stage.boss):
@@ -1695,6 +1837,22 @@ func _process(_delta: float) -> void:
 			else: _run_camera.route_focus = shown_boss.motor.global_position+shown_boss.core_offset()
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
+		return
+	if _is_delivery_stage():
+		_title.text = "WINDCHIME PLAINS / 930001"
+		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
+		_hint.text = _device_hint()
+		_hint.visible = debug_hud
+		_status_label.visible = debug_hud
+		_hud_frame.visible = debug_hud
+		_resources_hud.visible = debug_hud
+		_demo_hud.visible = not debug_hud
+		_demo_hud.present_context("WINDCHIME PLAINS · 930001",wallet.balance,int(meta.snapshot().get("notes",0)),_reduced_effects)
+		if not debug_hud: _demo_hud.present_touch_menu(overlay)
+		_demo_hud.present_navigation(_delivery_map_button,_pause_button,overlay._pause_rect if overlay.enabled else Rect2())
+		_resources_hud.set_region_compact(true)
+		_pause_button.visible = not overlay.enabled
+		_delivery_map_button.show()
 		return
 	_title.text = "%s / CONNECTED REGION %s/2 / " % [_region_name(),director.region_map_index] + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
 	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
@@ -1995,6 +2153,14 @@ func _make_ui() -> void:
 	_pause_button.size = Vector2(108, 45)
 	_pause_button.pressed.connect(toggle_pause)
 	_canvas.add_child(_pause_button)
+	_delivery_map_button = Button.new()
+	_delivery_map_button.name = "DeliveryMapButton"
+	_delivery_map_button.text = "MAP / M"
+	_delivery_map_button.focus_mode = Control.FOCUS_NONE
+	_delivery_map_button.size = Vector2(120,45)
+	_delivery_map_button.hide()
+	_delivery_map_button.pressed.connect(open_region_map)
+	_canvas.add_child(_delivery_map_button)
 	var debug_button := Button.new()
 	_debug_button = debug_button
 	debug_button.text = "INFO"
@@ -2014,7 +2180,7 @@ func _make_ui() -> void:
 	menu.requested_enter_home.connect(_show_home)
 	menu.home_panel_closed.connect(_close_home_panel)
 	menu.requested_start.connect(func(seed: String) -> void: start_demo(seed, false))
-	menu.requested_plains.connect(start_plains)
+	menu.requested_plains.connect(start_fixed_plains)
 	menu.requested_debug_region.connect(start_debug_region)
 	menu.requested_forest_places.connect(func(map_index: int,seed: String) -> void:
 		start_debug_region(&"thorn_forest",map_index,seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_PLACES))
@@ -2050,7 +2216,7 @@ func _make_ui() -> void:
 	menu.equipment_repair_requested.connect(_repair_equipment_item)
 	menu.gear_upgrade_requested.connect(_purchase_gear_upgrade)
 	menu.requested_home.connect(abandon_run)
-	menu.requested_retry.connect(func() -> void: start_plains(menu._plains_seed()))
+	menu.requested_retry.connect(func() -> void: start_fixed_plains())
 	menu.settings_changed.connect(apply_input_settings)
 	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
 		_reduced_effects = reduced
@@ -2457,10 +2623,16 @@ func _finish_generated_exit() -> bool:
 	return director.select_exit(_reward_token, id, _next_id("exit")).accepted()
 
 func _cancel_stage_shot_latches(permanent: bool = false) -> void:
+	if _is_delivery_stage():
+		stage.cancel_latch_requests(permanent)
+		return
 	if is_instance_valid(stage) and stage is GeneratedDemoStage:
 		(stage as GeneratedDemoStage).cancel_shot_latch_requests(permanent)
 
 func _cancel_enemy_attacks() -> void:
+	if _is_delivery_stage():
+		stage.cancel_enemy_attacks()
+		return
 	if not is_instance_valid(stage) or not stage is GeneratedDemoStage: return
 	for enemy_motor: EnemyMotor in (stage as GeneratedDemoStage).enemies:
 		if not is_instance_valid(enemy_motor): continue

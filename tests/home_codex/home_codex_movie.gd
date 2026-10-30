@@ -182,7 +182,7 @@ func _run() -> void:
 		await frames(1)
 	await frames(18)
 	second_run = app._run_receipt_prefix
-	if not check(second_run != first_run and app.connected_region and app.stage is PlainsRegionStage,"actual Home departure creates a new formal run"): await finish(); return
+	if not check(second_run != first_run and app.connected_region and app._is_delivery_stage() and app.stage.registry.map_data.seed == 930001,"actual Home departure creates a new formal run"): await finish(); return
 	var owned: RunItemInstance = app.build.inventory.instance_for_definition(&"B11")
 	if not check(owned != null and owned.level == 1 and app.build.inventory.instances().size() == 1 and app.build.item_ids().is_empty(),"new run contains exactly one inactive Lv1 Home carry instance"): await finish(); return
 	if not check(String(owned.source_id).begins_with("home_carry/") and String(owned.instance_id) != str(fixture_instances[&"B11"]),"new Home carry has its own real source and stable instance identity"): await finish(); return

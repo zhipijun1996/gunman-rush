@@ -3,6 +3,7 @@ extends RefCounted
 
 const SCHEMA_VERSION := 1
 const FOREST_GENERATOR := preload("res://scripts/generation/thorn_forest_region_generator.gd")
+const DELIVERY := preload("res://scripts/mapgen/delivery_identity.gd")
 var _data: Dictionary = {}
 
 func _init(seed := "0", profile: RunProfile = null) -> void:
@@ -16,6 +17,13 @@ func enable_development_generation(content_version: String) -> void:
 	_data.versions.erase("fixed_layout")
 	_data.versions.generated_layout = content_version
 	_data.versions.run_policy = "DEVELOPMENT_GENERATED_FIXTURE_v1"
+
+func record_fixed_delivery() -> bool:
+	if _data.run_profile.id != "fixed_delivery_930001" or _data.stages.size() != 1: return false
+	_data.versions.erase("fixed_layout")
+	_data.versions.fixed_delivery = "mapgen/0.1.0"
+	_data.versions.run_policy = "FIXED_DELIVERY_930001_v1"
+	return record_output(1, &"delivery_map", DELIVERY.receipt())
 
 func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
 	var campaign := int(_data.schema_version) == 2
@@ -79,6 +87,8 @@ static func from_snapshot(data: Dictionary) -> RunManifest:
 	return result
 
 static func compatible(data: Dictionary) -> bool:
+	var declared_profile: Variant = data.get("run_profile")
+	if declared_profile is Dictionary and declared_profile.get("id") == "fixed_delivery_930001": return _fixed_delivery_compatible(data)
 	if int(data.get("schema_version",-1)) == 2: return _campaign_compatible(data)
 	if not data.get("root_seed") is String or not data.get("stages") is Array or not data.get("decisions") is Array or not data.get("run_profile") is Dictionary:
 		return false
@@ -137,6 +147,25 @@ static func compatible(data: Dictionary) -> bool:
 			if transition.get("from_map")!=1 or transition.get("to_map")!=2 or transition.get("reason")!="mini_boss_defeated": return false
 		return data.schema_version==SCHEMA_VERSION and data.rng_algorithm==RunRandomStream.ALGORITHM and data.stream_derivation_version==RunRandomStream.DERIVATION_VERSION
 	return _versions_equal(data.get("versions", {}), fixed_versions) and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+
+static func _fixed_delivery_compatible(data: Dictionary) -> bool:
+	var expected_profile := {"id":"fixed_delivery_930001", "version":1, "development_only":false, "stages_per_biome":1, "boss_stage":1}
+	var expected_versions := {"route":1,"reward":2,"shop":1,"damage_policy":"D028_v1","boss_outcome_policy":"D029_v1","run_policy":"FIXED_DELIVERY_930001_v1","fixed_delivery":"mapgen/0.1.0"}
+	if data.get("schema_version") != SCHEMA_VERSION or data.get("root_seed") != "930001" or data.get("rng_algorithm") != RunRandomStream.ALGORITHM or data.get("stream_derivation_version") != RunRandomStream.DERIVATION_VERSION: return false
+	if not data.get("run_profile") is Dictionary or not data.get("versions") is Dictionary or not data.get("decisions") is Array: return false
+	if data.run_profile != expected_profile or data.versions != expected_versions or not data.decisions.is_empty(): return false
+	var stages: Variant = data.get("stages")
+	if not stages is Array or stages.size() != 1 or not stages[0] is Dictionary: return false
+	var stage: Dictionary = stages[0]
+	if stage.get("stage_index") != 1 or stage.get("type_id") != "boss" or stage.get("biome_id") != "plains" or not stage.get("offers") is Array: return false
+	if not stage.offers.is_empty(): return false
+	var outputs: Variant = stage.get("outputs")
+	if not outputs is Dictionary or not outputs.get("delivery_map") is Dictionary or outputs.has("generated_layout"): return false
+	if outputs.delivery_map != DELIVERY.receipt(): return false
+	if not data.get("content_manifest") is Array or data.content_manifest.is_empty() or not data.get("initial_character") is Dictionary: return false
+	var hashes: Variant = data.get("config_hashes")
+	if not hashes is Dictionary or hashes.get("physics") != FileAccess.get_sha256("res://config/player_tuning.json"): return false
+	return _region_tuning(outputs) != null
 
 static func _plains_boss_output_compatible(output: Dictionary, index: int) -> bool:
 	var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")

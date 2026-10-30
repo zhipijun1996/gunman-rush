@@ -45,7 +45,7 @@ func start(root_seed: String, selected_profile: RunProfile = null) -> DemoRunRes
 	_receipts.clear()
 	manifest = RunManifest.new(seed, profile)
 	state = State.IN_STAGE
-	_enter_stage(1, &"boss" if profile.profile_id == &"formal_plains_region" else &"combat")
+	_enter_stage(1, &"boss" if profile.profile_id in [&"formal_plains_region", &"fixed_delivery_930001"] else &"combat")
 	var result := _result(DemoRunResult.Status.APPLIED)
 	stage_entered.emit(result.copy())
 	return result
@@ -110,6 +110,7 @@ func advance_region_map(token: DemoToken, event_id: StringName) -> DemoRunResult
 	return result
 
 func continue_region(token: DemoToken, next_biome: StringName, event_id: StringName, abilities: Array[StringName] = []) -> DemoRunResult:
+	if profile != null and profile.profile_id == &"fixed_delivery_930001": return _result(DemoRunResult.Status.INVALID)
 	var payload := {"token":token.key() if token != null else "", "region":String(next_biome),"abilities":Array(abilities)}
 	if event_id.is_empty(): return _result(DemoRunResult.Status.INVALID)
 	if _receipts.has(event_id):
@@ -143,6 +144,7 @@ func finish_success(token: DemoToken, end_id: StringName, gold_receipt: bool) ->
 	return _end(end_id, &"success", true)
 
 func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> DemoRunResult:
+	if profile != null and profile.profile_id == &"fixed_delivery_930001": return _result(DemoRunResult.Status.INVALID)
 	# The fixed eight-stage trial ends at a biome boundary. Q001 deliberately
 	# leaves the number of biomes and whole-run victory undefined.
 	if state == State.ENDING_BIOME:
@@ -152,6 +154,15 @@ func finish_biome(token: DemoToken, end_id: StringName, gold_receipt: bool) -> D
 	if profile.development_only or (region_map_index != 2 if profile.profile_id == &"formal_plains_region" else stage_index != profile.boss_stage) or stage_type_id != &"boss" or not stage_complete or not gold_receipt:
 		return _result(DemoRunResult.Status.NOT_READY)
 	return _end(end_id, &"biome_complete", false, State.ENDING_BIOME)
+
+func finish_delivery(token: DemoToken, end_id: StringName) -> DemoRunResult:
+	# This pinned single-map profile has no generated GOLD offer or second map.
+	# Its accepted native encounter must complete the stage before settlement.
+	if profile == null or profile.profile_id != &"fixed_delivery_930001": return _result(DemoRunResult.Status.INVALID)
+	if state == State.ENDING_SUCCESS: return _end(end_id, &"delivery_complete", true)
+	if state != State.IN_STAGE or not lifetime.accepts(token): return _result(DemoRunResult.Status.STALE)
+	if stage_index != 1 or stage_type_id != &"boss" or not stage_complete: return _result(DemoRunResult.Status.NOT_READY)
+	return _end(end_id, &"delivery_complete", true)
 
 func return_home() -> bool:
 	if state not in [State.ENDING_FAILURE, State.ENDING_SUCCESS, State.ENDING_BIOME]:

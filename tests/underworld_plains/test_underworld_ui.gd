@@ -1,6 +1,9 @@
 extends SceneTree
 ## Production UI classes with actual viewport mouse dispatch; no purchase grant,
 ## campaign traversal, physical device or commercial visual acceptance inferred.
+## Ordinary Home departure is checked against pinned map 930001 first. Retained
+## generated-region HUD/fog cases then use their explicit native developer entry;
+## that fixture does not claim ordinary Home still selects the generated map.
 var checks := 0
 var failures := 0
 var inventory: Array[Dictionary] = []
@@ -105,8 +108,15 @@ func run() -> void:
 	var app := DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);await frames(4)
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
 	check(is_instance_valid(app.home_scene) and app.director.state==DemoRunDirector.State.HOME,"native primary title click creates playable Home")
-	app.menu._seed="level-design-v2-baseline/08";app._open_home_navigation();await click(button(app.menu._content,"Explore"));await frames(8)
-	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"Home navigation click creates actual formal map1 for retained UI cases")
+	app.menu._seed="level-design-v2-baseline/08";app._open_home_navigation();await click(button(app.menu._content,"Explore"));await frames(12)
+	check(app.connected_region and app._is_delivery_stage() and app.stage.registry.map_data.seed==930001,"ordinary Home navigation pointer enters fixed delivery930001")
+	# Preserve the original generated HUD/minimap/fog assertions below through
+	# their explicit developer consumer, after a real native fixed-run cleanup.
+	app.abandon_run();await frames(12)
+	check(app.director.state==DemoRunDirector.State.HOME and app.player==null and not app.lifetime.active,"native abandon ends fixed map before the retained generated-region fixture")
+	check(app.start_plains("level-design-v2-baseline/08"),"explicit generated-region entry accepts the original UI regression seed")
+	await frames(12)
+	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"explicit generated-region consumer creates actual formal map1 for retained UI cases")
 	await observe("actual_formal_hud",app._resources_hud)
 	# The requested rounded material replaces the old black palette snapshot;
 	# keep the original consumer assertion against its effective shared style.
@@ -147,7 +157,7 @@ func run() -> void:
 	else:app.abandon_run();await frames(8)
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):check(false,"actual App audio teardown drains")
 	app.free();item=null;offer=null;reward_offer=null;atlas=null;theme=null;await frames(4)
-	var file:=FileAccess.open(output+"/ui_inventory.json",FileAccess.WRITE);file.store_string(JSON.stringify({"schema":"underworld-ui-actual-inventory-v1","checks":checks,"failures":failures,"actual_mouse_dispatch":true,"capture":capture,"consumers":inventory,"scope":"Native UI class entry/click/disabled/quote/settings/close fixture. No economic settlement, campaign traversal, web or physical-device claim."},"  "));file.close()
+	var file:=FileAccess.open(output+"/ui_inventory.json",FileAccess.WRITE);file.store_string(JSON.stringify({"schema":"underworld-ui-actual-inventory-v1","checks":checks,"failures":failures,"actual_mouse_dispatch":true,"capture":capture,"consumers":inventory,"scope":"Native UI class entry/click/disabled/quote/settings/close fixture. Actual ordinary Home pointer verifies fixed930001; retained generated HUD/fog cases use explicit start_plains after native abandon. No economic settlement, campaign traversal, web or physical-device claim."},"  "));file.close()
 	# Finish only after this async scope (including typed quote locals) returns.
 	# The engine guard remains strict; no ObjectDB/resource warning is ignored.
 	finish.call_deferred()

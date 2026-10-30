@@ -1,9 +1,20 @@
 {
   "schema": "gunman-rush/fixed-map-host/v1",
   "seed": 930001,
-  "spawn": {"instance_id": "M01", "local_position_pixels": [96, 206]},
-  "initial_capabilities": ["move", "jump", "shot_recoil", "grapple"],
-  "capability_source": "Union of delivered scoped route requirements; development entry grants native grapple once at actor creation. No PlayerTuning mutation.",
-  "completion": "Native Windkeeper victory after damage batch; end current lifetime and show run summary. M40 exit stays sealed. Enter returns to normal game title; F5 starts a new run.",
+  "spawn": {
+    "instance_id": "M01",
+    "local_position_pixels": [
+      96,
+      206
+    ]
+  },
+  "initial_capabilities": [
+    "move",
+    "jump",
+    "shot_recoil",
+    "grapple"
+  ],
+  "capability_source": "Union of delivered scoped route requirements; native grapple is granted once when a new campaign actor is created. Hosted maps preserve all existing abilities and resources. No PlayerTuning mutation.",
+  "completion": "Native Windkeeper victory submits delivery_complete through the main RunDirector and returns to Home with its normal summary. M40 exit stays sealed. Standalone diagnostic host retains Enter/F5 shortcuts; hosted maps use the native pause, Home and retry UI.",
   "continuity": "One player, policy, lifetime and wallet for all 46 instances; no room switching or seam resource grants."
 }

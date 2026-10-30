@@ -230,7 +230,7 @@ func show_region_select() -> void:
 	_begin(&"regions", false)
 	_title("选择旅途", "REGIONS / 已有试玩地区")
 	_label(_content, "01  风铃平原", 25, TEXT)
-	_label(_content, "两张相连地图。探索支路、寻找补给，挑战牧风者。", 17, MUTED)
+	_label(_content, "MAP 930001 · 探索支路、寻找补给，挑战牧风者。", 17, MUTED)
 	_button(_content, "BEGIN / 风铃平原", func() -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
@@ -287,7 +287,7 @@ func show_home_panel(function_id: StringName) -> void:
 			_title("Clockwork artisan", "Spend permanent NOTES. Run coins stay inside the adventure.")
 			_upgrade_controls(_content)
 		&"departure":
-			_title("The plains await", "A fresh run with your permanent upgrades. One connected region. Explore loops, open shortcuts, or challenge the Boss early.")
+			_title("风铃平原 / MAP 930001", "A fresh run with your permanent upgrades. Explore the fixed map, open shortcuts and challenge Windkeeper.")
 			_button(_content, "BEGIN / WINDCHIME PLAINS", func() -> void:
 				_hide()
 				requested_plains.emit(_plains_seed()))
@@ -397,7 +397,7 @@ func show_home(summary: String = "") -> void:
 	shell.add_child(body)
 	_label(body, "Choose your next run", 30, TEXT)
 	_label(body, "Precise jumps. Powerful recoil. Your own route.", 16, MUTED)
-	_label(body, "PLAINS / RANDOMIZED RUN", 12, GOLD)
+	_label(body, "PLAINS / MAP 930001", 12, GOLD)
 	_button(body, "Explore   /   Windchime Plains", func() -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))

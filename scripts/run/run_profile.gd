@@ -14,6 +14,8 @@ func is_valid(formal_build := false) -> bool:
 		return not formal_build and profile_id == &"development_three" and definition_version == 1 and stages_per_biome == 3 and boss_stage == 3
 	if profile_id == &"formal_plains_region":
 		return definition_version == 2 and stages_per_biome == 2 and boss_stage == 2
+	if profile_id == &"fixed_delivery_930001":
+		return definition_version == 1 and stages_per_biome == 1 and boss_stage == 1
 	return false
 
 static func development() -> RunProfile:
@@ -31,4 +33,12 @@ static func formal() -> RunProfile:
 	profile.definition_version = 2
 	profile.stages_per_biome = 2
 	profile.boss_stage = 2
+	return profile
+
+static func fixed_delivery() -> RunProfile:
+	var profile := RunProfile.new()
+	profile.profile_id = &"fixed_delivery_930001"
+	profile.definition_version = 1
+	profile.stages_per_biome = 1
+	profile.boss_stage = 1
 	return profile

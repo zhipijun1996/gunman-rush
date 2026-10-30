@@ -15,8 +15,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	for instance: Node2D in world.registry.instances.values(): _install_instance(instance)
 	# Keep the original CourierVisual alive for its authoritative projectile muzzle.
-	var body := PlayerPresentationRuntime.make_body(world.motor, world.player, "PixelPlainsActor")
-	world.motor.add_child(body)
+	var body := PlayerPresentationRuntime.current_body(world.motor)
+	if body == null:
+		body = PlayerPresentationRuntime.make_body(world.motor, world.player, "PixelPlainsActor", world.avatar_selection_id)
+		world.motor.add_child(body)
 	world.motor.get_node("CourierVisual").visible = false
 	world.motor.get_node("PlayerFeedback").visible = false
 	world.motor.get_node("PlayerVisualAdapter").process_mode = Node.PROCESS_MODE_DISABLED

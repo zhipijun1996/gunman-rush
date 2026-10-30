@@ -1,7 +1,12 @@
-extends Node2D
-## Fixed seed development host. All movement/combat/transactions use main-game actors.
+extends DemoStage
+## Exact delivery stage; standalone diagnostics and the ordinary main-game run
+## share assembly. In hosted mode the App owns actors, services and run ending.
+signal encounter_completed
+signal home_requested
+signal restart_requested
+signal load_failed(reason: String)
 const REGISTRY = preload("res://scripts/mapgen/materialized_registry.gd")
-const BOSS = preload("res://scripts/mapgen/boss_binding.gd")
+const BOSS_BINDING = preload("res://scripts/mapgen/boss_binding.gd")
 const PRESENTATION = preload("res://scripts/mapgen/plains_presentation.gd")
 const PLAYER = preload("res://scenes/player/player.tscn")
 const CAPABILITIES = preload("res://third_party/mapgen/0.1.0/module_pack/integration/player_capabilities.gd")
@@ -26,6 +31,27 @@ var _camera: Camera2D
 var _map_view := false
 var _paused := false
 var _bounds: Rect2
+var hosted := false
+var avatar_selection_id := "courier"
+
+func bind_existing(controller: PlayerController, services: Dictionary, identity: String, avatar_id := "courier") -> bool:
+	if is_inside_tree() or hosted or not is_instance_valid(controller) or identity.is_empty(): return false
+	if not services.has_all(["policy", "lifetime", "wallet", "segment", "meta", "region_state"]): return false
+	if not is_instance_valid(controller.motor) or not services.policy is FrameDamagePolicy or not is_instance_valid(services.policy): return false
+	if not services.lifetime is DemoLifetime or not services.wallet is RunWallet or not services.segment is SegmentRespawn or not services.meta is MetaProgression or not services.region_state is PlainsRegionState: return false
+	if not services.lifetime.active or services.policy.lifetime != services.lifetime or services.segment.controller != controller or services.segment.lifetime != services.lifetime: return false
+	player = controller
+	motor = controller.motor
+	policy = services.policy
+	lifetime = services.lifetime
+	wallet = services.wallet
+	segment = services.segment
+	meta = services.meta
+	region_state = services.region_state
+	hosted = true
+	run_id = identity
+	avatar_selection_id = avatar_id
+	return true
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -40,40 +66,43 @@ func _ready() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/mapgen_930001.json"))
 	var blocks: Array = registry.map_data.bounds_blocks
 	_bounds = Rect2(blocks[0] * 128, blocks[1] * 128, (blocks[2] - blocks[0]) * 128, (blocks[3] - blocks[1]) * 128)
-	motor = PLAYER.instantiate()
-	motor.name = "ExistingGamePlayer"
-	motor.process_mode = Node.PROCESS_MODE_PAUSABLE
-	motor.position = Vector2(config.spawn.local_position_pixels[0], config.spawn.local_position_pixels[1])
-	add_child(motor)
-	player = motor.get_node("Controller")
-	player.enable_shot_energy()
-	var capabilities: Dictionary = CAPABILITIES.apply(player, config.initial_capabilities)
-	if not capabilities.ok: _fail(str(capabilities)); return
-	var touch := InputSetup.attach(motor, player.router)
-	touch.reset_label = "NEW RUN"
-	touch.pause_requested.connect(_toggle_pause)
-	touch.reset_requested.connect(_new_run)
-	policy = FrameDamagePolicy.new()
-	policy.lifetime = lifetime
-	add_child(policy)
-	policy.register_player_controller(player)
-	policy.register_target(&"player", player.actor_resources.health, true)
-	policy.player_fatal.connect(_player_fatal)
-	policy.environment_return_requested.connect(_environment_return)
-	segment.configure(player, lifetime)
-	segment.add_anchor(&"map_start", motor.global_position)
+	spawn = Vector2(config.spawn.local_position_pixels[0], config.spawn.local_position_pixels[1])
+	if not hosted:
+		motor = PLAYER.instantiate()
+		motor.name = "ExistingGamePlayer"
+		motor.process_mode = Node.PROCESS_MODE_PAUSABLE
+		motor.position = spawn
+		add_child(motor)
+		player = motor.get_node("Controller")
+		player.enable_shot_energy()
+		var capabilities: Dictionary = CAPABILITIES.apply(player, config.initial_capabilities)
+		if not capabilities.ok: _fail(str(capabilities)); return
+		var touch := InputSetup.attach(motor, player.router)
+		touch.reset_label = "NEW RUN"
+		touch.pause_requested.connect(_toggle_pause)
+		touch.reset_requested.connect(_new_run)
+		policy = FrameDamagePolicy.new()
+		policy.lifetime = lifetime
+		add_child(policy)
+		policy.register_player_controller(player)
+		policy.register_target(&"player", player.actor_resources.health, true)
+		policy.player_fatal.connect(_player_fatal)
+		policy.environment_return_requested.connect(_environment_return)
+		segment.configure(player, lifetime)
+	segment.add_anchor(&"map_start", spawn)
 	var services := {"policy": policy, "lifetime": lifetime, "wallet": wallet, "segment": segment, "meta": meta, "region_state": region_state}
 	for spec: Dictionary in registry.map_data.instances:
 		var receipt: Dictionary = registry.instantiate_materialized(spec, self, player, services, run_id)
 		if not receipt.ok: _fail(receipt.reason); return
 		registry.instances[spec.id].process_mode = Node.PROCESS_MODE_PAUSABLE
 		segment.danger_bounds.append_array(registry.instances[spec.id].module.world_static_dangers())
-	boss_binding = BOSS.new()
+	boss_binding = BOSS_BINDING.new()
 	boss_binding.name = "NativeBossBinding"
 	boss_binding.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(boss_binding)
 	var boss_result: Dictionary = boss_binding.setup(registry.instances.M40, player, services)
 	if not boss_result.ok: _fail(str(boss_result)); return
+	boss = boss_binding.boss
 	boss_binding.victory.connect(_boss_victory)
 	_camera = Camera2D.new()
 	_camera.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -85,6 +114,20 @@ func _ready() -> void:
 	plains_presentation.world = self
 	add_child(plains_presentation)
 	if not load_error.is_empty(): return
+	if not hosted: _make_standalone_hud()
+	# The main App already owns the native post-damage interaction queue.
+	if not hosted: player.interact_requested.connect(_interact)
+	# Physics must acknowledge terrain before validating the complete spawn body.
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	if not segment.activate_anchor(&"map_start"):
+		_fail("M01/game-plains-windchime-lesson/spawn_96_206_unsafe"); return
+	loaded = true
+	policy.protect_player()
+	events.append({"event": "map_loaded", "run_id": run_id, "seed": 930001, "spawn": [motor.position.x, motor.position.y], "single_player": true, "physics_tuning": "config/player_tuning.json", "hosted":hosted})
+	print("MAPGEN_READY ", JSON.stringify({"seed": 930001, "instances": registry.instances.size(), "spawn": [motor.position.x, motor.position.y], "boss_scene": boss_result.scene, "hosted":hosted}))
+
+func _make_standalone_hud() -> void:
 	var hud := CanvasLayer.new()
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(hud)
@@ -104,16 +147,6 @@ func _ready() -> void:
 		button.focus_mode = Control.FOCUS_NONE
 		button.pressed.connect(action[1])
 		actions.add_child(button)
-	player.interact_requested.connect(_interact)
-	# Physics must acknowledge terrain before validating the complete spawn body.
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	if not segment.activate_anchor(&"map_start"):
-		_fail("M01/game-plains-windchime-lesson/spawn_96_206_unsafe"); return
-	loaded = true
-	policy.protect_player()
-	events.append({"event": "map_loaded", "run_id": run_id, "seed": 930001, "spawn": [motor.position.x, motor.position.y], "single_player": true, "physics_tuning": "config/player_tuning.json"})
-	print("MAPGEN_READY ", JSON.stringify({"seed": 930001, "instances": registry.instances.size(), "spawn": [motor.position.x, motor.position.y], "boss_scene": boss_result.scene}))
 
 func _physics_process(_delta: float) -> void:
 	if not loaded: return
@@ -133,13 +166,27 @@ func _physics_process(_delta: float) -> void:
 			request.fall = true
 			policy.submit(request)
 	if not _map_view: _camera.global_position = motor.global_position
-	_label.text = "固定地图 930001 开发预览  |  HP %s  金币 %s  |  %s\nA/D 移动 · 空格跳跃 · 松开左键射击 · E 钩索 · W 交互 · S 下落\nM 全图 · Esc 暂停 · F5 新一局 · Enter 返回主游戏\n%s" % [player.actor_resources.health.current, wallet.balance, outcome, "先射击风铃，再向右探索" if outcome == "playing" else "本局已结束；可返回主游戏或开始新一局"]
+	if is_instance_valid(_label):
+		_label.text = "固定地图 930001 开发预览  |  HP %s  金币 %s  |  %s\nA/D 移动 · 空格跳跃 · 松开左键射击 · E 钩索 · W 交互 · S 下落\nM 全图 · Esc 暂停 · F5 新一局 · Enter 返回主游戏\n%s" % [player.actor_resources.health.current, wallet.balance, outcome, "先射击风铃，再向右探索" if outcome == "playing" else "本局已结束；可返回主游戏或开始新一局"]
 
 func _interact() -> void:
 	if not lifetime.active: return
 	for instance: Node2D in registry.instances.values():
 		if instance.has_method("request_native_region_interaction"): instance.request_native_region_interaction()
 		if instance.has_method("request_native_pickup_interaction"): instance.request_native_pickup_interaction()
+
+func cancel_latch_requests(permanent := false) -> void:
+	for instance: Node2D in registry.instances.values():
+		for latch: ShotLatch in instance.find_children("*", "ShotLatch", true, false):
+			if permanent: latch.cancel()
+			else: latch.cancel_pending()
+
+func cancel_enemy_attacks() -> void:
+	for instance: Node2D in registry.instances.values():
+		for actor: EnemyActor in instance.find_children("*", "EnemyActor", true, false):
+			if actor.attack_behavior != null: actor.attack_behavior.cancel()
+	if is_instance_valid(boss_binding) and is_instance_valid(boss_binding.encounter):
+		boss_binding.encounter.cancel_pending_attacks()
 
 func _environment_return() -> void:
 	if lifetime.active and not player.actor_resources.health.terminal:
@@ -157,6 +204,9 @@ func _boss_victory() -> void:
 	if outcome != "playing" or not lifetime.active or player.actor_resources.health.terminal: return
 	outcome = "victory"
 	events.append({"event": "run_end", "result": outcome, "coins": wallet.balance, "exit_opened": false})
+	if hosted:
+		encounter_completed.emit()
+		return
 	lifetime.end()
 	player.router.clear("mapgen_victory")
 	player.shoot_ability.clear_projectiles()
@@ -165,6 +215,7 @@ func _boss_victory() -> void:
 	motor.reset_motion()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if hosted: return # Ordinary input/menus and confirmation belong to DemoApp.
 	if not event is InputEventKey or not event.pressed or event.echo or not loaded: return
 	# Native cache choice owns its pause. Global overview/pause must not resume
 	# the world behind an unresolved mandatory transaction.
@@ -222,11 +273,17 @@ func _draw() -> void:
 func _new_run() -> void:
 	if _native_reward_modal_open(): return
 	get_tree().paused = false
+	if hosted:
+		restart_requested.emit()
+		return
 	get_tree().reload_current_scene()
 
 func _return_title() -> void:
 	if _native_reward_modal_open(): return
 	get_tree().paused = false
+	if hosted:
+		home_requested.emit()
+		return
 	# The existing isolated Web preview owns a session-only full-game menu.
 	var ancestor := get_parent()
 	while ancestor != null:
@@ -245,12 +302,16 @@ func _native_reward_modal_open() -> bool:
 func _fail(reason: String) -> void:
 	load_error = reason
 	loaded = false
+	if hosted:
+		load_failed.emit(reason)
+		push_error("MAPGEN_LOAD_FAILED " + reason)
+		return
 	lifetime.end()
 	if is_instance_valid(player): player.die()
 	push_error("MAPGEN_LOAD_FAILED " + reason)
 	print("MAPGEN_LOAD_FAILED ", reason)
 
 func _exit_tree() -> void:
-	lifetime.end()
+	if not hosted: lifetime.end()
 	if is_instance_valid(player): player.router.clear("mapgen_unload")
 	Engine.time_scale = 1.0

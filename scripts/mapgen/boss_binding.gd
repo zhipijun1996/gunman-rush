@@ -131,7 +131,9 @@ func activate() -> bool:
 	var native_sink := receiver.damage_sink
 	receiver.damage_sink = func(context: Dictionary) -> bool:
 		var shot_key := "%s:%s" % [context.get("session_id", -1), context.get("shot_id", -1)]
-		return started and contains_player() and lifetime.active and _eligible_shots.get(shot_key, -1) == lifetime.actor_epoch and native_sink.call(context) == true
+		var runtime := player.item_runtime
+		var authorized_item: bool = runtime != null and bool(context.get("item_effect_damage", false)) and context.get("source_actor_id", -1) == player.motor.get_instance_id() and context.get("session_id", -1) == player.session_id and runtime.authorizes_effect(context, receiver)
+		return started and contains_player() and lifetime.active and (_eligible_shots.get(shot_key, -1) == lifetime.actor_epoch or authorized_item) and native_sink.call(context) == true
 	started = encounter.activate()
 	events.append({"event":"boss_activated", "accepted":started, "player_position":[player.motor.global_position.x,player.motor.global_position.y]})
 	return started
