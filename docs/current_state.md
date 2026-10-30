@@ -4,7 +4,7 @@
 
 用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。
 
-新分支 `perf/mobile-web-quality-20261030`，独立worktree；真实demo／同seed／同1280×720与DPR，官方线程Debug/Release同PCK与诊断计时分开。仅新增固定几何前缀精确缓存；正式两图96项与缓存等价383项fresh通过，独审未见阻断。原版反序对照未证明整体FPS稳定提升，移动cache miss有小额外成本；不把软件GPU帧率当荣耀60Pro数据。候选试玩与交付正在收口；见[范围](worklines/mobile_web_fps_04/scope.md)。
+新分支 `perf/mobile-web-quality-20261030`，独立worktree；真实demo／同seed／同1280×720与DPR，官方线程Debug/Release同PCK与诊断计时分开。仅新增固定几何前缀精确缓存；正式两图96项与缓存等价383项fresh通过，独审未见阻断。原版反序对照未证明整体FPS稳定提升，移动cache miss有小额外成本；不把软件GPU帧率当荣耀60Pro数据。候选 `1394d114df73` 已在 `/perf-04/` 发布，原主页ad78不变；15个公网完整文件与真实Home/Plains短窗音频通过。首个冷加载180s超时保留，后续原限时通过。草稿PR120未合main，等待实际收益判断；见[证据](evidence/mobile_web_fps_04/README.md)。
 
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI

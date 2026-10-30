@@ -2,6 +2,16 @@
 
 当前结论：未取得荣耀60Pro的FPS/P95，不能报告手机已稳定60帧。官方Release引擎没有显示可靠的整体收益，本轮不切换导出模式。固定几何保护缓存能减少静止镜头时的重复CPU计算，但整体Web帧率收益尚未确立；移动镜头时还有少量缓存失效成本。候选不自动合main。
 
+## 已发布对照
+
+[候选1394d114df73](https://zhipijun1996.github.io/gunman-rush/perf-04/?v=1394d114df73) · [原版ad78f8ae3998](https://zhipijun1996.github.io/gunman-rush/?v=ad78f8ae3998) · [草稿PR120](https://github.com/zhipijun1996/gunman-rush/pull/120)。候选是源 `5caf4d4f` 的正常Web导出，无本轮计时probe；正式入口和旧audio-before原文件保持不变。发布run40991030714成功，15个完整公开文件SHA/长度核对通过，详见[交付收据](delivery/summary.json)。
+
+真实公开GUI已进入Home/Plains、触屏跳跃/射击；官方线程共享音频环实际启用，两段各8秒PCM全部352800帧非零、无clipping，所选 `shot_pulse_a` 与输出相关系数0.801/0.805且距原生start约0.045ms。此为短窗浏览器输出证据，不能代签真机听感或长时完全无断续。导出3260项payload保持相同，仅foreground字节码及两份Godot索引缓存改变；原音频、图片、Shader与项目配置未变。
+
+首个公开GUI尝试超过原180秒加载限时，失败保留；单独加载观察在20/40/60秒持续下载127/162/235.6MB，80秒进入标题。最终原verifier在原180秒预算内完成，未放宽门槛。不把一次冷加载超时冒称进入游戏后的帧率问题，也未证明其精确网络根因。
+
+文档首轮因稀疏工作区缺历史输入失败，按原输入工具实际物化后，原docs Harness重验通过。Web bundle、原缓存测试、quality记录一致性与完整base diff守门通过；所有相关原件见delivery目录。质量仍待真机与整体性能接受，完整候选CI未代签。
+
 ## 基线与可比范围
 
 - 正式源：main `5f55716a838a754a938997920ff18cb3b17452b5`；公开PCK `ad78f8ae3998`，官方Godot4.7.2线程供音。保留上一轮已修复的UI、1280×720逻辑/纹理视口、画质、光照、工坊音效。

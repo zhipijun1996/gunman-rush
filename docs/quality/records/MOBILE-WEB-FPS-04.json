@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "MOBILE-WEB-FPS-04",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "awaiting-device",
   "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
-  "reviewed_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "reviewed_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
   "content_version": "candidate-v1",
   "owner": "root",
   "purpose": "Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements",
@@ -25,7 +25,11 @@
     "tools/run_underworld_formal_tests.py",
     ".github/workflows/deploy-prepared-playtest.yml"
   ],
-  "deliverables": [],
+  "deliverables": [
+    "docs/evidence/mobile_web_fps_04/README.md",
+    "Draft PR120",
+    "Isolated perf-04 preview; ordinary main unchanged"
+  ],
   "creative_decisions": [],
   "formal_impact": true,
   "gates": {
@@ -67,9 +71,11 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "相关原生消费者与等价检查通过，保留原预算与严格退出；完整CI和手机另列。",
+      "evidence": [
+        "formal-cache"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -103,8 +109,10 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "生产缓存/计时/runner/tests已有独立限定审查；pair helper由root另审。本卡不以局部review签整项性能/设备接受。",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -118,12 +126,44 @@
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "formal-cache",
+      "path": "docs/evidence/mobile_web_fps_04/formal-harness/report.json",
+      "sha256": "d24e367fddb6ab5743f10dc3c39d16c1024dd48ee5d0832776f9d77491168a3d",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+      "content_version": "candidate-v1",
+      "method": "Fresh selected Harness; unchanged runtime/test bytes committed in source SHA; original shared timeout and strict exit",
+      "observed": "Original formal96/0 and cache equivalence383/0; not full165",
+      "command": "python3 tools/harness.py --check underworld-formal --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 headless; no phone acceptance"
+    },
+    {
+      "id": "review",
+      "path": "docs/worklines/mobile_web_fps_04/review.md",
+      "sha256": "d760fa0b02260866be6f9b544d9eff79b8fa12e7c495da88d3e78e1240c385ee",
+      "kind": "review",
+      "producer": "/root/perf_release_pair",
+      "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+      "content_version": "candidate-v1",
+      "method": "Independent static review of root runtime/probe and other agent runner/tests; own pair helper explicitly excluded",
+      "observed": "No blocking correctness issue in reviewed scope; no phone or FPS acceptance",
+      "reviewer": "/root/perf_release_pair",
+      "implementers": [
+        "root",
+        "/root/perf_browser_runner"
+      ],
+      "verdict": "ACCEPT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Current physical Honor60Pro FPS/P95 unknown",
-    "Engine-only release comparison is not complete release-export validation",
-    "No production optimization adopted before measurements",
-    "Final formal visual/audio regression and independent review pending"
+    "荣耀60Pro当前FPS/P95与移动场景收益",
+    "整体Web稳定提速尚未成立；候选移动miss有额外CPU成本",
+    "完整165项最新候选CI",
+    "真机长时音频和玩法体验"
   ]
 }
