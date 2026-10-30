@@ -1,5 +1,15 @@
 # 当前状态
 
+## 2026-10-30 七怪死亡掉落审核版已发布（当前）
+
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已私密更新：源97a25c0，25怪/95版本/15媒体，原88版本、意见归属和其他18怪保留。用户选择固定金币必掉，音符/回血按原概率额外；七怪候选1/2/2/2/3/5/7，实际7=5+1+1。整身呼吸/承重/滞后、轻hurt与独立材质death/land、方向碎屑/局部33ms停顿、物理喷散/轻弹/锁拾取/吸收及实际回血微光已接入。1wu/原身体PNG、AI/HP/伤害/玩家物理不改。
+
+冻结影片996a5946实录50.7833秒/3047帧/2940观测/七章0缺口，媒体固定8ccd927c，公网完整HTTP200/SHA一致；录片明确idle观察hold/原岸站位/实际概率样本选取，非自然整关。巡逻落位与回血可见性原拒绝和限定复审保留。工坊API13/模型8/独审434通过；本轮浏览器/声音听审/设备/用户与经济平衡未签。
+
+CI40988919015完整167原尝试失败：parallel9过1fail、82未跑；serial14过/forest-campaign180timeout、60未跑。实际两缺陷为旧coin预览省略amount导致SCRIPT ERROR，以及legacy默认drop v1被新的公共v2常量误拒于Forest。后继仅生产兼容修复，旧测试/预算不改；原visual27、avatar37、本地专项346、原generated26套和forest campaign74全部0失败。新源完整167复验待核，不以旧996片追签兼容后继代码。[本轮证据](evidence/plains_motion_loot_02/README.md)。
+
+分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；media/plains-motion-loot-02只承载固定原片，不是可玩发布。恢复先核Git/source与唯一Godot租约，勿重画、重录或覆盖旧失败；下一步完成新源167后归档精确CI，并按用户具体怪物/时间点意见返工。
+
 ## 2026-10-29 平原七怪候选已交工坊，完整166技术CI通过（最新）
 
 [打开怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)。平原7个新版实际动作与6组玩家＋原俯冲＋修改怪物的原平原同屏对照已私密发布；沿现有1wu／nearest，独审限定接受静态同屏像素粒度进入复审。原75版本和意见归属保留；森林／Boss／候选条目仍用上轮实录，未冒称本轮重录。站点源ec916080，媒体仍按原7edda9源保留，不追签后继代码。

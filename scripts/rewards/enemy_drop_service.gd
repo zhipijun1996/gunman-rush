@@ -2,7 +2,8 @@ class_name EnemyDropService
 extends RefCounted
 ## Demo weights are tentative. Per-enemy streams make kill order irrelevant.
 const CONFIG_PATH := "res://config/enemy_drops.json"
-const CONTENT_VERSION := "plains-enemy-drops-v2"
+const CONTENT_VERSION := "plains-enemy-drops-v1"
+const GUARANTEED_CONTENT_VERSION := "plains-enemy-drops-v2"
 const RNG_VERSION := "plains-enemy-drops-v1"
 var configuration: Dictionary = {}
 var root_seed := ""
@@ -60,7 +61,7 @@ func settle(enemy_id: StringName, behavior: StringName = &"") -> Dictionary:
 		var coins: int = int(configuration.coin_totals[String(behavior)])
 		var rewards: Array[Dictionary] = [{"kind":"coin", "amount":coins}]
 		if selected in ["note", "heart"]: rewards.append({"kind":selected,"amount":int(configuration.amounts[selected])})
-		output.merge({"kind":"coin", "amount":coins, "rewards":rewards, "coin_total":coins, "configured_coin_total":coins, "behavior":String(behavior), "bonus_roll_kind":selected, "drop_revision":2,"content_version":CONTENT_VERSION}, true)
+		output.merge({"kind":"coin", "amount":coins, "rewards":rewards, "coin_total":coins, "configured_coin_total":coins, "behavior":String(behavior), "bonus_roll_kind":selected, "drop_revision":2,"content_version":GUARANTEED_CONTENT_VERSION}, true)
 	_settled[enemy_id] = output.duplicate(true)
 	return output
 

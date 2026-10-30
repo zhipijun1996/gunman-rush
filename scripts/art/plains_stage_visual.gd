@@ -58,8 +58,11 @@ func _sync_pickups() -> void:
 			if pickup.kind=="coin":
 				var parts:Array[Sprite2D]=[sprite]
 				var values:Array[int]=[]
-				for _i:int in int(pickup.amount)/5:values.append(5)
-				for _i:int in int(pickup.amount)%5:values.append(1)
+				# The pre-existing visual-only preview contract omits a value.
+				# Its single icon cannot grant money; real App pickups own amounts.
+				var visual_amount:=int(pickup.get("amount",1))
+				for _i:int in visual_amount/5:values.append(5)
+				for _i:int in visual_amount%5:values.append(1)
 				for part_index:int in maxi(0,values.size()-1):
 					var extra:=Sprite2D.new()
 					extra.texture=sprite.texture

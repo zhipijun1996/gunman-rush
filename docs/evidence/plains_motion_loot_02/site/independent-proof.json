@@ -1,0 +1,1903 @@
+{
+  "reviewer": "/root/guard_review_recovery",
+  "independent": true,
+  "source_site_commit": "ec916080ffae288332c233cf01906fa02eeeb561",
+  "source_game_commit": "996a59461b0901c483a7769355b4e2afdd88b078",
+  "media_commit": "8ccd927c5d13dfdebbe198d85e6901983f370be2",
+  "media_sha256": "c2b1ba303c7323da6c0705d4a86f741aa89b574abee946993e25eeac6b0161c2",
+  "checks": [
+    {
+      "label": "existing Site exact sourceec916 retained",
+      "passed": true
+    },
+    {
+      "label": "baselinecatalog rawSHA matches exact Git baseline",
+      "passed": true
+    },
+    {
+      "label": "appliedcatalog equals audited staged bytes",
+      "passed": true
+    },
+    {
+      "label": "all topfields retained except explicit new gamecommit",
+      "passed": true
+    },
+    {
+      "label": "new top gamecommit exact actual recording",
+      "passed": true
+    },
+    {
+      "label": "all25monsterIDs andorder unchanged",
+      "passed": true
+    },
+    {
+      "label": "exact88 retained and7newvariants total95",
+      "passed": true
+    },
+    {
+      "label": "no oldvariant removed orIDrenamed",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "targetnonvariantmetadata unchanged:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "targetoldvariants retained exactorder:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "targetsinglelatestcandidate:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_bark_beetle",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_swing_pod",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_lantern",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_seed_sentry",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_thread_spider",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_crossbranch",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:forest_bible_weaver",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:candidate_lure_guard",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:candidate_crosswind_moth",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:clockwork_guardian",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:bellstrider",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:windkeeper",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:windkeeper_storm",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:thorn_guardian",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:thorn_queen",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:rootbell_guardian_v2",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:thorn_queen_v2",
+      "passed": true
+    },
+    {
+      "label": "other18monsterdeepidentical:thorn_queen_canopy",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:patrol_drone-plains-revision-7edda9f5f2a2-5596f4d05029-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:patrol_drone-plains-revision-7edda9f5f2a2-5596f4d05029-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:patrol_drone-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:patrol_drone-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:patrol_drone-underworld-52d0a0ada210-a65b2c6efe7a-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:patrol_drone-underworld-52d0a0ada210-a65b2c6efe7a-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:patrol_drone-scene-52d0a0ada210-a65b2c6efe7a-1",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:patrol_drone-scene-52d0a0ada210-a65b2c6efe7a-1",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-patrol_drone-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-patrol_drone-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-patrol_drone-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-patrol_drone-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-plains-revision-7edda9f5f2a2-5596f4d05029-1",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-plains-revision-7edda9f5f2a2-5596f4d05029-1",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-underworld-52d0a0ada210-2df0fe877874-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-underworld-52d0a0ada210-2df0fe877874-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-scene-52d0a0ada210-2df0fe877874-1",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-scene-52d0a0ada210-2df0fe877874-1",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-underworld-52d0a0ada210-a65b2c6efe7a-2",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-underworld-52d0a0ada210-a65b2c6efe7a-2",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_charger-scene-52d0a0ada210-a65b2c6efe7a-3",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_charger-scene-52d0a0ada210-a65b2c6efe7a-3",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_charger-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_charger-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_charger-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_charger-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_charger-underworld-2df0fe877874",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_charger-underworld-2df0fe877874",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_charger-scene-2df0fe877874",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_charger-scene-2df0fe877874",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_diver-plains-revision-7edda9f5f2a2-5596f4d05029-2",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_diver-plains-revision-7edda9f5f2a2-5596f4d05029-2",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_diver-underworld-52d0a0ada210-5b6546c158b5-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_diver-underworld-52d0a0ada210-5b6546c158b5-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_diver-scene-52d0a0ada210-5b6546c158b5-1",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_diver-scene-52d0a0ada210-5b6546c158b5-1",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_diver-underworld-52d0a0ada210-a65b2c6efe7a-4",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_diver-underworld-52d0a0ada210-a65b2c6efe7a-4",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_diver-scene-52d0a0ada210-a65b2c6efe7a-5",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_diver-scene-52d0a0ada210-a65b2c6efe7a-5",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_diver-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_diver-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_diver-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_diver-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_diver-underworld-5b6546c158b5",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_diver-underworld-5b6546c158b5",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_diver-scene-5b6546c158b5",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_diver-scene-5b6546c158b5",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_hopper-plains-revision-7edda9f5f2a2-5596f4d05029-3",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_hopper-plains-revision-7edda9f5f2a2-5596f4d05029-3",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_hopper-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_hopper-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_hopper-underworld-52d0a0ada210-a65b2c6efe7a-6",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_hopper-underworld-52d0a0ada210-a65b2c6efe7a-6",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_hopper-scene-52d0a0ada210-a65b2c6efe7a-7",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_hopper-scene-52d0a0ada210-a65b2c6efe7a-7",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_hopper-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_hopper-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_hopper-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_hopper-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-4",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-4",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_sentry-underworld-52d0a0ada210-a65b2c6efe7a-8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_sentry-underworld-52d0a0ada210-a65b2c6efe7a-8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_sentry-scene-52d0a0ada210-a65b2c6efe7a-9",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_sentry-scene-52d0a0ada210-a65b2c6efe7a-9",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_sentry-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_sentry-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_sentry-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_sentry-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_fan_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-5",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_fan_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-5",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_fan_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_fan_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_fan_sentry-underworld-52d0a0ada210-a65b2c6efe7a-10",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_fan_sentry-underworld-52d0a0ada210-a65b2c6efe7a-10",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_fan_sentry-scene-52d0a0ada210-a65b2c6efe7a-11",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_fan_sentry-scene-52d0a0ada210-a65b2c6efe7a-11",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_fan_sentry-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_fan_sentry-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_fan_sentry-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_fan_sentry-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_root_bell-plains-revision-7edda9f5f2a2-5596f4d05029-6",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_root_bell-plains-revision-7edda9f5f2a2-5596f4d05029-6",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_root_bell-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_root_bell-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_root_bell-underworld-52d0a0ada210-a65b2c6efe7a-12",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_root_bell-underworld-52d0a0ada210-a65b2c6efe7a-12",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_root_bell-scene-52d0a0ada210-a65b2c6efe7a-13",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_root_bell-scene-52d0a0ada210-a65b2c6efe7a-13",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:plains_root_bell-root_bell-52d0a0ada210-a65b2c6efe7a-14",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:plains_root_bell-root_bell-52d0a0ada210-a65b2c6efe7a-14",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_root_bell-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_root_bell-underworld-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_root_bell-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_root_bell-scene-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-plains_root_bell-root_bell-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-plains_root_bell-root_bell-a27c708729b8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_bark_beetle-scene-52d0a0ada210-a65b2c6efe7a-15",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_bark_beetle-scene-52d0a0ada210-a65b2c6efe7a-15",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_bark_beetle-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_bark_beetle-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_swing_pod-scene-52d0a0ada210-a65b2c6efe7a-16",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_swing_pod-scene-52d0a0ada210-a65b2c6efe7a-16",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_swing_pod-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_swing_pod-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_lantern-scene-52d0a0ada210-a65b2c6efe7a-17",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_lantern-scene-52d0a0ada210-a65b2c6efe7a-17",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_lantern-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_lantern-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_seed_sentry-scene-52d0a0ada210-a65b2c6efe7a-18",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_seed_sentry-scene-52d0a0ada210-a65b2c6efe7a-18",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_seed_sentry-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_seed_sentry-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_thread_spider-scene-52d0a0ada210-a65b2c6efe7a-19",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_thread_spider-scene-52d0a0ada210-a65b2c6efe7a-19",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_thread_spider-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_thread_spider-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_crossbranch-scene-52d0a0ada210-a65b2c6efe7a-20",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_crossbranch-scene-52d0a0ada210-a65b2c6efe7a-20",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_crossbranch-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_crossbranch-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:forest_bible_weaver-scene-52d0a0ada210-a65b2c6efe7a-21",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:forest_bible_weaver-scene-52d0a0ada210-a65b2c6efe7a-21",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-forest_bible_weaver-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-forest_bible_weaver-scene-85fb57d47d04",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:candidate_lure_guard-scene-52d0a0ada210-a65b2c6efe7a-22",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:candidate_lure_guard-scene-52d0a0ada210-a65b2c6efe7a-22",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-candidate_lure_guard-scene-d5573c51345a",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-candidate_lure_guard-scene-d5573c51345a",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:candidate_crosswind_moth-scene-52d0a0ada210-a65b2c6efe7a-23",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:candidate_crosswind_moth-scene-52d0a0ada210-a65b2c6efe7a-23",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-candidate_crosswind_moth-scene-d5573c51345a",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-candidate_crosswind_moth-scene-d5573c51345a",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:clockwork_guardian-actual_boss_scene-52d0a0ada210-2c566ed343da-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:clockwork_guardian-actual_boss_scene-52d0a0ada210-2c566ed343da-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-clockwork_guardian-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-clockwork_guardian-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:bellstrider-actual_boss_scene-52d0a0ada210-2c566ed343da-1",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:bellstrider-actual_boss_scene-52d0a0ada210-2c566ed343da-1",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-bellstrider-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-bellstrider-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:windkeeper-actual_boss_scene-52d0a0ada210-2c566ed343da-2",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:windkeeper-actual_boss_scene-52d0a0ada210-2c566ed343da-2",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-windkeeper-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-windkeeper-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:windkeeper_storm-actual_formal_App-52d0a0ada210-fd5b65c1b68a-0",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:windkeeper_storm-actual_formal_App-52d0a0ada210-fd5b65c1b68a-0",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:windkeeper_storm-actual_boss_scene-52d0a0ada210-2c566ed343da-3",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:windkeeper_storm-actual_boss_scene-52d0a0ada210-2c566ed343da-3",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-windkeeper_storm-actual_formal_App-4229fb079475",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-windkeeper_storm-actual_formal_App-4229fb079475",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:thorn_guardian-actual_boss_scene-52d0a0ada210-2c566ed343da-4",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:thorn_guardian-actual_boss_scene-52d0a0ada210-2c566ed343da-4",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-thorn_guardian-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-thorn_guardian-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:thorn_queen-actual_boss_scene-52d0a0ada210-2c566ed343da-5",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:thorn_queen-actual_boss_scene-52d0a0ada210-2c566ed343da-5",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-thorn_queen-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-thorn_queen-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:rootbell_guardian_v2-actual_boss_scene-52d0a0ada210-2c566ed343da-6",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:rootbell_guardian_v2-actual_boss_scene-52d0a0ada210-2c566ed343da-6",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-rootbell_guardian_v2-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-rootbell_guardian_v2-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:thorn_queen_v2-actual_boss_scene-52d0a0ada210-2c566ed343da-7",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:thorn_queen_v2-actual_boss_scene-52d0a0ada210-2c566ed343da-7",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-thorn_queen_v2-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-thorn_queen_v2-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:thorn_queen_canopy-actual_boss_scene-52d0a0ada210-2c566ed343da-8",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:thorn_queen_canopy-actual_boss_scene-52d0a0ada210-2c566ed343da-8",
+      "passed": true
+    },
+    {
+      "label": "oldID/revision/actions/media/provenance unchanged:history-thorn_queen_canopy-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "oldonlyexpectedcurrentlabeldemotion:history-thorn_queen_canopy-actual_boss_scene-89cfc9553cbb",
+      "passed": true
+    },
+    {
+      "label": "actual complete clean seven-chaptertrace",
+      "passed": true
+    },
+    {
+      "label": "actual wrapper recorded exactclean996 stable",
+      "passed": true
+    },
+    {
+      "label": "localactualMP4 matches wrapper andaudit SHA",
+      "passed": true
+    },
+    {
+      "label": "actualtrace matches wrapper andaudit SHA",
+      "passed": true
+    },
+    {
+      "label": "actualfullwrapper matches staged audit SHA",
+      "passed": true
+    },
+    {
+      "label": "immutablemedia Git blob exactSHA",
+      "passed": true
+    },
+    {
+      "label": "actualraw IDs exact knownseven includinggraybox patrol",
+      "passed": true
+    },
+    {
+      "label": "actual2940continuousactiveobservations",
+      "passed": true
+    },
+    {
+      "label": "actualHPgain and7=5+1+1 retained",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:patrol_drone/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:patrol_drone/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:patrol_drone/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:patrol_drone/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:patrol_drone/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:patrol_drone/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:patrol_drone",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_charger/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_charger/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_charger/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_charger/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_charger/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_charger/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_charger",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_diver/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_diver/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_diver/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_diver/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_diver/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_diver/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_diver",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_hopper/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_hopper/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_hopper/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_hopper/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_hopper/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_hopper/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_hopper",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/idle_body",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_sentry/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_sentry/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_sentry/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_sentry/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_sentry/note_drop",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_sentry/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_sentry",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_fan_sentry/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_fan_sentry/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_fan_sentry/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_fan_sentry/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_fan_sentry/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_fan_sentry/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_fan_sentry",
+      "passed": true
+    },
+    {
+      "label": "newvariantimmutablemediaidentity:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "revision retains actualraw ID andcanonicaltargetonly:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "candidate/fixtures/audio scope disclosed:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "clipwithin exactoriginalchapter:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/idle_body",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/idle_body",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_root_bell/locomotion",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/nonlethal_hurt",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_root_bell/hurt_recovery",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/death",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/death",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/loot_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/loot_bounce",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/coin_collection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/heal_ejection",
+      "passed": true
+    },
+    {
+      "label": "actualrecordedaction withinchapter:plains_root_bell/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "actualactionwindow independently matchesledger:plains_root_bell/heal_collection",
+      "passed": true
+    },
+    {
+      "label": "missing/NAtimer staysunset:plains_root_bell/note_drop",
+      "passed": true
+    },
+    {
+      "label": "unprovenhurt recovery explicitlymissing:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "stationary/actualmove distinction:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "actualconfiguredwallet andcompleteclaims:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "appliedposter exactstagedsource bytes:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "posterwithin exactplayablechapter:plains_root_bell",
+      "passed": true
+    },
+    {
+      "label": "onlyone newmedia ID sharedsevenchapters",
+      "passed": true
+    },
+    {
+      "label": "exact15media identitiesafterappend",
+      "passed": true
+    },
+    {
+      "label": "onlyone scopebannertext replacement",
+      "passed": true
+    },
+    {
+      "label": "onlycatalog/banner/7newposters changed; noAPI/DB/schema/feedback files",
+      "passed": true
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:patrol_drone",
+      "passed": true,
+      "frame": 11,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-01.jpg",
+      "decoded_sha256": "5c23b68c619d7bfdf17bbeec3b7362bf783be05ab01a7b847f8077fdee865baf"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_charger",
+      "passed": true,
+      "frame": 446,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-02.jpg",
+      "decoded_sha256": "7f74c274841db53fa4c25f04c381d11788fedee8cd20e1e3dee371c97ba555e3"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_diver",
+      "passed": true,
+      "frame": 881,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-03.jpg",
+      "decoded_sha256": "78940bd234d03d47af8fabfeac796a09014a9ada9a3925306074686fbc85d220"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_hopper",
+      "passed": true,
+      "frame": 1316,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-04.jpg",
+      "decoded_sha256": "1c246842163e50ade80ccb46f201d62d16ec37e9976d0ba5e959570887d19a6b"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_sentry",
+      "passed": true,
+      "frame": 1751,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-05.jpg",
+      "decoded_sha256": "040515d2b9c7a69865c08e8cb9b43ae6fe4a3f39429a6889436850b8e5e082f3"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_fan_sentry",
+      "passed": true,
+      "frame": 2186,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-06.jpg",
+      "decoded_sha256": "3004dea0f484620ceed5ad08394b235335b379bafa22c24c1ecee5304f8e45ac"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_root_bell",
+      "passed": true,
+      "frame": 2621,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-07.jpg",
+      "decoded_sha256": "c33af230c24c2ebf82506ccb46e9f80a030bcc728d86150664f9b17a5207dbba"
+    },
+    {
+      "label": "actual1280x720/60fps/3047frames/stereo48000 originalmovie",
+      "passed": true
+    }
+  ],
+  "counts": {
+    "checks": 434,
+    "failed": 0
+  },
+  "posters": [
+    {
+      "monster": "patrol_drone",
+      "frame": 11,
+      "bounds": [
+        0.183333333333333,
+        7.15
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/graybox_patrol_drone-motion-loot-996a59461b09-c2b1ba303c73-0.jpg",
+      "sha256": "5c23b68c619d7bfdf17bbeec3b7362bf783be05ab01a7b847f8077fdee865baf"
+    },
+    {
+      "monster": "plains_charger",
+      "frame": 446,
+      "bounds": [
+        7.43333333333333,
+        14.4
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_charger-motion-loot-996a59461b09-c2b1ba303c73-1.jpg",
+      "sha256": "7f74c274841db53fa4c25f04c381d11788fedee8cd20e1e3dee371c97ba555e3"
+    },
+    {
+      "monster": "plains_diver",
+      "frame": 881,
+      "bounds": [
+        14.6833333333333,
+        21.65
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_diver-motion-loot-996a59461b09-c2b1ba303c73-2.jpg",
+      "sha256": "78940bd234d03d47af8fabfeac796a09014a9ada9a3925306074686fbc85d220"
+    },
+    {
+      "monster": "plains_hopper",
+      "frame": 1316,
+      "bounds": [
+        21.9333333333333,
+        28.9
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_hopper-motion-loot-996a59461b09-c2b1ba303c73-3.jpg",
+      "sha256": "1c246842163e50ade80ccb46f201d62d16ec37e9976d0ba5e959570887d19a6b"
+    },
+    {
+      "monster": "plains_sentry",
+      "frame": 1751,
+      "bounds": [
+        29.1833333333333,
+        36.15
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_sentry-motion-loot-996a59461b09-c2b1ba303c73-4.jpg",
+      "sha256": "040515d2b9c7a69865c08e8cb9b43ae6fe4a3f39429a6889436850b8e5e082f3"
+    },
+    {
+      "monster": "plains_fan_sentry",
+      "frame": 2186,
+      "bounds": [
+        36.4333333333333,
+        43.4
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_fan_sentry-motion-loot-996a59461b09-c2b1ba303c73-5.jpg",
+      "sha256": "3004dea0f484620ceed5ad08394b235335b379bafa22c24c1ecee5304f8e45ac"
+    },
+    {
+      "monster": "plains_root_bell",
+      "frame": 2621,
+      "bounds": [
+        43.6833333333333,
+        50.65
+      ],
+      "path": "/workspace/sites/monster-workshop/data/posters/plains_root_bell-motion-loot-996a59461b09-c2b1ba303c73-6.jpg",
+      "sha256": "c33af230c24c2ebf82506ccb46e9f80a030bcc728d86150664f9b17a5207dbba"
+    }
+  ],
+  "files": {
+    "data/catalog.json": "9221a8c77396649a4052e7727274e42e51f8b9f1dd1b5c3df6d33df4606bd4ee",
+    "ui/index.html": "fb136c10c5863b831a9a212869279d975e14c1777bd69e5f7bd45beb2f1ba20a"
+  },
+  "failed": [],
+  "independent_decoding": [
+    {
+      "label": "independent original-frame decode bytes match appliedposter:patrol_drone",
+      "passed": true,
+      "frame": 11,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-01.jpg",
+      "decoded_sha256": "5c23b68c619d7bfdf17bbeec3b7362bf783be05ab01a7b847f8077fdee865baf"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_charger",
+      "passed": true,
+      "frame": 446,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-02.jpg",
+      "decoded_sha256": "7f74c274841db53fa4c25f04c381d11788fedee8cd20e1e3dee371c97ba555e3"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_diver",
+      "passed": true,
+      "frame": 881,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-03.jpg",
+      "decoded_sha256": "78940bd234d03d47af8fabfeac796a09014a9ada9a3925306074686fbc85d220"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_hopper",
+      "passed": true,
+      "frame": 1316,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-04.jpg",
+      "decoded_sha256": "1c246842163e50ade80ccb46f201d62d16ec37e9976d0ba5e959570887d19a6b"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_sentry",
+      "passed": true,
+      "frame": 1751,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-05.jpg",
+      "decoded_sha256": "040515d2b9c7a69865c08e8cb9b43ae6fe4a3f39429a6889436850b8e5e082f3"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_fan_sentry",
+      "passed": true,
+      "frame": 2186,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-06.jpg",
+      "decoded_sha256": "3004dea0f484620ceed5ad08394b235335b379bafa22c24c1ecee5304f8e45ac"
+    },
+    {
+      "label": "independent original-frame decode bytes match appliedposter:plains_root_bell",
+      "passed": true,
+      "frame": 2621,
+      "decoded_path": "/tmp/independent-site-poster-decode-09s3gpbt/decode-07.jpg",
+      "decoded_sha256": "c33af230c24c2ebf82506ccb46e9f80a030bcc728d86150664f9b17a5207dbba"
+    },
+    {
+      "label": "actual1280x720/60fps/3047frames/stereo48000 originalmovie",
+      "passed": true
+    }
+  ]
+}

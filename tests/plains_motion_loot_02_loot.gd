@@ -24,6 +24,10 @@ static func _config() -> Dictionary:
 static func _configuration(report: Dictionary) -> void:
 	var service:=EnemyDropService.new()
 	_check(report,service.configure("loot-native-boundaries","explicit-floor"),"real tracked JSON configuration loads with JSON number semantics")
+	var legacy_version := service.settle(&"version_legacy")
+	var guaranteed_version := service.settle(&"version_guaranteed",&"root_bell")
+	_check(report,legacy_version.content_version==EnemyDropService.CONTENT_VERSION and not legacy_version.has("rewards"),"default drop result retains the public legacy version consumed by the real Forest validator")
+	_check(report,guaranteed_version.content_version==EnemyDropService.GUARANTEED_CONTENT_VERSION and guaranteed_version.content_version!=EnemyDropService.CONTENT_VERSION and guaranteed_version.has("rewards"),"guaranteed plains bundle declares its distinct version without changing the legacy API")
 	_check(report,EnemyDropService.valid_configuration(_config()),"explicit seven-species guaranteed configuration is valid")
 	var integral_float:=_config()
 	integral_float.coin_totals.root_bell=7.0

@@ -654,7 +654,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
 
 | PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7新版动作＋6平原同屏已私密发布；完整903源CI166／166 fresh与affected success，原失败全保留；静态粒度限定独审接受，整怪／听感／用户／真机G5未签 |
-| PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | in_progress | 用户已明确金币固定必掉；原生344/0，实际回血微光已核；巡逻落位复审、最终七怪片与167完整CI待核 |
+| PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | review | [工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已更新7候选/50.78秒；346专项、26套/74实际通过，完整167后继待核；用户/设备未签 |
 | PLAINS-MOTION-LOOT-GUARD-02 | 真实面额消费者、绑定与167检查清单的限定迁移独审 | PLAINS-MOTION-LOOT-02 | review | 独立纯Python22/35/13与审计333／0；原失败/预算/166前缀保留，旧drop＋实际自动counterpart联合门禁；[记录](quality/records/PLAINS-MOTION-LOOT-GUARD-02.json)、[边界](worklines/plains_motion_loot_02/guard_migration.md) |
 | ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
 | ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
