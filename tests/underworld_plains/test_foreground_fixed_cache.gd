@@ -5,6 +5,35 @@ const TEARDOWN := preload("res://tests/audio_teardown.gd")
 const SOURCE := "res://scripts/underworld_plains/underworld_foreground.gd"
 const FIXED_SOURCE := "actual_static_geometry_and_functions"
 const FIELDS := ["protect", "static", "dynamic", "source_counts", "overflow"]
+
+class TrailBase extends Node2D:
+	var trail: Array[Vector2] = []
+	var _visual_trail: Array[Vector2] = []
+
+class TrailDerived extends TrailBase:
+	var _trail: Array[Vector2] = []
+
+class DynamicTrail extends Node2D:
+	var dynamic_name := "trail"
+	var extra := false
+	func _get_property_list() -> Array[Dictionary]:
+		var result: Array[Dictionary] = [{"name": dynamic_name, "type": TYPE_ARRAY, "usage": PROPERTY_USAGE_DEFAULT}]
+		if extra:
+			result.append({"name": "_visual_trail", "type": TYPE_ARRAY, "usage": PROPERTY_USAGE_DEFAULT})
+		return result
+
+class InheritedDynamicTrail extends DynamicTrail:
+	pass
+
+class ValidatedTrailBase extends Node2D:
+	var renamed_field: Array[Vector2] = []
+	func _validate_property(property: Dictionary) -> void:
+		if property.name == "renamed_field":
+			property.name = "trail"
+
+class ValidatedTrailDerived extends ValidatedTrailBase:
+	var _visual_trail: Array[Vector2] = []
+
 var checks := 0
 var failures: Array[String] = []
 var cases: Array[Dictionary] = []
@@ -12,6 +41,132 @@ var benchmarks: Array[Dictionary] = []
 var scenes: Array[Dictionary] = []
 var output := ""
 var initial_sha := ""
+var trail_cases: Array[Dictionary] = []
+
+func original_trail_fields(node: Node2D) -> Array[String]:
+	# Exact previous _observe loop, including order and duplicate property names.
+	var fields: Array[String] = []
+	for property: Dictionary in node.get_property_list():
+		if str(property.name) in ["trail", "_visual_trail", "_trail"]:
+			fields.append(str(property.name))
+	return fields
+
+func trail_case(fg: UnderworldForeground, node: Node2D, label: String) -> Array[String]:
+	var expected := original_trail_fields(node)
+	var actual := fg._discover_trail_fields(node)
+	check(actual == expected, label + ": exact original trail list and order")
+	trail_cases.append({"case": label, "native_class": node.get_class(), "actual": actual.duplicate(), "expected": expected.duplicate()})
+	return actual
+
+func trail_schema_benchmark(fg: UnderworldForeground, nodes: Array[Node2D]) -> void:
+	var rows: Array[Dictionary] = []
+	for round_index: int in 2:
+		var modes: Array[String] = ["original_instance_loop", "candidate_helper"]
+		if round_index == 1:
+			modes.reverse()
+		for mode: String in modes:
+			var field_count := 0
+			var begin := Time.get_ticks_usec()
+			for unused: int in 32:
+				for node: Node2D in nodes:
+					var found := original_trail_fields(node) if mode == "original_instance_loop" else fg._discover_trail_fields(node)
+					field_count += found.size()
+			var elapsed := Time.get_ticks_usec() - begin
+			rows.append({"mode": mode, "round": round_index, "iterations_per_script": 32, "scripts": nodes.size(), "field_count": field_count, "total_usec": elapsed, "mean_usec_per_node": float(elapsed) / float(32 * nodes.size())})
+	benchmarks.append({"context": "trail_property_discovery", "scope": "Direct CPU property-list allocation and exact filtering only. Six real scripts, 64 calls per script/mode in reversed-order rounds. No FPS, GPU, audio or phone inference.", "rows": rows})
+
+func exercise_trail_discovery() -> void:
+	# No world/tree needed for schema inspection; real script instances retain
+	# their native property-list behavior without starting projectile gameplay.
+	var fg := UnderworldForeground.new()
+	var real_nodes: Array[Node2D] = [PlayerProjectile.new(), WeaponEntity.new(), UnderworldProjectileVisual.new(), EnemyAttackProjectile.new(), PixelPlainsProjectile.new(), PlayerWeaponFeelProjectile.new()]
+	for node: Node2D in real_nodes:
+		var path: String = node.get_script().resource_path
+		var expected := trail_case(fg, node, "trail/real/" + path.get_file())
+		fg._observe(node)
+		var id := node.get_instance_id()
+		check(fg._tracked.has(id) and fg._tracked[id].get_ref() == node, "trail/real: original projectile path remains tracked " + path)
+		check(fg._trail_fields.get(id) == expected, "trail/real: observed fields equal original " + path)
+		if node is UnderworldProjectileVisual:
+			check(expected.is_empty(), "trail/real: visual leaf remains tracked with empty trail fields")
+	var first := real_nodes[1]
+	var second := WeaponEntity.new()
+	fg._observe(second)
+	var first_fields: Array = fg._trail_fields[first.get_instance_id()]
+	var second_expected := original_trail_fields(second)
+	first_fields.append("alias_poison")
+	check(fg._trail_fields[second.get_instance_id()] == second_expected, "trail/alias: two instances sharing one Script have independent arrays")
+	check(fg._discover_trail_fields(first) == original_trail_fields(first), "trail/alias: mutating observed array does not poison future helper calls")
+	fg._observe(first)
+	check(fg._trail_fields[first.get_instance_id()] == original_trail_fields(first), "trail/alias: repeated observation replaces poisoned list")
+	fg._forget(second)
+	check(not fg._tracked.has(second.get_instance_id()) and not fg._trail_fields.has(second.get_instance_id()), "trail/forget: both weak tracking and fields are removed")
+	second.free()
+	var derived := TrailDerived.new()
+	var derived_fields := trail_case(fg, derived, "trail/inherited-script-fields-order")
+	check(derived_fields.size() == 3 and derived_fields.has("trail") and derived_fields.has("_visual_trail") and derived_fields.has("_trail"), "trail/inherited: base and derived fields are all present")
+	derived.free()
+	var dynamic_a := DynamicTrail.new()
+	var dynamic_b := DynamicTrail.new()
+	dynamic_b.dynamic_name = "_trail"
+	check(trail_case(fg, dynamic_a, "trail/dynamic-instance-a") == ["trail"], "trail/dynamic: first instance has its own field")
+	check(trail_case(fg, dynamic_b, "trail/dynamic-instance-b") == ["_trail"], "trail/dynamic: shared script retains second instance field")
+	dynamic_a.dynamic_name = "_trail"
+	dynamic_a.extra = true
+	dynamic_a.notify_property_list_changed()
+	check(trail_case(fg, dynamic_a, "trail/dynamic-runtime-change") == ["_trail", "_visual_trail"], "trail/dynamic: live provider change keeps exact returned order")
+	check(trail_case(fg, dynamic_b, "trail/dynamic-other-instance-unchanged") == ["_trail"], "trail/dynamic: changing one instance does not poison another")
+	dynamic_a.free()
+	dynamic_b.free()
+	var inherited_dynamic := InheritedDynamicTrail.new()
+	check(inherited_dynamic.has_method("_get_property_list"), "trail/dynamic-inherited: base provider is visible on derived instance")
+	check(trail_case(fg, inherited_dynamic, "trail/inherited-dynamic-provider") == ["trail"], "trail/dynamic-inherited: original instance provider remains authoritative")
+	inherited_dynamic.dynamic_name = "_trail"
+	inherited_dynamic.extra = true
+	inherited_dynamic.notify_property_list_changed()
+	check(trail_case(fg, inherited_dynamic, "trail/inherited-dynamic-provider-runtime-change") == ["_trail", "_visual_trail"], "trail/dynamic-inherited: changing inherited provider output is immediately visible")
+	inherited_dynamic.free()
+	var validated := ValidatedTrailDerived.new()
+	var validated_fields := trail_case(fg, validated, "trail/inherited-validator-renames-property")
+	check(validated.has_method("_validate_property") and validated_fields.has("trail") and validated_fields.has("_visual_trail"), "trail/validator: inherited native-property validation name change remains visible")
+	validated.free()
+	var script := GDScript.new()
+	script.source_code = "extends Node2D\nvar trail: Array[Vector2] = []\n"
+	var compiled := script.reload()
+	check(compiled == OK, "trail/reload: fixture initial script compiles")
+	if compiled == OK:
+		var live := Node2D.new()
+		live.set_script(script)
+		check(trail_case(fg, live, "trail/unknown-script-no-resource-path") == ["trail"], "trail/unknown: helper preserves fields even without a recognized asset path")
+		fg._observe(live)
+		check(not fg._tracked.has(live.get_instance_id()) and not fg._trail_fields.has(live.get_instance_id()), "trail/unknown: original path admission still ignores unrecognized script")
+		var sprite := Sprite2D.new()
+		sprite.set_script(script)
+		check(sprite.get_class() == &"Sprite2D" and script.get_instance_base_type() == &"Node2D", "trail/native-fallback: native Sprite2D uses a Node2D-based script")
+		check(trail_case(fg, sprite, "trail/native-sprite-fallback") == ["trail"], "trail/native-fallback: full native instance contract retained")
+		var script_id := script.get_instance_id()
+		script.source_code = "extends Node2D\nvar _trail: Array[Vector2] = []\nvar _visual_trail: Array[Vector2] = []\n"
+		var reloaded := script.reload(true)
+		check(reloaded == OK and script.get_instance_id() == script_id and live.get_script() == script, "trail/reload: same Script resource reloads while instances remain alive")
+		if reloaded == OK:
+			var fields := trail_case(fg, live, "trail/same-script-reload-live-instance")
+			check(not fields.has("trail") and fields.has("_trail") and fields.has("_visual_trail"), "trail/reload: removed field disappears and new fields appear without cached schema")
+			trail_case(fg, sprite, "trail/same-script-reload-native-fallback")
+		live.free()
+		sprite.free()
+	var plain := Node2D.new()
+	check(trail_case(fg, plain, "trail/no-script") == [], "trail/no-script: native Node2D has no trail fields")
+	fg._observe(plain)
+	check(not fg._tracked.has(plain.get_instance_id()), "trail/no-script: original tracking guard ignores bare Node2D")
+	plain.free()
+	trail_schema_benchmark(fg, real_nodes)
+	for node: Node2D in real_nodes:
+		var id := node.get_instance_id()
+		fg._forget(node)
+		check(not fg._tracked.has(id) and not fg._trail_fields.has(id), "trail/forget: real projectile cleanup removes all per-instance entries")
+		node.free()
+	check(fg._tracked.is_empty() and fg._trail_fields.is_empty(), "trail/cleanup: fixture leaves no tracked nodes or arrays")
+	fg.free()
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -261,6 +416,7 @@ func run() -> void:
 	Engine.max_fps = 60
 	initial_sha = FileAccess.get_sha256(SOURCE)
 	root.size = Vector2i(1280, 720)
+	exercise_trail_discovery()
 	synthetic_prefix()
 	var packed := load("res://scenes/demo/demo.tscn") as PackedScene
 	check(packed != null, "real demo.tscn loads")
@@ -288,7 +444,7 @@ func run() -> void:
 			await frames(4)
 	check(FileAccess.get_sha256(SOURCE) == initial_sha, "production source stays unchanged during run")
 	Engine.max_fps = old_fps
-	var report: Dictionary = {"schema": 1, "checks": checks, "failures": failures, "source_sha256": initial_sha, "scene": "res://scenes/demo/demo.tscn", "seed": "mobile-fps-04", "elapsed_msec": float(Time.get_ticks_usec() - begin) / 1000.0, "scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.", "scenes": scenes, "cases": cases, "benchmarks": benchmarks}
+	var report: Dictionary = {"schema": 1, "checks": checks, "failures": failures, "source_sha256": initial_sha, "scene": "res://scenes/demo/demo.tscn", "seed": "mobile-fps-04", "elapsed_msec": float(Time.get_ticks_usec() - begin) / 1000.0, "scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.", "scenes": scenes, "cases": cases, "benchmarks": benchmarks, "trail_cases": trail_cases}
 	var file := FileAccess.open(output.path_join("report.json"), FileAccess.WRITE)
 	if file == null:
 		check(false, "report output opens")

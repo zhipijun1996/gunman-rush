@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "MOBILE-WEB-FPS-04",
   "task_type": "small_fix",
-  "workflow": "awaiting-device",
+  "workflow": "in_progress",
   "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
   "reviewed_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
-  "content_version": "candidate-v1",
+  "content_version": "action-candidate-v2",
   "owner": "root",
   "purpose": "Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements",
   "player_experience": "Preserve accepted 1280x720 UI/art/light/audio while reducing unnecessary per-frame work",
@@ -23,7 +23,9 @@
     "scripts/underworld_plains/underworld_foreground.gd",
     "tests/underworld_plains/test_foreground_fixed_cache.gd",
     "tools/run_underworld_formal_tests.py",
-    ".github/workflows/deploy-prepared-playtest.yml"
+    ".github/workflows/deploy-prepared-playtest.yml",
+    "tools/mobile_web_perf/action_profile.gd",
+    "tools/mobile_web_perf/run_action_profile.py"
   ],
   "deliverables": [
     "docs/evidence/mobile_web_fps_04/README.md",
@@ -71,8 +73,8 @@
       "evidence": []
     },
     "technical": {
-      "status": "passed",
-      "reason": "相关原生消费者与等价检查通过，保留原预算与严格退出；完整CI和手机另列。",
+      "status": "unverified",
+      "reason": "上一轮96+383结果保留；动作窗口与新无损优化待本轮实测。",
       "evidence": [
         "formal-cache"
       ]
@@ -121,7 +123,7 @@
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "用户实机对上一候选没有感到稳定差异，仍偶发卡顿；本轮新优化尚未试玩。",
       "evidence": []
     }
   },
@@ -143,7 +145,7 @@
     },
     {
       "id": "review",
-      "path": "docs/worklines/mobile_web_fps_04/review.md",
+      "path": "docs/worklines/mobile_web_fps_04/review-v1.md",
       "sha256": "d760fa0b02260866be6f9b544d9eff79b8fa12e7c495da88d3e78e1240c385ee",
       "kind": "review",
       "producer": "/root/perf_release_pair",

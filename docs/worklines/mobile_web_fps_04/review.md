@@ -87,3 +87,13 @@ root 的 `summarize_profiles_02.py` 和 `profile-comparison-audit-02.json` 已�
 新增步骤只在 `prepared-web/perf-04/build-info.json` 存在时，调用同一已检出的 helper 重建该子目录；不存在则不进入分支，保持旧包路径。存在时未设置 continue-on-error、没有吞错或备用通过分支，helper 非零退出向上传播并阻止后续上传。沿用helper核验安全PCK文件名、build ID、字节数、分块地址／长度／SHA及完整PCK SHA；本补审没有执行该重建或实际部署。此步骤提供候选子目录的运输支持，不表示已经合入main，也不能单凭工作流证明准备包的root／audio-before字节未被另行修改；该部分仍由准备包身份核验负责。没有发现工作流diff阻断。
 
 报告 `docs/evidence/mobile_web_fps_04/README.md` SHA256 `add8827b5b909dcd508563b67fdad8087205a654efbb196e6a248c23c5c1a7f4` 已只读核对。首段、结果表、微基准和结尾均明确手机FPS/P95未知，云端软件渲染与原生微基准不代替手机结果；保留反序噪声、移动miss成本、旧observer失败、专项而非完整CI、现有main红灯及候选不自动合main。未发现把局部CPU变化冒称手机／稳定整帧提速的表述。
+
+## 2026-10-30 动作阶段独立静态审查
+
+审查者 `/root/perf_release_pair`，实现者 root，新增回归由 `/root/perf_browser_runner` 编写。审查者未修改被审生产代码或运行引擎。前景源 SHA256 `c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4`。限定 ACCEPT：exact native Node2D、GDScript native base及实例继承动态hook回退完整；无schema缓存，保留字段顺序/重复项、空结果、跟踪及实时trail读取。原生Script表的基类遍历已对照Godot4.7.2实现。
+
+建议补测实际PixelPlainsProjectile/PlayerWeaponFeelProjectile与继承动态provider；实现者已补齐为六类，测试源SHA `416408b97a9a9d89c18e1eb3e77980bc2623ca6657138ef1a7e6b6b92dababf2`，后续实际执行结果见动作证据。
+
+计时审查：path hash隔离父子同名实现，原super和返回值保留；observe分类是同一elapsed的副本，父子_shot与_emit_round为inclusive，均不可相加。heavy_landing只表示入参命中，不能证明Shader实际显示。root另审agent动作runner：真实CDP多指输入、完整RAF末尾、原30秒窗口和27秒输入边界、实际跳跃/射击/airborne/HP/位置守门保留；本地软件渲染不签手机FPS。
+
+后续待证热点：selected音效每次同步load/赋stream/play和leaf入树。没有分段实测前不修改音频；不能把整个_shot耗时归因于前景反射。

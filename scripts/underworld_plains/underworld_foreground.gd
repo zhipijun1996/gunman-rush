@@ -106,6 +106,20 @@ func _inventory(node: Node) -> void:
 	_observe(node)
 	for child: Node in node.get_children():_inventory(child)
 
+func _discover_trail_fields(node: Node2D) -> Array[String]:
+	var script := node.get_script() as Script
+	# Plain Node2D has none of these trail properties. Query the current script
+	# table (including script bases) without allocating native Node/CanvasItem
+	# property dictionaries for every bullet and visual leaf. Dynamic providers,
+	# validators and other native classes retain the complete instance contract.
+	# No cached script schema: reloads and added fields take effect immediately.
+	var script_only := script is GDScript and node.get_class()==&"Node2D" and script.get_instance_base_type()==&"Node2D" and not node.has_method(&"_get_property_list") and not node.has_method(&"_validate_property")
+	var properties := script.get_script_property_list() if script_only else node.get_property_list()
+	var trails: Array[String]=[]
+	for property: Dictionary in properties:
+		if str(property.name) in ["trail","_visual_trail","_trail"]:trails.append(str(property.name))
+	return trails
+
 func _observe(node: Node) -> void:
 	if node==self or is_ancestor_of(node):return
 	if node is Control or node is CollisionShape2D or node is EnemyActor:
@@ -114,10 +128,7 @@ func _observe(node: Node) -> void:
 		var path:=str(node.get_script().resource_path).to_lower()
 		if "projectile" in path or "weapon_entity" in path:
 			_tracked[node.get_instance_id()]=weakref(node)
-			var trails: Array[String]=[]
-			for property: Dictionary in node.get_property_list():
-				if str(property.name) in ["trail","_visual_trail","_trail"]:trails.append(str(property.name))
-			_trail_fields[node.get_instance_id()]=trails
+			_trail_fields[node.get_instance_id()]=_discover_trail_fields(node as Node2D)
 	if node is UnderworldTerrain and is_instance_valid(_world):_rebuild_static.call_deferred()
 
 func _forget(node: Node) -> void:

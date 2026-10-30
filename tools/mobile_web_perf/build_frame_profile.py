@@ -28,7 +28,34 @@ MEASURE = {
     'scripts/enemies/enemy_actor.gd': ['_physics_process'],
     'scripts/player/player_controller.gd': ['_physics_process'],
 }
+ACTION_MEASURE = {
+    'scripts/art/chest_art_library.gd': ['pose', 'place_sprite', 'texture', 'draw_chest'],
+    'scripts/combat/shoot_ability.gd': ['_emit_round'],
+    'scripts/combat/player_projectile.gd': ['advance'],
+    'scripts/dev/player_presentation_01/weapon_feel.gd': ['_shot'],
+    'scripts/dev/player_presentation_01/weapon_feel_v2.gd': ['_shot'],
+    'scripts/dev/player_presentation_01/motion_feel.gd': ['_land'],
+}
+STATIC_HELPER = '''
+static func _fps04_static_record(method: String, elapsed: int) -> void:
+\tvar tree := Engine.get_main_loop() as SceneTree
+\tif tree == null or not tree.root.get_meta("fps04_active", false): return
+\tvar rows: Dictionary = tree.root.get_meta("fps04_costs", {})
+\tvar row: Array = rows.get(method, [0,0,0])
+\trow[0] += elapsed
+\trow[1] += 1
+\trow[2] = maxi(int(row[2]), elapsed)
+\trows[method] = row
+'''
 HELPER = '''
+func _fps04_event(event: String) -> void:
+\tif not is_inside_tree(): return
+\tvar root := get_tree().root
+\tif not root.get_meta("fps04_active", false): return
+\tvar events: Dictionary = root.get_meta("fps04_events", {})
+\tevents[event] = int(events.get(event,0)) + 1
+\t_fps04_record("event:"+event,0)
+
 func _fps04_record(method: String, elapsed: int) -> void:
 \tif not is_inside_tree(): return
 \tvar root := get_tree().root
@@ -51,6 +78,8 @@ def main():
     p.add_argument('--bundle', required=True, type=Path)
     p.add_argument('--output', required=True, type=Path)
     p.add_argument('--foreground-candidate', type=Path, help='Explicit single-file candidate; all other source stays at the bundle commit')
+    p.add_argument('--action-detail', action='store_true', help='Observe per-frame costs/objects and chest presentation methods')
+    p.add_argument('--candidate-source', action='append', default=[], choices=['scripts/art/chest_art_library.gd', 'scripts/demo/plains_region_stage.gd'], help='Explicit current-worktree candidate, recorded separately from the baseline commit')
     args = p.parse_args()
     info = json.loads((args.bundle / 'build-info.json').read_text())
     commit = info['source_commit']
@@ -60,39 +89,61 @@ def main():
     args.output.mkdir(parents=True, exist_ok=False)
     pack = Pack(original)
     replacements, skip, sources, mutations = {}, set(), {}, []
-    for path, methods in MEASURE.items():
+    measured = dict(MEASURE)
+    if args.action_detail:
+        measured.update(ACTION_MEASURE)
+        measured['scripts/underworld_plains/underworld_foreground.gd'] = MEASURE['scripts/underworld_plains/underworld_foreground.gd'] + ['_observe']
+        measured['scripts/underworld_plains/underworld_presentation.gd'] = MEASURE['scripts/underworld_plains/underworld_presentation.gd'] + ['install_item']
+    assert not args.candidate_source or args.action_detail, 'Candidate source requires action detail profile'
+    for path, methods in measured.items():
         raw = subprocess.check_output(['git', 'show', commit + ':' + path], cwd=ROOT)
         baseline_source_sha = sha(raw)
         if args.foreground_candidate and path == 'scripts/underworld_plains/underworld_foreground.gd':
             raw = args.foreground_candidate.read_bytes()
+        if path in args.candidate_source:
+            raw = (ROOT / path).read_bytes()
         source = raw.decode()
         sources[path] = sha(raw)
         for method in methods:
-            match = re.search(r'^func ' + re.escape(method) + r'\(([^\n]*)\) -> void:', source, re.M)
+            match = re.search(r'^(static )?func ' + re.escape(method) + r'\(([^\n]*)\) -> ([\w\[\]]+):', source, re.M)
             assert match, (path, method)
-            arguments = match.group(1)
+            static = match.group(1) or ''
+            arguments = match.group(2)
+            result_type = match.group(3)
             parameters = [part.strip().split(':')[0].split('=')[0].strip() for part in arguments.split(',') if part.strip()]
-            unique = '_fps04_impl_' + method
+            # Parent and child may both override the same method (WeaponFeel).
+            # Distinct implementation names prevent dynamic dispatch recursion.
+            unique = '_fps04_impl_' + sha(path.encode())[:8] + '_' + method
             source = source[:match.start()] + source[match.start():].replace('func ' + method + '(', 'func ' + unique + '(', 1)
-            source += ('\nfunc ' + method + '(' + arguments + ') -> void:\n'
+            invocation = unique + '(' + ', '.join(parameters) + ')'
+            recorder = '_fps04_static_record' if static else '_fps04_record'
+            source += ('\n' + static + 'func ' + method + '(' + arguments + ') -> ' + result_type + ':\n'
                        '\tvar _fps04_start := Time.get_ticks_usec()\n'
-                       '\t' + unique + '(' + ', '.join(parameters) + ')\n'
-                       '\t_fps04_record(' + json.dumps(path + ':' + method) + ', Time.get_ticks_usec()-_fps04_start)\n')
+                       '\t' + (invocation if result_type == 'void' else 'var _fps04_result: ' + result_type + ' = ' + invocation) + '\n'
+                       '\tvar _fps04_elapsed := Time.get_ticks_usec()-_fps04_start\n'
+                       '\t' + recorder + '(' + json.dumps(path + ':' + method) + ', _fps04_elapsed)\n'
+                       + ('\treturn _fps04_result\n' if result_type != 'void' else ''))
+            if args.action_detail and method == '_emit_round':
+                source += '\tif not grounded: _fps04_event("airborne_round")\n'
+            if args.action_detail and method == '_land':
+                source += '\tif heavy and airborne: _fps04_event("heavy_landing")\n'
+            if args.action_detail and method == '_observe':
+                source += '\tvar _fps04_script := node.get_script() as Script\n\t_fps04_record("observe:"+(_fps04_script.resource_path if _fps04_script != null else node.get_class()),_fps04_elapsed)\n'
         if path == 'scripts/demo/demo_app.gd':
             hook = 'func _ready() -> void:\n'
             assert source.count(hook) == 1
             source = source.replace(hook, hook + '\tadd_child.call_deferred(load("res://fps04_profile.gd").new())\n', 1)
-        source += HELPER
+        source += STATIC_HELPER if path == 'scripts/art/chest_art_library.gd' else HELPER
         replacements[path] = source.encode()
         skip.add(path + '.remap')
         mutations.append({'path': path, 'baseline_source_sha256': baseline_source_sha, 'source_sha256': sha(raw), 'instrumented_sha256': sha(source.encode()), 'methods': methods})
-    replacements['fps04_profile.gd'] = (Path(__file__).parent / 'frame_profile.gd').read_bytes()
+    replacements['fps04_profile.gd'] = (Path(__file__).parent / ('action_profile.gd' if args.action_detail else 'frame_profile.gd')).read_bytes()
     target = args.output / 'diagnostic.pck'
     write_pack(pack, replacements, skip, target)
     receipt = {'baseline_info': info, 'baseline_pack_sha256': digest, 'diagnostic_pack_sha256': sha(target.read_bytes()),
                'replaced': mutations, 'removed_remaps': sorted(skip), 'source_sha256': sources,
                'probe_sha256': sha(replacements['fps04_profile.gd']), 'unchanged_entries': len(set(pack.entries)-skip-set(replacements)),
-               'source_commit': commit, 'foreground_candidate': str(args.foreground_candidate) if args.foreground_candidate else None, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
+               'source_commit': commit, 'foreground_candidate': str(args.foreground_candidate) if args.foreground_candidate else None, 'candidate_sources':args.candidate_source, 'action_detail':args.action_detail, 'main_scene': 'Unchanged original exported demo.tscn and project.binary',
                'scope': 'Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim.'}
     (args.output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'output': str(args.output), 'source_commit': commit, 'unchanged_entries': receipt['unchanged_entries'], 'diagnostic_pack_sha256': receipt['diagnostic_pack_sha256']}))
