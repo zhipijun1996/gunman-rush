@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "AUDIO-FEEDBACK-05",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
-  "reviewed_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "reviewed_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
   "content_version": "audio-feedback-v1",
   "owner": "root",
   "purpose": "修复五项实玩声音反馈：标题音乐启动、受伤/固体命中材质、机关可听性与正式宝箱/道具音效",
@@ -29,6 +29,18 @@
     "config/audio_director/feedback_05/README.md",
     "config/audio_director/feedback_05/recipes.json",
     "config/audio_director/feedback_05/sources.json",
+    "docs/creative_direction/archive/creative-v22/manifest.json",
+    "docs/creative_direction/archive/creative-v22/registry.json",
+    "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_app.gd.txt",
+    "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_menu.gd.txt",
+    "docs/creative_direction/archive/creative-v22/runtime_inputs/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/creative-v22/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v22/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+    "docs/creative_direction/revision_creative_v23.md",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
     "scripts/audio/game_audio.gd",
     "scripts/audio/game_music.gd",
     "scripts/audio/selected_sfx_runtime.gd",
@@ -41,6 +53,9 @@
     "tests/audio_feedback_rewards.gd",
     "tests/audio_feedback_rewards.gd.uid",
     "tests/selected_sfx_runtime.gd",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/audio_director.py",
     "tools/audio_feedback_capture.gd",
     "tools/audio_feedback_capture.gd.uid",
     "tools/audio_feedback_design.py",
@@ -58,9 +73,11 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "本轮小修需求和实际依赖明确，许可/旧候选保留",
+      "evidence": [
+        "scope"
+      ]
     },
     "G1": {
       "status": "unverified",
@@ -79,8 +96,13 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "相关194/89及绑定回归通过；本地全历史docs缺件，完整166与formal覆盖尚不代签",
+      "evidence": [
+        "native194",
+        "bgm89",
+        "review",
+        "binding-review"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -90,14 +112,19 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "五项范围、事件/生命周期和保留约束已明确；不是声音审美认可",
+      "evidence": [
+        "scope"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "有限音频回归及独立工程审查通过；不扩为全历史docs/full166或听感/设备认可",
+      "evidence": [
+        "native194",
+        "bgm89"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -130,9 +157,12 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "有限音频回归及独立工程审查通过；不扩为全历史docs/full166或听感/设备认可",
+      "evidence": [
+        "review",
+        "binding-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -145,10 +175,184 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "finite-audio-regression",
+      "scenario": "Five reported audio failures need formal consumer and negative cases",
+      "method": "Original strict native runner/BGM integration plus actual browser gestures and MovieMaker",
+      "expected": "Accepted cues play; rejection/replay quiet; pool/BGM preserved; clean shutdown",
+      "failure": "Wrong/missing cue, gameplay mutation, runtime/resource error or overstated approval",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Finite194 and original89 pass, other checks scoped separately",
+      "evidence": [
+        "native194",
+        "bgm89"
+      ]
+    },
+    {
+      "id": "independent-engineering",
+      "scenario": "Runtime and technical-binding test changes need independent scrutiny",
+      "method": "Independent byte snapshots and stale/pixel-drift counterexamples",
+      "expected": "Only actual3 binding leaves change, old sources/tests retained, subjective approval unknown",
+      "failure": "Self review, silent SHA refresh, removed guard or invented approval",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Frozen limited engineering reviews, not G5",
+      "evidence": [
+        "review",
+        "binding-review"
+      ]
+    },
+    {
+      "id": "feedback-scope",
+      "scenario": "User reports five concrete audible failures in actual play",
+      "method": "Trace real callers, separate missing events from rejected timbres, bind exact new source/processing revision",
+      "expected": "Only these presentation changes, original BGM and prior assets/choices retained, audible review available",
+      "failure": "A parallel audio manager, rules mutated, lost provenance or automatic aesthetic approval",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Actual implementation, bounded scope and licensed variants exist",
+      "evidence": [
+        "scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "native194",
+      "path": "docs/evidence/audio_feedback_05/native-suite-final.json",
+      "sha256": "291b86277cebeaccb6d4ba7cfd829c80ff3b0521741a3039e42e8a39f6519754",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+      "content_version": "audio-feedback-v1",
+      "method": "Original Harness on frozen f6d8d76e current20/23 context; four original strict consumers, fresh unique output directory, original proofs retained",
+      "observed": "194/0 fresh with strict exit/error scanning",
+      "command": "python3 tools/harness.py --check audio-feedback --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 Standard headless; no physical device"
+    },
+    {
+      "id": "bgm89",
+      "path": "docs/evidence/audio_feedback_05/bgm-harness.json",
+      "sha256": "d4f9445e04dff14474c5ec6236c820dcd5479c624a8e61b221ad265007628a80",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "content_version": "audio-feedback-v1",
+      "method": "Original actual MP3/loop and scene-lifecycle BGM integration",
+      "observed": "89/0 fresh; no MP3 source changes",
+      "command": "python3 tools/harness.py --check bgm-integration --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 Standard normal engine clock"
+    },
+    {
+      "id": "capture",
+      "path": "docs/evidence/audio_feedback_05/capture-02-trace.json",
+      "sha256": "55f359ffcb8f09ac767cb49153bfe2a1d51f1812511b7ac55d725455bf54f697",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "9f3dbef3a34be265f04669a70bfb584ec6490740",
+      "content_version": "audio-feedback-v1",
+      "method": "Actual MovieMaker physical/drawn frame clock and formal events, explicit fixtures",
+      "observed": "1994 frames source_stable, real bell shared voice and committed rewards"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/audio_feedback_05/feedback.mp4",
+      "sha256": "1be415aa1cdfde4ff3e0c38aac7c7ab3b00b1d3d5ee7b66239b959f33b6c3d6f",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "9f3dbef3a34be265f04669a70bfb584ec6490740",
+      "content_version": "audio-feedback-v1",
+      "method": "Original engine soundtrack/normal-speed frame recording; not dubbed",
+      "observed": "33.23s actual title/Home/Plains; not physical FPS or natural full route"
+    },
+    {
+      "id": "browser",
+      "path": "docs/evidence/audio_feedback_05/web-local.json",
+      "sha256": "b418c2c833576cbbb10e7389df8abdf9f4c43b2f838d549acd9b65b53055fd90",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "content_version": "audio-feedback-v1",
+      "method": "Trusted Chromium input on exact chunk-only Sites-staged bundle, ordinary HTTP without server COI",
+      "observed": "11/0, title nativePCM before Home; Home audio, pulse A, real MP4/local choices"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/audio_feedback_05/review.md",
+      "sha256": "4bb6eb07e0b744c3cf125bb2ea0a671ef99c07ba3ea7065b2aa46887c94f3827",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "content_version": "audio-feedback-v1",
+      "method": "Read-only independent code/negative-case review with source SHA14 and actual report scope",
+      "observed": "Limited engineering ACCEPT, no user/device/commercial approval",
+      "reviewer": "root/ambience_review",
+      "implementers": [
+        "root",
+        "root/ambience_runtime",
+        "root/ambience_sources",
+        "root/ambience_scene"
+      ],
+      "independent": true,
+      "independence_basis": "Different agent, no production writes, only frozen review/binding files",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "binding-review",
+      "path": "docs/evidence/audio_feedback_05/review-binding-migration.md",
+      "sha256": "d6155dfef067a73fff3315086412e9dfdd6d330f54c57d8390e9638a1a7f17c2",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "content_version": "audio-feedback-v1",
+      "method": "Read-only exact3/81 migration, old tests retained, original CLI plus5 rejection examples",
+      "observed": "Engineering ACCEPT for metadata/tests only",
+      "reviewer": "root/ambience_review",
+      "implementers": [
+        "root",
+        "root/ambience_runtime"
+      ],
+      "independent": true,
+      "independence_basis": "Different agent from migration implementer, no production writes",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "published",
+      "path": "docs/evidence/audio_feedback_05/site-deploy.json",
+      "sha256": "81a785270f372eeb9ec3e8f0bd0b4250e67ce0ddc8382dd36b49a9a1a9c184e8",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "content_version": "audio-feedback-v1",
+      "method": "Native Sites private deployment of exact pushed source and archive",
+      "observed": "succeeded; owner browser/device not claimed"
+    },
+    {
+      "id": "scope",
+      "path": "docs/worklines/audio_feedback_05/scope.md",
+      "sha256": "6da9a5ff976ae34efebf02d527bf9f92aeae58a9bd39b0d9eda9511b377bf39f",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+      "content_version": "audio-feedback-v1",
+      "method": "Five exact user feedback items, allowed write sets, accepted-only events, original music/choice preservation and listening limits",
+      "observed": "One existing audio system, no physics/economy/RNG changes; hearing remains user-reviewed"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "新hurt/wall音色的用户试听、实体手机及长时自然战斗",
+    "实际私站需owner登录；executor匿名HTTP403，已验证本地完全相同分块包11项",
+    "本地全历史docs缺件与空间不足；full166 CI不由专项结果代签",
+    "完整formal consumer覆盖、商业品质与G5"
+  ],
+  "test_change_justification": "Preserve all63 selected assertions; only hero default expectation follows latest C rejection into separately named feedback05 and explicitly tests old C. Preserve all33/11 historical methods using their actual frozen19/22 sources; add current20/23 cases and8 inputs. Independent review confirms original assertions/budgets retained. The new check additionally observes actual docs/creative_direction dependencies; its wrapper uses fresh output directories and refuses overwrite before starting, with all4 consumers/limits intact. Independent reviewer reconfirmed these two protection additions read-only.",
+  "production_snapshot": "4373e67e1847a7fac211b1e234a3447217ee922fbd15d07dae443971a1b4347d"
 }

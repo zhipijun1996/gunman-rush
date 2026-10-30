@@ -24,3 +24,5 @@
 收口前原creative检查因3个音频消费者来源漂移真实拒绝，按[影响分析](../../creative_direction/revision_creative_v23.md)版本化style20／creative23：81保序，仅App/Menu/ShopPresenter三SHA更新，另78项、原style19/两Bible/用户原件字节不变。原34＋12纯Python及两个原CLI重新通过，先前缺16,453,016B历史输入失败保留，补取后再跑；[独审](review-binding-migration.md)实际两CLI及5个反例通过。此后技术元数据与brief上下文不重标已导出PCK或影片的来源，不把新引用更新冒称已进入1b包或新美术认可。
 
 本地完整docs预检仍需额外1,257,029,114B已知历史＋未知对象，超过剩余磁盘；原Harness拒绝在缺件状态放行，保[预检](docs-input-plan.json)/失败日志。未删旧文件、放宽检查或冒称docs/full166通过；PR自动CI在有完整输入的runner上仍需独立验收。
+
+最终工程源f6d8d76e另跑当前style20/creative23上下文的[原Harness](harness-final.json)与[四消费者](native-suite-final.json)，全fresh194／0；新wrapper自动UTC新目录，原194日志未覆盖。仅新check追加实际Bible目录依赖，旧165命令/顺序/预算完整保留。试玩仍精确d466/1b5989，后续为字幕、brief上下文、技术绑定和证据，不重标已发布包来源。

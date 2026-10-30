@@ -1,10 +1,16 @@
-# 最新交接 · 2026-10-28
+# 最新交接 · 2026-10-30
 
-## 2026-10-30 AUDIO-FEEDBACK-05 · 五项试玩声音修订
+## 2026-10-30 AUDIO-FEEDBACK-05 · 五项修复候选已发布
 
-分支fix/audio-playtest-feedback-20261030，基线main5f55716a；标题首次手势即原增益、Web标题独立音乐触点；hero hurt另名feedback05的两CC0变体、wall三短石屑变体及60ms/2声；机制铃单cue+12dB与抢占；正式宝箱/道具/商店仅COMMITTED反馈，菜单可完成、普通换层保尾音，title/run end清。五MP3、旧C与选择/候选原件保留，物理/交易结果不改。原新专项30、奖励70、既有selected63均strict通过；完整新四consumer Harness及真实场景短片/同源Web正在收口。新注册audio-feedback仅追加原gameplay/art/web/full，不删旧165或放其预算。
+分支fix/audio-playtest-feedback-20261030；基线main5f55716a（PR117已合）。音频实现d466ed27，工程源f6d8d76e；[独立试玩与33秒原生试听](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site)已由Sites正式私有发布，需同一ChatGPT账号。游戏包1b5989bf6054/源d466，208,763,932B完整SHA已核；影片producer9f3。当前主站main/ad78未替换，不把新技术metadata冒称已入1b。
 
-[范围](worklines/audio_feedback_05/scope.md)／[独审](evidence/audio_feedback_05/review.md)。首font import错误与首次烟测帧记账失败保留；修后smoke02实际404帧/source_stable通过，未追签旧失败。独立GH host容量不足、新建403，Sites独立预览准备中；当前主站仍main5f557/ad78，勿用旧包冒充。下一步root单Godot租约完整MovieMaker→严格音轨/帧收据→实际Web导出/门禁→独立PR与试听发布；用户听感、手机与商业品质待验，不自动合main。
+标题真实触点开启音乐并留在title，首轨直接原gain，后续.9s渐变；hero hurt两软身体/布料变体，wall三短石粒变体+60ms/2声；机制铃仅该cue+12dB/优先级；正式宝箱/物品/商店仅COMMITTED声音，普通换层保尾、真结束/title清。五MP3/旧C/选择与原候选字节不变，敌伤B、jump/land和规则不顺改。
+
+最终当前上下文四consumer原Harness194/0 fresh、原BGM89/0、实际本地chunk-only Web11项及MovieMaker1994帧/source_stable通过；[全部原件与边界](evidence/audio_feedback_05/README.md)。style20/creative23只3/81源码身份重绑，78及原19/两Bible/user bytes不变，34+12旧套件和两CLI/独审反例通过。首font/帧记账/稀疏缺件/上传限制失败均保留。
+
+Sites项目appgprj_6ae3fb5cdc08819189e74441fcb8cb54，源码82bb1d54，已有dist目录/workspace/sites/clock-audio-feedback-05；新建GH host403后沿既有Sites，保持owner-private、不改共享。Sites Git每push64MiB，用5个小commit正常ff传输，最终树不变；凭据只stdin/进程环境、不保存。匿名executor三资源403，不伪称owner线上GUI已验；同一确切静态包本地COI/SAB/真实title音轨已验。
+
+当前任务review，独立PR交付，不自动合main。新hurt/wall听感、真机/长路线/G5、完整166CI与本地历史docs仍未代签；docs额外已知1.257GB+未知历史超剩余盘，保原失败，不删旧物。后续先消费用户试听反馈/JSON；brief会读取feedback05并保敌伤/环境家族正确。若用户再授权合main，核精确head166全绿后普通merge，按原快速流程导实际main，不用旧包冒充。
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 

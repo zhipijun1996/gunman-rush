@@ -1,5 +1,9 @@
 # 当前状态
 
+## 2026-10-30 AUDIO-FEEDBACK-05 · 修复候选可试听
+
+[独立试玩／真实录屏／音效比较](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site)已发布（同一ChatGPT账号），build1b5989/实际游戏源d466；main5f557/ad78未替换。修标题首轨启动、受伤/墙地新材质、机制铃可听性及正式宝箱/道具/商店COMMITTED反馈，原五BGM/选择原件保留。工程源f6d8d76e当前上下文194原生、89BGM、11本地浏览器及1994帧原音轨通过；style20/creative23仅3/81技术重绑、原46纯测试/两CLI/独审通过。新音色听感/设备/长自然路线与完整166仍未验；全历史docs缺件超磁盘未签PASS。[当前证据与失败](evidence/audio_feedback_05/README.md)／[后续声音上下文](audio_director/feedback_05.md)。独立PR待评，不自动合main。
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 
 普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。
