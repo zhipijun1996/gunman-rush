@@ -109,8 +109,13 @@ func run() -> void:
 	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	root.add_child(layer)
 	caption = Label.new()
-	caption.position = Vector2(16, 8)
-	caption.add_theme_font_size_override("font_size", 18)
+	# Logical 1280x720 -> actual 960x540: keep the caption within
+	# x180..795, away from the left HP/resources and the right MENU control.
+	caption.position = Vector2(240, 12)
+	caption.size = Vector2(820, 32)
+	caption.clip_text = true
+	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	caption.add_theme_font_size_override("font_size", 16)
 	caption.add_theme_color_override("font_color", Color.WHITE)
 	caption.add_theme_color_override("font_shadow_color", Color.BLACK)
 	caption.add_theme_constant_override("shadow_offset_x", 2)
