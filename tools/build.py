@@ -182,6 +182,18 @@ def main():
             destination = artifact.parent / "Audio-Director-sources.json"
             shutil.copyfile(director_sources, destination)
             files.append(destination)
+        # Keep this feedback revision's exact CC0 source/processing history
+        # beside its playable export; the original sources remain untouched.
+        for source, name in [(REPO / "config/audio_director/feedback_05/sources.json", "Audio-Feedback-05-sources.json"),
+                             (REPO / "config/audio_director/feedback_05/recipes.json", "Audio-Feedback-05-recipes.json"),
+                             (REPO / "assets/audio/feedback_05/manifest.json", "Audio-Feedback-05-manifest.json"),
+                             (REPO / "config/audio_director/feedback_06/sources.json", "Audio-Feedback-06-sources.json"),
+                             (REPO / "config/audio_director/feedback_06/recipes.json", "Audio-Feedback-06-recipes.json"),
+                             (REPO / "assets/audio/feedback_06/manifest.json", "Audio-Feedback-06-manifest.json")]:
+            if source.is_file():
+                destination = artifact.parent / name
+                shutil.copyfile(source, destination)
+                files.append(destination)
         freedoom_license = REPO / "assets/player_presentation_01/weapon_audio_v2/sources/COPYING.adoc"
         if freedoom_license.is_file():
             destination = artifact.parent / "Freedoom-COPYING.adoc"

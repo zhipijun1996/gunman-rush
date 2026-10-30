@@ -1,0 +1,1737 @@
+{
+  "status": "passed",
+  "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "build": "80377273a40d",
+  "scope": "CDP Runtime.evaluate userGesture=false before any trusted input; passive inline analyser only (no MediaRecorder or MediaStream destination); real local Chromium, exact staged chunk-only package over normal HTTP; explicit allowed/blocked autoplay policies, trusted touches. No private deployed-origin/physical-phone/aesthetic claim.",
+  "checks": [
+    {
+      "name": "allowed initial observation has no browser user activation",
+      "passed": true,
+      "data": {
+        "active": false,
+        "ever": false
+      }
+    },
+    {
+      "name": "allowed cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "ready": true,
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_a",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_a.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 11.572244897959184,
+            "sample_rate": 44100,
+            "rms": 0.00524105820298262,
+            "peak": 0.017547607421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        "coi": true,
+        "sab": true,
+        "activation": {
+          "active": false,
+          "ever": false
+        }
+      }
+    },
+    {
+      "name": "allowed actual Web assembly uses explicit new hurt direction A",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_a",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_a.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Allowed autoplay: title produces real BGM PCM before any user input",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 12.770975056689343,
+            "sample_rate": 44100,
+            "rms": 0.0005890866207467571,
+            "peak": 0.0013580322265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 12.97124716553288,
+            "sample_rate": 44100,
+            "rms": 0.005831836892622683,
+            "peak": 0.0116424560546875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.200544217687074,
+            "sample_rate": 44100,
+            "rms": 0.008910410389465948,
+            "peak": 0.0220489501953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.421133786848072,
+            "sample_rate": 44100,
+            "rms": 0.012102969566213565,
+            "peak": 0.031280517578125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.662040816326531,
+            "sample_rate": 44100,
+            "rms": 0.0018388543245538601,
+            "peak": 0.006134033203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.882630385487529,
+            "sample_rate": 44100,
+            "rms": 0.003608674897715778,
+            "peak": 0.0075531005859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.140952380952381,
+            "sample_rate": 44100,
+            "rms": 0.001411356190618091,
+            "peak": 0.00341796875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.381859410430838,
+            "sample_rate": 44100,
+            "rms": 0.0021230403777993258,
+            "peak": 0.0050201416015625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.590839002267574,
+            "sample_rate": 44100,
+            "rms": 0.0016930597691851045,
+            "peak": 0.0037078857421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.820136054421768,
+            "sample_rate": 44100,
+            "rms": 0.01738818009608629,
+            "peak": 0.0447235107421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.03201814058957,
+            "sample_rate": 44100,
+            "rms": 0.012786359198353931,
+            "peak": 0.0372161865234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.27002267573696,
+            "sample_rate": 44100,
+            "rms": 0.010650354425834932,
+            "peak": 0.0327911376953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.481904761904762,
+            "sample_rate": 44100,
+            "rms": 0.0030189592134137857,
+            "peak": 0.0081329345703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.70249433106576,
+            "sample_rate": 44100,
+            "rms": 0.0013200646155239056,
+            "peak": 0.0039215087890625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 15.911473922902495,
+            "sample_rate": 44100,
+            "rms": 0.0007890258187173323,
+            "peak": 0.0023956298828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "allowed stays on title without a dedicated music enable button",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "allowed same title session reaches Home with actual native audio",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 20.572879818594103,
+            "sample_rate": 44100,
+            "rms": 0.02167554580571664,
+            "peak": 0.0543975830078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 20.78185941043084,
+            "sample_rate": 44100,
+            "rms": 0.020537792538823773,
+            "peak": 0.05914306640625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.112743764172336,
+            "sample_rate": 44100,
+            "rms": 0.008732974963542415,
+            "peak": 0.0212249755859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.45233560090703,
+            "sample_rate": 44100,
+            "rms": 0.0056425418640224725,
+            "peak": 0.015228271484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 21.76,
+            "sample_rate": 44100,
+            "rms": 0.028689714708263946,
+            "peak": 0.06396484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.11120181405896,
+            "sample_rate": 44100,
+            "rms": 0.008201247952117954,
+            "peak": 0.02197265625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.442086167800454,
+            "sample_rate": 44100,
+            "rms": 0.029408377256373523,
+            "peak": 0.0685577392578125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 22.770068027210883,
+            "sample_rate": 44100,
+            "rms": 0.03214789477643389,
+            "peak": 0.1060943603515625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.112562358276644,
+            "sample_rate": 44100,
+            "rms": 0.022401832240131085,
+            "peak": 0.042694091796875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.460861678004534,
+            "sample_rate": 44100,
+            "rms": 0.020806678736927785,
+            "peak": 0.047882080078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 23.81206349206349,
+            "sample_rate": 44100,
+            "rms": 0.020045327107424085,
+            "peak": 0.0439910888671875,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.160362811791384,
+            "sample_rate": 44100,
+            "rms": 0.03237731208674523,
+            "peak": 0.0773468017578125,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.51156462585034,
+            "sample_rate": 44100,
+            "rms": 0.014315942794830215,
+            "peak": 0.0395660400390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 24.68281179138322,
+            "sample_rate": 44100,
+            "rms": 0.01244543625019692,
+            "peak": 0.0361175537109375,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 25.05142857142857,
+            "sample_rate": 44100,
+            "rms": 0.014944881239984673,
+            "peak": 0.0455474853515625,
+            "states": [
+              {
+                "state": "running",
+                "time": 38179.13000000082
+              },
+              {
+                "state": "running",
+                "time": 48606.3049999997
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Real Home action retains selected pulse A",
+      "passed": true,
+      "data": [
+        {
+          "bus": "UI",
+          "candidate": "click_c",
+          "id": "click",
+          "path": "res://assets/audio/director_v3/click_c.wav",
+          "priority": 40,
+          "tick": 465,
+          "variant": 0
+        },
+        {
+          "bus": "SFX",
+          "candidate": "shot_pulse_a",
+          "id": "shot_pulse",
+          "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+          "priority": 70,
+          "tick": 885,
+          "variant": 0
+        }
+      ]
+    },
+    {
+      "name": "allowed no script/shader/page errors",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "blocked initial observation has no browser user activation",
+      "passed": true,
+      "data": {
+        "active": false,
+        "ever": false
+      }
+    },
+    {
+      "name": "blocked cold chunk-only game obtains COI/SAB",
+      "passed": true,
+      "data": {
+        "ready": true,
+        "sfx": {
+          "audio_owner_id": 261741348316,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_06_b",
+              "variants": [
+                "res://assets/audio/feedback_06/hurt_b.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261036705064,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 261741348316,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        "coi": true,
+        "sab": true,
+        "activation": {
+          "active": false,
+          "ever": false
+        }
+      }
+    },
+    {
+      "name": "blocked actual Web assembly uses explicit new hurt direction B",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 261741348316,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_06_b",
+            "variants": [
+              "res://assets/audio/feedback_06/hurt_b.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261036705064,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Blocked autoplay: real suspended context remains silent before trusted input",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "suspended",
+            "current_time": 0,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Blocked autoplay: first real background touch resumes original title BGM",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 0.14222222222222222,
+            "sample_rate": 44100,
+            "rms": 0.0009978402882842496,
+            "peak": 0.0043792724609375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 0.37151927437641724,
+            "sample_rate": 44100,
+            "rms": 0.006872764939973885,
+            "peak": 0.0258026123046875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 0.6008163265306122,
+            "sample_rate": 44100,
+            "rms": 0.007319880101701685,
+            "peak": 0.0191650390625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 0.8417233560090703,
+            "sample_rate": 44100,
+            "rms": 0.0035095827729637098,
+            "peak": 0.0094146728515625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 1.050702947845805,
+            "sample_rate": 44100,
+            "rms": 0.0023387420388182117,
+            "peak": 0.0046844482421875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 1.340952380952381,
+            "sample_rate": 44100,
+            "rms": 0.001673299383212284,
+            "peak": 0.0041046142578125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 1.811156462585034,
+            "sample_rate": 44100,
+            "rms": 0.0007140612960420181,
+            "peak": 0.001800537109375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 2.10140589569161,
+            "sample_rate": 44100,
+            "rms": 0.007561433422392725,
+            "peak": 0.019256591796875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 2.4700226757369617,
+            "sample_rate": 44100,
+            "rms": 0.01380801338158579,
+            "peak": 0.0401458740234375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 2.8415419501133785,
+            "sample_rate": 44100,
+            "rms": 0.0025114101438993516,
+            "peak": 0.0064697265625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 3.1927437641723357,
+            "sample_rate": 44100,
+            "rms": 0.0024456679180030042,
+            "peak": 0.0057373046875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 3.4626757369614514,
+            "sample_rate": 44100,
+            "rms": 0.001830896914658611,
+            "peak": 0.00439453125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 3.7616326530612243,
+            "sample_rate": 44100,
+            "rms": 0.0015454632523772,
+            "peak": 0.00347900390625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 4.051882086167801,
+            "sample_rate": 44100,
+            "rms": 0.01734663215177894,
+            "peak": 0.0447235107421875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 4.51047619047619,
+            "sample_rate": 44100,
+            "rms": 0.010993872589822993,
+            "peak": 0.0269775390625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "blocked stays on title without a dedicated music enable button",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "blocked same title session reaches Home with actual native audio",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 10.202267573696146,
+            "sample_rate": 44100,
+            "rms": 0.013692757722325371,
+            "peak": 0.0332183837890625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 10.541859410430838,
+            "sample_rate": 44100,
+            "rms": 0.0055112585948232954,
+            "peak": 0.0178375244140625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 10.89015873015873,
+            "sample_rate": 44100,
+            "rms": 0.007774429762827034,
+            "peak": 0.018402099609375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 11.241360544217686,
+            "sample_rate": 44100,
+            "rms": 0.010484673791675322,
+            "peak": 0.0276031494140625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 11.470657596371883,
+            "sample_rate": 44100,
+            "rms": 0.03555802580419793,
+            "peak": 0.0646514892578125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 11.830566893424036,
+            "sample_rate": 44100,
+            "rms": 0.025168656655796116,
+            "peak": 0.0467529296875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 12.181768707482993,
+            "sample_rate": 44100,
+            "rms": 0.022592332169402814,
+            "peak": 0.045745849609375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 12.38204081632653,
+            "sample_rate": 44100,
+            "rms": 0.02091005621395192,
+            "peak": 0.039764404296875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 12.782585034013605,
+            "sample_rate": 44100,
+            "rms": 0.01726746271263101,
+            "peak": 0.0340118408203125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.171519274376417,
+            "sample_rate": 44100,
+            "rms": 0.017631018376137245,
+            "peak": 0.0423583984375,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.412426303854875,
+            "sample_rate": 44100,
+            "rms": 0.02641784838376225,
+            "peak": 0.0676727294921875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 13.731700680272109,
+            "sample_rate": 44100,
+            "rms": 0.014401087037703455,
+            "peak": 0.0385284423828125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.091609977324262,
+            "sample_rate": 44100,
+            "rms": 0.008941691826437125,
+            "peak": 0.0289459228515625,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.300589569160998,
+            "sample_rate": 44100,
+            "rms": 0.015647307121967845,
+            "peak": 0.0446014404296875,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 14.631473922902494,
+            "sample_rate": 44100,
+            "rms": 0.006723389600170365,
+            "peak": 0.025665283203125,
+            "states": [
+              {
+                "state": "suspended",
+                "time": 44909.0549999997
+              },
+              {
+                "state": "running",
+                "time": 62805.52999999933
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "name": "blocked no script/shader/page errors",
+      "passed": true,
+      "data": null
+    }
+  ]
+}

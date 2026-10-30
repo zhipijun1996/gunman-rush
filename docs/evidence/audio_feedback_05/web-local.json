@@ -1,0 +1,911 @@
+{
+  "status": "passed",
+  "scope": "Real local Chromium trusted input; exact Sites-staged chunk-only Godot export, no direct PCK/WASM file fallback, normal HTTP without server COI headers. No physical-device or aesthetic claim.",
+  "checks": [
+    {
+      "name": "Cold chunk-only export obtains real COI/SAB through the original cache worker",
+      "passed": true,
+      "data": {
+        "sfx": {
+          "audio_owner_id": 262110447068,
+          "audio_profile": "selected",
+          "candidate_imports_verified": 11,
+          "candidate_revisions": {
+            "hurt": {
+              "id": "hurt_feedback_05",
+              "variants": [
+                "res://assets/audio/feedback_05/hurt_1.wav",
+                "res://assets/audio/feedback_05/hurt_2.wav"
+              ]
+            }
+          },
+          "configurations": 1,
+          "director_events": [],
+          "event_profiles": {
+            "bomb_explode": "original",
+            "chest_open": "A",
+            "click": "C",
+            "coin": "A",
+            "confirm": "C",
+            "denied": "C",
+            "enemy_hit": "B",
+            "enemy_hurt": "B",
+            "heal": "A",
+            "hurt": "C",
+            "item_get": "C",
+            "shot_bomb": "original",
+            "shot_pulse": "A",
+            "shot_shuriken": "original"
+          },
+          "manifest_path": "res://assets/audio/director_v3/manifest.json",
+          "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+          "owner_app_id": 261405803816,
+          "rules_path": "res://config/audio_director/v3/runtime.json",
+          "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+          "selection_path": "res://config/audio_director/selected/selected.json",
+          "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-sfx-runtime-v1"
+        },
+        "ambience": {
+          "active_context": "",
+          "audio": {},
+          "audio_owner_id": 262110447068,
+          "configurations": 0,
+          "context_epoch": 0,
+          "context_key": "",
+          "dead_context": "",
+          "expected_path": "",
+          "home_life": {},
+          "owner_id": 0,
+          "selected_profiles": {
+            "forest": "A",
+            "home": "life",
+            "plains": "A"
+          },
+          "session_volume": 0.7,
+          "sfx_profile": "selected",
+          "tree_paused": false,
+          "validation_error": "",
+          "validation_ok": true,
+          "version": "selected-ambience-runtime-v1"
+        },
+        "pcm": [
+          {
+            "state": "running",
+            "current_time": 15.940498866213153,
+            "sample_rate": 44100,
+            "rms": 0,
+            "peak": 0,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 4266
+          }
+        ],
+        "coi": true,
+        "sab": true
+      }
+    },
+    {
+      "name": "Actual Web formal service assembles the latest hurt revision while retaining selected choices",
+      "passed": true,
+      "data": {
+        "audio_owner_id": 262110447068,
+        "audio_profile": "selected",
+        "candidate_imports_verified": 11,
+        "candidate_revisions": {
+          "hurt": {
+            "id": "hurt_feedback_05",
+            "variants": [
+              "res://assets/audio/feedback_05/hurt_1.wav",
+              "res://assets/audio/feedback_05/hurt_2.wav"
+            ]
+          }
+        },
+        "configurations": 1,
+        "director_events": [],
+        "event_profiles": {
+          "bomb_explode": "original",
+          "chest_open": "A",
+          "click": "C",
+          "coin": "A",
+          "confirm": "C",
+          "denied": "C",
+          "enemy_hit": "B",
+          "enemy_hurt": "B",
+          "heal": "A",
+          "hurt": "C",
+          "item_get": "C",
+          "shot_bomb": "original",
+          "shot_pulse": "A",
+          "shot_shuriken": "original"
+        },
+        "manifest_path": "res://assets/audio/director_v3/manifest.json",
+        "manifest_sha256": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+        "owner_app_id": 261405803816,
+        "rules_path": "res://config/audio_director/v3/runtime.json",
+        "rules_sha256": "506aad8bad117fd3953c51e09e8812d6184514a0746e8e0397d94d11a5facc58",
+        "selection_path": "res://config/audio_director/selected/selected.json",
+        "selection_sha256": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-sfx-runtime-v1"
+      }
+    },
+    {
+      "name": "Title music touch target exists",
+      "passed": true,
+      "data": {
+        "point": [
+          174.0,
+          104
+        ]
+      }
+    },
+    {
+      "name": "A real title touch yields nonzero native mixed PCM before entering Home",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 26.1427664399093,
+            "sample_rate": 44100,
+            "rms": 0.00027580971443304995,
+            "peak": 0.002438447903841734,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 6866
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 26.372063492063493,
+            "sample_rate": 44100,
+            "rms": 0.006872764939973885,
+            "peak": 0.0258026123046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 6966
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 26.64199546485261,
+            "sample_rate": 44100,
+            "rms": 0.008130972699256141,
+            "peak": 0.0244140625,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 6966
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 26.940952380952382,
+            "sample_rate": 44100,
+            "rms": 0.003083624111681739,
+            "peak": 0.007354736328125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 14438
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.332789115646257,
+            "sample_rate": 44100,
+            "rms": 0.0017880196849205175,
+            "peak": 0.0044708251953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 14438
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.602721088435374,
+            "sample_rate": 44100,
+            "rms": 0.0011305983484531789,
+            "peak": 0.0041046142578125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 23148
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 27.87265306122449,
+            "sample_rate": 44100,
+            "rms": 0.0006311779647271303,
+            "peak": 0.0014801025390625,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 23148
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 28.2615873015873,
+            "sample_rate": 44100,
+            "rms": 0.0056093882544089755,
+            "peak": 0.01605224609375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 31858
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 28.601179138321996,
+            "sample_rate": 44100,
+            "rms": 0.011562566787961573,
+            "peak": 0.0403594970703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 42500
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 28.91174603174603,
+            "sample_rate": 44100,
+            "rms": 0.001522846039050935,
+            "peak": 0.0039825439453125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 42500
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 29.141043083900225,
+            "sample_rate": 44100,
+            "rms": 0.0028985474178550856,
+            "peak": 0.0062103271484375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 51210
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 29.422585034013604,
+            "sample_rate": 44100,
+            "rms": 0.0021026564472679866,
+            "peak": 0.0056610107421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 51210
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 29.68090702947846,
+            "sample_rate": 44100,
+            "rms": 0.0018374241312390245,
+            "peak": 0.0041656494140625,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 58954
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 29.950839002267575,
+            "sample_rate": 44100,
+            "rms": 0.021668564857880088,
+            "peak": 0.044036865234375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 58954
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 30.20045351473923,
+            "sample_rate": 44100,
+            "rms": 0.011953074320703989,
+            "peak": 0.0341644287109375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 67664
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Music touch stays on title",
+      "passed": true,
+      "data": {
+        "active_context": "",
+        "audio": {},
+        "audio_owner_id": 262110447068,
+        "configurations": 0,
+        "context_epoch": 0,
+        "context_key": "",
+        "dead_context": "",
+        "expected_path": "",
+        "home_life": {},
+        "owner_id": 0,
+        "selected_profiles": {
+          "forest": "A",
+          "home": "life",
+          "plains": "A"
+        },
+        "session_volume": 0.7,
+        "sfx_profile": "selected",
+        "tree_paused": false,
+        "validation_error": "",
+        "validation_ok": true,
+        "version": "selected-ambience-runtime-v1"
+      }
+    },
+    {
+      "name": "Home has actual nonzero BGM/environment output after the same title start",
+      "passed": true,
+      "data": [
+        [
+          {
+            "state": "running",
+            "current_time": 35.070839002267576,
+            "sample_rate": 44100,
+            "rms": 0.022868351656810136,
+            "peak": 0.0582122802734375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 134446
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 35.41043083900227,
+            "sample_rate": 44100,
+            "rms": 0.00789116927089997,
+            "peak": 0.0231781005859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 134446
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 35.6107029478458,
+            "sample_rate": 44100,
+            "rms": 0.021311371201381855,
+            "peak": 0.062286376953125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 153798
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 35.92126984126984,
+            "sample_rate": 44100,
+            "rms": 0.01667253694922787,
+            "peak": 0.041290283203125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 153798
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 36.1708843537415,
+            "sample_rate": 44100,
+            "rms": 0.015318478702799189,
+            "peak": 0.0428924560546875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 161542
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 36.39147392290249,
+            "sample_rate": 44100,
+            "rms": 0.006370027850958184,
+            "peak": 0.015838623046875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 161542
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 36.83265306122449,
+            "sample_rate": 44100,
+            "rms": 0.009365460444970435,
+            "peak": 0.02313232421875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 170268
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 37.05034013605442,
+            "sample_rate": 44100,
+            "rms": 0.0206845379969239,
+            "peak": 0.054443359375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 170268
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 37.46249433106576,
+            "sample_rate": 44100,
+            "rms": 0.03658285084108715,
+            "peak": 0.071319580078125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 180910
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 37.69179138321996,
+            "sample_rate": 44100,
+            "rms": 0.027307767700551065,
+            "peak": 0.0596923828125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 180910
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 37.89206349206349,
+            "sample_rate": 44100,
+            "rms": 0.0315360234918881,
+            "peak": 0.0800323486328125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 191552
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 38.12136054421769,
+            "sample_rate": 44100,
+            "rms": 0.025071075801962377,
+            "peak": 0.0637969970703125,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 191552
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 38.35065759637188,
+            "sample_rate": 44100,
+            "rms": 0.02208370803903,
+            "peak": 0.0427093505859375,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 191552
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 38.57124716553288,
+            "sample_rate": 44100,
+            "rms": 0.020384682610443038,
+            "peak": 0.0410614013671875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 202210
+          }
+        ],
+        [
+          {
+            "state": "running",
+            "current_time": 39.03274376417234,
+            "sample_rate": 44100,
+            "rms": 0.019513789681948474,
+            "peak": 0.0406951904296875,
+            "states": [
+              {
+                "state": "running",
+                "time": 46876.47500000009
+              },
+              {
+                "state": "running",
+                "time": 59977.01500000013
+              }
+            ],
+            "recording_state": "recording",
+            "captured_bytes": 202210
+          }
+        ]
+      ]
+    },
+    {
+      "name": "Actual browser Home input retains selected pulse shot A",
+      "passed": true,
+      "data": [
+        {
+          "bus": "UI",
+          "candidate": "click_c",
+          "id": "click",
+          "path": "res://assets/audio/director_v3/click_c.wav",
+          "priority": 40,
+          "tick": 671,
+          "variant": 0
+        },
+        {
+          "bus": "UI",
+          "candidate": "click_c",
+          "id": "click",
+          "path": "res://assets/audio/director_v3/click_c.wav",
+          "priority": 40,
+          "tick": 998,
+          "variant": 0
+        },
+        {
+          "bus": "SFX",
+          "candidate": "shot_pulse_a",
+          "id": "shot_pulse",
+          "path": "res://assets/audio/director_v3/shot_pulse_a.wav",
+          "priority": 70,
+          "tick": 1296,
+          "variant": 0
+        }
+      ]
+    },
+    {
+      "name": "Native recording fanout produced downloadable real output containers",
+      "passed": true,
+      "data": [
+        {
+          "sample_rate": 44100,
+          "mime": "audio/webm;codecs=opus",
+          "bytes": 365767
+        }
+      ]
+    },
+    {
+      "name": "No script/shader/page errors in this real title/Home window",
+      "passed": true,
+      "data": null
+    },
+    {
+      "name": "Phone-sized lab really plays the native game MP4",
+      "passed": true,
+      "data": {
+        "paused": false,
+        "time": 1.183457,
+        "error": null,
+        "width": 960,
+        "height": 540
+      }
+    },
+    {
+      "name": "Lab records exact candidate/version feedback locally",
+      "passed": true,
+      "data": {
+        "version": "audio-feedback-v1",
+        "candidate_ids": {
+          "hurt": "hurt_feedback_05",
+          "wall": "audio-feedback-v1/wall"
+        },
+        "source": "d466ed277cb99613ad2040a70574f85939eecd87",
+        "build": "1b5989bf6054",
+        "at": "2026-10-30T02:23:48.829Z",
+        "choices": {
+          "hurt": "new_better",
+          "wall": "unreviewed",
+          "notes": "browser QA fixture"
+        }
+      }
+    }
+  ],
+  "native_recordings": [
+    {
+      "sample_rate": 44100,
+      "mime": "audio/webm;codecs=opus",
+      "bytes": 365767
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "run": 40946370804,
+  "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "review_scope": "Read-only job-log/source audit. No rerun, no engine, no browser, no source changes. Latest main failure is not waived by earlier PR success.",
+  "source_tree_same_as_pr_head": true,
+  "parallel": {
+    "job": 123705814881,
+    "failed_check": "region-bible-tests",
+    "classification": "missing historical Git object in shallow main workflow; consumer environment/input closure, not observed runtime regression",
+    "evidence": [
+      "checkout log fetch-depth1 / --depth=1",
+      "tests/test_region_bible.py:533 requires git show f9fefe6e...:config/item_v5_art.json",
+      "actual CI CalledProcessError exit128;33 tests with1 error",
+      "same exact historical blob is locally available and matches frozen r09 expected SHA",
+      "PR production.yml explicitly fetch-depth0, main environment.yml uses checkout defaultdepth1"
+    ],
+    "historical_blob_sha256": "3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a",
+    "frozen_expected_sha256": "3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a",
+    "exact_historical_match": true
+  },
+  "serial": {
+    "job": 123705814960,
+    "failed_check": "forest-depth-region",
+    "classification": "600s outer Harness timeout; complete runtime regression classification remains unverified",
+    "corpus_requested": 80,
+    "unique_completed_cases_visible_in_job_tail": 72,
+    "all_visible_completed_cases_passed": true,
+    "per_case_seconds_min": 25.402780465999967,
+    "per_case_seconds_max": 49.70598426399988,
+    "runner_workers_default": 4,
+    "scope": "72 completed original route receipts visible. Remaining8 lack completion here, may be in-flight or not started. No observed gameplay assertion failure in displayed receipts; do not assert all80passed or dismiss timeout as random infra."
+  },
+  "logs": [
+    {
+      "path": "build/mobile_web_fps_04/baseline-main-ci/parallel-job.log",
+      "bytes": 126161,
+      "sha256": "c878cb70d239345a732c187f7959e761bf3262b3f2e23c5355e5a447eaa56c2c"
+    },
+    {
+      "path": "build/mobile_web_fps_04/baseline-main-ci/serial-job.log",
+      "bytes": 167620,
+      "sha256": "aebbcf3da8992cfb289c27fa5cc5e23ed1ddc289ee252e136941180b7616eaf5"
+    }
+  ]
+}

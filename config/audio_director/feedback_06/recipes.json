@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "version": "audio-feedback-06-v1",
+  "task": "AUDIO-FEEDBACK-06",
+  "sample_rate": 44100,
+  "silence_threshold_dbfs": -55,
+  "peak_ceiling_dbfs": -6,
+  "target_rms_dbfs": -23,
+  "reference_policy": "User-specified Hollow Knight feeling/function; no commercial reference samples copied, no claim of measured reconstruction",
+  "locked_inputs": {
+    "config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+    "assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+    "config/audio_director/v3/recipes.json": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8",
+    "config/audio_director/v3/sources.json": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+    "tools/audio_candidates_v3.py": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+    "assets/audio/director_v3/hurt_c.wav": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17",
+    "assets/audio/bgm/where_the_path_bends.mp3": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+    "assets/audio/bgm/across_the_wooden_sails.mp3": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+    "assets/audio/bgm/the_kindred_hearth.mp3": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+    "assets/audio/bgm/vines_beneath_the_canopy.mp3": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+    "assets/audio/bgm/beyond_the_knotted_vines.mp3": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992",
+    "assets/audio/feedback_05/hurt_1.wav": "e194b2af466b1ab68904d24548e426ab25413ece823287f6e0f86ef86325e112",
+    "assets/audio/feedback_05/hurt_2.wav": "9b9a31db9bd6f66ece72af1a3416d7c092d74e7eb4c461e92ce7d84eeb3e528b",
+    "assets/audio/feedback_05/wall_3.wav": "41781dcc98a8ca9c47c80788903b6eec378450f75f7c6347bf9a05076dccb9cc",
+    "assets/audio/feedback_05/wall_2.wav": "d3f554eb6e44c74238fbc7b10092de379fa25912137f988322621f7f56e17bbd",
+    "assets/audio/feedback_05/wall_1.wav": "7877b8c43160b0d16742a32e8cf6b7d9e29919542dc511565ad7494689f00dfb"
+  },
+  "event": "hurt",
+  "candidates": [
+    {
+      "id": "hurt_feedback_06_a",
+      "profile": "A",
+      "label": "薄壳裂隙与抽离",
+      "design": "Sharp short fracture leads; bamboo gives immediate attack; breath only a faint release. No soft-impact or cloth source.",
+      "max_seconds": 0.19,
+      "layers": [
+        {
+          "clip_seconds": 0.09,
+          "pitch_semitones": 2,
+          "gain": 0.7,
+          "highpass_hz": 550,
+          "lowpass_hz": 6200,
+          "attack_seconds": 0.0015,
+          "release_seconds": 0.035,
+          "delay_seconds": 0,
+          "source": "cucumber_2",
+          "start_seconds": 0.55,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        },
+        {
+          "clip_seconds": 0.1,
+          "pitch_semitones": 2,
+          "gain": 0.32,
+          "highpass_hz": 650,
+          "lowpass_hz": 7000,
+          "attack_seconds": 0.002,
+          "release_seconds": 0.025,
+          "delay_seconds": 0,
+          "source": "bamboo_3",
+          "start_seconds": 0.04,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        },
+        {
+          "clip_seconds": 0.24,
+          "pitch_semitones": 12,
+          "gain": 0.05,
+          "highpass_hz": 1000,
+          "lowpass_hz": 7000,
+          "attack_seconds": 0.005,
+          "release_seconds": 0.05,
+          "delay_seconds": 0.02,
+          "source": "ghost_breath",
+          "start_seconds": 1.4583219954648525,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        }
+      ],
+      "risks": [
+        "Cucumber can sound wet/food-like; use only upper short fracture, avoid the long chew.",
+        "A prominent bamboo attack can be mistaken for an outgoing attack.",
+        "The relative gains are uncalibrated across source recordings; normalize layers deliberately before final audition."
+      ]
+    },
+    {
+      "id": "hurt_feedback_06_b",
+      "profile": "B",
+      "label": "实体受创与急收束",
+      "design": "Existing generic hit segment carries a brief solid injury, bamboo gives fast expelled movement. More compact than soft impact + cloth.",
+      "max_seconds": 0.17,
+      "layers": [
+        {
+          "clip_seconds": 0.105,
+          "pitch_semitones": -1,
+          "gain": 0.7,
+          "highpass_hz": 130,
+          "lowpass_hz": 5000,
+          "attack_seconds": 0.002,
+          "release_seconds": 0.025,
+          "delay_seconds": 0,
+          "source": "bank_hit_03",
+          "start_seconds": 0.006099773242630386,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        },
+        {
+          "clip_seconds": 0.12,
+          "pitch_semitones": 1,
+          "gain": 0.35,
+          "highpass_hz": 450,
+          "lowpass_hz": 7200,
+          "attack_seconds": 0.002,
+          "release_seconds": 0.035,
+          "delay_seconds": 0.004,
+          "source": "bamboo_5",
+          "start_seconds": 0.05,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        }
+      ],
+      "risks": [
+        "Actual object behind generic hit recording is unspecified and has not been heard here; if box/wood association remains, discard this direction.",
+        "Could overlap the enemy-hit family; avoid using the exact currently selected enemy hurt take."
+      ]
+    },
+    {
+      "id": "hurt_feedback_06_c",
+      "profile": "C",
+      "label": "短促虚空气爆",
+      "design": "A short breathed ejection leads instead of a heavy collision. Tiny fracture only makes the accepted hurt instant readable.",
+      "max_seconds": 0.22,
+      "layers": [
+        {
+          "clip_seconds": 0.34,
+          "pitch_semitones": 12,
+          "gain": 1.0,
+          "highpass_hz": 650,
+          "lowpass_hz": 7000,
+          "attack_seconds": 0.003,
+          "release_seconds": 0.055,
+          "delay_seconds": 0,
+          "source": "ghost_breath",
+          "start_seconds": 1.4083219954648525,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        },
+        {
+          "clip_seconds": 0.045,
+          "pitch_semitones": 4,
+          "gain": 0.1,
+          "highpass_hz": 1400,
+          "lowpass_hz": 6500,
+          "attack_seconds": 0.001,
+          "release_seconds": 0.02,
+          "delay_seconds": 0,
+          "source": "cucumber_1",
+          "start_seconds": 0.399546485260771,
+          "normalize_rms_dbfs": -24,
+          "max_input_gain_db": 12
+        }
+      ],
+      "risks": [
+        "Source already slowed by author; a full take would be horror breath. Crop short and raise rate; no literal long inhale/groan.",
+        "Breath-first can lose clear damage meaning in music; test in real enemy damage, not a standalone cue."
+      ]
+    }
+  ]
+}

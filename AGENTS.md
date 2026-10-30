@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-30 用户已选受伤A并授权PR120＋PR121合main（最新）
+
+用户明确“受伤选用A，连同pr120一起合并到main”。采用确切hurt_feedback_06_a／audio-feedback-06-v1，原WAV不重做；[选择原话与指纹](config/audio_director/selected/hurt-20261030.json)。覆盖此前两线“不自动合main”的开发阶段边界。先在PR121组合保留PR120 head11f910f0与音频head2f3a5d9e的全部历史、双方文档和原失败，核精确组合head原完整166双通道/affected全绿后普通merge，不再请求已给授权，不跳红灯或放预算。原V3历史C与05两条保留，不继续当本轮已选。选择A不代签B/C、整体FPS或实体设备。见[本轮范围](docs/worklines/audio_merge_120_121/scope.md)。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。修复代码c5a76945已实际通过formal96／0、canopy52／0及内嵌8pure，并经独审（生产0diff）。仍须精确新head完整165全绿才正常合并。原始问题为精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](docs/worklines/main_merge_web_111/scope.md)。

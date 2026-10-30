@@ -1,0 +1,50 @@
+{
+  "candidate_url": "https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f",
+  "previous_candidate_url": "https://zhipijun1996.github.io/gunman-rush/perf-04/?v=1394d114df73",
+  "ordinary_url": "https://zhipijun1996.github.io/gunman-rush/?v=ad78f8ae3998",
+  "source_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+  "prepared_commit": "153e8a3105fbc1fd42b89d52a4b42d934098ee06",
+  "deploy_run": 41003568533,
+  "deployment": "success",
+  "pr": 120,
+  "public_metadata": 4,
+  "public_full_new_files": 7,
+  "audio": [
+    {
+      "scene": "home",
+      "seconds": 8,
+      "pcm_nonzero_frames": 352800,
+      "clipped_samples": 0,
+      "selected_pulse_rho": 0.43186003219013547,
+      "native_alignment_ms": 0.04535147392914496,
+      "wav_sha256": "66df3d683b13c887679e19a061a3882f2ce91eb4a0155acb25d0566e216f21b5"
+    },
+    {
+      "scene": "plains",
+      "seconds": 8,
+      "pcm_nonzero_frames": 352800,
+      "clipped_samples": 0,
+      "selected_pulse_rho": 0.8559539177966122,
+      "native_alignment_ms": 0.04535147392203953,
+      "wav_sha256": "bde97e45a6dae8bc570a09fa3e392f4c5b80d0f538e3872b2bcd87e05904cffb"
+    }
+  ],
+  "limits": [
+    "Cloud SwiftShader is not physical phone GPU",
+    "Whole-frame stable uplift not established",
+    "Home pulse match0.432 is weaker under mixed audio; no strong standalone Home asset-identification acceptance",
+    "8second mixed output does not establish longduration freedom from dropouts",
+    "PR draft; latest fullCI not approved; main unchanged"
+  ],
+  "frozen_source_native_microbenchmark_usec": {
+    "original_instance_loop": 191.42708333333334,
+    "candidate_helper": 50.9765625,
+    "reduction_percent": 73.37024541546498
+  },
+  "docs_checks": {
+    "fresh_passed": 33,
+    "report": "docs-harness/report.json",
+    "not_full_gameplay_ci": true
+  },
+  "source_ci_boundary": "eec08e9b parallel failed task-index/record status mismatch (in_progress vs awaiting-device); current delivery record aligns awaiting-device and fresh globalquality/docs33 passed. Full new-head remoteCI remains unapproved."
+}

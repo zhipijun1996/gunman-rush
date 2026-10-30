@@ -223,15 +223,22 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(self.manifest["profiles"]["full"][165:166], structure_additions)
         self.assertEqual(full["checks"][165:166], structure_additions)
         motion_loot_additions = ["plains-motion-loot-02"]
-        expected_additions = additions + structure_additions + motion_loot_additions
+        audio_additions = ["audio-feedback"]
+        expected_additions = additions + structure_additions + motion_loot_additions + audio_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
         self.assertEqual(full["checks"][144:], expected_additions)
-        self.assertEqual(self.manifest["profiles"]["full"][166:], motion_loot_additions)
-        self.assertEqual(full["checks"][166:], motion_loot_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][166:167], motion_loot_additions)
+        self.assertEqual(full["checks"][166:167], motion_loot_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][167:], audio_additions)
+        self.assertEqual(full["checks"][167:], audio_additions)
+        audio = self.manifest["checks"]["audio-feedback"]
+        self.assertEqual(audio["argv"], ["python3", "tools/run_audio_feedback_tests.py"])
+        self.assertEqual(audio["timeout_seconds"], 240)
+        self.assertTrue(audio["serial"])
         added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions
         self.assertEqual([name for name in parallel if name not in original], added_parallel)
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (167,92,75))
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (168,92,76))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:

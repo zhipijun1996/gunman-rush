@@ -1,0 +1,384 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-FEEDBACK-06",
+  "task_type": "ui_feedback",
+  "workflow": "review",
+  "baseline_commit": "f0778c4c9e14e5cb05a63cf5e027da011a63db54",
+  "reviewed_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+  "content_version": "audio-feedback-06-v1",
+  "owner": "root",
+  "purpose": "Title auto-start, trial wall take1 and fresh sampled hero damage candidates",
+  "player_experience": "Title music without a separate enable button; clear compact damage impact in real game context",
+  "constraints": [
+    "Preserve five BGM originals and all gameplay/transaction/RNG/physics rules",
+    "Preserve rejected prior candidates and selected history",
+    "Browser policy and subjective approval remain separate"
+  ],
+  "affected_paths": [
+    "assets/audio/feedback_06/_sources/.gdignore",
+    "assets/audio/feedback_06/_sources/crunch-sounds-cucumber.html",
+    "assets/audio/feedback_06/_sources/crunch_1_0.ogg",
+    "assets/audio/feedback_06/_sources/crunch_2_0.ogg",
+    "assets/audio/feedback_06/_sources/ghost-breath.html",
+    "assets/audio/feedback_06/_sources/ghostbreath.flac",
+    "assets/audio/feedback_06/_sources/swish-bamboo-stick-weapon-swhoshes.html",
+    "assets/audio/feedback_06/_sources/swosh-03.flac",
+    "assets/audio/feedback_06/_sources/swosh-05.flac",
+    "assets/audio/feedback_06/hurt_a.wav",
+    "assets/audio/feedback_06/hurt_a.wav.import",
+    "assets/audio/feedback_06/hurt_b.wav",
+    "assets/audio/feedback_06/hurt_b.wav.import",
+    "assets/audio/feedback_06/hurt_c.wav",
+    "assets/audio/feedback_06/hurt_c.wav.import",
+    "assets/audio/feedback_06/manifest.json",
+    "config/audio_director/feedback_06/recipes.json",
+    "config/audio_director/feedback_06/sources.json",
+    "docs/audio_director/feedback_06.md",
+    "docs/creative_direction/archive/creative-v23/manifest.json",
+    "docs/creative_direction/archive/creative-v23/registry.json",
+    "docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt",
+    "docs/creative_direction/archive/creative-v23/thorn_forest.json",
+    "docs/creative_direction/archive/creative-v23/windchime_plains.json",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
+    "docs/evidence/audio_feedback_06/README.md",
+    "docs/evidence/audio_feedback_06/audio-comparison.zip",
+    "docs/evidence/audio_feedback_06/bgm-final.log.gz",
+    "docs/evidence/audio_feedback_06/bgm-first-interrupted.log.gz",
+    "docs/evidence/audio_feedback_06/bible-tests-02.log",
+    "docs/evidence/audio_feedback_06/bible-tests.log",
+    "docs/evidence/audio_feedback_06/bibles-cli.log",
+    "docs/evidence/audio_feedback_06/binding-migration-audit.json",
+    "docs/evidence/audio_feedback_06/binding-test-retention.json",
+    "docs/evidence/audio_feedback_06/build-info.json",
+    "docs/evidence/audio_feedback_06/capture-native.log.gz",
+    "docs/evidence/audio_feedback_06/capture-parse.log",
+    "docs/evidence/audio_feedback_06/capture-report.json",
+    "docs/evidence/audio_feedback_06/capture-trace.json.gz",
+    "docs/evidence/audio_feedback_06/chapters.json",
+    "docs/evidence/audio_feedback_06/direction-cli.log",
+    "docs/evidence/audio_feedback_06/direction-tests.log",
+    "docs/evidence/audio_feedback_06/docs-input-plan.json",
+    "docs/evidence/audio_feedback_06/feedback.mp4",
+    "docs/evidence/audio_feedback_06/harness-audio-final.log.gz",
+    "docs/evidence/audio_feedback_06/harness-final.json",
+    "docs/evidence/audio_feedback_06/harness-first-interrupted.json",
+    "docs/evidence/audio_feedback_06/hurt-a.png",
+    "docs/evidence/audio_feedback_06/lab-browser.json",
+    "docs/evidence/audio_feedback_06/lab-driver.py",
+    "docs/evidence/audio_feedback_06/lab-negative.json",
+    "docs/evidence/audio_feedback_06/lab-package.json",
+    "docs/evidence/audio_feedback_06/native-feedback.log.gz",
+    "docs/evidence/audio_feedback_06/native-previous-fix.log.gz",
+    "docs/evidence/audio_feedback_06/native-rewards.log.gz",
+    "docs/evidence/audio_feedback_06/native-selected.log.gz",
+    "docs/evidence/audio_feedback_06/native-suite-final.json",
+    "docs/evidence/audio_feedback_06/pck-proof.json",
+    "docs/evidence/audio_feedback_06/phone-lab.png",
+    "docs/evidence/audio_feedback_06/pipeline-validate.log",
+    "docs/evidence/audio_feedback_06/publication.json",
+    "docs/evidence/audio_feedback_06/quality-scope-first-failed.log",
+    "docs/evidence/audio_feedback_06/review-checks.json",
+    "docs/evidence/audio_feedback_06/review.json",
+    "docs/evidence/audio_feedback_06/selector21.log",
+    "docs/evidence/audio_feedback_06/site-package.json",
+    "docs/evidence/audio_feedback_06/web-autoplay-final.json",
+    "docs/evidence/audio_feedback_06/web-console.log",
+    "docs/evidence/audio_feedback_06/web-driver.py",
+    "docs/evidence/audio_feedback_06/web-observer.js",
+    "docs/evidence/audio_feedback_06/web-passive-first-failed.json",
+    "docs/evidence/audio_feedback_06/web-recorder-first-failed.json",
+    "docs/handoff.md",
+    "docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-A.json",
+    "docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-B.json",
+    "docs/quality/asset_records/AUDIO-FEEDBACK-06-HURT-C.json",
+    "docs/quality/asset_records/AUDIO-FEEDBACK-06-SOURCE-RECORDS.json",
+    "docs/quality/records/AUDIO-FEEDBACK-06.json",
+    "docs/tasks.md",
+    "docs/worklines/audio_feedback_06/binding-migration.md",
+    "docs/worklines/audio_feedback_06/scope.md",
+    "scripts/audio/game_music.gd",
+    "scripts/audio/selected_sfx_runtime.gd",
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+    "scripts/ui/demo_menu.gd",
+    "tests/audio_feedback_05.gd",
+    "tests/bgm_integration/runner.gd",
+    "tests/selected_sfx_runtime.gd",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "tools/audio_director.py",
+    "tools/audio_feedback_06_capture.gd",
+    "tools/audio_feedback_06_capture.gd.uid",
+    "tools/audio_feedback_06_lab.py",
+    "tools/audio_hurt_design.py",
+    "tools/build.py",
+    "tools/capture_audio_hurt.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "Actual sampled candidates and reproducible licensed processing",
+    "Real Godot contextual listening and independent Web preview",
+    "Scoped regression and independent review"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded user feedback scope with licensed recorded inputs",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Finite219/89, Web16, Lab14 and independent engineering pass are scoped evidence; preceding whole content stages, full166/docs/device and user hearing remain unsigned",
+      "evidence": [
+        "native",
+        "web",
+        "lab",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Exact requested title/wall trial and new licensed damage directions; user reference does not imply hearing approval",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Original scoped checks passed; actual original BGM and locked source bytes retained",
+      "evidence": [
+        "native",
+        "web",
+        "lab"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Frozen actual independent engineering scope only",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "requested-revision",
+      "scenario": "Title waits and rejected hurt timbres need another real audition",
+      "method": "Sample new CC0 originals; fix wall to author take1; start title player immediately",
+      "expected": "Audible current-context comparison with retained old sounds",
+      "failure": "Rules/BGM changed or prior candidates overwritten",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Actual implementation and named source candidates exist",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "scoped-regression",
+      "scenario": "Accepted damage, sound pool and music lifecycle must remain bounded",
+      "method": "Original Harness+real Web dual policy+phone-sized Lab",
+      "expected": "219+89 original native,16 Web,14 Lab",
+      "failure": "Wrong cue/rules/source/quiet gesture state or resource errors",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual finite observations, not full CI or devices",
+      "evidence": [
+        "native",
+        "web",
+        "lab"
+      ]
+    },
+    {
+      "id": "independent-fixed-source",
+      "scenario": "Changed original tests and bindings must preserve old constraints",
+      "method": "Different read-only engineer compares exact code/inputs and negative cases",
+      "expected": "Current source accepted without automatic aesthetics/phone approval",
+      "failure": "Self review, weakened guards or source relabelling",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Independent exact engineering review frozen",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "review",
+      "path": "docs/evidence/audio_feedback_06/review.json",
+      "sha256": "4c2ba1b80d417c39714dcc8a587586bf9583a871d03fffaf34f703efd37be858",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Read-only separate engineer; exact old/new diff, licensed source/locked input checks and9 actual rejection cases",
+      "observed": "Limited engineering ACCEPT for current fixed source; Web/hearing/device separate",
+      "reviewer": "root/ambience_review",
+      "implementers": [
+        "root",
+        "root/ambience_runtime",
+        "root/audio_runtime"
+      ],
+      "independent": true,
+      "independence_basis": "Different read-only agent, no implementation writes",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "scope",
+      "path": "docs/worklines/audio_feedback_06/scope.md",
+      "sha256": "27bfbf4921e51b843f9d8f125ee1aa1df175e60bd93bf471cb4c1a78d8ce0502",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Latest exact user feedback and bounded presentation-only workline",
+      "observed": "No gameplay/BGM-source changes; no subjective acceptance inferred"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/audio_feedback_06/harness-final.json",
+      "sha256": "0ccef572facda4525b94c9a87bc633fa5354a4dea3f8e2b17c4e22b7b21c264f",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Original two Harness checks, fresh and globally source-stable; actual d8 with documented offline/record working files",
+      "observed": "219/0 strict four-consumer audio +89/0 original BGM, no full166 inference",
+      "command": "python3 tools/harness.py --check audio-feedback --check bgm-integration --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2 Standard; headless; normal clock BGM suite"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/audio_feedback_06/web-autoplay-final.json",
+      "sha256": "5d7045c8143aad1dbcb4b8e8f55a2cb7493849f70e1f5625caf46054210b210c",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Exact staged8037 chunk-only PCK; CDP userGesture=false and navigator false before any input; real trusted touch",
+      "observed": "16/0, allowed title PCM immediate; blocked suspended/silent then real-touch resume; local Chromium only",
+      "command": "python3 build/audio_feedback_06/web_qa-03.py",
+      "exit_code": 0,
+      "environment": "Local Chromium, explicit two autoplay policies, passive analyser, normal HTTP+SW COI"
+    },
+    {
+      "id": "lab",
+      "path": "docs/evidence/audio_feedback_06/lab-browser.json",
+      "sha256": "b8e44955374a78a5f7cdbbe780724964cd46757c51f04213cf1382a9a9f1fa94",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Actual phone-sized GUI and real MP4/WAV playback, loops/Stop/fetch cancellation/exact-choice download",
+      "observed": "14/0, no physical-phone or hearing inference",
+      "command": "python3 build/audio_feedback_06/lab_qa.py",
+      "exit_code": 0,
+      "environment": "Local Chromium390x844; actual staged portal"
+    },
+    {
+      "id": "capture",
+      "path": "docs/evidence/audio_feedback_06/capture-report.json",
+      "sha256": "4e89af6cfe51915dd9e7c5ce4baddb453fdf1bc23a09a2cf23e0f04c2c955514",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Actual MovieMaker native sound track; fixed Home with explicit Health transactions and actual Router jump/shot collision",
+      "observed": "1213frames/20.2167s/source_stable; same grounded camera; no dubbed or natural-hit claim"
+    },
+    {
+      "id": "publication",
+      "path": "docs/evidence/audio_feedback_06/publication.json",
+      "sha256": "ecd0c963672dc519b31430e110770292df8b90f273189987ad5fb6f4f6c10dc4",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "d8a894c28957aca4f5b7ab1bd55827d4f93259c7",
+      "content_version": "audio-feedback-06-v1",
+      "method": "Native owner-private save_version_and_deploy_private succeeded with pushed exact source and archive",
+      "observed": "Site source ddc59b94, actual game d8/build8037; private online GUI remains unverified"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "User hearing and timbre preference for the three new hurt directions; wall1 is a trial",
+    "Physical phone/private deployed-origin authenticated GUI/long natural enemy damage route",
+    "Remote exact-head full166 CI; local full historical docs blocked by sparse inputs and disk",
+    "Future recipe extension should add strict candidate id/profile mapping; current frozenABC and runtime whitelist are correct"
+  ],
+  "test_change_justification": "Independent original-method/assert retention review: title tests now require immediateplay and nonrestarting gestures; fixedwall all three transport slots checked; native checks30→55 and selected original63 retained; Bible34→35/assert332→358 and direction12→13/assert155→168, frozen old versions retained; original budgets/profile members not removed.",
+  "production_snapshot": "9f29e26a790ba0838aa60485743afee93082dd30ab216f6c4b845a19bbb3d5ff"
+}

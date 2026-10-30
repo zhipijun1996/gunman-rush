@@ -1,0 +1,155 @@
+{
+  "scope": "Engine-template-only A/B, same exact PCK; not a full release export or a device performance result.",
+  "baseline_info": {
+    "build_id": "1394d114df73",
+    "pack": "index.1394d114df73.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "2fa18f4cc435",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 208701132,
+    "download_bytes": 205680782,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af"
+  },
+  "baseline_pack": {
+    "path": "/workspace/gunman-rush-perf-04/build/web/index.1394d114df73.pck",
+    "bytes": 208701132,
+    "sha256": "1394d114df73bb3f483ff6b938634ca3f03b715f27ae84015fd2faceb17f748e"
+  },
+  "measured_pack": {
+    "path": "/workspace/gunman-rush-perf-04/build/mobile_web_fps_04/actions/baseline-pack-03/diagnostic.pck",
+    "bytes": 209360052,
+    "sha256": "dd29a440c42da37a2588696f0afdbe4f535e296ed72f678a77d5a944a90cf861"
+  },
+  "diagnostic_pack_override": true,
+  "pack_export_mode": "explicit diagnostic derivative; consult its producer receipt",
+  "local_only_symlinks": true,
+  "deployment_warning": "Do not upload this local comparison directly; materialize links and validate a deployment separately.",
+  "unchanged": [
+    "1280x720 project/scene viewport policy inside the same pack",
+    "production HTML CSS and startup behavior",
+    "8/4 configured worker pools",
+    "game assets and audio policy"
+  ],
+  "html_allowed_changes": [
+    "engine filename and WASM size",
+    "worker content identity",
+    "pack name/size/badge only when an explicit diagnostic pack is supplied"
+  ],
+  "variants": [
+    {
+      "mode": "debug",
+      "directory": "/workspace/gunman-rush-perf-04/build/mobile_web_fps_04/actions/baseline-pair-03/engine-debug",
+      "template_archive": {
+        "path": "/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable/web_debug.zip",
+        "bytes": 10342534,
+        "sha256": "5e6696b42ce07f908fce1698cc227e11807399456b6ab986e69a125eae3596ee"
+      },
+      "pack_sha256": "dd29a440c42da37a2588696f0afdbe4f535e296ed72f678a77d5a944a90cf861",
+      "official_engine_files": {
+        "index.9c119194046e.engine.js": {
+          "zip_member": "godot.js",
+          "sha256": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657",
+          "bytes": 358342
+        },
+        "index.9c119194046e.engine.wasm": {
+          "zip_member": "godot.wasm",
+          "sha256": "fcce8c3ae3a7277199985e8b50610bbc267f88386bf31ab4a69885c160ec9cc8",
+          "bytes": 38349395
+        },
+        "index.9c119194046e.engine.audio.worklet.js": {
+          "zip_member": "godot.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "bytes": 7298
+        },
+        "index.9c119194046e.engine.audio.position.worklet.js": {
+          "zip_member": "godot.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "bytes": 2973
+        }
+      },
+      "html_sha256": "2416feda0a033a03039c9ecdf476fe0ff2100f938459c3487060fac9f5adb316",
+      "metadata": {
+        "build_id": "dd29a440c42d",
+        "pack": "index.dd29a440c42d.pck",
+        "engine_id": "9c119194046e",
+        "cache_schema": 2,
+        "loader_id": "203dc1db632e",
+        "threads_enabled": true,
+        "audio_supply": "dedicated_thread",
+        "pack_bytes": 209360052,
+        "download_bytes": 205896089,
+        "chunk_bytes": 524288,
+        "wasm_bytes": 38349395,
+        "wasm_gzip_bytes": 10126269,
+        "jump": "tap/hold",
+        "playtest": "web",
+        "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+        "engine_template": "debug",
+        "engine_only_comparison": true,
+        "diagnostic_pack_override": true
+      },
+      "html_allowlist_inverse_verified": true
+    },
+    {
+      "mode": "release",
+      "directory": "/workspace/gunman-rush-perf-04/build/mobile_web_fps_04/actions/baseline-pair-03/engine-release",
+      "template_archive": {
+        "path": "/workspace/toolchains/user-data/godot/export_templates/4.7.2.stable/web_release.zip",
+        "bytes": 10290815,
+        "sha256": "02f0dca13ed3d8343fa68f8f88ac80295562408d71aa67157e8b96ddebaa67a3"
+      },
+      "pack_sha256": "dd29a440c42da37a2588696f0afdbe4f535e296ed72f678a77d5a944a90cf861",
+      "official_engine_files": {
+        "index.7700caf39779.engine.js": {
+          "zip_member": "godot.js",
+          "sha256": "1e5437ee16d35bf6f8a3b28e6f70f310ee5da12acab3222a06e8c223cb61757c",
+          "bytes": 314653
+        },
+        "index.7700caf39779.engine.wasm": {
+          "zip_member": "godot.wasm",
+          "sha256": "f6090f055e16765bcef5dc3a031f68ab40c151d9e7f0541d9d7eb61e92dc5051",
+          "bytes": 38820072
+        },
+        "index.7700caf39779.engine.audio.worklet.js": {
+          "zip_member": "godot.audio.worklet.js",
+          "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+          "bytes": 7298
+        },
+        "index.7700caf39779.engine.audio.position.worklet.js": {
+          "zip_member": "godot.audio.position.worklet.js",
+          "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+          "bytes": 2973
+        }
+      },
+      "html_sha256": "4436bbbe45f948e6a31b1bfbf414e0167ce8a266fdfa67b075046747631cf365",
+      "metadata": {
+        "build_id": "dd29a440c42d",
+        "pack": "index.dd29a440c42d.pck",
+        "engine_id": "7700caf39779",
+        "cache_schema": 2,
+        "loader_id": "b38bbe7108a5",
+        "threads_enabled": true,
+        "audio_supply": "dedicated_thread",
+        "pack_bytes": 209360052,
+        "download_bytes": 205848604,
+        "chunk_bytes": 524288,
+        "wasm_bytes": 38820072,
+        "wasm_gzip_bytes": 10093002,
+        "jump": "tap/hold",
+        "playtest": "web",
+        "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+        "engine_template": "release",
+        "engine_only_comparison": true,
+        "diagnostic_pack_override": true
+      },
+      "html_allowlist_inverse_verified": true
+    }
+  ]
+}

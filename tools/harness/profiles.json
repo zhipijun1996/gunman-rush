@@ -2677,7 +2677,48 @@
         "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_bible.py.txt",
         "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_creative_direction.py.txt",
         "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/thorn_forest.json",
-        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/windchime_plains.json"
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+        "docs/creative_direction/archive/creative-v22/manifest.json",
+        "docs/creative_direction/archive/creative-v22/registry.json",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_menu.gd.txt",
+        "docs/creative_direction/archive/creative-v22/runtime_inputs/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/creative-v22/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v22/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
+        "docs/creative_direction/archive/creative-v23/manifest.json",
+        "docs/creative_direction/archive/creative-v23/registry.json",
+        "docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt",
+        "docs/creative_direction/archive/creative-v23/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v23/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+        "docs/creative_direction/revision_creative_v25.md",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+        "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+        "docs/creative_direction/archive/merge-20261030-style21/test-retention.json"
       ],
       "weight_seconds": 0.5
     },
@@ -4518,6 +4559,32 @@
       "artifact_paths": [
         "build/plains_motion_loot_02/native.json"
       ]
+    },
+    "audio-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^AUDIO FEEDBACK CHECK: four actual native consumers completed with 0 failures$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/creative_direction"
+      ],
+      "artifact_paths": [
+        "build/audio_feedback_05"
+      ]
     }
   },
   "profiles": {
@@ -4740,7 +4807,8 @@
       "item-v5-art",
       "home-codex",
       "enemy-structure-native",
-      "plains-motion-loot-02"
+      "plains-motion-loot-02",
+      "audio-feedback"
     ],
     "art": [
       "docs",
@@ -4840,7 +4908,8 @@
       "portable-frozen-assets",
       "home-codex",
       "enemy-structure-native",
-      "plains-motion-loot-02"
+      "plains-motion-loot-02",
+      "audio-feedback"
     ],
     "web": [
       "docs",
@@ -4889,7 +4958,8 @@
       "cloud-delivery-tests",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "home-codex"
+      "home-codex",
+      "audio-feedback"
     ],
     "full": [
       "docs",
@@ -5058,7 +5128,8 @@
       "item-v5-art",
       "home-codex",
       "enemy-structure-native",
-      "plains-motion-loot-02"
+      "plains-motion-loot-02",
+      "audio-feedback"
     ],
     "creative-feedback": [
       "docs",

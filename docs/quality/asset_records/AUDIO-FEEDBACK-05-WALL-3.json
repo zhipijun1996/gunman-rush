@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-FEEDBACK-05-WALL-3",
+  "content_version": "audio-feedback-v1",
+  "disposition": "runtime_candidate",
+  "source_path": "assets/audio/feedback_05/wall_3.wav",
+  "source_sha256": "41781dcc98a8ca9c47c80788903b6eec378450f75f7c6347bf9a05076dccb9cc",
+  "tool": "tools/audio_feedback_design.py; existing audio_candidates_v3.py sampled DSP/FFmpeg",
+  "model": "not applicable; existing licensed recordings, no generative model",
+  "prompt_or_reference": "Latest user rejected actual hero hurt C and solid wall timbre; soft body/cloth and quiet stone/air respectively. Exact input SHA and processing in new manifest.",
+  "processing": "Explicit crop/filter/pitch/envelope/layering and bounded final gain, reproducible build and independent validation",
+  "usage_scope": "Actual formal App feedback revision; pending user hearing/physical device",
+  "license_source": "config/audio_director/feedback_05/sources.json; original CC0 authors/URLs/terms and source bytes remain in V3 source library",
+  "license_status": "verified",
+  "visual_status": "unverified",
+  "runtime_paths": [
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/audio/feedback_05/manifest.json",
+      "sha256": "799a69de37b291bde7229072aa9ec2d877bfeb949b79133cb558142945c87d13",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/feedback_05/recipes.json",
+      "sha256": "e6fb036049d796036b5fed5814b65abef6772380d81714d41b5a4461c332c875",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/feedback_05/sources.json",
+      "sha256": "b2c44b5061545fb6830a1df3af581f1f44f26186529cd0a1d4e26ab8f91f0068",
+      "role": "source_contract"
+    }
+  ]
+}

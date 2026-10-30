@@ -90,6 +90,7 @@ var _boss_status: Label
 var _windkeeper_hud: WindkeeperHud
 var _music: GameMusic
 var _shown_actions := ""
+var _reward_audio_title_seen := false
 var exit_modal: EXIT_MODAL
 var _offered_exit: StringName = &""
 var _exit_prompt_token: DemoToken
@@ -339,6 +340,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	shop.configure(lifetime, build, wallet)
 	var discovery_run := _run_receipt_prefix
 	rewards.claimed.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, false))
+	rewards.claimed.connect(_committed_item_audio)
 	shop.purchased.connect(func(receipt: EconomyReceipt) -> void: _record_item_discovery(receipt, discovery_run, true))
 	if connected_region:
 		_item_runtime = ItemRuntime.new()
@@ -1087,6 +1089,15 @@ func _commit_exit(id: StringName) -> bool:
 		return _offer_generated_exit(id)
 	return director.select_exit(lifetime.token(), id, _next_id("exit")).accepted()
 
+func _committed_item_audio(receipt: EconomyReceipt) -> void:
+	# RewardService emits this signal only for a new applied ownership receipt.
+	# Cache claims play their opening first, after the claimed transition below.
+	if receipt == null or receipt.status != EconomyReceipt.Status.COMMITTED: return
+	if connected_region and stage is PlainsRegionStage and _region_chest >= 0:
+		var caches: Array = (stage as PlainsRegionStage).chests
+		if _region_chest < caches.size() and receipt.event_id == StringName(str(caches[_region_chest].id) + "/claim"): return
+	GameAudio.cue_committed_reward(self, &"item_get", &"note")
+
 func _commit_claim(option_id: StringName) -> bool:
 	if generated_plains or not _can_interact() or current_reward == null or player.global_position.distance_to(stage.reward_position) > 130:
 		return false
@@ -1098,7 +1109,6 @@ func _commit_claim(option_id: StringName) -> bool:
 	var receipt := rewards.claim(request)
 	if not receipt.accepted():
 		return false
-	GameAudio.cue(self, &"confirm")
 	director.manifest.record_output(director.stage_index, &"reward_claim", {"offer": String(current_reward.offer_id), "item": String(receipt.item_id)})
 	_status = "Acquired %s. Build modifiers are reversible." % option_id
 	if current_reward.gold:
@@ -1125,7 +1135,10 @@ func _commit_purchase() -> bool:
 	var receipt := shop.purchase(request)
 	if receipt.accepted():
 		director.manifest.record_output(director.stage_index, &"shop_purchase", {"offer": String(quote.offer_id), "item": String(receipt.item_id), "coins": receipt.coins})
-	GameAudio.cue(self, &"confirm" if receipt.accepted() else &"denied")
+	if receipt.status == EconomyReceipt.Status.COMMITTED:
+		GameAudio.cue_committed_reward(self, &"item_get", &"note")
+	elif not receipt.accepted():
+		GameAudio.cue(self, &"denied")
 	_status = "Purchased %s." % quote.item.display_name if receipt.accepted() else "Purchase unavailable (coins, stock or item limit)."
 	_shown_actions = ""
 	return receipt.accepted()
@@ -1379,6 +1392,7 @@ func abandon_run() -> void:
 
 func _run_ended(result: DemoRunResult) -> void:
 	_close_build_session()
+	_stop_reward_audio()
 	if is_instance_valid(progression_modal): progression_modal.close()
 	_progression_token = null
 	_terrain_study_requested=false
@@ -1642,8 +1656,16 @@ func _sync_music() -> void:
 	_music.request_track(track)
 	_music.set_menu_paused(get_tree().paused)
 
+func _stop_reward_audio() -> void:
+	# The scene owns its actual service; never clear another App's audio group.
+	for child: Node in get_children():
+		if child is GameAudio: (child as GameAudio).stop_director_cues()
+
 func _process(_delta: float) -> void:
 	_sync_music()
+	var at_title := is_instance_valid(menu) and menu.visible_panel == &"title"
+	if at_title and not _reward_audio_title_seen: _stop_reward_audio()
+	_reward_audio_title_seen = at_title
 	if is_instance_valid(_home_codex) and _home_codex.opened and (director.state != DemoRunDirector.State.HOME or not is_instance_valid(home_scene)):
 		_close_home_codex()
 	# This boundary also runs while physics is paused. Focus/stage invalidation
@@ -2417,7 +2439,6 @@ func _claim_modal_item(option_id: StringName) -> bool:
 	var receipt := rewards.claim(request)
 	if not receipt.accepted():
 		return false
-	GameAudio.cue(self, &"confirm")
 	director.manifest.record_output(director.stage_index, &"reward_claim", {"offer": String(current_reward.offer_id), "item": String(receipt.item_id), "at_exit": String(_pending_exit)})
 	reward_modal.close()
 	controller.router.clear("exit_reward_complete")
@@ -2545,22 +2566,30 @@ func _claim_region_chest(option_id: StringName) -> bool:
 		if item.stable_id==option_id: selected=item
 	if selected==null: return false
 	var resource:=selected as ResourceRewardChoice
+	var audio_committed := false
 	if resource!=null:
 		var id:=StringName(_run_receipt_prefix+"/"+chest.id+"/resource")
 		if resource.resource_kind=="coin":
+			var before_balance := wallet.balance
 			if not wallet.grant(resource.amount,id): return false
+			audio_committed = wallet.balance != before_balance
 		elif resource.resource_kind=="heart":
 			if controller.actor_resources.health.current>=controller.actor_resources.health.capacity: return false
-			if not SupplyHealEffect.apply(controller.actor_resources.health,float(resource.amount),id).accepted(): return false
+			var healed := SupplyHealEffect.apply(controller.actor_resources.health,float(resource.amount),id)
+			if not healed.accepted(): return false
+			audio_committed = healed.status == ActorResourceResult.Status.APPLIED and healed.amount_applied > 0.0
 		else:
 			var saved:=meta.grant_notes(resource.amount,id)
 			if not saved.accepted:
 				_status="NOTES SAVE FAILED / Nothing granted. Retry this choice."
 				return false
+			audio_committed = not bool(saved.get("replayed", false))
 	else:
 		var request:=RewardClaimRequest.new()
 		request.token=_region_offer_token;request.offer_id=_region_offer.offer_id;request.option_id=option_id;request.claim_id=StringName(chest.id+"/claim")
-		if not rewards.claim(request).accepted(): return false
+		var receipt := rewards.claim(request)
+		if not receipt.accepted(): return false
+		audio_committed = receipt.status == EconomyReceipt.Status.COMMITTED
 		wallet.grant(int(chest.coins),StringName(chest.id+"/coins"))
 	item_toast.show_item(selected)
 	if connected_region: _layout_region_hud()
@@ -2576,7 +2605,12 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	controller.router.clear("region_cache_complete")
 	get_tree().paused = false
 	_resume_exit_input()
-	GameAudio.cue(self,&"confirm")
+	if audio_committed:
+		GameAudio.cue_committed_reward(self, &"chest_open", &"confirm")
+		if resource == null:
+			GameAudio.cue_committed_reward(self, &"item_get", &"note")
+		else:
+			GameAudio.cue(self, &"coin" if resource.resource_kind == "coin" else &"heal" if resource.resource_kind == "heart" else &"note")
 	return true
 
 func _region_purchase() -> bool:
@@ -2589,7 +2623,10 @@ func _region_purchase() -> bool:
 	request.quote_version = quote.quote_version
 	request.transaction_id = _next_id("region_purchase")
 	var receipt := shop.purchase(request)
-	GameAudio.cue(self,&"confirm" if receipt.accepted() else &"denied")
+	if receipt.status == EconomyReceipt.Status.COMMITTED:
+		GameAudio.cue_committed_reward(self, &"item_get", &"note")
+	elif not receipt.accepted():
+		GameAudio.cue(self, &"denied")
 	if receipt.accepted():
 		item_toast.show_item(quote.item)
 		if connected_region: _layout_region_hud()
@@ -2806,7 +2843,8 @@ func _bind_forest_discoveries() -> bool:
 		if not is_instance_valid(stage) or stage != forest or not lifetime.active: return
 		director.manifest.record_output(director.stage_index, StringName("forest_discovery/" + str(receipt.id)), receipt)
 		(forest.assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
-		GameAudio.cue(self, &"confirm")
+		if str(receipt.kind) != "item":
+			GameAudio.cue(self, &"coin" if str(receipt.kind) == "coin" else &"heal" if str(receipt.kind) == "heart" else &"confirm")
 		_shown_actions = ""
 		forest.queue_redraw())
 	return true

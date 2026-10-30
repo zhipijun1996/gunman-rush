@@ -1,5 +1,9 @@
 # 最新交接 · 2026-10-29
 
+## 2026-10-30 七怪工作线获准快速合main（当前）
+
+用户明确“快速合入main”。正在PR119整合main feb01068的已选hurt A/COMMITTED音频与前景性能修复；原ab96 CI并行92通过、串行森林600秒53/80超时，原红灯保留。目标为两父完整历史、七怪固定金币/概率补给与主线更新共同接入；原167前缀追加主线audio为168（92＋76），600预算不改。当前active merge，本轮scope/测试/精确源CI及合并状态见[合入记录](worklines/plains_motion_loot_02/main_merge.md)。旧“不自动合main”为此前阶段，不重复询问授权；整怪艺术/设备/用户G5仍分开。
+
 ## 2026-10-30 七怪审核片已发布，死亡掉落回归已修订（当前）
 
 [怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)私密更新源97a25c0：25怪/95版本/15媒体，保原88版本/意见归属与其他18怪。用户已选择每怪固定金币必掉、音符/回血按原概率额外；候选1/2/2/2/3/5/7，7=5+1+1。整身动作、材质伤亡/落地声、方向碎屑、局部33ms停顿、物理喷散/轻弹/吸收与实际回血微光已接入，1wu/原身体PNG/AI/HP/伤害/玩家物理保留。
@@ -102,6 +106,50 @@ ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.c
 标准实现源`1f11b24`的原docs profile33／33 fresh通过，0复用；仅标准process done，冲锋怪仍review／E03与E05 failed。原输入／索引失败、新通过及命令见[收口证据](evidence/enemy_completion_01/validation.json)。最终收据／任务元数据追加后执行原quality／docs／差异守门；恢复不重跑未变玩法或重生成美术，下一制作范围是统一live／H／D与受伤退出，并补实际attack及正式遭遇。PR面向main，不自动合并。
 
 已推送`docs/enemy-continuity-01`并建草稿[PR112](https://github.com/zhipijun1996/gunman-rush/pull/112)。公开[本轮原片](https://raw.githubusercontent.com/zhipijun1996/gunman-rush/edeb07d11a9b3a96242ed4e6bbc8d74170678f25/docs/evidence/enemy_completion_01/underworld/after.mp4)实际完整下载1,364,697字节，SHA与本地一致；[下载收据](evidence/enemy_completion_01/public-download.json)。最终head以PR为准，后续仅收据／交接，不冒称最新head完整CI已绿。
+
+## 2026-10-30 AUDIO-MERGE-120-121 · 用户已选A并授权两PR合main
+
+当前在fix/audio-playtest-feedback-20261030组合PR120 head11f910f0与PR121 head2f3a5d9e。只current_state/tasks冲突，双方块全部保留；游戏代码无交叉。受伤A采用确切原文件，新增选择账本并由现有装配/brief读取。PR120已转ready。旧“未选/不自动合main”是历史阶段；新授权允许原完整166双通道与affected全绿后正常合并，不另问权限。尚未合main，以实际最终Git/CI/PR收据为准；不要改旧独审或将旧Web改标为组合源。[本轮范围](worklines/audio_merge_120_121/scope.md)。
+
+## 2026-10-30 AUDIO-FEEDBACK-06 · 标题即播／碰墙1／新受伤ABC
+
+PR121同线续改，分支fix/audio-playtest-feedback-20261030，main仍5f55716a；实际运行/影片/Web源d8a894c2，build80377273a40d。标题立即请求原BGM，浏览器限制由真实手势恢复；取消专用按钮。墙地只用feedback05/wall_1，原60ms/2wall/12池/混音不变。旧C与05hurt两条用户否决且原件保留，新CC0断裂/竹条/气息ABC均待选，默认A是开发试听；不复制或声称实测HK原轨。
+
+原Harness实际219/0+原BGM89/0、真实MovieMaker1213帧/20.2167秒、无激活CDP双策略Web16、手机尺寸工坊GUI14、Bible35/direction13与原CLI/selector21通过，旧失败都留存。style21/creative24仅menu1/81技术重绑，另80与旧原件不变。查看[本轮证据](evidence/audio_feedback_06/README.md)、[范围](worklines/audio_feedback_06/scope.md)。[新试听子页](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site/feedback06/)已原生发布succeeded，沿原owner-private Site；[收据](evidence/audio_feedback_06/publication.json)绑定source ddc59b94，不复用旧包冒充。
+
+内容保持review，不自动合main。实体手机/用户听感/私有线上账号GUI/完整166仍未验；历史docs缺件量超剩余磁盘，不签本地full通过。已完成源码和短片不要重生成；收到试听反馈再沿brief/当前配方迭代，若CI具体失败只定位原失败。复核git状态、当前PR与精确build，保持root单Godot/WASM租约。
+
+# 最新交接 · 2026-10-30
+
+## 2026-10-30 AUDIO-FEEDBACK-05 · 五项修复候选已发布
+
+分支fix/audio-playtest-feedback-20261030；基线main5f55716a（PR117已合）。音频实现d466ed27，工程源f6d8d76e；[独立试玩与33秒原生试听](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site)已由Sites正式私有发布，需同一ChatGPT账号。游戏包1b5989bf6054/源d466，208,763,932B完整SHA已核；影片producer9f3。当前主站main/ad78未替换，不把新技术metadata冒称已入1b。
+
+标题真实触点开启音乐并留在title，首轨直接原gain，后续.9s渐变；hero hurt两软身体/布料变体，wall三短石粒变体+60ms/2声；机制铃仅该cue+12dB/优先级；正式宝箱/物品/商店仅COMMITTED声音，普通换层保尾、真结束/title清。五MP3/旧C/选择与原候选字节不变，敌伤B、jump/land和规则不顺改。
+
+最终当前上下文四consumer原Harness194/0 fresh、原BGM89/0、实际本地chunk-only Web11项及MovieMaker1994帧/source_stable通过；[全部原件与边界](evidence/audio_feedback_05/README.md)。style20/creative23只3/81源码身份重绑，78及原19/两Bible/user bytes不变，34+12旧套件和两CLI/独审反例通过。首font/帧记账/稀疏缺件/上传限制失败均保留。
+
+Sites项目appgprj_6ae3fb5cdc08819189e74441fcb8cb54，源码82bb1d54，已有dist目录/workspace/sites/clock-audio-feedback-05；新建GH host403后沿既有Sites，保持owner-private、不改共享。Sites Git每push64MiB，用5个小commit正常ff传输，最终树不变；凭据只stdin/进程环境、不保存。匿名executor三资源403，不伪称owner线上GUI已验；同一确切静态包本地COI/SAB/真实title音轨已验。
+
+当前任务review，[PR121](https://github.com/zhipijun1996/gunman-rush/pull/121)已交，不自动合main。首CI40999709664在selector旧165尾清单失败、无引擎执行；CI-only b6f9精确补追加项166/91/75，原21/独审4反例通过，音频原源不重标；[CI记录](evidence/audio_feedback_05/ci-selector/README.md)。新hurt/wall听感、真机/长路线/G5、完整166CI与本地历史docs仍未代签；docs额外已知1.257GB+未知历史超剩余盘，保原失败，不删旧物。后续先消费用户试听反馈/JSON；brief会读取feedback05并保敌伤/环境家族正确。若用户再授权合main，核精确head166全绿后普通merge，按原快速流程导实际main，不用旧包冒充。
+
+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查
+
+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生两次正反复测局部约减少76%／73%；冻结源fresh为191.4→51.0μs，原96＋等价444通过。
+
+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。
+
+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。
+
+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。最终docs33 fresh通过。旧头6858的serial forest-depth-region600秒超时；eec parallel任务状态索引不一致已在收尾记录统一，本地quality通过，完整新head CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。
+
+
+## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查
+
+用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。
+
+新分支 `perf/mobile-web-quality-20261030`，独立worktree；真实demo／同seed／同1280×720与DPR，官方线程Debug/Release同PCK与诊断计时分开。仅新增固定几何前缀精确缓存；正式两图96项与缓存等价383项fresh通过，独审未见阻断。原版反序对照未证明整体FPS稳定提升，移动cache miss有小额外成本；不把软件GPU帧率当荣耀60Pro数据。候选 `1394d114df73` 已在 `/perf-04/` 发布，原主页ad78不变；15个公网完整文件与真实Home/Plains短窗音频通过。首个冷加载180s超时保留，后续原限时通过。草稿PR120未合main，等待实际收益判断；见[证据](evidence/mobile_web_fps_04/README.md)。
+
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 

@@ -1,0 +1,170 @@
+{
+  "environment": "Chromium mobile viewport on cloud SwiftShader; not phone GPU/FPS",
+  "baseline": "published1394d114df73 source5caf4d4f",
+  "candidate_foreground_sha256": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+  "checks": {
+    "runner_sha256": true,
+    "shared_runner_sha256": true,
+    "viewport_css": true,
+    "device_scale_factor": true,
+    "input_plan": true,
+    "region_before": true,
+    "input_layout": true,
+    "initial:player": true,
+    "initial:camera": true,
+    "initial:viewport": true,
+    "initial:manifest": true,
+    "initial:player_health": true,
+    "initial:foreground": true
+  },
+  "rows": [
+    {
+      "name": "baseline-run-03",
+      "fps": 7.656602063254518,
+      "frames": 230,
+      "elapsed_ms": 30039.435,
+      "p50_ms": 130.216,
+      "p95_ms": 171.03,
+      "p99_ms": 190.755,
+      "max_ms": 301.64,
+      "over_budget": {
+        "16.666666666666668": 230,
+        "33.333333333333336": 230,
+        "50": 230,
+        "100": 217
+      },
+      "process_p50_ms": 78.615,
+      "physics_p50_ms": 29.64,
+      "draw_calls_mean": 92.58260869565217,
+      "objects_mean": 376.24782608695654,
+      "primitives_mean": 1943.9304347826087,
+      "observed_actions": {
+        "jump": 4,
+        "shot": 4,
+        "death": 0
+      },
+      "airborne_rounds": 4,
+      "methods": {
+        "scripts/underworld_plains/underworld_foreground.gd:_observe": {
+          "calls": 12,
+          "total_ms": 44.293,
+          "mean_ms": 3.6910833333333333,
+          "max_ms": 35.229
+        },
+        "scripts/combat/shoot_ability.gd:_emit_round": {
+          "calls": 4,
+          "total_ms": 127.952,
+          "mean_ms": 31.988,
+          "max_ms": 89.976
+        },
+        "scripts/dev/player_presentation_01/weapon_feel.gd:_shot": {
+          "calls": 4,
+          "total_ms": 31.236,
+          "mean_ms": 7.809,
+          "max_ms": 16.215
+        }
+      }
+    },
+    {
+      "name": "candidate-run-01",
+      "fps": 7.782256455281956,
+      "frames": 234,
+      "elapsed_ms": 30068.4,
+      "p50_ms": 123.53,
+      "p95_ms": 185.041,
+      "p99_ms": 214.491,
+      "max_ms": 230.699,
+      "over_budget": {
+        "16.666666666666668": 234,
+        "33.333333333333336": 234,
+        "50": 234,
+        "100": 219
+      },
+      "process_p50_ms": 72.45,
+      "physics_p50_ms": 29.064,
+      "draw_calls_mean": 92.55128205128206,
+      "objects_mean": 376.6837606837607,
+      "primitives_mean": 1943.4358974358975,
+      "observed_actions": {
+        "jump": 4,
+        "shot": 4,
+        "death": 0
+      },
+      "airborne_rounds": 4,
+      "methods": {
+        "scripts/underworld_plains/underworld_foreground.gd:_observe": {
+          "calls": 12,
+          "total_ms": 8.195,
+          "mean_ms": 0.6829166666666667,
+          "max_ms": 6.925
+        },
+        "scripts/combat/shoot_ability.gd:_emit_round": {
+          "calls": 4,
+          "total_ms": 26.424,
+          "mean_ms": 6.606,
+          "max_ms": 16.425
+        },
+        "scripts/dev/player_presentation_01/weapon_feel.gd:_shot": {
+          "calls": 4,
+          "total_ms": 11.68,
+          "mean_ms": 2.92,
+          "max_ms": 8.285
+        }
+      }
+    },
+    {
+      "name": "baseline-run-04",
+      "fps": 7.4694917944520345,
+      "frames": 228,
+      "elapsed_ms": 30524.165,
+      "p50_ms": 123.825,
+      "p95_ms": 189.91,
+      "p99_ms": 321.395,
+      "max_ms": 557.521,
+      "over_budget": {
+        "16.666666666666668": 228,
+        "33.333333333333336": 228,
+        "50": 228,
+        "100": 206
+      },
+      "process_p50_ms": 70.444,
+      "physics_p50_ms": 26.215,
+      "draw_calls_mean": 92.59649122807018,
+      "objects_mean": 376.219298245614,
+      "primitives_mean": 1944.3070175438597,
+      "observed_actions": {
+        "jump": 4,
+        "shot": 4,
+        "death": 0
+      },
+      "airborne_rounds": 4,
+      "methods": {
+        "scripts/underworld_plains/underworld_foreground.gd:_observe": {
+          "calls": 12,
+          "total_ms": 11.039,
+          "mean_ms": 0.9199166666666666,
+          "max_ms": 4.909
+        },
+        "scripts/combat/shoot_ability.gd:_emit_round": {
+          "calls": 4,
+          "total_ms": 36.355,
+          "mean_ms": 9.08875,
+          "max_ms": 14.541
+        },
+        "scripts/dev/player_presentation_01/weapon_feel.gd:_shot": {
+          "calls": 4,
+          "total_ms": 14.338,
+          "mean_ms": 3.5845,
+          "max_ms": 7.83
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Single30s window per run; tiny4shot sample; no statistical FPS uplift claim",
+    "Actions accepted and initial state identical, but CDP latency/enemy phase and intermediate trajectory are not bit-identical",
+    "Inclusive wall-method times overlap and include scheduling; not summed CPU time",
+    "No browser audio capture in timing window; separate normal export validation required",
+    "Full large Plains loaded, stationary entry actions; not deep-map combat/longduration/device validation"
+  ]
+}

@@ -1,0 +1,1300 @@
+{
+	"benchmarks": [
+		{
+			"context": "trail_property_discovery",
+			"rows": [
+				{
+					"field_count": 96,
+					"iterations_per_script": 32,
+					"mean_usec_per_node": 173.473958333333,
+					"mode": "original_instance_loop",
+					"round": 0,
+					"scripts": 6,
+					"total_usec": 33307
+				},
+				{
+					"field_count": 96,
+					"iterations_per_script": 32,
+					"mean_usec_per_node": 57.625,
+					"mode": "candidate_helper",
+					"round": 0,
+					"scripts": 6,
+					"total_usec": 11064
+				},
+				{
+					"field_count": 96,
+					"iterations_per_script": 32,
+					"mean_usec_per_node": 44.328125,
+					"mode": "candidate_helper",
+					"round": 1,
+					"scripts": 6,
+					"total_usec": 8511
+				},
+				{
+					"field_count": 96,
+					"iterations_per_script": 32,
+					"mean_usec_per_node": 209.380208333333,
+					"mode": "original_instance_loop",
+					"round": 1,
+					"scripts": 6,
+					"total_usec": 40201
+				}
+			],
+			"scope": "Direct CPU property-list allocation and exact filtering only. Six real scripts, 64 calls per script/mode in reversed-order rounds. No FPS, GPU, audio or phone inference."
+		},
+		{
+			"context": "home",
+			"fixed_world_count": 32,
+			"rows": [
+				{
+					"iterations": 32,
+					"mean_usec": 1.9375,
+					"mode": "warm",
+					"round": 0,
+					"total_usec": 62
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 27.0625,
+					"mode": "forced_miss",
+					"round": 0,
+					"total_usec": 866
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 32.65625,
+					"mode": "original",
+					"round": 0,
+					"total_usec": 1045
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 37.8125,
+					"mode": "moving_candidate",
+					"round": 0,
+					"total_usec": 1210
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 24.6875,
+					"mode": "moving_original",
+					"round": 0,
+					"total_usec": 790
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 38.65625,
+					"mode": "moving_original",
+					"round": 1,
+					"total_usec": 1237
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 33.5625,
+					"mode": "moving_candidate",
+					"round": 1,
+					"total_usec": 1074
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 36.15625,
+					"mode": "original",
+					"round": 1,
+					"total_usec": 1157
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 57.1875,
+					"mode": "forced_miss",
+					"round": 1,
+					"total_usec": 1830
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 1.90625,
+					"mode": "warm",
+					"round": 1,
+					"total_usec": 61
+				}
+			],
+			"scope": "Synchronous fixed-prefix CPU including shared reset; no FPS/GPU/device claim. Moving cases translate canvas by 1 px each call. Two reversed-order rounds, 64 calls per mode."
+		},
+		{
+			"context": "plains",
+			"fixed_world_count": 481,
+			"rows": [
+				{
+					"iterations": 32,
+					"mean_usec": 4.03125,
+					"mode": "warm",
+					"round": 0,
+					"total_usec": 129
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 130.3125,
+					"mode": "forced_miss",
+					"round": 0,
+					"total_usec": 4170
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 220.5,
+					"mode": "original",
+					"round": 0,
+					"total_usec": 7056
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 151.8125,
+					"mode": "moving_candidate",
+					"round": 0,
+					"total_usec": 4858
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 134.53125,
+					"mode": "moving_original",
+					"round": 0,
+					"total_usec": 4305
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 167.6875,
+					"mode": "moving_original",
+					"round": 1,
+					"total_usec": 5366
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 196.25,
+					"mode": "moving_candidate",
+					"round": 1,
+					"total_usec": 6280
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 255.8125,
+					"mode": "original",
+					"round": 1,
+					"total_usec": 8186
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 215.28125,
+					"mode": "forced_miss",
+					"round": 1,
+					"total_usec": 6889
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 4.3125,
+					"mode": "warm",
+					"round": 1,
+					"total_usec": 138
+				}
+			],
+			"scope": "Synchronous fixed-prefix CPU including shared reset; no FPS/GPU/device claim. Moving cases translate canvas by 1 px each call. Two reversed-order rounds, 64 calls per mode."
+		}
+	],
+	"cases": [
+		{
+			"case": "synthetic/70-disjoint/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 70,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 70
+			},
+			"static_count": 70
+		},
+		{
+			"case": "synthetic/70-disjoint/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 70,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 70
+			},
+			"static_count": 70
+		},
+		{
+			"case": "synthetic/enclosure-last-sticky-overflow/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-last-sticky-overflow/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-first-no-overflow/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-first-no-overflow/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/strict-union-threshold-equal/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 2,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-equal/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 2,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-below/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-below/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/zero-outside-touching-edge/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/zero-outside-touching-edge/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/empty-after-nonempty/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/empty-after-nonempty/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "home/stationary-0",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/stationary-1",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/stationary-2",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/geometry-add",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-edit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-reorder",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-remove-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/alias-after-miss",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/alias-after-hit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/camera-offset",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 12,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 47
+		},
+		{
+			"case": "home/camera-zoom",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 12,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 47
+		},
+		{
+			"case": "home/camera-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/viewport-resize",
+			"dynamic_count": 1,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 10,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 11,
+				"actual_visible_ui": 16
+			},
+			"static_count": 38
+		},
+		{
+			"case": "home/viewport-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/dynamic-actor",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/dynamic-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/ui-visible",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 24,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/ui-hidden",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/ui-moved",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 24,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/ui-removed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/paused",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/resumed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/after-benchmark",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "plains/stationary-0",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/stationary-1",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/stationary-2",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/geometry-add",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-edit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-reorder",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-remove-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/alias-after-miss",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/alias-after-hit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/camera-offset",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/camera-zoom",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 8,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 7,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 44
+		},
+		{
+			"case": "plains/camera-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/viewport-resize",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 4,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 7,
+				"actual_static_geometry_and_functions": 11,
+				"actual_visible_ui": 14,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 32
+		},
+		{
+			"case": "plains/viewport-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/dynamic-actor",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/dynamic-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/ui-visible",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 26,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/ui-hidden",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/ui-moved",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 12,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 26,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/ui-removed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/paused",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		},
+		{
+			"case": "plains/resumed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		},
+		{
+			"case": "plains/after-benchmark",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		}
+	],
+	"checks": 444,
+	"elapsed_msec": 3216.427,
+	"failures": [],
+	"scene": "res://scenes/demo/demo.tscn",
+	"scenes": [
+		{
+			"canvas": "[X: (1.0, 0.0), Y: (0.0, 1.0), O: (0.0, 50.0)]",
+			"context": "home",
+			"fixed_world_count": 32,
+			"player": "(110.0, 414.0)",
+			"scene_path": "",
+			"tracked_count": 183,
+			"viewport": "[P: (0.0, 0.0), S: (1280.0, 720.0)]"
+		},
+		{
+			"canvas": "[X: (1.6, 0.0), Y: (0.0, 1.6), O: (3504.0, 487.5576)]",
+			"context": "plains",
+			"fixed_world_count": 481,
+			"player": "(-1850.0, 0.0)",
+			"scene_path": "",
+			"tracked_count": 646,
+			"viewport": "[P: (0.0, 0.0), S: (1280.0, 720.0)]"
+		}
+	],
+	"schema": 1,
+	"scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.",
+	"seed": "mobile-fps-04",
+	"source_sha256": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+	"trail_cases": [
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/real/player_projectile.gd",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/real/weapon_entity.gd",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [],
+			"case": "trail/real/underworld_projectile_visual.gd",
+			"expected": [],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_visual_trail"
+			],
+			"case": "trail/real/enemy_attack_projectile.gd",
+			"expected": [
+				"_visual_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [],
+			"case": "trail/real/pixel_plains_projectile.gd",
+			"expected": [],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [],
+			"case": "trail/real/weapon_projectile.gd",
+			"expected": [],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail",
+				"trail",
+				"_visual_trail"
+			],
+			"case": "trail/inherited-script-fields-order",
+			"expected": [
+				"_trail",
+				"trail",
+				"_visual_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/dynamic-instance-a",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail"
+			],
+			"case": "trail/dynamic-instance-b",
+			"expected": [
+				"_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail",
+				"_visual_trail"
+			],
+			"case": "trail/dynamic-runtime-change",
+			"expected": [
+				"_trail",
+				"_visual_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail"
+			],
+			"case": "trail/dynamic-other-instance-unchanged",
+			"expected": [
+				"_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/inherited-dynamic-provider",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail",
+				"_visual_trail"
+			],
+			"case": "trail/inherited-dynamic-provider-runtime-change",
+			"expected": [
+				"_trail",
+				"_visual_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_visual_trail",
+				"trail"
+			],
+			"case": "trail/inherited-validator-renames-property",
+			"expected": [
+				"_visual_trail",
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/unknown-script-no-resource-path",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"trail"
+			],
+			"case": "trail/native-sprite-fallback",
+			"expected": [
+				"trail"
+			],
+			"native_class": "Sprite2D"
+		},
+		{
+			"actual": [
+				"_trail",
+				"_visual_trail"
+			],
+			"case": "trail/same-script-reload-live-instance",
+			"expected": [
+				"_trail",
+				"_visual_trail"
+			],
+			"native_class": "Node2D"
+		},
+		{
+			"actual": [
+				"_trail",
+				"_visual_trail"
+			],
+			"case": "trail/same-script-reload-native-fallback",
+			"expected": [
+				"_trail",
+				"_visual_trail"
+			],
+			"native_class": "Sprite2D"
+		},
+		{
+			"actual": [],
+			"case": "trail/no-script",
+			"expected": [],
+			"native_class": "Node2D"
+		}
+	]
+}

@@ -455,7 +455,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v24')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v25')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -542,16 +542,130 @@ class CreativeTests(unittest.TestCase):
             path = root/(region+'.json')
             prior = json.loads(path.read_bytes())
             self.assertEqual(prior['version'],'creative-v23')
-            current,_ = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style21/program/'+region+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v24')
             for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],prior[key])
             self.assertEqual(current['authority_sources'][:-1],prior['authority_sources'])
-            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21/program/registry.json').read_bytes())['shared_style_authority'])
             self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(str(path.relative_to(creative.ROOT)),region)
 
+
+
+
+    def test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer_audio_history(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v21'
+        digests = {'registry': 'de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d', 'windchime_plains': '316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8', 'thorn_forest': '1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729'}
+        for name,digest in digests.items():
+            raw = (archive/(name+'.json')).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                self.assertEqual({k:v for k,v in creative.load_bible_registry().items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v21')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction('docs/creative_direction/archive/creative-v21/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v22/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v22')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v22/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual(current['revision_impact']['task_id'],'MOBILE-UI-CLARITY-01')
+
+    def test_audio_feedback_creative23_preserves22_and_refuses_previous_pointer(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v22'
+        digests = {
+            'registry':'5fa60413ae54e66410730a0f682d0d929fbda8ed7264fc6ad91337e2b9c8a718',
+            'windchime_plains':'dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d',
+            'thorn_forest':'e915f7e38d5c3678235ff3f1cca0d9c696b40d38c9eb4916fed9780e4c952218',
+        }
+        for name,digest in digests.items():
+            raw = (archive/(name+'.json')).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                self.assertEqual({k:v for k,v in creative.load_bible_registry().items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v22')
+            old_path = 'docs/creative_direction/archive/creative-v22/'+name+'.json'
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(old_path,name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v23/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v23')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v23/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
+                             {k:v for k,v in old['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
+            self.assertEqual(current['revision_impact']['task_id'],'AUDIO-FEEDBACK-05')
+            self.assertEqual(current['revision_impact']['previous_direction'],old_path)
+            self.assertEqual(current['revision_impact']['previous_sha256'],digest)
+            self.assertEqual(current['revision_impact']['affected_consumers'],['scripts/demo/demo_app.gd','scripts/ui/demo_menu.gd','scripts/items/v5/item_v5_shop_presenter.gd'])
+
+    def test_audio_feedback06_creative24_preserves23_and_refuses_previous_pointer(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v23'
+        digests = {
+            'registry':'d82579efc0fdd3313d71bed1ad225fd450be90e6d511d30fa2035c59f60ff0c0',
+            'windchime_plains':'eb285418637b24afdd9e0c621d61245642547335d77ddbe9874aa8574b8f07e8',
+            'thorn_forest':'4eb43e7bd2bb0868b6957b2e8e66ed42b1d7fc406876b859f5e724dc76911fb8',
+        }
+        for name,digest in digests.items():
+            raw = (archive/(name+'.json')).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name=='registry':
+                self.assertEqual({k:v for k,v in creative.load_bible_registry().items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v23')
+            old_path = 'docs/creative_direction/archive/creative-v23/'+name+'.json'
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(old_path,name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style21/audio/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v24')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21/audio/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
+                             {k:v for k,v in old['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
+            self.assertEqual(current['revision_impact']['task_id'],'AUDIO-FEEDBACK-06')
+            self.assertEqual(current['revision_impact']['previous_direction'],old_path)
+            self.assertEqual(current['revision_impact']['previous_sha256'],digest)
+            self.assertEqual(current['revision_impact']['affected_consumers'],['scripts/ui/demo_menu.gd'])
+
+    def test_merged25_preserves_both_parent24_directions_and_authority_union(self):
+        base = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21'
+        for region in ('windchime_plains','thorn_forest'):
+            current, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual(current['version'],'creative-v25')
+            parents = []
+            for parent in ('program','audio'):
+                path = base/parent/(region+'.json')
+                prior = json.loads(path.read_bytes())
+                parents.append(prior)
+                self.assertEqual(prior['version'],'creative-v24')
+                for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                    self.assertEqual(current[key],prior[key])
+                self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
+                                 {k:v for k,v in prior['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
+                with self.assertRaisesRegex(ValueError,'binding changed'):
+                    creative.load_direction(str(path.relative_to(creative.ROOT)),region)
+                self.assertIn({'path':str(path.relative_to(creative.ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()},current['revision_impact']['parent_directions'])
+            authority = list(parents[0]['authority_sources'])
+            for row in parents[1]['authority_sources']:
+                if row not in authority: authority.append(row)
+            authority.append(creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'],authority)
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
 
 if __name__ == '__main__':
     unittest.main()

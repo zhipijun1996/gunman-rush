@@ -1,5 +1,33 @@
 # 开发任务
 
+## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-MERGE-120-121 | 采用确切受伤A，保历史整合PR120+121并通过原完整门禁后合main | AUDIO-FEEDBACK-06 | review | [范围](worklines/audio_merge_120_121/scope.md) · [记录](quality/records/AUDIO-MERGE-120-121.json) |
+
+## 2026-10-30 AUDIO-FEEDBACK-06 · 标题自动音乐与主角受伤再选材
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-FEEDBACK-06 | 标题即播、碰墙固定新版1、参考空洞骑士重做受伤候选 | AUDIO-FEEDBACK-05 | review | [范围](worklines/audio_feedback_06/scope.md) · [记录](quality/records/AUDIO-FEEDBACK-06.json) |
+
+## 2026-10-30 AUDIO-FEEDBACK-05 · 正式试玩声音反馈
+
+标题BGM启动、主角受伤与墙地音色、机关可听性、正式宝箱/道具成功反馈。分支fix/audio-playtest-feedback-20261030，从main5f55716a开始；[范围](worklines/audio_feedback_05/scope.md)／[记录](quality/records/AUDIO-FEEDBACK-05.json)。当前review，独立试听已发布，技术、真实混音和用户听感分开，不重复追认旧候选。
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-FEEDBACK-CI-01 | 精确selector尾部新增回归清单同步 | AUDIO-FEEDBACK-05 | review | [记录](quality/records/AUDIO-FEEDBACK-CI-01.json) |
+| AUDIO-FEEDBACK-05 | 五项实玩声音修复及新版hurt/wall | — | review | [记录](quality/records/AUDIO-FEEDBACK-05.json) |
+
+## 2026-10-30 MOBILE-WEB-FPS-04
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-FPS-04 | 正式Web帧时间、真实大地图空中攻击A/B/A及前景无损优化；PR120／perf-actions候选 | MOBILE-WEB-AUDIO-FIX-03 | awaiting-device | [记录](quality/records/MOBILE-WEB-FPS-04.json) |
+
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
 
 | ID | 任务 | 依赖 | 状态 | 质量 |
@@ -654,6 +682,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
 
 | PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7新版动作＋6平原同屏已私密发布；完整903源CI166／166 fresh与affected success，原失败全保留；静态粒度限定独审接受，整怪／听感／用户／真机G5未签 |
+| PLAINS-MAIN-MERGE-01 | 用户授权七怪工作线快速合main，保主线音频/性能并验证冲突 | PLAINS-MOTION-LOOT-02 | review | [范围](worklines/plains_motion_loot_02/main_merge.md)；完整168待核，不跳原红灯 |
 | PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | review | [工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)/50.78秒已交；后继本地formal150/0、身体掉落481/0、原80/80在541.165/600秒通过；旧完整CI失败保留，新冻结源CI/用户/设备待验 |
 | PLAINS-MOTION-LOOT-GUARD-02 | 真实面额消费者、绑定与167检查清单的限定迁移独审 | PLAINS-MOTION-LOOT-02 | review | 独立纯Python22/35/13与审计333／0；原失败/预算/166前缀保留，旧drop＋实际自动counterpart联合门禁；[记录](quality/records/PLAINS-MOTION-LOOT-GUARD-02.json)、[边界](worklines/plains_motion_loot_02/guard_migration.md) |
 | PLAINS-ROOT-BELL-COIN-GUARD-02 | 根铃实际替换的物种固定金币合同验收迁移 | PLAINS-MOTION-LOOT-02 | review | 生产0diff；原40/10/2/3+新12反例/八变异实际过，2969输入与2c329逐件相同，独审3021/0限定ACCEPT；完整167/森林性能另待核 |

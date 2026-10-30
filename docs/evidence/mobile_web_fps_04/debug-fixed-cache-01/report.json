@@ -1,0 +1,6705 @@
+{
+  "status": "captured_cloud_frame_samples_no_phone_acceptance",
+  "label": "debug-fixed-cache",
+  "url": "http://127.0.0.1:8820/fixed-cache-pair-01/engine-debug/",
+  "identity": {
+    "path": "/workspace/gunman-rush-perf-04/build/mobile_web_fps_04/profile-fixed-cache-01/receipt.json",
+    "sha256": "94317195d4f86e422ada7e106dd27da88151a9506a14171cc1fc0c96e409fad1",
+    "contents": {
+      "baseline_info": {
+        "build_id": "ad78f8ae3998",
+        "pack": "index.ad78f8ae3998.pck",
+        "engine_id": "9c119194046e",
+        "cache_schema": 2,
+        "loader_id": "6b267e5cd410",
+        "threads_enabled": true,
+        "audio_supply": "dedicated_thread",
+        "pack_bytes": 208700796,
+        "download_bytes": 205689099,
+        "chunk_bytes": 524288,
+        "wasm_bytes": 38349395,
+        "wasm_gzip_bytes": 10126269,
+        "jump": "tap/hold",
+        "playtest": "web",
+        "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5"
+      },
+      "baseline_pack_sha256": "ad78f8ae3998a1283025f11d926a4304a9ee5501328e1d0bd9427c0a5c541271",
+      "diagnostic_pack_sha256": "0664a4d2254b05d3e46097d5f6b7e42f9028097e4ea23ad116d73d28ddc6bbd5",
+      "replaced": [
+        {
+          "path": "scripts/underworld_plains/underworld_foreground.gd",
+          "baseline_source_sha256": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3",
+          "source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+          "instrumented_sha256": "b7d07af305ad53849ea321caaa491864cf105f3a383c4cf9df029e6c41422ae4",
+          "methods": [
+            "_refresh",
+            "_protection",
+            "_sync_residents",
+            "_render_receipt"
+          ]
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_presentation.gd",
+          "baseline_source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+          "source_sha256": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+          "instrumented_sha256": "1776b6a87e6c9d936189fb92bbf6cb9a0518efc4b8ea179eaa0897653c80f1ba",
+          "methods": [
+            "refresh"
+          ]
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_parallax.gd",
+          "baseline_source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+          "source_sha256": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+          "instrumented_sha256": "b1d468a72a85ba3bf129da18731209246c4f6d7de0396fba425c693ccd497189",
+          "methods": [
+            "_update"
+          ]
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_home_world.gd",
+          "baseline_source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+          "source_sha256": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+          "instrumented_sha256": "6559fa139854f3175607bd2fc246eb6b366ba29668d0c2e2768b70431c098e69",
+          "methods": [
+            "update_focus"
+          ]
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "baseline_source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+          "source_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+          "instrumented_sha256": "341ee933b6f83ed5b757e98675c64acafa6ed200637cfc6720e17de222442157",
+          "methods": [
+            "_process",
+            "_physics_process",
+            "_layout_region_hud"
+          ]
+        },
+        {
+          "path": "scripts/demo/home_scene.gd",
+          "baseline_source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+          "source_sha256": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+          "instrumented_sha256": "da793cfc1d82f03ff3c613f684d08129ca6db48cb5503b942a3d6e4679728bfd",
+          "methods": [
+            "_process",
+            "_physics_process"
+          ]
+        },
+        {
+          "path": "scripts/demo/plains_region_stage.gd",
+          "baseline_source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+          "source_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+          "instrumented_sha256": "e5a916fa18549ffde36d16716938005c31e2e49bba92686179f51b567dc9a575",
+          "methods": [
+            "_physics_process",
+            "capture_state",
+            "_update_context_signs"
+          ]
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "baseline_source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+          "source_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+          "instrumented_sha256": "1b98de4f14e01e81828a0c4ec5eab63b8fa3a67e9d119231af1ea7b30af830c0",
+          "methods": [
+            "_physics_process"
+          ]
+        },
+        {
+          "path": "scripts/player/player_controller.gd",
+          "baseline_source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+          "source_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c",
+          "instrumented_sha256": "e67251f86767282e182f73bb9eabfa9a03d9229f25dbecf374d7f893ce5093f0",
+          "methods": [
+            "_physics_process"
+          ]
+        }
+      ],
+      "removed_remaps": [
+        "scripts/demo/demo_app.gd.remap",
+        "scripts/demo/home_scene.gd.remap",
+        "scripts/demo/plains_region_stage.gd.remap",
+        "scripts/enemies/enemy_actor.gd.remap",
+        "scripts/player/player_controller.gd.remap",
+        "scripts/underworld_plains/underworld_foreground.gd.remap",
+        "scripts/underworld_plains/underworld_home_world.gd.remap",
+        "scripts/underworld_plains/underworld_parallax.gd.remap",
+        "scripts/underworld_plains/underworld_presentation.gd.remap"
+      ],
+      "source_sha256": {
+        "scripts/underworld_plains/underworld_foreground.gd": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09",
+        "scripts/underworld_plains/underworld_presentation.gd": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+        "scripts/underworld_plains/underworld_parallax.gd": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+        "scripts/underworld_plains/underworld_home_world.gd": "f7c107661ef155c2d8c8e72930ed2ad705947854c66705a2f11a41d0b52dc61d",
+        "scripts/demo/demo_app.gd": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+        "scripts/demo/home_scene.gd": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+        "scripts/demo/plains_region_stage.gd": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+        "scripts/enemies/enemy_actor.gd": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+        "scripts/player/player_controller.gd": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c"
+      },
+      "probe_sha256": "daefad793e2a3984c799b3bc2d858c50cedf09024195f68f12414ebb842c3577",
+      "unchanged_entries": 3254,
+      "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+      "foreground_candidate": "scripts/underworld_plains/underworld_foreground.gd",
+      "main_scene": "Unchanged original exported demo.tscn and project.binary",
+      "scope": "Shared timing wrappers add overhead; nested elapsed costs inclusive and not additive. Only current-root capture metadata and diagnostic JS are written. No GPU or physical phone timing claim."
+    }
+  },
+  "seed": "mobile-fps-04",
+  "instrumented": true,
+  "viewport_css": {
+    "width": 853,
+    "height": 290
+  },
+  "device_scale_factor": 2.5,
+  "seconds_requested": 10.0,
+  "warm_seconds": 5.0,
+  "repeats_per_scene": 2,
+  "rows": [
+    {
+      "scene": "home",
+      "repeat": 0,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5,
+        "isolated": true,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpu_time_ms": null,
+        "gpu_time_scope": "Not measured; FPS is not GPU time."
+      },
+      "profile_before": {
+        "camera": [
+          640,
+          310
+        ],
+        "context": "home",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 13,
+          "mask_rectangles_drawn": 4,
+          "protect": 16,
+          "residents": 6,
+          "static": 52,
+          "tracked": 183
+        },
+        "manifest": {},
+        "measuring": false,
+        "menu": "",
+        "node_count": 384,
+        "player": [
+          110,
+          414
+        ],
+        "texture_bytes": 525315260,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "profile_after": {
+        "camera": [
+          640,
+          310
+        ],
+        "context": "home",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 13,
+          "mask_rectangles_drawn": 4,
+          "protect": 16,
+          "residents": 6,
+          "static": 52,
+          "tracked": 183
+        },
+        "manifest": {},
+        "measuring": false,
+        "menu": "",
+        "node_count": 384,
+        "player": [
+          110,
+          414
+        ],
+        "texture_bytes": 525315260,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "browser": {
+        "observer_schema": 3,
+        "begin_ms": 75563.64999999851,
+        "end_requested_ms": 86227.6400000006,
+        "end_ms": 86470.24499999732,
+        "elapsed_ms": 10906.594999998808,
+        "first_raf_ms": 75741.38,
+        "last_raf_ms": 86457.62,
+        "raf_callback_count": 54,
+        "closed_on_raf": true,
+        "close_timeout_ms": 30000,
+        "frames": [
+          [
+            75741.38,
+            75924.71,
+            183.33000000000175
+          ],
+          [
+            75924.71,
+            76141.37,
+            216.65999999998894
+          ],
+          [
+            76141.37,
+            76358.025,
+            216.65499999999884
+          ],
+          [
+            76358.025,
+            76541.355,
+            183.33000000000175
+          ],
+          [
+            76541.355,
+            76758.005,
+            216.65000000000873
+          ],
+          [
+            76758.005,
+            76958,
+            199.99499999999534
+          ],
+          [
+            76958,
+            77174.66,
+            216.6600000000035
+          ],
+          [
+            77174.66,
+            77357.985,
+            183.3249999999971
+          ],
+          [
+            77357.985,
+            77557.975,
+            199.99000000000524
+          ],
+          [
+            77557.975,
+            77757.97,
+            199.99499999999534
+          ],
+          [
+            77757.97,
+            77974.625,
+            216.65499999999884
+          ],
+          [
+            77974.625,
+            78174.62,
+            199.99499999999534
+          ],
+          [
+            78174.62,
+            78374.61,
+            199.99000000000524
+          ],
+          [
+            78374.61,
+            78574.605,
+            199.99499999999534
+          ],
+          [
+            78574.605,
+            78774.595,
+            199.99000000000524
+          ],
+          [
+            78774.595,
+            78957.92,
+            183.3249999999971
+          ],
+          [
+            78957.92,
+            79174.58,
+            216.6600000000035
+          ],
+          [
+            79174.58,
+            79374.57,
+            199.99000000000524
+          ],
+          [
+            79374.57,
+            79574.565,
+            199.99499999999534
+          ],
+          [
+            79574.565,
+            79774.555,
+            199.9899999999907
+          ],
+          [
+            79774.555,
+            79974.545,
+            199.99000000000524
+          ],
+          [
+            79974.545,
+            80157.87,
+            183.3249999999971
+          ],
+          [
+            80157.87,
+            80391.195,
+            233.32500000001164
+          ],
+          [
+            80391.195,
+            80574.525,
+            183.3299999999872
+          ],
+          [
+            80574.525,
+            80774.515,
+            199.99000000000524
+          ],
+          [
+            80774.515,
+            80974.51,
+            199.99499999999534
+          ],
+          [
+            80974.51,
+            81174.495,
+            199.98500000000058
+          ],
+          [
+            81174.495,
+            81357.825,
+            183.33000000000175
+          ],
+          [
+            81357.825,
+            81607.815,
+            249.99000000000524
+          ],
+          [
+            81607.815,
+            81791.14,
+            183.3249999999971
+          ],
+          [
+            81791.14,
+            81991.135,
+            199.99499999999534
+          ],
+          [
+            81991.135,
+            82191.125,
+            199.99000000000524
+          ],
+          [
+            82191.125,
+            82407.78,
+            216.65499999999884
+          ],
+          [
+            82407.78,
+            82591.105,
+            183.3249999999971
+          ],
+          [
+            82591.105,
+            82841.1,
+            249.9950000000099
+          ],
+          [
+            82841.1,
+            83024.425,
+            183.3249999999971
+          ],
+          [
+            83024.425,
+            83224.42,
+            199.99499999999534
+          ],
+          [
+            83224.42,
+            83407.745,
+            183.3249999999971
+          ],
+          [
+            83407.745,
+            83607.735,
+            199.99000000000524
+          ],
+          [
+            83607.735,
+            83791.06,
+            183.3249999999971
+          ],
+          [
+            83791.06,
+            83991.05,
+            199.99000000000524
+          ],
+          [
+            83991.05,
+            84191.045,
+            199.99499999999534
+          ],
+          [
+            84191.045,
+            84374.37,
+            183.3249999999971
+          ],
+          [
+            84374.37,
+            84574.365,
+            199.9950000000099
+          ],
+          [
+            84574.365,
+            84774.355,
+            199.9899999999907
+          ],
+          [
+            84774.355,
+            84957.685,
+            183.33000000000175
+          ],
+          [
+            84957.685,
+            85191.005,
+            233.32000000000698
+          ],
+          [
+            85191.005,
+            85391,
+            199.99499999999534
+          ],
+          [
+            85391,
+            85607.655,
+            216.65499999999884
+          ],
+          [
+            85607.655,
+            85824.315,
+            216.6600000000035
+          ],
+          [
+            85824.315,
+            86007.635,
+            183.31999999999243
+          ],
+          [
+            86007.635,
+            86224.3,
+            216.66500000000815
+          ],
+          [
+            86224.3,
+            86457.62,
+            233.31999999999243
+          ]
+        ],
+        "long_tasks": [
+          [
+            75563.93500000238,
+            188
+          ],
+          [
+            75753.46999999881,
+            184
+          ],
+          [
+            75937.85499999672,
+            210
+          ],
+          [
+            76156.5850000009,
+            203
+          ],
+          [
+            76361.06499999762,
+            194
+          ],
+          [
+            76555.9849999994,
+            220
+          ],
+          [
+            76784.3599999994,
+            183
+          ],
+          [
+            76968.0850000009,
+            207
+          ],
+          [
+            77178.41000000387,
+            190
+          ],
+          [
+            77369.18500000238,
+            204
+          ],
+          [
+            77574.36500000209,
+            190
+          ],
+          [
+            77764.95000000298,
+            222
+          ],
+          [
+            77992.22500000149,
+            186
+          ],
+          [
+            78184.2349999994,
+            191
+          ],
+          [
+            78376.2100000009,
+            204
+          ],
+          [
+            78580.81000000238,
+            195
+          ],
+          [
+            78776.70000000298,
+            192
+          ],
+          [
+            78969.53500000387,
+            219
+          ],
+          [
+            79195.84000000358,
+            183
+          ],
+          [
+            79384.86999999732,
+            199
+          ],
+          [
+            79584.10499999672,
+            198
+          ],
+          [
+            79783.2899999991,
+            200
+          ],
+          [
+            79984.1400000006,
+            191
+          ],
+          [
+            80175.88000000268,
+            226
+          ],
+          [
+            80414.31499999762,
+            176
+          ],
+          [
+            80590.85499999672,
+            201
+          ],
+          [
+            80795.74499999732,
+            195
+          ],
+          [
+            80991.6099999994,
+            196
+          ],
+          [
+            81188.07500000298,
+            187
+          ],
+          [
+            81379.68500000238,
+            236
+          ],
+          [
+            81620.40500000119,
+            178
+          ],
+          [
+            81802.6400000006,
+            192
+          ],
+          [
+            81994.79500000179,
+            201
+          ],
+          [
+            82196.77499999851,
+            218
+          ],
+          [
+            82416.57500000298,
+            179
+          ],
+          [
+            82614.3350000009,
+            238
+          ],
+          [
+            82853.5399999991,
+            176
+          ],
+          [
+            83036.18999999762,
+            195
+          ],
+          [
+            83231.875,
+            190
+          ],
+          [
+            83422.9600000009,
+            193
+          ],
+          [
+            83619.92000000179,
+            171
+          ],
+          [
+            83792.0549999997,
+            203
+          ],
+          [
+            84014.56499999762,
+            181
+          ],
+          [
+            84218.47500000149,
+            172
+          ],
+          [
+            84390.81000000238,
+            191
+          ],
+          [
+            84583.02000000328,
+            191
+          ],
+          [
+            84775.14999999851,
+            198
+          ],
+          [
+            84975.78000000119,
+            224
+          ],
+          [
+            85201.84499999881,
+            189
+          ],
+          [
+            85414.3599999994,
+            200
+          ],
+          [
+            85616.8200000003,
+            216
+          ],
+          [
+            85833.47500000149,
+            186
+          ],
+          [
+            86023.60499999672,
+            202
+          ],
+          [
+            86234.13499999791,
+            232
+          ]
+        ],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "RAF closure requested after the observation window and resolved by this observer only after recording a RAF timestamp at or after that request. Already-queued stale RAF timestamps do not close the window. Wall time, RAF-covered span and boundary gaps are separate. LongTasks are browser main-thread tasks, not GPU time."
+      },
+      "browser_summary": {
+        "intervals": 53,
+        "sampled_interval_ms": 10716.23999999999,
+        "wall_capture_ms": 10906.594999998808,
+        "raf_callbacks": 54,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 4.951132777920689,
+        "completed_interval_fps": 4.945764559211071,
+        "interval_span_within_window_ms": 10716.23999999999,
+        "interval_coverage_fraction": 0.9825467985197178,
+        "first_raf_minus_begin_ms": 177.73000000149477,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 177.73000000149477,
+        "final_uncovered_ms": 12.624999997322448,
+        "total_uncovered_ms": 190.35499999881722,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 229.9799999993993,
+        "closure_after_request_ms": 242.60499999672174,
+        "p50_ms": 199.99000000000524,
+        "p95_ms": 233.32000000000698,
+        "max_ms": 249.9950000000099,
+        "long_task_count": 54,
+        "long_task_total_ms": 10686,
+        "long_task_max_ms": 238,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "native": {
+        "costs": {
+          "scripts/demo/demo_app.gd:_physics_process": [
+            3031,
+            400,
+            224
+          ],
+          "scripts/demo/demo_app.gd:_process": [
+            4371,
+            50,
+            470
+          ],
+          "scripts/demo/home_scene.gd:_physics_process": [
+            169541,
+            400,
+            13385
+          ],
+          "scripts/demo/home_scene.gd:_process": [
+            22060,
+            50,
+            4225
+          ],
+          "scripts/player/player_controller.gd:_physics_process": [
+            159150,
+            400,
+            23066
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_protection": [
+            182627,
+            50,
+            24344
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_refresh": [
+            358889,
+            50,
+            27385
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_render_receipt": [
+            16946,
+            50,
+            4295
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_sync_residents": [
+            154016,
+            50,
+            19566
+          ],
+          "scripts/underworld_plains/underworld_home_world.gd:update_focus": [
+            36104,
+            400,
+            1811
+          ],
+          "scripts/underworld_plains/underworld_parallax.gd:_update": [
+            74671,
+            50,
+            28525
+          ],
+          "scripts/underworld_plains/underworld_presentation.gd:refresh": [
+            7652,
+            50,
+            1240
+          ]
+        },
+        "elapsed_msec": 10081.14,
+        "final": {
+          "camera": [
+            640,
+            310
+          ],
+          "context": "home",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 13,
+            "mask_rectangles_drawn": 4,
+            "protect": 16,
+            "residents": 6,
+            "static": 52,
+            "tracked": 183
+          },
+          "manifest": {},
+          "menu": "",
+          "node_count": 384,
+          "player": [
+            110,
+            414
+          ],
+          "texture_bytes": 525315260,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "frames": [
+          [
+            197.65,
+            192.555,
+            8.379,
+            106,
+            1079,
+            3227
+          ],
+          [
+            215.976,
+            192.555,
+            8.379,
+            106,
+            1079,
+            3227
+          ],
+          [
+            227.57,
+            192.555,
+            8.379,
+            106,
+            1079,
+            3227
+          ],
+          [
+            244.555,
+            192.555,
+            8.379,
+            106,
+            1079,
+            3227
+          ],
+          [
+            171.97,
+            192.555,
+            8.379,
+            106,
+            1079,
+            3227
+          ],
+          [
+            155.615,
+            182.856,
+            39.636,
+            106,
+            1079,
+            3227
+          ],
+          [
+            229.199,
+            182.856,
+            39.636,
+            106,
+            1079,
+            3227
+          ],
+          [
+            197.851,
+            182.856,
+            39.636,
+            106,
+            1079,
+            3227
+          ],
+          [
+            184.01,
+            182.856,
+            39.636,
+            106,
+            1079,
+            3227
+          ],
+          [
+            253.08,
+            182.856,
+            39.636,
+            106,
+            1079,
+            3227
+          ],
+          [
+            182.539,
+            195.19,
+            41.485,
+            106,
+            1079,
+            3227
+          ],
+          [
+            191.871,
+            195.19,
+            41.485,
+            106,
+            1079,
+            3227
+          ],
+          [
+            171.5,
+            195.19,
+            41.485,
+            106,
+            1079,
+            3227
+          ],
+          [
+            216.134,
+            195.19,
+            41.485,
+            106,
+            1079,
+            3227
+          ],
+          [
+            200.145,
+            195.19,
+            41.485,
+            106,
+            1079,
+            3227
+          ],
+          [
+            235.58,
+            184.756,
+            25.671,
+            106,
+            1079,
+            3227
+          ],
+          [
+            179.825,
+            184.756,
+            25.671,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.35,
+            184.756,
+            25.671,
+            106,
+            1079,
+            3227
+          ],
+          [
+            204.995,
+            184.756,
+            25.671,
+            106,
+            1079,
+            3227
+          ],
+          [
+            202.12,
+            184.756,
+            25.671,
+            106,
+            1079,
+            3227
+          ],
+          [
+            191.976,
+            199.805,
+            20.15,
+            106,
+            1079,
+            3227
+          ],
+          [
+            196.82,
+            199.805,
+            20.15,
+            106,
+            1079,
+            3227
+          ],
+          [
+            231.95,
+            199.805,
+            20.15,
+            106,
+            1079,
+            3227
+          ],
+          [
+            186.784,
+            199.805,
+            20.15,
+            106,
+            1079,
+            3227
+          ],
+          [
+            204.33,
+            199.805,
+            20.15,
+            106,
+            1079,
+            3227
+          ],
+          [
+            190.176,
+            213.46,
+            23.959,
+            106,
+            1079,
+            3227
+          ],
+          [
+            198.934,
+            213.46,
+            23.959,
+            106,
+            1079,
+            3227
+          ],
+          [
+            238.39,
+            213.46,
+            23.959,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.215,
+            213.46,
+            23.959,
+            106,
+            1079,
+            3227
+          ],
+          [
+            184.97,
+            213.46,
+            23.959,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.286,
+            171.19,
+            35.386,
+            106,
+            1079,
+            3227
+          ],
+          [
+            210.129,
+            171.19,
+            35.386,
+            106,
+            1079,
+            3227
+          ],
+          [
+            203.426,
+            171.19,
+            35.386,
+            106,
+            1079,
+            3227
+          ],
+          [
+            198.609,
+            171.19,
+            35.386,
+            106,
+            1079,
+            3227
+          ],
+          [
+            273.66,
+            171.19,
+            35.386,
+            106,
+            1079,
+            3227
+          ],
+          [
+            150.555,
+            216.101,
+            17.565,
+            106,
+            1079,
+            3227
+          ],
+          [
+            195.75,
+            216.101,
+            17.565,
+            106,
+            1079,
+            3227
+          ],
+          [
+            190.591,
+            216.101,
+            17.565,
+            106,
+            1079,
+            3227
+          ],
+          [
+            201.425,
+            216.101,
+            17.565,
+            106,
+            1079,
+            3227
+          ],
+          [
+            201.009,
+            216.101,
+            17.565,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.701,
+            175.59,
+            17.221,
+            106,
+            1079,
+            3227
+          ],
+          [
+            201.255,
+            175.59,
+            17.221,
+            106,
+            1079,
+            3227
+          ],
+          [
+            190.269,
+            175.59,
+            17.221,
+            106,
+            1079,
+            3227
+          ],
+          [
+            192.846,
+            175.59,
+            17.221,
+            106,
+            1079,
+            3227
+          ],
+          [
+            169.469,
+            175.59,
+            17.221,
+            106,
+            1079,
+            3227
+          ],
+          [
+            200.016,
+            187.575,
+            23.59,
+            106,
+            1079,
+            3227
+          ],
+          [
+            253.89,
+            187.575,
+            23.59,
+            106,
+            1079,
+            3227
+          ],
+          [
+            186.92,
+            187.575,
+            23.59,
+            106,
+            1079,
+            3227
+          ],
+          [
+            205.44,
+            187.575,
+            23.59,
+            106,
+            1079,
+            3227
+          ],
+          [
+            215.814,
+            187.575,
+            23.59,
+            106,
+            1079,
+            3227
+          ]
+        ],
+        "initial": {
+          "camera": [
+            640,
+            310
+          ],
+          "context": "home",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 13,
+            "mask_rectangles_drawn": 4,
+            "protect": 16,
+            "residents": 6,
+            "static": 52,
+            "tracked": 183
+          },
+          "manifest": {},
+          "menu": "",
+          "node_count": 384,
+          "player": [
+            110,
+            414
+          ],
+          "texture_bytes": 525315260,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "scope": "Instrumented real demo; inclusive nested script costs, no summed total or phone/GPU attribution",
+        "sequence": 1
+      },
+      "native_summary": {
+        "frames": 50,
+        "elapsed_ms": 10081.14,
+        "fps": 4.959756535471187,
+        "frame_p50_ms": 197.851,
+        "frame_p95_ms": 253.08,
+        "process_p50_ms": 187.575,
+        "process_p95_ms": 216.101,
+        "physics_p50_ms": 23.59,
+        "physics_p95_ms": 41.485,
+        "draw_calls_mean": 106,
+        "objects_mean": 1079,
+        "primitives_mean": 3227,
+        "inclusive_costs": [
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+            "calls": 50,
+            "total_ms": 358.889,
+            "ms_per_frame": 7.17778,
+            "ms_per_call": 7.17778,
+            "max_ms": 27.385
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+            "calls": 50,
+            "total_ms": 182.627,
+            "ms_per_frame": 3.65254,
+            "ms_per_call": 3.65254,
+            "max_ms": 24.344
+          },
+          {
+            "method": "scripts/demo/home_scene.gd:_physics_process",
+            "calls": 400,
+            "total_ms": 169.541,
+            "ms_per_frame": 3.3908199999999997,
+            "ms_per_call": 0.42385249999999997,
+            "max_ms": 13.385
+          },
+          {
+            "method": "scripts/player/player_controller.gd:_physics_process",
+            "calls": 400,
+            "total_ms": 159.15,
+            "ms_per_frame": 3.1830000000000003,
+            "ms_per_call": 0.39787500000000003,
+            "max_ms": 23.066
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+            "calls": 50,
+            "total_ms": 154.016,
+            "ms_per_frame": 3.08032,
+            "ms_per_call": 3.08032,
+            "max_ms": 19.566
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+            "calls": 50,
+            "total_ms": 74.671,
+            "ms_per_frame": 1.4934200000000002,
+            "ms_per_call": 1.4934200000000002,
+            "max_ms": 28.525
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+            "calls": 400,
+            "total_ms": 36.104,
+            "ms_per_frame": 0.7220799999999999,
+            "ms_per_call": 0.09025999999999999,
+            "max_ms": 1.811
+          },
+          {
+            "method": "scripts/demo/home_scene.gd:_process",
+            "calls": 50,
+            "total_ms": 22.06,
+            "ms_per_frame": 0.4412,
+            "ms_per_call": 0.4412,
+            "max_ms": 4.225
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+            "calls": 50,
+            "total_ms": 16.946,
+            "ms_per_frame": 0.33892000000000005,
+            "ms_per_call": 0.33892000000000005,
+            "max_ms": 4.295
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+            "calls": 50,
+            "total_ms": 7.652,
+            "ms_per_frame": 0.15304,
+            "ms_per_call": 0.15304,
+            "max_ms": 1.24
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_process",
+            "calls": 50,
+            "total_ms": 4.371,
+            "ms_per_frame": 0.08742000000000001,
+            "ms_per_call": 0.08742000000000001,
+            "max_ms": 0.47
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_physics_process",
+            "calls": 400,
+            "total_ms": 3.031,
+            "ms_per_frame": 0.06062,
+            "ms_per_call": 0.0075775,
+            "max_ms": 0.224
+          }
+        ],
+        "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window."
+      },
+      "input": "Idle at real entry spawn; no movement, teleport, pause or injected cue during capture."
+    },
+    {
+      "scene": "home",
+      "repeat": 1,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5,
+        "isolated": true,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpu_time_ms": null,
+        "gpu_time_scope": "Not measured; FPS is not GPU time."
+      },
+      "profile_before": {
+        "camera": [
+          640,
+          310
+        ],
+        "context": "home",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 13,
+          "mask_rectangles_drawn": 4,
+          "protect": 16,
+          "residents": 6,
+          "static": 52,
+          "tracked": 183
+        },
+        "manifest": {},
+        "measuring": false,
+        "menu": "",
+        "node_count": 384,
+        "player": [
+          110,
+          414
+        ],
+        "texture_bytes": 525315260,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "profile_after": {
+        "camera": [
+          640,
+          310
+        ],
+        "context": "home",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 13,
+          "mask_rectangles_drawn": 4,
+          "protect": 16,
+          "residents": 6,
+          "static": 52,
+          "tracked": 183
+        },
+        "manifest": {},
+        "measuring": false,
+        "menu": "",
+        "node_count": 384,
+        "player": [
+          110,
+          414
+        ],
+        "texture_bytes": 525315260,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "browser": {
+        "observer_schema": 3,
+        "begin_ms": 95959.27000000328,
+        "end_requested_ms": 106668.40500000119,
+        "end_ms": 106868.04999999702,
+        "elapsed_ms": 10908.779999993742,
+        "first_raf_ms": 96140.57,
+        "last_raf_ms": 106856.805,
+        "raf_callback_count": 53,
+        "closed_on_raf": true,
+        "close_timeout_ms": 30000,
+        "frames": [
+          [
+            96140.57,
+            96357.225,
+            216.65499999999884
+          ],
+          [
+            96357.225,
+            96673.875,
+            316.6499999999942
+          ],
+          [
+            96673.875,
+            96857.205,
+            183.33000000000175
+          ],
+          [
+            96857.205,
+            97057.2,
+            199.99499999999534
+          ],
+          [
+            97057.2,
+            97257.19,
+            199.99000000000524
+          ],
+          [
+            97257.19,
+            97473.845,
+            216.65499999999884
+          ],
+          [
+            97473.845,
+            97673.84,
+            199.99499999999534
+          ],
+          [
+            97673.84,
+            97873.83,
+            199.99000000000524
+          ],
+          [
+            97873.83,
+            98073.825,
+            199.99499999999534
+          ],
+          [
+            98073.825,
+            98257.145,
+            183.32000000000698
+          ],
+          [
+            98257.145,
+            98457.14,
+            199.99499999999534
+          ],
+          [
+            98457.14,
+            98657.135,
+            199.99499999999534
+          ],
+          [
+            98657.135,
+            98840.46,
+            183.32500000001164
+          ],
+          [
+            98840.46,
+            99057.115,
+            216.65499999999884
+          ],
+          [
+            99057.115,
+            99257.11,
+            199.99499999999534
+          ],
+          [
+            99257.11,
+            99440.435,
+            183.3249999999971
+          ],
+          [
+            99440.435,
+            99640.425,
+            199.99000000000524
+          ],
+          [
+            99640.425,
+            99840.42,
+            199.99499999999534
+          ],
+          [
+            99840.42,
+            100073.745,
+            233.3249999999971
+          ],
+          [
+            100073.745,
+            100257.07,
+            183.32500000001164
+          ],
+          [
+            100257.07,
+            100457.06,
+            199.9899999999907
+          ],
+          [
+            100457.06,
+            100657.05,
+            199.99000000000524
+          ],
+          [
+            100657.05,
+            100840.38,
+            183.33000000000175
+          ],
+          [
+            100840.38,
+            101057.035,
+            216.65499999999884
+          ],
+          [
+            101057.035,
+            101273.695,
+            216.6600000000035
+          ],
+          [
+            101273.695,
+            101473.685,
+            199.9899999999907
+          ],
+          [
+            101473.685,
+            101673.675,
+            199.99000000000524
+          ],
+          [
+            101673.675,
+            101907.005,
+            233.33000000000175
+          ],
+          [
+            101907.005,
+            102106.995,
+            199.9899999999907
+          ],
+          [
+            102106.995,
+            102390.315,
+            283.320000000007
+          ],
+          [
+            102390.315,
+            102573.64,
+            183.3249999999971
+          ],
+          [
+            102573.64,
+            102773.635,
+            199.99499999999534
+          ],
+          [
+            102773.635,
+            102973.625,
+            199.99000000000524
+          ],
+          [
+            102973.625,
+            103173.615,
+            199.99000000000524
+          ],
+          [
+            103173.615,
+            103373.61,
+            199.99499999999534
+          ],
+          [
+            103373.61,
+            103573.605,
+            199.99499999999534
+          ],
+          [
+            103573.605,
+            103823.59,
+            249.98500000000058
+          ],
+          [
+            103823.59,
+            104023.585,
+            199.9950000000099
+          ],
+          [
+            104023.585,
+            104240.245,
+            216.65999999998894
+          ],
+          [
+            104240.245,
+            104440.235,
+            199.99000000000524
+          ],
+          [
+            104440.235,
+            104640.23,
+            199.99499999999534
+          ],
+          [
+            104640.23,
+            104840.22,
+            199.99000000000524
+          ],
+          [
+            104840.22,
+            105056.875,
+            216.65499999999884
+          ],
+          [
+            105056.875,
+            105256.87,
+            199.99499999999534
+          ],
+          [
+            105256.87,
+            105456.86,
+            199.99000000000524
+          ],
+          [
+            105456.86,
+            105656.85,
+            199.99000000000524
+          ],
+          [
+            105656.85,
+            105840.175,
+            183.3249999999971
+          ],
+          [
+            105840.175,
+            106040.17,
+            199.99499999999534
+          ],
+          [
+            106040.17,
+            106256.83,
+            216.6600000000035
+          ],
+          [
+            106256.83,
+            106456.82,
+            199.99000000000524
+          ],
+          [
+            106456.82,
+            106656.81,
+            199.9899999999907
+          ],
+          [
+            106656.81,
+            106856.805,
+            199.99499999999534
+          ]
+        ],
+        "long_tasks": [
+          [
+            95959.39500000328,
+            191
+          ],
+          [
+            96151.8200000003,
+            205
+          ],
+          [
+            96364.64500000328,
+            311
+          ],
+          [
+            96677.5700000003,
+            195
+          ],
+          [
+            96873.70000000298,
+            189
+          ],
+          [
+            97067.8049999997,
+            190
+          ],
+          [
+            97258.89500000328,
+            220
+          ],
+          [
+            97479.42499999702,
+            202
+          ],
+          [
+            97682.78000000119,
+            196
+          ],
+          [
+            97879.46500000358,
+            196
+          ],
+          [
+            98076.53000000119,
+            193
+          ],
+          [
+            98270.46999999881,
+            195
+          ],
+          [
+            98466.21999999881,
+            193
+          ],
+          [
+            98660.0549999997,
+            197
+          ],
+          [
+            98861.82500000298,
+            199
+          ],
+          [
+            99061.52499999851,
+            197
+          ],
+          [
+            99259.04500000179,
+            196
+          ],
+          [
+            99456.17499999702,
+            191
+          ],
+          [
+            99647.39999999851,
+            199
+          ],
+          [
+            99847.31499999762,
+            237
+          ],
+          [
+            100086.47999999672,
+            181
+          ],
+          [
+            100268.2349999994,
+            193
+          ],
+          [
+            100462.20499999821,
+            202
+          ],
+          [
+            100667.91000000387,
+            184
+          ],
+          [
+            100852.3900000006,
+            209
+          ],
+          [
+            101062.91000000387,
+            225
+          ],
+          [
+            101290.5150000006,
+            184
+          ],
+          [
+            101474.97999999672,
+            215
+          ],
+          [
+            101692.09000000358,
+            228
+          ],
+          [
+            101923.85000000149,
+            198
+          ],
+          [
+            102122.18999999762,
+            276
+          ],
+          [
+            102403.8599999994,
+            177
+          ],
+          [
+            102581.10000000149,
+            204
+          ],
+          [
+            102785.68500000238,
+            195
+          ],
+          [
+            102981.71500000358,
+            203
+          ],
+          [
+            103184.9849999994,
+            189
+          ],
+          [
+            103374.59499999881,
+            206
+          ],
+          [
+            103593.34000000358,
+            243
+          ],
+          [
+            103837.2899999991,
+            199
+          ],
+          [
+            104037.43999999762,
+            207
+          ],
+          [
+            104245.49499999732,
+            202
+          ],
+          [
+            104448.57999999821,
+            196
+          ],
+          [
+            104645.27000000328,
+            204
+          ],
+          [
+            104850.45499999821,
+            218
+          ],
+          [
+            105069.5549999997,
+            194
+          ],
+          [
+            105267.78500000387,
+            198
+          ],
+          [
+            105465.97999999672,
+            191
+          ],
+          [
+            105657.60000000149,
+            198
+          ],
+          [
+            105856.5700000003,
+            192
+          ],
+          [
+            106049.20000000298,
+            211
+          ],
+          [
+            106261.04999999702,
+            200
+          ],
+          [
+            106463.82500000298,
+            204
+          ],
+          [
+            106668.67000000179,
+            199
+          ]
+        ],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "RAF closure requested after the observation window and resolved by this observer only after recording a RAF timestamp at or after that request. Already-queued stale RAF timestamps do not close the window. Wall time, RAF-covered span and boundary gaps are separate. LongTasks are browser main-thread tasks, not GPU time."
+      },
+      "browser_summary": {
+        "intervals": 52,
+        "sampled_interval_ms": 10716.234999999986,
+        "wall_capture_ms": 10908.779999993742,
+        "raf_callbacks": 53,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 4.858471799782414,
+        "completed_interval_fps": 4.852450510837068,
+        "interval_span_within_window_ms": 10716.234999999986,
+        "interval_coverage_fraction": 0.9823495386290799,
+        "first_raf_minus_begin_ms": 181.29999999672873,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 181.29999999672873,
+        "final_uncovered_ms": 11.244999997026753,
+        "total_uncovered_ms": 192.54499999375548,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 188.39999999880092,
+        "closure_after_request_ms": 199.64499999582767,
+        "p50_ms": 199.99499999999534,
+        "p95_ms": 233.33000000000175,
+        "max_ms": 316.6499999999942,
+        "long_task_count": 53,
+        "long_task_total_ms": 10817,
+        "long_task_max_ms": 311,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "native": {
+        "costs": {
+          "scripts/demo/demo_app.gd:_physics_process": [
+            1960,
+            392,
+            106
+          ],
+          "scripts/demo/demo_app.gd:_process": [
+            3423,
+            49,
+            440
+          ],
+          "scripts/demo/home_scene.gd:_physics_process": [
+            165341,
+            392,
+            21224
+          ],
+          "scripts/demo/home_scene.gd:_process": [
+            17319,
+            49,
+            4285
+          ],
+          "scripts/player/player_controller.gd:_physics_process": [
+            197854,
+            392,
+            20541
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_protection": [
+            170904,
+            49,
+            21250
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_refresh": [
+            331884,
+            49,
+            36924
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_render_receipt": [
+            49749,
+            49,
+            28425
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_sync_residents": [
+            102857,
+            49,
+            19670
+          ],
+          "scripts/underworld_plains/underworld_home_world.gd:update_focus": [
+            59735,
+            392,
+            6279
+          ],
+          "scripts/underworld_plains/underworld_parallax.gd:_update": [
+            53776,
+            49,
+            7619
+          ],
+          "scripts/underworld_plains/underworld_presentation.gd:refresh": [
+            7878,
+            49,
+            2500
+          ]
+        },
+        "elapsed_msec": 10099.485,
+        "final": {
+          "camera": [
+            640,
+            310
+          ],
+          "context": "home",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 13,
+            "mask_rectangles_drawn": 4,
+            "protect": 16,
+            "residents": 6,
+            "static": 52,
+            "tracked": 183
+          },
+          "manifest": {},
+          "menu": "",
+          "node_count": 384,
+          "player": [
+            110,
+            414
+          ],
+          "texture_bytes": 525315260,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "frames": [
+          [
+            211.874,
+            195.21,
+            10.209,
+            106,
+            1079,
+            3227
+          ],
+          [
+            340.565,
+            195.21,
+            10.209,
+            106,
+            1079,
+            3227
+          ],
+          [
+            168.411,
+            195.21,
+            10.209,
+            106,
+            1079,
+            3227
+          ],
+          [
+            189.205,
+            297.566,
+            26.175,
+            106,
+            1079,
+            3227
+          ],
+          [
+            200.185,
+            297.566,
+            26.175,
+            106,
+            1079,
+            3227
+          ],
+          [
+            243.464,
+            297.566,
+            26.175,
+            106,
+            1079,
+            3227
+          ],
+          [
+            194.976,
+            297.566,
+            26.175,
+            106,
+            1079,
+            3227
+          ],
+          [
+            195.324,
+            297.566,
+            26.175,
+            106,
+            1079,
+            3227
+          ],
+          [
+            169.375,
+            200.101,
+            23.121,
+            106,
+            1079,
+            3227
+          ],
+          [
+            201.25,
+            200.101,
+            23.121,
+            106,
+            1079,
+            3227
+          ],
+          [
+            192.095,
+            200.101,
+            23.121,
+            106,
+            1079,
+            3227
+          ],
+          [
+            205.306,
+            200.101,
+            23.121,
+            106,
+            1079,
+            3227
+          ],
+          [
+            208.699,
+            200.101,
+            23.121,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.121,
+            186.566,
+            11.396,
+            106,
+            1079,
+            3227
+          ],
+          [
+            193.714,
+            186.566,
+            11.396,
+            106,
+            1079,
+            3227
+          ],
+          [
+            203.23,
+            186.566,
+            11.396,
+            106,
+            1079,
+            3227
+          ],
+          [
+            184.061,
+            186.566,
+            11.396,
+            106,
+            1079,
+            3227
+          ],
+          [
+            204.105,
+            186.566,
+            11.396,
+            106,
+            1079,
+            3227
+          ],
+          [
+            266.674,
+            212.719,
+            12.449,
+            106,
+            1079,
+            3227
+          ],
+          [
+            146.11,
+            212.719,
+            12.449,
+            106,
+            1079,
+            3227
+          ],
+          [
+            199.85,
+            212.719,
+            12.449,
+            106,
+            1079,
+            3227
+          ],
+          [
+            203.79,
+            212.719,
+            12.449,
+            106,
+            1079,
+            3227
+          ],
+          [
+            180.816,
+            212.719,
+            12.449,
+            106,
+            1079,
+            3227
+          ],
+          [
+            214.734,
+            197.069,
+            13.169,
+            106,
+            1079,
+            3227
+          ],
+          [
+            261.205,
+            197.069,
+            13.169,
+            106,
+            1079,
+            3227
+          ],
+          [
+            174.065,
+            197.069,
+            13.169,
+            106,
+            1079,
+            3227
+          ],
+          [
+            206.156,
+            197.069,
+            13.169,
+            106,
+            1079,
+            3227
+          ],
+          [
+            211.729,
+            197.069,
+            13.169,
+            106,
+            1079,
+            3227
+          ],
+          [
+            222.855,
+            208.981,
+            21.645,
+            106,
+            1079,
+            3227
+          ],
+          [
+            259.101,
+            208.981,
+            21.645,
+            106,
+            1079,
+            3227
+          ],
+          [
+            215.36,
+            208.981,
+            21.645,
+            106,
+            1079,
+            3227
+          ],
+          [
+            165.444,
+            208.981,
+            21.645,
+            106,
+            1079,
+            3227
+          ],
+          [
+            197.806,
+            244.915,
+            10.291,
+            106,
+            1079,
+            3227
+          ],
+          [
+            202.129,
+            244.915,
+            10.291,
+            106,
+            1079,
+            3227
+          ],
+          [
+            214.791,
+            244.915,
+            10.291,
+            106,
+            1079,
+            3227
+          ],
+          [
+            267.779,
+            244.915,
+            10.291,
+            106,
+            1079,
+            3227
+          ],
+          [
+            181.525,
+            244.915,
+            10.291,
+            106,
+            1079,
+            3227
+          ],
+          [
+            204.855,
+            201.314,
+            29.815,
+            106,
+            1079,
+            3227
+          ],
+          [
+            198.91,
+            201.314,
+            29.815,
+            106,
+            1079,
+            3227
+          ],
+          [
+            205.445,
+            201.314,
+            29.815,
+            106,
+            1079,
+            3227
+          ],
+          [
+            188.281,
+            201.314,
+            29.815,
+            106,
+            1079,
+            3227
+          ],
+          [
+            209.11,
+            201.314,
+            29.815,
+            106,
+            1079,
+            3227
+          ],
+          [
+            219.22,
+            202.895,
+            7.231,
+            106,
+            1079,
+            3227
+          ],
+          [
+            190.119,
+            202.895,
+            7.231,
+            106,
+            1079,
+            3227
+          ],
+          [
+            200.34,
+            202.895,
+            7.231,
+            106,
+            1079,
+            3227
+          ],
+          [
+            190.345,
+            202.895,
+            7.231,
+            106,
+            1079,
+            3227
+          ],
+          [
+            197.756,
+            202.895,
+            7.231,
+            106,
+            1079,
+            3227
+          ],
+          [
+            203.804,
+            194.139,
+            6.845,
+            106,
+            1079,
+            3227
+          ],
+          [
+            205.421,
+            194.139,
+            6.845,
+            106,
+            1079,
+            3227
+          ]
+        ],
+        "initial": {
+          "camera": [
+            640,
+            310
+          ],
+          "context": "home",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 13,
+            "mask_rectangles_drawn": 4,
+            "protect": 16,
+            "residents": 6,
+            "static": 52,
+            "tracked": 183
+          },
+          "manifest": {},
+          "menu": "",
+          "node_count": 384,
+          "player": [
+            110,
+            414
+          ],
+          "texture_bytes": 525315260,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "scope": "Instrumented real demo; inclusive nested script costs, no summed total or phone/GPU attribution",
+        "sequence": 2
+      },
+      "native_summary": {
+        "frames": 49,
+        "elapsed_ms": 10099.485,
+        "fps": 4.851732538837376,
+        "frame_p50_ms": 202.129,
+        "frame_p95_ms": 266.674,
+        "process_p50_ms": 201.314,
+        "process_p95_ms": 297.566,
+        "physics_p50_ms": 12.449,
+        "physics_p95_ms": 29.815,
+        "draw_calls_mean": 106,
+        "objects_mean": 1079,
+        "primitives_mean": 3227,
+        "inclusive_costs": [
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+            "calls": 49,
+            "total_ms": 331.884,
+            "ms_per_frame": 6.773142857142857,
+            "ms_per_call": 6.773142857142857,
+            "max_ms": 36.924
+          },
+          {
+            "method": "scripts/player/player_controller.gd:_physics_process",
+            "calls": 392,
+            "total_ms": 197.854,
+            "ms_per_frame": 4.037836734693878,
+            "ms_per_call": 0.5047295918367347,
+            "max_ms": 20.541
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+            "calls": 49,
+            "total_ms": 170.904,
+            "ms_per_frame": 3.4878367346938774,
+            "ms_per_call": 3.4878367346938774,
+            "max_ms": 21.25
+          },
+          {
+            "method": "scripts/demo/home_scene.gd:_physics_process",
+            "calls": 392,
+            "total_ms": 165.341,
+            "ms_per_frame": 3.3743061224489797,
+            "ms_per_call": 0.42178826530612246,
+            "max_ms": 21.224
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+            "calls": 49,
+            "total_ms": 102.857,
+            "ms_per_frame": 2.0991224489795917,
+            "ms_per_call": 2.0991224489795917,
+            "max_ms": 19.67
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+            "calls": 392,
+            "total_ms": 59.735,
+            "ms_per_frame": 1.2190816326530611,
+            "ms_per_call": 0.15238520408163264,
+            "max_ms": 6.279
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+            "calls": 49,
+            "total_ms": 53.776,
+            "ms_per_frame": 1.097469387755102,
+            "ms_per_call": 1.097469387755102,
+            "max_ms": 7.619
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+            "calls": 49,
+            "total_ms": 49.749,
+            "ms_per_frame": 1.0152857142857143,
+            "ms_per_call": 1.0152857142857143,
+            "max_ms": 28.425
+          },
+          {
+            "method": "scripts/demo/home_scene.gd:_process",
+            "calls": 49,
+            "total_ms": 17.319,
+            "ms_per_frame": 0.35344897959183674,
+            "ms_per_call": 0.35344897959183674,
+            "max_ms": 4.285
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+            "calls": 49,
+            "total_ms": 7.878,
+            "ms_per_frame": 0.16077551020408162,
+            "ms_per_call": 0.16077551020408162,
+            "max_ms": 2.5
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_process",
+            "calls": 49,
+            "total_ms": 3.423,
+            "ms_per_frame": 0.06985714285714285,
+            "ms_per_call": 0.06985714285714285,
+            "max_ms": 0.44
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_physics_process",
+            "calls": 392,
+            "total_ms": 1.96,
+            "ms_per_frame": 0.04,
+            "ms_per_call": 0.005,
+            "max_ms": 0.106
+          }
+        ],
+        "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window."
+      },
+      "input": "Idle at real entry spawn; no movement, teleport, pause or injected cue during capture."
+    },
+    {
+      "scene": "plains",
+      "repeat": 0,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5,
+        "isolated": true,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpu_time_ms": null,
+        "gpu_time_scope": "Not measured; FPS is not GPU time."
+      },
+      "profile_before": {
+        "camera": [
+          -1790,
+          -35
+        ],
+        "context": "plains",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 10,
+          "mask_rectangles_drawn": 2,
+          "protect": 9,
+          "residents": 7,
+          "static": 58,
+          "tracked": 669
+        },
+        "manifest": {
+          "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+          "seed": "mobile-fps-04"
+        },
+        "measuring": false,
+        "menu": "",
+        "node_count": 1441,
+        "player": [
+          -1850,
+          0
+        ],
+        "texture_bytes": 535858664,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "profile_after": {
+        "camera": [
+          -1790,
+          -35
+        ],
+        "context": "plains",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 10,
+          "mask_rectangles_drawn": 2,
+          "protect": 9,
+          "residents": 7,
+          "static": 58,
+          "tracked": 669
+        },
+        "manifest": {
+          "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+          "seed": "mobile-fps-04"
+        },
+        "measuring": false,
+        "menu": "",
+        "node_count": 1441,
+        "player": [
+          -1850,
+          0
+        ],
+        "texture_bytes": 535858664,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "browser": {
+        "observer_schema": 3,
+        "begin_ms": 158323.72999999672,
+        "end_requested_ms": 168557.9299999997,
+        "end_ms": 168661.7599999979,
+        "elapsed_ms": 10338.030000001192,
+        "first_raf_ms": 158438.075,
+        "last_raf_ms": 168654.335,
+        "raf_callback_count": 92,
+        "closed_on_raf": true,
+        "close_timeout_ms": 30000,
+        "frames": [
+          [
+            158438.075,
+            158538.07,
+            99.99499999999534
+          ],
+          [
+            158538.07,
+            158638.065,
+            99.99499999999534
+          ],
+          [
+            158638.065,
+            158771.395,
+            133.3299999999872
+          ],
+          [
+            158771.395,
+            158871.395,
+            100
+          ],
+          [
+            158871.395,
+            158971.39,
+            99.99500000002445
+          ],
+          [
+            158971.39,
+            159071.38,
+            99.98999999999069
+          ],
+          [
+            159071.38,
+            159188.045,
+            116.66500000000815
+          ],
+          [
+            159188.045,
+            159304.705,
+            116.65999999997439
+          ],
+          [
+            159304.705,
+            159421.37,
+            116.66500000000815
+          ],
+          [
+            159421.37,
+            159521.365,
+            99.99499999999534
+          ],
+          [
+            159521.365,
+            159638.03,
+            116.66500000000815
+          ],
+          [
+            159638.03,
+            159754.685,
+            116.65499999999884
+          ],
+          [
+            159754.685,
+            159854.685,
+            100
+          ],
+          [
+            159854.685,
+            159971.35,
+            116.66500000000815
+          ],
+          [
+            159971.35,
+            160088.01,
+            116.66000000000349
+          ],
+          [
+            160088.01,
+            160188.005,
+            99.99499999999534
+          ],
+          [
+            160188.005,
+            160321.335,
+            133.3299999999872
+          ],
+          [
+            160321.335,
+            160421.33,
+            99.99499999999534
+          ],
+          [
+            160421.33,
+            160521.325,
+            99.99500000002445
+          ],
+          [
+            160521.325,
+            160621.32,
+            99.99499999999534
+          ],
+          [
+            160621.32,
+            160754.65,
+            133.3299999999872
+          ],
+          [
+            160754.65,
+            160871.31,
+            116.66000000000349
+          ],
+          [
+            160871.31,
+            160971.31,
+            100
+          ],
+          [
+            160971.31,
+            161071.305,
+            99.99499999999534
+          ],
+          [
+            161071.305,
+            161187.965,
+            116.66000000000349
+          ],
+          [
+            161187.965,
+            161304.625,
+            116.66000000000349
+          ],
+          [
+            161304.625,
+            161421.29,
+            116.66500000000815
+          ],
+          [
+            161421.29,
+            161554.62,
+            133.3299999999872
+          ],
+          [
+            161554.62,
+            161754.61,
+            199.9899999999907
+          ],
+          [
+            161754.61,
+            161937.935,
+            183.32500000001164
+          ],
+          [
+            161937.935,
+            162087.93,
+            149.99499999999534
+          ],
+          [
+            162087.93,
+            162221.26,
+            133.3300000000163
+          ],
+          [
+            162221.26,
+            162354.585,
+            133.32499999998254
+          ],
+          [
+            162354.585,
+            162454.58,
+            99.99499999999534
+          ],
+          [
+            162454.58,
+            162571.245,
+            116.66500000000815
+          ],
+          [
+            162571.245,
+            162687.905,
+            116.66000000000349
+          ],
+          [
+            162687.905,
+            162787.9,
+            99.99499999999534
+          ],
+          [
+            162787.9,
+            162887.9,
+            100
+          ],
+          [
+            162887.9,
+            162987.895,
+            99.99499999999534
+          ],
+          [
+            162987.895,
+            163121.225,
+            133.3300000000163
+          ],
+          [
+            163121.225,
+            163221.22,
+            99.99499999999534
+          ],
+          [
+            163221.22,
+            163321.215,
+            99.99499999999534
+          ],
+          [
+            163321.215,
+            163437.875,
+            116.66000000000349
+          ],
+          [
+            163437.875,
+            163554.535,
+            116.66000000000349
+          ],
+          [
+            163554.535,
+            163654.535,
+            100
+          ],
+          [
+            163654.535,
+            163771.195,
+            116.66000000000349
+          ],
+          [
+            163771.195,
+            163871.195,
+            100
+          ],
+          [
+            163871.195,
+            163971.19,
+            99.99499999999534
+          ],
+          [
+            163971.19,
+            164071.185,
+            99.99499999999534
+          ],
+          [
+            164071.185,
+            164187.845,
+            116.66000000000349
+          ],
+          [
+            164187.845,
+            164287.84,
+            99.99499999999534
+          ],
+          [
+            164287.84,
+            164421.17,
+            133.3300000000163
+          ],
+          [
+            164421.17,
+            164521.165,
+            99.99499999999534
+          ],
+          [
+            164521.165,
+            164637.825,
+            116.66000000000349
+          ],
+          [
+            164637.825,
+            164737.825,
+            100
+          ],
+          [
+            164737.825,
+            164837.82,
+            99.99499999999534
+          ],
+          [
+            164837.82,
+            164954.48,
+            116.66000000000349
+          ],
+          [
+            164954.48,
+            165054.475,
+            99.99499999999534
+          ],
+          [
+            165054.475,
+            165154.47,
+            99.99499999999534
+          ],
+          [
+            165154.47,
+            165271.135,
+            116.66500000000815
+          ],
+          [
+            165271.135,
+            165371.135,
+            100
+          ],
+          [
+            165371.135,
+            165487.79,
+            116.65499999999884
+          ],
+          [
+            165487.79,
+            165621.12,
+            133.3299999999872
+          ],
+          [
+            165621.12,
+            165721.12,
+            100
+          ],
+          [
+            165721.12,
+            165821.115,
+            99.99499999999534
+          ],
+          [
+            165821.115,
+            165937.775,
+            116.66000000000349
+          ],
+          [
+            165937.775,
+            166037.77,
+            99.99499999999534
+          ],
+          [
+            166037.77,
+            166154.43,
+            116.66000000000349
+          ],
+          [
+            166154.43,
+            166254.43,
+            100
+          ],
+          [
+            166254.43,
+            166354.425,
+            99.99499999999534
+          ],
+          [
+            166354.425,
+            166487.75,
+            133.32500000001164
+          ],
+          [
+            166487.75,
+            166571.085,
+            83.33499999999185
+          ],
+          [
+            166571.085,
+            166687.745,
+            116.66000000000349
+          ],
+          [
+            166687.745,
+            166804.405,
+            116.66000000000349
+          ],
+          [
+            166804.405,
+            166921.07,
+            116.66500000000815
+          ],
+          [
+            166921.07,
+            167021.065,
+            99.99499999999534
+          ],
+          [
+            167021.065,
+            167121.06,
+            99.99499999999534
+          ],
+          [
+            167121.06,
+            167221.055,
+            99.99499999999534
+          ],
+          [
+            167221.055,
+            167337.72,
+            116.66500000000815
+          ],
+          [
+            167337.72,
+            167454.38,
+            116.66000000000349
+          ],
+          [
+            167454.38,
+            167554.375,
+            99.99499999999534
+          ],
+          [
+            167554.375,
+            167654.37,
+            99.99499999999534
+          ],
+          [
+            167654.37,
+            167771.035,
+            116.66500000000815
+          ],
+          [
+            167771.035,
+            167871.035,
+            100
+          ],
+          [
+            167871.035,
+            167987.695,
+            116.66000000000349
+          ],
+          [
+            167987.695,
+            168104.355,
+            116.66000000000349
+          ],
+          [
+            168104.355,
+            168221.015,
+            116.66000000000349
+          ],
+          [
+            168221.015,
+            168337.68,
+            116.66499999997905
+          ],
+          [
+            168337.68,
+            168437.675,
+            99.99499999999534
+          ],
+          [
+            168437.675,
+            168554.34,
+            116.66500000000815
+          ],
+          [
+            168554.34,
+            168654.335,
+            99.99499999999534
+          ]
+        ],
+        "long_tasks": [
+          [
+            158323.8599999994,
+            115
+          ],
+          [
+            158440.52000000328,
+            104
+          ],
+          [
+            158548.1550000012,
+            104
+          ],
+          [
+            158654.8449999988,
+            122
+          ],
+          [
+            158778.06000000238,
+            99
+          ],
+          [
+            158877.5799999982,
+            101
+          ],
+          [
+            158979.8299999982,
+            107
+          ],
+          [
+            159087.2899999991,
+            109
+          ],
+          [
+            159196.6700000018,
+            121
+          ],
+          [
+            159318.56000000238,
+            109
+          ],
+          [
+            159431.17499999702,
+            106
+          ],
+          [
+            159538.10499999672,
+            111
+          ],
+          [
+            159649.5150000006,
+            106
+          ],
+          [
+            159756.77000000328,
+            114
+          ],
+          [
+            159871.18999999762,
+            108
+          ],
+          [
+            159979.7250000015,
+            109
+          ],
+          [
+            160089.68999999762,
+            114
+          ],
+          [
+            160204.4849999994,
+            131
+          ],
+          [
+            160336.2950000018,
+            99
+          ],
+          [
+            160438.03500000387,
+            95
+          ],
+          [
+            160533.91000000387,
+            104
+          ],
+          [
+            160638.29999999702,
+            130
+          ],
+          [
+            160769.43500000238,
+            104
+          ],
+          [
+            160874.4600000009,
+            108
+          ],
+          [
+            160983.06499999762,
+            100
+          ],
+          [
+            161083.2800000012,
+            110
+          ],
+          [
+            161197.31000000238,
+            121
+          ],
+          [
+            161319.3200000003,
+            113
+          ],
+          [
+            161432.5799999982,
+            131
+          ],
+          [
+            161564.3299999982,
+            191
+          ],
+          [
+            161756.52000000328,
+            196
+          ],
+          [
+            161955.53500000387,
+            146
+          ],
+          [
+            162102.3650000021,
+            120
+          ],
+          [
+            162222.9699999988,
+            135
+          ],
+          [
+            162358.6000000015,
+            112
+          ],
+          [
+            162475.61999999732,
+            105
+          ],
+          [
+            162581.5799999982,
+            110
+          ],
+          [
+            162692.3200000003,
+            97
+          ],
+          [
+            162789.7250000015,
+            107
+          ],
+          [
+            162896.93999999762,
+            97
+          ],
+          [
+            162995.06000000238,
+            128
+          ],
+          [
+            163124.3500000015,
+            103
+          ],
+          [
+            163232.3350000009,
+            107
+          ],
+          [
+            163339.8650000021,
+            110
+          ],
+          [
+            163450.9149999991,
+            109
+          ],
+          [
+            163560.3299999982,
+            100
+          ],
+          [
+            163664.11999999732,
+            110
+          ],
+          [
+            163774.81000000238,
+            100
+          ],
+          [
+            163875.8299999982,
+            104
+          ],
+          [
+            163980.6150000021,
+            105
+          ],
+          [
+            164086.1550000012,
+            105
+          ],
+          [
+            164214.3200000003,
+            89
+          ],
+          [
+            164303.56000000238,
+            125
+          ],
+          [
+            164429.6150000021,
+            102
+          ],
+          [
+            164532.0249999985,
+            108
+          ],
+          [
+            164640.45000000298,
+            104
+          ],
+          [
+            164744.8449999988,
+            105
+          ],
+          [
+            164850.5099999979,
+            108
+          ],
+          [
+            164958.93500000238,
+            105
+          ],
+          [
+            165064.14500000328,
+            106
+          ],
+          [
+            165170.3350000009,
+            104
+          ],
+          [
+            165274.61999999732,
+            109
+          ],
+          [
+            165384.5850000009,
+            119
+          ],
+          [
+            165504.1150000021,
+            127
+          ],
+          [
+            165632.06000000238,
+            97
+          ],
+          [
+            165729.7049999982,
+            102
+          ],
+          [
+            165832.0450000018,
+            109
+          ],
+          [
+            165941.77000000328,
+            114
+          ],
+          [
+            166058.0399999991,
+            97
+          ],
+          [
+            166156.02000000328,
+            107
+          ],
+          [
+            166263.86999999732,
+            105
+          ],
+          [
+            166369.70000000298,
+            119
+          ],
+          [
+            166489.7049999982,
+            98
+          ],
+          [
+            166588.0850000009,
+            108
+          ],
+          [
+            166696.7650000006,
+            120
+          ],
+          [
+            166817.82500000298,
+            105
+          ],
+          [
+            166923.4149999991,
+            101
+          ],
+          [
+            167025.4699999988,
+            104
+          ],
+          [
+            167135.67499999702,
+            99
+          ],
+          [
+            167235.2049999982,
+            112
+          ],
+          [
+            167348.0799999982,
+            110
+          ],
+          [
+            167458.8200000003,
+            104
+          ],
+          [
+            167563.9699999988,
+            104
+          ],
+          [
+            167668.57500000298,
+            119
+          ],
+          [
+            167788.5799999982,
+            99
+          ],
+          [
+            167888.1550000012,
+            110
+          ],
+          [
+            167999.25,
+            118
+          ],
+          [
+            168118.625,
+            111
+          ],
+          [
+            168230.7800000012,
+            113
+          ],
+          [
+            168344.43500000238,
+            108
+          ],
+          [
+            168453.0549999997,
+            103
+          ],
+          [
+            168558.1799999997,
+            103
+          ]
+        ],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "RAF closure requested after the observation window and resolved by this observer only after recording a RAF timestamp at or after that request. Already-queued stale RAF timestamps do not close the window. Wall time, RAF-covered span and boundary gaps are separate. LongTasks are browser main-thread tasks, not GPU time."
+      },
+      "browser_summary": {
+        "intervals": 91,
+        "sampled_interval_ms": 10216.25999999998,
+        "wall_capture_ms": 10338.030000001192,
+        "raf_callbacks": 92,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.899180985157654,
+        "completed_interval_fps": 8.907369232967854,
+        "interval_span_within_window_ms": 10216.25999999998,
+        "interval_coverage_fraction": 0.9882211601242018,
+        "first_raf_minus_begin_ms": 114.3450000032899,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 114.3450000032899,
+        "final_uncovered_ms": 7.4249999979219865,
+        "total_uncovered_ms": 121.77000000121188,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 96.40500000028987,
+        "closure_after_request_ms": 103.82999999821186,
+        "p50_ms": 116.65499999999884,
+        "p95_ms": 133.3300000000163,
+        "max_ms": 199.9899999999907,
+        "long_task_count": 92,
+        "long_task_total_ms": 10212,
+        "long_task_max_ms": 196,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "native": {
+        "costs": {
+          "scripts/demo/demo_app.gd:_layout_region_hud": [
+            85679,
+            89,
+            3834
+          ],
+          "scripts/demo/demo_app.gd:_physics_process": [
+            667251,
+            591,
+            23040
+          ],
+          "scripts/demo/demo_app.gd:_process": [
+            362226,
+            89,
+            18550
+          ],
+          "scripts/demo/plains_region_stage.gd:_physics_process": [
+            958941,
+            591,
+            32845
+          ],
+          "scripts/demo/plains_region_stage.gd:_update_context_signs": [
+            46099,
+            591,
+            6695
+          ],
+          "scripts/demo/plains_region_stage.gd:capture_state": [
+            858389,
+            591,
+            32760
+          ],
+          "scripts/enemies/enemy_actor.gd:_physics_process": [
+            1128868,
+            8865,
+            20300
+          ],
+          "scripts/player/player_controller.gd:_physics_process": [
+            530026,
+            591,
+            20521
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_protection": [
+            419740,
+            89,
+            22074
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_refresh": [
+            588730,
+            89,
+            26169
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_render_receipt": [
+            31590,
+            89,
+            4366
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_sync_residents": [
+            127678,
+            89,
+            19670
+          ],
+          "scripts/underworld_plains/underworld_parallax.gd:_update": [
+            57098,
+            89,
+            15505
+          ],
+          "scripts/underworld_plains/underworld_presentation.gd:refresh": [
+            7319,
+            89,
+            540
+          ]
+        },
+        "elapsed_msec": 10030.864,
+        "final": {
+          "camera": [
+            -1790,
+            -35
+          ],
+          "context": "plains",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 10,
+            "mask_rectangles_drawn": 2,
+            "protect": 9,
+            "residents": 7,
+            "static": 58,
+            "tracked": 669
+          },
+          "manifest": {
+            "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+            "seed": "mobile-fps-04"
+          },
+          "menu": "",
+          "node_count": 1441,
+          "player": [
+            -1850,
+            0
+          ],
+          "texture_bytes": 535858664,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "frames": [
+          [
+            114.655,
+            84.725,
+            379.121,
+            92,
+            381,
+            1937
+          ],
+          [
+            131.62,
+            84.725,
+            379.121,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.679,
+            84.725,
+            379.121,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.111,
+            84.725,
+            379.121,
+            92,
+            381,
+            1937
+          ],
+          [
+            92.514,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.075,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            116.63,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.686,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            119.275,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            110.155,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            97.74,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            138.284,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            109.94,
+            77.071,
+            23.695,
+            92,
+            381,
+            1937
+          ],
+          [
+            92.505,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            115.93,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            115.351,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            101.199,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            127.996,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            103.279,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.69,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.586,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            123.75,
+            59.396,
+            27.555,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.405,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.065,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            100.615,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            124.564,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            112.801,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            136.069,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            132.265,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            278.645,
+            71.745,
+            24.465,
+            92,
+            381,
+            1937
+          ],
+          [
+            75.381,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            185.179,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            97.315,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            124.05,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            133.65,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            94.79,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            85.415,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            123.735,
+            103.115,
+            46.089,
+            92,
+            381,
+            1937
+          ],
+          [
+            119.651,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            96.939,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            125.605,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            96.446,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            122.744,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.205,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            122.661,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            78.57,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.074,
+            102.666,
+            26.811,
+            92,
+            381,
+            1937
+          ],
+          [
+            134.435,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            97.905,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            122.796,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            89.17,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.634,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            121.175,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            96.391,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            130.084,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            76.326,
+            64.741,
+            29.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            135.56,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            99.259,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            93.661,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            115.67,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.774,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            122.23,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            90.35,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            138.225,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            96.95,
+            61.81,
+            37.371,
+            92,
+            381,
+            1937
+          ],
+          [
+            93.116,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            110.39,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.85,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            127.504,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.28,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            111.941,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            111.389,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            92.7,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            117.775,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.425,
+            76.38,
+            27.285,
+            92,
+            381,
+            1937
+          ],
+          [
+            112.445,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            95.19,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.04,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            102.516,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            131.549,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.591,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.169,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            111.595,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.18,
+            68.19,
+            26.876,
+            92,
+            381,
+            1937
+          ],
+          [
+            125.001,
+            52.186,
+            28.609,
+            92,
+            381,
+            1937
+          ],
+          [
+            82.775,
+            52.186,
+            28.609,
+            92,
+            381,
+            1937
+          ],
+          [
+            123.439,
+            52.186,
+            28.609,
+            92,
+            381,
+            1937
+          ],
+          [
+            124.155,
+            52.186,
+            28.609,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.765,
+            52.186,
+            28.609,
+            92,
+            381,
+            1937
+          ]
+        ],
+        "initial": {
+          "camera": [
+            -1790,
+            -35
+          ],
+          "context": "plains",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 10,
+            "mask_rectangles_drawn": 2,
+            "protect": 9,
+            "residents": 7,
+            "static": 58,
+            "tracked": 669
+          },
+          "manifest": {
+            "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+            "seed": "mobile-fps-04"
+          },
+          "menu": "",
+          "node_count": 1441,
+          "player": [
+            -1850,
+            0
+          ],
+          "texture_bytes": 535858664,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "scope": "Instrumented real demo; inclusive nested script costs, no summed total or phone/GPU attribution",
+        "sequence": 3
+      },
+      "native_summary": {
+        "frames": 89,
+        "elapsed_ms": 10030.864,
+        "fps": 8.87261555933766,
+        "frame_p50_ms": 109.94,
+        "frame_p95_ms": 136.069,
+        "process_p50_ms": 71.745,
+        "process_p95_ms": 103.115,
+        "physics_p50_ms": 27.285,
+        "physics_p95_ms": 46.089,
+        "draw_calls_mean": 92,
+        "objects_mean": 381,
+        "primitives_mean": 1937,
+        "inclusive_costs": [
+          {
+            "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+            "calls": 8865,
+            "total_ms": 1128.868,
+            "ms_per_frame": 12.68391011235955,
+            "ms_per_call": 0.12733987591652565,
+            "max_ms": 20.3
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+            "calls": 591,
+            "total_ms": 958.941,
+            "ms_per_frame": 10.77461797752809,
+            "ms_per_call": 1.6225736040609138,
+            "max_ms": 32.845
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:capture_state",
+            "calls": 591,
+            "total_ms": 858.389,
+            "ms_per_frame": 9.644820224719101,
+            "ms_per_call": 1.452434856175973,
+            "max_ms": 32.76
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_physics_process",
+            "calls": 591,
+            "total_ms": 667.251,
+            "ms_per_frame": 7.497202247191011,
+            "ms_per_call": 1.1290203045685279,
+            "max_ms": 23.04
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+            "calls": 89,
+            "total_ms": 588.73,
+            "ms_per_frame": 6.6149438202247195,
+            "ms_per_call": 6.6149438202247195,
+            "max_ms": 26.169
+          },
+          {
+            "method": "scripts/player/player_controller.gd:_physics_process",
+            "calls": 591,
+            "total_ms": 530.026,
+            "ms_per_frame": 5.955348314606741,
+            "ms_per_call": 0.89682910321489,
+            "max_ms": 20.521
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+            "calls": 89,
+            "total_ms": 419.74,
+            "ms_per_frame": 4.716179775280899,
+            "ms_per_call": 4.716179775280899,
+            "max_ms": 22.074
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_process",
+            "calls": 89,
+            "total_ms": 362.226,
+            "ms_per_frame": 4.069955056179776,
+            "ms_per_call": 4.069955056179776,
+            "max_ms": 18.55
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+            "calls": 89,
+            "total_ms": 127.678,
+            "ms_per_frame": 1.4345842696629214,
+            "ms_per_call": 1.4345842696629214,
+            "max_ms": 19.67
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+            "calls": 89,
+            "total_ms": 85.679,
+            "ms_per_frame": 0.962685393258427,
+            "ms_per_call": 0.962685393258427,
+            "max_ms": 3.834
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+            "calls": 89,
+            "total_ms": 57.098,
+            "ms_per_frame": 0.6415505617977528,
+            "ms_per_call": 0.6415505617977528,
+            "max_ms": 15.505
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+            "calls": 591,
+            "total_ms": 46.099,
+            "ms_per_frame": 0.5179662921348315,
+            "ms_per_call": 0.07800169204737732,
+            "max_ms": 6.695
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+            "calls": 89,
+            "total_ms": 31.59,
+            "ms_per_frame": 0.3549438202247191,
+            "ms_per_call": 0.3549438202247191,
+            "max_ms": 4.366
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+            "calls": 89,
+            "total_ms": 7.319,
+            "ms_per_frame": 0.08223595505617977,
+            "ms_per_call": 0.08223595505617977,
+            "max_ms": 0.54
+          }
+        ],
+        "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window."
+      },
+      "input": "Idle at real entry spawn; no movement, teleport, pause or injected cue during capture."
+    },
+    {
+      "scene": "plains",
+      "repeat": 1,
+      "canvas": {
+        "width": 2132,
+        "height": 725,
+        "css": {
+          "x": 0,
+          "y": 0,
+          "width": 852,
+          "height": 290
+        },
+        "dpr": 2.5,
+        "isolated": true,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "gpu_time_ms": null,
+        "gpu_time_scope": "Not measured; FPS is not GPU time."
+      },
+      "profile_before": {
+        "camera": [
+          -1790,
+          -35
+        ],
+        "context": "plains",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 10,
+          "mask_rectangles_drawn": 2,
+          "protect": 9,
+          "residents": 7,
+          "static": 58,
+          "tracked": 669
+        },
+        "manifest": {
+          "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+          "seed": "mobile-fps-04"
+        },
+        "measuring": false,
+        "menu": "",
+        "node_count": 1441,
+        "player": [
+          -1850,
+          0
+        ],
+        "texture_bytes": 535858664,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "profile_after": {
+        "camera": [
+          -1790,
+          -35
+        ],
+        "context": "plains",
+        "foreground": {
+          "drawn": 2,
+          "dynamic": 3,
+          "mask_rectangles_all": 10,
+          "mask_rectangles_drawn": 2,
+          "protect": 9,
+          "residents": 7,
+          "static": 58,
+          "tracked": 669
+        },
+        "manifest": {
+          "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+          "seed": "mobile-fps-04"
+        },
+        "measuring": false,
+        "menu": "",
+        "node_count": 1441,
+        "player": [
+          -1850,
+          0
+        ],
+        "texture_bytes": 535858664,
+        "tree_paused": false,
+        "viewport": {
+          "logical": [
+            1280,
+            720
+          ],
+          "texture": [
+            1280,
+            720
+          ]
+        }
+      },
+      "browser": {
+        "observer_schema": 3,
+        "begin_ms": 177050.39500000328,
+        "end_requested_ms": 187484.06499999762,
+        "end_ms": 187586.11999999732,
+        "elapsed_ms": 10535.72499999404,
+        "first_raf_ms": 177137.33,
+        "last_raf_ms": 187570.245,
+        "raf_callback_count": 94,
+        "closed_on_raf": true,
+        "close_timeout_ms": 30000,
+        "frames": [
+          [
+            177137.33,
+            177237.325,
+            99.99500000002445
+          ],
+          [
+            177237.325,
+            177370.65,
+            133.32499999998254
+          ],
+          [
+            177370.65,
+            177470.65,
+            100
+          ],
+          [
+            177470.65,
+            177587.305,
+            116.65499999999884
+          ],
+          [
+            177587.305,
+            177687.305,
+            100
+          ],
+          [
+            177687.305,
+            177820.63,
+            133.32500000001164
+          ],
+          [
+            177820.63,
+            177920.625,
+            99.99499999999534
+          ],
+          [
+            177920.625,
+            178020.625,
+            100
+          ],
+          [
+            178020.625,
+            178120.62,
+            99.99499999999534
+          ],
+          [
+            178120.62,
+            178220.615,
+            99.99499999999534
+          ],
+          [
+            178220.615,
+            178337.28,
+            116.66500000000815
+          ],
+          [
+            178337.28,
+            178437.275,
+            99.99499999999534
+          ],
+          [
+            178437.275,
+            178603.935,
+            166.6600000000035
+          ],
+          [
+            178603.935,
+            178720.6,
+            116.66500000000815
+          ],
+          [
+            178720.6,
+            178853.925,
+            133.32499999998254
+          ],
+          [
+            178853.925,
+            178953.92,
+            99.99500000002445
+          ],
+          [
+            178953.92,
+            179053.915,
+            99.99499999999534
+          ],
+          [
+            179053.915,
+            179153.91,
+            99.99499999999534
+          ],
+          [
+            179153.91,
+            179253.91,
+            100
+          ],
+          [
+            179253.91,
+            179353.905,
+            99.99499999999534
+          ],
+          [
+            179353.905,
+            179470.565,
+            116.66000000000349
+          ],
+          [
+            179470.565,
+            179570.565,
+            100
+          ],
+          [
+            179570.565,
+            179720.555,
+            149.9899999999907
+          ],
+          [
+            179720.555,
+            179837.22,
+            116.66500000000815
+          ],
+          [
+            179837.22,
+            179953.885,
+            116.66500000000815
+          ],
+          [
+            179953.885,
+            180053.88,
+            99.99499999999534
+          ],
+          [
+            180053.88,
+            180170.54,
+            116.66000000000349
+          ],
+          [
+            180170.54,
+            180270.535,
+            99.99499999999534
+          ],
+          [
+            180270.535,
+            180387.2,
+            116.66500000000815
+          ],
+          [
+            180387.2,
+            180487.195,
+            99.99499999999534
+          ],
+          [
+            180487.195,
+            180603.855,
+            116.66000000000349
+          ],
+          [
+            180603.855,
+            180737.18,
+            133.32499999998254
+          ],
+          [
+            180737.18,
+            180887.175,
+            149.99499999999534
+          ],
+          [
+            180887.175,
+            181020.505,
+            133.3300000000163
+          ],
+          [
+            181020.505,
+            181137.165,
+            116.66000000000349
+          ],
+          [
+            181137.165,
+            181237.165,
+            100
+          ],
+          [
+            181237.165,
+            181353.825,
+            116.66000000000349
+          ],
+          [
+            181353.825,
+            181453.82,
+            99.99499999999534
+          ],
+          [
+            181453.82,
+            181553.82,
+            100
+          ],
+          [
+            181553.82,
+            181670.475,
+            116.65499999999884
+          ],
+          [
+            181670.475,
+            181770.475,
+            100
+          ],
+          [
+            181770.475,
+            181903.805,
+            133.3299999999872
+          ],
+          [
+            181903.805,
+            182020.465,
+            116.66000000000349
+          ],
+          [
+            182020.465,
+            182137.125,
+            116.66000000000349
+          ],
+          [
+            182137.125,
+            182237.12,
+            99.99499999999534
+          ],
+          [
+            182237.12,
+            182353.785,
+            116.66500000000815
+          ],
+          [
+            182353.785,
+            182453.78,
+            99.99499999999534
+          ],
+          [
+            182453.78,
+            182570.445,
+            116.66500000000815
+          ],
+          [
+            182570.445,
+            182687.105,
+            116.66000000000349
+          ],
+          [
+            182687.105,
+            182787.1,
+            99.99499999999534
+          ],
+          [
+            182787.1,
+            182903.765,
+            116.66500000000815
+          ],
+          [
+            182903.765,
+            183020.425,
+            116.65999999997439
+          ],
+          [
+            183020.425,
+            183120.425,
+            100
+          ],
+          [
+            183120.425,
+            183237.08,
+            116.65499999999884
+          ],
+          [
+            183237.08,
+            183337.08,
+            100
+          ],
+          [
+            183337.08,
+            183453.74,
+            116.66000000000349
+          ],
+          [
+            183453.74,
+            183570.4,
+            116.66000000000349
+          ],
+          [
+            183570.4,
+            183703.73,
+            133.3300000000163
+          ],
+          [
+            183703.73,
+            183853.725,
+            149.99499999999534
+          ],
+          [
+            183853.725,
+            183953.72,
+            99.99499999999534
+          ],
+          [
+            183953.72,
+            184070.38,
+            116.66000000000349
+          ],
+          [
+            184070.38,
+            184170.38,
+            100
+          ],
+          [
+            184170.38,
+            184270.375,
+            99.99499999999534
+          ],
+          [
+            184270.375,
+            184387.04,
+            116.66500000000815
+          ],
+          [
+            184387.04,
+            184520.365,
+            133.32499999998254
+          ],
+          [
+            184520.365,
+            184620.36,
+            99.99499999999534
+          ],
+          [
+            184620.36,
+            184737.025,
+            116.66500000000815
+          ],
+          [
+            184737.025,
+            184853.685,
+            116.66000000000349
+          ],
+          [
+            184853.685,
+            184953.68,
+            99.99499999999534
+          ],
+          [
+            184953.68,
+            185070.345,
+            116.66500000000815
+          ],
+          [
+            185070.345,
+            185170.34,
+            99.99499999999534
+          ],
+          [
+            185170.34,
+            185287,
+            116.66000000000349
+          ],
+          [
+            185287,
+            185403.665,
+            116.66500000000815
+          ],
+          [
+            185403.665,
+            185520.325,
+            116.66000000000349
+          ],
+          [
+            185520.325,
+            185636.99,
+            116.66499999997905
+          ],
+          [
+            185636.99,
+            185736.985,
+            99.99499999999534
+          ],
+          [
+            185736.985,
+            185853.645,
+            116.66000000000349
+          ],
+          [
+            185853.645,
+            185953.64,
+            99.99500000002445
+          ],
+          [
+            185953.64,
+            186053.64,
+            100
+          ],
+          [
+            186053.64,
+            186170.295,
+            116.65499999999884
+          ],
+          [
+            186170.295,
+            186286.965,
+            116.6699999999837
+          ],
+          [
+            186286.965,
+            186386.96,
+            99.99499999999534
+          ],
+          [
+            186386.96,
+            186486.955,
+            99.99499999999534
+          ],
+          [
+            186486.955,
+            186603.615,
+            116.66000000000349
+          ],
+          [
+            186603.615,
+            186720.275,
+            116.66000000000349
+          ],
+          [
+            186720.275,
+            186820.27,
+            99.99499999999534
+          ],
+          [
+            186820.27,
+            186936.935,
+            116.66500000000815
+          ],
+          [
+            186936.935,
+            187036.93,
+            99.99499999999534
+          ],
+          [
+            187036.93,
+            187153.59,
+            116.66000000000349
+          ],
+          [
+            187153.59,
+            187253.59,
+            100
+          ],
+          [
+            187253.59,
+            187370.255,
+            116.66500000000815
+          ],
+          [
+            187370.255,
+            187470.25,
+            99.99499999999534
+          ],
+          [
+            187470.25,
+            187570.245,
+            99.99499999999534
+          ]
+        ],
+        "long_tasks": [
+          [
+            177050.7650000006,
+            94
+          ],
+          [
+            177145.81499999762,
+            108
+          ],
+          [
+            177255.68500000238,
+            116
+          ],
+          [
+            177372.4050000012,
+            110
+          ],
+          [
+            177487.6099999994,
+            108
+          ],
+          [
+            177595.9299999997,
+            92
+          ],
+          [
+            177691.7800000012,
+            130
+          ],
+          [
+            177822.47999999672,
+            109
+          ],
+          [
+            177932.3999999985,
+            99
+          ],
+          [
+            178032.31499999762,
+            104
+          ],
+          [
+            178137.0949999988,
+            99
+          ],
+          [
+            178239.7250000015,
+            111
+          ],
+          [
+            178351.56499999762,
+            101
+          ],
+          [
+            178453.3299999982,
+            163
+          ],
+          [
+            178616.7400000021,
+            107
+          ],
+          [
+            178724.3299999982,
+            140
+          ],
+          [
+            178868.5799999982,
+            91
+          ],
+          [
+            178960.24499999732,
+            102
+          ],
+          [
+            179062.4900000021,
+            97
+          ],
+          [
+            179160.20000000298,
+            100
+          ],
+          [
+            179260.3650000021,
+            109
+          ],
+          [
+            179369.91000000387,
+            109
+          ],
+          [
+            179479.1099999994,
+            104
+          ],
+          [
+            179583.4699999988,
+            141
+          ],
+          [
+            179726.31499999762,
+            128
+          ],
+          [
+            179854.6950000003,
+            110
+          ],
+          [
+            179965.4549999982,
+            100
+          ],
+          [
+            180066.1400000006,
+            110
+          ],
+          [
+            180177.1950000003,
+            99
+          ],
+          [
+            180280.1499999985,
+            120
+          ],
+          [
+            180401.29999999702,
+            90
+          ],
+          [
+            180496.5799999982,
+            119
+          ],
+          [
+            180620.0249999985,
+            127
+          ],
+          [
+            180748.1700000018,
+            140
+          ],
+          [
+            180889.125,
+            142
+          ],
+          [
+            181031.82500000298,
+            115
+          ],
+          [
+            181149.25500000268,
+            106
+          ],
+          [
+            181255.93999999762,
+            102
+          ],
+          [
+            181363.7899999991,
+            97
+          ],
+          [
+            181461.5949999988,
+            105
+          ],
+          [
+            181570.6349999979,
+            110
+          ],
+          [
+            181683.85499999672,
+            102
+          ],
+          [
+            181786.3900000006,
+            133
+          ],
+          [
+            181922.6950000003,
+            105
+          ],
+          [
+            182028.0850000009,
+            111
+          ],
+          [
+            182140.02000000328,
+            103
+          ],
+          [
+            182244.2100000009,
+            111
+          ],
+          [
+            182355.7199999988,
+            109
+          ],
+          [
+            182465.09000000358,
+            119
+          ],
+          [
+            182587.7899999991,
+            104
+          ],
+          [
+            182692.74499999732,
+            95
+          ],
+          [
+            182788.79999999702,
+            134
+          ],
+          [
+            182923.84000000358,
+            108
+          ],
+          [
+            183035.92499999702,
+            100
+          ],
+          [
+            183136.3999999985,
+            107
+          ],
+          [
+            183243.9299999997,
+            108
+          ],
+          [
+            183352.32500000298,
+            107
+          ],
+          [
+            183460.1099999994,
+            111
+          ],
+          [
+            183572.25,
+            151
+          ],
+          [
+            183723.9299999997,
+            139
+          ],
+          [
+            183864.3299999982,
+            103
+          ],
+          [
+            183967.88000000268,
+            107
+          ],
+          [
+            184076.0850000009,
+            110
+          ],
+          [
+            184186.8299999982,
+            99
+          ],
+          [
+            184286.6499999985,
+            113
+          ],
+          [
+            184414.46500000358,
+            109
+          ],
+          [
+            184524.4600000009,
+            111
+          ],
+          [
+            184636.9600000009,
+            110
+          ],
+          [
+            184748.24499999732,
+            108
+          ],
+          [
+            184865.42499999702,
+            102
+          ],
+          [
+            184968.5300000012,
+            115
+          ],
+          [
+            185084.0300000012,
+            95
+          ],
+          [
+            185179.8650000021,
+            110
+          ],
+          [
+            185291.8500000015,
+            112
+          ],
+          [
+            185404.9549999982,
+            127
+          ],
+          [
+            185532.3999999985,
+            115
+          ],
+          [
+            185648.38000000268,
+            102
+          ],
+          [
+            185750.92499999702,
+            113
+          ],
+          [
+            185865.31000000238,
+            98
+          ],
+          [
+            185964.35499999672,
+            104
+          ],
+          [
+            186069.60499999672,
+            108
+          ],
+          [
+            186183.68999999762,
+            104
+          ],
+          [
+            186288.18999999762,
+            103
+          ],
+          [
+            186392.3999999985,
+            97
+          ],
+          [
+            186495.6499999985,
+            121
+          ],
+          [
+            186616.88000000268,
+            106
+          ],
+          [
+            186723.56499999762,
+            112
+          ],
+          [
+            186835.8350000009,
+            107
+          ],
+          [
+            186943.9299999997,
+            106
+          ],
+          [
+            187050.4549999982,
+            109
+          ],
+          [
+            187159.9450000003,
+            107
+          ],
+          [
+            187268.11999999732,
+            103
+          ],
+          [
+            187372.0799999982,
+            111
+          ],
+          [
+            187484.1649999991,
+            101
+          ]
+        ],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "RAF closure requested after the observation window and resolved by this observer only after recording a RAF timestamp at or after that request. Already-queued stale RAF timestamps do not close the window. Wall time, RAF-covered span and boundary gaps are separate. LongTasks are browser main-thread tasks, not GPU time."
+      },
+      "browser_summary": {
+        "intervals": 93,
+        "sampled_interval_ms": 10432.915000000008,
+        "wall_capture_ms": 10535.72499999404,
+        "raf_callbacks": 94,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 8.922024825064547,
+        "completed_interval_fps": 8.91409543737296,
+        "interval_span_within_window_ms": 10432.915000000008,
+        "interval_coverage_fraction": 0.9902417726360464,
+        "first_raf_minus_begin_ms": 86.93499999670894,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 86.93499999670894,
+        "final_uncovered_ms": 15.874999997322448,
+        "total_uncovered_ms": 102.80999999403139,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 86.18000000237953,
+        "closure_after_request_ms": 102.05499999970198,
+        "p50_ms": 116.65999999997439,
+        "p95_ms": 133.3300000000163,
+        "max_ms": 166.6600000000035,
+        "long_task_count": 94,
+        "long_task_total_ms": 10379,
+        "long_task_max_ms": 163,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      },
+      "native": {
+        "costs": {
+          "scripts/demo/demo_app.gd:_layout_region_hud": [
+            93706,
+            89,
+            3730
+          ],
+          "scripts/demo/demo_app.gd:_physics_process": [
+            619601,
+            597,
+            19255
+          ],
+          "scripts/demo/demo_app.gd:_process": [
+            317953,
+            89,
+            9400
+          ],
+          "scripts/demo/plains_region_stage.gd:_physics_process": [
+            773019,
+            597,
+            20165
+          ],
+          "scripts/demo/plains_region_stage.gd:_update_context_signs": [
+            31980,
+            597,
+            4300
+          ],
+          "scripts/demo/plains_region_stage.gd:capture_state": [
+            716970,
+            597,
+            20090
+          ],
+          "scripts/enemies/enemy_actor.gd:_physics_process": [
+            1003587,
+            8955,
+            19586
+          ],
+          "scripts/player/player_controller.gd:_physics_process": [
+            446889,
+            597,
+            21329
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_protection": [
+            427168,
+            89,
+            22306
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_refresh": [
+            572110,
+            89,
+            23340
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_render_receipt": [
+            15516,
+            89,
+            2680
+          ],
+          "scripts/underworld_plains/underworld_foreground.gd:_sync_residents": [
+            120977,
+            89,
+            15799
+          ],
+          "scripts/underworld_plains/underworld_parallax.gd:_update": [
+            57729,
+            89,
+            11925
+          ],
+          "scripts/underworld_plains/underworld_presentation.gd:refresh": [
+            8410,
+            89,
+            760
+          ]
+        },
+        "elapsed_msec": 10004.695,
+        "final": {
+          "camera": [
+            -1790,
+            -35
+          ],
+          "context": "plains",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 10,
+            "mask_rectangles_drawn": 2,
+            "protect": 9,
+            "residents": 7,
+            "static": 58,
+            "tracked": 669
+          },
+          "manifest": {
+            "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+            "seed": "mobile-fps-04"
+          },
+          "menu": "",
+          "node_count": 1441,
+          "player": [
+            -1850,
+            0
+          ],
+          "texture_bytes": 535858664,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "frames": [
+          [
+            124.191,
+            61.901,
+            28.84,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.375,
+            61.901,
+            28.84,
+            92,
+            381,
+            1937
+          ],
+          [
+            102.105,
+            61.901,
+            28.84,
+            92,
+            381,
+            1937
+          ],
+          [
+            116.82,
+            61.901,
+            28.84,
+            92,
+            381,
+            1937
+          ],
+          [
+            113.244,
+            61.901,
+            28.84,
+            92,
+            381,
+            1937
+          ],
+          [
+            94.266,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            110.23,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            120.344,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            97.3,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            109.655,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            148.095,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            119.05,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            101.451,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            158.78,
+            60.506,
+            23.601,
+            92,
+            381,
+            1937
+          ],
+          [
+            74.504,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            109.091,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.064,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            100.871,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            119.919,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            95.761,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            111.445,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            176.109,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.136,
+            87.556,
+            70.714,
+            92,
+            381,
+            1937
+          ],
+          [
+            89.99,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.694,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.18,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.791,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.12,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            100.555,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            109.79,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            158.494,
+            70.789,
+            26.42,
+            92,
+            381,
+            1937
+          ],
+          [
+            155.89,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            121.13,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            120.486,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            88.91,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.425,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.905,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            112.319,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            103.74,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.01,
+            76.265,
+            33.08,
+            92,
+            381,
+            1937
+          ],
+          [
+            128.53,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.64,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            94.295,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            103.265,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            134.02,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            108.771,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            125.93,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            92.52,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.785,
+            60.425,
+            31.66,
+            92,
+            381,
+            1937
+          ],
+          [
+            109.599,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.296,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            99.974,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            121.815,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.125,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            106.256,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            123.37,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            150.279,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            144.826,
+            68.385,
+            30.445,
+            92,
+            381,
+            1937
+          ],
+          [
+            107.494,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.335,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            113.89,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.78,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            101.586,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            114.564,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            103.73,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            141.165,
+            82.07,
+            23.086,
+            92,
+            381,
+            1937
+          ],
+          [
+            102.116,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            104.909,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            113.76,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            80.56,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            141.32,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            82.39,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            180.335,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            53.36,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.71,
+            61.73,
+            33.081,
+            92,
+            381,
+            1937
+          ],
+          [
+            130.971,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            132.11,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            100.105,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            117.009,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            102.926,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            100.889,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.68,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            105.351,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            124.619,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            95.165,
+            84.014,
+            23.785,
+            92,
+            381,
+            1937
+          ],
+          [
+            133.595,
+            53.576,
+            33.055,
+            92,
+            381,
+            1937
+          ],
+          [
+            98.501,
+            53.576,
+            33.055,
+            92,
+            381,
+            1937
+          ],
+          [
+            110.649,
+            53.576,
+            33.055,
+            92,
+            381,
+            1937
+          ],
+          [
+            93.59,
+            53.576,
+            33.055,
+            92,
+            381,
+            1937
+          ]
+        ],
+        "initial": {
+          "camera": [
+            -1790,
+            -35
+          ],
+          "context": "plains",
+          "foreground": {
+            "drawn": 2,
+            "dynamic": 3,
+            "mask_rectangles_all": 10,
+            "mask_rectangles_drawn": 2,
+            "protect": 9,
+            "residents": 7,
+            "static": 58,
+            "tracked": 669
+          },
+          "manifest": {
+            "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+            "seed": "mobile-fps-04"
+          },
+          "menu": "",
+          "node_count": 1441,
+          "player": [
+            -1850,
+            0
+          ],
+          "texture_bytes": 535858664,
+          "tree_paused": false,
+          "viewport": {
+            "logical": [
+              1280,
+              720
+            ],
+            "texture": [
+              1280,
+              720
+            ]
+          }
+        },
+        "scope": "Instrumented real demo; inclusive nested script costs, no summed total or phone/GPU attribution",
+        "sequence": 4
+      },
+      "native_summary": {
+        "frames": 89,
+        "elapsed_ms": 10004.695,
+        "fps": 8.895823410908578,
+        "frame_p50_ms": 108.18,
+        "frame_p95_ms": 155.89,
+        "process_p50_ms": 68.385,
+        "process_p95_ms": 87.556,
+        "physics_p50_ms": 30.445,
+        "physics_p95_ms": 70.714,
+        "draw_calls_mean": 92,
+        "objects_mean": 381,
+        "primitives_mean": 1937,
+        "inclusive_costs": [
+          {
+            "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+            "calls": 8955,
+            "total_ms": 1003.587,
+            "ms_per_frame": 11.276258426966292,
+            "ms_per_call": 0.11207001675041876,
+            "max_ms": 19.586
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+            "calls": 597,
+            "total_ms": 773.019,
+            "ms_per_frame": 8.685606741573034,
+            "ms_per_call": 1.2948391959798995,
+            "max_ms": 20.165
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:capture_state",
+            "calls": 597,
+            "total_ms": 716.97,
+            "ms_per_frame": 8.055842696629213,
+            "ms_per_call": 1.2009547738693467,
+            "max_ms": 20.09
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_physics_process",
+            "calls": 597,
+            "total_ms": 619.601,
+            "ms_per_frame": 6.961808988764045,
+            "ms_per_call": 1.037857621440536,
+            "max_ms": 19.255
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+            "calls": 89,
+            "total_ms": 572.11,
+            "ms_per_frame": 6.428202247191011,
+            "ms_per_call": 6.428202247191011,
+            "max_ms": 23.34
+          },
+          {
+            "method": "scripts/player/player_controller.gd:_physics_process",
+            "calls": 597,
+            "total_ms": 446.889,
+            "ms_per_frame": 5.021224719101124,
+            "ms_per_call": 0.7485577889447237,
+            "max_ms": 21.329
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+            "calls": 89,
+            "total_ms": 427.168,
+            "ms_per_frame": 4.799640449438202,
+            "ms_per_call": 4.799640449438202,
+            "max_ms": 22.306
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_process",
+            "calls": 89,
+            "total_ms": 317.953,
+            "ms_per_frame": 3.572505617977528,
+            "ms_per_call": 3.572505617977528,
+            "max_ms": 9.4
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+            "calls": 89,
+            "total_ms": 120.977,
+            "ms_per_frame": 1.3592921348314606,
+            "ms_per_call": 1.3592921348314606,
+            "max_ms": 15.799
+          },
+          {
+            "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+            "calls": 89,
+            "total_ms": 93.706,
+            "ms_per_frame": 1.0528764044943821,
+            "ms_per_call": 1.0528764044943821,
+            "max_ms": 3.73
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+            "calls": 89,
+            "total_ms": 57.729,
+            "ms_per_frame": 0.6486404494382022,
+            "ms_per_call": 0.6486404494382022,
+            "max_ms": 11.925
+          },
+          {
+            "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+            "calls": 597,
+            "total_ms": 31.98,
+            "ms_per_frame": 0.3593258426966292,
+            "ms_per_call": 0.0535678391959799,
+            "max_ms": 4.3
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+            "calls": 89,
+            "total_ms": 15.516,
+            "ms_per_frame": 0.1743370786516854,
+            "ms_per_call": 0.1743370786516854,
+            "max_ms": 2.68
+          },
+          {
+            "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+            "calls": 89,
+            "total_ms": 8.41,
+            "ms_per_frame": 0.09449438202247191,
+            "ms_per_call": 0.09449438202247191,
+            "max_ms": 0.76
+          }
+        ],
+        "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window."
+      },
+      "input": "Idle at real entry spawn; no movement, teleport, pause or injected cue during capture."
+    }
+  ],
+  "scope": "Cloud Chromium SwiftShader; actual exported demo GUI and native RUN SEED input. No phone FPS, hardware-GPU timing, complete gameplay or audio-output acceptance.",
+  "browser_observer": {
+    "script_sha256": "70127f618bceaad654400fcfdfed7056948afcf0e279e8c9868c7690dc177b2c",
+    "overhead": "One RAF callback; array append only while active; LongTask observer. Same in vanilla and instrumented groups; not zero-overhead."
+  },
+  "runner_sha256": "daa1192a39ac629c619926b97498f96433d021fbbaa8998f34c548e2b67b4257",
+  "logs": [
+    "error: Failed to load resource: the server responded with a status of 404 (File not found)",
+    "log: Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "log: OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "log: Build configuration: Emscripten 4.0.20, multi-threaded, no GDExtension support.",
+    "error: Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
+    "log: PLAINS REGION: family=crossroads areas=20 fallback=",
+    "log: TERRAIN STUDY: solids=86 pieces=340 setup_ms=107",
+    "log: FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/bellstrider.tres\",\"boss_scene\":\"res://scenes/bosses/bellstrider.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f\",\"map_index\":1,\"region\":\"plains\",\"seed\":\"mobile-fps-04\"}"
+  ],
+  "page_errors": [],
+  "served_metadata": {
+    "build_id": "0664a4d2254b",
+    "pack": "index.0664a4d2254b.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "8950bf54cf85",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 209298300,
+    "download_bytes": 205890592,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+    "engine_template": "debug",
+    "engine_only_comparison": true,
+    "diagnostic_pack_override": true
+  },
+  "plains_region_event": {
+    "abilities": [],
+    "boss_definition": "res://resources/bosses/bellstrider.tres",
+    "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+    "content_version": "plains-region-v12-root-bell-spaces",
+    "debug_entry": false,
+    "event": "region_assembled",
+    "layout_version": "",
+    "manifest_hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+    "map_index": 1,
+    "region": "plains",
+    "seed": "mobile-fps-04"
+  },
+  "session_wall_seconds": 189.53055132200097
+}

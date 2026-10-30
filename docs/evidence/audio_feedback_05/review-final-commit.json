@@ -1,0 +1,244 @@
+{
+  "task": "AUDIO-FEEDBACK-05",
+  "kind": "independent_engineering_review",
+  "reviewer": "/root/ambience_review",
+  "source_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+  "reviewed_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+  "decision": "ACCEPT",
+  "acceptance_scope": "This is a new read-only engineering review actually performed against f6 implementation, metadata and tests. It does not change the source of any previous review, BGM command, movie or browser/site receipt.",
+  "compared_documentation_commit": "2070796b065caf95f6d129593b7b037000311ac6",
+  "implementation_commit_comparison": {
+    "all_implementation_blob_modes_and_object_ids_equal": true,
+    "implementation_entries_compared": 30200,
+    "sorted_implementation_inventory_sha256": "587ec0596d651f206e8a72b2df163bd19cc2ec7ee9d87fcd0b8565b7eb521674",
+    "definition": "All tracked entries except the explicitly changed task narrative/quality record and docs/evidence/audio_feedback_05 artifact subtree; creative-direction/Bible metadata, tests, tools, source, configuration, assets and workflows are included.",
+    "excluded_context_files": [
+      "docs/current_state.md",
+      "docs/handoff.md",
+      "docs/quality/records/AUDIO-FEEDBACK-05.json",
+      "docs/tasks.md"
+    ],
+    "excluded_evidence_prefix": "docs/evidence/audio_feedback_05/",
+    "actual_changed_paths_all_within_exclusions": [
+      "docs/current_state.md",
+      "docs/evidence/audio_feedback_05/README.md",
+      "docs/evidence/audio_feedback_05/final-regression/feedback/native.log.gz",
+      "docs/evidence/audio_feedback_05/final-regression/feedback/report.json",
+      "docs/evidence/audio_feedback_05/final-regression/previous-fix/native.log.gz",
+      "docs/evidence/audio_feedback_05/final-regression/previous-fix/report.json",
+      "docs/evidence/audio_feedback_05/final-regression/rewards/native.log.gz",
+      "docs/evidence/audio_feedback_05/final-regression/rewards/report.json",
+      "docs/evidence/audio_feedback_05/final-regression/selected/native.log.gz",
+      "docs/evidence/audio_feedback_05/final-regression/selected/report.json",
+      "docs/evidence/audio_feedback_05/harness-final.json",
+      "docs/evidence/audio_feedback_05/native-suite-final.json",
+      "docs/evidence/audio_feedback_05/receipt.json",
+      "docs/handoff.md",
+      "docs/quality/records/AUDIO-FEEDBACK-05.json",
+      "docs/tasks.md"
+    ]
+  },
+  "independently_read_current_files_sha256_equal_f6_and_207": {
+    "assets/audio/feedback_05/manifest.json": "799a69de37b291bde7229072aa9ec2d877bfeb949b79133cb558142945c87d13",
+    "config/audio_director/feedback_05/recipes.json": "e6fb036049d796036b5fed5814b65abef6772380d81714d41b5a4461c332c875",
+    "config/audio_director/feedback_05/sources.json": "b2c44b5061545fb6830a1df3af581f1f44f26186529cd0a1d4e26ab8f91f0068",
+    "docs/creative_direction/archive/creative-v22/manifest.json": "edb99db3c34ff269c21ccf2f20b049edb530d306b56e06612895ecd2e06ff4e7",
+    "docs/creative_direction/bibles/registry.json": "d82579efc0fdd3313d71bed1ad225fd450be90e6d511d30fa2035c59f60ff0c0",
+    "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e",
+    "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json": "66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8",
+    "docs/creative_direction/revision_creative_v23.md": "d05d4da7dd1ae77e1fec691882abc25b7d2709564739aa34e2955a354618d6f1",
+    "docs/creative_direction/thorn_forest.json": "4eb43e7bd2bb0868b6957b2e8e66ed42b1d7fc406876b859f5e724dc76911fb8",
+    "docs/creative_direction/windchime_plains.json": "eb285418637b24afdd9e0c621d61245642547335d77ddbe9874aa8574b8f07e8",
+    "scripts/audio/game_audio.gd": "72706df898c09f1fa1c3955278a96b541fce374a0c960a54146311a6bbca1781",
+    "scripts/audio/game_music.gd": "46f0e771883351b9c41566c9f0de4b6d080f0fb7ae32e82fbe940174db782ce8",
+    "scripts/audio/selected_sfx_runtime.gd": "f90bef12397307bd1e9f3d6657c2a239506a93aebb8c225e14ee0aa0248cdeec",
+    "scripts/demo/demo_app.gd": "3e9e9baf24da3e08cc53890d41d1f995f78c280d90666f514e47b4cda6555c5f",
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd": "7d800d5b0e3eabe03305bf96ecc7cae3d8f3bf134c6e15e7029f592022532836",
+    "scripts/items/v5/item_v5_shop_presenter.gd": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+    "scripts/ui/demo_menu.gd": "af2f5a92ca800bcbe4340c23d3007e9d37b93dff96e9720df102cb17040c930d",
+    "tests/audio_feedback_05.gd": "a0df222d697c939d0f94959e4953fbc41551ae28724e5641fd67fea8282e53a4",
+    "tests/audio_feedback_rewards.gd": "ba2010bd790c5404e0e6e05558884a8577ba91330c20bec8d38792ef7ade1f11",
+    "tests/selected_sfx_runtime.gd": "04f832fb557c6f03f07941bd079771c67ed029da8d9403d184c0b67183aedb87",
+    "tests/test_region_bible.py": "462cc62a3fa21fae63999715a43251843ce31c647376c5c43f7cbab252893703",
+    "tests/test_region_creative_direction.py": "99cc9e719c53e65a921e56867767521c0d9339d7b757f0289f30bfdd73a70e33",
+    "tools/audio_feedback_design.py": "8b3c5c7a728b7bcdbe3f5fa6fbfc00b8128fcae67ef370f4f7c33f525fd1d8d3",
+    "tools/harness.py": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+    "tools/harness/profiles.json": "1a07f1bc569f0f1038356918e93d82ba4d185343544cad76596f7260eec7b385",
+    "tools/production_loop.py": "ec7d7d5f9af2bc0474ac8a05fcdf6013df8768555497fe2162592cf8c5f47981",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "tools/run_audio_feedback_tests.py": "ae3a02afe079855f5cf900303b92ac3032429beaecc358b3ac7c5c8bbab26067",
+    "tools/run_tests.py": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb"
+  },
+  "current_engineering_assessment": [
+    "Actual COMMITTED reward call sites use the new App-owned interface for chest_open/item_get; paused selected and legacy confirmations have bounded shared-pool playback and explicit lifecycle markers.",
+    "Original-profile reward flag forwarding, legacy weak-origin cleanup and invalid revision-id refusal are present in the actual f6 code. Root twelve-voice pool and world pause/mute gates remain unchanged except approved committed reward completion.",
+    "Only selected default hurt uses hurt_feedback_05; explicit old C and frozen choice/assets remain unchanged. Wall is a separate CC0 family with60ms/two concurrent presentation caps, without changing projectile damage or enemy-hit selection.",
+    "First music start retains original session*0.16 gain; repeated same-track input does not restart, later transition remains0.9s. Browser permission and perceptual audibility are not inferred from this code assessment.",
+    "style20/creative23 keep81 role/path/order references, exactly3 source SHA changes and78 retained; original direction/style/user/Bible content and historical rejection remain protected.",
+    "Final new audio-feedback check adds the real creative-direction dependency; its original4 CASES/90-120-90-90 caps/outer240/marker remain. UTC microsecond fresh output and mkdir(exist_ok=False) precede consumer execution/report writes, refusing overwrites."
+  ],
+  "metadata_tests_and_guards": {
+    "style_reference_count": 81,
+    "sha_only_changed_consumers": [
+      "scripts/demo/demo_app.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/items/v5/item_v5_shop_presenter.gd"
+    ],
+    "unchanged_references": 78,
+    "test_ast_counts": [
+      {
+        "path": "tests/test_region_bible.py",
+        "methods": 34,
+        "assert_calls": 332
+      },
+      {
+        "path": "tests/test_region_creative_direction.py",
+        "methods": 12,
+        "assert_calls": 155
+      }
+    ],
+    "old_test_methods_preserved_by_prior_direct_diff_reconfirmed_via_unchanged_f6_blobs": true,
+    "region_bible_input_prefix_preserved": 323,
+    "region_bible_input_count": 331,
+    "new_audio_check_extra_input": "docs/creative_direction",
+    "entire_other_profile_object_equal_9f3": true,
+    "independent_current_cli_checks": [
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/region_creative_direction.py",
+          "--directory",
+          "docs/creative_direction"
+        ],
+        "exit_code": 0,
+        "stdout": "PASS: 2 versioned creative directions; no runtime, art or player acceptance inferred"
+      },
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/region_creative_direction.py",
+          "--check-bibles"
+        ],
+        "exit_code": 0,
+        "stdout": "PASS: Bible registry and selected original bytes; direction only, production/audio/device outcomes unverified"
+      }
+    ],
+    "independent_in_memory_or_actual_archive_negative_controls": [
+      {
+        "case": "stale creative22 windchime_plains",
+        "rejected": true
+      },
+      {
+        "case": "stale creative22 thorn_forest",
+        "rejected": true
+      },
+      {
+        "case": "stale style19 pointer",
+        "rejected": true
+      },
+      {
+        "case": "in-memory source bytes drift scripts/demo/demo_app.gd",
+        "rejected": true
+      },
+      {
+        "case": "in-memory source bytes drift assets/underworld_plains/terrain/fine_32/source.png",
+        "rejected": true
+      }
+    ],
+    "full_34_and_12_suites_not_rerun_by_this_reviewer": "Their recorded earlier results remain at their actual source contexts; actual current test/metadata blobs are independently checked equal f6 and current validators executed above."
+  },
+  "fresh_f6_native_harness": {
+    "path": "build/verification/harness/20261030T032444.426424Z/report.json",
+    "report_sha256": "a4bde561e36e16903a8cc9986f34df221439408bc043ef12d2b0afd95027bf0d",
+    "actual_recorded_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+    "dirty_paths": [
+      "docs/quality/records/AUDIO-FEEDBACK-05.json"
+    ],
+    "targeted_check": "audio-feedback",
+    "status": "passed",
+    "reused": false,
+    "check_seconds": 40.981,
+    "harness_wall_seconds": 48.158,
+    "fresh_unique_output": "regression-20261030T032448.963251Z",
+    "native_cases": [
+      {
+        "case": "feedback",
+        "checks": 30,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 9.870566715999303,
+        "report_sha256": "74826fd2287de7a5f53d2478c552bcf19c92fcdd947c2a3214073ef199046983",
+        "native_log_sha256": "83a9a8049d8943d3802ea12f46fdf5064aa169cae38129cf9e077ed720330bef",
+        "committed_archived_report_and_gzip_log_exact": true
+      },
+      {
+        "case": "rewards",
+        "checks": 70,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 11.754877941999439,
+        "report_sha256": "5e6fa6c3b8a12ccaa27b70b4c0762ac0b98200edc86f9b4d1412ccf09fc0df64",
+        "native_log_sha256": "da62806a741bcfb829f5b0758087938ca26a4e684ce7c9e8383ccf7bca9050af",
+        "committed_archived_report_and_gzip_log_exact": true
+      },
+      {
+        "case": "selected",
+        "checks": 63,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 10.96999046900055,
+        "report_sha256": "f76ec86ebc36285501e44d86c8cac56a9d0d6997e1f1d4c7677da55a36adef79",
+        "native_log_sha256": "4e8db92503cff183074c9c8b8f4b38ed3b465c7508cb4cc870b55267da161db2",
+        "committed_archived_report_and_gzip_log_exact": true
+      },
+      {
+        "case": "previous-fix",
+        "checks": 31,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 8.048600811999677,
+        "report_sha256": "2dc00ca1d45f96d5b26672b10c9ed0d09b73dcc4123290ad2c1059ef4532a54f",
+        "native_log_sha256": "e6e4c51c8c9a6c206bd87e4aea73289072b4d3f723e8c6e40d890ed41ac1a80e",
+        "committed_archived_report_and_gzip_log_exact": true
+      }
+    ],
+    "total_checks": 194,
+    "scope": "Actual new execution on f6, not relabeled old194. Four strict native consumers, with the explicit damage/position/menu/wallet fixtures retained; no natural long-route or device/aesthetic approval. Not full CI."
+  },
+  "historical_artifacts_preserved": {
+    "exact_original_review_hashes": {
+      "docs/evidence/audio_feedback_05/review.md": "4bb6eb07e0b744c3cf125bb2ea0a671ef99c07ba3ea7065b2aa46887c94f3827",
+      "docs/evidence/audio_feedback_05/review-binding.json": "873a21f7aca0ba7b91734ac773cf84e5ed85c6168c9eac4daf00dc5d1abfb86b",
+      "docs/evidence/audio_feedback_05/review-binding-migration.md": "d6155dfef067a73fff3315086412e9dfdd6d330f54c57d8390e9638a1a7f17c2"
+    },
+    "original_fourteen_review_fingerprints_still_exact": true,
+    "old_migration_profile_snapshot_note": "The frozen migration review predates the independently approved one-entry dependency hardening. Its original profile hash is retained as history; current final profile and UTC wrapper are reviewed here directly at f6.",
+    "new_bgm_evidence_relabelled": false,
+    "private_site_or_PCK_producer_relabelled": false,
+    "original_movie_producer_relabelled": false,
+    "old_reviews_relabelled": false
+  },
+  "protected_inputs_sha256": {
+    "config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
+    "assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
+    "config/audio_director/v3/recipes.json": "896d6b691dd3fdedc8cdd40bebea5183ed91eeee1cc247af15e76c6e2455efa8",
+    "config/audio_director/v3/sources.json": "d947e2e626c99c61d9490b39d6b517af91ee4b41f85d0abe48fe6bbfbf06d95a",
+    "tools/audio_candidates_v3.py": "ea6bc4818f193004f6f824c3e0ad431fc3c8142e97f764cc1593018b4c7a23ed",
+    "assets/audio/director_v3/hurt_c.wav": "5f96250bdd17c5858ee0bb7f4841b7f4f13daa5399dc1544e1b8dbb8a3492a17",
+    "assets/audio/bgm/where_the_path_bends.mp3": "1b6fd5dcc31c1ab61bf175484d9b2ca5ba77481597b1a9945fdb8949d52cbcfa",
+    "assets/audio/bgm/across_the_wooden_sails.mp3": "b6c742bf50b1f475f69a764fb9ec2ea0f70c18ce77315d20df9a719a75be4d9d",
+    "assets/audio/bgm/the_kindred_hearth.mp3": "530502f6dd825d6fb5168454240d4ac3d68c63b701f6202b169c15c11a073896",
+    "assets/audio/bgm/vines_beneath_the_canopy.mp3": "04e3606cc725f0612bd842801d7ef9325f2d09b10d94c14b3be62f03a5233607",
+    "assets/audio/bgm/beyond_the_knotted_vines.mp3": "b21f52effcc5a06288faaf1462331232feb6aca6ec16a1440d771f9e6bae6992"
+  },
+  "protected_input_count": 11,
+  "protected_input_bytes_unchanged": true,
+  "limitations": [
+    "Engineering acceptance only for f6 implementation.207 is independently confirmed documentation-only relative to it.",
+    "Actual old BGM89, private Site/PCK/browser and movies keep their original producers and evidence sources; this review issues no new run or device/listening certification for them.",
+    "No actual browser execution, Godot execution, whole-movie viewing or human listening by this reviewer.",
+    "Physical phone/iOS Safari, commercial sound quality, user preference for revised sounds, long natural combat/campaign and full CI/merge/deployment are not signed by this review.",
+    "Old static global-group cue APIs retain their known scope; new reward-owner assessment is not a claim of complete multi-App routing repair."
+  ],
+  "reviewer_actions": "Read current f6-identical implementation and tests; compare Git blobs/modes and reviewed file SHA; inspect new f6 native receipts and exact archived logs; independently execute two pure Python CLI validators and five read-only/in-memory refusal controls. No production edits, engine or old evidence rewrites."
+}

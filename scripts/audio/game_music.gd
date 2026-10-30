@@ -39,13 +39,13 @@ func _ready() -> void:
 		voice.volume_db = -80.0
 		add_child(voice)
 		_voices.append(voice)
-	if _unlocked and not requested_track.is_empty(): _transition(requested_track)
+	if not requested_track.is_empty(): _transition(requested_track)
 
 func request_track(id: StringName) -> bool:
 	if _shutting_down or (not id.is_empty() and not TRACKS.has(id)): return false
 	if id == requested_track: return true
 	requested_track = id
-	if _unlocked and not _voices.is_empty(): _transition(id)
+	if not _voices.is_empty(): _transition(id)
 	return true
 
 func set_menu_paused(value: bool) -> void:
@@ -55,12 +55,16 @@ func _input(event: InputEvent) -> void:
 	if _unlocked or _shutting_down: return
 	var gesture: bool = (event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed and not event.canceled) or (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventJoypadButton and event.pressed)
 	if not gesture: return
-	# Godot's Web audio backend resumes on this same real user gesture. Do not
-	# consume the event: the original title/menu/gameplay control still owns it.
+	# Requests already reach AudioStreamPlayer, including before Web activation.
+	# Godot's Web backend owns autoplay suspension/resume on real gestures. Keep
+	# this observation for the existing ambience consumer; do not restart music
+	# or consume the original title/menu/gameplay input.
 	_unlocked = true
-	_transition(requested_track)
 
 func _transition(id: StringName) -> void:
+	# The title requests the initial track immediately. Web may suspend its
+	# audio context until a real gesture; later track changes still crossfade.
+	var initial_start := starts.is_empty() and not id.is_empty()
 	_targets.fill(0.0)
 	if not id.is_empty():
 		var chosen := _ids.find(id)
@@ -69,9 +73,10 @@ func _transition(id: StringName) -> void:
 			var voice := _voices[chosen]
 			voice.stop()
 			voice.stream = TRACKS[id] as AudioStreamMP3
-			voice.volume_db = -80.0
+			var initial_gain := MUSIC_GAIN * (volume_source.volume if is_instance_valid(volume_source) else 0.7)
+			voice.volume_db = linear_to_db(maxf(0.00001, initial_gain)) if initial_start else -80.0
 			_ids[chosen] = id
-			_gains[chosen] = 0.0
+			_gains[chosen] = 1.0 if initial_start else 0.0
 			voice.play()
 			starts[id] = int(starts.get(id, 0)) + 1
 			if voice.has_stream_playback(): _playbacks.append(weakref(voice.get_stream_playback()))
