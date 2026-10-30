@@ -144,3 +144,6 @@ Positive actual static silhouette observations: single stomp visibly raises one 
 Latest scoped verdict: **current material cohesion requires REWORK; complete natural fight, continuous warning/landing/recovery motion, matched-cadence third-shot comparison, original-audio listening and final frozen binding remain UNVERIFIED.** Source/support/audio receipt acceptance does not override this pixel finding.
 
 GPU source presentation SHA observed: `83b73600c7311e6cceba51da225a00542fa90b5f37b020214ea662cb7c7b5721`
+
+
+2026-10-30后续索引：上文是实际早期审查和原拒绝，不追写成通过。当前有完整原声GPU影片及第三枪失败对照，实际源、限定后续独审、R3成功与所有旧失败见[当前证据](../../evidence/windkeeper_pressure_01/README.md)。

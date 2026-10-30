@@ -4,7 +4,7 @@
 
 六招：重踏（单/双足提前分辨）、低身短扑（真实起落/落地承重）、风叶横扫（肩背侧转/高低预告）、展帆风压（方向风与帆/环境一致）、仰首三枚扇形风籽、三阶段抬肢踏台（真实伸向锁定平台）。阶段一重踏/短扑/风籽单/双；二双连加入风压/横扫；三断桥后两至三招追压真实落脚点，不固定顺序桥墩巡回。最多三次主攻，恢复不补发新弹。
 
-正式消费者为BossFactory windkeeper_storm、PlainsRegionStage地图二；历史WindkeeperEncounter/旧Lab与鸣铃巡游机保持原机制。采用新WindkeeperPressureEncounter子类/独立场景，以父契约兼容App、WindkeeperArena、保存、HUD与一次奖励。共享玩家Motor/武器/资源/概率掉落/BGM不改，不将先前PR119合main授权外推。
+正式消费者为BossFactory windkeeper_storm、PlainsRegionStage地图二；经典12HP Windkeeper及其旧Lab、鸣铃巡游机保持原机制；当前StormLab的storm_trial/storm_phase2/storm_phase3同步使用Pressure及明确40/20HP阶段fixture，冻结v5仅作显式历史回放。采用新WindkeeperPressureEncounter子类/独立场景，以父契约兼容App、WindkeeperArena、保存、HUD与一次奖励。共享玩家Motor/武器/资源/概率掉落/BGM不改，不将先前PR119合main授权外推。
 
 采用boss-creator、animation-vfx、audio-director、game-quality-gate；沿原G0–G5/十一维，不另造验收体系。用户设计已授权制作，不重新要求选方向。读取当前Bible/共享画风；独立G0核公平、消费者和动作共锚，源码冻结后真实专项与独立实片审查。原失败/预算/断言保留。实际完整连续带原声战斗需展示站桩追压、六招、两/三连最终恢复、三阶段及两枪/贪第三枪对照；受控分阶段片不替代完整自然战斗，AI不签用户/设备。
 

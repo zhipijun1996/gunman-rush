@@ -1,0 +1,113 @@
+{
+  "task": "WINDKEEPER-PRESSURE-01",
+  "status": "failed_attempt_retained",
+  "source": {
+    "working_files": {},
+    "commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "execution": {
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1793388725.191531,
+    "ended_at_unix": 1793388947.8117402,
+    "duration_seconds": 222.62,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/windkeeper_pressure_01/movie-greedy-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/windkeeper_pressure_01_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/windkeeper_pressure_01/movie-greedy-01/trace.json",
+      "--seed=windkeeper-pressure-01",
+      "--pilot=assault_greed3",
+      "--max-battle-seconds=100.0"
+    ],
+    "check_token": "aa67b1cc51de455ea4eaf00703124e7b"
+  },
+  "source_stable": true,
+  "mp4_sha256": "8d947272e0e9e49dea1f5e95a48ef5b4908229244375b1a1bfc15c879ee50784",
+  "avi_sha256": "a3b188dd92ed780958687da5ef5a7a42226fa06ba34be63d12ce4a5559f02f33",
+  "trace_frame_count": 4091,
+  "errors": [
+    "Godot encounter capture failed; original attempt retained",
+    "Actual player death; failed continuous attempt retained",
+    "Coverage gap: full_base_60HP_damage",
+    "Coverage gap: full_death",
+    "Coverage gap: configured_coin_total",
+    "Coverage gap: actual_configured_wallet_delta",
+    "Coverage gap: all_units_claimed",
+    "Stationary observation did not show meaningful active Boss approach"
+  ],
+  "seconds": 277.8168907990039,
+  "scope": "Matched assault_greed3 profile, same seed/normal inputs/runtime as active_assault but final recovery permits three shots. Full original failed attempt retained: player died, Boss still12HP, no Boss death/reward. This is an observation, not accepted full encounter or proof that third shot caused death.",
+  "media": {
+    "path": "media/windkeeper-60hp-third-shot-failed.mp4",
+    "seconds": 68.433333,
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "original_engine_audio": true,
+    "listening_acceptance": false
+  },
+  "combat_metrics": {
+    "accepted_damage": 48.0,
+    "accepted_hits": 48,
+    "airborne": false,
+    "attack_index": 1,
+    "camp_age": 0.05,
+    "death_age": 0.0,
+    "effective_hits": 48,
+    "fight_seconds": 68.0333333333308,
+    "group_plan": {},
+    "groups_completed": 13,
+    "groups_started": 14,
+    "hop_target_rect": [
+      6510.0,
+      588.0,
+      190.0,
+      20.0
+    ],
+    "locked_direction": 1,
+    "locked_hop_target": [
+      6605.0,
+      523.0
+    ],
+    "locked_target": [
+      6707.92529296875,
+      538.791198730469
+    ],
+    "state_age": 0.0,
+    "state_duration": 0.0,
+    "support_rect": [
+      6510.0,
+      588.0,
+      190.0,
+      20.0
+    ],
+    "support_verified": true,
+    "supports_bound": true,
+    "sweep_high": true
+  },
+  "trace_failures": [
+    "Actual player death; failed continuous attempt retained",
+    "Coverage gap: full_base_60HP_damage",
+    "Coverage gap: full_death",
+    "Coverage gap: configured_coin_total",
+    "Coverage gap: actual_configured_wallet_delta",
+    "Coverage gap: all_units_claimed"
+  ]
+}
