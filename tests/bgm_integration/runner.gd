@@ -55,26 +55,27 @@ func audio_clock(voice: AudioStreamPlayer) -> Dictionary:
 	return {"monotonic_usec":Time.get_ticks_usec(),"playing":voice.playing,"position":voice.get_playback_position(),"backend_position":playback.get_playback_position() if playback else -1.0,"loop_count":playback.get_loop_count() if playback else -1,"since_mix":AudioServer.get_time_since_last_mix(),"to_next_mix":AudioServer.get_time_to_next_mix(),"mix_rate":AudioServer.get_mix_rate(),"process_frame":Engine.get_process_frames()}
 
 func gate_and_loop_checks() -> void:
-	# Native fixture for the deferred Web policy; actual browser activation is
-	# separately unverified. Window.push_input follows the real input callback.
+	# Native fixture for automatic title play plus gesture observation; actual
+	# browser autoplay/resume stays separately verified. Use real Window input.
 	var music := GameMusic.new()
 	root.add_child(music)
 	music._unlocked = false
-	check(music.request_track(&"home"), "valid deferred title track accepted")
+	check(music.request_track(&"home"), "valid automatic title track accepted")
 	await frames()
-	check(music.starts.is_empty() and not music._voices[0].playing, "locked service queues track without starting audio")
+	check(int(music.starts.get(&"home", 0)) == 1 and music._voices[0].playing, "title requests actual player play before any activation gesture")
+	var started_before_gesture := music.starts.duplicate()
 	var canceled := InputEventScreenTouch.new()
 	canceled.pressed = true
 	canceled.canceled = true
 	root.push_input(canceled, true)
 	await frames()
-	check(not music._unlocked, "canceled touch is not an unlock gesture")
+	check(not music._unlocked and music.starts == started_before_gesture, "canceled touch is not an unlock gesture and cannot restart title audio")
 	var gesture := InputEventKey.new()
 	gesture.physical_keycode = KEY_SHIFT
 	gesture.pressed = true
 	root.push_input(gesture, true)
 	await frames()
-	check(music._unlocked and int(music.starts.get(&"home", 0)) == 1, "actual Window key input starts deferred music once")
+	check(music._unlocked and music.starts == started_before_gesture, "actual Window key input records activation without restarting requested music")
 	gesture.pressed = false
 	root.push_input(gesture, true)
 	var started := music.starts.duplicate()

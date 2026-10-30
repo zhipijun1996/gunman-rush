@@ -2,7 +2,11 @@ class_name PlayerWeaponFeelAudioV2
 extends PlayerWeaponFeelAudio
 ## Licensed game samples plus CC0 recorded timer beep; same twelve voices/volume.
 const TIMER_BEEP := preload("res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav")
-const WALL_FEEDBACK := [preload("res://assets/audio/feedback_05/wall_1.wav"), preload("res://assets/audio/feedback_05/wall_2.wav"), preload("res://assets/audio/feedback_05/wall_3.wav")]
+const WALL_CLIP := preload("res://assets/audio/feedback_05/wall_1.wav")
+# The inherited selector rotates three slots. Alias one chosen take in all
+# slots so every serial still works without changing its cadence or RNG.
+# The logged slot index is compatibility telemetry, not three authored variants.
+const WALL_FEEDBACK := [WALL_CLIP, WALL_CLIP, WALL_CLIP]
 var _last_wall := -100.0
 func _ready() -> void:
 	weapon_clips=preload("res://resources/player_presentation_01/weapon_sound_data_v2.gd").CLIPS.duplicate()

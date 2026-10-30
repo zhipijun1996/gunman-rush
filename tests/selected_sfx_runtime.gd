@@ -99,7 +99,7 @@ func exercise() -> void:
 		check(audio.play_director_event(StringName(row.event_id), "", app), "Existing dispatch accepts selected " + row.event_id)
 		var played: Dictionary = audio.director_events.back()
 		if row.event_id == "hurt":
-			check(played.candidate == "hurt_feedback_05" and played.path in RUNTIME.HURT_FEEDBACK.variants, "Latest explicit rejection revises hurt without mutating the frozen C choice")
+			check(played.candidate == "hurt_feedback_06_a" and played.path in RUNTIME.HURT_CANDIDATES.A.variants, "Latest explicit rejection revises hurt without mutating the frozen C choice")
 		else:
 			check(played.candidate == row.candidate_id and played.path == row.candidate_path, "Actual candidate/path matches selection: " + row.event_id)
 	check(app._music.get_instance_id() == music_id and app._music.requested_track == track and app._music.starts == music_starts, "Selected SFX dispatch never changes/restarts BGM")

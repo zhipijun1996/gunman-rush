@@ -4,9 +4,10 @@ extends Node
 const SELECTION_PATH := "res://config/audio_director/selected/selected.json"
 const MANIFEST_PATH := "res://assets/audio/director_v3/manifest.json"
 const RULES_PATH := "res://config/audio_director/v3/runtime.json"
-const HURT_FEEDBACK := {
-	"id": "hurt_feedback_05",
-	"variants": ["res://assets/audio/feedback_05/hurt_1.wav", "res://assets/audio/feedback_05/hurt_2.wav"]
+const HURT_CANDIDATES := {
+	"A": {"id": "hurt_feedback_06_a", "variants": ["res://assets/audio/feedback_06/hurt_a.wav"]},
+	"B": {"id": "hurt_feedback_06_b", "variants": ["res://assets/audio/feedback_06/hurt_b.wav"]},
+	"C": {"id": "hurt_feedback_06_c", "variants": ["res://assets/audio/feedback_06/hurt_c.wav"]}
 }
 const PINNED_JSON := {
 	"res://config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
@@ -82,6 +83,7 @@ var _audio: WeakRef
 var _owner: WeakRef
 var _probe_enabled := false
 var _probe_timer: Timer
+var _hurt_audition := "A"
 
 static func read_json(path: String) -> Variant:
 	return JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
@@ -155,6 +157,10 @@ func _ready() -> void:
 	set_process(false)
 	if OS.has_feature("web"):
 		_probe_enabled = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_probe') === '1'"))
+		# Explicit Sound Lab links select a development candidate, never rewrite
+		# the frozen user choice, gameplay random streams or persistent settings.
+		var requested: Variant = JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_hurt') || 'A'")
+		if requested is String and HURT_CANDIDATES.has(requested): _hurt_audition = requested
 	_attach.call_deferred()
 
 func _attach() -> void:
@@ -183,7 +189,7 @@ func _attach() -> void:
 		_publish_probe()
 		return
 	# All byte/path/profile validation precedes any change to the live bank.
-	if not service.configure_candidate_bank(MANIFEST_PATH, RULES_PATH) or not service.configure_selected_profiles(selection.event_profiles) or not service.configure_candidate_revision(&"hurt", HURT_FEEDBACK) or not service.set_audio_profile("selected"):
+	if not service.configure_candidate_bank(MANIFEST_PATH, RULES_PATH) or not service.configure_selected_profiles(selection.event_profiles) or not service.configure_candidate_revision(&"hurt", HURT_CANDIDATES[_hurt_audition]) or not service.set_audio_profile("selected"):
 		validation_error = "existing GameAudio rejected validated selected proposal"
 		_publish_probe()
 		return

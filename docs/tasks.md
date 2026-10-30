@@ -1,5 +1,11 @@
 # 开发任务
 
+## 2026-10-30 AUDIO-FEEDBACK-06 · 标题自动音乐与主角受伤再选材
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| AUDIO-FEEDBACK-06 | 标题即播、碰墙固定新版1、参考空洞骑士重做受伤候选 | AUDIO-FEEDBACK-05 | in_progress | [范围](worklines/audio_feedback_06/scope.md) · [记录](quality/records/AUDIO-FEEDBACK-06.json) |
+
 ## 2026-10-30 AUDIO-FEEDBACK-05 · 正式试玩声音反馈
 
 标题BGM启动、主角受伤与墙地音色、机关可听性、正式宝箱/道具成功反馈。分支fix/audio-playtest-feedback-20261030，从main5f55716a开始；[范围](worklines/audio_feedback_05/scope.md)／[记录](quality/records/AUDIO-FEEDBACK-05.json)。当前review，独立试听已发布，技术、真实混音和用户听感分开，不重复追认旧候选。

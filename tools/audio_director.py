@@ -190,6 +190,12 @@ def brief(request,output):
         if hero_hurt or solid_contact:
             result.update(task='AUDIO-FEEDBACK-05',candidate_version='audio-feedback-v1',next_command='python3 tools/audio_feedback_design.py build')
             result['selected_events']=list(dict.fromkeys([*result['selected_events'],*(['hurt'] if hero_hurt else []),*(['wall'] if solid_contact else [])]))
+    hurt_revision_paths=['docs/audio_director/feedback_06.md','config/audio_director/feedback_06/recipes.json','config/audio_director/feedback_06/sources.json','assets/audio/feedback_06/manifest.json']
+    if all((ROOT/path).is_file() for path in hurt_revision_paths):
+        result['inputs'] += [{'path':path,'sha256':sha(ROOT/path)} for path in hurt_revision_paths]
+        result['current_feedback_revision']={'task':'AUDIO-FEEDBACK-06','version':'audio-feedback-06-v1','status':'three new hurt directions awaiting user hearing; wall1 trial selected','rejected_in_real_play':['hero hurt C','feedback05 hurt1/2','Freedoom solid-wall timbre'],'runtime':'Title requests original BGM immediately, subject to browser autoplay policy. Wall uses feedback05/wall_1 only. Hero hurt has separate fracture/body/air candidates A/B/C; explicit old-C audition and old05 files remain unchanged.','manifest':'assets/audio/feedback_06/manifest.json'}
+        if any(word in request.lower() for word in ['主角受伤','人物受伤','hero hurt','player hurt','碰墙','solid contact']) or ('受伤' in request and not any(word in request for word in ['敌人','怪物'])):
+            result.update(task='AUDIO-FEEDBACK-06',candidate_version='audio-feedback-06-v1',next_command='python3 tools/audio_hurt_design.py build')
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():
