@@ -784,7 +784,7 @@ func _load_stage() -> void:
 		if connected_region:
 			var region:=stage as PlainsRegionStage
 			region.boss_seal=BossArenaSeal.new()
-			if region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+			if encounter is BellstriderEncounter or (region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT):
 				region.boss_seal.world_status_text_enabled=false
 			region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
