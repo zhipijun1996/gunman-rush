@@ -53,4 +53,6 @@ python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen
 
 下方 b2f71528 是旧美术构建，仅作历史复现；用户指出表现错误后，candidate-v2 已纠正正式消费者。当前源的媒体、构建身份和测试结果以[验收记录](../../evidence/mapgen_930001/README.md)追加的 v2 收据为准。
 
+当前新版固定地图本地ZIP：`build/mapgen_930001/mapgen-930001-web-6726edd6c91b.zip`（源码cce9d74，包含完整主游戏菜单和固定场景参数）；解压后的启动方式同下。M29箱子正下方受PortC封口挤占头部空间；已用真实玩家从局部[270,20]落到平台右缘[270,46]，W和鼠标实领4金币，未认证从主路连续到达该点。完整测试仍845/3（原M24），不扩seed。
+
 冻结源b2f71528、build054648325c2e的ZIP在 `build/mapgen_930001/mapgen-930001-web-054648325c2e.zip`。解压，执行 `python3 serve.py --directory . --port 8807`，浏览器打开 http://127.0.0.1:8807/。这是实际本地浏览器验证的固定地图开发入口；完整PCK和ZIP指纹见验收目录build.json。独立公开Preview的staging被既有900MiB容量守门拒绝，没有新公开网址。

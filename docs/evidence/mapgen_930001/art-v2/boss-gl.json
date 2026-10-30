@@ -1,0 +1,244 @@
+{
+  "captured": true,
+  "cases": [
+    {
+      "evidence": {
+        "instance": "M40",
+        "module": "game-plains-boss-arena",
+        "native_binding": "res://scripts/mapgen/boss_binding.gd"
+      },
+      "id": "boss/bound_native_system",
+      "kind": "runtime_binding",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "active": true,
+        "continuous_route": false,
+        "face": "RIGHT",
+        "fixture_placement": true,
+        "instance": "M40",
+        "port": "entry",
+        "position": [
+          -3640.0,
+          -2866.0
+        ]
+      },
+      "id": "boss/arrival_trigger",
+      "kind": "scoped_native_player",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "accepted_shots": 36,
+        "boss_health_after": 0.0,
+        "boss_health_before": 36.0,
+        "fixture_placement": "arrival only; no position assignments or grants during combat",
+        "phases_observed": [
+          1,
+          2,
+          3
+        ],
+        "player_health_after": 3.0,
+        "player_health_before": 5.0
+      },
+      "id": "boss/native_projectile_damage",
+      "kind": "scoped_native_player_combat",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "boss_terminal": true,
+        "completed": true,
+        "lifetime_active": false,
+        "natural_whole_map_arrival": false,
+        "outcome": "victory",
+        "phases_observed": [
+          1,
+          2,
+          3
+        ],
+        "pilot": "hold floor x1000 with Router; after frame240 fire once per60 ticks; zero grants, no reposition during battle",
+        "player_terminal": false,
+        "snapshot": {
+          "boss_health": 0.0,
+          "bridge_broken": true,
+          "completed": true,
+          "events": [
+            {
+              "definition": "res://resources/bosses/windkeeper_storm.tres",
+              "event": "boss_bound",
+              "identity": "mapgen-930001-1793366969.83339-5887125/stable-41fe15d-seed-930001/M40",
+              "scene": "res://scenes/bosses/windkeeper.tscn",
+              "shelf_stands": [
+                [
+                  -4493.0,
+                  -2996.0
+                ],
+                [
+                  -4160.0,
+                  -2996.0
+                ],
+                [
+                  -3827.0,
+                  -2996.0
+                ]
+              ]
+            },
+            {
+              "accepted": true,
+              "event": "boss_activated",
+              "player_position": [
+                -3640.0,
+                -2866.0
+              ]
+            },
+            {
+              "event": "boss_phase",
+              "phase": 2
+            },
+            {
+              "event": "boss_phase",
+              "phase": 3
+            },
+            {
+              "disabled_platform": 0,
+              "event": "boss_bridge_broken",
+              "exit_seal_opened": false,
+              "preserved_seam_platform": 4,
+              "preserved_shelves": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "event": "boss_victory",
+              "exit_seal_opened": false,
+              "target_id": "module/mapgen-930001-1793366969.83339-5887125%2Fstable-41fe15d-seed-930001%2FM40/boss"
+            }
+          ],
+          "initial_exit_remains_sealed": true,
+          "mode": "pier_open",
+          "phase": 3,
+          "reward_position": [
+            -4160.0,
+            -2996.0
+          ],
+          "shelf_stands": [
+            [
+              -4493.0,
+              -2996.0
+            ],
+            [
+              -4160.0,
+              -2996.0
+            ],
+            [
+              -3827.0,
+              -2996.0
+            ]
+          ],
+          "started": true,
+          "target_id": "module/mapgen-930001-1793366969.83339-5887125%2Fstable-41fe15d-seed-930001%2FM40/boss"
+        }
+      },
+      "id": "boss/native_battle_victory",
+      "kind": "scoped_native_player_combat",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "arrival_fixture_only": true,
+        "gap": "(-4236.0, -2808.0)",
+        "geometry_revision": 2,
+        "native_bridge_broken": true,
+        "old_floor_art_at_gap": false,
+        "old_floor_shadow_at_gap": false
+      },
+      "id": "presentation/boss_broken_bridge",
+      "kind": "scoped_native_combat_presentation",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "blocked": true,
+        "body_shape": [
+          24,
+          36
+        ],
+        "collider": "/root/FixedMap930001/M40/Seal_exit",
+        "from": [
+          -4660.0,
+          -2880.0
+        ],
+        "motion": [
+          -120.0,
+          0.0
+        ],
+        "normal": [
+          1.0,
+          0.0
+        ],
+        "travel": [
+          -31.875,
+          0.0
+        ],
+        "uses_real_player_shape": true
+      },
+      "id": "boss/exit_stays_sealed_after_victory",
+      "kind": "native_player_collision_sweep",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "boss_request_accepted": true,
+        "completion": false,
+        "direct_policy_requests": true,
+        "natural_combat": false,
+        "player_request_accepted": true,
+        "player_terminal": true,
+        "run_active": false,
+        "wallet_after": 0,
+        "wallet_before": 0
+      },
+      "id": "boss/same_frame_death_priority",
+      "kind": "transaction_fixture",
+      "status": "passed"
+    },
+    {
+      "evidence": {
+        "blocked": true,
+        "body_shape": [
+          24,
+          36
+        ],
+        "collider": "/root/FixedMap930001/M40/Seal_exit",
+        "from": [
+          -4660.0,
+          -2880.0
+        ],
+        "motion": [
+          -120.0,
+          0.0
+        ],
+        "normal": [
+          1.0,
+          0.0
+        ],
+        "travel": [
+          -31.875,
+          0.0
+        ],
+        "uses_real_player_shape": true
+      },
+      "id": "boss/exit_stays_sealed_after_cancel",
+      "kind": "native_player_collision_sweep",
+      "status": "passed"
+    }
+  ],
+  "checks": 8,
+  "failures": 0,
+  "fixture": "M40 arrival only; unmodified native pilot, no grants or battle teleports",
+  "seed": 930001
+}

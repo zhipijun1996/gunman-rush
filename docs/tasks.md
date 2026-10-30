@@ -4,7 +4,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |
 | --- | --- | --- | --- | --- |
-| MAPGEN-930001-01 | 接入0.1.0物化地图、实际主游戏玩家/奖励/Boss与真实物理验收 | map-gen0.1.0 | blocked | [范围](worklines/mapgen_930001/scope.md) · [记录](quality/records/MAPGEN-930001-01.json) |
+| MAPGEN-930001-01 | 接入0.1.0固定地图＋正式新版平原表现；原生玩家/奖励/Boss，845/3保M24缺口 | map-gen0.1.0 / candidate-v2 | blocked | [范围](worklines/mapgen_930001/scope.md) · [记录](quality/records/MAPGEN-930001-01.json) |
 
 ## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
 

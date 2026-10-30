@@ -1,5 +1,27 @@
 # MAPGEN-930001-01 验收记录
 
+## 当前 candidate-v2：新版正式平原表现（2026-10-30）
+
+用户指出 v1 美术错误：固定宿主漏接正式表现层。下面原 v1 图、原测试和原 Web 包保留作历史，不能再当作本轮美术交付。
+
+实际冻结源码 `cce9d74f408f2229d092909f88054a177de2668d`（生产修复 `6f1ae4b`）：复用当前正式 native32 草岩、三层背景、玩家身体、机关/移动台/刺面、光照与前景；18只原怪物仍为13 diver、4 sentry、1 charger，后两类使用当前 PlainsRevision 身体，diver沿正式 aerial反馈身体，不抽怪、不改AI/HP/掉落。M29金色占位改用正式medium蓝箱闭/开姿态，原交易与脚底支撑不改。独立预览提供主游戏同款唯一V2音频服务，两个feel同享原12声池。
+
+- [实际出生](art-v2/spawn.png) · [M06哨兵/俯冲怪](art-v2/M06-sentry-diver.png) · [哨兵受击](art-v2/M06-sentry-hit.png) · [M28冲锋怪](art-v2/M28-charger.png) · [14.33秒真实Godot影片](art-v2/plains.mp4)。影片保原连续0–859帧；M06/M28为明确观察位置fixture，未改怪/补资源。源前后3378项（含producer）一致，[媒体回执](art-v2/receipt.json)不签自然整图或用户审美。
+- 最终[严格回执](art-v2/final-report.json)：**845项，842通过、3失败**；3377运行输入前后稳定，实际exit1，原M24站立/领取/完整11点覆盖失败完整保留。[原生日志](art-v2/final-native.log.gz)和[全轨迹](art-v2/final-runtime.json.gz)。原721套件不删断言，追加124项；含原18只怪的正式身体绑定、旧地形只隐藏绘制/无新碰撞、Boss断桥后视觉并集/阴影同步、真正bootstrap单服务/旧服务释放/返回session-only菜单、新箱闭/开交易状态。
+- 原art-art、underworld-terrain、underworld-formal、underworld-mechanisms四项Harness fresh通过；修改bootstrap后cloud-preview-runtime与underworld-formal再fresh通过，原[相关日志](art-v2/related-harness.log.gz)与[宿主日志](art-v2/host-harness.log.gz)保留。完整168 Integration/Release未执行；docs仍是原3条归档相对链接失败，[本轮原输出](art-v2/docs-final.log.gz)。
+- 最终cce源又完成原6项串行fresh检查：上述4项＋cloud-preview-runtime＋underworld-player-animation，实际6/6通过、exit0、无源漂移，[最终Harness回执](art-v2/related-final-harness-report.json)。此前并写文档的一次、Godot自动补148个历史docs导入伴随文件的一次，均被严格源冻结拒绝，失败原件保留；第三轮先预热并保留这些伴随文件再冻结，不改guard/预算。退出后仅清理未跟踪的历史docs自动导入文件，不修改已测生产字节。[最终独审](art-v2/review.md)限定接受表现接入，整图仍REJECT。
+- [M29真实右缘落地](art-v2/M29-landing.json)：正中完整身体[208,45.9]命中Seal_C；封口[128,0,128,32]到单向平台y64仅留32px，玩家36px，不能把中心当站点。右缘[270,45.9]无overlap；从[270,20]实际落到[270,46]、grounded=true，距原箱62px<80交互半径。此前两次正中落点影片的claimed=false和图片按failed-center保留。没有为了美术改封口、平台或玩家物理。
+- [M29闭箱](art-v2/M29-edge-closed.png) → [原生选择菜单](art-v2/M29-edge-menu.png) → [开盖＋4金币](art-v2/M29-edge-open.png)：独立GL右缘fixture后真实W和鼠标点击(465.5,530)，未调用choiceAPI，[实际回执](art-v2/M29-edge-gui.json)显示grounded/claimed/openpose=true。它补足本地原生GUI选择，仍不签自然到达或浏览器宝箱选择。
+- 较早[Boss第三阶段GL画面](art-v2/M40-phase3.png)及9/0日志仅绑定pre-keepout开发源，未重标最终SHA；最终845中的真实原生Boss战仍检查断桥后无旧地形/旧遮光体。最终源Boss图形全状态与全部动态相位未签。
+
+Web build `6726edd6c91b`，PCK 230,181,840 bytes，SHA-256 `6726edd6c91b0bb32daa3f9472dc3afc25f1ecee21d4ede46d1ae3e74976c6cf`。原722交付文件再次verify通过；PCK在无源码目录启动46实例通过。本地真实Chromium/SwiftShader已看[新版出生](art-v2/web-spawn.png)、总览、射击移动、暂停恢复、[返回正式标题](art-v2/web-return-menu.png)，无uncaught JS/native错误；完整console仍保Emscripten主线程阻塞与软件ReadPixels警告，不签性能或console零error。
+
+新版本地包 `build/mapgen_930001/mapgen-930001-web-6726edd6c91b.zip`，495,289,806 bytes，SHA-256 `93d59ddf1f4443194745a85c0b2af253b055951bd4c90d74e2b24e28129cae39`；解压后 `python3 serve.py --directory . --port 8807`。完整[构建身份](art-v2/build.json)。公开独立preview再次被原900MiB守门拒绝，[原日志](art-v2/stage-preview.log.gz)保留；没有发布新网站或提高上限。PR123续同分支，不合main。
+
+M24缺口、整图从出生经六奖励到Boss的自然连续路线、所有动态相位、完整168、听感、设备与当前用户视觉认可继续failed/unverified；不得用这次换肤和局部实测签整图完成。
+
+## 以下为原 candidate-v1 历史
+
 状态：开发接入，尚未认证全图自然通关。静态核验、真实玩家局部输入、物理扫掠、显式位置 fixture、GUI 和设备分别记录。
 
 - 交付 ZIP SHA-256：`1c190a0a3918ece39e3a3aac7d35dbc855b9f4c87ebafbaa11f32c820a333b25`，原始 722 文件 verify_delivery.py PASS，见 [原校验回执](delivery_verification.json)。

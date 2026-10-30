@@ -1,4 +1,10 @@
-## 2026-10-30 MAPGEN-930001-01 · 固定交付地图工程接入
+## 2026-10-30 MAPGEN-930001-01 · 新版平原表现修正
+
+同分支feature/mapgen-delivery-930001/草稿PR123，冻结运行源cce9d74（代码6f1ae4b）。用户拒绝旧美术后补正式平原表现装配入口；原包/玩家碰撞/原18怪/奖励不变。最终严格845/3、源稳定；M24原3失败不冲绿。M29真实body右缘[270,46]站稳，原生W＋鼠标领取4币并显示正式蓝箱开盖；中心受PortC封口影响，整图自然到达仍未验。直接入口scenes/mapgen/seed_930001.tscn不变。
+
+当前14.33秒真实Godot片、新版PNG、原失败及准确Web6726edd6c91b本地ZIP见[验收记录](evidence/mapgen_930001/README.md)。公开stage仍被900MiB拒绝，未发布；不拿旧地址冒充。root独占Godot，review仅独审；完整168、自然全图、动态全相位、听感、设备与新图用户认可未签。后续重跑用tools/run_mapgen_delivery_tests.py新目录，先解决/反馈具体M24交付几何冲突，不扩地图或生成。下方v1冻结源/媒体为历史，不代表本轮。
+
+## 原v1 · 固定交付地图工程接入
 
 分支 `feature/mapgen-delivery-930001`，草稿PR123，冻结运行源b2f71528；基线 main840108da。46真实模块/55连接/40实体封口、单个原生玩家与共享伤害/钱包/lifetime、同局奖励恢复和原生Windkeeper三阶段已接。固定入口 `scenes/mapgen/seed_930001.tscn`，运行说明见 [接入文档](worklines/mapgen_930001/README.md)。
 
