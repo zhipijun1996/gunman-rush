@@ -86,7 +86,7 @@ func _sync_feedback_body() -> void:
 	# wing/leg joints. No old SPRITES body is swapped in at hurt exit.
 	var source := feedback_frames.texture(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_texture()
 	var bounds := feedback_frames.bounds(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_bounds()
-	var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
+	var bob := body_motion.body_bob(actor.definition.behavior_id) if actor.definition.aerial else 0.0
 	var lean := (body_motion.tension*.15+body_motion.release*.12-body_motion.recovery*.10)*float(actor.brain.direction) if actor.definition.behavior_id==&"diver" else 0.0
 	feedback_body.present(source, bounds, Vector2(0, feedback_anchor.y+bob), lean, Vector2(float(actor.brain.direction), 1.0), Color.WHITE, feedback_sample.flash_strength())
 
@@ -102,7 +102,7 @@ func _original_body_size(texture: Texture2D) -> Vector2:
 func _remains_view() -> Dictionary:
 	var face := float(actor.brain.direction)
 	# Handoff uses the exact same locomotion clock and bob as the live body.
-	var flutter := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
+	var flutter := body_motion.body_bob(actor.definition.behavior_id) if actor.definition.aerial else 0.0
 	return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, actor.definition.collision_size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2(0, feedback_anchor.y+flutter)), "face": face, "angle": global_rotation, "readable_material": true}
 
 func _presentation_initialized() -> void:

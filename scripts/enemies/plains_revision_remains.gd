@@ -29,6 +29,7 @@ func _initialized(result: ActorResourceResult) -> void:
 	if material is ShaderMaterial: (material as ShaderMaterial).set_shader_parameter("hit_flash",0.0)
 
 func _capture() -> void:
+	_reset_death_feedback()
 	var packet: Dictionary = _view.call()
 	_rig = packet.get("rig") as RefCounted
 	var captured: Variant = packet.get("pose", {})
@@ -100,6 +101,11 @@ func _physics_process(delta: float) -> void:
 		_restore_pending = false
 		_restore_static()
 		return
+	if not restored and _kill_hold_remaining > 0.0:
+		delta = _advance_after_kill_hold(delta)
+		if delta <= 0.0:
+			queue_redraw()
+			return
 	_sync_material()
 	_follow_support()
 	# With no recorded corpse pose, a restored collision foot that has no real
@@ -128,10 +134,12 @@ func _physics_process(delta: float) -> void:
 		_contact_age += delta
 		global_position = _floor_point
 		var progress := 1.0 if _finished_death or restored else clampf(_contact_age / _death_seconds, 0.0, 1.0)
-		if not restored and not _bell_played and _rig != null and _rig.get("kind")==&"root_bell" and progress>=.72:
-			_bell_played = true
-			var audio := get_tree().get_first_node_in_group(&"game_audio") as GameAudio
-			if audio != null: audio.play(&"bell",LOW_BELL)
+		if not restored and progress >= PlainsEnemyAudio.contact_progress(_feedback_actor()):
+			var root_bell: bool = _rig != null and _rig.get("kind") == &"root_bell"
+			if root_bell: _bell_played = true
+			# The existing low bell is this body's one contact voice; do not
+			# stack a second generic landing cue over that recorded clang.
+			_play_landing_feedback(LOW_BELL if root_bell else null)
 		_set_frame(4 + mini(3, floori(progress * 4.0)))
 		if progress >= 1.0:
 			_finished_death = true

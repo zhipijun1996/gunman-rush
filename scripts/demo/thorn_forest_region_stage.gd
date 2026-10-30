@@ -133,8 +133,7 @@ func _ready() -> void:
 		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
 	for id: String in region_state.drops:
 		var drop: Dictionary = region_state.drops[id]
-		if drop.kind == "none": continue
-		pickups.append({"id":"drop_"+id,"kind":drop.kind,"amount":int(drop.amount),"position":Vector2(drop.position[0],drop.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+		restore_drop_pickups(drop,id,region_state.claimed)
 	for row: Dictionary in generated.manifest.rewards:
 		var chest := row.duplicate(true)
 		chest.id = "thorn_forest/map_%s/" % map_index+str(row.id)
@@ -185,6 +184,7 @@ func _accepted_forest_action(action: StringName) -> void:
 
 func _physics_process(delta: float) -> void:
 	clock += delta
+	_advance_pickup_motion(delta)
 	_forest_draw_clock += delta
 	if is_instance_valid(ambience):
 		for body: EnemyMotor in enemies:

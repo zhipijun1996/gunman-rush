@@ -455,7 +455,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v23')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v24')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -519,7 +519,7 @@ class CreativeTests(unittest.TestCase):
     def test_merged23_preserves_both_parent22_content_and_rejects_both_bindings(self):
         root = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style19'
         for region in ('windchime_plains','thorn_forest'):
-            current,_ = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'+region+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v23')
             for parent in ('program','mobile'):
                 path = root/parent/(region+'.json')
@@ -532,8 +532,25 @@ class CreativeTests(unittest.TestCase):
                 self.assertIn(old['authority_sources'][-1],current['authority_sources'])
             program = json.loads((root/'program'/(region+'.json')).read_bytes())
             self.assertEqual(current['authority_sources'][:-2],program['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+
+
+    def test_plains_motion_loot24_preserves23_and_refuses_old_binding(self):
+        root = creative.ROOT/'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'
+        for region in ('windchime_plains','thorn_forest'):
+            path = root/(region+'.json')
+            prior = json.loads(path.read_bytes())
+            self.assertEqual(prior['version'],'creative-v23')
+            current,_ = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual(current['version'],'creative-v24')
+            for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],prior[key])
+            self.assertEqual(current['authority_sources'][:-1],prior['authority_sources'])
             self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
             self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(str(path.relative_to(creative.ROOT)),region)
 
 
 if __name__ == '__main__':

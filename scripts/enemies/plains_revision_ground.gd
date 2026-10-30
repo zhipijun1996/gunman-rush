@@ -19,6 +19,7 @@ static func deform(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary,
 		&"patrol": p = _patrol_live(p, uv, size, clock, stride, travel, hurt, turn)
 		&"charger": p = _charger_live(p, uv, size, clock, stride, travel, load, strike, recovery, hurt)
 		&"hopper": p = _hopper_live(p, uv, size, clock, stride, travel, load, strike, recovery, hurt, air, vertical)
+	p = _vitality(p,uv,size,pose,kind)
 	if not bool(pose.get("dead", false)): return p
 	var death := clampf(float(pose.get("death", 0.0)), 0.0, 1.0)
 	if death<=0.0: return p
@@ -76,6 +77,54 @@ static func _hopper_hind(uv: Vector2) -> float:
 
 static func _hopper_head(uv: Vector2) -> float:
 	return smoothstep(0.72, 0.86, uv.x) * (1.0 - smoothstep(0.70, 0.85, uv.y))
+
+static func _vitality(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary, kind: StringName) -> Vector2:
+	# Carry weight through the chest/hip while toes retain their support. This
+	# is deliberately not a common translation applied to the entire picture.
+	var p := point
+	var clock := float(pose.get("clock",0.0))
+	var stride := float(pose.get("stride",0.0))
+	var travel := clampf(float(pose.get("travel",0.0)),0.0,1.0)
+	var drive := clampf(float(pose.get("drive",0.0)),-1.0,1.0)
+	var delayed := clampf(float(pose.get("appendage_follow",travel)),0.0,1.0)
+	var quiet := 1.0-clampf(float(pose.get("load",0.0))+float(pose.get("strike",0.0)),0.0,1.0)*.75
+	var upper := _upper(uv)
+	match kind:
+		&"patrol":
+			var head := _patrol_head(uv)
+			var chest := upper*(1.0-.72*head)
+			var breath := sin(clock*3.6)*quiet
+			var pivot := _at(Vector2(.46,.69),size)
+			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.010*breath,1.0+.023*breath),chest)
+			# Downward weight transfer coincides with the swing foot's return.
+			p.y += size.y*.040*absf(sin(stride))*travel*upper
+			p = _joint(p,Vector2(.46,.76),size,-.060*drive+.018*sin(stride-.22)*travel,chest)
+			p = _joint(p,Vector2(.74,.49),size,.028*sin(clock*2.1-.65)*quiet+.043*sin(stride-.65)*delayed-.075*drive,head)
+			p.x += size.x*.011*sin(stride-.55)*delayed*head
+		&"charger":
+			var head := _charger_head(uv)
+			var shell := upper*(1.0-.65*head)
+			var breath := sin(clock*2.8)*quiet
+			var pivot := _at(Vector2(.45,.73),size)
+			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.007*breath,1.0+.024*breath),shell)
+			p.y += size.y*.027*absf(sin(stride))*travel*quiet*upper
+			p = _joint(p,Vector2(.58,.76),size,-.047*drive+.019*sin(stride-.38)*travel,shell)
+			p = _joint(p,Vector2(.68,.60),size,.022*sin(clock*1.9-.80)*quiet+.033*sin(stride-.75)*delayed-.036*drive,head)
+			# The fore knee yields a little; the planted toe does not drift.
+			var knee := _charger_foreleg(uv)*(1.0-smoothstep(.90,.99,uv.y))
+			p = _joint(p,Vector2(.55,.64),size,.027*breath*(1.0-travel),knee)
+		&"hopper":
+			var grounded := 0.0 if bool(pose.get("air",false)) else 1.0
+			var belly := (1.0-smoothstep(.59,.77,uv.x))*smoothstep(.20,.45,uv.y)*(1.0-smoothstep(.70,.87,uv.y))
+			var breath := sin(clock*3.5)*quiet
+			var pivot := _at(Vector2(.43,.53),size)
+			p = p.lerp(pivot+(p-pivot)*Vector2(1.0+.018*breath,1.0+.029*breath),belly)
+			p.y += size.y*.025*absf(sin(stride))*travel*grounded*upper
+			p = _joint(p,Vector2(.49,.72),size,-.043*drive*grounded,upper)
+			p = _joint(p,Vector2(.79,.52),size,.029*sin(clock*2.4-.7)*quiet+.038*sin(stride-.7)*delayed*grounded-.045*drive,_hopper_head(uv))
+			var thigh := _hopper_hind(uv)*(1.0-smoothstep(.83,.99,uv.y))
+			p = _joint(p,Vector2(.49,.60),size,.022*breath*(1.0-travel)*grounded,thigh)
+	return p
 
 static func _patrol_live(point: Vector2, uv: Vector2, size: Vector2, clock: float, stride: float, travel: float, hurt: float, turn: float) -> Vector2:
 	var p := point

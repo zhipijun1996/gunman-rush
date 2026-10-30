@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v23",
+  "version": "creative-v24",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
-    "supplemental_authority_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+    "supplemental_authority_sha256": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "7d32a5444bf226c3c26cc89a6231409e239d38a5fd9f2a246c170a7e1a55ddab",
+    "registry_sha256": "eb23253d9a7d3c44bdc8ca57fe8b14382a1d5f70e7bf6ba2652c08ae6d916653",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -179,6 +179,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
       "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+      "sha256": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26"
     }
   ],
   "historical_direction": {
@@ -188,28 +192,17 @@
   },
   "revision_impact": {
     "task_id": "PLAINS-MOTION-LOOT-02",
-    "scope": "Technical merge of program-refactor and mobile logical-canvas lineage only; no direction, asset, physics, economic or acceptance redesign. Exactly7 existing reference differences union,74 unchanged.",
-    "parent_directions": [
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json",
-        "sha256": "43055988f565235d82d6db83ff994ff5040a7aac6d844d1e9f3eeed52a8e6b4f"
-      },
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style19/mobile/windchime_plains.json",
-        "sha256": "dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d"
-      }
-    ],
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
-    "shared_style_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+    "scope": "Actual three formal entry consumer changes for requested motion/feedback/loot plus two concrete orb/sampler references. Style/direction/user acceptance unchanged.",
+    "previous_direction": "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/windchime_plains.json",
+    "previous_sha256": "8829d6f6fcce91c772edb15190b649e05c7a4f66c52481703b82ba5649041b0c",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+    "shared_style_sha256": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26",
     "affected_consumers": [
-      "scripts/demo/plains_region_stage.gd",
       "scripts/demo/demo_app.gd",
-      "scripts/demo/home_scene.gd",
-      "scripts/ui/demo_menu.gd",
-      "scripts/ui/stage_reward_modal.gd",
-      "scripts/ui/home_item_codex.gd",
-      "scripts/demo/thorn_forest_region_stage.gd"
+      "scripts/demo/plains_region_stage.gd",
+      "scripts/demo/thorn_forest_region_stage.gd",
+      "scripts/art/plains_stage_visual.gd"
     ],
-    "validation": "Original historical assertions remain against exact parent snapshots; current23 binds actual merged20 and rejects both stale22 pointers. Production leaf edits require later freeze/rebind; pure tests do not sign visual/audio/user/device."
+    "validation": "Current24/21 actual reference closure, original historical methods and immutable20/23 refuse-stale guards; real runtime/movie, listening, user/device outcomes separately recorded."
   }
 }

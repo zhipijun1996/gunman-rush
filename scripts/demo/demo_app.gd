@@ -892,7 +892,7 @@ func _physics_process(_delta: float) -> void:
 					segment.activate_anchor(StringName("generated_%s" % index))
 		for index: int in random_stage.pickups.size():
 			var pickup: Dictionary = random_stage.pickups[index]
-			if not pickup.claimed and (position_now.distance_to(pickup.position) < 46 or (_item_runtime != null and _item_runtime.can_magnet_pickup(pickup, position_now, random_stage.clock))):
+			if not pickup.claimed and _pickup_within_reach(random_stage,pickup,position_now):
 				_queue_action(_commit_pickup.bind(index))
 	else:
 		if position_now.y > 690 or position_now.y < -350:
@@ -1011,19 +1011,31 @@ func _settle_enemy_drops() -> void:
 			continue
 		var enemy_id := StringName(random_stage.enemy_manifest[index].id)
 		if connected_region and region_state.drops.has(String(enemy_id)): continue
-		var output: Dictionary = random_stage.generated.manifest.enemy_drops[String(enemy_id)].duplicate(true) if connected_region else _enemy_drops.settle(enemy_id)
+		var output: Dictionary = random_stage.generated.manifest.enemy_drops[String(enemy_id)].duplicate(true) if connected_region else _enemy_drops.settle(enemy_id,actor.definition.behavior_id)
 		if output.is_empty():
 			continue
 		if _item_runtime != null and output.kind == "coin":
 			var receiver := enemy_motor.get_node_or_null("Damageable") as Damageable
 			if _item_runtime.has_kill(receiver): output.amount = _item_runtime.settle_kill_coins(int(output.amount), StringName("%s/%s" % [_item_runtime.map_key(), enemy_id]))
-		var location := random_stage.safe_drop_position(enemy_motor.global_position)
+			if output.has("rewards"):
+				for reward: Dictionary in output.rewards:
+					if reward.kind=="coin":reward.amount=int(output.amount)
+				output.coin_total=int(output.amount)
+		var location := random_stage.safe_drop_position(random_stage.to_local(enemy_motor.global_position))
+		var origin := enemy_motor.global_position
+		var host := enemy_motor.get_node_or_null("Presentation")
+		var visual: Variant = host.get("revision_visual") if host != null else null
+		if visual is PlainsRevisionVisual and visual.rig != null:
+			origin=visual.to_global(visual.rig.bounds.get_center())
 		output.position = [location.x, location.y]
-		output.spawn_origin=[enemy_motor.global_position.x,enemy_motor.global_position.y]
+		output.spawn_origin=[origin.x,origin.y]
 		output.born_at=random_stage.clock
+		var units := PlainsLootMotion.units(output,String(enemy_id),random_stage.to_local(origin),location,random_stage.clock)
+		output.units=[]
+		for pickup: Dictionary in units:
+			random_stage.pickups.append(pickup)
+			output.units.append(PlainsLootMotion.snapshot(pickup))
 		if connected_region: region_state.drops[String(enemy_id)] = output.duplicate(true)
-		if output.kind != "none":
-			random_stage.pickups.append({"id": "drop_" + String(enemy_id), "kind": output.kind, "amount": output.amount, "position": location, "claimed": false, "source": String(enemy_id),"spawn_origin":enemy_motor.global_position,"born_at":random_stage.clock,"ready_at":random_stage.clock+.65})
 		director.manifest.record_output(director.stage_index, StringName("enemy_drop_" + String(enemy_id)), output)
 		random_stage.queue_redraw()
 
@@ -2127,6 +2139,16 @@ func _commit_room_reward() -> bool:
 	_shown_actions = ""
 	return true
 
+func _pickup_within_reach(random_stage: GeneratedDemoStage, pickup: Dictionary, player_world: Vector2) -> bool:
+	var pickup_world := random_stage.to_global(pickup.position)
+	if player_world.distance_to(pickup_world) < 46: return true
+	if _item_runtime == null: return false
+	# Magnet line-of-sight queries consume world coordinates. Do not mutate the
+	# authoritative Stage-local pickup while adapting that existing consumer.
+	var world_pickup := pickup.duplicate()
+	world_pickup.position = pickup_world
+	return _item_runtime.can_magnet_pickup(world_pickup,player_world,random_stage.clock)
+
 func _commit_pickup(index: int) -> bool:
 	if not _can_interact() or not stage is GeneratedDemoStage:
 		return false
@@ -2134,9 +2156,10 @@ func _commit_pickup(index: int) -> bool:
 	if index < 0 or index >= random_stage.pickups.size():
 		return false
 	var pickup: Dictionary = random_stage.pickups[index]
-	if pickup.claimed or random_stage.clock<float(pickup.get("ready_at",0)) or (player.global_position.distance_to(pickup.position) >= 46 and not (_item_runtime != null and _item_runtime.can_magnet_pickup(pickup, player.global_position, random_stage.clock))):
+	if pickup.claimed or random_stage.clock<float(pickup.get("ready_at",0)) or not _pickup_within_reach(random_stage,pickup,player.global_position):
 		return false
 	var receipt_id := StringName("%s/stage_%s/%s" % [_run_receipt_prefix, director.stage_index, pickup.id])
+	var healed_amount := 0.0
 	if pickup.kind == "coin":
 		if not wallet.grant(pickup.amount, receipt_id):
 			return false
@@ -2147,6 +2170,7 @@ func _commit_pickup(index: int) -> bool:
 		var healed := SupplyHealEffect.apply(controller.actor_resources.health, float(pickup.amount), receipt_id)
 		if not healed.accepted():
 			return false
+		healed_amount=healed.amount_applied
 		if pickup.id == "supply_heart":
 			random_stage.mark_supply_used()
 	elif pickup.kind == "note":
@@ -2157,12 +2181,16 @@ func _commit_pickup(index: int) -> bool:
 	else:
 		return false
 	pickup.claimed = true
+	pickup.claimed_position=pickup.position
+	pickup.claimed_at=random_stage.clock
 	if connected_region: region_state.claimed[pickup.id] = true
 	GameAudio.cue(self, &"coin" if pickup.kind == "coin" else &"heal" if pickup.kind == "heart" else &"note")
 	var feedback := player.get_node_or_null("PlayerFeedback") as PlayerFeedback
 	if feedback != null:
-		feedback.reward_received(pickup.position, pickup.kind == "note")
-	director.manifest.record_output(director.stage_index, StringName("pickup_claim_" + str(pickup.id)), {"id": pickup.id, "kind": pickup.kind, "amount": pickup.amount})
+		if pickup.kind=="heart":feedback.healing_received(healed_amount)
+		else:feedback.reward_received(random_stage.to_global(pickup.position), pickup.kind == "note")
+	random_stage._persist_pickup_motion()
+	director.manifest.record_output(director.stage_index, StringName("pickup_claim_" + str(pickup.id)), {"id": pickup.id, "kind": pickup.kind, "amount": pickup.amount,"healed_amount":healed_amount})
 	return true
 
 func _purchase_meta_upgrade() -> void:

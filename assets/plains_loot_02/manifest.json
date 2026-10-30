@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-MOTION-LOOT-02",
+  "asset_id": "PLAINS-LOOT-02-LIFE-ORB",
+  "version": "life-orb-v1",
+  "source_path": "assets/plains_loot_02/source/generated-original.png",
+  "runtime_path": "assets/plains_loot_02/life_orb.png",
+  "sha256": "a24be1307b7cf41d6f8af7e3473fca5b6e74015395e11ed2e848d4b2885e5cb7",
+  "canvas_px": [
+    1275,
+    1234
+  ],
+  "mode": "RGBA",
+  "measured_alpha_bbox_by_threshold_ltrb": {
+    "1": [
+      0,
+      29,
+      1243,
+      1234
+    ],
+    "16": [
+      284,
+      236,
+      987,
+      976
+    ],
+    "64": [
+      285,
+      236,
+      986,
+      976
+    ],
+    "128": [
+      285,
+      236,
+      986,
+      976
+    ],
+    "200": [
+      286,
+      237,
+      985,
+      975
+    ],
+    "255": [
+      286,
+      237,
+      985,
+      975
+    ]
+  },
+  "recommended_region_px_xywh": [
+    285,
+    236,
+    701,
+    740
+  ],
+  "region_policy": "Measured alpha>=128 tight bounds. Keep this complete orb/clasp silhouette. Original alpha1 noise extends to canvas edge; do not infer body scale from alpha>0 or full canvas. Root may use AtlasTexture region and existing1wu shader alpha discard without editing original PNG.",
+  "proposed_visible_width_wu": 18,
+  "proposed_visible_height_wu": 19.001427,
+  "anchor": "center of measured region, floor support at lower rim; visual radius~9wu before runtime pulse",
+  "texture_filter": "nearest",
+  "world_sampling": "1wu; high-res enlarged source does not define world pixel size",
+  "material": "mint green glass / pale ivory living liquid / restrained old-copper lower clasp",
+  "lighting": "warm upper-left highlight, darker green right/lower contour",
+  "views": 1,
+  "animation": "neutral static master; game code owns bounce/pulse/collection motion",
+  "observations": [
+    "Actual full-source image inspected: circular globe, clean curved liquid meniscus, warm ivory light, copper crescent clasp.",
+    "Copper setting occupies roughly lower fifth rather than requested lowest tenth; retain as disclosed candidate difference, no regeneration because source transparency and shape are usable.",
+    "Most glass body alpha is partially transparent. Existing hard-alpha world shader may be preferable for clean18wu silhouette; actual scene judgement is pending."
+  ],
+  "unverified": [
+    "Actual18wu normal-size scene readability and1wu sampling",
+    "Pulse/bounce/homing and collision fit",
+    "Independent artistic acceptance",
+    "User/device acceptance"
+  ],
+  "frozen_generation_input_copies": {
+    "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json": "assets/plains_loot_02/source/style20-input.json",
+    "docs/creative_direction/windchime_plains.json": "assets/plains_loot_02/source/windchime-direction-input.json"
+  }
+}

@@ -75,6 +75,9 @@ func refresh(delta: float) -> void:
 		query.collide_with_areas = false
 		air = get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 	pose = {"clock":motion.clock,"stride":motion.stride,"travel":motion.travel,"load":motion.tension,"strike":motion.release,"recovery":motion.recovery,"hurt":sample.hurt_remaining/maxf(sample.tuning.hurt_seconds,.001),"turn":1.0-smoothstep(0,.18,_turn_age),"air":air,"vertical":(state.velocity as Vector2).y,"dead":false,"death":0.0}
+	pose["drive"] = motion.drive
+	pose["body_follow"] = motion.body_follow
+	pose["appendage_follow"] = motion.appendage_follow
 	if _face!=_requested_face: pose["turn"] = -float(pose.turn)
 	var aim: Vector2 = state.get("aim_direction",Vector2(float(_face),0))
 	pose["aim"] = clampf(atan2(aim.y,absf(aim.x)),-1.1,1.1)

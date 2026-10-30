@@ -72,7 +72,9 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	set_physics_process(not health.terminal)
 
 func _on_death() -> void:
-	if not _restoring_instance: GameAudio.cue(self, &"enemy_defeat")
+	if not _restoring_instance:
+		if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.defeated(self)
+		else: GameAudio.cue(self, &"enemy_defeat")
 	if attack_behavior != null: attack_behavior.cancel()
 	motor.stop()
 	motor.collision_layer = 0
@@ -153,7 +155,8 @@ func _accepted_hit(context: Dictionary) -> void:
 	# Grapple and active skills already own their target motion contract. HP
 	# still drives the shared hurt animation/audio; generic hit motion must not
 	# stop a moving hook target or extend the authored skill stagger clock.
-	GameAudio.cue_event(self, &"enemy_hurt", &"hurt")
+	if PlainsEnemyAudio.supports(self): PlainsEnemyAudio.hurt(self, context)
+	else: GameAudio.cue_event(self, &"enemy_hurt", &"hurt")
 	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
 	var direction: Vector2 = raw_direction
 	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)

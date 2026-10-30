@@ -72,8 +72,7 @@ func _ready() -> void:
 		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
 	for id: String in region_state.drops:
 		var p: Dictionary=region_state.drops[id]
-		if p.kind=="none": continue
-		pickups.append({"id":"drop_"+id,"kind":p.kind,"amount":int(p.amount),"position":Vector2(p.position[0],p.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+		restore_drop_pickups(p,id,region_state.claimed)
 	for c: Dictionary in generated.manifest.rewards:
 		var chest := c.duplicate(true)
 		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id
@@ -221,6 +220,9 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	capture_state()
 	_update_context_signs()
+
+func _persist_pickup_motion() -> void:
+	if region_state != null: _save_pickup_units(region_state.drops)
 
 func _context_sign(at: Vector2, text: String, radius: float) -> void:
 	var label := _sign(at, text, Color("e7d9ac"))

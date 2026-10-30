@@ -10,6 +10,11 @@ var tension := 0.0
 var release := 0.0
 var recovery := 0.0
 var travel := 0.0
+# Read-only mass response, derived from accepted displacement by this same
+# locomotion clock. Drawing and repeated refresh(0) never integrate it again.
+var drive := 0.0
+var body_follow := 0.0
+var appendage_follow := 0.0
 var sample: EnemyFeedback01
 var _epoch := -1
 var _last_position := Vector2.ZERO
@@ -37,6 +42,9 @@ func sync_epoch(actor: EnemyActor, state: Dictionary = {}) -> void:
 	release = 0.0
 	recovery = 0.0
 	travel = 0.0
+	drive = 0.0
+	body_follow = 0.0
+	appendage_follow = 0.0
 
 func synchronize(actor: EnemyActor, state: Dictionary = {}) -> void:
 	if not is_instance_valid(actor): return
@@ -60,7 +68,18 @@ func advance(actor: EnemyActor, delta: float, state: Dictionary = {}) -> void:
 	if distance < 48.0:
 		stride += distance * TAU / 20.0
 	var moving := clampf(distance / maxf(delta, 0.0001) / maxf(actor.definition.patrol_speed, 1.0), 0.0, 1.0) if distance < 48.0 else 0.0
+	var previous_travel := travel
 	travel = lerpf(travel, moving, 1.0-exp(-delta/0.07))
+	if distance >= 48.0:
+		# A restore/teleport is not an acceleration or a braking performance.
+		drive = 0.0
+		body_follow = travel
+		appendage_follow = travel
+	else:
+		var acceleration := clampf((travel-previous_travel)/delta*0.11,-1.0,1.0)
+		drive = lerpf(drive,acceleration,1.0-exp(-delta/0.10))
+		body_follow = lerpf(body_follow,travel,1.0-exp(-delta/0.11))
+		appendage_follow = lerpf(appendage_follow,body_follow,1.0-exp(-delta/0.12))
 	var phase: StringName = state.state
 	var state_time: float = state.state_time
 	var durations: Dictionary = state.phase_durations
@@ -71,6 +90,11 @@ func advance(actor: EnemyActor, delta: float, state: Dictionary = {}) -> void:
 	tension = lerpf(tension, load, blend)
 	release = lerpf(release, strike, blend)
 	recovery = lerpf(recovery, settle, blend)
+
+func body_bob(kind: StringName) -> float:
+	# The diver's lift is now transmitted from wing roots through its thorax
+	# and abdomen below. Other existing callers retain their old host offset.
+	return 0.0 if kind == &"diver" else sin(clock*7.0)*1.2
 
 func draw_body(canvas: Node2D, actor: EnemyActor, texture: Texture2D, bounds: Rect2, tint: Color) -> void:
 	if texture == null or not bounds.has_area(): return
@@ -144,6 +168,9 @@ func _deform(point: Vector2, uv: Vector2, kind: StringName, terminal: bool, hurt
 				var blade := 1.0-smoothstep(0.20,0.36,uv.y)
 				var side := -1.0 if uv.x < 0.5 else 1.0
 				p = _joint(p,Vector2(0.5,0.16),side*(sin(clock*18.0)*0.15+tension*0.12-release*0.18),blade)
+				var carried := 1.0-smoothstep(.73,.96,uv.y)
+				p.y -= _visible.size.y*.016*sin(clock*18.0-.52)*(1.0-release*.8)*carried
+				p = _joint(p,Vector2(.5,.36),-.032*drive,carried)
 				p = _joint(p,Vector2(0.5,0.65),sin(clock*5.0)*0.035+release*0.12+recoil*0.08,smoothstep(0.62,0.90,uv.y))
 			else:
 				# The flying master has a diagonal dorsal wing fan and a bell
@@ -151,11 +178,16 @@ func _deform(point: Vector2, uv: Vector2, kind: StringName, terminal: bool, hurt
 				var wing := (1.0-smoothstep(0.48,0.69,uv.x))*(1.0-smoothstep(0.40,0.64,uv.y))
 				# Lock tilts the trunk; the wings fold against the dive, then
 				# spread well ahead of the abdomen to brake the real climb.
-				var flap := sin(clock*17.0)*(0.19+travel*0.10)*(1.0-release*.85)
+				var beat := clock*17.0
+				var flap := sin(beat)*(0.19+travel*0.10)*(1.0-release*.85)
 				p = _joint(p,Vector2(0.58,0.56),flap-tension*.12+release*.72-recovery*.30,wing)
+				var thorax := smoothstep(0.31,0.52,uv.x)*(1.0-smoothstep(0.65,0.84,uv.y))
+				var lift := sin(beat-0.52)*(1.0-release*.85)*(1.0-tension*.65)
+				p.y -= _visible.size.y*0.018*lift*maxf(thorax,wing*.62)
+				p = _joint(p,Vector2(.58,.56),-.045*drive+.022*sin(beat-.42)*(1.0-release),thorax)
 				var abdomen := (1.0-smoothstep(0.36,0.58,uv.x))*smoothstep(0.59,0.82,uv.y)
-				p = _joint(p,Vector2(0.53,0.62),-breath*2.0+tension*.12-release*.13+recovery*.18+recoil*.10,abdomen)
-				p = _joint(p,Vector2(0.65,0.65),sin(clock*6.0-.45)*.06+release*.20-recovery*.13,smoothstep(.70,.94,uv.y)*smoothstep(.48,.70,uv.x))
+				p = _joint(p,Vector2(0.53,0.62),-breath*2.0+.044*sin(beat-.95)*(1.0-release)-.065*drive+tension*.12-release*.13+recovery*.18+recoil*.10,abdomen)
+				p = _joint(p,Vector2(0.65,0.65),sin(beat-1.25)*.065*(1.0-release)+release*.20-recovery*.13-.07*drive,smoothstep(.70,.94,uv.y)*smoothstep(.48,.70,uv.x))
 		&"sentry", &"fan_sentry":
 			# Planted feet carry recoil; the chamber and barrel move at the
 			# neck, never the warning rays or the authoritative projectile.

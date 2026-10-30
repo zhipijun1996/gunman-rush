@@ -38,7 +38,7 @@ static func generate(seed_value: String, tuning: PlayerTuning, variant: String =
 	var drops := EnemyDropService.new()
 	if not drops.configure(seed_value,"plains_region"):
 		return {"ok": false, "error": "Original enemy drop service rejected candidate seed"}
-	for enemy: Dictionary in m.enemies: m.enemy_drops[enemy.id] = drops.settle(StringName(enemy.id))
+	for enemy: Dictionary in m.enemies: m.enemy_drops[enemy.id] = drops.settle(StringName(enemy.id),StringName(enemy.behavior_id))
 	m.manifest_hash = _hash(m)
 	return {"ok": true, "manifest": m, "environment_plan": plan, "placement_points": points, "boss_arena": Rect2(-2000,-2000,1,1), "stage_generator_version": VERSION, "encounter_plan": {"version": VERSION, "enemies": m.enemies}, "shot_latch_plan": m.shot_latch_plan}
 

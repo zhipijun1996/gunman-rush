@@ -2664,7 +2664,20 @@
         "docs/creative_direction/archive/merge-20261030-style19/program/test_region_bible.py.txt",
         "docs/creative_direction/archive/merge-20261030-style19/program/test_region_creative_direction.py.txt",
         "docs/creative_direction/archive/merge-20261030-style19/program/thorn_forest.json",
-        "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json"
+        "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json",
+        "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/manifest.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/region-bible-inputs.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/registry.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/revision_creative_v23.md.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/demo_app.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/plains_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/sources/thorn_forest_region_stage.gd.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/style20.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_bible.py.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/test_region_creative_direction.py.txt",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/thorn_forest.json",
+        "docs/creative_direction/archive/creative-v23-before-plains-motion-loot/windchime_plains.json"
       ],
       "weight_seconds": 0.5
     },
@@ -4478,6 +4491,33 @@
       "artifact_paths": [
         "build/forest_current_registry"
       ]
+    },
+    "plains-motion-loot-02": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS MOTION LOOT02: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 40,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/plains_motion_loot_02/native.json"
+      ]
     }
   },
   "profiles": {
@@ -4699,7 +4739,8 @@
       "item-authoring-tools",
       "item-v5-art",
       "home-codex",
-      "enemy-structure-native"
+      "enemy-structure-native",
+      "plains-motion-loot-02"
     ],
     "art": [
       "docs",
@@ -4798,7 +4839,8 @@
       "cloud-inputs-tests",
       "portable-frozen-assets",
       "home-codex",
-      "enemy-structure-native"
+      "enemy-structure-native",
+      "plains-motion-loot-02"
     ],
     "web": [
       "docs",
@@ -5015,7 +5057,8 @@
       "item-authoring-tools",
       "item-v5-art",
       "home-codex",
-      "enemy-structure-native"
+      "enemy-structure-native",
+      "plains-motion-loot-02"
     ],
     "creative-feedback": [
       "docs",

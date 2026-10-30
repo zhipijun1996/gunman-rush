@@ -1,0 +1,68 @@
+{
+  "task": "PLAINS-MOTION-LOOT-02",
+  "scope": "One old consumer migration for real physical denominated pickups; no production, global budget or old assertion deletion",
+  "original_commit": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+  "original_path": "tests/plains_cohesion_drops_runner.gd",
+  "original_sha256": "eb28fa893ba74f1f537b2d2144fff48c154fc6f5e39b4ca99465780c6b4b14d9",
+  "original_assertion_labels": [
+    "formal start",
+    "deterministic existing coin drop fixture found",
+    "real deterministic death request accepted",
+    "accepted death creates stable drop",
+    "arrival blocks early grant",
+    "drop visibly in flight",
+    "arrival grants coin exactly once",
+    "repeat claim rejected",
+    "claimed sprite remains for collection",
+    "collection completes and disappears",
+    "reload restores consumed stable receipt",
+    "reload does not replay collected sprite",
+    "reload does not pay twice",
+    "formal seal active",
+    "actual environment return request accepted",
+    "environment return leaves actor active inside seal",
+    "environment return preserves closed gate and live health"
+  ],
+  "all_original_labels_retained": true,
+  "original_frame_waits": [
+    "2",
+    "8",
+    "2",
+    "42",
+    "18",
+    "8",
+    "48",
+    "60",
+    "3"
+  ],
+  "current_frame_waits": [
+    "2",
+    "8",
+    "2",
+    "42",
+    "18",
+    "8",
+    "48",
+    "60",
+    "3"
+  ],
+  "all_wait_budgets_identical": true,
+  "new_source_sha256": "7ff80c6b8575bda5b2b09cb7d93bdd3faa0ef8e35540119bc3cbe9dcb2867ea9",
+  "old_actual_result": {
+    "assertions": 17,
+    "failures": 4,
+    "log_sha256": "109215e5389e14ebfa365418dd04944371daaee199fc96741581586598daeac6",
+    "source_scope": "Old test bytes with current dirty development production; not a clean2ac54 execution"
+  },
+  "new_native_run": "not executed by migration author; root owns sole engine lease",
+  "changes": [
+    "Expect real pickup position to move and Sprite to match that authoritative position, instead of independent cosmetic arrival offset",
+    "Keep original42-frame interval while observing from existing safe spawn, then commit each real ready unit via original App path",
+    "Compare total wallet credit and restored receipt ledger against independently generated configured_coin_total, not the first unit amount",
+    "Retain early-grant guard, per-unit repeat rejection, short visible absorption, original18-frame disappearance, reload/no-replay/no-repayment, Boss seal/environment return and strict audio teardown"
+  ],
+  "unverified": [
+    "Root must execute the original registered check with unchanged budget and strict exit",
+    "Independent reviewer must assess this migration; author does not sign own guard"
+  ]
+}

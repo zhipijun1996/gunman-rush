@@ -16,6 +16,8 @@ from run_tests import run_engine
 # BGM probes actual MP3 playback/loop wrap and requires the normal engine clock.
 # Save integration inherits the formal runner and its original completion line.
 CASES = {
+    "plains-motion-loot-02": (
+        "tests/plains_motion_loot_02_runner.gd", r"PLAINS MOTION LOOT02: [1-9]\d* assertions, 0 failures", 240),
     "enemy-feedback-native": (
         "tests/enemy_feedback_01_tests.gd", r"ENEMY_FEEDBACK_01 checks=[1-9]\d* failures=0", 240),
     "enemy-feedback-formal": (

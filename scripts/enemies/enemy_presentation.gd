@@ -172,7 +172,7 @@ func _draw_action_frame(state: StringName, facing: float, tint: Color) -> void:
 func _remains_view() -> Dictionary:
 	var facing := float(actor.brain.direction)
 	if feedback_frames != null:
-		var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
+		var bob := body_motion.body_bob(actor.definition.behavior_id) if actor.definition.aerial else 0.0
 		return {"frames": feedback_frames, "contact_foot": global_transform * Vector2(0, _size.y*.5), "texture": feedback_frames.texture(4), "bounds": feedback_frames.bounds(4), "transform": global_transform * Transform2D(0, Vector2(facing, 1), 0, Vector2(0, feedback_anchor.y+bob)), "face": facing, "angle": global_rotation, "readable_material": false}
 	if EnemyPresentationBinding.view(self).get("scene_body") == &"aerial":
 		var texture := AtlasTexture.new()
@@ -242,7 +242,7 @@ func _sync_feedback_body() -> void:
 	# motion object never restarts when an accepted hurt pose enters or exits.
 	var source := feedback_frames.texture(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_texture()
 	var bounds := feedback_frames.bounds(feedback_frame_index) if feedback_frame_index >= 0 else feedback_frames.canonical_live_bounds()
-	var bob := sin(body_motion.clock*7.0)*1.2 if actor.definition.aerial else 0.0
+	var bob := body_motion.body_bob(actor.definition.behavior_id) if actor.definition.aerial else 0.0
 	feedback_body.present(source,bounds,Vector2(0,feedback_anchor.y+bob),0.0,Vector2(float(actor.brain.direction),1.0),Color.WHITE,feedback_sample.flash_strength())
 
 func _remains_named_frame(data: Dictionary, id: String) -> Dictionary:

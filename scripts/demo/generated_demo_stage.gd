@@ -100,7 +100,35 @@ func reached_finish(location: Vector2) -> bool:
 
 func _physics_process(delta: float) -> void:
 	clock += delta
+	_advance_pickup_motion(delta)
 	queue_redraw()
+
+func _advance_pickup_motion(delta: float) -> void:
+	for pickup: Dictionary in pickups:
+		PlainsLootMotion.advance(pickup,delta,self)
+	_persist_pickup_motion()
+
+func _persist_pickup_motion() -> void:
+	pass
+
+func _save_pickup_units(drops: Dictionary) -> void:
+	# Record live positions so a reload resumes existing entitlements at rest,
+	# without replaying the death spray or creating a second unit/receipt.
+	for pickup: Dictionary in pickups:
+		var source := str(pickup.get("source",""))
+		if source.is_empty() or not drops.has(source): continue
+		var records: Array = drops[source].get("units",[])
+		for record: Dictionary in records:
+			if str(record.id)==str(pickup.id): record.merge(PlainsLootMotion.snapshot(pickup),true)
+
+func restore_drop_pickups(drop: Dictionary, identity: String, claims: Dictionary) -> void:
+	if drop.has("units"):
+		for record: Dictionary in drop.units:
+			var pickup := PlainsLootMotion.restore(record,clock)
+			pickup.claimed=claims.has(pickup.id) or bool(record.get("claimed",false))
+			pickups.append(pickup)
+	elif drop.get("kind","none")!="none":
+		pickups.append({"id":"drop_"+identity,"kind":drop.kind,"amount":int(drop.amount),"position":Vector2(drop.position[0],drop.position[1]),"claimed":claims.has("drop_"+identity),"source":identity})
 
 func _draw() -> void:
 	if not assembly_ok:

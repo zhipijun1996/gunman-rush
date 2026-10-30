@@ -97,6 +97,16 @@ def merge_parent_source(parent, path):
     return snapshot.read_bytes() if snapshot.is_file() else (ROOT/path).read_bytes()
 
 
+
+MOTION_LOOT_ARCHIVE = 'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'
+MOTION_LOOT_ARCHIVE_SHA = '9f93b5c60a5c56845484314df8800b06a8a4faadc8092c1ab94b0acb3bc33ab5'
+
+def initial20_source(path):
+    if path in {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'}:
+        return (ROOT/(MOTION_LOOT_ARCHIVE+'sources/'+Path(path).name+'.txt')).read_bytes()
+    return (ROOT/path).read_bytes()
+
+
 class BibleTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -315,7 +325,7 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'20')
+        self.assertEqual(style['content']['version'],'21')
         # Preserve the entire original19/18 history against immutable parent19.
         style = {**style,'content':json.loads((ROOT/(MERGE_PARENT_ARCHIVE+'program/style19.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'19')
@@ -1158,7 +1168,7 @@ class BibleTests(unittest.TestCase):
 
 
     def test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers(self):
-        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        current = json.loads((ROOT/(MOTION_LOOT_ARCHIVE+'style20.json')).read_bytes())
         self.assertEqual(current['version'],'20')
         actual = current['runtime_reference']['references']
         self.assertEqual(len(actual),81)
@@ -1181,7 +1191,7 @@ class BibleTests(unittest.TestCase):
         for before,other,after in zip(parents['program'],parents['mobile'],actual):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in other.items() if k!='sha256'})
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
-            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(initial20_source(after['path'])).hexdigest())
             if before==other:
                 self.assertEqual(after,before)
                 preserved += 1
@@ -1191,6 +1201,45 @@ class BibleTests(unittest.TestCase):
         self.assertEqual(changed,MERGE_UI_LEAVES|{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'})
         self.assertEqual(preserved,74)
         self.assertEqual(current['shared_dimensions'],json.loads((ROOT/(MERGE_PARENT_ARCHIVE+'mobile/style19.json')).read_bytes())['shared_dimensions'])
+
+
+    def test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references(self):
+        root = ROOT/MOTION_LOOT_ARCHIVE
+        raw = (root/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),MOTION_LOOT_ARCHIVE_SHA)
+        for row in json.loads(raw)['files']:
+            content = (root/row['path']).read_bytes()
+            self.assertEqual((len(content),hashlib.sha256(content).hexdigest()),(row['bytes'],row['sha256']))
+        prior_raw = (root/'style20.json').read_bytes()
+        prior = json.loads(prior_raw)
+        self.assertEqual(prior['version'],'20')
+        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        self.assertEqual(current['version'],'21')
+        before = prior['runtime_reference']['references']
+        actual = current['runtime_reference']['references']
+        self.assertEqual((len(before),len(actual)),(81,83))
+        changed = set()
+        for old,new in zip(before,actual[:81]):
+            self.assertEqual({k:v for k,v in old.items() if k!='sha256'},{k:v for k,v in new.items() if k!='sha256'})
+            self.assertEqual(old['sha256'],hashlib.sha256(initial20_source(old['path'])).hexdigest())
+            self.assertEqual(new['sha256'],hashlib.sha256((ROOT/new['path']).read_bytes()).hexdigest())
+            if old!=new:changed.add(new['path'])
+        self.assertEqual(changed,{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'})
+        self.assertEqual(sum(a==b for a,b in zip(before,actual[:81])),78)
+        self.assertEqual([(x['role'],x['path']) for x in actual[81:]],[('plains_loot_life_orb','assets/plains_loot_02/life_orb.png'),('plains_loot_world_sampler','shaders/plains_loot_02.gdshader')])
+        consumer = (ROOT/'scripts/art/plains_stage_visual.gd').read_text()
+        for row in actual[81:]:
+            self.assertIn('res://'+row['path'],consumer)
+            self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
+        self.assertEqual(current['shared_dimensions'],prior['shared_dimensions'])
+        original_inputs = json.loads((root/'region-bible-inputs.json').read_bytes())
+        self.assertEqual(len(original_inputs),368)
+        live_inputs = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
+        self.assertEqual(live_inputs[:368],original_inputs)
+        stale = copy.deepcopy(self.ref)
+        stale.update(supplemental_authority_path=MOTION_LOOT_ARCHIVE+'style20.json',supplemental_authority_sha256=hashlib.sha256(prior_raw).hexdigest())
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale,root=self.root)
 
 
 if __name__ == '__main__':

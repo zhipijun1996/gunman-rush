@@ -28,6 +28,9 @@ static func _pivot(unit: Vector2, size: Vector2) -> Vector2:
 
 static func _joint(point: Vector2, unit_pivot: Vector2, size: Vector2, angle: float, weight: float) -> Vector2:
 	var root := _pivot(unit_pivot, size)
+	return _joint_at(point,root,angle,weight)
+
+static func _joint_at(point: Vector2, root: Vector2, angle: float, weight: float) -> Vector2:
 	return point.lerp(root + (point - root).rotated(angle), clampf(weight, 0.0, 1.0))
 
 static func _scale_part(point: Vector2, unit_pivot: Vector2, size: Vector2, factor: Vector2, weight: float) -> Vector2:
@@ -88,17 +91,26 @@ static func _sentry(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary
 	var recovery := clampf(float(pose.get("recovery", 0.0)), 0.0, 1.0)
 	var hurt := clampf(float(pose.get("hurt", 0.0)), 0.0, 1.0)
 	var turn := float(pose.get("turn", 0.0))
-	var breath := sin(clock * 3.1) * 0.012 * (1.0 - load)
+	var quiet := 1.0-clampf(load+strike,0.0,1.0)*.8
+	var drive := clampf(float(pose.get("drive",0.0)),-1.0,1.0)
+	var breath := sin(clock * 3.1) * 0.026 * (1.0 - load)
 	var inflation := 0.18 * load - 0.13 * strike - 0.13 * hurt + breath
 	p = _scale_part(p, Vector2(0.30, 0.53), size, Vector2(1.0 + inflation, 1.0 + inflation * 0.65), sac)
 	# The nozzle aims independently of the planted support, then retracts.
-	p = _joint(p, Vector2(0.70, 0.34), size, float(pose.get("aim",0.0))*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt, muzzle)
+	p = _joint(p, Vector2(0.70, 0.34), size, float(pose.get("aim",0.0))*load -0.12 * load + 0.29 * strike + 0.10 * turn + 0.20 * hurt +.028*sin(clock*2.2-.55)*quiet-.035*drive, muzzle)
 	p.x -= size.x * (0.075 * strike + 0.035 * hurt) * muzzle
-	p = _joint(p, Vector2(0.45, 0.81), size, -0.035 * load - 0.15 * strike + 0.04 * recovery, upper)
+	var chamber_angle := -0.035*load-0.15*strike+0.04*recovery+.021*sin(clock*2.2)*quiet-.043*drive
+	p = _joint(p, Vector2(0.45, 0.81), size, chamber_angle, upper)
 	p.x -= size.x * 0.035 * strike * upper
 	# Broad leaves answer the chamber's release after the hard nozzle recoil.
 	var leaf_spring := 0.22 * recovery * sin((1.0 - recovery) * PI * 2.0)
-	p = _joint(p, Vector2(0.47, 0.51), size, (1.0 if uv.x > 0.48 else -1.0) * (-0.12 * load + 0.17 * strike + leaf_spring + 0.10 * hurt), leaves)
+	var leaf_root := _joint(_pivot(Vector2(.47,.51),size),Vector2(.45,.81),size,chamber_angle,1.0)
+	leaf_root.x -= size.x*.035*strike
+	var leaf_idle := .060*sin(clock*2.2-.9)*quiet+.035*drive
+	p = _joint_at(p,leaf_root,(1.0 if uv.x > 0.48 else -1.0)*(-.12*load+.17*strike+leaf_spring+.10*hurt+leaf_idle),leaves)
+	# The leg tops answer the chamber's weight shift; toes retain their root.
+	var knee := legs*(1.0-_window(.90,1.0,uv.y))
+	p.x += size.x*.012*sin(clock*2.2)*quiet*(front*2.0-1.0)*knee
 	return p
 
 static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -> Vector2:
@@ -156,17 +168,23 @@ static func _fan(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -
 	var strike := clampf(float(pose.get("strike", 0.0)), 0.0, 1.0)
 	var recovery := clampf(float(pose.get("recovery", 0.0)), 0.0, 1.0)
 	var hurt := clampf(float(pose.get("hurt", 0.0)), 0.0, 1.0)
-	var flight_beat := sin(clock * 12.5) * 0.11 * (1.0 - 0.90 * load)
+	var beat := clock*12.5
+	var drive := clampf(float(pose.get("drive",0.0)),-1.0,1.0)
+	var flight_beat := sin(beat) * 0.14 * (1.0 - 0.90 * load)
 	var fan_open := 0.37 * load + 0.14 * strike - 0.12 * recovery
 	p = _joint(p, Vector2(0.45, 0.43), size, -fan_open - flight_beat + 0.10 * hurt, left_wing)
 	p = _joint(p, Vector2(0.59, 0.43), size, fan_open + flight_beat - 0.07 * hurt, right_wing)
 	# Expansion is horizontal and symmetric. Shooting gives the central mass
 	# a short backward pitch while both wing roots visibly brace it.
 	p.x += size.x * 0.055 * load * (right_wing - left_wing)
-	p = _joint(p, Vector2(0.44, 0.74), size, -0.19 * strike + 0.05 * recovery, body)
+	var carried_lift := sin(beat-.52)*(1.0-.85*load)
+	# Wing roots answer first; the copper mass follows the downstroke and the
+	# feet trail a little later. Neither uses an independent whole-image bob.
+	p.y -= size.y*.019*carried_lift*maxf(body,wing_height*.52)
+	p = _joint(p, Vector2(0.44, 0.74), size, -0.19 * strike + 0.05 * recovery+.025*sin(beat-.72)*(1.0-load)-.055*drive, body)
 	p = _scale_part(p, Vector2(0.42, 0.69), size, Vector2(1.0 - 0.10 * hurt, 1.0 - 0.07 * hurt), body)
 	p.x -= size.x * 0.04 * strike * body
-	p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + sin(clock * 5.0) * 0.035 * (1.0 - load), feet)
+	p = _joint(p, Vector2(0.56, 0.79), size, 0.10 * strike + sin(beat-1.1) * 0.065 * (1.0 - load)-.065*drive, feet)
 	return p
 
 static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Dictionary) -> Vector2:
@@ -232,12 +250,23 @@ static func _root_bell(point: Vector2, uv: Vector2, size: Vector2, pose: Diction
 	var hurt_rebound := sin((1.0 - hurt) * PI * 1.5) * hurt * 0.17
 	# Load bends the stalk rearward and lifts the heavy bell; release brings
 	# both connected upper segments down into the accepted pulse event.
-	p = _joint(p, Vector2(0.50, 0.94), size, breath - 0.19 * load + 0.25 * strike + hurt_rebound, main_stem)
-	p = _joint(p, Vector2(0.50, 0.68), size, -0.10 * load + 0.19 * strike + 0.05 * recovery + hurt_rebound * 0.6, upper_stem)
-	p = _joint(p, Vector2(0.70, 0.20), size, -0.17 * load + 0.39 * strike - 0.07 * recovery + 0.13 * hurt, bell)
+	var quiet := 1.0-clampf(load+strike,0.0,1.0)*.8
+	var live_lower_angle := breath*quiet-.19*load+.25*strike+hurt_rebound
+	var live_upper_angle := .015*sin(clock*2.6-.5)*quiet-.10*load+.19*strike+.05*recovery+hurt_rebound*.6
+	var moved_elbow := _joint(_pivot(Vector2(.50,.68),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+	p = _joint(p, Vector2(0.50, 0.94), size, live_lower_angle, main_stem)
+	p = _joint_at(p,moved_elbow,live_upper_angle,upper_stem)
+	# Child hinges are transported by the two flexible stem segments. Bell and
+	# leaf motion are then delayed about those actual carried attachments.
+	var live_hanger := _joint(_pivot(Vector2(.70,.20),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+	live_hanger = _joint_at(live_hanger,moved_elbow,live_upper_angle,1.0)
+	var bell_lag := (.044*sin(clock*2.6-.95)-breath*.5)*quiet
+	p = _joint_at(p,live_hanger,-.17*load+.39*strike-.07*recovery+.13*hurt+bell_lag,bell)
 	p.y -= size.y * 0.035 * load * bell
 	var leaf_lag := sin((1.0 - recovery) * PI * 2.0) * recovery * 0.09
-	p = _joint(p, Vector2(0.50, 0.58), size, (1.0 if uv.x > 0.5 else -1.0) * (0.09 * load - 0.15 * strike + leaf_lag + breath), leaf)
+	var moved_leaf := _joint(_pivot(Vector2(.50,.58),size),Vector2(.50,.94),size,live_lower_angle,1.0)
+	moved_leaf = _joint_at(moved_leaf,moved_elbow,live_upper_angle,1.0-_window(.45,.72,.58))
+	p = _joint_at(p,moved_leaf,(1.0 if uv.x>.5 else -1.0)*(.09*load-.15*strike+leaf_lag+.058*sin(clock*2.6-1.2)*quiet),leaf)
 	return p
 
 # Two connected rigid stem bones, with the bend directed to the slack side.
