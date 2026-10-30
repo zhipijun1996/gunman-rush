@@ -26,3 +26,5 @@
 本地完整docs预检仍需额外1,257,029,114B已知历史＋未知对象，超过剩余磁盘；原Harness拒绝在缺件状态放行，保[预检](docs-input-plan.json)/失败日志。未删旧文件、放宽检查或冒称docs/full166通过；PR自动CI在有完整输入的runner上仍需独立验收。
 
 最终工程源f6d8d76e另跑当前style20/creative23上下文的[原Harness](harness-final.json)与[四消费者](native-suite-final.json)，全fresh194／0；新wrapper自动UTC新目录，原194日志未覆盖。仅新check追加实际Bible目录依赖，旧165命令/顺序/预算完整保留。试玩仍精确d466/1b5989，后续为字幕、brief上下文、技术绑定和证据，不重标已发布包来源。
+
+收据207的质量卡曾将不同提交证据放入passed当前维度，被原校验拒绝；保[真实错误](failures/quality-card-stale-207.json)与diff原日志，不重标旧BGM/旧审查。最终以真正针对f6的新[独立工程审查](review-final-commit.json)绑定当前实现；旧证据保持其原身份，当前technical只引用新f6原生194。此为记录修正，未改运行代码、声音或已部署资源。

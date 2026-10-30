@@ -122,8 +122,7 @@
       "status": "passed",
       "reason": "有限音频回归及独立工程审查通过；不扩为全历史docs/full166或听感/设备认可",
       "evidence": [
-        "native194",
-        "bgm89"
+        "native194"
       ]
     },
     "formal_integration": {
@@ -160,8 +159,7 @@
       "status": "passed",
       "reason": "有限音频回归及独立工程审查通过；不扩为全历史docs/full166或听感/设备认可",
       "evidence": [
-        "review",
-        "binding-review"
+        "final-review"
       ]
     },
     "device": {
@@ -187,8 +185,7 @@
       "status": "passed",
       "reason": "Finite194 and original89 pass, other checks scoped separately",
       "evidence": [
-        "native194",
-        "bgm89"
+        "native194"
       ]
     },
     {
@@ -202,8 +199,7 @@
       "status": "passed",
       "reason": "Frozen limited engineering reviews, not G5",
       "evidence": [
-        "review",
-        "binding-review"
+        "final-review"
       ]
     },
     {
@@ -242,7 +238,7 @@
       "sha256": "d4f9445e04dff14474c5ec6236c820dcd5479c624a8e61b221ad265007628a80",
       "kind": "command",
       "producer": "root",
-      "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+      "source_commit": "9f3dbef3a34be265f04669a70bfb584ec6490740",
       "content_version": "audio-feedback-v1",
       "method": "Original actual MP3/loop and scene-lifecycle BGM integration",
       "observed": "89/0 fresh; no MP3 source changes",
@@ -344,6 +340,27 @@
       "content_version": "audio-feedback-v1",
       "method": "Five exact user feedback items, allowed write sets, accepted-only events, original music/choice preservation and listening limits",
       "observed": "One existing audio system, no physics/economy/RNG changes; hearing remains user-reviewed"
+    },
+    {
+      "id": "final-review",
+      "path": "docs/evidence/audio_feedback_05/review-final-commit.json",
+      "sha256": "f08e57cf0285e79ca69fe409b7666f28d9cacdcdeae4e64c90fbb64ca642991e",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "reviewer": "root/ambience_review",
+      "source_commit": "f6d8d76ea935fc9a9b82054e24f2bf8aca38b26e",
+      "content_version": "audio-feedback-v1",
+      "method": "New independent actual post-commit review of f6, 30200 implementation mode/blob entries vs207, 29 byte bindings and final fresh Harness194, unchanged frozen old reviews",
+      "observed": "Limited engineering ACCEPT for exact f6; no relabelled old BGM/film/Site or hearing/device approval",
+      "implementers": [
+        "root",
+        "root/ambience_runtime",
+        "root/ambience_sources",
+        "root/ambience_scene"
+      ],
+      "independent": true,
+      "independence_basis": "Different agent, no production writes; only frozen review documents and post-commit proof",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
@@ -354,5 +371,5 @@
     "完整formal consumer覆盖、商业品质与G5"
   ],
   "test_change_justification": "Preserve all63 selected assertions; only hero default expectation follows latest C rejection into separately named feedback05 and explicitly tests old C. Preserve all33/11 historical methods using their actual frozen19/22 sources; add current20/23 cases and8 inputs. Independent review confirms original assertions/budgets retained. The new check additionally observes actual docs/creative_direction dependencies; its wrapper uses fresh output directories and refuses overwrite before starting, with all4 consumers/limits intact. Independent reviewer reconfirmed these two protection additions read-only.",
-  "production_snapshot": "4373e67e1847a7fac211b1e234a3447217ee922fbd15d07dae443971a1b4347d"
+  "production_snapshot": "d4f304e36f8097787e657aed59783b7ebcc29367ae982b8e8f3b2c65cd40797c"
 }
