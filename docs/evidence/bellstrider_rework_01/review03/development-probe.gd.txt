@@ -1,0 +1,37 @@
+extends "res://tests/bellstrider_rework_01/contact_edges.gd"
+var projectile_hits: Array[Dictionary] = []
+func collect(results: Array[DamageResult]) -> void:
+	for result: DamageResult in results:
+		if result.request.source_id == &"boss_projectile":
+			projectile_hits.append({"id":str(result.request.event_id),"lost":result.hp_lost})
+func run() -> void:
+	if await setup():
+		app.policy.batch_resolved.connect(collect)
+		var x: float = app.stage.boss.global_position.x - 230
+		var query := PhysicsRayQueryParameters2D.create(Vector2(x,-650),Vector2(x,200),1,[app.player.get_rid()])
+		var surface: Dictionary = app.player.get_world_2d().direct_space_state.intersect_ray(query)
+		var ground: Vector2 = surface.position
+		relocate(ground - Vector2(0,18), "stationary actual target of real ballistic launch")
+		await ticks(3)
+		var hp: float = app.controller.actor_resources.health.current
+		print("PROBE PLAYER ", app.player.global_position, " BOSS ", app.stage.boss.global_position, " LAND ", ground, " LAYER ", app.player.collision_layer)
+		encounter.presentation_event.connect(func(row: Dictionary) -> void:
+			if row.event == &"bellstrider_lob_impact": print("PROBE IMPACT ", row))
+		encounter.projectile_created.connect(func(shot: BossProjectile) -> void:
+			shot.hit.connect(func(_body: Node2D, id: StringName, amount: float) -> void: print("PROBE RAW HIT ", id, " ", amount)))
+		encounter._aim_launcher(ground)
+		encounter._launch(ground)
+		for index: int in 120:
+			await ticks(1)
+			if index % 10 == 0:
+				var shots: Array = []
+				for p: Variant in encounter._projectiles:
+					if is_instance_valid(p): shots.append({"id":p.event_id,"pos":p.global_position,"spent":p.spent})
+				print("PROBE TICK ",index," PLAYER ",app.player.global_position," SHOTS ",shots)
+			if not projectile_hits.is_empty(): break
+		check(not projectile_hits.is_empty() and app.controller.actor_resources.health.current == hp-1,
+			"actual launched copper bell or surface shock commits player damage")
+		print("PROJECTILE RESULTS ", projectile_hits)
+	await cleanup()
+	print("REVIEW03 PROBE: ", assertions, " checks, ", failures.size(), " failures")
+	quit(0 if failures.is_empty() else 1)
