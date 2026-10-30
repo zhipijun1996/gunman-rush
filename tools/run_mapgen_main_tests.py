@@ -45,6 +45,7 @@ REQUIRED |= {
     "boss/v5_equipped_native", "boss/v5_native_policy_damage", "boss/v5_unequip_revokes", "boss/v5_no_hidden_regrant",
 }
 REQUIRED |= {"boss/v5_refuse/"+name for name in ("unregistered_flag","source_actor","session","amount")}
+REQUIRED |= {"hud/single_visible_status/"+label for label in ("first","second","retry")}
 REQUIRED |= {"manifest/refuse/"+name for name in (
     "root_seed","receipt_seed","map_sha","manifest_sha","profile_version","profile_count","profile_boss",
     "profile_development","stages_missing","second_stage","stage_type","stage_biome","stage_offers",

@@ -370,6 +370,7 @@ func _inventory(label: String) -> void:
 	_record("binding/inventory/"+label,map.hosted and map.registry.instances.size()==46 and map.registry.map_data.connections.size()==55 and seals==40 and terrain_unique,"static_main_runtime_inventory",{"hosted":map.hosted,"instances":map.registry.instances.size(),"connections":map.registry.map_data.connections.size(),"seals":seals,"terrain_unique":terrain_unique})
 	var counts := {"players":_count(app,"player"),"routers":_count(app,"router"),"keyboards":_count(app,"keyboard"),"policies":_count(app,"policy"),"audio":_count(app,"audio"),"music":_count(app,"music"),"touch":_count(app,"touch")}
 	_record("binding/single_host_services/"+label,counts.players==1 and counts.routers==1 and counts.keyboards==1 and counts.policies==1 and counts.audio==1 and counts.music==1 and counts.touch==1,"static_main_runtime_inventory",counts)
+	_record("hud/single_visible_status/"+label,app._demo_hud.is_visible_in_tree() and not app._title.is_visible_in_tree() and not app._hud.is_visible_in_tree() and not app._resources_hud.is_visible_in_tree(),"actual_main_hud_visibility",{"native_hud":app._demo_hud.is_visible_in_tree(),"legacy_title":app._title.is_visible_in_tree(),"legacy_wallet":app._hud.is_visible_in_tree(),"legacy_resource_hud":app._resources_hud.is_visible_in_tree(),"debug_hud":app.debug_hud})
 
 func _natural_start() -> void:
 	var map := app.stage

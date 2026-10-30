@@ -1846,6 +1846,8 @@ func _process(_delta: float) -> void:
 		_status_label.visible = debug_hud
 		_hud_frame.visible = debug_hud
 		_resources_hud.visible = debug_hud
+		_title.visible = debug_hud
+		_hud.visible = debug_hud
 		_demo_hud.visible = not debug_hud
 		_demo_hud.present_context("WINDCHIME PLAINS · 930001",wallet.balance,int(meta.snapshot().get("notes",0)),_reduced_effects)
 		if not debug_hud: _demo_hud.present_touch_menu(overlay)
