@@ -1,0 +1,8 @@
+{
+  "verdict": "REWORK_VISUAL_CAPTURE",
+  "source_commit": "ad51f746521d2984316e755d95339ff9e0220517",
+  "original_mp4_sha256": "de5f981be76b562bb4fe109f857e732d19e82c241cbf104443219a223dc71b22",
+  "original_mp4_workspace_path": "build/bellstrider_rework_01/final-cautious-01/review.mp4",
+  "finding": "Old world-space BOSS ARENA SEALED text overlaps the Bellstrider HUD at movie43.5s. Technical complete capture is not visual acceptance. Original MP4 and original PCM retained in build; unchanged compressed receipts/trace retained here.",
+  "resolution": "c10dab0f scopes existing world_status_text_enabled false to Bellstrider; final cautious02 resampled43.5 proves clear HUD. No combat behavior changed."
+}
