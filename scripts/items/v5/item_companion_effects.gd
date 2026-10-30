@@ -239,6 +239,8 @@ func _target(point: Vector2) -> Dictionary:
 	var ordinary: Dictionary = {}
 	var prioritise := not _effect(&"G08").is_empty()
 	for value: Dictionary in candidates:
+		var receiver := value.receiver as Damageable
+		if not is_instance_valid(receiver) or not receiver.can_receive_effects(): continue
 		if not bool(host.call("clear_line", point, (value.node as Node2D).global_position)): continue
 		if ordinary.is_empty(): ordinary = value
 		if prioritise and bool(host.call("is_marked", value.receiver)): return value
@@ -289,9 +291,10 @@ func _patrol_candidates(drone: Dictionary) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	var seek_pursuit := not _effect(&"G08").is_empty()
 	for value: Dictionary in candidates:
+		var receiver := value.receiver as Damageable
+		if not is_instance_valid(receiver) or not receiver.can_receive_effects(): continue
 		var node := value.node as Node2D
 		if not bool(host.call("clear_line", point, node.global_position)): continue
-		var receiver := value.receiver as Damageable
 		var pursuit := seek_pursuit and bool(host.call("is_marked", receiver))
 		var dream := bool(host.call("is_dream_marked", receiver))
 		var candidate: Dictionary = value.duplicate()
@@ -307,6 +310,9 @@ func _patrol_candidates(drone: Dictionary) -> Array[Dictionary]:
 
 func _set_lock(drone: Dictionary, candidate: Dictionary) -> void:
 	var receiver := candidate.receiver as Damageable
+	if not is_instance_valid(receiver) or not receiver.can_receive_effects():
+		_clear_lock(drone)
+		return
 	drone["target_lock"] = weakref(receiver)
 	drone["target_lock_id"] = receiver.get_instance_id()
 	drone["target_lock_epoch"] = receiver.damage_epoch
@@ -321,7 +327,9 @@ func _clear_lock(drone: Dictionary) -> void:
 func _locked_target(drone: Dictionary) -> Dictionary:
 	if not drone.get("target_lock") is WeakRef: return {}
 	var receiver := (drone.target_lock as WeakRef).get_ref() as Damageable
-	if not is_instance_valid(receiver) or not receiver.active or receiver.damage_epoch != int(drone.target_lock_epoch): return {}
+	if not is_instance_valid(receiver) or not receiver.can_receive_effects() or receiver.damage_epoch != int(drone.target_lock_epoch):
+		_clear_lock(drone)
+		return {}
 	var node := receiver.get_parent() as Node2D
 	if not is_instance_valid(node): return {}
 	var host := _host()
@@ -332,6 +340,8 @@ func _locked_target(drone: Dictionary) -> Dictionary:
 func _fire(drone: Dictionary, target: Dictionary) -> void:
 	var host := _host()
 	var receiver := target.receiver as Damageable
+	# Cached targets must still be eligible before sequence/mark reservations.
+	if not is_instance_valid(receiver) or not receiver.can_receive_effects(): return
 	var view := drone.visual as ItemV5Entity
 	var ratio := float(drone.ratio)
 	if drone.id == &"G19":

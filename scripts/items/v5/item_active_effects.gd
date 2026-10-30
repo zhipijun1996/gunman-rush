@@ -173,6 +173,7 @@ func _cooldown(params: Dictionary) -> float:
 	return float(params.get("cooldown_s", params.get("skill_cooldown_s", 0.0)))
 
 func _step_flywheel(entry: Dictionary, delta: float) -> void:
+	if bool(entry.get("spent", false)): return
 	if float(entry.age) >= float(_tuning.projection.flywheel_lifetime_s): entry.spent = true; return
 	var view := entry.visual as ItemV5Entity
 	var actor := _actor()
@@ -190,7 +191,10 @@ func _step_flywheel(entry: Dictionary, delta: float) -> void:
 		var contact := _contact(view.global_position, finish, exclusions)
 		if contact.is_empty(): break
 		var receiver := contact.get("receiver") as Damageable
-		if receiver == null:
+		if receiver != null: receiver.physical_impact(contact.point)
+		# An ineligible physical receiver is still solid armour. Do not add its
+		# RID to the pass-through exclusions or spend a legal target's hit budget.
+		if receiver == null or not receiver.can_receive_effects():
 			view.global_position = contact.point+contact.normal*float(_tuning.projection.collision_radius_px)
 			if outbound:
 				entry.phase = &"returning"
@@ -200,10 +204,10 @@ func _step_flywheel(entry: Dictionary, delta: float) -> void:
 		var target_key := "%s/%s" % [receiver.get_instance_id(), receiver.damage_epoch]
 		var hit_key := "%s/%s" % [entry.phase, target_key]
 		if not entry.hits.has(hit_key) and int(entry.target_hits.get(target_key,0)) < int(entry.params.max_target_hits):
-			entry.hits[hit_key] = true
-			entry.target_hits[target_key] = int(entry.target_hits.get(target_key,0))+1
 			var ratio := float(entry.params.total_damage_ratio_D)*float(entry.budget_multiplier)/float(entry.params.max_target_hits)
-			_deal_active(receiver, float(entry.damage_D)*ratio, StringName("%s/%s/%s" % [entry.cast, entry.projectile_index, hit_key]), entry.id, entry.cast)
+			if _deal_active(receiver, float(entry.damage_D)*ratio, StringName("%s/%s/%s" % [entry.cast, entry.projectile_index, hit_key]), entry.id, entry.cast):
+				entry.hits[hit_key] = true
+				entry.target_hits[target_key] = int(entry.target_hits.get(target_key,0))+1
 		exclusions.append(contact.rid)
 		entry.ignored.append(contact.rid)
 	view.global_position = finish
@@ -213,14 +217,17 @@ func _step_flywheel(entry: Dictionary, delta: float) -> void:
 		entry.ignored = []
 
 func _step_throw(entry: Dictionary, delta: float) -> void:
+	if bool(entry.get("spent", false)): return
 	var view := entry.visual as ItemV5Entity
 	var remaining := maxf(0.0, float(_tuning.projection.throw_range_px)-float(entry.travelled))
 	var travel := minf(remaining, float(_tuning.projection.speed)*delta)
 	var finish: Vector2 = view.global_position+entry.direction*travel
 	var contact := _contact(view.global_position, finish, [])
 	if not contact.is_empty():
+		var receiver := contact.get("receiver") as Damageable
+		if receiver != null: receiver.physical_impact(contact.point)
 		view.global_position = contact.point+contact.normal*0.5
-		_explode_throw(entry, contact.get("receiver") as Damageable)
+		_explode_throw(entry, receiver)
 		return
 	view.global_position = finish
 	entry.travelled = float(entry.travelled)+travel
@@ -232,38 +239,41 @@ func _explode_throw(entry: Dictionary, collision_target: Damageable) -> void:
 	var host := _host()
 	var view := entry.visual as ItemV5Entity
 	var point := view.global_position
-	var primary := collision_target
+	# A chassis hit still terminates the physical throw. Only an eligible
+	# receiver within the explosion's real acquire radius may become primary.
+	var primary := collision_target if _eligible(collision_target) else null
 	if primary == null:
 		var nearby: Array = host.call("targets", point, float(_tuning.projection.throw_main_acquire_radius_px))
 		for value: Dictionary in nearby:
+			var receiver := value.receiver as Damageable
+			if not _eligible(receiver): continue
 			if bool(host.call("clear_line", point, (value.node as Node2D).global_position)):
-				primary = value.receiver as Damageable
+				primary = receiver
 				break
 	var hit: Dictionary = {}
-	if primary == null:
+	if primary == null or not _deal_active(primary, float(entry.damage_D)*float(entry.params.throw_damage_ratio_D)*float(entry.budget_multiplier), StringName("%s/%s/impact/%s" % [entry.cast, entry.projectile_index, primary.get_instance_id()]), entry.id, entry.cast):
 		host.call("cue", &"item_throw_burst", view.global_position, {"definition_id":entry.id, "packet":entry.cast})
 		return
-	if primary != null:
-		hit[primary.get_instance_id()] = true
-		_deal_active(primary, float(entry.damage_D)*float(entry.params.throw_damage_ratio_D)*float(entry.budget_multiplier), StringName("%s/%s/impact/%s" % [entry.cast, entry.projectile_index, primary.get_instance_id()]), entry.id, entry.cast)
-		var target_node := primary.get_parent() as Node2D
-		if target_node != null: point = target_node.global_position
+	hit[primary.get_instance_id()] = true
+	var target_node := primary.get_parent() as Node2D
+	if target_node != null: point = target_node.global_position
 	var chain_count := 0
 	for _i: int in int(entry.params.chain_targets):
 		var chosen: Dictionary = {}
 		var nearby: Array = host.call("targets", point, float(_tuning.projection.throw_chain_radius_px))
 		for candidate: Dictionary in nearby:
 			var receiver := candidate.receiver as Damageable
-			if not hit.has(receiver.get_instance_id()) and bool(host.call("clear_line", point, (candidate.node as Node2D).global_position)):
+			if not _eligible(receiver) or hit.has(receiver.get_instance_id()): continue
+			if not bool(host.call("clear_line", point, (candidate.node as Node2D).global_position)): continue
+			# A refused candidate never consumes a chain hop. Ownership and
+			# receipts still belong to the actual equipped G14 instance.
+			if bool(host.call("deal", receiver, float(entry.damage_D)*float(entry.params.chain_damage_ratio_D)*float(entry.budget_multiplier), StringName("%s/%s/chain/%s" % [entry.cast, entry.projectile_index, chain_count]), &"G14")):
 				chosen = candidate
 				break
 		if chosen.is_empty(): break
 		var receiver := chosen.receiver as Damageable
 		hit[receiver.get_instance_id()] = true
 		var next := (chosen.node as Node2D).global_position
-		# The receipt distinguishes the derived chain, while ownership and stale
-		# source cancellation remain bound to the actual equipped G14 instance.
-		host.call("deal", receiver, float(entry.damage_D)*float(entry.params.chain_damage_ratio_D)*float(entry.budget_multiplier), StringName("%s/%s/chain/%s" % [entry.cast, entry.projectile_index, chain_count]), &"G14")
 		host.call("cue", &"item_arc", point, {"end":next, "definition_id":entry.id, "packet":entry.cast})
 		point = next
 		chain_count += 1
@@ -279,6 +289,7 @@ func _step_trap(entry: Dictionary) -> void:
 	var nearby: Array = host.call("targets", view.global_position, float(entry.params.radius_px))
 	var found := false
 	for value: Dictionary in nearby:
+		if not _eligible(value.receiver as Damageable): continue
 		if bool(host.call("clear_line", view.global_position, (value.node as Node2D).global_position)):
 			found = true
 			break
@@ -295,6 +306,7 @@ func _step_pulses(entry: Dictionary, _delta: float) -> void:
 		var index := int(entry.pulse_index)
 		var targets: Array = host.call("targets", view.global_position, float(entry.params.range_px))
 		for value: Dictionary in targets:
+			if not _eligible(value.receiver as Damageable): continue
 			var offset := (value.node as Node2D).global_position-view.global_position
 			var facing: Vector2 = entry.direction
 			if absf(facing.angle_to(offset)) > float(_tuning.pulse.half_angle_rad): continue
@@ -312,12 +324,17 @@ func _active_burst(point: Vector2, radius: float, ratio: float, id: StringName, 
 	var base := float(host.call("base_damage")) if damage_D < 0 else damage_D
 	var targets: Array = host.call("targets", point, radius)
 	for value: Dictionary in targets:
+		if not _eligible(value.receiver as Damageable): continue
 		if not bool(host.call("clear_line", point, (value.node as Node2D).global_position)): continue
 		var receiver := value.receiver as Damageable
 		_deal_active(receiver, base*ratio, StringName("%s/%s/%s" % [cast, stage, receiver.get_instance_id()]), id, cast)
 	host.call("cue", &"item_blast", point, {"radius":radius, "definition_id":id, "packet":cast})
 
+func _eligible(receiver: Damageable) -> bool:
+	return is_instance_valid(receiver) and receiver.can_receive_effects()
+
 func _deal_active(receiver: Damageable, amount: float, key: StringName, origin: StringName, packet: StringName) -> bool:
+	if not _eligible(receiver): return false
 	return bool(_host().call("deal_active", receiver, amount, key, origin, packet))
 
 func _ground_placement() -> Dictionary:

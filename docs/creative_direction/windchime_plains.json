@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v25",
+  "version": "creative-v26",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "supplemental_authority_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+    "supplemental_authority_sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "7956815f0ae63e4bcdda7cf20e7554272b43bd7e96c9d8e75bbdb4804dfec1be",
+    "registry_sha256": "af520a84ca27522c5e0536513afb510f7c58094abfc694805a14f62bd96ff054",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -59,7 +59,22 @@
   "boss": {
     "bible_sections": "6",
     "source": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
-    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "current_overrides": [
+      {
+        "boss_id": "bellstrider",
+        "task_id": "BELLSTRIDER-REWORK-01",
+        "source": "docs/worklines/bellstrider_rework_01/spec.md",
+        "source_sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea",
+        "authorization_source": {
+          "path": "docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+          "sha256": "db750e527f083912ac25f41288369af0164158caab5b5c40a1d08a19d44e81b4"
+        },
+        "precedence": "The explicit current user rework supersedes original Bible section6.1 only for Bellstrider. Preserve the original Bible and all other Boss designs.",
+        "contract": "Follow the complete current spec and actual BellstriderDefinition for upper-bell-only damage, Encounter-owned common pose, clock-driven attack groups, fair recovery/third-shot risk, terminal remains and one reward chain. This navigation record does not replace that spec or lock unverified balance.",
+        "acceptance": "unverified: implementation authorization is not gameplay/visual/audio/device/user acceptance."
+      }
+    ]
   },
   "visual": {
     "bible_sections": "2",
@@ -195,6 +210,18 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
       "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba"
+    },
+    {
+      "path": "docs/worklines/bellstrider_rework_01/spec.md",
+      "sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea"
+    },
+    {
+      "path": "docs/creative_direction/bibles/bellstrider-rework-20261030.json",
+      "sha256": "db750e527f083912ac25f41288369af0164158caab5b5c40a1d08a19d44e81b4"
     }
   ],
   "historical_direction": {
@@ -203,26 +230,30 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "PLAINS-MOTION-LOOT-02",
-    "scope": "Technical binding merge only. Both parent creative24 direction/content/user-acceptance fields are unchanged; preserve authority union and append current merged style22.",
-    "previous_direction": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
-    "previous_sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a",
-    "parent_directions": [
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
-        "sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a"
-      },
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
-        "sha256": "fa660deffa2b0e8b894e337a9f5c2e76e4133e6ec1191d1e6effb680df172a61"
-      }
-    ],
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "shared_style_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "task_id": "BELLSTRIDER-REWORK-01",
+    "scope": "Only Bellstrider follows the explicit user rework. Forest content and other Boss designs remain unchanged; shared technical binding metadata is refreshed.",
+    "previous_direction": "docs/creative_direction/archive/creative-v25-before-bellstrider-rework/windchime_plains.json",
+    "previous_sha256": "d8207d0c95cd0823a1b94e2f404a3bd281458ad52e4246fb3b4af5a1e887373a",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+    "shared_style_sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba",
     "affected_consumers": [
+      "scripts/demo/plains_region_stage.gd",
       "scripts/demo/demo_app.gd",
-      "scripts/items/v5/item_v5_shop_presenter.gd"
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/bosses/bellstrider_presentation.gd",
+      "scripts/bosses/bellstrider_rig_pose.gd",
+      "scripts/bosses/bellstrider_encounter.gd",
+      "scripts/bosses/bellstrider_definition.gd",
+      "resources/bosses/bellstrider.tres",
+      "assets/underworld_plains/actors/bellstrider.png",
+      "assets/underworld_plains/actors/bell.png",
+      "scripts/audio/bellstrider_audio.gd",
+      "assets/audio/bellstrider_01/manifest.json",
+      "assets/audio/bellstrider_01/sources.json",
+      "assets/audio/bellstrider_01/recipes.json",
+      "scripts/bosses/bellstrider_ring_projectile.gd",
+      "scripts/bosses/bellstrider_bell_projectile.gd"
     ],
-    "validation": "Both parent24 and older pointers reject current binding; all historical tests and literal SHA remain archived/active. No old PASS or human/device/art/audio acceptance inherited."
+    "validation": "Candidate only; original technical checks are fresh requirements, not art/audio/natural battle/device/user acceptance."
   }
 }

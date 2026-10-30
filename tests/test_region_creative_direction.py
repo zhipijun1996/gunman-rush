@@ -455,7 +455,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v25')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v26')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -644,7 +644,10 @@ class CreativeTests(unittest.TestCase):
     def test_merged25_preserves_both_parent24_directions_and_authority_union(self):
         base = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21'
         for region in ('windchime_plains','thorn_forest'):
-            current, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            live, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual(live['version'],'creative-v26')
+            archive = creative.ROOT/'docs/creative_direction/archive/creative-v25-before-bellstrider-rework'
+            current = json.loads((archive/(region+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v25')
             parents = []
             for parent in ('program','audio'):
@@ -662,10 +665,44 @@ class CreativeTests(unittest.TestCase):
             authority = list(parents[0]['authority_sources'])
             for row in parents[1]['authority_sources']:
                 if row not in authority: authority.append(row)
-            authority.append(creative.load_bible_registry()['shared_style_authority'])
+            frozen_registry = json.loads((archive/'registry.json').read_bytes())
+            authority.append(frozen_registry['shared_style_authority'])
             self.assertEqual(current['authority_sources'],authority)
-            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            historical_expected = dict(creative.bind_region_bible(region)[1])
+            historical_expected.update(registry_sha256=hashlib.sha256((archive/'registry.json').read_bytes()).hexdigest(), supplemental_authority_path=frozen_registry['shared_style_authority']['path'], supplemental_authority_sha256=frozen_registry['shared_style_authority']['sha256'])
+            self.assertEqual(current['region_bible'],historical_expected)
             self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+
+    def test_bellstrider26_only_overrides_this_boss_and_binds_real_current_spec(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v25-before-bellstrider-rework'
+        style = creative.load_bible_registry()['shared_style_authority']
+        spec = 'docs/worklines/bellstrider_rework_01/spec.md'
+        provenance = 'docs/creative_direction/bibles/bellstrider-rework-20261030.json'
+        for region in ('windchime_plains','thorn_forest'):
+            current,binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            old = json.loads((archive/(region+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v26')
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact','boss'}:self.assertEqual(current[key],old[key])
+            expected = [style]
+            if region=='windchime_plains':
+                overrides = current['boss']['current_overrides']
+                self.assertEqual(len(overrides),1)
+                self.assertEqual(overrides[0]['boss_id'],'bellstrider')
+                self.assertEqual(overrides[0]['source'],spec)
+                self.assertEqual(overrides[0]['source_sha256'],hashlib.sha256((creative.ROOT/spec).read_bytes()).hexdigest())
+                self.assertEqual(overrides[0]['acceptance'],'unverified: implementation authorization is not gameplay/visual/audio/device/user acceptance.')
+                self.assertEqual({k:v for k,v in current['boss'].items() if k!='current_overrides'},old['boss'])
+                expected.extend({'path':p,'sha256':hashlib.sha256((creative.ROOT/p).read_bytes()).hexdigest()} for p in (spec,provenance))
+            else:self.assertEqual(current['boss'],old['boss'])
+            self.assertEqual(current['authority_sources'],old['authority_sources']+expected)
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(str((archive/(region+'.json')).relative_to(creative.ROOT)),region)
+        origin = json.loads((creative.ROOT/provenance).read_bytes())
+        self.assertEqual((origin['boss_id'],origin['region_id']),('bellstrider','windchime_plains'))
+        self.assertEqual(origin['source']['sha256'],hashlib.sha256((creative.ROOT/spec).read_bytes()).hexdigest())
+        self.assertEqual(origin['g0']['user_acceptance'],'unverified')
 
 if __name__ == '__main__':
     unittest.main()

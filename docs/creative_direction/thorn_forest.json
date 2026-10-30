@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v25",
+  "version": "creative-v26",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "supplemental_authority_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+    "supplemental_authority_sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "7956815f0ae63e4bcdda7cf20e7554272b43bd7e96c9d8e75bbdb4804dfec1be",
+    "registry_sha256": "af520a84ca27522c5e0536513afb510f7c58094abfc694805a14f62bd96ff054",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -217,6 +217,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
       "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba"
     }
   ],
   "historical_direction": {
@@ -225,26 +229,30 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "PLAINS-MOTION-LOOT-02",
-    "scope": "Technical binding merge only. Both parent creative24 direction/content/user-acceptance fields are unchanged; preserve authority union and append current merged style22.",
-    "previous_direction": "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
-    "previous_sha256": "eac8a727fd5063eb449f91d014bf35edcaf6ebe9f68fb1b173c941e3c11f148a",
-    "parent_directions": [
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
-        "sha256": "eac8a727fd5063eb449f91d014bf35edcaf6ebe9f68fb1b173c941e3c11f148a"
-      },
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
-        "sha256": "06eaf697f2d994ef111d25a06ea40a7eb06ff42ff0ee5f4016b9f35e69f35b75"
-      }
-    ],
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "shared_style_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "task_id": "BELLSTRIDER-REWORK-01",
+    "scope": "Only Bellstrider follows the explicit user rework. Forest content and other Boss designs remain unchanged; shared technical binding metadata is refreshed.",
+    "previous_direction": "docs/creative_direction/archive/creative-v25-before-bellstrider-rework/thorn_forest.json",
+    "previous_sha256": "49e05c7268abf1b2e63f5aedab195d046699df757968888ea252cf11604b1d49",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+    "shared_style_sha256": "2281fc29e0a7ede8928af968d14763f2fc683c39c95fc95a4f83a67667ca94ba",
     "affected_consumers": [
+      "scripts/demo/plains_region_stage.gd",
       "scripts/demo/demo_app.gd",
-      "scripts/items/v5/item_v5_shop_presenter.gd"
+      "scripts/combat/weapon_action_runtime.gd",
+      "scripts/bosses/bellstrider_presentation.gd",
+      "scripts/bosses/bellstrider_rig_pose.gd",
+      "scripts/bosses/bellstrider_encounter.gd",
+      "scripts/bosses/bellstrider_definition.gd",
+      "resources/bosses/bellstrider.tres",
+      "assets/underworld_plains/actors/bellstrider.png",
+      "assets/underworld_plains/actors/bell.png",
+      "scripts/audio/bellstrider_audio.gd",
+      "assets/audio/bellstrider_01/manifest.json",
+      "assets/audio/bellstrider_01/sources.json",
+      "assets/audio/bellstrider_01/recipes.json",
+      "scripts/bosses/bellstrider_ring_projectile.gd",
+      "scripts/bosses/bellstrider_bell_projectile.gd"
     ],
-    "validation": "Both parent24 and older pointers reject current binding; all historical tests and literal SHA remain archived/active. No old PASS or human/device/art/audio acceptance inherited."
+    "validation": "Candidate only; original technical checks are fresh requirements, not art/audio/natural battle/device/user acceptance."
   }
 }

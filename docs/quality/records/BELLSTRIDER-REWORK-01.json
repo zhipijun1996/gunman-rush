@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "task_id": "BELLSTRIDER-REWORK-01",
+  "task_type": "boss",
+  "workflow": "in_progress",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "reviewed_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "content_version": "bellstrider-rework-01-candidate",
+  "owner": "root / Bellstrider workline",
+  "purpose": "按用户完整迭代要求重做鸣铃巡游机正式战斗、唯一上端风铃弱点、动作音画、机械失效与12金币逐枚拾取。",
+  "player_experience": "观察可信预警，利用站位、跳跃和真实射击反冲应对；躲完一组后稳定两枪，第三枪承担实际撤离风险。",
+  "constraints": [
+    "原玩家物理、合法空中命中返还和基础装备规则不改。",
+    "沿现有1wu/nearest像素粒度、原地区素材与已选受伤A/BGM。",
+    "Boss按自身时钟；有效命中数/攻防次数仅统计，不驱动出招或死亡。",
+    "所有类型只伤上端风铃，车壳物理阻挡和装甲反馈保留。",
+    "本轮未获新合main授权；旧PR119超时豁免不外推。"
+  ],
+  "affected_paths": [
+    "assets/audio/bellstrider_01/CC0-1.0.txt",
+    "assets/audio/bellstrider_01/README.md",
+    "assets/audio/bellstrider_01/armour_hit.wav",
+    "assets/audio/bellstrider_01/armour_hit.wav.import",
+    "assets/audio/bellstrider_01/brake.wav",
+    "assets/audio/bellstrider_01/brake.wav.import",
+    "assets/audio/bellstrider_01/death.wav",
+    "assets/audio/bellstrider_01/death.wav.import",
+    "assets/audio/bellstrider_01/death_final.wav",
+    "assets/audio/bellstrider_01/death_final.wav.import",
+    "assets/audio/bellstrider_01/death_impact.wav",
+    "assets/audio/bellstrider_01/death_impact.wav.import",
+    "assets/audio/bellstrider_01/death_jam.wav",
+    "assets/audio/bellstrider_01/death_jam.wav.import",
+    "assets/audio/bellstrider_01/lob_aim.wav",
+    "assets/audio/bellstrider_01/lob_aim.wav.import",
+    "assets/audio/bellstrider_01/lob_impact.wav",
+    "assets/audio/bellstrider_01/lob_impact.wav.import",
+    "assets/audio/bellstrider_01/lob_lock.wav",
+    "assets/audio/bellstrider_01/lob_lock.wav.import",
+    "assets/audio/bellstrider_01/lob_release.wav",
+    "assets/audio/bellstrider_01/lob_release.wav.import",
+    "assets/audio/bellstrider_01/manifest.json",
+    "assets/audio/bellstrider_01/phase.wav",
+    "assets/audio/bellstrider_01/phase.wav.import",
+    "assets/audio/bellstrider_01/recipes.json",
+    "assets/audio/bellstrider_01/ring_strike.wav",
+    "assets/audio/bellstrider_01/ring_strike.wav.import",
+    "assets/audio/bellstrider_01/roll_start.wav",
+    "assets/audio/bellstrider_01/roll_start.wav.import",
+    "assets/audio/bellstrider_01/roll_warn.wav",
+    "assets/audio/bellstrider_01/roll_warn.wav.import",
+    "assets/audio/bellstrider_01/roll_warn_double.wav",
+    "assets/audio/bellstrider_01/roll_warn_double.wav.import",
+    "assets/audio/bellstrider_01/sources.json",
+    "assets/audio/bellstrider_01/turn.wav",
+    "assets/audio/bellstrider_01/turn.wav.import",
+    "assets/audio/bellstrider_01/weak_hit.wav",
+    "assets/audio/bellstrider_01/weak_hit.wav.import",
+    "resources/bosses/bellstrider.tres",
+    "resources/bosses/bellstrider_health.tres",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/audio/bellstrider_audio.gd",
+    "scripts/audio/bellstrider_audio.gd.uid",
+    "scripts/audio/game_audio.gd",
+    "scripts/bosses/bellstrider_bell_projectile.gd",
+    "scripts/bosses/bellstrider_definition.gd",
+    "scripts/bosses/bellstrider_definition.gd.uid",
+    "scripts/bosses/bellstrider_encounter.gd",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/bellstrider_rig_pose.gd",
+    "scripts/bosses/bellstrider_rig_pose.gd.uid",
+    "scripts/bosses/bellstrider_ring_projectile.gd",
+    "scripts/bosses/bellstrider_ring_projectile.gd.uid",
+    "scripts/bosses/windkeeper_damageable.gd",
+    "scripts/combat/damageable.gd",
+    "scripts/combat/weapon_action_runtime.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/items/v5/item_active_effects.gd",
+    "scripts/items/v5/item_combat_effects.gd",
+    "scripts/items/v5/item_companion_effects.gd",
+    "scripts/items/v5/item_runtime.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/rewards/bellstrider_rewards.gd",
+    "scripts/rewards/bellstrider_rewards.gd.uid",
+    "scripts/ui/windkeeper_hud.gd"
+  ],
+  "deliverables": [
+    "正式Boss重构及最小真实消费者回归",
+    "同源完整连续带原声正式战斗与逐段标记",
+    "怪物工坊当前候选更新，保留历史与反馈"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "用户2026-10-30完整鸣铃巡游机要求覆盖旧16HP/整车持续可伤/固定轮换设计。",
+      "basis": "直接执行本轮用户已经明确的要求，无新增待选择创意；制作卡拆解不代签实现、艺术、听感、平衡或G5认可。"
+    },
+    {
+      "status": "not_required",
+      "decision": "40HP，20HP进入第二阶段；随机出招与回冲在起手前冻结。",
+      "basis": "直接执行本轮用户已经明确的要求，无新增待选择创意；制作卡拆解不代签实现、艺术、听感、平衡或G5认可。"
+    },
+    {
+      "status": "not_required",
+      "decision": "死亡1.8秒，主撞击1.05秒喷出现有12元奖励，5+5+1+1；拾取沿原账本。",
+      "basis": "直接执行本轮用户已经明确的要求，无新增待选择创意；制作卡拆解不代签实现、艺术、听感、平衡或G5认可。"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "独立来源审查接受本轮设计方向；基线实现明确REWORK，不代表当前生产或后续门通过。",
+      "evidence": [
+        "scope",
+        "g0-review"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "独立来源审查接受本轮设计方向；基线实现明确REWORK，不代表当前生产或后续门通过。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "BELL-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "用户完整鸣铃巡游机迭代范围",
+      "method": "制作卡与独立原源审查",
+      "expected": "40HP、持续唯一上铃、可信随机招组、真实反冲节奏、1.8秒失效和实物12元，已选像素/音频/玩家契约保持。",
+      "failure": "继承旧16HP／全身可伤／固定轮换或将计数当行为条件。",
+      "status": "passed",
+      "reason": "范围已明确，原基线与设计方向经独审。",
+      "evidence": [
+        "scope",
+        "g0-review"
+      ]
+    },
+    {
+      "id": "1",
+      "status": "unverified",
+      "scenario": "40HP同一血量与死亡结算，半血冻结当前招组后变相",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "2",
+      "status": "unverified",
+      "scenario": "上端风铃各状态/方向/角度持续可伤，车壳不扣血",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "3",
+      "status": "unverified",
+      "scenario": "基础装备真实两枪+撤离，第三枪真实风险，约40命中20来回",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "4",
+      "status": "unverified",
+      "scenario": "加权随机与前置回冲可信预告，无冲锋辅助线",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "5",
+      "status": "unverified",
+      "scenario": "三攻击动作、声音与实际伤害同步，跳跃和平台有真实躲避路线",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "6",
+      "status": "unverified",
+      "scenario": "分部件运动、受击不断招，像素粒度与原场景一致",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "7",
+      "status": "unverified",
+      "scenario": "致死立即停伤，1.8秒完整失效后无阻挡无伤害残骸",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "8",
+      "status": "unverified",
+      "scenario": "12元5/1实体金币按配置喷出、落地、吸附、领取一次，无门户重复给钱",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "9",
+      "status": "unverified",
+      "scenario": "当前正式源完整原声连续影片与章节，自动合法输入明确披露",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    },
+    {
+      "id": "10",
+      "status": "unverified",
+      "scenario": "现有怪物工坊更新且保存历史和反馈",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
+      "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
+      "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
+      "reason": "最终源验证尚未冻结。",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/bellstrider_rework_01/spec.md",
+      "sha256": "887cccf274a4c2d042d7138a9f85f19e8af770f54a285ca65f27f5f4fb7490ea",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "本轮直接用户要求形成可证伪制作卡；当前dirty实现，旧SHA只绑定基线，不表示旧commit含此卡。",
+      "observed": "40HP／上端唯一弱点／时钟出招／实机节奏／失效奖励／完整原声工坊审核范围。"
+    },
+    {
+      "id": "g0-review",
+      "path": "docs/evidence/bellstrider_rework_01/development/g0-review.json",
+      "sha256": "6ccc0fe6d4e61e182165d8a96be3d3f15b4aeac3c6e8efd73bc136f1104e18c0",
+      "kind": "review",
+      "producer": "root/guard_review_recovery",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "不同代理只读原基线与本轮设计；无生产修改；不是最终生产G4。",
+      "observed": "设计方向ACCEPT，原实现明确REWORK。",
+      "verdict": "ACCEPT",
+      "independent": true,
+      "reviewer": "root/guard_review_recovery",
+      "implementers": [
+        "root",
+        "root/bellstrider_combat",
+        "root/bellstrider_art",
+        "root/bellstrider_audio"
+      ],
+      "independence_basis": "G0审查者未参与被审查的生产实现；后来新增测试不回签当前生产或自写测试的独审。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "正在实现与原生定位；两枪节奏/自然完整战斗/最终G1-G4尚未验收。",
+    "用户审美、实体设备和完整G5未验；自动合法输入不能代签人工试玩。"
+  ]
+}

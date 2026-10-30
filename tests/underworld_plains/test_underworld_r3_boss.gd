@@ -46,7 +46,7 @@ func fixture(mini: bool, phase: int = 1, at := Vector2(350,582)) -> void:
 	encounter=boss.get_node("Encounter")
 	var definition:WindkeeperDefinition=load("res://resources/bosses/bellstrider.tres" if mini else "res://resources/bosses/windkeeper_storm.tres").duplicate(true)
 	# Initial-current phase fixtures never submit fake combat damage.
-	definition.health_definition.initial_current=(16.0 if phase==1 else 8.0) if mini else (36.0 if phase==1 else 23.0 if phase==2 else 11.0)
+	definition.health_definition.initial_current=(definition.health_definition.max_health if phase==1 else definition.health_definition.max_health*definition.phase_two_health) if mini else (36.0 if phase==1 else 23.0 if phase==2 else 11.0)
 	encounter.definition=definition;boss.position=Vector2(650,535);world.add_child(boss)
 	encounter.configure_arena(100,1100,player);encounter.set_physics_process(false)
 	policy.bind_damageable(&"boss",boss.get_node("Damageable"),encounter.health)
@@ -62,6 +62,18 @@ func fixture(mini: bool, phase: int = 1, at := Vector2(350,582)) -> void:
 	check(encounter.activate(),"actual formal encounter activates")
 	encounter.stage_phase=phase;encounter._enter(&"observe",30);encounter.physics_tick(.001)
 	await frames(2)
+
+func position_bell_shooter(side: int = -1) -> void:
+	# Real locomotion restores an aiming position after recoil; no player reset
+	# or HP/resource injection is used to manufacture the forty-hit death case.
+	var destination := boss.global_position.x + side*260.0
+	for tick: int in 300:
+		if absf(player.global_position.x-destination) <= 8.0: break
+		controller.router.set_move_axis(clampf((destination-player.global_position.x)/30.0,-1,1))
+		await frames(1)
+	controller.router.set_move_axis(0)
+	await frames(4)
+	check(absf(player.global_position.x-destination) <= 14.0,"actual Router locomotion reaches a legal bell shooting position")
 
 func shoot_at(point:Vector2,label:String,expected:float=1) -> void:
 	var before:=encounter.health.current
@@ -81,14 +93,29 @@ func run() -> void:
 			await fixture(mini,phase)
 			check(encounter.continuous_combat(),"formal Definition explicitly enables continuous combat")
 			check(boss.collision_mask==0,"Boss body is a damage/hit volume, not an impassable wall")
-			var states:Array=[&"observe",&"roll_warning",&"roll",&"neck"] if mini else ([&"observe",&"stomp_warning",&"charge",&"neck"] if phase==1 else [&"blade_warning",&"blades",&"back",&"phase_transition"] if phase==2 else [&"chase",&"pier_warning",&"pier_impact",&"pier_open"])
+			if mini:
+				check(encounter.definition is BellstriderDefinition and encounter.health.capacity==40,"formal Bell uses actual forty-HP declarative definition")
+				check(encounter.health.current==(40.0 if phase==1 else 20.0),"explicit phase fixture starts at full forty or half twenty HP")
+			var states:Array=[&"observe",&"approach",&"roll_warning",&"roll",&"combo_brake",&"combo_turn",&"combo_warning",&"ring_warning",&"rings",&"lob_aim",&"lob_lock",&"lob",&"neck",&"phase_transition"] if mini else ([&"observe",&"stomp_warning",&"charge",&"neck"] if phase==1 else [&"blade_warning",&"blades",&"back",&"phase_transition"] if phase==2 else [&"chase",&"pier_warning",&"pier_impact",&"pier_open"])
+			var index := 0
 			for state:StringName in states:
 				encounter._enter(state,30);encounter._update_combat_shapes();await frames(2)
-				await shoot_at(boss.global_position+Vector2(0,-15),"%s phase %d %s body accepts actual shot"%["mini" if mini else "main",phase,state])
+				if mini:
+					await position_bell_shooter(-1 if index%2==0 else 1)
+					await shoot_at(boss.to_global(encounter.core_offset()),"mini phase %d %s actual upper bell accepts one shot"%[phase,state])
+					var armour_events := [0]
+					var observe_armour := func(_point: Vector2) -> void: armour_events[0] += 1
+					encounter.armour_hit.connect(observe_armour)
+					await shoot_at(boss.to_global(encounter.definition.collision_offset),"mini phase %d %s actual chassis rejects damage"%[phase,state],0)
+					encounter.armour_hit.disconnect(observe_armour)
+					check(armour_events[0]==1,"real chassis shot produces exactly one armour response")
+				else:
+					await shoot_at(boss.global_position+Vector2(0,-15),"main phase %d %s body accepts actual shot"%[phase,state])
+				index += 1
 			check(encounter.accepts_core_direction({"hit_direction":Vector2.LEFT,"fired_airborne":false}),"continuous combat never locks direction or rune qualification")
 			var snapshot:=encounter.combat_snapshot();var hp:=encounter.health.current
 			encounter.restore_combat_state(JSON.parse_string(JSON.stringify(snapshot)))
-			check(encounter.health.current==hp and encounter.mode==StringName(snapshot.mode) and boss.collision_layer==4,"JSON reload retains phase/mode/HP and actual shootable body")
+			check(encounter.health.current==hp and encounter.mode==StringName(snapshot.mode) and boss.collision_layer==4,"JSON reload retains phase/mode/HP and actual physical shot blocker")
 			paused=true;var clock:=encounter.clock;var pos:=boss.global_position
 			await create_timer(.08,true).timeout
 			check(encounter.clock==clock and boss.global_position==pos,"paused encounter does not advance or move")
@@ -109,12 +136,18 @@ func run() -> void:
 		controller.router.set_move_axis(1);await frames(1)
 	check(controller.actor_resources.health.current<edge_hp,"real Motor crossing actual side edge accepts contact damage")
 	controller.router.set_move_axis(0)
-	# Actual projectile reaches body/core overlap once, then kills once. No raw HP call.
+	# Actual upper-bell projectiles kill the full forty-HP fixture once. The
+	# low armour has its own negative shots; this is not the old body/core overlap.
 	await fixture(true)
 	encounter._enter(&"neck",30);encounter._update_combat_shapes();await frames(2)
-	await shoot_at(boss.global_position+encounter.core_offset(),"overlapping real core/body consumes one shot and only one HP")
-	for i:int in 15:
-		await shoot_at(boss.global_position+Vector2(0,-15),"real projectile lethal chain %d"%i)
+	await position_bell_shooter()
+	await shoot_at(boss.to_global(encounter.core_offset()),"actual upper bell consumes one shot and only one HP")
+	for i:int in 39:
+		await position_bell_shooter()
+		if i%8==0:
+			await shoot_at(boss.to_global(encounter.definition.collision_offset),"interleaved physical armour never reduces the forty-HP target",0)
+		await shoot_at(boss.to_global(encounter.core_offset()),"real projectile lethal chain %d"%i)
+	check((encounter as BellstriderEncounter).combat_metrics().accepted_hits==40,"full forty HP requires forty actual base-one HP-changing hits")
 	check(encounter.health.terminal and defeats==1 and not encounter.active and boss.collision_layer==0,"real projectile terminal emits one defeat and disables body")
 	check(encounter._projectiles.is_empty(),"terminal encounter cancels all owned projectiles")
 	await shoot_at(boss.global_position,"dead body rejects later real projectile",0)

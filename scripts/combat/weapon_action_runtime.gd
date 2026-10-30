@@ -288,6 +288,8 @@ func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: b
 	var event := "%s:%s:weapon:%s:%s:%s" % [actor().motor.get_instance_id(),_session,packet,serial,stage]
 	var target_id := receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()
 	var context := {"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit}
+	context.shot_id = packet
+	context.attack_id = packet
 	context.item_stagger_multiplier = float(ability.item_runtime().call("enemy_stagger_multiplier")) if ability.item_runtime() != null and not skill else 1.0
 	if base_bomb:
 		context.shot_id = packet
@@ -333,6 +335,7 @@ func receivers(point: Vector2, radius: float, include_mechanisms := false) -> Ar
 		var node := item.collider as Node2D
 		var receiver := node.get_node_or_null("Damageable") as Damageable if node!=null else null
 		if receiver==null or not receiver.active or (receiver.faction!=&"enemy" and not (include_mechanisms and receiver.faction==&"mechanism")) or seen.has(receiver.get_instance_id()):continue
+		if receiver.faction == &"enemy" and not receiver.can_receive_effects(): continue
 		seen[receiver.get_instance_id()]=true;values.append({"node":node,"receiver":receiver})
 	values.sort_custom(func(a: Dictionary,b: Dictionary)->bool:return point.distance_squared_to(a.node.global_position)<point.distance_squared_to(b.node.global_position))
 	return values
