@@ -234,7 +234,7 @@ func roof() -> void:
 		return
 	var boss: BossMotor = app.stage.boss
 	relocate(
-		boss.global_position + Vector2(0, -85),
+		boss.global_position + Vector2(48, -62),
 		"fall through clear bell/mast space toward chassis roof"
 	)
 	var hp: float = app.controller.actor_resources.health.current
@@ -242,7 +242,7 @@ func roof() -> void:
 	await ticks(8)
 	check(
 		contacts.is_empty() and app.controller.actor_resources.health.current == hp,
-		"clear bell and mast space does not deal body contact damage"
+		"clear lateral mast gap does not deal body contact damage"
 	)
 	for index: int in 30:
 		await ticks(1)
@@ -257,6 +257,83 @@ func roof() -> void:
 		"roof contact hurts above the old contact rectangle"
 	)
 	observations.append({"case": "roof fall", "contacts": contacts.duplicate(true)})
+
+
+func mounted_bell(side: int, state: StringName) -> void:
+	if not await setup():
+		return
+	encounter.direction = side
+	# Full pose coverage uses the same authoritative live shapes. The actual
+	# automatic Router/Motor damage below is exercised once per facing, keeping
+	# the original native suite budget instead of reloading the App per pose.
+	for pose_state: StringName in [&"observe", &"roll_warning", &"roll", &"combo_turn", &"neck", &"phase_transition"]:
+		encounter._enter(pose_state, 1.0)
+		encounter._state_age = .35 # Disclosed mid-action pose geometry fixture.
+		encounter._update_combat_shapes()
+		var center: Vector2 = encounter._core.global_position
+		var origin: Vector2 = app._boss_contact.global_position
+		check(encounter.body_contact_sweep(origin, center - origin, center, Vector2(12, 18)),
+			"installed bell precise contact follows real %s/%s pose" % [side, pose_state])
+	encounter._enter(state, 1.0)
+	encounter._update_combat_shapes()
+	var bell := encounter._core.get_child(0) as CollisionShape2D
+	var bell_bounds := bell.global_transform * bell.shape.get_rect()
+	relocate(bell_bounds.get_center() - Vector2(0, bell_bounds.size.y * .5 + 60),
+		"real Motor fall onto installed main bell, %s/%s" % [side, state])
+	var hp: float = app.controller.actor_resources.health.current
+	var boss_hp := encounter.health.current
+	axis(0)
+	await ticks(4)
+	check(contacts.is_empty(), "clear air above the installed bell cannot hurt")
+	for index: int in 40:
+		await ticks(1)
+		if not contacts.is_empty():
+			break
+	check(contacts.size() == 1 and app.controller.actor_resources.health.current == hp - 1,
+		"real fall onto mounted bell commits one player contact hit, %s/%s" % [side, state])
+	check(not contacts.is_empty() and actor_rect().intersects(bell_bounds),
+		"contact is observed at installed bell before falling toward chassis")
+	check(app.player.damage_remaining > 0,
+		"installed bell contact enters existing accepted hurt motion")
+	check(encounter.health.current == boss_hp,
+		"player touching vulnerable bell cannot itself damage Boss")
+	observations.append({"case": "installed bell", "side": side, "state": state,
+		"bell_bounds": bell_bounds, "HP_before": hp,
+		"HP_after": app.controller.actor_resources.health.current, "contacts": contacts.duplicate(true)})
+
+
+func copper_lob() -> void:
+	if not await setup():
+		return
+	# Use the actual exposed shelf, not the ground underneath that shelf:
+	# physical terrain must stop a bell before a covered player is reached.
+	var x: float = app.stage.boss.global_position.x - 230
+	var query := PhysicsRayQueryParameters2D.create(
+		Vector2(x, app.stage.boss.global_position.y - 600),
+		Vector2(x, app.stage.boss.global_position.y + 250), 1, [app.player.get_rid()])
+	var surface: Dictionary = app.player.get_world_2d().direct_space_state.intersect_ray(query)
+	check(not surface.is_empty(), "lob fixture finds actual exposed platform support")
+	if surface.is_empty(): return
+	var ground: Vector2 = surface.position
+	relocate(ground - Vector2(0, 18), "actual exposed shelf target for copper bell")
+	await ticks(3)
+	var results: Array[Dictionary] = []
+	app.policy.batch_resolved.connect(func(batch: Array[DamageResult]) -> void:
+		for result: DamageResult in batch:
+			if result.request.source_id == &"boss_projectile" and result.hp_lost > 0:
+				results.append({"id": String(result.request.event_id), "lost": result.hp_lost}))
+	var hp: float = app.controller.actor_resources.health.current
+	encounter._aim_launcher(ground)
+	encounter._launch(ground)
+	for index: int in 120:
+		await ticks(1)
+		if not results.is_empty(): break
+	check(results.size() == 1 and app.controller.actor_resources.health.current == hp - 1,
+		"actual thrown copper bell commits player damage through formal App")
+	check(not results.is_empty() and str(results[0].id).begins_with("bellstrider_lob-"),
+		"physical flying copper bell itself emits the accepted hit")
+	observations.append({"case": "actual copper lob", "HP_before": hp,
+		"HP_after": app.controller.actor_resources.health.current, "results": results})
 
 
 func bevel_air() -> void:
@@ -422,6 +499,9 @@ func dead_vehicle() -> void:
 
 
 func run() -> void:
+	for side: int in [-1, 1]:
+		await mounted_bell(side, &"roll")
+	await copper_lob()
 	await ground_side(-1)
 	await ground_side(1)
 	await ground_side(-1, true)

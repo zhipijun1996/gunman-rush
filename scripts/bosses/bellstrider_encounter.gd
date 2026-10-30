@@ -702,13 +702,16 @@ func _armour_feedback(point: Vector2) -> void:
 
 
 func body_contact_rect() -> Rect2:
-	# Broad bounds describe every actual copper/wheel shape, while admission
-	# below preserves the clear bevel, mast and bell gaps inside those bounds.
+	# Include the installed bell as well as armour. Receiving weapon damage and
+	# dealing player contact damage are separate capabilities of the same bell.
+	# Narrow admission below still preserves the open space around the mast.
 	var hull := motor.get_node("CollisionShape2D") as CollisionShape2D
 	var bounds := hull.global_transform * hull.shape.get_rect()
 	for wheel: CollisionShape2D in _armour_wheels:
 		if is_instance_valid(wheel) and wheel.is_inside_tree():
 			bounds = bounds.merge(wheel.global_transform * wheel.shape.get_rect())
+	var bell := _core.get_child(0) as CollisionShape2D
+	bounds = bounds.merge(bell.global_transform * bell.shape.get_rect())
 	return bounds
 
 
@@ -726,6 +729,9 @@ func body_contact_sweep(source_center: Vector2, previous_relative: Vector2, curr
 	for wheel: CollisionShape2D in _armour_wheels:
 		if is_instance_valid(wheel) and wheel.is_inside_tree() and _contact_actor_box.collide_with_motion(actor_transform,motion,wheel.shape,wheel.global_transform,Vector2.ZERO):
 			return true
+	var bell := _core.get_child(0) as CollisionShape2D
+	if _contact_actor_box.collide_with_motion(actor_transform, motion, bell.shape, bell.global_transform, Vector2.ZERO):
+		return true
 	return false
 
 

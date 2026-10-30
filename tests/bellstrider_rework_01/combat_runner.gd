@@ -516,8 +516,8 @@ func run() -> void:
 		bounds_fit = bounds_fit and contact_bounds.encloses(wheel.global_transform*wheel.shape.get_rect())
 	var weak_shape := encounter._core.get_child(0) as CollisionShape2D
 	check(
-		bounds_fit and not contact_bounds.intersects(weak_shape.global_transform*weak_shape.shape.get_rect()),
-		"low contact bounds cover the actual chassis and wheels without the upper bell"
+		bounds_fit and contact_bounds.encloses(weak_shape.global_transform*weak_shape.shape.get_rect()),
+		"contact bounds cover chassis, wheels and installed upper bell"
 	)
 	for side: int in [-1, 1]:
 		encounter.direction = side
