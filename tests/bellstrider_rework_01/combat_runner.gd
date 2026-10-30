@@ -109,6 +109,7 @@ func high_arc_case(side: int, elevated: bool) -> void:
 	encounter._group = {"kind": &"lob", "phase": 1, "return_roll": false, "count": 1}
 	encounter.volley = 0
 	encounter._enter(&"lob_aim", config.lob_aim_seconds)
+	var aim_started := encounter._fight_age
 	encounter.physics_tick(config.lob_aim_seconds - .02)
 	encounter.physics_tick(.03)
 	check(
@@ -179,6 +180,7 @@ func high_arc_case(side: int, elevated: bool) -> void:
 	# The real lock deadline calls Encounter._launch with its actual Definition
 	# and rig. No direct aim_landing, duration override or synthetic sweep here.
 	encounter.physics_tick(encounter.clock + .001)
+	check(encounter._fight_age - aim_started <= .75, "actual aim and locked warning launch within .75seconds")
 	var shot := released.shot as BellstriderBellProjectile
 	check(is_instance_valid(shot), "actual lock deadline emits a physical thrown bell")
 	if not is_instance_valid(shot):
@@ -204,6 +206,7 @@ func high_arc_case(side: int, elevated: bool) -> void:
 	)
 	var crossed_shelf := false
 	var cleared_shelf := true
+	var launch_frame := Engine.get_physics_frames()
 	for tick: int in ceili((encounter.lob_duration_for(locked) + .5) * 60.0):
 		if not is_instance_valid(shot) or shot.spent:
 			break
@@ -212,6 +215,7 @@ func high_arc_case(side: int, elevated: bool) -> void:
 			crossed_shelf = true
 			cleared_shelf = cleared_shelf and at.y + shot.radius <= obstacle.position.y + .5
 		await frames(1)
+	check(float(Engine.get_physics_frames() - launch_frame) / 60.0 <= 1.35, "actual thrown bell reaches its support within1.35seconds")
 	check(
 		crossed_shelf and cleared_shelf,
 		"actual configured sweep clears the entire interposed shelf facing %d" % side
@@ -505,9 +509,15 @@ func run() -> void:
 		"actual resource owns movement and wave speeds"
 	)
 	check(encounter.weakpoint_only(), "upper bell is the only damage receiver capability")
+	var contact_bounds := encounter.body_contact_rect()
+	var hull := boss.get_node("CollisionShape2D") as CollisionShape2D
+	var bounds_fit := contact_bounds.encloses(hull.global_transform*hull.shape.get_rect())
+	for wheel: CollisionShape2D in encounter._armour_wheels:
+		bounds_fit = bounds_fit and contact_bounds.encloses(wheel.global_transform*wheel.shape.get_rect())
+	var weak_shape := encounter._core.get_child(0) as CollisionShape2D
 	check(
-		encounter.body_contact_rect().size == Vector2(128, 54),
-		"low contact fits chassis without upper bell"
+		bounds_fit and not contact_bounds.intersects(weak_shape.global_transform*weak_shape.shape.get_rect()),
+		"low contact bounds cover the actual chassis and wheels without the upper bell"
 	)
 	for side: int in [-1, 1]:
 		encounter.direction = side

@@ -53,7 +53,7 @@ func advance(delta: float) -> void:
 	if _visual_trail.size() > 7:
 		_visual_trail.pop_front()
 	_visual_launched = true
-	# At 120Hz segment size, curvature error stays below .01 world units.
+	# At configured gravity,120Hz slices keep chord error below .02world units.
 	var slices := maxi(1, ceili(delta * 120.0))
 	var step := delta / float(slices)
 	for index: int in slices:

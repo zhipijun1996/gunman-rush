@@ -18,11 +18,13 @@ extends WindkeeperDefinition
 @export var ring_interval_seconds := 0.62
 @export var ring_settle_seconds := 0.2
 @export var ring_lifetime := 2.8
-@export var lob_aim_seconds := 0.65
+@export var lob_aim_seconds := 0.35
 @export var lob_lock_seconds := 0.35
-@export var lob_flight_seconds := 1.65
-@export var lob_lower_flight_seconds := 1.9
-@export var lob_gravity := 860.0
+# About1.5x flight speed, retaining the elevated arc by scaling gravity too.
+# Shortening flight alone flattens the arc into the intermediate platforms.
+@export var lob_flight_seconds := 1.10
+@export var lob_lower_flight_seconds := 1.27
+@export var lob_gravity := 1935.0
 @export var lob_followup_seconds := 0.25
 @export var lob_impact_radius := 40.0
 @export var lob_impact_seconds := 0.2

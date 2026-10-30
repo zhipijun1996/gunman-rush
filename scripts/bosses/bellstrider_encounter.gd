@@ -29,6 +29,7 @@ var _transition_prepared := false
 var _launcher_aim := -0.82
 var _hull_rig_ready := false
 var _armour_wheels: Array[CollisionShape2D] = []
+var _contact_actor_box := RectangleShape2D.new()
 var _accepted_hits := 0
 var _accepted_damage := 0.0
 var _groups_started := 0
@@ -700,8 +701,38 @@ func _armour_feedback(point: Vector2) -> void:
 	_event(&"bellstrider_armour_hit", {"point": point})
 
 
+func body_contact_rect() -> Rect2:
+	# Broad bounds describe every actual copper/wheel shape, while admission
+	# below preserves the clear bevel, mast and bell gaps inside those bounds.
+	var hull := motor.get_node("CollisionShape2D") as CollisionShape2D
+	var bounds := hull.global_transform * hull.shape.get_rect()
+	for wheel: CollisionShape2D in _armour_wheels:
+		if is_instance_valid(wheel) and wheel.is_inside_tree():
+			bounds = bounds.merge(wheel.global_transform * wheel.shape.get_rect())
+	return bounds
+
+
+func body_contact_sweep(source_center: Vector2, previous_relative: Vector2, current_world: Vector2, actor_half: Vector2) -> bool:
+	if not body_contact_enabled() or not source_center.is_finite() or not previous_relative.is_finite() or not current_world.is_finite() or not actor_half.is_finite() or actor_half.x<=0.0 or actor_half.y<=0.0:
+		return false
+	var start := source_center + previous_relative
+	var motion := current_world - start
+	var size := actor_half * 2.0
+	if _contact_actor_box.size != size: _contact_actor_box.size = size
+	var actor_transform := Transform2D(0,start)
+	var hull := motor.get_node("CollisionShape2D") as CollisionShape2D
+	if _contact_actor_box.collide_with_motion(actor_transform,motion,hull.shape,hull.global_transform,Vector2.ZERO):
+		return true
+	for wheel: CollisionShape2D in _armour_wheels:
+		if is_instance_valid(wheel) and wheel.is_inside_tree() and _contact_actor_box.collide_with_motion(actor_transform,motion,wheel.shape,wheel.global_transform,Vector2.ZERO):
+			return true
+	return false
+
+
 func body_contact_enabled() -> bool:
-	return super.body_contact_enabled() and mode != &"dead"
+	# Transition pressure still has real solid copper. Only intro, inactivity
+	# and terminal wrecks suppress contact; the base Windkeeper window differs.
+	return active and not health.terminal and mode not in [&"intro",&"dead"]
 
 
 func cancel_pending_attacks() -> void:

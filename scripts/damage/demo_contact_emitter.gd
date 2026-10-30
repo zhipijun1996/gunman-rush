@@ -12,6 +12,10 @@ var interval := 0.7
 var enabled := true
 # Optional owner-authoritative world collision rect, used by real Boss bodies.
 var contact_rect_provider: Callable
+# Optional exact sweep admission; absent means the original rectangular source.
+# Arguments: current source centre, previous relative actor position, current
+# actor world position, and actor half size. The owner supplies real shapes.
+var contact_test_provider: Callable
 # Explicit connected-region legacy pit-plane semantic, not physical thorns.
 var fall_plane := false
 var _was_touching := false
@@ -49,6 +53,9 @@ func _physics_process(_delta: float) -> void:
 		if not source_bounds.position.is_finite() or not source_bounds.size.is_finite() or source_bounds.size.x <= 0 or source_bounds.size.y <= 0: return
 		source_center = source_bounds.get_center()
 		source_half_size = source_bounds.size * .5
+	# Precise shapes own their bounds separately. Anchor relative motion to the
+	# emitter/Motor origin so a rotating bounds rectangle cannot invent travel.
+	if contact_test_provider.is_valid(): source_center = global_position
 	var relative := controller.motor.global_position - source_center
 	if _last_actor_epoch != life.actor_epoch:
 		_previous_relative = relative
@@ -60,7 +67,12 @@ func _physics_process(_delta: float) -> void:
 	var protected := kind == DamageRequest.Kind.MONSTER and controller.traversal != null and controller.traversal.protects_contact(get_parent())
 	var physical_contact := (_physical_contact_frame == Engine.get_physics_frames()
 		and _physical_contact_epoch == life.actor_epoch and _physical_contact_session == controller.session_id)
-	var touching := enabled and not protected and (physical_contact or segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0)))
+	var touching := false
+	if enabled and not protected:
+		if contact_test_provider.is_valid():
+			touching = bool(contact_test_provider.call(source_center, _previous_relative, controller.motor.global_position, actor_half_size))
+		else:
+			touching = physical_contact or segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0))
 	if touching and fall_plane and DamageBoundary.has_landing_below(controller.motor): touching = false
 	_previous_relative = relative
 	if not touching:

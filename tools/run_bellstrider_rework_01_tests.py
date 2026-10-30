@@ -17,6 +17,7 @@ CASES = (
     ("intro", "tests/bellstrider_rework_01/intro_pose.gd", r"BELLSTRIDER_INTRO_POSE assertions=\d+ failures=0"),
     ("rewards", "tests/bellstrider_rework_01/rewards_runner.gd", r"BELLSTRIDER_REWARDS checks=\d+ failures=0"),
     ("audio", "tests/bellstrider_rework_01/audio_pool.gd", r"BELLSTRIDER_AUDIO_POOL assertions=\d+ failures=0"),
+    ("contact", "tests/bellstrider_rework_01/contact_edges.gd", r"BELLSTRIDER_CONTACT_EDGES assertions=\d+ failures=0"),
 )
 
 
@@ -42,7 +43,7 @@ def main():
         "status": "passed", "cases": rows,
         "scope": "real component and controlled App regressions; no visual, natural fight, listening, device or user acceptance",
     }, indent=2) + "\n")
-    print("BELLSTRIDER REWORK REGRESSION: seven native consumers, 0 failures")
+    print("BELLSTRIDER REWORK REGRESSION: eight native consumers, 0 failures")
 
 
 if __name__ == "__main__":

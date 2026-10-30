@@ -800,6 +800,8 @@ func _load_stage() -> void:
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
 		if encounter is WindkeeperEncounter:
 			_boss_contact.contact_rect_provider = encounter.body_contact_rect
+		if encounter is BellstriderEncounter:
+			_boss_contact.contact_test_provider = encounter.body_contact_sweep
 		_boss_contact.enabled = not generated_plains
 		EnemyPresentationBinding.synchronize(encounter)
 	if director.stage_type_id == &"item_reward":
