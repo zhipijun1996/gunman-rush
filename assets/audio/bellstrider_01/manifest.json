@@ -1,0 +1,606 @@
+{
+  "version": "bellstrider-material-01-v1",
+  "task": "BELLSTRIDER-REWORK-01",
+  "assets": [
+    {
+      "id": "armour_hit",
+      "path": "assets/audio/bellstrider_01/armour_hit.wav",
+      "sha256": "fca0119122750b0a165beb455260211c7dd24c2e0318c1e7089e4a97d9a92640",
+      "duration": 0.095,
+      "frames": 4560,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.32,
+      "rms": 0.04946345087528205,
+      "post_mix_gain": 0.32084263096419563,
+      "layers": [
+        {
+          "source": "hit3",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.86,aresample=48000,highpass=f=100,lowpass=f=1450",
+          "onset_frame": 603,
+          "duration": 0.09
+        },
+        {
+          "source": "metal2",
+          "offset": 0,
+          "gain": 0.22,
+          "filter": "asetrate=48000*0.72,aresample=48000,highpass=f=200,lowpass=f=1700",
+          "onset_frame": 429,
+          "duration": 0.08
+        }
+      ]
+    },
+    {
+      "id": "weak_hit",
+      "path": "assets/audio/bellstrider_01/weak_hit.wav",
+      "sha256": "ce5c98844469947bb3db099adc99b38147150121440088f016355b33512b7cc7",
+      "duration": 0.26,
+      "frames": 12480,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.45,
+      "rms": 0.028663447500038807,
+      "post_mix_gain": 0.45015970106588804,
+      "layers": [
+        {
+          "source": "bell",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*1.32,aresample=48000,highpass=f=520,lowpass=f=9000",
+          "onset_frame": 1633,
+          "duration": 0.25
+        },
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.25,
+          "filter": "asetrate=48000*1.5,aresample=48000,highpass=f=600,lowpass=f=7000",
+          "onset_frame": 525,
+          "duration": 0.055
+        }
+      ]
+    },
+    {
+      "id": "roll_warn",
+      "path": "assets/audio/bellstrider_01/roll_warn.wav",
+      "sha256": "b6c337a0c34fff9fb5679486415a3effc26ff9bc1b9ad1346389a8c9e57bd7e1",
+      "duration": 0.63,
+      "frames": 30240,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.66,
+      "rms": 0.041694218595484236,
+      "post_mix_gain": 0.5480414814637775,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.65,
+          "filter": "asetrate=48000*0.63,aresample=48000,highpass=f=130,lowpass=f=4800",
+          "onset_frame": 1283,
+          "duration": 0.3
+        },
+        {
+          "source": "metal2",
+          "offset": 0.12,
+          "gain": 0.4,
+          "filter": "asetrate=48000*0.78,aresample=48000,highpass=f=250,lowpass=f=5500",
+          "onset_frame": 412,
+          "duration": 0.16
+        },
+        {
+          "source": "bell",
+          "offset": 0.04,
+          "gain": 1,
+          "filter": "asetrate=48000*0.81,aresample=48000,highpass=f=200,lowpass=f=5600",
+          "onset_frame": 2674,
+          "duration": 0.4
+        }
+      ]
+    },
+    {
+      "id": "roll_warn_double",
+      "path": "assets/audio/bellstrider_01/roll_warn_double.wav",
+      "sha256": "e3dd253d8824558f3169e2bf41b95733861069164ab888704a94802e397038c1",
+      "duration": 0.69,
+      "frames": 33120,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.66,
+      "rms": 0.04751545124871333,
+      "post_mix_gain": 0.5480414814637775,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.65,
+          "filter": "asetrate=48000*0.63,aresample=48000,highpass=f=130,lowpass=f=4800",
+          "onset_frame": 1283,
+          "duration": 0.3
+        },
+        {
+          "source": "metal2",
+          "offset": 0.12,
+          "gain": 0.4,
+          "filter": "asetrate=48000*0.78,aresample=48000,highpass=f=250,lowpass=f=5500",
+          "onset_frame": 412,
+          "duration": 0.16
+        },
+        {
+          "source": "bell",
+          "offset": 0.04,
+          "gain": 1,
+          "filter": "asetrate=48000*0.81,aresample=48000,highpass=f=200,lowpass=f=5600",
+          "onset_frame": 2674,
+          "duration": 0.22
+        },
+        {
+          "source": "bell",
+          "offset": 0.28,
+          "gain": 1,
+          "filter": "asetrate=48000*0.81,aresample=48000,highpass=f=200,lowpass=f=5600",
+          "onset_frame": 2674,
+          "duration": 0.34
+        }
+      ]
+    },
+    {
+      "id": "roll_start",
+      "path": "assets/audio/bellstrider_01/roll_start.wav",
+      "sha256": "6ceb38e0988b1fc8aa033c56185a11f6ca3431fb4ab0ef7f2545ef193a0aa984",
+      "duration": 0.25,
+      "frames": 12000,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.56,
+      "rms": 0.06956316716984434,
+      "post_mix_gain": 0.56,
+      "layers": [
+        {
+          "source": "wood1",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.6,aresample=48000,highpass=f=55,lowpass=f=1600",
+          "onset_frame": 847,
+          "duration": 0.2
+        },
+        {
+          "source": "metal1",
+          "offset": 0.01,
+          "gain": 0.58,
+          "filter": "asetrate=48000*0.67,aresample=48000,highpass=f=170,lowpass=f=4200",
+          "onset_frame": 1205,
+          "duration": 0.22
+        }
+      ]
+    },
+    {
+      "id": "brake",
+      "path": "assets/audio/bellstrider_01/brake.wav",
+      "sha256": "846a47590986af54e698d4e035d30c2477643fb5352434c5381381ce5413eb49",
+      "duration": 0.31,
+      "frames": 14880,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.5,
+      "rms": 0.05558650798965041,
+      "post_mix_gain": 0.5,
+      "layers": [
+        {
+          "source": "metal2",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.57,aresample=48000,highpass=f=190,lowpass=f=4200",
+          "onset_frame": 573,
+          "duration": 0.28
+        },
+        {
+          "source": "metal1",
+          "offset": 0.07,
+          "gain": 0.45,
+          "filter": "asetrate=48000*0.74,aresample=48000,highpass=f=330,lowpass=f=4600",
+          "onset_frame": 1106,
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "path": "assets/audio/bellstrider_01/turn.wav",
+      "sha256": "b1a918eca7c96e86b72ec1d563d3eddaf71581e262847e472ad844810024450c",
+      "duration": 0.24,
+      "frames": 11520,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.43,
+      "rms": 0.04356077267145226,
+      "post_mix_gain": 0.43,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.81,aresample=48000,highpass=f=150,lowpass=f=3600",
+          "onset_frame": 994,
+          "duration": 0.21
+        },
+        {
+          "source": "metal2",
+          "offset": 0.075,
+          "gain": 0.4,
+          "filter": "asetrate=48000*1.03,aresample=48000,highpass=f=450,lowpass=f=4400",
+          "onset_frame": 314,
+          "duration": 0.1
+        }
+      ]
+    },
+    {
+      "id": "ring_strike",
+      "path": "assets/audio/bellstrider_01/ring_strike.wav",
+      "sha256": "8aca989567a3831a71decbcac49c54e78a42c607789508572d6750831620d0a0",
+      "duration": 0.63,
+      "frames": 30240,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.72,
+      "rms": 0.05098711707854815,
+      "post_mix_gain": 0.701850954685018,
+      "layers": [
+        {
+          "source": "bell",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.66,aresample=48000,highpass=f=110,lowpass=f=7600",
+          "onset_frame": 3286,
+          "duration": 0.62
+        },
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.56,
+          "filter": "asetrate=48000*0.73,aresample=48000,highpass=f=110,lowpass=f=4200",
+          "onset_frame": 1144,
+          "duration": 0.15
+        },
+        {
+          "source": "wood1",
+          "offset": 0,
+          "gain": 0.36,
+          "filter": "asetrate=48000*0.72,aresample=48000,highpass=f=50,lowpass=f=1100",
+          "onset_frame": 701,
+          "duration": 0.13
+        }
+      ]
+    },
+    {
+      "id": "lob_aim",
+      "path": "assets/audio/bellstrider_01/lob_aim.wav",
+      "sha256": "2a2eccc16014bea909d751dcfb2f87d0df8780c421e28537d406880d5a384c98",
+      "duration": 0.34,
+      "frames": 16320,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.43,
+      "rms": 0.04965551435294121,
+      "post_mix_gain": 0.4744374014183115,
+      "layers": [
+        {
+          "source": "metal2",
+          "offset": 0,
+          "gain": 0.8,
+          "filter": "asetrate=48000*0.73,aresample=48000,highpass=f=300,lowpass=f=5000",
+          "onset_frame": 442,
+          "duration": 0.16
+        },
+        {
+          "source": "metal1",
+          "offset": 0.1,
+          "gain": 1,
+          "filter": "asetrate=48000*1.05,aresample=48000,highpass=f=500,lowpass=f=5500",
+          "onset_frame": 760,
+          "duration": 0.18
+        }
+      ]
+    },
+    {
+      "id": "lob_lock",
+      "path": "assets/audio/bellstrider_01/lob_lock.wav",
+      "sha256": "372652931bbfd459ec824682c62164dd9e0189c1c486efd84a4c80ffb9df7bd5",
+      "duration": 0.24,
+      "frames": 11520,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.64,
+      "rms": 0.053975716348141044,
+      "post_mix_gain": 0.5690378279408722,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.8,
+          "filter": "asetrate=48000*1.26,aresample=48000,highpass=f=600,lowpass=f=6500",
+          "onset_frame": 629,
+          "duration": 0.1
+        },
+        {
+          "source": "bell",
+          "offset": 0.025,
+          "gain": 1,
+          "filter": "asetrate=48000*1.15,aresample=48000,highpass=f=900,lowpass=f=8000",
+          "onset_frame": 1886,
+          "duration": 0.2
+        }
+      ]
+    },
+    {
+      "id": "lob_release",
+      "path": "assets/audio/bellstrider_01/lob_release.wav",
+      "sha256": "930fb4f6ee7dee5200001bc206b948dcd9a751bb25a81872069ee3a9ff88b424",
+      "duration": 0.26,
+      "frames": 12480,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.52,
+      "rms": 0.05300542512710826,
+      "post_mix_gain": 0.52,
+      "layers": [
+        {
+          "source": "metal2",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*1.23,aresample=48000,highpass=f=400,lowpass=f=6800",
+          "onset_frame": 253,
+          "duration": 0.16
+        },
+        {
+          "source": "wood1",
+          "offset": 0.015,
+          "gain": 0.6,
+          "filter": "asetrate=48000*1.1,aresample=48000,highpass=f=90,lowpass=f=2200",
+          "onset_frame": 451,
+          "duration": 0.13
+        }
+      ]
+    },
+    {
+      "id": "lob_impact",
+      "path": "assets/audio/bellstrider_01/lob_impact.wav",
+      "sha256": "76e3598ebd5783097edf58c307ddd7250d41328539f6d5453f97c0256d4d2922",
+      "duration": 0.44,
+      "frames": 21120,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.65,
+      "rms": 0.06341932111240968,
+      "post_mix_gain": 0.6803236547712327,
+      "layers": [
+        {
+          "source": "wood1",
+          "offset": 0,
+          "gain": 0.75,
+          "filter": "asetrate=48000*0.63,aresample=48000,highpass=f=50,lowpass=f=1800",
+          "onset_frame": 805,
+          "duration": 0.17
+        },
+        {
+          "source": "metal2",
+          "offset": 0.01,
+          "gain": 0.65,
+          "filter": "asetrate=48000*0.67,aresample=48000,highpass=f=180,lowpass=f=4600",
+          "onset_frame": 484,
+          "duration": 0.3
+        },
+        {
+          "source": "bell",
+          "offset": 0.015,
+          "gain": 1,
+          "filter": "asetrate=48000*1.01,aresample=48000,highpass=f=400,lowpass=f=6800",
+          "onset_frame": 2141,
+          "duration": 0.36
+        }
+      ]
+    },
+    {
+      "id": "phase",
+      "path": "assets/audio/bellstrider_01/phase.wav",
+      "sha256": "319fd02aa45bf6e2f83dd83a89f2acd7b1e175fb17e48a7fd7291f327f1749d0",
+      "duration": 0.66,
+      "frames": 31680,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.66,
+      "rms": 0.062089562239702564,
+      "post_mix_gain": 0.6980951689253803,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 0.8,
+          "filter": "asetrate=48000*0.58,aresample=48000,highpass=f=150,lowpass=f=5200",
+          "onset_frame": 1396,
+          "duration": 0.28
+        },
+        {
+          "source": "metal2",
+          "offset": 0.14,
+          "gain": 0.7,
+          "filter": "asetrate=48000*0.72,aresample=48000,highpass=f=250,lowpass=f=5900",
+          "onset_frame": 460,
+          "duration": 0.27
+        },
+        {
+          "source": "bell",
+          "offset": 0.12,
+          "gain": 1,
+          "filter": "asetrate=48000*0.7,aresample=48000,highpass=f=250,lowpass=f=6200",
+          "onset_frame": 3098,
+          "duration": 0.49
+        }
+      ]
+    },
+    {
+      "id": "death",
+      "path": "assets/audio/bellstrider_01/death.wav",
+      "sha256": "852355e0c5b266584dec67edca475a0f4281f33183afb5c4dfb0b2a17b7b60fa",
+      "duration": 0.39,
+      "frames": 18720,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.62,
+      "rms": 0.04663744360889272,
+      "post_mix_gain": 0.6033356226369865,
+      "layers": [
+        {
+          "source": "break1",
+          "offset": 0,
+          "gain": 0.6,
+          "filter": "asetrate=48000*0.75,aresample=48000,highpass=f=120,lowpass=f=6500",
+          "onset_frame": 26,
+          "duration": 0.34
+        },
+        {
+          "source": "bell",
+          "offset": 0.015,
+          "gain": 1,
+          "filter": "asetrate=48000*0.76,aresample=48000,highpass=f=220,lowpass=f=6500",
+          "onset_frame": 2852,
+          "duration": 0.35
+        }
+      ]
+    },
+    {
+      "id": "death_jam",
+      "path": "assets/audio/bellstrider_01/death_jam.wav",
+      "sha256": "2efab9f93d3d61f10bbcc52e284707ae48c2819af4656aa20e855618cd8649d1",
+      "duration": 0.34,
+      "frames": 16320,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.64,
+      "rms": 0.09349059023433597,
+      "post_mix_gain": 0.64,
+      "layers": [
+        {
+          "source": "metal1",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.56,aresample=48000,highpass=f=120,lowpass=f=4000",
+          "onset_frame": 1413,
+          "duration": 0.14
+        },
+        {
+          "source": "metal2",
+          "offset": 0.08,
+          "gain": 0.7,
+          "filter": "asetrate=48000*0.66,aresample=48000,highpass=f=250,lowpass=f=4500",
+          "onset_frame": 492,
+          "duration": 0.1
+        },
+        {
+          "source": "metal1",
+          "offset": 0.18,
+          "gain": 0.7,
+          "filter": "asetrate=48000*0.5,aresample=48000,highpass=f=150,lowpass=f=3000",
+          "onset_frame": 1623,
+          "duration": 0.12
+        }
+      ]
+    },
+    {
+      "id": "death_impact",
+      "path": "assets/audio/bellstrider_01/death_impact.wav",
+      "sha256": "5831b385e25153cd16ba59af3aa1a67f42a376b7b8cbb14a453206c1137c01e6",
+      "duration": 0.58,
+      "frames": 27840,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.72,
+      "rms": 0.07836947658573988,
+      "post_mix_gain": 0.72,
+      "layers": [
+        {
+          "source": "wood1",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.53,aresample=48000,highpass=f=45,lowpass=f=1500",
+          "onset_frame": 962,
+          "duration": 0.23
+        },
+        {
+          "source": "break3",
+          "offset": 0.018,
+          "gain": 0.68,
+          "filter": "asetrate=48000*0.66,aresample=48000,highpass=f=160,lowpass=f=5800",
+          "onset_frame": 1231,
+          "duration": 0.42
+        },
+        {
+          "source": "metal1",
+          "offset": 0.05,
+          "gain": 0.65,
+          "filter": "asetrate=48000*0.61,aresample=48000,highpass=f=170,lowpass=f=4800",
+          "onset_frame": 1326,
+          "duration": 0.37
+        }
+      ]
+    },
+    {
+      "id": "death_final",
+      "path": "assets/audio/bellstrider_01/death_final.wav",
+      "sha256": "99ffd4bfe740166ddd9a366ce25ab53b1d1f29e46f88f68a22fbb99d9b2ac101",
+      "duration": 1.1,
+      "frames": 52800,
+      "rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.58,
+      "rms": 0.025741027782845947,
+      "post_mix_gain": 0.58,
+      "layers": [
+        {
+          "source": "bell",
+          "offset": 0,
+          "gain": 1,
+          "filter": "asetrate=48000*0.64,aresample=48000,highpass=f=130,lowpass=f=7000",
+          "onset_frame": 3390,
+          "duration": 1.08
+        },
+        {
+          "source": "metal2",
+          "offset": 0.03,
+          "gain": 0.11,
+          "filter": "asetrate=48000*1.3,aresample=48000,highpass=f=750,lowpass=f=6000",
+          "onset_frame": 244,
+          "duration": 0.12
+        }
+      ]
+    }
+  ],
+  "producer": "tools/build_bellstrider_01_audio.py",
+  "producer_sha256": "90ef411d76e8e31edcdd30849806ba938df16ef35f55fef2c393c5ec49b7104e",
+  "ffmpeg_version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "license": "CC0-1.0",
+  "source_recordings_only": true,
+  "oscillator_or_noise_layers": false,
+  "subjective_status": "unverified",
+  "device_status": "unverified",
+  "engine_mix_status": "pending root capture"
+}
