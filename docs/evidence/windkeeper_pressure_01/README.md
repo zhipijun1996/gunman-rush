@@ -26,7 +26,7 @@
 
 原始章节里7.233–9.217秒曾被producer标作原地观察，但实际玩家位移约460像素，独审已标记不可用；不能用这段签站桩追压。当前采用后面两段实际零位移观察。当前场景封场/状态文字仍可能和上层结构重叠，合屏和整段动作仍待审，不以轨迹计数代签艺术质量。
 
-[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site) 本轮发布状态、精确Site源/媒体HTTP200完整SHA和Range206以同目录后续真实发布收据为准；没有该收据前不称已上线。旧36HP版本与意见、经典12HP牧风者、巡游机和其他怪物均保留。
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site) **第8版已实际私密发布成功**，选择“牧风者（60HP · 三阶段追压）”。[发布收据](workshop-publication.json)绑定Site源38b74376，原owner-private受众/权限revision1不变；[两条原MP4完整HTTP200下载](raw-media-http-01.json)逐字节SHA匹配，[线上播放器Range206](site-http-01.json)的2048字节实际载荷也与原片相同，海报HTTP200。API13＋UI19原测试、构建及ESM/纯schema迁移检查通过，[原日志](workshop-tests.log)保留；本轮未实际操作浏览器GUI。旧36HP版本/ID/修订/动作和原意见、经典12HP牧风者、巡游机与其他24只目录记录保留，没有数据库意见/创意写入。
 
 ## 实际技术与原消费者
 

@@ -1553,5 +1553,462 @@
       ],
       "limitation": "Not a frame-locked A/B with the main film: movement diverged in first group before any third actual shot. Full greedy run remains actual player-death failure, not Boss victory."
     }
-  ]
+  ],
+  "T2_waiting_review": {
+    "scope": "Recorded producer prechecks and actual frames only; not an independent earliest queued-input experiment. No third-specific manufactured delay found in selectedg4/g9, shared pacing delay disclosed.",
+    "configured_cooldown_seconds": 0.25,
+    "producer_common_minimum_request_gap_frames": 16,
+    "common_recovery_due_seconds": [
+      0.1,
+      0.43,
+      0.76
+    ],
+    "risk_group9": {
+      "second_request": 2240,
+      "last_nonzero_cooldown_frame": 2255,
+      "third_request_on_first_recorded_zero_cooldown": 2256,
+      "actual_third_shot": 2257,
+      "extra_third_specific_delay_observed": false
+    },
+    "success_group4": {
+      "second_request": 1007,
+      "still_airborne_no_round_frames": [
+        1023,
+        1024,
+        1025,
+        1026,
+        1027,
+        1028
+      ],
+      "first_grounded_round_restored_and_third_request": 1029,
+      "third_due_already_elapsed": true,
+      "extra_third_specific_delay_observed": false
+    },
+    "success_group8_common_pacing": {
+      "second_ready_frame": 2003,
+      "second_request": 2007,
+      "third_ready_frame": 2023,
+      "third_request": 2027,
+      "common_wait_frames": 4,
+      "does_not_prove_wait_was_necessary_for_aiming": true
+    },
+    "first_group_after_second": {
+      "greedy_continues_moving_axis": 1,
+      "two_shot_base_withdraws_axis": -1,
+      "third_did_not_fire": "rounds0 and airborne at398–400",
+      "not_a_stationary_or_Boss_clock_freeze": true
+    },
+    "actual_frame_samples": [
+      {
+        "frame": 383,
+        "movie_seconds": 6.48333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.25,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.123333333333333,
+        "player_position": [
+          6033.23779296875,
+          569.21044921875
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": [
+          {
+            "direction": [
+              -0.999996542930603,
+              -0.00263169407844543
+            ],
+            "event_id": "windkeeper_seed-0-5",
+            "position": [
+              5817.74951171875,
+              543.247741699219
+            ],
+            "speed": 300.0,
+            "spent": false
+          }
+        ]
+      },
+      {
+        "frame": 392,
+        "movie_seconds": 6.63333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.1,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5963.1416015625,
+          563.921508789062
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 398,
+        "movie_seconds": 6.73333333333333,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5989.142578125,
+          564.090270996094
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 399,
+        "movie_seconds": 6.75,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5993.47607421875,
+          564.437683105469
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 400,
+        "movie_seconds": 6.76666666666667,
+        "state": "recover",
+        "group": 1,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5997.8095703125,
+          565.120544433594
+        ],
+        "router_axis": 1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1007,
+        "movie_seconds": 16.8833333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6622.2236328125,
+          569.986877441406
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1023,
+        "movie_seconds": 17.15,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6676.3046875,
+          563.167175292969
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1024,
+        "movie_seconds": 17.1666666666667,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6671.97119140625,
+          563.514587402344
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1025,
+        "movie_seconds": 17.1833333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6667.6376953125,
+          564.197448730469
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1026,
+        "movie_seconds": 17.2,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6663.30419921875,
+          565.342895507812
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1027,
+        "movie_seconds": 17.2166666666667,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6658.970703125,
+          567.066284179688
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1028,
+        "movie_seconds": 17.2333333333333,
+        "state": "recover",
+        "group": 4,
+        "grounded": false,
+        "cooldown": 0.0,
+        "rounds": 0,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6654.63720703125,
+          569.456665039062
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 1029,
+        "movie_seconds": 17.25,
+        "state": "recover",
+        "group": 4,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          6650.3037109375,
+          569.925170898438
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 1987,
+        "movie_seconds": 33.2166666666667,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.0087890625,
+          699.998229980469
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 1,
+        "active_threats": []
+      },
+      {
+        "frame": 2003,
+        "movie_seconds": 33.4833333333333,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 1,
+        "active_threats": []
+      },
+      {
+        "frame": 2007,
+        "movie_seconds": 33.55,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2023,
+        "movie_seconds": 33.8166666666667,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2027,
+        "movie_seconds": 33.8833333333333,
+        "state": "recover",
+        "group": 8,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 2240,
+        "movie_seconds": 37.4333333333333,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2255,
+        "movie_seconds": 37.6833333333333,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0166666666666667,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": 0.0,
+        "pilot_recovery_shots": 2,
+        "active_threats": []
+      },
+      {
+        "frame": 2256,
+        "movie_seconds": 37.7,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.0,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.0,
+        "player_position": [
+          5812.07470703125,
+          699.925231933594
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      },
+      {
+        "frame": 2257,
+        "movie_seconds": 37.7166666666667,
+        "state": "recover",
+        "group": 9,
+        "grounded": true,
+        "cooldown": 0.25,
+        "rounds": 1,
+        "energy": 100.0,
+        "recoil_remaining": 0.123333333333333,
+        "player_position": [
+          5812.005859375,
+          699.924011230469
+        ],
+        "router_axis": -1.0,
+        "pilot_recovery_shots": 3,
+        "active_threats": []
+      }
+    ]
+  }
 }

@@ -1,0 +1,61 @@
+
+> test
+> node --test tests/*.test.mjs
+
+✔ all private API data requires authenticated identity, while UI can render sign-in (33.810579ms)
+✔ real SQLite migration and owner-isolated review persistence preserve literal text (12.701922ms)
+✔ same UUID retries exactly once; conflicting changes cannot silently overwrite advice (4.998725ms)
+✔ unknown creatures, stale revisions, invalid actions and client ownership are refused (4.407014ms)
+✔ only a recorded specific action can be approved; missing actions can receive suggestions (3.990247ms)
+✔ timestamp must be an integer inside the original creature chapter (6.409449ms)
+✔ cross-origin, invalid JSON, unexpected body fields and excessive input cannot write (3.159907ms)
+✔ cursor pagination is stable, complete and owner-scoped (20.251387ms)
+MONSTER_WORKSHOP_REQUEST_FAILED /api/reviews Error
+MONSTER_WORKSHOP_REQUEST_FAILED /api/ideas Error
+MONSTER_WORKSHOP_REQUEST_FAILED /api/export Error
+✔ ideas persist as proposals and export excludes another user and internal identifiers (2.401636ms)
+✔ media proxy streams only catalog URLs, retaining Range and MP4 headers (1.354149ms)
+✔ database failures produce a retryable structured response, never false success (1.409292ms)
+✔ approval refuses recorded labels without a valid interval in this exact chapter (1.458676ms)
+✔ submission conflict and stale-revision conflict provide separate recoverable codes (3.995716ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 176.502444
+✔ review A pending → B → A(new object) → edit → old success preserves the newest persisted draft (46.952624ms)
+✔ review A pending → B → A(new object) → edit → old failure preserves the newest persisted draft (7.052207ms)
+✔ idea restored into a new object while pending survives old success (4.019711ms)
+✔ idea restored into a new object while pending survives old failure (3.924478ms)
+✔ an old response cannot alter a replacement draft with a new UUID (6.19424ms)
+✔ current capture remains default even when an older ready film comes first (1.471505ms)
+✔ shared original video uses absolute in/out bounds and never manufactures a missing end (1.009911ms)
+✔ actions cannot seek outside this monster or outside the loaded media (0.291809ms)
+✔ pending, missing and N/A retain comment scope but cannot approve an action (0.373792ms)
+✔ unreleased catalog and empty captures are safe (0.166631ms)
+✔ time labels carry centisecond rounding across minute boundaries (0.257958ms)
+✔ user-facing app never injects HTML or treats local storage as a cloud record (0.578171ms)
+✔ review: saved 201 response lost → reload/edit → 409 → explicit new submission → 201 (1.428611ms)
+✔ idea: saved 201 response lost → reload/edit → 409 → explicit new submission → 201 (0.480954ms)
+✔ exact replay retains the same ID and cannot insert another cloud row (0.507264ms)
+✔ revision_changed never exposes a new-ID bypass (0.301904ms)
+✔ a response without a confirmed item never turns a draft into a cloud record (0.258339ms)
+✔ HTML limits and visible descriptions match the API limits (9.44586ms)
+✔ zoom pan stays within original stage bounds and original view recentres (0.257197ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.14373
+
+> build
+> node scripts/build.mjs
+
+Built self-contained Sites Worker; 25 creatures, assets=67
+Artifact ESM, private API and schema-only migrations validated

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "task_id": "WINDKEEPER-PRESSURE-01",
   "task_type": "boss",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
   "reviewed_commit": "ff5172439f6510300775ba27901f62ba3d7951fd",
   "content_version": "windkeeper-pressure-01-candidate",
@@ -405,8 +405,13 @@
       "expected": "按用户实际意见记录认可或返工",
       "failure": "AI代签用户审美、手感或真机性能",
       "status": "unverified",
-      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
-      "evidence": []
+      "reason": "工坊私密第8版和两条原声片已发布，六招/两枪/第三枪/死亡掉落有实际章节；等待用户真实意见与实体操作，不代签。",
+      "evidence": [
+        "workshop_publication",
+        "workshop_live_http",
+        "full_movie",
+        "third_movie"
+      ]
     }
   ],
   "evidence": [
@@ -604,7 +609,7 @@
     {
       "id": "third_shot_review",
       "path": "docs/evidence/windkeeper_pressure_01/third-shot-independent-review.md",
-      "sha256": "4756f19afdf232df896e4858eac90f0e85fa97656ab9168bdf54bd88049cfec6",
+      "sha256": "9be172fb47a454cdc361d6943e048ee28e0926d858d7543b8ebf8c8794765c8b",
       "kind": "review",
       "producer": "/root/windkeeper_evasion_probe",
       "source_commit": "46e00839154ab648bb0b6024f98fbcfb00dbe08a",
@@ -655,6 +660,39 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Reviewer implemented no production runtime or final pilot/adapter and made no repository edits; own controlled escape diagnostics explicitly separate. Acceptance is bounded to listed technical/source observations."
+    },
+    {
+      "id": "workshop_publication",
+      "path": "docs/evidence/windkeeper_pressure_01/workshop-publication.json",
+      "sha256": "010f3f10c5e7dbcc7ee2718df97605a4a46f08f55d238267c36c4fe538ad80ed",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Native owner-private publication terminal succeeded,Site version8/source38b74376,originalaudiencerevision1unchanged; only WindkeeperStorm newmedia andcontextcaption,25creatures/oldreviews preserved."
+    },
+    {
+      "id": "workshop_live_http",
+      "path": "docs/evidence/windkeeper_pressure_01/site-http-01.json",
+      "sha256": "eaaa1d89af0ee7bf5ea5c3d644b3a60f5b0f8bad39a7dc98a991dc1309ef6839",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Actual live HTML200,both MP4Range206 payloads byteequal localoriginal segments,posters200; no databasewrites orbrowserGUI simulation."
+    },
+    {
+      "id": "raw_media_download",
+      "path": "docs/evidence/windkeeper_pressure_01/raw-media-http-01.json",
+      "sha256": "5eef2b1b0b958180f89ffbc7bb75b4a989dd7272f5f80380e6af22ab25d46cf3",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "41a53e5ee527216afa37969b71ac4594bb273b95",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Actual native Sites publication/sourceversion and/or actual HTTP data receipt; secrets hidden stdin,never persisted.",
+      "observed": "Both immutable Git MP4URLs actual fullHTTP200 downloads; 84845572/66370811bytes and exact expected complete SHA256,not HEAD-only."
     }
   ],
   "consumer_coverage": null,
@@ -663,9 +701,10 @@
     "实际GPU九组双枪均命中，其中八组第二枪至下次执行前无伤；group9有接触受伤。第三枪68.433秒真实死亡/48hits失败保留，仍需审核操作余量与公平。",
     "实际声音、正常速度整体动作、连续风向/草叶、手机设备性能和用户认可仍未验。",
     "原R3新wrapper已实际通过100/16/54与两图459/5053frames，原map2余21HP失败仍保留；最新head完整169CI未通过，不借PR119旧授权合main。",
-    "工坊当前60HP片待实际私密发布与媒体下载/Range核验；旧36HP意见/版本和其他24怪保持。",
-    "旧v5terminal第三阶段地形兼容依用户授权延期；当前v6支撑/死亡/金币快照已有72项受控检查，不豁免。"
+    "工坊私密第8版实际发布成功，完整媒体HTTP200/SHA和Range206载荷已核；未实际操作浏览器GUI，旧36HP意见/版本和其他24怪保持。",
+    "旧v5terminal第三阶段地形兼容依用户授权延期；当前v6支撑/死亡/金币快照已有72项受控检查，不豁免。",
+    "T2所选g9第三枪在冷却首次为0/有弹且落地时即时请求；g4迟发来自真实空中弹药限制，未见第三枪专属造险延迟。g8二/三枪各有统一节拍约4帧余等，不能称极限最早合法射速或严格单变量A/B。"
   ],
   "test_change_justification": "版本化迁移原style22/creative25的现行绑定到style24/creative27：两个旧live版本断言改为当前24/27；旧22/25的40/17全部命名场景与原字面历史断言保留，原style22/registry/两区creative25/旧测试/App及Harness按精确main840108da字节归档。旧App当前哈希访问仅在历史22测试中使用固定SHA f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a的旧源；其他82原引用仍读当前原件。新测试逐个核140当前引用、83原有序前缀和仅App变化，并对每个新leaf实际篡改临时副本拒绝及旧22绑定拒绝。原full168检查有序前缀完整保留，末尾只追加真实mandatory windkeeper-pressure-01（serial=true，原300总/90子进程），故生产计划摘要168/92/76须迁移为169/92/77；旧audio断言保留在167:168，Pressure独立168:169，全部旧digest与拒绝/分流断言保留，不能删除旧检查或放预算。四Bible预算30/30/30/60及原422输入前缀保留；独审仅接受以上具体迁移和实际源绑定，整场电影/手感/听感/设备/完整169CI未签。 原boss-time测试固定等待32个physics_frame但同时await process_frame，在变帧率追赶时可能多推进导致预算及无敌帧级联失败；原测试完全不改，以固定60Hz实跑1182/0后，只把已有pause-escape的--fixed-fps60适配复用于boss-time。保留全部1182断言、120秒子进程、240秒Harness和原失败，实际wrapper重跑1182/0。此修订不改变玩家/Boss时钟或伤害。 原R3完整map2消费者迁移到已实际完成60HP/17组/84.583秒/3HP/20金币的canonical active_assault正常输入，关闭重复外部追加射击以保持实测跳跃输入序列。原14失败字符串、经典Boss分支、7200帧120秒战斗、180子进程和360总预算、金币逐枚/Gold/核心能力/森林续关断言保持；原失败原件保留，实际新wrapper在干净46e源完整执行通过100/16/54项与map1 459帧/map2 5053帧，0失败；Gold、20金币、钩索选择和森林续关均实际完成。",
-  "production_snapshot": "6d287a07743d05692aede4cbca3b56fd0af294a384cb55bd79230327f62c051e"
+  "production_snapshot": "6a4179ac26e13c07d9b04bc362a0f27cb020d98160eb250f505037cb9b42c6f8"
 }
