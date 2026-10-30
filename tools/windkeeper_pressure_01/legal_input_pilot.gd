@@ -47,6 +47,12 @@ var active_extra_rows: Array[Dictionary] = []
 var platform_hold_start := -1
 var platform_hold_group := -1
 var platform_hold_phase := -1
+var supported_escape_start := -1
+var supported_escape_axis := 0.0
+var supported_escape_delay := 0
+var supported_escape_key := ""
+var supported_escape_origin := Vector2.ZERO
+var supported_escape_boss := Vector2.ZERO
 
 
 func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictionary]) -> void:
@@ -132,6 +138,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	mouse_previous = pointer
 	Input.parse_input_event(mouse)
 	router.activate_device(&"keyboard_mouse")
+	if mode=="active_assault" and _assault_supported_escape(app,encounter,state,at,current_slab,phase,grounded):return
 	if not app._boss_started:
 		axis = 1
 		intent = "normal walk into actual formal map2 arena trigger"
@@ -296,7 +303,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	var corner_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
 	if mode in ["platform2","active_assault"] and current_slab.size.x>0:
 		corner_room=at.x-current_slab.position.x-13 if dx>0 else current_slab.end.x-13-at.x
-	if phase>=2 and early_read and not support_motion and not support_escape_active and cross_axis==0 and grounded and corner_room<180 and absf(dx)>=180 and absf(dx)<=300:
+	if mode!="active_assault" and phase>=2 and early_read and not support_motion and not support_escape_active and cross_axis==0 and grounded and corner_room<180 and absf(dx)>=180 and absf(dx)<=300:
 		cross_axis=signf(dx)
 		cross_started=frame
 		cross_until=frame+180
@@ -544,11 +551,67 @@ func _cross_motion_safe(app: Node, encounter: Node, forward: float) -> bool:
 	return true
 
 
+func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Vector2, slab: Rect2, phase: int, grounded: bool) -> bool:
+	# Exact normal-input recipe from controlled actual-App dodge trials. Its
+	# mirrored directions, other gaps and full-combo outcomes remain candidates
+	# until the continuous fight's real HP/positions establish their result.
+	if encounter.health.terminal or phase>=3 or not app._boss_started:
+		supported_escape_start=-1
+		return false
+	var boss: Vector2=encounter.motor.global_position
+	var gap:=absf(boss.x-at.x)
+	var warning_key:="%s:%s:%s" % [group,encounter.combat_metrics().get("attack_index",0),state]
+	var eligible:=frame==state_start and grounded and slab.size.x>0 and ((state=="lunge_warning" and gap<=260) or (state=="sweep_warning" and bool(encounter.sweep_high) and at.y<boss.y-35 and gap<=200))
+	if supported_escape_start<0:
+		if not eligible or warning_key==supported_escape_key:return false
+		supported_escape_start=frame
+		supported_escape_axis=signf(boss.x-at.x)
+		if is_zero_approx(supported_escape_axis):supported_escape_axis=float(encounter.locked_direction)
+		supported_escape_delay=0 if gap<=200 else 12
+		supported_escape_key=warning_key
+		supported_escape_origin=at
+		supported_escape_boss=boss
+		cross_axis=0
+		cross_air_frame=-1
+		cross_boost_done=false
+		leaf_escape_key=""
+		leaf_escape_air=-1
+		leaf_escape_boosted=false
+		jump_until=frame-1
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_escape_begin","actual_state":state,"state_age":encounter.combat_metrics().get("state_age",0),"remaining_warning":encounter.clock,"group":group,"phase":phase,"gap":gap,"axis":supported_escape_axis,"delay_frames":supported_escape_delay,"player":_v(at),"boss":_v(boss),"actual_slab":[slab.position.x,slab.position.y,slab.size.x,slab.size.y],"scope":"controlled-probe input recipe; mirrored/full-fight outcome requires actual receipt"})
+	var elapsed:=frame-supported_escape_start
+	if elapsed>=108:
+		preferred_side=supported_escape_axis
+		supported_escape_start=-1
+		hold_destination=Vector2.INF
+		escape_destination=Vector2.INF
+		return false
+	var axis:=supported_escape_axis if elapsed>=supported_escape_delay else 0.0
+	var jump_held:=elapsed>=supported_escape_delay and elapsed<supported_escape_delay+29
+	var router: Node=app.controller.router
+	router.set_jump_held(&"keyboard_mouse",jump_held)
+	router.set_source_axis(&"keyboard_mouse",axis)
+	intent="active_assault: continuous supported jump/recoil escape using actual normal inputs"
+	if elapsed==supported_escape_delay:
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent,"elapsed_warning_frames":elapsed,"hold_frames":29,"player":_v(at),"boss":_v(boss)})
+	if elapsed==supported_escape_delay+18:
+		var controller: PlayerController=app.controller
+		var direction:=Vector2(-supported_escape_axis*.65,1).normalized()
+		var ready: bool=controller.shoot_ability.cooldown_remaining<=0 and controller.action_resources.shot_charges>0 and (controller.shot_energy==null or controller.shot_energy.can_fire())
+		var submitted: bool=router.request_action(&"shoot_release",direction) if ready else false
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"proven_escape_recoil_shot","direction":_v(direction),"submitted":submitted,"resource_ready":ready,"group":group,"elapsed_warning_frames":elapsed,"jump_elapsed_frames":18,"actual_cooldown":controller.shoot_ability.cooldown_remaining,"actual_charges":controller.action_resources.shot_charges,"player":_v(at),"boss":_v(boss),"note":"one request at the controlled-probe offset; failure is retained without refill or retiming"})
+		if submitted:last_shot_frame=frame
+	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":jump_held,"group":group,"intent":intent,"supported_escape_elapsed":elapsed})
+	return true
+
+
 func _assault_jump_corridor_clear(encounter: Node, at: Vector2) -> bool:
 	# Regaining a shelf is optional. Wait on real safe ground while a seed
 	# still crosses the volume of an ordinary upward jump.
-	for shot: BossProjectile in encounter._projectiles:
-		if not is_instance_valid(shot) or shot.spent or shot.is_queued_for_deletion() or "seed" not in str(shot.event_id):continue
+	for candidate: Variant in encounter._projectiles:
+		if not is_instance_valid(candidate):continue
+		var shot:=candidate as BossProjectile
+		if shot==null or shot.spent or shot.is_queued_for_deletion() or "seed" not in str(shot.event_id):continue
 		var corridor:=Rect2(at-Vector2(12,188),Vector2(24,206)).grow(shot.radius+5)
 		if DemoContactEmitter.segment_intersects_bounds(shot.global_position,shot.global_position+shot.direction*shot.speed*.65,corridor):return false
 	return true
@@ -578,8 +641,10 @@ func _active_extra_shot(app: Node, encounter: Node, state: String, at: Vector2, 
 	var direction: Vector2 = player.get_node("KeyboardMouseAdapter").world_direction(player.get_canvas_transform()*aim)
 	var recoil_end := at-direction*95
 	var corridor := Rect2(at-Vector2(12,18),Vector2(24,36)).expand(recoil_end-Vector2(12,18)).expand(recoil_end+Vector2(12,18))
-	for shot: BossProjectile in encounter._projectiles:
-		if not is_instance_valid(shot) or shot.spent or shot.is_queued_for_deletion():continue
+	for candidate: Variant in encounter._projectiles:
+		if not is_instance_valid(candidate):continue
+		var shot:=candidate as BossProjectile
+		if shot==null or shot.spent or shot.is_queued_for_deletion():continue
 		if shot is WindkeeperPressureStrike:return
 		var travel: Vector2 = shot.direction*shot.speed*.9
 		if DemoContactEmitter.segment_intersects_bounds(shot.global_position,shot.global_position+travel,corridor.grow(shot.radius+7)):return
