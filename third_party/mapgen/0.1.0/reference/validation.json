@@ -1,0 +1,46 @@
+{
+  "schema": "mapgen/delivery-validation/v1",
+  "source_static_generation": "PASS",
+  "export_checks": "Run verify_delivery.py; hashes, real IDs, full content, topology and all goals are checked.",
+  "stats": {
+    "instances": 46,
+    "connections": 55,
+    "mirrored": 31,
+    "seals": 40,
+    "enemy_records": 18,
+    "reward_sites": 11,
+    "target_reward_instances": 6,
+    "main_paths": 3
+  },
+  "whole_map_physics": "NOT_RUN",
+  "playable_in_host": "NOT_RUN",
+  "unresolved": [
+    {
+      "id": "materialized_runtime_loader",
+      "status": "HOST_IMPLEMENTATION_REQUIRED",
+      "detail": "Packaged registry loads original scenes only. Add a host adapter accepting content_ref before node construction; do not edit the immutable module pack or instantiate both geometries."
+    },
+    {
+      "id": "player_spawn",
+      "status": "UNRESOLVED",
+      "instance_id": "M01",
+      "detail": "Only the start departure Port was validated; no interior player spawn/path was certified."
+    },
+    {
+      "id": "boss_flow",
+      "status": "UNRESOLVED",
+      "instance_id": "M40",
+      "detail": "The unused Boss exit is sealed; host must define battle completion without silently opening it."
+    },
+    {
+      "id": "physics_and_actor_profile",
+      "status": "NOT_RUN",
+      "detail": "Whole-map seams, seals, transformed mechanics and continuous player resources require host verification. Catalog/route capability and qualification data remain scoped."
+    },
+    {
+      "id": "host_dependencies",
+      "status": "HOST_CHECK_REQUIRED",
+      "detail": "Game actor/assets are not bundled. The original module_pack runtime locks pin exact host commits; compare with current main game, do not overwrite its files or change player tuning to force a pass."
+    }
+  ]
+}

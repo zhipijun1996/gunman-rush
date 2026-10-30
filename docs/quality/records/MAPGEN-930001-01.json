@@ -1,0 +1,1768 @@
+{
+  "schema_version": 1,
+  "task_id": "MAPGEN-930001-01",
+  "task_type": "level_module",
+  "workflow": "blocked",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "reviewed_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "content_version": "candidate-v1",
+  "owner": "root",
+  "purpose": "Exact fixed delivery integration; reviewable scoped runtime, blocked complete-map acceptance",
+  "player_experience": "One existing player explores real connected modules, claims authored rewards and fights native Windkeeper without seam resets",
+  "constraints": [
+    "Exact delivery SHA and immutable module pack",
+    "No generator port or fabricated Routes",
+    "No PlayerTuning changes, grants or refills at seams",
+    "Separate static, scoped collision, continuous traversal, GUI and device evidence"
+  ],
+  "affected_paths": [
+    "addons/mapgen_delivery_export/plugin.cfg",
+    "addons/mapgen_delivery_export/plugin.gd",
+    "addons/mapgen_delivery_export/plugin.gd.uid",
+    "addons/mapgen_delivery_export/raw_delivery_export.gd",
+    "addons/mapgen_delivery_export/raw_delivery_export.gd.uid",
+    "config/mapgen_930001.json",
+    "docs/current_state.md",
+    "docs/evidence/mapgen_930001/.gdignore",
+    "docs/evidence/mapgen_930001/README.md",
+    "docs/evidence/mapgen_930001/acceptance-03-native.log.gz",
+    "docs/evidence/mapgen_930001/acceptance-03-report.json",
+    "docs/evidence/mapgen_930001/acceptance-03-runtime.json.gz",
+    "docs/evidence/mapgen_930001/acceptance-03-source-after.json.gz",
+    "docs/evidence/mapgen_930001/acceptance-03-source-before.json.gz",
+    "docs/evidence/mapgen_930001/acceptance-04-native.log.gz",
+    "docs/evidence/mapgen_930001/acceptance-04-report.json",
+    "docs/evidence/mapgen_930001/acceptance-04-runtime.json.gz",
+    "docs/evidence/mapgen_930001/acceptance-04-source-after.json.gz",
+    "docs/evidence/mapgen_930001/acceptance-04-source-before.json.gz",
+    "docs/evidence/mapgen_930001/all-dev01.json.gz",
+    "docs/evidence/mapgen_930001/all-dev01.log.gz",
+    "docs/evidence/mapgen_930001/all-dev02.json.gz",
+    "docs/evidence/mapgen_930001/all-dev02.log.gz",
+    "docs/evidence/mapgen_930001/capture01.log.gz",
+    "docs/evidence/mapgen_930001/claim-preload.log.gz",
+    "docs/evidence/mapgen_930001/consumers.json",
+    "docs/evidence/mapgen_930001/delivery_verification.json",
+    "docs/evidence/mapgen_930001/docs-check02.log.gz",
+    "docs/evidence/mapgen_930001/foundry-build01.log.gz",
+    "docs/evidence/mapgen_930001/host_compatibility.json",
+    "docs/evidence/mapgen_930001/launch01.log.gz",
+    "docs/evidence/mapgen_930001/launch02.log.gz",
+    "docs/evidence/mapgen_930001/overview.png",
+    "docs/evidence/mapgen_930001/pack-launch01.log.gz",
+    "docs/evidence/mapgen_930001/quality-diff01.log.gz",
+    "docs/evidence/mapgen_930001/review.md",
+    "docs/evidence/mapgen_930001/spawn-dev01.log.gz",
+    "docs/evidence/mapgen_930001/spawn.png",
+    "docs/evidence/mapgen_930001/web-build01.log.gz",
+    "docs/evidence/mapgen_930001/web-build02.log.gz",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/worklines/mapgen_930001/README.md",
+    "docs/worklines/mapgen_930001/scope.md",
+    "project.godot",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scenes/mapgen/seed_930001.tscn",
+    "scripts/mapgen/adapters/module_loader.gd",
+    "scripts/mapgen/adapters/module_loader.gd.uid",
+    "scripts/mapgen/adapters/module_loader_ideas_v2.gd",
+    "scripts/mapgen/adapters/module_loader_ideas_v2.gd.uid",
+    "scripts/mapgen/adapters/module_loader_review_air_v1.gd",
+    "scripts/mapgen/adapters/module_loader_review_air_v1.gd.uid",
+    "scripts/mapgen/adapters/module_loader_review_first30_v2.gd",
+    "scripts/mapgen/adapters/module_loader_review_first30_v2.gd.uid",
+    "scripts/mapgen/adapters/module_loader_review_refresh_v2.gd",
+    "scripts/mapgen/adapters/module_loader_review_refresh_v2.gd.uid",
+    "scripts/mapgen/adapters/module_loader_revision058_v3.gd",
+    "scripts/mapgen/adapters/module_loader_revision058_v3.gd.uid",
+    "scripts/mapgen/adapters/module_loader_revision059_v2.gd",
+    "scripts/mapgen/adapters/module_loader_revision059_v2.gd.uid",
+    "scripts/mapgen/adapters/module_loader_revision060_v1.gd",
+    "scripts/mapgen/adapters/module_loader_revision060_v1.gd.uid",
+    "scripts/mapgen/adapters/module_loader_revision061_v2.gd",
+    "scripts/mapgen/adapters/module_loader_revision061_v2.gd.uid",
+    "scripts/mapgen/adapters/module_loader_v3.gd",
+    "scripts/mapgen/adapters/module_loader_v3.gd.uid",
+    "scripts/mapgen/adapters/module_loader_v5.gd",
+    "scripts/mapgen/adapters/module_loader_v5.gd.uid",
+    "scripts/mapgen/boss_binding.gd",
+    "scripts/mapgen/boss_binding.gd.uid",
+    "scripts/mapgen/fixed_map.gd",
+    "scripts/mapgen/fixed_map.gd.uid",
+    "scripts/mapgen/gear_seal.gd",
+    "scripts/mapgen/gear_seal.gd.uid",
+    "scripts/mapgen/materialized_ellipse.gd",
+    "scripts/mapgen/materialized_ellipse.gd.uid",
+    "scripts/mapgen/materialized_registry.gd",
+    "scripts/mapgen/materialized_registry.gd.uid",
+    "scripts/mapgen/materialized_terrain.gd",
+    "scripts/mapgen/materialized_terrain.gd.uid",
+    "tests/mapgen_delivery_tests.gd",
+    "tests/mapgen_delivery_tests.gd.uid",
+    "third_party/mapgen/.gdignore",
+    "third_party/mapgen/0.1.0/CONTRACT.md",
+    "third_party/mapgen/0.1.0/MAIN_GAME_PROMPT.md",
+    "third_party/mapgen/0.1.0/README.md",
+    "third_party/mapgen/0.1.0/content/M01.json",
+    "third_party/mapgen/0.1.0/content/M02.json",
+    "third_party/mapgen/0.1.0/content/M03.json",
+    "third_party/mapgen/0.1.0/content/M04.json",
+    "third_party/mapgen/0.1.0/content/M05.json",
+    "third_party/mapgen/0.1.0/content/M06.json",
+    "third_party/mapgen/0.1.0/content/M07.json",
+    "third_party/mapgen/0.1.0/content/M08.json",
+    "third_party/mapgen/0.1.0/content/M09.json",
+    "third_party/mapgen/0.1.0/content/M10.json",
+    "third_party/mapgen/0.1.0/content/M11.json",
+    "third_party/mapgen/0.1.0/content/M12.json",
+    "third_party/mapgen/0.1.0/content/M13.json",
+    "third_party/mapgen/0.1.0/content/M14.json",
+    "third_party/mapgen/0.1.0/content/M15.json",
+    "third_party/mapgen/0.1.0/content/M16.json",
+    "third_party/mapgen/0.1.0/content/M17.json",
+    "third_party/mapgen/0.1.0/content/M18.json",
+    "third_party/mapgen/0.1.0/content/M19.json",
+    "third_party/mapgen/0.1.0/content/M20.json",
+    "third_party/mapgen/0.1.0/content/M21.json",
+    "third_party/mapgen/0.1.0/content/M22.json",
+    "third_party/mapgen/0.1.0/content/M23.json",
+    "third_party/mapgen/0.1.0/content/M24.json",
+    "third_party/mapgen/0.1.0/content/M25.json",
+    "third_party/mapgen/0.1.0/content/M26.json",
+    "third_party/mapgen/0.1.0/content/M27.json",
+    "third_party/mapgen/0.1.0/content/M28.json",
+    "third_party/mapgen/0.1.0/content/M29.json",
+    "third_party/mapgen/0.1.0/content/M30.json",
+    "third_party/mapgen/0.1.0/content/M31.json",
+    "third_party/mapgen/0.1.0/content/M32.json",
+    "third_party/mapgen/0.1.0/content/M33.json",
+    "third_party/mapgen/0.1.0/content/M34.json",
+    "third_party/mapgen/0.1.0/content/M35.json",
+    "third_party/mapgen/0.1.0/content/M36.json",
+    "third_party/mapgen/0.1.0/content/M37.json",
+    "third_party/mapgen/0.1.0/content/M38.json",
+    "third_party/mapgen/0.1.0/content/M39.json",
+    "third_party/mapgen/0.1.0/content/M40.json",
+    "third_party/mapgen/0.1.0/content/M41.json",
+    "third_party/mapgen/0.1.0/content/M42.json",
+    "third_party/mapgen/0.1.0/content/M43.json",
+    "third_party/mapgen/0.1.0/content/M44.json",
+    "third_party/mapgen/0.1.0/content/M45.json",
+    "third_party/mapgen/0.1.0/content/M46.json",
+    "third_party/mapgen/0.1.0/dependencies/map-edit-modules-1.1.0.zip",
+    "third_party/mapgen/0.1.0/manifest.json",
+    "third_party/mapgen/0.1.0/maps/seed-930001.json",
+    "third_party/mapgen/0.1.0/module_pack/README.md",
+    "third_party/mapgen/0.1.0/module_pack/catalog.json",
+    "third_party/mapgen/0.1.0/module_pack/evidence/module-production/current-game-api.json",
+    "third_party/mapgen/0.1.0/module_pack/evidence/module-production/map-gen-interface.json",
+    "third_party/mapgen/0.1.0/module_pack/evidence/module-production/portable-runtime.json",
+    "third_party/mapgen/0.1.0/module_pack/integration/install_host.py",
+    "third_party/mapgen/0.1.0/module_pack/integration/map_gen_reader.py",
+    "third_party/mapgen/0.1.0/module_pack/integration/module_registry.gd",
+    "third_party/mapgen/0.1.0/module_pack/integration/playable_sample.gd",
+    "third_party/mapgen/0.1.0/module_pack/integration/playable_sample.tscn",
+    "third_party/mapgen/0.1.0/module_pack/integration/player_capabilities.gd",
+    "third_party/mapgen/0.1.0/module_pack/integration/validate_runtime.gd",
+    "third_party/mapgen/0.1.0/module_pack/manifest.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n06-fourport-two-low-ingress/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n06-fourport-two-low-ingress/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n06-fourport-two-low-ingress/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n06-fourport-two-low-ingress/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n06-fourport-two-low-ingress/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n08-reward-return-interface0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n08-reward-return-interface0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n08-reward-return-interface0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n08-reward-return-interface0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n08-reward-return-interface0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n12-three-side-port-interface0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n12-three-side-port-interface0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n12-three-side-port-interface0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n12-three-side-port-interface0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n12-three-side-port-interface0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n14-static-three-sideports/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n14-static-three-sideports/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n14-static-three-sideports/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n14-static-three-sideports/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n14-static-three-sideports/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n16-west-low-east-high-interface0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n16-west-low-east-high-interface0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n16-west-low-east-high-interface0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n16-west-low-east-high-interface0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n16-west-low-east-high-interface0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n17-threeport-cross-shaft-v2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n17-threeport-cross-shaft-v2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n17-threeport-cross-shaft-v2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n17-threeport-cross-shaft-v2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/b31-n17-threeport-cross-shaft-v2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-c02-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-c02-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-c02-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-c02-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-c02-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-d05-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-d05-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-d05-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-d05-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-d05-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-n04-0-2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-n04-0-2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-n04-0-2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-n04-0-2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-block-n04-0-2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-d04-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-d04-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-d04-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-d04-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-d04-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n11-e-e-width96/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n11-e-e-width96/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n11-e-e-width96/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n11-e-e-width96/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n11-e-e-width96/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n19-west-high-east-low/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n19-west-high-east-low/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n19-west-high-east-low/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n19-west-high-east-low/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/batch30-n19-west-high-east-low/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a1-bidirectional-risk-reward-1/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a1-bidirectional-risk-reward-1/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a1-bidirectional-risk-reward-1/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a1-bidirectional-risk-reward-1/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a1-bidirectional-risk-reward-1/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a3-bidirectional-map-traversal-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a3-bidirectional-map-traversal-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a3-bidirectional-map-traversal-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a3-bidirectional-map-traversal-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-a3-bidirectional-map-traversal-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c01-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c01-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c01-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c01-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c01-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c07-horizontal/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c07-horizontal/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c07-horizontal/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c07-horizontal/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/block-demand-c07-horizontal/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-boss-approach/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-boss-approach/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-boss-approach/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-boss-approach/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-boss-approach/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-ferry-ascent/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-ferry-ascent/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-ferry-ascent/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-ferry-ascent/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-ferry-ascent/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-long-gap/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-long-gap/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-long-gap/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-long-gap/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-long-gap/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-recoil-climb/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-recoil-climb/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-recoil-climb/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-recoil-climb/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-challenge-recoil-climb/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-air-chain-geometry-hook-hook/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-air-chain-geometry-hook-hook/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-air-chain-geometry-hook-hook/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-air-chain-geometry-hook-hook/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-air-chain-geometry-hook-hook/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-directional-geometry-build-narrow/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-directional-geometry-build-narrow/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-directional-geometry-build-narrow/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-directional-geometry-build-narrow/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-directional-geometry-build-narrow/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-exploration-modules-backlook-fruit-cache/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-exploration-modules-backlook-fruit-cache/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-exploration-modules-backlook-fruit-cache/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-exploration-modules-backlook-fruit-cache/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-exploration-modules-backlook-fruit-cache/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-aircatch/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-aircatch/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-aircatch/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-aircatch/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-aircatch/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity-elbow/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity-elbow/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity-elbow/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity-elbow/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity-elbow/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-trunk-geometry-cavity/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-upper-candidate-build/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-upper-candidate-build/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-upper-candidate-build/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-upper-candidate-build/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-hollow-upper-candidate-build/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-playful-module-variants-forked-bough-hh/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-playful-module-variants-forked-bough-hh/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-playful-module-variants-forked-bough-hh/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-playful-module-variants-forked-bough-hh/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-playful-module-variants-forked-bough-hh/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-vertical-chain-geometry-default/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-vertical-chain-geometry-default/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-vertical-chain-geometry-default/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-vertical-chain-geometry-default/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-forest-vertical-chain-geometry-default/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-moving-transfer/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-moving-transfer/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-moving-transfer/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-moving-transfer/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-moving-transfer/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bell-ferry-control/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bell-ferry-control/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bell-ferry-control/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bell-ferry-control/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bell-ferry-control/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bellstrider-arena/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bellstrider-arena/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bellstrider-arena/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bellstrider-arena/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bellstrider-arena/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-boss-arena/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-boss-arena/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-boss-arena/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-boss-arena/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-boss-arena/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-causeway/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-causeway/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-causeway/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-causeway/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-causeway/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-ridge/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-ridge/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-ridge/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-ridge/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-bramble-ridge/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-gears/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-gears/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-gears/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-gears/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-gears/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-one/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-one/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-one/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-one/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-ferry-one/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-fork-paths/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-fork-paths/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-fork-paths/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-fork-paths/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-fork-paths/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-gear-brook/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-gear-brook/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-gear-brook/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-gear-brook/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-gear-brook/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-high-perches/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-high-perches/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-high-perches/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-high-perches/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-high-perches/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-low-arch/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-low-arch/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-low-arch/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-low-arch/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-low-arch/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-meadow-gap/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-meadow-gap/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-meadow-gap/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-meadow-gap/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-meadow-gap/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-landing/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-landing/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-landing/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-landing/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-landing/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-rise/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-rise/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-rise/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-rise/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-micro-rise/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-perch-double/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-perch-double/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-perch-double/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-perch-double/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-perch-double/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-recoil-chasm/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-recoil-chasm/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-recoil-chasm/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-recoil-chasm/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-recoil-chasm/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-bell/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-bell/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-bell/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-bell/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-bell/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-sequence/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-sequence/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-sequence/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-sequence/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-remote-sequence/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-skip-stones/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-skip-stones/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-skip-stones/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-skip-stones/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-skip-stones/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-switchback/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-switchback/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-switchback/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-switchback/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-switchback/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-slalom/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-slalom/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-slalom/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-slalom/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-slalom/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-wall/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-wall/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-wall/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-wall/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-thorn-wall/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-twin-gears/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-twin-gears/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-twin-gears/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-twin-gears/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-twin-gears/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-wind-spire/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-wind-spire/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-wind-spire/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-wind-spire/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-wind-spire/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-ferry/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-ferry/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-ferry/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-ferry/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-ferry/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-lesson/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-lesson/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-lesson/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-lesson/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-lesson/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-rush/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-rush/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-rush/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-rush/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-rush/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-sequence/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-sequence/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-sequence/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-sequence/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-sequence/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-well/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-well/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-well/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-well/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-plains-windchime-well/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-recoil-shaft/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-recoil-shaft/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-recoil-shaft/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-recoil-shaft/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-recoil-shaft/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-route-junction/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-route-junction/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-route-junction/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-route-junction/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-route-junction/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-spike-gap/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-spike-gap/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-spike-gap/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-spike-gap/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/game-spike-gap/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s02-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s02-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s02-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s02-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s02-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s07-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s07-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s07-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s07-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s07-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s09-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s09-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s09-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s09-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s09-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s11-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s11-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s11-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s11-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s11-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s12-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s12-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s12-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s12-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s12-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s15-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s15-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s15-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s15-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-interface-s15-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-orbit-choice-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-orbit-choice-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-orbit-choice-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-orbit-choice-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-orbit-choice-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq01-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq01-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq01-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq01-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq01-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq02-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq02-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq02-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq02-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq02-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq03-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq03-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq03-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq03-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq03-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq04-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq04-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq04-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq04-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq04-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq05-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq05-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq05-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq05-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq05-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq07-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq07-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq07-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq07-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq07-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq08-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq08-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq08-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq08-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq08-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq09-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq09-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq09-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq09-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-plains-hq09-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s02-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s02-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s02-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s02-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s02-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s04-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s04-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s04-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s04-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s04-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s06-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s06-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s06-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s06-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s06-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s07-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s07-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s07-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s07-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s07-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s08-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s08-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s08-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s08-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s08-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s09-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s09-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s09-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s09-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s09-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s10-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s10-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s10-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s10-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s10-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s11-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s11-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s11-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s11-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s11-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s12-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s12-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s12-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s12-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s12-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s13-001/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s13-001/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s13-001/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s13-001/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/idea-spec02-s13-001/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/junction-j06-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/junction-j06-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/junction-j06-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/junction-j06-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/junction-j06-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-macro-gate-brake-return-0/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-macro-gate-brake-return-0/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-macro-gate-brake-return-0/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-macro-gate-brake-return-0/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-macro-gate-brake-return-0/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-one-shot-two-routes-1/compiled-content.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-one-shot-two-routes-1/godot-package.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-one-shot-two-routes-1/module.mapnote.json",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-one-shot-two-routes-1/module.tscn",
+    "third_party/mapgen/0.1.0/module_pack/modules/workshop-one-shot-two-routes-1/thumbnail.svg",
+    "third_party/mapgen/0.1.0/module_pack/reward-association-gaps.json",
+    "third_party/mapgen/0.1.0/module_pack/runtime/host-lock-current-game.json",
+    "third_party/mapgen/0.1.0/module_pack/runtime/host-lock.json",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/air_enemy_binding_v1-69824e7db4f1.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/air_port_definition_v1-5051ca97a871.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/attack_relay_v1-6c856e958df9.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/binding_v1-937afa378b6c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/dock_binding_v11-66a888cc03dd.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/dock_latch_v11-50dddd551653.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/ideas_definition_v1-d97d761201bf.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/index.json",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/install_v1-e73bc68f3203.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/local_rewards-f35c3226b1f0.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/loop_definition_v1-37b7878f8b23.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/mechanics-bfede37128d4.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader-17439d47c98c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_ideas_v2-14f1ba7244c3.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review029_v2-e20897bd43bd.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review040_v2-8cec818b6d39.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review040_v3-0a71297ee229.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review_air_v1-8a5d8fb0ad55.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review_first30_v2-68914af37f2b.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review_gears_v1-2f71ef47afec.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review_refresh_v1-40083d199ba8.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_review_refresh_v2-ce8c7ffc86d7.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision058_v1-7832dcbdd03b.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision058_v2-231fd0e18d5c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision058_v3-604c78fe2c16.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision059_v2-a30ecc5d56af.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision060_v1-8364160d1204.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision060_v2-6a4b3f4d30d5.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision061_v2-daa7e5eceb9f.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_revision062_v1-7a6c3cf9eeb0.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_v3-1d72f57d63dd.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/module_loader_v5-23b4208b9323.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/mount_v1-8cd97b468685.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/native_profile_v5-eeef5b9dc854.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/occupancy_latch_v1-4a7322b21bee.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/original_pickups_v4-fba91db74f2c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/original_region_chests_v5-3f409ecd7991.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/pair_latch_v1-9294b6c01d1e.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/pair_latch_v2-0c82d9047c16.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/pair_latch_v3-33307e6c887e.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/plains_cells-d3785510bb80.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/refresh_carrier_bootstrap_v1-62d536e21f78.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/refresh_carrier_support_v1-a37785f5dbaf.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/refresh_cells_v1-25befff692f8.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/refresh_timed_latch_v1-94f453a25bbd.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/retractable_gears_v1-3c1f66141703.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/review029_ambush_v1-68f00446aac9.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/review029_ambush_v2-20b11f356d1a.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/review040_release_overlay_v1-933fa626d096.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/review040_reward_release_v1-bfda6417c1bf.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_group_motion_v1-a99b6384c5d8.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_hit_turret_v1-94ccc147149c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_hq_binding_v1-18ccd28b08c7.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_hq_binding_v2-573042013006.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_interception_observer_v1-45262dc58049.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_reward_pair_v1-71ff5858a7b7.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision059_turret_latch_v1-00806b019b04.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision060_binding_v1-1581470be14a.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision060_binding_v2-78821430f8a2.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision060_support_start_v1-5f36f2dd420c.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision060_thorn_latch_v1-5c845e3f25e4.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision060_thorn_latch_v2-05ca725eb5cd.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision061_ellipse_definition_v1-fff23a5cee8f.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision061_ellipse_install_v1-7416999b951a.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/revision062_mount_v1-dfd8c0d4e232.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/module_runtime/runtime_v3-998af01cc01d.gd",
+    "third_party/mapgen/0.1.0/module_pack/runtime/player-profiles.json",
+    "third_party/mapgen/0.1.0/reference/generation-config.json",
+    "third_party/mapgen/0.1.0/reference/generation-result.json",
+    "third_party/mapgen/0.1.0/reference/physical-notes.json",
+    "third_party/mapgen/0.1.0/reference/seed-930001.png",
+    "third_party/mapgen/0.1.0/reference/seed-930001.svg",
+    "third_party/mapgen/0.1.0/reference/source-bindings.json",
+    "third_party/mapgen/0.1.0/reference/source-map.json.gz",
+    "third_party/mapgen/0.1.0/reference/stable-replays.json",
+    "third_party/mapgen/0.1.0/reference/static-audit.json",
+    "third_party/mapgen/0.1.0/reference/validation.json",
+    "third_party/mapgen/0.1.0/runtime-map.schema.json",
+    "third_party/mapgen/0.1.0/verify_delivery.py",
+    "third_party/mapgen/README.md",
+    "tools/run_mapgen_delivery_tests.py"
+  ],
+  "deliverables": [
+    "docs/worklines/mapgen_930001/README.md",
+    "scenes/mapgen/seed_930001.tscn",
+    "tools/run_mapgen_delivery_tests.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Pinned task/contract and existing consumers scoped without design alteration",
+      "evidence": [
+        "contract"
+      ]
+    },
+    "G1": {
+      "status": "failed",
+      "reason": "Complete-map gate remains blocked/unverified; scoped runtime evidence does not certify allpaths",
+      "evidence": [
+        "acceptance",
+        "review"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Complete-map gate remains blocked/unverified; scoped runtime evidence does not certify allpaths",
+      "evidence": [
+        "acceptance",
+        "review"
+      ]
+    },
+    "G3": {
+      "status": "failed",
+      "reason": "Complete-map gate remains blocked/unverified; scoped runtime evidence does not certify allpaths",
+      "evidence": [
+        "acceptance",
+        "review"
+      ]
+    },
+    "G4": {
+      "status": "failed",
+      "reason": "Complete-map gate remains blocked/unverified; scoped runtime evidence does not certify allpaths",
+      "evidence": [
+        "acceptance",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Complete-map gate remains blocked/unverified; scoped runtime evidence does not certify allpaths",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Pinned contract and scoped ownership defined",
+      "evidence": [
+        "contract"
+      ]
+    },
+    "technical": {
+      "status": "failed",
+      "reason": "721 native assertions:718passed,3 M24 reward conflict failures",
+      "evidence": [
+        "wrapper",
+        "acceptance"
+      ]
+    },
+    "formal_integration": {
+      "status": "failed",
+      "reason": "Runtime native systems bind; M24 claim unsupported; natural allroutes not certified",
+      "evidence": [
+        "acceptance"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Actual OpenGL captures and reference layout compared; no new art/whole-map art acceptance",
+      "evidence": [
+        "overview"
+      ]
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "No new animation assets or native animation implementation changed",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No audio/VFX design or assets changed; native feedback reused",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Local physical interactions tested; natural whole-map and player experience not certified",
+      "evidence": [
+        "acceptance"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "No target-device frame-time budget test",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Independent review accepts only documented scoped integration",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical-device run",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "No player acceptance supplied",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Consume exact fixed seed930001 delivery",
+      "method": "Pin ZIP/manifest and ownership",
+      "expected": "Immutable source and no generator or physics edits",
+      "failure": "Hash or coordinate contract mismatch",
+      "status": "passed",
+      "reason": "Pinned files and adapter boundaries independently reviewed",
+      "evidence": [
+        "contract"
+      ]
+    },
+    {
+      "id": "spawn-native",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Interior spawn, native projectile opens bell and sameplayer crossesM01exit",
+      "method": "NativeRouter/PlayerMotor continuous start segment",
+      "expected": "Grounded96,206 then crossC001 withHP5",
+      "failure": "Blocked gate, duplicateplayer,resource/tuningmutation",
+      "status": "passed",
+      "reason": "Actual continuous three native cases pass",
+      "evidence": [
+        "acceptance"
+      ]
+    },
+    {
+      "id": "M24-claim",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "M24 authoredreward withallunusedPorts sealed",
+      "method": "Realplayerbody supportedstance queries againstSeal_C",
+      "expected": "All11authoredreward sites claimable",
+      "failure": "Seal_C intersects reward support/claim region",
+      "status": "failed",
+      "reason": "Actual unchangedgeometry rejects every fullbody support; strictallreward acceptance fails",
+      "evidence": [
+        "acceptance"
+      ]
+    },
+    {
+      "id": "natural-allpaths",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "Naturalfullroute fromspawn throughsixrewards toBoss",
+      "method": "Continuousnativeinputs withresources/phases carried",
+      "expected": "No fixtureteleports or refills",
+      "failure": "Any unreachableinterface or resourceshortage",
+      "status": "unverified",
+      "reason": "Onlycontinuousstart segment and scopedBoss battle run",
+      "evidence": [
+        "acceptance"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "contract",
+      "path": "docs/worklines/mapgen_930001/scope.md",
+      "sha256": "6e6f4ccfd342c967901046c045085659e1da21d15bff2955e10f19ad19307f5f",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Pinned delivery and host API/ownership scope",
+      "observed": "No generator/data/PlayerTuning edits; exact original package"
+    },
+    {
+      "id": "acceptance",
+      "path": "docs/evidence/mapgen_930001/acceptance-04-runtime.json.gz",
+      "sha256": "6bf93403a47f515c6bdaecb395cdee3a2bd161f9020e109f7193f5d246b93995",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Godot4.7.2 native player physics, differentiated probes",
+      "observed": "721checks718pass3fail: strict M24 reward conflict retained; continuous onlyM01toM02",
+      "consumers": [
+        "inventory/origin/M01",
+        "inventory/origin/M02",
+        "inventory/origin/M03",
+        "inventory/origin/M04",
+        "inventory/origin/M05",
+        "inventory/origin/M06",
+        "inventory/origin/M07",
+        "inventory/origin/M08",
+        "inventory/origin/M09",
+        "inventory/origin/M10",
+        "inventory/origin/M11",
+        "inventory/origin/M12",
+        "inventory/origin/M13",
+        "inventory/origin/M14",
+        "inventory/origin/M15",
+        "inventory/origin/M16",
+        "inventory/origin/M17",
+        "inventory/origin/M18",
+        "inventory/origin/M19",
+        "inventory/origin/M20",
+        "inventory/origin/M21",
+        "inventory/origin/M22",
+        "inventory/origin/M23",
+        "inventory/origin/M24",
+        "inventory/origin/M25",
+        "inventory/origin/M26",
+        "inventory/origin/M27",
+        "inventory/origin/M28",
+        "inventory/origin/M29",
+        "inventory/origin/M30",
+        "inventory/origin/M31",
+        "inventory/origin/M32",
+        "inventory/origin/M33",
+        "inventory/origin/M34",
+        "inventory/origin/M35",
+        "inventory/origin/M36",
+        "inventory/origin/M37",
+        "inventory/origin/M38",
+        "inventory/origin/M39",
+        "inventory/origin/M40",
+        "inventory/origin/M41",
+        "inventory/origin/M42",
+        "inventory/origin/M43",
+        "inventory/origin/M44",
+        "inventory/origin/M45",
+        "inventory/origin/M46",
+        "spawn/M01.exit-to-M02.R",
+        "reward/physical_claim/M20/high-B",
+        "reward/physical_claim/M20/high-C",
+        "reward/physical_claim/M23/high-B",
+        "reward/physical_claim/M23/high-C",
+        "reward/physical_claim/M24/reward",
+        "reward/physical_claim/M41/reward",
+        "reward/physical_claim/M42/reward",
+        "reward/physical_claim/M43/reward",
+        "reward/physical_claim/M44/reward",
+        "reward/physical_claim/M45/reward",
+        "reward/physical_claim/M46/reward",
+        "reward/M29/native_OR_claim/coin",
+        "reward/M29/native_OR_claim/note",
+        "boss/native_battle_victory"
+      ]
+    },
+    {
+      "id": "wrapper",
+      "path": "docs/evidence/mapgen_930001/acceptance-04-report.json",
+      "sha256": "1c2b3dd8bb8087276e68f6d0ca57cdca03b17d0e5078d91ea5f85e8413809db5",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Strict original wrapper, source guard, complete required cases",
+      "observed": "exit1 due3M24 failures; source stable; no terminal script/resource diagnostics",
+      "command": "python3 tools/run_mapgen_delivery_tests.py --suite all --skip-import --output-dir build/mapgen_930001/acceptance-04",
+      "exit_code": 1,
+      "environment": "Linux/Godot4.7.2 Standard/headless1280x720"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/mapgen_930001/review.md",
+      "sha256": "3dd03e4012823da92a77544cf269e2f4e06d18ab90fc40163e89be79f91502c5",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Independent source/raw log/hash/screenshot review",
+      "observed": "ACCEPT scoped integration; complete map BLOCKED",
+      "reviewer": "/root/review",
+      "implementers": [
+        "root",
+        "/root/host_flow",
+        "/root/physical_tests"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only reviewer did not author reviewed production/tests",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "overview",
+      "path": "docs/evidence/mapgen_930001/overview.png",
+      "sha256": "34b4cf6edeafafaf22a547d9c4d564fd8a9d2988fc060119872294d99bab6d7d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Actual Godot4.7.2 OpenGL/Xvfb1280x720",
+      "observed": "Actual assembled negative-coordinate layout matches reference, not art acceptance"
+    },
+    {
+      "id": "consumers",
+      "path": "docs/evidence/mapgen_930001/consumers.json",
+      "sha256": "df8b1092fcc6dac4fdd0d2735d4187b32785868a56eaadf3a6447672c73c3f88",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "candidate-v1",
+      "method": "Project actual acceptance-04 native case ledger without promoting diagnostic scope",
+      "observed": "Actual instances/claims enumerated; M24 remains failed"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "46 assembled instances,11 reward sites,M29 native OR,Boss and initial continuous seam; allroutes unverified",
+    "inventory_evidence": "consumers",
+    "observations": [
+      {
+        "consumer": "inventory/origin/M01",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M02",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M03",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M04",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M05",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M06",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M07",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M08",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M09",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M10",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M11",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M12",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M13",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M14",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M15",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M16",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M17",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M18",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M19",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M20",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M21",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M22",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M23",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M24",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M25",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M26",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M27",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M28",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M29",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M30",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M31",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M32",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M33",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M34",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M35",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M36",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M37",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M38",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M39",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M40",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M41",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M42",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M43",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M44",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M45",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "inventory/origin/M46",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "spawn/M01.exit-to-M02.R",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M20/high-B",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M20/high-C",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M23/high-B",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M23/high-C",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M24/reward",
+        "status": "failed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M41/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M42/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M43/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M44/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M45/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/physical_claim/M46/reward",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/M29/native_OR_claim/coin",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "reward/M29/native_OR_claim/note",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      },
+      {
+        "consumer": "boss/native_battle_victory",
+        "status": "passed",
+        "output": "behavior",
+        "reason": "Actual scoped runtime case; fixture placements and assembly-only checks retain original evidence scope",
+        "evidence": [
+          "acceptance"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "M24 Port C gear seal occludes unchanged authored reward support/claim region",
+    "Continuous whole-map spawn-to-six-rewards-to-Boss routes not replayed",
+    "All mechanism dynamic phases, real browser choice click and physical devices not fully verified",
+    "Complete168 Integration/Release not executed; docs Harness has3 preexisting archive relative-link failures"
+  ]
+}

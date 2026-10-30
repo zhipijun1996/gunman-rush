@@ -1,0 +1,987 @@
+{
+  "schema": "gunman-rush/mapgen-host-compatibility/v1",
+  "task_id": "MAPGEN-930001-01",
+  "audit_kind": "STATIC_HASH_AND_SOURCE_COMPARISON",
+  "created_utc": "2026-10-30T12:22:59.401474+00:00",
+  "host_repository": "https://github.com/zhipijun1996/gunman-rush",
+  "host_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "lock": {
+    "path": "module_pack/runtime/host-lock-current-game.json",
+    "sha256": "66a592dbe9b023b026803512e1ab6d41cd90963f10c5b022a0913493570642fc",
+    "id": "gunman-rush-main-api-5f55716",
+    "commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+    "godot": {
+      "version": "4.7.2-stable",
+      "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e"
+    }
+  },
+  "delivery": {
+    "version": "0.1.0",
+    "seed": 930001,
+    "zip_sha256": "1c190a0a3918ece39e3a3aac7d35dbc855b9f4c87ebafbaa11f32c820a333b25",
+    "map_sha256": "fa0d6644187999252ce0fd6355ce58e8ba5533a0ec6d837516cab70fb65e3be4"
+  },
+  "summary": {
+    "files_compared": 1600,
+    "exact": 1529,
+    "changed": 71,
+    "missing": 0,
+    "locked_profile_exact_match": false,
+    "current_host_api_runtime_certification": "NOT_RUN_BY_THIS_AUDIT",
+    "whole_map_physics": "NOT_RUN_BY_THIS_AUDIT",
+    "host_files_installed_or_overwritten": []
+  },
+  "critical_consumers": [
+    {
+      "path": "config/player_tuning.json",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c"
+    },
+    {
+      "path": "config/input_profile.json",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+    },
+    {
+      "path": "scenes/player/player.tscn",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8"
+    },
+    {
+      "path": "scripts/player/player_motor.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56"
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "c2345b1f744d5372edcac006becc131f11b569a8f75e5610d07f904e7bd2183c"
+    },
+    {
+      "path": "scripts/combat/shoot_ability.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "e9387e124d5a4ab61c34fb8706bdcb8e3704dec6cdcd82af68f0c37cfbeb22c1"
+    },
+    {
+      "path": "scripts/damage/frame_damage_policy.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "b334e3ba7eb6ec4381fe72d6b232126ffa23a123a91e221c834600c1486f6b3a"
+    },
+    {
+      "path": "scripts/damage/demo_contact_emitter.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "6fd2f54c3a8a2efba103de5bf6c04d5114a884fb64f7b53f88c0896f3de899aa"
+    },
+    {
+      "path": "scripts/damage/segment_respawn.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "b59de0a7b28af9e6892d55d5a07b465a936c4b0ec308d73d583e42903c19872f"
+    },
+    {
+      "path": "scripts/run/demo_lifetime.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "58c504ff5be7f38debd71ec2f45a58853f748f9e4ccb3b4558ac1fbd9da8ecc7"
+    },
+    {
+      "path": "scripts/shops/run_wallet.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "82f899590575cb14426156701b065f11bc455f1f2658540a520d4102fbfac77b"
+    },
+    {
+      "path": "scripts/rewards/simple_room_reward.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "8acc7d773d7cb9dfb511afdc0fa6504fc6100fb362c74288e968047882f19b26"
+    },
+    {
+      "path": "scripts/generation/platforming_module.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "705af1d3d9354d8bf4ba86ea3b1d1b4eea33ae414019dc122c32e0aed1c08a30"
+    },
+    {
+      "path": "scripts/generation/platforming_module_definition.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "7ae4bab73990c01f5cfc1d2e06a54e635dbaa71a2951b912b7d46d2eee1cbb96"
+    },
+    {
+      "path": "scripts/generation/module_moving_platform.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "c3c3c7d068f5bcef692eabe4a2110aaa6308d4379623b09e652062f29c0f0fd5"
+    },
+    {
+      "path": "scripts/generation/module_moving_platform_definition.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "46575fc0350d2961006d4ddc78884e20d1eb5fcbf133aa23d0690603b7664954"
+    },
+    {
+      "path": "scripts/generation/module_saw_hazard.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "5b95898b72464e15795c85cb72f12f1c53ac897885455c34655c7c2d0bfd343c"
+    },
+    {
+      "path": "scripts/generation/platform_thorn_definition.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "10b62dfc8c66e4c804a08d50d69c5f9da96f54dd5600f400daa6e4751d1f3fc5"
+    },
+    {
+      "path": "scripts/world/shot_latch.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "6d60a7ed5fe9045bf5375ee6cefd3646e5df5964c5b1aa6c7f242dc040152565"
+    },
+    {
+      "path": "scripts/world/grapple_anchor.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "9f6a613dcbea0f63b83e0e271e63621513f0503950a6d6899377cd9fda899863"
+    },
+    {
+      "path": "scenes/enemies/patrol_drone.tscn",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "a7675b05719e92969c599ce8b0dbc92fd224152824aa56bb5e0ac76f160257be"
+    },
+    {
+      "path": "resources/enemies/plains_diver.tres",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "35421393d53fcfba09e6702ef17180e5761065fa43f95e797b1a547038fddf54"
+    },
+    {
+      "path": "resources/bosses/windkeeper_storm.tres",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5"
+    },
+    {
+      "path": "scripts/bosses/windkeeper_arena.gd",
+      "status": "EXACT_LOCKED_BYTES",
+      "actual_sha256": "cee2dcaa54879b86f76f1646dac0038797d065f8443f5f502dfde54f7a5c13f4"
+    }
+  ],
+  "changed_files": [
+    {
+      "path": "config/enemy_drops.json",
+      "expected_sha256": "9239b77e90ac53e856b2947d16a1e5a23d742079155c68897877282db3b6782b",
+      "actual_sha256": "ea9a21aeefe6a2e70d7f3ab7b85002c3459373c7bbfda49755a35c94db8c4a35",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/art/plains_stage_visual.gd",
+      "expected_sha256": "b8b4ae8a45bb42af67cbf3c6a1806d2b01ebcb76e273db9b16568f8afac51769",
+      "actual_sha256": "9547f09d904a64ae437a4cf61c08b55ed126307e896966d93633053862ab127f",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/art/player_feedback.gd",
+      "expected_sha256": "245a6c717a542b39f4bb67ce620668fdbd247db744c3159da34a47ba6cd3b2e8",
+      "actual_sha256": "69eae2067608556e1aee4d5c62d43854efc7e761056d9651ce0de0ba870bf33e",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/generation/forest_vertical_expedition.gd",
+      "expected_sha256": "8c7b6d4a5ecc9df89d9bb0743be80cfe78b734d187cfd47e3d1277e6a19108e8",
+      "actual_sha256": "3dba0ecaa0f4d1037e6560c5653857de0d0058a15dda16d8a642907c76dacd54",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/generation/plains_environment_plan.gd",
+      "expected_sha256": "f7f0269d90e464864db1e33a0c193e32c494e6399367aba72efa3f88e5d89690",
+      "actual_sha256": "6b6e7d0d05f9572bee9789ac18b117e2d416e471dc1ec22900a3a77e049a3147",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/generation/plains_place_plan.gd",
+      "expected_sha256": "f29720c5e45fe52c861590d642814882884b75685423340d09e5caf0710c2aa7",
+      "actual_sha256": "7322d278fc87cec73c088bcf118e26fb2876c581f6bd5b989b098248f709e107",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/generation/plains_region_generator.gd",
+      "expected_sha256": "3bcece711a322269dbb99e4f6a10e48349da2e5f6eac0f0dae18caf50db154ab",
+      "actual_sha256": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_particles.gd",
+      "expected_sha256": "4addea8ebbbb25cdc1266935e36348d4e11851cbd9cb37d4af905b2be7b17f47",
+      "actual_sha256": "72947c344bd14864015ae5e5a4313fa478adf28eef0aea9de76577e3ca1cafbb",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_enemy_definition.gd",
+      "expected_sha256": "e031e25d28559a229fb637af1eed074264041ba7e3015dd740e4d1b528dd0080",
+      "actual_sha256": "46c239a01aa88e051efcde389dff7fed9eaf4bb7d97cd6bfcc20d67b1ff64199",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/prototype_enemy_presentation.gd",
+      "expected_sha256": "7a85085304987b1fbef32ffc2a29a41af58faffc2b3b80729047aff57735e081",
+      "actual_sha256": "cebb1480256be028f66882eef6630581e110d95d4ae0fa2ae58ee981a22a9f85",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+      "expected_sha256": "69a9551a567276fc9979df472bb228a6d8a79babfd5dee399fe9b1178a267489",
+      "actual_sha256": "5c57bef936f8cf3d5e2ab608071b90ddf984c7825fc272a8d47791022e9526e1",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+      "expected_sha256": "70813d555ca9a7de5632daa902b2f011b04d6231fbe1b4fea00cc51be445f63f",
+      "actual_sha256": "135ecd0f523007c0668262db043a69ba4a5927db6e617e607a2728653b3ca71f",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_hit_template.gd",
+      "expected_sha256": "2efe932e7d7dc985eb3a82e6bdcf52bbfd0351c3a3e47f6ca72c836831f4a9fe",
+      "actual_sha256": "94c0f665f8397ddff0db3929c004c6d7696f2fbc84989a21841f0acf91492d86",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "expected_sha256": "5b592efa1eb02ce682e78fb2d79ecdf883fb9c46e94a67f610640487dc224b4e",
+      "actual_sha256": "95fdfc9a19a86257110806227bb811e5ae7423dec5193b77a1a4f81e6d204c9d",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_definition.gd",
+      "expected_sha256": "781c39d4073a68a1074855ac95703a66b0976934cd5c17c8c213de824d32b01a",
+      "actual_sha256": "7c0b0d9f0a820ee9aafb6169594dc59fe66d0e34bad5bd25ff738f154a5e57a9",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "expected_sha256": "0f586da927d7415e15439b03b34e1a181401311bfe4c61183201921bf2e4538c",
+      "actual_sha256": "02bc9feb1c08a240dd450a4564170c57211ca12b8b3fbf5554b1e7a1fad71495",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "expected_sha256": "cb898579931c5643e105f6390e28e639036d7ad14b404fbb096418ad11c26156",
+      "actual_sha256": "7a394505c3507de54457ec0bccd8563dbd04a349c83c05ffd1e5010f87fe5e3e",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_motor.gd",
+      "expected_sha256": "3f36d8c9c4a0a7cf58483a784cd7a425053722c3736dd888c1eab9c5b2afdad8",
+      "actual_sha256": "f5c95f122662e4d52689d4c8513948bc57a77035e2f1c52619b6f4a6be20b6df",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_behavior.gd",
+      "expected_sha256": "2631c540f3d62b4ea313b60cdf935bf2feacbc998bb6a023afcbf4c98c1afe9d",
+      "actual_sha256": "388c62cc373081e9cd4a0de18accc523ebb6f5d985f2830dd60ff36832a243c9",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_bible_weaver_definition.gd",
+      "expected_sha256": "74495790678325f14f875307b1a86db17121752eb8f4365057293c21fb733429",
+      "actual_sha256": "b747933685add1de12c4396f95a3df40de02455d4811f21abcb7f4e00002f7a4",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/forest_enemy_presentation.gd",
+      "expected_sha256": "370eb6f896a6ad5cfb8a04638dc5247e7b06b17e836a221eaf79939f776d5b5f",
+      "actual_sha256": "6c44d51062538c6ca2184015bddf5659f846c610f6db56be69f620ba81659847",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/root_bell_presentation.gd",
+      "expected_sha256": "cd64cbb8ccac367b2528363b29215e8d29023001c06ba1d1f4001983775d0ee9",
+      "actual_sha256": "7d759af794d0ac3ec26b9c3cb42e3a9928445489fc6a1f083df6738df9588264",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_feedback_01_body.gd",
+      "expected_sha256": "0829a9429b580a0620568310dc99c5b81837eb2bc3663d6ad3c308cf111e544b",
+      "actual_sha256": "96e459ec9f6921fedd369c444a22c67661a8f4465f628877f781c532801c8589",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "expected_sha256": "a6db615e79a556b813d61b22a8683169b18f82355d41dd29428e642b99ccbc07",
+      "actual_sha256": "5833e73f0dbe7c1202d53d6ac5809a4d61d021d8431de1b6ac0b411d2a35a4db",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_projectile.gd",
+      "expected_sha256": "70e81af8f9427d46d890d38bb72ca11fd7f2523240f3b0315ff16254fb3d1331",
+      "actual_sha256": "2095c5ec63ec9d710ef0d8f617a575413e0674a0352d84726eed0dba02573eb7",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "expected_sha256": "ecbc27fb3f13ce0319158b16397398bc9844f9ab40af5c273fb925b4725eb728",
+      "actual_sha256": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/art_foundation/pixel_formal_style_installer.gd",
+      "expected_sha256": "1bfb8a6a30b3238a46ffaad92fe501336e10b5ef15ad39429145dd8e6745cec4",
+      "actual_sha256": "62151418de4ffb181f8e6867466d4bf01bafa78b68f20535a9e931c3fa4a305a",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/art_foundation/windchime_enemy_visual.gd",
+      "expected_sha256": "60e2aa69ae7be4a10ac3fab6eb50899a5d120a3050bd1f676f1502701a0f2040",
+      "actual_sha256": "08a88be3fd2e1efacf5360ffd82af1010aa8515410d3ab9e495bb49026976297",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/art_foundation/pixel_plains_enemy.gd",
+      "expected_sha256": "babba1d1270e9ddca01373a1d5282187e2086a82899635a37edf58706a81d166",
+      "actual_sha256": "625b440e11ebd09f81278938f2f3e55d3600307ee417c9dfb555e699389d8bae",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "expected_sha256": "60a2d1bb8d6ac20646f65fb8df8c66b5a3dd093350ffe02276e8dff2a61447f7",
+      "actual_sha256": "5e30a26c94da29c5f17362600f63cad0f671b68aa743928e7e445e924998a4ba",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/rewards/enemy_drop_service.gd",
+      "expected_sha256": "516cfdb93366fb9f4abcdb28504d3027d61bf175e5eda1e54976db589e488f4b",
+      "actual_sha256": "bd28043099290c52c2abd36230344a21b0d859f3f89af4417895b3c21f3c0732",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/damage/damage_feedback_definition.gd",
+      "expected_sha256": "634f57a8d1b1bfb81a7377a78062b7878a38bf3f2824824eb619e26c19e1f229",
+      "actual_sha256": "b509c1437d5e9035b5fa2942eb8e60b16c104974d1cf4fc69beb80d86765c636",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "expected_sha256": "a5434143db16855e99796d195a920edd8f67dcd550a3d80c7cb73d8cd06fad41",
+      "actual_sha256": "c8819186acee6baa0565a895dd62f3353ff61f0b3f8f3890a388b945b15093d9",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/boss_encounter.gd",
+      "expected_sha256": "b777817c318e64ea616aed16c3a042d3f92c3b525b00e4d2b05c07cdfa73dddd",
+      "actual_sha256": "dd30fb04de7445bc9eead27f7e315194bc9a8f9bf016761bb3c2072c4aff7e48",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/windkeeper_presentation.gd",
+      "expected_sha256": "4eb14b418ba9733a9ed39e69b99590820b5ed2fe13dd9f6b8aedc253657e926c",
+      "actual_sha256": "90f1fad39e7e4da83a086f4a73ed2deaffa982c011076d23a92518ec1f8e1ed6",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_encounter.gd",
+      "expected_sha256": "d3793dd2311d28c42b9b41bdd595b5ba3cd3fd0b58493af13b3177b6982cdb23",
+      "actual_sha256": "7b14922bdd1fc64876092eced2c563d0691bfcc001248a88f12d48eda9c2ac12",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/bellstrider_encounter.gd",
+      "expected_sha256": "cfc323b25deb903e5a74f83a9f3a26199cbfe73f7e9e48a72711ee163415a98b",
+      "actual_sha256": "c793ad064249730f1aaa1b8521cc8c49cc5eef5a99455600341c57797b017189",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_v2.gd",
+      "expected_sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "actual_sha256": "ab8119ebc66df3d7e78cb982ed053d837980b0dd76a9464d611465c9c97bc846",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/rootbell_guardian_v2.gd",
+      "expected_sha256": "169b2b227bf7d3c35b20f0bedd04830dd46a05088e89b9b60902c610b325f69b",
+      "actual_sha256": "9cb80e5bf21c871b9b5260e32b3ef14aadafef74541a64d002a4000d91e77947",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/windkeeper_encounter.gd",
+      "expected_sha256": "1cca2641a95f7fdcf35588c2f68a580f0e2b58789a62ab42ee729669a146e2fd",
+      "actual_sha256": "432d6cb2441ef740e6ed5b16241494b58ca74bec3464051e21d2bec813cf9e24",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/boss_presentation.gd",
+      "expected_sha256": "5246f51a82199f1848e53492323a3ff382b37a4a65aae6e32e6e2f89c7bb7905",
+      "actual_sha256": "f57dcef689906454ad1a091f364cdb4ab2a6426940ebc28670b1c34c4bbf4889",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_presentation.gd",
+      "expected_sha256": "ee1a21cf6d79cf61da6a107eec2a2b6d0b0e68b20503db43a9fdc77b377ea72e",
+      "actual_sha256": "09490c367c7bcdf5b39eab826e393e2c701400404406f62e09c3dde792808ba7",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
+      "expected_sha256": "d05d0876ebeab3fe9fd9587e19cd4bd7279a42d9eecb9ff45b7f8d43c1e5f168",
+      "actual_sha256": "682f58d16862c637ddd7fc758e58bcb022e03ba7e2b9b3fb1c60c7c4b0844b72",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "expected_sha256": "d2e5fa35fc56f7a0736b1e79a0651d20bb997bc0caef8e25e9da1ff3a491fa3a",
+      "actual_sha256": "78767f034c4c59af5c66a0f64f88b7613301524ff998fbf20681faf909781e02",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/boss_arrival_presentation.gd",
+      "expected_sha256": "c6d8e17e3f6100e925d412e6af15cc94e87d23acaeb35acc237727bfc9f1458e",
+      "actual_sha256": "a43c0ae1570c6a5899f1f9c1f5c6c28ec4993c2a8f7d534f4283ec741fa238e7",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/bellstrider_presentation.gd",
+      "expected_sha256": "2f9b87e5fb13f5248c9a5359b431409efd58caa95cdb95f538388c990be94b87",
+      "actual_sha256": "e3a7970cb30e2bf066dc5f6b3c042d79dd288e68b2c217d023cbac21f9da1faf",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/boss_attack_pattern.gd",
+      "expected_sha256": "25a99abc16cbcc2fc552cd1d4866689386bc3211a0ea8e67df5218397d353461",
+      "actual_sha256": "555ae3ebcf391b98549c53576cb55042092f445b17045fa7e80e52a67d4a3d86",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/guardian_root_bell_v2.gd",
+      "expected_sha256": "58b484ca6987b33a053a1cf9fe146bd17c30ff437eb54a132c7cc65eaf6df44d",
+      "actual_sha256": "cefbf971d7532efc83af8c1ded428d368bee897ca3031a87ccdcba7f00195dba",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+      "expected_sha256": "993a11da54b2f3b2c810ade9f6f78a40327be7b3ad260a438ab56f6aa785b163",
+      "actual_sha256": "736cdca6b82e097308d8af2d81f2d47d0eb354ec96d77a4a9a519d198c8d69e6",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_weave_band.gd",
+      "expected_sha256": "03434df675d0e581164793ac50349045d6f0a1bb5dc551f0d0e441c76160eefc",
+      "actual_sha256": "9c32e6eac0366fa9dbef8ee5b82fbfb494bb231f04046a288ee1f955e2ed222f",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/action_studio.gd",
+      "expected_sha256": "27dd404534b244468fc622ee8ee31d576bbc51afaedd33927235e992eac2e2aa",
+      "actual_sha256": "a7cd9318943d2af78d71f7017795fd5d816c436467f13918f5ef7dc1b3aff856",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "expected_sha256": "d68cfb42650c771b815c04aefee427483a3739469f3407b9479e81b02f95ac10",
+      "actual_sha256": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "expected_sha256": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+      "actual_sha256": "f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "expected_sha256": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+      "actual_sha256": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/generated_demo_stage.gd",
+      "expected_sha256": "c9014d2067ea702685601a8b9d0df605752e4c910196d05f2d93521c6958aad7",
+      "actual_sha256": "5935f1627ae9ff6222d073a8d1a6379a780c2f72bc12ad6d764c518100544b23",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/module_boss_trial.gd",
+      "expected_sha256": "3bc75158331932f72c13001fd1c8f2a4fd50f68e588956db5a64a8ebd2417aa2",
+      "actual_sha256": "ec23905d2a5adeee1baa69cdde4bc623fdc7e0301455806166651c701a312fa8",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/module_enemy_prototypes.gd",
+      "expected_sha256": "d2c4947a6dfe85e26bd0a68acd6422ed1c3bf4dfe89b7273a8367d35add232a6",
+      "actual_sha256": "f50bf6e70a66fd32a4a7c046f0d1e6e90642978c41e900d2973cf0c1ebb7a367",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/demo/demo_stage.gd",
+      "expected_sha256": "b427062189d4c83e4537a68ac27f55bd32a4c02d18b6bd1290d59cc18268eaca",
+      "actual_sha256": "3a67dcb54cb141f73b1cfaba1b343dc9230e39e9ccd3a47087d37f74a36aff28",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/audio/game_music.gd",
+      "expected_sha256": "6fe57ccecc3c68b5a9551f140bba5f50705a7276efd776453ff3c7b42499f3ed",
+      "actual_sha256": "9b9102ef798b517b3e009d9d1cf97ce420e3514233841996842ea05b60155b80",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "expected_sha256": "693ccfad72da8097317da20e1e5952367b2f0e2983785cddbdb17031fe8be3a5",
+      "actual_sha256": "74df9a1b7152d98eda3421eea9fb04c9dcb261a3f96f9f8b74f1c3d4ec175c5c",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd",
+      "expected_sha256": "1a7e5d78300be7b9e60def936556a8b377662d82d95de57386494f6e3d0cb8a9",
+      "actual_sha256": "ba3679bbfbce7afe738f1b0abd2041499876fab70399f43e5d8e2d38f37b6f77",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_enemy.gd",
+      "expected_sha256": "f2467a1bdf27ab81bd252fe01c5014f67400182a86c27274933446a3e4d8eae7",
+      "actual_sha256": "52e211ec5d3758d4dde07521f9f5298a1ca9132df0c210d19a576e781b6660f0",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "expected_sha256": "49cee240d1b2f0984cfafbf976860c21d9ff9074190494619e597f30e655dfb5",
+      "actual_sha256": "d9122011841c3bb695af2e98027740d0d0f12150ac10c79fda9c45f709c35f01",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_foreground.gd",
+      "expected_sha256": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3",
+      "actual_sha256": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+      "expected_sha256": "4424bf4ba445e54bba31a5962af5478f556ecca08acfc1448cc10fcee8f02ef4",
+      "actual_sha256": "31d9209e8b349edb578e245893978c2d6781ecc521a775fbad50f77a2814962c",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+      "expected_sha256": "8335b5d879bf54eb4e720ab5fcf6163ae840de54c1ad3d94bd5b8b5d663b0cc4",
+      "actual_sha256": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+      "historical_original_download_verified": true
+    },
+    {
+      "path": "resources/enemies/plains_sentry.tres",
+      "expected_sha256": "97a8f3e5a6bddadfe5c52fc21851eea72decd96ec4053b3e4f2f918fea1e6226",
+      "actual_sha256": "cd8defc9e43624a38a1a3184cf9a3815b87241eed4d671c650669cd1f4595768",
+      "historical_original_download_verified": true,
+      "resource_field_changes": [
+        {
+          "field": "definition_version",
+          "old": "2",
+          "new": "3"
+        },
+        {
+          "field": "projectile_muzzle_pivot",
+          "old": null,
+          "new": "Vector2(8, -12)"
+        },
+        {
+          "field": "projectile_muzzle_reach",
+          "old": null,
+          "new": "12.0"
+        }
+      ]
+    },
+    {
+      "path": "resources/enemies/plains_fan_sentry.tres",
+      "expected_sha256": "8bb303dd2d5969ffb43d2fef4ff5d33f6f309610d7458cb2f8a9801bfecc3231",
+      "actual_sha256": "46d9b74618f024666788bd8daf48c25efbe62e41aed16cc94adfa74fa66c94c4",
+      "historical_original_download_verified": true,
+      "resource_field_changes": [
+        {
+          "field": "collision_size",
+          "old": "Vector2(28, 32)",
+          "new": "Vector2(22, 18)"
+        },
+        {
+          "field": "definition_version",
+          "old": "2",
+          "new": "3"
+        }
+      ]
+    },
+    {
+      "path": "resources/enemies/plains_charger.tres",
+      "expected_sha256": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+      "actual_sha256": "39513bce9f2d604514a88838d733db24b723ce965402ce5579e8260f5a83a232",
+      "historical_original_download_verified": true,
+      "resource_field_changes": [
+        {
+          "field": "collision_size",
+          "old": "Vector2(28, 32)",
+          "new": "Vector2(28, 28)"
+        },
+        {
+          "field": "definition_version",
+          "old": "2",
+          "new": "3"
+        }
+      ]
+    },
+    {
+      "path": "resources/enemies/plains_root_bell.tres",
+      "expected_sha256": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+      "actual_sha256": "8b063c74820570a8be89841c83993299c2afa9e9b317aaa453d8c295c95167c8",
+      "historical_original_download_verified": true,
+      "resource_field_changes": [
+        {
+          "field": "collision_size",
+          "old": "Vector2(36, 40)",
+          "new": "Vector2(40, 48)"
+        },
+        {
+          "field": "definition_version",
+          "old": "1",
+          "new": "2"
+        }
+      ]
+    },
+    {
+      "path": "resources/damage/feedback.tres",
+      "expected_sha256": "5f9ab9dbb18b175c43034e4d2082b3cc0210f53d73495e154f5febaeb40f02e4",
+      "actual_sha256": "cd0d61732a861edcbad43a0b6a458bc82a59ab491a65297c954a1b0c85c37a8d",
+      "historical_original_download_verified": true,
+      "resource_field_changes": [
+        {
+          "field": "plains_kill_hold_seconds",
+          "old": null,
+          "new": "0.033"
+        }
+      ]
+    }
+  ],
+  "missing_files": [],
+  "function_declaration_deltas": [
+    {
+      "path": "scripts/enemies/prototype_enemy_presentation.gd",
+      "removed": [
+        "func _process(delta:float)->void:"
+      ],
+      "changed": [
+        {
+          "old": "func _draw()->void:",
+          "new": "func _draw() -> void:"
+        }
+      ],
+      "added": [
+        "func _advance_body_pose(delta: float) -> void:",
+        "func _build_master_grid() -> void:",
+        "func _deform_master(point: Vector2) -> Vector2:",
+        "func _presentation_initialized() -> void:",
+        "func _presentation_motion() -> RefCounted:",
+        "func _presentation_profile() -> StringName:",
+        "func _ready() -> void:",
+        "func _sync_prototype_epoch() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func _process(_delta: float) -> void:queue_redraw()",
+          "new": "func _process(delta: float) -> void:"
+        }
+      ],
+      "added": [
+        "func _exit_tree() -> void:",
+        "func _presentation_initialized() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "removed": [
+        "func _feedback_initialized(result: ActorResourceResult) -> void:"
+      ],
+      "changed": [],
+      "added": [
+        "func _advance_body_pose(delta: float) -> void:",
+        "func _presentation_initialized() -> void:",
+        "func _presentation_motion() -> RefCounted:",
+        "func _presentation_profile() -> StringName:",
+        "func presentation_remains() -> EnemyFeedback01Remains:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/art_foundation/pixel_plains_enemy.gd",
+      "removed": [
+        "func _process(delta: float) -> void:"
+      ],
+      "changed": [],
+      "added": [
+        "func _advance_presentation(delta: float) -> void:",
+        "func _presentation_initialized() -> void:",
+        "func _presentation_profile() -> StringName:"
+      ]
+    },
+    {
+      "path": "scripts/rewards/enemy_drop_service.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func settle(enemy_id: StringName) -> Dictionary:",
+          "new": "func settle(enemy_id: StringName, behavior: StringName = &\"\") -> Dictionary:"
+        }
+      ],
+      "added": [
+        "static func rewards_of(output: Dictionary) -> Array[Dictionary]:"
+      ]
+    },
+    {
+      "path": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "removed": [
+        "func _draw_body_warning(duel: RootbellGuardianV2, config: BossDuelDefinition, size: Vector2) -> void:"
+      ],
+      "changed": [],
+      "added": [
+        "func _exit_tree() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/bosses/thorn_forest_presentation.gd",
+      "removed": [
+        "func _bark_style(color: Color) -> StyleBoxFlat:"
+      ],
+      "changed": [],
+      "added": [
+        "func _exit_tree() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_weave_presentation.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func _process(_delta: float) -> void: queue_redraw()",
+          "new": "func _process(delta: float) -> void:"
+        }
+      ],
+      "added": [
+        "func _exit_tree() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func _process(_delta: float) -> void: queue_redraw()",
+          "new": "func _process(delta: float) -> void:"
+        }
+      ],
+      "added": [
+        "func _exit_tree() -> void:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func _play_original(id: StringName, stream_override: AudioStream = null) -> bool:",
+          "new": "func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null) -> bool:"
+        },
+        {
+          "old": "func play_director_event(event_id: StringName, candidate: String = \"\", origin: Node = null, sustained: bool = false) -> bool:",
+          "new": "func play_director_event(event_id: StringName, candidate: String = \"\", origin: Node = null, sustained: bool = false, committed_reward: bool = false) -> bool:"
+        },
+        {
+          "old": "func stop_director_cues(origin: Node = null, sustained_only: bool = false) -> void:",
+          "new": "func stop_director_cues(origin: Node = null, sustained_only: bool = false, preserve_committed_rewards: bool = false) -> void:"
+        }
+      ],
+      "added": [
+        "func configure_candidate_revision(event_id: StringName, candidate: Dictionary) -> bool:",
+        "static func cue_committed_reward(origin: Node, event_id: StringName, legacy_cue: StringName) -> void:",
+        "func play_enemy_material(kind: StringName, stream: AudioStream, origin: Node, species: StringName) -> bool:"
+      ]
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_enemy.gd",
+      "removed": [
+        "func _accepted_damage(result: ActorResourceResult) -> void:",
+        "func _feedback_initialized(result: ActorResourceResult) -> void:",
+        "func _process(delta: float) -> void:"
+      ],
+      "changed": [],
+      "added": [
+        "func _advance_presentation(delta: float) -> void:",
+        "func _presentation_health_changed(result: ActorResourceResult) -> void:",
+        "func _presentation_initialized() -> void:",
+        "func presentation_remains() -> EnemyFeedback01Remains:",
+        "func synchronize_presentation() -> void:"
+      ]
+    },
+    {
+      "path": "scripts/items/v5/item_v5_shop_presenter.gd",
+      "removed": [],
+      "changed": [
+        {
+          "old": "func _finish_action(accepted: bool) -> void:",
+          "new": "func _finish_action(accepted: bool, acquired: bool = false, replayed: bool = false) -> void:"
+        }
+      ],
+      "added": []
+    }
+  ],
+  "current_host_new_dependency_samples": [
+    {
+      "path": "scripts/enemies/enemy_behavior_registry.gd",
+      "present": true,
+      "actual_sha256": "b3fe3c223df8faba6aaf87802a8daffa9ba126dd1d15984cb86dcc44ca9d3880",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_strategy.gd",
+      "present": true,
+      "actual_sha256": "46e7703a2081a1cdb0985cd88ae4bed51d500ca7b0a81ef5bedd979ff3c7ef81",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/enemies/charger_attack_strategy.gd",
+      "present": true,
+      "actual_sha256": "860316235ad00257760b27ad9211cf8f01f67dd947d021aead779031fceed17f",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/enemies/diver_attack_strategy.gd",
+      "present": true,
+      "actual_sha256": "845d6aa12487a0a0f26d2fc7e8b5e14d4caa205b26f299c5be2d1c5b40e940bd",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/enemies/sentry_attack_strategy.gd",
+      "present": true,
+      "actual_sha256": "f1f71c061d326cff970166cd6d0f88d6a8ce72b94879e36e2078bdc21924ee2c",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/bosses/boss_presentation_state.gd",
+      "present": true,
+      "actual_sha256": "e7618bc5662d8cd9a7eb7a4d5c6d32a6d5e4fc14517046a9d3b7d29973b2e0b9",
+      "in_locked_closure": false
+    },
+    {
+      "path": "scripts/presentation/enemy_presentation_binding.gd",
+      "present": true,
+      "actual_sha256": "9427d2ee754eada9f0a99290f699b67f31c466cf31f5549f15e132f857ec449f",
+      "in_locked_closure": false
+    }
+  ],
+  "affected_delivery_enemy_instances": [
+    {
+      "instance_id": "M06",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "local_object_id": "design-hub-ground-enemy",
+      "definition": "plains_sentry",
+      "materialized_position": [
+        144.0,
+        208.0
+      ],
+      "resource": "resources/enemies/plains_sentry.tres"
+    },
+    {
+      "instance_id": "M11",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "local_object_id": "design-hub-ground-enemy",
+      "definition": "plains_sentry",
+      "materialized_position": [
+        144.0,
+        208.0
+      ],
+      "resource": "resources/enemies/plains_sentry.tres"
+    },
+    {
+      "instance_id": "M19",
+      "module_id": "workshop-macro-gate-brake-return-0",
+      "local_object_id": "design-hub-ground-enemy",
+      "definition": "plains_sentry",
+      "materialized_position": [
+        144.0,
+        208.0
+      ],
+      "resource": "resources/enemies/plains_sentry.tres"
+    },
+    {
+      "instance_id": "M28",
+      "module_id": "idea-plains-hq03-001",
+      "local_object_id": "charger",
+      "definition": "plains_charger",
+      "materialized_position": [
+        272.0,
+        240.0
+      ],
+      "resource": "resources/enemies/plains_charger.tres"
+    },
+    {
+      "instance_id": "M34",
+      "module_id": "game-moving-transfer",
+      "local_object_id": "design-carrier-enemy",
+      "definition": "plains_sentry",
+      "materialized_position": [
+        732.0,
+        40.0
+      ],
+      "resource": "resources/enemies/plains_sentry.tres"
+    }
+  ],
+  "findings": [
+    {
+      "id": "host-player-damage-reward-cells",
+      "severity": "information",
+      "observation": "The locked PlayerMotor/Controller/scene/tuning/input, FrameDamagePolicy, lifetime, wallet, SimpleRoomReward and all sampled mechanism/terrain Cells retain exact locked bytes. Their public APIs need no historical replacement.",
+      "limit": "Byte equality is a static compatibility fact, not proof of whole-map physical traversal."
+    },
+    {
+      "id": "enemy-actor-strategy-refactor",
+      "severity": "compatibility_difference",
+      "observation": "EnemyActor.bind_encounter has the same function declaration but delegates to new finite EnemyBehaviorRegistry; EnemyAttackBehavior delegates to strategy classes. Current registry explicitly supports sentry/charger/diver, and corresponding current files are present.",
+      "paths": [
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_behavior_registry.gd"
+      ],
+      "limit": "Runtime binding of all 18 enemies must still be tested in the host."
+    },
+    {
+      "id": "sentry-muzzle",
+      "severity": "behavior_difference",
+      "observation": "Current plains_sentry definition version2->3 adds projectile_muzzle_pivot=(8,-12) and projectile_muzzle_reach=12; current attack behavior performs real launch-to-muzzle clearance. Four delivered sentry instances retain their content coordinates/counts and use this current native behavior.",
+      "instances": [
+        "M06",
+        "M11",
+        "M19",
+        "M34"
+      ]
+    },
+    {
+      "id": "charger-shape",
+      "severity": "physical_difference",
+      "observation": "Current plains_charger definition version2->3 changes collision_size=(28,32)->(28,28). Current EnemyMotor derives floor-probe height from the actual rectangle instead of fixed18. M28 charger therefore differs physically from historical lock while retaining its materialized position/enemy record.",
+      "instance_id": "M28",
+      "module_id": "idea-plains-hq03-001",
+      "local_object_id": "charger",
+      "limit": "Do not replace this current native definition with the historical lock to force qualification; verify M28 actual contact/support."
+    },
+    {
+      "id": "boss-public-api",
+      "severity": "information",
+      "observation": "WindkeeperEncounter and BossEncounter changed through additional read-only presentation APIs. Existing configure_arena/bind_stage_geometry/activate/body_contact_enabled declarations are retained. windkeeper_storm.tres is exact locked bytes.",
+      "limit": "Unchanged native bind_stage_geometry is still geometrically incompatible with delivered M40."
+    },
+    {
+      "id": "M40-native-geometry",
+      "severity": "adapter_required",
+      "instance_id": "M40",
+      "module_id": "game-plains-boss-arena",
+      "observation": "Native WindkeeperArena uses source floor y600, bridge shores x0..290 and1000..1120, hardcoded shelf stands (350,452),(640,452),(870,452) and pit center(645,685). M40 is already normalized and mirrored: floor [32,480,1120,80], shelves x819/486/153 at y350, entry RIGHT at[1152,448], exit LEFT sealed. Blind native binding or second source-affine application produces misplaced lifecycle geometry; native stand350 also misses first delivered source shelf153..333.",
+      "resolution": "Independent scripts/mapgen/boss_binding.gd consumes M40 initial terrain unchanged, derives actual shelf stands, binds current native Windkeeper, and maps only host-owned phase3 lifecycle shore/pit geometry. No original module file/hash edits.",
+      "limit": "Actual Boss phases, projectile damage, same-frame death priority and victory require runtime evidence."
+    },
+    {
+      "id": "signature-changes-outside-direct-cell-calls",
+      "severity": "information",
+      "observation": "Changed GameAudio methods, EnemyDropService.settle, and ItemV5ShopPresenter._finish_action append optional parameters; preserved arguments remain callable. Removed functions in the declaration-delta list are presentation internals/frame callbacks, not original package cell calls.",
+      "limit": "This is source inspection, not engine import or browser certification."
+    }
+  ],
+  "method": "Compared every one of 1600 locked path hashes to the current repository. Downloaded historical bytes only for the 71 changed files into an external scratch cache and verified each against its declared lock hash before source/API diffs. Did not install or overwrite any locked historical host files; did not run Godot."
+}

@@ -1,0 +1,580 @@
+{
+  "platforms": [
+    [
+      0,
+      2200,
+      100,
+      30
+    ],
+    [
+      125,
+      2110,
+      130,
+      30
+    ],
+    [
+      305,
+      2020,
+      130,
+      30
+    ],
+    [
+      485,
+      1930,
+      130,
+      30
+    ],
+    [
+      665,
+      1840,
+      130,
+      30
+    ],
+    [
+      485,
+      1750,
+      130,
+      30
+    ],
+    [
+      305,
+      1660,
+      130,
+      30
+    ],
+    [
+      125,
+      1570,
+      130,
+      30
+    ],
+    [
+      0,
+      1480,
+      100,
+      30
+    ],
+    [
+      125,
+      1390,
+      130,
+      30
+    ],
+    [
+      305,
+      1300,
+      130,
+      30
+    ],
+    [
+      485,
+      1210,
+      130,
+      30
+    ],
+    [
+      665,
+      1120,
+      130,
+      30
+    ],
+    [
+      485,
+      1030,
+      130,
+      30
+    ],
+    [
+      305,
+      940,
+      130,
+      30
+    ],
+    [
+      125,
+      850,
+      130,
+      30
+    ],
+    [
+      0,
+      760,
+      100,
+      30
+    ],
+    [
+      125,
+      670,
+      130,
+      30
+    ],
+    [
+      305,
+      580,
+      130,
+      30
+    ],
+    [
+      485,
+      490,
+      130,
+      30
+    ],
+    [
+      665,
+      400,
+      135,
+      30
+    ],
+    [
+      -64,
+      2200,
+      64,
+      24
+    ],
+    [
+      -128,
+      2200,
+      64,
+      24
+    ],
+    [
+      800,
+      400,
+      32,
+      24
+    ],
+    [
+      832,
+      408,
+      64,
+      24
+    ]
+  ],
+  "one_way_platform_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "wall_platform_indices": [],
+  "hazards": [],
+  "thorns": [],
+  "saws": [],
+  "moving_platforms": [],
+  "hooks": [],
+  "latches": [],
+  "enemies": [
+    {
+      "id": "design-ground-enemy-1",
+      "definition": "plains_sentry",
+      "position": [
+        550.0,
+        1914.0
+      ],
+      "initial_idle_cooldown": 0
+    },
+    {
+      "id": "design-ground-enemy-2",
+      "definition": "plains_sentry",
+      "position": [
+        370.0,
+        1284.0
+      ],
+      "initial_idle_cooldown": 0
+    },
+    {
+      "id": "design-ground-enemy-3",
+      "definition": "plains_sentry",
+      "position": [
+        190.0,
+        654.0
+      ],
+      "initial_idle_cooldown": 0
+    },
+    {
+      "id": "design-air-enemy-1",
+      "definition": "plains_diver",
+      "position": [
+        456.0,
+        1606.0
+      ],
+      "initial_idle_cooldown": 0
+    },
+    {
+      "id": "design-air-enemy-2",
+      "definition": "plains_diver",
+      "position": [
+        636.0,
+        976.0
+      ],
+      "initial_idle_cooldown": 0
+    },
+    {
+      "id": "design-air-enemy-3",
+      "definition": "plains_diver",
+      "position": [
+        416.0,
+        426.0
+      ],
+      "initial_idle_cooldown": 0
+    }
+  ],
+  "reward_sites": [],
+  "schema": "pcg/compiled-module-content/v1",
+  "source_sha256": "d0af9b19191fd3bf1dc47b158ad62eed32e61d7be108fe9466fbdc483dfc6573",
+  "stable_id": "game-plains-wind-spire",
+  "ports": [
+    {
+      "id": "entry",
+      "objectId": "generated-381562b28587de076ad2eed7b8ce7ea171ce8dffc71f5d2e9480b86942d80c1f/port-entry",
+      "position": [
+        -128,
+        2168
+      ],
+      "connection": {
+        "status": "declared",
+        "region": {
+          "x": -160,
+          "y": 2136,
+          "w": 64,
+          "h": 64
+        }
+      },
+      "support": {
+        "objectId": "generated-381562b28587de076ad2eed7b8ce7ea171ce8dffc71f5d2e9480b86942d80c1f/replay-independent-dock-entry",
+        "face": "top",
+        "status": "actual_complete_body_native_standing_support"
+      },
+      "normal": [
+        -1,
+        0
+      ],
+      "orientationSource": "design proposal, not evidence of allowed movement",
+      "motion": {
+        "ingress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        },
+        "egress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        }
+      },
+      "preconditions": {
+        "ingress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        },
+        "egress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        }
+      },
+      "seamIds": [
+        "entry-seam"
+      ],
+      "routeRoles": [
+        "entry-to-exit:entry"
+      ],
+      "sourceRoles": [
+        "entry"
+      ],
+      "sourcePort": {
+        "direction": [
+          1,
+          0
+        ],
+        "max_normal_speed": 330,
+        "max_recoil_speed": 0,
+        "max_shot_cooldown": 0,
+        "min_air_shots": 0,
+        "min_jumps": 0,
+        "minimum_held_jump_height": 0,
+        "minimum_held_jump_range": 0,
+        "port_id": "entry",
+        "position": [
+          20,
+          2182
+        ]
+      },
+      "stagingPosition": [
+        -104,
+        2182
+      ],
+      "face": "LEFT",
+      "surface": "ROCK",
+      "permission": "INOUT",
+      "permissionStatus": "declared_pending_approved_validation",
+      "cornerRelocations": {
+        "TOP_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "TOP_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_LEFT": {
+          "applicable": true,
+          "allowed": "UNKNOWN",
+          "reason": "Not inherited across current-source normalization; only explicit delivery configurations are allowed.",
+          "profileId": null,
+          "targetFace": "BOTTOM",
+          "targetPosition": [
+            -64,
+            2232
+          ],
+          "proposedSurface": "ONE_WAY_PLATFORM",
+          "permission": "INOUT"
+        },
+        "BOTTOM_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        }
+      },
+      "grid": {
+        "cell": [
+          0,
+          14
+        ],
+        "edge": "W",
+        "stagingPosition": [
+          -104,
+          2182
+        ],
+        "profile": "ground64/v1"
+      }
+    },
+    {
+      "id": "exit",
+      "objectId": "generated-381562b28587de076ad2eed7b8ce7ea171ce8dffc71f5d2e9480b86942d80c1f/port-exit",
+      "position": [
+        896,
+        376
+      ],
+      "connection": {
+        "status": "declared",
+        "region": {
+          "x": 864,
+          "y": 344,
+          "w": 64,
+          "h": 64
+        }
+      },
+      "support": {
+        "objectId": "generated-381562b28587de076ad2eed7b8ce7ea171ce8dffc71f5d2e9480b86942d80c1f/replay-independent-dock-exit",
+        "face": "top",
+        "status": "actual_complete_body_native_standing_support"
+      },
+      "normal": [
+        1,
+        0
+      ],
+      "orientationSource": "design proposal, not evidence of allowed movement",
+      "motion": {
+        "ingress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        },
+        "egress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        }
+      },
+      "preconditions": {
+        "ingress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        },
+        "egress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        }
+      },
+      "seamIds": [
+        "exit-seam"
+      ],
+      "routeRoles": [
+        "entry-to-exit:exit"
+      ],
+      "sourceRoles": [
+        "exit"
+      ],
+      "sourcePort": {
+        "direction": [
+          1,
+          0
+        ],
+        "max_normal_speed": 330,
+        "max_recoil_speed": 0,
+        "max_shot_cooldown": 0,
+        "min_air_shots": 0,
+        "min_jumps": 0,
+        "minimum_held_jump_height": 0,
+        "minimum_held_jump_range": 0,
+        "port_id": "exit",
+        "position": [
+          780,
+          382
+        ]
+      },
+      "stagingPosition": [
+        872,
+        390
+      ],
+      "face": "RIGHT",
+      "surface": "ROCK",
+      "permission": "INOUT",
+      "permissionStatus": "declared_pending_approved_validation",
+      "cornerRelocations": {
+        "TOP_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "TOP_RIGHT": {
+          "applicable": true,
+          "allowed": "UNKNOWN",
+          "reason": "Not inherited across current-source normalization; only explicit delivery configurations are allowed.",
+          "profileId": null,
+          "targetFace": "TOP",
+          "targetPosition": [
+            832,
+            312
+          ],
+          "proposedSurface": "ONE_WAY_PLATFORM",
+          "permission": "INOUT"
+        },
+        "BOTTOM_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        }
+      },
+      "grid": {
+        "cell": [
+          7,
+          0
+        ],
+        "edge": "E",
+        "stagingPosition": [
+          872,
+          390
+        ],
+        "profile": "ground64/v1"
+      }
+    }
+  ],
+  "world_bounds": [
+    -128,
+    312,
+    1024,
+    1920
+  ],
+  "entry_port": [
+    -104.0,
+    2182.0
+  ],
+  "exit_port": [
+    872.0,
+    390.0
+  ]
+}

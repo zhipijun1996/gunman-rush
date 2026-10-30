@@ -1,0 +1,4203 @@
+{
+  "schema": "gunman-rush-level-sketch/v1",
+  "id": "workshop-macro-gate-brake-return-0",
+  "title": "四口错层中庭",
+  "description": "穿短门取箱，在岩沿外反冲刹入第二箱，再经下岸岩阶回到入口。程序回放候选；本版人工观感待评。",
+  "constraints": "UNKNOWN不得作为有效地图接口。",
+  "canvas": {
+    "width": 1200,
+    "height": 880,
+    "origin": [
+      0,
+      0
+    ],
+    "units": "godot_world_unit",
+    "positionPrecision": "exact"
+  },
+  "objects": [
+    {
+      "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+      "type": "terrain",
+      "x": 0,
+      "y": 438,
+      "w": 240,
+      "h": 100,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 0,
+      "wallClimbable": false
+    },
+    {
+      "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-1",
+      "type": "terrain",
+      "x": 460,
+      "y": 438,
+      "w": 140,
+      "h": 100,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 1,
+      "wallClimbable": false
+    },
+    {
+      "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-4",
+      "type": "terrain",
+      "x": 270,
+      "y": 650,
+      "w": 110,
+      "h": 45,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 2,
+      "wallClimbable": false
+    },
+    {
+      "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0",
+      "type": "terrain",
+      "x": 600,
+      "y": 438,
+      "w": 168,
+      "h": 100,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 3,
+      "wallClimbable": false
+    },
+    {
+      "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-1",
+      "type": "terrain",
+      "x": 545,
+      "y": 650,
+      "w": 100,
+      "h": 65,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 4,
+      "wallClimbable": false
+    },
+    {
+      "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B",
+      "type": "terrain",
+      "x": 645,
+      "y": 694,
+      "w": 123,
+      "h": 24,
+      "rotation": 0,
+      "label": "低B口接岸",
+      "note": "Offline adaptation; physics pending",
+      "sourceIndex": 5
+    },
+    {
+      "id": "design-top-D-support",
+      "type": "platform",
+      "x": 288,
+      "y": 278,
+      "w": 64,
+      "h": 12,
+      "label": "顶部D口可穿接岸",
+      "sourceIndex": 6
+    },
+    {
+      "id": "design-hub-ground-enemy",
+      "type": "enemy",
+      "x": 610,
+      "y": 406,
+      "w": 28,
+      "h": 32,
+      "definition": "plains_sentry",
+      "diagramLabel": "陆上怪",
+      "sourceId": "design-hub-ground-enemy",
+      "mechanics": {
+        "initialIdleCooldown": 0,
+        "runtimeParameters": {
+          "initial_idle_cooldown": 0
+        }
+      }
+    },
+    {
+      "id": "design-hub-air-enemy",
+      "type": "enemy",
+      "x": 367,
+      "y": 485,
+      "w": 28,
+      "h": 32,
+      "definition": "plains_diver",
+      "diagramLabel": "空中怪",
+      "sourceId": "design-hub-air-enemy",
+      "mechanics": {
+        "initialIdleCooldown": 0,
+        "runtimeParameters": {
+          "initial_idle_cooldown": 0
+        }
+      }
+    },
+    {
+      "id": "design-route-A-to-C",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 0,
+          "y": 406
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 350,
+          "y": 340
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 768,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-C-to-A",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 406
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 350,
+          "y": 340
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 0,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-A-to-B",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 0,
+          "y": 406
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 275,
+          "y": 420
+        },
+        {
+          "x": 300,
+          "y": 560
+        },
+        {
+          "x": 325,
+          "y": 632
+        },
+        {
+          "x": 450,
+          "y": 580
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 660,
+          "y": 632
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 768,
+          "y": 662
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-B-to-A",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 662
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 660,
+          "y": 620
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 435,
+          "y": 560
+        },
+        {
+          "x": 435,
+          "y": 400
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 350,
+          "y": 340
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 0,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-C-to-B",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 406
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 430,
+          "y": 420
+        },
+        {
+          "x": 430,
+          "y": 560
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 660,
+          "y": 632
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 768,
+          "y": 662
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-B-to-C",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 662
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 660,
+          "y": 620
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 435,
+          "y": 560
+        },
+        {
+          "x": 435,
+          "y": 400
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 768,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-A-to-D",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 0,
+          "y": 406
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 290,
+          "y": 310
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 320,
+          "y": 214
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-D-to-A",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 320,
+          "y": 214
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 260,
+          "y": 330
+        },
+        {
+          "x": 220,
+          "y": 420
+        },
+        {
+          "x": 0,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-C-to-D",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 406
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 400,
+          "y": 310
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 320,
+          "y": 214
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-D-to-C",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 320,
+          "y": 214
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 400,
+          "y": 330
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 768,
+          "y": 406
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-B-to-D",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 768,
+          "y": 662
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 660,
+          "y": 620
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 435,
+          "y": 560
+        },
+        {
+          "x": 435,
+          "y": 400
+        },
+        {
+          "x": 480,
+          "y": 420
+        },
+        {
+          "x": 400,
+          "y": 310
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 320,
+          "y": 214
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-D-to-B",
+      "type": "route",
+      "x": 0,
+      "y": 214,
+      "w": 768,
+      "h": 512,
+      "points": [
+        {
+          "x": 320,
+          "y": 214
+        },
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 400,
+          "y": 450
+        },
+        {
+          "x": 400,
+          "y": 560
+        },
+        {
+          "x": 590,
+          "y": 632
+        },
+        {
+          "x": 660,
+          "y": 632
+        },
+        {
+          "x": 690,
+          "y": 676
+        },
+        {
+          "x": 768,
+          "y": 662
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-A",
+      "type": "entry",
+      "x": -12,
+      "y": 388,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    },
+    {
+      "id": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-C",
+      "type": "exit",
+      "x": 756,
+      "y": 388,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    },
+    {
+      "id": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-B",
+      "type": "exit",
+      "x": 756,
+      "y": 644,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    },
+    {
+      "id": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-D",
+      "type": "exit",
+      "x": 308,
+      "y": 196,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    }
+  ],
+  "updatedAt": "2026-10-25T15:20:43.458Z",
+  "intent": {
+    "operation": "modify_existing",
+    "notes": "Authoritative current Module. Edit objects and declared native bindings here; generated files are not another source library."
+  },
+  "capabilityRequirements": {
+    "version": 1,
+    "status": "partial",
+    "allOf": [
+      "jump",
+      "shot_recoil"
+    ],
+    "anyOfGroups": [],
+    "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+  },
+  "difficulty": {
+    "version": 1,
+    "scale": "gunman-rush/module-difficulty/v1",
+    "score": null,
+    "note": ""
+  },
+  "source": {
+    "repository": "zhipijun1996/map-edit",
+    "commit": "9b712fe814ef228b368c0eb9adf660e39de29e37",
+    "path": "modules/workshop-macro-gate-brake-return-0/module.mapnote.json",
+    "moduleId": "workshop-macro-gate-brake-return-0",
+    "kind": "generated",
+    "category": "平原",
+    "integration": {
+      "isIntegrated": false,
+      "reason": "Current reviewed source; runtime delivery is separate from production game approval."
+    }
+  },
+  "generationContract": {
+    "version": 2,
+    "kind": "module",
+    "contentVersion": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+    "seed": {
+      "status": "not_used",
+      "value": null,
+      "reason": "Deterministic registered rules; phase/noise seeds are validation only"
+    },
+    "generation": {
+      "parameters": {
+        "runtimeBindings": {
+          "platforms": [
+            {
+              "$bind": "rect",
+              "object": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0"
+            },
+            {
+              "$bind": "rect",
+              "object": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-1"
+            },
+            {
+              "$bind": "rect",
+              "object": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-4"
+            },
+            {
+              "$bind": "rect",
+              "object": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0"
+            },
+            {
+              "$bind": "rect",
+              "object": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-1"
+            },
+            {
+              "$bind": "rect",
+              "object": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B"
+            },
+            {
+              "$bind": "rect",
+              "object": "design-top-D-support"
+            }
+          ],
+          "one_way_platform_indices": [
+            6
+          ],
+          "wall_platform_indices": [],
+          "hazards": [],
+          "thorns": [],
+          "saws": [],
+          "moving_platforms": [],
+          "hooks": [],
+          "latches": [],
+          "enemies": [
+            {
+              "id": {
+                "$bind": "field",
+                "object": "design-hub-ground-enemy",
+                "path": [
+                  "id"
+                ]
+              },
+              "definition": {
+                "$bind": "field",
+                "object": "design-hub-ground-enemy",
+                "path": [
+                  "definition"
+                ]
+              },
+              "position": {
+                "$bind": "center",
+                "object": "design-hub-ground-enemy"
+              },
+              "initial_idle_cooldown": {
+                "$bind": "field",
+                "object": "design-hub-ground-enemy",
+                "path": [
+                  "mechanics",
+                  "runtimeParameters",
+                  "initial_idle_cooldown"
+                ]
+              }
+            },
+            {
+              "id": {
+                "$bind": "field",
+                "object": "design-hub-air-enemy",
+                "path": [
+                  "id"
+                ]
+              },
+              "definition": {
+                "$bind": "field",
+                "object": "design-hub-air-enemy",
+                "path": [
+                  "definition"
+                ]
+              },
+              "position": {
+                "$bind": "center",
+                "object": "design-hub-air-enemy"
+              },
+              "initial_idle_cooldown": {
+                "$bind": "field",
+                "object": "design-hub-air-enemy",
+                "path": [
+                  "mechanics",
+                  "runtimeParameters",
+                  "initial_idle_cooldown"
+                ]
+              }
+            }
+          ],
+          "reward_sites": []
+        },
+        "nativeAnchors": {
+          "entry": {
+            "$bind": "relative_point",
+            "object": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+            "offset": [
+              -96,
+              -68
+            ]
+          },
+          "exit": {
+            "$bind": "relative_point",
+            "object": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+            "offset": [
+              624,
+              -68
+            ]
+          }
+        }
+      },
+      "source": {
+        "kind": "current_module_source",
+        "record": "modules/workshop-macro-gate-brake-return-0/record.json"
+      },
+      "migration": {
+        "moduleId": "workshop-macro-gate-brake-return-0",
+        "status": "current_source"
+      }
+    },
+    "designStatus": "declared",
+    "space": {
+      "units": "godot_world_unit",
+      "axes": {
+        "x": "right",
+        "y": "down"
+      },
+      "localOrigin": [
+        0,
+        0
+      ],
+      "actorBody": {
+        "shape": "rectangle",
+        "size": [
+          24,
+          36
+        ],
+        "source": {
+          "path": "pcg/prototype/godot/scenes/player/player.tscn",
+          "sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8"
+        }
+      },
+      "bounds": {
+        "x": 0,
+        "y": 214,
+        "w": 768,
+        "h": 512
+      },
+      "boundsCoverage": "Complete rectangular Module footprint; internal geometry preserved.",
+      "occupancy": {
+        "status": "partial",
+        "coverage": "Exact original core plus three independent local landing docks",
+        "objectIds": [
+          "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+          "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-1",
+          "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-4",
+          "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0",
+          "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-1",
+          "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B",
+          "design-top-D-support",
+          "design-hub-ground-enemy",
+          "design-hub-air-enemy"
+        ],
+        "regions": []
+      },
+      "actionClearance": {
+        "status": "UNKNOWN",
+        "regions": [],
+        "coverage": "whole Macro recorded router body sweeps; component passes were not substituted for joined physics",
+        "unverified": [
+          "all allowed entry states",
+          "alternative policies",
+          "unobserved projectile paths",
+          "cross-route entry/exit state composition"
+        ]
+      },
+      "dynamicEnvelopes": [
+        {
+          "objectId": "design-hub-ground-enemy",
+          "region": "UNKNOWN",
+          "status": "UNKNOWN"
+        },
+        {
+          "objectId": "design-hub-air-enemy",
+          "region": "UNKNOWN",
+          "status": "UNKNOWN"
+        }
+      ],
+      "seams": [
+        {
+          "id": "A-seam",
+          "portId": "A",
+          "allowedOverlap": [],
+          "region": {
+            "x": -32,
+            "y": 374,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "C-seam",
+          "portId": "C",
+          "allowedOverlap": [],
+          "region": {
+            "x": 736,
+            "y": 374,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "B-seam",
+          "portId": "B",
+          "allowedOverlap": [],
+          "region": {
+            "x": 736,
+            "y": 630,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "D-seam",
+          "portId": "D",
+          "allowedOverlap": [],
+          "region": {
+            "x": 288,
+            "y": 182,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        }
+      ],
+      "transforms": [
+        {
+          "id": "identity",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "translation",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": [],
+          "note": "任意平移尚未验证；本项不是自由平移许可"
+        },
+        {
+          "id": "mirror-x",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": true,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "rotate-90",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 90,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "scale-2",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            2,
+            2
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        }
+      ]
+    },
+    "ports": [
+      {
+        "id": "A",
+        "objectId": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-A",
+        "position": [
+          0,
+          406
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": -32,
+            "y": 374,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          -1,
+          0
+        ],
+        "orientationSource": "declared geometry; neither bidirectionality nor seam validity inferred",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "A-seam"
+        ],
+        "routeRoles": [
+          "A-to-C:entry",
+          "C-to-A:exit",
+          "A-to-B:entry",
+          "B-to-A:exit",
+          "A-to-D:entry",
+          "D-to-A:exit"
+        ],
+        "stagingPosition": [
+          24,
+          420
+        ],
+        "face": "LEFT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "grid": {
+          "cell": [
+            0,
+            1
+          ],
+          "edge": "W",
+          "stagingPosition": [
+            24,
+            420
+          ],
+          "profile": "ground64/v1"
+        }
+      },
+      {
+        "id": "C",
+        "objectId": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-C",
+        "position": [
+          768,
+          406
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 736,
+            "y": 374,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          1,
+          0
+        ],
+        "orientationSource": "declared geometry; neither bidirectionality nor seam validity inferred",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "C-seam"
+        ],
+        "routeRoles": [
+          "A-to-C:exit",
+          "C-to-A:entry",
+          "C-to-B:entry",
+          "B-to-C:exit",
+          "C-to-D:entry",
+          "D-to-C:exit"
+        ],
+        "stagingPosition": [
+          744,
+          420
+        ],
+        "face": "RIGHT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "grid": {
+          "cell": [
+            5,
+            1
+          ],
+          "edge": "E",
+          "stagingPosition": [
+            744,
+            420
+          ],
+          "profile": "ground64/v1"
+        }
+      },
+      {
+        "id": "B",
+        "objectId": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-B",
+        "position": [
+          768,
+          662
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 736,
+            "y": 630,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          1,
+          0
+        ],
+        "orientationSource": "declared geometry; neither bidirectionality nor seam validity inferred",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "B-seam"
+        ],
+        "routeRoles": [
+          "A-to-B:exit",
+          "B-to-A:entry",
+          "C-to-B:exit",
+          "B-to-C:entry",
+          "B-to-D:entry",
+          "D-to-B:exit"
+        ],
+        "stagingPosition": [
+          744,
+          676
+        ],
+        "face": "RIGHT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": true,
+            "allowed": "UNKNOWN",
+            "reason": "Not inherited across current-source normalization; only explicit delivery configurations are allowed.",
+            "profileId": null,
+            "targetFace": "BOTTOM",
+            "targetPosition": [
+              704,
+              726
+            ],
+            "proposedSurface": "ONE_WAY_PLATFORM",
+            "permission": "INOUT"
+          }
+        },
+        "grid": {
+          "cell": [
+            5,
+            3
+          ],
+          "edge": "E",
+          "stagingPosition": [
+            744,
+            676
+          ],
+          "profile": "ground64/v1"
+        }
+      },
+      {
+        "id": "D",
+        "objectId": "generated-13085cef0d72df4e9564ecea44dd736c54bcc431f7f282344274bc173632f707/port-D",
+        "position": [
+          320,
+          214
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 288,
+            "y": 182,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "design-top-D-support",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          0,
+          -1
+        ],
+        "orientationSource": "declared geometry; neither bidirectionality nor seam validity inferred",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "D-seam"
+        ],
+        "routeRoles": [
+          "A-to-D:exit",
+          "D-to-A:entry",
+          "C-to-D:exit",
+          "D-to-C:entry",
+          "B-to-D:exit",
+          "D-to-B:entry"
+        ],
+        "stagingPosition": [
+          320,
+          260
+        ],
+        "face": "TOP",
+        "surface": "ONE_WAY_PLATFORM",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "grid": {
+          "cell": [
+            2,
+            0
+          ],
+          "edge": "N",
+          "stagingPosition": [
+            320,
+            260
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "from": "A",
+        "to": "A",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      },
+      {
+        "from": "A",
+        "to": "C",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "A-to-C"
+        ]
+      },
+      {
+        "from": "A",
+        "to": "B",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "A-to-B"
+        ]
+      },
+      {
+        "from": "A",
+        "to": "D",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "A-to-D"
+        ]
+      },
+      {
+        "from": "C",
+        "to": "A",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "C-to-A"
+        ]
+      },
+      {
+        "from": "C",
+        "to": "C",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      },
+      {
+        "from": "C",
+        "to": "B",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "C-to-B"
+        ]
+      },
+      {
+        "from": "C",
+        "to": "D",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "C-to-D"
+        ]
+      },
+      {
+        "from": "B",
+        "to": "A",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "B-to-A"
+        ]
+      },
+      {
+        "from": "B",
+        "to": "C",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "B-to-C"
+        ]
+      },
+      {
+        "from": "B",
+        "to": "B",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      },
+      {
+        "from": "B",
+        "to": "D",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "B-to-D"
+        ]
+      },
+      {
+        "from": "D",
+        "to": "A",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "D-to-A"
+        ]
+      },
+      {
+        "from": "D",
+        "to": "C",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "D-to-C"
+        ]
+      },
+      {
+        "from": "D",
+        "to": "B",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "D-to-B"
+        ]
+      },
+      {
+        "from": "D",
+        "to": "D",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      }
+    ],
+    "routes": [
+      {
+        "id": "A-to-C",
+        "from": "A",
+        "to": "C",
+        "role": "main",
+        "pathObjectId": "design-route-A-to-C",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          6,
+          0
+        ]
+      },
+      {
+        "id": "C-to-A",
+        "from": "C",
+        "to": "A",
+        "role": "main",
+        "pathObjectId": "design-route-C-to-A",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -6,
+          0
+        ]
+      },
+      {
+        "id": "A-to-B",
+        "from": "A",
+        "to": "B",
+        "role": "main",
+        "pathObjectId": "design-route-A-to-B",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          6,
+          2
+        ]
+      },
+      {
+        "id": "B-to-A",
+        "from": "B",
+        "to": "A",
+        "role": "main",
+        "pathObjectId": "design-route-B-to-A",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -6,
+          -2
+        ]
+      },
+      {
+        "id": "C-to-B",
+        "from": "C",
+        "to": "B",
+        "role": "main",
+        "pathObjectId": "design-route-C-to-B",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          0,
+          2
+        ]
+      },
+      {
+        "id": "B-to-C",
+        "from": "B",
+        "to": "C",
+        "role": "main",
+        "pathObjectId": "design-route-B-to-C",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          0,
+          -2
+        ]
+      },
+      {
+        "id": "A-to-D",
+        "from": "A",
+        "to": "D",
+        "role": "main",
+        "pathObjectId": "design-route-A-to-D",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          2.5,
+          -1.5
+        ]
+      },
+      {
+        "id": "D-to-A",
+        "from": "D",
+        "to": "A",
+        "role": "main",
+        "pathObjectId": "design-route-D-to-A",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -2.5,
+          1.5
+        ]
+      },
+      {
+        "id": "C-to-D",
+        "from": "C",
+        "to": "D",
+        "role": "main",
+        "pathObjectId": "design-route-C-to-D",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -3.5,
+          -1.5
+        ]
+      },
+      {
+        "id": "D-to-C",
+        "from": "D",
+        "to": "C",
+        "role": "main",
+        "pathObjectId": "design-route-D-to-C",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          3.5,
+          1.5
+        ]
+      },
+      {
+        "id": "B-to-D",
+        "from": "B",
+        "to": "D",
+        "role": "main",
+        "pathObjectId": "design-route-B-to-D",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -3.5,
+          -3.5
+        ]
+      },
+      {
+        "id": "D-to-B",
+        "from": "D",
+        "to": "B",
+        "role": "main",
+        "pathObjectId": "design-route-D-to-B",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "return",
+          "conditions": {
+            "coverage": "selected continuous A-C-B-A excursion with same actor/resources/clock/wallet",
+            "sourceCaseSha256": "aaae7d55817f5a2e869b51b6fee955edd57f1ed4226eee2c375f799112045399",
+            "universalStates": "UNKNOWN"
+          }
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "通用继续通行/安全恢复仍未证明"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 2,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 205
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 577
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 620
+                },
+                "timeout": 180
+              }
+            },
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 835
+                },
+                "timeout": 180
+              }
+            }
+          ],
+          "rewardGrant": "UNKNOWN",
+          "note": "高层奖励支路/奖励位；未接奖励服务，不宣称已发奖"
+        },
+        "validationIds": [],
+        "evidenceStatus": "UNKNOWN",
+        "steps": [
+          {
+            "kind": "component_route",
+            "instanceId": "gate",
+            "routeId": "migration-outbound-0"
+          },
+          {
+            "kind": "connection",
+            "id": "upper-contact"
+          },
+          {
+            "kind": "component_route",
+            "instanceId": "brake",
+            "routeId": "migration-outbound-2"
+          }
+        ],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          3.5,
+          3.5
+        ]
+      }
+    ],
+    "unlocks": [],
+    "composition": {
+      "components": [],
+      "connections": [],
+      "exports": [],
+      "cells": [
+        {
+          "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0",
+          "objectIds": [
+            "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-0"
+          ],
+          "contentVersion": "sha256:6f9d227e5bce342ace2c9cc2b5e867aaf0566a5a2aed0a65f8f88f77a2be0bf7"
+        },
+        {
+          "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-1",
+          "objectIds": [
+            "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-1"
+          ],
+          "contentVersion": "sha256:c23286f3ac03d08611cfc08d9f3758dac5b8b472edcabf60db7a2b65d525f933"
+        },
+        {
+          "id": "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-4",
+          "objectIds": [
+            "gate/generated-7c4a5b672ef2f8c122cb4bfb53fd9c4db4906837acebae97fe9aff6db4241847/platform-4"
+          ],
+          "contentVersion": "sha256:200795588b511867f0a21cecfb0dff70d2659ce104acd176912104a94c298f3f"
+        },
+        {
+          "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0",
+          "objectIds": [
+            "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-0"
+          ],
+          "contentVersion": "sha256:57b5294df0c04538d35e849f9485a894e805a5f6b1e3bcab75eb4239b79ad7c9"
+        },
+        {
+          "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-1",
+          "objectIds": [
+            "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/platform-1"
+          ],
+          "contentVersion": "sha256:20546233363f284337cb2da5dd14e7127c661acca43fdbb3df1ce1fb0ad74de6"
+        },
+        {
+          "id": "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B",
+          "objectIds": [
+            "brake/generated-9266850363f64f8244e0a90ef64302cc32677d9c564cf93d0b71563fcde6ad80/independent-outer-dock-B"
+          ],
+          "contentVersion": "sha256:1462fd6632ca33721aa65fa7419ef0ec6f07be82c0cd440cdca9639b487027c1"
+        },
+        {
+          "id": "design-top-D-support",
+          "objectIds": [
+            "design-top-D-support"
+          ],
+          "contentVersion": "sha256:f7bb6a7e9e2741c8175c12634ce67ce6b447c16f3db6cdb1f681f142f04176a6"
+        },
+        {
+          "id": "design-hub-ground-enemy",
+          "objectIds": [
+            "design-hub-ground-enemy"
+          ],
+          "contentVersion": "sha256:225871a0d4d27bae1519e588180dee7a71ef806ba2763d3a653c59d6041c8e6c"
+        },
+        {
+          "id": "design-hub-air-enemy",
+          "objectIds": [
+            "design-hub-air-enemy"
+          ],
+          "contentVersion": "sha256:c06f2089813ad47105edfc6b867497e61fc23c2e7e53201d2b05a39a446a454c"
+        }
+      ]
+    },
+    "validations": [],
+    "visualization": {
+      "contentVersion": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+      "path": "thumbnail.svg"
+    },
+    "staticChecks": {
+      "result": "UNKNOWN",
+      "contentVersion": "sha256:f2c78c40ffb898db69ff256ef31358ad0cc25d90a1530dfc861d394be08a3b13",
+      "method": "canonical contract + resolved exact child versions/objects/ports + contiguous internal route steps",
+      "scope": "Three actual support references; per-route scoped physics. No automatic assembly or universal connectivity claim."
+    },
+    "foundation": {
+      "version": "1.0",
+      "blockSize": 128,
+      "widthBlocks": 6,
+      "heightBlocks": 4
+    },
+    "legacyCertification": {
+      "contentVersion": "sha256:167dcb6ec336cd7ff659febe66b44a3daabfe79922a9ddca5c041e62e28d114e",
+      "scope": "Historical witness only; not a v2 certificate."
+    },
+    "closures": [],
+    "mirror": {
+      "status": "UNKNOWN",
+      "validationIds": []
+    },
+    "portConfigurations": []
+  }
+}

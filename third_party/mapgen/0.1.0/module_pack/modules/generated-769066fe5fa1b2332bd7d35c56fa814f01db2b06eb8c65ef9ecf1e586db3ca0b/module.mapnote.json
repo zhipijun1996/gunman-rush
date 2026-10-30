@@ -1,0 +1,1062 @@
+{
+  "schema": "gunman-rush-level-sketch/v1",
+  "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b",
+  "title": "下探露出弹道，同枪反冲回岸",
+  "description": "内容工坊隔离候选；技术覆盖、视频观感、手动试玩和生产认可分别记录。",
+  "constraints": "UNKNOWN不得作为有效地图接口。",
+  "canvas": {
+    "width": 1700,
+    "height": 916.074768066406,
+    "origin": [
+      0,
+      0
+    ],
+    "units": "godot_world_unit",
+    "positionPrecision": "exact"
+  },
+  "objects": [
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+      "type": "terrain",
+      "x": -128,
+      "y": 186,
+      "w": 368,
+      "h": 94,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 0,
+      "wallClimbable": false,
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-1",
+      "type": "terrain",
+      "x": 320,
+      "y": 570,
+      "w": 220,
+      "h": 80,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 1,
+      "wallClimbable": false,
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-3",
+      "type": "terrain",
+      "x": 200,
+      "y": 280,
+      "w": 40,
+      "h": 260,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 2,
+      "wallClimbable": false,
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0",
+      "type": "gate",
+      "x": 320,
+      "y": 280,
+      "w": 220,
+      "h": 290,
+      "rotation": 0,
+      "label": "low-return-key gate",
+      "note": "",
+      "mechanics": {
+        "kind": "timed_gate",
+        "openSeconds": 0,
+        "carrierId": null,
+        "returnAccess": null
+      }
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/bell-0",
+      "type": "bell",
+      "x": 66,
+      "y": 803,
+      "w": 28,
+      "h": 34,
+      "rotation": 0,
+      "label": "low-return-key",
+      "note": "",
+      "targetId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0",
+      "sourceId": "low-return-key",
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0",
+      "type": "reward",
+      "x": 412,
+      "y": 534,
+      "w": 36,
+      "h": 36,
+      "rotation": 0,
+      "label": "宝箱 14",
+      "note": "原 SimpleRoomReward 受支持接触后提交金币；可见不等于已领取",
+      "mechanics": {
+        "kind": "chest",
+        "service": "SimpleRoomReward",
+        "amount": 14,
+        "source": {
+          "id": "visible-cache",
+          "position": [
+            430,
+            552
+          ],
+          "region": [
+            400,
+            547,
+            60,
+            10
+          ],
+          "amount": 14
+        }
+      }
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit",
+      "type": "terrain",
+      "x": 516,
+      "y": 570,
+      "w": 124,
+      "h": 24,
+      "rotation": 0,
+      "label": "Local boundary connector",
+      "note": "Offline adaptation; physics pending",
+      "sourceIndex": 3,
+      "mechanics": {}
+    },
+    {
+      "id": "design-bottom-danger",
+      "type": "hazard",
+      "shape": "zone",
+      "orientation": "UP",
+      "x": -128,
+      "y": 842,
+      "w": 768,
+      "h": 16,
+      "label": "底部危险带",
+      "note": "替代被裁掉的原恢复长台；伤害/重试待实现验证",
+      "mechanics": {}
+    },
+    {
+      "id": "design-route-entry-to-exit",
+      "type": "route",
+      "x": -128,
+      "y": 90,
+      "w": 768,
+      "h": 768,
+      "points": [
+        {
+          "x": -128,
+          "y": 154
+        },
+        {
+          "x": 180,
+          "y": 168
+        },
+        {
+          "x": 265,
+          "y": 168
+        },
+        {
+          "x": 265,
+          "y": 640
+        },
+        {
+          "x": 300,
+          "y": 590
+        },
+        {
+          "x": 310,
+          "y": 530
+        },
+        {
+          "x": 430,
+          "y": 552
+        },
+        {
+          "x": 640,
+          "y": 538
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once",
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/port-entry",
+      "type": "exit",
+      "x": -140,
+      "y": 136,
+      "w": 24,
+      "h": 36,
+      "rotation": 0,
+      "mechanics": {}
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/port-exit",
+      "type": "exit",
+      "x": 628,
+      "y": 520,
+      "w": 24,
+      "h": 36,
+      "rotation": 0,
+      "mechanics": {}
+    }
+  ],
+  "updatedAt": "2026-10-26T03:18:26.308Z",
+  "intent": {
+    "operation": "modify_existing",
+    "notes": "Authoritative current Module. Edit objects and declared native bindings here; generated files are not another source library."
+  },
+  "capabilityRequirements": {
+    "version": 1,
+    "status": "partial",
+    "allOf": [
+      "jump",
+      "shot_recoil"
+    ],
+    "anyOfGroups": [],
+    "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+  },
+  "difficulty": {
+    "version": 1,
+    "scale": "gunman-rush/module-difficulty/v1",
+    "score": null,
+    "note": ""
+  },
+  "source": {
+    "repository": "zhipijun1996/map-edit",
+    "commit": "9b712fe814ef228b368c0eb9adf660e39de29e37",
+    "path": "modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/module.mapnote.json",
+    "moduleId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b",
+    "kind": "generated",
+    "category": "平原",
+    "integration": {
+      "isIntegrated": false,
+      "reason": "Current reviewed source; runtime delivery is separate from production game approval."
+    }
+  },
+  "generationContract": {
+    "version": 2,
+    "kind": "module",
+    "contentVersion": "sha256:ee5ac93d11b8c5678323c32217713f29a2d7ee18b8c7d071994c37e71e495016",
+    "seed": {
+      "status": "not_used",
+      "value": null,
+      "reason": "Deterministic registered rules; phase/noise seeds are validation only"
+    },
+    "generation": {
+      "parameters": {
+        "runtimeBindings": {
+          "platforms": [
+            {
+              "$bind": "rect",
+              "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-1"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-3"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit"
+            }
+          ],
+          "one_way_platform_indices": [],
+          "wall_platform_indices": [],
+          "hazards": [
+            {
+              "$bind": "rect",
+              "object": "design-bottom-danger"
+            }
+          ],
+          "thorns": [],
+          "saws": [],
+          "moving_platforms": [],
+          "hooks": [],
+          "latches": [
+            {
+              "id": "low-return-key",
+              "bell": {
+                "$bind": "center",
+                "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/bell-0"
+              },
+              "gate": {
+                "$bind": "rect",
+                "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0"
+              },
+              "open_seconds": 0
+            }
+          ],
+          "enemies": [],
+          "reward_sites": [
+            {
+              "id": "visible-cache",
+              "position": {
+                "$bind": "center",
+                "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0"
+              },
+              "region": {
+                "$bind": "relative_rect",
+                "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0",
+                "offset": [
+                  -12,
+                  13
+                ],
+                "sizeDelta": [
+                  24,
+                  -26
+                ]
+              },
+              "amount": 14
+            }
+          ]
+        },
+        "nativeAnchors": {
+          "entry": {
+            "$bind": "relative_point",
+            "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+            "offset": [
+              -160,
+              -65
+            ]
+          },
+          "exit": {
+            "$bind": "relative_point",
+            "object": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+            "offset": [
+              560,
+              319
+            ]
+          }
+        }
+      },
+      "source": {
+        "kind": "current_module_source",
+        "record": "modules/generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/record.json"
+      },
+      "migration": {
+        "moduleId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b",
+        "status": "current_source"
+      }
+    },
+    "designStatus": "declared",
+    "space": {
+      "units": "godot_world_unit",
+      "axes": {
+        "x": "right",
+        "y": "down"
+      },
+      "localOrigin": [
+        0,
+        0
+      ],
+      "actorBody": {
+        "shape": "rectangle",
+        "size": [
+          24,
+          36
+        ],
+        "source": {
+          "path": "pcg/prototype/godot/scenes/player/player.tscn",
+          "sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8"
+        }
+      },
+      "bounds": {
+        "x": -128,
+        "y": 90,
+        "w": 768,
+        "h": 768
+      },
+      "boundsCoverage": "Complete rectangular Module footprint; internal geometry preserved.",
+      "occupancy": {
+        "status": "partial",
+        "objectIds": [
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-1",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-3",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/bell-0",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0",
+          "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit",
+          "design-bottom-danger"
+        ],
+        "regions": [],
+        "coverage": "known cells; full action and projectile reservations UNKNOWN"
+      },
+      "actionClearance": {
+        "status": "UNKNOWN",
+        "regions": [],
+        "coverage": "recorded_policy_body_sweep",
+        "unverified": [
+          "all allowed entry states",
+          "alternative policies",
+          "unobserved projectile paths"
+        ]
+      },
+      "dynamicEnvelopes": [
+        {
+          "objectId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0",
+          "region": "UNKNOWN",
+          "status": "UNKNOWN"
+        }
+      ],
+      "seams": [
+        {
+          "id": "entry-seam",
+          "portId": "entry",
+          "allowedOverlap": [],
+          "region": {
+            "x": -160,
+            "y": 122,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "exit-seam",
+          "portId": "exit",
+          "allowedOverlap": [],
+          "region": {
+            "x": 608,
+            "y": 506,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        }
+      ],
+      "transforms": [
+        {
+          "id": "identity",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "translation",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": [],
+          "note": "任意平移尚未验证；本项不是自由平移许可"
+        },
+        {
+          "id": "mirror-x",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": true,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "rotate-90",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 90,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "scale-2",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            2,
+            2
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        }
+      ]
+    },
+    "ports": [
+      {
+        "id": "entry",
+        "objectId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/port-entry",
+        "position": [
+          -128,
+          154
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": -160,
+            "y": 122,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          -1,
+          0
+        ],
+        "orientationSource": "design proposal, not evidence of allowed movement",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "entry-seam"
+        ],
+        "routeRoles": [
+          "entry-to-exit:entry"
+        ],
+        "stagingPosition": [
+          -104,
+          168
+        ],
+        "face": "LEFT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": true,
+            "allowed": "UNKNOWN",
+            "reason": "Not inherited across current-source normalization; only explicit delivery configurations are allowed.",
+            "profileId": null,
+            "targetFace": "TOP",
+            "targetPosition": [
+              -64,
+              90
+            ],
+            "proposedSurface": "ONE_WAY_PLATFORM",
+            "permission": "INOUT"
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "grid": {
+          "cell": [
+            0,
+            0
+          ],
+          "edge": "W",
+          "stagingPosition": [
+            -104,
+            168
+          ],
+          "profile": "ground64/v1"
+        }
+      },
+      {
+        "id": "exit",
+        "objectId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/port-exit",
+        "position": [
+          640,
+          538
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 608,
+            "y": 506,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          1,
+          0
+        ],
+        "orientationSource": "design proposal, not evidence of allowed movement",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "exit-seam"
+        ],
+        "routeRoles": [
+          "entry-to-exit:exit"
+        ],
+        "stagingPosition": [
+          616,
+          552
+        ],
+        "face": "RIGHT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_approved_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "grid": {
+          "cell": [
+            5,
+            3
+          ],
+          "edge": "E",
+          "stagingPosition": [
+            616,
+            552
+          ],
+          "profile": "ground64/v1"
+        }
+      }
+    ],
+    "relations": [
+      {
+        "from": "entry",
+        "to": "entry",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      },
+      {
+        "from": "entry",
+        "to": "exit",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": [
+          "entry-to-exit"
+        ]
+      },
+      {
+        "from": "exit",
+        "to": "entry",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      },
+      {
+        "from": "exit",
+        "to": "exit",
+        "status": "UNKNOWN",
+        "conditions": "UNKNOWN",
+        "routeIds": []
+      }
+    ],
+    "routes": [
+      {
+        "id": "entry-to-exit",
+        "from": "entry",
+        "to": "exit",
+        "role": "main",
+        "pathObjectId": "design-route-entry-to-exit",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "partial",
+          "allOf": [
+            "jump",
+            "shot_recoil"
+          ],
+          "anyOfGroups": [],
+          "note": "保留真实测试能力配置；最低必要条件和可替代能力尚未完整验证。"
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 1,
+          "observedJumps": 0,
+          "phaseWaits": [
+            {
+              "op": "wait",
+              "trigger": {
+                "dynamic": {
+                  "kind": "actor_x",
+                  "direction": "gte",
+                  "value": 265
+                },
+                "timeout": 180
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "jump",
+          "move",
+          "shot_recoil"
+        ],
+        "actionTags": [
+          "settle",
+          "shoot"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          6,
+          3
+        ],
+        "evidenceStatus": "UNKNOWN"
+      }
+    ],
+    "unlocks": [],
+    "composition": {
+      "components": [],
+      "connections": [],
+      "exports": [],
+      "cells": [
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-0"
+          ],
+          "contentVersion": "sha256:3852098196ea89816ac9dee87df198990ab3e5a4108d76004c373439d3c0029d"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-1",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-1"
+          ],
+          "contentVersion": "sha256:91648b609cd8637d9002d65f14da75ee947ba34f6087b17191c0c688d8cb575d"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-3",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/platform-3"
+          ],
+          "contentVersion": "sha256:ff5f7ac48cb18d4dbc34557a736881922cfde50f7717a7283e931e74524d6152"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/gate-0"
+          ],
+          "contentVersion": "sha256:a2c1aa9039616733231a49099c1e1835ffc466cf45b66f0f1ba7bf79eb0101c4"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/bell-0",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/bell-0"
+          ],
+          "contentVersion": "sha256:8e8ca9255e68d63f72d1ad9d8deac021460929dc66733143be32e83e9815d46a"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/cache-0"
+          ],
+          "contentVersion": "sha256:a960c60824a5392b25c5fedbed2ab732255e1aca9cf5434d043732eb29d3dbff"
+        },
+        {
+          "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit",
+          "objectIds": [
+            "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b/migration-shore-exit"
+          ],
+          "contentVersion": "sha256:6b510968ac4649cd4de71442863c958d8a4f8d62a8ea590243bfee2a21c7c2d7"
+        },
+        {
+          "id": "design-bottom-danger",
+          "objectIds": [
+            "design-bottom-danger"
+          ],
+          "contentVersion": "sha256:10b7f67205e65d76322474399e8cd480ddc56a887cb475e5382b454fb7d0d863"
+        }
+      ]
+    },
+    "validations": [],
+    "visualization": {
+      "contentVersion": "sha256:ee5ac93d11b8c5678323c32217713f29a2d7ee18b8c7d071994c37e71e495016",
+      "path": "thumbnail.svg"
+    },
+    "staticChecks": {
+      "result": "UNKNOWN",
+      "contentVersion": "sha256:ee5ac93d11b8c5678323c32217713f29a2d7ee18b8c7d071994c37e71e495016",
+      "method": "existing Map Notes validator + output contract structural/geometry checks",
+      "scope": "schema, references, actual extents, separate motion envelopes, exhaustive ordered port pairs; not physics"
+    },
+    "foundation": {
+      "version": "1.0",
+      "blockSize": 128,
+      "widthBlocks": 6,
+      "heightBlocks": 6
+    },
+    "legacyCertification": {
+      "contentVersion": "sha256:12ca61f568f3fae222e73f137638d0f19dec00a3a1881f68292188294ab3c9bd",
+      "scope": "Historical witness only; not a v2 certificate."
+    },
+    "closures": [],
+    "mirror": {
+      "status": "UNKNOWN",
+      "validationIds": []
+    },
+    "portConfigurations": []
+  }
+}

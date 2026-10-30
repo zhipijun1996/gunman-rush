@@ -1,0 +1,719 @@
+{
+  "actualBodyCollision": true,
+  "collisionChecks": 501,
+  "engine": "4.7.2-stable (official)",
+  "errors": [],
+  "externalPlayerBinding": true,
+  "humanPlaytest": false,
+  "independentSharedInstances": true,
+  "mechanism": true,
+  "modules": [
+    {
+      "id": "b31-n06-fourport-two-low-ingress",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "601a4b0a468c0467b3cc02e9a280859129893a02eaaab4cd2f728df1b170cfdd"
+    },
+    {
+      "id": "b31-n08-reward-return-interface0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "97678f183dd7590c3cadcfcf39e3aeb9c3e231ffc1900ddb62bc3efafd173337"
+    },
+    {
+      "id": "b31-n12-three-side-port-interface0",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "42c0fda3fd3a0ddab2da474c4e45dc43cc2f3cadb9c64b708d82f7c2963a9e23"
+    },
+    {
+      "id": "b31-n14-static-three-sideports",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "a715d7fa9ef837811c068ddbf0f122cadc9c094c2523f94daa935467cc379a64"
+    },
+    {
+      "id": "b31-n16-west-low-east-high-interface0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "f4a82970443a48894142a28ec59144ce2523eab17283500ceddeea04d79d708d"
+    },
+    {
+      "id": "b31-n17-threeport-cross-shaft-v2",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "3ebbca6d1215e97c5c322af5f1ce33ed71c982476a7cd8ee96566cc72ca3769c"
+    },
+    {
+      "id": "batch30-block-c02-0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e654dbfe7c22daefdb24d66ea178ac1c71d4bce38c2791f16c3a553d3f42d048"
+    },
+    {
+      "id": "batch30-block-d05-0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "9cd3ca983dfb2c0e581f0f73c074f9ead3fd07ea054a52ee00ed77774131e47d"
+    },
+    {
+      "id": "batch30-block-n04-0-2",
+      "passed": true,
+      "ports": 5,
+      "sourceSha256": "71556cb44aceeebb948131a2d4f42aea3a46f73ce66ef236e2a25223619104ce"
+    },
+    {
+      "id": "batch30-d04-0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "c5eb9243cddd5065bed005a53351a6137d0788f9b6a56d1a858b6293c94ec1dc"
+    },
+    {
+      "id": "batch30-n11-e-e-width96",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "094eb8b074d3e88e33a776a71cefc9d3aa4230f7bdf80bedf251cfcb8b1a8776"
+    },
+    {
+      "id": "batch30-n19-west-high-east-low",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "bbbce61fa4c7eeb0ada6a6030fb4f88803d2bf403aa451f5e9034404e6c59f6d"
+    },
+    {
+      "id": "block-demand-a1-bidirectional-risk-reward-1",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "ddce63916998ac0564dd1bf63acd0fff2214f690c0014bd124dcf99513e2892c"
+    },
+    {
+      "id": "block-demand-a3-bidirectional-map-traversal-0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "f905e75453c439bcc032d04c99610efaf1da8c759bcb5564fa1c2eeaa12bfc1c"
+    },
+    {
+      "id": "block-demand-c01-0",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "42e78a82e34e36c7f4beaa8e999948f8db433900f1f643c480abccaa9662cb60"
+    },
+    {
+      "id": "block-demand-c07-horizontal",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "1a0e6cb31c33a5ec962a3a277335675a55a7ea5f9383a4944f5141b672e5af07"
+    },
+    {
+      "id": "game-boss-approach",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "37cb298fa415c5eb38db358813cf023186d6f1778675255153a1ec45ff1cc0be"
+    },
+    {
+      "id": "game-challenge-ferry-ascent",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "4962e7151a4e12c371bab0d833579b16f72fad6adb88b848c722bd0626184df2"
+    },
+    {
+      "id": "game-challenge-long-gap",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "fd7816aa88491cbc9e45844e87756409534f6e7ab72d0273f122f5b879b7e84f"
+    },
+    {
+      "id": "game-challenge-recoil-climb",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "b44a3931f20f67b28856d36d24d47dc0100abe436f3feea609617eeb791a7070"
+    },
+    {
+      "id": "game-forest-air-chain-geometry-hook-hook",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "4fd3bb642748992a7b758873b4daa769fd231f4af4e28ce2e1d29a5446c2ae60"
+    },
+    {
+      "id": "game-forest-directional-geometry-build-narrow",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "fd10c43b5f9362155ad516c6e71f991c71051888ce67b8dae2f539fb1035527c"
+    },
+    {
+      "id": "game-forest-exploration-modules-backlook-fruit-cache",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "115ad969357f0caec586b4365018de714a71a32c9e574cb33b3a8054b2aceaa5"
+    },
+    {
+      "id": "game-forest-hollow-trunk-geometry-aircatch",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "906ce1c97f5156ba821847c6ffdcb972020274aa35207df1428de6646150ace0"
+    },
+    {
+      "id": "game-forest-hollow-trunk-geometry-cavity",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "14f6b3a61f37295ebb6a3d9ace1ec0e7741f35bb5b044bac4b9e2c32c0a62ba0"
+    },
+    {
+      "id": "game-forest-hollow-trunk-geometry-cavity-elbow",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "8b9d5f306efa5d43236a88ba86b71efa1f9ce314d7b56800735e74342345d158"
+    },
+    {
+      "id": "game-forest-hollow-upper-candidate-build",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "2bb6c3aed8858ab703a5d7712546664c7979c272d6d689f97e6621681f82a850"
+    },
+    {
+      "id": "game-forest-playful-module-variants-forked-bough-hh",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "f25de69d5abcc6cdb3acff6bea54409fc1f230ab5c9f8cffc957fdbe7d804d8c"
+    },
+    {
+      "id": "game-forest-vertical-chain-geometry-default",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "5a751b55af4df18e76d814435deb5836c299fae8444d9599be5bc904e66045c7"
+    },
+    {
+      "id": "game-moving-transfer",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "bf4ef47dead116c89bb12471047b764b49d3184d529a4db05abb274fd2355c19"
+    },
+    {
+      "id": "game-plains-bell-ferry-control",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "04c183492b00da0d99197990591fc0c837736b1f6c7f0739fa6114737727510e"
+    },
+    {
+      "id": "game-plains-bellstrider-arena",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e346975d6c208cf80130a167d9de98e71eb0a8678f94c1fd29a9b3a8193c6577"
+    },
+    {
+      "id": "game-plains-boss-arena",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d494e7e5f0ac4e8dda81e10f6ccba18a18f1668066979343a9d982cc7c69cac2"
+    },
+    {
+      "id": "game-plains-bramble-causeway",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "43cb3f3e1f517a021fe0b10d5a0f18cb9ee67c0ad36e126202b7e1ad51d36254"
+    },
+    {
+      "id": "game-plains-bramble-ridge",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "65ed4a2f1bd5f5009b0d5d1bdb8bd816dc3dfefe4ae2bdca6a5c39bd12452650"
+    },
+    {
+      "id": "game-plains-ferry-gears",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "dd1d2679a7390fa1b3bea2acd36d21c542ef39eebd31e5cb380f049650c2d533"
+    },
+    {
+      "id": "game-plains-ferry-one",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "06761b4105a50fd4ce98c4d4cd389797ea71ec84a6115eadcc2fa27e0a4e3783"
+    },
+    {
+      "id": "game-plains-fork-paths",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "0b4f837a78d6458bee09883b89cfe1feeaffef20491b39cd8bf806a07424b5f5"
+    },
+    {
+      "id": "game-plains-gear-brook",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "114ecfb27d07a8a87c4797c0e315d2a231d0a781a8dfb453b19e8b9baca55a5c"
+    },
+    {
+      "id": "game-plains-high-perches",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d6eedf21f9654fbb5f0dbf63943c89fd801647e29dc251db8d2482d6a871b722"
+    },
+    {
+      "id": "game-plains-low-arch",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e09e08c15fa7d26a9e4e7a627fd5faa3ddbb5faa60ef4f6092df69c69e69b73f"
+    },
+    {
+      "id": "game-plains-meadow-gap",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "215278ad481e7a1c305b475cc95806cb4f6d3e9e7b41e8184175b8ed99cf83e8"
+    },
+    {
+      "id": "game-plains-micro-landing",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "987541839a789f6b9df35fa1a31d84de8b66ce39fab85a3eb5cd5db3faaa8971"
+    },
+    {
+      "id": "game-plains-micro-rise",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "818b0d3354689b9baa75ae5c0e23b04369ad3a2b59acc77899c927e8625a0815"
+    },
+    {
+      "id": "game-plains-perch-double",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "a2b238b716a392e91c888fee653dc24e7b25edc9dd71174af4c19648435bf897"
+    },
+    {
+      "id": "game-plains-recoil-chasm",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "8cd0a1db692fabf5c69ca3e853a23ece0c54fc7eee16c2421d944d1c2e6ac384"
+    },
+    {
+      "id": "game-plains-remote-bell",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "280c8678f8d17e9d4f6da665f74406090d8a4f37c5136d2233ea75baf734b8c2"
+    },
+    {
+      "id": "game-plains-remote-sequence",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "2164bbcb8920d97123f0e1fe25fe87212f01a66a40e4e447c48d60bc501f2a0b"
+    },
+    {
+      "id": "game-plains-skip-stones",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "46bf2351537e650996dea3932f8b5fd85402f390d1da31db93870bdcb4f17e4d"
+    },
+    {
+      "id": "game-plains-switchback",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "0d50b3782aec0e883736294f6071d26ccabcd63cffecc9937963eb8040ca5228"
+    },
+    {
+      "id": "game-plains-thorn-slalom",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "9d0628d21dc30e187f70befaf3a0a6a83023c50026faf5500a33103c2816a77b"
+    },
+    {
+      "id": "game-plains-thorn-wall",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "65433bcdfb25870b7dd82793bd147804776dd4b0da260c6375db598c0dd9bff6"
+    },
+    {
+      "id": "game-plains-twin-gears",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "fb4ba6836292af48c318a40e688b30022a2e10a5f4ba268cf986f144ed825342"
+    },
+    {
+      "id": "game-plains-wind-spire",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d0af9b19191fd3bf1dc47b158ad62eed32e61d7be108fe9466fbdc483dfc6573"
+    },
+    {
+      "id": "game-plains-windchime-ferry",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e07abe9123daae9eea762d1bef452390678fc6a8e00968af43b9c87d42bf2f1e"
+    },
+    {
+      "id": "game-plains-windchime-lesson",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "0846f23881d9106d68032323b6278e4f79550e33f1cb73cf4e920323039da942"
+    },
+    {
+      "id": "game-plains-windchime-rush",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "0271353027fba6d22b2d5216ac5fd2388bb5eed4e0baffb01d64477520380329"
+    },
+    {
+      "id": "game-plains-windchime-sequence",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "26365c726d76ed497a23848af1d16c17f8a6ba8d899a00332b2c798438c53f5a"
+    },
+    {
+      "id": "game-plains-windchime-well",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "765711411d159cdd8bfabc0ccf02f20c84d3775d9f858d997f10bcf28586be6a"
+    },
+    {
+      "id": "game-recoil-shaft",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "1137ed647c77a86a5990cccc66f9c225ef9d7f5eb9d6067bd30ed7fcbaf8cee7"
+    },
+    {
+      "id": "game-route-junction",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "dfc14f1db8689dcb80caad9a0c2f783f82e2df07d63bf74c34d4a307f75207b5"
+    },
+    {
+      "id": "game-spike-gap",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "ee2415706ec41d5e243bf20a0368765af53029f48b2e30963278289ee6ed8501"
+    },
+    {
+      "id": "generated-011d0a163822daaeea61e2280dbe4b26f7f48fa38d57ac30d06110da0634723b",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "5660c481e3be5050fb1bc0ec8578ba0da69b22c458059db6a3e661b58e1a922f"
+    },
+    {
+      "id": "generated-075be5b9171782cf385f2d8ea3c21e2f5fe876f688f2929ba61bc34487d2fe53",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "f1411b10c1d91f5269b423a3142c9386a5e353c3f1389fff646357a44caa3e28"
+    },
+    {
+      "id": "generated-09efd9583360ae3e414d7430c9b0e7e12a730b0fe8a5f19a90fc98c9b80c2ac2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "865a2de8d297ccf8a8c4cc2700670abde24f6467128f4f58a5c17116c728e343"
+    },
+    {
+      "id": "generated-1ff2da49936b180bfa76a3285e8392db0f5945aff17b746dac48511bfe9b23a9",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "b56ae350b16be81cfef58504dea5b89a08cb1c5ef357521ed005a637317300aa"
+    },
+    {
+      "id": "generated-1ff82aadb96e72dded4adbddd14736000e1e71f70c6879c1101699921e2dc7d4",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "da47a144890689a820de2da11204a89b48aaa604c1793d1f9ca503e1918c2470"
+    },
+    {
+      "id": "generated-3269642f7d82571d98a148a014f5c34c667ac5a7f805352c646f81d0d6733160",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "b647bac86ffddc4248eb97faaa57cb378d8c60173661a321ecf2f39dee16303e"
+    },
+    {
+      "id": "generated-59296f7c9ebdbbc68e0913efe12ce46af74300db662d08af14337f205f6dae85",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "c02b4252846dc684d17f04e7c3d637351bb9e436efbfb2626a68ecbbf95592e8"
+    },
+    {
+      "id": "generated-5ec84823c9c2ca8da9bf7895512839fabdeccaed02d4c8c85d1f60cf34172994",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e36ff8f30bd6d0504e8a7f5bc598102a69c6798e03086718621ea5aaf3e2fe94"
+    },
+    {
+      "id": "generated-630ca6aff78c132669a9cf11e47448041319a2593c6506b86ca098b9a1b5a4ac",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "10fe73d63d7d0cca2bbf5a7f63ac28e6600509b74fea65defeac5f075e2fdb4f"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "332aac04e7f96208b5003b3a70069a45d5619c829f5e9f1412d7b2e711dc7767"
+    },
+    {
+      "id": "generated-769066fe5fa1b2332bd7d35c56fa814f01db2b06eb8c65ef9ecf1e586db3ca0b",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "8a14496a0969f89644121dc41c05453d789985c2afde304dde15a70511d08bd7"
+    },
+    {
+      "id": "generated-777ce57682915e11719c9540e5c0f374c1aaef971321099e9459a34b1c3615a2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "583a94c0c43cc622062f7b40c2265bf9ce3d9a7a050269e9ad8bd9ba05254421"
+    },
+    {
+      "id": "generated-8df5613256e70989f6ae5795803344bdc3e636fe3232c2e35175fae612f633ba",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d883e5153f0e6aa98a5bb2de35a03b53e1493e095d6b1021c904d1b0cc998ab8"
+    },
+    {
+      "id": "generated-a8f918f1ee9e8e682a919cdbb67ba2015fcfe075d54e5f25147fbe04dd156d2a",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "056948f82bcb130ee0e49aa70ebc5de92d844317d21b7a3005e039cb51596ebb"
+    },
+    {
+      "id": "generated-b49032ba100b948c427c4eec92fded70bdfbf240659ea41b37991d2347483712",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "47d61e0a0e8787edf7fd4a449492467f32d0269b569935e3ef30a4297e9ac7c2"
+    },
+    {
+      "id": "generated-c234da4022051a1194ce251aa0da25d06ee572aa2a1c58873f8843f6d934feb2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "21c461922b11fbfce920688c469c6b62d13651414747ac95ddc98e920a20a128"
+    },
+    {
+      "id": "idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "2aed5d3c585086953e1ee9ab7e1e2fedc54fffe57e2a1d34d9436e63c190172e"
+    },
+    {
+      "id": "idea-0363f85c-16c0-4b5f-b3b0-461335608db7-enemies-3",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "fb63b6aa4f5b521ac87f2bda1fcad6ae42d3aecb66845a6c3225e764423361cc"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-1x2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "b7e90fc298ee7bfaf4eb0e8160832f738b2829ea34fe9b4a5dbb8830e82bc145"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x1",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "778f5ecc20e292916be7ee86c1f55f9e25d9f588e4fc843fb12f35de6f0c8c57"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-bottom-2x2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "5c70b3fb0b3946cfbe410ebc735e98f6dcd7d55df703b0c74290bb7685c7975e"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-1x2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "840250134e28f56b2568bcd54341a2f260cc1daa77468320bbbf573e98940e56"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x1",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "1036c48952a6d5c71802d690cbeff198c75ab3d910d9e1078f017def411e1154"
+    },
+    {
+      "id": "idea-31639e2c-1a4a-487c-b1ea-c52522549fa8-left-top-2x2",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d379f84770b97bd514045f8fa4eac72e8b7d989add0c34666149976e3ac286b0"
+    },
+    {
+      "id": "idea-96ba6bf1-9b60-470a-9128-54ae7ea44af3",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "4da07e794aca4914ff71f97eaee20e124091e3511f934c2b70f0bd0fae5de309"
+    },
+    {
+      "id": "idea-interface-s02-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "2987f26e914e064eee8ea327a114865191499296e1cb524a0836927e631fa422"
+    },
+    {
+      "id": "idea-interface-s07-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "c04419d86f660a857d80672e6a8c7e07fe652d09ae1907979b181fd31b64f125"
+    },
+    {
+      "id": "idea-interface-s09-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "6799b73ebc3e2f786236fc85954644a7160a7112bb4a9dad71a0257f6d62a4af"
+    },
+    {
+      "id": "idea-interface-s11-001",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "fd3c531360d74b995a91544f1e6172bc27f934c635b08b48b6a44d8e372e7693"
+    },
+    {
+      "id": "idea-interface-s12-001",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "838788057aa783fd87630bea37ba587b80186507c41299f3f0df839501ec61a4"
+    },
+    {
+      "id": "idea-interface-s15-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "73aed9652147a7b82a352ef5e57d88d3a7f76df7b9feecd675a4f77b01e88c58"
+    },
+    {
+      "id": "idea-orbit-choice-001",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "24bddc7df41ef9b2b09bda3280adcfdbbe6c530cd6a4d5760a36cc2a72b3bcf8"
+    },
+    {
+      "id": "idea-plains-hq01-001",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "3c3b4cf730d2d06ddffc95ca6f5ff186821618a15c0c061e8799e1883345e772"
+    },
+    {
+      "id": "idea-plains-hq02-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "239597483efa3e5930dd86b4ca1eff3956ff1fe10aca6d009a42e93d7ac16a13"
+    },
+    {
+      "id": "idea-plains-hq03-001",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "34371d31e0e94a548c6bf684c900fb01c8333d91b4b3f62a755ef31df044416b"
+    },
+    {
+      "id": "idea-plains-hq04-001",
+      "passed": true,
+      "ports": 1,
+      "sourceSha256": "c0be567d787b6260ac4314498b04f856503cf37a49dc016e5539f55cf483ef05"
+    },
+    {
+      "id": "idea-plains-hq05-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "1798971cf9b8f2ec8f8165f75b02ed08c22051613ab0766d03ef6e618c2f5950"
+    },
+    {
+      "id": "idea-plains-hq07-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "50d1bb0efbe4f22189330cd52e580a7dae3d558311a544db1dba82902c803f28"
+    },
+    {
+      "id": "idea-plains-hq08-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "0149784eb7639a25ed0abe24050fa05f994c59e8975e958523c23dafb1fe3925"
+    },
+    {
+      "id": "idea-plains-hq09-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "3f3520cff5a869ea23a637d4ff3444a0181fa2514fb9d8c3dd140c3032f93ebf"
+    },
+    {
+      "id": "idea-spec02-s02-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "e703b1b372f62a71cd542cb64b09a063b074c0642b1d5bc92808debd41f9d50f"
+    },
+    {
+      "id": "idea-spec02-s04-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "4d2b14009ce8c288d3caec04d38f7c4de520902a6717c3f0acfdbbc9abd7281c"
+    },
+    {
+      "id": "idea-spec02-s06-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "eff44087cf1c01087a936240c46b84a284e56b9350ac332ca6cf75a2373238de"
+    },
+    {
+      "id": "idea-spec02-s07-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "41ea539cc33ab6bcd02033f36aded8789df70e7d4bd531bb8e58bb0fcf7cebfe"
+    },
+    {
+      "id": "idea-spec02-s08-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "ccf8fd4b7ff01f79befab694185497d04486d839bf67c2333560c7172f7f8f3c"
+    },
+    {
+      "id": "idea-spec02-s09-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "d88c572902522fa3432d4657cb42ad376daaf7b1996ba9ed6d175ddb8f16bbfd"
+    },
+    {
+      "id": "idea-spec02-s10-001",
+      "passed": true,
+      "ports": 2,
+      "sourceSha256": "2f9f4c4ad7b62c76375a3405709b2f26d3bfb9c9b24e327105e505fc7db2576c"
+    },
+    {
+      "id": "idea-spec02-s11-001",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "f23007c0a0b44ec5adb29417de780b3ed89b5b8ec0fba353a9b657ed220148ef"
+    },
+    {
+      "id": "idea-spec02-s12-001",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "6912efcaf8b7ac98559711a793c65d1c38ce8e74ca1f33211370e510c9e351fb"
+    },
+    {
+      "id": "idea-spec02-s13-001",
+      "passed": true,
+      "ports": 1,
+      "sourceSha256": "2febe59deec77cada0b81b08ab7589eeb94210514045cbcbb51484dc5a88a766"
+    },
+    {
+      "id": "junction-j06-0",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "d20194fdaf0e0923b6442e4eed05cdb4a44658b2582c4631685dfb18f61bab72"
+    },
+    {
+      "id": "workshop-macro-gate-brake-return-0",
+      "passed": true,
+      "ports": 4,
+      "sourceSha256": "f8093499bc444ee80da4830fc51ccf528552afffcb6d0e178e9276b436579c53"
+    },
+    {
+      "id": "workshop-one-shot-two-routes-1",
+      "passed": true,
+      "ports": 3,
+      "sourceSha256": "81883c5cad380becff3e46ac6451eccafd72e0b87e4285bb9f47b6da40d85e82"
+    }
+  ],
+  "passed": true,
+  "reward": true,
+  "routeRecertification": false,
+  "schema": "map-edit/portable-runtime-acceptance/v1",
+  "translatedAmbush": true,
+  "translatedPlacement": [
+    7,
+    -3
+  ],
+  "engineSha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+  "hostLockSha256": "c2ef367b28ed198aeea119512da9e695186a9597e8e6e5303aae13b4fc387d75",
+  "runtimeFingerprint": "434d22271d75a3a95615209568ab6a648ae9889fa7db9faa387dbd347ab216f9",
+  "archiveExtracted": true,
+  "playableSample": true,
+  "hostFilesVerified": 1389,
+  "oldWorkspaceRead": false,
+  "dependencyAudit": "strace open/openat/readlink: no reads from the source repository or former experiment/fixture paths; resources resolve in the clean extracted project and hash-locked host."
+}

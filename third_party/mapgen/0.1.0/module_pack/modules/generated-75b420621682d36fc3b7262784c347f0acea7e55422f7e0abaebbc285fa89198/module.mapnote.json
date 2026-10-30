@@ -1,0 +1,6808 @@
+{
+  "schema": "gunman-rush-level-sketch/v1",
+  "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198",
+  "title": "wall-slide-launch-window-v5-0",
+  "description": "内容工坊隔离候选；技术覆盖、视频观感、手动试玩和生产认可分别记录。",
+  "constraints": "UNKNOWN不得作为有效地图接口。",
+  "canvas": {
+    "width": 384,
+    "height": 1152,
+    "origin": [
+      0,
+      0
+    ],
+    "units": "godot_world_unit",
+    "positionPrecision": "exact"
+  },
+  "objects": [
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0",
+      "type": "terrain",
+      "x": 90,
+      "y": 18,
+      "w": 50,
+      "h": 60,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 0,
+      "wallClimbable": false
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1",
+      "type": "terrain",
+      "x": 195,
+      "y": -80,
+      "w": 32,
+      "h": 898,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 1,
+      "wallClimbable": true
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2",
+      "type": "terrain",
+      "x": 40,
+      "y": -334,
+      "w": 20,
+      "h": 434,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 2,
+      "wallClimbable": false
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3",
+      "type": "terrain",
+      "x": 40,
+      "y": 300,
+      "w": 20,
+      "h": 518,
+      "rotation": 0,
+      "label": "",
+      "note": "设计适配：下侧岩壁外侧可蹬墙，供左口回到窗口；内侧墙刺保留",
+      "sourceIndex": 3,
+      "wallClimbable": true
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+      "type": "terrain",
+      "x": -82,
+      "y": 402,
+      "w": 102,
+      "h": 30,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceIndex": 4,
+      "wallClimbable": false
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-0",
+      "type": "wallSpike",
+      "x": 60,
+      "y": -334,
+      "w": 8,
+      "h": 434,
+      "rotation": 0,
+      "label": "",
+      "note": "原碰撞危险面",
+      "hostId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2",
+      "sourceId": "upper-mouth"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-1",
+      "type": "wallSpike",
+      "x": 60,
+      "y": 300,
+      "w": 8,
+      "h": 518,
+      "rotation": 0,
+      "label": "",
+      "note": "原碰撞危险面",
+      "hostId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3",
+      "sourceId": "lower-mouth"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-2",
+      "type": "wallSpike",
+      "x": 187,
+      "y": -80,
+      "w": 8,
+      "h": 40,
+      "rotation": 180,
+      "label": "",
+      "note": "原碰撞危险面",
+      "hostId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1",
+      "sourceId": "right-upper-no-reset"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-3",
+      "type": "spike",
+      "x": 195,
+      "y": -88,
+      "w": 32,
+      "h": 8,
+      "rotation": 0,
+      "label": "",
+      "note": "原碰撞危险面",
+      "hostId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1",
+      "sourceId": "right-top-no-perch"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-4",
+      "type": "spike",
+      "x": 40,
+      "y": 292,
+      "w": 20,
+      "h": 8,
+      "rotation": 0,
+      "label": "",
+      "note": "原碰撞危险面",
+      "hostId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3",
+      "sourceId": "lower-mouth-no-perch"
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+      "type": "gear",
+      "x": 42,
+      "y": 71.09830056250524,
+      "w": 36,
+      "h": 36,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "sourceId": "mouth-saw",
+      "trackId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+      "mechanics": {
+        "runtimeParameters": {
+          "damage": 1,
+          "contact_interval": 0.7
+        }
+      }
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+      "type": "trackLine",
+      "x": 60,
+      "y": 70,
+      "w": 9.999999974752427e-7,
+      "h": 200.000001,
+      "rotation": 0,
+      "label": "",
+      "note": "",
+      "points": [
+        {
+          "x": 60,
+          "y": 70
+        },
+        {
+          "x": 60,
+          "y": 270
+        }
+      ],
+      "duration": 0.9,
+      "mode": "sine",
+      "initialPhase": 0.85
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0",
+      "type": "reward",
+      "x": -64,
+      "y": 366,
+      "w": 36,
+      "h": 36,
+      "rotation": 0,
+      "label": "宝箱 8",
+      "note": "原 SimpleRoomReward 受支持接触后提交金币；可见不等于已领取",
+      "mechanics": {
+        "kind": "chest",
+        "service": "SimpleRoomReward",
+        "amount": 8,
+        "source": {
+          "id": "visible-cache",
+          "position": [
+            -46,
+            384
+          ],
+          "region": [
+            -76,
+            379,
+            60,
+            10
+          ],
+          "amount": 8
+        }
+      }
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-left",
+      "type": "terrain",
+      "x": 74,
+      "y": -334,
+      "w": 12,
+      "h": 291.9252418577671,
+      "rotation": 0,
+      "label": "Local boundary connector",
+      "note": "设计适配：导向井面允许蹬墙，供返回顶部；资源与真实上攀待验",
+      "sourceIndex": 5,
+      "wallClimbable": true
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-right",
+      "type": "terrain",
+      "x": 134,
+      "y": -334,
+      "w": 12,
+      "h": 291.9252418577671,
+      "rotation": 0,
+      "label": "Local boundary connector",
+      "note": "设计适配：导向井面允许蹬墙，供返回顶部；资源与真实上攀待验",
+      "sourceIndex": 6,
+      "wallClimbable": true
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+      "type": "platform",
+      "x": 78,
+      "y": -270,
+      "w": 64,
+      "h": 12,
+      "rotation": 0,
+      "label": "顶部可穿支撑",
+      "note": "Offline adaptation; physics pending",
+      "sourceIndex": 7
+    },
+    {
+      "id": "design-route-entry-to-exit",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": 110,
+          "y": -334
+        },
+        {
+          "x": 110,
+          "y": -50
+        },
+        {
+          "x": 170,
+          "y": -10
+        },
+        {
+          "x": 175,
+          "y": 180
+        },
+        {
+          "x": 15,
+          "y": 245
+        },
+        {
+          "x": -46,
+          "y": 384
+        },
+        {
+          "x": -82,
+          "y": 370
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-exit-to-entry",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": -82,
+          "y": 370
+        },
+        {
+          "x": 27,
+          "y": 370
+        },
+        {
+          "x": 27,
+          "y": 220
+        },
+        {
+          "x": 100,
+          "y": 185
+        },
+        {
+          "x": 175,
+          "y": 180
+        },
+        {
+          "x": 170,
+          "y": -15
+        },
+        {
+          "x": 110,
+          "y": -20
+        },
+        {
+          "x": 110,
+          "y": -334
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-entry-to-bottom",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": 110,
+          "y": -334
+        },
+        {
+          "x": 110,
+          "y": -50
+        },
+        {
+          "x": 170,
+          "y": -10
+        },
+        {
+          "x": 175,
+          "y": 600
+        },
+        {
+          "x": 110,
+          "y": 780
+        },
+        {
+          "x": 110,
+          "y": 818
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-bottom-to-entry",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": 110,
+          "y": 818
+        },
+        {
+          "x": 175,
+          "y": 760
+        },
+        {
+          "x": 175,
+          "y": 180
+        },
+        {
+          "x": 170,
+          "y": -15
+        },
+        {
+          "x": 110,
+          "y": -20
+        },
+        {
+          "x": 110,
+          "y": -334
+        }
+      ],
+      "reviewShowTrace": true,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-exit-to-bottom",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": -82,
+          "y": 370
+        },
+        {
+          "x": 27,
+          "y": 370
+        },
+        {
+          "x": 27,
+          "y": 220
+        },
+        {
+          "x": 100,
+          "y": 185
+        },
+        {
+          "x": 175,
+          "y": 180
+        },
+        {
+          "x": 175,
+          "y": 600
+        },
+        {
+          "x": 110,
+          "y": 818
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "design-route-bottom-to-exit",
+      "type": "route",
+      "x": -82,
+      "y": -334,
+      "w": 384,
+      "h": 1152,
+      "points": [
+        {
+          "x": 110,
+          "y": 818
+        },
+        {
+          "x": 175,
+          "y": 760
+        },
+        {
+          "x": 175,
+          "y": 180
+        },
+        {
+          "x": 100,
+          "y": 185
+        },
+        {
+          "x": 15,
+          "y": 245
+        },
+        {
+          "x": -46,
+          "y": 384
+        },
+        {
+          "x": -82,
+          "y": 370
+        }
+      ],
+      "reviewShowTrace": false,
+      "duration": 1,
+      "mode": "once"
+    },
+    {
+      "id": "revision053-bottom-support",
+      "type": "platform",
+      "x": 78,
+      "y": 786,
+      "w": 64,
+      "h": 12,
+      "label": "底口真实可穿接岸",
+      "sourceIndex": 8
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-entry",
+      "type": "entry",
+      "x": 98,
+      "y": -352,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-exit",
+      "type": "exit",
+      "x": -94,
+      "y": 352,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    },
+    {
+      "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-bottom",
+      "type": "exit",
+      "x": 98,
+      "y": 800,
+      "w": 24,
+      "h": 36,
+      "rotation": 0
+    }
+  ],
+  "updatedAt": "2026-10-25T17:26:55.255Z",
+  "intent": {
+    "operation": "modify_existing",
+    "notes": "Authoritative current Module. Edit objects and declared native bindings here; generated files are not another source library."
+  },
+  "capabilityRequirements": {
+    "version": 1,
+    "status": "defined",
+    "allOf": [
+      "jump",
+      "wall_climb"
+    ],
+    "anyOfGroups": [],
+    "note": "Explicit abilities for the revised approved interface."
+  },
+  "difficulty": {
+    "version": 1,
+    "scale": "gunman-rush/module-difficulty/v1",
+    "score": null,
+    "note": ""
+  },
+  "source": {
+    "repository": "zhipijun1996/map-edit",
+    "commit": "9b712fe814ef228b368c0eb9adf660e39de29e37",
+    "path": "modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/module.mapnote.json",
+    "moduleId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198",
+    "kind": "generated",
+    "category": "平原",
+    "integration": {
+      "isIntegrated": false,
+      "reason": "Current reviewed source; runtime delivery is separate from production game approval."
+    }
+  },
+  "generationContract": {
+    "version": 2,
+    "kind": "module",
+    "contentVersion": "sha256:21f326887eb9d20a0f8235d8b99573db8699fd5a6961916d13a1d719115f0e65",
+    "seed": {
+      "status": "not_used",
+      "value": null,
+      "reason": "Deterministic registered rules; phase/noise seeds are validation only"
+    },
+    "generation": {
+      "parameters": {
+        "runtimeBindings": {
+          "platforms": [
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-left"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-right"
+            },
+            {
+              "$bind": "rect",
+              "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock"
+            },
+            {
+              "$bind": "rect",
+              "object": "revision053-bottom-support"
+            }
+          ],
+          "one_way_platform_indices": [
+            7,
+            8
+          ],
+          "wall_platform_indices": [
+            1,
+            3,
+            5,
+            6
+          ],
+          "hazards": [],
+          "thorns": [
+            {
+              "surface_id": "upper-mouth",
+              "platform_index": 2,
+              "face": "right",
+              "start_offset": 0,
+              "length": 434,
+              "depth": 8
+            },
+            {
+              "surface_id": "lower-mouth",
+              "platform_index": 3,
+              "face": "right",
+              "start_offset": 0,
+              "length": 518,
+              "depth": 8
+            },
+            {
+              "surface_id": "right-upper-no-reset",
+              "platform_index": 1,
+              "face": "left",
+              "start_offset": 0,
+              "length": 40,
+              "depth": 8
+            },
+            {
+              "surface_id": "right-top-no-perch",
+              "platform_index": 1,
+              "face": "top",
+              "start_offset": 0,
+              "length": 32,
+              "depth": 8
+            },
+            {
+              "surface_id": "lower-mouth-no-perch",
+              "platform_index": 3,
+              "face": "top",
+              "start_offset": 0,
+              "length": 20,
+              "depth": 8
+            }
+          ],
+          "saws": [
+            {
+              "source_id": "mouth-saw",
+              "origin": {
+                "$bind": "relative_point",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+                "offset": [
+                  0,
+                  80.90169943749476
+                ]
+              },
+              "travel": [
+                0,
+                100
+              ],
+              "radius": 18,
+              "period": {
+                "$bind": "field",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+                "path": [
+                  "duration"
+                ]
+              },
+              "initial_phase": {
+                "$bind": "field",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+                "path": [
+                  "initialPhase"
+                ]
+              },
+              "damage": {
+                "$bind": "field",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+                "path": [
+                  "mechanics",
+                  "runtimeParameters",
+                  "damage"
+                ]
+              },
+              "contact_interval": {
+                "$bind": "field",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+                "path": [
+                  "mechanics",
+                  "runtimeParameters",
+                  "contact_interval"
+                ]
+              }
+            }
+          ],
+          "moving_platforms": [],
+          "hooks": [],
+          "latches": [],
+          "enemies": [],
+          "reward_sites": [
+            {
+              "id": "visible-cache",
+              "position": {
+                "$bind": "center",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0"
+              },
+              "region": {
+                "$bind": "relative_rect",
+                "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0",
+                "offset": [
+                  -12,
+                  13
+                ],
+                "sizeDelta": [
+                  24,
+                  -26
+                ]
+              },
+              "amount": 8
+            }
+          ]
+        },
+        "nativeAnchors": {
+          "entry": {
+            "$bind": "relative_point",
+            "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0",
+            "offset": [
+              -5,
+              -336
+            ]
+          },
+          "exit": {
+            "$bind": "relative_point",
+            "object": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0",
+            "offset": [
+              -173,
+              336
+            ]
+          }
+        }
+      },
+      "source": {
+        "kind": "current_module_source",
+        "record": "modules/generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/record.json"
+      },
+      "migration": {
+        "moduleId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198",
+        "status": "current_source"
+      }
+    },
+    "designStatus": "declared",
+    "space": {
+      "units": "godot_world_unit",
+      "axes": {
+        "x": "right",
+        "y": "down"
+      },
+      "localOrigin": [
+        0,
+        0
+      ],
+      "actorBody": {
+        "shape": "rectangle",
+        "size": [
+          24,
+          36
+        ],
+        "source": {
+          "path": "pcg/prototype/godot/scenes/player/player.tscn",
+          "sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8"
+        }
+      },
+      "bounds": {
+        "x": -82,
+        "y": -334,
+        "w": 384,
+        "h": 1152
+      },
+      "boundsCoverage": "Complete rectangular Module footprint; internal geometry preserved.",
+      "occupancy": {
+        "status": "partial",
+        "objectIds": [
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-0",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-1",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-2",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-3",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-4",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-left",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-right",
+          "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+          "revision053-bottom-support"
+        ],
+        "regions": [],
+        "coverage": "known cells; full action and projectile reservations UNKNOWN"
+      },
+      "actionClearance": {
+        "status": "partial",
+        "regions": [
+          {
+            "x": 98,
+            "y": -18.074758142232895,
+            "w": 28.333335876465,
+            "h": 36.074758142232895
+          },
+          {
+            "x": 102.333335876465,
+            "y": -18.074758142232895,
+            "w": 28.33332824707,
+            "h": 36.000032633543015
+          },
+          {
+            "x": 106.666664123535,
+            "y": -18.07472550868988,
+            "w": 28.333335876465,
+            "h": 36.000000573694706
+          },
+          {
+            "x": 111,
+            "y": -18.074725106358528,
+            "w": 28.333335876465,
+            "h": 36.000000171363354
+          },
+          {
+            "x": 115.333335876465,
+            "y": -18.074725285172462,
+            "w": 28.333335876465,
+            "h": 36.000000178813934
+          },
+          {
+            "x": 119.66667175293,
+            "y": -18.074725463986397,
+            "w": 28.33332824707,
+            "h": 36.000000178813934
+          },
+          {
+            "x": 124,
+            "y": -18.07472565025091,
+            "w": 28.33332824707,
+            "h": 36.000000186264515
+          },
+          {
+            "x": 128.33332824707,
+            "y": -18.07472565025091,
+            "w": 28.333328247070995,
+            "h": 36.00000060349703
+          },
+          {
+            "x": 132.666656494141,
+            "y": -18.074725225567818,
+            "w": 28.33332824707,
+            "h": 36.000000178813934
+          },
+          {
+            "x": 136.999984741211,
+            "y": -18.074725404381752,
+            "w": 28.33332824707,
+            "h": 36.000000178813934
+          },
+          {
+            "x": 141.333312988281,
+            "y": -18.074725404381752,
+            "w": 28.333328247070995,
+            "h": 36.72222222387791
+          },
+          {
+            "x": 145.666641235352,
+            "y": -17.352503180503845,
+            "w": 28.33332824707,
+            "h": 37.4444442987442
+          },
+          {
+            "x": 149.999969482422,
+            "y": -15.90805888175964,
+            "w": 28.33332824707,
+            "h": 38.16666674613952
+          },
+          {
+            "x": 154.333297729492,
+            "y": -13.74139213562012,
+            "w": 28.33332824707,
+            "h": 38.88888931274414
+          },
+          {
+            "x": 158.666625976562,
+            "y": -10.85250282287598,
+            "w": 28.333328247071023,
+            "h": 39.61111068725588
+          },
+          {
+            "x": 162.999954223633,
+            "y": -7.241392135620099,
+            "w": 28.33332824707,
+            "h": 40.3333339691162
+          },
+          {
+            "x": 167.333282470703,
+            "y": -2.908058166503899,
+            "w": 27.591812133788977,
+            "h": 41.0555553436279
+          },
+          {
+            "x": 170.925094604492,
+            "y": 2.1474971771239986,
+            "w": 24.000045776367017,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 3.3974971771239986,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 4.647497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 5.897497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 7.147497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 8.397497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 9.647497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 10.897497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 12.147497177123999,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 13.397497177123999,
+            "w": 24,
+            "h": 37.249998092651396
+          },
+          {
+            "x": 170.925140380859,
+            "y": 14.647495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 15.897495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 17.147495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 18.397495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 19.647495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 20.897495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 22.147495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 23.397495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 24.647495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 25.897495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 27.147495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 28.397495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 29.647495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 30.897495269775398,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 32.1474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 33.3974952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 34.6474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 35.8974952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 37.1474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 38.3974952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 39.6474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 40.8974952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 42.1474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 43.3974952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 44.6474952697754,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 45.8974952697754,
+            "w": 24,
+            "h": 37.2499961853027
+          },
+          {
+            "x": 170.925140380859,
+            "y": 47.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 48.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 49.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 50.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 52.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 53.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 54.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 55.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 57.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 58.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 59.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 60.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 62.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 63.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 64.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 65.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 67.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 68.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 69.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 70.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 72.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 73.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 74.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 75.8974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 77.1474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 78.3974914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 79.6474914550781,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 80.8974914550781,
+            "w": 24,
+            "h": 37.2499999999999
+          },
+          {
+            "x": 170.925140380859,
+            "y": 82.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 83.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 84.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 85.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 87.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 88.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 89.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 90.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 92.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 93.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 94.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 95.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 97.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 98.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 99.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 100.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 102.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 103.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 104.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 105.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 107.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 108.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 109.647491455078,
+            "w": 24,
+            "h": 37.250000000000014
+          },
+          {
+            "x": 170.925140380859,
+            "y": 110.89749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 112.14749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 113.39749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 114.64749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 115.89749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 117.14749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 118.39749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 119.64749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 120.89749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 122.14749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 123.39749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 124.64749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 125.89749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 127.14749145507801,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 128.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 129.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 130.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 132.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 133.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 134.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 135.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 137.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 138.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 139.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 140.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 142.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 143.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 144.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 145.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 147.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 148.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 149.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 150.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 152.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 153.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 154.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 155.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 157.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 158.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 159.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 160.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 162.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 163.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 164.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 165.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 167.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 168.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 169.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 170.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 172.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 173.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 174.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 175.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 177.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 178.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 179.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 180.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 182.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 183.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 184.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 185.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 187.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 188.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 189.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 190.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 192.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 193.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 194.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 195.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 197.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 198.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 199.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 200.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 202.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 203.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 204.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 205.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 207.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 208.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 209.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 210.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 212.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 213.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 214.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 215.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 217.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 218.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 219.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 220.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 222.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 223.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 224.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 225.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 227.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 228.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 229.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 230.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 232.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 233.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 234.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 235.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 237.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 238.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 239.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 240.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 242.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 243.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 244.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 245.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 247.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 248.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 249.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 250.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 252.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 253.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 254.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 255.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 257.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 258.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 259.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 260.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 262.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 263.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 264.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 265.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 267.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 268.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 269.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 270.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 272.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 273.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 274.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 275.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 277.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 278.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 279.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 280.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 282.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 283.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 284.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 285.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 287.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 288.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 289.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 290.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 292.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 293.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 294.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 295.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 297.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 298.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 299.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 300.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 302.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 303.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 304.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 305.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 307.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 308.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 309.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 310.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 312.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 313.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 314.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 315.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 317.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 318.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 319.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 320.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 322.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 323.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 324.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 325.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 327.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 328.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 329.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 330.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 332.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 333.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 334.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 335.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 337.147491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 338.397491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 339.647491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 170.925140380859,
+            "y": 340.897491455078,
+            "w": 24,
+            "h": 37.25
+          },
+          {
+            "x": 165.258346557617,
+            "y": 326.702697753906,
+            "w": 29.666793823242017,
+            "h": 51.44479370117199
+          },
+          {
+            "x": 159.591674804688,
+            "y": 311.98046875,
+            "w": 29.666671752928977,
+            "h": 50.72222900390602
+          },
+          {
+            "x": 153.925003051758,
+            "y": 297.98046875,
+            "w": 29.66667175293,
+            "h": 50
+          },
+          {
+            "x": 148.258331298828,
+            "y": 284.702697753906,
+            "w": 29.66667175293,
+            "h": 49.27777099609398
+          },
+          {
+            "x": 142.591659545898,
+            "y": 272.147155761719,
+            "w": 29.66667175293,
+            "h": 48.555541992187045
+          },
+          {
+            "x": 136.924987792969,
+            "y": 260.313812255859,
+            "w": 29.666671752929005,
+            "h": 47.83334350586
+          },
+          {
+            "x": 131.258316040039,
+            "y": 249.20269775390602,
+            "w": 29.66667175293,
+            "h": 47.111114501952954
+          },
+          {
+            "x": 125.591644287109,
+            "y": 238.81381225585898,
+            "w": 29.66667175293,
+            "h": 46.388885498047046
+          },
+          {
+            "x": 121.258316040039,
+            "y": 229.14714050293,
+            "w": 28.33332824707,
+            "h": 45.66667175292898
+          },
+          {
+            "x": 116.924987792969,
+            "y": 220.202697753906,
+            "w": 28.33332824707,
+            "h": 44.944442749024006
+          },
+          {
+            "x": 112.591651916504,
+            "y": 211.98046875,
+            "w": 28.333335876465,
+            "h": 44.222229003905994
+          },
+          {
+            "x": 108.258316040039,
+            "y": 204.48046875,
+            "w": 28.333335876465,
+            "h": 43.5
+          },
+          {
+            "x": 103.924980163574,
+            "y": 197.702682495117,
+            "w": 28.333335876465,
+            "h": 42.77778625488301
+          },
+          {
+            "x": 99.591644287109,
+            "y": 191.647125244141,
+            "w": 28.333335876465,
+            "h": 42.055557250975994
+          },
+          {
+            "x": 95.258308410645,
+            "y": 186.313781738281,
+            "w": 28.333335876464005,
+            "h": 41.33334350586
+          },
+          {
+            "x": 90.92497253418,
+            "y": 181.702667236328,
+            "w": 28.333335876465,
+            "h": 40.61111450195298
+          },
+          {
+            "x": 86.5916366577148,
+            "y": 177.813781738281,
+            "w": 28.3333358764652,
+            "h": 39.88888549804702
+          },
+          {
+            "x": 82.25830078125,
+            "y": 174.647109985352,
+            "w": 28.3333358764648,
+            "h": 39.166671752929005
+          },
+          {
+            "x": 77.9249649047852,
+            "y": 172.202667236328,
+            "w": 28.3333358764648,
+            "h": 38.44444274902398
+          },
+          {
+            "x": 73.5916290283203,
+            "y": 170.480438232422,
+            "w": 28.3333358764649,
+            "h": 37.72222900390602
+          },
+          {
+            "x": 69.2582931518555,
+            "y": 169.480438232422,
+            "w": 28.3333358764648,
+            "h": 37
+          },
+          {
+            "x": 64.9249572753906,
+            "y": 169.202651977539,
+            "w": 28.3333358764649,
+            "h": 36.27778625488298
+          },
+          {
+            "x": 60.591621398925795,
+            "y": 169.202651977539,
+            "w": 28.3333358764648,
+            "h": 36.44444274902298
+          },
+          {
+            "x": 56.258285522460895,
+            "y": 169.647094726562,
+            "w": 28.3333358764649,
+            "h": 37.16667175293
+          },
+          {
+            "x": 51.9249534606934,
+            "y": 170.813766479492,
+            "w": 28.333332061767493,
+            "h": 37.88888549804702
+          },
+          {
+            "x": 47.5916213989258,
+            "y": 172.702651977539,
+            "w": 28.3333320617676,
+            "h": 38.61111450195298
+          },
+          {
+            "x": 43.2582893371582,
+            "y": 175.313766479492,
+            "w": 28.3333320617676,
+            "h": 39.33332824707
+          },
+          {
+            "x": 38.9249572753906,
+            "y": 178.647094726562,
+            "w": 28.333332061767607,
+            "h": 40.05555725097702
+          },
+          {
+            "x": 34.591625213623,
+            "y": 182.702651977539,
+            "w": 28.3333320617676,
+            "h": 40.777770996094006
+          },
+          {
+            "x": 30.258293151855497,
+            "y": 187.480422973633,
+            "w": 28.3333320617675,
+            "h": 41.5
+          },
+          {
+            "x": 25.924961090087898,
+            "y": 192.980422973633,
+            "w": 28.3333320617676,
+            "h": 42.22221374511699
+          },
+          {
+            "x": 21.5916290283203,
+            "y": 199.20263671875,
+            "w": 28.3333320617676,
+            "h": 42.94444274902301
+          },
+          {
+            "x": 17.2582950592041,
+            "y": 206.147079467773,
+            "w": 28.333333969116197,
+            "h": 43.66667175293
+          },
+          {
+            "x": 12.924961090087901,
+            "y": 213.813751220703,
+            "w": 28.3333339691162,
+            "h": 44.38888549804699
+          },
+          {
+            "x": 8.591629028320298,
+            "y": 222.20263671875,
+            "w": 28.333332061767603,
+            "h": 45.11111450195301
+          },
+          {
+            "x": 4.258295059204102,
+            "y": 231.313751220703,
+            "w": 28.333333969116197,
+            "h": 45.83334350585898
+          },
+          {
+            "x": -0.0750389099121005,
+            "y": 241.147094726562,
+            "w": 28.333333969116204,
+            "h": 46.55554199218801
+          },
+          {
+            "x": -4.40837240219116,
+            "y": 251.70263671875,
+            "w": 28.33333349227906,
+            "h": 47.27777099609398
+          },
+          {
+            "x": -8.74170589447021,
+            "y": 262.980407714844,
+            "w": 28.33333349227905,
+            "h": 48
+          },
+          {
+            "x": -13.07503938674927,
+            "y": 274.980407714844,
+            "w": 28.33333349227906,
+            "h": 42.94482421875
+          },
+          {
+            "x": -17.40837287902832,
+            "y": 281.925231933594,
+            "w": 28.33333349227905,
+            "h": 36.00006103515602
+          },
+          {
+            "x": -21.74170684814453,
+            "y": 281.92529296875,
+            "w": 28.33333396911621,
+            "h": 36
+          },
+          {
+            "x": -26.0750408172607,
+            "y": 281.92529296875,
+            "w": 28.33333396911617,
+            "h": 36
+          },
+          {
+            "x": -30.408374786377,
+            "y": 281.92529296875,
+            "w": 28.3333339691163,
+            "h": 36
+          },
+          {
+            "x": -34.7417068481445,
+            "y": 281.92529296875,
+            "w": 28.3333320617675,
+            "h": 36
+          },
+          {
+            "x": -39.075038909912095,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -43.4083709716797,
+            "y": 281.92529296875,
+            "w": 28.333332061767603,
+            "h": 36
+          },
+          {
+            "x": -47.7417030334473,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -52.0750350952148,
+            "y": 281.92529296875,
+            "w": 28.3333320617675,
+            "h": 36
+          },
+          {
+            "x": -56.4083671569824,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -60.74169921875,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -65.0750312805176,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -69.4083633422852,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -73.7416954040527,
+            "y": 281.92529296875,
+            "w": 28.3333320617675,
+            "h": 36
+          },
+          {
+            "x": -78.0750274658203,
+            "y": 281.92529296875,
+            "w": 28.3333320617676,
+            "h": 36
+          },
+          {
+            "x": -82.4083633422852,
+            "y": 281.92529296875,
+            "w": 28.3333358764649,
+            "h": 36
+          },
+          {
+            "x": -86.74169921875,
+            "y": 281.92529296875,
+            "w": 28.3333358764648,
+            "h": 36
+          },
+          {
+            "x": -91.0750350952148,
+            "y": 281.92529296875,
+            "w": 28.3333358764648,
+            "h": 36
+          },
+          {
+            "x": -95.4083709716797,
+            "y": 281.92529296875,
+            "w": 28.3333358764649,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 28.3333358764648,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          },
+          {
+            "x": -99.7417068481445,
+            "y": 281.92529296875,
+            "w": 24,
+            "h": 36
+          }
+        ],
+        "coverage": "recorded_policy_body_sweep",
+        "unverified": [
+          "all allowed entry states",
+          "alternative policies",
+          "unobserved projectile paths"
+        ]
+      },
+      "dynamicEnvelopes": [
+        {
+          "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+          "region": "UNKNOWN",
+          "status": "UNKNOWN"
+        }
+      ],
+      "seams": [
+        {
+          "id": "entry-seam",
+          "portId": "entry",
+          "allowedOverlap": [],
+          "region": {
+            "x": 78,
+            "y": -366,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "exit-seam",
+          "portId": "exit",
+          "allowedOverlap": [],
+          "region": {
+            "x": -114,
+            "y": 338,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        },
+        {
+          "id": "bottom-seam",
+          "portId": "bottom",
+          "allowedOverlap": [],
+          "region": {
+            "x": 78,
+            "y": 786,
+            "w": 64,
+            "h": 64
+          },
+          "status": "UNKNOWN"
+        }
+      ],
+      "transforms": [
+        {
+          "id": "identity",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "translation",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": [],
+          "note": "任意平移尚未验证；本项不是自由平移许可"
+        },
+        {
+          "id": "mirror-x",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 0,
+          "mirrorX": true,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "rotate-90",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "rotation": 90,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        },
+        {
+          "id": "scale-2",
+          "translation": [
+            0,
+            0
+          ],
+          "scale": [
+            2,
+            2
+          ],
+          "rotation": 0,
+          "mirrorX": false,
+          "status": "UNKNOWN",
+          "validationIds": []
+        }
+      ]
+    },
+    "ports": [
+      {
+        "id": "entry",
+        "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-entry",
+        "position": [
+          110,
+          -334
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 78,
+            "y": -366,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          0,
+          -1
+        ],
+        "orientationSource": "design proposal, not evidence of allowed movement",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "entry-seam"
+        ],
+        "routeRoles": [
+          "main:entry"
+        ],
+        "stagingPosition": [
+          110,
+          -288
+        ],
+        "face": "TOP",
+        "surface": "ONE_WAY_PLATFORM",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_revision_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "initialPermissionConditions": {
+          "availableAbilitiesExact": [
+            "move",
+            "wall_climb"
+          ],
+          "requiresRevalidationWithAdditionalUpwardAbilities": true
+        },
+        "supportObjectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+        "grid": {
+          "cell": [
+            1,
+            0
+          ],
+          "edge": "N",
+          "stagingPosition": [
+            110,
+            -288
+          ]
+        }
+      },
+      {
+        "id": "exit",
+        "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-exit",
+        "position": [
+          -82,
+          370
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": -114,
+            "y": 338,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          -1,
+          0
+        ],
+        "orientationSource": "design proposal, not evidence of allowed movement",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "exit-seam"
+        ],
+        "routeRoles": [
+          "main:exit"
+        ],
+        "stagingPosition": [
+          -58,
+          384
+        ],
+        "face": "LEFT",
+        "surface": "ROCK",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_revision_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "supportObjectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+        "grid": {
+          "cell": [
+            0,
+            5
+          ],
+          "edge": "W",
+          "stagingPosition": [
+            -58,
+            384
+          ],
+          "profile": "ground64/v1"
+        }
+      },
+      {
+        "id": "bottom",
+        "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-bottom",
+        "position": [
+          110,
+          818
+        ],
+        "connection": {
+          "status": "declared",
+          "region": {
+            "x": 78,
+            "y": 786,
+            "w": 64,
+            "h": 64
+          }
+        },
+        "support": {
+          "objectId": "revision053-bottom-support",
+          "face": "top",
+          "status": "source_derived"
+        },
+        "normal": [
+          0,
+          1
+        ],
+        "orientationSource": "design proposal, not evidence of allowed movement",
+        "motion": {
+          "ingress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          },
+          "egress": {
+            "directions": "UNKNOWN",
+            "modes": "UNKNOWN"
+          }
+        },
+        "preconditions": {
+          "ingress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "egress": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "seamIds": [
+          "bottom-seam"
+        ],
+        "routeRoles": [
+          "main:entry"
+        ],
+        "stagingPosition": [
+          110,
+          768
+        ],
+        "face": "BOTTOM",
+        "surface": "ONE_WAY_PLATFORM",
+        "permission": "INOUT",
+        "permissionStatus": "declared_pending_revision_validation",
+        "cornerRelocations": {
+          "TOP_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "TOP_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_LEFT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          },
+          "BOTTOM_RIGHT": {
+            "applicable": false,
+            "allowed": false,
+            "reason": "port_not_on_this_corner_block_outer_face",
+            "profileId": null
+          }
+        },
+        "initialPermissionConditions": {
+          "availableAbilitiesExact": [
+            "move",
+            "wall_climb"
+          ],
+          "requiresRevalidationWithAdditionalUpwardAbilities": true
+        },
+        "supportObjectId": "revision053-bottom-support",
+        "grid": {
+          "cell": [
+            1,
+            8
+          ],
+          "edge": "S",
+          "stagingPosition": [
+            110,
+            768
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "from": "entry",
+        "to": "entry",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": []
+      },
+      {
+        "from": "entry",
+        "to": "exit",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "entry-to-exit"
+        ]
+      },
+      {
+        "from": "entry",
+        "to": "bottom",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "entry-to-bottom"
+        ]
+      },
+      {
+        "from": "exit",
+        "to": "entry",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "exit-to-entry"
+        ]
+      },
+      {
+        "from": "exit",
+        "to": "exit",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": []
+      },
+      {
+        "from": "exit",
+        "to": "bottom",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "exit-to-bottom"
+        ]
+      },
+      {
+        "from": "bottom",
+        "to": "entry",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "bottom-to-entry"
+        ]
+      },
+      {
+        "from": "bottom",
+        "to": "exit",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": [
+          "bottom-to-exit"
+        ]
+      },
+      {
+        "from": "bottom",
+        "to": "bottom",
+        "status": "UNKNOWN",
+        "conditions": "initial permission INOUT/INOUT",
+        "routeIds": []
+      }
+    ],
+    "routes": [
+      {
+        "id": "entry-to-exit",
+        "from": "entry",
+        "to": "exit",
+        "role": "main",
+        "pathObjectId": "design-route-entry-to-exit",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -1.5,
+          5.5
+        ],
+        "evidenceStatus": "UNKNOWN"
+      },
+      {
+        "id": "exit-to-entry",
+        "from": "exit",
+        "to": "entry",
+        "role": "return",
+        "pathObjectId": "design-route-exit-to-entry",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          1.5,
+          -5.5
+        ],
+        "evidenceStatus": "UNKNOWN"
+      },
+      {
+        "id": "entry-to-bottom",
+        "from": "entry",
+        "to": "bottom",
+        "role": "return",
+        "pathObjectId": "design-route-entry-to-bottom",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          0,
+          9
+        ],
+        "evidenceStatus": "UNKNOWN"
+      },
+      {
+        "id": "bottom-to-entry",
+        "from": "bottom",
+        "to": "entry",
+        "role": "return",
+        "pathObjectId": "design-route-bottom-to-entry",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          0,
+          -9
+        ],
+        "evidenceStatus": "UNKNOWN"
+      },
+      {
+        "id": "exit-to-bottom",
+        "from": "exit",
+        "to": "bottom",
+        "role": "return",
+        "pathObjectId": "design-route-exit-to-bottom",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          1.5,
+          3.5
+        ],
+        "evidenceStatus": "UNKNOWN"
+      },
+      {
+        "id": "bottom-to-exit",
+        "from": "bottom",
+        "to": "exit",
+        "role": "return",
+        "pathObjectId": "design-route-bottom-to-exit",
+        "capabilityRequirements": {
+          "version": 1,
+          "status": "defined",
+          "allOf": [
+            "jump",
+            "wall_climb"
+          ],
+          "anyOfGroups": [],
+          "note": "Explicit abilities for the revised approved interface."
+        },
+        "difficulty": {
+          "version": 1,
+          "scale": "gunman-rush/module-difficulty/v1",
+          "score": null,
+          "note": ""
+        },
+        "availability": "UNKNOWN",
+        "transfer": {
+          "status": "UNKNOWN",
+          "requires": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "ensures": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          }
+        },
+        "return": {
+          "status": "UNKNOWN",
+          "routeId": "UNKNOWN",
+          "conditions": "UNKNOWN"
+        },
+        "onward": {
+          "status": "UNKNOWN",
+          "target": "UNKNOWN",
+          "requiredState": {
+            "capabilityRequirements": {
+              "version": 1,
+              "status": "unspecified",
+              "allOf": [],
+              "anyOfGroups": [],
+              "note": ""
+            },
+            "equipment": "UNKNOWN",
+            "grounded": "UNKNOWN",
+            "velocity": "UNKNOWN",
+            "remainingJumps": "UNKNOWN",
+            "airShots": "UNKNOWN",
+            "stamina": "UNKNOWN",
+            "health": "UNKNOWN",
+            "shotCooldown": "UNKNOWN",
+            "traversalState": "UNKNOWN",
+            "mechanisms": "UNKNOWN",
+            "phase": "UNKNOWN",
+            "recoveryConditions": "UNKNOWN"
+          },
+          "note": "原见证无伤落地稳定不等于所有进入状态均可恢复"
+        },
+        "resourcePressure": {
+          "status": "partial",
+          "observedShots": 0,
+          "observedJumps": 1,
+          "phaseWaits": [
+            {
+              "op": "jump",
+              "trigger": {
+                "state": "wall_attach",
+                "min_after": 0,
+                "timeout": 100,
+                "dynamic": {
+                  "kind": "saw_phase",
+                  "id": "mouth-saw",
+                  "window": [
+                    0.28,
+                    0.34
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "validationIds": [],
+        "requiredAbilities": [
+          "move",
+          "wall_climb"
+        ],
+        "actionTags": [
+          "jump",
+          "jump_release",
+          "settle"
+        ],
+        "durationSeconds": "UNKNOWN",
+        "resourceProfile": {
+          "status": "UNKNOWN"
+        },
+        "initialConditions": {
+          "status": "UNKNOWN"
+        },
+        "localDisplacementBlocks": [
+          -1.5,
+          -3.5
+        ],
+        "evidenceStatus": "UNKNOWN"
+      }
+    ],
+    "unlocks": [],
+    "composition": {
+      "components": [],
+      "connections": [],
+      "exports": [],
+      "cells": [
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-0"
+          ],
+          "contentVersion": "sha256:0d6b564a06fad24c978d18b137bb84723572eb926486377bceab3180134160ff"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-1"
+          ],
+          "contentVersion": "sha256:6b5549668368a86d6e5306fda5836a3aba91198b72752081fbe84551bcf9e6f5"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-2"
+          ],
+          "contentVersion": "sha256:fef96481628b3d090a06a5aa2fdaefaae5e779f569037cc0822f4bba8d73b555"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-3"
+          ],
+          "contentVersion": "sha256:2c9f748d5ada5d0e8f63c0ed6677a9c9c09ea34ded88c4b46ad7643cb31052d5"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4"
+          ],
+          "contentVersion": "sha256:fcaba9595cdf86eed367d8e569e3ce41c5dd0c15723fdd578d9f62a39bbe5424"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-0",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-0"
+          ],
+          "contentVersion": "sha256:9ec54ec0f60fd56454692f8216665e62dd04d2912842e6d9edd871bff1212982"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-1",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-1"
+          ],
+          "contentVersion": "sha256:5949d523ab7eb79aa2d75dafe4636f9625dddeccba3cdba01f344f22b0882913"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-2",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-2"
+          ],
+          "contentVersion": "sha256:31c1f19d2b2978a5a60d1ca28a16fdd0e6f7f3788627272910ad7317a1091a62"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-3",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-3"
+          ],
+          "contentVersion": "sha256:f252452b808af6e9d5a722338c50fa64bfaf79beae2695e718eef8ca337b9dab"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-4",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/thorn-4"
+          ],
+          "contentVersion": "sha256:b7e69a08b36bf8a20eaafc5e5e1a2a2d375832f8c7fe1cddd80642136b78e9c4"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-0"
+          ],
+          "contentVersion": "sha256:0e3a62258932e50c9ce04660f02565f8b25cf2e645b1c9279f62141758720926"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/saw-track-0"
+          ],
+          "contentVersion": "sha256:a7d750fb199af3a7a30dd76ee9713878fe85d424745bcb5e74a38f02bd3af30e"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/cache-0"
+          ],
+          "contentVersion": "sha256:b9c81e5baf550e39672841b238decc5898c21caf57637eea90ee6640034c5b3f"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-left",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-left"
+          ],
+          "contentVersion": "sha256:19843415467e54094214644f92d9185c6b238e025c048ae4f217cdbcc3464c05"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-right",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-shaft-right"
+          ],
+          "contentVersion": "sha256:9b2bac0046b5c14340027c0759f6ddb703bca3f8d4a4ec88d0dfeb0c26c25e99"
+        },
+        {
+          "id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+          "objectIds": [
+            "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock"
+          ],
+          "contentVersion": "sha256:692297b804acf36fe70f76ee38be101e3bffd53d98744a46b73ab19ddc6e8c40"
+        },
+        {
+          "id": "revision053-bottom-support",
+          "objectIds": [
+            "revision053-bottom-support"
+          ],
+          "contentVersion": "sha256:ec26370b77a3a21564638019b3cc445118eacf7da4930404e59af33bbaac8ea6"
+        }
+      ]
+    },
+    "validations": [],
+    "visualization": {
+      "contentVersion": "sha256:21f326887eb9d20a0f8235d8b99573db8699fd5a6961916d13a1d719115f0e65",
+      "path": "thumbnail.svg"
+    },
+    "staticChecks": {
+      "result": "UNKNOWN",
+      "contentVersion": "sha256:21f326887eb9d20a0f8235d8b99573db8699fd5a6961916d13a1d719115f0e65",
+      "method": "existing Map Notes validator + output contract structural/geometry checks",
+      "scope": "schema, references, actual extents, separate motion envelopes, exhaustive ordered port pairs; not physics"
+    },
+    "foundation": {
+      "version": "1.0",
+      "blockSize": 128,
+      "widthBlocks": 3,
+      "heightBlocks": 9
+    },
+    "legacyCertification": {
+      "contentVersion": "sha256:b901a01e430991b5940a3049bb92c1d7f8bc771dcf6f7f54ca5bbad437082267",
+      "scope": "Historical witness only; not a v2 certificate."
+    },
+    "closures": [],
+    "mirror": {
+      "status": "UNKNOWN",
+      "validationIds": []
+    },
+    "portConfigurations": []
+  }
+}

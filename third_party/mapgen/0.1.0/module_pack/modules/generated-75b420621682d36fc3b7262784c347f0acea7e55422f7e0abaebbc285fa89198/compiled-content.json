@@ -1,0 +1,582 @@
+{
+  "platforms": [
+    [
+      90,
+      18,
+      50,
+      60
+    ],
+    [
+      195,
+      -80,
+      32,
+      898
+    ],
+    [
+      40,
+      -334,
+      20,
+      434
+    ],
+    [
+      40,
+      300,
+      20,
+      518
+    ],
+    [
+      -82,
+      402,
+      102,
+      30
+    ],
+    [
+      74,
+      -334,
+      12,
+      291.9252418577671
+    ],
+    [
+      134,
+      -334,
+      12,
+      291.9252418577671
+    ],
+    [
+      78,
+      -270,
+      64,
+      12
+    ],
+    [
+      78,
+      786,
+      64,
+      12
+    ]
+  ],
+  "one_way_platform_indices": [
+    7,
+    8
+  ],
+  "wall_platform_indices": [
+    1,
+    3,
+    5,
+    6
+  ],
+  "hazards": [],
+  "thorns": [
+    {
+      "surface_id": "upper-mouth",
+      "platform_index": 2,
+      "face": "right",
+      "start_offset": 0,
+      "length": 434,
+      "depth": 8
+    },
+    {
+      "surface_id": "lower-mouth",
+      "platform_index": 3,
+      "face": "right",
+      "start_offset": 0,
+      "length": 518,
+      "depth": 8
+    },
+    {
+      "surface_id": "right-upper-no-reset",
+      "platform_index": 1,
+      "face": "left",
+      "start_offset": 0,
+      "length": 40,
+      "depth": 8
+    },
+    {
+      "surface_id": "right-top-no-perch",
+      "platform_index": 1,
+      "face": "top",
+      "start_offset": 0,
+      "length": 32,
+      "depth": 8
+    },
+    {
+      "surface_id": "lower-mouth-no-perch",
+      "platform_index": 3,
+      "face": "top",
+      "start_offset": 0,
+      "length": 20,
+      "depth": 8
+    }
+  ],
+  "saws": [
+    {
+      "source_id": "mouth-saw",
+      "origin": [
+        60.0,
+        170.0
+      ],
+      "travel": [
+        0,
+        100
+      ],
+      "radius": 18,
+      "period": 0.9,
+      "initial_phase": 0.85,
+      "damage": 1,
+      "contact_interval": 0.7
+    }
+  ],
+  "moving_platforms": [],
+  "hooks": [],
+  "latches": [],
+  "enemies": [],
+  "reward_sites": [
+    {
+      "id": "visible-cache",
+      "position": [
+        -46.0,
+        384.0
+      ],
+      "region": [
+        -76,
+        379,
+        60,
+        10
+      ],
+      "amount": 8
+    }
+  ],
+  "schema": "pcg/compiled-module-content/v1",
+  "source_sha256": "332aac04e7f96208b5003b3a70069a45d5619c829f5e9f1412d7b2e711dc7767",
+  "stable_id": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198",
+  "ports": [
+    {
+      "id": "entry",
+      "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-entry",
+      "position": [
+        110,
+        -334
+      ],
+      "connection": {
+        "status": "declared",
+        "region": {
+          "x": 78,
+          "y": -366,
+          "w": 64,
+          "h": 64
+        }
+      },
+      "support": {
+        "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+        "face": "top",
+        "status": "source_derived"
+      },
+      "normal": [
+        0,
+        -1
+      ],
+      "orientationSource": "design proposal, not evidence of allowed movement",
+      "motion": {
+        "ingress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        },
+        "egress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        }
+      },
+      "preconditions": {
+        "ingress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        },
+        "egress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        }
+      },
+      "seamIds": [
+        "entry-seam"
+      ],
+      "routeRoles": [
+        "main:entry"
+      ],
+      "stagingPosition": [
+        110,
+        -288
+      ],
+      "face": "TOP",
+      "surface": "ONE_WAY_PLATFORM",
+      "permission": "INOUT",
+      "permissionStatus": "declared_pending_revision_validation",
+      "cornerRelocations": {
+        "TOP_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "TOP_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        }
+      },
+      "initialPermissionConditions": {
+        "availableAbilitiesExact": [
+          "move",
+          "wall_climb"
+        ],
+        "requiresRevalidationWithAdditionalUpwardAbilities": true
+      },
+      "supportObjectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/guided-top-dock",
+      "grid": {
+        "cell": [
+          1,
+          0
+        ],
+        "edge": "N",
+        "stagingPosition": [
+          110,
+          -288
+        ]
+      }
+    },
+    {
+      "id": "exit",
+      "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-exit",
+      "position": [
+        -82,
+        370
+      ],
+      "connection": {
+        "status": "declared",
+        "region": {
+          "x": -114,
+          "y": 338,
+          "w": 64,
+          "h": 64
+        }
+      },
+      "support": {
+        "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+        "face": "top",
+        "status": "source_derived"
+      },
+      "normal": [
+        -1,
+        0
+      ],
+      "orientationSource": "design proposal, not evidence of allowed movement",
+      "motion": {
+        "ingress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        },
+        "egress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        }
+      },
+      "preconditions": {
+        "ingress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        },
+        "egress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        }
+      },
+      "seamIds": [
+        "exit-seam"
+      ],
+      "routeRoles": [
+        "main:exit"
+      ],
+      "stagingPosition": [
+        -58,
+        384
+      ],
+      "face": "LEFT",
+      "surface": "ROCK",
+      "permission": "INOUT",
+      "permissionStatus": "declared_pending_revision_validation",
+      "cornerRelocations": {
+        "TOP_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "TOP_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        }
+      },
+      "supportObjectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/platform-4",
+      "grid": {
+        "cell": [
+          0,
+          5
+        ],
+        "edge": "W",
+        "stagingPosition": [
+          -58,
+          384
+        ],
+        "profile": "ground64/v1"
+      }
+    },
+    {
+      "id": "bottom",
+      "objectId": "generated-75b420621682d36fc3b7262784c347f0acea7e55422f7e0abaebbc285fa89198/port-bottom",
+      "position": [
+        110,
+        818
+      ],
+      "connection": {
+        "status": "declared",
+        "region": {
+          "x": 78,
+          "y": 786,
+          "w": 64,
+          "h": 64
+        }
+      },
+      "support": {
+        "objectId": "revision053-bottom-support",
+        "face": "top",
+        "status": "source_derived"
+      },
+      "normal": [
+        0,
+        1
+      ],
+      "orientationSource": "design proposal, not evidence of allowed movement",
+      "motion": {
+        "ingress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        },
+        "egress": {
+          "directions": "UNKNOWN",
+          "modes": "UNKNOWN"
+        }
+      },
+      "preconditions": {
+        "ingress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        },
+        "egress": {
+          "capabilityRequirements": {
+            "version": 1,
+            "status": "unspecified",
+            "allOf": [],
+            "anyOfGroups": [],
+            "note": ""
+          },
+          "equipment": "UNKNOWN",
+          "grounded": "UNKNOWN",
+          "velocity": "UNKNOWN",
+          "remainingJumps": "UNKNOWN",
+          "airShots": "UNKNOWN",
+          "stamina": "UNKNOWN",
+          "health": "UNKNOWN",
+          "shotCooldown": "UNKNOWN",
+          "traversalState": "UNKNOWN",
+          "mechanisms": "UNKNOWN",
+          "phase": "UNKNOWN",
+          "recoveryConditions": "UNKNOWN"
+        }
+      },
+      "seamIds": [
+        "bottom-seam"
+      ],
+      "routeRoles": [
+        "main:entry"
+      ],
+      "stagingPosition": [
+        110,
+        768
+      ],
+      "face": "BOTTOM",
+      "surface": "ONE_WAY_PLATFORM",
+      "permission": "INOUT",
+      "permissionStatus": "declared_pending_revision_validation",
+      "cornerRelocations": {
+        "TOP_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "TOP_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_LEFT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        },
+        "BOTTOM_RIGHT": {
+          "applicable": false,
+          "allowed": false,
+          "reason": "port_not_on_this_corner_block_outer_face",
+          "profileId": null
+        }
+      },
+      "initialPermissionConditions": {
+        "availableAbilitiesExact": [
+          "move",
+          "wall_climb"
+        ],
+        "requiresRevalidationWithAdditionalUpwardAbilities": true
+      },
+      "supportObjectId": "revision053-bottom-support",
+      "grid": {
+        "cell": [
+          1,
+          8
+        ],
+        "edge": "S",
+        "stagingPosition": [
+          110,
+          768
+        ]
+      }
+    }
+  ],
+  "world_bounds": [
+    -82,
+    -334,
+    384,
+    1152
+  ],
+  "entry_port": [
+    110.0,
+    -288.0
+  ],
+  "exit_port": [
+    -58.0,
+    384.0
+  ]
+}
