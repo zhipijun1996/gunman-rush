@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "MOBILE-WEB-FPS-04",
   "task_type": "small_fix",
-  "workflow": "in_progress",
+  "workflow": "awaiting-device",
   "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
-  "reviewed_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af",
+  "reviewed_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
   "content_version": "action-candidate-v2",
   "owner": "root",
   "purpose": "Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements",
@@ -30,7 +30,8 @@
   "deliverables": [
     "docs/evidence/mobile_web_fps_04/README.md",
     "Draft PR120",
-    "Isolated perf-04 preview; ordinary main unchanged"
+    "Isolated perf-04 preview; ordinary main unchanged",
+    "Independent perf-actions normal Web preview; preserve main/audio-before/perf-04"
   ],
   "creative_decisions": [],
   "formal_impact": true,
@@ -73,10 +74,11 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "上一轮96+383结果保留；动作窗口与新无损优化待本轮实测。",
+      "status": "passed",
+      "reason": "冻结源fresh underworld-formal通过原96及等价444，严格退出/原预算保留；三组真实Web动作窗口身份和接受动作一致。整体帧率和手机另列。",
       "evidence": [
-        "formal-cache"
+        "formal-actions",
+        "action-comparison"
       ]
     },
     "formal_integration": {
@@ -106,14 +108,15 @@
     },
     "performance": {
       "status": "unverified",
-      "reason": "静止固定前缀CPU有收益，移动miss有额外成本；原版反序控制显示整体FPS差异不足以成立，手机未知。详见本轮证据。",
+      "reason": "六类属性发现两次原生均值206.6→49.3、191.4→51.0us（局部减少76%/73%）；Web A/B/A FPS7.66/7.78/7.47，P95波动，未证稳定整体收益。",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
       "reason": "生产缓存/计时/runner/tests已有独立限定审查；pair helper由root另审。本卡不以局部review签整项性能/设备接受。",
       "evidence": [
-        "review"
+        "review",
+        "review-actions"
       ]
     },
     "device": {
@@ -153,6 +156,51 @@
       "content_version": "candidate-v1",
       "method": "Independent static review of root runtime/probe and other agent runner/tests; own pair helper explicitly excluded",
       "observed": "No blocking correctness issue in reviewed scope; no phone or FPS acceptance",
+      "reviewer": "/root/perf_release_pair",
+      "implementers": [
+        "root",
+        "/root/perf_browser_runner"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "formal-actions",
+      "path": "docs/evidence/mobile_web_fps_04/actions/formal-harness/report.json",
+      "sha256": "8d6800c3c0e1d8b1f368e62291cbfc3aea397ae4a12e2f3b455c3a02aecb76c6",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+      "content_version": "action-candidate-v2",
+      "method": "Fresh selected Harness on frozen source; shared120s budget and strict exits unchanged",
+      "observed": "Original formal96/0 plus equivalence444/0; source stable; notfull165",
+      "command": "python3 tools/harness.py --check underworld-formal --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU"
+    },
+    {
+      "id": "action-comparison",
+      "path": "docs/evidence/mobile_web_fps_04/actions/comparison.json",
+      "sha256": "52ab22def2c6733fdaa1a3569cd235b80946bf462d0f9e713ade3671768bb260",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+      "content_version": "action-candidate-v2",
+      "method": "Three sequential real demo Web30s windows; exact same probe/seed/input/viewport; one foreground delta",
+      "observed": "Four accepted jumps/shots/airborne rounds each, no HP loss; no stable wholeFPS claim",
+      "command": "python3 build/mobile_web_fps_04/actions/summarize_actions.py",
+      "exit_code": 0,
+      "environment": "Linux Godot4.7.2; Web uses Chromium SwiftShader, not phone GPU"
+    },
+    {
+      "id": "review-actions",
+      "path": "docs/worklines/mobile_web_fps_04/review.md",
+      "sha256": "42c54006216817a268705dbbbb2fce05c47236a1e978e9c6a3def300843b2076",
+      "kind": "review",
+      "producer": "/root/perf_release_pair",
+      "source_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3",
+      "content_version": "action-candidate-v2",
+      "method": "Independent read-only production/test/probe review; root separately reviewed other agent runner",
+      "observed": "No blocking production correctness issue; CPU method scope only; no device/FPS approval",
       "reviewer": "/root/perf_release_pair",
       "implementers": [
         "root",

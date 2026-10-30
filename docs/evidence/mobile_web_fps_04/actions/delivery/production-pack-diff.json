@@ -1,0 +1,57 @@
+{
+  "baseline": {
+    "build_id": "1394d114df73",
+    "pack": "index.1394d114df73.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "2fa18f4cc435",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 208701132,
+    "download_bytes": 205680782,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "5caf4d4f3b619b8413fd416743614edf3f1ea7af"
+  },
+  "candidate": {
+    "build_id": "f94fd4124f5f",
+    "pack": "index.f94fd4124f5f.pck",
+    "engine_id": "9c119194046e",
+    "cache_schema": 2,
+    "loader_id": "8e312f0233d0",
+    "threads_enabled": true,
+    "audio_supply": "dedicated_thread",
+    "pack_bytes": 208701420,
+    "download_bytes": 205684659,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 38349395,
+    "wasm_gzip_bytes": 10126269,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "eec08e9b3b6d12493233f5f0d489be6651121fa3"
+  },
+  "unchanged_entries": 3260,
+  "changed": [
+    {
+      "path": ".godot/global_script_class_cache.cfg",
+      "old_sha256": "013772cf167f5b935839615c004f87700338d821e85af5fe925e15dc65f6cfa8",
+      "new_sha256": "0c678585e71acaff73425118567f4b401d4cd5e0897322a8ee3836ab7764a2ec"
+    },
+    {
+      "path": ".godot/uid_cache.bin",
+      "old_sha256": "7cd56276aae2a198f1c733a93611d61ee10ef7f1ff52711321106bbf57cab8a2",
+      "new_sha256": "9ee5d1173191ae636ae0b38d6f09b976c2b8260cb774e5dd0ab49051ee5bbc8a"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_foreground.gdc",
+      "old_sha256": "bed111997d144b80d1c0c9c4a89942ad9d4f49b8c33799167a3abc4336517943",
+      "new_sha256": "5106699955e457c609359f1badc75327a1df87c1dd4136eafec601669c70c44f"
+    }
+  ],
+  "scope": "Actual normal export payload bytes; no diagnostic probe",
+  "verified": true,
+  "guard_note": "First guard incorrectly allowed only .godot paths and rejected expected foreground.gdc; corrected to exact three-path set. Original attempt retained."
+}

@@ -97,3 +97,5 @@ root 的 `summarize_profiles_02.py` 和 `profile-comparison-audit-02.json` 已�
 计时审查：path hash隔离父子同名实现，原super和返回值保留；observe分类是同一elapsed的副本，父子_shot与_emit_round为inclusive，均不可相加。heavy_landing只表示入参命中，不能证明Shader实际显示。root另审agent动作runner：真实CDP多指输入、完整RAF末尾、原30秒窗口和27秒输入边界、实际跳跃/射击/airborne/HP/位置守门保留；本地软件渲染不签手机FPS。
 
 后续待证热点：selected音效每次同步load/赋stream/play和leaf入树。没有分段实测前不修改音频；不能把整个_shot耗时归因于前景反射。
+
+最终结果独审（同一独立审查者，仅只读）：三组raw与汇总逐项核对，首末A完整identity一致，B仅foreground源不同；probe／观察器／输入／manifest／初始角色相机视口与保护计数一致。三组均4跳4枪4air，HP5→5、node1441→1441，无page errors；RAF覆盖99.57%／99.59%／99.64%。原生444／0、19个trail案例及eec08e9b fresh Harness exit0／reused=false实际成立。README没有把76.1%局部原生微基准外推整体FPS／手机。限定无阻断；稳定整帧收益与真机体验仍未验证。

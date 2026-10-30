@@ -39,3 +39,19 @@
 ## 未解决范围
 
 局部反射优化不等于全部偶发慢帧根因。`_shot`还包含selected音频同步load/赋stream/play和leaf入树；没有分段测量前不把它们定为根因，也不改音频。不降低分辨率、不删光照，不做美术或玩法重构。手机FPS与长时体验保持未验证。
+
+## 当前交付
+
+[新试玩 f94fd4124f5f](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f) · [旧候选1394](https://zhipijun1996.github.io/gunman-rush/perf-04/?v=1394d114df73) · [原主页](https://zhipijun1996.github.io/gunman-rush/?v=ad78f8ae3998) · [PR120](https://github.com/zhipijun1996/gunman-rush/pull/120)。运行源eec08e9b；正常导出不含诊断probe。deploy41003568533成功，四入口metadata与新候选7个完整公网文件SHA／长度实际核对通过；旧入口prepared文件无改动，本轮未重下载旧PCK。
+
+冻结源[fresh Harness](formal-harness/report.json)通过原96＋扩展444，exit0、原预算、严格退出、源稳定性均保留。正常Web bundle／缓存策略通过；包内3260项payload相同，变化精确为foreground.gdc与两份Godot索引。实际包比对首轮旧pack路径已被构建清理、次轮guard误排除预期foreground.gdc的失败保留；最终精确三路径检查通过。
+
+公开真实GUI进入家园与平原并实际触屏跳跃／射击；两个8秒混合PCM均352800非零帧、无clipping。工坊shot_pulse_a与输出相关0.432／0.856，距原生start均约0.045ms；家园混合结果相关较弱，不能单独签强资产识别。平原实际所选音效匹配成立；混合非零不证明全程无音频断续，手机与长时仍待验证。[交付明细](delivery/summary.json)。
+
+文档守门首轮因稀疏工作区缺少已跟踪的build／preview导入隔离标记失败；从原HEAD恢复原字节后，原structure检查通过，随后重跑docs。它们未改变生产源码。已单独核对正常包两份global class cache：全部类定义集合相同，仅顺序不同，无临时类进入运行索引。
+
+最终冻结源fresh原生复测（[native-property-02](native-property-02/report.json)）两轮均值191.4→51.0微秒，减少73.4%；与首轮76.1%的局部结果同方向。仍不外推整帧或手机。
+
+第二轮docs在全局quality处发现历史音频／动作等证据缺件，失败保留。按原`cloud_inputs --profile docs --materialize`恢复约1.016GB被选中的原提交输入，status ready、无blocker，未改变稀疏规则或放宽检查；原quality runner随后通过。
+
+最终[docs Harness](delivery/docs-harness/report.json)33项全部fresh通过，原失败与恢复记录保留。远端eec08e9b parallel另因任务索引／质量卡状态不一致失败；收尾记录已统一awaiting-device，本地global quality及docs33通过。该修正不改变运行包，完整新head远端CI仍未代签。
