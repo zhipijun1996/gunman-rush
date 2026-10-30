@@ -5,7 +5,7 @@ const MAX_VOICES := 12
 const MECHANISM_BELL_SOUND := preload("res://assets/audio/ambience_v1/plains_chime_a.wav")
 # Existing quiet-02 bell recording: lift only the accepted mechanism transient,
 # without changing the selected ambience asset/mix or any other cue's gain.
-const MECHANISM_BELL_GAIN_DB := 6.0
+const MECHANISM_BELL_GAIN_DB := 12.0
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
@@ -42,6 +42,39 @@ var _director_profiles: Array[String] = ["A", "B"]
 var _director_suppressed: Array[StringName] = []
 var _selected_profiles: Dictionary = {}
 var _selected_configured := false
+var _candidate_revisions: Dictionary = {}
+
+static func cue_committed_reward(origin: Node, event_id: StringName, legacy_cue: StringName) -> void:
+	# Only call after COMMITTED. Reward confirmation belongs to the accepted
+	# menu transaction, so it can finish while that menu still pauses the world.
+	if event_id not in [&"chest_open", &"item_get"] or legacy_cue not in [&"confirm", &"note"]: return
+	if not is_instance_valid(origin) or not origin.is_inside_tree(): return
+	var owner := origin
+	var service: GameAudio
+	while owner != null and service == null:
+		for child: Node in owner.get_children():
+			if child is GameAudio:
+				service = child as GameAudio
+				break
+		owner = owner.get_parent()
+	if service == null: return
+	if service.is_director_event_suppressed(event_id): return
+	if service.director_profile_for_event(event_id) != "original":
+		service.play_director_event(event_id, "", origin, false, true)
+	else:
+		service._play_original(legacy_cue, null, true, origin)
+
+func configure_candidate_revision(event_id: StringName, candidate: Dictionary) -> bool:
+	# Explicit feedback revision within the same bank/voice pool. The original
+	# user selection and audition A/B/C candidates remain available unchanged.
+	var revision_id: Variant = candidate.get("id")
+	if _shutting_down or not has_director_event(event_id) or not revision_id is String or revision_id.is_empty(): return false
+	var paths: Variant = candidate.get("variants")
+	if not paths is Array or paths.is_empty(): return false
+	for path: Variant in paths:
+		if not path is String or not ResourceLoader.exists(path, "AudioStream"): return false
+	_candidate_revisions[event_id] = candidate.duplicate(true)
+	return true
 
 static func ensure_buses() -> void:
 	# Unity buses preserve the original mix; candidates can be balanced separately.
@@ -108,7 +141,7 @@ static func hook_connected(origin: Node) -> void:
 
 func stop_regional_cues() -> void:
 	clear_ambience()
-	stop_director_cues()
+	stop_director_cues(null, false, true)
 	for voice: AudioStreamPlayer in _voices:
 		if REGIONAL_CUE_PATHS.has(voice.get_meta("cue_id", &"")):
 			voice.stop()
@@ -189,19 +222,24 @@ func play(id: StringName, stream_override: AudioStream = null) -> bool:
 		return play_director_event(event_id)
 	return _play_original(id, stream_override)
 
-func _play_original(id: StringName, stream_override: AudioStream = null) -> bool:
+func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
-	if get_tree().paused and id not in [&"click", &"confirm", &"denied"]: return false
+	var menu_reward := committed_reward and id in [&"confirm", &"note"]
+	if get_tree().paused and not menu_reward and id not in [&"click", &"confirm", &"denied"]: return false
 	var interval := 0.16 if id in [&"step", &"denied", &"armour"] else 0.055
 	if _clock - float(_last.get(id, -100.0)) < interval: return false
 	for voice: AudioStreamPlayer in _voices:
 		if voice.playing: continue
 		_last[id] = _clock
 		played[id] = int(played.get(id, 0)) + 1
-		voice.process_mode = Node.PROCESS_MODE_ALWAYS if id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
+		voice.process_mode = Node.PROCESS_MODE_ALWAYS if menu_reward or id in [&"click", &"confirm", &"denied"] else Node.PROCESS_MODE_PAUSABLE
 		voice.set_meta("cue_id", id)
 		_clear_director_metadata(voice)
-		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact"] else 20 if id == &"step" else 50)
+		if menu_reward:
+			voice.set_meta("committed_reward", true)
+			voice.set_meta("director_event", &"legacy_committed_reward")
+			if is_instance_valid(origin): voice.set_meta("director_origin", weakref(origin))
+		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact", &"mechanism_bell"] else 20 if id == &"step" else 50)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
 		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
@@ -212,7 +250,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null) -> bool
 		return true
 	# A/B keeps unselected critical legacy cues audible under candidate load.
 	# Original profile deliberately retains its existing full-pool drop policy.
-	if audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]:
+	if (audio_profile != "original" and id in [&"death", &"warning", &"boss_impact"]) or id == &"mechanism_bell":
 		var replaceable: AudioStreamPlayer
 		var lowest_priority := 90
 		for voice: AudioStreamPlayer in _voices:
@@ -224,7 +262,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null) -> bool
 			replaceable.stop()
 			replaceable.stream = null
 			director_preemptions += 1
-			return _play_original(id, stream_override)
+			return _play_original(id, stream_override, committed_reward, origin)
 	return false
 
 func _load_director_bank() -> void:
@@ -297,6 +335,7 @@ func configure_candidate_bank(manifest_path: String, rules_path: String) -> bool
 	_selected_profiles.clear()
 	_selected_configured = false
 	_director_bank = bank
+	_candidate_revisions.clear()
 	_director_profiles = profiles
 	_director_rules = rules.events
 	_director_variants.clear()
@@ -332,23 +371,28 @@ func director_event_for_cue(id: StringName) -> StringName:
 		&"note": return &"reward"
 	return &""
 
-func play_director_event(event_id: StringName, candidate: String = "", origin: Node = null, sustained: bool = false) -> bool:
+func play_director_event(event_id: StringName, candidate: String = "", origin: Node = null, sustained: bool = false, committed_reward: bool = false) -> bool:
 	if _shutting_down or volume <= 0 or not _director_bank.has(event_id) or is_director_event_suppressed(event_id): return false
 	var definition: Dictionary = _director_bank[event_id]
 	var selected_profile := candidate if not candidate.is_empty() else director_profile_for_event(event_id)
 	if selected_profile == "original":
 		var legacy: Variant = definition.get("legacy_cue", "")
-		return _play_original(StringName(legacy)) if legacy is String and not legacy.is_empty() else false
+		var accepted_reward := committed_reward and event_id in [&"chest_open", &"item_get"]
+		return _play_original(StringName(legacy), null, accepted_reward, origin) if legacy is String and not legacy.is_empty() else false
 	var candidate_id := "%s_%s" % [event_id, selected_profile.to_lower()] if selected_profile in _director_profiles else selected_profile
 	var chosen: Dictionary = {}
 	for option: Dictionary in definition.get("candidates", []):
 		if str(option.get("id", "")) == candidate_id:
 			chosen = option
 			break
+	if candidate.is_empty() and audio_profile == "selected" and _candidate_revisions.has(event_id):
+		chosen = _candidate_revisions[event_id]
+		candidate_id = str(chosen.id)
 	if chosen.is_empty(): return false
 	var rule: Dictionary = _director_rules.get(str(event_id), {})
 	var bus := StringName(rule.get("bus", "SFX"))
-	if get_tree().paused and bus != &"UI": return false
+	var menu_reward := committed_reward and event_id in [&"chest_open", &"item_get"]
+	if get_tree().paused and bus != &"UI" and not menu_reward: return false
 	var interval := float(rule.get("interval", 0.055))
 	if _director_clock - float(_director_last.get(event_id, -100.0)) < interval: return false
 	var priority := int(rule.get("priority", 50))
@@ -386,11 +430,12 @@ func play_director_event(event_id: StringName, candidate: String = "", origin: N
 	_clear_director_metadata(selected)
 	selected.stream = stream
 	selected.bus = bus
-	selected.process_mode = Node.PROCESS_MODE_ALWAYS if bus == &"UI" else Node.PROCESS_MODE_PAUSABLE
+	selected.process_mode = Node.PROCESS_MODE_ALWAYS if bus == &"UI" or menu_reward else Node.PROCESS_MODE_PAUSABLE
 	selected.set_meta("cue_id", StringName("director_" + event_id))
 	selected.set_meta("director_event", event_id)
 	selected.set_meta("director_family", &"motion" if event_id in [&"jump", &"land"] else &"weapon" if event_id in [&"shot", &"enemy_hit", &"shot_pulse", &"shot_shuriken", &"shot_bomb", &"bomb_explode"] else &"event")
 	selected.set_meta("director_sustained", sustained)
+	if menu_reward: selected.set_meta("committed_reward", true)
 	selected.set_meta("audio_priority", priority)
 	if is_instance_valid(origin): selected.set_meta("director_origin", weakref(origin))
 	var attenuation := float(rule.get("attenuation_db", 8.0))
@@ -405,9 +450,10 @@ func play_director_event(event_id: StringName, candidate: String = "", origin: N
 	if director_events.size() > 256: director_events.pop_front()
 	return true
 
-func stop_director_cues(origin: Node = null, sustained_only: bool = false) -> void:
+func stop_director_cues(origin: Node = null, sustained_only: bool = false, preserve_committed_rewards: bool = false) -> void:
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.has_meta("director_event"): continue
+		if preserve_committed_rewards and bool(voice.get_meta("committed_reward", false)): continue
 		if sustained_only and not bool(voice.get_meta("director_sustained", false)): continue
 		if is_instance_valid(origin):
 			if not voice.has_meta("director_origin"): continue
@@ -418,7 +464,7 @@ func stop_director_cues(origin: Node = null, sustained_only: bool = false) -> vo
 		_clear_director_metadata(voice)
 
 func _clear_director_metadata(voice: AudioStreamPlayer) -> void:
-	for key: StringName in [&"director_event", &"director_origin", &"director_sustained", &"director_family"]:
+	for key: StringName in [&"director_event", &"director_origin", &"director_sustained", &"director_family", &"committed_reward"]:
 		if voice.has_meta(key): voice.remove_meta(key)
 
 func stop_director_family(owner_id: int, family: StringName, sustained_only: bool = false) -> void:

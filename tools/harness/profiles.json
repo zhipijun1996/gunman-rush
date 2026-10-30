@@ -4387,6 +4387,31 @@
       "artifact_paths": [
         "build/home_codex_01"
       ]
+    },
+    "audio-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^AUDIO FEEDBACK CHECK: four actual native consumers completed with 0 failures$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/audio_feedback_05"
+      ]
     }
   },
   "profiles": {
@@ -4607,7 +4632,8 @@
       "item-v5-authoring",
       "item-authoring-tools",
       "item-v5-art",
-      "home-codex"
+      "home-codex",
+      "audio-feedback"
     ],
     "art": [
       "docs",
@@ -4705,7 +4731,8 @@
       "cloud-preview-runtime",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "home-codex"
+      "home-codex",
+      "audio-feedback"
     ],
     "web": [
       "docs",
@@ -4754,7 +4781,8 @@
       "cloud-delivery-tests",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "home-codex"
+      "home-codex",
+      "audio-feedback"
     ],
     "full": [
       "docs",
@@ -4921,7 +4949,8 @@
       "item-v5-authoring",
       "item-authoring-tools",
       "item-v5-art",
-      "home-codex"
+      "home-codex",
+      "audio-feedback"
     ],
     "creative-feedback": [
       "docs",

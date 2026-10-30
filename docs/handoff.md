@@ -1,5 +1,11 @@
 # 最新交接 · 2026-10-28
 
+## 2026-10-30 AUDIO-FEEDBACK-05 · 五项试玩声音修订
+
+分支fix/audio-playtest-feedback-20261030，基线main5f55716a；标题首次手势即原增益、Web标题独立音乐触点；hero hurt另名feedback05的两CC0变体、wall三短石屑变体及60ms/2声；机制铃单cue+12dB与抢占；正式宝箱/道具/商店仅COMMITTED反馈，菜单可完成、普通换层保尾音，title/run end清。五MP3、旧C与选择/候选原件保留，物理/交易结果不改。原新专项30、奖励70、既有selected63均strict通过；完整新四consumer Harness及真实场景短片/同源Web正在收口。新注册audio-feedback仅追加原gameplay/art/web/full，不删旧165或放其预算。
+
+[范围](worklines/audio_feedback_05/scope.md)／[独审](evidence/audio_feedback_05/review.md)。首font import错误与首次烟测帧记账失败保留；修后smoke02实际404帧/source_stable通过，未追签旧失败。独立GH host容量不足、新建403，Sites独立预览准备中；当前主站仍main5f557/ad78，勿用旧包冒充。下一步root单Godot租约完整MovieMaker→严格音轨/帧收据→实际Web导出/门禁→独立PR与试听发布；用户听感、手机与商业品质待验，不自动合main。
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 
 普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。

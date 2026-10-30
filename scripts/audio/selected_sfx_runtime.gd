@@ -4,6 +4,10 @@ extends Node
 const SELECTION_PATH := "res://config/audio_director/selected/selected.json"
 const MANIFEST_PATH := "res://assets/audio/director_v3/manifest.json"
 const RULES_PATH := "res://config/audio_director/v3/runtime.json"
+const HURT_FEEDBACK := {
+	"id": "hurt_feedback_05",
+	"variants": ["res://assets/audio/feedback_05/hurt_1.wav", "res://assets/audio/feedback_05/hurt_2.wav"]
+}
 const PINNED_JSON := {
 	"res://config/audio_director/selected/selected.json": "ad1074fbf5f3756a1881aaefed302c3cb26871cfd51cde63c18909f1de130483",
 	"res://assets/audio/director_v3/manifest.json": "27f20e502fe0c1e14769f86f19876e1d5402aed7eefedb99fc26e618e266b77f",
@@ -179,7 +183,7 @@ func _attach() -> void:
 		_publish_probe()
 		return
 	# All byte/path/profile validation precedes any change to the live bank.
-	if not service.configure_candidate_bank(MANIFEST_PATH, RULES_PATH) or not service.configure_selected_profiles(selection.event_profiles) or not service.set_audio_profile("selected"):
+	if not service.configure_candidate_bank(MANIFEST_PATH, RULES_PATH) or not service.configure_selected_profiles(selection.event_profiles) or not service.configure_candidate_revision(&"hurt", HURT_FEEDBACK) or not service.set_audio_profile("selected"):
 		validation_error = "existing GameAudio rejected validated selected proposal"
 		_publish_probe()
 		return
@@ -206,7 +210,7 @@ func snapshot() -> Dictionary:
 	if is_instance_valid(audio):
 		for id: Variant in audio._selected_profiles: profiles[str(id)] = audio.director_profile_for_event(StringName(id))
 		events = audio.director_events.slice(maxi(0, audio.director_events.size() - 16)).duplicate(true)
-	return {"version": "selected-sfx-runtime-v1", "validation_ok": validation_ok, "validation_error": validation_error, "configurations": configurations, "audio_profile": audio.audio_profile if is_instance_valid(audio) else "", "event_profiles": profiles, "director_events": events, "owner_app_id": owner.get_instance_id() if is_instance_valid(owner) else 0, "audio_owner_id": audio.get_instance_id() if is_instance_valid(audio) else 0, "selection_path": SELECTION_PATH, "selection_sha256": PINNED_JSON[SELECTION_PATH], "manifest_path": MANIFEST_PATH, "manifest_sha256": PINNED_JSON[MANIFEST_PATH], "rules_path": RULES_PATH, "rules_sha256": PINNED_JSON[RULES_PATH], "candidate_imports_verified": IMPORTED_CANDIDATES.size() if validation_ok else 0}
+	return {"version": "selected-sfx-runtime-v1", "validation_ok": validation_ok, "validation_error": validation_error, "configurations": configurations, "audio_profile": audio.audio_profile if is_instance_valid(audio) else "", "event_profiles": profiles, "candidate_revisions": audio._candidate_revisions.duplicate(true) if is_instance_valid(audio) else {}, "director_events": events, "owner_app_id": owner.get_instance_id() if is_instance_valid(owner) else 0, "audio_owner_id": audio.get_instance_id() if is_instance_valid(audio) else 0, "selection_path": SELECTION_PATH, "selection_sha256": PINNED_JSON[SELECTION_PATH], "manifest_path": MANIFEST_PATH, "manifest_sha256": PINNED_JSON[MANIFEST_PATH], "rules_path": RULES_PATH, "rules_sha256": PINNED_JSON[RULES_PATH], "candidate_imports_verified": IMPORTED_CANDIDATES.size() if validation_ok else 0}
 
 func _publish_probe() -> void:
 	if not _probe_enabled or not OS.has_feature("web"): return

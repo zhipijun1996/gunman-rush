@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-FEEDBACK-05",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "reviewed_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "content_version": "audio-feedback-v1",
+  "owner": "root",
+  "purpose": "修复五项实玩声音反馈：标题音乐启动、受伤/固体命中材质、机关可听性与正式宝箱/道具音效",
+  "player_experience": "标题可先开启音乐，进入家园不额外等待渐入；受伤/墙地音色更柔和，成功机关和奖励有清楚声音",
+  "constraints": [
+    "五首用户BGM和旧候选/原选择文件保持原字节",
+    "仅表现消费COMMITTED/APPLIED结果，不改物理、伤害、交易、保存、RNG",
+    "复用现有12voice/总线和官方threaded Web，实体手机/审美由用户确认"
+  ],
+  "affected_paths": [
+    "assets/audio/feedback_05/hurt_1.wav",
+    "assets/audio/feedback_05/hurt_1.wav.import",
+    "assets/audio/feedback_05/hurt_2.wav",
+    "assets/audio/feedback_05/hurt_2.wav.import",
+    "assets/audio/feedback_05/manifest.json",
+    "assets/audio/feedback_05/wall_1.wav",
+    "assets/audio/feedback_05/wall_1.wav.import",
+    "assets/audio/feedback_05/wall_2.wav",
+    "assets/audio/feedback_05/wall_2.wav.import",
+    "assets/audio/feedback_05/wall_3.wav",
+    "assets/audio/feedback_05/wall_3.wav.import",
+    "config/audio_director/feedback_05/README.md",
+    "config/audio_director/feedback_05/recipes.json",
+    "config/audio_director/feedback_05/sources.json",
+    "scripts/audio/game_audio.gd",
+    "scripts/audio/game_music.gd",
+    "scripts/audio/selected_sfx_runtime.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+    "scripts/items/v5/item_v5_shop_presenter.gd",
+    "scripts/ui/demo_menu.gd",
+    "tests/audio_feedback_05.gd",
+    "tests/audio_feedback_05.gd.uid",
+    "tests/audio_feedback_rewards.gd",
+    "tests/audio_feedback_rewards.gd.uid",
+    "tests/selected_sfx_runtime.gd",
+    "tools/audio_feedback_capture.gd",
+    "tools/audio_feedback_capture.gd.uid",
+    "tools/audio_feedback_design.py",
+    "tools/build.py",
+    "tools/capture_audio_feedback.py",
+    "tools/harness/profiles.json",
+    "tools/run_audio_feedback_tests.py"
+  ],
+  "deliverables": [
+    "新版可听候选与可复现CC0配方",
+    "真实Godot专项与实际场景试听",
+    "独立PR与准确预览身份"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

@@ -150,7 +150,19 @@ func show_title() -> void:
 	_home_overlay = false
 	_begin(&"title", false)
 	_title_label = _label(_content, "失序之钟", 36, TEXT)
-	_label(_content, "风铃未息，旅途再启。", 18, MUTED)
+	if OS.has_feature("web"):
+		# A real title-page gesture unlocks browser audio without entering Home.
+		# Reuse the subtitle's space so the accepted menu proportions stay intact.
+		var music_hint := LinkButton.new()
+		music_hint.name = "TitleEnableMusic"
+		music_hint.text = "轻触开启音乐"
+		music_hint.focus_mode = Control.FOCUS_NONE
+		music_hint.add_theme_font_size_override("font_size", 18)
+		music_hint.add_theme_color_override("font_color", MUTED)
+		music_hint.pressed.connect(func() -> void: music_hint.text = "风铃未息，旅途再启。")
+		_content.add_child(music_hint)
+	else:
+		_label(_content, "风铃未息，旅途再启。", 18, MUTED)
 	_space(_content, 8)
 	var primary := _button(_content, "开始游戏", _start_title_adventure)
 	primary.name = "BeginAdventure"

@@ -265,7 +265,7 @@ func _catalog_purchase(offer_id: StringName) -> void:
 		var toast := _app().get("item_toast") as ItemAcquiredToast
 		if is_instance_valid(toast): toast.show_item(offer.item, level)
 	else: _message = _receipt_message(receipt)
-	_finish_action(receipt.accepted())
+	_finish_action(receipt.accepted(), receipt.status == EconomyReceipt.Status.COMMITTED, receipt.status == EconomyReceipt.Status.REPLAY)
 
 func _catalog_reroll() -> void:
 	if _submitting or not _context(true) or not bool(_reroll_view.get("available", false)): return
@@ -294,13 +294,16 @@ func _repair(instance_id: StringName, quote_version: int) -> void:
 	else: _message = _receipt_message(receipt)
 	_finish_action(receipt.accepted())
 
-func _finish_action(accepted: bool) -> void:
+func _finish_action(accepted: bool, acquired: bool = false, replayed: bool = false) -> void:
 	_submitting = false
 	var app := _app()
 	if is_instance_valid(app):
 		app.set("_status", _message)
 		app.set("_shown_actions", "")
-		GameAudio.cue(app, &"confirm" if accepted else &"denied")
+		if acquired:
+			GameAudio.cue_committed_reward(app, &"item_get", &"note")
+		elif not replayed:
+			GameAudio.cue(app, &"confirm" if accepted else &"denied")
 	refresh()
 
 func _receipt_message(receipt: EconomyReceipt) -> String:

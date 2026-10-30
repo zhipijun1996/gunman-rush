@@ -61,6 +61,9 @@ func _input(event: InputEvent) -> void:
 	_transition(requested_track)
 
 func _transition(id: StringName) -> void:
+	# The first user gesture may synchronously construct Home before another
+	# frame. Start audibly on that gesture; later track changes still crossfade.
+	var initial_start := starts.is_empty() and not id.is_empty()
 	_targets.fill(0.0)
 	if not id.is_empty():
 		var chosen := _ids.find(id)
@@ -69,9 +72,10 @@ func _transition(id: StringName) -> void:
 			var voice := _voices[chosen]
 			voice.stop()
 			voice.stream = TRACKS[id] as AudioStreamMP3
-			voice.volume_db = -80.0
+			var initial_gain := MUSIC_GAIN * (volume_source.volume if is_instance_valid(volume_source) else 0.7)
+			voice.volume_db = linear_to_db(maxf(0.00001, initial_gain)) if initial_start else -80.0
 			_ids[chosen] = id
-			_gains[chosen] = 0.0
+			_gains[chosen] = 1.0 if initial_start else 0.0
 			voice.play()
 			starts[id] = int(starts.get(id, 0)) + 1
 			if voice.has_stream_playback(): _playbacks.append(weakref(voice.get_stream_playback()))
