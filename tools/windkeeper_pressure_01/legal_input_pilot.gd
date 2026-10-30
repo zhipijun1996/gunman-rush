@@ -291,21 +291,22 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	# deliberately aimed away/down, so its real upward recoil carries the player
 	# over the large body; it is counted as an actual miss, not a Boss hit.
 	if cross_axis != 0:
-		axis = cross_axis
-		if cross_is_corner:
-			corner_cleared_height=corner_cleared_height or at.y+18<contact_bounds.position.y-10
-			if not corner_cleared_height:axis=0
-		elif cross_near_body and (cross_air_frame<0 or frame-cross_air_frame<8):axis=0
+		axis = cross_axis if _cross_motion_safe(app,encounter,cross_axis) else 0.0
 		intent = "actual jump/recoil crossing of locked lunge; normal input only"
 		if not grounded and cross_air_frame<0: cross_air_frame=frame
 		# A landing/rearm in the exact warning tick must not lose the jump.
 		if grounded and cross_air_frame<0: jump=true
-		if not cross_boost_done and cross_air_frame>=0 and frame-cross_air_frame>=(15 if cross_is_corner else 8 if cross_near_body else 15) and not grounded:
+		var air_ticks := frame-cross_air_frame if cross_air_frame>=0 else -1
+		# ShotAbility clears normal vertical speed. Keep the actual first jump
+		# ascent instead of cancelling it at8frames: phaseI retains its proved
+		#15tick timing; later crossings fire near the actual apex, no earlier.
+		var apex_ready: bool = air_ticks>=15 and (phase==1 or player.normal_velocity.y>-120 or air_ticks>=18)
+		if not cross_boost_done and cross_air_frame>=0 and apex_ready and not grounded:
 			var energy_ready: bool = controller.shot_energy == null or controller.shot_energy.can_fire()
 			if controller.shoot_ability.cooldown_remaining<=0 and energy_ready and controller.action_resources.shot_charges>0:
 				var escape_aim := Vector2(-cross_axis*(.85 if cross_is_corner else .55),1).normalized()
 				var accepted: bool = router.request_action(&"shoot_release",escape_aim)
-				input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"escape_recoil_shot","direction":_v(escape_aim),"submitted":accepted,"group":group,"purpose":"actual upward recoil to clear body; no effective hit fabricated"})
+				input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"escape_recoil_shot","direction":_v(escape_aim),"submitted":accepted,"group":group,"air_frames_before_shot":air_ticks,"actual_normal_vy":player.normal_velocity.y,"purpose":"actual upward recoil to clear body; no effective hit fabricated"})
 				if accepted: cross_boost_done=true
 		var actual_bounds: Rect2 = encounter.body_contact_rect()
 		var cleared: bool = at.x-28>actual_bounds.end.x if cross_axis>0 else at.x+28<actual_bounds.position.x
@@ -404,6 +405,55 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	router.set_source_axis(&"keyboard_mouse", axis)
 	if mode=="active2":_active_extra_shot(app,encounter,state,at,aim)
 	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":frame<jump_until,"group":group,"intent":intent})
+
+
+func _cross_motion_safe(app: Node, encounter: Node, forward: float) -> bool:
+	# Read-only0.10s relative-motion forecast against the authoritative painted
+	# hull/head/limb shapes. Sample the curved vertical trajectory, rather than
+	# requiring the actor to rise above the entire broad AABB before moving.
+	var actor: PlayerMotor = app.player
+	var source: Vector2 = encounter.motor.global_position
+	var actor_point: Vector2 = actor.global_position
+	var boss_speed: Vector2 = encounter.motor.velocity
+	var normal: Vector2 = actor.normal_velocity
+	var recoil: Vector2 = actor.recoil_velocity
+	var burst: float = actor.recoil_burst_remaining
+	var tuning: PlayerTuning = actor.tuning
+	var jump: JumpAbility = app.controller.jump_ability
+	var hold: float = jump._hold_remaining
+	var hold_speed: float = jump._hold_speed
+	var actor_half := Vector2(12,18)
+	var shape := actor.get_node("CollisionShape2D") as CollisionShape2D
+	if shape.shape is RectangleShape2D:actor_half=(shape.shape as RectangleShape2D).size*.5
+	var elapsed := 0.0
+	var relative_point := actor_point
+	var grounded_prediction: bool = actor.is_on_floor() and normal.y>=0 and burst<=0
+	for sample: int in 6:
+		var delta := 1.0/60.0
+		normal.x=move_toward(normal.x,forward*tuning.ground_speed,tuning.air_acceleration*delta)
+		var motion := Vector2.ZERO
+		if burst>0:
+			# Actual latched shot-burst velocity owns displacement; Router axis
+			# cannot steer a burst which is already executing.
+			var used := minf(delta,burst)
+			motion=recoil*used
+			burst=maxf(0,burst-delta)
+			if burst<=0:recoil=Vector2.ZERO
+		else:
+			if grounded_prediction:normal.y=0
+			else:
+				if hold>0 and normal.y<0:
+					normal.y=lerpf(normal.y,hold_speed,minf(delta,hold)/delta)
+					hold=maxf(0,hold-delta)
+				normal.y=minf(normal.y+tuning.gravity*delta,tuning.max_normal_fall_speed)
+			recoil*=exp(-delta/tuning.recoil_tau)
+			motion=(normal+recoil)*delta
+		actor_point+=motion
+		elapsed+=delta
+		var future_relative := actor_point-boss_speed*elapsed
+		if encounter.body_contact_sweep(source,relative_point-source,future_relative,actor_half):return false
+		relative_point=future_relative
+	return true
 
 
 func _active_extra_shot(app: Node, encounter: Node, state: String, at: Vector2, aim: Vector2) -> void:
