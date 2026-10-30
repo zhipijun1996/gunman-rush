@@ -1,6 +1,8 @@
-# 固定地图 930001 开发入口
+# 固定地图 930001 主游戏接入
 
 这是 map-gen 0.1.0 的固定地图宿主接入。**可启动和局部实测不等于全图自然通关认证**。本轮不装入生成算法，不扩展其他 seed。
+
+公开试玩：https://zhipijun1996.github.io/gunman-rush/ 。当前build33925609669e／源码55b0760。普通标题“开始游戏”进入家园，向右走到风铃平原门口，W打开出发面板，再点BEGIN。不是开发菜单中的独立诊断入口。网页更新后左下角应显示试玩33925609；详细指纹和未验边界见验收记录。
 
 ## 启动与操作
 
@@ -10,23 +12,26 @@
 bash tools/cloud_setup.sh --godot-only
 python3 third_party/mapgen/0.1.0/verify_delivery.py
 bash tools/godot.sh --headless --editor --import --path .
+bash tools/godot.sh --path .
+# 标题“开始游戏”→家园向右走到风铃平原门口→W→BEGIN
+# 独立诊断（不代表普通主游戏流程）：
 bash tools/godot.sh --path . scenes/mapgen/seed_930001.tscn
 ```
 
-引擎固定为 Godot 4.7.2 Standard。正常主游戏启动入口仍然是 `scenes/demo/demo.tscn`。
+引擎固定为 Godot 4.7.2 Standard。主游戏入口为 `scenes/demo/demo.tscn`，普通家园出发固定进入930001。沿用当局选择的武器、升级、装备和主游戏服务；战胜原生Boss后正常结算回家，再次出发仍是本图。生成实验入口 `start_plains` 保留供原专项消费者调用，不参与普通出发。
 
 - A/D 或左右键移动；Space 跳跃；鼠标左键按住瞄准、松开射击。
 - E 原生钩索；W 请求交互；S 穿透单向平台。起点先射中风铃再向右行走。
 - M 或「全图」按钮显示带实例 ID 的实际世界总览，暂停且取消旧输入。
-- Esc 或「暂停」暂停/继续；F5 或「新一局」创建新的玩家、钱包和 run identity。
-- Enter 或「返回主游戏」回正常主游戏标题。原生宝箱二选一打开时由该弹窗持有暂停，地图/全局暂停不抢占。
+- Esc 或「暂停」打开主游戏原生暂停/背包；Journey 页可返回家园，确认离开后沿原生结算流程清理本局。
+- 原生宝箱二选一打开时由该弹窗持有暂停，M/Esc不抢占。主游戏中Enter/F5没有独立宿主的隐藏离开/重开行为；仅独立诊断场景保留这些快捷键。
 - 手机复用主游戏 TouchOverlay，手柄复用 GamepadAdapter；本轮未签真机。
 
 本开发入口在新玩家出生时一次授予物化 Route 声明所需的原生 grapple，基础跳跃/射击沿当前主游戏配置。没有改重力、速度、跳跃高度、射击次数或反冲参数；接口不重新授予能力、玩家或资源。
 
 ## 接入结构
 
-`plains_presentation.gd` 复用当前正式平原的 Underworld/native32 地形、三层背景、玩家、18只原怪物、机关、光照和前景；不生成新美术或新怪物。视觉只读实际模块几何，Boss 断桥后一起刷新地形画面/遮光体；原碰撞不重复生成。M29 使用正式 medium 蓝箱闭/开姿态，保原 OR 交易。独立 Web 宿主的唯一音频服务与主游戏相同，两个 feel 共用原12声池。
+`plains_presentation.gd` 复用当前正式平原的 Underworld/native32 地形、三层背景、玩家、18只原怪物、机关、光照和前景；不生成新美术或新怪物。视觉只读实际模块几何，Boss 断桥后一起刷新地形画面/遮光体；原碰撞不重复生成。M29 使用正式 medium 蓝箱闭/开姿态，保原 OR 交易。独立诊断宿主的唯一音频服务与主游戏相同；正式接入直接使用主游戏现有服务，不创建另一套。
 
 `third_party/mapgen/0.1.0` 是交付包原字节副本。外层 `.gdignore` 防止 Godot 写入原包；运行时逐项核 manifest 全部文件，导出插件原样打入 PCK。`verify_delivery.py` 仍可直接验证该目录。
 
@@ -34,13 +39,14 @@ bash tools/godot.sh --path . scenes/mapgen/seed_930001.tscn
 
 11 个派生入口复用各版本原生绑定，保留单向平台、刺面、方向机关、配对机关、折线轨迹、移动平台和敌人。椭圆原安装器不认识镜像符号，适配定义显式存储 `ellipse_x_sign`、圆心和半径，避免 Resource.duplicate 丢状态。
 
-全图只创建一名现有 PlayerMotor/PlayerController，共享 FrameDamagePolicy、DemoLifetime、RunWallet、MetaProgression 和 PlainsRegionState。稳定身份为 `run_id / map_id / Mxx / local_id`。没有模块切换或地形流送；回程保持所有现有实体。受支持奖励房可通过 registry.unload→instantiate_materialized 在同一 registry/player/wallet/lifetime 中恢复已领取状态；HQ 奖励配对机关在 bind 前恢复。其他复杂敌人/移动机关/Boss 的卸载会明确拒绝并保留活实例。没有完整跨进程局中存档接口。
+主游戏先创建一名现有 PlayerMotor/PlayerController，再通过 fixed_map.bind_existing 在入树前绑定 FrameDamagePolicy、DemoLifetime、RunWallet、SegmentRespawn、MetaProgression 和 PlainsRegionState。固定宿主不再创建玩家、重新发能力或重置资源。独立诊断仍可自行建立同款服务。稳定身份为 `run_id / map_id / Mxx / local_id`。没有模块切换或地形流送；回程保持所有现有实体。受支持奖励房可通过 registry.unload→instantiate_materialized 在同一 registry/player/wallet/lifetime 中恢复已领取状态；HQ 奖励配对机关在 bind 前恢复。其他复杂敌人/移动机关/Boss 的卸载会明确拒绝并保留活实例。没有完整跨进程局中存档接口。
 
 Boss 绑定主游戏正式 `windkeeper_storm`。从 M40 真实物化平台推导支撑和安全站点，第三阶段按明确适配替换 Platform0 的断桥；初始其他地形与 exit 封口保留。原生伤害批次确认胜利且玩家存活后结束当前 lifetime，显示本局已有金币；不虚构奖励、不把封闭 exit 当战后路口。死亡沿原生 player_fatal，结束同一生命周期。同帧死亡优先于胜利。
 
 ## 验证命令与范围
 
 ```sh
+python3 tools/run_mapgen_main_tests.py --output-dir build/mapgen_main/new-acceptance
 python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen_930001/new-acceptance
 # 可单独定位：inventory / presentation / preview / controls / spawn / seams / seals / mechanisms / rewards / boss
 ```
@@ -49,7 +55,7 @@ python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen
 
 实际数据、首轮失败及剩余缺口见[验收记录](../../evidence/mapgen_930001/README.md)；宿主资源差异见[兼容审计](../../evidence/mapgen_930001/host_compatibility.json)。
 
-## 已构建的本地 Web
+## 历史独立诊断 Web（非当前主游戏网页）
 
 下方 b2f71528 是旧美术构建，仅作历史复现；用户指出表现错误后，candidate-v2 已纠正正式消费者。当前源的媒体、构建身份和测试结果以[验收记录](../../evidence/mapgen_930001/README.md)追加的 v2 收据为准。
 

@@ -1,3 +1,11 @@
+## 2026-10-30 MAPGEN-930001-01 · 普通主游戏出发＋公开试玩
+
+用户明确选择普通出发直接进入930001。最终生产源55b07609ea756c6faee771aaa84f080b249917fe；保留主App实际角色/武器/装备/升级/伤害/钱包/lifetime，单图Boss由原Director结算回家/再次出发。主流程97/0；旧相关4项Harness fresh通过，原时间精力专项也通过，Core开发源5686/0。浏览器重复HUD已实际发现并修复，原图与取消run保留；没有改玩家物理或交付数据。
+
+[公开主游戏试玩](https://zhipijun1996.github.io/gunman-rush/) build33925609669e，Pages run41086077493成功。完整公开PCK230191840 bytes／SHA33925609669e1f59fc65c2dc8d3f4ee2d88cd127b9817d61544ad3db449a16f2，metadata/完整字节实核；本地真实标题→家园走到门口W→BEGIN→原生开铃/移动/总览/暂停/确认离开回家已测。原静态/物理/fixture/浏览器和设备边界分列[验收](evidence/mapgen_930001/README.md)。本次整站更新保留旧诊断原件于不可变prepared提交，旧子路径明确归档；独立preview站未动，不提高容量。
+
+原完整地图仍845/3，M24 PortC封口阻挡奖励，整图自然连续路线/全部动态相位/完整168/听感/真机/用户G5仍failed或unverified。PR123保持独立草稿分支feature/mapgen-delivery-930001，不合main、不扩其他seed或生成器。恢复先核公开build/source、最后浏览器收据与git状态；本机build/web为精确最终原导出，不要再次无因重建。重跑专项：`python3 tools/run_mapgen_main_tests.py --output-dir build/mapgen_main/new-scope`；全图诊断命令保原断言和M24失败。后续仅证据/文档提交不重标导出源码55b。
+
 ## 2026-10-30 MAPGEN-930001-01 · 新版平原表现修正
 
 同分支feature/mapgen-delivery-930001/草稿PR123，冻结运行源cce9d74（代码6f1ae4b）。用户拒绝旧美术后补正式平原表现装配入口；原包/玩家碰撞/原18怪/奖励不变。最终严格845/3、源稳定；M24原3失败不冲绿。M29真实body右缘[270,46]站稳，原生W＋鼠标领取4币并显示正式蓝箱开盖；中心受PortC封口影响，整图自然到达仍未验。直接入口scenes/mapgen/seed_930001.tscn不变。

@@ -1,0 +1,1613 @@
+{
+  "source_commit": "55b07609ea756c6faee771aaa84f080b249917fe",
+  "content_version": "candidate-v3",
+  "scope": "Actual main-App 97-case runtime ledger; fixtures explicitly labelled; previous standalone845/M24 failures remain separately retained, no natural whole-map or device approval",
+  "consumers": [
+    {
+      "id": "ordinary/title",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "memory_only": true,
+        "notes_fixture": 9,
+        "scene": "res://scenes/demo/demo.tscn"
+      }
+    },
+    {
+      "id": "pointer/title_begin",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@88/@VBoxContainer@89/@PanelContainer@90/@ScrollContainer@93/@MarginContainer@95/@VBoxContainer@96/BeginAdventure",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "开始游戏"
+      }
+    },
+    {
+      "id": "ordinary/home",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "home_created": true,
+        "run_created": false,
+        "title_clicked": true
+      }
+    },
+    {
+      "id": "ordinary/permanent_upgrade",
+      "kind": "native_meta_transaction_fixture",
+      "evidence": {
+        "native_purchase": {
+          "accepted": true,
+          "notes": 4,
+          "reason": "committed",
+          "replayed": false
+        },
+        "notes_fixture": 9,
+        "panel_initial_condition": "explicit Home upgrade panel",
+        "remaining_notes": 4
+      }
+    },
+    {
+      "id": "pointer/home_shadow_weapon",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@272/@CenterContainer@273/@PanelContainer@274/@ScrollContainer@277/@MarginContainer@279/@VBoxContainer@280/EquipHomeWeapon_shadow_shuriken",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "装备 · Lv.1 影步手里剑"
+      }
+    },
+    {
+      "id": "ordinary/selected_weapon",
+      "kind": "native_home_weapon",
+      "evidence": {
+        "panel_initial_condition": "explicit Home arms panel",
+        "selected": "shadow_shuriken"
+      }
+    },
+    {
+      "id": "pointer/home_departure_begin",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@294/@CenterContainer@295/@PanelContainer@296/@ScrollContainer@299/@MarginContainer@301/@VBoxContainer@302/@Button@309",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "BEGIN / WINDCHIME PLAINS"
+      }
+    },
+    {
+      "id": "ordinary/loaded/first",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "seed": 930001.0,
+        "stage_script": "res://scripts/mapgen/fixed_map.gd"
+      }
+    },
+    {
+      "id": "ordinary/fixed_map_profile",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "departures": 1,
+        "director_seed": "930001",
+        "hosted": true,
+        "map_seed": 930001.0,
+        "profile": "fixed_delivery_930001"
+      }
+    },
+    {
+      "id": "binding/inventory/first",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "connections": 55,
+        "hosted": true,
+        "instances": 46,
+        "seals": 40,
+        "terrain_unique": true
+      }
+    },
+    {
+      "id": "binding/single_host_services/first",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "audio": 1,
+        "keyboards": 1,
+        "music": 1,
+        "players": 1,
+        "policies": 1,
+        "routers": 1,
+        "touch": 1
+      }
+    },
+    {
+      "id": "hud/single_visible_status/first",
+      "kind": "actual_main_hud_visibility",
+      "evidence": {
+        "debug_hud": false,
+        "legacy_resource_hud": false,
+        "legacy_title": false,
+        "legacy_wallet": false,
+        "native_hud": true
+      }
+    },
+    {
+      "id": "binding/resource_identity",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "before": {
+          "acquired": true,
+          "actor_id": 341483459122,
+          "build_id": -9223371694364684982,
+          "capacity": 7.0,
+          "coins": 7,
+          "controller_id": 341835780599,
+          "damage_accepted": true,
+          "equipped": {
+            "accepted": true,
+            "reason": ""
+          },
+          "equipped_ids": [
+            "run_c53a3d705c4edb9dbe47f4f49b4fddf6/mapgen_main_equipped_health"
+          ],
+          "health": 5.0,
+          "health_epoch": 2,
+          "health_id": -9223371695052549643,
+          "lifetime_id": -9223371764963211154,
+          "meta_id": -9223371764711552912,
+          "owned": true,
+          "wall_climb": true,
+          "wallet_granted": true,
+          "wallet_id": -9223371686814936355,
+          "weapon": "shadow_shuriken"
+        },
+        "stage_lifetime_same": true,
+        "stage_player_same": true,
+        "stage_policy_same": true,
+        "stage_wallet_same": true
+      }
+    },
+    {
+      "id": "binding/no_reset",
+      "kind": "native_resource_and_loadout_fixture",
+      "evidence": {
+        "before": {
+          "acquired": true,
+          "actor_id": 341483459122,
+          "build_id": -9223371694364684982,
+          "capacity": 7.0,
+          "coins": 7,
+          "controller_id": 341835780599,
+          "damage_accepted": true,
+          "equipped": {
+            "accepted": true,
+            "reason": ""
+          },
+          "equipped_ids": [
+            "run_c53a3d705c4edb9dbe47f4f49b4fddf6/mapgen_main_equipped_health"
+          ],
+          "health": 5.0,
+          "health_epoch": 2,
+          "health_id": -9223371695052549643,
+          "lifetime_id": -9223371764963211154,
+          "meta_id": -9223371764711552912,
+          "owned": true,
+          "wall_climb": true,
+          "wallet_granted": true,
+          "wallet_id": -9223371686814936355,
+          "weapon": "shadow_shuriken"
+        },
+        "capacity_after": 7.0,
+        "coins_after": 7,
+        "equipped_after": [
+          "run_c53a3d705c4edb9dbe47f4f49b4fddf6/mapgen_main_equipped_health"
+        ],
+        "fixture": "native prebind health transaction/wallet grant/equipment/wall ability; no PlayerTuning edit",
+        "grapple_after": true,
+        "health_after": 5.0,
+        "health_epoch_after": 2,
+        "wall_after": true,
+        "weapon_after": "shadow_shuriken"
+      }
+    },
+    {
+      "id": "manifest/actual_ready_roundtrip",
+      "kind": "actual_ready_manifest",
+      "evidence": {
+        "delivery": {
+          "delivery_version": "0.1.0",
+          "manifest_sha256": "bef5b567fcd367913be474a02df3bdbb62cf8c8d2902c380861055f272e9cbc0",
+          "map_sha256": "fa0d6644187999252ce0fd6355ce58e8ba5533a0ec6d837516cab70fb65e3be4",
+          "seed": 930001
+        },
+        "equipped_sources": [
+          {
+            "broken": false,
+            "catalog_version": 0,
+            "definition_id": "health_blue",
+            "definition_version": 2,
+            "fingerprint": "[\"health_blue\",2,0,2,1,8,0,[],[],[],[],\"\",1.0,[],[[\"max_health\",1,1.0,0]],0,1,0,{},{}]",
+            "gear_cost": 2,
+            "instance_id": "run_c53a3d705c4edb9dbe47f4f49b4fddf6/mapgen_main_equipped_health",
+            "level": 1,
+            "origin": "test_fixture",
+            "source_id": "mapgen_main_equipped_health"
+          }
+        ],
+        "physics_hash": "65abb4abffd122f79bc4718a94e6db1bbe19a8e2c5dcdac314aa10cd9698114c",
+        "profile": {
+          "boss_stage": 1,
+          "development_only": false,
+          "id": "fixed_delivery_930001",
+          "stages_per_biome": 1,
+          "version": 1
+        }
+      }
+    },
+    {
+      "id": "manifest/refuse/root_seed",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "root_seed",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/receipt_seed",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "receipt_seed",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/map_sha",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "map_sha",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/manifest_sha",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "manifest_sha",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/profile_version",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "profile_version",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/profile_count",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "profile_count",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/profile_boss",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "profile_boss",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/profile_development",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "profile_development",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/stages_missing",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "stages_missing",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/second_stage",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "second_stage",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/stage_type",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "stage_type",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/stage_biome",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "stage_biome",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/stage_offers",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "stage_offers",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/stage_outputs_array",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "stage_outputs_array",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/delivery_output_array",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "delivery_output_array",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/tuning_gravity",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "tuning_gravity",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/tuning_type",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "tuning_type",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/capability_type",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "capability_type",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/item_fingerprint",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "item_fingerprint",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "manifest/refuse/physics_hash",
+      "kind": "manifest_mutation_fixture",
+      "evidence": {
+        "compatible": false,
+        "from_snapshot_nonnull": false,
+        "mutation": "physics_hash",
+        "source": "deep copy of actual ready main-game Manifest"
+      }
+    },
+    {
+      "id": "director/not_complete",
+      "kind": "director_transaction_fixture",
+      "evidence": {
+        "active": true,
+        "native_boss_combat": false,
+        "run_ends": 0,
+        "status": 5
+      }
+    },
+    {
+      "id": "director/no_fake_gold_or_second_map",
+      "kind": "director_transaction_fixture",
+      "evidence": {
+        "exit": 2,
+        "fake_gold": 2,
+        "fake_success": 5,
+        "native_boss_combat": false,
+        "next_region": 2,
+        "second_map": 5,
+        "stage_index": 1
+      }
+    },
+    {
+      "id": "director/stale_completion",
+      "kind": "director_transaction_fixture",
+      "evidence": {
+        "native_boss_combat": false,
+        "status": 3
+      }
+    },
+    {
+      "id": "director/completion_idempotence",
+      "kind": "director_transaction_fixture",
+      "evidence": {
+        "completion": 0,
+        "different_end": 6,
+        "native_boss_combat": false,
+        "reason": "delivery_complete",
+        "replay": 1,
+        "run_ends": 1
+      }
+    },
+    {
+      "id": "director/formal_not_delivery",
+      "kind": "director_transaction_fixture",
+      "evidence": {
+        "native_boss_combat": false,
+        "profile": "formal_plains_region",
+        "refusal": 2
+      }
+    },
+    {
+      "id": "bind_api/refuse/empty_services",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "empty_services",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/empty_identity",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "empty_identity",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/null_player",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "null_player",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/wrong_policy",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "wrong_policy",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/null_lifetime",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "null_lifetime",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/wrong_wallet",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "wrong_wallet",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/wrong_segment",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "wrong_segment",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/wrong_meta",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "wrong_meta",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/wrong_region",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "wrong_region",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/refuse/foreign_lifetime",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "accepted": false,
+        "added_to_tree": false,
+        "case": "foreign_lifetime",
+        "no_partial_assignment": true
+      }
+    },
+    {
+      "id": "bind_api/no_rebind",
+      "kind": "unparented_binding_fixture",
+      "evidence": {
+        "added_to_tree": false,
+        "first": true,
+        "no_partial_assignment": true,
+        "rebind": false
+      }
+    },
+    {
+      "id": "bind_api/in_tree_refused",
+      "kind": "actual_hosted_stage",
+      "evidence": {
+        "refused": true,
+        "unchanged": true
+      }
+    },
+    {
+      "id": "natural/native_bell",
+      "kind": "continuous_native_player",
+      "evidence": {
+        "accepted_shots": 1,
+        "gate_disabled": true,
+        "open_count": 1,
+        "position_fixture": false,
+        "weapon": "shadow_shuriken"
+      }
+    },
+    {
+      "id": "natural/M01_to_M02",
+      "kind": "continuous_native_player",
+      "evidence": {
+        "connection": "C001",
+        "extra_fixture_ability_used": false,
+        "from": "M01.exit",
+        "health_after": 5.0,
+        "health_before": 5.0,
+        "position": [
+          542.555603027344,
+          205.925277709961
+        ],
+        "position_fixture": false,
+        "same_actor": true,
+        "to": "M02.R",
+        "wallet_after": 7,
+        "wallet_before": 7
+      }
+    },
+    {
+      "id": "ordinary/map_open",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "key": "M",
+        "overview": true,
+        "paused": true
+      }
+    },
+    {
+      "id": "ordinary/map_close",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "key": "M",
+        "overview": false,
+        "paused": false
+      }
+    },
+    {
+      "id": "ordinary/pause_open",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "key": "Escape",
+        "menu_panel": "build",
+        "motion_steps_stable": true,
+        "paused": true
+      }
+    },
+    {
+      "id": "ordinary/pause_M_guard",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "keys": [
+          "M",
+          "M"
+        ],
+        "map_view": false,
+        "motor_still": true,
+        "pause_panel_after": "build",
+        "pause_panel_before": "build",
+        "paused": true
+      }
+    },
+    {
+      "id": "ordinary/pause_close",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "key": "Escape",
+        "menu_panel": "",
+        "paused": false
+      }
+    },
+    {
+      "id": "ordinary/no_hidden_exit_keys",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "keys": [
+          "Enter",
+          "F5"
+        ],
+        "run_ends": 0,
+        "run_epoch_after": 3,
+        "run_epoch_before": 3,
+        "same_actor": true
+      }
+    },
+    {
+      "id": "ordinary/M29_native_W",
+      "kind": "scoped_native_player_interaction",
+      "evidence": {
+        "actual_key": "W",
+        "fixture_placement": true,
+        "grounded": true,
+        "initial_local": [
+          270,
+          20
+        ],
+        "instance": "M29",
+        "modal_open": true,
+        "natural_reachability": false,
+        "paused": true
+      }
+    },
+    {
+      "id": "ordinary/M29_pause_owner",
+      "kind": "native_input_dispatch",
+      "evidence": {
+        "keys": [
+          "M",
+          "Escape",
+          "M",
+          "Escape"
+        ],
+        "main_menu_panel": "",
+        "map_view": false,
+        "nested_modal": true,
+        "paused": true
+      }
+    },
+    {
+      "id": "pointer/M29_coin_choice",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/FixedMap930001/M29/@Node@717/@Node2D@718/@CanvasLayer@719/@Control@1565/@MarginContainer@1567/@CenterContainer@1568/@PanelContainer@1569/@ScrollContainer@1572/@VBoxContainer@1573/@GridContainer@1579/@PanelContainer@1580/@VBoxContainer@1581/@Button@1587",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "选择 / PICK 金币袋 / Coin Pouch"
+      }
+    },
+    {
+      "id": "ordinary/M29_mouse_OR_commit",
+      "kind": "native_gui_pointer_and_region_transaction",
+      "evidence": {
+        "claimed": true,
+        "instance": "M29",
+        "modal_open": false,
+        "notes_after": 4,
+        "notes_before": 4,
+        "paused": false,
+        "selected": "coin",
+        "wallet_after": 11,
+        "wallet_before": 7
+      }
+    },
+    {
+      "id": "pointer/pause_journey_page",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1602/@CenterContainer@1603/@PanelContainer@1604/@ScrollContainer@1607/@MarginContainer@1609/@VBoxContainer@1610/PauseNavigation/PausePage",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "旅途"
+      }
+    },
+    {
+      "id": "pointer/pause_return_home",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1648/@CenterContainer@1649/@PanelContainer@1650/@ScrollContainer@1653/@MarginContainer@1655/@VBoxContainer@1656/LeaveAdventure",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "结束本局 · 返回家园"
+      }
+    },
+    {
+      "id": "pointer/confirm_leave_run",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1674/@CenterContainer@1675/@PanelContainer@1676/@ScrollContainer@1679/@MarginContainer@1681/@VBoxContainer@1682/@Button@1690",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "LEAVE RUN"
+      }
+    },
+    {
+      "id": "lifecycle/return_home",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "ended": [
+          {
+            "boss_completed": false,
+            "boss_health": 36.0,
+            "boss_snapshot": {
+              "boss_health": 36.0,
+              "bridge_broken": false,
+              "completed": false,
+              "events": [
+                {
+                  "definition": "res://resources/bosses/windkeeper_storm.tres",
+                  "event": "boss_bound",
+                  "identity": "run_c53a3d705c4edb9dbe47f4f49b4fddf6/stable-41fe15d-seed-930001/M40",
+                  "scene": "res://scenes/bosses/windkeeper.tscn",
+                  "shelf_stands": [
+                    [
+                      -4493.0,
+                      -2996.0
+                    ],
+                    [
+                      -4160.0,
+                      -2996.0
+                    ],
+                    [
+                      -3827.0,
+                      -2996.0
+                    ]
+                  ]
+                }
+              ],
+              "initial_exit_remains_sealed": true,
+              "mode": "observe",
+              "phase": 1,
+              "reward_position": [
+                -4144.0,
+                -2866.0
+              ],
+              "shelf_stands": [
+                [
+                  -4493.0,
+                  -2996.0
+                ],
+                [
+                  -4160.0,
+                  -2996.0
+                ],
+                [
+                  -3827.0,
+                  -2996.0
+                ]
+              ],
+              "started": false,
+              "target_id": "module/run_c53a3d705c4edb9dbe47f4f49b4fddf6%2Fstable-41fe15d-seed-930001%2FM40/boss"
+            },
+            "event_id": "abandon_3_1",
+            "exit_sealed": true,
+            "gold_claimed": false,
+            "meta": {
+              "completed_biomes": 0,
+              "completed_runs": 0,
+              "discovered_items": [],
+              "failed_runs": 1,
+              "item_progress_version": 1,
+              "last_summary": {
+                "equipped_items": [
+                  "health_blue"
+                ],
+                "items": [
+                  "health_blue"
+                ],
+                "run_coins_discarded": 11,
+                "seed": "930001",
+                "stage": 1
+              },
+              "meta_currency": 4,
+              "notes": 4,
+              "profile_id": "local",
+              "profile_revision": 3,
+              "save_status": "memory_only",
+              "selected_home_item": "",
+              "unlocked_home_items": [],
+              "upgrades": {
+                "vitality": 1
+              }
+            },
+            "player_health": 5.0,
+            "reason": "failure",
+            "run_epoch": 4,
+            "stage_epoch": 4,
+            "status": "RUN ENDED / RETURNED HOME"
+          }
+        ],
+        "meta": {
+          "completed_biomes": 0,
+          "completed_runs": 0,
+          "discovered_items": [],
+          "failed_runs": 1,
+          "item_progress_version": 1,
+          "last_summary": {
+            "equipped_items": [
+              "health_blue"
+            ],
+            "items": [
+              "health_blue"
+            ],
+            "run_coins_discarded": 11,
+            "seed": "930001",
+            "stage": 1
+          },
+          "meta_currency": 4,
+          "notes": 4,
+          "profile_id": "local",
+          "profile_revision": 3,
+          "save_status": "memory_only",
+          "selected_home_item": "",
+          "unlocked_home_items": [],
+          "upgrades": {
+            "vitality": 1
+          }
+        },
+        "same_app": true
+      }
+    },
+    {
+      "id": "pointer/abandon_enter_home",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1834/@CenterContainer@1835/@PanelContainer@1836/@ScrollContainer@1839/@MarginContainer@1841/@VBoxContainer@1842/@Button@1853",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "ENTER HOME / 返回家园"
+      }
+    },
+    {
+      "id": "pointer/home_pulse_weapon",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1855/@CenterContainer@1856/@PanelContainer@1857/@ScrollContainer@1860/@MarginContainer@1862/@VBoxContainer@1863/EquipHomeWeapon_pulse_gun",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "装备 · Lv.1 脉冲枪"
+      }
+    },
+    {
+      "id": "pointer/second_departure_begin",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@1877/@CenterContainer@1878/@PanelContainer@1879/@ScrollContainer@1882/@MarginContainer@1884/@VBoxContainer@1885/@Button@1892",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "BEGIN / WINDCHIME PLAINS"
+      }
+    },
+    {
+      "id": "ordinary/loaded/second",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "seed": 930001.0,
+        "stage_script": "res://scripts/mapgen/fixed_map.gd"
+      }
+    },
+    {
+      "id": "lifecycle/fresh_run",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "actor_id": 683168237683,
+        "capacity": 6.0,
+        "coins": 0,
+        "health": 6.0,
+        "notes": 4,
+        "old_token_accepted": false,
+        "previous_actor_id": 341483459122,
+        "weapon": "pulse_gun"
+      }
+    },
+    {
+      "id": "binding/inventory/second",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "connections": 55,
+        "hosted": true,
+        "instances": 46,
+        "seals": 40,
+        "terrain_unique": true
+      }
+    },
+    {
+      "id": "binding/single_host_services/second",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "audio": 1,
+        "keyboards": 1,
+        "music": 1,
+        "players": 1,
+        "policies": 1,
+        "routers": 1,
+        "touch": 1
+      }
+    },
+    {
+      "id": "hud/single_visible_status/second",
+      "kind": "actual_main_hud_visibility",
+      "evidence": {
+        "debug_hud": false,
+        "legacy_resource_hud": false,
+        "legacy_title": false,
+        "legacy_wallet": false,
+        "native_hud": true
+      }
+    },
+    {
+      "id": "boss/hosted_arrival",
+      "kind": "scoped_native_player",
+      "evidence": {
+        "fixture_placement": true,
+        "instance": "M40",
+        "natural_whole_map_arrival": false,
+        "player_id": 683168237683,
+        "position": [
+          -3640.0,
+          -2866.0
+        ]
+      }
+    },
+    {
+      "id": "boss/v5_equipped_native",
+      "kind": "native_equipment_fixture",
+      "evidence": {
+        "acquired": true,
+        "equip": {
+          "accepted": true,
+          "reason": ""
+        },
+        "fixture": "native BuildState ownership and EquipmentService session; no manual authorization ledger",
+        "item": "G01",
+        "same_runtime": true
+      }
+    },
+    {
+      "id": "boss/v5_refuse/unregistered_flag",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "event_id_changed": true,
+        "mutation": "unregistered_flag",
+        "policy_event_not_yet_forwarded": true,
+        "runtime_authorizes": false,
+        "scope": "runtime proof for amount/registration; hosted source guard for incoming actor/session",
+        "sink_accepted": false
+      }
+    },
+    {
+      "id": "boss/v5_refuse/source_actor",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "event_id_changed": false,
+        "mutation": "source_actor",
+        "policy_event_not_yet_forwarded": true,
+        "runtime_authorizes": true,
+        "scope": "runtime proof for amount/registration; hosted source guard for incoming actor/session",
+        "sink_accepted": false
+      }
+    },
+    {
+      "id": "boss/v5_refuse/session",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "event_id_changed": false,
+        "mutation": "session",
+        "policy_event_not_yet_forwarded": true,
+        "runtime_authorizes": true,
+        "scope": "runtime proof for amount/registration; hosted source guard for incoming actor/session",
+        "sink_accepted": false
+      }
+    },
+    {
+      "id": "boss/v5_refuse/amount",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "event_id_changed": false,
+        "mutation": "amount",
+        "policy_event_not_yet_forwarded": true,
+        "runtime_authorizes": false,
+        "scope": "runtime proof for amount/registration; hosted source guard for incoming actor/session",
+        "sink_accepted": false
+      }
+    },
+    {
+      "id": "boss/v5_native_policy_damage",
+      "kind": "native_item_effect_and_damage_policy",
+      "evidence": {
+        "accepted": true,
+        "boss_health_after": 35.0,
+        "boss_health_before": 36.0,
+        "captured_contexts": 1,
+        "fixture": "real Runtime.deal with equipped original catalog item; damage applied by FrameDamagePolicy",
+        "item": "G01",
+        "native_amount": 1,
+        "runtime_authorizes_real_context": true
+      }
+    },
+    {
+      "id": "boss/v5_unequip_revokes",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "empty_equipment": true,
+        "immediate_revision_check": true,
+        "new_Runtime_deal_accepted": false,
+        "old_proof_authorized": false,
+        "old_sink_accepted": false,
+        "unequip": {
+          "accepted": true,
+          "reason": ""
+        }
+      }
+    },
+    {
+      "id": "boss/v5_no_hidden_regrant",
+      "kind": "native_item_authority_negative_fixture",
+      "evidence": {
+        "boss_health_after_accepted_damage": 35.0,
+        "boss_health_after_refusals": 35.0,
+        "health_manually_restored": false,
+        "weapon": "pulse_gun"
+      }
+    },
+    {
+      "id": "boss/hosted_native_victory",
+      "kind": "scoped_native_player_combat",
+      "evidence": {
+        "accepted_shots": 35,
+        "end": {
+          "boss_completed": true,
+          "boss_health": 0.0,
+          "boss_snapshot": {
+            "boss_health": 0.0,
+            "bridge_broken": true,
+            "completed": true,
+            "events": [
+              {
+                "definition": "res://resources/bosses/windkeeper_storm.tres",
+                "event": "boss_bound",
+                "identity": "run_4b38b2530efd4657c42736dcd10b07f2/stable-41fe15d-seed-930001/M40",
+                "scene": "res://scenes/bosses/windkeeper.tscn",
+                "shelf_stands": [
+                  [
+                    -4493.0,
+                    -2996.0
+                  ],
+                  [
+                    -4160.0,
+                    -2996.0
+                  ],
+                  [
+                    -3827.0,
+                    -2996.0
+                  ]
+                ]
+              },
+              {
+                "accepted": true,
+                "event": "boss_activated",
+                "player_position": [
+                  -3640.0,
+                  -2866.0
+                ]
+              },
+              {
+                "event": "boss_phase",
+                "phase": 2
+              },
+              {
+                "event": "boss_phase",
+                "phase": 3
+              },
+              {
+                "disabled_platform": 0,
+                "event": "boss_bridge_broken",
+                "exit_seal_opened": false,
+                "preserved_seam_platform": 4,
+                "preserved_shelves": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              {
+                "event": "boss_victory",
+                "exit_seal_opened": false,
+                "target_id": "module/run_4b38b2530efd4657c42736dcd10b07f2%2Fstable-41fe15d-seed-930001%2FM40/boss"
+              }
+            ],
+            "initial_exit_remains_sealed": true,
+            "mode": "pier_open",
+            "phase": 3,
+            "reward_position": [
+              -4160.0,
+              -2996.0
+            ],
+            "shelf_stands": [
+              [
+                -4493.0,
+                -2996.0
+              ],
+              [
+                -4160.0,
+                -2996.0
+              ],
+              [
+                -3827.0,
+                -2996.0
+              ]
+            ],
+            "started": true,
+            "target_id": "module/run_4b38b2530efd4657c42736dcd10b07f2%2Fstable-41fe15d-seed-930001%2FM40/boss"
+          },
+          "event_id": "delivery_complete_5_1",
+          "exit_sealed": true,
+          "gold_claimed": false,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 1,
+            "discovered_items": [],
+            "failed_runs": 1,
+            "item_progress_version": 1,
+            "last_summary": {
+              "equipped_items": [],
+              "items": [
+                "G01"
+              ],
+              "run_coins_discarded": 0,
+              "seed": "930001",
+              "stage": 1
+            },
+            "meta_currency": 4,
+            "notes": 4,
+            "profile_id": "local",
+            "profile_revision": 4,
+            "save_status": "memory_only",
+            "selected_home_item": "",
+            "unlocked_home_items": [],
+            "upgrades": {
+              "vitality": 1
+            }
+          },
+          "player_health": 4.0,
+          "reason": "delivery_complete",
+          "run_epoch": 6,
+          "stage_epoch": 6,
+          "status": "VICTORY / MAP 930001 COMPLETE"
+        },
+        "natural_whole_map_arrival": false,
+        "phases_observed": [
+          1,
+          2,
+          3
+        ],
+        "pilot": "actual Router hold x1000; 1 shot/60ticks; no healing/ammo grant, no reposition after arrival"
+      }
+    },
+    {
+      "id": "lifecycle/native_boss_settled",
+      "kind": "native_player_combat_and_main_lifecycle",
+      "evidence": {
+        "end": {
+          "boss_completed": true,
+          "boss_health": 0.0,
+          "boss_snapshot": {
+            "boss_health": 0.0,
+            "bridge_broken": true,
+            "completed": true,
+            "events": [
+              {
+                "definition": "res://resources/bosses/windkeeper_storm.tres",
+                "event": "boss_bound",
+                "identity": "run_4b38b2530efd4657c42736dcd10b07f2/stable-41fe15d-seed-930001/M40",
+                "scene": "res://scenes/bosses/windkeeper.tscn",
+                "shelf_stands": [
+                  [
+                    -4493.0,
+                    -2996.0
+                  ],
+                  [
+                    -4160.0,
+                    -2996.0
+                  ],
+                  [
+                    -3827.0,
+                    -2996.0
+                  ]
+                ]
+              },
+              {
+                "accepted": true,
+                "event": "boss_activated",
+                "player_position": [
+                  -3640.0,
+                  -2866.0
+                ]
+              },
+              {
+                "event": "boss_phase",
+                "phase": 2
+              },
+              {
+                "event": "boss_phase",
+                "phase": 3
+              },
+              {
+                "disabled_platform": 0,
+                "event": "boss_bridge_broken",
+                "exit_seal_opened": false,
+                "preserved_seam_platform": 4,
+                "preserved_shelves": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              {
+                "event": "boss_victory",
+                "exit_seal_opened": false,
+                "target_id": "module/run_4b38b2530efd4657c42736dcd10b07f2%2Fstable-41fe15d-seed-930001%2FM40/boss"
+              }
+            ],
+            "initial_exit_remains_sealed": true,
+            "mode": "pier_open",
+            "phase": 3,
+            "reward_position": [
+              -4160.0,
+              -2996.0
+            ],
+            "shelf_stands": [
+              [
+                -4493.0,
+                -2996.0
+              ],
+              [
+                -4160.0,
+                -2996.0
+              ],
+              [
+                -3827.0,
+                -2996.0
+              ]
+            ],
+            "started": true,
+            "target_id": "module/run_4b38b2530efd4657c42736dcd10b07f2%2Fstable-41fe15d-seed-930001%2FM40/boss"
+          },
+          "event_id": "delivery_complete_5_1",
+          "exit_sealed": true,
+          "gold_claimed": false,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 1,
+            "discovered_items": [],
+            "failed_runs": 1,
+            "item_progress_version": 1,
+            "last_summary": {
+              "equipped_items": [],
+              "items": [
+                "G01"
+              ],
+              "run_coins_discarded": 0,
+              "seed": "930001",
+              "stage": 1
+            },
+            "meta_currency": 4,
+            "notes": 4,
+            "profile_id": "local",
+            "profile_revision": 4,
+            "save_status": "memory_only",
+            "selected_home_item": "",
+            "unlocked_home_items": [],
+            "upgrades": {
+              "vitality": 1
+            }
+          },
+          "player_health": 4.0,
+          "reason": "delivery_complete",
+          "run_epoch": 6,
+          "stage_epoch": 6,
+          "status": "VICTORY / MAP 930001 COMPLETE"
+        },
+        "meta": {
+          "completed_biomes": 0,
+          "completed_runs": 1,
+          "discovered_items": [],
+          "failed_runs": 1,
+          "item_progress_version": 1,
+          "last_summary": {
+            "equipped_items": [],
+            "items": [
+              "G01"
+            ],
+            "run_coins_discarded": 0,
+            "seed": "930001",
+            "stage": 1
+          },
+          "meta_currency": 4,
+          "notes": 4,
+          "profile_id": "local",
+          "profile_revision": 4,
+          "save_status": "memory_only",
+          "selected_home_item": "",
+          "unlocked_home_items": [],
+          "upgrades": {
+            "vitality": 1
+          }
+        },
+        "natural_whole_map_arrival": false
+      }
+    },
+    {
+      "id": "pointer/summary_depart_again",
+      "kind": "native_gui_pointer",
+      "evidence": {
+        "button": "/root/PlayableDemo/@CanvasLayer@70/@Control@71/@MarginContainer@3904/@CenterContainer@3905/@PanelContainer@3906/@ScrollContainer@3909/@MarginContainer@3911/@VBoxContainer@3912/@Button@3922",
+        "dispatch": "Input.parse_input_event; no pressed signal emission",
+        "text": "再次出发 / DEPART AGAIN"
+      }
+    },
+    {
+      "id": "ordinary/loaded/retry",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "seed": 930001.0,
+        "stage_script": "res://scripts/mapgen/fixed_map.gd"
+      }
+    },
+    {
+      "id": "lifecycle/retry_fixed_map",
+      "kind": "ordinary_main_app",
+      "evidence": {
+        "coins": 0,
+        "notes": 4,
+        "previous_epoch": 6,
+        "profile": "fixed_delivery_930001",
+        "run_epoch": 7,
+        "seed": 930001.0
+      }
+    },
+    {
+      "id": "binding/inventory/retry",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "connections": 55,
+        "hosted": true,
+        "instances": 46,
+        "seals": 40,
+        "terrain_unique": true
+      }
+    },
+    {
+      "id": "binding/single_host_services/retry",
+      "kind": "static_main_runtime_inventory",
+      "evidence": {
+        "audio": 1,
+        "keyboards": 1,
+        "music": 1,
+        "players": 1,
+        "policies": 1,
+        "routers": 1,
+        "touch": 1
+      }
+    },
+    {
+      "id": "hud/single_visible_status/retry",
+      "kind": "actual_main_hud_visibility",
+      "evidence": {
+        "debug_hud": false,
+        "legacy_resource_hud": false,
+        "legacy_title": false,
+        "legacy_wallet": false,
+        "native_hud": true
+      }
+    },
+    {
+      "id": "lifecycle/stale_epoch_refused",
+      "kind": "native_damage_transaction_fixture",
+      "evidence": {
+        "current_token": "7/7/9",
+        "old_token": "3/3/3",
+        "player_health": 6.0
+      }
+    },
+    {
+      "id": "lifecycle/native_fatal_submitted",
+      "kind": "native_damage_transaction_fixture",
+      "evidence": {
+        "accepted": true,
+        "actor_epoch": 9,
+        "damage": 6.0,
+        "direct_request": true,
+        "health_epoch": 2,
+        "natural_enemy_combat": false
+      }
+    },
+    {
+      "id": "lifecycle/fatal_returns_home",
+      "kind": "native_damage_transaction_fixture",
+      "evidence": {
+        "end": {
+          "boss_completed": false,
+          "boss_health": 36.0,
+          "boss_snapshot": {
+            "boss_health": 36.0,
+            "bridge_broken": false,
+            "completed": false,
+            "events": [
+              {
+                "definition": "res://resources/bosses/windkeeper_storm.tres",
+                "event": "boss_bound",
+                "identity": "run_3d280662a1bde9b14a45ff3974c94c1a/stable-41fe15d-seed-930001/M40",
+                "scene": "res://scenes/bosses/windkeeper.tscn",
+                "shelf_stands": [
+                  [
+                    -4493.0,
+                    -2996.0
+                  ],
+                  [
+                    -4160.0,
+                    -2996.0
+                  ],
+                  [
+                    -3827.0,
+                    -2996.0
+                  ]
+                ]
+              }
+            ],
+            "initial_exit_remains_sealed": true,
+            "mode": "observe",
+            "phase": 1,
+            "reward_position": [
+              -4144.0,
+              -2866.0
+            ],
+            "shelf_stands": [
+              [
+                -4493.0,
+                -2996.0
+              ],
+              [
+                -4160.0,
+                -2996.0
+              ],
+              [
+                -3827.0,
+                -2996.0
+              ]
+            ],
+            "started": false,
+            "target_id": "module/run_3d280662a1bde9b14a45ff3974c94c1a%2Fstable-41fe15d-seed-930001%2FM40/boss"
+          },
+          "event_id": "death_8_1",
+          "exit_sealed": true,
+          "gold_claimed": false,
+          "meta": {
+            "completed_biomes": 0,
+            "completed_runs": 1,
+            "discovered_items": [],
+            "failed_runs": 2,
+            "item_progress_version": 1,
+            "last_summary": {
+              "equipped_items": [],
+              "items": [],
+              "run_coins_discarded": 0,
+              "seed": "930001",
+              "stage": 1
+            },
+            "meta_currency": 4,
+            "notes": 4,
+            "profile_id": "local",
+            "profile_revision": 5,
+            "save_status": "memory_only",
+            "selected_home_item": "",
+            "unlocked_home_items": [],
+            "upgrades": {
+              "vitality": 1
+            }
+          },
+          "player_health": 0.0,
+          "reason": "failure",
+          "run_epoch": 8,
+          "stage_epoch": 8,
+          "status": "RUN ENDED / RETURNED HOME"
+        },
+        "fixture": "fatal DamageRequest; not claimed as natural enemy combat",
+        "meta": {
+          "completed_biomes": 0,
+          "completed_runs": 1,
+          "discovered_items": [],
+          "failed_runs": 2,
+          "item_progress_version": 1,
+          "last_summary": {
+            "equipped_items": [],
+            "items": [],
+            "run_coins_discarded": 0,
+            "seed": "930001",
+            "stage": 1
+          },
+          "meta_currency": 4,
+          "notes": 4,
+          "profile_id": "local",
+          "profile_revision": 5,
+          "save_status": "memory_only",
+          "selected_home_item": "",
+          "unlocked_home_items": [],
+          "upgrades": {
+            "vitality": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "main/audio_teardown",
+      "kind": "lifecycle",
+      "evidence": {}
+    }
+  ]
+}

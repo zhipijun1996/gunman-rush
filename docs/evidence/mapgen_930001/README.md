@@ -1,5 +1,21 @@
 # MAPGEN-930001-01 验收记录
 
+## candidate-v3：普通出发接入主游戏（2026-10-30）
+
+用户明确选择“普通出发直接进入这张地图”。主流程实现于 `71a4655`，随后原工具重建Foundry开发池；最终生产源码为 `55b07609ea756c6faee771aaa84f080b249917fe`（含浏览器发现的重复HUD修正）。主游戏沿原 Title→可操作Home→风铃平原门口W→BEGIN进入固定930001；固定场景在ready前借用原App的玩家/武器/装备/伤害/钱包/生命周期，跨46实例不换人、不重置。Boss沿实际DamagePolicy确认后由单图Director结算回家；不是原两图Gold路线，exit封口战后不开放。
+
+开发源 [dev05专项回执](main-v3/dev05-report.json)：94项/0失败，3380实际运行/专项输入前后稳定；当时HEAD仍为0fcc且有未提交修改，保留原source字段，不追签后来提交。实际[运行断言与轨迹](main-v3/dev05-runtime.json.gz)包括普通指针、武器/升级/装备/HP/钱包身份、无双份服务、Manifest篡改、绑定拒绝、M29右缘落地W+真实鼠标OR领取、暂停所有权和真实菜单离开。M29/Boss到达、Meta余额与装备准入均明确fixture，不能称全图自然路线。
+
+同局原生Boss：合法G01 Runtime.deal使36→35HP，四种伪造在真实context首次进入policy去重之前拒绝；卸装即时撤权。随后35枪连续经历三相位和断桥，HP6→4、Boss→0，实际delivery_complete→Home，再次出发仍930001；死亡fixture与旧token拒绝也沿主游戏服务。18普通敌人的V5标识仅当前run唯一，不冒称跨重建持久身份；复杂敌人模块卸载仍拒绝。
+
+原完整[地图回执](main-v3/standalone-v3-report.json)仍845项/3失败，全部为既有M24支撑/领取/全11点覆盖，未改原数据、封口或物理。原包、艺术v2和所有早期失败仍保留。Core当前开发源实跑5686断言/0失败；首轮编译错误原件保留。原菜单/HUD时间精力专项通过；修正旧UI消费者只在显式generated fixture继续原fog/HUD断言，先增加实际普通fixed入口守门。4项[相关Harness回执](main-v3/related-report.json)全部fresh通过（underworld-ui294/0、home-codex、underworld-formal、item-v5-manifest），先前旧消费者失败和所有预算保留。
+
+最终[精确源码专项](main-v3/release-report.json) **97项/0失败**，3380输入前后稳定、退出clean；追加的3项确保正式HUD显示、旧title/wallet/resources HUD隐藏。首个Web实看发现旧文字叠爱心，已保[原截图](main-v3/pre-hud-web-spawn.png)和[实际取消部署](main-v3/cancelled-deploy-status.json)，没有将其当成最终界面。
+
+**公开试玩：[主游戏主页](https://zhipijun1996.github.io/gunman-rush/)**。实际部署 [run41086077493](https://github.com/zhipijun1996/gunman-rush/actions/runs/41086077493) 成功；prepared提交152c93bb4eceab2b51228aa59f4de948e8352639，游戏源码55b0760，build **33925609669e**。[公开字节回执](main-v3/public-byte-verification.json)实取HTTP200、完整PCK **230,191,840 bytes**，SHA-256 `33925609669e1f59fc65c2dc8d3f4ee2d88cd127b9817d61544ad3db449a16f2`；公开metadata和普通main HTML相符。原722文件在实际PCK逐字节一致，[原字节回执](main-v3/packed-delivery-final.json)。展开站点约495MB，原900MiB上限不变；旧三个音频/性能诊断路径明确归档，原不可变prepared153e8a3保全部原包，独立preview站仍HTTP200且未修改。
+
+最终本地Chromium/SwiftShader从真实标题→家园按键走到门口→W→鼠标BEGIN装入46实例；没有注入独立场景参数或JS改状态。已实看[出生与单份HUD](main-v3/local-05-fixed-spawn.png)、[实弹开铃后行走](main-v3/local-07-moved.png)、总览、暂停与[960×540背包](main-v3/local-10-small-backpack.png)、M不夺暂停、实际旅途页→离开确认→[本局总结](main-v3/local-14-return-summary.png)→[家园](main-v3/local-15-home-returned.png)，以及同context暖缓存刷新标题。原日志保Emscripten主线程阻塞和软件ReadPixels警告，不签性能或所有consoleerror为0；未发现SCRIPT/SHADER/pageerror。[独立报告](main-v3/review.md)分别标注源码、原生、浏览器与未验项。公开地址亦在新Chromium context实走标题→家园门口W→BEGIN→原生开铃/移动/总览/暂停→离开确认→总结→实际家园，[公开出生](main-v3/public-live-05-fixed-spawn.png)和[公开返回家园](main-v3/public-live-12-home-returned.png)保留。两地[浏览器回执](main-v3/browser-report.json)与原console/cmd/done记录区分；无游戏状态fixture，软件GPU及未验边界照录。上述局部通过不签M24修复、全部动态相位、自然全图、完整168 Integration/Release、听感、性能、实体设备或用户品质认可。
+
 ## 当前 candidate-v2：新版正式平原表现（2026-10-30）
 
 用户指出 v1 美术错误：固定宿主漏接正式表现层。下面原 v1 图、原测试和原 Web 包保留作历史，不能再当作本轮美术交付。
