@@ -42,6 +42,8 @@ var support_escape_boosted := false
 var leaf_escape_key := ""
 var leaf_escape_air := -1
 var leaf_escape_boosted := false
+var active_extra_interval := -1
+var active_extra_rows: Array[Dictionary] = []
 
 
 func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictionary]) -> void:
@@ -400,7 +402,46 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent})
 	router.set_jump_held(&"keyboard_mouse", frame < jump_until)
 	router.set_source_axis(&"keyboard_mouse", axis)
+	if mode=="active2":_active_extra_shot(app,encounter,state,at,aim)
 	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":frame<jump_until,"group":group,"intent":intent})
+
+
+func _active_extra_shot(app: Node, encounter: Node, state: String, at: Vector2, aim: Vector2) -> void:
+	# A separate, explicitly disclosed proactive-input profile. Recovery still
+	# has at most two shots; these are extra ordinary shots during real openings
+	# in approach/turn or the early part of a visible attack preparation.
+	if not camp_finished or active_extra_interval==state_start:return
+	var player: PlayerMotor = app.player
+	var controller: PlayerController = app.controller
+	if cross_axis!=0 or support_escape_active or frame<jump_until or not player.is_on_floor():return
+	if state not in ["approach","turn","stomp_warning","seeds_warning","gust_warning","sweep_warning","platform_warning"]:return
+	if float(encounter.clock)<(.04 if state=="turn" else .36):return
+	if absf(at.x-encounter.motor.global_position.x)<240:return
+	if controller.shoot_ability.cooldown_remaining>0 or controller.action_resources.shot_charges<=0 or (controller.shot_energy!=null and not controller.shot_energy.can_fire()):return
+	if encounter.body_contact_sweep(encounter.motor.global_position,at-encounter.motor.global_position,at,Vector2(12,18)):return
+	if not _shot_clear(app,at,aim):return
+	var direction: Vector2 = player.get_node("KeyboardMouseAdapter").world_direction(player.get_canvas_transform()*aim)
+	var recoil_end := at-direction*95
+	var corridor := Rect2(at-Vector2(12,18),Vector2(24,36)).expand(recoil_end-Vector2(12,18)).expand(recoil_end+Vector2(12,18))
+	for shot: BossProjectile in encounter._projectiles:
+		if not is_instance_valid(shot) or shot.spent or shot.is_queued_for_deletion():continue
+		if shot is WindkeeperPressureStrike:return
+		var travel: Vector2 = shot.direction*shot.speed*.9
+		if DemoContactEmitter.segment_intersects_bounds(shot.global_position,shot.global_position+travel,corridor.grow(shot.radius+7)):return
+	# Four real ground queries guard the entire recoil path, including when
+	# phaseIII has removed the old floor. No invented support or Actor move.
+	for fraction: float in [0.0,.33,.66,1.0]:
+		var foot := Vector2(lerpf(at.x,recoil_end.x,fraction),at.y+17)
+		var ray := PhysicsRayQueryParameters2D.create(foot,foot+Vector2(0,35),1,[player.get_rid()])
+		var support := player.get_world_2d().direct_space_state.intersect_ray(ray)
+		if support.is_empty() or (support.normal as Vector2).dot(Vector2.UP)<.7:return
+	var submitted := controller.router.request_action(&"shoot_release",direction)
+	if submitted:
+		active_extra_interval=state_start
+		last_shot_frame=frame
+		var row := {"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"active_extra_shot","actual_state":state,"remaining_warning":encounter.clock,"direction":_v(direction),"submitted":true,"group":group,"interval_start":state_start,"aim_anchor":last_aim_anchor,"purpose":"legal attack-phase extra shot; separate from at-most-two recovery shots"}
+		active_extra_rows.append(row)
+		input_rows.append(row)
 
 
 func _shelves(app: Node) -> Array[Vector2]:
