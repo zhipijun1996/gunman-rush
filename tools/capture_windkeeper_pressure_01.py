@@ -134,7 +134,7 @@ def trace_findings(trace):
             "stationary_pressure": pressure, "injuries": injuries,
             "active_extra_requests": [item for item in trace.get("inputs", []) if item.get("action") == "active_extra_shot"],
             "actual_ground_attack_phase_shots": [shot for shot in shots if shot.get("grounded") and shot.get("state") in ["approach","turn","stomp_warning","seeds_warning","gust_warning","sweep_warning","platform_warning"]],
-            "input_profile_scope": "Attack-phase extra shots are part of active2/platform2's disclosed strategy; this does not prove cautious2 victory or the two-shot window.",
+            "input_profile_scope": "Attack-phase extra shots are part of active2/platform2/active_assault's disclosed strategy; this does not prove cautious2 victory or the two-shot window.",
             "final_metrics": trace.get("combat_metrics", {}),
             "player_hp_final": rows[-1].get("player_HP") if rows else None,
             "wallet_delta": trace.get("wallet_delta")}
@@ -144,7 +144,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed", default="windkeeper-pressure-01")
-    parser.add_argument("--pilot", choices=("cautious2", "greed3", "active2", "platform2"), default="cautious2")
+    parser.add_argument("--pilot", choices=("cautious2", "greed3", "active2", "platform2", "active_assault"), default="cautious2")
     parser.add_argument("--max-battle-seconds", type=float, default=240)
     parser.add_argument("--timeout-seconds", type=int, default=900,
                         help="This wrapper's own bounded wall-clock budget; no harness changes")
@@ -164,7 +164,7 @@ def main():
               "scope": "One uncut exact formal map2 encounter through existing public DemoApp.start_debug_region plains2. Debug entry is disclosed, not natural campaign progression. One initial precombat player position; thereafter only normal Router/mouse inputs. No encounter, HP, resource, RNG, clock or camera injection.",
               "human_play_acceptance": False, "listening_acceptance": False,
               "device_acceptance": "unverified", "pilot": args.pilot,
-              "input_profile": "platform2: legal intro/platform run-jump, guarded attack-phase extra shots and at-most-two final-recovery shots; not cautious2/two-shot safety proof" if args.pilot == "platform2" else "active2: additional guarded ground shots in attack preparation plus at-most-two final-recovery shots; does not prove cautious2 victory/two-shot safety" if args.pilot == "active2" else args.pilot + ": recovery-shot review",
+              "input_profile": "active_assault: guarded repeated legal attack-preparation shots at actual cooldown, real platform run-jump and at-most-two recovery shots; separate from cautious2 safety proof" if args.pilot == "active_assault" else "platform2: legal intro/platform run-jump, guarded attack-phase extra shots and at-most-two final-recovery shots; not cautious2/two-shot safety proof" if args.pilot == "platform2" else "active2: additional guarded ground shots in attack preparation plus at-most-two final-recovery shots; does not prove cautious2 victory/two-shot safety" if args.pilot == "active2" else args.pilot + ": recovery-shot review",
               "diagnostic_headless": args.diagnostic_headless}
     (folder / "source-before.json").write_text(json.dumps({"source": source, "files": before}, ensure_ascii=False, indent=2) + "\n")
     env = os.environ.copy()
@@ -230,11 +230,16 @@ def main():
                 errors.append("No actual two-shot recovery counterattack observed")
             if args.pilot == "greed3" and not findings["third_shot_observations"]:
                 errors.append("Requested greedy pilot recorded no actual third recovery shot")
-            if args.pilot in ("active2", "platform2"):
+            if args.pilot in ("active2", "platform2", "active_assault"):
                 extras = findings["active_extra_requests"]
                 if not extras or not findings["actual_ground_attack_phase_shots"]:
                     errors.append(args.pilot + " recorded no guarded attack-phase extra shots")
-                if len({item["interval_start"] for item in extras}) != len(extras):
+                if args.pilot == "active_assault":
+                    if any(item.get("actual_cooldown_before_request", 1) > .001 or item.get("actual_burst_before_request", 1) > .001 or item.get("actual_boss_distance", 0) < 130 for item in extras):
+                        errors.append("active_assault extra request violated actual cooldown/burst/distance guards")
+                    if any(b["frame"]-a["frame"] < 15 for a,b in zip(extras,extras[1:])):
+                        errors.append("active_assault extras preceded the actual base-gun 15-frame interval")
+                elif len({item["interval_start"] for item in extras}) != len(extras):
                     errors.append(args.pilot + " submitted more than one extra shot in an approach/warning interval")
                 recovery_requests = {}
                 for item in trace.get("inputs", []):

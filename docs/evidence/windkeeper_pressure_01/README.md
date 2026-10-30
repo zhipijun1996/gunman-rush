@@ -14,3 +14,5 @@
 第三阶段支撑与原失败详见[返工说明](../../worklines/windkeeper_pressure_01/support-repair.md)。旧v5终态第三阶段地形兼容按用户授权延期，当前v6快照/断桥/伤害/奖励不豁免。原BGM、受伤A、玩家物理、现有身体PNG、1wu/nearest规格未替换。用户审美、手感、实体设备及完整电影仍待实际审核。
 
 追加共享原消费者结果：core5686/0、enemy-structure733/0、boss-time1182/0。原boss-time变帧率失败、同一脚本固定60Hz诊断及实际wrapper复跑原日志均见 original-consumers/；只复用已有固定帧率适配，原计时与碰撞断言、120/240秒预算不改。最新headless11和active02仍失败，后续platform2仅改变正常操作策略，不能预签胜利。
+
+近身退路诊断：dodge-probe/ 内保留12个受控正式App试验，setup_failures=0；5条跳跃＋真实射击反冲路线保持5HP，静止/仅跳失败原件保留。每例起手前的Boss阶段、招式与双方站位为明确fixture，之后仅正常输入。此证据只证明所测起手存在可达退路，不代表完整连段或自然全战斗通过。
