@@ -1,0 +1,138 @@
+{
+  "scope": "Technical Bible merge only; no production, Godot, staging, commits, full CI or aesthetic/device claims",
+  "parent_heads": {
+    "program": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+    "audio": "feb0106849e12c18c0337c8cdb23d01333580e42"
+  },
+  "resolved_conflicts": [
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/revision_creative_v23.md",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/creative_direction/thorn_forest.json",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py"
+  ],
+  "new_paths": [
+    "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+    "docs/creative_direction/revision_creative_v25.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/test-retention.json"
+  ],
+  "current_style": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+  "creative_version": "creative-v25",
+  "reference_count": 83,
+  "rebound_from_program": [
+    "scripts/demo/demo_app.gd",
+    "scripts/items/v5/item_v5_shop_presenter.gd"
+  ],
+  "pure_tests": [
+    {
+      "command": "python tests/test_region_bible.py",
+      "tests": 40,
+      "failures": 0,
+      "seconds": 15.472,
+      "original_timeout_seconds": 30,
+      "exit_code": 0,
+      "log": "/tmp/merged_bible_tests_02.log"
+    },
+    {
+      "command": "python tests/test_region_creative_direction.py",
+      "tests": 17,
+      "failures": 0,
+      "seconds": 3.111,
+      "original_timeout_seconds": 60,
+      "exit_code": 0,
+      "log": "/tmp/merged_creative_tests_02.log"
+    },
+    {
+      "command": "python tools/region_creative_direction.py --check-bibles",
+      "exit_code": 0,
+      "log": "/tmp/merged_bible_cli.log"
+    },
+    {
+      "command": "python tools/region_creative_direction.py --directory docs/creative_direction",
+      "exit_code": 0,
+      "log": "/tmp/merged_creative_cli_02.log"
+    }
+  ],
+  "failures_preserved": [
+    "/tmp/merged_bible_tests.log",
+    "/tmp/merged_creative_tests.log"
+  ],
+  "original_test_retention": {
+    "bible": {
+      "active_methods": 40,
+      "original_methods": {
+        "program": 35,
+        "audio": 35
+      },
+      "original_sha_literals_preserved": true
+    },
+    "creative_direction": {
+      "active_methods": 17,
+      "original_methods": {
+        "program": 13,
+        "audio": 13
+      },
+      "original_sha_literals_preserved": true
+    }
+  },
+  "frozen_files": {
+    "docs/creative_direction/bibles/registry.json": "7956815f0ae63e4bcdda7cf20e7554272b43bd7e96c9d8e75bbdb4804dfec1be",
+    "docs/creative_direction/revision_creative_v23.md": "57673c1ebc6daa558dcaa82122e3947b2fc7b59eeefea573e11f5ab502771f29",
+    "docs/creative_direction/windchime_plains.json": "d8207d0c95cd0823a1b94e2f404a3bd281458ad52e4246fb3b4af5a1e887373a",
+    "docs/creative_direction/thorn_forest.json": "49e05c7268abf1b2e63f5aedab195d046699df757968888ea252cf11604b1d49",
+    "tests/test_region_bible.py": "66970688147f27afb158ad85287b78e51f51e75b748f9bde9c5c7fda32fbe9c0",
+    "tests/test_region_creative_direction.py": "1c486c1b455a4eed9f3f32a49ae7f2be0a8f6ae4140c76c91f96fb4bb7daafd9",
+    "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "docs/creative_direction/revision_creative_v25.md": "e531706f94973751a34d84e7078589fc87b04422eaff2a061ed8b250497d5de2",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json": "f31f059792aea55b3a973cd9803e7c5b9d91497da593466b12a84bcc536fbe49",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json": "20985784ab3ba6fcf8b29817f7ee7beb3d38979ff66100370bcff213274a7d35",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md": "d05d4da7dd1ae77e1fec691882abc25b7d2709564739aa34e2955a354618d6f1",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt": "3e9e9baf24da3e08cc53890d41d1f995f78c280d90666f514e47b4cda6555c5f",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt": "63283b004062db161f5b30d1acbdaa1aa9717604c1fb8210519a8f2bcb53b254",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt": "d68cfb42650c771b815c04aefee427483a3739469f3407b9479e81b02f95ac10",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt": "35d2e697a35a1b46713b5ffa2ef7d11ff61d108ab1590b0efac71f55d07073cd",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt": "4a01b3a686c7e9f7c5aaa0f3007665389ba58b4229d77748373383316695d0ec",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json": "06eaf697f2d994ef111d25a06ea40a7eb06ff42ff0ee5f4016b9f35e69f35b75",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json": "fa660deffa2b0e8b894e337a9f5c2e76e4133e6ec1191d1e6effb680df172a61",
+    "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json": "74dce20a314ba573c15f24bbe17b6faee7cdf0a65728f403663057a7b49e9742",
+    "docs/creative_direction/archive/merge-20261030-style21/program/registry.json": "eb23253d9a7d3c44bdc8ca57fe8b14382a1d5f70e7bf6ba2652c08ae6d916653",
+    "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md": "8914ae52afe13f6ce3556af0705a88ef48fcd004cfb39f5b67153591594b82ba",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt": "f5f9683e5fedecb249700efad3f3c0126a09233466fe9bda1fbd923f2d8db689",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt": "8335b5d879bf54eb4e720ab5fcf6163ae840de54c1ad3d94bd5b8b5d663b0cc4",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+    "docs/creative_direction/archive/merge-20261030-style21/program/style21.json": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt": "d2cea1a05bd5d4ff35582577b57ac5a9de654898391229c419e823aba1c40d38",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt": "a698cb3ef286117457692a2c16a48a48e15f866c47a9b5b45c273712305f6df4",
+    "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json": "eac8a727fd5063eb449f91d014bf35edcaf6ebe9f68fb1b173c941e3c11f148a",
+    "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a",
+    "docs/creative_direction/archive/merge-20261030-style21/test-retention.json": "d8afaea33eb77939c2dc98ac0ceab2a614b260035008380e3dc6372c52392f51"
+  }
+}

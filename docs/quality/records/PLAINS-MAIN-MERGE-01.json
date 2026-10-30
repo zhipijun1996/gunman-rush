@@ -4,7 +4,7 @@
   "task_type": "process",
   "workflow": "review",
   "baseline_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
-  "reviewed_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+  "reviewed_commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
   "content_version": "plains-main-integration-v1",
   "owner": "/root",
   "purpose": "用户授权七怪工作线合main，保双方内容并验证冲突整合",
@@ -13,7 +13,8 @@
     "用户快速合入授权；原完整两通道/affected仍须通过",
     "保两父历史/原失败/全部断言与预算，正常merge不强推",
     "原167前缀再追加主线audio为168，保83引用技术新版本",
-    "不以合入替代艺术/设备/用户G5"
+    "不以合入替代艺术/设备/用户G5",
+    "GameAudio运行冲突明确记在scope/独审与原enemy/audio内容任务，本process只拥有Git/绑定/检查流程，不覆盖运行源"
   ],
   "affected_paths": [
     "docs/worklines/plains_motion_loot_02/main_merge.md",
@@ -21,9 +22,40 @@
     "docs/current_state.md",
     "docs/handoff.md",
     "docs/tasks.md",
-    "scripts/audio/game_audio.gd",
     "tests/test_production_plan.py",
-    "tools/harness/profiles.json"
+    "tools/harness/profiles.json",
+    "tests/test_region_bible.py",
+    "tests/test_region_creative_direction.py",
+    "docs/creative_direction/bibles/registry.json",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/creative_direction/thorn_forest.json",
+    "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+    "docs/creative_direction/revision_creative_v25.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+    "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+    "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+    "docs/creative_direction/archive/merge-20261030-style21/test-retention.json"
   ],
   "deliverables": [
     "docs/worklines/plains_motion_loot_02/main_merge.md"
@@ -108,9 +140,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "独立726/0与原pure22/40/17、8拒绝反例限定接受C冲突及门禁迁移",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "not_applicable",
@@ -137,6 +171,20 @@
       "evidence": [
         "scope"
       ]
+    },
+    {
+      "id": "MERGE-GUARD-REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "两父接口/检查集/绑定同号冲突整合",
+      "method": "原方法集逐字比、原checkdict/前缀/预算、83叶、档案与lane反例",
+      "expected": "保原逻辑/门禁，拒绝缺失重复与串lane/超预算",
+      "failure": "丢一父内容或放宽检查以追绿",
+      "status": "passed",
+      "reason": "精确C限定独审726/0，未代签native/full168",
+      "evidence": [
+        "review"
+      ]
     }
   ],
   "evidence": [
@@ -150,12 +198,31 @@
       "content_version": "plains-main-integration-v1",
       "method": "用户合入授权后的active merge规格，不冒称旧头已包含集成",
       "observed": "保双方功能/历史，168原检查与600时限，不跳红灯"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_motion_loot_02/main-merge-01/review/source-review.md",
+      "sha256": "c0b87566bf659114d00578da610e96e898abab067767b6d184ce53693964726f",
+      "kind": "review",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+      "content_version": "plains-main-integration-v1",
+      "method": "实际两父/合并C源码、方法集、原检查与83绑定、档案字节、纯测试与8lane反例；无engine",
+      "observed": "限定ACCEPT冲突源码及检查迁移，726只读核对0失败；实际pure22/40/17，不签full168或艺术",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "/root",
+        "/root/corpse_contact_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer authored none of production, bindings, tests or manifest changes; actual read-only Git/source comparison, pure tests and clone counterexamples.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "合并后原生/绑定与精确head完整168尚待执行",
-    "合入不代签主任务艺术/声音/平衡/真机验收"
+    "合并C三个原Harness专项已fresh通过：plains481/0、formal150/0、原audio四消费者；完整168/affected仍待精确新头执行",
+    "内容艺术/听感/经济/实体设备/用户G5继续分开"
   ],
-  "test_change_justification": "只将原167清单按有序前缀保留并追加main原audio-feedback；原144/165摘要、166/167序列、全部旧方法与预算保留。Bible两分支同号异源，归档各父原件并新版本绑定；独审待精确源码完成。"
+  "test_change_justification": "只将原167清单按有序前缀保留并追加main原audio-feedback；原144/165摘要、166/167序列、全部旧方法与预算保留。Bible两分支同号异源，归档各父原件并新版本绑定；独审待精确源码完成。 C独审726/0限定接受，pure22/40/17与8原lane反例实跑；只签具体迁移。"
 }

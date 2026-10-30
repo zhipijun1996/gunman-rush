@@ -1,0 +1,235 @@
+{
+  "verdict": "REJECT_FULL167_TECHNICAL_ACCEPTANCE",
+  "scope": "Exact-source original failed CI receipt integrity review; no game/art/audio/device/user/G1-G5 approval",
+  "source_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+  "run_id": 41016649030,
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "artifacts": [
+    {
+      "id": 12962651380,
+      "name": "production-lane-parallel-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-lane-parallel-41016649030-1.zip",
+      "bytes": 22044755,
+      "api_digest": "sha256:cae93c788f66ab69b231de137a831f9b1c9a929d853d28ccac2d9400e26f826c",
+      "sha256": "cae93c788f66ab69b231de137a831f9b1c9a929d853d28ccac2d9400e26f826c",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12962566696,
+      "name": "production-phase-proof-parallel",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-phase-proof-parallel.zip",
+      "bytes": 2352564,
+      "api_digest": "sha256:b02e6c04f78fbe38207cf73029ba9b232f2aa0461d9fe1ac86605d364f262b4a",
+      "sha256": "b02e6c04f78fbe38207cf73029ba9b232f2aa0461d9fe1ac86605d364f262b4a",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12962036898,
+      "name": "production-lane-serial-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-lane-serial-41016649030-1.zip",
+      "bytes": 73731370,
+      "api_digest": "sha256:b8942bf5e4f16a3e6aa79e5901872c345cfcf46f20dd969f1d3aded0dc49b0b9",
+      "sha256": "b8942bf5e4f16a3e6aa79e5901872c345cfcf46f20dd969f1d3aded0dc49b0b9",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12961419256,
+      "name": "production-phase-proof-serial",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-phase-proof-serial.zip",
+      "bytes": 2385199,
+      "api_digest": "sha256:82031b5352b76910fe2526d5f755eed45e6ff6035d58648477cc7ce38d66098f",
+      "sha256": "82031b5352b76910fe2526d5f755eed45e6ff6035d58648477cc7ce38d66098f",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12960277517,
+      "name": "production-impact-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-impact-41016649030-1.zip",
+      "bytes": 1371810,
+      "api_digest": "sha256:ca79e739a77d580bf9932cdb2aac8c4dd9569a15b52b75833655596211304cbd",
+      "sha256": "ca79e739a77d580bf9932cdb2aac8c4dd9569a15b52b75833655596211304cbd",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12960207486,
+      "name": "production-context-41016649030",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-context-41016649030.zip",
+      "bytes": 28281,
+      "api_digest": "sha256:9ce814e75320eb92c18ce7afec4df7804fc73f42c068c3fb37e33cd5949c3477",
+      "sha256": "9ce814e75320eb92c18ce7afec4df7804fc73f42c068c3fb37e33cd5949c3477",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12959968723,
+      "name": "production-validated-foundry",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-validated-foundry.zip",
+      "bytes": 487921,
+      "api_digest": "sha256:c7fc20a1c68cd5ec1aa16451ca0072ba0359d053d2928617ba0688ebeec7ca45",
+      "sha256": "c7fc20a1c68cd5ec1aa16451ca0072ba0359d053d2928617ba0688ebeec7ca45",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    }
+  ],
+  "integrity_checks_passed": 1064,
+  "integrity_checks_failed": 0,
+  "actual_lane_counts": {
+    "parallel": {
+      "passed": 92
+    },
+    "serial": {
+      "passed": 17,
+      "timeout": 1
+    }
+  },
+  "actual_check_count": 110,
+  "actual_statuses": {
+    "passed": 109,
+    "timeout": 1
+  },
+  "unexecuted": {
+    "parallel": [],
+    "serial": [
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "style-exploration",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "cloud-preview-runtime",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native"
+    ]
+  },
+  "strict_frozen_verifier_rejection": "Phase scope, freshness or manifest mismatch",
+  "source_inventory_items": 31396,
+  "prepared_git_clean": false,
+  "toolchain": {
+    "python": "3.12.15 (main, Oct  1 2026, 02:36:28) [GCC 15.2.0]",
+    "platform": "linux",
+    "godot": {
+      "exit_code": 0,
+      "version": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "node": {
+      "exit_code": 0,
+      "version": "v22.23.4"
+    }
+  },
+  "strict_log_errors": [],
+  "forest_comparison": [
+    {
+      "run_id": 40993924803,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 43.11417172799975,
+      "median_native_seconds": 41.99450333100003
+    },
+    {
+      "run_id": 41001060607,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.41380652299995,
+      "median_native_seconds": 41.57762351600013
+    },
+    {
+      "run_id": 41016649030,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.683451288000015,
+      "median_native_seconds": 41.85415453499991
+    }
+  ],
+  "main_source": "161055bcc14f95f2748e9e27c1296519f0f4e57c",
+  "main_latest_forest": {
+    "duration_seconds": 586.108,
+    "case_count": 80,
+    "all_cases_passed": true
+  },
+  "main_attempt1_forest_failed": true,
+  "main_latest_original_full166_passed": true,
+  "median_other_check_ratio_vs_main": 1.0377358490566038,
+  "official_merge": "No merged artifact; affected failed prerequisite gate",
+  "commands": [
+    "python3 /tmp/audit_plains_ci_41016649030_failed.py > /tmp/plains_ci_41016649030_failed_audit.log"
+  ],
+  "limits": [
+    "Prepared Foundry56 working modifications are disclosed; CI execution was not Git clean.",
+    "Runtime source comparison covers explicitly enumerated task production paths against frozen Git; historical excluded evidence is not claimed materialized.",
+    "Full167 and official affected closure are not passed.",
+    "No retry or budget/test/production mutation by reviewer.",
+    "Movie remains source996a; this receipt does not re-sign its source.",
+    "Main exact tree had one forest timeout then full166 success on attempt2. This does not prove branch forest timeout is purely infrastructure; main and branch runtime sources differ."
+  ]
+}
+INTEGRITY_FAILURES []

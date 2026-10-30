@@ -1,0 +1,5978 @@
+{
+  "verdict": "REJECT_FULL167_TECHNICAL_ACCEPTANCE",
+  "scope": "Exact-source original failed CI receipt integrity review; no game/art/audio/device/user/G1-G5 approval",
+  "source_commit": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+  "run_id": 41016649030,
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "artifacts": [
+    {
+      "id": 12962651380,
+      "name": "production-lane-parallel-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-lane-parallel-41016649030-1.zip",
+      "bytes": 22044755,
+      "api_digest": "sha256:cae93c788f66ab69b231de137a831f9b1c9a929d853d28ccac2d9400e26f826c",
+      "sha256": "cae93c788f66ab69b231de137a831f9b1c9a929d853d28ccac2d9400e26f826c",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12962566696,
+      "name": "production-phase-proof-parallel",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-phase-proof-parallel.zip",
+      "bytes": 2352564,
+      "api_digest": "sha256:b02e6c04f78fbe38207cf73029ba9b232f2aa0461d9fe1ac86605d364f262b4a",
+      "sha256": "b02e6c04f78fbe38207cf73029ba9b232f2aa0461d9fe1ac86605d364f262b4a",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12962036898,
+      "name": "production-lane-serial-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-lane-serial-41016649030-1.zip",
+      "bytes": 73731370,
+      "api_digest": "sha256:b8942bf5e4f16a3e6aa79e5901872c345cfcf46f20dd969f1d3aded0dc49b0b9",
+      "sha256": "b8942bf5e4f16a3e6aa79e5901872c345cfcf46f20dd969f1d3aded0dc49b0b9",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12961419256,
+      "name": "production-phase-proof-serial",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-phase-proof-serial.zip",
+      "bytes": 2385199,
+      "api_digest": "sha256:82031b5352b76910fe2526d5f755eed45e6ff6035d58648477cc7ce38d66098f",
+      "sha256": "82031b5352b76910fe2526d5f755eed45e6ff6035d58648477cc7ce38d66098f",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12960277517,
+      "name": "production-impact-41016649030-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-impact-41016649030-1.zip",
+      "bytes": 1371810,
+      "api_digest": "sha256:ca79e739a77d580bf9932cdb2aac8c4dd9569a15b52b75833655596211304cbd",
+      "sha256": "ca79e739a77d580bf9932cdb2aac8c4dd9569a15b52b75833655596211304cbd",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12960207486,
+      "name": "production-context-41016649030",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-context-41016649030.zip",
+      "bytes": 28281,
+      "api_digest": "sha256:9ce814e75320eb92c18ce7afec4df7804fc73f42c068c3fb37e33cd5949c3477",
+      "sha256": "9ce814e75320eb92c18ce7afec4df7804fc73f42c068c3fb37e33cd5949c3477",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    },
+    {
+      "id": 12959968723,
+      "name": "production-validated-foundry",
+      "path": "/workspace/gunman-rush/build/plains-ci-41016649030/production-validated-foundry.zip",
+      "bytes": 487921,
+      "api_digest": "sha256:c7fc20a1c68cd5ec1aa16451ca0072ba0359d053d2928617ba0688ebeec7ca45",
+      "sha256": "c7fc20a1c68cd5ec1aa16451ca0072ba0359d053d2928617ba0688ebeec7ca45",
+      "run_id": 41016649030,
+      "head_sha": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9"
+    }
+  ],
+  "checks": [
+    {
+      "id": "frozen_harness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_full167",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12962651380",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12962651380",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12962651380",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12962566696",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12962566696",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12962566696",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12962036898",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12962036898",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12962036898",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12961419256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12961419256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12961419256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12960277517",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12960277517",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12960277517",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12960207486",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12960207486",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12960207486",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "api_binding/12959968723",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_digest/12959968723",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "zip_safe/12959968723",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_context_same_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "context_full_set",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/prefix",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/stable_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/stable_toolchain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/context_prepared_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel/no_untracked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "docs/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "world-design-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "structure/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-drills/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "core/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "generated-consumers/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-painterly_pack/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_v3/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-meadow_enemy_art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_ground_art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-windkeeper_art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_spatial_art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "art-plains_item_art/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-cache/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production-loop-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "quality-review-engine/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-tile-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-production/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "consumer-coverage-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "wood-platforms/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "actor-actions/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "grapple-feel/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-interwoven-contract/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-player-aim/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all-weapons/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "studio-input/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "weapon-feel/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "action-budget/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "capture-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-contracts/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mechanism-comparisons/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-analysis/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-routing/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-region-context/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-experience/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-receipts/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-golden/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-space/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "directed-space-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-current/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-spaces/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "root-bell-ecology/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-resource-contract-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "runtime-raw-export-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "asset-family-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "connected-family-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-guardian-tolerance/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-enemies/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-current-registry/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-restore/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-guardian/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-queen-canopy/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-campaign-canopy/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-vertical-shortcut/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "blob47-foundation/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "creative-direction-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "visual-director-terrain/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "parallel-region-presentation/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-pipeline/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-region-scheduler-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "underworld-home-guard-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-contract/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "region-bible-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-reader-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-bible-av-reader-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "harness-artifact-archive-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-production-planner-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-delivery-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cloud-inputs-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "portable-frozen-assets/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "demo-ui-time-energy/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-native/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-formal/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-feedback-support/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-save/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "enemy-corpse-snapshot/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "bgm-integration/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "player-default-integration/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-v5-data/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "item-authoring-tools/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-motion-loot-02/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/prefix",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/stable_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/stable_toolchain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/context_prepared_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "serial/no_untracked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "environment/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-build/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "web-bundle/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-runtime/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-design-golden/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "level-formal-runtime/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-spatial/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-experience-golden/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-encounter-policy/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains-redesign-scene/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "terrain-family-tests/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-h-slice/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-ecology/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-progression/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-campaign/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-debug/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-traversal/pass_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/original_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/fresh_token",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/actual_argv",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/input_digest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/interval",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/log_name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "forest-depth-region/log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_failures_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cross_lane_inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cross_lane_git",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "cross_lane_toolchain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_only_foundry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/batch.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/export_basis.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/climb_change_height-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/height_then_precision-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/precision_to_transfer-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/read_ride_release-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/resource_then_rhythm-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-0e61faed40.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-0efaee5828.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-122d7f6e2a.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-1521b6b7c3.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-2860deda61.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-2d706b6f11.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-2d7d2e4612.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-2f6354523f.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-3aa2ad4cba.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-4bec60578b.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-5798c84cea.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-7da5a6c16f.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-908c475df3.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-93acd6603f.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-ad7b9db895.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-cf73f3c620.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-f91361b454.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/route-b4df2effd8.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-air_chain-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-base-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-base-v0-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-base-v1-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-base-v1-p1.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "prepared_foundry_zip/replays/short_long_rise-double_jump-v0-p0.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "frozen_verifier_refuses_failed_lanes",
+      "passed": true,
+      "detail": "Phase scope, freshness or manifest mismatch"
+    },
+    {
+      "id": "official_failed_outcome",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_official_merge_artifact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_death.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_death.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_hurt.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_hurt.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_land.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/plant_land.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/provenance.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/recipes.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_death.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_death.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_hurt.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_hurt.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_land.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/shell_land.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_death.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_death.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_hurt.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_hurt.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_land.wav",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/audio/plains_feedback_02/wing_land.wav.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/life_orb.png",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/life_orb.png.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/manifest.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/provenance.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/generated-original.png",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/generated-original.png.import",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/prompt.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/request.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/response-metadata.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/style20-input.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/assets/plains_loot_02/source/windchime-direction-input.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/config/enemy_drops.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/resources/damage/feedback.tres",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/art/plains_stage_visual.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/art/player_feedback.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/audio/game_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/audio/plains_enemy_audio.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/audio/plains_enemy_audio.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/damage/damage_feedback_definition.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/demo/demo_app.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/demo/generated_demo_stage.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/demo/plains_region_stage.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/demo/thorn_forest_region_stage.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/enemy_actor.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/enemy_feedback_01_particles.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/enemy_feedback_01_remains.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/enemy_presentation.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_motion_02.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_revision_flora.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_revision_ground.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_revision_remains.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_revision_skin.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/enemies/plains_revision_visual.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/generation/plains_environment_plan.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/generation/plains_place_plan.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/generation/plains_region_generator.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/rewards/enemy_drop_service.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/rewards/plains_loot_motion.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/rewards/plains_loot_motion.gd.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/scripts/underworld_plains/underworld_enemy.gd",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/shaders/plains_loot_02.gdshader",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "task_production/shaders/plains_loot_02.gdshader.uid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "production_same_as_frozen_A",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_api_zip/12958408300",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_unique_report/parallel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_report_pass/parallel",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_api_zip/12960968215",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_unique_report/serial",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_report_pass/serial",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_forest_log_sha",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_forest80_actual_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_same_forest_guard",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_api_zip/12961198467",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_unique_report/merged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_report_pass/merged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_full166_official",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_merge_tree_equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_latest_official_allgreen",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "main_original_failed_forest_retained",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "integrity_checks_passed": 1064,
+  "integrity_checks_failed": 0,
+  "actual_lane_counts": {
+    "parallel": {
+      "passed": 92
+    },
+    "serial": {
+      "passed": 17,
+      "timeout": 1
+    }
+  },
+  "actual_check_count": 110,
+  "actual_statuses": {
+    "passed": 109,
+    "timeout": 1
+  },
+  "unexecuted": {
+    "parallel": [],
+    "serial": [
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "style-exploration",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "cloud-preview-runtime",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native"
+    ]
+  },
+  "failed_checks": [
+    {
+      "id": "forest-depth-region",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "d3b6934fb89801fb88a6de926adfea1f729deda63eb8904bfdca4c05890a1741",
+      "log": "forest-depth-region.log",
+      "status": "timeout",
+      "exit_code": null,
+      "failure_reason": "timeout",
+      "started_at_unix": 1793346001.21173,
+      "ended_at_unix": 1793346601.4020326,
+      "duration_seconds": 600.19,
+      "expanded_argv": [
+        "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-aeb2a2f9cf9146f2bd10509f343ac9ac"
+      ],
+      "check_token": "aeb2a2f9cf9146f2bd10509f343ac9ac",
+      "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261030T071656.125904Z/artifacts/forest-depth-region",
+      "reused": false,
+      "success_pattern": "^FOREST DEPTH REGION: passed",
+      "log_sha256": "4565371f998f760b9514aad46e0d210bdfbdf303c871e3ecec26ac7c60f21609"
+    }
+  ],
+  "strict_frozen_verifier_rejection": "Phase scope, freshness or manifest mismatch",
+  "source_inventory_items": 31396,
+  "prepared_modified56": {
+    "resources/foundry/batch.json": "fc7f8dbb67a0494f56c89ea3745191eeb5cea22fc65cfb8e067452dfc93763d7",
+    "resources/foundry/export_basis.json": "78f9417857621e522142bd752ad0032a66d2556bd94e9c03a7707cf4bc3f6629",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json": "38f56e3c88d6b4695b24eb827d2fb03a2361f7f8c99fb8fe642bd8d07a2f767d",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json": "8361ce9b6aa94483da8895bb7e0f2e19224bb1472bbd0d0a74fb540ae19f6b75",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json": "01c1516cb1aaf3e5973c97d91e17f303605662d5f2fd0be0a20393ad81335fea",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json": "0a39cfebd26879d68253ed12f5b64e8a8ba24c317c2c39021b44b5def09f145e",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json": "57a53a950b7670bc8c6659659ff66f81a44abbadfd7efb2c0dd9623224884bfd",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json": "284bf9dbdd92ee12aa7a5d3bc6f377a5bea669bab40feaa2aff4c7fa07ed1ee6",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json": "c823f4a97ccb5d2e5c274a2a3262b3a0e078842c4a3f64c880657a366bf6d1de",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json": "7289d35a8fa3dba166f3331953c7aaf418c4e6cd3b546230b4af2020d2fa0aa7",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json": "4eedca6e57e0857a28c6d27e5371fa4b3003b76a29c969c2f9e248be1b94b9df",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json": "c9670d60d4024b378ef7e51e13f53c2c6f47c8c923ddeaf9b9fb3f8540d5c665",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json": "b1b8ce71c67c6686ddbefe65aee7c9efdbfb8b3bec0bd3dff048fe61440ccab2",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json": "8658e7bba8272c9b272d4aa1851aa3494f87940b81323926b4c10837cc97d421",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json": "39f92d712210dc0165205a0bd15398c59716cde89c222926ff46efa60f107003",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json": "46fc6e7ff162b5d7fb7a49d98f4e5cbaccacc0a52ef185205704f0e57bb0842d",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json": "f8208fc50a71e6dd16cbc7525f43b5304e82570a2c4365adcc1ea1a55b51a354",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json": "1da005e000979452a422978279c985f7c54b4d8690e4bfc688c429b4f7a9ac12",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json": "4fca665e9a7d928024685040dccd804f41ff6408e25458f01c06e08378e241cf",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json": "9465a503cf1e9023ff171921c3e60c5494e5fced26ea042e85c704bab3244e5a",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json": "94862638f1cef80b21e4cf4739620e7aafd44e6d1b04622c2bdbf9e366a13840",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json": "f918201b309e25759d0f323dc86b70f598c1339f436ca892878628eab4b971cd",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json": "37f302b6ee0fdce282ba460ecd4b812319a71c60537a3453043a97d30cd61adc",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json": "194155da3745be4b4aa077ffcfa364fe8e9189110b3d768a4aa49d3da9b3c185",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json": "836a58319d67a2fff92da4c89217da35ab4c3c1611a7d02b9ad17d0aeec78a91",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json": "25942dde7be8b955192f1b41c519fa996c9db277662ff48185114880924b8e23",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json": "af25d730a1200953e468279c04208f3d75810b632a3cace572aaec123f07bca0",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json": "33e4f4de1a5fea09d7b690ac3dc7c15b06fa75c841902af1d8ff6d0ac100694f",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json": "ff34bc18d6202f2ca6fcdfdc427892414d8e96e5e7cfc2856e31619202a92c9e",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json": "737057e4c280789014e021d88cdc7512176063cb67f06f0810d2af8fefc496dc",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json": "d234bc43f7596c6f476873c54c871e3e6da2ced0c74d79f3c3f35d5fc2c9e15f",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json": "ab1f6a4fd4df01d04336a2816c2989a7c0152e0a0496ffde38885bff6684c828",
+    "resources/foundry/replays/route-0e61faed40.json": "79cb05c4ea4dabcda5485d4a3934725b2224b3e8469ed2517d2d7f165eaf4f15",
+    "resources/foundry/replays/route-0efaee5828.json": "db043896538770894555c6d66ab1de4f05e242013abfedb5341d9857db9b3a6f",
+    "resources/foundry/replays/route-122d7f6e2a.json": "d63473634d813d377deb0cc39cfb628f091a061238d19bf2e639f6d8c4664391",
+    "resources/foundry/replays/route-1521b6b7c3.json": "3abc589b81ed731ea9fc63f619384bf20673c79b788a921222cbc3974798f00f",
+    "resources/foundry/replays/route-2860deda61.json": "73434cf83295b81fd8d8bab136348ac9591639329da554b0163c910dfcaf9c03",
+    "resources/foundry/replays/route-2d706b6f11.json": "c9f36d98146ef6925899ba908e9a1943efc1de0c51a01053fdf721fc6551080d",
+    "resources/foundry/replays/route-2d7d2e4612.json": "fde0141917a85773bbea41d90ae910dd375c3d33985bea5b3d0e9a00481f57ab",
+    "resources/foundry/replays/route-2f6354523f.json": "ecb30bd8ec7f82deadf78bf952e345d597d4db14e8ef800f87f88d3250445d60",
+    "resources/foundry/replays/route-3aa2ad4cba.json": "08a5a6f17a8a7dacb8c28b9fae0159b5e0d5f2aa09fa5498b47c7a89851d44e1",
+    "resources/foundry/replays/route-4bec60578b.json": "d46c1984a550772ad664962bfef44efc86be464e4bf0f6161d363f8f85c99aad",
+    "resources/foundry/replays/route-5798c84cea.json": "c6cf082110b5fa825454aba7e001350d79fe8f898acc4c752e30e54f62f31279",
+    "resources/foundry/replays/route-7da5a6c16f.json": "358c886ccda91a807d84406fd584fb02ee56a02db80ff60f3715b89eb93801c0",
+    "resources/foundry/replays/route-908c475df3.json": "fa928471ffbf30c8cab618fc983779ce4b933509138e0369231d29186f3fb5c7",
+    "resources/foundry/replays/route-93acd6603f.json": "65ff13d1d355ad534a423220159ad278d746074327eaabf7b2c97a2c94b29575",
+    "resources/foundry/replays/route-ad7b9db895.json": "7672c73efc7532f037947f57300f55e54d3ade56c5598ff036e2c59883a91b31",
+    "resources/foundry/replays/route-b4df2effd8.json": "f223942bec9d9d3f2b10e4556e64636ace422d7b14a615860b028b0d87b6c352",
+    "resources/foundry/replays/route-cf73f3c620.json": "e31cfa833112fd0ad7bb377d2903c0003f1a5a6e16a8a29d0ca0a7e249874860",
+    "resources/foundry/replays/route-f91361b454.json": "8738ccbed599ac9c8d5c131da1c9a8e4805d20c4cb629605eb69248b45d81d64",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json": "de6e37ab32b7531a736fd71e9302750f0fbba555227f165a92fd5aaf1ab70640",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json": "11e5a16ccf69354264acff8a2db1cb93d4ad1c49e166fa4feb1f71e00a7fc44b",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json": "41a75723b1b6b3673855afc0e3772a3aa8eeb080a11f9ce4bdcc6130ea2d02a6",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json": "fbc9a9400af65aa01447b0ebcfdbb9daa9b82761ba078dd482430a516800a28f",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json": "5f68d8dd9430125901adf3d8336c51323d527f0810c02251a4f200efa8c64072",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json": "1ea0feed5ad28fffc2d271adc12ad52b2046bc10d0a353be9cc8612e57a1ec37"
+  },
+  "prepared_git_clean": false,
+  "toolchain": {
+    "python": "3.12.15 (main, Oct  1 2026, 02:36:28) [GCC 15.2.0]",
+    "platform": "linux",
+    "godot": {
+      "exit_code": 0,
+      "version": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "node": {
+      "exit_code": 0,
+      "version": "v22.23.4"
+    }
+  },
+  "strict_log_errors": [],
+  "task_production_compared": [
+    "assets/audio/plains_feedback_02/README.md",
+    "assets/audio/plains_feedback_02/manifest.json",
+    "assets/audio/plains_feedback_02/plant_death.wav",
+    "assets/audio/plains_feedback_02/plant_death.wav.import",
+    "assets/audio/plains_feedback_02/plant_hurt.wav",
+    "assets/audio/plains_feedback_02/plant_hurt.wav.import",
+    "assets/audio/plains_feedback_02/plant_land.wav",
+    "assets/audio/plains_feedback_02/plant_land.wav.import",
+    "assets/audio/plains_feedback_02/provenance.json",
+    "assets/audio/plains_feedback_02/recipes.json",
+    "assets/audio/plains_feedback_02/shell_death.wav",
+    "assets/audio/plains_feedback_02/shell_death.wav.import",
+    "assets/audio/plains_feedback_02/shell_hurt.wav",
+    "assets/audio/plains_feedback_02/shell_hurt.wav.import",
+    "assets/audio/plains_feedback_02/shell_land.wav",
+    "assets/audio/plains_feedback_02/shell_land.wav.import",
+    "assets/audio/plains_feedback_02/wing_death.wav",
+    "assets/audio/plains_feedback_02/wing_death.wav.import",
+    "assets/audio/plains_feedback_02/wing_hurt.wav",
+    "assets/audio/plains_feedback_02/wing_hurt.wav.import",
+    "assets/audio/plains_feedback_02/wing_land.wav",
+    "assets/audio/plains_feedback_02/wing_land.wav.import",
+    "assets/manifest.json",
+    "assets/plains_loot_02/life_orb.png",
+    "assets/plains_loot_02/life_orb.png.import",
+    "assets/plains_loot_02/manifest.json",
+    "assets/plains_loot_02/provenance.json",
+    "assets/plains_loot_02/source/generated-original.png",
+    "assets/plains_loot_02/source/generated-original.png.import",
+    "assets/plains_loot_02/source/prompt.txt",
+    "assets/plains_loot_02/source/request.json",
+    "assets/plains_loot_02/source/response-metadata.json",
+    "assets/plains_loot_02/source/style20-input.json",
+    "assets/plains_loot_02/source/windchime-direction-input.json",
+    "config/enemy_drops.json",
+    "resources/damage/feedback.tres",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/art/player_feedback.gd",
+    "scripts/audio/game_audio.gd",
+    "scripts/audio/plains_enemy_audio.gd",
+    "scripts/audio/plains_enemy_audio.gd.uid",
+    "scripts/damage/damage_feedback_definition.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/generated_demo_stage.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/enemy_feedback_01_particles.gd",
+    "scripts/enemies/enemy_feedback_01_remains.gd",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/enemies/plains_motion_02.gd",
+    "scripts/enemies/plains_revision_flora.gd",
+    "scripts/enemies/plains_revision_ground.gd",
+    "scripts/enemies/plains_revision_remains.gd",
+    "scripts/enemies/plains_revision_skin.gd",
+    "scripts/enemies/plains_revision_visual.gd",
+    "scripts/generation/plains_environment_plan.gd",
+    "scripts/generation/plains_place_plan.gd",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/rewards/enemy_drop_service.gd",
+    "scripts/rewards/plains_loot_motion.gd",
+    "scripts/rewards/plains_loot_motion.gd.uid",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "shaders/plains_loot_02.gdshader",
+    "shaders/plains_loot_02.gdshader.uid"
+  ],
+  "forest_comparison": [
+    {
+      "run_id": 40993924803,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 43.11417172799975,
+      "median_native_seconds": 41.99450333100003
+    },
+    {
+      "run_id": 41001060607,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.41380652299995,
+      "median_native_seconds": 41.57762351600013
+    },
+    {
+      "run_id": 41016649030,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.683451288000015,
+      "median_native_seconds": 41.85415453499991
+    }
+  ],
+  "main_source": "161055bcc14f95f2748e9e27c1296519f0f4e57c",
+  "main_latest_forest": {
+    "duration_seconds": 586.108,
+    "case_count": 80,
+    "all_cases_passed": true
+  },
+  "main_attempt1_forest_failed": true,
+  "main_latest_original_full166_passed": true,
+  "other_serial_check_ratios": [
+    {
+      "id": "environment",
+      "main_seconds": 0.159,
+      "branch_seconds": 0.165,
+      "new_over_old": 1.0377358490566038
+    },
+    {
+      "id": "web-build",
+      "main_seconds": 102.626,
+      "branch_seconds": 105.605,
+      "new_over_old": 1.0290277317638805
+    },
+    {
+      "id": "web-bundle",
+      "main_seconds": 1.905,
+      "branch_seconds": 2.006,
+      "new_over_old": 1.053018372703412
+    },
+    {
+      "id": "level-design-runtime",
+      "main_seconds": 31.135,
+      "branch_seconds": 32.397,
+      "new_over_old": 1.0405331620362934
+    },
+    {
+      "id": "level-design-golden",
+      "main_seconds": 25.057,
+      "branch_seconds": 25.866,
+      "new_over_old": 1.0322863870375545
+    },
+    {
+      "id": "level-formal-runtime",
+      "main_seconds": 21.546,
+      "branch_seconds": 33.637,
+      "new_over_old": 1.5611714471363596
+    },
+    {
+      "id": "plains-redesign-spatial",
+      "main_seconds": 132.94,
+      "branch_seconds": 141.621,
+      "new_over_old": 1.0653001353994285
+    },
+    {
+      "id": "plains-experience-golden",
+      "main_seconds": 71.293,
+      "branch_seconds": 77.629,
+      "new_over_old": 1.0888726803472992
+    },
+    {
+      "id": "plains-encounter-policy",
+      "main_seconds": 338.813,
+      "branch_seconds": 527.467,
+      "new_over_old": 1.556808623045751
+    },
+    {
+      "id": "plains-redesign-scene",
+      "main_seconds": 220.735,
+      "branch_seconds": 293.266,
+      "new_over_old": 1.328588579065395
+    },
+    {
+      "id": "terrain-family-tests",
+      "main_seconds": 46.007,
+      "branch_seconds": 46.277,
+      "new_over_old": 1.0058686721585846
+    },
+    {
+      "id": "forest-h-slice",
+      "main_seconds": 13.186,
+      "branch_seconds": 13.281,
+      "new_over_old": 1.0072046109510087
+    },
+    {
+      "id": "forest-ecology",
+      "main_seconds": 3.262,
+      "branch_seconds": 4.259,
+      "new_over_old": 1.3056407112201105
+    },
+    {
+      "id": "forest-progression",
+      "main_seconds": 1.558,
+      "branch_seconds": 1.453,
+      "new_over_old": 0.9326059050064185
+    },
+    {
+      "id": "forest-campaign",
+      "main_seconds": 12.189,
+      "branch_seconds": 11.881,
+      "new_over_old": 0.9747313151201904
+    },
+    {
+      "id": "forest-debug",
+      "main_seconds": 10.535,
+      "branch_seconds": 9.977,
+      "new_over_old": 0.9470336971998101
+    },
+    {
+      "id": "forest-traversal",
+      "main_seconds": 9.227,
+      "branch_seconds": 9.122,
+      "new_over_old": 0.9886203533109352
+    }
+  ],
+  "median_other_check_ratio_vs_main": 1.0377358490566038,
+  "official_merge": "No merged artifact; affected failed prerequisite gate",
+  "commands": [
+    "python3 /tmp/audit_plains_ci_41016649030_failed.py > /tmp/plains_ci_41016649030_failed_audit.log"
+  ],
+  "limits": [
+    "Prepared Foundry56 working modifications are disclosed; CI execution was not Git clean.",
+    "Runtime source comparison covers explicitly enumerated task production paths against frozen Git; historical excluded evidence is not claimed materialized.",
+    "Full167 and official affected closure are not passed.",
+    "No retry or budget/test/production mutation by reviewer.",
+    "Movie remains source996a; this receipt does not re-sign its source.",
+    "Main exact tree had one forest timeout then full166 success on attempt2. This does not prove branch forest timeout is purely infrastructure; main and branch runtime sources differ."
+  ],
+  "source_comparison": {
+    "main": "feb0106849e12c18c0337c8cdb23d01333580e42",
+    "branch": "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+    "paths": [
+      {
+        "path": ".github/workflows/production.yml",
+        "main_sha256": "e49e83ffc150f0f73990de27e33c2a1bbec6c0955e93925d85f9f1c5ebcf055e",
+        "branch_sha256": "e49e83ffc150f0f73990de27e33c2a1bbec6c0955e93925d85f9f1c5ebcf055e",
+        "equal": true
+      },
+      {
+        "path": "tools/harness.py",
+        "main_sha256": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+        "branch_sha256": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+        "equal": true
+      },
+      {
+        "path": "tools/harness/profiles.json",
+        "main_sha256": "7bbf8336009636ef4f353a56770c50418a37f9715729a6aa4413279e062fea03",
+        "branch_sha256": "19b782445d7b6d1299f5b36d69dd0c3e88c65923dca012c79a997bef688a1b95",
+        "equal": false
+      },
+      {
+        "path": "tools/run_forest_depth_region.py",
+        "main_sha256": "da28fa29e68f18411c6354fe91e392223e3b48011ad95787d1f21c39ec2482e5",
+        "branch_sha256": "781469d74f1b51520da10d94aed822e6b2e78cc1dc645b69bd49abeda0581667",
+        "equal": false
+      },
+      {
+        "path": "tests/forest_depth_region_runner.gd",
+        "main_sha256": "42e9225ea843df1fa509aa7f5408d0c94b6a64b2524e8875fd87f70254a247ec",
+        "branch_sha256": "42e9225ea843df1fa509aa7f5408d0c94b6a64b2524e8875fd87f70254a247ec",
+        "equal": true
+      },
+      {
+        "path": "scripts/underworld_plains/underworld_foreground.gd",
+        "main_sha256": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+        "branch_sha256": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3",
+        "equal": false
+      },
+      {
+        "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+        "main_sha256": "5b592efa1eb02ce682e78fb2d79ecdf883fb9c46e94a67f610640487dc224b4e",
+        "branch_sha256": "95fdfc9a19a86257110806227bb811e5ae7423dec5193b77a1a4f81e6d204c9d",
+        "equal": false
+      },
+      {
+        "path": "scripts/enemies/enemy_presentation.gd",
+        "main_sha256": "ecbc27fb3f13ce0319158b16397398bc9844f9ab40af5c273fb925b4725eb728",
+        "branch_sha256": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e",
+        "equal": false
+      },
+      {
+        "path": "scripts/enemies/plains_revision_ground.gd",
+        "main_sha256": null,
+        "branch_sha256": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+        "equal": false
+      },
+      {
+        "path": "scripts/enemies/plains_revision_skin.gd",
+        "main_sha256": null,
+        "branch_sha256": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+        "equal": false
+      }
+    ],
+    "note": "Git source comparison only. The two heads have different production sources; same-host AB not performed by reviewer."
+  },
+  "reviewer_authored_implementation": false,
+  "scope_excludes_current_uncommitted_main_integration": true,
+  "baseline_evidence": {
+    "run_id": 41008752243,
+    "head_sha": "161055bcc14f95f2748e9e27c1296519f0f4e57c",
+    "latest_attempt": 2,
+    "main_merge_sha": "feb0106849e12c18c0337c8cdb23d01333580e42",
+    "merge_tree_identical": true,
+    "attempt1_failed_job": 123913464904,
+    "latest_affected_job": 123946728870,
+    "artifacts": [
+      {
+        "id": 12961198467,
+        "name": "production-merged-proof-41008752243-2",
+        "size_in_bytes": 2777535,
+        "url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12961198467",
+        "archive_download_url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12961198467/zip",
+        "expired": false,
+        "created_at": "2026-10-30T07:40:01Z",
+        "expires_at": "2026-11-13T07:40:00Z",
+        "updated_at": "2026-10-30T07:40:01Z",
+        "digest": "sha256:65918e9c059c8ad4b6125c2a0d7e9f68e040c4fdcf6b4e2646dc0c767c404f1d",
+        "workflow_run": {
+          "id": 41008752243,
+          "repository_id": 1411414435,
+          "head_repository_id": 1411414435,
+          "head_branch": "fix/audio-playtest-feedback-20261030",
+          "head_sha": "161055bcc14f95f2748e9e27c1296519f0f4e57c"
+        },
+        "path": "/workspace/gunman-rush/build/plains-ci-41016649030/main-artifact-12961198467.zip"
+      },
+      {
+        "id": 12960968215,
+        "name": "production-phase-proof-serial",
+        "size_in_bytes": 1467075,
+        "url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12960968215",
+        "archive_download_url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12960968215/zip",
+        "expired": false,
+        "created_at": "2026-10-30T07:30:59Z",
+        "expires_at": "2026-11-13T07:30:58Z",
+        "updated_at": "2026-10-30T07:30:59Z",
+        "digest": "sha256:11298dcfc009cdfd9a4df025bddb071b4d07a7760f68d89c33cacfe59dba356e",
+        "workflow_run": {
+          "id": 41008752243,
+          "repository_id": 1411414435,
+          "head_repository_id": 1411414435,
+          "head_branch": "fix/audio-playtest-feedback-20261030",
+          "head_sha": "161055bcc14f95f2748e9e27c1296519f0f4e57c"
+        },
+        "path": "/workspace/gunman-rush/build/plains-ci-41016649030/main-artifact-12960968215.zip"
+      },
+      {
+        "id": 12958408300,
+        "name": "production-phase-proof-parallel",
+        "size_in_bytes": 1372408,
+        "url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12958408300",
+        "archive_download_url": "https://api.github.com/repos/zhipijun1996/gunman-rush/actions/artifacts/12958408300/zip",
+        "expired": false,
+        "created_at": "2026-10-30T06:28:49Z",
+        "expires_at": "2026-11-13T06:28:48Z",
+        "updated_at": "2026-10-30T06:28:49Z",
+        "digest": "sha256:4dd766b84260c06b9ca9a845615800fb8fb348f24064dc5ec0ea0cf7631f4226",
+        "workflow_run": {
+          "id": 41008752243,
+          "repository_id": 1411414435,
+          "head_repository_id": 1411414435,
+          "head_branch": "fix/audio-playtest-feedback-20261030",
+          "head_sha": "161055bcc14f95f2748e9e27c1296519f0f4e57c"
+        },
+        "path": "/workspace/gunman-rush/build/plains-ci-41016649030/main-artifact-12958408300.zip"
+      }
+    ],
+    "scope": "Official baseline status and original phase/merged counts; independent forest80 JSON stdout and log digest. Not an exhaustive independent rerun of baseline166."
+  },
+  "recorded_commands": [
+    "python3 /tmp/prepare_ci106_audit.py",
+    "python3 /tmp/audit_plains_ci_41016649030_failed.py > /tmp/plains_ci_41016649030_failed_audit.log",
+    "python3 /tmp/write_ci106_bounded_review.py"
+  ],
+  "preliminary_audit_failure": "First audit attempt stopped at sparse historical docs evidence read; second used exact frozen B git blob fallback, no producer artifacts changed.",
+  "constraints_review": {
+    "source_commit": "feb0106849e12c18c0337c8cdb23d01333580e42",
+    "paths": [
+      "AGENTS.md",
+      "docs/worklines/audio_merge_120_121/scope.md",
+      ".github/workflows/production.yml"
+    ],
+    "quotes": [
+      "核精确组合head原完整166双通道/affected全绿后普通merge，不再请求已给授权，不跳红灯或放预算。",
+      "源码冻结后完整实际CI通过才普通合入，不强推或绕过红灯。"
+    ],
+    "interpretation": "Fast merge authorization does not itself authorize bypassing the explicitly preserved red CI gate."
+  }
+}

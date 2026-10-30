@@ -2,7 +2,7 @@
 
 ## 2026-10-30 七怪工作线获准快速合main（当前）
 
-用户明确“快速合入main”。正在PR119整合main feb01068的已选hurt A/COMMITTED音频与前景性能修复；原ab96 CI并行92通过、串行森林600秒53/80超时，原红灯保留。目标为两父完整历史、七怪固定金币/概率补给与主线更新共同接入；原167前缀追加主线audio为168（92＋76），600预算不改。当前active merge，本轮scope/测试/精确源CI及合并状态见[合入记录](worklines/plains_motion_loot_02/main_merge.md)。旧“不自动合main”为此前阶段，不重复询问授权；整怪艺术/设备/用户G5仍分开。
+用户明确“快速合入main”。正在PR119整合main feb01068的已选hurt A/COMMITTED音频与前景性能修复；原ab96 CI并行92通过、串行森林600秒53/80超时，原红灯保留。目标为两父完整历史、七怪固定金币/概率补给与主线更新共同接入；原167前缀追加主线audio为168（92＋76），600预算不改。本地正常merge冻结C为0d7ea6bf，冲突独审726/0、pure22/40/17及三个原Harness专项全过；PR119已改指main，完整168待新头实跑。本轮scope/测试/精确源CI及合并状态见[合入记录](worklines/plains_motion_loot_02/main_merge.md)。旧“不自动合main”为此前阶段，不重复询问授权；整怪艺术/设备/用户G5仍分开。
 
 受伤正式采用hurt_feedback_06_a，原WAV保持试听字节；[选择](../config/audio_director/selected/hurt-20261030.json)。两线在音频分支保历史组合，原完整166/双通道/affected全绿后正常合main，当前不将排队当合并完成。[本轮范围](worklines/audio_merge_120_121/scope.md)。
 
