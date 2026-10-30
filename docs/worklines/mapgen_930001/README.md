@@ -46,3 +46,7 @@ python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen
 输出目录必须是新目录；非零退出、缺 marker、未覆盖所需 case、脚本错误、退出泄漏和源漂移均拒绝。所有诊断明确标记 fixture：只有 spawn 的 M01 开铃→M02 是连续自然输入；其他接缝使用真实玩家形状扫掠，向下单向接缝再用原生 drop_through；奖励和 Boss 初态位置是局部 fixture，不能宣称从出生自然到达。Boss 战内没有传送、补血或调参。
 
 实际数据、首轮失败及剩余缺口见[验收记录](../../evidence/mapgen_930001/README.md)；宿主资源差异见[兼容审计](../../evidence/mapgen_930001/host_compatibility.json)。
+
+## 已构建的本地 Web
+
+冻结源b2f71528、build054648325c2e的ZIP在 `build/mapgen_930001/mapgen-930001-web-054648325c2e.zip`。解压，执行 `python3 serve.py --directory . --port 8807`，浏览器打开 http://127.0.0.1:8807/。这是实际本地浏览器验证的固定地图开发入口；完整PCK和ZIP指纹见验收目录build.json。独立公开Preview的staging被既有900MiB容量守门拒绝，没有新公开网址。

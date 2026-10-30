@@ -1,8 +1,8 @@
 ## 2026-10-30 MAPGEN-930001-01 · 固定交付地图工程接入
 
-分支 `feature/mapgen-delivery-930001`，基线 main840108da。46真实模块/55连接/40实体封口、单个原生玩家与共享伤害/钱包/lifetime、同局奖励恢复和原生Windkeeper三阶段已接。固定入口 `scenes/mapgen/seed_930001.tscn`，运行说明见 [接入文档](worklines/mapgen_930001/README.md)。
+分支 `feature/mapgen-delivery-930001`，草稿PR123，冻结运行源b2f71528；基线 main840108da。46真实模块/55连接/40实体封口、单个原生玩家与共享伤害/钱包/lifetime、同局奖励恢复和原生Windkeeper三阶段已接。固定入口 `scenes/mapgen/seed_930001.tscn`，运行说明见 [接入文档](worklines/mapgen_930001/README.md)。
 
-当前严格实测721项718通过/3失败，失败均为M24 Port C实体封口遮挡既有奖励的物理冲突；原始交付/封口/奖励/Route未改。六目标奖励均实际领取，M01→M02连续输入与Boss局部36发实弹三阶段战胜分别留证；不能合称全图自然通关。独审限定接受工程接入，内容保持blocked；完整168/自然全路线/浏览器和设备边界以 [验收记录](evidence/mapgen_930001/README.md) 为准，不合main、不扩展生成或批量地图。
+当前严格实测721项718通过/3失败，失败均为M24 Port C实体封口遮挡既有奖励的物理冲突；原始交付/封口/奖励/Route未改。六目标奖励均实际领取，M01→M02连续输入与Boss局部36发实弹三阶段战胜分别留证；不能合称全图自然通关。独审限定接受工程接入，内容保持blocked；本地浏览器基本操作及返回标题已实测，Web054648325c2e本地ZIP已构建；公开Preview因900MiB容量守门被拒。完整168/自然全路线/完整GUI和设备边界以 [验收记录](evidence/mapgen_930001/README.md) 为准，不合main、不扩展生成或批量地图。
 
 # 最新交接 · 2026-10-29
 

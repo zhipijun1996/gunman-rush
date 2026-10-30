@@ -1,0 +1,21 @@
+{
+  "schema": "gunman/mapgen-test-wrapper/v1",
+  "suite": "all",
+  "seed": 930001,
+  "status": "failed",
+  "import_budget_seconds": 90,
+  "runtime_budget_seconds": 180,
+  "whole_map_continuous_traversal": "NOT_RUN",
+  "human_playtest": false,
+  "scope": "Native player collision, scoped fixture probes and continuous spawn segment; no whole-map certification",
+  "source_commit": "b2f71528b2516a6cada72bc726834e9a05c0cf4f",
+  "source_stable": true,
+  "checks": 721,
+  "failures": 3,
+  "unverified": [
+    "seams/continuous_all_paths",
+    "mechanisms/all_dynamic_phases"
+  ],
+  "error": "Godot returned 1",
+  "elapsed_seconds": 18.989899649000108
+}

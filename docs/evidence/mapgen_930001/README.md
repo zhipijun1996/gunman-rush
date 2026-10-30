@@ -32,3 +32,15 @@ Web导出第一次拒绝插件枚举API错误，修正为现有导出失败路�
 all-dev01=670/133（真实镜像复制缺陷与诊断初态/单向着陆解释错误）；all-dev02=719/9；acceptance-03=721/8；所有原报告/日志压缩保留。测试的延迟load场景曾导致脚本资源图退出保留，常量preload固定加载次序后claim-preload和acceptance-04实际clean；未修改生产清理逻辑或屏蔽诊断。
 
 完整production_plan按新边界保守升级为168项，目前未执行完整Integration/Release。docs专项在实际补齐输入后仍有3条main已有归档相对链接错误，原日志保留；未改历史归档来冲绿。任务质量记录结构可验证，技术/全图状态明确failed/blocked，不声明done。
+
+## 最终冻结源与本地 Web（2026-10-30）
+
+运行源 `b2f71528b2516a6cada72bc726834e9a05c0cf4f`（后继仅交接/证据）。在该精确源上重新实跑的 [最终回执](final-report.json) 仍为 **721 / 3失败**，3376运行输入前后稳定，native退出clean；[完整原日志](final-native.log.gz)和[完整轨迹/断言](final-runtime.json.gz)保留。
+
+Web build `054648325c2e`，完整PCK 230,175,116 bytes，SHA-256 `054648325c2e495711e657b494e354d5d6215d7981d97e7a8998bb616277d00c`。原字节打包曾被严格PCK解析器发现配置重复条目；只增加正常导出skip来确保单次收录，完整SHA检查不变。最终PCK在无源码目录实际启动exit0，MAPGEN_READY46。
+
+本地Chromium/SwiftShader1280×720实际加载现有CloudPreviewBootstrap的固定场景，真实指针打开风铃、D移动、M总览与Esc恢复，无uncaughtJS或SCRIPT错误。[操作后画面](browser-after-input.png)与[实际返回主游戏标题](browser-return-title.png)已由独审查看；返回后正常标题/开始游戏/继续/设定/新手教程可见，原bootstrap console确认persistence=false。原console保留Emscripten主线程阻塞与ReadPixels警告，未宣称性能或所有consoleerror为0。M29二选一尚未实际鼠标点选认证。
+
+[构建身份及ZIP指纹](build.json)。本地Web包 `build/mapgen_930001/mapgen-930001-web-054648325c2e.zip`，444,566,770 bytes，ZIP SHA-256 `8ad6648fdeb99c63fc321b9a06888bf2249bb3633ca68da3a46360b9d88ef118`；解压后 `python3 serve.py --directory . --port 8807`，打开 http://127.0.0.1:8807/。包含准确原包、完整主游戏菜单与固定地图启动参数。
+
+公开独立Preview实际staging被现有900MiB（含PCK重建）上限拒绝，未发布/未覆盖旧站/未提高上限，[原拒绝日志](stage-preview-03.log.gz)保留。GitHub草稿[PR123](https://github.com/zhipijun1996/gunman-rush/pull/123)已推送；main未合并。M24/自然全图仍BLOCKED，不扩展其他seed。
