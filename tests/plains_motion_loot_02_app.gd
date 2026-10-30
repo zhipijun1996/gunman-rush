@@ -108,6 +108,8 @@ static func run(tree:SceneTree,app:Node)->Dictionary:
    _check(r,actual_delta>0.0 and actual_delta<=float(heart.amount) and health.current<=health.capacity,"actual healing changes current HP only and respects its cap")
    var feedback:PlayerFeedback=app.player.get_node("PlayerFeedback")
    _check(r,is_equal_approx(feedback.last_healed_amount,actual_delta),"player glow uses the committed healing amount")
+   var visible_visual:CanvasItem=app.player
+   _check(r,visible_visual.modulate.g>1.0 and visible_visual.modulate.g>visible_visual.modulate.r and visible_visual.is_visible_in_tree(),"accepted heal reaches the actual visible child-sprite canvas through inherited modulation")
    _check(r,not app._commit_pickup(stage.pickups.find(heart)),"life-orb receipt and healing cannot replay")
    r.samples.append({"wounded":wounded,"hp_before_collect":old_hp,"actual_healed":actual_delta,"hp_after_collect":health.current})
  # A second real death exercises the automatic App tick -> queue -> commit

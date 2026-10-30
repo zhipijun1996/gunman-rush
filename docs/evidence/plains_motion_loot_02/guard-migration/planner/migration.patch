@@ -1,0 +1,66 @@
+--- a/tests/test_production_plan.py
++++ b/tests/test_production_plan.py
+@@ -217,15 +217,21 @@
+         self.assertEqual(digest(self.manifest["profiles"]["full"][:165]), "ac963a4c96ca823555c367dcb10f039ccf0b24c762bb7e7e4fe16df01f63a463")
+         self.assertEqual(digest(full["checks"][:165]), "e88cea4aab3d566a2eaf8a4689f4a0f7011b69df67ac5f02ff028852994d9750")
+         structure_additions = ["enemy-structure-native"]
+-        expected_additions = additions + structure_additions
++        # Preserve all 166 reviewed checks, then append this real native case.
++        self.assertEqual(self.manifest["profiles"]["full"][144:166], additions + structure_additions)
++        self.assertEqual(full["checks"][144:166], additions + structure_additions)
++        self.assertEqual(self.manifest["profiles"]["full"][165:166], structure_additions)
++        self.assertEqual(full["checks"][165:166], structure_additions)
++        motion_loot_additions = ["plains-motion-loot-02"]
++        expected_additions = additions + structure_additions + motion_loot_additions
+         self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
+         self.assertEqual(full["checks"][144:], expected_additions)
+-        self.assertEqual(self.manifest["profiles"]["full"][165:], structure_additions)
+-        self.assertEqual(full["checks"][165:], structure_additions)
+-        added_parallel = ["item-v5-data", "item-authoring-tools"]
++        self.assertEqual(self.manifest["profiles"]["full"][166:], motion_loot_additions)
++        self.assertEqual(full["checks"][166:], motion_loot_additions)
++        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions
+         self.assertEqual([name for name in parallel if name not in original], added_parallel)
+         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
+-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (166,91,75))
++        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (167,92,75))
+         for name in full["checks"]:
+             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
+         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
+@@ -237,6 +243,36 @@
+         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
+         with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
+         self.assertEqual(with_extra["ci_route"],"selected_commands")
++
++    def test_plains_motion_loot_is_a_real_registered_native_case_with_group_closure(self):
++        # Importing the adapter reads its registry; it does not start Godot.
++        from run_integration_four_tests import CASES
++        name = "plains-motion-loot-02"
++        check = self.manifest["checks"][name]
++        self.assertEqual(check["argv"], ["python3", "tools/run_integration_four_tests.py", "--case", name])
++        self.assertEqual(CASES[name], (
++            "tests/plains_motion_loot_02_runner.gd",
++            r"PLAINS MOTION LOOT02: [1-9]\d* assertions, 0 failures", 240))
++        self.assertEqual(check["timeout_seconds"], 360)
++        self.assertEqual(check["success_pattern"], "^" + CASES[name][1] + "$")
++        self.assertEqual(check["artifact_paths"], ["build/plains_motion_loot_02/native.json"])
++        self.assertEqual({profile for profile, names in self.manifest["profiles"].items() if name in names},
++                         {"gameplay", "art", "full"})
++        for profile in ("gameplay", "art", "full"):
++            self.assertEqual(self.manifest["profiles"][profile].count(name), 1)
++        runner = ROOT / CASES[name][0]
++        self.assertTrue(runner.is_file())
++        source = runner.read_text()
++        for fixture in ("motion", "loot", "audio", "app"):
++            path = "tests/plains_motion_loot_02_" + fixture + ".gd"
++            self.assertIn('load("res://' + path + '").run(', source)
++            self.assertTrue((ROOT / path).is_file())
++            self.assertTrue(any(path == item or path.startswith(item.rstrip("/") + "/")
++                                for item in check["inputs"]))
++        integration = self.plan(["scripts/demo/demo_app.gd"], "integration")
++        self.assertIn(name, integration["checks"])
++        self.assertIn(name, integration["ci_lane_checks"]["parallel"])
++        self.assertNotIn(name, integration["ci_lane_checks"]["serial"])
+ 
+     def exercise_main(self, script, action="--precheck-only", verbose=False):
+         directory = tempfile.TemporaryDirectory(); self.addCleanup(directory.cleanup)
