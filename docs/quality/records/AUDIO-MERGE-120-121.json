@@ -4,7 +4,7 @@
   "task_type": "small_fix",
   "workflow": "review",
   "baseline_commit": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
-  "reviewed_commit": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+  "reviewed_commit": "7993b3bd5bd4cb0771953d614238862886c64076",
   "content_version": "hurt-a-merge-v1",
   "owner": "root",
   "purpose": "Record exact user-approved hurt A and normally integrate PR120/121",
@@ -22,7 +22,8 @@
     "AGENTS.md",
     "docs/tasks.md",
     "docs/current_state.md",
-    "docs/handoff.md"
+    "docs/handoff.md",
+    "docs/audio_director/feedback_06.md"
   ],
   "deliverables": [
     "Pinned exact hurt A acceptance and brief context",
@@ -105,9 +106,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual scope-limited read-only review of accepted-A adoption, not CI/device/G5",
+      "evidence": [
+        "acceptance-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -115,18 +118,57 @@
       "evidence": []
     },
     "player_acceptance": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Specific exact hurt A only, not global audio, devices or performance",
+      "evidence": [
+        "user-hurt-a"
+      ]
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "user-hurt-a",
+      "path": "config/audio_director/selected/hurt-20261030.json",
+      "sha256": "ba02fb2fe2c3667870386ab17cd2336751d201a19306b8dfa04240ead2985d43",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "7993b3bd5bd4cb0771953d614238862886c64076",
+      "content_version": "hurt-a-merge-v1",
+      "method": "Exact current user message tied to the already auditioned manifest and unmodified WAV",
+      "observed": "User selected this exact hero hurt A and authorized the two PRs to merge",
+      "source": "Current conversation user message, 2026-10-30",
+      "quote": "受伤选用A，连同pr120一起合并到main",
+      "covers": [
+        "hero_hurt/hurt_feedback_06_a/audio-feedback-06-v1",
+        "merge_authorization/PR120+PR121"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "acceptance-review",
+      "path": "docs/evidence/audio_merge_120_121/acceptance-review.json",
+      "sha256": "0371415c1d5364e06d8f1d3f4423f9e088749ebd1db3c1def3147805f7c28a6e",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "source_commit": "7993b3bd5bd4cb0771953d614238862886c64076",
+      "content_version": "hurt-a-merge-v1",
+      "method": "Different read-only engineer reviews exact7993 plus the one-line explicit-query fallback working diff; precise scope recorded",
+      "observed": "Pinned A and unchanged original tests/branch bodies accepted;15 query combinations and4 brief rejection cases passed; final166 still required",
+      "reviewer": "root/ambience_review",
+      "implementers": [
+        "root"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only different agent; no source edits",
+      "verdict": "ACCEPT"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "Exact combined-head full166 CI and actual main merge still pending at this source commit",
     "Precommit formal96/cache444/audio222 passed with explicit merged working-tree receipts; not standalone parent-head proof",
     "Physical device/full-system aesthetics/FPS not covered by the specific hurt-A choice"
   ],
-  "production_snapshot": "70ae4f58e102e5b0abfdc3f2117ff3a56fa0a9f629b56e7c9c5580f6a4cf0f40"
+  "production_snapshot": "ec7dd9bb55b7d2538e7221ca43d0067f4a2f6df9b2bcf5f83c956152252c59e2"
 }

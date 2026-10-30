@@ -164,7 +164,7 @@ func _ready() -> void:
 		_probe_enabled = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_probe') === '1'"))
 		# Explicit Sound Lab links select a development candidate, never rewrite
 		# the frozen user choice, gameplay random streams or persistent settings.
-		var requested: Variant = JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_hurt') || 'A'")
+		var requested: Variant = JavaScriptBridge.eval("new URLSearchParams(location.search).get('audio_hurt') || ''")
 		if requested is String and HURT_CANDIDATES.has(requested): _hurt_audition = requested
 	_attach.call_deferred()
 
