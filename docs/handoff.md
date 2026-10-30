@@ -10,7 +10,7 @@
 
 后继本地原Harness三项全fresh通过：formal150/0、motion/loot481/0、原森林80/80在541.165/600秒内完成；总selected597.639秒含三检查及守门。原Harness内部完整source digest稳定通过，报告披露dirty运行，不能称Git clean、完整167或CI主机性能已修。先前其余死亡/save/audio/player五项及data/tools两项已过；data首次因稀疏xlsx缺件失败，物化原件后两项重跑通过，原失败保留。完整167的新冻结源CI仍须独立核实，不以本机通过冲销旧CI红灯。
 
-分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；[本轮证据](evidence/plains_motion_loot_02/README.md)。恢复先核精确Git/SHA/CI与唯一Godot租约；不重画重录，不替换影片来源。下一步归档冻结源独审、推送同PR并核完整CI；按用户具体怪物/时间点意见继续返工，不把技术专项当整怪成品验收。
+分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；[本轮证据](evidence/plains_motion_loot_02/README.md)。恢复先核精确Git/SHA/CI与唯一Godot租约；不重画重录，不替换影片来源。运行/测试冻结源de22a39b，5353显式输入逐件相同、最终独审518/0限定接受；后继仅文档/质量收据。下一步推送同PR并核新源完整CI；按用户具体怪物/时间点意见继续返工，不把技术专项当整怪成品验收。
 
 ## 2026-10-29 平原七怪候选已交工坊，完整166技术CI通过（最新）
 
