@@ -185,7 +185,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 				# instead of needlessly jumping toward the rising locked lunge.
 				axis = -signf(dx) if roomy_retreat else signf(dx) if state == "lunge_warning" and absf(dx)>195 else 0.0
 				if roomy_retreat: intent="retreat on actual ground from the locked lunge; preserve corner crossing for when needed"
-				if state == "lunge_warning" and not roomy_retreat and not support_motion and float(encounter.clock)<=.25 and grounded and cross_axis==0:
+				if state == "lunge_warning" and not roomy_retreat and not support_motion and absf(dx)<=220 and float(encounter.clock)<=.25 and grounded and cross_axis==0:
 					cross_axis = signf(dx)
 					cross_started = frame
 					cross_until = frame+180
@@ -339,9 +339,11 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		intent="preserve actual body/leg clearance before another action"
 	if seed_imminent and cross_axis==0:
 		intent = "real outstanding seed still threatens current position across recovery"
-		axis = (signf(dx) if absf(dx)>190 else -signf(dx)) if phase>=2 else (signf(dx) if absf(dx)>175 else 0.0)
-		if grounded and absf(dx)<175: jump=true
-	if phase>=2 and not encounter.health.terminal and not support_escape_active and cross_axis==0 and state in ["observe","approach","link","recover"]:
+		# Finish the same frozen seed escape instead of oscillating around a
+		#190wu distance threshold. The old close-range jump raised the actor
+		# straight into seeds that would otherwise pass above grounded feet.
+		axis = _toward(at.x,escape_destination.x,12) if escape_destination.is_finite() else -signf(dx)
+	if phase>=2 and not encounter.health.terminal and not seed_imminent and not support_escape_active and cross_axis==0 and state in ["observe","approach","link","recover"]:
 		# After real countershot recoil, plant on the inner safe edge of the
 		# current unoccupied support. Remaining at its far edge made the next
 		# honest jump require an unnecessarily long crossing of the Boss route.
