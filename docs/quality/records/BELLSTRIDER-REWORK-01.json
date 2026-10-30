@@ -4,7 +4,7 @@
   "task_type": "boss",
   "workflow": "review",
   "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
-  "reviewed_commit": "c10dab0f4d16c26d9bf06632958853274f025793",
+  "reviewed_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
   "content_version": "bellstrider-rework-01-candidate",
   "owner": "root / Bellstrider workline",
   "purpose": "按用户完整迭代要求重做鸣铃巡游机正式战斗、唯一上端风铃弱点、动作音画、机械失效与12金币逐枚拾取。",
@@ -83,7 +83,12 @@
     "scripts/player/traversal_ability.gd",
     "scripts/rewards/bellstrider_rewards.gd",
     "scripts/rewards/bellstrider_rewards.gd.uid",
-    "scripts/ui/windkeeper_hud.gd"
+    "scripts/ui/windkeeper_hud.gd",
+    "scripts/damage/demo_contact_emitter.gd",
+    "tests/bellstrider_rework_01/contact_edges.gd",
+    "tests/bellstrider_rework_01/contact_edges.gd.uid",
+    "tools/run_bellstrider_rework_01_tests.py",
+    "tools/harness/profiles.json"
   ],
   "deliverables": [
     "正式Boss重构及最小真实消费者回归",
@@ -113,49 +118,48 @@
       "status": "passed",
       "reason": "Direct user specification retained; old design review preserved as historical, no old runtime acceptance inherited.",
       "evidence": [
-        "scope"
+        "scope",
+        "review02-scope"
       ]
     },
     "G1": {
       "status": "passed",
       "reason": "Both stages and full formal battles exercised with actual physical damage/coins and strict native regressions; bounded technical candidate.",
       "evidence": [
-        "trace-cautious",
-        "trace-greed",
-        "native-final"
+        "review02-native",
+        "review02-trace"
       ]
     },
     "G2": {
       "status": "unverified",
       "reason": "Current articulated visuals/original sound supplied and technically reviewed; art and listening acceptance await user.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed",
-        "hud-current"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "G3": {
       "status": "unverified",
       "reason": "Real formal entry/save/death/reward paths covered, but no exhaustive consumer inventory/performance/device closure.",
       "evidence": [
-        "trace-cautious",
-        "trace-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "G4": {
       "status": "unverified",
       "reason": "Independent source/binding/paired-media reviews complete in bounded scopes; whole G2/G3 and full CI still open.",
       "evidence": [
-        "native-final",
-        "media-review"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "G5": {
       "status": "unverified",
       "reason": "Manual gameplay, subjective approval and physical device evidence not supplied.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     }
   },
@@ -164,85 +168,87 @@
       "status": "passed",
       "reason": "Direct user requirement implemented as scoped Bellstrider candidate.",
       "evidence": [
-        "scope"
+        "scope",
+        "review02-scope"
       ]
     },
     "technical": {
       "status": "passed",
-      "reason": "Final Boss-specific minimum689/0; this is not full169CI.",
+      "reason": "Current feedback revision:891 Boss-specific checks pass; not full169CI.",
       "evidence": [
-        "native-final"
+        "review02-native"
       ]
     },
     "formal_integration": {
       "status": "unverified",
       "reason": "Formal battles and restore/reward paths exercised; exhaustive consumer closure remains unverified.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "visual": {
       "status": "unverified",
       "reason": "Current frame/pair supplied; user art acceptance pending.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "animation": {
       "status": "unverified",
       "reason": "Complete mechanical death visible in paired greed film; movement quality awaits user.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "audio_vfx": {
       "status": "unverified",
       "reason": "Original engine PCM and true event layers supplied; listening acceptance pending.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "gameplay": {
       "status": "unverified",
       "reason": "40hit/20group cautious and15group greedy observed; third-shot risk strength/manual operation need player review.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "performance": {
       "status": "unverified",
       "reason": "Software llvmpipe recording is not physical-device performance evidence.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "independent_review": {
       "status": "passed",
       "reason": "Independent reviewer accepted bounded source/binding and two-film evidence role split, excluding own86test and subjective/device approval.",
       "evidence": [
-        "media-review"
+        "review02-review",
+        "review02-movie-review"
       ]
     },
     "device": {
       "status": "unverified",
       "reason": "No physical device run.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     "player_acceptance": {
       "status": "unverified",
       "reason": "No user feedback on this exact candidate yet.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed"
+        "review02-video",
+        "review02-trace"
       ]
     }
   },
@@ -258,7 +264,8 @@
       "status": "passed",
       "reason": "范围已明确，原基线与设计方向经独审。",
       "evidence": [
-        "scope"
+        "scope",
+        "review02-scope"
       ]
     },
     {
@@ -272,9 +279,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Bounded current implementation and recorded evidence verified; no subjective/device acceptance inherited.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
@@ -288,9 +294,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Bounded current implementation and recorded evidence verified; no subjective/device acceptance inherited.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
@@ -304,9 +309,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Implementation and actual demonstrations supplied; subjective movement/readability/risk strength await player review.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     {
@@ -320,9 +324,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Bounded current implementation and recorded evidence verified; no subjective/device acceptance inherited.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
@@ -336,9 +339,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Implementation and actual demonstrations supplied; subjective movement/readability/risk strength await player review.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     {
@@ -352,9 +354,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Implementation and actual demonstrations supplied; subjective movement/readability/risk strength await player review.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-video",
+        "review02-trace"
       ]
     },
     {
@@ -368,9 +369,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Bounded current implementation and recorded evidence verified; no subjective/device acceptance inherited.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
@@ -384,9 +384,8 @@
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
       "reason": "Bounded current implementation and recorded evidence verified; no subjective/device acceptance inherited.",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
@@ -398,11 +397,10 @@
       "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
       "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
-      "reason": "Two continuous original-audio formal battles supplied; full death demonstration uses paired greed film due cautious left-edge clipping.",
+      "reason": "Current uncut original-audio formal battle published; death partial-left visibility remains explicit.",
       "evidence": [
-        "movie-cautious",
-        "movie-greed",
-        "media-review"
+        "review02-video",
+        "review02-movie-review"
       ]
     },
     {
@@ -414,10 +412,10 @@
       "method": "当前源最小真实消费者回归与正式App连续实机记录，分别保留受控fixture和自然出招范围。",
       "expected": "满足本条用户要求并留实际观察／统计和源绑定。",
       "failure": "用配置、数量、旧影片或夹具冒充本条真实完成。",
-      "reason": "Existing private Workshop version5 published with immutable media/chapters, old identities/other24/DB preserved; logged-in browser opinion flow not rerun.",
+      "reason": "Existing private Workshop version6 published; oldIDs/other24/DB retained, no logged-in opinion write test.",
       "evidence": [
-        "site-publication",
-        "site-api-tests"
+        "review02-site",
+        "review02-site-api"
       ]
     },
     {
@@ -431,23 +429,23 @@
       "status": "passed",
       "reason": "689/0；末次仅关闭世界文字后重跑，生产字节与c10一致；双片单独实录。",
       "evidence": [
-        "native-final",
-        "trace-cautious",
-        "trace-greed"
+        "review02-native",
+        "review02-trace"
       ]
     },
     {
       "id": "BELL-INDEPENDENT-PAIR",
       "gate": "G4",
       "dimension": "independent_review",
-      "scenario": "冻结生产来源、两片连续性与分工、死亡奖励及伤害归因",
+      "scenario": "Feedback02 frozen source/test guards and current formal movie",
       "method": "不同作者只读生产与媒体，完整解码9440帧并抽查关键全帧，核原PCM/源库存/事件；排除其自写86测试。",
       "expected": "限定接受或明确返工，不代签用户艺术/听感/玩法和设备。",
       "failure": "把主片部分出画称完整死亡、把两次伤害全部归因第三枪、忽略源漂移或伪造听感认可。",
       "status": "passed",
-      "reason": "87/0限定接受配对媒体用于用户审核，保留主片限制；完整G4仍等前置G2/G3与CI。",
+      "reason": "278/0 source/guard plus49/0 current-movie bounded reviews; wholeG4 still waits prior gates/CI.",
       "evidence": [
-        "media-review"
+        "review02-review",
+        "review02-movie-review"
       ]
     }
   ],
@@ -599,15 +597,125 @@
       "command": "npm test",
       "exit_code": 0,
       "environment": "Node24; existing Monster Workshop repository at4bd7f90897dfd4626ff63fb54b4764d6af7162d8"
+    },
+    {
+      "id": "review02-scope",
+      "path": "docs/worklines/bellstrider_rework_01/review_02.md",
+      "sha256": "5ac437872c8fddb142dafbca3f8b3ce221d20bb739c00b83b0a160c6bf978acc",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Direct current user feedback retained as requirements, not approval of implementation.",
+      "observed": "Faster lobs and contact damage on actual live hull/wheels."
+    },
+    {
+      "id": "review02-native",
+      "path": "docs/evidence/bellstrider_rework_01/review02/regression-01.log",
+      "sha256": "a25caec754484b0bdf5bee8125b2c148ef6449f7941e14213952dcc047dec16b",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Root executed unchanged seven consumers plus appended precise-contact App suite; final prepared code committed as a973.",
+      "observed": "276+35+86+88+65+37+110+194=891,0fail,complete strict markers,no native errors/leaks.",
+      "command": "python3 tools/run_bellstrider_rework_01_tests.py",
+      "exit_code": 0,
+      "environment": "Managed Linux; Godot4.7.2 Standard/headless, actual App fixtures, original300s Harness budget"
+    },
+    {
+      "id": "review02-trace",
+      "path": "docs/evidence/bellstrider_rework_01/review02/movie/trace.json.gz",
+      "sha256": "bcce0244fdfdf42cab5ba86f8c962afd958582127db4e823dfb2496c5e1543ee",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Exact gzip of formal App all-frame trace; one initial position preparation, then automatic legal input, autonomous Boss.",
+      "observed": "40effective hits20groups,HP5,+12,terminal clock74.8667s; actual lob warning.7333s and flight1.10–1.27s; no contact injury in this run."
+    },
+    {
+      "id": "review02-video",
+      "path": "docs/evidence/bellstrider_rework_01/review02/movie/review.mp4",
+      "sha256": "fbef24c5537f8767bdd717d4bc013b04fbb4db48f8aed37970019213de609211",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Actual normal-clock uncut MovieMaker recording with original engine PCM.",
+      "observed": "4769frames/79.4833s,1280x720/60fps; real raised-target impact; death main-impact partly left-clipped, no complete-death-art claim."
+    },
+    {
+      "id": "review02-review",
+      "path": "docs/evidence/bellstrider_rework_01/review02/bellstrider-review02-final-review.json",
+      "sha256": "30d43173c19b6c5dfa15bfcb79949a0f1e73a08c774aedcb52f9ed2474bfff3d",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Independent read-only source/new194test/guard/binding audit; own prior86test excluded, native891 attributed to root.",
+      "observed": "278/0 scoped source and test-guard acceptance,92otherrefs and old7prefix/300budget/full169 retained.",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "root",
+        "/root/bellstrider_combat"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored no current production or contact_edges tests; own prior86test explicitly excluded."
+    },
+    {
+      "id": "review02-movie-review",
+      "path": "docs/evidence/bellstrider_rework_01/review02/bellstrider-review02-movie-review.json",
+      "sha256": "9c785dae39ba6c46f01f458884b6a59725db6bd4ebb8b8006d0d8ed9e9be438b",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Independent full frame decode, actual-event/source/PCM checks and eight viewed full frames.",
+      "observed": "49/0 bounded timing/record acceptance; no injury/contact chapter, no listening/user/death-art approval.",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "root",
+        "/root/bellstrider_capture",
+        "/root/bellstrider_combat"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored no capture, pilot or reviewed production."
+    },
+    {
+      "id": "review02-site",
+      "path": "docs/evidence/bellstrider_rework_01/review02/site-deployment.json",
+      "sha256": "d461ddbaf3f154443df2aaf9c53510d605baeb2585c403cc97c490ed9ef99c78",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Native save+private deploy exact pushedbbf9dbf source and validated archive.",
+      "observed": "Version6 succeeded; new current clip with nine actual chapters, old variants historical; other24/DB/auth/audience retained."
+    },
+    {
+      "id": "review02-site-api",
+      "path": "docs/evidence/bellstrider_rework_01/review02/site-api.log",
+      "sha256": "c14e699e306e5c04b9ed25cf7a0bdcc0177f4254fd2510465d065515f3b30ad1",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+      "content_version": "bellstrider-rework-01-candidate",
+      "method": "Existing Worker tests using updated catalog; no production opinion/idea write.",
+      "observed": "13passed0failed; UI19 and artifact verification separately retained.",
+      "command": "npm test",
+      "exit_code": 0,
+      "environment": "Node24; Monster Workshop sourcebbf9dbfeefa6dc4f86ffea024616f59d55d3b1f1"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "User art, animation, listening and manual gameplay acceptance; third-shot risk strength is not proven solely by an intentional late reaction.",
-    "Cautious death partly off left edge; paired greed film supplies full machine fall/coin birth.",
-    "Natural films lock lob at ground; raised-target flight verified only in bounded physical fixtures, no exhaustive corner/platform/wave combination proof.",
-    "No physical device/performance or complete formal consumer inventory; full169CI has not passed.",
-    "Local docs check fails three pre-existing merge-style21 archive links, original baseline bytes retained.",
-    "Private catalog API needs real browser user login; read-only dispatch test verifies HTML200/video206, not authenticated review/idea writes."
+    "Manual gameplay/risk strength, art/listening and physical-device/performance remain unapproved.",
+    "Current no-injury battle is not contact-injury footage;194controlled App checks prove hull/wheel/roof/phase contact, clear air and terminal suppression.",
+    "Current death main-impact partly off left edge; previous full visible death stays historical, no new complete-death-art approval.",
+    "Exact current-pose relative-translation sweeps are implemented, not a proven continuous old-to-new rig angular sweep.",
+    "Full169CI and exhaustive consumer inventory remain open; three baseline archive links still fail docs."
   ]
 }

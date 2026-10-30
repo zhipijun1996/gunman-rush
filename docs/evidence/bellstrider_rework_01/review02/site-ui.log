@@ -1,0 +1,27 @@
+✔ review A pending → B → A(new object) → edit → old success preserves the newest persisted draft (43.24032ms)
+✔ review A pending → B → A(new object) → edit → old failure preserves the newest persisted draft (5.74057ms)
+✔ idea restored into a new object while pending survives old success (4.745402ms)
+✔ idea restored into a new object while pending survives old failure (4.602106ms)
+✔ an old response cannot alter a replacement draft with a new UUID (7.211333ms)
+✔ current capture remains default even when an older ready film comes first (1.104252ms)
+✔ shared original video uses absolute in/out bounds and never manufactures a missing end (0.687184ms)
+✔ actions cannot seek outside this monster or outside the loaded media (0.165749ms)
+✔ pending, missing and N/A retain comment scope but cannot approve an action (0.433713ms)
+✔ unreleased catalog and empty captures are safe (0.22603ms)
+✔ time labels carry centisecond rounding across minute boundaries (0.146221ms)
+✔ user-facing app never injects HTML or treats local storage as a cloud record (0.500433ms)
+✔ review: saved 201 response lost → reload/edit → 409 → explicit new submission → 201 (0.946184ms)
+✔ idea: saved 201 response lost → reload/edit → 409 → explicit new submission → 201 (0.262045ms)
+✔ exact replay retains the same ID and cannot insert another cloud row (0.391499ms)
+✔ revision_changed never exposes a new-ID bypass (3.713269ms)
+✔ a response without a confirmed item never turns a draft into a cloud record (0.262405ms)
+✔ HTML limits and visible descriptions match the API limits (7.224704ms)
+✔ zoom pan stays within original stage bounds and original view recentres (0.205028ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 183.447254

@@ -1,0 +1,569 @@
+{
+  "verdict": "ACCEPT_CURRENT_TIMING_AND_TECHNICAL_RECORD_WITH_DEATH_VISIBILITY_LIMIT",
+  "reviewer": "/root/guard_review_recovery",
+  "source_commit": "a97334e4142be193346d9a6ed265b749717b3b47",
+  "independence": "No reviewed production/capture authored by reviewer; own prior86 excluded. No Godot/repo writes.",
+  "passed": 49,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "owner_complete_GUI_capture_no_errors",
+      "passed": true
+    },
+    {
+      "check": "same_clean_recorded_a973_before_after",
+      "passed": true
+    },
+    {
+      "check": "full32216_path_snapshot_stable",
+      "passed": true
+    },
+    {
+      "check": "current_existing_snapshot_SHA_or_deleted_match",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/scripts/bosses/bellstrider_definition.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/scripts/bosses/bellstrider_encounter.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/scripts/bosses/bellstrider_bell_projectile.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/scripts/damage/demo_contact_emitter.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/scripts/demo/demo_app.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/tests/bellstrider_rework_01/contact_edges.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/tests/bellstrider_rework_01/combat_runner.gd",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/tools/run_bellstrider_rework_01_tests.py",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/tools/harness/profiles.json",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/docs/creative_direction/bibles/style-continuity-20261030-v23-bellstrider-rework.json",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/docs/creative_direction/bibles/registry.json",
+      "passed": true
+    },
+    {
+      "check": "12reviewed_leaves_exact_recorded_commit/tests/bellstrider_rework_01/contact_edges.gd.uid",
+      "passed": true
+    },
+    {
+      "check": "driver_and_pilot_same_capturetool",
+      "passed": true
+    },
+    {
+      "check": "actual_media_trace_SHA",
+      "passed": true
+    },
+    {
+      "check": "actual1280_720_60fps4769frames",
+      "passed": true
+    },
+    {
+      "check": "all_video_PTS_uniform",
+      "passed": true
+    },
+    {
+      "check": "full_decode_no_errors",
+      "passed": true
+    },
+    {
+      "check": "4755_trace4754_postdraw_normalclock",
+      "passed": true
+    },
+    {
+      "check": "actual_movie_trace_frames_consecutive",
+      "passed": true
+    },
+    {
+      "check": "40unique1HP_effective_hits",
+      "passed": true
+    },
+    {
+      "check": "20started19completed41shots_onearmour",
+      "passed": true
+    },
+    {
+      "check": "all_player_HP5_no_injury_no_contact_chapter",
+      "passed": true
+    },
+    {
+      "check": "six_real_complete_lobs",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/0",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/0",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/1",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/1",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/2",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/2",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/3",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/3",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/4",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/4",
+      "passed": true
+    },
+    {
+      "check": "timing_aim_release_le075_and_actual_locked/5",
+      "passed": true
+    },
+    {
+      "check": "timing_flight_le135/5",
+      "passed": true
+    },
+    {
+      "check": "first_lower_flight12667",
+      "passed": true
+    },
+    {
+      "check": "actual_upper_platform_target_flight110",
+      "passed": true
+    },
+    {
+      "check": "death_clock18_majorimpact105",
+      "passed": true
+    },
+    {
+      "check": "death_all_threats_stopped",
+      "passed": true
+    },
+    {
+      "check": "four_actual_units_at_mainimpact",
+      "passed": true
+    },
+    {
+      "check": "four_realclaims_total12",
+      "passed": true
+    },
+    {
+      "check": "actual_original_PCM_WAV_SHA_format",
+      "passed": true
+    },
+    {
+      "check": "PCM_signal_no_clipping",
+      "passed": true
+    },
+    {
+      "check": "AAC_matches_original_PCM_signal",
+      "passed": true
+    },
+    {
+      "check": "capture_log_no_native_errors",
+      "passed": true
+    }
+  ],
+  "inventory": {
+    "paths": 32216,
+    "materialized": 10227,
+    "expected_sparse_deleted": 21989,
+    "current_mismatches": [],
+    "bounds": "Both recorded snapshots clean/stable. Present SHA and expected absent markers independently compared. Later archived evidence is not capture-time drift."
+  },
+  "actual_lob_timing": [
+    {
+      "group": 2,
+      "aim_seconds": 6.98333333333333,
+      "lock_seconds": 7.35,
+      "release_seconds": 7.71666666666667,
+      "impact_seconds": 8.98333333333333,
+      "aim_to_release": 0.7333333333333405,
+      "lock_to_release": 0.3666666666666707,
+      "release_to_impact": 1.2666666666666604,
+      "locked_target": [
+        6362.14501953125,
+        718.0
+      ],
+      "actual_impact": [
+        6360.52734375,
+        718.0
+      ]
+    },
+    {
+      "group": 5,
+      "aim_seconds": 16.55,
+      "lock_seconds": 16.9166666666667,
+      "release_seconds": 17.2833333333333,
+      "impact_seconds": 18.3833333333333,
+      "aim_to_release": 0.7333333333332988,
+      "lock_to_release": 0.36666666666659964,
+      "release_to_impact": 1.1000000000000014,
+      "locked_target": [
+        6206.10302734375,
+        588.0
+      ],
+      "actual_impact": [
+        6208.7890625,
+        588.0
+      ]
+    },
+    {
+      "group": 6,
+      "aim_seconds": 19.95,
+      "lock_seconds": 20.3166666666667,
+      "release_seconds": 20.6833333333333,
+      "impact_seconds": 21.95,
+      "aim_to_release": 0.7333333333333023,
+      "lock_to_release": 0.3666666666666032,
+      "release_to_impact": 1.2666666666666977,
+      "locked_target": [
+        6311.72900390625,
+        718.0
+      ],
+      "actual_impact": [
+        6312.91943359375,
+        718.0
+      ]
+    },
+    {
+      "group": 10,
+      "aim_seconds": 33.0666666666667,
+      "lock_seconds": 33.4333333333333,
+      "release_seconds": 33.8,
+      "impact_seconds": 34.9666666666667,
+      "aim_to_release": 0.7333333333332988,
+      "lock_to_release": 0.36666666666669556,
+      "release_to_impact": 1.1666666666666998,
+      "locked_target": [
+        6185.572265625,
+        718.0
+      ],
+      "actual_impact": [
+        6213.4375,
+        588.0
+      ]
+    },
+    {
+      "group": 15,
+      "aim_seconds": 51.3166666666667,
+      "lock_seconds": 51.6833333333333,
+      "release_seconds": 52.05,
+      "impact_seconds": 53.3166666666667,
+      "aim_to_release": 0.7333333333332988,
+      "lock_to_release": 0.36666666666669556,
+      "release_to_impact": 1.2666666666667012,
+      "locked_target": [
+        6407.59814453125,
+        718.0
+      ],
+      "actual_impact": [
+        6405.71240234375,
+        718.0
+      ]
+    },
+    {
+      "group": 15,
+      "aim_seconds": 53.5833333333333,
+      "lock_seconds": 53.95,
+      "release_seconds": 54.3166666666667,
+      "impact_seconds": 55.4833333333333,
+      "aim_to_release": 0.7333333333333982,
+      "lock_to_release": 0.36666666666669556,
+      "release_to_impact": 1.1666666666666003,
+      "locked_target": [
+        6251.59228515625,
+        718.0
+      ],
+      "actual_impact": [
+        6237.2099609375,
+        588.0
+      ]
+    }
+  ],
+  "statistics": {
+    "effective_hits": 40,
+    "actualshots": 41,
+    "started_groups": 20,
+    "completed_groups": 19,
+    "player_HP": 5,
+    "coin_total": 12,
+    "actual_player_injuries": 0,
+    "fatal_encounter_seconds": 74.8666666666637,
+    "fatal_movie_seconds": 75.1333333333333,
+    "death_impact_movie_seconds": 76.1833333333333,
+    "death_final_movie_seconds": 76.95,
+    "all_coin_claimed_movie_seconds": 78.6,
+    "video_frames": 4769,
+    "trace_frames": 4755,
+    "duration_seconds": 79.483333
+  },
+  "audio_signal": {
+    "WAV_format": {
+      "rate": 48000,
+      "channels": 2,
+      "width": 2,
+      "frames": 3815200
+    },
+    "peak": 15229,
+    "rms": 0.0397233177524202,
+    "AAC_PCM_correlation": 0.9978029824620999,
+    "manual_listening_performed": false,
+    "raw_AVI_retained": false,
+    "bounds": "Retained engine PCM and encoded AAC technically verified; removed original AVI cannot now be independently rehashed. No timbre/mix approval."
+  },
+  "full_resolution_frames_actually_viewed": [
+    {
+      "seconds": 7.716667,
+      "path": "/tmp/bellstrider-review02-movie-frames/01-7.717s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "7.716667",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/01-7.717s.png"
+      ],
+      "sha256": "659ceefff0701b09a9d33ab6d25b7676a6396c5f33385b54ada9483b5b771d19"
+    },
+    {
+      "seconds": 8.983333,
+      "path": "/tmp/bellstrider-review02-movie-frames/03-8.983s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "8.983333",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/03-8.983s.png"
+      ],
+      "sha256": "2db6bc5871e9d111488a30d43278875b1ddc63075c02c45a28eb9c680497445e"
+    },
+    {
+      "seconds": 17.283333,
+      "path": "/tmp/bellstrider-review02-movie-frames/05-17.283s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "17.283333",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/05-17.283s.png"
+      ],
+      "sha256": "06f4a4465e91b03fe162ebb8d760d3bbb4eb3b3c61900c286ab8752bdc5e4fd5"
+    },
+    {
+      "seconds": 18.383333,
+      "path": "/tmp/bellstrider-review02-movie-frames/06-18.383s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "18.383333",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/06-18.383s.png"
+      ],
+      "sha256": "a45775e5a649f9acbc1a5bc5c4428805f3bb7a8699f907b81d1f881bca33e62a"
+    },
+    {
+      "seconds": 75.133333,
+      "path": "/tmp/bellstrider-review02-movie-frames/07-75.133s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "75.133333",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/07-75.133s.png"
+      ],
+      "sha256": "d1b5ee4e456e660b85c674135b73cdf8fbd82e1de711d0b6ecb03ab3698c4e0d"
+    },
+    {
+      "seconds": 76.183333,
+      "path": "/tmp/bellstrider-review02-movie-frames/09-76.183s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "76.183333",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/09-76.183s.png"
+      ],
+      "sha256": "1f2a65131c1ddb4a7b37795b45006738bdaaa2af6d8b51fa3fb78bf0341653df"
+    },
+    {
+      "seconds": 76.95,
+      "path": "/tmp/bellstrider-review02-movie-frames/11-76.950s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "76.95",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/11-76.950s.png"
+      ],
+      "sha256": "caa11606a36f4052b8a5ddd4dba8efcc14a0ac1ad8b03241497719a77df4c3a4"
+    },
+    {
+      "seconds": 78.516667,
+      "path": "/tmp/bellstrider-review02-movie-frames/12-78.517s.png",
+      "argv": [
+        "ffmpeg",
+        "-v",
+        "error",
+        "-ss",
+        "78.516667",
+        "-i",
+        "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+        "-frames:v",
+        "1",
+        "-update",
+        "1",
+        "-y",
+        "/tmp/bellstrider-review02-movie-frames/12-78.517s.png"
+      ],
+      "sha256": "0ee79a09aa3a04c6ffdb7c9ce7e601884281c02d9053d2639d8907c1425d5dcf"
+    }
+  ],
+  "visibility_limit": {
+    "id": "death_left_edge_clip_retained",
+    "status": "REWORK_FOR_COMPLETE_DEATH_VISUAL_CLAIM_ONLY",
+    "seconds": [
+      76.1833333333333,
+      76.95
+    ],
+    "finding": "Fatal hit75.133s has whole Boss visible; by main impact76.183s and final76.95 much of mast/carriage is outside left edge. Full wreck returns by78.517 pickup. Do not label current single film complete death-in-frame proof. Old complete death film may remain historical, explicitly old source; not retagged current."
+  },
+  "contact_evidence_boundary": "No actual injury in this natural clip; no collision-injury chapter fabricated. Current controlled194 App contact test is separate evidence.",
+  "files": [
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/report.json",
+      "sha256": "a041f8586a99035e4aacfe9a3900761aa4b5c6d6ebba95d1615d63461b7de625"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/trace.json",
+      "sha256": "c15d1b257006d3bf70c987f8586b36e98e8de08ef588528af473e4fc576eae1a"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/chapters.json",
+      "sha256": "956405df74876087b2b95b383a5c58e9c7ce720d3ed74ec7a360c83b8df081be"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/review.mp4",
+      "sha256": "fbef24c5537f8767bdd717d4bc013b04fbb4db48f8aed37970019213de609211"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/original_engine_pcm.wav",
+      "sha256": "45381b18ace239cba544640f5362f161ba4af631f71a0e4e19bb1463c6bd0e26"
+    },
+    {
+      "path": "/workspace/gunman-rush/build/bellstrider_review_02/movie-01/capture.log",
+      "sha256": "78ffb95ab9b1a9fab48ec709e8aa9bba532c2e9ec34014a8cd807f4c0771beac"
+    }
+  ],
+  "actual_commands": [
+    "python3 /tmp/extract_bellstrider_review02_movie.py",
+    "ffprobe -v error -show_streams -show_format -of json build/bellstrider_review_02/movie-01/review.mp4 > /tmp/bellstrider-review02-movie-ffprobe.json",
+    "ffprobe -v error -select_streams v:0 -show_entries frame=best_effort_timestamp_time,pkt_duration_time -of json build/bellstrider_review_02/movie-01/review.mp4 > /tmp/bellstrider-review02-movie-frame-times.json",
+    "ffmpeg -v error -i build/bellstrider_review_02/movie-01/review.mp4 -f null - > /tmp/bellstrider-review02-movie-decode.log 2>&1",
+    "ffmpeg -v error -i build/bellstrider_review_02/movie-01/review.mp4 -vn -acodec pcm_s16le -y /tmp/bellstrider-review02-movie-aac.wav",
+    "python3 /tmp/review_bellstrider_review02_movie.py > /tmp/bellstrider-review02-movie-proof.log"
+  ],
+  "audit_script_sha256": "55db6418ec2dc32b962e7d59fcc4d3defb5d59e8783172141c8bd861a2c7eba2",
+  "not_accepted": [
+    "All4769frames personally viewed (all decoded/PTS,8fullframes viewed)",
+    "Complete current death art in frame",
+    "Collision injury demonstrated by noinjury movie",
+    "New subjective art/listening/human fairness/device/user/G1-G5"
+  ],
+  "report_sha256": "80b7b0d2115a5a538337fef624d6d65e4cee509aa75e21f8be855b4a556d5693",
+  "proof_log_sha256": "f5df5f75b4a673f2e9da501d97801857c8e1b9ba0f8b5df3c53adb3d8f1f3cba"
+}

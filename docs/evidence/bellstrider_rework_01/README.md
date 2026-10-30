@@ -1,5 +1,8 @@
 # 鸣铃巡游机：本轮审核候选
 
+最新为[反馈review02](review02/README.md)，工坊版本6：投铃加速、真实车壳/轮组接触，891项专项通过，新原声片已发布。下文为review01／工坊版本5历史记录，“两个当前版本”仅指当时版本，旧片仍可在历史查看。
+
+
 已实现并发布到[原怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)，选择「鸣铃巡游机」的两个当前版本。游戏运行源 `c10dab0f4d16c26d9bf06632958853274f025793`，媒体固定在 `8f35f1467ef4181bc68610f83a9b984156631c82`，工坊源 `4bd7f90897dfd4626ff63fb54b4764d6af7162d8`／私密版本5；[PR122](https://github.com/zhipijun1996/gunman-rush/pull/122)保持草稿，未合main。
 
 40HP／20HP二阶段；唯一上端风铃持续可伤，与绘制共姿态；铜壳和轮组只给装甲反馈。Boss自身时钟、距离/高差/近期招式权重决定三招，回冲在第一冲前确定。冲锋有加速和刹车惯性，无路径辅助线；逐次敲击对应实际铃波；独立投铃机构先跟瞄、再锁定。受击不重置招式；致死立即停止攻击和接触，约1.8秒机械失效，主撞击喷出12元5+5+1+1，逐枚拾取且门户不重复发钱。原玩家物理、已选受伤A、BGM与其他Boss奖励链保留。详见[制作卡](../../worklines/bellstrider_rework_01/spec.md)与[实现说明](../../worklines/bellstrider_rework_01/implementation.md)。
