@@ -1,5 +1,17 @@
 # MAPGEN-930001-01 · 固定交付地图接入
 
+## candidate-v2：纠正正式平原表现入口（用户反馈后）
+
+用户指出“这美术不对吧。应该是用的新平原的美术和怪物”。v1 的固定地图漏装正式表现层，旧出生图不再作为当前美术交付；原图、旧测试与原失败完整保留。
+
+本次仅复用正式 Underworld/native32 地形、三层背景、装饰/前景/光照、当前主角身体与已有怪物身体/动作。18 个原怪物仍为 13 diver、4 sentry、1 charger，不抽怪或换物种。全图唯一地形碰撞不变；画面使用实际非单向实体并集，原地形绘制关闭，单向/移动/刺面/风铃沿原正式消费者。Boss 第三阶段提交断桥后同步重建视觉并集、装饰与遮光体。
+
+M29 原生 OR 消费者的金色占位仅隐藏绘制，使用正式 medium 箱闭/开姿态；位置、tier、原始领取中心、OR 选项、钱包和 claimed 状态仍归原消费者。脚底对应物化单向平台 y64（领取中心 y46），没有移动奖励或支撑。
+
+独立 CloudPreviewBootstrap 使用主游戏同款 PlayerWeaponFeelAudioV2 单服务，保持原 12 声池，供正式 MotionFeel/WeaponFeel 复用；不建立两池。其余主游戏默认入口、资源和共享 PlayerPresentationRuntime 不改。root 独占 Godot，review 只读审查；同源实机图/影片、实际预览宿主及原物理套件分别记录。M24 原缺口与整图自然通关边界不因换肤而放宽。
+
+## 原始接入范围
+
 基线 main `840108da9ae91e412dc9f1d8a38ccdad0229bb11`；分支 `feature/mapgen-delivery-930001`。
 本轮只消费 map-gen 0.1.0 / seed 930001，不移植生成器，不补 Route、不降低目标，不改 PlayerTuning。
 

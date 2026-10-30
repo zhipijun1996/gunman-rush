@@ -26,6 +26,8 @@ bash tools/godot.sh --path . scenes/mapgen/seed_930001.tscn
 
 ## 接入结构
 
+`plains_presentation.gd` 复用当前正式平原的 Underworld/native32 地形、三层背景、玩家、18只原怪物、机关、光照和前景；不生成新美术或新怪物。视觉只读实际模块几何，Boss 断桥后一起刷新地形画面/遮光体；原碰撞不重复生成。M29 使用正式 medium 蓝箱闭/开姿态，保原 OR 交易。独立 Web 宿主的唯一音频服务与主游戏相同，两个 feel 共用原12声池。
+
 `third_party/mapgen/0.1.0` 是交付包原字节副本。外层 `.gdignore` 防止 Godot 写入原包；运行时逐项核 manifest 全部文件，导出插件原样打入 PCK。`verify_delivery.py` 仍可直接验证该目录。
 
 `materialized_registry.gd` 接受物化内容，先注入独立派生构建入口再入树。读取原场景只为取得其原生行为脚本，不实例化原场景地形。`materialized_terrain.gd` 构建唯一原生 PlatformingModule/实体/机关/敌人/奖励；`gear_seal.gd` 安装全部 40 个真实碰撞封口。只应用 `origin_blocks * 128`，不重新镜像、不应用 `source_affine` 或原场景偏移。
@@ -40,7 +42,7 @@ Boss 绑定主游戏正式 `windkeeper_storm`。从 M40 真实物化平台推导
 
 ```sh
 python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen_930001/new-acceptance
-# 可单独定位：inventory / controls / spawn / seams / seals / mechanisms / rewards / boss
+# 可单独定位：inventory / presentation / preview / controls / spawn / seams / seals / mechanisms / rewards / boss
 ```
 
 输出目录必须是新目录；非零退出、缺 marker、未覆盖所需 case、脚本错误、退出泄漏和源漂移均拒绝。所有诊断明确标记 fixture：只有 spawn 的 M01 开铃→M02 是连续自然输入；其他接缝使用真实玩家形状扫掠，向下单向接缝再用原生 drop_through；奖励和 Boss 初态位置是局部 fixture，不能宣称从出生自然到达。Boss 战内没有传送、补血或调参。
@@ -48,5 +50,7 @@ python3 tools/run_mapgen_delivery_tests.py --suite all --output-dir build/mapgen
 实际数据、首轮失败及剩余缺口见[验收记录](../../evidence/mapgen_930001/README.md)；宿主资源差异见[兼容审计](../../evidence/mapgen_930001/host_compatibility.json)。
 
 ## 已构建的本地 Web
+
+下方 b2f71528 是旧美术构建，仅作历史复现；用户指出表现错误后，candidate-v2 已纠正正式消费者。当前源的媒体、构建身份和测试结果以[验收记录](../../evidence/mapgen_930001/README.md)追加的 v2 收据为准。
 
 冻结源b2f71528、build054648325c2e的ZIP在 `build/mapgen_930001/mapgen-930001-web-054648325c2e.zip`。解压，执行 `python3 serve.py --directory . --port 8807`，浏览器打开 http://127.0.0.1:8807/。这是实际本地浏览器验证的固定地图开发入口；完整PCK和ZIP指纹见验收目录build.json。独立公开Preview的staging被既有900MiB容量守门拒绝，没有新公开网址。
