@@ -138,13 +138,13 @@ func _process(delta: float) -> void:
 				var spin:=.42+.58*absf(cos(_time*(3.2 if value==5 else 4.6)+index+part_index))
 				part.scale=Vector2(width*spin,width)/part.texture.get_size()
 	if is_instance_valid(_boss_loot):
-		_boss_loot.visible=stage.reward_available
+		_boss_loot.visible=stage.reward_available and _pressure_rewards_visible()
 		_boss_loot.position=PlainsCohesionArt.arrival(_boss_origin,stage.reward_position-Vector2(0,16),stage.clock-_boss_born,.85)+Vector2(0,sin(_time*3)*3)
 		_boss_loot.rotation=sin(_time*2)*.06
 	for door: Sprite2D in _doors:
 		door.modulate = Color(1, 1, 1, 1) if stage.completed else Color(0.63, 0.67, 0.60, 1)
 	if is_instance_valid(_boss_door):
-		_boss_door.visible = stage.reward_available
+		_boss_door.visible = stage.reward_available and _pressure_rewards_visible()
 		_boss_door.position = stage.reward_position + Vector2(0, -22)
 
 func play_boss_defeat(origin:Vector2,mini:bool,animate:bool=true)->void:
@@ -178,3 +178,11 @@ func set_pixel_style(enabled: bool) -> void:
 	if is_instance_valid(_boss_loot):
 		_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
 		_boss_loot.scale=Vector2(38,32)/_boss_loot.texture.get_size()
+
+
+func _pressure_rewards_visible() -> bool:
+	if not is_instance_valid(stage.boss): return true
+	var encounter := stage.boss.get_node("Encounter") as WindkeeperPressureEncounter
+	if encounter == null or not encounter.health.terminal: return true
+	if not encounter.physical_reward_expected: return stage.clock >= stage.reward_ready_at
+	return stage.clock >= stage.reward_ready_at and float(encounter.combat_metrics().get("death_age", 0)) >= (encounter.definition as WindkeeperPressureDefinition).death_seconds

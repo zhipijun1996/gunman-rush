@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v25",
+  "version": "creative-v27",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "supplemental_authority_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+    "supplemental_authority_sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "7956815f0ae63e4bcdda7cf20e7554272b43bd7e96c9d8e75bbdb4804dfec1be",
+    "registry_sha256": "6ec93f86c4d22761cb4ccb6372f9573d5b87ae63d8187686224569f1572f9622",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -195,6 +195,14 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
       "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+      "sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183"
+    },
+    {
+      "path": "docs/creative_direction/bibles/windkeeper-pressure-20261030.json",
+      "sha256": "dcf15aa23d929800fa6eaf2c7faa0092d94ff0d825b55d7f9c6ed6b084809a2b"
     }
   ],
   "historical_direction": {
@@ -203,26 +211,72 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "PLAINS-MOTION-LOOT-02",
-    "scope": "Technical binding merge only. Both parent creative24 direction/content/user-acceptance fields are unchanged; preserve authority union and append current merged style22.",
-    "previous_direction": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
-    "previous_sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a",
-    "parent_directions": [
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
-        "sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a"
-      },
-      {
-        "path": "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
-        "sha256": "fa660deffa2b0e8b894e337a9f5c2e76e4133e6ec1191d1e6effb680df172a61"
-      }
-    ],
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
-    "shared_style_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "task_id": "WINDKEEPER-PRESSURE-01",
+    "scope": "Formal Windkeeper-specific authorized combat/body/audio binding; no regional/global art rewrite. Forest direction/content is unchanged and only shares updated actual runtime reference identity.",
+    "previous_direction": "docs/creative_direction/archive/windkeeper-pressure-before-style24/windchime_plains.json",
+    "previous_sha256": "d8207d0c95cd0823a1b94e2f404a3bd281458ad52e4246fb3b4af5a1e887373a",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+    "shared_style_sha256": "b1518512d67766afcf9f4eeaee7265d765d5530c3d426a34738136344188f183",
     "affected_consumers": [
       "scripts/demo/demo_app.gd",
-      "scripts/items/v5/item_v5_shop_presenter.gd"
+      "scripts/bosses/boss_factory.gd",
+      "scenes/bosses/windkeeper_pressure.tscn",
+      "scripts/bosses/windkeeper_pressure_definition.gd",
+      "resources/bosses/windkeeper_storm.tres",
+      "resources/bosses/windkeeper_pressure_health.tres",
+      "scripts/bosses/windkeeper_pressure_encounter.gd",
+      "scripts/bosses/windkeeper_pressure_rig.gd",
+      "scripts/bosses/windkeeper_pressure_presentation.gd",
+      "scripts/bosses/windkeeper_pressure_projectile.gd",
+      "scripts/bosses/windkeeper_pressure_strike.gd",
+      "scripts/audio/windkeeper_pressure_audio.gd",
+      "scripts/rewards/windkeeper_pressure_rewards.gd",
+      "scripts/ui/windkeeper_hud.gd",
+      "scripts/damage/demo_contact_emitter.gd",
+      "scripts/art_foundation/pixel_formal_style_installer.gd",
+      "scripts/underworld_plains/underworld_actor_installer.gd",
+      "scripts/demo/module_lab.gd",
+      "scripts/run/run_manifest.gd",
+      "scripts/art/plains_stage_visual.gd",
+      "scripts/bosses/windkeeper_pressure_wind.gd",
+      "shaders/windkeeper_pressure_foreground.gdshader",
+      "assets/audio/windkeeper_pressure_01/CC0-1.0.txt",
+      "assets/audio/windkeeper_pressure_01/README.md",
+      "assets/audio/windkeeper_pressure_01/death.wav",
+      "assets/audio/windkeeper_pressure_01/death_final.wav",
+      "assets/audio/windkeeper_pressure_01/death_impact.wav",
+      "assets/audio/windkeeper_pressure_01/gust_release.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/gust_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/hit.wav",
+      "assets/audio/windkeeper_pressure_01/link.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_land.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_start.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/lunge_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/manifest.json",
+      "assets/audio/windkeeper_pressure_01/phase.wav",
+      "assets/audio/windkeeper_pressure_01/platform_impact.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/platform_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/recover.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_release.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/seeds_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/sources.json",
+      "assets/audio/windkeeper_pressure_01/stomp_strike.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning_combo3.wav",
+      "assets/audio/windkeeper_pressure_01/stomp_warning_double.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_release.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning_combo2.wav",
+      "assets/audio/windkeeper_pressure_01/sweep_warning_combo3.wav"
     ],
-    "validation": "Both parent24 and older pointers reject current binding; all historical tests and literal SHA remain archived/active. No old PASS or human/device/art/audio acceptance inherited."
+    "validation": "Current complete region_bible/authority_sources pointers require fresh exact source tests. All historical bindings reject current registry; no prior PASS or human/device/listening approval inherited."
   }
 }

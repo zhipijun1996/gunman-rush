@@ -1,0 +1,56 @@
+{
+  "task_id": "WINDKEEPER-PRESSURE-01",
+  "status": "proposed_pending_exact_source_freeze",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "previous_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+  "previous_style_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+  "next_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json",
+  "next_style_version": "24",
+  "previous_direction_version": "creative-v25",
+  "next_direction_version": "creative-v27",
+  "reason_for_version_gap": "Keep independent unmerged Bellstrider style23 / creative26 identity collision-free; no Bell source or acceptance is inherited.",
+  "scope": "Technical formal map2 Windkeeper combat/body/audio consumer binding; unchanged global style and original Bible texts.",
+  "runtime_sha256_status": "not_written_until_root_freeze",
+  "preserve": [
+    "original83role/path/order",
+    "unchanged reference bytes/hashes",
+    "oldparent22/25 snapshots",
+    "alloldtests/negativeguards/budgets",
+    "originalBibletexts",
+    "1wu/nearest",
+    "humananddeviceunverified"
+  ],
+  "new_formal_consumer_candidates": [
+    "scripts/bosses/boss_factory.gd",
+    "scenes/bosses/windkeeper_pressure.tscn",
+    "scripts/bosses/windkeeper_pressure_definition.gd",
+    "resources/bosses/windkeeper_storm.tres",
+    "resources/bosses/windkeeper_pressure_health.tres",
+    "scripts/bosses/windkeeper_pressure_encounter.gd",
+    "scripts/bosses/windkeeper_pressure_rig.gd",
+    "scripts/bosses/windkeeper_pressure_presentation.gd",
+    "scripts/bosses/windkeeper_pressure_projectile.gd",
+    "scripts/bosses/windkeeper_pressure_strike.gd",
+    "scripts/audio/windkeeper_pressure_audio.gd",
+    "scripts/rewards/windkeeper_pressure_rewards.gd",
+    "scripts/ui/windkeeper_hud.gd",
+    "scripts/damage/demo_contact_emitter.gd",
+    "scripts/art_foundation/pixel_formal_style_installer.gd",
+    "scripts/underworld_plains/underworld_actor_installer.gd",
+    "scripts/demo/module_lab.gd",
+    "scripts/run/run_manifest.gd",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/bosses/windkeeper_pressure_wind.gd",
+    "shaders/windkeeper_pressure_foreground.gdshader"
+  ],
+  "required_fresh_checks": [
+    "region-bible-tests",
+    "region-bible-contract",
+    "creative-direction",
+    "creative-direction-tests"
+  ],
+  "changed_existing_reference_candidates": [
+    "scripts/demo/demo_app.gd"
+  ],
+  "source_guard_inputs_policy": "Keep original422 region-bible inputs as exactprefix; append all actual140references and frozen metadata/test fixtures which are not already explicit inputs. Budgets30/30/30/60 unchanged; original168fullprefix plus one Pressurecheck."
+}

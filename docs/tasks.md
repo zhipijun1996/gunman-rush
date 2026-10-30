@@ -1,3 +1,7 @@
+# WINDKEEPER-PRESSURE-01 · 牧风者主动追压
+
+用户2026-10-30授权60HP/六招/三阶段冻结招组、两枪反击与原声完整片。状态in_progress，分支feature/windkeeper-pressure-01，基于main840108da；[制作卡](worklines/windkeeper_pressure_01/spec.md)，不自动合main。
+
 # 开发任务
 
 ## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入

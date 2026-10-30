@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDKEEPER-PRESSURE-01",
+  "task_type": "boss",
+  "workflow": "in_progress",
+  "baseline_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "reviewed_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+  "content_version": "windkeeper-pressure-01-candidate",
+  "owner": "root / Windkeeper pressure workline",
+  "purpose": "按用户明确要求把牧风者改为60HP三阶段主动接敌与六招冻结组合，并以正式连续原声战斗验证两枪反击。",
+  "player_experience": "通过四足、风帆、风叶与铃声读懂连续追压，整组末尾稳健两枪后撤离，第三枪考验站位和时机。",
+  "constraints": [
+    "玩家Motor/基础跳跃/武器反冲与资源、保存和奖励账本继续既有合同。",
+    "正式map2使用新Pressure子类；历史Windkeeper与鸣铃巡游机不改核心机制。",
+    "原Bible和1wu/nearest/现有身体PNG/旧黄铜苔绿褪帆及用户BGM保留。",
+    "实际伤害/位移/动画由同一Encounter姿态锚驱动；表现不决定玩法结果。",
+    "当前仅授权制作与交付，不合main；技术不代签用户/设备/趣味认可。"
+  ],
+  "affected_paths": [
+    "scripts/bosses/windkeeper_pressure_encounter.gd",
+    "scripts/bosses/windkeeper_pressure_definition.gd",
+    "scripts/bosses/windkeeper_pressure_rig.gd",
+    "scripts/bosses/windkeeper_pressure_presentation.gd",
+    "scripts/bosses/windkeeper_pressure_projectile.gd",
+    "scripts/bosses/windkeeper_pressure_strike.gd",
+    "scripts/audio/windkeeper_pressure_audio.gd",
+    "scripts/rewards/windkeeper_pressure_rewards.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/module_lab.gd",
+    "scripts/ui/windkeeper_hud.gd",
+    "scripts/bosses/boss_factory.gd",
+    "scripts/damage/demo_contact_emitter.gd",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/run/run_manifest.gd",
+    "resources/bosses/windkeeper_storm.tres",
+    "resources/bosses/windkeeper_pressure_health.tres",
+    "scenes/bosses/windkeeper_pressure.tscn",
+    "scripts/bosses/windkeeper_pressure_wind.gd",
+    "shaders/windkeeper_pressure_foreground.gdshader",
+    "scripts/art_foundation/pixel_formal_style_installer.gd",
+    "scripts/underworld_plains/underworld_actor_installer.gd"
+  ],
+  "deliverables": [
+    "六招三阶段正式Boss候选",
+    "同源连续正常速度原声完整战斗与动作章节",
+    "真实躲避/两枪反冲/撤离及第三枪风险对照",
+    "怪物工坊当前版本与旧意见保留",
+    "相关原生回归、独立实景审查与未验边界"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Direct user fullspec and bounded independent designreview; no runtime approval inferred.",
+      "evidence": [
+        "scope",
+        "g0"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "User gave clear target and independent preproduction review accepted concrete design with falsifiers.",
+      "evidence": [
+        "scope",
+        "g0"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "D0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "正式map2的60HP三阶段六招追压",
+      "method": "用户完整要求与独立设计反例审查",
+      "expected": "冻结1–3主攻组合、动作读招、整组末尾两枪及撤离",
+      "failure": "以伤害次数控制Boss时钟或用无预告追加伪造压力",
+      "status": "passed",
+      "reason": "用户明确设计与独立G0仅接受设计范围",
+      "evidence": [
+        "scope",
+        "g0"
+      ]
+    },
+    {
+      "id": "T1",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "六招真实伤害和姿态锚",
+      "method": "原生真实碰撞/弹道/FramePolicy与双向/边角反例",
+      "expected": "可见攻击部位与伤害几何、真实短扑位移一致",
+      "failure": "AABB空角伤害、反向不同步、冻结时重放旧扫掠",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "T2",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "整组末尾两枪与贪第三枪",
+      "method": "正常输入完整战斗及同合法射速第三枪对照",
+      "expected": "两枪后有实测撤离空间；第三枪少一个射击间隔的余量",
+      "failure": "依赖悬空连射、故意拖延第三枪或抹除尚未到达弹体",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "T3",
+      "gate": "G1",
+      "dimension": "gameplay",
+      "scenario": "断桥后真实四足支撑和追台",
+      "method": "正式Arena真实支撑射线、锁定跳跃与普通跳跃撤离",
+      "expected": "Boss先跃上现存平台再断桥；平台间真实起落；玩家有退路",
+      "failure": "Boss普通足悬空、隐形地板、临落地突然换锁定目标",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "A1",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "正常尺寸六种全身动作/待机/移动/收招",
+      "method": "正式GPU姿态对照与正常速度连续影片逐段审查",
+      "expected": "四足承重、胸背/风帆/铃滞后清楚，组中张力与终结卸力不同",
+      "failure": "只动脚或整图漂浮、手机尺度辨不出招式、假落地",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "S1",
+      "gate": "G2",
+      "dimension": "audio_vfx",
+      "scenario": "实际动作事件/连段声节奏/风向",
+      "method": "原声影片、实际音频voice收据及现场草叶",
+      "expected": "出手/落地/预警同步，命中不盖关键读招，真实草叶同向响应",
+      "failure": "用离线WAV通过代签整场听感、风向和草叶相反",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "I1",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "scenario": "正式Factory/App保存/暂停/取消/死亡一次结算",
+      "method": "原入口/原账本/epoch专项与完整实机消费者",
+      "expected": "致死即止伤止风，真实落位和金币逐枚领取合计20，一次结算",
+      "failure": "旧尸体重放死亡/奖励、物理金币未拾取却结算钱包、残骸阻路",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "R1",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "正式当前源反例与完整影片",
+      "method": "独立审查生产源、原生原件、实际GPU像素及完整章节",
+      "expected": "结论限定有证据范围，原失败保留并有明确修复复验",
+      "failure": "用组件通过冒充完整战斗或审查者未看实际画面",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    },
+    {
+      "id": "U1",
+      "gate": "G5",
+      "dimension": "player_acceptance",
+      "scenario": "用户审核与实体操作",
+      "method": "怪物工坊原声完整片/用户意见/后续真实设备试玩",
+      "expected": "按用户实际意见记录认可或返工",
+      "failure": "AI代签用户审美、手感或真机性能",
+      "status": "unverified",
+      "reason": "当前候选仍在修复与验证；以最终冻结源原件更新",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/windkeeper_pressure_01/spec.md",
+      "sha256": "b7f9c3ab2868b36fd2f11ad93af54231315ef3b5c171d5028b881a1d775d68ff",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Direct user specification retained as production requirements.",
+      "observed": "60HP, three stages, six authored fullbody moves, frozen1–3attackgroups and realtwo-shotcounter."
+    },
+    {
+      "id": "g0",
+      "path": "docs/worklines/windkeeper_pressure_01/g0-review.md",
+      "sha256": "fbdbaee0c5230d26ec9cf0eb67cd30bbd93fcfabe4bc15ffda66f3313d52c3c8",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "840108da9ae91e412dc9f1d8a38ccdad0229bb11",
+      "content_version": "windkeeper-pressure-01-candidate",
+      "method": "Independent read-only preproduction mechanic/fairness/consumer review.",
+      "observed": "ACCEPT scoped design; actualbridgeescape, gust retreat, remainingprojectiles and truecounterwindow still require runtime.",
+      "reviewer": "/root/windkeeper_binding_review",
+      "implementers": [
+        "root",
+        "/root/windkeeper_combat",
+        "/root/windkeeper_art",
+        "/root/windkeeper_audio"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer writes no production/geometry/audio/art/capture implementation. Metadata versionbinding distinct from gameplay review."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "正式完整连续自然战斗尚未成功；headless01–04失败保留",
+    "阶段III真实支撑/追移落位与横扫接近正在修复",
+    "最终源码绑定、适用回归、GPU六招和原声整场审查未闭环",
+    "用户审美/手感/实体设备性能独立待验",
+    "旧v5 terminal第三阶段terrain恢复差异按用户明确兼容延期保留；不宣称完整旧存档兼容"
+  ]
+}

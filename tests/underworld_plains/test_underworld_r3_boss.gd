@@ -44,7 +44,9 @@ func fixture(mini: bool, phase: int = 1, at := Vector2(350,582)) -> void:
 	policy.register_player_controller(controller)
 	boss=load("res://scenes/bosses/bellstrider.tscn" if mini else "res://scenes/bosses/windkeeper.tscn").instantiate()
 	encounter=boss.get_node("Encounter")
-	var definition:WindkeeperDefinition=load("res://resources/bosses/bellstrider.tres" if mini else "res://resources/bosses/windkeeper_storm.tres").duplicate(true)
+	# This direct old-scene fixture retains exact historical v5 timings/36HP;
+	# the current factory/App six-move60HP path is covered by pressure tests.
+	var definition:WindkeeperDefinition=load("res://resources/bosses/bellstrider.tres" if mini else "res://resources/bosses/legacy/windkeeper_storm_continuous_v5.tres").duplicate(true)
 	# Initial-current phase fixtures never submit fake combat damage.
 	definition.health_definition.initial_current=(16.0 if phase==1 else 8.0) if mini else (36.0 if phase==1 else 23.0 if phase==2 else 11.0)
 	encounter.definition=definition;boss.position=Vector2(650,535);world.add_child(boss)

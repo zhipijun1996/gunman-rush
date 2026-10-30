@@ -773,7 +773,10 @@ func _load_stage() -> void:
 			for arena_module: PlatformingModule in (stage as GeneratedDemoStage).assembler.modules:
 				if arena_module.definition.module_id == &"plains_boss_arena":
 					var arena_consumer: WindkeeperArena = encounter.bind_stage_geometry(arena_module,controller,policy,lifetime,segment,(stage as GeneratedDemoStage).assembler.ground_supports)
-					if connected_region and encounter.stage_phase==3: arena_consumer._phase_changed(3)
+					if connected_region and encounter.stage_phase==3 and not encounter is WindkeeperPressureEncounter: arena_consumer._phase_changed(3)
+			if encounter is WindkeeperPressureEncounter and encounter.health.terminal and not (stage as PlainsRegionStage).restored_boss.is_empty():
+				encounter.restore_combat_state((stage as PlainsRegionStage).restored_boss)
+				_restore_windkeeper_pressure_bridge(encounter)
 		if connected_region:
 			var region:=stage as PlainsRegionStage
 			region.boss_seal=BossArenaSeal.new()
@@ -793,6 +796,9 @@ func _load_stage() -> void:
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
 		if encounter is WindkeeperEncounter:
 			_boss_contact.contact_rect_provider = encounter.body_contact_rect
+		if encounter is WindkeeperPressureEncounter:
+			_boss_contact.contact_test_provider = encounter.body_contact_sweep
+			_bind_windkeeper_pressure_rewards(encounter)
 		_boss_contact.enabled = not generated_plains
 		EnemyPresentationBinding.synchronize(encounter)
 	if director.stage_type_id == &"item_reward":
@@ -977,8 +983,10 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 				var region:=stage as PlainsRegionStage
 				var animate:bool=not region.restored_boss.has("health") or float(region.restored_boss.health)>0
 				region.reward_ready_at=region.clock+(.9 if animate else 0)
+				if defeated_encounter is WindkeeperPressureEncounter:
+					region.reward_ready_at = region.clock + (defeated_encounter.definition as WindkeeperPressureDefinition).death_seconds if animate else region.clock
 				region.boss_seal.release()
-				if active_region_id == &"plains": (region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.region_map_index==1,animate)
+				if active_region_id == &"plains" and not defeated_encounter is WindkeeperPressureEncounter: (region.visual_layer as PlainsStageVisual).play_boss_defeat(stage.boss.global_position,director.region_map_index==1,animate)
 
 			if current_reward!=null: _record_reward()
 			if generated_plains:
@@ -992,7 +1000,7 @@ func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePo
 	_settle_enemy_drops()
 	_flush_actions()
 	# Contact is observed only after this frame's damage batch and queued intents.
-	if generated_plains and _can_interact() and director.stage_complete and (not connected_region or stage.clock>=stage.reward_ready_at):
+	if generated_plains and _can_interact() and director.stage_complete and (not connected_region or stage.clock>=stage.reward_ready_at) and not _windkeeper_pressure_rewards_pending():
 		var exit_index := stage.nearby_exit(player.global_position)
 		if exit_index >= 0:
 			_commit_exit(stage.exits[exit_index].exit_id)
@@ -1690,7 +1698,9 @@ func _process(_delta: float) -> void:
 		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and stage is PlainsRegionStage else Vector2.INF
 		_run_camera.observation_focus = stage.call("observation_composition_focus") if connected_region and is_instance_valid(stage) and stage.has_method("observation_composition_focus") else Vector2.INF
 		if shown_boss != null and shown_boss.active:
-			if shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
+			if shown_boss is WindkeeperPressureEncounter:
+				_run_camera.route_focus = shown_boss.motor.global_position + Vector2(0, -25)
+			elif shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
 				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]
 			else: _run_camera.route_focus = shown_boss.motor.global_position+shown_boss.core_offset()
 	_status_label.text = _status if director.state == DemoRunDirector.State.IN_STAGE else ""
@@ -2283,6 +2293,7 @@ func _start_generated_boss() -> void:
 					abandon_run()
 					return
 			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
+			if encounter is WindkeeperPressureEncounter: _restore_windkeeper_pressure_bridge(encounter)
 		(stage as PlainsRegionStage).restored_boss.clear()
 	EnemyPresentationBinding.synchronize(encounter)
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
@@ -2304,6 +2315,7 @@ func _rearm_exit_prompts() -> void:
 			_dismissed_exits.erase(id)
 
 func _offer_generated_exit(id: StringName) -> bool:
+	if _windkeeper_pressure_rewards_pending(): return false
 	if not _can_interact() or not director.stage_complete or not _pending_exit.is_empty() or _dismissed_exits.has(id):
 		return false
 	if connected_region and stage.clock<stage.reward_ready_at:return false
@@ -2899,3 +2911,41 @@ func _select_equipment_active(instance_id: StringName, revision: int, session: i
 func _repair_equipment_item(_instance_id: StringName, _quote_version: int, _revision: int, _session: int) -> void:
 	# Repairs belong to the merchant's transaction UI, never a remote pause menu.
 	_refresh_equipment_view("请前往商店修理破损道具。")
+
+
+func _restore_windkeeper_pressure_bridge(encounter: WindkeeperPressureEncounter) -> void:
+	# A saved transition may still be landing on its first real shelf. Restore
+	# the actual break flag, independently of the requested health phase.
+	if not encounter.bridge_break_ready(): return
+	for child: Node in encounter.get_children():
+		if child is WindkeeperArena: (child as WindkeeperArena)._phase_changed(3)
+
+
+func _bind_windkeeper_pressure_rewards(encounter: WindkeeperPressureEncounter) -> void:
+	var voice := stage.boss.get_node_or_null("Audio") as WindkeeperPressureAudio
+	if voice != null: voice.bind(encounter, stage.boss, encounter.health.terminal)
+	var bound_stage := stage as PlainsRegionStage
+	var bound_token := lifetime.token()
+	encounter.presentation_event.connect(func(event: Dictionary) -> void:
+		if event.get("event", &"") != &"windkeeper_death_impact": return
+		if not is_instance_valid(bound_stage) or stage != bound_stage or not lifetime.active: return
+		if lifetime.epoch != bound_token.run_epoch or lifetime.stage_epoch != bound_token.stage_epoch: return
+		if controller.actor_resources.health.terminal or not director.stage_complete: return
+		if WindkeeperPressureRewards.spawn(bound_stage, encounter):
+			if bound_stage.visual_layer is PlainsStageVisual:
+				(bound_stage.visual_layer as PlainsStageVisual).play_boss_defeat(encounter.motor.global_position, false, true)
+			director.manifest.record_output(director.stage_index, &"windkeeper_pressure_coins", {"amount": (encounter.definition as WindkeeperPressureDefinition).reward_coin_total, "source": WindkeeperPressureRewards.SOURCE})
+	)
+
+
+func _windkeeper_pressure_rewards_pending() -> bool:
+	if not connected_region or not is_instance_valid(stage) or not stage is PlainsRegionStage or not is_instance_valid(stage.boss): return false
+	var encounter := stage.boss.get_node("Encounter") as WindkeeperPressureEncounter
+	if encounter == null or not encounter.health.terminal or not encounter.physical_reward_expected: return false
+	# Airborne deaths first reach their locked real support. The mechanical
+	# failure clock starts after landing, independently of the room defeat tick.
+	if float(encounter.combat_metrics().get("death_age", 0)) < (encounter.definition as WindkeeperPressureDefinition).death_seconds: return true
+	if not stage.region_state.drops.has(WindkeeperPressureRewards.SOURCE): return true
+	for pickup: Dictionary in stage.pickups:
+		if str(pickup.get("source", "")) == WindkeeperPressureRewards.SOURCE and not pickup.claimed: return true
+	return false
