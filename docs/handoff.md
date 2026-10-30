@@ -1,14 +1,16 @@
 # 最新交接 · 2026-10-29
 
-## 2026-10-30 七怪死亡掉落审核版已发布（当前）
+## 2026-10-30 七怪审核片已发布，死亡掉落回归已修订（当前）
 
-[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已私密更新：源97a25c0，25怪/95版本/15媒体，原88版本、意见归属和其他18怪保留。用户选择固定金币必掉，音符/回血按原概率额外；七怪候选1/2/2/2/3/5/7，实际7=5+1+1。整身呼吸/承重/滞后、轻hurt与独立材质death/land、方向碎屑/局部33ms停顿、物理喷散/轻弹/锁拾取/吸收及实际回血微光已接入。1wu/原身体PNG、AI/HP/伤害/玩家物理不改。
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)私密更新源97a25c0：25怪/95版本/15媒体，保原88版本/意见归属与其他18怪。用户已选择每怪固定金币必掉、音符/回血按原概率额外；候选1/2/2/2/3/5/7，7=5+1+1。整身动作、材质伤亡/落地声、方向碎屑、局部33ms停顿、物理喷散/轻弹/吸收与实际回血微光已接入，1wu/原身体PNG/AI/HP/伤害/玩家物理保留。
 
-冻结影片996a5946实录50.7833秒/3047帧/2940观测/七章0缺口，媒体固定8ccd927c，公网完整HTTP200/SHA一致；录片明确idle观察hold/原岸站位/实际概率样本选取，非自然整关。巡逻落位与回血可见性原拒绝和限定复审保留。工坊API13/模型8/独审434通过；本轮浏览器/声音听审/设备/用户与经济平衡未签。
+影片固定996a5946源、8ccd927c媒体：50.7833秒/3047帧/七章，公网原MP4完整SHA已核。明示0.8秒idle观察hold、安全岸站位和真实概率选样，非自然整关；Python wrapper完整31194项源清单与Git metadata前后稳定并包含Skin，不以driver叶子子集冒充全清单。工坊API13/模型8/独审434通过；浏览器本轮未跑、听感/设备/用户与经济平衡未签。
 
-CI40988919015完整167原尝试失败：parallel9过1fail、82未跑；serial14过/forest-campaign180timeout、60未跑。实际两缺陷为旧coin预览省略amount导致SCRIPT ERROR，以及legacy默认drop v1被新的公共v2常量误拒于Forest。后继仅生产兼容修复，旧测试/预算不改；原visual27、avatar37、本地专项346、原generated26套和forest campaign74全部0失败。a5ff完整CI40993924803又失败：parallel48过/根铃旧掉落全等1fail/43未跑，serial17过/森林80在600秒只完成53条皆过/57未跑；原件保留。根铃仅迁移实际charger2→root_bell7的授权币差，原40图/10物理/2save/3版本及240/360预算保留并加12掉落负例/八变异，本地wrapper03通过；独审指出的首版联合回退/小数漏放已修正并保原件。串行17项普遍1.55倍、同53路线约2.06倍且Python解析也慢，原4CPU/4workers，根因未定，不称生产性能已修。根铃process精确2c329独审3021/0限定接受、2969执行输入与Git blob相同；原执行为提交前dirty而非Git clean。完整167后继仍待核，森林根因未定；不以旧996片追签后继代码。[本轮证据](evidence/plains_motion_loot_02/README.md)。
+原CI40988919015、40993924803及最新41001060607失败均保原件：最新100过/2未通过/65未执行，正式66/4的旧整drop静态断言与森林80/600超时。正式仅迁移实际七物理字段、保原66/等待/重载/预算，新增84完整单位/账本/运动反例；dirty原wrapper150/0，独审172/0限定接受。Ground零权重与Skin静止缓存保原625顶点/公式/绘制，六skin和失效481/0、独审52/0限定接受；未采用136行重复charger公式方案。
 
-分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；media/plains-motion-loot-02只承载固定原片，不是可玩发布。恢复先核Git/source与唯一Godot租约，勿重画、重录或覆盖旧失败；下一步完成新源167后归档精确CI，并按用户具体怪物/时间点意见返工。
+后继本地原Harness三项全fresh通过：formal150/0、motion/loot481/0、原森林80/80在541.165/600秒内完成；总selected597.639秒含三检查及守门。原Harness内部完整source digest稳定通过，报告披露dirty运行，不能称Git clean、完整167或CI主机性能已修。先前其余死亡/save/audio/player五项及data/tools两项已过；data首次因稀疏xlsx缺件失败，物化原件后两项重跑通过，原失败保留。完整167的新冻结源CI仍须独立核实，不以本机通过冲销旧CI红灯。
+
+分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；[本轮证据](evidence/plains_motion_loot_02/README.md)。恢复先核精确Git/SHA/CI与唯一Godot租约；不重画重录，不替换影片来源。下一步归档冻结源独审、推送同PR并核完整CI；按用户具体怪物/时间点意见继续返工，不把技术专项当整怪成品验收。
 
 ## 2026-10-29 平原七怪候选已交工坊，完整166技术CI通过（最新）
 

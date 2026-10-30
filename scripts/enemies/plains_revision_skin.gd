@@ -19,6 +19,13 @@ var kind: StringName
 var _mesh := ArrayMesh.new()
 var _points := PackedVector2Array()
 var _units := PackedVector2Array()
+# A settled body's local vertices are independent of its continuing corpse age.
+# Keep every draw/shader/tint and world-support transform with its existing host.
+var _rest_cached := false
+var _rest_kind: StringName
+var _rest_bounds := Rect2()
+var _rest_texture: Texture2D
+var _rest_pose: Dictionary = {}
 
 static func supports(definition: EnemyDefinition) -> bool:
 	return definition != null and definition.stable_id in [&"patrol_drone",&"graybox_patrol_drone",&"plains_charger",&"plains_hopper",&"plains_sentry",&"plains_fan_sentry",&"plains_root_bell"]
@@ -65,10 +72,19 @@ func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
 func draw_pose(canvas: Node2D, pose: Dictionary, tint: Color = Color.WHITE) -> void:
 	if texture == null: return
 	if not PlainsMotion02.body_mesh_visible(canvas,bounds): return
-	var vertices := PackedVector2Array()
-	vertices.resize(_points.size())
-	for i: int in _points.size(): vertices[i] = deform(_points[i],_units[i],pose)
-	_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
+	var at_rest := bool(pose.get("dead",false)) and float(pose.get("death",0.0)) >= 1.0 and float(pose.get("landing",0.0)) == 0.0
+	var rest_pose: Dictionary = pose.duplicate(true) if at_rest else {}
+	rest_pose.erase("death_clock")
+	if not (at_rest and _rest_cached and _rest_kind == kind and _rest_bounds == bounds and _rest_texture == texture and _rest_pose == rest_pose):
+		var vertices := PackedVector2Array()
+		vertices.resize(_points.size())
+		for i: int in _points.size(): vertices[i] = deform(_points[i],_units[i],pose)
+		_mesh.surface_update_vertex_region(0,0,vertices.to_byte_array())
+		_rest_cached = at_rest
+		_rest_pose = rest_pose
+		_rest_kind = kind
+		_rest_bounds = bounds
+		_rest_texture = texture if at_rest else null
 	if canvas.material is ShaderMaterial:
 		canvas.material.set_shader_parameter("death_progress",float(pose.get("death",0.0)) if bool(pose.get("dead",false)) else 0.0)
 		canvas.material.set_shader_parameter("eye_center",Vector2(.86,.39) if kind==&"patrol" else Vector2(.87,.52) if kind==&"hopper" else Vector2(.79,.46))

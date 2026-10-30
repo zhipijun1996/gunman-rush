@@ -10,6 +10,7 @@ static func run(tree: SceneTree) -> Dictionary:
 	await _observer(tree,report)
 	for style: StringName in [&"legacy",&"underworld"]:
 		await _diver(tree,style,report)
+	await _settled_cache(tree,report)
 	return report
 
 static func _check(report: Dictionary, ok: bool, label: String) -> void:
@@ -270,3 +271,125 @@ static func _diver(tree: SceneTree, style: StringName, report: Dictionary) -> vo
 	await tree.process_frame
 	await tree.process_frame
 	_check(report,reference.get_ref()==null,String(style)+" diver fixture releases its actual Motor and owner")
+
+# Exercise the production draw path from a real CanvasItem._draw callback.
+# A cache miss must produce all625 canonical local vertices; a hit must still
+# draw and refresh that canvas's material. No renderer readback is assumed.
+class CacheSkin:
+	extends PlainsRevisionSkin
+	var calls := 0
+	var observed := PackedVector2Array()
+	func _init(behavior: StringName = &"patrol") -> void:
+		super(behavior)
+	func deform(point: Vector2, uv: Vector2, pose: Dictionary) -> Vector2:
+		calls += 1
+		var result := super.deform(point, uv, pose)
+		observed.append(result)
+		return result
+
+class CacheCanvas:
+	extends Node2D
+	var rig: CacheSkin
+	var pose: Dictionary = {}
+	var draws := 0
+	func _draw() -> void:
+		draws += 1
+		if rig != null: rig.draw_pose(self, pose)
+
+static func _cache_material() -> ShaderMaterial:
+	var shader := Shader.new()
+	shader.code = "shader_type canvas_item; uniform float death_progress; uniform vec2 eye_center; uniform bool plant_body; uniform int kind_code; void fragment(){ COLOR = texture(TEXTURE, UV); }"
+	var material := ShaderMaterial.new()
+	material.shader = shader
+	return material
+
+static func _cache_draw(tree: SceneTree, canvas: CacheCanvas, canonical: PlainsRevisionSkin, pose: Dictionary, expected_calls: int, report: Dictionary, label: String) -> void:
+	var rig := canvas.rig
+	rig.calls = 0
+	rig.observed.clear()
+	canvas.pose = pose.duplicate(true)
+	var material := canvas.material as ShaderMaterial
+	material.set_shader_parameter("death_progress", -123.0)
+	material.set_shader_parameter("eye_center", Vector2(-1, -1))
+	material.set_shader_parameter("plant_body", not (rig.kind in [&"root_bell", &"sentry"]))
+	material.set_shader_parameter("kind_code", -1)
+	var before := canvas.draws
+	canvas.queue_redraw()
+	for _frame: int in 3: await tree.process_frame
+	_check(report, canvas.draws == before + 1 and rig.calls == expected_calls, label + " uses actual _draw and expected625-or0 deformations")
+	if expected_calls > 0:
+		canonical.kind = rig.kind
+		canonical.bounds = rig.bounds
+		canonical.texture = rig.texture
+		var points: PackedVector2Array = canonical.get("_points")
+		var units: PackedVector2Array = canonical.get("_units")
+		var expected := PackedVector2Array()
+		for i: int in points.size(): expected.append(canonical.deform(points[i], units[i], pose))
+		_check(report, points.size() == 625 and rig.observed.to_byte_array() == expected.to_byte_array(), label + " emits exactly625 bit-identical canonical vertices")
+	else:
+		_check(report, rig.observed.is_empty(), label + " reuses the settled mesh without evaluating another vertex")
+	var eye := Vector2(.86,.39) if rig.kind == &"patrol" else Vector2(.87,.52) if rig.kind == &"hopper" else Vector2(.79,.46)
+	var death := float(pose.death) if bool(pose.dead) else 0.0
+	_check(report, is_equal_approx(float(material.get_shader_parameter("death_progress")), death) and material.get_shader_parameter("eye_center") == eye and material.get_shader_parameter("plant_body") == (rig.kind in [&"root_bell", &"sentry"]) and material.get_shader_parameter("kind_code") == (1 if rig.kind == &"fan_sentry" else 2 if rig.kind == &"root_bell" else 0), label + " refreshes this canvas shader parameters even on a cache hit")
+
+static func _settled_cache(tree: SceneTree, report: Dictionary) -> void:
+	for kind: StringName in [&"patrol", &"charger", &"hopper", &"sentry", &"fan_sentry", &"root_bell"]:
+		var rig := CacheSkin.new(kind)
+		var canonical := PlainsRevisionSkin.new(kind)
+		var canvas := CacheCanvas.new()
+		canvas.name = "ExplicitSettledCacheFixture"
+		canvas.rig = rig
+		canvas.material = _cache_material()
+		canvas.position = Vector2(32, 48)
+		var rest := _pose(.37)
+		rest.merge({"dead":true, "death":1.0, "death_clock":2.0}, true)
+		canvas.pose = rest.duplicate(true)
+		tree.root.add_child(canvas)
+		await _cache_draw(tree, canvas, canonical, rest, 625, report, String(kind) + " settled cache cold draw")
+		var aged := rest.duplicate(true)
+		aged.death_clock = 90.0
+		await _cache_draw(tree, canvas, canonical, aged, 0, report, String(kind) + " death_clock-only cache hit")
+		# Invalidation keys are shared Skin logic; exercise the matrix once.
+		if kind == &"charger":
+			var original_bounds := rig.bounds
+			var original_texture := rig.texture
+			var first_case := true
+			for change: String in ["live", "partial", "landing", "clock", "air", "bounds", "texture", "kind"]:
+				if not first_case:
+					await _cache_draw(tree, canvas, canonical, rest, 625, report, String(kind) + " re-prime before " + change)
+				first_case = false
+				var altered := rest.duplicate(true)
+				match change:
+					"live": altered.dead = false
+					"partial": altered.death = .5
+					"landing": altered.landing = .2
+					"clock": altered.clock += 1.0
+					"air": altered.air = true
+					"bounds": rig.bounds = Rect2(original_bounds.position + Vector2(.25, .5), original_bounds.size + Vector2(.5, .25))
+					"texture": rig.texture = PlainsRevisionSkin.TEXTURES[&"patrol" if kind != &"patrol" else &"charger"]
+					"kind": rig.kind = &"fan_sentry" if kind != &"fan_sentry" else &"root_bell"
+				await _cache_draw(tree, canvas, canonical, altered, 625, report, String(kind) + " invalidates changed " + change)
+				var can_rest := bool(altered.dead) and float(altered.death) >= 1.0 and float(altered.landing) == 0.0
+				await _cache_draw(tree, canvas, canonical, altered, 0 if can_rest else 625, report, String(kind) + " repeat " + change)
+				rig.kind = kind
+				rig.bounds = original_bounds
+				rig.texture = original_texture
+			await _cache_draw(tree, canvas, canonical, rest, 625, report, String(kind) + " re-prime for shared rig")
+		var second := CacheCanvas.new()
+		second.rig = rig
+		second.material = _cache_material()
+		second.position = Vector2(36, 52)
+		second.pose = aged.duplicate(true)
+		tree.root.add_child(second)
+		await _cache_draw(tree, second, canonical, aged, 0, report, String(kind) + " second canvas shares local settled mesh")
+		if kind == &"charger":
+			var shared_live := rest.duplicate(true)
+			shared_live.dead = false
+			await _cache_draw(tree, second, canonical, shared_live, 625, report, "shared rig second canvas overwrites with live vertices")
+			await _cache_draw(tree, canvas, canonical, rest, 625, report, "shared rig first canvas restores canonical rest after live overwrite")
+			await _cache_draw(tree, second, canonical, aged, 0, report, "shared rig second canvas reuses restored canonical rest")
+		report.samples.append({"id":"settled_mesh_cache/" + String(kind), "vertices":625, "invalidation":["live","partial","landing","clock","air","bounds","texture","kind"], "scope":"Actual CanvasItem._draw, counted production deformations and bit-identical canonical local vertices; cache hit material refresh; no renderer/GPU pixel readback or visual acceptance"})
+		second.rig = null
+		canvas.rig = null
+		second.free()
+		canvas.free()

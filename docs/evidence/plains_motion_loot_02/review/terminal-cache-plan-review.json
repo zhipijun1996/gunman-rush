@@ -1,0 +1,87 @@
+{
+  "verdict": "ACCEPT_CONDITIONAL_DESIGN_NOT_YET_SOURCE_OR_NATIVE_PASS",
+  "scope": "Read-only terminal mesh-cache plan review; original deform remains authority",
+  "source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "reviewer": "/root/guard_review_recovery",
+  "implementer": "/root",
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "repository_edits_by_reviewer": [],
+  "frozen_source_sha256": {
+    "scripts/enemies/plains_revision_ground.gd": "5602b56cc55f24429e1711e12798da2ea949627c2e278a0b6b34e278edc3f5ec",
+    "scripts/enemies/plains_revision_flora.gd": "6e07954a52ccab1e268e6b53b3dc007017e94037c67c463a8592d38f7c748b3d",
+    "scripts/enemies/plains_revision_skin.gd": "10a76c7e0a0cc804c13eccf5faadbf2bfdc9e755202e7bbf59ffa454f0e8ae34",
+    "scripts/enemies/plains_revision_visual.gd": "4634f96cdeeaf7cf595c08fe258e878eaedf7f9b8a0d49f3abdbbd7adce9f4c5",
+    "scripts/enemies/plains_revision_remains.gd": "64e559a37e9b1d1c2628237eb28db6fc04466284fe9b2b4c5a0be97473850b80",
+    "scripts/enemies/plains_revision_skin.gdshader": "6ec6a3025035ea9823547f090f2d35f9888476560ba02af5b93bfa9dda834666"
+  },
+  "working_tree_note": "Current root working tree still contains a prepared-charger formula candidate. That duplication is explicitly excluded from this proposed review; root intends restoring original deform plus two zero-weight returns and a small terminal cache.",
+  "eligibility": "dead && raw death>=1 && landing==0, with one current mesh cache per Skin instance",
+  "flora_dependency_conclusion": {
+    "sentry": "Dead branch uses only point/uv/size/clamped death; returns before live clock variables. At clamped death1 no pose clock/drive/turn/air dependence.",
+    "fan_sentry": "Dead branch returns at d>=1 before reading death_clock or recursing into captured live deformation. Static pre-fit depends only kind/uv/size/point.",
+    "root_bell": "Dead branch uses only point/uv/size/clamped death and stem geometry; returns before live variables.",
+    "outer_clamp": "With dead=true and death>=1, Flora outer floor clamp executes independently of air. Skin landing offset is zero by eligibility."
+  },
+  "ground_dependency_conclusion": {
+    "mathematical": "All three dead targets depend only point/uv/size/clamped death and become constant at1.",
+    "exact_float_caveat": "Ground still evaluates live deformation and vitality then p.lerp(target,1). A mathematical identity does not by itself prove float32 byte independence. Full625 vertex bit comparisons across varied captured poses/air are required before omitting these inputs from an exact-equivalence cache key. Reviewer did not execute that engine experiment.",
+    "fallback_signature_if_any_bit_difference": [
+      "clock",
+      "stride",
+      "travel",
+      "load",
+      "strike",
+      "recovery",
+      "hurt",
+      "turn",
+      "air",
+      "vertical",
+      "drive",
+      "appendage_follow"
+    ],
+    "not_read_in_current_ground": [
+      "death_clock",
+      "body_follow",
+      "aim"
+    ],
+    "support_loss": "Finished corpse may retain death1 while air changes false→true after support loss. This is a necessary Ground key/regression case until exact independence is demonstrated."
+  },
+  "cache_key": [
+    "Per-Skin instance, not static/shared across independent rigs",
+    "kind",
+    "full bounds or explicit geometry version",
+    "texture identity (conservative; geometry itself does not sample pixels)",
+    "Ground captured-input signature unless full exact independence is proven",
+    "Private _points/_units/topology are initialized once; if future code mutates them, invalidate via geometry version. Do not silently rebuild them on bounds mutation because that differs from current behavior."
+  ],
+  "must_remain_per_draw": [
+    "Culling against each actual canvas/transform",
+    "Shader parameters death_progress/eye_center/plant_body/kind_code; hit flash remains host-owned",
+    "Canvas draw_mesh call with current texture/tint/alpha and visibility",
+    "Owner local/global transforms, mirrored facing and real moving support transform"
+  ],
+  "invalidation": [
+    "Every actual visible live/death0/partial/landing!=0 draw invalidates current-terminal-mesh status",
+    "If another consumer writes the shared _mesh, a later terminal draw must not skip upload using a stale cache-valid flag",
+    "Kind/bounds/texture/geometry changes invalidate",
+    "Offscreen calls do not write mesh; ensure stale pre-revival cache cannot be used for a different captured Ground pose/geometry when it returns",
+    "Health epoch is not geometry itself, but live/terminal transitions and re-captured pose must invalidate or re-key correctly"
+  ],
+  "required_regressions": [
+    "All six kinds,625 points, varied clock/stride/load/strike/recovery/hurt/turn/air/vertical/drive/follow/death_clock at death1 andgreater; bit equality versus original deform",
+    "Landing0/nonzero, death0/partial/1, live↔dead repeated alternation on same Skin",
+    "Two canvases/consumers alternating shared rig draws, plus separate rigs no cross-contamination",
+    "Ground support-loss air flip, moving support and mirrored owner transforms",
+    "Kind/full bounds/texture replacement, culling hide/reappear, revival/new epoch/new lethal pose",
+    "Material/shader/tint/alpha changes remain effective without vertex recomputation",
+    "Actual full vertex buffer/mesh draw equivalence and cache invalidation counters, not only sampled deformer points",
+    "Same route/corpus/budgets after exact source equivalence; do not infer performance success from cache design"
+  ],
+  "limits": [
+    "No new optimization source reviewed yet",
+    "No native bit matrix or performance claim independently executed",
+    "No art/audio/device/user/economics/G1-G5/fullCI acceptance",
+    "Existing movie remains immutable source996a"
+  ]
+}

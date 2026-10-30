@@ -1,0 +1,42 @@
+{
+  "verdict": "ACCEPT_DIRECTION_ONLY_PENDING_ACTUAL_DIAGNOSTIC_AND_SOURCE",
+  "reviewer": "/root/guard_review_recovery",
+  "implementer": "/root",
+  "base_source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "scope": "Proposed test-only migration of formal exactly-once drop assertions; no test edits or engine execution by reviewer",
+  "reason": "Old assertions compare entire region_state.drops JSON across live physics, while GeneratedDemoStage._save_pickup_units intentionally merges PlainsLootMotion.snapshot into units each frame. Original API-bound CI record has66checks/4failures at these assertions, but no actual per-field before/after diagnostic yet.",
+  "mandatory_preservation": [
+    "All original66 labels, waits45/130, actual Router shots, HP/death/burst receipts, generated manifest and corpse ownership checks",
+    "Original byte-equality reload assertion; do not replace it with an economic projection",
+    "All non-units payout fields and unknown fields/keysets remain exact, including RNG, bonus fields and rewards",
+    "All unit identities, kind/denomination/amount/source/safe/keysets/order/count/per-kind totals remain stable across live frame comparisons",
+    "All actual live units across all settled drop sources must bijectively equal saved units by exact ID; primary drop_ID alone is insufficient",
+    "Claimed monotonic and bidirectionally tied to region_state.claimed and the exact run/stage/pickup ledger key",
+    "Full wallet ledger before/after checked, balance delta equals sum of genuinely new ledger grants, and each new relevant grant belongs to one actual newly claimed coin unit",
+    "No replay/duplicate claim can mint an extra grant, payment or unit",
+    "All vectors/scalars finite, array shapes/types valid; age cannot reset/go backwards and cannot advance beyond stage elapsed time; bounces nonnegative integer and cannot reset",
+    "Settled true→false can be legitimate when real support disappears; validate actual state rather than imposing unsupported flag monotonicity"
+  ],
+  "wallet_caveat": "RunWallet.grant returns true for an existing equal-amount key; success bool alone cannot prove new payout or detect duplicate settlement. Compare complete _grants and balance, and reconcile exact receipt IDs. Existing non-drop pickup grants must remain visible and be accounted for if they occur naturally in this formal fixture.",
+  "mutation_requirements": [
+    "missing/duplicate/extra secondary unit and wrong source/id/kind/denomination/count/sum",
+    "payout/RNG/reward/keyset/unknown-field alteration",
+    "live-versus-saved divergence, including unrelated source units",
+    "motion reset, NaN/Inf and malformed vectors/types",
+    "claim without exact receipt, reverse claim, wrong receipt amount/id, receipt without a real claimed coin",
+    "duplicate payment and hidden extra grant ledger entry",
+    "prior original exact reload-byte negative/guard remains meaningful"
+  ],
+  "acceptance_pending": [
+    "Root temporary instrumentation on original formal reproduces exact changed fields and reveals any additional differences",
+    "Review actual minimal guard/helper/test diff and native receipt with unchanged original budgets/labels/waits",
+    "Freeze exact new source and bind real input SHA before signing limited process acceptance"
+  ],
+  "not_approved": [
+    "No unreviewed test change acceptance",
+    "No third blind full CI retry",
+    "No budget/corpus reduction",
+    "No production or economic change",
+    "No full167/main G1-G5/art/audio/device/user acceptance"
+  ]
+}

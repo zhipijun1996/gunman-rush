@@ -1,0 +1,107 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "checks": [
+    "forest-depth-region",
+    "enemy-feedback-formal",
+    "plains-motion-loot-02"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "19b782445d7b6d1299f5b36d69dd0c3e88c65923dca012c79a997bef688a1b95",
+      "cwd": "/workspace/gunman-rush",
+      "checks": [
+        {
+          "id": "forest-depth-region",
+          "argv": [
+            "python3",
+            "tools/run_forest_depth_region.py",
+            "--corpus",
+            "--output",
+            "build/forest_depth/region/harness-matrix/harness-{check_token}"
+          ],
+          "timeout_seconds": 600,
+          "success_pattern": "^FOREST DEPTH REGION: passed",
+          "artifact_paths": [
+            "build/forest_depth/region"
+          ]
+        },
+        {
+          "id": "enemy-feedback-formal",
+          "argv": [
+            "python3",
+            "tools/run_integration_four_tests.py",
+            "--case",
+            "enemy-feedback-formal"
+          ],
+          "timeout_seconds": 360,
+          "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "shaders",
+            "project.godot",
+            "export_presets.cfg"
+          ],
+          "artifact_paths": [
+            "build/enemy_feedback_01/v8"
+          ]
+        },
+        {
+          "id": "plains-motion-loot-02",
+          "argv": [
+            "python3",
+            "tools/run_integration_four_tests.py",
+            "--case",
+            "plains-motion-loot-02"
+          ],
+          "timeout_seconds": 360,
+          "success_pattern": "^PLAINS MOTION LOOT02: [1-9]\\d* assertions, 0 failures$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "shaders",
+            "project.godot",
+            "export_presets.cfg"
+          ],
+          "artifact_paths": [
+            "build/plains_motion_loot_02/native.json"
+          ]
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [],
+  "rounds": [],
+  "prefetch": [],
+  "materialized_bytes": 0,
+  "sparse_patterns_changed": false,
+  "seconds": 0.58
+}

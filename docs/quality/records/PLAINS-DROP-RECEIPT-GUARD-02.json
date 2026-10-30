@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-DROP-RECEIPT-GUARD-02",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "reviewed_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "content_version": "physical-drop-receipt-guard-v1",
+  "owner": "/root",
+  "purpose": "允许实际掉落物理状态连续保存，同时保全部结算/单位/账本/重载守门",
+  "player_experience": "死亡只结算一次、面额金额正确，保存中的金币运动不再误触旧静态收据检查",
+  "constraints": [
+    "只迁移tests/enemy_feedback_01_formal.gd；本process无生产变更",
+    "原66检查/39表达式/等待帧/重载字节全等/240与360秒/60Hz保留",
+    "只允许实际诊断七物理字段变化；经济和未知元数据/claimed/钱包全等",
+    "初版拒绝/真实失败保留；技术专项不签整怪或full167"
+  ],
+  "affected_paths": [
+    "tests/enemy_feedback_01_formal.gd",
+    "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md",
+    "docs/quality/records/PLAINS-DROP-RECEIPT-GUARD-02.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "实际六份诊断及限定迁移/原守门/反例范围已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "实际七物理字段白名单；整份非物理经济/单位/账本仍全等，原重载不改",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "DROPS-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "金币物理状态持续保存但死亡奖励不得重结算",
+      "method": "实际六观察诊断与七字段限定迁移",
+      "expected": "原66/等待/字节重载/预算保留；经济与未知元数据仍全等",
+      "failure": "允许账本/单位/金额漂移或删减原检查",
+      "status": "passed",
+      "reason": "具体可证伪合同与原失败已归档",
+      "evidence": [
+        "scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md",
+      "sha256": "677e1c5c66bc3a2b0c1bd5963211bd3bbea0a9e59007f85589d2fe5e9e229df7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+      "content_version": "physical-drop-receipt-guard-v1",
+      "method": "原96bf失败后的dirty范围文档；不冒称旧提交已含迁移",
+      "observed": "保原等待/检查/重载，允许且仅允许真实七物理字段"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "本地formal150/0、继承156/0与后继selected3项已过；精确冻结源归属和独审证据正在收口",
+    "完整167/CI主机与主任务艺术/听感/经济/设备/用户验收分开记录"
+  ],
+  "test_change_justification": "原整drop字节静态合同与现有每帧物理保存冲突；限定七字段，新增完整单位/有限相对运动/账本与反例；不删除原断言和预算。"
+}

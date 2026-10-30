@@ -1,0 +1,11 @@
+# Formal guard: actual runtime independent review
+
+ACCEPT the bounded formal guard source and observed development runtime, exact test SHA133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067. Independent reviewer ran no engine and changed no source.
+
+Original strict wrapper recorded150 checks/0 failures and clean teardown. Preserved original66 runtime checks plus84 added executions are accounted: each of2 targets runs4 new invariants and37 derived positive/negative checks (including7 synchronized motion corruptions);2 new reload checks bring the increment to84. Both real targets reach verified shooting/death, observations contain actual45/175 frame differences, and positive contact evidence ensures the conditional bounce refusal runs. The check helper does not log every passing label; accounting uses exact source/control flow, actual150/0 and complete target/reload evidence rather than inventing a per-label trace.
+
+Independent pure review172 checks/0 failures verifies six actual states, real clock increments.75/2.9166667, stable stage instance/epoch, complete live/saved unit mappings and denominations, exact economic/unknown metadata, finite types and relative motion envelopes. All six have empty claims/grants and zero balance. Original waits and byte-exact reload guard remain. A later original inherited enemy-corpse-save consumer records156/0, fresh exit0, preserved exact133c working-file SHA. Its selected Harness overall remains failed at item-data sparsexlsx, which is preserved separately from the later hydration rerun.
+
+Source-binding limits are explicit: wrapper01 is a dirty developer execution without embedded full source inventory. Root confirms exact133c execution; reviewer verified current source, unchanged original wrapper and raw result. The later selected Harness applies its original internal full-source digest stability guard but does not archive full per-file source_before/after tables. Root plans a final formal-specific frozen-input Harness after production cache work. This report does not sign concurrent Ground/Skin source, performance, full167/affected closure, main gates, art/audio/device/user/economics or retag the older video.
+
+Actual script `/tmp/review_formal_guard_runtime.py`, stdout `/tmp/plains_formal_guard_runtime_review.log`, full proof `/tmp/plains_formal_guard_runtime_proof.json`.

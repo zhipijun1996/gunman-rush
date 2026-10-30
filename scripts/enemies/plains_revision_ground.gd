@@ -38,10 +38,12 @@ static func _at(unit: Vector2, size: Vector2) -> Vector2:
 	return Vector2((unit.x - 0.5) * size.x, (unit.y - 1.0) * size.y)
 
 static func _joint(point: Vector2, unit: Vector2, size: Vector2, angle: float, weight: float) -> Vector2:
+	if weight == 0.0: return point
 	var pivot := _at(unit, size)
 	return _joint_at(point, pivot, angle, weight)
 
 static func _joint_at(point: Vector2, pivot: Vector2, angle: float, weight: float) -> Vector2:
+	if weight == 0.0: return point
 	return point.lerp(pivot + (point - pivot).rotated(angle), clampf(weight, 0.0, 1.0))
 
 static func _upper(uv: Vector2) -> float:

@@ -168,19 +168,31 @@ func verify_target(stable_id: StringName) -> void:
 		return
 	var drop: Dictionary = app.region_state.drops[enemy_id].duplicate(true)
 	var drops_before := JSON.stringify(app.region_state.drops)
+	var drop_state_before := observe_drop_state()
+	var source_before := formal_source_summary(drop_state_before, enemy_id)
+	check(formal_snapshot_errors(drop_state_before).is_empty(), "all actual physical units have valid types, values, live motion and receipt ownership")
+	check(drop.get("units") is Array and int(source_before.count) == drop.units.size() and formal_number(drop.get("coin_total"), true, 0) and int(source_before.coin_total) == int(drop.coin_total), "all source unit identities, quantities and denominations equal the complete coin entitlement")
 	var duplicate_count := stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + enemy_id).size()
 	check(duplicate_count == (0 if drop.kind == "none" else 1), "formal terminal drop has exactly one pickup instance or configured none")
 	if events.size() > before_events:
 		check(not actor.damageable.receive_damage(events.back().context), "replayed actual projectile context cannot settle another lethal hit")
 	await ticks(45, "formal_duplicate_ticks")
-	check(JSON.stringify(app.region_state.drops) == drops_before, "repeated official damage settlement ticks preserve exact drop receipt")
+	var drop_state_after45 := observe_drop_state()
+	var transition45 := formal_transition_errors(drop_state_before, drop_state_after45)
+	check(transition45.is_empty(), "repeated official damage settlement ticks preserve exact drop receipt")
+	check(formal_exact(formal_source_summary(drop_state_after45, enemy_id), source_before), "replay and repeated ticks preserve every source denomination identity and value")
 	check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + enemy_id).size() == duplicate_count, "repeated ticks and replay never add another pickup")
 	check(art.feedback_sample.flash_strength() == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_particles.emitted_bursts == ceili(initial_hp), "actual formal terminal replay adds no pixel burst and all impact effects expire")
 	await ticks(130, "formal_persistent_corpse_over_two_seconds")
 	check(art._death >= .65 and not art.visible and art.feedback_remains.active and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "actual generated corpse remains visible for over two seconds after inherited parent fade")
 	check(actual_final_body(art), "actual generated accepted corpse persists on its final current rig source or authored rest frame 7")
-	check(art.feedback_remains.accepted_starts == 1 and JSON.stringify(app.region_state.drops) == drops_before, "persistent corpse and repeated formal settlement preserve one death and exact drop receipt")
-	results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "verified", "fixture": fixture, "initial_HP": initial_hp, "projectile_contexts": events.size() - before_events, "shots": shots.size() - before_shots, "drop": drop, "pickup_instances": duplicate_count, "hurt_count": art.feedback_sample.accepted_hit_count, "death_count": art.feedback_sample.accepted_death_count, "remains_age": art.feedback_remains.age, "remains_phase": str(art.feedback_remains.phase), "remains_accepted_starts": art.feedback_remains.accepted_starts})
+	var drop_state_after175 := observe_drop_state()
+	var transition175 := formal_transition_errors(drop_state_before, drop_state_after175)
+	check(art.feedback_remains.accepted_starts == 1 and transition175.is_empty(), "persistent corpse and repeated formal settlement preserve one death and exact drop receipt")
+	check(formal_exact(formal_source_summary(drop_state_after175, enemy_id), source_before), "persistent observation preserves the full source unit set and every coin value")
+	drop_observations.append({"enemy_id": enemy_id, "before": drop_state_before, "after45": drop_state_after45, "after175": drop_state_after175, "errors45": transition45, "errors175": transition175, "legacy_byte_comparison_before": drops_before})
+	formal_derived_counterexamples(drop_state_before, drop_state_after175, enemy_id)
+	results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "verified", "fixture": fixture, "initial_HP": initial_hp, "projectile_contexts": events.size() - before_events, "shots": shots.size() - before_shots, "drop": drop, "pickup_instances": duplicate_count, "source_units": source_before, "hurt_count": art.feedback_sample.accepted_hit_count, "death_count": art.feedback_sample.accepted_death_count, "remains_age": art.feedback_remains.age, "remains_phase": str(art.feedback_remains.phase), "remains_accepted_starts": art.feedback_remains.accepted_starts})
 
 func verify_actual_reload() -> void:
 	var old_stage: WeakRef = weakref(app.stage)
@@ -226,6 +238,8 @@ func verify_actual_reload() -> void:
 			check(art.feedback_remains.get_parent() == stage and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "official restored corpse stays visible despite hidden saved EnemyMotor")
 			var expected := 0 if result.drop.kind == "none" else 1
 			check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + str(result.id)).size() == expected, "official rebuild restores one existing drop instance")
+			var restored_observation := observe_drop_state()
+			check(formal_snapshot_errors(restored_observation).is_empty() and formal_exact(formal_source_summary(restored_observation, str(result.id)), result.source_units), "official rebuild restores every original source unit and exact denomination total without extra units")
 		check(found, "same generated enemy identity restored for " + str(result.stable_id))
 
 func run() -> void:
@@ -259,9 +273,371 @@ func run() -> void:
 		await process_frame
 	check(remains_teardown.all(func(reference: WeakRef) -> bool: return reference.get_ref() == null), "abandon and full DemoApp unload release all remaining corpse siblings")
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v8")
-	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
+	var output := {"feedback_revision": "dedicated_species_frames_and_persistent_corpse_v8", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "drop_observations": drop_observations, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
 	var file := FileAccess.open("res://build/enemy_feedback_01/v8/formal_runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))
 	file.close()
 	print("ENEMY_FEEDBACK_01_FORMAL checks=%d failures=%d" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+
+# The old whole-drop byte guard covered immutable settlement, not the new
+# Stage-owned physical animation. Keep every other field (including claimed,
+# safe, unknown metadata, RNG and bonus receipt) exact in this formal fixture.
+# Finite envelope checks catch corrupt animation state; dedicated loot-motion
+# tests still own exact collision/return trajectories. No entitlement is relaxed.
+const FORMAL_MOTION_EPSILON := 0.001
+const FORMAL_UNIT_MOTION_FIELDS := ["position", "velocity", "age", "bounces", "rotation", "settled", "returning"]
+var drop_observations: Array[Dictionary] = []
+
+func observe_drop_state() -> Dictionary:
+	var pickup_rows: Array[Dictionary] = []
+	for pickup: Dictionary in (app.stage as PlainsRegionStage).pickups:
+		var row := pickup.duplicate(true)
+		# This optional raw flag is absent until a real void-return starts.
+		row["loot_returning"] = pickup.get("loot_returning", false)
+		for key: String in ["position", "spawn_origin", "loot_velocity", "loot_safe", "claimed_position"]:
+			if row.get(key) is Vector2:
+				var point: Vector2 = row[key]
+				row[key] = [point.x, point.y]
+		pickup_rows.append(row)
+	return {"drops": app.region_state.drops.duplicate(true), "pickups": pickup_rows, "claimed": app.region_state.claimed.duplicate(true), "wallet_grants": app.wallet._grants.duplicate(true), "wallet_balance": app.wallet.balance, "prefix": str(app._run_receipt_prefix), "stage_index": app.director.stage_index, "stage_clock": (app.stage as PlainsRegionStage).clock, "physics_frame": Engine.get_physics_frames(), "physics_ticks_per_second": Engine.physics_ticks_per_second, "stage_instance_id": app.stage.get_instance_id(), "actor_epoch": app.lifetime.actor_epoch}
+
+static func formal_number(value: Variant, integer := false, minimum := -INF) -> bool:
+	return (value is int or value is float) and is_finite(float(value)) and float(value) >= minimum and (not integer or float(value) == floorf(float(value)))
+
+static func formal_pair(value: Variant) -> bool:
+	return value is Array and value.size() == 2 and formal_number(value[0]) and formal_number(value[1])
+
+static func formal_exact(left: Variant, right: Variant) -> bool:
+	if typeof(left) != typeof(right): return false
+	if left is Dictionary:
+		var a: Dictionary = left
+		var b: Dictionary = right
+		if a.keys() != b.keys(): return false
+		for key: Variant in a:
+			if not b.has(key) or not formal_exact(a[key], b[key]): return false
+		return true
+	if left is Array:
+		var a: Array = left
+		var b: Array = right
+		if a.size() != b.size(): return false
+		for index: int in a.size():
+			if not formal_exact(a[index], b[index]): return false
+		return true
+	if left is float: return is_finite(left) and left == right
+	return left == right
+
+static func formal_entitlements(drops: Dictionary) -> Dictionary:
+	var result := drops.duplicate(true)
+	for source: Variant in result:
+		var drop: Dictionary = result[source]
+		for unit: Dictionary in drop.get("units", []):
+			for field: String in FORMAL_UNIT_MOTION_FIELDS: unit.erase(field)
+	return result
+
+static func formal_expected_units(drop: Dictionary, source: String, errors: Array[String]) -> Array[Dictionary]:
+	var rewards: Array = []
+	if drop.has("rewards"):
+		if not drop.rewards is Array:
+			errors.append("reward_shape/" + source)
+			return []
+		rewards = drop.rewards
+	elif drop.get("kind", "none") != "none":
+		rewards = [{"kind": drop.get("kind"), "amount": drop.get("amount")}]
+	var result: Array[Dictionary] = []
+	for value: Variant in rewards:
+		if not value is Dictionary:
+			errors.append("reward_shape/" + source)
+			continue
+		var reward: Dictionary = value
+		if reward.get("kind") not in ["coin", "note", "heart"] or not formal_number(reward.get("amount"), true, 1):
+			errors.append("reward_value/" + source)
+			continue
+		var amount := int(reward.amount)
+		var amounts: Array[int] = []
+		if reward.kind == "coin":
+			for _i: int in amount / 5: amounts.append(5)
+			for _i: int in amount % 5: amounts.append(1)
+		else: amounts.append(amount)
+		for denomination: int in amounts:
+			var index := result.size()
+			result.append({"id": "drop_" + source + ("" if index == 0 else "/unit_%s" % index), "source": source, "kind": str(reward.kind), "amount": denomination})
+	return result
+
+static func formal_source_summary(state: Dictionary, source: String) -> Dictionary:
+	var units: Dictionary = {}
+	var coins := 0
+	for row: Dictionary in state.pickups:
+		if str(row.get("source", "")) != source: continue
+		units[str(row.id)] = {"kind": str(row.kind), "amount": row.amount}
+		if row.kind == "coin": coins += int(row.amount)
+	var identities: Array = units.keys()
+	identities.sort()
+	return {"ids": identities, "count": units.size(), "values": units, "coin_total": coins}
+
+static func formal_receipt(state: Dictionary, identity: String) -> String:
+	return "%s/stage_%s/%s" % [state.prefix, int(state.stage_index), identity]
+
+static func formal_grants(state: Dictionary) -> Dictionary:
+	var result: Dictionary = {}
+	for key: Variant in state.wallet_grants: result[str(key)] = state.wallet_grants[key]
+	return result
+
+static func formal_unit_valid(unit: Dictionary, errors: Array[String], source: String) -> bool:
+	var valid := true
+	for field: String in ["id", "source", "kind"]:
+		if not unit.get(field) is String or str(unit.get(field, "")).is_empty(): valid = false
+	if not formal_number(unit.get("amount"), true, 1): valid = false
+	for field: String in ["position", "velocity", "safe"]:
+		if not formal_pair(unit.get(field)): valid = false
+	if not formal_number(unit.get("age"), false, 0) or not formal_number(unit.get("bounces"), true, 0) or not formal_number(unit.get("rotation")): valid = false
+	for field: String in ["settled", "returning", "claimed"]:
+		if not unit.get(field) is bool: valid = false
+	if not valid: errors.append("unit_motion_or_shape/" + source)
+	return valid
+
+static func formal_snapshot_errors(state: Dictionary) -> Array[String]:
+	var errors: Array[String] = []
+	for field: String in ["drops", "claimed", "wallet_grants"]:
+		if not state.get(field) is Dictionary: errors.append("observation_shape/" + field)
+	if not state.get("pickups") is Array or not state.get("prefix") is String or str(state.get("prefix", "")).is_empty() or not formal_number(state.get("stage_index"), true, 0) or not formal_number(state.get("wallet_balance"), true, 0) or not formal_number(state.get("stage_clock"), false, 0) or not formal_number(state.get("physics_frame"), true, 0) or not formal_number(state.get("physics_ticks_per_second"), true, 1) or not formal_number(state.get("stage_instance_id"), true, 1) or not formal_number(state.get("actor_epoch"), true, 0): errors.append("observation_shape/scalars")
+	if not errors.is_empty(): return errors
+	var grants := formal_grants(state)
+	for key: Variant in state.wallet_grants:
+		if str(key).is_empty() or not formal_number(state.wallet_grants[key], true, 0): errors.append("wallet_grant_shape")
+	var pickups: Dictionary = {}
+	for value: Variant in state.pickups:
+		if not value is Dictionary:
+			errors.append("pickup_shape")
+			continue
+		var pickup: Dictionary = value
+		var identity := str(pickup.get("id", ""))
+		if identity.is_empty() or pickups.has(identity): errors.append("pickup_duplicate_or_missing_id/" + identity)
+		pickups[identity] = pickup
+	var recorded_ids: Dictionary = {}
+	for source_value: Variant in state.drops:
+		var source := str(source_value)
+		if source.is_empty() or not state.drops[source_value] is Dictionary:
+			errors.append("drop_shape/" + source)
+			continue
+		var drop: Dictionary = state.drops[source_value]
+		if not drop.get("units") is Array:
+			errors.append("drop_units_missing/" + source)
+			continue
+		var expected := formal_expected_units(drop, source, errors)
+		if drop.units.size() != expected.size(): errors.append("unit_count/" + source)
+		var coins := 0
+		for index: int in drop.units.size():
+			if not drop.units[index] is Dictionary:
+				errors.append("unit_shape/" + source)
+				continue
+			var unit: Dictionary = drop.units[index]
+			if not formal_unit_valid(unit, errors, source): continue
+			var identity := str(unit.id)
+			if recorded_ids.has(identity): errors.append("unit_duplicate_id/" + identity)
+			recorded_ids[identity] = true
+			if index >= expected.size() or unit.id != expected[index].id or unit.source != source: errors.append("unit_identity/" + identity)
+			elif unit.kind != expected[index].kind or unit.amount != expected[index].amount: errors.append("unit_value/" + identity)
+			if unit.kind == "coin": coins += int(unit.amount)
+			if not pickups.has(identity):
+				errors.append("unit_missing_live_pickup/" + identity)
+				continue
+			var pickup: Dictionary = pickups[identity]
+			if not pickup.get("loot_motion", false) is bool or not bool(pickup.get("loot_motion", false)) or pickup.get("source") != source or pickup.get("kind") != unit.kind or pickup.get("amount") != unit.amount: errors.append("unit_live_identity/" + identity)
+			for pair: Array in [["position", "position"], ["velocity", "loot_velocity"], ["safe", "loot_safe"]]:
+				if not formal_pair(pickup.get(pair[1])) or pickup[pair[1]][0] != unit[pair[0]][0] or pickup[pair[1]][1] != unit[pair[0]][1]: errors.append("unit_live_motion/" + identity + "/" + pair[0])
+			for pair: Array in [["age", "loot_age"], ["bounces", "loot_bounces"], ["rotation", "loot_rotation"], ["settled", "loot_settled"], ["returning", "loot_returning"], ["claimed", "claimed"]]:
+				if not pickup.has(pair[1]) or not formal_exact(pickup[pair[1]], unit[pair[0]]): errors.append("unit_live_motion/" + identity + "/" + pair[0])
+			var ledger_claimed: bool = state.claimed.get(identity, false) == true
+			if unit.claimed != ledger_claimed or (state.claimed.has(identity) and not state.claimed[identity] is bool): errors.append("claim_ledger/" + identity)
+			if unit.kind == "coin":
+				var receipt := formal_receipt(state, identity)
+				if bool(unit.claimed) != grants.has(receipt) or (bool(unit.claimed) and grants.get(receipt) != unit.amount): errors.append("coin_receipt/" + identity)
+		if drop.has("coin_total") and (not formal_number(drop.coin_total, true, 0) or int(drop.coin_total) != coins): errors.append("coin_total/" + source)
+		var summary := formal_source_summary(state, source)
+		if int(summary.count) != drop.units.size() or int(summary.coin_total) != coins: errors.append("source_count_or_sum/" + source)
+	for identity: String in pickups:
+		var source := str(pickups[identity].get("source", ""))
+		if (not source.is_empty() or pickups[identity].get("loot_motion", false) == true) and (not state.drops.has(source) or not recorded_ids.has(identity)): errors.append("extra_source_unit/" + identity)
+	return errors
+
+static func formal_transition_errors(before: Dictionary, after: Dictionary) -> Array[String]:
+	var errors := formal_snapshot_errors(before)
+	errors.append_array(formal_snapshot_errors(after))
+	if not errors.is_empty(): return errors
+	if not formal_exact(formal_entitlements(before.drops), formal_entitlements(after.drops)): errors.append("entitlement_changed")
+	if before.prefix != after.prefix or before.stage_index != after.stage_index or before.stage_instance_id != after.stage_instance_id or before.actor_epoch != after.actor_epoch: errors.append("receipt_scope_changed")
+	# This formal fixture deliberately leaves the actual drops uncollected.
+	# Preserve all claim/wallet history, including unknown and previous-stage
+	# receipts, rather than opening a new generic collection transition here.
+	if not formal_exact(before.claimed, after.claimed): errors.append("claimed_ledger_changed")
+	if not formal_exact(before.wallet_grants, after.wallet_grants): errors.append("wallet_grants_changed")
+	if before.wallet_balance != after.wallet_balance: errors.append("wallet_delta")
+	var frames := int(after.physics_frame) - int(before.physics_frame)
+	var elapsed := float(after.stage_clock) - float(before.stage_clock)
+	if before.physics_ticks_per_second != after.physics_ticks_per_second or frames < 0 or elapsed < 0.0 or elapsed > float(frames) / float(before.physics_ticks_per_second) + FORMAL_MOTION_EPSILON:
+		errors.append("observation_clock_progress")
+		return errors
+	var dt := maxf(0.0, elapsed)
+	for source: Variant in before.drops:
+		if not after.drops.has(source): continue
+		var now_by_id: Dictionary = {}
+		for unit: Dictionary in after.drops[source].units: now_by_id[str(unit.id)] = unit
+		for unit: Dictionary in before.drops[source].units:
+			if not now_by_id.has(str(unit.id)): continue
+			var now: Dictionary = now_by_id[str(unit.id)]
+			var identity := str(unit.id)
+			var age_delta := float(now.age) - float(unit.age)
+			if age_delta < 0.0: errors.append("age_rewind/" + identity)
+			if age_delta > dt + FORMAL_MOTION_EPSILON: errors.append("age_progress/" + identity)
+			var contacts := int(now.bounces) - int(unit.bounces)
+			if contacts < 0: errors.append("bounce_rewind/" + identity)
+			if contacts > frames: errors.append("bounce_progress/" + identity)
+			var vx := absf(float(unit.velocity[0]))
+			var vy := absf(float(unit.velocity[1]))
+			if absf(float(now.velocity[0])) > vx + FORMAL_MOTION_EPSILON: errors.append("horizontal_speed_progress/" + identity)
+			if absf(float(now.velocity[1])) > vy + PlainsLootMotion.GRAVITY * dt + FORMAL_MOTION_EPSILON: errors.append("vertical_speed_progress/" + identity)
+			# Return moves at 260wu/s. Leading-edge ray corrections can add up
+			# to 2wu per axis/contact; final return snapping adds under 1wu.
+			# Allow 3wu per physics frame on each axis, not an exact trajectory.
+			var correction := 3.0 * float(frames) + FORMAL_MOTION_EPSILON
+			if absf(float(now.position[0]) - float(unit.position[0])) > (vx + 260.0) * dt + correction: errors.append("horizontal_position_progress/" + identity)
+			if absf(float(now.position[1]) - float(unit.position[1])) > (vy + PlainsLootMotion.GRAVITY * dt + 260.0) * dt + correction: errors.append("vertical_position_progress/" + identity)
+			if absf(float(now.rotation) - float(unit.rotation)) > vx * dt * 0.022 + FORMAL_MOTION_EPSILON: errors.append("rotation_progress/" + identity)
+
+	return errors
+
+static func formal_pickup_index(state: Dictionary, identity: String) -> int:
+	for index: int in state.pickups.size():
+		if str(state.pickups[index].get("id", "")) == identity: return index
+	return -1
+
+static func formal_set_motion(clone: Dictionary, source: String, index: int, field: String, value: Variant) -> void:
+	var unit: Dictionary = clone.drops[source].units[index]
+	unit[field] = value
+	var keys := {"position": "position", "velocity": "loot_velocity", "safe": "loot_safe", "age": "loot_age", "bounces": "loot_bounces", "rotation": "loot_rotation", "settled": "loot_settled", "returning": "loot_returning", "claimed": "claimed"}
+	clone.pickups[formal_pickup_index(clone, str(unit.id))][keys[field]] = value
+
+func formal_reject_clone(before: Dictionary, invalid: Dictionary, label: String, expected_error: String) -> void:
+	var errors := formal_transition_errors(before, invalid)
+	check(errors.any(func(value: String) -> bool: return value.begins_with(expected_error)), "observed drop clone rejects " + label)
+
+func formal_derived_counterexamples(before: Dictionary, after: Dictionary, source: String) -> void:
+	check(formal_transition_errors(before, after).is_empty(), "unmodified actual before/after observations satisfy the full entitlement-motion guard")
+	var invalid := after.duplicate(true)
+	invalid.drops[source].units.remove_at(invalid.drops[source].units.size() - 1)
+	formal_reject_clone(before, invalid, "missing denomination unit", "unit_count/")
+	invalid = after.duplicate(true)
+	invalid.drops[source].units.append(invalid.drops[source].units[0].duplicate(true))
+	formal_reject_clone(before, invalid, "additional denomination unit", "unit_count/")
+	invalid = after.duplicate(true)
+	invalid.drops[source].units[0].id = "drop_changed_identity"
+	formal_reject_clone(before, invalid, "changed unit identity", "unit_identity/")
+	invalid = after.duplicate(true)
+	invalid.drops[source].units[0].amount = int(invalid.drops[source].units[0].amount) + 1
+	formal_reject_clone(before, invalid, "changed denomination value", "unit_value/")
+	invalid = after.duplicate(true)
+	invalid.drops[source].coin_total = int(invalid.drops[source].coin_total) + 1
+	formal_reject_clone(before, invalid, "changed total coin entitlement", "coin_total/")
+	invalid = after.duplicate(true)
+	invalid.drops[source].roll = int(invalid.drops[source].roll) + 1
+	formal_reject_clone(before, invalid, "changed reward RNG receipt", "entitlement_changed")
+	invalid = after.duplicate(true)
+	var old_safe: Array = invalid.drops[source].units[0].safe
+	formal_set_motion(invalid, source, 0, "safe", [float(old_safe[0]) + 1.0, old_safe[1]])
+	formal_reject_clone(before, invalid, "changed immutable safe anchor", "entitlement_changed")
+	var unknown_before := before.duplicate(true)
+	var unknown_after := after.duplicate(true)
+	unknown_before.drops[source].units[0]["guard_unknown_metadata"] = {"nested": [1, "retained"]}
+	unknown_after.drops[source].units[0]["guard_unknown_metadata"] = {"nested": [1, "retained"]}
+	check(formal_transition_errors(unknown_before, unknown_after).is_empty(), "unchanged unknown unit metadata remains part of the immutable entitlement")
+	unknown_after.drops[source].units[0].guard_unknown_metadata.nested[0] = 2
+	formal_reject_clone(unknown_before, unknown_after, "changed unknown unit metadata", "entitlement_changed")
+	invalid = after.duplicate(true)
+	formal_set_motion(invalid, source, 0, "velocity", [NAN, 0.0])
+	formal_reject_clone(before, invalid, "nonfinite physical velocity", "unit_motion_or_shape/")
+	invalid = after.duplicate(true)
+	formal_set_motion(invalid, source, 0, "age", "reset")
+	formal_reject_clone(before, invalid, "invalid motion field type", "unit_motion_or_shape/")
+	invalid = after.duplicate(true)
+	formal_set_motion(invalid, source, 0, "age", maxf(0.0, float(before.drops[source].units[0].age) - 0.1))
+	formal_reject_clone(before, invalid, "physical age rewind", "age_rewind/")
+	var bounce_source := ""
+	var bounce_index := -1
+	for candidate: String in after.drops:
+		for index: int in after.drops[candidate].units.size():
+			if int(after.drops[candidate].units[index].bounces) > 0:
+				bounce_source = candidate; bounce_index = index
+	check(bounce_index >= 0, "actual observed ledger contains a completed contact for the bounce-rewind counterexample")
+	if bounce_index >= 0:
+		invalid = after.duplicate(true)
+		formal_set_motion(invalid, bounce_source, bounce_index, "bounces", int(after.drops[bounce_source].units[bounce_index].bounces) - 1)
+		formal_reject_clone(after, invalid, "contact counter rewind", "bounce_rewind/")
+	invalid = after.duplicate(true)
+	var identity := str(invalid.drops[source].units[0].id)
+	formal_set_motion(invalid, source, 0, "claimed", true)
+	formal_reject_clone(before, invalid, "claimed unit without actual claim ledger", "claim_ledger/")
+	invalid.claimed[identity] = true
+	formal_reject_clone(before, invalid, "coin claim without actual wallet receipt", "coin_receipt/")
+	invalid = after.duplicate(true)
+	invalid.wallet_balance = int(invalid.wallet_balance) + 1
+	formal_reject_clone(before, invalid, "wallet inflation without a new receipt", "wallet_delta")
+	# A duplicate payout fault is derived from the actual unit entitlement and
+	# receipt scope in clones only. No live App/wallet/claim state is written.
+	invalid = after.duplicate(true)
+	var amount := int(invalid.drops[source].units[0].amount)
+	formal_set_motion(invalid, source, 0, "claimed", true)
+	invalid.claimed[identity] = true
+	invalid.wallet_grants[StringName(formal_receipt(invalid, identity))] = amount
+	invalid.wallet_balance = int(invalid.wallet_balance) + amount * 2
+	formal_reject_clone(before, invalid, "same receipt paid twice", "wallet_delta")
+	invalid.wallet_grants[StringName(formal_receipt(invalid, identity) + "/replay")] = amount
+	formal_reject_clone(before, invalid, "extra replay receipt not owned by a physical coin", "wallet_grants_changed")
+	invalid = after.duplicate(true)
+	var extra: Dictionary = invalid.pickups[formal_pickup_index(invalid, identity)].duplicate(true)
+	extra.id = str(extra.id) + "/unrecorded"
+	invalid.pickups.append(extra)
+	formal_reject_clone(before, invalid, "unrecorded physical unit in actual pickup pool", "extra_source_unit/")
+
+	invalid = after.duplicate(true)
+	invalid.claimed["guard_ghost_claim"] = true
+	formal_reject_clone(before, invalid, "new ghost claim with no actual owner", "claimed_ledger_changed")
+	# These deliberately synchronize corrupt persisted and live motion. Exact
+	# saved/live agreement alone must not admit an exploding animation state.
+	for row: Array in [["age", 1.0e9, "age_progress/"], ["bounces", 1000000000, "bounce_progress/"], ["position", [1.0e20, 1.0e20], "horizontal_position_progress/"], ["velocity", [1.0e20, 1.0e20], "horizontal_speed_progress/"], ["velocity", [0.0, 1.0e20], "vertical_speed_progress/"], ["position", [after.drops[source].units[0].position[0], 1.0e20], "vertical_position_progress/"], ["rotation", 1.0e20, "rotation_progress/"]]:
+		invalid = after.duplicate(true)
+		formal_set_motion(invalid, source, 0, row[0], row[1])
+		formal_reject_clone(before, invalid, "synchronized unbounded " + str(row[0]), row[2])
+	var future_before := before.duplicate(true)
+	future_before.stage_clock = float(after.stage_clock) + 1.0
+	formal_reject_clone(future_before, after, "stage clock rewind", "observation_clock_progress")
+	invalid = after.duplicate(true)
+	invalid.stage_clock = float(after.stage_clock) + 1000.0
+	formal_reject_clone(before, invalid, "stage time beyond observed physics frames", "observation_clock_progress")
+	invalid = after.duplicate(true)
+	invalid.physics_frame = int(before.physics_frame) - 1
+	formal_reject_clone(before, invalid, "physics frame rewind", "observation_clock_progress")
+	# Nonempty historical grants are an explicit clone model, not a claim
+	# that this actual fixture collected anything. Preserve history exactly.
+	var history_before := before.duplicate(true)
+	var history_after := after.duplicate(true)
+	var historical_receipt := StringName("guard_model/previous_stage/already_paid")
+	history_before.wallet_grants[historical_receipt] = 5
+	history_after.wallet_grants[historical_receipt] = 5
+	history_before.wallet_balance = int(history_before.wallet_balance) + 5
+	history_after.wallet_balance = int(history_after.wallet_balance) + 5
+	check(formal_transition_errors(history_before, history_after).is_empty(), "nonempty historical grant clone model preserves old receipt and balance")
+	invalid = history_after.duplicate(true)
+	invalid.wallet_grants.erase(historical_receipt)
+	formal_reject_clone(history_before, invalid, "removed historical grant in clone model", "wallet_grants_changed")
+	invalid = history_after.duplicate(true)
+	invalid.wallet_grants[historical_receipt] = 6
+	formal_reject_clone(history_before, invalid, "changed historical amount in clone model", "wallet_grants_changed")
+	invalid = history_after.duplicate(true)
+	invalid.wallet_grants[StringName(str(historical_receipt) + "/replay")] = 5
+	invalid.wallet_balance = int(invalid.wallet_balance) + 5
+	formal_reject_clone(history_before, invalid, "added historical replay receipt in clone model", "wallet_grants_changed")
+	invalid = history_after.duplicate(true)
+	invalid.wallet_balance = int(invalid.wallet_balance) + 5
+	formal_reject_clone(history_before, invalid, "old historical receipt paid twice in clone model", "wallet_delta")
