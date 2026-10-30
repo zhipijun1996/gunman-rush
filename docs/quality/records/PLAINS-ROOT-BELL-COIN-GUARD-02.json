@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "PLAINS-ROOT-BELL-COIN-GUARD-02",
   "task_type": "process",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
-  "reviewed_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "reviewed_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
   "content_version": "root-bell-coin-guard-v1",
   "owner": "/root",
   "purpose": "将根铃替换的旧掉落全等断言迁移为单一真实物种固定币差合同，保原其余守门和失败",
@@ -52,10 +52,17 @@
     "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/wrapper.log",
     "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/report.json",
     "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/before-independent-correction/tools/run_root_bell_spaces.py",
-    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/before-independent-correction/tests/root_bell_spaces_runner.gd"
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/before-independent-correction/tests/root_bell_spaces_runner.gd",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-proof.json",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-review.md",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-pure.log",
+    "docs/evidence/plains_motion_loot_02/review/review-root-bell-coin-final.py",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-review.json"
   ],
   "deliverables": [
-    "docs/worklines/plains_motion_loot_02/root_bell_coin_guard.md"
+    "docs/worklines/plains_motion_loot_02/root_bell_coin_guard.md",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-review.md",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-proof.json"
   ],
   "creative_decisions": [],
   "formal_impact": false,
@@ -83,9 +90,13 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "实际原生开发03与独立纯Python3021/0、精确2c329输入绑定和限定源码复审通过；不是完整167或游戏验收",
+      "evidence": [
+        "native",
+        "audit",
+        "review"
+      ]
     },
     "G5": {
       "status": "not_applicable",
@@ -102,9 +113,12 @@
       ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "原40/10/2/3/240/360/60Hz保留，12新原生反例和八收据变异实际通过；2969执行输入全部与冻结2c329匹配",
+      "evidence": [
+        "native",
+        "audit"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -137,9 +151,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "未写两个guard文件的独立审查者发现并复审三个首版边界，限定ACCEPT且保持失败原件",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "not_applicable",
@@ -166,6 +182,36 @@
       "evidence": [
         "scope"
       ]
+    },
+    {
+      "id": "RBC-TECHNICAL",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "实际admitted charger→root_bell配置币差，拒绝联合回退/RNG/bonus/非selected/预算漂移",
+      "method": "原生40图与12负例、原六+新增两Python变异、冻结2969输入和独立源码检查",
+      "expected": "原门禁完整保留且所有新拒绝实际成立，不把dirty原生当Git clean或full167",
+      "failure": "额外漂移被放行、原guard/预算删减或来源造签",
+      "status": "passed",
+      "reason": "真实开发03通过，独立3021/0并限定接受精确2c329字节",
+      "evidence": [
+        "native",
+        "audit",
+        "review"
+      ]
+    },
+    {
+      "id": "RBC-INDEPENDENT_REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "实际admitted charger→root_bell配置币差，拒绝联合回退/RNG/bonus/非selected/预算漂移",
+      "method": "原生40图与12负例、原六+新增两Python变异、冻结2969输入和独立源码检查",
+      "expected": "原门禁完整保留且所有新拒绝实际成立，不把dirty原生当Git clean或full167",
+      "failure": "额外漂移被放行、原guard/预算删减或来源造签",
+      "status": "passed",
+      "reason": "真实开发03通过，独立3021/0并限定接受精确2c329字节",
+      "evidence": [
+        "review"
+      ]
     }
   ],
   "evidence": [
@@ -179,11 +225,57 @@
       "content_version": "root-bell-coin-guard-v1",
       "method": "原a5ff失败后编写的限定迁移规格；不称旧a5ff已包含新测试",
       "observed": "原守门/预算完整保留，初版漏放与修正分列"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/wrapper.log",
+      "sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
+      "content_version": "root-bell-coin-guard-v1",
+      "method": "原实际开发执行时Git HEAD为a5ff、两个guard dirty；独立逐件核2969输入与冻结2c329 Git blob完全一致，不追称Git clean原生执行",
+      "observed": "40maps/10physical/12species/2save/3version，8receipt mutations，exit0且原生无错误/泄漏",
+      "command": "python3 tools/run_root_bell_spaces.py --output-dir build/production_repair/ecology/plains_loot_02_spaces_03",
+      "exit_code": 0,
+      "environment": "managed cloud Linux/Godot4.7.2 Standard/fixed60Hz; original240native/360Harness preserved; dirty execution input hashes equal frozen2c329"
+    },
+    {
+      "id": "audit",
+      "path": "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-proof.json",
+      "sha256": "1b71e61fd38b140e1f946213f0d036ddfab71f78feaa1e5ba318c5583f3e77c3",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
+      "content_version": "root-bell-coin-guard-v1",
+      "method": "独立实际纯Python原报告/原生audit/adapter八变异/源码/冻结Git blob比较；没有引擎重跑",
+      "observed": "3021只读核对/0失败，含2969逐件输入；不是3021引擎测试",
+      "command": "python3 /tmp/review_root_bell_coin_final.py",
+      "exit_code": 0,
+      "environment": "managed cloud Linux/Python3; read-only source/evidence verification, no Godot"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-final-review.md",
+      "sha256": "57667240a1035fe8c8b724259b9c94aa62c77fd6fe1ee120e15360524bf7e853",
+      "kind": "review",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
+      "content_version": "root-bell-coin-guard-v1",
+      "method": "独立审查两个guard路径、原失败/初版反例、最新分支修复与实际输入SHA；仅process范围",
+      "observed": "限定ACCEPT；不签完整167、森林性能或主enemy质量",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author production or the two guard/adapter files; reviewer identified first-candidate false accepts and reviewed root-authored corrections. Reviewer performed read-only source/record checks and pure receipt validation; no Godot execution or repository edits.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "精确冻结后限定源码独审与新源完整167待核；森林串行超时根因未定，主enemy质量/听感/设备/用户不在本卡范围。"
+    "完整167后继与森林串行超时根因未定；主enemy艺术/听感/正式GUI/性能/设备/用户认可由主记录分列，不在本process卡范围。"
   ],
-  "test_change_justification": "用户固定金额必掉使原整drop相同断言在一个真实guard替换图失效；仅允许当前admission.id实际charger→root_bell按配置改五币相关字段，完整clone equality保原roll/stream/bonus/所有其余字段；同物种/非selected记录全等，双侧整数budget差额对应单笔，堵独审发现的联合回退/小数/物种过宽。保原地图/物理/save/version/预算/六变异，再增12原生及两Python变异。精确源独审尚待绑定，不先签passed。"
+  "test_change_justification": "用户固定金额必掉使原整drop相同断言在一个真实guard替换图失效；仅允许当前admission.id实际charger→root_bell按配置改五币相关字段，完整clone equality保原roll/stream/bonus/所有其余字段；同物种/非selected记录全等，双侧整数budget差额对应单笔，堵独审发现的联合回退/小数/物种过宽。保原地图/物理/save/version/预算/六变异，再增12原生及两Python变异。独立精确2c329审查/3021只读检查0失败，明确native03为提交前dirty而2969输入与冻结Git blob完全相同；仅process通过，不签full167或主enemy艺术/设备。"
 }

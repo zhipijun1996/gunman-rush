@@ -656,7 +656,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7新版动作＋6平原同屏已私密发布；完整903源CI166／166 fresh与affected success，原失败全保留；静态粒度限定独审接受，整怪／听感／用户／真机G5未签 |
 | PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | review | [工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)已更新7候选/50.78秒；346专项、26套/74实际通过；a5ff完整167失败原件保留，根铃合同修订/串行吞吐待复验；用户/设备未签 |
 | PLAINS-MOTION-LOOT-GUARD-02 | 真实面额消费者、绑定与167检查清单的限定迁移独审 | PLAINS-MOTION-LOOT-02 | review | 独立纯Python22/35/13与审计333／0；原失败/预算/166前缀保留，旧drop＋实际自动counterpart联合门禁；[记录](quality/records/PLAINS-MOTION-LOOT-GUARD-02.json)、[边界](worklines/plains_motion_loot_02/guard_migration.md) |
-| PLAINS-ROOT-BELL-COIN-GUARD-02 | 根铃实际替换的物种固定金币合同验收迁移 | PLAINS-MOTION-LOOT-02 | in_progress | 生产0diff；原CI48/1与森林53/80超时保留，原40/10/2/3+新12掉落反例及八变异本地通过；精确源独审/完整167待核 |
+| PLAINS-ROOT-BELL-COIN-GUARD-02 | 根铃实际替换的物种固定金币合同验收迁移 | PLAINS-MOTION-LOOT-02 | review | 生产0diff；原40/10/2/3+新12反例/八变异实际过，2969输入与2c329逐件相同，独审3021/0限定ACCEPT；完整167/森林性能另待核 |
 | ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
 | ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
 | PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
