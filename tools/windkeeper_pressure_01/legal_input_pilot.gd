@@ -110,7 +110,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			var future: Vector2 = point + direction * float(shot.speed) * .90
 			if DemoContactEmitter.segment_intersects_bounds(point,future,recoil_bounds): seed_pending = true
 			var actor_bounds := Rect2(at-Vector2(12,18),Vector2(24,36)).grow(float(shot.radius)+5)
-			if DemoContactEmitter.segment_intersects_bounds(point,point+direction*float(shot.speed)*.22,actor_bounds): seed_imminent = true
+			if DemoContactEmitter.segment_intersects_bounds(point,point+direction*float(shot.speed)*(.45 if mode=="platform2" else .22),actor_bounds): seed_imminent = true
 		if ("wave" in id or "stomp" in id) and absf(direction.x) > .7:
 			var gap := point.x - at.x
 			# Do not descend off a shelf onto a wave merely because it was
@@ -197,7 +197,9 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 				# instead of needlessly jumping toward the rising locked lunge.
 				axis = -signf(dx) if roomy_retreat else signf(dx) if state == "lunge_warning" and absf(dx)>195 else 0.0
 				if roomy_retreat: intent="retreat on actual ground from the locked lunge; preserve corner crossing for when needed"
-				if state == "lunge_warning" and not roomy_retreat and not support_motion and absf(dx)<=220 and float(encounter.clock)<=.25 and grounded and cross_axis==0:
+				var raised_cross := mode=="platform2" and current_slab.size.x>0
+				if raised_cross and not roomy_retreat:axis=0
+				if state == "lunge_warning" and not roomy_retreat and not support_motion and absf(dx)<=(300 if raised_cross else 220) and float(encounter.clock)<=(.40 if raised_cross else .25) and grounded and cross_axis==0:
 					cross_axis = signf(dx)
 					cross_started = frame
 					cross_until = frame+180
@@ -233,9 +235,6 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 					escape_destination = Vector2(clampf(destination_x,arena.position.x+seed_margin,arena.end.x-seed_margin),at.y)
 				if escape_destination.is_finite(): axis = _toward(at.x,escape_destination.x,12)
 				if grounded and phase == 3 and _gap_ahead(player,axis): jump = true
-				if mode=="platform2" and state=="seeds_warning" and grounded and float(encounter.clock)<=.30:
-					jump=true
-					intent="platform2: normal late-warning jump above the already locked seed fan"
 			elif state in ["sweep_warning", "sweep"]:
 				intent = "read shoulder/leaf height, preserve room through actual sweep"
 				if absf(dx) < 250: axis = -signf(dx)
@@ -360,6 +359,9 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		#190wu distance threshold. The old close-range jump raised the actor
 		# straight into seeds that would otherwise pass above grounded feet.
 		axis = _toward(at.x,escape_destination.x,12) if escape_destination.is_finite() else -signf(dx)
+		if mode=="platform2" and grounded:
+			jump=true
+			intent="platform2: normal jump against actual approaching seed trajectories"
 	if phase>=2 and not encounter.health.terminal and not seed_imminent and not support_escape_active and cross_axis==0 and state in ["observe","approach","link","recover"]:
 		# After real countershot recoil, plant on the inner safe edge of the
 		# current unoccupied support. Remaining at its far edge made the next
@@ -447,7 +449,7 @@ func _platform2_current_slab(app: Node, at: Vector2) -> Rect2:
 		for index: int in [1,2,3]:
 			var local: Rect2=module.definition.platforms[index]
 			var rect:=Rect2(module.to_global(local.position),local.size)
-			if absf(at.y+18-rect.position.y)<4 and at.x>=rect.position.x and at.x<=rect.end.x:return rect
+			if absf(at.y+18-rect.position.y)<4 and at.x>=rect.position.x-12 and at.x<=rect.end.x+12:return rect
 	return Rect2()
 
 
