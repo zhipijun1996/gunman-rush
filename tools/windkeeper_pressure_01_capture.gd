@@ -57,8 +57,8 @@ func _initialize() -> void:
 			max_battle_seconds = float(argument.trim_prefix("--max-battle-seconds="))
 		elif argument == "--diagnostic-headless":
 			diagnostic_headless = true
-	if trace_path.is_empty() or pilot_mode not in ["cautious2", "greed3", "active2", "platform2", "active_assault"] or max_battle_seconds <= 0:
-		printerr("Required --trace=PATH; --pilot=cautious2|greed3|active2|platform2|active_assault; positive battle timeout")
+	if trace_path.is_empty() or pilot_mode not in ["cautious2", "greed3", "active2", "platform2", "active_assault", "assault_greed3"] or max_battle_seconds <= 0:
+		printerr("Required --trace=PATH; --pilot=cautious2|greed3|active2|platform2|active_assault|assault_greed3; positive battle timeout")
 		quit(1)
 		return
 	start.call_deferred()
@@ -115,7 +115,7 @@ func start() -> void:
 	pilot.mode = pilot_mode
 	reward_coin_total = int(encounter.definition.get("reward_coin_total"))
 	setup["reward_coin_total"] = reward_coin_total
-	setup["input_profile"] = "active_assault: repeated legal attack-preparation shots at actual gun cooldown, platform run-jump, at-most-two recovery shots; separate from cautious2 safety proof" if pilot_mode=="active_assault" else "platform2: legal intro/platform run-jump, guarded attack extras plus at-most-two recovery shots; not cautious2 window proof" if pilot_mode=="platform2" else "active2: legal attack-phase extra shots plus at-most-two final-recovery shots; not cautious2 window validation" if pilot_mode=="active2" else pilot_mode+": recovery countershot review"
+	setup["input_profile"] = "assault_greed3: exact active_assault movement/extras, third recovery shot .76 after .10/.43; actual risk comparison, not cautious2 safety proof" if pilot_mode=="assault_greed3" else "active_assault: repeated legal attack-preparation shots at actual gun cooldown, platform run-jump, at-most-two recovery shots; separate from cautious2 safety proof" if pilot_mode=="active_assault" else "platform2: legal intro/platform run-jump, guarded attack extras plus at-most-two recovery shots; not cautious2 window proof" if pilot_mode=="platform2" else "active2: legal attack-phase extra shots plus at-most-two final-recovery shots; not cautious2 window validation" if pilot_mode=="active2" else pilot_mode+": recovery countershot review"
 	if reward_coin_total <= 0:
 		_fail("Formal Definition must provide a positive physical reward_coin_total")
 		return
@@ -129,8 +129,8 @@ func start() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 100
 	root.add_child(layer)
-	heading = _label("WINDKEEPER / ACTIVE ASSAULT: LEGAL ATTACK-PHASE EXTRAS" if pilot_mode=="active_assault" else "WINDKEEPER / PLATFORM2: REAL SHELVES + LEGAL ATTACK EXTRAS" if pilot_mode=="platform2" else "WINDKEEPER / ACTIVE2: ATTACK EXTRAS + TWO RECOVERY SHOTS" if pilot_mode=="active2" else "WINDKEEPER / ACTUAL FORMAL MAP2 APP / CONTINUOUS NORMAL SPEED", Vector2(14, 632), 18)
-	detail = _label("AUTOMATED LEGAL INPUT / " + ("ACTIVE ASSAULT: REPEATED LEGAL ATTACK EXTRAS" if pilot_mode=="active_assault" else "PLATFORM2: REAL SHELVES + LEGAL ATTACK EXTRAS" if pilot_mode=="platform2" else "ACTIVE2: ATTACK EXTRAS + TWO RECOVERY SHOTS" if pilot_mode=="active2" else pilot_mode), Vector2(14, 659), 15)
+	heading = _label("WINDKEEPER / ASSAULT GREED3: THIRD-SHOT COMPARISON" if pilot_mode=="assault_greed3" else "WINDKEEPER / ACTIVE ASSAULT: LEGAL ATTACK-PHASE EXTRAS" if pilot_mode=="active_assault" else "WINDKEEPER / PLATFORM2: REAL SHELVES + LEGAL ATTACK EXTRAS" if pilot_mode=="platform2" else "WINDKEEPER / ACTIVE2: ATTACK EXTRAS + TWO RECOVERY SHOTS" if pilot_mode=="active2" else "WINDKEEPER / ACTUAL FORMAL MAP2 APP / CONTINUOUS NORMAL SPEED", Vector2(14, 632), 18)
+	detail = _label("AUTOMATED LEGAL INPUT / " + ("ASSAULT GREED3: THIRD RECOVERY SHOT COMPARISON" if pilot_mode=="assault_greed3" else "ACTIVE ASSAULT: REPEATED LEGAL ATTACK EXTRAS" if pilot_mode=="active_assault" else "PLATFORM2: REAL SHELVES + LEGAL ATTACK EXTRAS" if pilot_mode=="platform2" else "ACTIVE2: ATTACK EXTRAS + TWO RECOVERY SHOTS" if pilot_mode=="active2" else pilot_mode), Vector2(14, 659), 15)
 	layer.add_child(heading)
 	layer.add_child(detail)
 	layer.add_child(_label("Scripted player, autonomous encounter. One disclosed initial prep position. Not human play acceptance.", Vector2(14, 693), 13))
@@ -393,7 +393,7 @@ func finish() -> void:
 	for key: String in coverage:
 		if not bool(coverage[key]):
 			failures.append("Coverage gap: " + key)
-	var result := {"task": "WINDKEEPER-PRESSURE-01", "kind": "actual_App_autonomous_encounter_scripted_legal_input_player", "complete": failures.is_empty(), "pilot": pilot_mode, "input_profile": setup.get("input_profile",""), "seed": seed_label, "resolution": [1280, 720], "fps": 60, "playback_speed": 1, "initial_setup": setup, "frames": frames, "postdraw_rows": postdraw_rows, "inputs": pilot.input_rows if is_instance_valid(pilot) else [], "shots": shots, "events": events, "combat_metrics": _json_value(final_metrics), "final_units": _json_value(final_units), "wallet_delta": final_wallet_delta, "material_audio_events": _json_value(final_audio), "damage_results": damage_rows, "phases_seen": phase_visits.keys(), "modes_seen": modes_seen.keys(), "coverage": coverage, "failures": failures, "source_before": source_before, "source_after": source_after, "git_before": git_before, "git_after": git_after, "source_stable": stable, "audio_teardown_released": teardown_released, "teardown_epochs": teardown_epochs, "not_verified": ["human play acceptance", "visual/listening acceptance", "physical device performance", "third-shot injury if no actual injury is recorded", "natural whole-campaign progression; exact formal map2 uses existing public debug entry", "active2/platform2/active_assault cannot establish cautious2 victory or the stable two-shot window"]}
+	var result := {"task": "WINDKEEPER-PRESSURE-01", "kind": "actual_App_autonomous_encounter_scripted_legal_input_player", "complete": failures.is_empty(), "pilot": pilot_mode, "input_profile": setup.get("input_profile",""), "seed": seed_label, "resolution": [1280, 720], "fps": 60, "playback_speed": 1, "initial_setup": setup, "frames": frames, "postdraw_rows": postdraw_rows, "inputs": pilot.input_rows if is_instance_valid(pilot) else [], "shots": shots, "events": events, "combat_metrics": _json_value(final_metrics), "final_units": _json_value(final_units), "wallet_delta": final_wallet_delta, "material_audio_events": _json_value(final_audio), "damage_results": damage_rows, "phases_seen": phase_visits.keys(), "modes_seen": modes_seen.keys(), "coverage": coverage, "failures": failures, "source_before": source_before, "source_after": source_after, "git_before": git_before, "git_after": git_after, "source_stable": stable, "audio_teardown_released": teardown_released, "teardown_epochs": teardown_epochs, "not_verified": ["human play acceptance", "visual/listening acceptance", "physical device performance", "third-shot injury if no actual injury is recorded", "natural whole-campaign progression; exact formal map2 uses existing public debug entry", "active2/platform2/active_assault/assault_greed3 cannot establish cautious2 victory or the stable two-shot window"]}
 	result["diagnostic_headless"] = diagnostic_headless
 	result["fatal_latched_before_teardown"] = fatal_latched
 	if diagnostic_headless:

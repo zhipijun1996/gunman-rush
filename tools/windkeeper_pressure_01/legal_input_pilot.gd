@@ -93,7 +93,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		jump_rearm_until = frame + 2
 	previous_grounded = grounded
 	var phase := int(encounter.stage_phase)
-	var current_slab := _platform2_current_slab(app,at) if mode in ["platform2","active_assault"] else Rect2()
+	var current_slab := _platform2_current_slab(app,at) if mode in ["platform2","active_assault","assault_greed3"] else Rect2()
 	var contact_bounds: Rect2 = encounter.body_contact_rect()
 	var actual_touch: bool = encounter.body_contact_sweep(boss.global_position,at-boss.global_position,at,Vector2(12,18))
 	var above_body: bool = at.y+18 < contact_bounds.position.y-10
@@ -118,7 +118,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			var future: Vector2 = point + direction * float(shot.speed) * .90
 			if DemoContactEmitter.segment_intersects_bounds(point,future,recoil_bounds): seed_pending = true
 			var actor_bounds := Rect2(at-Vector2(12,18),Vector2(24,36)).grow(float(shot.radius)+5)
-			if DemoContactEmitter.segment_intersects_bounds(point,point+direction*float(shot.speed)*(.45 if mode in ["platform2","active_assault"] else .22),actor_bounds): seed_imminent = true
+			if DemoContactEmitter.segment_intersects_bounds(point,point+direction*float(shot.speed)*(.45 if mode in ["platform2","active_assault","assault_greed3"] else .22),actor_bounds): seed_imminent = true
 		if ("wave" in id or "stomp" in id) and absf(direction.x) > .7:
 			var gap := point.x - at.x
 			# Do not descend off a shelf onto a wave merely because it was
@@ -140,14 +140,14 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	mouse_previous = pointer
 	Input.parse_input_event(mouse)
 	router.activate_device(&"keyboard_mouse")
-	if mode=="active_assault" and _assault_supported_escape(app,encounter,state,at,current_slab,phase,grounded):return
+	if mode in ["active_assault","assault_greed3"] and _assault_supported_escape(app,encounter,state,at,current_slab,phase,grounded):return
 	if not app._boss_started:
 		axis = 1
 		intent = "normal walk into actual formal map2 arena trigger"
 	elif state == "intro":
 		axis = 0
 		intent = "actual autonomous intro; stand at entry"
-		if mode in ["platform2","active_assault"] and not shelves.is_empty():
+		if mode in ["platform2","active_assault","assault_greed3"] and not shelves.is_empty():
 			var entry_goal := shelves[0]+Vector2(-55,0)
 			axis=_toward(at.x,entry_goal.x,5)
 			if grounded and at.x>=entry_goal.x-75 and at.y>entry_goal.y+35:jump=true
@@ -196,7 +196,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			if state in ["lunge_warning", "lunge"]:
 				intent = "read locked lunge and jump across before the wall removes retreat room"
 				var away_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
-				if mode in ["platform2","active_assault"] and current_slab.size.x>0:
+				if mode in ["platform2","active_assault","assault_greed3"] and current_slab.size.x>0:
 					away_room=at.x-current_slab.position.x-13 if dx>0 else current_slab.end.x-13-at.x
 				var roomy_retreat := phase<3 and away_room>200
 				# The first part of a readable warning plants toward the Boss.
@@ -206,7 +206,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 				# instead of needlessly jumping toward the rising locked lunge.
 				axis = -signf(dx) if roomy_retreat else signf(dx) if state == "lunge_warning" and absf(dx)>195 else 0.0
 				if roomy_retreat: intent="retreat on actual ground from the locked lunge; preserve corner crossing for when needed"
-				var raised_cross := mode in ["platform2","active_assault"] and current_slab.size.x>0
+				var raised_cross := mode in ["platform2","active_assault","assault_greed3"] and current_slab.size.x>0
 				if raised_cross and not roomy_retreat:axis=0
 				if state == "lunge_warning" and not roomy_retreat and not support_motion and absf(dx)<=(300 if raised_cross else 220) and float(encounter.clock)<=(.40 if raised_cross else .25) and grounded and cross_axis==0:
 					cross_axis = signf(dx)
@@ -273,7 +273,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 					jump = true
 			elif state == "recover":
 				intent = "final group recovery: two legal base shots then leave"
-				var limit := 3 if mode == "greed3" else 2
+				var limit := 3 if mode in ["greed3","assault_greed3"] else 2
 				var counter_age := float(frame-recovery_start_frame)/60
 				var due := .10 if recovery_shots == 0 else .43 if recovery_shots == 1 else .76
 				var can_fire: bool = grounded and cross_axis==0 and not support_escape_active and not actual_touch and not incoming_wave and not seed_pending and float(controller.shoot_ability.cooldown_remaining) <= .001 and int(controller.action_resources.shot_charges)>0 and (controller.shot_energy == null or controller.shot_energy.can_fire())
@@ -303,9 +303,9 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	# ordinary jump/recoil change of side while180–300wu still remain.
 	var early_read := state in ["observe","approach","turn"] or (state.ends_with("_warning") and float(metrics.get("state_age",0))<.25)
 	var corner_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
-	if mode in ["platform2","active_assault"] and current_slab.size.x>0:
+	if mode in ["platform2","active_assault","assault_greed3"] and current_slab.size.x>0:
 		corner_room=at.x-current_slab.position.x-13 if dx>0 else current_slab.end.x-13-at.x
-	if mode!="active_assault" and phase>=2 and early_read and not support_motion and not support_escape_active and cross_axis==0 and grounded and corner_room<180 and absf(dx)>=180 and absf(dx)<=300:
+	if mode not in ["active_assault","assault_greed3"] and phase>=2 and early_read and not support_motion and not support_escape_active and cross_axis==0 and grounded and corner_room<180 and absf(dx)>=180 and absf(dx)<=300:
 		cross_axis=signf(dx)
 		cross_started=frame
 		cross_until=frame+180
@@ -368,10 +368,10 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		#190wu distance threshold. The old close-range jump raised the actor
 		# straight into seeds that would otherwise pass above grounded feet.
 		axis = _toward(at.x,escape_destination.x,12) if escape_destination.is_finite() else -signf(dx)
-		if mode in ["platform2","active_assault"] and grounded:
+		if mode in ["platform2","active_assault","assault_greed3"] and grounded:
 			jump=true
 			intent="platform2: normal jump against actual approaching seed trajectories"
-		if mode=="active_assault" and phase==3 and grounded and not incoming_wave:
+		if mode in ["active_assault","assault_greed3"] and phase==3 and grounded and not incoming_wave:
 			var seed_run:=_assault_supported_seed_run(app,at,current_slab,-signf(dx))
 			if not seed_run.is_empty():
 				supported_seed_run=true
@@ -388,14 +388,14 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		if edge.is_finite():
 			axis=_toward(at.x,edge.x,7)
 			if state!="recover" or recovery_shots>=2: intent="plant on current safe support edge before reading next landing"
-	if mode in ["platform2","active_assault"] and phase<3 and not encounter.health.terminal and cross_axis==0 and not support_escape_active and not actual_touch and not seed_imminent and state in ["observe","approach","turn","link","recover"]:
+	if mode in ["platform2","active_assault","assault_greed3"] and phase<3 and not encounter.health.terminal and cross_axis==0 and not support_escape_active and not actual_touch and not seed_imminent and state in ["observe","approach","turn","link","recover"]:
 		var platform_motion := _platform2_ordinary_motion(app,encounter,at,current_slab,axis)
 		axis=float(platform_motion.axis)
 		var platform_jump:=bool(platform_motion.jump)
-		if mode=="active_assault" and platform_jump and not _assault_jump_corridor_clear(encounter,at):platform_jump=false
+		if mode in ["active_assault","assault_greed3"] and platform_jump and not _assault_jump_corridor_clear(encounter,at):platform_jump=false
 		jump=jump or platform_jump
 		intent="platform2: retain or regain a real shelf with ordinary run/jump input"
-	if mode=="active_assault" and phase<3 and not grounded and cross_axis==0 and not support_escape_active and not actual_touch and state in ["observe","approach","turn","link","recover"] and axis*dx>0 and absf(dx)<220:
+	if mode in ["active_assault","assault_greed3"] and phase<3 and not grounded and cross_axis==0 and not support_escape_active and not actual_touch and state in ["observe","approach","turn","link","recover"] and axis*dx>0 and absf(dx)<220:
 		axis=0
 		intent="active_assault: retain the current side in the air; crossing requires a real armed jump/recoil escape"
 	if leaf_escape_key=="%s:%s" % [group,metrics.get("attack_index",0)] and state in ["sweep_warning","sweep"]:
@@ -457,7 +457,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			jump = true
 	# A landing must release/rearm a new normal jump before walking over the
 	# next broken-bridge gap. Retain the actual support for those two ticks.
-	if mode=="active_assault" and phase==3 and grounded and _gap_ahead(player,axis) and frame<jump_rearm_until:
+	if mode in ["active_assault","assault_greed3"] and phase==3 and grounded and _gap_ahead(player,axis) and frame<jump_rearm_until:
 		axis=0
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"edge_rearm_wait","group":group,"player":_v(at),"rearm_frame":jump_rearm_until,"actual_grounded":grounded})
 	if supported_seed_run:
@@ -467,13 +467,13 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		jump_until=frame-1
 	# Assault must actually release the Router key for one tick before a
 	# renewed general jump; extending a true latch never creates a jump edge.
-	if jump and frame >= jump_until+(1 if mode=="active_assault" else 0) and frame >= jump_rearm_until:
+	if jump and frame >= jump_until+(1 if mode in ["active_assault","assault_greed3"] else 0) and frame >= jump_rearm_until:
 		jump_until = frame + jump_hold_ticks
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent})
 	router.set_jump_held(&"keyboard_mouse", frame < jump_until)
 	router.set_source_axis(&"keyboard_mouse", axis)
-	if mode in ["active2","platform2","active_assault"]:_active_extra_shot(app,encounter,state,at,aim)
-	if mode in ["platform2","active_assault"]:_platform2_observe_hold(app,encounter,axis,at,state,group,phase)
+	if mode in ["active2","platform2","active_assault","assault_greed3"]:_active_extra_shot(app,encounter,state,at,aim)
+	if mode in ["platform2","active_assault","assault_greed3"]:_platform2_observe_hold(app,encounter,axis,at,state,group,phase)
 	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":frame<jump_until,"group":group,"intent":intent})
 
 
@@ -669,19 +669,19 @@ func _assault_jump_corridor_clear(encounter: Node, at: Vector2) -> bool:
 
 func _active_extra_shot(app: Node, encounter: Node, state: String, at: Vector2, aim: Vector2) -> void:
 	# A separate, explicitly disclosed proactive-input profile. Recovery still
-	# has at most two shots; these are extra ordinary shots during real openings
+	# has at most two shots (three only for assault_greed3); extras use real openings
 	# in approach/turn or the early part of a visible attack preparation.
-	if not camp_finished or (mode!="active_assault" and active_extra_interval==state_start):return
+	if not camp_finished or (mode not in ["active_assault","assault_greed3"] and active_extra_interval==state_start):return
 	var player: PlayerMotor = app.player
 	var controller: PlayerController = app.controller
 	if cross_axis!=0 or support_escape_active or frame<jump_until or not player.is_on_floor():return
 	if state not in ["approach","turn","stomp_warning","seeds_warning","gust_warning","sweep_warning","platform_warning"]:return
 	# Assault obeys the actual gun clock, not a producer-imposed one-shot cap.
 	# The historical active2/platform2 cadence remains unchanged.
-	if float(encounter.clock)<(.10 if mode=="active_assault" else .04 if state=="turn" else .36):return
+	if float(encounter.clock)<(.10 if mode in ["active_assault","assault_greed3"] else .04 if state=="turn" else .36):return
 	var actual_distance:=absf(at.x-encounter.motor.global_position.x)
-	if actual_distance<(130 if mode=="active_assault" else 240):return
-	if mode=="active_assault":
+	if actual_distance<(130 if mode in ["active_assault","assault_greed3"] else 240):return
+	if mode in ["active_assault","assault_greed3"]:
 		if player.recoil_burst_remaining>0:return
 		var eligible_hold:=state=="approach" and actual_distance>300 and is_zero_approx(controller.router.axis) and player.normal_velocity.is_zero_approx()
 		if platform_hold_start>=0 or eligible_hold:return

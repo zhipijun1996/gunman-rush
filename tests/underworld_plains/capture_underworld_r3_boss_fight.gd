@@ -50,7 +50,7 @@ func run()->void:
 		if pressure_pilot!=null:pressure_pilot.observe_actual_shot(_id))
 	if encounter is WindkeeperPressureEncounter:
 		pressure_pilot=load("res://tools/windkeeper_pressure_01/legal_input_pilot.gd").new()
-		pressure_pilot.mode="cautious2"
+		pressure_pilot.mode="active_assault"
 		pressure_boss_health=encounter.health
 		pressure_player_health=app.controller.actor_resources.health
 	app.policy.batch_resolved.connect(func(results:Array[DamageResult])->void:
@@ -78,9 +78,9 @@ func run()->void:
 			pressure_pilot.step(app,pressure,pressure.combat_metrics(),_pressure_units(stage))
 			var requested_this_frame:=false
 			for row:Dictionary in pressure_pilot.input_rows.slice(input_start):
-				if row.get("action","") in ["shoot_release","escape_recoil_shot"] and bool(row.get("submitted",false)):
+				if row.get("action","") in ["shoot_release","escape_recoil_shot","active_extra_shot","proven_escape_recoil_shot","corner_sweep_recoil_shot","support_escape_recoil_shot"] and bool(row.get("submitted",false)):
 					shots+=1;requested_this_frame=true
-			if not requested_this_frame and _pressure_extra_shot(pressure):shots+=1
+			if pressure_pilot.mode!="active_assault" and not requested_this_frame and _pressure_extra_shot(pressure):shots+=1
 			axis=controller.router.axis
 			trace.append({"tick":Engine.get_physics_frames(),"movie_seconds":float(Engine.get_physics_frames()-start_tick)/60,"player":[player.global_position.x,player.global_position.y],"boss":[boss.global_position.x,boss.global_position.y],"player_hp":controller.actor_resources.health.current,"boss_hp":encounter.health.current,"stamina":controller.actor_resources.stamina.current,"phase":encounter.stage_phase,"mode":String(encounter.mode),"clock":encounter.clock,"axis":axis,"cross":pressure_pilot.cross_axis,"grounded":grounded,"requested_shots":shots,"pressure_adapter":true,"pilot_intent":pressure_pilot.intent,"group_plan":pressure.combat_metrics().group_plan})
 			pressure_last_live=trace.back().duplicate(true)
@@ -199,7 +199,7 @@ func run()->void:
 		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-bible-world-v15" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"shared normal-input navigation with additional safe legal attack-phase shots; original7200 combat frames unchanged; distinct from cautious natural review film" if pressure_pilot!=null else "classic original R3","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else []},"\t"));file.close()
+	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":pressure_pilot!=null,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd") if pressure_pilot!=null else "","pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof" if pressure_pilot!=null else "classic original R3","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows if pressure_pilot!=null else []},"\t"));file.close()
 	app.abandon_run();await load("res://tests/audio_teardown.gd").drain_world(app);app.free();await frames(5)
 	print("UNDERWORLD R3 FULL BOSS MAP%d: %d frames, %d failures"%[map_index,trace.size(),failure.size()]);quit(1 if not failure.is_empty() else 0)
 
@@ -312,7 +312,7 @@ func _finish_pressure_released_receipt(identity:Dictionary,coin_settlement:Dicti
 	var settlement:Dictionary={"claim_skipped_because_failed_battle":true,"arena_released_before_settlement":true,"pressure_physical_coins":coin_settlement}
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":identity.map_index,"manifest_seed":identity.manifest_seed,"manifest_hash":identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":true,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd"),"pressure_input_profile":"shared normal-input navigation with additional safe legal attack-phase shots; original7200 combat frames unchanged; distinct from cautious natural review film","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows,"arena_released":true,"last_live_snapshot":pressure_last_live,"combat_frame_limit":7200},"\t"));file.close()
+	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":identity.map_index,"manifest_seed":identity.manifest_seed,"manifest_hash":identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace,"pressure_input_adapter":true,"pressure_navigation_sha256":FileAccess.get_sha256("res://tools/windkeeper_pressure_01/legal_input_pilot.gd"),"pressure_input_profile":"canonical active_assault legal-input profile; its guarded extras and exact escape requests are counted; external duplicate shots disabled; original7200 combat frames unchanged; not cautious2 safety proof","pressure_extra_inputs":pressure_extra_inputs,"pressure_pilot_inputs":pressure_pilot.input_rows,"arena_released":true,"last_live_snapshot":pressure_last_live,"combat_frame_limit":7200},"\t"));file.close()
 	if is_instance_valid(app):
 		app.abandon_run()
 		await load("res://tests/audio_teardown.gd").drain_world(app)

@@ -89,3 +89,52 @@ Read the full trace and input events; these are not all covered by the supported
 The trace does **not** show an unavoidable bridge-removal failure or a missing real platform. At4116 the pilot requests a new jump from middle platform x6281 while heading left; by4120 its ordinary withdrawal reverses right. It lands at4160 x6441.59/y569.925, `grounded=true`, on the middle platform's right lip (slab ends6430; centre overhang11.59 still leaves actual foot overlap). It then continues right and walks off into the gap; frame4177 y680.425, frame4178 real ENV return/HP debit.
 
 The producer resets `jump_rearm_until=frame+2` on landing. That lip provides only one supported tick while moving260wu/s. The previous hold ended4145, already15 released frames before the landing, so an unconditional two-tick rearm delay is not needed to establish a new input edge in this specific trace. A legitimate producer repair can permit immediate landing jump when input was already released, or keep a supported landing goal and stop before the lip. This is a candidate normal-input repair, not permission to teleport, refill, add support or suppress damage. It has not been executed in this review.
+
+## Ground vertical-recoil followup and actual full headless victory
+
+### All bounded diagnostic outcomes retained
+
+Actually read all four coordinator-run reports. There are **32 controlled trials: 13 safe and 19 unsafe, with512 scaffold assertions and zero setup failures** (192+192+80+48). This does not mean512 successful dodges: the19 unsafe strategies explicitly lose HP.
+
+The five-case followup has80 scaffold assertions/zero setup failures. Platform-low-sweep still loses1HP; both supported crossing/recoil routes are safe; ground-gap280 and300 lunge with jump12/shot30/.65 are safe. Actual report SHA256 `49122a9cd1d9bb946e2064fb6a0a6ec9f423dede7bb4cfdf393508cb06562a1d`.
+
+The three-case actual ground-low-sweep followup has48 scaffold assertions/zero setup failures and **one** positive: `ground-low-vertical0-down18`, jump0/hold29/axis0 throughout/actual straight-down primary shot18. HP5 stays5, body-contact samples are allfalse, final actual grounded position `(7007.925,-640.0262)` on the existing shelf above the original ground. Both delayed-horizontal diagonal variants lose body-contact HP; they must not be called equivalent safe alternatives. Script `/tmp/windkeeper_dodge_probe_ground_sweep.gd` SHA256 `a052d2b19759baa1acd3ab317e509fee7dec48952ed6ba6fa81f9481fe8c4794`; actual report `6f618c0ce9355249a1d306a0950c9705315e68a80c3a4a5e3ac0c8ac6b734bc9`; log `5a04546ac3cc44996f742628ca8fb47d34ec25ead9601f8e949c06e155192146`.
+
+Current producer statically maps the real supported crossing recipes to original Router movement/jump/shoot and maps close ground-low sweep to the successful vertical-only/down-shot recipe. It verifies actual support before arming ground cases, treats platform-low sweep separately from a stale high/low group flag, and retains actual cooldown/charge checks. The mapper stores only its own input state; no Boss HP/phase/RNG/clock/position or player HP/resource/invulnerability writes were found. The capture's one initial position write is disclosed before battle. This local review does not claim the producer is a human player or that the full decision matrix is fair at all reaction delays/gaps.
+
+### Actual full formal App result inspected
+
+Root-run `headless-assault-04` is a real **headless technical success** at clean source `b684b76e71143df6fdbcdf70307cc2b4e8f124d7`:
+
+- Report `status=headless_diagnostic_gameplay_complete`, execution passed/exit0, errors empty; both complete source inventories, Git metadata and the independent driver guard stay stable.
+- Trace5,318frames; current formal60HP Boss receives exactly60 accepted hits/60HP damage through actual projectile/damage events, then dies. Player starts original5HP with actual1-damage pulse gun and ends3HP.
+- All six attacks and all three phases actually execute. **17 groups start;16 finish before lethal damage ends the last group.** This aggressive profile also fires38 actual guarded ground attack-preparation shots, plus actual escape shots, and remains capped at two recovery shots per group. Its84.5833s fight clock is not a cautious-only two-shot victory benchmark.
+- PhaseII actual event29.8667s; phaseIII55.45s. These are trace movie/process timestamps, not yet GPU film chapter times.
+- Exactly two player HP debits: frame2354/movie39.3333s `boss_contact:3:1:1` during phaseII lunge-warning, HP5→4; frame3638/movie60.7333s `boss_contact:3:4:1` during phaseIII traverse, HP4→3. There is no accepted seed, sweep, wave, environment or bridge-fall injury in this complete run. The remaining contacts are real and are not edited out or signed as flawless play.
+- Actual fatal event84.85s; impact85.9s; final settled event86.7667s; all coins claimed87.9833s. All234 dead-state samples have zero active threats, and fatal wind response is inactive. There is no new damage after death.
+- Actual configured20 coins are **four5-unit coins** (not a demonstration of1-unit coins in this particular encounter). Each has2 actual bounces, settled=true, zero final velocity, supported safe point and claimed=true; original wallet delta is exactly20. Each death/impact/final event occurs once.
+
+Evidence SHA256: trace `13218a3d6fa0595119b2117cd6507204be423b83adbb989720afc009f06251ab`; report `6089aaa7be8278b14060665f8f02df31f5cb3d6d765850f0843223e5b6765244`; native capture log `e021fdf2f9c824bc639375cf6414c3c50011a86fe44e9238413ccb0d6ba0cbfd`.
+
+**ACCEPT, scoped to this actual full headless formal-App run and its technical combat/death/settlement results.** It is not GPU, original-audio listening, normal-speed animation/POSE10, human/physical-device, whole-campaign progression, all-position balance, cautious2 or third-shot-risk approval. Report explicitly declares existing public debug map2 entry, one initial precombat position and automatic normal inputs. No GPU movie has been reviewed in this section; root's separate recording remains pending.
+
+### Two shots: distinguish requests, actual shots and actual damage
+
+There are15 groups with two actual recovery shots, but only **nine groups in which both shot IDs match accepted Boss HP damage events**:6,8,9,11,12,13,14,15,16. Do not describe every two-shot request group as two effective hits. Group9 additionally suffers a contact hit in the following group's warning at39.3333s; it is a poor exemplar of a clean two-shot withdrawal even though its own two bullets hit. Group13 includes a prior traverse contact within its attack group; do not use it as a correctly dodged whole-group exemplar.
+
+Useful actual safe windows (seconds are HEADLESS process timestamps, recompute against the real GPU trace before publishing):
+
+| Group / phase / completed attacks | Actual recovery shots | Both actual HP hit times | Recovery remaining after second shot | Time to next actual attack execution | Post-second-shot HP loss through that execution |
+|---|---|---|---:|---:|---|
+|6 / I / lunge→stomp|23.700,24.017|23.967,24.333|0.450|1.717 to stomp|none|
+|8 / II / gust→sweep|34.467,34.800|34.533,34.867|0.833|1.583 to sweep|none|
+|11 / II / stomp→seeds|48.867,49.233|48.967,49.350|0.300|1.083 to gust|none|
+|14 / III / platform→gust→seeds|69.533,70.333|69.617,70.433|0.367|0.983 to stomp|none|
+|15 / III / stomp→sweep|76.400,76.733|76.533,76.900|0.833|1.450 to seeds|none|
+|16 / III / seeds→lunge→platform|81.800,82.117|81.933,82.283|0.833|1.633 to platform|none|
+
+Group14 is a strong triple-group chapter candidate65.817–71.717s: second shot occurs with0.367s recovery left, then actual ordinary movement/jump takes player from `(6527.38,569.98)` to grounded `(6651.84,569.93)` by the next stomp execution, HP3 throughout. Group15 is a strong two-group phaseIII candidate70.717–78.583s: both bullets really hit; the player uses original recoil and subsequent normal movement/jump, and is grounded on a real support when the next seed release starts, HP3 unchanged. Group6 provides a phaseI counterpart20.717–26.133s with real horizontal withdrawal and safe ground landing by the next stomp.
+
+The listed `next actual attack execution` is a state observation, **not exact threat arrival**. Body contact remains live in warnings; projectile flight and attack impact delay also matter. These values quantify observed available time and actual outcome; they cannot alone prove the full window for every position or the causal risk of a third shot. This run has no third recovery shot, so third-shot comparison remains unverified.
+
+Exact per-shot IDs, damage IDs, positions, margins and window injury observations are extracted read-only to `/tmp/windkeeper_safe_two_shot_chapters.json`. It is an annotation aid, not a substitute movie or a new PASS guard.
