@@ -30,5 +30,6 @@ static func configure_font(font: FontFile) -> void:
 	font.hinting = TextServer.HINTING_NONE
 	font.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_DISABLED
 	font.multichannel_signed_distance_field = false
-	font.oversampling = 1.0
+	# Let Godot rasterize outlines for the real display scale, including HiDPI.
+	font.oversampling = 0.0
 	font.allow_system_fallback = false

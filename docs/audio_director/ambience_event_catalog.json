@@ -1,0 +1,174 @@
+{
+  "task": "AUDIO-AMBIENCE-01",
+  "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "runtime_producer": "de6b36c62f0640d9322973fffb687472755d25b7",
+  "scope": "Static environment event inventory; actual media/listening conclusions kept separately",
+  "verified_code_references": [
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 9,
+      "code": "&\"forest_wind\": \"res://assets/forest_bible_v2/audio/forest_wind.wav\","
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 112,
+      "code": "func configure_ambience(manifest_path: String) -> bool:"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 128,
+      "code": "func set_ambience_region(region_id: String, profile: String, origin: Node, listener: Node2D) -> bool:"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 132,
+      "code": "func clear_ambience() -> void:"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 200,
+      "code": "var attenuation := 16.0 if id == &\"forest_wind\" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &\"step\" else 10.0 if id in [&\"shot\", &\"land\", &\"jump\", &\"click\"] else 7.0"
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "line": 430,
+      "code": "func shutdown(timeout_msec: int = 1000) -> bool:"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "line": 112,
+      "code": "func select_region(region_id: String, selected_profile: String, origin: Node, listener: Node2D) -> bool:"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "line": 202,
+      "code": "func play_detail(id: String, world_position: Vector2) -> bool:"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "line": 243,
+      "code": "func clear() -> void:"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "line": 270,
+      "code": "func shutdown(timeout_msec: int = 1000) -> bool:"
+    },
+    {
+      "path": "scripts/demo/audio_ambience_lab.gd",
+      "line": 115,
+      "code": "func set_lab_profile(profile: String) -> bool:"
+    },
+    {
+      "path": "scripts/demo/audio_ambience_lab.gd",
+      "line": 138,
+      "code": "controller.died.connect(_ambience_death_callback)"
+    },
+    {
+      "path": "scripts/demo/audio_ambience_lab.gd",
+      "line": 147,
+      "code": "func open_region(region: String) -> bool:"
+    },
+    {
+      "path": "scripts/demo/audio_ambience_lab.gd",
+      "line": 171,
+      "code": "func _sync_music() -> void:"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 59,
+      "code": "func notify_fruit(world_position: Vector2) -> void:"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 69,
+      "code": "func notify_web(world_position: Vector2) -> void:"
+    },
+    {
+      "path": "scripts/presentation/forest_bible_ambience.gd",
+      "line": 79,
+      "code": "if _actor_node() != null: GameAudio.cue(self, &\"forest_wind\")"
+    },
+    {
+      "path": "scripts/audio/game_music.gd",
+      "line": 100,
+      "code": "func shutdown(timeout_msec: int = 1000) -> bool:"
+    }
+  ],
+  "new_beds": [
+    {
+      "event": "ambience_plains",
+      "region": "plains",
+      "candidates": [
+        {
+          "id": "plains_a",
+          "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+          "loop": true,
+          "duration": 24.0
+        },
+        {
+          "id": "plains_b",
+          "path": "res://assets/audio/ambience_v1/plains_b.ogg",
+          "loop": true,
+          "duration": 24.0
+        }
+      ]
+    },
+    {
+      "event": "ambience_forest",
+      "region": "forest",
+      "candidates": [
+        {
+          "id": "forest_a",
+          "path": "res://assets/audio/ambience_v1/forest_a.ogg",
+          "loop": true,
+          "duration": 24.0
+        },
+        {
+          "id": "forest_b",
+          "path": "res://assets/audio/ambience_v1/forest_b.ogg",
+          "loop": true,
+          "duration": 24.0
+        }
+      ]
+    }
+  ],
+  "new_point_library": [
+    {
+      "id": "plains_chime_a",
+      "event": "plains_chime",
+      "path": "res://assets/audio/ambience_v1/plains_chime_a.wav",
+      "runtime_placement": "explicit API/library candidate only; not automatically placed across maps"
+    },
+    {
+      "id": "plains_chime_b",
+      "event": "plains_chime",
+      "path": "res://assets/audio/ambience_v1/plains_chime_b.wav",
+      "runtime_placement": "explicit API/library candidate only; not automatically placed across maps"
+    },
+    {
+      "id": "forest_wood",
+      "event": "forest_wood",
+      "path": "res://assets/audio/ambience_v1/forest_wood.wav",
+      "runtime_placement": "explicit API/library candidate only; not automatically placed across maps"
+    },
+    {
+      "id": "forest_leaf",
+      "event": "forest_leaf",
+      "path": "res://assets/audio/ambience_v1/forest_leaf.wav",
+      "runtime_placement": "explicit API/library candidate only; not automatically placed across maps"
+    }
+  ],
+  "runtime_default": "original; explicit developer audition only",
+  "subjective_pending": [
+    "naturalness",
+    "modern noise contamination",
+    "masking under original BGM",
+    "loop fatigue",
+    "user aesthetic choice"
+  ],
+  "unknown": [
+    "physical phone/speakers/Safari and bluetooth latency",
+    "full exported interactive ambience lab"
+  ]
+}

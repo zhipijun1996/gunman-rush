@@ -1192,9 +1192,10 @@ func _layout_menu() -> void:
 	_last_screen_transform = get_viewport().get_screen_transform()
 	_last_window_size = get_window().size
 	_last_layout_device = _menu_device
-	var screen_scale := _last_screen_transform.get_scale().abs()
-	var pixel_scale := maxf(0.01, minf(screen_scale.x, screen_scale.y))
-	var physical_size := viewport * screen_scale
+	# UI dimensions are authored in the same logical game canvas on desktop
+	# and mobile. DPR changes raster quality, never the UI/world proportion.
+	var pixel_scale := 1.0
+	var physical_size := viewport
 	var compact := physical_size.x < 1000 or physical_size.y < 600
 	var safe := Rect2(Vector2.ZERO, viewport)
 	if OS.has_feature("android") or OS.has_feature("ios"):

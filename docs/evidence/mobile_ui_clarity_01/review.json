@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-UI-CLARITY-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T12:04:56.718512+00:00",
+  "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+  "web_build_id": "2caa023125bd",
+  "verdict": "ACCEPT",
+  "scope": "限定接受本轮共享逻辑比例、Web viewport1280x720与已观察到的桌面/模拟手机标题和Home GUI；不是完整游戏、用户或实体设备验收。",
+  "independence": {
+    "production_files_modified": 0,
+    "godot_processes_started": 0,
+    "review_file_only_write": true,
+    "methods": [
+      "independent production diff and consumer-chain review",
+      "viewed nine actual exported Web PNGs",
+      "independent OTF glyph-advance calculation",
+      "read native37/0 observations and isolated GPU mask receipt",
+      "recomputed browser primary-control logical delta and checked page_errors",
+      "git diff --check"
+    ]
+  },
+  "observations": [
+    {
+      "status": "passed",
+      "detail": "九张实际Web图中标题按钮、文字与美术边界完整；desktop与mobile标题和Home的UI/角色/世界比例一致，未见逆CSS放大。"
+    },
+    {
+      "status": "passed",
+      "detail": "手机Home位置标签位于左摇杆上方；互动按钮与摇杆/跳跃区分离；无重复顶部状态栏或桌面键盘教程背景。"
+    },
+    {
+      "status": "passed",
+      "detail": "桌面和模拟手机菜单画面可见，关闭后返回Home；手机重新调整窗口后的HUD、菜单、互动与摇杆保持可见边界。"
+    },
+    {
+      "status": "passed",
+      "detail": "report的桌面1280x720 DPR1、手机853x290 DPR2.5实际Web backing分别1280x720与2132x725，page_errors均空；独立重算标题铜按钮逻辑边界最大差0.6wu。"
+    },
+    {
+      "status": "passed",
+      "detail": "实际OTF20字号最长设施双语首行375wu、第二行291.67wu，均在400wu提示宽度内；先前文字溢出假设已证伪。"
+    },
+    {
+      "status": "passed",
+      "detail": "原生37/0报告覆盖实际Controls、菜单原touch回调、输入阻断、无射击泄漏及取消恢复；本审查仅阅读回执，未自行重跑引擎。"
+    },
+    {
+      "status": "passed",
+      "detail": "隔离GPU回执使用实际生产_render_receipt与未改shader：RT1280x720，screen origin422，stretch1；mask内2233cc、左右40594a，说明本探针letterbox保护对齐。该probe不是正式玩法。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "P1",
+      "status": "resolved",
+      "path": "scripts/underworld_plains/underworld_foreground.gd:523",
+      "detail": "初稿screen transform把letterbox/window偏移加入RT局部mask；当前改stretch transform，静态与隔离GPU证据支持修正。"
+    },
+    {
+      "id": "R2",
+      "severity": "evidence",
+      "status": "resolved",
+      "path": "build/verification/mobile-ui-browser/report.json",
+      "detail": "首版内容阈值将桌面暗背景误判为黑边，导致比例换算错误；最终用canvas+16:9居中几何，原铜按钮像素检测不变，首版错误报告独立保留。"
+    }
+  ],
+  "unresolved_blocking_findings": [],
+  "unverified": [
+    "Honor60Pro Chrome实体设备清晰度、触控可用性、玩家认可与实际帧时/卡顿",
+    "实体桌面高DPI/所有浏览器组合及手柄实物",
+    "两区正式玩法的完整动态画面与全场景前景遮挡回归；当前新增GPU像素证据仅隔离fixture",
+    "图鉴/设置长页没有本次实际Web截图，本轮其相关证据为静态审查及root专项回归",
+    "公开部署与HTTP/PCK完整指纹核验不在此视觉独审范围",
+    "音频与金币拾取音效后续工作"
+  ],
+  "evidence": [
+    {
+      "path": "build/verification/mobile-ui-browser/desktop-title.png",
+      "sha256": "0bb1878795f846a99432293993186e4a9b8cd1db792b5dfc04bf7d6d24a77893",
+      "bytes": 1453294
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/desktop-home.png",
+      "sha256": "1ce3b093a2f54bdafe2120baeaea6dbe389c60ea549617337b07da38eca41d32",
+      "bytes": 688536
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/desktop-home-menu.png",
+      "sha256": "a8027bd6ca37aae9c7a174af90a396b8d76a5a364b9ada6867d95e820217b234",
+      "bytes": 26293
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/desktop-home-resumed.png",
+      "sha256": "236aa0a30b98cf1d3eefba69852e06b53fded5e8d3aff4e1dd623041e1781509",
+      "bytes": 690150
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/mobile-title.png",
+      "sha256": "2417fa376dc1e693d748ba7076f56abb160dac7a9434aa502698fae183a17754",
+      "bytes": 1494495
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/mobile-home.png",
+      "sha256": "3cebf7f539adfeb71c411740834b76702308fa0f399997e00e531a63b1270fb5",
+      "bytes": 742257
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/mobile-home-menu.png",
+      "sha256": "413ede617a90e2506509b62b0ecdaa372cf9193507bc5be0f50717c87bfa8b29",
+      "bytes": 31119
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/mobile-home-resumed.png",
+      "sha256": "7dea075fecf8e3be56f8a3a14fb1b99d2458555a6b9cbfc181b02eb68642cd2f",
+      "bytes": 742782
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/mobile-home-resized.png",
+      "sha256": "28e3a4dd453c70587d1178757c0618446297d05c6b71b6f32ca2f64827c51464",
+      "bytes": 885334
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/report.json",
+      "sha256": "cc04edc455e1e2a87f6cb9a1a5f27dbc63a4d14bbafab59c105cb6e3f7383668",
+      "bytes": 1537
+    },
+    {
+      "path": "build/verification/mobile-ui-browser/report-first-content-threshold.json",
+      "sha256": "c613f386986109b13827776696da0af989e792f3f4caaea497cbb0c005b3651f",
+      "bytes": 1271
+    },
+    {
+      "path": "build/verification/mobile-ui-clarity/native.json",
+      "sha256": "3a7c28d7591d4e8d12700741fd1716537c226b181a3124443e7b8b7816893f98",
+      "bytes": 4101
+    },
+    {
+      "path": "/workspace/scratch/mobile-ui-mask-probe/result.json",
+      "sha256": "1b36d0a57bc2aabc822e3f3a0418a38e9b24ffcab77a5bc7605601f32c68ff16",
+      "bytes": 335
+    }
+  ]
+}

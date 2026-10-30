@@ -1,0 +1,53 @@
+{
+  "adapter_sha256": "6ff7ad4a0b0d739a71f7e57e87323fbc3eda6b9c0fc7dd9cb05f09e44dfafc17",
+  "loader_sha256": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3",
+  "actual_closure": [
+    "assets/audio/ambience_v1/forest_a.ogg",
+    "assets/audio/ambience_v1/forest_b.ogg",
+    "assets/audio/ambience_v1/forest_leaf.wav",
+    "assets/audio/ambience_v1/forest_wood.wav",
+    "assets/audio/ambience_v1/manifest.json",
+    "assets/audio/ambience_v1/plains_a.ogg",
+    "assets/audio/ambience_v1/plains_b.ogg",
+    "assets/audio/ambience_v1/plains_chime_a.wav",
+    "assets/audio/ambience_v1/plains_chime_b.wav"
+  ],
+  "cases": [
+    {
+      "id": "source_drift",
+      "expected": "reject",
+      "observed": "reject",
+      "passed": true,
+      "reason": "Ambience input fingerprint drift: sources_sha256"
+    },
+    {
+      "id": "prefix_skip_loader_drift",
+      "expected": "reject",
+      "observed": "reject",
+      "passed": true,
+      "reason": "Ambience loader changed; review finite adapter"
+    },
+    {
+      "id": "unknown_dynamic_caller",
+      "expected": "reject",
+      "observed": "reject",
+      "passed": true,
+      "reason": "Invalid runtime resource path: assets/audio/ambience_v1/"
+    },
+    {
+      "id": "manifest_runtime_alias",
+      "expected": "reject",
+      "observed": "reject",
+      "passed": true,
+      "reason": "Ambience runtime/catalog/render closure differs"
+    },
+    {
+      "id": "extra_unreferenced_sibling",
+      "expected": "finite",
+      "observed": "finite",
+      "passed": true,
+      "reason": "exact nine-member closure"
+    }
+  ],
+  "all_passed": true
+}

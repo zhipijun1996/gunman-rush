@@ -1,0 +1,156 @@
+{
+  "task": "AUDIO-HOME-01",
+  "version": "audio-home-v1",
+  "mix_revision": "home-quiet-01",
+  "manifest_path": "assets/audio/ambience_v1/home/manifest.json",
+  "manifest_sha256": "9da87898c0f3d924af67eb011d7427213a20754384eb375e9b61cbc79e25f90e",
+  "code_references": [
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 43,
+      "code": "func configure(home: HomeScene, audio: GameAudio, mode: String = \"life\") -> bool:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 86,
+      "code": "func validate_manifest(value: Variant) -> bool:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 108,
+      "code": "func _selection_matches() -> bool:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 118,
+      "code": "func _active_keeper(home: HomeScene, slot_id: String) -> bool:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 152,
+      "code": "func _source_position(row: Dictionary) -> Vector2:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 168,
+      "code": "func _process(delta: float) -> void:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 214,
+      "code": "func _record(event_id: String, row: Dictionary, position: Vector2, audio: GameAudio, home: HomeScene) -> void:"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "line": 242,
+      "code": "func stop() -> void:"
+    }
+  ],
+  "events": [
+    {
+      "event": "ambience_home",
+      "trigger": "Explicit Home developer adapter configure/set_mode bed or life",
+      "bed": {
+        "path": "res://assets/audio/ambience_v1/plains_a.ogg",
+        "sha256": "ecee435be5c38c77b3bac2d9e728e4ce480abbac07fac37133abd101a5e330d0",
+        "selection_path": "config/audio_director/ambience/user-selected.json",
+        "selection_sha256": "8eb9d5aa950fdd1f729de56b396d10980459fb7ce48ff132ed13dba3c13083b5",
+        "manifest_path": "assets/audio/ambience_v1/manifest.json",
+        "manifest_sha256": "70ec7a2ade5ab5c5a514598a182a31eaca37f56d61a7d1693595399f080ab918",
+        "scope": "Byte-identical selected quiet-02 plains_a; borrowed bed, no new bed render"
+      },
+      "gain_db": -2,
+      "scope": "Existing selected quiet-02 plains_a; no BGM source or gain changes"
+    },
+    {
+      "event": "home_cloth_1",
+      "slot": "character",
+      "path": "res://assets/audio/ambience_v1/home/home_cloth_1.wav",
+      "source_ids": [
+        "fabric"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_cloth_2",
+      "slot": "character",
+      "path": "res://assets/audio/ambience_v1/home/home_cloth_2.wav",
+      "source_ids": [
+        "fabric"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_wood_1",
+      "slot": "upgrade",
+      "path": "res://assets/audio/ambience_v1/home/home_wood_1.wav",
+      "source_ids": [
+        "wood_1"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_wood_2",
+      "slot": "upgrade",
+      "path": "res://assets/audio/ambience_v1/home/home_wood_2.wav",
+      "source_ids": [
+        "wood_2"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_tools_1",
+      "slot": "arms",
+      "path": "res://assets/audio/ambience_v1/home/home_tools_1.wav",
+      "source_ids": [
+        "tools_1"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_tools_2",
+      "slot": "arms",
+      "path": "res://assets/audio/ambience_v1/home/home_tools_2.wav",
+      "source_ids": [
+        "tools_2"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_page_1",
+      "slot": "achievements",
+      "path": "res://assets/audio/ambience_v1/home/home_page_1.wav",
+      "source_ids": [
+        "page_1"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    },
+    {
+      "event": "home_page_2",
+      "slot": "achievements",
+      "path": "res://assets/audio/ambience_v1/home/home_page_2.wav",
+      "source_ids": [
+        "page_2"
+      ],
+      "trigger": "Normal independent presentation schedule at actual active visible nearby keeper; global6s gap and single life voice",
+      "scope": "NPC-place workshop interior Foley, no visible action-frame event exists",
+      "status": "candidate_waiting_user"
+    }
+  ],
+  "runtime_default": "original; developer audition only",
+  "new_recording_observation": "Natural26s route contains home_cloth_1 once; other7takes are standalone library auditions and fixture mapping, not claimed all naturally played in movie"
+}

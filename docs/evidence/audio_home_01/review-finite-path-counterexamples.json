@@ -1,0 +1,30 @@
+{
+  "scope": "Independent existing scanner and processing validators on copied temporary fixtures only; no Godot or production edits",
+  "cases": [
+    {
+      "id": "unreferenced_actual_sibling_not_consumed",
+      "passed": true
+    },
+    {
+      "id": "missing_whitelist_asset",
+      "passed": true,
+      "reason": "Unresolved asset reference needs finite consumer adapter: scripts/audio/home_ambience_audition.gd: res://assets/audio/ambience_v1/home/home_tools_2.wav"
+    },
+    {
+      "id": "unknown_dynamic_caller_still_rejected",
+      "passed": true,
+      "reason": "Invalid runtime resource path: assets/audio/ambience_v1/home/"
+    },
+    {
+      "id": "runtime_path_sibling",
+      "passed": true,
+      "reason": "Home runtime/catalog reference drift"
+    },
+    {
+      "id": "runtime_bed_replaced",
+      "passed": true,
+      "reason": "Home runtime/catalog reference drift"
+    }
+  ],
+  "all_passed": true
+}

@@ -41,14 +41,14 @@ func _ready() -> void:
 
 func _layout() -> void:
 	if not is_instance_valid(_logo): return
-	_physical_width = size.x * get_viewport().get_screen_transform().get_scale().abs().x
+	_physical_width = size.x
 	var compact := _physical_width < 900
 	_logo_origin = Vector2(size.x * (0.54 if compact else 0.40), size.y * 0.025)
 	_logo.position = _logo_origin
 	_logo.size = Vector2(size.x * (0.45 if compact else 0.59), size.y * 0.95)
 
 func _process(delta: float) -> void:
-	if not is_equal_approx(_physical_width, size.x * get_viewport().get_screen_transform().get_scale().abs().x): _layout()
+	if not is_equal_approx(_physical_width, size.x): _layout()
 	if reduced_effects: return
 	_time += delta
 	# A restrained camera-like drift, not a painted imitation of a moving hand.

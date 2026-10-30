@@ -1,0 +1,33 @@
+{
+  "task": "AUDIO-AMBIENCE-01",
+  "status": "passed",
+  "scope": "Only copied metadata under build mutated; exact native/audio/video/trace hard links are read-only inputs. Original capture/report/chapter bytes unchanged. No production source mutations.",
+  "counterexamples": [
+    {
+      "case": "wrong-chapter-original-hash",
+      "rejected": true,
+      "error": "Chapter identity/timing differs from actual native trace",
+      "unexpected_delivery_exists": false
+    },
+    {
+      "case": "wrong-chapter-forged-hash",
+      "rejected": true,
+      "error": "Chapter identity/timing differs from actual native trace",
+      "unexpected_delivery_exists": false
+    },
+    {
+      "case": "unclean-override-lifecycle",
+      "rejected": true,
+      "error": "Capture override lifecycle was not clean",
+      "unexpected_delivery_exists": false
+    },
+    {
+      "case": "tampered-native-correlation",
+      "rejected": true,
+      "error": "Native soundtrack verification differs from retained capture proof",
+      "unexpected_delivery_exists": false
+    }
+  ],
+  "original_report_sha256": "b92d0ea48733f9ef32747f908c3c1903bdde2adad950b6e7462df790a17a76df",
+  "original_chapters_sha256": "01dda476d6298e875084675c98f8f0d308576f3259b22af0da6f44ec05288d3e"
+}

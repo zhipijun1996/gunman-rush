@@ -75,6 +75,101 @@ ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.c
 
 怪物工作入口：[统一完成标准](quality/enemy_completion_standard.md)与原Enemy Sheet现共用E01–E12／G0–G5／十一维。已有冲锋怪[制作卡](design/enemies/plains_charger.md)为review：本轮四项局部技术检查通过，但当前实录两次受伤退出的身体结构不连续（CHR-VIS-01，E03／E05 failed），完整攻击、正式自然场景、独审、用户与设备未验。流程标准建立不等于怪物完成；[来源与证据](evidence/enemy_completion_01/README.md)。
 
+## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
+
+普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。
+
+6614e119完整CI的parallel因新验收卡格式/超范围PASS失败，已保原日志并修正记录；游戏源不变，未跳过165检查。冻结修正head后重新执行完整CI，通过再正常合PR117并从实际main导出。[证据](evidence/mobile_web_audio_fix_03/README.md)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 线程供音正式修复，已授权合main
+
+用户确认原独立线程测试页加载后声音正常，并要求修复后关闭空中瞄准/慢时附加声、机关清脆风铃，随后授权“完成后合入main”。生产fb5dc84b已导出683cf2cce4d6，正式threads=true，原UI/画质/工坊选择/五BGM不变；实际demo31/0和selected63/0已过。普通入口Web、缓存迁移、独审和精确head完整CI正在验证，通过后合PR117并导出实际main发布。[本轮证据](evidence/mobile_web_audio_fix_03/README.md)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 新反馈明确属于普通主页
+
+用户：“一开始进家园还不是很卡，慢慢越来越卡…后台声音正常，切到前台就卡…暂停也有点卡，没有关卡那么卡”，随后明确“普通试玩主页…画面和操作都不卡，只有声音卡”。本次当前公开1d主页仍threads=false，threaded独立入口同PCK；不能把普通版反馈记成线程版失败，也不能冒签其真机通过。手机具体缓存build未给出。
+
+本轮仅只读静态复核和公开入口身份检查，未新增长时/后台/降频实测、未改生产、未重新部署。先请用户用现有audio-threaded链接连续运行数分钟并比较前后台、关卡暂停，获取记录；继续沿音频供给排队定位，不能先认定Shader、泄漏或热降频。见[原话与范围](evidence/mobile_web_audio_02/device-feedback-03.json)。
+
+
+## 2026-10-29 MOBILE-WEB-AUDIO-02 · 工坊音色恢复，供音线程对照已公开
+
+用户确认旧386仍卡且音色是旧版，旧两处Sample修复不能视为任务完成。已发现formal只装配环境选择，V3已选动作未启用；新SelectedSfxRuntime一次装配原14映射，原生63/0＋环境45/0，标准Web与公开真实Home/Plains实际PCM均确认已选pulse A。运行源b7406284，普通build1d3791a7c290／PCK208700940字节，四份官方nothreads引擎仍d209；不动已接受UI/美术/五BGM。
+
+持续卡音的云端时序证据指向STREAM补给等待主线程：50ms Home请求等待P50/P95约473/769ms，混音0.3/1.7ms。同正式PCK/原画面/DPR2.5、真实RUN SEED输入mobile-audio-stream-01、同Manifest f3a63393...156a，单线程Home/Plains欠载88.24%/80.62%，官方threaded独立供音四个窗口均0且共享环实际read推进；主线程长RAF仍存在。不是手机FPS，也不证明shader/GPU/物理哪项是手机热点。Home普通菜单不暂停tree，关卡暂停另验。线程四窗之外仍有1408帧欠载，公网动作较宽窗口Home0.322%欠载保留；不能声称全会话无断供。
+
+诊断工具源f21b221f，prepared84ddcb0，Actions40911443229成功。普通入口与已选音效保留；[独立线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-threaded/?latency=50&audio_probe=1)和[主线程50ms](https://zhipijun1996.github.io/gunman-rush/audio-stream-test.html?latency=50&audio_probe=1&diag=timing-v1)为同包对照。公网完整PCK/threaded WASM与11HTML/JS/worklet SHA匹配，真实COI/SAB/threads三项及Home→Plains触屏动作成功；两段各8秒原BGM逐半秒匹配连续无跳/重启，已选pulse A胜旧pulse/B/C负控。首个本地安装竞争、首个公网redundant安装失败及官方blocking-on-main警告保留；后者失败当时原因未抓到，后续同字节通过，不追签旧失败。
+
+f21b定向docs/web-cache/web-bundle三项fresh通过，非full CI。[证据与完整边界](evidence/mobile_web_audio_02/README.md)。任务in_progress/awaiting-device，PR117仍draft未合main；荣耀60Pro Chrome真机连续性、长时BGM/玩家认可未验。页面手动记录游戏/菜单10秒后下载JSON，下一步读取真机记录及反馈；若线程仍卡，按实际thread ring/PCM/主线程长任务继续定位，不降画质或改全Stream。恢复勿重导PCK/重跑既有native，先核公开身份与最新手机反馈。
+
+
+## 2026-10-29 MOBILE-WEB-PERF-01 · 两处音频修复已部署，待真机
+
+最新真机反馈为“声音卡，动作几乎不卡；暂停页面声音正常”。以main1b29932c/Godot4.7.2核验，公开UI包2caa/source4707与原main618的四份音频/正式场景源相同，JS/WASM是同一官方4.7.2导出模板，不混称同一个PCK。
+
+最小Web真实PCM确认：默认add_bus()的-1路径会破坏Sample总线路由，单Master正常、多总线Sample静音但Stream正常；一段play每帧stream_paused=false会创建/启动/结束27个native Source，声音不断重启。正式demo.tscn原版/bus_only/pause_only/环境音真正停用四组已独立启动对照；bus_only的家园/平原跳跃射击均有真实混合波形匹配。首轮录音窗口错误、补录家园环境音关闭组未跳跃等边界完整保留，云端慢帧不代表手机画面卡顿。
+
+生产只改GameAudio用bus_count增长保同序创建、GameAmbience仅实际状态变化写pause，原生160／0及源码独审限定通过。保留用户已认可UI/画质/素材/音量/五BGM/玩法。标准Web源ccc11e1a，build3866985a1e8b，PCK208691528字节／SHA3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21；已导出及cache/bundle通过。标准Web真实触屏进入家园/关卡，四声实际混音确认并经独立负控复核；Actions40896322142已成功，公开两PCK与8份engine文件完整HTTP字节一致。
+
+[根因证据](evidence/mobile_web_perf_01/README.md) · [范围](worklines/mobile_web_perf_01/scope.md)。分支fix/mobile-web-performance-20261029，不自动合main。[声音修复版](https://zhipijun1996.github.io/gunman-rush/?v=3866985a1e8b)与[前后对照](https://zhipijun1996.github.io/gunman-rush/audio-compare.html)已公开；两个独立目录的线上真实触屏GUI均已通过（设置/返回/家园/菜单/resize），page/script/shader错误0。定向docs/web-cache/web-bundle三项fresh通过（非full CI）；[PR117](https://github.com/zhipijun1996/gunman-rush/pull/117)保持draft未合main。手机BGM长时间连续性与最终听感awaiting-device，动作几乎流畅按最新用户反馈，不继续无依据删光照/降画质。
+
+## 2026-10-29 MOBILE-UI-CLARITY-01 · 已部署，待真机
+
+运行源 `4707b9ef15fa7e89b09d3e33ef8206c0b12f64af`，分支 `fix/mobile-ui-clarity-20261029`；[新试玩](https://zhipijun1996.github.io/gunman-rush/?v=2caa023125bd) 为 `2caa023125bd`（角标2caa0231），已通过既有prepared流程发布，公网完整208,691,576字节PCK及SHA256一致。[PR115](https://github.com/zhipijun1996/gunman-rush/pull/115)保持draft，没有合main。
+
+手机与电脑统一1280×720逻辑UI/世界比例；Web使用完整1280×720内部RT与真实DPR backing store/nearest呈现，原生保留canvas_items。标题/HUD/模态框去掉逆CSS放大，家园提示避开摇杆且仅保留一个菜单入口。原shader/PNG不改，前景保护矩形改用RT局部stretch坐标，避免黑边偏移。
+
+原生专项37／0、原UI合同149／0、Web密度8／0，最终源图鉴UI72／0、R2菜单输入208／0；这些检查执行后UI生产字节保持一致，后续导出守门要求原Foundry重建（36短语／18行程、0失败）并刷新验证basis，生成数据单独提交。实际桌面与模拟手机Web截图/指针通过，按钮逻辑边界最大差0.6wu；隔离GPU探针实测原生产mask函数与shader在黑边/DPR下透明位置正确。独审限定ACCEPT，最终定向Harness docs/web-cache/web-bundle三项全fresh通过，公网模拟手机实际设定/家园/菜单/resize通过。真实荣耀60Pro、帧率、金币音效、完整两区动态和玩家认可仍未验，质量awaiting-device。所有旧失败和验收边界见[本轮证据](evidence/mobile_ui_clarity_01/README.md)。
+
+恢复先核当前公开build-info及完整PCK；不要重做已通过UI修复或擅自合main。后续先收用户真机UI/清晰度反馈，再继续单独定位家园/关卡卡顿及拾取音效。
+
+## 2026-10-29 AUDIO-ROLLOUT-01 · 已授权快速合入并部署
+
+用户明确“快速合入main，并部署试玩”，覆盖下方候选“不合main/正式默认original”阶段限制。root正补正式demo.tscn的最小装配：平原A/森林A与家园life，原声/五BGM/规则/既有DemoApp与HomeScene不改。实际生产源06a76d18：正式场景45／0、导出26／0与原PNG30／0严格通过，限定工程独审ACCEPT；已保留旧测试/CI失败，按[新范围](worklines/audio_rollout_01/scope.md)验证，原精确head完整CI门禁后普通合PR113，现有快速prepared Web路径交真实main试玩，不重复问已授权merge/publish。当前main45e98、先前头3e6bf692，旧公开Web尚无本次声，不可报新已上线。
+
+
+## 2026-10-29 AUDIO-HOME-01 · 已选择底声＋生活音
+
+用户在家园三模式交付后明确“底音+生活音”，选定当前home-quiet-01的life整体方案。config/audio_director/home/user-selected.json绑定manifest9da878...、床与8条生活素材SHA、原话与影片源a4b／UI745；brief自动读取并拒绝版本/文件漂移。保床额外−2dB、原BGM与每NPC12–22秒/全局6秒/最多1点声。区域A/A选择保持。
+
+本轮只记录当前整体声音选择、上下文与质量证据，不重制音频/重录/部署，不修改正式默认或main。同步PR113；正式接入时直接消费已选两区A/A＋家园life，不重问已确定方案。单素材独立排名、全自然路线、实体设备与完成推广未推导。下方“家园待选择”是此前交付状态，现由本条覆盖。
+
+
+## 2026-10-29 AUDIO-HOME-01 · 家园微风与生活声试听已发布
+
+[家园手机试听](https://clock-ambience-lab.zhipijun1996.chatgpt.site/home/)已由原Site v3部署（仍仅拥有者）；只加/home/，原root/previous-v1共54文件及hosting配置逐字节保持。托管源`1bfc4d6bb36807d78108a084d6803c3f798f9f7c`，原生影片producer`a4b2113aa786193a1d653080365f6067dd020880`，严格HTML身份/后包装源`745097b8c390502257a55c727444104c4f64cecf`分别记录。
+
+借用已选quiet-02 plains_a原字节再−2dB，新布料/木件/工具/册页各两条CC0生活拟音，4真实keeper脚底定位；12–22秒/全局6秒/至多1点声，静态NPC无假动作同步。原BGM与规则/正式HomeScene/DemoApp/共享音频/区域选择不改，显式开发候选，家园混音仍待用户试听。
+
+真实3×26秒/4969帧/7,900,638B（SHA d56076d...）原生轨音、3838源闭包与同路状态通过；家园60/0、原regional55/0、加工8项根/作者/独审均过。正常短片只听到1次近处cloth1，8条素材可单听。修后手机3章/9单听/11身份篡改反例通过；远端/home MP4全SHA、真实life指针/AAC45827字节/Stop及旧root元数据均实测。
+
+[实际证据与失败](evidence/audio_home_01/README.md)。原processor/两个runtime/typedArray scene/64像素headless/UID登记及HTML身份缺项全部保留，不改预算或伪签；新源技术/审查与用户、实体设备、完整CI/正式推广分开。继续PR113，不合main；下一步消费home-quiet-01真实选择JSON/听感，再按明确范围接入，不重做已选两区A/A。
+
+## 2026-10-29 AUDIO-AMBIENCE-01 · 两区quiet-02均已选A
+
+用户在轻微环境版交付后明确“两者都选A”：平原`plains_a`、森林`forest_a`，保当前−14dB床声／原BGM混音。精确记录`config/audio_director/ambience/user-selected.json`绑定quiet-02、manifest与两OGG SHA、原话和原生producer e55910ec；brief自动读取并拒绝指纹漂移。原B方案与较响首版不删，不推导四点声或真机认可。
+
+本次仅记录明确选择与后续上下文；运行默认original和main未改，无新录屏/重导出。沿PR113同步；下一步正式集成时使用此精确A/A选择，保原音乐和生命周期规则，不重问已确定的两区方案。下方“待选择”属于当时历史交接，现由本条覆盖。
+
+
+## 2026-10-29 AUDIO-AMBIENCE-01 · quiet-02轻微环境音已发布
+
+用户明确首版环境音过响盖住BGM；同PR113／`feature/audio-ambience-01`已迭代为quiet-02：保原归一/控峰后四床−14dB、四点−10dB，实际解码降幅已核。五MP3、MusicGain 0.16与玩法/动作保持。原生/影片源`e55910ec7d5be218735fb7cade4ebdd4f662552a`，6×26秒／9943帧、14,065,613B，714.952秒内完成原900秒预算，source/loop/轨迹/音轨均通过；不是后期配音。
+
+[原手机工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)已更新Sites v2（仍仅拥有者）；托管源`060788289a4d04dd96b51904317beaa04c174320`。默认BGM混音，旧版27件原样保留[previous-v1/](https://clock-ambience-lab.zhipijun1996.chatgpt.site/previous-v1/)。新选择KEY与mix_revision隔离旧选择/旧包。真实本地12章节/4点声和4身份反例通过；远端全MP4 SHA、两指针/AAC解码/Stop通过。
+
+[新增证据与失败](evidence/audio_ambience_01/quiet-02/README.md)：加工9／适配17／旧quality57／原生55通过。新混音限定独立工程审查ACCEPT；原首轮工程审查与失败不改签，旧听感被拒绝；quiet-02用户听感、实体设备、完整CI和正式推广仍未验，默认original、不自动合main。下一步直接消费新试听反馈/选择JSON，不重做素材，不将工程检查当审美批准。
+
+## 2026-10-28 AUDIO-AMBIENCE-01 · 两区环境音候选已交付
+
+从main `45e98dbb` 独立创建 `feature/audio-ambience-01`。4个24秒CC0实录床声＋4个细节声、可追溯加工/许可、显式GameAudio环境组件和两区同Seed原音轨对照已实作。运行/影片源 `de6b36c6`，9943帧，原生音画14,049,972B；[本轮证据](evidence/audio_ambience_01/README.md)、[音效入口](audio_director/ambience.md)。
+
+[手机环境音工坊](https://clock-ambience-lab.zhipijun1996.chatgpt.site/)由Sites v1成功发布（仅拥有者账号）；12章节、单声/循环、BGM混音、4点声与选择JSON，原动作工坊和主站保留。托管源 `8d29d154` 与原生producer分记。无新可操作完整Web包，不把主站称本候选。正式默认仍original，点声未全图布设；用户听感/实体设备/完整CI不代签。技术记录review，不自动合main。
+
+恢复：`python3 tools/audio_director.py brief '优化森林环境音'`；来源与精确配方见manifest。四床source/loop/原音轨/同区物理时序已实际验证；独立工程审查通过，原导入/遮挡/未完成片/诊断超时全部保留。后续先消费用户环境音选择，再做组合混音或明确授权的正式推广。
+
 ## 2026-10-28 PR111合入与试玩发布授权（最新）
 
 用户已明确“合并到main，并且导出试玩网站”，覆盖此前PR111不自动合main的开发阶段限制。先修精确91545e4完整CI的两处旧消费者测试（旧shared chest icon、旧forest_heart_gold）；原run40684591543实际90项／2失败／75未执行，不能称全量跑完。保原165与两lane/affected门禁、预算和失败原件，精确新head全绿后正常merge，再导出实际main并核公开metadata／完整PCK及真实GUI。不要再次询问已授权的合并或发布，不跳过红灯，不重生成美术。详见[本轮范围](worklines/main_merge_web_111/scope.md)。

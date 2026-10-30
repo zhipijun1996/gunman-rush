@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-ROLLOUT-01",
+  "task_type": "animation",
+  "workflow": "review",
+  "baseline_commit": "45e98dbbf38d906dc5eae9686dc9ee5ee6a99acc",
+  "reviewed_commit": "06a76d18fa5c11410aa98f9dd82b9e7936086db2",
+  "content_version": "selected-ambience-rollout-v1",
+  "owner": "Audio Director",
+  "purpose": "明确已选声音正式装配、普通合main与快速Web试玩",
+  "player_experience": "真实家园听见已选life、平原和森林听见已选低响A，不改变音乐或操作",
+  "constraints": [
+    "所有已选音频/原BGM/81style绑定/规则不变",
+    "不绕过CI或修弱断言预算",
+    "不使用旧电影或旧Web冒充新实际试玩"
+  ],
+  "affected_paths": [
+    "scenes/demo/demo.tscn",
+    "scripts/audio/selected_ambience_runtime.gd",
+    "scripts/audio/selected_ambience_runtime.gd.uid",
+    "tests/selected_ambience_runtime.gd",
+    "tests/selected_ambience_runtime.gd.uid",
+    "export_presets.cfg",
+    "docs/worklines/audio_rollout_01/scope.md",
+    "docs/worklines/audio_rollout_01/authority.json",
+    "addons/runtime_raw_export/raw_exporter.gd",
+    "tests/selected_audio_export.gd",
+    "tests/selected_audio_export.gd.uid",
+    "docs/quality/records/AUDIO-DIRECTOR-01.json"
+  ],
+  "deliverables": [
+    "正式主场景绑定已选区域A/A与Home life",
+    "原CI精确head门禁后普通main merge",
+    "真实main导出的公开可操作Web试玩及PCK/GUI验证"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "明确用户合入/部署授权、已选声音与正式装配/导出边界已固定",
+      "evidence": [
+        "rollout-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "复用已选原件与既有组件，三preset精确导出closure26正反例严格通过；未签后续场景/导出",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "原导出PNG30断言和Python2项回归通过；正式场景45断言退出泄漏仍阻塞",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "用户已经选择所有本次采用的区域/家园方案，本次只装配",
+      "evidence": [
+        "rollout-scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "正式场景45/0及导出26/0严格退出通过；最终CI/PCK/公开GUI仍待执行",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "已在真实demo.tscn覆盖双App、Home、两区、死亡、暂停、mute、返回；公开Web未验",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "无新画面资产或角色动画，装配已选音频",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "无新画面资产或角色动画，装配已选音频",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立审查已限定接受06a76d18的正式装配工程；最终CI/公开main Web仍未签",
+      "evidence": [
+        "rollout-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "rollout-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "明确选择和当前merge/Web范围",
+      "evidence": [
+        "rollout-scope"
+      ],
+      "scenario": "正式main scene的Home与两区",
+      "method": "真实选择记录/代码/用户新指令核对",
+      "expected": "只启用已选方案并交真实main Web",
+      "failure": "错误/未知方案或旧包伪新试玩"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "rollout-scope",
+      "path": "docs/worklines/audio_rollout_01/scope.md",
+      "sha256": "4808dbf2f5e98363050a1de5fab8616c6bdbf8710e0a9c8a52f8f74e1923d2d8",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "3e6bf6921cfdb37f27258ac837f02474962e78a9",
+      "content_version": "selected-ambience-rollout-v1",
+      "method": "Explicit current user merge/deploy authorization and exact selected asset context",
+      "observed": "Scope is formal composition/export only; no new sound/design proposal"
+    },
+    {
+      "id": "rollout-native",
+      "path": "docs/evidence/audio_rollout_01/native-03/report.json",
+      "sha256": "64352a1184bb9d31d2a2facf21d7ed46776ccc628a49af0079f676d51235c23e",
+      "kind": "command",
+      "producer": "root strict audio lifecycle runner",
+      "source_commit": "06a76d18fa5c11410aa98f9dd82b9e7936086db2",
+      "content_version": "selected-ambience-rollout-v1",
+      "method": "Actual demo.tscn, source byte-for-byte identical to production commit 06a76d18; exact six-file fingerprints archived separately; original90s timeout",
+      "observed": "45 assertions, zero failures; strict exit passed; no resource errors/leaks. Not remote CI or Web.",
+      "command": "bash tools/godot.sh --headless --verbose --fixed-fps 60 --path . --script res://tests/selected_ambience_runtime.gd",
+      "exit_code": 0,
+      "environment": "Linux cloud, Godot 4.7.2 Standard headless, fixed60fps; no physical device"
+    },
+    {
+      "id": "rollout-review",
+      "path": "docs/evidence/audio_rollout_01/review.md",
+      "sha256": "1c03be251addaeecdccdbfba51f3850d6fb037af3485e322309f698e513c588d",
+      "kind": "review",
+      "producer": "/root/ambience_review",
+      "source_commit": "06a76d18fa5c11410aa98f9dd82b9e7936086db2",
+      "content_version": "selected-ambience-rollout-v1",
+      "method": "Independent read-only source/hash/negative-test/log review; root owns engine",
+      "observed": "ACCEPT formal composition engineering only; actual full CI, main export and public Web pending",
+      "reviewer": "/root/ambience_review",
+      "implementers": [
+        "/root",
+        "/root/ambience_runtime"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only agent /root/ambience_review; did not implement or modify production, verified author hashes and real root-run logs"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "用户实体设备/全自然路线",
+    "当前精确head完整CI与正式Web部署待执行"
+  ]
+}

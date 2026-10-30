@@ -1,0 +1,15 @@
+import asyncio,json
+from pathlib import Path
+from playwright.async_api import async_playwright
+OUT=Path('/workspace/scratch/mobile-ui-mask-probe')
+async def main():
+ async with async_playwright() as p:
+  browser=await p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  page=await browser.new_page(viewport={'width':853,'height':290},device_scale_factor=2.5,is_mobile=True,has_touch=True);logs=[]
+  page.on('console',lambda m:logs.append(m.type+':'+m.text));page.on('pageerror',lambda e:logs.append('PAGE ERROR:'+str(e)))
+  try:
+   await page.goto('http://127.0.0.1:8801/',wait_until='domcontentloaded');await page.wait_for_function('window.PROBE_RESULT!=null',timeout=180000)
+   result=await page.evaluate('window.PROBE_RESULT');(OUT/'result.json').write_text(json.dumps(result,indent=2));await page.screenshot(path=str(OUT/'mask.png'));print(result,flush=True);assert result['pass']
+  finally:
+   (OUT/'browser.log').write_text('\n'.join(logs));await browser.close()
+asyncio.run(main())

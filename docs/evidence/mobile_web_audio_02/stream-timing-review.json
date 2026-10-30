@@ -1,0 +1,863 @@
+{
+  "task": "MOBILE-WEB-AUDIO-02",
+  "review_id": "stream-timing-windowed-evidence-01",
+  "reviewed_at_utc": "2026-10-29T16:13:16.117615+00:00",
+  "reviewer": "review_mobile_ui, independent reanalysis of root-run runtime evidence",
+  "independence_boundary": "I authored instrument_stream_timing.py and stream_timing_observer.js. Their13/0 Node and3 syntax checks remain author self-tests; this receipt does not independently approve or independently validate those tools. Only arithmetic, sampling-window selection, reported state/clock distinctions, production menu semantics and bounded inference from root-run reports are independently reviewed. No Godot/browser execution.",
+  "verdict": "ACCEPT_WINDOWED_EVIDENCE_ONLY; PHONE_AND_THREADED_FIX_UNVERIFIED",
+  "reviewed_runtime_source_from_colocated_manifest": {
+    "build_id": "1d3791a7c290",
+    "pack": "index.1d3791a7c290.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "34c54d5a04ef",
+    "pack_bytes": 208700940,
+    "download_bytes": 205569840,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+  },
+  "runtime_identity_limit": "The original report files do not embed executed response hashes or build_info. Their timing-v1 data, selected SFX snapshot and colocated prepared manifest identify the intended selected-SFX diagnostic context; listed artifact hashes are current files, not newly verified historical HTTP response bytes.",
+  "evidence_sha256": {
+    "build/mobile_web_audio_followup_02/timing-ab-01/50/report.json": "d42cc6da4d61bb6340f6fc9062344103f82538886ac69b7b6a9ded0e8ff24eab",
+    "build/mobile_web_audio_followup_02/timing-ab-01/50/browser.log": "8a9287a81a45cdb0f85784e08b8ca1eb9347fa6f9d592a6cec7096a63c516fb7",
+    "build/mobile_web_audio_followup_02/timing-ab-01/200/report.json": "7ce685209587a7b268338bb7d746d26340809bfdde1eb7d3c5a3583a2b9ec178",
+    "build/mobile_web_audio_followup_02/timing-ab-01/200/browser.log": "8a9287a81a45cdb0f85784e08b8ca1eb9347fa6f9d592a6cec7096a63c516fb7",
+    "build/web/audio-stream-diagnostic.json": "900f4a8efbcf4bafdf12503f57a44314bde55960ae84782dcf5f71f317c2d658",
+    "build/web/stream-timing-receipt.json": "ba4f2069334b816666510d03fbf55deae3876f98b70b418c0511d9abb2a0aa63",
+    "build/web/audio-stream-test.html": "e7f1aa484b2f1befb157e7c7a962c3e3aa54cc2cf1d2a067d1f838e9edfba661",
+    "tools/mobile_web_perf/instrument_stream_timing.py": "e42431f666ff1f2765256e2f123251a9d0ef4024460238cf6bab1f599628549d",
+    "tools/mobile_web_perf/stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da",
+    "tools/mobile_web_perf/run_stream_diagnostic.py": "e528a6edfd8add7f773454aadeb6a089c9bbecc08bc3cd6dbc3e3daf2d1ff064",
+    "scripts/demo/demo_app.gd": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9"
+  },
+  "derived_engine_sha256_from_manifest": {
+    "stream-timing-receipt.json": "ba4f2069334b816666510d03fbf55deae3876f98b70b418c0511d9abb2a0aa63",
+    "stream_timing_observer.js": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da",
+    "audio-stream-diagnostic.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "audio-stream-diagnostic.audio.worklet.js": "3045f1f1ffe2e35b0c59fc13a35ed211651d6c09498eb7386b32c5ca847f03a9",
+    "audio-stream-diagnostic.wasm": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522",
+    "audio-stream-diagnostic.js": "3c1cd3fafbe52ec60b54faa3829dfb78e0578bd2e3eb3a7e33046d27369cc5b8"
+  },
+  "method": {
+    "timing_row_window": "Each original before.at→after.at; filter completed row.main_receive_ms within inclusive bounds. No startup cumulative timing summaries. Request-before-window and ACK-after-window counts explicitly reported.",
+    "percentiles": "Nearest rank ceil(n*q), on window-filtered retained samples; small n especially6 means P95=max and is unstable.",
+    "longtasks": "Clip every delivered interval to wall window and take interval union; compare retained coverage and sampled estimated request-wait overlap.",
+    "counter_and_pcm": "Subtract before/after counters and PCM blocks, report their own frame coverage/telemetry age independently from timing-row wall windows."
+  },
+  "windows": [
+    {
+      "requested_latency_ms": 50,
+      "phase": "Home active",
+      "phase_label_in_report": "game",
+      "window_performance_ms": [
+        97164,
+        107239.30000000075
+      ],
+      "window_wall_seconds": 10.075300000000745,
+      "timing_snapshot_performance_ms": 107247.30000000075,
+      "row_filter": "before.at <= main_receive_ms <= after.at; only completed rows in after.timing.rows; never cumulative startup summaries",
+      "completed_rows": 11,
+      "sequences": [
+        449,
+        481,
+        513,
+        545,
+        577,
+        609,
+        641,
+        673,
+        705,
+        737,
+        769
+      ],
+      "acks_after_window": 0,
+      "estimated_requests_before_window": 1,
+      "timing_ms_nearest_rank": {
+        "worklet_to_main_ms_estimate": {
+          "n": 11,
+          "p50": 473.106576,
+          "p95": 769.160998,
+          "min": 5.804989,
+          "max": 769.160998
+        },
+        "mix_sync_ms": {
+          "n": 11,
+          "p50": 0.3,
+          "p95": 1.7,
+          "min": 0,
+          "max": 1.7
+        },
+        "chunk_post_ms": {
+          "n": 11,
+          "p50": 0.1,
+          "p95": 0.2,
+          "min": 0,
+          "max": 0.2
+        },
+        "roundtrip_audio_ms": {
+          "n": 11,
+          "p50": 476.00907,
+          "p95": 769.160998,
+          "min": 14.512472,
+          "max": 769.160998
+        },
+        "post_to_worklet_ms_estimate": {
+          "n": 11,
+          "p50": 0,
+          "p95": 11.609977,
+          "min": 0,
+          "max": 11.609977
+        },
+        "ack_return_queue_audio_ms_estimate": {
+          "n": 11,
+          "p50": 258.321995,
+          "p95": 737.23356,
+          "min": 0.0,
+          "max": 737.23356
+        },
+        "chunk_post_end_to_main_ack_wall_ms": {
+          "n": 11,
+          "p50": 289.5,
+          "p95": 795.1,
+          "min": 0.6,
+          "max": 795.1
+        },
+        "post_mix_copy_to_post_ms": {
+          "n": 11,
+          "p50": 0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "all_sampled_mix_post_write_succeeded": true,
+      "request_wait_exceeds_full_ring_budget": 10,
+      "long_tasks": {
+        "observing": "observing",
+        "overlapping_count": 28,
+        "duration_ms_nearest_rank": {
+          "n": 28,
+          "p50": 289,
+          "p95": 493,
+          "min": 65,
+          "max": 687
+        },
+        "union_clipped_to_window_ms": 9571.0,
+        "recorded_window_coverage_fraction": 0.9499468998441031,
+        "retained_start_ms": 220.30000000074506,
+        "latest_delivered_end_ms": 107237.80000000075,
+        "request_wait_with_positive_longtask_overlap": 10,
+        "request_wait_coverage_fraction_nearest_rank": {
+          "n": 11,
+          "p50": 0.990135,
+          "p95": 0.995749,
+          "min": 0.0,
+          "max": 0.995749
+        },
+        "limit": "Asynchronously delivered LongTask entries can omit the just-finished callback at snapshot end; coverage is recorded coverage, not proof that remaining time was idle."
+      },
+      "raf_callbacks": {
+        "count_starting_in_window": 28,
+        "duration_ms_nearest_rank": {
+          "n": 28,
+          "p50": 288.8,
+          "p95": 491.6,
+          "min": 63.8,
+          "max": 680.3
+        },
+        "retained_start_ms": 53449.5,
+        "retained_end_ms": 107224.69999999925,
+        "limit": "Callback count is not measured FPS. Envelope includes all synchronous work/submission in callback, cannot attribute GPU, renderer, physics or decoder separately."
+      },
+      "stream_counter_delta": {
+        "total_requested_frames": 434304,
+        "read_frames": 45184,
+        "underrun_frames": 389120,
+        "total_requested_blocks": 3393,
+        "read_blocks": 353,
+        "underrun_blocks": 3040,
+        "total_requested_samples": 868608,
+        "read_samples": 90368,
+        "underrun_samples": 778240,
+        "underrun_fraction": 0.8959622752726201,
+        "sample_rate": 44100,
+        "channels": 2,
+        "ring_capacity_samples": 4096,
+        "ring_capacity_audio_ms": 46.439909297052154,
+        "counter_observed_audio_seconds": 9.848163265306123,
+        "first_observed_audio_end_frame": 1260160,
+        "last_observed_audio_end_frame": 1694464,
+        "received_counter_age_at_snapshot_ms": [
+          8.199999999254942,
+          257.70000000298023
+        ],
+        "frame_sample_block_partition_invariants": "PASS",
+        "limit": "Exact branch counts over the two latest received counter snapshots, with delayed telemetry delivery; not exact before.at/after.at wall coverage or hardware output."
+      },
+      "pcm_meter_delta": {
+        "blocks": 3395,
+        "exact_zero_blocks": 3027,
+        "exact_zero_fraction": 0.8916053019145803,
+        "received_meter_age_ms": [
+          0.8000000007450581,
+          0.4000000022351742
+        ],
+        "clipping_samples_after": 0,
+        "limit": "Mixed direct-destination fan-out PCM; intentional silence and concurrent SAMPLE output prevent equating zero blocks to STREAM underruns. Not acoustic recording or selected-cue attribution."
+      },
+      "state": {
+        "tree_paused_before": false,
+        "tree_paused_after": false,
+        "home_input_blocked_before": false,
+        "home_input_blocked_after": false,
+        "active_context": "home",
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "selected_imports_verified": 11,
+        "sfx_configurations": 1
+      },
+      "telemetry_health": {
+        "pending_at_after_snapshot": 0,
+        "unmatched_acks": 0,
+        "pending_evicted": 0,
+        "audio_probe_errors": []
+      }
+    },
+    {
+      "requested_latency_ms": 50,
+      "phase": "Home navigation menu, not tree pause",
+      "phase_label_in_report": "menu",
+      "window_performance_ms": [
+        113189.19999999925,
+        124184
+      ],
+      "window_wall_seconds": 10.994800000000746,
+      "timing_snapshot_performance_ms": 124190.69999999925,
+      "row_filter": "before.at <= main_receive_ms <= after.at; only completed rows in after.timing.rows; never cumulative startup summaries",
+      "completed_rows": 6,
+      "sequences": [
+        961,
+        993,
+        1025,
+        1057,
+        1089,
+        1121
+      ],
+      "acks_after_window": 0,
+      "estimated_requests_before_window": 0,
+      "timing_ms_nearest_rank": {
+        "worklet_to_main_ms_estimate": {
+          "n": 6,
+          "p50": 769.160998,
+          "p95": 1648.61678,
+          "min": 14.512472,
+          "max": 1648.61678
+        },
+        "mix_sync_ms": {
+          "n": 6,
+          "p50": 1.4,
+          "p95": 14.9,
+          "min": 0.1,
+          "max": 14.9
+        },
+        "chunk_post_ms": {
+          "n": 6,
+          "p50": 0,
+          "p95": 0.1,
+          "min": 0,
+          "max": 0.1
+        },
+        "roundtrip_audio_ms": {
+          "n": 6,
+          "p50": 780.770975,
+          "p95": 1648.61678,
+          "min": 14.512472,
+          "max": 1648.61678
+        },
+        "post_to_worklet_ms_estimate": {
+          "n": 6,
+          "p50": 0,
+          "p95": 8.707483,
+          "min": 0,
+          "max": 8.707483
+        },
+        "ack_return_queue_audio_ms_estimate": {
+          "n": 6,
+          "p50": 490.521542,
+          "p95": 670.47619,
+          "min": 380.226757,
+          "max": 670.47619
+        },
+        "chunk_post_end_to_main_ack_wall_ms": {
+          "n": 6,
+          "p50": 550.9,
+          "p95": 673.0,
+          "min": 426.5,
+          "max": 673.0
+        },
+        "post_mix_copy_to_post_ms": {
+          "n": 6,
+          "p50": 0.0,
+          "p95": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "all_sampled_mix_post_write_succeeded": true,
+      "request_wait_exceeds_full_ring_budget": 5,
+      "long_tasks": {
+        "observing": "observing",
+        "overlapping_count": 17,
+        "duration_ms_nearest_rank": {
+          "n": 17,
+          "p50": 561,
+          "p95": 1305,
+          "min": 375,
+          "max": 1305
+        },
+        "union_clipped_to_window_ms": 10825.0,
+        "recorded_window_coverage_fraction": 0.9845563357222747,
+        "retained_start_ms": 220.30000000074506,
+        "latest_delivered_end_ms": 124182.69999999925,
+        "request_wait_with_positive_longtask_overlap": 6,
+        "request_wait_coverage_fraction_nearest_rank": {
+          "n": 6,
+          "p50": 0.989567,
+          "p95": 0.998953,
+          "min": 0.062875,
+          "max": 0.998953
+        },
+        "limit": "Asynchronously delivered LongTask entries can omit the just-finished callback at snapshot end; coverage is recorded coverage, not proof that remaining time was idle."
+      },
+      "raf_callbacks": {
+        "count_starting_in_window": 17,
+        "duration_ms_nearest_rank": {
+          "n": 17,
+          "p50": 560.9,
+          "p95": 1289.3,
+          "min": 368.6,
+          "max": 1289.3
+        },
+        "retained_start_ms": 53716,
+        "retained_end_ms": 124182.89999999851,
+        "limit": "Callback count is not measured FPS. Envelope includes all synchronous work/submission in callback, cannot attribute GPU, renderer, physics or decoder separately."
+      },
+      "stream_counter_delta": {
+        "total_requested_frames": 389760,
+        "read_frames": 22144,
+        "underrun_frames": 367616,
+        "total_requested_blocks": 3045,
+        "read_blocks": 173,
+        "underrun_blocks": 2872,
+        "total_requested_samples": 779520,
+        "read_samples": 44288,
+        "underrun_samples": 735232,
+        "underrun_fraction": 0.9431855500821018,
+        "sample_rate": 44100,
+        "channels": 2,
+        "ring_capacity_samples": 4096,
+        "ring_capacity_audio_ms": 46.439909297052154,
+        "counter_observed_audio_seconds": 8.838095238095239,
+        "first_observed_audio_end_frame": 1928320,
+        "last_observed_audio_end_frame": 2318080,
+        "received_counter_age_at_snapshot_ms": [
+          497.80000000074506,
+          1045.199999999255
+        ],
+        "frame_sample_block_partition_invariants": "PASS",
+        "limit": "Exact branch counts over the two latest received counter snapshots, with delayed telemetry delivery; not exact before.at/after.at wall coverage or hardware output."
+      },
+      "pcm_meter_delta": {
+        "blocks": 3080,
+        "exact_zero_blocks": 2902,
+        "exact_zero_fraction": 0.9422077922077922,
+        "received_meter_age_ms": [
+          0.5,
+          495.5
+        ],
+        "clipping_samples_after": 0,
+        "limit": "Mixed direct-destination fan-out PCM; intentional silence and concurrent SAMPLE output prevent equating zero blocks to STREAM underruns. Not acoustic recording or selected-cue attribution."
+      },
+      "state": {
+        "tree_paused_before": false,
+        "tree_paused_after": false,
+        "home_input_blocked_before": true,
+        "home_input_blocked_after": true,
+        "active_context": "home",
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "selected_imports_verified": 11,
+        "sfx_configurations": 1
+      },
+      "telemetry_health": {
+        "pending_at_after_snapshot": 0,
+        "unmatched_acks": 0,
+        "pending_evicted": 0,
+        "audio_probe_errors": []
+      }
+    },
+    {
+      "requested_latency_ms": 200,
+      "phase": "Home active",
+      "phase_label_in_report": "game",
+      "window_performance_ms": [
+        120431.5,
+        130726
+      ],
+      "window_wall_seconds": 10.2945,
+      "timing_snapshot_performance_ms": 130736.10000000149,
+      "row_filter": "before.at <= main_receive_ms <= after.at; only completed rows in after.timing.rows; never cumulative startup summaries",
+      "completed_rows": 45,
+      "sequences": [
+        1537,
+        1569,
+        1601,
+        1633,
+        1665,
+        1697,
+        1729,
+        1761,
+        1793,
+        1825,
+        1857,
+        1889,
+        1921,
+        1953,
+        1985,
+        2017,
+        2049,
+        2081,
+        2113,
+        2145,
+        2177,
+        2209,
+        2241,
+        2273,
+        2305,
+        2337,
+        2369,
+        2401,
+        2433,
+        2465,
+        2497,
+        2529,
+        2561,
+        2593,
+        2625,
+        2657,
+        2689,
+        2721,
+        2753,
+        2785,
+        2817,
+        2849,
+        2881,
+        2913,
+        2945
+      ],
+      "acks_after_window": 0,
+      "estimated_requests_before_window": 2,
+      "timing_ms_nearest_rank": {
+        "worklet_to_main_ms_estimate": {
+          "n": 45,
+          "p50": 397.641723,
+          "p95": 499.229025,
+          "min": 127.709751,
+          "max": 516.643991
+        },
+        "mix_sync_ms": {
+          "n": 45,
+          "p50": 0.2,
+          "p95": 5.2,
+          "min": 0,
+          "max": 15
+        },
+        "chunk_post_ms": {
+          "n": 45,
+          "p50": 0.1,
+          "p95": 0.5,
+          "min": 0,
+          "max": 2.6
+        },
+        "roundtrip_audio_ms": {
+          "n": 45,
+          "p50": 397.641723,
+          "p95": 499.229025,
+          "min": 127.709751,
+          "max": 516.643991
+        },
+        "post_to_worklet_ms_estimate": {
+          "n": 45,
+          "p50": 0,
+          "p95": 11.609977,
+          "min": 0,
+          "max": 11.609977
+        },
+        "ack_return_queue_audio_ms_estimate": {
+          "n": 45,
+          "p50": 240.907029,
+          "p95": 531.156463,
+          "min": 11.609977,
+          "max": 539.863946
+        },
+        "chunk_post_end_to_main_ack_wall_ms": {
+          "n": 45,
+          "p50": 249.6,
+          "p95": 535.8,
+          "min": 22.7,
+          "max": 555.0
+        },
+        "post_mix_copy_to_post_ms": {
+          "n": 45,
+          "p50": 0.0,
+          "p95": 0.1,
+          "min": 0.0,
+          "max": 4.2
+        }
+      },
+      "all_sampled_mix_post_write_succeeded": true,
+      "request_wait_exceeds_full_ring_budget": 42,
+      "long_tasks": {
+        "observing": "observing",
+        "overlapping_count": 39,
+        "duration_ms_nearest_rank": {
+          "n": 39,
+          "p50": 231,
+          "p95": 287,
+          "min": 186,
+          "max": 303
+        },
+        "union_clipped_to_window_ms": 9245.0,
+        "recorded_window_coverage_fraction": 0.8980523580552723,
+        "retained_start_ms": 166.5,
+        "latest_delivered_end_ms": 130470.5,
+        "request_wait_with_positive_longtask_overlap": 45,
+        "request_wait_coverage_fraction_nearest_rank": {
+          "n": 45,
+          "p50": 0.939556,
+          "p95": 0.986019,
+          "min": 0.769192,
+          "max": 0.988375
+        },
+        "limit": "Asynchronously delivered LongTask entries can omit the just-finished callback at snapshot end; coverage is recorded coverage, not proof that remaining time was idle."
+      },
+      "raf_callbacks": {
+        "count_starting_in_window": 40,
+        "duration_ms_nearest_rank": {
+          "n": 40,
+          "p50": 228,
+          "p95": 272.9,
+          "min": 186.4,
+          "max": 302.2
+        },
+        "retained_start_ms": 74163.89999999851,
+        "retained_end_ms": 130725.39999999851,
+        "limit": "Callback count is not measured FPS. Envelope includes all synchronous work/submission in callback, cannot attribute GPU, renderer, physics or decoder separately."
+      },
+      "stream_counter_delta": {
+        "total_requested_frames": 423168,
+        "read_frames": 187904,
+        "underrun_frames": 235264,
+        "total_requested_blocks": 3306,
+        "read_blocks": 1468,
+        "underrun_blocks": 1838,
+        "total_requested_samples": 846336,
+        "read_samples": 375808,
+        "underrun_samples": 470528,
+        "underrun_fraction": 0.5559588626739262,
+        "sample_rate": 44100,
+        "channels": 2,
+        "ring_capacity_samples": 16384,
+        "ring_capacity_audio_ms": 185.75963718820861,
+        "counter_observed_audio_seconds": 9.595646258503402,
+        "first_observed_audio_end_frame": 1324800,
+        "last_observed_audio_end_frame": 1747968,
+        "received_counter_age_at_snapshot_ms": [
+          38.69999999925494,
+          462.6000000014901
+        ],
+        "frame_sample_block_partition_invariants": "PASS",
+        "limit": "Exact branch counts over the two latest received counter snapshots, with delayed telemetry delivery; not exact before.at/after.at wall coverage or hardware output."
+      },
+      "pcm_meter_delta": {
+        "blocks": 3395,
+        "exact_zero_blocks": 1922,
+        "exact_zero_fraction": 0.5661266568483063,
+        "received_meter_age_ms": [
+          35.80000000074506,
+          253
+        ],
+        "clipping_samples_after": 0,
+        "limit": "Mixed direct-destination fan-out PCM; intentional silence and concurrent SAMPLE output prevent equating zero blocks to STREAM underruns. Not acoustic recording or selected-cue attribution."
+      },
+      "state": {
+        "tree_paused_before": false,
+        "tree_paused_after": false,
+        "home_input_blocked_before": false,
+        "home_input_blocked_after": false,
+        "active_context": "home",
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "selected_imports_verified": 11,
+        "sfx_configurations": 1
+      },
+      "telemetry_health": {
+        "pending_at_after_snapshot": 1,
+        "unmatched_acks": 0,
+        "pending_evicted": 0,
+        "audio_probe_errors": []
+      }
+    },
+    {
+      "requested_latency_ms": 200,
+      "phase": "Home navigation menu, not tree pause",
+      "phase_label_in_report": "menu",
+      "window_performance_ms": [
+        135097.69999999925,
+        145425.6000000015
+      ],
+      "window_wall_seconds": 10.327900000002234,
+      "timing_snapshot_performance_ms": 145440.69999999925,
+      "row_filter": "before.at <= main_receive_ms <= after.at; only completed rows in after.timing.rows; never cumulative startup summaries",
+      "completed_rows": 34,
+      "sequences": [
+        3521,
+        3553,
+        3585,
+        3617,
+        3649,
+        3681,
+        3713,
+        3745,
+        3777,
+        3809,
+        3841,
+        3873,
+        3905,
+        3937,
+        3969,
+        4001,
+        4033,
+        4065,
+        4097,
+        4129,
+        4161,
+        4193,
+        4225,
+        4257,
+        4289,
+        4321,
+        4353,
+        4385,
+        4417,
+        4449,
+        4481,
+        4513,
+        4545,
+        4577
+      ],
+      "acks_after_window": 0,
+      "estimated_requests_before_window": 1,
+      "timing_ms_nearest_rank": {
+        "worklet_to_main_ms_estimate": {
+          "n": 34,
+          "p50": 542.76644,
+          "p95": 638.548753,
+          "min": 226.394558,
+          "max": 650.15873
+        },
+        "mix_sync_ms": {
+          "n": 34,
+          "p50": 0.1,
+          "p95": 4.2,
+          "min": 0,
+          "max": 4.3
+        },
+        "chunk_post_ms": {
+          "n": 34,
+          "p50": 0.1,
+          "p95": 0.2,
+          "min": 0,
+          "max": 0.3
+        },
+        "roundtrip_audio_ms": {
+          "n": 34,
+          "p50": 542.76644,
+          "p95": 638.548753,
+          "min": 235.102041,
+          "max": 650.15873
+        },
+        "post_to_worklet_ms_estimate": {
+          "n": 34,
+          "p50": 0,
+          "p95": 11.609977,
+          "min": 0,
+          "max": 11.609977
+        },
+        "ack_return_queue_audio_ms_estimate": {
+          "n": 34,
+          "p50": 319.274376,
+          "p95": 629.84127,
+          "min": 40.634921,
+          "max": 650.15873
+        },
+        "chunk_post_end_to_main_ack_wall_ms": {
+          "n": 34,
+          "p50": 318.6,
+          "p95": 656.6,
+          "min": 48.5,
+          "max": 688.0
+        },
+        "post_mix_copy_to_post_ms": {
+          "n": 34,
+          "p50": 0.0,
+          "p95": 0.1,
+          "min": 0.0,
+          "max": 0.1
+        }
+      },
+      "all_sampled_mix_post_write_succeeded": true,
+      "request_wait_exceeds_full_ring_budget": 34,
+      "long_tasks": {
+        "observing": "observing",
+        "overlapping_count": 31,
+        "duration_ms_nearest_rank": {
+          "n": 31,
+          "p50": 299,
+          "p95": 363,
+          "min": 265,
+          "max": 373
+        },
+        "union_clipped_to_window_ms": 9439.0,
+        "recorded_window_coverage_fraction": 0.9139321643313701,
+        "retained_start_ms": 34109.199999999255,
+        "latest_delivered_end_ms": 145095.6000000015,
+        "request_wait_with_positive_longtask_overlap": 34,
+        "request_wait_coverage_fraction_nearest_rank": {
+          "n": 34,
+          "p50": 0.961977,
+          "p95": 0.978841,
+          "min": 0.872788,
+          "max": 0.986157
+        },
+        "limit": "Asynchronously delivered LongTask entries can omit the just-finished callback at snapshot end; coverage is recorded coverage, not proof that remaining time was idle."
+      },
+      "raf_callbacks": {
+        "count_starting_in_window": 32,
+        "duration_ms_nearest_rank": {
+          "n": 32,
+          "p50": 295.5,
+          "p95": 361.9,
+          "min": 261.3,
+          "max": 368.9
+        },
+        "retained_start_ms": 74549.69999999925,
+        "retained_end_ms": 145407.1000000015,
+        "limit": "Callback count is not measured FPS. Envelope includes all synchronous work/submission in callback, cannot attribute GPU, renderer, physics or decoder separately."
+      },
+      "stream_counter_delta": {
+        "total_requested_frames": 445440,
+        "read_frames": 148736,
+        "underrun_frames": 296704,
+        "total_requested_blocks": 3480,
+        "read_blocks": 1162,
+        "underrun_blocks": 2318,
+        "total_requested_samples": 890880,
+        "read_samples": 297472,
+        "underrun_samples": 593408,
+        "underrun_fraction": 0.6660919540229885,
+        "sample_rate": 44100,
+        "channels": 2,
+        "ring_capacity_samples": 16384,
+        "ring_capacity_audio_ms": 185.75963718820861,
+        "counter_observed_audio_seconds": 10.100680272108843,
+        "first_observed_audio_end_frame": 1937280,
+        "last_observed_audio_end_frame": 2382720,
+        "received_counter_age_at_snapshot_ms": [
+          7.899999998509884,
+          280.1000000014901
+        ],
+        "frame_sample_block_partition_invariants": "PASS",
+        "limit": "Exact branch counts over the two latest received counter snapshots, with delayed telemetry delivery; not exact before.at/after.at wall coverage or hardware output."
+      },
+      "pcm_meter_delta": {
+        "blocks": 3360,
+        "exact_zero_blocks": 2272,
+        "exact_zero_fraction": 0.6761904761904762,
+        "received_meter_age_ms": [
+          0.3999999985098839,
+          313.0
+        ],
+        "clipping_samples_after": 0,
+        "limit": "Mixed direct-destination fan-out PCM; intentional silence and concurrent SAMPLE output prevent equating zero blocks to STREAM underruns. Not acoustic recording or selected-cue attribution."
+      },
+      "state": {
+        "tree_paused_before": false,
+        "tree_paused_after": false,
+        "home_input_blocked_before": true,
+        "home_input_blocked_after": true,
+        "active_context": "home",
+        "selected_sfx_valid": true,
+        "audio_profile": "selected",
+        "selected_imports_verified": 11,
+        "sfx_configurations": 1
+      },
+      "telemetry_health": {
+        "pending_at_after_snapshot": 1,
+        "unmatched_acks": 0,
+        "pending_evicted": 0,
+        "audio_probe_errors": []
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "TIMING-01",
+      "level": "observed, conditional on instrumenter correctness",
+      "result": "In these single-threaded cloud SwiftShader runs, request dispatch waits dominate sampled read→chunk-arrival latency. Home request waits P50/P95:50ms arm473.107/769.161ms;200ms arm397.642/499.229ms. Corresponding synchronous out_callback P50/P95=.3/1.7ms and.2/5.2ms; chunk post=.1/.2ms and.1/.5ms. This places the observed sampled critical delay before callback execution, not in measured synchronous mixing or postMessage."
+    },
+    {
+      "id": "TIMING-02",
+      "level": "observed clock distinction",
+      "result": "ACK reaches main hundreds of milliseconds after chunk already arrived at Worklet. Its P50 estimated return-queue waits258.322ms/240.907ms in Home are separate telemetry delivery delay, not chunk transport or additional audio starvation on that already-arrived chunk. Actual post→Worklet estimate P95≤11.610ms in all four windows."
+    },
+    {
+      "id": "TIMING-03",
+      "level": "strong supported mechanism in this diagnostic host, not isolated profiler attribution",
+      "result": "Delivered LongTasks cover94.995%/89.805% of Home windows and98.456%/91.393% of Home-menu windows, with long RAF envelopes.10/11 and42/45 Home sampled request waits exceed the full46.440/185.760ms ring budgets;5/6 and34/34 in menus do too. Main-event-loop occupancy delaying STREAM refill is strongly supported here. Renderer/GPU vs physics/game-script vs other synchronous callback contribution is not separated."
+    },
+    {
+      "id": "TIMING-04",
+      "level": "confirmed production/state limitation",
+      "path": "scripts/demo/demo_app.gd:1498",
+      "result": "_open_home_navigation only blocks Home input and opens navigation; it never sets SceneTree.paused. Reports have tree_paused=false in every active/menu snapshot, and input_blocked toggles false→true. Home-menu worsening does not reproduce or refute the user report that actual in-run pause has normal audio. Home codex separately pauses at1522; in-run pause is a different consumer."
+    },
+    {
+      "id": "TIMING-05",
+      "level": "bounded counter/PCM consistency",
+      "result": "All frame/sample/block before→after partitions are internally consistent; no unmatched ACK or pending eviction, all retained sampled mix/post/write operations succeed.200ms has one pending sample at each final snapshot, so completed-only samples have right-censoring. Meter zeros track the broad starvation pattern but cannot serve as exact underrun counts or proof of any selected cue/hardware sound."
+    }
+  ],
+  "limitations": [
+    "Instrumenter is my implementation: author self-tests cannot count as independent instrumentation acceptance. Conclusions are conditional on that diagnostic implementation, plus independent numerical/state reanalysis here.",
+    "Only one cloud run per latency; samples are deterministic1/32 successful reads, not random or all requests. Short/long outliers and unsampled mixing spikes can be missed; sampled small mixing time does not prove decoder never stalls.",
+    "AudioContext/currentFrame differences are render-quantized estimates on an audio clock, not exact wall scheduling latency; hundreds-of-ms waits are much larger than the≈2.902ms render quantum. Do not describe the callback span as decoder-only cost.",
+    "before/after latest delivered counters span8.838–10.101 audio seconds rather than exactly10.075–10.995 wall seconds; main telemetry delay is material, reaching1045.2ms in50ms menu. Ratios report the counter-covered interval only.",
+    "LongTask delivery is asynchronous and record limits are bounded; delivered retained windows cover the measurement start but may miss the last completed long task. No-overlap/remaining time is not proof of idle.",
+    "Additional counter/timing/RAF/LongTask and existing PCM/source observers add overhead; these are instrumented diagnosis results, not clean production baselines.",
+    "Both browser logs retain an unattributed404 and contain single-threaded engine configuration. No SCRIPT/SHADER/PAGE error is shown; the404 resource cannot be identified from these reports alone.",
+    "Selected SFX snapshots validate the14-event profile and11 imports, with only UI click event visible here. These Home timings do not independently prove selected pulse/natural combat audibility or all BGM.",
+    "This is neither physical Honor60Pro/Chrome FPS nor phone speaker evidence. It does not establish that audio and animation share the same phone bottleneck.",
+    "No threaded run is reviewed here; moving audio work off main is a mechanism-compatible candidate, not a signed solution. Root is separately running actual threaded Home/Plains; phone and listening validation remain pending."
+  ],
+  "pending": [
+    "Independent review of authored timing instrumentation if required for stronger causal acceptance",
+    "Separate actual in-run paused/unpaused consumer, not Home navigation menu",
+    "Threaded vs single-thread same-content/control evidence under the real scene, reported with their audio pipeline differences",
+    "Actual phone matched fresh-page audio/underrun observations and user listening; no fix claim until evidence"
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "status": "static_review_complete_no_proven_progressive_audio_resource_leak",
+  "latest_user_scope": {
+    "entry": "ordinary public playtest homepage; not audio-threaded",
+    "reported": "Picture and controls remain smooth; only audio stutters; initially lighter, gradually worse; background audio improves. Menu lighter but not perfect.",
+    "consequence": "This is not a physical-phone threaded failure. No repeated phone/threaded/GPU acceptance is inferred."
+  },
+  "review_scope": "Read-only source/lifecycle audit. No production/tool changes, no Godot/browser execution, no long-duration or heap/GC measurement. Only this new evidence JSON written.",
+  "source_commit_at_review": "638235313a39fdf3bbb42aac2d1d112dfa05ea35",
+  "formal_build_info": {
+    "build_id": "1d3791a7c290",
+    "pack": "index.1d3791a7c290.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "34c54d5a04ef",
+    "pack_bytes": 208700940,
+    "download_bytes": 205569840,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+  },
+  "source_fingerprints": [
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "bytes": 21353,
+      "sha256": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e"
+    },
+    {
+      "path": "scripts/audio/game_music.gd",
+      "bytes": 4756,
+      "sha256": "6fe57ccecc3c68b5a9551f140bba5f50705a7276efd776453ff3c7b42499f3ed"
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "bytes": 13158,
+      "sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48"
+    },
+    {
+      "path": "scripts/audio/selected_ambience_runtime.gd",
+      "bytes": 15228,
+      "sha256": "a437c019dd5eaf4eefc507f43a93a76b65cd8fb272137e9b1ec322ce24f59955"
+    },
+    {
+      "path": "scripts/audio/home_ambience_audition.gd",
+      "bytes": 12458,
+      "sha256": "2207bce7b2ea5e48484d2adb32cd617d72b305d6975fb9e63bf04cc8d979f4b4"
+    },
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd",
+      "bytes": 11983,
+      "sha256": "1a7e5d78300be7b9e60def936556a8b377662d82d95de57386494f6e3d0cb8a9"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/motion_audio.gd",
+      "bytes": 3239,
+      "sha256": "20f4faccb49855c8c67a9f7b26d19a3f89a1cc775283be6fd00393445fea06d0"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+      "bytes": 1530,
+      "sha256": "4424bf4ba445e54bba31a5962af5478f556ecca08acfc1448cc10fcee8f02ef4"
+    },
+    {
+      "path": "scripts/dev/player_presentation_01/weapon_audio.gd",
+      "bytes": 3293,
+      "sha256": "8118801ba8d7b9c8a1fa770e0209307aa1b92611907f4ab6d53b9c9a3ad27577"
+    },
+    {
+      "path": "tools/mobile_web_perf/audio_probe.js",
+      "bytes": 15536,
+      "sha256": "8e8b8b0a50077f20f26c8ae7bef70d6940db9ff38f1d6368966afd224102bed4"
+    },
+    {
+      "path": "tools/mobile_web_perf/audio_graph_probe.js",
+      "bytes": 20431,
+      "sha256": "ac6be233bc05d21e1753cc05fcbfd14b14d4aa9ec714173b6c2ef77066ddca72"
+    },
+    {
+      "path": "tools/mobile_web_perf/stream_timing_observer.js",
+      "bytes": 7875,
+      "sha256": "954b6369c1b99ca83db8cd2bcc2f513cf56a8e61dc705aa983ee17385f5024da"
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_threaded_diagnostic.py",
+      "bytes": 36988,
+      "sha256": "ec9261e7a5148a39f4fbc4f54d70f43504cfd396f8337d1b0318d8310c2a39e7"
+    },
+    {
+      "path": "build/web/index.html",
+      "bytes": 10554,
+      "sha256": "4fc7ddd7a597686546714d11be237371ebd7d0836eac1e891e87be1d5bac627a"
+    },
+    {
+      "path": "build/web/audio-threaded/index.html",
+      "bytes": 10534,
+      "sha256": "cc6080f3d7071a92239c35ed5c75d946fd29f800f09d05d7dbac01e98cb779e0"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.js",
+      "bytes": 315645,
+      "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+    },
+    {
+      "path": "build/web/audio-threaded/official-threaded.js",
+      "bytes": 358342,
+      "sha256": "d33389d55f0af0cddee0b8495cbb3a6cad6beadd005fc52e39864019feb79657"
+    }
+  ],
+  "entry_boundaries": [
+    {
+      "entry": "ordinary / without audio_probe=1",
+      "JS_observers": false,
+      "GDS_snapshot_serialization": false,
+      "evidence": [
+        "build/web/index.html:95",
+        "scripts/audio/selected_ambience_runtime.gd:261",
+        "scripts/audio/selected_sfx_runtime.gd:191"
+      ],
+      "note": "Standard HTML does not load audio_probe.js, shared-observer.js, stream_timing_observer.js or graph probe. Runtime selected assembly/context tracking still operates."
+    },
+    {
+      "entry": "ordinary /?audio_probe=1",
+      "JS_observers": false,
+      "GDS_snapshot_serialization": true,
+      "note": "Query enables ambience snapshots at most4Hz and selectedSFX snapshot at1Hz. It does not itself inject the browser audio/graph observer."
+    },
+    {
+      "entry": "audio-threaded/?audio_probe=1",
+      "JS_observers": [
+        "audio_probe.js",
+        "shared-observer.js",
+        "stream_timing_observer.js"
+      ],
+      "GDS_snapshot_serialization": true,
+      "evidence": [
+        "build/web/audio-threaded/index.html:94"
+      ],
+      "note": "Explicit diagnostic counter worklet + mixedPCM meter + RAF/LongTask observer. Graph probe/recording observer in automated evidence may additionally be injected by the runner; not part of ordinary entry."
+    }
+  ],
+  "lifecycle_findings": [
+    {
+      "consumer": "GameAudio / inherited Motion+WeaponFeel consumers",
+      "paths": [
+        "scripts/audio/game_audio.gd:42",
+        "scripts/audio/game_audio.gd:137",
+        "scripts/audio/game_audio.gd:166",
+        "scripts/audio/game_audio.gd:399",
+        "scripts/audio/game_audio.gd:432"
+      ],
+      "finding": "Exactly12 player nodes allocated once. ensure_buses adds only missing names; subsequent calls do not add buses. Sample/legacy/director consumers reuse inherited pool. director_events capped256; motion_events capped128. Weak playback references are filtered eachprocess and cannot themselves keep playback alive. Stops null streams and metadata; shutdown waits weak release.",
+      "limits": "Weak-reference list has no numerical cap if backend playback objects remain alive; counts alone need release measurement. Scalar started/played/drop counters increasing is not node accumulation."
+    },
+    {
+      "consumer": "GameMusic",
+      "paths": [
+        "scripts/audio/game_music.gd:28",
+        "scripts/audio/game_music.gd:45",
+        "scripts/audio/game_music.gd:62",
+        "scripts/audio/game_music.gd:82"
+      ],
+      "finding": "Two persistent STREAM players, five-track finite mapping; same requested track returns early. Crossfade stops and nulls inactive stream. Weak playback references pruned eachprocess; shutdown/exit stop players. No new player is created perframe or perloop.",
+      "limits": "Constant perframe volume updates/crossfade bookkeeping are real work, but static inspection does not establish progressive cost or phone bottleneck."
+    },
+    {
+      "consumer": "GameAmbience + SelectedAmbienceRuntime",
+      "paths": [
+        "scripts/audio/game_ambience.gd:38",
+        "scripts/audio/game_ambience.gd:166",
+        "scripts/audio/game_ambience.gd:245",
+        "scripts/audio/selected_ambience_runtime.gd:172",
+        "scripts/audio/selected_ambience_runtime.gd:203",
+        "scripts/audio/selected_ambience_runtime.gd:232"
+      ],
+      "finding": "One lazy reusable GameAmbience component,2STREAM beds+2details. Configuration replaces bank rather than appending. Same context key plus matchingcandidate returns early. One reusable HomeLife child. Owner/death signal callbacks disconnected before rebinding; clear stops/nulls voices. Pause setter has value-change guard.",
+      "falsifier": "Stable Home context/owner with repeatedly increasing configurations/bed starts or component/player counts would contradict intended steady state and identify a repeatedclear/restart path. Current static source does not prove that happening."
+    },
+    {
+      "consumer": "HomeLife",
+      "paths": [
+        "scripts/audio/home_ambience_audition.gd:26",
+        "scripts/audio/home_ambience_audition.gd:46",
+        "scripts/audio/home_ambience_audition.gd:168",
+        "scripts/audio/home_ambience_audition.gd:214",
+        "scripts/audio/home_ambience_audition.gd:231"
+      ],
+      "finding": "At most4 unique keeper anchors; configure clears prior source/events arrays.64event ring. Sparse12–22s peranchor and6s globalgap; eachdue is consumed even if rejected, so there is no backlog. Blocks/mutes drop detailtails; stop disconnects callbacks and disables processing.",
+      "limits": "Scalar misses and total starts increase naturally. Last64events and4weak anchors may remain retained while stopped, with finite size."
+    },
+    {
+      "consumer": "SelectedSfxRuntime",
+      "paths": [
+        "scripts/audio/selected_sfx_runtime.gd:156",
+        "scripts/audio/selected_sfx_runtime.gd:191",
+        "scripts/audio/selected_sfx_runtime.gd:201"
+      ],
+      "finding": "Validated V3/14mapping configured once; validation_ok makes repeated attach idempotent. Only probe query creates one1s Timer; snapshot takes recent16events, replacing global JS snapshot rather than appending globals."
+    }
+  ],
+  "official_engine_lifecycle": {
+    "identical_class_segments": [
+      {
+        "class": "Sample",
+        "identical_standard_threaded": true,
+        "sha256": "30ef8abf97100dfe5a7d94a4dc44b51eec843b96f3d95323236aa645f09712d0",
+        "standard_JS_byte_offset": 147988,
+        "methods": "Official unchanged classes in the engine closure; not assumed available as window.GodotAudio."
+      },
+      {
+        "class": "SampleNodeBus",
+        "identical_standard_threaded": true,
+        "sha256": "4bff977769a36294a28cbc55b220fcea460e061359b02bbf0e7f41c8c771e998",
+        "standard_JS_byte_offset": 149404,
+        "methods": "Official unchanged classes in the engine closure; not assumed available as window.GodotAudio."
+      },
+      {
+        "class": "SampleNode",
+        "identical_standard_threaded": true,
+        "sha256": "5c70dbdc807a667f036147b5970c35823b59f9d1cbda0886c2044e4071b18403",
+        "standard_JS_byte_offset": 152016,
+        "methods": "Official unchanged classes in the engine closure; not assumed available as window.GodotAudio."
+      },
+      {
+        "class": "Bus",
+        "identical_standard_threaded": true,
+        "sha256": "48f30ce5f8e9c85a30b5b984a4d6059a7a57ff9fea8f39df4cb66262aa635821",
+        "standard_JS_byte_offset": 158129,
+        "methods": "Official unchanged classes in the engine closure; not assumed available as window.GodotAudio."
+      }
+    ],
+    "Sample": "GodotAudio.samples Map caches registered AudioBuffers. Sample.clear sets buffer null and deletes map entry. getAudioBuffer makes a fresh AudioBuffer copy perSampleNode/restart; allocation churn exists but does not establish retention/leak. Long BGM/beds are STREAM in this production pack, so they do not take Sample-copy loop path.",
+    "SampleNode": "start_sample stops sameplaybackID first. Natural ended(disabled loop) calls stop→clear: remove ownended listener, stop startedsource, disconnect source, clear all per-sample busnodes, null source, return positionworklet to pool, delete sampleNodes entry and report finished. Failed/canceled asyncposition setup checks isCanceled. Ended loop restarts source; clear/reuse are explicit.",
+    "SampleNodeBus": "Per-active-sample channel splitter,6GainNodes,merger. clear disconnects/nulls its nodes; the SampleNode bus Map is cleared. No new bus is created merely by playback time passing.",
+    "position_worklet_pool": "audioPositionWorkletNodes is an intentionally retained reusable pool, growing toward peak concurrent Sample demand rather than total completedplays. It has no hardnumeric cap in officialJS; actual peak/reuse must be observed, not declared a leak from constructor totals.",
+    "Bus": "Bus.setCount only grows on requestedcount; production ensure_buses is idempotent after5buses. Bus.connect disconnects oldsend before reconnecting. Official Bus.clear only removes bus from array and does not explicitlydisconnect its3GainNodes; possible concern for repeated dynamicbus deletion/recreation, but that path is not called by stable formal Home lifecycle. Do not attribute ongoingidle stutter to it without actual buscount/graph evidence.",
+    "counter_caution": "created_total-ended_total is not a reliable live/leakedsource count: sources canceled before start need not emit ended. Monotonic totalplays and pooledworklet highwater are also not leak evidence."
+  },
+  "diagnostic_observer_review": {
+    "bounded": "audio_probe rings: starts/created/ended/stops256 each, errors32; contexts32, destinations16, streams16; statechanges64, destination/stream histories128. Source IDs/seen sets use WeakMap/WeakSet. Snapshot rows contain scalar summaries, no retained AudioBuffer payload. sharedobserver16 descriptor records. timing rows256/pending64/RAF1024/LongTask128/contexts16. graph probe weaknode refs1024/edges4096/events256/routes bounded.",
+    "uncapped_structure": {
+      "path": "tools/mobile_web_perf/audio_probe.js:24",
+      "details": "connections Set strongly retains directdestination sources and destination records; edges added atconnect and removed only after explicitdisconnect. No numericalcap or natural-ended pruning. A diagnostic client that creates many unique directdestination branches withoutdisconnect could accumulate observeredges.",
+      "actual_formal_scope": "Official SampleNode sources connect through SampleNodeBus→fixedBus chain; normal directdestination branches are fixedMasteroutput+STREAMworklet. Therefore this structural observer risk is not proof of observedgrowth here and cannot explain ordinary homepage with noobserver. connected_original_branches is an available check."
+    },
+    "bounded_but_growing_cost": "With audio_probe=1, ambience snapshot serializes every250ms and includes HomeLife last64events plus duplicate ambience snapshots. Payload can grow until64events then plateau; SelectedSFX last16events similarlyplateaus. Repeated snapshot arraycopies/JSON and perstart up-to65536sample scans have real diagnostic CPU/allocation cost. They are absent on ordinary no-probe entry.",
+    "timing_observer_cost": "RAF envelope collection fixedring. Snapshot joins each retained timingrow against bounded RAF/LongTask arrays; can become more expensive as rowhistories fill in no-thread timingdiagnostic. Threaded official engine has no chunkcallback hooks, so timingrows are0 and onlyRAF/LongTask observed. Do not compare differently instrumentedruns as proof of phone rootcause."
+  },
+  "narrow_observations_for_existing_root_capture": [
+    "First bind exactentry/build/query and visibility state. User now confirms ordinary page and smoothpicture/controls; do not reclassify as threadedphone failure or GPU failure.",
+    "At fixedHome owner/context, compare ambience configurations and bedstarts, activecandidate/player slots, detailstarts versus actualaccepted events. Stableconfiguration/slots with worsening audio weakens an audio-node accumulation hypothesis.",
+    "When probes are used, compare contexts/destinations/connected_original_branches, starts and ended with the unstarted-source caveat, exactSTREAMunderrun deltas/audioClock coverage, and RAF/LongTask against visibilitychange. These may test scheduling/supply latency without asserting heap leakage.",
+    "Use low-frequency snapshots and mark retainedhistory coverage. Do not add a perframe heap/graph scan or retain unbounded rawsnapshots in the measurement itself.",
+    "Home menu inputblock is not necessarily SceneTreepause. Actual in-run pause pausesambience while GameMusic continues withduck; record tree_paused/input_blocked instead of treating everymenu as identical.",
+    "Existing publicthreaded8s observations prove finite BGM/cueoutput and0underruns inside thosewindows only. The next informative usercomparison is existingthreaded link on the samephone; no static audit or Cloud sample signs long-duration/thermal/mobile acceptance."
+  ],
+  "conclusion": "No static evidence establishes progressive audio-player/bus accumulation in the current ordinary formal lifecycle. Diagnostic-only boundedhistories and one uncapped directedge Set are disclosed separately. The actual ordinary-homepage symptom remains unresolved; main-thread versus sharedproducer supply is testable with the existingthreaded comparison, without declaring memoryleak, thermal throttling or a phone rootcause.",
+  "existing_finite_public_output_review": "docs/evidence/mobile_web_audio_02/public-threaded-output-review.json"
+}

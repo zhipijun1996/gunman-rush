@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "check": "actual CLI loads exact A/A with prior SFX choices intact",
+      "passed": true
+    },
+    {
+      "check": "wrong mix rejected",
+      "passed": true
+    },
+    {
+      "check": "wrong manifest rejected",
+      "passed": true
+    },
+    {
+      "check": "wrong candidate hash rejected",
+      "passed": true
+    },
+    {
+      "check": "gun requests keep original routing",
+      "passed": true
+    }
+  ],
+  "scope": "Selection attribution and context routing only; no audio/runtime or hearing checks repeated"
+}

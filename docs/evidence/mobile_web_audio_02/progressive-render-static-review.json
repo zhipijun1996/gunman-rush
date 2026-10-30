@@ -1,0 +1,114 @@
+{
+  "task": "MOBILE-WEB-AUDIO-02",
+  "review_id": "progressive-render-static-01",
+  "reviewed_at_utc": "2026-10-29T17:37:26.271014+00:00",
+  "reviewer": "review_mobile_ui, read-only static reviewer",
+  "verdict": "BOUNDED_STATIC_FINDINGS; DEVICE_ROOT_CAUSE_UNVERIFIED",
+  "scope": "Foreground/light/HUD/visibility paths already read before clarification. No production/tool change, Godot/browser run or new broad measurement. Closing at root request; next action is existing threaded phone comparison.",
+  "latest_feedback_from_root": "User clarified ordinary playtest homepage, picture and controls smooth, only audio stutters; background audio normal, gameplay worse than pause, gradually worse. This is not feedback on the threaded diagnostic. Exact cached phone version remains unconfirmed.",
+  "ordinary_entry_identity": {
+    "local_prepared_build_info": {
+      "build_id": "1d3791a7c290",
+      "pack": "index.1d3791a7c290.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "34c54d5a04ef",
+      "pack_bytes": 208700940,
+      "download_bytes": 205569840,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "b7406284e8bb53dd0ff202af08fd59260312abbe"
+    },
+    "engine_mode": "Current ordinary index uses official d20938d2db49 single-threaded JS/WASM. audio-threaded/ is a separate explicit entry; ordinary homepage has not silently enabled threads.",
+    "phone_identity_limit": "Known ordinary route does not prove exact cached build on device; do not retroactively bind phone report to local1d build without actual version evidence."
+  },
+  "findings": [
+    {
+      "id": "PROG-01",
+      "status": "confirmed source growth risk, causal impact unverified",
+      "path": "scripts/underworld_plains/underworld_presentation.gd:44",
+      "detail": "Every added world/actor descendant defers install_item; its _seen dictionary stores instance IDs at51–52 and never erases them. Repeated projectile/transient-node creation can grow historical keys until this presentation owner is freed. These are integer→bool entries, not strong Node/RID references. _seen is not traversed in the per-frame refresh loop, so static growth alone cannot explain steadily rising per-frame time or establish an audio cause. Stationary Home without new nodes does not intrinsically grow it.",
+      "limited_followup_metric": "Only if later profiling remains needed: compare _seen.size with currently live descendants and object/memory count; do not call it an RID leak."
+    },
+    {
+      "id": "PROG-02",
+      "status": "conditional retention/task risk, not demonstrated leak",
+      "path": "scripts/underworld_plains/underworld_presentation.gd:63",
+      "detail": "_terrain_materials retains strong ShaderMaterial references, _latches retains weak references, and neither array prunes removed members. If terrain/latches are rebuilt within a surviving presentation, resources/iteration can retain historical entries. Formal terrain/lights are assembled initially, so no unconditional time-based growth is established. _node_added schedules one deferred install per eligible node without coalescing; subtree construction may create bursty redundant recursive visits, not necessarily a perpetual queue.",
+      "limited_followup_metric": "If needed later: terrain material count/live-owner count, valid/invalid latch count, install_item calls and deferred completion backlog during actual construction versus idle."
+    },
+    {
+      "id": "PROG-03",
+      "status": "bounded paths verified statically",
+      "path": "scripts/underworld_plains/underworld_foreground.gd:386",
+      "detail": "Foreground residents are capped64, retirement history capped64; retirees queue_free their Sprite2D/material owners. _tracked and _trail_fields erase node IDs on node_removed at122–124. Protection arrays clear each refresh, and spec cache replaces only the last cell key/result. Normal HUD ammo cells rebuild only when capacity changes and old cells are removed/freed; fixed region UI position keys replace values. No obvious unconditional frame-by-frame Node/RID accumulation is present in these paths. No direct unmanaged RenderingServer RID allocation was found in reviewed foreground/light/HUD sources."
+    },
+    {
+      "id": "PROG-04",
+      "status": "confirmed pause/mask distinction",
+      "path": "shaders/underworld_foreground.gdshader:27",
+      "detail": "There is NO full-screen-rectangle fragment early return/discard. Derivatives, inverse matrix and texture sampling run before the protection loop; its only break is i>=protection_count at45, and it does not break when protection reaches0. A full-screen backdrop can merge _protect to one rectangle, reducing loop count, but does not prove all fragment work disappears. _exposed_regions atforeground396–426 does break its CPU subtraction loop when regions become empty; branch distance uses merged _protect, and per-resident uploaded masks shrink accordingly. _static_protect/_dynamic_protect append before union merging at173–175 and are not capped by MAX_PROTECTION; MAX64 is an overflow/hide policy on merged masks, not a cap on source collection work."
+    },
+    {
+      "id": "PROG-05",
+      "status": "confirmed active/pause work difference, magnitude unmeasured",
+      "path": "scripts/underworld_plains/underworld_foreground.gd:100",
+      "detail": "Foreground is PROCESS_MODE_ALWAYS and still performs protection/sync/material uploads while tree-paused, passing delta0; fade/clock advance stops, not the whole CPU refresh. Existing admitted nonzero-alpha sprites can remain submitted even though the full-screen protection makes their shader alpha0. Presentation and parallax inherit pausable world modes; pause stops their _process-driven light sorting/wind updates, actor physics and enemy/projectile activity, while retained lights/occluders are not explicitly hidden by pausing. Visible lights are capped8, but total emitter/occluder creation is upfront level-dependent; no automatic time-based light creation is seen. Static code cannot determine actual shadow redraw/cache/GPU cost."
+    },
+    {
+      "id": "PROG-06",
+      "status": "confirmed HUD work policy",
+      "path": "scripts/demo/demo_app.gd:1631",
+      "detail": "App is PROCESS_MODE_ALWAYS and continues region HUD updates and _layout_region_hud during pause while IN_STAGE. Layout creates temporary blocker/candidate arrays and scores current enemies/projectiles/modules; cost varies with live contents, not a retained per-frame history. DemoGameHud refreshes values and redraws ammo cells while visible; normal context presentation plus _process can refresh more than once/frame. This is repeated CPU/layout work, not demonstrated progressive growth."
+    },
+    {
+      "id": "PROG-07",
+      "status": "confirmed visibility behavior; phone explanation remains inference",
+      "path": "scripts/input/input_router.gd:175",
+      "detail": "Focus out/in clears input and epochs; App focus-out closes Home codex, not a general audio or renderer shutdown. Ordinary loader visibilitychange only checks updates and returns while hidden; it does not implement a special audio fix. Official single-thread no-thread read handler receives Worklet read on main, calls synchronous out_callback and posts chunk. Browser background RAF throttling can reduce main/render contention while audible audio messaging continues, which is compatible with smoother background audio. Browser policy and actual device timing were not measured here; focus and document visibility are not interchangeable."
+    },
+    {
+      "id": "PROG-08",
+      "status": "confirmed pause has multiple effects",
+      "path": "scripts/demo/demo_app.gd:1150",
+      "detail": "Actual in-run pause freezes pausable world state and cancels input; Home navigation merely blocks Home input and does not tree-pause. Full-screen menu backdrop atdemo_menu1097 participates in foreground protection. Pause also pauses ambience beds/details and prevents new details, while GameMusic remains ALWAYS and ducks toward PAUSE_GAIN rather than stopping music. Therefore improved paused audio cannot statically be attributed only to shader/rendering or only to decoding."
+    }
+  ],
+  "interpretation": [
+    "Smooth perceived controls/graphics can coexist with audio refill deadlines being missed; it does not establish or exclude short main scheduling stalls. This phone feedback does not show a game-FPS problem.",
+    "Earlier cloud main-request-wait and threaded-window results support trying the existing threaded candidate. They do not identify a phone shader/lighting root cause, confirm progressive thermal/memory behavior, or prove that the device audio issue is fixed.",
+    "No foreground, lighting, shader, sound quality or gameplay function was changed. No static finding here authorizes removing presentation as a final fix.",
+    "Growth risks are source findings with conditions. Root-cause priority remains actual phone comparison of the existing ordinary/threaded links and version/state identity; no additional broad cloud AB is scheduled."
+  ],
+  "minimal_existing_comparison_fields": [
+    "Exact visible build/entry URL and whether threaded link was actually opened",
+    "Existing downloaded COI/shared/thread and live STREAM read/underrun before→after, active scene and tree_paused state",
+    "User listening result in matched foreground/background and actual pause states; keep phone graphics/controls feedback separate"
+  ],
+  "not_executed": [
+    "No Godot",
+    "No browser or phone interaction",
+    "No new persistent profiler or GPU query",
+    "No new broad test matrix or production/tool edits"
+  ],
+  "evidence_sha256": {
+    "scripts/underworld_plains/underworld_foreground.gd": "d7f1f9f8e13ecac881a9ab76e4ecfbab8130f299627df6ed957dca87733be4b3",
+    "scripts/underworld_plains/underworld_presentation.gd": "8c6c6cfd968d88425e87b3d7a28813490f9f22bb54d1202c03d30f5f2ac2f15b",
+    "shaders/underworld_foreground.gdshader": "e8c2c8ecd4d32ce2d35ee3de2f679d96b8558a1de847004731c4baa8a726a011",
+    "scripts/underworld_plains/underworld_parallax.gd": "377da72f14dcbabdc9c35ed9eee70fbf096212e0271b47b2ae39ca24300c9853",
+    "scripts/demo/demo_app.gd": "31880e9ce16bd7c3c90443e4c237dda3de62e0aec804560b3c6d04eb90f30aa9",
+    "scripts/demo/home_scene.gd": "7b7806551deac498c5f9ab1326ef919a87d2d85e0ef5264c27a5da64f74ed320",
+    "scripts/ui/demo_ui_01/game_hud.gd": "e9f01c9954307e0100b6ef2e5510d5ec8b2be358dd5add1777c1024d8d1faf17",
+    "scripts/ui/demo_menu.gd": "1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f",
+    "scripts/input/input_router.gd": "04409e9e2e060ebf3333624b67d3ff031ea73fb751457b94c1c57045d8b7edc5",
+    "scripts/audio/game_audio.gd": "f7abcda40573252fea34b7e1dfa0b1d23c20441d65e30ff791f0980577c6cc3e",
+    "scripts/audio/game_music.gd": "6fe57ccecc3c68b5a9551f140bba5f50705a7276efd776453ff3c7b42499f3ed",
+    "scripts/audio/game_ambience.gd": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+    "tools/web/cache_startup.js": "0e6a51b238ffdb84d5517512b5a84fc9a769b1b30863601efce9b2e7e0b55b4b",
+    "build/web/build-info.json": "c9290972b4409f3114af7e23ae752615f9c768f9715fa262b2c32bac3952a510"
+  },
+  "closure": "Short static review closed after user clarification; awaiting real-phone use of existing threaded link, not a rendering-root-cause or resolved-audio declaration."
+}

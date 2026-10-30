@@ -2,6 +2,10 @@ class_name GameAudio
 extends Node
 ## Local presentation consumer: bounded voices, no gameplay or random-stream writes.
 const MAX_VOICES := 12
+const MECHANISM_BELL_SOUND := preload("res://assets/audio/ambience_v1/plains_chime_a.wav")
+# Existing quiet-02 bell recording: lift only the accepted mechanism transient,
+# without changing the selected ambience asset/mix or any other cue's gain.
+const MECHANISM_BELL_GAIN_DB := 6.0
 # Per-origin death timbre; the existing accepted cue still owns timing/pooling.
 const CUE_STREAM_OVERRIDES_META := &"audio_cue_stream_overrides"
 const CUES := [&"focus_start", &"focus_end", &"enemy_defeat", &"door", &"warning", &"boss_impact", &"click", &"confirm", &"coin", &"note", &"victory", &"jump", &"land", &"step", &"hurt", &"shot", &"impact", &"armour", &"core", &"enemy_shot", &"heal", &"death", &"bell", &"denied", &"roar"]
@@ -13,8 +17,10 @@ const REGIONAL_CUE_PATHS := {
 var volume := 0.7:
 	set(value):
 		volume = clampf(value, 0.0, 1.0) if is_finite(value) else 0.0
+		if is_instance_valid(ambience): ambience.session_volume = volume
 		for voice: AudioStreamPlayer in _voices:
 			voice.volume_db = linear_to_db(maxf(0.0001, volume)) - float(voice.get_meta("attenuation", 7.0))
+var ambience: GameAmbience
 var played: Dictionary = {}
 var _voices: Array[AudioStreamPlayer] = []
 var _streams: Dictionary = {}
@@ -41,8 +47,10 @@ static func ensure_buses() -> void:
 	# Unity buses preserve the original mix; candidates can be balanced separately.
 	for bus_name: StringName in [&"SFX", &"UI", &"Ambience", &"Music"]:
 		if AudioServer.get_bus_index(bus_name) >= 0: continue
-		AudioServer.add_bus()
-		var index := AudioServer.bus_count - 1
+		# Godot4.7.2 Web Sample addAt(-1) incorrectly moves the appended bus.
+		# Growing the count keeps the native and browser bus indices aligned.
+		var index := AudioServer.bus_count
+		AudioServer.bus_count = index + 1
 		AudioServer.set_bus_name(index, bus_name)
 		AudioServer.set_bus_send(index, &"Master")
 
@@ -99,11 +107,36 @@ static func hook_connected(origin: Node) -> void:
 		service.play_director_event(&"hook_pull", "", origin, true)
 
 func stop_regional_cues() -> void:
+	clear_ambience()
 	stop_director_cues()
 	for voice: AudioStreamPlayer in _voices:
 		if REGIONAL_CUE_PATHS.has(voice.get_meta("cue_id", &"")):
 			voice.stop()
 			voice.stream = null
+
+## Candidate ambience is lazy and opt-in; original formal consumers allocate none.
+func configure_ambience(manifest_path: String) -> bool:
+	if _shutting_down or not is_inside_tree() or not FileAccess.file_exists(manifest_path): return false
+	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(manifest_path))
+	if not parsed is Dictionary: return false
+	if not is_instance_valid(ambience):
+		var component := GameAmbience.new()
+		add_child(component)
+		if not component.configure(parsed):
+			component.free()
+			return false
+		ambience = component
+	else:
+		if not ambience.configure(parsed): return false
+	ambience.session_volume = volume
+	return true
+
+func set_ambience_region(region_id: String, profile: String, origin: Node, listener: Node2D) -> bool:
+	if _shutting_down or not is_instance_valid(ambience): return false
+	return ambience.select_region(region_id, profile, origin, listener)
+
+func clear_ambience() -> void:
+	if is_instance_valid(ambience): ambience.clear()
 
 func _ready() -> void:
 	ensure_buses()
@@ -115,6 +148,7 @@ func _ready() -> void:
 		_streams[id] = load("res://assets/audio/kenney/%s.ogg" % id)
 	for id: StringName in REGIONAL_CUE_PATHS:
 		_streams[id] = load(REGIONAL_CUE_PATHS[id])
+	_streams[&"mechanism_bell"] = MECHANISM_BELL_SOUND
 	for index: int in MAX_VOICES:
 		var voice := AudioStreamPlayer.new()
 		add_child(voice)
@@ -135,6 +169,7 @@ func _click() -> void:
 	if audio_profile in ["original", "selected"] or has_director_event(&"click"): play(&"click")
 
 func _process(delta: float) -> void:
+	if is_instance_valid(ambience): ambience.session_volume = volume
 	_clock += delta
 	_director_clock += delta / maxf(0.001, Engine.time_scale)
 	for voice: AudioStreamPlayer in _voices:
@@ -169,7 +204,7 @@ func _play_original(id: StringName, stream_override: AudioStream = null) -> bool
 		voice.set_meta("audio_priority", 90 if id in [&"hurt", &"death", &"warning", &"enemy_defeat", &"boss_impact"] else 20 if id == &"step" else 50)
 		voice.bus = &"Ambience" if REGIONAL_CUE_PATHS.has(id) else &"UI" if id in [&"click", &"confirm", &"denied"] else &"SFX"
 		voice.stream = stream_override if stream_override != null else _streams[id]
-		var attenuation := 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
+		var attenuation := -MECHANISM_BELL_GAIN_DB if id == &"mechanism_bell" else 16.0 if id == &"forest_wind" else 11.0 if REGIONAL_CUE_PATHS.has(id) else 18.0 if id == &"step" else 10.0 if id in [&"shot", &"land", &"jump", &"click"] else 7.0
 		voice.set_meta("attenuation", attenuation)
 		voice.volume_db = linear_to_db(volume) - attenuation
 		voice.play()
@@ -411,12 +446,14 @@ func shutdown(timeout_msec: int = 1000) -> bool:
 		voice.stream = null
 	_streams.clear()
 	var deadline := Time.get_ticks_msec() + timeout_msec
+	if is_instance_valid(ambience) and not await ambience.shutdown(timeout_msec): return false
 	while pending.any(func(reference: WeakRef) -> bool: return reference.get_ref() != null):
 		if Time.get_ticks_msec() >= deadline: return false
 		await get_tree().process_frame
 	return true
 
 func _exit_tree() -> void:
+	clear_ambience()
 	for voice: AudioStreamPlayer in _voices:
 		voice.stop()
 		voice.stream = null

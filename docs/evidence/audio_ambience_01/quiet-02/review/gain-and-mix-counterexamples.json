@@ -1,0 +1,32 @@
+{
+  "pipeline_sha256": "94a7583be09b9ba9ccb0e2cbee860af35d51f21355ef4c8db1a0b6921819ef90",
+  "cases": [
+    {
+      "id": "gain_bool",
+      "rejected": true,
+      "reason": "Output level out of bounds: plains_a"
+    },
+    {
+      "id": "gain_positive",
+      "rejected": true,
+      "reason": "Output level out of bounds: plains_a"
+    },
+    {
+      "id": "gain_below_bound",
+      "rejected": true,
+      "reason": "Output level out of bounds: plains_a"
+    },
+    {
+      "id": "gain_nan",
+      "rejected": true,
+      "reason": "Output level out of bounds: plains_a"
+    },
+    {
+      "id": "mix_drift",
+      "rejected": true,
+      "reason": "Mix revision changed"
+    }
+  ],
+  "all_rejected": true,
+  "scope": "Only temporary copied fixtures mutated; frozen producer files untouched"
+}

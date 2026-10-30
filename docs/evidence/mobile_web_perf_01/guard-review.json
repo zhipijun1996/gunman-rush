@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-PERF-01",
+  "reviewer": "independent subagent /root/review_mobile_ui",
+  "reviewed_at_utc": "2026-10-29T14:56:57.163913+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Exact finite-asset adapter binding to independently reviewed pause-only loader bytes; bounded historical UI consumer attribution. No game/audio/device acceptance added.",
+  "execution": {
+    "production_modified": 0,
+    "engine_or_browser_started": 0,
+    "only_written_file": "docs/evidence/mobile_web_perf_01/guard-review.json",
+    "independent_command": "PYTHONDONTWRITEBYTECODE=1 python3 tests/test_ambience_asset_adapter.py",
+    "tests": 17,
+    "failures": 0,
+    "seconds": 0.537,
+    "test_scope": "Original portable finite-identity tests with synthetic media and adversarial path/manifest/SHA cases; not an audio decoder/output test."
+  },
+  "exact_binding": {
+    "path": "tools/check_quality_diff.py",
+    "constant": "AMBIENCE_LOADER_SHA256",
+    "before": "344eee9381b7ac653cdcc94f4f32fc484864796fc87a275bba5c6b76745ed4c3",
+    "after": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+    "single_SHA_still_required": true,
+    "all_other_code_bytes_unchanged_after_removing_new_explanatory_comment_and_reverting_only_SHA": true
+  },
+  "loader_impact": [
+    "Exact GameAmbience source SHA is the samebaa8c204... already independently accepted in production-review.json. Main1b original whole-file SHA is344eee9381...; old failed guard correctly rejected changed bytes and is retained.",
+    "Function extraction found exactly one changed function, _process, plus the intended session_volume property setter guard before functions. Sixteen other complete function bodies are byte-identical to main1b.",
+    "configure manifest parsing, finite beds/details inventory, paths, load/import and duplicate handling, sample type checks, selected region/profile, _valid_path, _valid_number, _transition, play_detail, snapshots and cleanup functions remain unchanged.",
+    "Changed code only avoids repeated pause/unpause writes, combines tree pause with zero volume, and removes later duplicate setters. It does not change selected asset paths or source/media bytes."
+  ],
+  "guard_preservation": [
+    "Only the precise expected loader SHA literal and explanatory comment changed in check_quality_diff.py. No allowlist expansion, alternative SHA set, wildcard, accepted dynamic caller, threshold or failure suppression was added.",
+    "Original ordinary-file and ancestor symlink guards, relative/canonical path rules, duplicate/nonfinite JSON rejection, exact schema/version/default/sample-rate/channel checks, input fingerprints, finite4bed+4detail/8render identity, byte/SHA checks and runtime/catalog/render closure comparisons remain unchanged.",
+    "Original17adapter tests passed independently, including appended-loader drift rejection, unknown caller/path cases, corrupt media identity, symlinks, duplicate rows, unsupported versions, recipe expansion and manifest closure. This is fresh verification of the guard only."
+  ],
+  "historical_ui_consumer_inventory": {
+    "path": "docs/evidence/mobile_ui_clarity_01/consumer-inventory.json",
+    "source_commit": "4707b9ef15fa7e89b09d3e33ef8206c0b12f64af",
+    "report_sha256": "210bbf871854572d345260edb0198a90794e155e2f54dcd979764a153c905885",
+    "all_claimed_checks_present_in_existing_actual_public_trace": true,
+    "consumer_ids": [
+      "public-mobile-settings-return",
+      "public-mobile-home-navigation",
+      "public-mobile-resize"
+    ],
+    "scope": "Only actual published2caa/source4707 mobile Settings/Escape return, Home navigation open/HOME close and844x390resize. Explicitly historical migration; not fresh execution, current-source replay, entire UI consumer coverage or physical-device acceptance."
+  },
+  "root_checks_reported_separately": {
+    "actual_base": "1b29932c5333a9dad50759afc635762163ed79f5",
+    "quality_diff_02": "PASS224files as reported by root; initial01failure retained",
+    "original_tests_test_quality_py": "57/0 as reported by root",
+    "final_docs_web_checks": "pending root frozen-source targeted harness; not executed by this reviewer"
+  },
+  "frozen_reviews_preserved": {
+    "docs/evidence/mobile_web_perf_01/production-review.json": "45fcece8db66df2fe8e11308f19abd3c86d0c0e46f32fa26d8bc758d1ad0b6f5",
+    "docs/evidence/mobile_web_perf_01/delivery-review.json": "b496cdb5d272745163fac70d7b943b6b4e4e21816462c17e0cfefc3752f4c6ff"
+  },
+  "unresolved_blocking_findings": [],
+  "limits": [
+    "No frozen review receipt was edited.",
+    "This acceptance authorizes the technical binding, not retrospective relabelling of initial guard failure.",
+    "No deployment/live HTTP checks, complete BGM continuity, FPS benefit, physical Honor/Huawei phone behavior or player approval is certified."
+  ],
+  "evidence": [
+    {
+      "path": "tools/check_quality_diff.py",
+      "sha256": "55f904f0544d4d7ebe6daeebf4c0504e82231b8a0adf7fa50e761215b4eed70b",
+      "bytes": 34771
+    },
+    {
+      "path": "scripts/audio/game_ambience.gd",
+      "sha256": "baa8c204405361bab1f13f3439a4732ddaac744d588c80cf21607586dfca9e48",
+      "bytes": 13158
+    },
+    {
+      "path": "tests/test_ambience_asset_adapter.py",
+      "sha256": "d7b5c4392d6811c7d2e6753e36beb94776dfcd2bbc484c338a5ee0cab9e76c6a",
+      "bytes": 11095
+    },
+    {
+      "path": "docs/evidence/mobile_ui_clarity_01/consumer-inventory.json",
+      "sha256": "6bc044fe2ea26b17c14a188b263fa8a586c1b9ea3dd5767c21f73bd5bc6a153d",
+      "bytes": 883
+    },
+    {
+      "path": "docs/evidence/mobile_ui_clarity_01/public-browser/report.json",
+      "sha256": "210bbf871854572d345260edb0198a90794e155e2f54dcd979764a153c905885",
+      "bytes": 1520
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "task": "AUDIO-ROLLOUT-01",
+  "content_version": "selected-ambience-rollout-v1",
+  "baseline_commit": "3e6bf6921cfdb37f27258ac837f02474962e78a9",
+  "scope": "Six exact production/test files independently compared to reviewed commit 06a76d18 after native03; two documentation artifacts are pending evidence commit and listed by their actual bytes. Baseline remains 3e6bf692. Exact final-head CI and later actual-main Web remain separate gates.",
+  "files": {
+    "scenes/demo/demo.tscn": "ac810851321a641d2743da1bd9dc956fd1be480510a98900ce0d708ab0e9e778",
+    "scripts/audio/selected_ambience_runtime.gd": "a437c019dd5eaf4eefc507f43a93a76b65cd8fb272137e9b1ec322ce24f59955",
+    "addons/runtime_raw_export/raw_exporter.gd": "bf3b0e8495d67630d73ca0d85aa8c7be9d64c60f158aa6f6639010f6754925d1",
+    "export_presets.cfg": "e1a84aa97c39cc2efa514ed4048dc563178f82d183f2310431d919b2f6471a54",
+    "tests/selected_ambience_runtime.gd": "3b4d514a3960ede26e3f11f45f1656dad8159eae8841fe3fbe5ca5e0bb8b634f",
+    "tests/selected_audio_export.gd": "18b56c426c2b2ef50e1cbcbdd1e67f481c820b636ecc51319928ccd7f4666db8",
+    "docs/quality/records/AUDIO-DIRECTOR-01.json": "d4c9a3aa490545844c34ed3d717cb94f4858666c1d5d9c655de2b45b52069536",
+    "docs/evidence/audio_rollout_01/frozen/style_bible_candidate_v1.md.txt": "08371f6f30e21e2de656c0afddd52c934a7961fe5e09d74831cc9a7e4a042cbb"
+  },
+  "native03_report_sha256": "64352a1184bb9d31d2a2facf21d7ed46776ccc628a49af0079f676d51235c23e",
+  "reviewed_commit": "06a76d18fa5c11410aa98f9dd82b9e7936086db2",
+  "six_production_and_test_files_equal_reviewed_commit": {
+    "scenes/demo/demo.tscn": true,
+    "scripts/audio/selected_ambience_runtime.gd": true,
+    "addons/runtime_raw_export/raw_exporter.gd": true,
+    "export_presets.cfg": true,
+    "tests/selected_ambience_runtime.gd": true,
+    "tests/selected_audio_export.gd": true
+  }
+}

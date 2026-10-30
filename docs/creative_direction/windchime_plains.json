@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v22",
+  "version": "creative-v23",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
-    "supplemental_authority_sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+    "supplemental_authority_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "5a2411c554363bce723f2cac6c4dbdd12d13706b77077bcb7a62312d9e022c52",
+    "registry_sha256": "7d32a5444bf226c3c26cc89a6231409e239d38a5fd9f2a246c170a7e1a55ddab",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -171,6 +171,14 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
       "sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
+      "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada"
     }
   ],
   "historical_direction": {
@@ -179,22 +187,29 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "ENEMY-STRUCTURE-01",
-    "scope": "Technical binding migration for authorized enemy program refactor only; preserve direction content, Bible, shared style, original source prefix and acceptance limits. Exactly3 old81 runtime entry SHA changes,78 rows unchanged,no added global references.",
-    "previous_direction": "docs/creative_direction/archive/creative-v21/windchime_plains.json",
-    "previous_sha256": "316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
-    "shared_style_sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0",
+    "task_id": "PLAINS-MOTION-LOOT-02",
+    "scope": "Technical merge of program-refactor and mobile logical-canvas lineage only; no direction, asset, physics, economic or acceptance redesign. Exactly7 existing reference differences union,74 unchanged.",
+    "parent_directions": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style19/program/windchime_plains.json",
+        "sha256": "43055988f565235d82d6db83ff994ff5040a7aac6d844d1e9f3eeed52a8e6b4f"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style19/mobile/windchime_plains.json",
+        "sha256": "dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d"
+      }
+    ],
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+    "shared_style_sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
     "affected_consumers": [
-      "scripts/demo/demo_app.gd",
       "scripts/demo/plains_region_stage.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/demo/home_scene.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/ui/stage_reward_modal.gd",
+      "scripts/ui/home_item_codex.gd",
       "scripts/demo/thorn_forest_region_stage.gd"
     ],
-    "validation": "Fresh scoped original32+10/four pure checks and independent migration review required; actual native/capture/art/user/device evidence remains source-bound and separate.",
-    "candidate_iteration_boss_restore_notification": {
-      "previous_direction": "docs/creative_direction/archive/creative-v22/before-boss-restore-notification/windchime_plains.json",
-      "previous_sha256": "f4ccf685f0580bb6f6b44b76a1d5b813ec3dc2db7e75f3380bc1037b2de69298",
-      "scope": "Same unpublished22: only style19 bind02 / registry references refreshed; preserve original direction and acceptance fields. Original bind01 checks not inherited."
-    }
+    "validation": "Original historical assertions remain against exact parent snapshots; current23 binds actual merged20 and rejects both stale22 pointers. Production leaf edits require later freeze/rebind; pure tests do not sign visual/audio/user/device."
   }
 }

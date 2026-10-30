@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "exit_code": 0,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "res://tools/audio_ambience_capture.gd",
+    "--",
+    "--lifecycle-only",
+    "--output=/workspace/gunman-ambience/build/audio_ambience_01/lifecycle-03"
+  ],
+  "checks": [
+    {
+      "id": "actual_formal_plains_started",
+      "passed": true
+    },
+    {
+      "id": "actual_plains_bed_playing",
+      "passed": true
+    },
+    {
+      "id": "real_controller_death_binding_idempotent",
+      "passed": true
+    },
+    {
+      "id": "actual_controller_die_clears_all_ambience",
+      "passed": true
+    },
+    {
+      "id": "music_shutdown",
+      "passed": true
+    },
+    {
+      "id": "audio_shutdown",
+      "passed": true
+    }
+  ],
+  "seconds": 9.674311110000417
+}

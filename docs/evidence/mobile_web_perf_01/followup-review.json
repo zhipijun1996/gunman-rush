@@ -1,0 +1,87 @@
+{
+  "task": "MOBILE-WEB-PERF-01",
+  "review_id": "selected-sfx-stream-followup-01",
+  "reviewer": "independent review_mobile_ui agent",
+  "independence": "Read-only production/tool review; no Godot or browser execution; only this receipt written.",
+  "reviewed_at_utc": "2026-10-29T15:29:55.439680+00:00",
+  "reviewed_head": "287f473635047d7329f838cc252a57fa53200114",
+  "reviewed_worktree_sha256": {
+    "scripts/audio/selected_sfx_runtime.gd": "1a7e5d78300be7b9e60def936556a8b377662d82d95de57386494f6e3d0cb8a9",
+    "scenes/demo/demo.tscn": "1f7c4f05ab283d81404dcb5cd9aeb894f48ca9b7bf9ea74171e61b79c1ab81a0",
+    "tests/selected_sfx_runtime.gd": "ba715b74336a38f324b2f48cb4793812f12bada85440eaf588c099542025e31d",
+    "tests/selected_ambience_runtime.gd": "d6ddfa1f2ade6b8cbc240a08130d16907b6c833fa4d0a4b1fcdfa39e1ee2720d",
+    "tools/mobile_web_perf/prepare_stream_diagnostic.py": "e82cd580b08b6e3b840e937b1f7f562ce784d25993bf2c096d5040c2ecb8ece8",
+    "tools/mobile_web_perf/instrument_worklet.py": "d9d2fedb7195f328e31644567d2af42d8c0571bf67eef8554b9a0f12ffd5af20",
+    "tools/mobile_web_perf/audio_probe.js": "8e8b8b0a50077f20f26c8ae7bef70d6940db9ff38f1d6368966afd224102bed4"
+  },
+  "scope": "Restore retained 14-event user selection through actual demo.tscn assembly, and separately named 50/200ms STREAM diagnostic. No new sound design; no phone stutter-fix acceptance.",
+  "verdict": "ACCEPT_STATIC_SCOPE_RUNTIME_UNVERIFIED",
+  "blocking_findings": [],
+  "confirmed": [
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd:85",
+      "result": "All five pinned JSON SHA256 values match retained bytes. All eleven candidate .import paths, .sample SHA256 and byte lengths match local retained imports."
+    },
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd:109",
+      "result": "Complete 14-event map: eleven chosen candidate profiles; shot_shuriken, shot_bomb and bomb_explode original. Jump/land remain outside selected bank. Candidate identity/path/single variant/source render SHA validated before bank mutation."
+    },
+    {
+      "path": "scripts/audio/selected_sfx_runtime.gd:156",
+      "result": "Deferred attach uses only direct DemoApp owner and unique active direct GameAudio; configures existing V3 bank/selection/profile once. Normal entry disables processing and has no telemetry timer; optional audio_probe=1 owns a 1s timer."
+    },
+    {
+      "path": "scenes/demo/demo.tscn:11",
+      "result": "Actual original DemoApp scene gains SelectedSfxRuntime alongside existing SelectedAmbienceRuntime. Programmatic DemoApp fixtures are intentionally unchanged."
+    },
+    {
+      "path": "tests/selected_ambience_runtime.gd:81",
+      "result": "Only two profile assertions/descriptions migrate original to selected, because actual formal scene now assembles SelectedSfxRuntime. Remaining ambience behavior checks unchanged. This is an explicit scope expectation migration, not evidence that old rollout enabled chosen SFX."
+    },
+    {
+      "path": "tools/mobile_web_perf/prepare_stream_diagnostic.py:27",
+      "result": "Copies official JS/WASM/position worklet bytes under independent names; leaves original index and game mainPack untouched. Diagnostic html alone changes executable and whitelisted requested audio latency. Worklet original SHA is guarded and exact reverse insertions preserve all original code bytes."
+    },
+    {
+      "path": "tools/mobile_web_perf/instrument_worklet.py:82",
+      "result": "Independent in-memory Node mock: 14/14 scenarios preserve original output/return/read/input/notify traces while counting exact underflow branches. No rendered host involved."
+    }
+  ],
+  "actual_existing_pack_closure": {
+    "pack": "build/web/index.3866985a1e8b.pck",
+    "sha256": "3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21",
+    "independently_read": true,
+    "json_sha_checks": 5,
+    "import_map_checks": 11,
+    "sample_sha_and_length_checks": 11,
+    "result": "PASS",
+    "limit": "Old pack already contains the resources but lacks the newly assembled selected-SFX runtime. Does not prove a future exported pack runtime selects them."
+  },
+  "rejected_review_hypothesis": {
+    "hypothesis": "Five pinned JSON absent because explicit include_filter lacks them",
+    "disposition": "WITHDRAWN",
+    "reason": "Actual PCK directory and reads independently prove all five present and exact; include_filter alone is not full export inventory."
+  },
+  "verification": {
+    "prepare_stream_diagnostic_python_ast": "PASS",
+    "worklet_original_sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "worklet_diagnostic_sha256": "1668cb244e8091361c6ac1f61a31cbe32337f2d1f431bc5a024a5a84bec08ebf",
+    "node_mock_scenarios_passed": 14,
+    "node_mock_failures": 0,
+    "godot_run": false,
+    "browser_run": false
+  },
+  "interpretation_limits": [
+    "counter-only describes the separately named Godot worklet modifications. Diagnostic page additionally loads audio_probe.js PCM fan-out, a silent meter branch, source observers and up to65536 scanned samples per SAMPLE start. Both latency arms share these observers; results cannot be presented as uninstrumented baseline performance.",
+    "50/200ms are requested engine latencies. Use actual initial ring samples, channels and sample rate for effective ring budget; browser/hardware latency is separately reported and cannot be inferred from requested value.",
+    "Normal comparison links need audio_probe=1 to expose optional selected SFX/ambience snapshots; their absence without flag is not proof of failed assembly.",
+    "Engine buffer change affects all STREAM material including retained BGM/ambience, with additional latency; this is a diagnostic tradeoff, not a final audio-quality or phone fix.",
+    "New exported PCK/snapshot and actual natural Home/workshop/weapon cue output remain unverified here. Direct play_director_event tests alone do not prove every natural consumer.",
+    "User reports audio still stutters while actions nearly smooth; previous old-pulse waveform correlation cannot establish selected new sound audibility. No FPS bottleneck, physical speaker output, BGM completeness or phone-resolution acceptance is signed."
+  ],
+  "pending": [
+    "Actual newly exported pack closure and selected-SFX snapshot with profile selected, 14 profiles and11 imports verified",
+    "Real natural consumer selected-cue output and retained originals/BGM",
+    "Same-phone fresh-page50/200 STREAM underrun/audio comparison plus user listening report"
+  ]
+}

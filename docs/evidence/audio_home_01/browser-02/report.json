@@ -1,0 +1,183 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:8831/",
+  "layout": {
+    "width": 390,
+    "scroll": 390,
+    "chapters": 3,
+    "points": 8,
+    "videoTop": 134.1875,
+    "identity": {
+      "task": "AUDIO-HOME-01",
+      "content_version": "audio-home-v1",
+      "mix_revision": "home-quiet-01",
+      "manifest_sha256": "9da87898c0f3d924af67eb011d7427213a20754384eb375e9b61cbc79e25f90e",
+      "raw_bytes_verified": true
+    }
+  },
+  "realPointerChapters": [
+    {
+      "mode": "original",
+      "start": 1.5,
+      "end": 27.5,
+      "time": 1.5,
+      "decodedVideo": 94,
+      "decodedAudio": 36567,
+      "muted": false,
+      "activation": true
+    },
+    {
+      "mode": "bed",
+      "start": 29.1,
+      "end": 55.1,
+      "time": 29.105246,
+      "decodedVideo": 188,
+      "decodedAudio": 76085,
+      "muted": false,
+      "activation": true
+    },
+    {
+      "mode": "life",
+      "start": 56.7,
+      "end": 82.7,
+      "time": 56.7,
+      "decodedVideo": 282,
+      "decodedAudio": 115042,
+      "muted": false,
+      "activation": true
+    }
+  ],
+  "standaloneAudioPlayed": 9,
+  "loopAndBoundary": true,
+  "stopAndMutualExclusion": true,
+  "delayedRealSinglePromiseSafe": true,
+  "delayedActualMp4Cancelled": true,
+  "choicePersistedAndExported": true,
+  "controlledVisibilityPause": true,
+  "naturalEndNoLoop": true,
+  "metadataRejections": [
+    {
+      "case": "candidates.json/task",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "candidates.json/content_version",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "candidates.json/mix_revision",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "candidates.json/manifest_sha256",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园manifest指纹不匹配或无效",
+      "paused": true
+    },
+    {
+      "case": "report.json/task",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "report.json/content_version",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "report.json/mix_revision",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园身份、内容版本或混音版本不匹配",
+      "paused": true
+    },
+    {
+      "case": "report.json/manifest_sha256",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园manifest指纹不匹配或无效",
+      "paused": true
+    },
+    {
+      "case": "candidates/nonhex-sha",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "家园manifest指纹不匹配或无效",
+      "paused": true
+    },
+    {
+      "case": "matching-forged-report-and-candidates-sha",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "实际manifest原始字节指纹不匹配",
+      "paused": true
+    },
+    {
+      "case": "actual-manifest-byte-change",
+      "rejected": true,
+      "videoRequests": 0,
+      "ready": false,
+      "mediaReady": false,
+      "playDisabled": true,
+      "exportDisabled": true,
+      "message": "实际manifest原始字节指纹不匹配",
+      "paused": true
+    }
+  ],
+  "errors": [],
+  "scope": "390px software Chromium, actual native MP4/AAC and nine source files with pointer playback. Raw manifest bytes verified by WebCrypto; eleven real-browser metadata/byte counterexamples reject before media request. Delayed actual audio-play Promise/MP4 fetch and controlled DOM visibility event. Automated exported preference is test data, not user/physical-device/aesthetic approval."
+}

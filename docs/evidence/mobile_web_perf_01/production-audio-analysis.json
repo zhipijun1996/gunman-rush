@@ -1,0 +1,1077 @@
+{
+  "status": "four_standard_production_action_sounds_confirmed_in_mixed_PCM",
+  "scope": "Independent pure-CPU analysis of actual standard-production browser recordings. No engine/browser run and no raw mutation by this reviewer.",
+  "build_info_as_recorded": {
+    "build_id": "3866985a1e8b",
+    "pack": "index.3866985a1e8b.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "0829280c25b8",
+    "pack_bytes": 208691528,
+    "download_bytes": 205558913,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "ccc11e1a9b8fbf305c926b410dcf46c8f4b52a83"
+  },
+  "recorded_url": "http://127.0.0.1:8813/",
+  "identity_limits": "Recording was local standard export; this analysis is not public deployment/HTTP or hardware-speaker verification.",
+  "inputs": [
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02/report.json",
+      "bytes": 835448,
+      "sha256": "07e5ea98fd13bff34e853a64667ffeaaf2f60ca15b26e9637c0cc2f4ce43f09b"
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02/home-actions.wav",
+      "bytes": 1411244,
+      "sha256": "3d25e6df6f91ea7bc81ca54d978c018a0e9d9cc53b459bf276a436c1339b1d48"
+    },
+    {
+      "path": "build/mobile_web_perf_01/production-browser-audio-02/plains-actions.wav",
+      "bytes": 1411244,
+      "sha256": "e77617fad59ad59e9837ae0ca1e46b989be53c043797c67cfcabe989528b87f7"
+    }
+  ],
+  "production_PCK_verified": {
+    "path": "build/web/index.3866985a1e8b.pck",
+    "bytes": 208691528,
+    "sha256": "3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21"
+  },
+  "expected_production_PCK_sha256": "3866985a1e8b5db39e3400b452b2b46339073e010659c9b367b71e385b3afd21",
+  "official_engine_bytes_verified_against_authoritative_template_audit": [
+    {
+      "path": "build/web/index.d20938d2db49.engine.js",
+      "bytes": 315645,
+      "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.wasm",
+      "bytes": 37902138,
+      "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "path": "build/web/index.d20938d2db49.engine.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    }
+  ],
+  "reference_sources": [
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+      "bytes": 16364,
+      "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+      "bytes": 16364,
+      "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+      "bytes": 16364,
+      "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+      "bytes": 22124,
+      "sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+      "bytes": 22124,
+      "sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav",
+      "bytes": 22124,
+      "sha256": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+    }
+  ],
+  "rows": [
+    {
+      "scene": "home",
+      "wave": {
+        "path": "build/mobile_web_perf_01/production-browser-audio-02/home-actions.wav",
+        "bytes": 1411244,
+        "sha256": "3d25e6df6f91ea7bc81ca54d978c018a0e9d9cc53b459bf276a436c1339b1d48"
+      },
+      "wave_sha_matches_original_report": true,
+      "frames": 352800,
+      "sample_rate": 44100,
+      "seconds": 8.0,
+      "window_audio_seconds": [
+        45.081541950113376,
+        53.081541950113376
+      ],
+      "observer_checks": [
+        {
+          "when": "before",
+          "graph_observer_errors": 0,
+          "audio_observer_errors": [],
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "audio_contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "sample_rate": 44100
+            }
+          ]
+        },
+        {
+          "when": "after",
+          "graph_observer_errors": 0,
+          "audio_observer_errors": [],
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "audio_contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "sample_rate": 44100
+            }
+          ]
+        }
+      ],
+      "input_as_recorded": {
+        "jump": [
+          627.9888888888888,
+          244.08333333333334
+        ],
+        "right": [
+          551.4611111111111,
+          244.08333333333334
+        ],
+        "drag_to": [
+          573.2111111111111,
+          244.08333333333334
+        ]
+      },
+      "matches": [
+        {
+          "kind": "jump",
+          "expected_variant": 0,
+          "correct_rho": 0.9971252659252392,
+          "wrong_variant_max_rho": 0.7268128284212492,
+          "correct_variant_margin": 0.27031243750399003,
+          "reversed_expected_rho_near_native": 0.10546607056202763,
+          "reversed_expected_global": {
+            "status": "scanned_complete_template",
+            "template_frames": 7497,
+            "complete_window_count": 345304,
+            "best_positive_gain_match": {
+              "offset_frames": 32335,
+              "offset_seconds": 0.7332199546485261,
+              "rho": 0.3277616966327901,
+              "least_squares_gain": 0.0019359951833465023,
+              "explained_window_variance_fraction": 0.10742772977960512,
+              "window_rms_centered": 0.00037961947869490824
+            },
+            "best_absolute_match": {
+              "offset_frames": 59516,
+              "offset_seconds": 1.3495691609977325,
+              "rho": -0.3524826474830465,
+              "least_squares_gain": -0.05798806322769537,
+              "explained_window_variance_fraction": 0.12424401677665761,
+              "window_rms_centered": 0.01057312281765575
+            }
+          },
+          "reversed_expected_near_native": {
+            "status": "scanned_complete_template",
+            "template_frames": 7497,
+            "complete_window_count": 513,
+            "best_positive_gain_match": {
+              "offset_frames": 168,
+              "offset_seconds": 0.0038095238095238095,
+              "rho": 0.10546607056202763,
+              "least_squares_gain": 0.018554459818944366,
+              "explained_window_variance_fraction": 0.01112309203979459,
+              "window_rms_centered": 0.011306754556028059
+            },
+            "best_absolute_match": {
+              "offset_frames": 372,
+              "offset_seconds": 0.008435374149659863,
+              "rho": -0.16758917024242773,
+              "least_squares_gain": -0.028831760345173135,
+              "explained_window_variance_fraction": 0.02808612998254542,
+              "window_rms_centered": 0.011056753402777585
+            }
+          },
+          "fitted_gain": 0.17542187321019384,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 2,
+            "source_id": 2,
+            "context_id": 1,
+            "performance_ms": 164049.20000000112,
+            "audio_seconds": 46.39056689342404,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.17,
+              "frames": 7497,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 14994,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 14992,
+              "nonzero": true,
+              "scanned_peak": 0.6918686628341675,
+              "scanned_rms": 0.06418854380478724
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_in_recording": true,
+          "source_start_time_margin_seconds": 1.3090249433106607,
+          "source_end_time_margin_seconds": 6.520975056689339,
+          "all_variants": [
+            {
+              "variant": 0,
+              "expected": true,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+                "bytes": 16364,
+                "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 57730,
+                  "offset_seconds": 1.3090702947845805,
+                  "rho": 0.9971252659252389,
+                  "least_squares_gain": 0.17542187321019378,
+                  "explained_window_variance_fraction": 0.9942587959464784,
+                  "window_rms_centered": 0.011306714817970997
+                },
+                "best_absolute_match": {
+                  "offset_frames": 57730,
+                  "offset_seconds": 1.3090702947845805,
+                  "rho": 0.9971252659252389,
+                  "least_squares_gain": 0.17542187321019378,
+                  "explained_window_variance_fraction": 0.9942587959464784,
+                  "window_rms_centered": 0.011306714817970997
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 57730,
+                "offset_seconds": 1.3090702947845805,
+                "rho": 0.9971252659252392,
+                "least_squares_gain": 0.17542187321019384,
+                "explained_window_variance_fraction": 0.994258795946479,
+                "window_rms_centered": 0.011306714817970997,
+                "native_clock_delta_frames": 2
+              }
+            },
+            {
+              "variant": 1,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+                "bytes": 16364,
+                "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 57797,
+                  "offset_seconds": 1.3105895691609977,
+                  "rho": 0.726812828421249,
+                  "least_squares_gain": 0.1327401327776511,
+                  "explained_window_variance_fraction": 0.5282568875576958,
+                  "window_rms_centered": 0.011110228520471027
+                },
+                "best_absolute_match": {
+                  "offset_frames": 57797,
+                  "offset_seconds": 1.3105895691609977,
+                  "rho": 0.726812828421249,
+                  "least_squares_gain": 0.1327401327776511,
+                  "explained_window_variance_fraction": 0.5282568875576958,
+                  "window_rms_centered": 0.011110228520471027
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 57797,
+                "offset_seconds": 1.3105895691609977,
+                "rho": 0.7268128284212492,
+                "least_squares_gain": 0.13274013277765112,
+                "explained_window_variance_fraction": 0.5282568875576962,
+                "window_rms_centered": 0.011110228520471027,
+                "native_clock_delta_frames": 69
+              }
+            },
+            {
+              "variant": 2,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+                "bytes": 16364,
+                "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 57862,
+                  "offset_seconds": 1.3120634920634922,
+                  "rho": 0.6271082021898234,
+                  "least_squares_gain": 0.10404738834504497,
+                  "explained_window_variance_fraction": 0.39326469725375246,
+                  "window_rms_centered": 0.011053483626539285
+                },
+                "best_absolute_match": {
+                  "offset_frames": 57862,
+                  "offset_seconds": 1.3120634920634922,
+                  "rho": 0.6271082021898234,
+                  "least_squares_gain": 0.10404738834504497,
+                  "explained_window_variance_fraction": 0.39326469725375246,
+                  "window_rms_centered": 0.011053483626539285
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 57862,
+                "offset_seconds": 1.3120634920634922,
+                "rho": 0.6271082021898237,
+                "least_squares_gain": 0.104047388345045,
+                "explained_window_variance_fraction": 0.39326469725375274,
+                "window_rms_centered": 0.011053483626539285,
+                "native_clock_delta_frames": 134
+              }
+            }
+          ],
+          "assessment": "presence_confirmed_by_correct_variant_waveform_time_gain_and_negative_controls; mixture fidelity/user acceptance not signed",
+          "source_SHA_and_independent_numeric_match_agree_with_recorded_producer": true
+        },
+        {
+          "kind": "pulse",
+          "expected_variant": 0,
+          "correct_rho": 0.9998331107899574,
+          "wrong_variant_max_rho": 0.6541612321390416,
+          "correct_variant_margin": 0.34567187865091575,
+          "reversed_expected_rho_near_native": 0.11134408922080566,
+          "reversed_expected_global": {
+            "status": "scanned_complete_template",
+            "template_frames": 10143,
+            "complete_window_count": 342658,
+            "best_positive_gain_match": {
+              "offset_frames": 185464,
+              "offset_seconds": 4.205532879818594,
+              "rho": 0.3183070316586254,
+              "least_squares_gain": 0.027538945715676052,
+              "explained_window_variance_fraction": 0.10131936640332515,
+              "window_rms_centered": 0.03229861185111965
+            },
+            "best_absolute_match": {
+              "offset_frames": 185464,
+              "offset_seconds": 4.205532879818594,
+              "rho": 0.3183070316586254,
+              "least_squares_gain": 0.027538945715676052,
+              "explained_window_variance_fraction": 0.10131936640332515,
+              "window_rms_centered": 0.03229861185111965
+            }
+          },
+          "reversed_expected_near_native": {
+            "status": "scanned_complete_template",
+            "template_frames": 10143,
+            "complete_window_count": 513,
+            "best_positive_gain_match": {
+              "offset_frames": 328,
+              "offset_seconds": 0.007437641723356009,
+              "rho": 0.11134408922080566,
+              "least_squares_gain": 0.0194698052909725,
+              "explained_window_variance_fraction": 0.01239750620441073,
+              "window_rms_centered": 0.065279560410056
+            },
+            "best_absolute_match": {
+              "offset_frames": 10,
+              "offset_seconds": 0.00022675736961451248,
+              "rho": -0.14744226042578173,
+              "least_squares_gain": -0.025942537627041296,
+              "explained_window_variance_fraction": 0.021739220159464043,
+              "window_rms_centered": 0.06568606639368306
+            }
+          },
+          "fitted_gain": 0.17592435653688837,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 4,
+            "source_id": 4,
+            "context_id": 1,
+            "performance_ms": 167250.70000000112,
+            "audio_seconds": 49.490430839002265,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.23,
+              "frames": 10143,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 20286,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 20284,
+              "nonzero": true,
+              "scanned_peak": 0.8066835999488831,
+              "scanned_rms": 0.37333536990660016
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_in_recording": true,
+          "source_start_time_margin_seconds": 4.408888888888889,
+          "source_end_time_margin_seconds": 3.361111111111111,
+          "all_variants": [
+            {
+              "variant": 0,
+              "expected": true,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+                "bytes": 22124,
+                "sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 194434,
+                  "offset_seconds": 4.408934240362812,
+                  "rho": 0.9998331107899573,
+                  "least_squares_gain": 0.17592435653688834,
+                  "explained_window_variance_fraction": 0.9996662494319231,
+                  "window_rms_centered": 0.06568727357710216
+                },
+                "best_absolute_match": {
+                  "offset_frames": 194434,
+                  "offset_seconds": 4.408934240362812,
+                  "rho": 0.9998331107899573,
+                  "least_squares_gain": 0.17592435653688834,
+                  "explained_window_variance_fraction": 0.9996662494319231,
+                  "window_rms_centered": 0.06568727357710216
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 194434,
+                "offset_seconds": 4.408934240362812,
+                "rho": 0.9998331107899574,
+                "least_squares_gain": 0.17592435653688837,
+                "explained_window_variance_fraction": 0.9996662494319233,
+                "window_rms_centered": 0.06568727357710216,
+                "native_clock_delta_frames": 2
+              }
+            },
+            {
+              "variant": 1,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+                "bytes": 22124,
+                "sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 194465,
+                  "offset_seconds": 4.409637188208617,
+                  "rho": 0.6541612321390415,
+                  "least_squares_gain": 0.12057091275224954,
+                  "explained_window_variance_fraction": 0.42792691763366897,
+                  "window_rms_centered": 0.06568625972394572
+                },
+                "best_absolute_match": {
+                  "offset_frames": 194465,
+                  "offset_seconds": 4.409637188208617,
+                  "rho": 0.6541612321390415,
+                  "least_squares_gain": 0.12057091275224954,
+                  "explained_window_variance_fraction": 0.42792691763366897,
+                  "window_rms_centered": 0.06568625972394572
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 194465,
+                "offset_seconds": 4.409637188208617,
+                "rho": 0.6541612321390416,
+                "least_squares_gain": 0.12057091275224956,
+                "explained_window_variance_fraction": 0.42792691763366913,
+                "window_rms_centered": 0.06568625972394572,
+                "native_clock_delta_frames": 33
+              }
+            },
+            {
+              "variant": 2,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav",
+                "bytes": 22124,
+                "sha256": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 194512,
+                  "offset_seconds": 4.410702947845805,
+                  "rho": 0.39533239112034685,
+                  "least_squares_gain": 0.07138220735585271,
+                  "explained_window_variance_fraction": 0.1562876994689309,
+                  "window_rms_centered": 0.06516194330323326
+                },
+                "best_absolute_match": {
+                  "offset_frames": 194512,
+                  "offset_seconds": 4.410702947845805,
+                  "rho": 0.39533239112034685,
+                  "least_squares_gain": 0.07138220735585271,
+                  "explained_window_variance_fraction": 0.1562876994689309,
+                  "window_rms_centered": 0.06516194330323326
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 194512,
+                "offset_seconds": 4.410702947845805,
+                "rho": 0.39533239112034674,
+                "least_squares_gain": 0.0713822073558527,
+                "explained_window_variance_fraction": 0.1562876994689308,
+                "window_rms_centered": 0.06516194330323326,
+                "native_clock_delta_frames": 80
+              }
+            }
+          ],
+          "assessment": "presence_confirmed_by_correct_variant_waveform_time_gain_and_negative_controls; mixture fidelity/user acceptance not signed",
+          "source_SHA_and_independent_numeric_match_agree_with_recorded_producer": true
+        }
+      ],
+      "actual_WAV_header_verified": {
+        "frames": 352800,
+        "sample_rate": 44100,
+        "channels": 2,
+        "sample_width_bytes": 2
+      }
+    },
+    {
+      "scene": "plains",
+      "wave": {
+        "path": "build/mobile_web_perf_01/production-browser-audio-02/plains-actions.wav",
+        "bytes": 1411244,
+        "sha256": "e77617fad59ad59e9837ae0ca1e46b989be53c043797c67cfcabe989528b87f7"
+      },
+      "wave_sha_matches_original_report": true,
+      "frames": 352800,
+      "sample_rate": 44100,
+      "seconds": 8.0,
+      "window_audio_seconds": [
+        75.77251700680272,
+        83.77251700680272
+      ],
+      "observer_checks": [
+        {
+          "when": "before",
+          "graph_observer_errors": 0,
+          "audio_observer_errors": [],
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "audio_contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "sample_rate": 44100
+            }
+          ]
+        },
+        {
+          "when": "after",
+          "graph_observer_errors": 0,
+          "audio_observer_errors": [],
+          "feedback_cycles": [],
+          "cycle_scan_truncated": false,
+          "dropped_nodes": 0,
+          "dropped_edges": 0,
+          "audio_contexts": [
+            {
+              "id": 1,
+              "state": "running",
+              "sample_rate": 44100
+            }
+          ]
+        }
+      ],
+      "input_as_recorded": {
+        "jump": [
+          627.9888888888888,
+          244.08333333333334
+        ],
+        "right": [
+          551.4611111111111,
+          244.08333333333334
+        ],
+        "drag_to": [
+          573.2111111111111,
+          244.08333333333334
+        ]
+      },
+      "matches": [
+        {
+          "kind": "jump",
+          "expected_variant": 1,
+          "correct_rho": 0.8913018209413744,
+          "wrong_variant_max_rho": 0.6557976610134217,
+          "correct_variant_margin": 0.2355041599279527,
+          "reversed_expected_rho_near_native": 0.12786469534526101,
+          "reversed_expected_global": {
+            "status": "scanned_complete_template",
+            "template_frames": 7497,
+            "complete_window_count": 345304,
+            "best_positive_gain_match": {
+              "offset_frames": 48937,
+              "offset_seconds": 1.1096825396825396,
+              "rho": 0.34204315904142407,
+              "least_squares_gain": 0.006693284241023504,
+              "explained_window_variance_fraction": 0.11699352264703693,
+              "window_rms_centered": 0.001190424037575585
+            },
+            "best_absolute_match": {
+              "offset_frames": 48937,
+              "offset_seconds": 1.1096825396825396,
+              "rho": 0.34204315904142407,
+              "least_squares_gain": 0.006693284241023504,
+              "explained_window_variance_fraction": 0.11699352264703693,
+              "window_rms_centered": 0.001190424037575585
+            }
+          },
+          "reversed_expected_near_native": {
+            "status": "scanned_complete_template",
+            "template_frames": 7497,
+            "complete_window_count": 513,
+            "best_positive_gain_match": {
+              "offset_frames": 500,
+              "offset_seconds": 0.011337868480725623,
+              "rho": 0.12786469534526101,
+              "least_squares_gain": 0.024404852813126467,
+              "explained_window_variance_fraction": 0.016349380315736413,
+              "window_rms_centered": 0.011610979886342741
+            },
+            "best_absolute_match": {
+              "offset_frames": 258,
+              "offset_seconds": 0.005850340136054422,
+              "rho": -0.1496014955993356,
+              "least_squares_gain": -0.02932279276635929,
+              "explained_window_variance_fraction": 0.02238060748555803,
+              "window_rms_centered": 0.01192374621647144
+            }
+          },
+          "fitted_gain": 0.1747005167497715,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 6,
+            "source_id": 6,
+            "context_id": 1,
+            "performance_ms": 195871.90000000037,
+            "audio_seconds": 76.70131519274376,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.17,
+              "frames": 7497,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 14994,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 14992,
+              "nonzero": true,
+              "scanned_peak": 0.6543337106704712,
+              "scanned_rms": 0.06076530204526239
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_in_recording": true,
+          "source_start_time_margin_seconds": 0.9287981859410479,
+          "source_end_time_margin_seconds": 6.901201814058952,
+          "all_variants": [
+            {
+              "variant": 0,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+                "bytes": 16364,
+                "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 40895,
+                  "offset_seconds": 0.9273242630385488,
+                  "rho": 0.6391290131001895,
+                  "least_squares_gain": 0.11857563832563134,
+                  "explained_window_variance_fraction": 0.40848589538642227,
+                  "window_rms_centered": 0.011923653681328297
+                },
+                "best_absolute_match": {
+                  "offset_frames": 40895,
+                  "offset_seconds": 0.9273242630385488,
+                  "rho": 0.6391290131001895,
+                  "least_squares_gain": 0.11857563832563134,
+                  "explained_window_variance_fraction": 0.40848589538642227,
+                  "window_rms_centered": 0.011923653681328297
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 40895,
+                "offset_seconds": 0.9273242630385488,
+                "rho": 0.6391290131001898,
+                "least_squares_gain": 0.1185756383256314,
+                "explained_window_variance_fraction": 0.40848589538642255,
+                "window_rms_centered": 0.011923653681328297,
+                "native_clock_delta_frames": -65
+              }
+            },
+            {
+              "variant": 1,
+              "expected": true,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+                "bytes": 16364,
+                "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 40962,
+                  "offset_seconds": 0.928843537414966,
+                  "rho": 0.8913018209413743,
+                  "least_squares_gain": 0.17470051674977147,
+                  "explained_window_variance_fraction": 0.7944189360134097,
+                  "window_rms_centered": 0.01192374621647144
+                },
+                "best_absolute_match": {
+                  "offset_frames": 40962,
+                  "offset_seconds": 0.928843537414966,
+                  "rho": 0.8913018209413743,
+                  "least_squares_gain": 0.17470051674977147,
+                  "explained_window_variance_fraction": 0.7944189360134097,
+                  "window_rms_centered": 0.01192374621647144
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 40962,
+                "offset_seconds": 0.928843537414966,
+                "rho": 0.8913018209413744,
+                "least_squares_gain": 0.1747005167497715,
+                "explained_window_variance_fraction": 0.79441893601341,
+                "window_rms_centered": 0.01192374621647144,
+                "native_clock_delta_frames": 2
+              }
+            },
+            {
+              "variant": 2,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+                "bytes": 16364,
+                "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 7497,
+                "complete_window_count": 345304,
+                "best_positive_gain_match": {
+                  "offset_frames": 41027,
+                  "offset_seconds": 0.9303174603174603,
+                  "rho": 0.6557976610134215,
+                  "least_squares_gain": 0.11584491536489669,
+                  "explained_window_variance_fraction": 0.4300705721906745,
+                  "window_rms_centered": 0.011768404380223044
+                },
+                "best_absolute_match": {
+                  "offset_frames": 41027,
+                  "offset_seconds": 0.9303174603174603,
+                  "rho": 0.6557976610134215,
+                  "least_squares_gain": 0.11584491536489669,
+                  "explained_window_variance_fraction": 0.4300705721906745,
+                  "window_rms_centered": 0.011768404380223044
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 41027,
+                "offset_seconds": 0.9303174603174603,
+                "rho": 0.6557976610134217,
+                "least_squares_gain": 0.11584491536489673,
+                "explained_window_variance_fraction": 0.4300705721906748,
+                "window_rms_centered": 0.011768404380223044,
+                "native_clock_delta_frames": 67
+              }
+            }
+          ],
+          "assessment": "presence_confirmed_by_correct_variant_waveform_time_gain_and_negative_controls; mixture fidelity/user acceptance not signed",
+          "source_SHA_and_independent_numeric_match_agree_with_recorded_producer": true
+        },
+        {
+          "kind": "pulse",
+          "expected_variant": 1,
+          "correct_rho": 0.9940428624101451,
+          "wrong_variant_max_rho": 0.6563274861410876,
+          "correct_variant_margin": 0.33771537626905745,
+          "reversed_expected_rho_near_native": 0.1054990181671924,
+          "reversed_expected_global": {
+            "status": "scanned_complete_template",
+            "template_frames": 10143,
+            "complete_window_count": 342658,
+            "best_positive_gain_match": {
+              "offset_frames": 133863,
+              "offset_seconds": 3.0354421768707485,
+              "rho": 0.3217975717437454,
+              "least_squares_gain": 0.027951251185447005,
+              "explained_window_variance_fraction": 0.10355367718017097,
+              "window_rms_centered": 0.030955318561645302
+            },
+            "best_absolute_match": {
+              "offset_frames": 188848,
+              "offset_seconds": 4.282267573696145,
+              "rho": -0.3388157267809686,
+              "least_squares_gain": -0.08183813380618209,
+              "explained_window_variance_fraction": 0.11479609671411596,
+              "window_rms_centered": 0.08608132514521626
+            }
+          },
+          "reversed_expected_near_native": {
+            "status": "scanned_complete_template",
+            "template_frames": 10143,
+            "complete_window_count": 513,
+            "best_positive_gain_match": {
+              "offset_frames": 172,
+              "offset_seconds": 0.0039002267573696146,
+              "rho": 0.1054990181671924,
+              "least_squares_gain": 0.01868439438007829,
+              "explained_window_variance_fraction": 0.011130042834241592,
+              "window_rms_centered": 0.06311715211287702
+            },
+            "best_absolute_match": {
+              "offset_frames": 31,
+              "offset_seconds": 0.0007029478458049886,
+              "rho": -0.1300218989813504,
+              "least_squares_gain": -0.023025832824946475,
+              "explained_window_variance_fraction": 0.016905694214716483,
+              "window_rms_centered": 0.06311253577074177
+            }
+          },
+          "fitted_gain": 0.17604927135344148,
+          "native_clock_delta_frames": 2,
+          "native_clock_delta_ms": 0.045351473922902494,
+          "native_start": {
+            "sequence": 8,
+            "source_id": 8,
+            "context_id": 1,
+            "performance_ms": 198236.09999999963,
+            "audio_seconds": 79.01170068027211,
+            "context_state": "running",
+            "when": 0,
+            "offset": 0,
+            "duration": null,
+            "playback_rate": 1,
+            "loop": false,
+            "buffer": {
+              "duration_seconds": 0.23,
+              "frames": 10143,
+              "channels": 2,
+              "sample_rate": 44100,
+              "examined_samples": 20286,
+              "complete_scan": true,
+              "scanned_nonzero_samples": 20284,
+              "nonzero": true,
+              "scanned_peak": 0.7754984498023987,
+              "scanned_rms": 0.3563420572626663
+            },
+            "native_start_succeeded": true
+          },
+          "entire_native_source_in_recording": true,
+          "source_start_time_margin_seconds": 3.239183673469398,
+          "source_end_time_margin_seconds": 4.530816326530601,
+          "all_variants": [
+            {
+              "variant": 0,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_0.wav",
+                "bytes": 22124,
+                "sha256": "271ba07e3df9c9457f9edb354919d52353d9ae220d71ef3fbb2d05585034c6ba"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 142819,
+                  "offset_seconds": 3.2385260770975055,
+                  "rho": 0.6448600382885562,
+                  "least_squares_gain": 0.10902604383685402,
+                  "explained_window_variance_fraction": 0.41584446898151817,
+                  "window_rms_centered": 0.0631171773584823
+                },
+                "best_absolute_match": {
+                  "offset_frames": 142819,
+                  "offset_seconds": 3.2385260770975055,
+                  "rho": 0.6448600382885562,
+                  "least_squares_gain": 0.10902604383685402,
+                  "explained_window_variance_fraction": 0.41584446898151817,
+                  "window_rms_centered": 0.0631171773584823
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 142819,
+                "offset_seconds": 3.2385260770975055,
+                "rho": 0.6448600382885563,
+                "least_squares_gain": 0.10902604383685403,
+                "explained_window_variance_fraction": 0.41584446898151833,
+                "window_rms_centered": 0.0631171773584823,
+                "native_clock_delta_frames": -29
+              }
+            },
+            {
+              "variant": 1,
+              "expected": true,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_1.wav",
+                "bytes": 22124,
+                "sha256": "dae90511c5b12b92ba640ba53ddae98d6f339ec4257a8e5b0ade326f682eaeec"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 142850,
+                  "offset_seconds": 3.2392290249433104,
+                  "rho": 0.9940428624101452,
+                  "least_squares_gain": 0.17604927135344148,
+                  "explained_window_variance_fraction": 0.9881212123085548,
+                  "window_rms_centered": 0.0631169359967609
+                },
+                "best_absolute_match": {
+                  "offset_frames": 142850,
+                  "offset_seconds": 3.2392290249433104,
+                  "rho": 0.9940428624101452,
+                  "least_squares_gain": 0.17604927135344148,
+                  "explained_window_variance_fraction": 0.9881212123085548,
+                  "window_rms_centered": 0.0631169359967609
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 142850,
+                "offset_seconds": 3.2392290249433104,
+                "rho": 0.9940428624101451,
+                "least_squares_gain": 0.17604927135344148,
+                "explained_window_variance_fraction": 0.9881212123085545,
+                "window_rms_centered": 0.0631169359967609,
+                "native_clock_delta_frames": 2
+              }
+            },
+            {
+              "variant": 2,
+              "expected": false,
+              "source": {
+                "path": "assets/player_presentation_01/weapon_audio_v2/pulse_2.wav",
+                "bytes": 22124,
+                "sha256": "507f3a0f9717aa4430066f6f5f3d4a58498b1ecb9b3a312fbfef3a602f33342b"
+              },
+              "global_full_template_match": {
+                "status": "scanned_complete_template",
+                "template_frames": 10143,
+                "complete_window_count": 342658,
+                "best_positive_gain_match": {
+                  "offset_frames": 142880,
+                  "offset_seconds": 3.2399092970521544,
+                  "rho": 0.6563274861410876,
+                  "least_squares_gain": 0.11478372402808158,
+                  "explained_window_variance_fraction": 0.43076576906427955,
+                  "window_rms_centered": 0.06311406777433325
+                },
+                "best_absolute_match": {
+                  "offset_frames": 142880,
+                  "offset_seconds": 3.2399092970521544,
+                  "rho": 0.6563274861410876,
+                  "least_squares_gain": 0.11478372402808158,
+                  "explained_window_variance_fraction": 0.43076576906427955,
+                  "window_rms_centered": 0.06311406777433325
+                }
+              },
+              "native_clock_anchored_fit": {
+                "offset_frames": 142880,
+                "offset_seconds": 3.2399092970521544,
+                "rho": 0.6563274861410876,
+                "least_squares_gain": 0.11478372402808158,
+                "explained_window_variance_fraction": 0.43076576906427955,
+                "window_rms_centered": 0.06311406777433325,
+                "native_clock_delta_frames": 32
+              }
+            }
+          ],
+          "assessment": "presence_confirmed_by_correct_variant_waveform_time_gain_and_negative_controls; mixture fidelity/user acceptance not signed",
+          "source_SHA_and_independent_numeric_match_agree_with_recorded_producer": true
+        }
+      ],
+      "actual_WAV_header_verified": {
+        "frames": 352800,
+        "sample_rate": 44100,
+        "channels": 2,
+        "sample_width_bytes": 2
+      }
+    }
+  ],
+  "all_four_native_sources_fully_inside_actual8second_windows": true,
+  "observer_errors_zero_and_feedback_cycles_empty_before_after": true,
+  "raw_inputs_unchanged_during_analysis": true,
+  "method": {
+    "analyzer_functions": {
+      "path": "tools/mobile_web_perf/analyze_formal_pcm.py",
+      "bytes": 27260,
+      "sha256": "e4f700abf6fd1153b2af3454fcababee49f75ecbbe431619425ea074b8c3bb01"
+    },
+    "self_test": "passed known-offset/gain positive and reversed negative",
+    "resampling": "scipy.signal.resample_poly48000->44100",
+    "template_matching": "Stereo-mean PCM16; centered normalized complete-template correlation, least-squares gain; full window and native-onset +/-256frames; all3variants and reversed expected template.",
+    "wave_validation": "Original WAV SHA and352800frames/44100Hz/stereo metadata verified. Original Float32 SHA retained in report but cannot be re-derived from quantized PCM16 WAV.",
+    "negative_control_interpretation": "Other variants share sound-family features, so they need not correlate nearzero. Correct variant wins with clock agreement and gain; reversed control separately reported.",
+    "graph_limits": "Post-ended source_routes is not treated as play-time connectivity. Actual source-specific mixed PCM supports presence."
+  },
+  "limited_conclusion": "Confirm only these Homejump0/pulse0 and Plainsjump1/pulse1 actual sounds are present in the standard production mixed output. Do not sign all timbres/cues, continuous BGM/ambience, subjective listening, physical phones, GPU/FPS improvement or public deployment.",
+  "current_local_build_info_verified": {
+    "path": "build/web/build-info.json",
+    "sha256": "30570662527f9334eb7921f194a7d4214adfdd0ef4ad6f8e76172cecb7350306"
+  }
+}

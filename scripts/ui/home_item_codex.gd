@@ -310,7 +310,7 @@ func show_error(message: String) -> void:
 
 func _layout() -> void:
 	if not opened or not is_instance_valid(_body) or not is_instance_valid(_root): return
-	var scale := DemoUiModalMetrics.pixel_scale(get_viewport())
+	var scale := DemoUiModalMetrics.ui_scale(get_viewport())
 	var safe := DemoUiModalMetrics.safe_rect(get_viewport())
 	var physical_width := safe.size.x*scale
 	_body.vertical = physical_width < 740

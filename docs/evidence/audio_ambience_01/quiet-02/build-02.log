@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-ambience/tools/audio_ambience_design.py", line 314, in <module>
+    main()
+  File "/workspace/gunman-ambience/tools/audio_ambience_design.py", line 310, in main
+    {"fetch": fetch, "build": build, "validate": validate}[args.command]()
+  File "/workspace/gunman-ambience/tools/audio_ambience_design.py", line 222, in build
+    validate()
+  File "/workspace/gunman-ambience/tools/audio_ambience_design.py", line 252, in validate
+    raise ValueError("Output level out of bounds: " + take["id"])
+ValueError: Output level out of bounds: plains_chime_a
