@@ -177,11 +177,15 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 			if state in ["lunge_warning", "lunge"]:
 				intent = "read locked lunge and jump across before the wall removes retreat room"
 				var away_room: float = at.x-arena.position.x if dx>0 else arena.end.x-at.x
+				var roomy_retreat := phase<3 and away_room>200
 				# The first part of a readable warning plants toward the Boss.
 				# Starting the jump320wu away made the old crossing descend onto
 				# its torso despite a perfectly real upward recoil shot.
-				axis = signf(dx) if state == "lunge_warning" and absf(dx)>195 else 0.0
-				if state == "lunge_warning" and not support_motion and float(encounter.clock)<=.25 and grounded and cross_axis==0:
+				# When real ground still provides retreat room, use that room
+				# instead of needlessly jumping toward the rising locked lunge.
+				axis = -signf(dx) if roomy_retreat else signf(dx) if state == "lunge_warning" and absf(dx)>195 else 0.0
+				if roomy_retreat: intent="retreat on actual ground from the locked lunge; preserve corner crossing for when needed"
+				if state == "lunge_warning" and not roomy_retreat and not support_motion and float(encounter.clock)<=.25 and grounded and cross_axis==0:
 					cross_axis = signf(dx)
 					cross_started = frame
 					cross_until = frame+180
@@ -291,7 +295,11 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	# deliberately aimed away/down, so its real upward recoil carries the player
 	# over the large body; it is counted as an actual miss, not a Boss hit.
 	if cross_axis != 0:
-		axis = cross_axis if _cross_motion_safe(app,encounter,cross_axis) else 0.0
+		# A future-overlap guard cannot find a collision-free path while the
+		# actor already touches the hull. Keep ordinary escape input in that
+		# case: stopping here trapped the old pilot through repeated contact
+		# hits instead of letting the player leave during real invulnerability.
+		axis = cross_axis if actual_touch or _cross_motion_safe(app,encounter,cross_axis) else 0.0
 		intent = "actual jump/recoil crossing of locked lunge; normal input only"
 		if not grounded and cross_air_frame<0: cross_air_frame=frame
 		# A landing/rearm in the exact warning tick must not lose the jump.
