@@ -8,6 +8,6 @@
 
 工坊原生私密发布源97a25c0：25条目/95版本/15原片，保原88版本/全部意见归属与其他18条目。仅新增7候选/7原帧海报/1媒体，API13、模型8及独审434/0；首轮海报前导1帧问题修正并保原失败。实际公网MP4完整HTTP200/SHA相符；数据库/API/schema不改，没有写伪用户意见。浏览器本轮未重跑，用户/听感/设备不代签。
 
-兼容后继的本地原生346/0、原generated consumer26套、原forest campaign74/0及原visual27/0、avatar37/0都实际通过；[原CI94失败](integration/ci-40988919015/README.md)保留，完整167后继待核。仅预览缺失金额与legacy公共版本两修复，不改已录七怪的1/5真实金额/骨骼/音画参数；996影片保持原来源，不追签后继SHA。
+兼容后继的本地原生346/0、原generated consumer26套、原forest campaign74/0及原visual27/0、avatar37/0都实际通过；[原CI94失败](integration/ci-40988919015/README.md)保留，[后继CI40993924803](integration/ci-40993924803/README.md)仍失败：根铃合同迁移与串行森林80/600超时分列，当前仅根铃40/10/2/3+12新负例/八变异本地通过，精确新源独审/完整167待核。仅预览缺失金额与legacy公共版本两修复，不改已录七怪的1/5真实金额/骨骼/音画参数；996影片保持原来源，不追签后继SHA。
 
 [范围](../../worklines/plains_motion_loot_02/scope.md) · [门禁迁移](../../worklines/plains_motion_loot_02/guard_migration.md) · [资产追加](asset-registration/append-proof.json) · [制作卡](../../worklines/plains_motion_loot_02/review_card.md)。九WAV原CC0实录来源/配方和生成生命球原图完整保留；生成模型/许可未暴露，仍unknown。质量保持review，整怪艺术/声音听审、设备与用户G5未签。

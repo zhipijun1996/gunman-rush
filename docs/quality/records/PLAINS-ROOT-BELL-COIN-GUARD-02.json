@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-ROOT-BELL-COIN-GUARD-02",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "reviewed_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "content_version": "root-bell-coin-guard-v1",
+  "owner": "/root",
+  "purpose": "将根铃替换的旧掉落全等断言迁移为单一真实物种固定币差合同，保原其余守门和失败",
+  "player_experience": "验收能拒绝根铃仍拿旧冲锋币额、RNG/概率补给漂移及其他怪奖励变化；本卡不签游戏成品质量",
+  "constraints": [
+    "两个测试/adapter限定，生产0diff",
+    "保40/10/2/3与240/360/60Hz、原六Python变异和失败原件",
+    "允许唯一admission.id实际charger→root_bell的配置金额差，其余字段全部相同",
+    "新12真实原生负例与八Python变异；首次独审漏放反例不得抹除"
+  ],
+  "affected_paths": [
+    "tests/root_bell_spaces_runner.gd",
+    "tools/run_root_bell_spaces.py",
+    "docs/worklines/plains_motion_loot_02/root_bell_coin_guard.md",
+    "docs/quality/records/PLAINS-ROOT-BELL-COIN-GUARD-02.json",
+    "docs/tasks.md",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-plan-proof.json",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-plan-review.json",
+    "docs/evidence/plains_motion_loot_02/review/root-bell-coin-guard-plan-review.md",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/species-difference-original.log",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-phase-original.zip",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/receipt.json",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-full-original.zip",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-job-original.log",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/README.md",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/prepare-original.zip",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/github-api-artifacts.json",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-phase-original.zip",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-matrix-original.json",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/diagnose-spaces.gd.txt",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/diagnostic-initial-parse-failure.log",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/context-original.zip",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-job-original.log",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/root-bell-spaces-original/audit.json",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/root-bell-spaces-original/runtime.log",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/root-bell-spaces-original/report.json",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/before-a5ff/tools/run_root_bell_spaces.py",
+    "docs/evidence/plains_motion_loot_02/integration/ci-40993924803/before-a5ff/tests/root_bell_spaces_runner.gd",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/audit.json",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/runtime.log",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/wrapper.log",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/report.json",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/audit.json",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/runtime.log",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/wrapper.log",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03/report.json",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/before-independent-correction/tools/run_root_bell_spaces.py",
+    "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-02/before-independent-correction/tests/root_bell_spaces_runner.gd"
+  ],
+  "deliverables": [
+    "docs/worklines/plains_motion_loot_02/root_bell_coin_guard.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "授权经济变化/限定迁移/保留条件和原失败已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "唯一真实替换、配置币差及12反例/原门禁边界具体可证伪",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "只改两个测试/收据适配器；本process任务没有游戏美术/GUI/设备/主观验收，主enemy任务单独记录。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "RBC-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "根铃实际替换守卫后按配置固定金额",
+      "method": "保存原失败并限定单一实际admission identity和species",
+      "expected": "原其余drop/roll/bonus/地图全保，允许唯一配置币差",
+      "failure": "允许整条旧drop回退或非selected漂移",
+      "status": "passed",
+      "reason": "范围/反例/初版拒绝均已写明",
+      "evidence": [
+        "scope"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/plains_motion_loot_02/root_bell_coin_guard.md",
+      "sha256": "2745b388fde0496c3dd20d63e405a29a2f09c8a74a7ea02c61c3406ea8722852",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+      "content_version": "root-bell-coin-guard-v1",
+      "method": "原a5ff失败后编写的限定迁移规格；不称旧a5ff已包含新测试",
+      "observed": "原守门/预算完整保留，初版漏放与修正分列"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "精确冻结后限定源码独审与新源完整167待核；森林串行超时根因未定，主enemy质量/听感/设备/用户不在本卡范围。"
+  ],
+  "test_change_justification": "用户固定金额必掉使原整drop相同断言在一个真实guard替换图失效；仅允许当前admission.id实际charger→root_bell按配置改五币相关字段，完整clone equality保原roll/stream/bonus/所有其余字段；同物种/非selected记录全等，双侧整数budget差额对应单笔，堵独审发现的联合回退/小数/物种过宽。保原地图/物理/save/version/预算/六变异，再增12原生及两Python变异。精确源独审尚待绑定，不先签passed。"
+}

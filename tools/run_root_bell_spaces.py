@@ -31,6 +31,9 @@ def validate(data):
     negatives=data.get('physical_negatives',[])
     names={'width559','width561','wrong_recipe','one_way','non_bidirectional','own_ceiling','adjacent_danger','camp_endpoint','hazard_on_bank','removed_guard'}
     require(len(negatives)==10 and {x.get('mutation') for x in negatives}==names and all(x.get('refused') is True for x in negatives),'Missing/false physical rejection')
+    drop_negatives=data.get('drop_contract_negatives',[])
+    drop_names={'wrong_coin','wrong_before_coin','changed_roll','changed_bonus','other_drop','missing_drop','extra_drop','wrong_admission','wrong_budget','rolled_back_species_payout','fractional_budget','fractional_before_budget'}
+    require(len(drop_negatives)==12 and {x.get('mutation') for x in drop_negatives}==drop_names and all(x.get('refused') is True for x in drop_negatives),'Missing/false species payout rejection')
     saved=data.get('saved_map_compatibility',[])
     versions={'legacy_v10':'plains-region-v10','v2':'plains-region-v11-root-bell-v2','v3':'plains-region-v12-root-bell-spaces'}
     require(len(saved)==2 and {x.get('mode') for x in saved}=={'legacy_v10','v2'},'Missing actual historical loader compatibility')
@@ -39,16 +42,17 @@ def validate(data):
     replay=data.get('run_manifest_replay',[])
     require(len(replay)==3 and {x.get('mode') for x in replay}==set(versions),'Missing actual three-version replay')
     require(all(x.get('passed') is True and x.get('wrong_version_refused') is True and x.get('version')==versions[x['mode']] for x in replay),'Actual versioned RunManifest replay failed')
-    return {'maps':40,'v11_root_maps':1,'v12_root_maps':2,'intro_root_maps':0,'physical_refusals':10,'saved_version_replays':2,'run_manifest_versions':3,'scope':data['scope']}
+    return {'maps':40,'v11_root_maps':1,'v12_root_maps':2,'intro_root_maps':0,'physical_refusals':10,'species_payout_refusals':12,'saved_version_replays':2,'run_manifest_versions':3,'scope':data['scope']}
 
 
 def mutations(data):
     def dropped(key):
         value=copy.deepcopy(data);value.pop(key);return value
-    candidates=[('drop/'+key,dropped(key)) for key in ('physical_negatives','saved_map_compatibility','run_manifest_replay')]
+    candidates=[('drop/'+key,dropped(key)) for key in ('physical_negatives','saved_map_compatibility','run_manifest_replay','drop_contract_negatives')]
     bad=copy.deepcopy(data);bad['rows'][0]['admission']['replaced']=True;candidates.append(('boolean_replacement',bad))
     bad=copy.deepcopy(data);bad['saved_map_compatibility'][0]['actual_hash']='different';candidates.append(('lost_old_hash',bad))
     bad=copy.deepcopy(data);bad['run_manifest_replay'][-1]['wrong_version_refused']=False;candidates.append(('version_false_accept',bad))
+    bad=copy.deepcopy(data);bad['drop_contract_negatives'][0]['refused']=False;candidates.append(('payout_false_accept',bad))
     refused=[]
     for label,bad in candidates:
         try:validate(bad)

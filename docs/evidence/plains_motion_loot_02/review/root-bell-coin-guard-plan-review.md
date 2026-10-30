@@ -1,0 +1,13 @@
+# Root-bell spaces: bounded guard migration review
+
+Reviewer `/root/guard_review_recovery` did not author production or these guard changes. Read-only review against original commit `a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249`; no Godot executed and no production/test files modified.
+
+**ACCEPT the narrow migration design; exact frozen-source/native receipt acceptance is pending.** User-authorized guaranteed coins depend on actual species. Native diagnosis proves that one admitted same-ID enemy changes charger→root_bell and 2→7 coins. The only changed drop fields are `behavior`, three amount totals, and the unique coin reward amount. Nine other fields—including roll5, stream position1, namespace and bonus result—are equal. These can be preserved by deep-cloning the old row, modifying only those five fields, then comparing the entire result to the new row.
+
+The first candidate had concrete false accepts: jointly restoring the old drop and coin budget bypassed the species transition through `before==after`, and `int(...)` budget casts accepted fractional budget drift. Independent Python branch transcription on original native diagnostic JSON reproduced both (see `/tmp/plains_root_bell_guard_migration_plan_proof.json`; this is not native execution). Latest inspected source addresses them by branching on actual enemy species first, locking charger→root_bell, and requiring integer budgets. It adds rollback and fractional budget negatives.
+
+Keep all original map/node/connection/chest reward checks, 40 maps, 10 physical negatives, 2 saved-version tests, 3 replay-version tests, original Python six mutation cases and 240/360-second budgets. The current diff is limited to the runner and its receipt adapter. All other drop rows and admitted-row RNG, bonuses, reward order and keysets stay under full equality. No broad allowance for arbitrary species or economic fields is justified.
+
+Independently inspected the original failed ZIP: source a5ff, 49 actual checks (48 passed, root-bell-spaces failed; 43 lane checks unexecuted). Native audit contains exactly the single reported non_ecology_content_drift failure, 40 rows, 10 physical negatives, 2 passed save tests and 3 passed replay/version tests. This run remains failed and cannot establish full167. Original ZIP SHA: `4fe458a85efef4ff886bfe0aff9e5019ed513c3c24e2cc3fad3352a99af5f951`.
+
+Before bounded final source acceptance: freeze an exact commit, inspect real wrapper receipt with all old and new refusal cases, then bind new CI evidence separately. This review cannot sign G1–G5, formal, art, audio, device or user acceptance, and does not retag the older recording.

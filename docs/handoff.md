@@ -6,7 +6,7 @@
 
 冻结影片996a5946实录50.7833秒/3047帧/2940观测/七章0缺口，媒体固定8ccd927c，公网完整HTTP200/SHA一致；录片明确idle观察hold/原岸站位/实际概率样本选取，非自然整关。巡逻落位与回血可见性原拒绝和限定复审保留。工坊API13/模型8/独审434通过；本轮浏览器/声音听审/设备/用户与经济平衡未签。
 
-CI40988919015完整167原尝试失败：parallel9过1fail、82未跑；serial14过/forest-campaign180timeout、60未跑。实际两缺陷为旧coin预览省略amount导致SCRIPT ERROR，以及legacy默认drop v1被新的公共v2常量误拒于Forest。后继仅生产兼容修复，旧测试/预算不改；原visual27、avatar37、本地专项346、原generated26套和forest campaign74全部0失败。新源完整167复验待核，不以旧996片追签兼容后继代码。[本轮证据](evidence/plains_motion_loot_02/README.md)。
+CI40988919015完整167原尝试失败：parallel9过1fail、82未跑；serial14过/forest-campaign180timeout、60未跑。实际两缺陷为旧coin预览省略amount导致SCRIPT ERROR，以及legacy默认drop v1被新的公共v2常量误拒于Forest。后继仅生产兼容修复，旧测试/预算不改；原visual27、avatar37、本地专项346、原generated26套和forest campaign74全部0失败。a5ff完整CI40993924803又失败：parallel48过/根铃旧掉落全等1fail/43未跑，serial17过/森林80在600秒只完成53条皆过/57未跑；原件保留。根铃仅迁移实际charger2→root_bell7的授权币差，原40图/10物理/2save/3版本及240/360预算保留并加12掉落负例/八变异，本地wrapper03通过；独审指出的首版联合回退/小数漏放已修正并保原件。串行17项普遍1.55倍、同53路线约2.06倍且Python解析也慢，原4CPU/4workers，根因未定，不称生产性能已修。精确新源独审和完整167待核，不以旧996片追签后继代码。[本轮证据](evidence/plains_motion_loot_02/README.md)。
 
 分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；media/plains-motion-loot-02只承载固定原片，不是可玩发布。恢复先核Git/source与唯一Godot租约，勿重画、重录或覆盖旧失败；下一步完成新源167后归档精确CI，并按用户具体怪物/时间点意见返工。
 

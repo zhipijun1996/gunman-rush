@@ -1,0 +1,153 @@
+{
+  "verdict": "ACCEPT",
+  "qualification": "LIMITED_MOTION_SOURCE_AND_OBSERVED_AUTOMATED_EVIDENCE",
+  "reviewer": "/root/guard_review_recovery",
+  "independent": true,
+  "implementers": [
+    "/root",
+    "/root/plains_motion_round2",
+    "/root/plains_audio_feedback_round2"
+  ],
+  "independence_basis": "Reviewer authored none of the reviewed motion/body/host/remains code or motion tests. Read-only source/diff and existing-artifact review; only /tmp reports/proof were written. No Godot, rendering, production/test change or native rerun.",
+  "source_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "baseline_commit": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+  "candidate_files": {
+    "scripts/enemies/plains_motion_02.gd": "82394b547e5e769a4a8b981a2028834d7f21a6ff0f9d863554a259084aad3f60",
+    "scripts/enemies/plains_revision_ground.gd": "5602b56cc55f24429e1711e12798da2ea949627c2e278a0b6b34e278edc3f5ec",
+    "scripts/enemies/plains_revision_flora.gd": "6e07954a52ccab1e268e6b53b3dc007017e94037c67c463a8592d38f7c748b3d",
+    "scripts/enemies/plains_revision_visual.gd": "4634f96cdeeaf7cf595c08fe258e878eaedf7f9b8a0d49f3abdbbd7adce9f4c5",
+    "scripts/enemies/plains_revision_skin.gd": "10a76c7e0a0cc804c13eccf5faadbf2bfdc9e755202e7bbf59ffa454f0e8ae34",
+    "scripts/enemies/plains_revision_skin.gdshader": "6ec6a3025035ea9823547f090f2d35f9888476560ba02af5b93bfa9dda834666",
+    "scripts/enemies/plains_revision_remains.gd": "64e559a37e9b1d1c2628237eb28db6fc04466284fe9b2b4c5a0be97473850b80",
+    "scripts/enemies/enemy_presentation.gd": "97f406aa9f007fe98c9d8aaf1eab8bb46fd9cf3f24ec6b268f28a06f9f75162e",
+    "scripts/underworld_plains/underworld_enemy.gd": "52e211ec5d3758d4dde07521f9f5298a1ca9132df0c210d19a576e781b6660f0",
+    "scripts/presentation/enemy_presentation_lifecycle.gd": "286db9b2074518fb65b4c0db15babb480b605d42d1c0e7c361b5ba4c12893828",
+    "scripts/enemies/enemy_feedback_01_body.gd": "96e459ec9f6921fedd369c444a22c67661a8f4465f628877f781c532801c8589",
+    "scripts/enemies/enemy_feedback_01_remains.gd": "135ecd0f523007c0668262db043a69ba4a5927db6e617e607a2728653b3ca71f",
+    "scripts/enemies/enemy_feedback_01.gd": "b905e9ded3a2ceb14b488280cd8ced6b386bb013603c27c1dca829abd70ced27",
+    "scripts/enemies/enemy_actor.gd": "5833e73f0dbe7c1202d53d6ac5809a4d61d021d8431de1b6ac0b411d2a35a4db",
+    "tests/plains_motion_loot_02_motion.gd": "340758b08d163bf0a44a4624c7399aebbf8d8a993f3862beb4de5df21a06fb40"
+  },
+  "source_integrity": {
+    "checks": 37,
+    "failures": 0,
+    "proof_path": "/tmp/plains_motion_loot_02_motion_source_proof.json",
+    "proof_sha256": "b5c65a36093a0256d2a7edfff17f47d6a689f4b1b979ffc9fa63544b1580c223",
+    "body_bytes_equal_actual_recording_source": "996a59461b0901c483a7769355b4e2afdd88b078"
+  },
+  "observed_not_executed_native": {
+    "log": {
+      "path": "build/plains-motion-loot-02-native-09.log",
+      "sha256": "8e4842a025fcd9ad9a2d8a7cc719d0445c78fd3b5984c111d7df938cdae8b969",
+      "reviewer_executed": false,
+      "assertions": 346,
+      "failures": 0
+    },
+    "motion_assertions": 84,
+    "motion_failures": [],
+    "motion_samples": [
+      {
+        "id": "patrol_head_contact",
+        "opaque_head_bottom_y": -0.216192245483398,
+        "scope": "Actual opaque head probes; raster/chest mass appearance requires the separate real GPU review",
+        "support_y": 0.0,
+        "tolerance_wu": 1.0
+      },
+      {
+        "foot_max": 0.0,
+        "id": "opaque_anatomy/patrol",
+        "idle_max": 0.5547234416008,
+        "nonrigid_spread": 0.53102171421051,
+        "opaque_points": 581,
+        "upper_max": 0.5547234416008
+      },
+      {
+        "foot_max": 0.0176737532019615,
+        "id": "opaque_anatomy/charger",
+        "idle_max": 0.400388807058334,
+        "nonrigid_spread": 0.606726706027985,
+        "opaque_points": 623,
+        "upper_max": 0.375877946615219
+      },
+      {
+        "foot_max": 0.00104299664963037,
+        "id": "opaque_anatomy/hopper",
+        "idle_max": 0.45696634054184,
+        "nonrigid_spread": 0.582648098468781,
+        "opaque_points": 615,
+        "upper_max": 0.45696634054184
+      },
+      {
+        "foot_max": 0.0495815277099609,
+        "id": "opaque_anatomy/sentry",
+        "idle_max": 2.01746034622192,
+        "nonrigid_spread": 3.44175291061401,
+        "opaque_points": 595,
+        "upper_max": 1.75609529018402
+      },
+      {
+        "foot_max": 0.0,
+        "id": "opaque_anatomy/fan_sentry",
+        "idle_max": 5.3967080116272,
+        "nonrigid_spread": 6.70891237258911,
+        "opaque_points": 476,
+        "upper_max": 4.83841133117676
+      },
+      {
+        "foot_max": 0.000780556118115783,
+        "id": "opaque_anatomy/root_bell",
+        "idle_max": 4.93668651580811,
+        "nonrigid_spread": 4.14157485961914,
+        "opaque_points": 507,
+        "upper_max": 4.16802930831909
+      },
+      {
+        "epoch_after_reset": 3,
+        "epoch_before_reset": 1,
+        "id": "actual_motion_observer",
+        "scope": "Scripted Motor positions; real Actor snapshots/observer/lifecycle, not natural movement or combat",
+        "start_drive": 0.43926086780057,
+        "stop_drive": -0.437375550829462
+      },
+      {
+        "body_max": 0.238270804286003,
+        "host_bob": 0.0,
+        "id": "opaque_diver/legacy",
+        "opaque_points": 294,
+        "scope": "Actual installed canonical source; body observer only, not full corpse animation or visual approval",
+        "upper_max": 0.424924790859222
+      },
+      {
+        "body_max": 0.678454875946045,
+        "host_bob": 0.0,
+        "id": "opaque_diver/underworld",
+        "opaque_points": 213,
+        "scope": "Actual installed canonical source; body observer only, not full corpse animation or visual approval",
+        "upper_max": 0.695172607898712
+      }
+    ],
+    "scope": "Original explicit Factory/observer/opaque-source geometry fixtures and both real diver skins; not natural combat, pixels, listening or device acceptance."
+  },
+  "blocking_findings": [],
+  "findings": [
+    "Lifecycle is the sole actual observer/sample-clock owner. It rejects paused/out-of-tree/invalid/nonfinite/nonpositive delta before calling motion advance; same-epoch visual refresh0 never calls observer advance, and draw only resynchronizes a changed epoch. Offscreen culling is inside pure drawing, after actual state observation.",
+    "World displacement drives stride/travel; normalized acceleration drives bounded start/stop lean. Body_follow and appendage_follow are sequential low-pass states; appendage_follow carries the intermediate body-follow delay into ground head motion. The body mass itself uses drive/travel/phase-weighted joints, so body_follow is not falsely treated as a second independent body clock.",
+    "Ground body respiration/load response is spatially masked above anchored feet. Patrol has opposed support/swing phases, chest weight transfer, head-first turn and short knee/head hurt response. Charger carries front compression/horn/shell load, delayed head and shell shock. Hopper uses grounded/air masks, large hind-chain motion, belly breathing/contraction and delayed head rather than a universal image translation.",
+    "Diver legacy andUnderworld use their actual source-relative joints. All four live/remains host bob reads now use the same diver=0 helper, avoiding duplicate whole-image float. Wing/rotor phase carries thorax and delayed abdomen/feet; attack load/fold/recovery remain read-only state inputs. Fan wings carry the copper body and later feet through separate phase offsets; asymmetric death uses corpse age until contact and returns before any live clock at progress1.",
+    "Sentry sac/nozzle/chamber/leaves respond separately with carried leaf hinges; root bell transports elbow, hanger and leaf attachment through two stem bends before local delayed movement. Planted feet/root masks stay nearly fixed; attack and hurt cues use the existing accepted phase/sample values, not new rays/HP/path helpers.",
+    "Six articulated bodies keep the captured drive/hurt/turn/air pose at death0, then blend to anatomical targets independent of live clocks at death1. Patrol final chest/head descent includes the visible-grounding repair; existing opaque head sample reaches-.216192wu from support within1wu. Diver continues its separate authoredD1-D4 owner; exact live deformed vertex-to-D1 equality is not asserted.",
+    "Corpse progression/contact is separately epoch/event-gated, stage-owned and paused. Accepted death captures once; persistent charger anddiver keep stable support-local final poses, missing support falls without a new death receipt, transient types hold/fade after settling. Final shaders contain no autonomous TIME channel. Actor death still cancels attacks/stops Motor/removes collision; the reviewed Actor diff only changes its audio dispatch, and Motor/definitions/attack behavior sources remain unchanged."
+  ],
+  "nonblocking_contract_boundaries": [
+    "Direct internal PlainsMotion02.advance(actor,0) rebases private _last_position before returning; this ordering pre-existed2ac. Actual production lifecycle rejects zero/nonfinite/paused advancement first, and refresh0 does not call it, so no current production regression was found. The existing zero-tick native assertion checks clocks/inertia values, not every private baseline; do not broaden that claim or bypass the lifecycle in future consumers.",
+    "Diver terminal rendering bypasses live deformation and uses its authored death frames. The existing native diver tests prove finite nonrigid live anatomy/no host bob/static terminal bypass, not an exact vertex-continuous lethal handoff through all eight authored frames. Original video remains the visual review source.",
+    "The finite opaque/foot/head probes do not prove every opaque contour contact, no interpenetration for every phase/terrain, or perception at normal play size. Body-follow phase, UV masks and floor clamp remain source-level design, with actual visual/player judgement separate."
+  ],
+  "not_verified": [
+    "No engine/native/GUI rerun or new video was performed by reviewer.",
+    "Full167CI/officialaffected closure remains a separate pending artifact audit.",
+    "No G1–G5, formal GUI/consumer-coverage, normal-speed art, subjective sound, player fun/approval, economic balance or physical-device acceptance is inferred.",
+    "The996 recording is not retagged as a5ff; reviewed motion/body/host/test bytes are separately verified identical across those commits."
+  ],
+  "repository_mutations": false
+}
