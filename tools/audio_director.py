@@ -181,6 +181,15 @@ def brief(request,output):
                 result['home_selection']=selection
                 result['inputs'].append({'path':home_selection_path,'sha256':sha(ROOT/home_selection_path)})
                 result['runtime_scope']='User selected the exact Home '+selection['mix_revision']+' '+selection['mode']+' mix; preserve low gains, sparse schedule, original BGM and prior regional A/A. Formal rollout and device validation are separate.'
+    feedback_paths=['docs/audio_director/feedback_05.md','config/audio_director/feedback_05/recipes.json','config/audio_director/feedback_05/sources.json','assets/audio/feedback_05/manifest.json','scripts/audio/selected_sfx_runtime.gd','scripts/dev/player_presentation_01/weapon_audio_v2.gd']
+    if all((ROOT/path).is_file() for path in feedback_paths):
+        result['current_feedback_revision']={'task':'AUDIO-FEEDBACK-05','version':'audio-feedback-v1','status':'implemented candidate; awaiting user hearing','rejected_in_real_play':['hero hurt C','Freedoom solid-wall timbre'],'runtime':'Selected default hurt uses separately named hurt_feedback_05; explicit old C remains an audition. Solid contact is a separate family with three takes, not enemy_hit B.','scope':'Title/Home BGM startup, committed chest/item rewards and mechanism audibility are also revised. Five BGM files, prior choices and regional/home selections remain unchanged.','manifest':'assets/audio/feedback_05/manifest.json'}
+        result['inputs'] += [{'path':path,'sha256':sha(ROOT/path)} for path in feedback_paths]
+        hero_hurt=any(word in request.lower() for word in ['受伤','hurt']) and not any(word in request.lower() for word in ['敌人','怪物','enemy','creature'])
+        solid_contact=any(word in request.lower() for word in ['碰墙','墙壁命中','地面命中','solid contact'])
+        if hero_hurt or solid_contact:
+            result.update(task='AUDIO-FEEDBACK-05',candidate_version='audio-feedback-v1',next_command='python3 tools/audio_feedback_design.py build')
+            result['selected_events']=list(dict.fromkeys([*result['selected_events'],*(['hurt'] if hero_hurt else []),*(['wall'] if solid_contact else [])]))
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

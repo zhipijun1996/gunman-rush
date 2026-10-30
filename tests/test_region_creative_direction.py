@@ -366,13 +366,45 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(old['version'],'creative-v21')
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction('docs/creative_direction/archive/creative-v21/'+name+'.json',name)
-            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v22/'+name+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v22')
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
-            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v22/registry.json').read_bytes())['shared_style_authority'])
             self.assertEqual(current['revision_impact']['task_id'],'MOBILE-UI-CLARITY-01')
+
+    def test_audio_feedback_creative23_preserves22_and_refuses_previous_pointer(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v22'
+        digests = {
+            'registry':'5fa60413ae54e66410730a0f682d0d929fbda8ed7264fc6ad91337e2b9c8a718',
+            'windchime_plains':'dbe7e46af3850d343d42c854c62d14f9cf56ccbbc6c9c2f5491babbe9e134c1d',
+            'thorn_forest':'e915f7e38d5c3678235ff3f1cca0d9c696b40d38c9eb4916fed9780e4c952218',
+        }
+        for name,digest in digests.items():
+            raw = (archive/(name+'.json')).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                self.assertEqual({k:v for k,v in creative.load_bible_registry().items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v22')
+            old_path = 'docs/creative_direction/archive/creative-v22/'+name+'.json'
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(old_path,name)
+            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            self.assertEqual(current['version'],'creative-v23')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
+                             {k:v for k,v in old['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
+            self.assertEqual(current['revision_impact']['task_id'],'AUDIO-FEEDBACK-05')
+            self.assertEqual(current['revision_impact']['previous_direction'],old_path)
+            self.assertEqual(current['revision_impact']['previous_sha256'],digest)
+            self.assertEqual(current['revision_impact']['affected_consumers'],['scripts/demo/demo_app.gd','scripts/ui/demo_menu.gd','scripts/items/v5/item_v5_shop_presenter.gd'])
 
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
@@ -423,7 +455,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v22')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v23')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

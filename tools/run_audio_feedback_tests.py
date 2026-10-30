@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Finite audio-feedback regression through the original strict native runner."""
 import argparse
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import subprocess
@@ -17,9 +18,11 @@ CASES = [
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=Path('build/audio_feedback_05/regression'))
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args()
-    args.output.mkdir(parents=True, exist_ok=True)
+    if args.output is None:
+        args.output = Path('build/audio_feedback_05') / ('regression-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ'))
+    args.output.mkdir(parents=True, exist_ok=False)
     rows = []
     for name, script, marker, timeout in CASES:
         output = args.output / name

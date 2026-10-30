@@ -1,0 +1,140 @@
+E....E...E..E......E.E.........EE.
+======================================================================
+ERROR: test_actual_player_body_closure_is_required_and_superseded_binding_refused (__main__.BibleTests.test_actual_player_body_closure_is_required_and_superseded_binding_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 325, in test_actual_player_body_closure_is_required_and_superseded_binding_refused
+    old18_raw = (ROOT/(archive19+'style-continuity-20261028-v18-chest-art.json')).read_bytes()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-main/docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/style-continuity-20261028-v18-chest-art.json'
+
+======================================================================
+ERROR: test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume (__main__.BibleTests.test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 872, in test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume
+    proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_default_current_bibles_skip_election (__main__.BibleTests.test_default_current_bibles_skip_election)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 971, in test_default_current_bibles_skip_election
+    mission = level_design.route_request(request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_future_proposed_worker_gets_shared_style_without_visual_gate (__main__.BibleTests.test_future_proposed_worker_gets_shared_style_without_visual_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 262, in test_future_proposed_worker_gets_shared_style_without_visual_gate
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18 (__main__.BibleTests.test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 783, in test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18
+    manifest_raw = (ROOT/(archive+'manifest.json')).read_bytes()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-main/docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/manifest.json'
+
+======================================================================
+ERROR: test_no_bible_proposal_only_and_explicit_production_rejected (__main__.BibleTests.test_no_bible_proposal_only_and_explicit_production_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 984, in test_no_bible_proposal_only_and_explicit_production_rejected
+    mission = level_design.route_request('制作萤雾沼泽')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_visual_director_uses_current_bible_and_exact_caller_scope (__main__.BibleTests.test_visual_director_uses_current_bible_and_exact_caller_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 1136, in test_visual_director_uses_current_bible_and_exact_caller_scope
+    m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/visual_director.py", line 1385, in route
+    mission = route_request(request, mode='new_region' if re.search(r'制作|create|new region', request, re.I) else 'optimize')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_worker_prompt_contains_full_original_and_audio_scope (__main__.BibleTests.test_worker_prompt_contains_full_original_and_audio_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_bible.py", line 1101, in test_worker_prompt_contains_full_original_and_audio_scope
+    mission = level_design.route_request('制作荆棘森林')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+----------------------------------------------------------------------
+Ran 34 tests in 11.656s
+
+FAILED (errors=8)

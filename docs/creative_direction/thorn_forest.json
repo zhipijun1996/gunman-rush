@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "thorn_forest",
-  "version": "creative-v22",
+  "version": "creative-v23",
   "direction_id": "thorn_forest_v2",
   "title": "荆棘森林｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "thorn_forest_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
-    "supplemental_authority_sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+    "supplemental_authority_sha256": "66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8",
     "region_id": "thorn_forest",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "5fa60413ae54e66410730a0f682d0d929fbda8ed7264fc6ad91337e2b9c8a718",
+    "registry_sha256": "d82579efc0fdd3313d71bed1ad225fd450be90e6d511d30fa2035c59f60ff0c0",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -193,6 +193,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
       "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+      "sha256": "66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8"
     }
   ],
   "historical_direction": {
@@ -201,18 +205,17 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "MOBILE-UI-CLARITY-01",
-    "scope": "Finite technical UI/HiDPI shared logical-canvas correction.4 actual visual-consumer SHA changes; other77/PNG/shaders/Bible exact. No new style or inherited acceptance.",
-    "previous_direction": "docs/creative_direction/archive/creative-v21/thorn_forest.json",
-    "previous_sha256": "1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
-    "shared_style_sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e",
+    "task_id": "AUDIO-FEEDBACK-05",
+    "scope": "Finite audio-success/lifecycle and Web title gesture technical rebind. Three existing consumers change; other78/PNG/shaders/Bible exact. No new art or inherited acceptance.",
+    "previous_direction": "docs/creative_direction/archive/creative-v22/thorn_forest.json",
+    "previous_sha256": "e915f7e38d5c3678235ff3f1cca0d9c696b40d38c9eb4916fed9780e4c952218",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+    "shared_style_sha256": "66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8",
     "affected_consumers": [
-      "scripts/demo/home_scene.gd",
+      "scripts/demo/demo_app.gd",
       "scripts/ui/demo_menu.gd",
-      "scripts/ui/stage_reward_modal.gd",
-      "scripts/ui/home_item_codex.gd"
+      "scripts/items/v5/item_v5_shop_presenter.gd"
     ],
-    "validation": "Fresh original32+10/four pure checks and finite v19/22 stale-pointer validation; actual runtime/browser evidence separately recorded. Physical devices/performance/player acceptance unverified."
+    "validation": "Fresh original Python suites/checker CLIs plus finite style20/creative23 stale-pointer tests; existing audio runtime/browser evidence reported separately. Physical devices, player taste and fullG5 not signed by this migration."
   }
 }
