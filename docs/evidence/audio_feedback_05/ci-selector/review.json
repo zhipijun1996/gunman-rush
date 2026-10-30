@@ -1,0 +1,108 @@
+{
+  "task": "AUDIO-FEEDBACK-CI-01",
+  "kind": "independent_engineering_review",
+  "reviewer": "/root/ambience_review",
+  "source_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+  "reviewed_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+  "decision": "ACCEPT",
+  "acceptance_scope": "Only the CI selector exact-inventory regression update in tests/test_production_plan.py. No new audio production, BGM, deployment, engine or aesthetic acceptance.",
+  "source_binding": {
+    "parent_commit": "20aab6b11a28df109d75431bb8b772cf27916a46",
+    "file": "tests/test_production_plan.py",
+    "old_sha256": "2929085e94f44db034aeb3507d5412a3ba480bba420defcaf0782855e3842507",
+    "new_sha256": "54b96a2d7a6ab3b3cb68d7fd608234eae653ab6991f5cfef5e250e310a11e2fd",
+    "new_git_blob": "c3f564d2037b857bb30b6e3b5ba9dbd2607ec6f8",
+    "current_file_equals_committed_blob": true,
+    "only_non_docs_change": [
+      "tests/test_production_plan.py"
+    ],
+    "exact_two_line_replacement_verified": true,
+    "actual_commit_changed_paths": [
+      "docs/evidence/audio_feedback_05/ci-selector/job-123880995166.log",
+      "docs/quality/records/AUDIO-FEEDBACK-CI-01.json",
+      "docs/tasks.md",
+      "docs/worklines/audio_feedback_ci_01/scope.md",
+      "tests/test_production_plan.py"
+    ]
+  },
+  "retained_guards": {
+    "test_methods": 21,
+    "original_test_names_and_order_identical": true,
+    "assert_call_count": 92,
+    "original_144_digest_literals_unchanged": true,
+    "original_21_additional_members_and_order_unchanged": true,
+    "new_addition": "audio-feedback",
+    "new_addition_lane": "serial",
+    "counts_full_parallel_serial": [
+      166,
+      91,
+      75
+    ],
+    "mutual_exclusion_union_order_set_and_per_entry_lane_assertions_unchanged": true,
+    "planner_harness_profile_policy_implementations_unchanged_in_this_commit": true,
+    "all_other_original_test_text_bytes_unchanged": true
+  },
+  "independent_cli": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tests/test_production_plan.py"
+    ],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "exit_code": 0,
+    "wall_seconds": 0.339909,
+    "stdout": "",
+    "stderr": "test_actual_nonzero_process_stops_later_commands (__main__.ProductionPlanTests.test_actual_nonzero_process_stops_later_commands) ... ok\ntest_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full (__main__.ProductionPlanTests.test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full) ... ok\ntest_deleted_or_renamed_old_path_remains_a_real_impact (__main__.ProductionPlanTests.test_deleted_or_renamed_old_path_remains_a_real_impact) ... ok\ntest_dependency_cycle_and_missing_consumer_fail_before_execution (__main__.ProductionPlanTests.test_dependency_cycle_and_missing_consumer_fail_before_execution) ... ok\ntest_docs_do_not_export_or_claim_test_execution (__main__.ProductionPlanTests.test_docs_do_not_export_or_claim_test_execution) ... ok\ntest_early_boundary_is_only_selected_with_its_real_parent (__main__.ProductionPlanTests.test_early_boundary_is_only_selected_with_its_real_parent) ... ok\ntest_formal_enemy_mapping_does_not_admit_unreviewed_components (__main__.ProductionPlanTests.test_formal_enemy_mapping_does_not_admit_unreviewed_components) ... ok\ntest_formal_player_body_retains_style_binding_and_full_integration (__main__.ProductionPlanTests.test_formal_player_body_retains_style_binding_and_full_integration) ... ok\ntest_new_harness_check_or_policy_typo_is_not_silently_skipped (__main__.ProductionPlanTests.test_new_harness_check_or_policy_typo_is_not_silently_skipped) ... ok\ntest_overlapping_changes_run_each_check_once (__main__.ProductionPlanTests.test_overlapping_changes_run_each_check_once) ... ok\ntest_paths_cannot_escape_worktree (__main__.ProductionPlanTests.test_paths_cannot_escape_worktree) ... ok\ntest_physical_lanes_require_the_exact_original_full_set (__main__.ProductionPlanTests.test_physical_lanes_require_the_exact_original_full_set) ... ok\ntest_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes (__main__.ProductionPlanTests.test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes) ... ok\ntest_planner_policy_requires_own_regression_without_weakening_config_fallback (__main__.ProductionPlanTests.test_planner_policy_requires_own_regression_without_weakening_config_fallback) ... ok\ntest_precheck_failure_stops_actual_planned_harness_execution (__main__.ProductionPlanTests.test_precheck_failure_stops_actual_planned_harness_execution) ... ok\ntest_precheck_source_mutation_fails_guard_and_preserves_failure_receipt (__main__.ProductionPlanTests.test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt) ... ok\ntest_release_names_original_delivery_and_does_not_certify_full_profile (__main__.ProductionPlanTests.test_release_names_original_delivery_and_does_not_certify_full_profile) ... ok\ntest_same_extension_does_not_grant_unknown_source_narrow_scope (__main__.ProductionPlanTests.test_same_extension_does_not_grant_unknown_source_narrow_scope) ... ok\ntest_shared_player_has_short_feedback_then_full_integration (__main__.ProductionPlanTests.test_shared_player_has_short_feedback_then_full_integration) ... ok\ntest_source_guard_rejects_actual_source_mutation (__main__.ProductionPlanTests.test_source_guard_rejects_actual_source_mutation) ... ok\ntest_web_dependency_closure_exports_only_at_integration (__main__.ProductionPlanTests.test_web_dependency_closure_exports_only_at_integration) ... ok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.170s\n\nOK\n",
+    "tests": 21,
+    "failures": 0
+  },
+  "independent_in_memory_or_read_only_negative_controls": [
+    {
+      "case": "actual previous selector source against current manifest",
+      "rejected": true,
+      "exception": "AssertionError",
+      "message": "Lists differ: ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex', 'audio-feedback'] != ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex']\n\nFirst list"
+    },
+    {
+      "case": "current selector with audio-feedback omitted from full inventory",
+      "rejected": true,
+      "exception": "AssertionError",
+      "message": "Lists differ: ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex'] != ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex', 'audio-feedback']\n\nSecond lis"
+    },
+    {
+      "case": "current selector with audio-feedback moved to parallel lane",
+      "rejected": true,
+      "exception": "AssertionError",
+      "message": "Lists differ: ['item-v5-data', 'item-authoring-tools', 'audio-feedback'] != ['item-v5-data', 'item-authoring-tools']\n\nFirst list contains 1 additional elements.\nFirst ext"
+    },
+    {
+      "case": "current selector with obsolete exact 165/91/74 tuple restored in memory",
+      "rejected": true,
+      "exception": "AssertionError",
+      "message": "Tuples differ: (166, 91, 75) != (165, 91, 74)\n\nFirst differing element 0:\n166\n165\n\n- (166, 91, 75)\n?    ^       ^\n\n+ (165, 91, 74)\n?    ^       ^\n"
+    }
+  ],
+  "original_failure_preserved": {
+    "path": "docs/evidence/audio_feedback_05/ci-selector/job-123880995166.log",
+    "sha256": "5d6284269a07e7032f6cdef4a69888e38f6f31e37326c2c5624d4cadefcee1c1",
+    "selector_case_failed": "test_physical_lanes_require_the_exact_original_full_set",
+    "tests": 21,
+    "failures": 1,
+    "note": "The old CI prepare failure is retained; its failed attempt does not certify engines or full166 execution."
+  },
+  "frozen_audio_reviews_unchanged": {
+    "docs/evidence/audio_feedback_05/review.md": "4bb6eb07e0b744c3cf125bb2ea0a671ef99c07ba3ea7065b2aa46887c94f3827",
+    "docs/evidence/audio_feedback_05/review-binding.json": "873a21f7aca0ba7b91734ac773cf84e5ed85c6168c9eac4daf00dc5d1abfb86b",
+    "docs/evidence/audio_feedback_05/review-binding-migration.md": "d6155dfef067a73fff3315086412e9dfdd6d330f54c57d8390e9638a1a7f17c2",
+    "docs/evidence/audio_feedback_05/review-final-commit.json": "f08e57cf0285e79ca69fe409b7666f28d9cacdcdeae4e64c90fbb64ca642991e"
+  },
+  "limitations": [
+    "This review source is b6 only for the process fix; prior f6 audio approval and earlier evidence sources are not relabelled.",
+    "No Godot, actual browser, device or audio listening executed by this reviewer.",
+    "21 portable Python selectors passed; full166 CI remains the responsibility of the subsequent actual exact-head CI."
+  ],
+  "reviewer_write_scope": [
+    "docs/evidence/audio_feedback_05/ci-selector/review.json"
+  ]
+}

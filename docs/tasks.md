@@ -6,7 +6,7 @@
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |
 | --- | --- | --- | --- | --- |
-| AUDIO-FEEDBACK-CI-01 | 精确selector尾部新增回归清单同步 | AUDIO-FEEDBACK-05 | in_progress | [记录](quality/records/AUDIO-FEEDBACK-CI-01.json) |
+| AUDIO-FEEDBACK-CI-01 | 精确selector尾部新增回归清单同步 | AUDIO-FEEDBACK-05 | review | [记录](quality/records/AUDIO-FEEDBACK-CI-01.json) |
 | AUDIO-FEEDBACK-05 | 五项实玩声音修复及新版hurt/wall | — | review | [记录](quality/records/AUDIO-FEEDBACK-05.json) |
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位

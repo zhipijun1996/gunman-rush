@@ -10,7 +10,7 @@
 
 Sites项目appgprj_6ae3fb5cdc08819189e74441fcb8cb54，源码82bb1d54，已有dist目录/workspace/sites/clock-audio-feedback-05；新建GH host403后沿既有Sites，保持owner-private、不改共享。Sites Git每push64MiB，用5个小commit正常ff传输，最终树不变；凭据只stdin/进程环境、不保存。匿名executor三资源403，不伪称owner线上GUI已验；同一确切静态包本地COI/SAB/真实title音轨已验。
 
-当前任务review，独立PR交付，不自动合main。新hurt/wall听感、真机/长路线/G5、完整166CI与本地历史docs仍未代签；docs额外已知1.257GB+未知历史超剩余盘，保原失败，不删旧物。后续先消费用户试听反馈/JSON；brief会读取feedback05并保敌伤/环境家族正确。若用户再授权合main，核精确head166全绿后普通merge，按原快速流程导实际main，不用旧包冒充。
+当前任务review，[PR121](https://github.com/zhipijun1996/gunman-rush/pull/121)已交，不自动合main。首CI40999709664在selector旧165尾清单失败、无引擎执行；CI-only b6f9精确补追加项166/91/75，原21/独审4反例通过，音频原源不重标；[CI记录](evidence/audio_feedback_05/ci-selector/README.md)。新hurt/wall听感、真机/长路线/G5、完整166CI与本地历史docs仍未代签；docs额外已知1.257GB+未知历史超剩余盘，保原失败，不删旧物。后续先消费用户试听反馈/JSON；brief会读取feedback05并保敌伤/环境家族正确。若用户再授权合main，核精确head166全绿后普通merge，按原快速流程导实际main，不用旧包冒充。
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 
