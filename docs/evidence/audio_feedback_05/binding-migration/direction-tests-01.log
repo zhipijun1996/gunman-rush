@@ -1,0 +1,71 @@
+.....EE..E.E
+======================================================================
+ERROR: test_engineering_prototype_stays_explicit_and_does_not_claim_region (__main__.CreativeTests.test_engineering_prototype_stays_explicit_and_does_not_claim_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_creative_direction.py", line 465, in test_engineering_prototype_stays_explicit_and_does_not_claim_region
+    mission = level_design.route_request('制作荆棘森林', phase='prototype', direction=self.path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_historical_v2_bytes_keep_identity_and_reject_current_authority (__main__.CreativeTests.test_historical_v2_bytes_keep_identity_and_reject_current_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_creative_direction.py", line 49, in test_historical_v2_bytes_keep_identity_and_reject_current_authority
+    raw = (creative.ROOT/path).read_bytes()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/gunman-main/docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json'
+
+======================================================================
+ERROR: test_selected_direction_binds_every_specialist_and_retains_stage_gates (__main__.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_creative_direction.py", line 453, in test_selected_direction_binds_every_specialist_and_retains_stage_gates
+    mission = level_design.route_request('制作荆棘森林', direction=self.path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+======================================================================
+ERROR: test_short_prompt_starts_creative_work_before_assets_or_terrain (__main__.CreativeTests.test_short_prompt_starts_creative_work_before_assets_or_terrain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-main/tests/test_region_creative_direction.py", line 439, in test_short_prompt_starts_creative_work_before_assets_or_terrain
+    mission = level_design.route_request('制作荆棘森林')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 412, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_design.py", line 201, in content_plan
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-main/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/level_autonomy/baseline_summary.json
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.634s
+
+FAILED (errors=4)

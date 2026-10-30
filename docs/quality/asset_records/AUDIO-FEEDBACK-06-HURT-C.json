@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "AUDIO-FEEDBACK-06-HURT-C",
+  "content_version": "audio-feedback-06-v1",
+  "disposition": "runtime_candidate",
+  "source_path": "assets/audio/feedback_06/hurt_c.wav",
+  "source_sha256": "be4e1e79f39a55f3e71cad4efefac662b84b231dcbde9acc502eae5d17a18445",
+  "tool": "tools/audio_hurt_design.py; frozen audio_candidates_v3 sampled DSP and FFmpeg",
+  "model": "not applicable; existing licensed recordings, no generative model",
+  "prompt_or_reference": "User rejected hero C/feedback05; Hollow Knight feeling/function reference only, no commercial samples used. Direction 短促虚空气爆",
+  "processing": "Explicit crop/filter/pitch/envelope/layering and bounded final gain, reproducible build and independent validation",
+  "usage_scope": "Development formal App audition C; not user-approved or physical-device verified",
+  "license_source": "config/audio_director/feedback_06/sources.json; CC0 original source/page/license bytes retained",
+  "license_status": "verified",
+  "visual_status": "unverified",
+  "runtime_paths": [
+    "scripts/audio/selected_sfx_runtime.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/audio/feedback_06/manifest.json",
+      "sha256": "02a353ffef06851c42052e018038a61c83668ff3e9b7eca7dfa0e795ef6c53f9",
+      "role": "processing_record"
+    },
+    {
+      "path": "config/audio_director/feedback_06/recipes.json",
+      "sha256": "b147bb998cc6607647a61063837e8976535a73fb61f9d9765412f9b75c7cb9f1",
+      "role": "source_contract"
+    },
+    {
+      "path": "config/audio_director/feedback_06/sources.json",
+      "sha256": "be37caadf1145989baa4070426bb7dfde37450092aa6f63b02d44a1241c11bf9",
+      "role": "source_contract"
+    }
+  ]
+}

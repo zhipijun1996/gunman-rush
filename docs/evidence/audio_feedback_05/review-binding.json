@@ -1,0 +1,257 @@
+{
+  "task": "AUDIO-FEEDBACK-05",
+  "reviewer": "/root/ambience_review",
+  "engineering_decision": "ACCEPT within original review and the technical evidence scopes below",
+  "source_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+  "original_review": {
+    "path": "docs/evidence/audio_feedback_05/review.md",
+    "sha256": "4bb6eb07e0b744c3cf125bb2ea0a671ef99c07ba3ea7065b2aa46887c94f3827",
+    "unchanged": true,
+    "archival_note": "Original review was written against an uncommitted tree. This separate binding verifies its fourteen source fingerprints against actual committed blobs, without rewriting the review or relabeling earlier runs."
+  },
+  "source_fingerprints": {
+    "scripts/audio/game_audio.gd": "72706df898c09f1fa1c3955278a96b541fce374a0c960a54146311a6bbca1781",
+    "scripts/audio/game_music.gd": "46f0e771883351b9c41566c9f0de4b6d080f0fb7ae32e82fbe940174db782ce8",
+    "scripts/audio/selected_sfx_runtime.gd": "f90bef12397307bd1e9f3d6657c2a239506a93aebb8c225e14ee0aa0248cdeec",
+    "scripts/demo/demo_app.gd": "3e9e9baf24da3e08cc53890d41d1f995f78c280d90666f514e47b4cda6555c5f",
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd": "7d800d5b0e3eabe03305bf96ecc7cae3d8f3bf134c6e15e7029f592022532836",
+    "scripts/items/v5/item_v5_shop_presenter.gd": "2b803f8f23154de50f1471033d030eb1329196d0505a4119706742879cfa7a7b",
+    "scripts/ui/demo_menu.gd": "af2f5a92ca800bcbe4340c23d3007e9d37b93dff96e9720df102cb17040c930d",
+    "tests/audio_feedback_05.gd": "a0df222d697c939d0f94959e4953fbc41551ae28724e5641fd67fea8282e53a4",
+    "tests/audio_feedback_rewards.gd": "ba2010bd790c5404e0e6e05558884a8577ba91330c20bec8d38792ef7ade1f11",
+    "tests/selected_sfx_runtime.gd": "04f832fb557c6f03f07941bd079771c67ed029da8d9403d184c0b67183aedb87",
+    "assets/audio/feedback_05/manifest.json": "799a69de37b291bde7229072aa9ec2d877bfeb949b79133cb558142945c87d13",
+    "config/audio_director/feedback_05/recipes.json": "e6fb036049d796036b5fed5814b65abef6772380d81714d41b5a4461c332c875",
+    "config/audio_director/feedback_05/sources.json": "b2c44b5061545fb6830a1df3af581f1f44f26186529cd0a1d4e26ab8f91f0068",
+    "tools/audio_feedback_design.py": "8b3c5c7a728b7bcdbe3f5fa6fbfc00b8128fcae67ef370f4f7c33f525fd1d8d3"
+  },
+  "all_fourteen_current_and_committed_blobs_equal_review": true,
+  "consumer_harness": {
+    "path": "build/verification/harness/20261030T020618.945658Z/report.json",
+    "report_sha256": "23623c05b54825f9c18dbeb8f3d27e185360563ec4acce7e583891ed662fb925",
+    "recorded_original_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+    "recorded_dirty_tree": true,
+    "all_fourteen_working_file_fingerprints_match_reviewed_commit": true,
+    "scope": "Fresh targeted Harness check audio-feedback wrapping four strict native consumers; original precommit metadata remains unchanged. Not a rerun at the later source commit and not full CI.",
+    "harness_status": "passed",
+    "check_reused": false,
+    "harness_check_seconds": 45.563,
+    "harness_wall_seconds": 49.983,
+    "native_cases": [
+      {
+        "case": "feedback",
+        "checks": 30,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 12.963808541000162,
+        "report_sha256": "d4871aee1383182d9e2f55ad7f7095d424144803806b72c285e6e95444474757",
+        "native_log_sha256": "a6731d5b50f188b43409e3d0cda2d5a89bb17e2c3d916ea975ce1699909f53d4"
+      },
+      {
+        "case": "rewards",
+        "checks": 70,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 13.372612579999895,
+        "report_sha256": "2d1823fb663081d74e08184484c2002880ab3b947b7fba7c805bc272afce57b4",
+        "native_log_sha256": "64c4fb046293456c36f5143766dd2abd592b46298a1e64bd9ebeb2966a944e7d"
+      },
+      {
+        "case": "selected",
+        "checks": 63,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 10.729274557999815,
+        "report_sha256": "773f22fe4c97bf470f572637577529c7014896a2d9d7d5043295989de445d6f1",
+        "native_log_sha256": "f274bc3df1383e9df1f7400d580484b7f8d33073be6784e237f941025d9ee867"
+      },
+      {
+        "case": "previous-fix",
+        "checks": 31,
+        "failures": 0,
+        "status": "passed",
+        "seconds": 8.00797060800005,
+        "report_sha256": "15492c55983d2e9df02eedfb4494ae568b847609f2301b11faec20bf0ef19b3e",
+        "native_log_sha256": "c03c64789592e840270cb6e3e9df9aabd9b048b5222326985800b4eac3afc1c3"
+      }
+    ],
+    "total_native_checks": 194
+  },
+  "capture": {
+    "report_path": "build/audio_feedback_05/capture-01/report.json",
+    "report_sha256": "5d23c0a14ccc16bfdedd054c11bf35a9d211e44edad2ffce678f84923c04600e",
+    "producer_commit": "d466ed277cb99613ad2040a70574f85939eecd87",
+    "status": "passed",
+    "frames": 1994,
+    "fps": 60,
+    "actual_size": [
+      960,
+      540
+    ],
+    "logical_size": [
+      1280,
+      720
+    ],
+    "movie_bytes": 2568415,
+    "movie_sha256": "8b7fc2bb28a8c3582c38fd3a1bf7684235914edbb91505ab4aac68f033153fc2",
+    "native_wav_bytes": 6380878,
+    "native_wav_sha256": "1b4eac502b9c7e10e62216902c545531a34e519a12c0e7af059c58969e06f30f",
+    "trace_sha256": "da291732e46858218e99ca04116cfed72c605a191aad1adadde9a8ca7d3d9e23",
+    "chapters_sha256": "4882276df1028aa3c0ce763771341e37c6b70d90ba0ee13243c8b9a86725d222",
+    "seconds_total_envelope": 125.96301173899974,
+    "source_closure_files": 3858,
+    "source_before_after_identical": true,
+    "source_snapshot_verified_against_d466_blobs_using_unchanged_current_closure_and_explicit_producer_diff": true,
+    "current_source_entirely_identical_to_capture": false,
+    "current_producer_only_changes": {
+      "tools/audio_feedback_capture.gd": {
+        "recorded": "0be61022e90b3e9b349245b9b21da3e1bcc95daf9ad70fccef497426a57cf01e",
+        "current": "7332154d5419c80842cc26903076870762f23b809a127817c9be0de51976a83e"
+      }
+    },
+    "producer_change_scope": "After capture01, commit9f3dbef3 changed only the listening caption position/size/font/clipping in the capture driver. Original capture remains bound to d466 and is not relabeled as the new caption version; production/test fingerprints in the original review remain identical. No visual acceptance of the old HUD/caption composition is issued here.",
+    "trace_chapters_override_media_hashes_independently_revalidated": true,
+    "chapter_boundaries": [
+      {
+        "id": "title",
+        "start": 0.03333333333333333,
+        "end": 3.033333333333333
+      },
+      {
+        "id": "home_startup",
+        "start": 3.033333333333333,
+        "end": 3.066666666666667
+      },
+      {
+        "id": "home",
+        "start": 3.066666666666667,
+        "end": 15.066666666666666
+      },
+      {
+        "id": "plains_startup",
+        "start": 15.066666666666666,
+        "end": 15.083333333333334
+      },
+      {
+        "id": "bell",
+        "start": 15.083333333333334,
+        "end": 21.083333333333332
+      },
+      {
+        "id": "chest",
+        "start": 21.083333333333332,
+        "end": 33.083333333333336
+      }
+    ],
+    "actual_mixed_pcm_checks": {
+      "chapters": [
+        {
+          "chapter": "title",
+          "rms": 0.007883114906708745,
+          "peak": 0.053955078125,
+          "samples": 144000
+        },
+        {
+          "chapter": "home_startup",
+          "rms": 0.003553845022784821,
+          "peak": 0.00811767578125,
+          "samples": 1600
+        },
+        {
+          "chapter": "home",
+          "rms": 0.018471997767967197,
+          "peak": 0.154388427734375,
+          "samples": 576000
+        },
+        {
+          "chapter": "plains_startup",
+          "rms": 0.03234019658008468,
+          "peak": 0.090728759765625,
+          "samples": 800
+        },
+        {
+          "chapter": "bell",
+          "rms": 0.015278327608431883,
+          "peak": 0.303619384765625,
+          "samples": 288000
+        },
+        {
+          "chapter": "chest",
+          "rms": 0.016500624114579115,
+          "peak": 0.2061767578125,
+          "samples": 576000
+        }
+      ],
+      "scope": "Actual native mixed PCM is nonzero in every chapter. Stream/event receipts identify live consumers; mixed PCM alone does not isolate each cue or certify aesthetics/physical devices."
+    },
+    "native_avi_status": {
+      "path": "native.avi",
+      "sha256": "5e08ec6c6172e8fd66d7a3d605b62f87d7904c608bab8f8101f42b854599a5f3",
+      "bytes": 140617978,
+      "retained": false,
+      "removal_reason": "Only this fresh output AVI is temporary; native PCM WAV, actual MP4, full AVI SHA/bytes/ffprobe index retained. No older evidence deleted."
+    },
+    "fixture_scope": [
+      "Actual formal demo.tscn native title with original Home music; original title start action invoked programmatically, not a real Web permission gesture.",
+      "Real Home InputRouter jump/land and normal down/left shots with physical terrain contacts; explicit relocation near the wall.",
+      "One direct APPLIED transaction on the real Home HealthState, not an enemy attack or natural combat.",
+      "Existing debug entry to generated Plains seed audio-feedback-05/20261030; explicit positions on actual terrain; real projectile opens an actual ShotLatch.",
+      "Relocation to an actual generated item chest; original interaction/modal claim queue commits ownership and emits chest_open before item_get with real playing shared voices."
+    ],
+    "bell_route_independently_observed": {
+      "opened_event_movie_frame": 912,
+      "fallback_local_player_playing": false,
+      "fallback_note": "False describes the unused local fallback AudioStreamPlayer2D; the actual App service route is independently present below.",
+      "actual_service_voice_samples": 151,
+      "first_movie_frame": 913,
+      "last_movie_frame": 1063,
+      "path": "res://assets/audio/ambience_v1/plains_chime_a.wav",
+      "volume_db": 8.9019603729248,
+      "first_playback_position": 0.0240000002086163,
+      "last_playback_position": 2.51999998092651,
+      "all_playing_unpaused": true
+    },
+    "hurt_transaction": {
+      "data": {
+        "amount_applied": -1.0,
+        "hp": 4.0,
+        "scope": "Direct APPLIED on the real Home HealthState; development fixture, not an enemy attack",
+        "status": 0
+      },
+      "id": "hurt_fixture_commit",
+      "movie_frame": 514,
+      "phase": "home",
+      "physics_tick": 515
+    },
+    "committed_reward_events": [
+      {
+        "bus": "SFX",
+        "candidate": "chest_open_a",
+        "id": "chest_open",
+        "path": "res://assets/audio/director_v3/chest_open_a.wav",
+        "priority": 40,
+        "tick": 1388,
+        "variant": 0
+      },
+      {
+        "bus": "SFX",
+        "candidate": "item_get_c",
+        "id": "item_get",
+        "path": "res://assets/audio/director_v3/item_get_c.wav",
+        "priority": 85,
+        "tick": 1388,
+        "variant": 0
+      }
+    ],
+    "audio_scope_limit": "Native mixed PCM is nonzero by chapter and live stream/event receipts identify actual consumers. No isolated per-cue PCM identity/amplitude fit, human listening or aesthetic audibility certification. Raw native WAV is retained; the temporary AVI was removed only after its recorded SHA/index and WAV/MP4 existed, as explicitly reported by the producer."
+  },
+  "unverified": [
+    "Actual browser autoplay permission/title LinkButton gesture and audio backend output",
+    "Long natural route, natural enemy-damage/Boss progression and full campaign",
+    "Physical phone/iOS Safari listening, perceived balance, repetition fatigue and commercial aesthetics",
+    "Complete CI, main merge or public deployment status",
+    "Independent full-video viewing/pixel review; reviewer did not play or listen to the movie; caption-revised producer is not covered"
+  ],
+  "historical_failures": "Original import-01 and scene-smoke-01 failures remain failures; later smoke-02/capture receipts do not rewrite them.",
+  "reviewer_execution": "Read-only code/blob/hash inspection; independently reran Python trace/native-WAV/override validators and ffprobe only. No Godot, production edits or original review rewrite."
+}

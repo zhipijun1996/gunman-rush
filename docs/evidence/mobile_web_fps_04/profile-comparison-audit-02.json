@@ -1,0 +1,2116 @@
+{
+  "checks": [
+    {
+      "report": "debug-profile-01",
+      "identity_and_conditions_equal": true
+    },
+    {
+      "report": "release-profile-01",
+      "identity_and_conditions_equal": true
+    },
+    {
+      "report": "debug-fixed-cache-01",
+      "identity_and_conditions_equal": true
+    },
+    {
+      "report": "debug-baseline-return-01",
+      "identity_and_conditions_equal": true
+    }
+  ],
+  "conditions": {
+    "home": {
+      "context": "home",
+      "player": [
+        110,
+        414
+      ],
+      "camera": [
+        640,
+        310
+      ],
+      "viewport": {
+        "logical": [
+          1280,
+          720
+        ],
+        "texture": [
+          1280,
+          720
+        ]
+      },
+      "manifest": {},
+      "foreground": {
+        "drawn": 2,
+        "dynamic": 3,
+        "mask_rectangles_all": 13,
+        "mask_rectangles_drawn": 4,
+        "protect": 16,
+        "residents": 6,
+        "static": 52,
+        "tracked": 183
+      }
+    },
+    "plains": {
+      "context": "plains",
+      "player": [
+        -1850,
+        0
+      ],
+      "camera": [
+        -1790,
+        -35
+      ],
+      "viewport": {
+        "logical": [
+          1280,
+          720
+        ],
+        "texture": [
+          1280,
+          720
+        ]
+      },
+      "manifest": {
+        "hash": "d38685563f9fc81224e96af0eef040e3c736b50bd3bc90d83d9d27b4f0ab0a1f",
+        "seed": "mobile-fps-04"
+      },
+      "foreground": {
+        "drawn": 2,
+        "dynamic": 3,
+        "mask_rectangles_all": 10,
+        "mask_rectangles_drawn": 2,
+        "protect": 9,
+        "residents": 7,
+        "static": 58,
+        "tracked": 669
+      }
+    }
+  },
+  "groups": [
+    {
+      "name": "debug-profile-01",
+      "sha256": "66ceb87cd8d1986d61313ffce2fefdbf21fa4e3a3b4d9623647c4f1e766dee8f",
+      "rows": [
+        {
+          "scene": "home",
+          "repeat": 0,
+          "frames": 48,
+          "elapsed_ms": 10020.775,
+          "fps": 4.7900486738800145,
+          "frame_p50_ms": 205.636,
+          "frame_p95_ms": 242.204,
+          "process_p50_ms": 204.685,
+          "process_p95_ms": 241.551,
+          "physics_p50_ms": 10.101,
+          "physics_p95_ms": 39.615,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 48,
+              "total_ms": 397.156,
+              "ms_per_frame": 8.274083333333333,
+              "ms_per_call": 8.274083333333333,
+              "max_ms": 38.72
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 384,
+              "total_ms": 224.745,
+              "ms_per_frame": 4.6821875,
+              "ms_per_call": 0.5852734375,
+              "max_ms": 23.226
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 384,
+              "total_ms": 207.124,
+              "ms_per_frame": 4.315083333333333,
+              "ms_per_call": 0.5393854166666666,
+              "max_ms": 8.709
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 48,
+              "total_ms": 194.008,
+              "ms_per_frame": 4.041833333333334,
+              "ms_per_call": 4.041833333333334,
+              "max_ms": 21.476
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 48,
+              "total_ms": 150.967,
+              "ms_per_frame": 3.1451458333333338,
+              "ms_per_call": 3.1451458333333338,
+              "max_ms": 35.569
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 384,
+              "total_ms": 52.944,
+              "ms_per_frame": 1.103,
+              "ms_per_call": 0.137875,
+              "max_ms": 8.136
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 48,
+              "total_ms": 42.918,
+              "ms_per_frame": 0.894125,
+              "ms_per_call": 0.894125,
+              "max_ms": 16.251
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 48,
+              "total_ms": 32.405,
+              "ms_per_frame": 0.6751041666666667,
+              "ms_per_call": 0.6751041666666667,
+              "max_ms": 6.064
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 48,
+              "total_ms": 20.611,
+              "ms_per_frame": 0.42939583333333337,
+              "ms_per_call": 0.42939583333333337,
+              "max_ms": 4.404
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 48,
+              "total_ms": 16.068,
+              "ms_per_frame": 0.33475000000000005,
+              "ms_per_call": 0.33475000000000005,
+              "max_ms": 4.116
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 48,
+              "total_ms": 9.667,
+              "ms_per_frame": 0.20139583333333333,
+              "ms_per_call": 0.20139583333333333,
+              "max_ms": 4.126
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 384,
+              "total_ms": 2.785,
+              "ms_per_frame": 0.058020833333333334,
+              "ms_per_call": 0.007252604166666667,
+              "max_ms": 0.19
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9818320061195671,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "home",
+          "repeat": 1,
+          "frames": 42,
+          "elapsed_ms": 10063.086,
+          "fps": 4.1736699855292905,
+          "frame_p50_ms": 218.845,
+          "frame_p95_ms": 358.376,
+          "process_p50_ms": 208.756,
+          "process_p95_ms": 515.829,
+          "physics_p50_ms": 16.83,
+          "physics_p95_ms": 50.129,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 42,
+              "total_ms": 268.851,
+              "ms_per_frame": 6.4012142857142855,
+              "ms_per_call": 6.4012142857142855,
+              "max_ms": 26.701
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 336,
+              "total_ms": 193.455,
+              "ms_per_frame": 4.606071428571429,
+              "ms_per_call": 0.5757589285714286,
+              "max_ms": 9.06
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 336,
+              "total_ms": 144.163,
+              "ms_per_frame": 3.4324523809523813,
+              "ms_per_call": 0.42905654761904766,
+              "max_ms": 12.95
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 42,
+              "total_ms": 139.749,
+              "ms_per_frame": 3.3273571428571427,
+              "ms_per_call": 3.3273571428571427,
+              "max_ms": 25.02
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 42,
+              "total_ms": 112.306,
+              "ms_per_frame": 2.673952380952381,
+              "ms_per_call": 2.673952380952381,
+              "max_ms": 14.945
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 42,
+              "total_ms": 68.223,
+              "ms_per_frame": 1.6243571428571428,
+              "ms_per_call": 1.6243571428571428,
+              "max_ms": 18.121
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 336,
+              "total_ms": 55.886,
+              "ms_per_frame": 1.3306190476190476,
+              "ms_per_call": 0.16632738095238095,
+              "max_ms": 6.775
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 42,
+              "total_ms": 21.136,
+              "ms_per_frame": 0.5032380952380953,
+              "ms_per_call": 0.5032380952380953,
+              "max_ms": 4.984
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 42,
+              "total_ms": 11.012,
+              "ms_per_frame": 0.2621904761904762,
+              "ms_per_call": 0.2621904761904762,
+              "max_ms": 2.71
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 42,
+              "total_ms": 10.604,
+              "ms_per_frame": 0.25247619047619047,
+              "ms_per_call": 0.25247619047619047,
+              "max_ms": 2.605
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 336,
+              "total_ms": 8.443,
+              "ms_per_frame": 0.20102380952380952,
+              "ms_per_call": 0.02512797619047619,
+              "max_ms": 5.32
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 42,
+              "total_ms": 5.3,
+              "ms_per_frame": 0.1261904761904762,
+              "ms_per_call": 0.1261904761904762,
+              "max_ms": 0.824
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9788704688139129,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 0,
+          "frames": 41,
+          "elapsed_ms": 10032.525,
+          "fps": 4.08670798228761,
+          "frame_p50_ms": 137.284,
+          "frame_p95_ms": 588.316,
+          "process_p50_ms": 72.109,
+          "process_p95_ms": 241.179,
+          "physics_p50_ms": 35.235,
+          "physics_p95_ms": 2461.78,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 4830,
+              "total_ms": 1233.466,
+              "ms_per_frame": 30.08453658536585,
+              "ms_per_call": 0.25537598343685297,
+              "max_ms": 318.76
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 322,
+              "total_ms": 955.589,
+              "ms_per_frame": 23.307048780487808,
+              "ms_per_call": 2.967667701863354,
+              "max_ms": 322.955
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 322,
+              "total_ms": 933.802,
+              "ms_per_frame": 22.775658536585368,
+              "ms_per_call": 2.9000062111801244,
+              "max_ms": 596.391
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 322,
+              "total_ms": 899.759,
+              "ms_per_frame": 21.945341463414636,
+              "ms_per_call": 2.794282608695652,
+              "max_ms": 320.889
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 41,
+              "total_ms": 430.981,
+              "ms_per_frame": 10.511731707317074,
+              "ms_per_call": 10.511731707317074,
+              "max_ms": 37.126
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 322,
+              "total_ms": 423.979,
+              "ms_per_frame": 10.340951219512196,
+              "ms_per_call": 1.3167049689440993,
+              "max_ms": 57.655
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 41,
+              "total_ms": 320.127,
+              "ms_per_frame": 7.807975609756098,
+              "ms_per_call": 7.807975609756098,
+              "max_ms": 29.225
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 41,
+              "total_ms": 268.808,
+              "ms_per_frame": 6.556292682926829,
+              "ms_per_call": 6.556292682926829,
+              "max_ms": 30.164
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 41,
+              "total_ms": 91.615,
+              "ms_per_frame": 2.234512195121951,
+              "ms_per_call": 2.234512195121951,
+              "max_ms": 23.99
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 41,
+              "total_ms": 60.574,
+              "ms_per_frame": 1.4774146341463414,
+              "ms_per_call": 1.4774146341463414,
+              "max_ms": 5.835
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 322,
+              "total_ms": 37.698,
+              "ms_per_frame": 0.9194634146341464,
+              "ms_per_call": 0.11707453416149069,
+              "max_ms": 12.48
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 41,
+              "total_ms": 30.601,
+              "ms_per_frame": 0.7463658536585366,
+              "ms_per_call": 0.7463658536585366,
+              "max_ms": 4.03
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 41,
+              "total_ms": 10.071,
+              "ms_per_frame": 0.2456341463414634,
+              "ms_per_call": 0.2456341463414634,
+              "max_ms": 3.589
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 41,
+              "total_ms": 3.706,
+              "ms_per_frame": 0.09039024390243902,
+              "ms_per_call": 0.09039024390243902,
+              "max_ms": 0.435
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.7773181917335965,
+          "browser_interval_comparison_eligible": false
+        },
+        {
+          "scene": "plains",
+          "repeat": 1,
+          "frames": 83,
+          "elapsed_ms": 10073.63,
+          "fps": 8.239333785338554,
+          "frame_p50_ms": 116.514,
+          "frame_p95_ms": 168.626,
+          "process_p50_ms": 72.81,
+          "process_p95_ms": 117.481,
+          "physics_p50_ms": 30.765,
+          "physics_p95_ms": 145.3,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8880,
+              "total_ms": 1091.815,
+              "ms_per_frame": 13.154397590361446,
+              "ms_per_call": 0.12295213963963965,
+              "max_ms": 19.356
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 592,
+              "total_ms": 868.78,
+              "ms_per_frame": 10.46722891566265,
+              "ms_per_call": 1.4675337837837836,
+              "max_ms": 17.341
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 592,
+              "total_ms": 808.152,
+              "ms_per_frame": 9.73677108433735,
+              "ms_per_call": 1.3651216216216218,
+              "max_ms": 17.26
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 83,
+              "total_ms": 773.419,
+              "ms_per_frame": 9.318301204819276,
+              "ms_per_call": 9.318301204819276,
+              "max_ms": 92.204
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 83,
+              "total_ms": 632.122,
+              "ms_per_frame": 7.615927710843373,
+              "ms_per_call": 7.615927710843373,
+              "max_ms": 90.685
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 592,
+              "total_ms": 566.509,
+              "ms_per_frame": 6.825409638554217,
+              "ms_per_call": 0.9569408783783784,
+              "max_ms": 15.275
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 592,
+              "total_ms": 558.935,
+              "ms_per_frame": 6.7341566265060235,
+              "ms_per_call": 0.9441469594594594,
+              "max_ms": 18.201
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 83,
+              "total_ms": 362.498,
+              "ms_per_frame": 4.36744578313253,
+              "ms_per_call": 4.36744578313253,
+              "max_ms": 20.365
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 83,
+              "total_ms": 112.913,
+              "ms_per_frame": 1.3603975903614458,
+              "ms_per_call": 1.3603975903614458,
+              "max_ms": 8.936
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 83,
+              "total_ms": 84.196,
+              "ms_per_frame": 1.014409638554217,
+              "ms_per_call": 1.014409638554217,
+              "max_ms": 3.68
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 83,
+              "total_ms": 49.015,
+              "ms_per_frame": 0.5905421686746988,
+              "ms_per_call": 0.5905421686746988,
+              "max_ms": 5.949
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 592,
+              "total_ms": 31.427,
+              "ms_per_frame": 0.3786385542168675,
+              "ms_per_call": 0.05308614864864865,
+              "max_ms": 3.196
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 83,
+              "total_ms": 17.236,
+              "ms_per_frame": 0.20766265060240965,
+              "ms_per_call": 0.20766265060240965,
+              "max_ms": 3.066
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 83,
+              "total_ms": 6.376,
+              "ms_per_frame": 0.07681927710843374,
+              "ms_per_call": 0.07681927710843374,
+              "max_ms": 0.235
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9896599728112407,
+          "browser_interval_comparison_eligible": true
+        }
+      ]
+    },
+    {
+      "name": "release-profile-01",
+      "sha256": "58d5c633c4a73f90d8ab1e2b910304b9b9e994796189ad16a8f4a3086cc1499e",
+      "rows": [
+        {
+          "scene": "home",
+          "repeat": 0,
+          "frames": 47,
+          "elapsed_ms": 10127.975,
+          "fps": 4.640611770862389,
+          "frame_p50_ms": 210.671,
+          "frame_p95_ms": 257.666,
+          "process_p50_ms": 203.431,
+          "process_p95_ms": 276.675,
+          "physics_p50_ms": 12.494,
+          "physics_p95_ms": 35.571,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 47,
+              "total_ms": 196.756,
+              "ms_per_frame": 4.186297872340425,
+              "ms_per_call": 4.186297872340425,
+              "max_ms": 12.655
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 376,
+              "total_ms": 110.17,
+              "ms_per_frame": 2.3440425531914895,
+              "ms_per_call": 0.2930053191489362,
+              "max_ms": 5.3
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 47,
+              "total_ms": 109.566,
+              "ms_per_frame": 2.3311914893617023,
+              "ms_per_call": 2.3311914893617023,
+              "max_ms": 11.27
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 376,
+              "total_ms": 106.626,
+              "ms_per_frame": 2.2686382978723407,
+              "ms_per_call": 0.2835797872340426,
+              "max_ms": 6.695
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 47,
+              "total_ms": 70.32,
+              "ms_per_frame": 1.4961702127659573,
+              "ms_per_call": 1.4961702127659573,
+              "max_ms": 9.546
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 47,
+              "total_ms": 26.313,
+              "ms_per_frame": 0.5598510638297872,
+              "ms_per_call": 0.5598510638297872,
+              "max_ms": 22.815
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 376,
+              "total_ms": 26.14,
+              "ms_per_frame": 0.5561702127659575,
+              "ms_per_call": 0.06952127659574468,
+              "max_ms": 1.07
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 47,
+              "total_ms": 23.34,
+              "ms_per_frame": 0.49659574468085105,
+              "ms_per_call": 0.49659574468085105,
+              "max_ms": 5.035
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 47,
+              "total_ms": 8.389,
+              "ms_per_frame": 0.17848936170212765,
+              "ms_per_call": 0.17848936170212765,
+              "max_ms": 0.53
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 47,
+              "total_ms": 7.642,
+              "ms_per_frame": 0.16259574468085108,
+              "ms_per_call": 0.16259574468085108,
+              "max_ms": 0.821
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 47,
+              "total_ms": 4.384,
+              "ms_per_frame": 0.09327659574468086,
+              "ms_per_call": 0.09327659574468086,
+              "max_ms": 1.906
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 376,
+              "total_ms": 2.223,
+              "ms_per_frame": 0.047297872340425526,
+              "ms_per_call": 0.005912234042553191,
+              "max_ms": 0.111
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9829403694607525,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "home",
+          "repeat": 1,
+          "frames": 44,
+          "elapsed_ms": 10193.564,
+          "fps": 4.316449084932414,
+          "frame_p50_ms": 212.91,
+          "frame_p95_ms": 259.935,
+          "process_p50_ms": 215.89,
+          "process_p95_ms": 817.005,
+          "physics_p50_ms": 14.98,
+          "physics_p95_ms": 23.294,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 44,
+              "total_ms": 191.183,
+              "ms_per_frame": 4.345068181818181,
+              "ms_per_call": 4.345068181818181,
+              "max_ms": 34.27
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 170.72,
+              "ms_per_frame": 3.88,
+              "ms_per_call": 0.485,
+              "max_ms": 18.97
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 102.342,
+              "ms_per_frame": 2.3259545454545454,
+              "ms_per_call": 0.2907443181818182,
+              "max_ms": 18.41
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 44,
+              "total_ms": 90.363,
+              "ms_per_frame": 2.0537045454545453,
+              "ms_per_call": 2.0537045454545453,
+              "max_ms": 5.65
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 44,
+              "total_ms": 70.679,
+              "ms_per_frame": 1.606340909090909,
+              "ms_per_call": 1.606340909090909,
+              "max_ms": 28.956
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 44,
+              "total_ms": 30.456,
+              "ms_per_frame": 0.6921818181818181,
+              "ms_per_call": 0.6921818181818181,
+              "max_ms": 4.575
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 44,
+              "total_ms": 27.064,
+              "ms_per_frame": 0.6150909090909091,
+              "ms_per_call": 0.6150909090909091,
+              "max_ms": 19.65
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 352,
+              "total_ms": 24.0,
+              "ms_per_frame": 0.5454545454545454,
+              "ms_per_call": 0.06818181818181818,
+              "max_ms": 5.98
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 44,
+              "total_ms": 15.308,
+              "ms_per_frame": 0.3479090909090909,
+              "ms_per_call": 0.3479090909090909,
+              "max_ms": 1.62
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 44,
+              "total_ms": 3.023,
+              "ms_per_frame": 0.06870454545454546,
+              "ms_per_call": 0.06870454545454546,
+              "max_ms": 1.161
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 2.929,
+              "ms_per_frame": 0.06656818181818182,
+              "ms_per_call": 0.008321022727272727,
+              "max_ms": 1.36
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 44,
+              "total_ms": 2.8,
+              "ms_per_frame": 0.06363636363636363,
+              "ms_per_call": 0.06363636363636363,
+              "max_ms": 0.17
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9807114926399545,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 0,
+          "frames": 53,
+          "elapsed_ms": 10121.031,
+          "fps": 5.236620656531928,
+          "frame_p50_ms": 168.571,
+          "frame_p95_ms": 327.254,
+          "process_p50_ms": 140.796,
+          "process_p95_ms": 435.37,
+          "physics_p50_ms": 42.311,
+          "physics_p95_ms": 212.715,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 419,
+              "total_ms": 778.64,
+              "ms_per_frame": 14.691320754716982,
+              "ms_per_call": 1.8583293556085918,
+              "max_ms": 25.85
+            },
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 6285,
+              "total_ms": 756.815,
+              "ms_per_frame": 14.279528301886794,
+              "ms_per_call": 0.12041607000795546,
+              "max_ms": 20.315
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 419,
+              "total_ms": 699.934,
+              "ms_per_frame": 13.206301886792453,
+              "ms_per_call": 1.6704868735083531,
+              "max_ms": 25.786
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 419,
+              "total_ms": 516.216,
+              "ms_per_frame": 9.739924528301888,
+              "ms_per_call": 1.232019093078759,
+              "max_ms": 26.385
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 419,
+              "total_ms": 409.964,
+              "ms_per_frame": 7.7351698113207545,
+              "ms_per_call": 0.9784343675417662,
+              "max_ms": 26.265
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 53,
+              "total_ms": 333.544,
+              "ms_per_frame": 6.293283018867924,
+              "ms_per_call": 6.293283018867924,
+              "max_ms": 19.59
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 53,
+              "total_ms": 257.149,
+              "ms_per_frame": 4.851867924528302,
+              "ms_per_call": 4.851867924528302,
+              "max_ms": 22.43
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 53,
+              "total_ms": 254.56,
+              "ms_per_frame": 4.8030188679245285,
+              "ms_per_call": 4.8030188679245285,
+              "max_ms": 18.66
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 53,
+              "total_ms": 77.467,
+              "ms_per_frame": 1.4616415094339623,
+              "ms_per_call": 1.4616415094339623,
+              "max_ms": 10.58
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 53,
+              "total_ms": 58.816,
+              "ms_per_frame": 1.1097358490566038,
+              "ms_per_call": 1.1097358490566038,
+              "max_ms": 5.52
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 419,
+              "total_ms": 41.842,
+              "ms_per_frame": 0.7894716981132075,
+              "ms_per_call": 0.09986157517899762,
+              "max_ms": 6.56
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 53,
+              "total_ms": 27.353,
+              "ms_per_frame": 0.5160943396226415,
+              "ms_per_call": 0.5160943396226415,
+              "max_ms": 2.739
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 53,
+              "total_ms": 22.887,
+              "ms_per_frame": 0.4318301886792453,
+              "ms_per_call": 0.4318301886792453,
+              "max_ms": 16.216
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 53,
+              "total_ms": 11.965,
+              "ms_per_frame": 0.2257547169811321,
+              "ms_per_call": 0.2257547169811321,
+              "max_ms": 4.356
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.976930316150757,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 1,
+          "frames": 78,
+          "elapsed_ms": 10011.175,
+          "fps": 7.791293229815682,
+          "frame_p50_ms": 121.695,
+          "frame_p95_ms": 197.965,
+          "process_p50_ms": 81.986,
+          "process_p95_ms": 113.225,
+          "physics_p50_ms": 38.576,
+          "physics_p95_ms": 49.975,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8460,
+              "total_ms": 1015.911,
+              "ms_per_frame": 13.0245,
+              "ms_per_call": 0.12008404255319148,
+              "max_ms": 28.929
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 564,
+              "total_ms": 973.529,
+              "ms_per_frame": 12.481141025641026,
+              "ms_per_call": 1.7261152482269504,
+              "max_ms": 20.02
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 564,
+              "total_ms": 863.689,
+              "ms_per_frame": 11.072935897435897,
+              "ms_per_call": 1.5313634751773049,
+              "max_ms": 19.94
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 78,
+              "total_ms": 602.069,
+              "ms_per_frame": 7.7188333333333325,
+              "ms_per_call": 7.7188333333333325,
+              "max_ms": 33.995
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 564,
+              "total_ms": 545.544,
+              "ms_per_frame": 6.9941538461538455,
+              "ms_per_call": 0.9672765957446808,
+              "max_ms": 18.376
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 564,
+              "total_ms": 540.947,
+              "ms_per_frame": 6.935217948717948,
+              "ms_per_call": 0.9591258865248227,
+              "max_ms": 19.266
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 78,
+              "total_ms": 464.614,
+              "ms_per_frame": 5.956589743589744,
+              "ms_per_call": 5.956589743589744,
+              "max_ms": 29.745
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 78,
+              "total_ms": 413.739,
+              "ms_per_frame": 5.304346153846153,
+              "ms_per_call": 5.304346153846153,
+              "max_ms": 43.71
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 78,
+              "total_ms": 110.559,
+              "ms_per_frame": 1.417423076923077,
+              "ms_per_call": 1.417423076923077,
+              "max_ms": 11.425
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 78,
+              "total_ms": 108.046,
+              "ms_per_frame": 1.3852051282051283,
+              "ms_per_call": 1.3852051282051283,
+              "max_ms": 7.686
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 78,
+              "total_ms": 79.498,
+              "ms_per_frame": 1.0192051282051282,
+              "ms_per_call": 1.0192051282051282,
+              "max_ms": 11.535
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 564,
+              "total_ms": 59.532,
+              "ms_per_frame": 0.7632307692307692,
+              "ms_per_call": 0.1055531914893617,
+              "max_ms": 16.5
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 78,
+              "total_ms": 17.88,
+              "ms_per_frame": 0.2292307692307692,
+              "ms_per_call": 0.2292307692307692,
+              "max_ms": 4.436
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 78,
+              "total_ms": 10.252,
+              "ms_per_frame": 0.13143589743589745,
+              "ms_per_call": 0.13143589743589745,
+              "max_ms": 3.665
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9839975815417303,
+          "browser_interval_comparison_eligible": true
+        }
+      ]
+    },
+    {
+      "name": "debug-fixed-cache-01",
+      "sha256": "c3d87904dd2bdcdede655fd298fcd37369791ea3a381550996261ca14e1855c4",
+      "rows": [
+        {
+          "scene": "home",
+          "repeat": 0,
+          "frames": 50,
+          "elapsed_ms": 10081.14,
+          "fps": 4.959756535471187,
+          "frame_p50_ms": 197.851,
+          "frame_p95_ms": 253.08,
+          "process_p50_ms": 187.575,
+          "process_p95_ms": 216.101,
+          "physics_p50_ms": 23.59,
+          "physics_p95_ms": 41.485,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 50,
+              "total_ms": 358.889,
+              "ms_per_frame": 7.17778,
+              "ms_per_call": 7.17778,
+              "max_ms": 27.385
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 50,
+              "total_ms": 182.627,
+              "ms_per_frame": 3.65254,
+              "ms_per_call": 3.65254,
+              "max_ms": 24.344
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 169.541,
+              "ms_per_frame": 3.3908199999999997,
+              "ms_per_call": 0.42385249999999997,
+              "max_ms": 13.385
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 159.15,
+              "ms_per_frame": 3.1830000000000003,
+              "ms_per_call": 0.39787500000000003,
+              "max_ms": 23.066
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 50,
+              "total_ms": 154.016,
+              "ms_per_frame": 3.08032,
+              "ms_per_call": 3.08032,
+              "max_ms": 19.566
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 50,
+              "total_ms": 74.671,
+              "ms_per_frame": 1.4934200000000002,
+              "ms_per_call": 1.4934200000000002,
+              "max_ms": 28.525
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 400,
+              "total_ms": 36.104,
+              "ms_per_frame": 0.7220799999999999,
+              "ms_per_call": 0.09025999999999999,
+              "max_ms": 1.811
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 50,
+              "total_ms": 22.06,
+              "ms_per_frame": 0.4412,
+              "ms_per_call": 0.4412,
+              "max_ms": 4.225
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 50,
+              "total_ms": 16.946,
+              "ms_per_frame": 0.33892000000000005,
+              "ms_per_call": 0.33892000000000005,
+              "max_ms": 4.295
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 50,
+              "total_ms": 7.652,
+              "ms_per_frame": 0.15304,
+              "ms_per_call": 0.15304,
+              "max_ms": 1.24
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 50,
+              "total_ms": 4.371,
+              "ms_per_frame": 0.08742000000000001,
+              "ms_per_call": 0.08742000000000001,
+              "max_ms": 0.47
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 3.031,
+              "ms_per_frame": 0.06062,
+              "ms_per_call": 0.0075775,
+              "max_ms": 0.224
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9825467985197178,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "home",
+          "repeat": 1,
+          "frames": 49,
+          "elapsed_ms": 10099.485,
+          "fps": 4.851732538837376,
+          "frame_p50_ms": 202.129,
+          "frame_p95_ms": 266.674,
+          "process_p50_ms": 201.314,
+          "process_p95_ms": 297.566,
+          "physics_p50_ms": 12.449,
+          "physics_p95_ms": 29.815,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 49,
+              "total_ms": 331.884,
+              "ms_per_frame": 6.773142857142857,
+              "ms_per_call": 6.773142857142857,
+              "max_ms": 36.924
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 392,
+              "total_ms": 197.854,
+              "ms_per_frame": 4.037836734693878,
+              "ms_per_call": 0.5047295918367347,
+              "max_ms": 20.541
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 49,
+              "total_ms": 170.904,
+              "ms_per_frame": 3.4878367346938774,
+              "ms_per_call": 3.4878367346938774,
+              "max_ms": 21.25
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 392,
+              "total_ms": 165.341,
+              "ms_per_frame": 3.3743061224489797,
+              "ms_per_call": 0.42178826530612246,
+              "max_ms": 21.224
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 49,
+              "total_ms": 102.857,
+              "ms_per_frame": 2.0991224489795917,
+              "ms_per_call": 2.0991224489795917,
+              "max_ms": 19.67
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 392,
+              "total_ms": 59.735,
+              "ms_per_frame": 1.2190816326530611,
+              "ms_per_call": 0.15238520408163264,
+              "max_ms": 6.279
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 49,
+              "total_ms": 53.776,
+              "ms_per_frame": 1.097469387755102,
+              "ms_per_call": 1.097469387755102,
+              "max_ms": 7.619
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 49,
+              "total_ms": 49.749,
+              "ms_per_frame": 1.0152857142857143,
+              "ms_per_call": 1.0152857142857143,
+              "max_ms": 28.425
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 49,
+              "total_ms": 17.319,
+              "ms_per_frame": 0.35344897959183674,
+              "ms_per_call": 0.35344897959183674,
+              "max_ms": 4.285
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 49,
+              "total_ms": 7.878,
+              "ms_per_frame": 0.16077551020408162,
+              "ms_per_call": 0.16077551020408162,
+              "max_ms": 2.5
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 49,
+              "total_ms": 3.423,
+              "ms_per_frame": 0.06985714285714285,
+              "ms_per_call": 0.06985714285714285,
+              "max_ms": 0.44
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 392,
+              "total_ms": 1.96,
+              "ms_per_frame": 0.04,
+              "ms_per_call": 0.005,
+              "max_ms": 0.106
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9823495386290799,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 0,
+          "frames": 89,
+          "elapsed_ms": 10030.864,
+          "fps": 8.87261555933766,
+          "frame_p50_ms": 109.94,
+          "frame_p95_ms": 136.069,
+          "process_p50_ms": 71.745,
+          "process_p95_ms": 103.115,
+          "physics_p50_ms": 27.285,
+          "physics_p95_ms": 46.089,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8865,
+              "total_ms": 1128.868,
+              "ms_per_frame": 12.68391011235955,
+              "ms_per_call": 0.12733987591652565,
+              "max_ms": 20.3
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 958.941,
+              "ms_per_frame": 10.77461797752809,
+              "ms_per_call": 1.6225736040609138,
+              "max_ms": 32.845
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 591,
+              "total_ms": 858.389,
+              "ms_per_frame": 9.644820224719101,
+              "ms_per_call": 1.452434856175973,
+              "max_ms": 32.76
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 667.251,
+              "ms_per_frame": 7.497202247191011,
+              "ms_per_call": 1.1290203045685279,
+              "max_ms": 23.04
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 89,
+              "total_ms": 588.73,
+              "ms_per_frame": 6.6149438202247195,
+              "ms_per_call": 6.6149438202247195,
+              "max_ms": 26.169
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 530.026,
+              "ms_per_frame": 5.955348314606741,
+              "ms_per_call": 0.89682910321489,
+              "max_ms": 20.521
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 89,
+              "total_ms": 419.74,
+              "ms_per_frame": 4.716179775280899,
+              "ms_per_call": 4.716179775280899,
+              "max_ms": 22.074
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 89,
+              "total_ms": 362.226,
+              "ms_per_frame": 4.069955056179776,
+              "ms_per_call": 4.069955056179776,
+              "max_ms": 18.55
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 89,
+              "total_ms": 127.678,
+              "ms_per_frame": 1.4345842696629214,
+              "ms_per_call": 1.4345842696629214,
+              "max_ms": 19.67
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 89,
+              "total_ms": 85.679,
+              "ms_per_frame": 0.962685393258427,
+              "ms_per_call": 0.962685393258427,
+              "max_ms": 3.834
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 89,
+              "total_ms": 57.098,
+              "ms_per_frame": 0.6415505617977528,
+              "ms_per_call": 0.6415505617977528,
+              "max_ms": 15.505
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 591,
+              "total_ms": 46.099,
+              "ms_per_frame": 0.5179662921348315,
+              "ms_per_call": 0.07800169204737732,
+              "max_ms": 6.695
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 89,
+              "total_ms": 31.59,
+              "ms_per_frame": 0.3549438202247191,
+              "ms_per_call": 0.3549438202247191,
+              "max_ms": 4.366
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 89,
+              "total_ms": 7.319,
+              "ms_per_frame": 0.08223595505617977,
+              "ms_per_call": 0.08223595505617977,
+              "max_ms": 0.54
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9882211601242018,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 1,
+          "frames": 89,
+          "elapsed_ms": 10004.695,
+          "fps": 8.895823410908578,
+          "frame_p50_ms": 108.18,
+          "frame_p95_ms": 155.89,
+          "process_p50_ms": 68.385,
+          "process_p95_ms": 87.556,
+          "physics_p50_ms": 30.445,
+          "physics_p95_ms": 70.714,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8955,
+              "total_ms": 1003.587,
+              "ms_per_frame": 11.276258426966292,
+              "ms_per_call": 0.11207001675041876,
+              "max_ms": 19.586
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 597,
+              "total_ms": 773.019,
+              "ms_per_frame": 8.685606741573034,
+              "ms_per_call": 1.2948391959798995,
+              "max_ms": 20.165
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 597,
+              "total_ms": 716.97,
+              "ms_per_frame": 8.055842696629213,
+              "ms_per_call": 1.2009547738693467,
+              "max_ms": 20.09
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 597,
+              "total_ms": 619.601,
+              "ms_per_frame": 6.961808988764045,
+              "ms_per_call": 1.037857621440536,
+              "max_ms": 19.255
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 89,
+              "total_ms": 572.11,
+              "ms_per_frame": 6.428202247191011,
+              "ms_per_call": 6.428202247191011,
+              "max_ms": 23.34
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 597,
+              "total_ms": 446.889,
+              "ms_per_frame": 5.021224719101124,
+              "ms_per_call": 0.7485577889447237,
+              "max_ms": 21.329
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 89,
+              "total_ms": 427.168,
+              "ms_per_frame": 4.799640449438202,
+              "ms_per_call": 4.799640449438202,
+              "max_ms": 22.306
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 89,
+              "total_ms": 317.953,
+              "ms_per_frame": 3.572505617977528,
+              "ms_per_call": 3.572505617977528,
+              "max_ms": 9.4
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 89,
+              "total_ms": 120.977,
+              "ms_per_frame": 1.3592921348314606,
+              "ms_per_call": 1.3592921348314606,
+              "max_ms": 15.799
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 89,
+              "total_ms": 93.706,
+              "ms_per_frame": 1.0528764044943821,
+              "ms_per_call": 1.0528764044943821,
+              "max_ms": 3.73
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 89,
+              "total_ms": 57.729,
+              "ms_per_frame": 0.6486404494382022,
+              "ms_per_call": 0.6486404494382022,
+              "max_ms": 11.925
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 597,
+              "total_ms": 31.98,
+              "ms_per_frame": 0.3593258426966292,
+              "ms_per_call": 0.0535678391959799,
+              "max_ms": 4.3
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 89,
+              "total_ms": 15.516,
+              "ms_per_frame": 0.1743370786516854,
+              "ms_per_call": 0.1743370786516854,
+              "max_ms": 2.68
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 89,
+              "total_ms": 8.41,
+              "ms_per_frame": 0.09449438202247191,
+              "ms_per_call": 0.09449438202247191,
+              "max_ms": 0.76
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9902417726360464,
+          "browser_interval_comparison_eligible": true
+        }
+      ]
+    },
+    {
+      "name": "debug-baseline-return-01",
+      "sha256": "c990535c2900ea103b763a4443052b6cc4d7b7eff474877a1e0a7f28d89a990e",
+      "rows": [
+        {
+          "scene": "home",
+          "repeat": 0,
+          "frames": 44,
+          "elapsed_ms": 10116.164,
+          "fps": 4.349474761381884,
+          "frame_p50_ms": 223.169,
+          "frame_p95_ms": 350.13,
+          "process_p50_ms": 246.435,
+          "process_p95_ms": 336.525,
+          "physics_p50_ms": 16.865,
+          "physics_p95_ms": 48.784,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 265.242,
+              "ms_per_frame": 6.028227272727273,
+              "ms_per_call": 0.7535284090909091,
+              "max_ms": 25.47
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 44,
+              "total_ms": 230.241,
+              "ms_per_frame": 5.23275,
+              "ms_per_call": 5.23275,
+              "max_ms": 10.339
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 225.075,
+              "ms_per_frame": 5.115340909090909,
+              "ms_per_call": 0.6394176136363636,
+              "max_ms": 35.05
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 44,
+              "total_ms": 132.043,
+              "ms_per_frame": 3.000977272727273,
+              "ms_per_call": 3.000977272727273,
+              "max_ms": 7.825
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 44,
+              "total_ms": 72.629,
+              "ms_per_frame": 1.650659090909091,
+              "ms_per_call": 1.650659090909091,
+              "max_ms": 5.58
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 352,
+              "total_ms": 57.804,
+              "ms_per_frame": 1.3137272727272729,
+              "ms_per_call": 0.1642159090909091,
+              "max_ms": 6.975
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 44,
+              "total_ms": 43.448,
+              "ms_per_frame": 0.9874545454545455,
+              "ms_per_call": 0.9874545454545455,
+              "max_ms": 4.93
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 44,
+              "total_ms": 19.94,
+              "ms_per_frame": 0.4531818181818182,
+              "ms_per_call": 0.4531818181818182,
+              "max_ms": 3.52
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 44,
+              "total_ms": 17.213,
+              "ms_per_frame": 0.39120454545454547,
+              "ms_per_call": 0.39120454545454547,
+              "max_ms": 4.185
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 44,
+              "total_ms": 16.956,
+              "ms_per_frame": 0.38536363636363635,
+              "ms_per_call": 0.38536363636363635,
+              "max_ms": 5.13
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 44,
+              "total_ms": 13.143,
+              "ms_per_frame": 0.29870454545454544,
+              "ms_per_call": 0.29870454545454544,
+              "max_ms": 5.055
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 352,
+              "total_ms": 2.383,
+              "ms_per_frame": 0.05415909090909091,
+              "ms_per_call": 0.006769886363636363,
+              "max_ms": 0.135
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9741562451989895,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "home",
+          "repeat": 1,
+          "frames": 50,
+          "elapsed_ms": 10021.744,
+          "fps": 4.989151588785345,
+          "frame_p50_ms": 199.431,
+          "frame_p95_ms": 223.615,
+          "process_p50_ms": 197.409,
+          "process_p95_ms": 211.059,
+          "physics_p50_ms": 7.314,
+          "physics_p95_ms": 11.646,
+          "draw_calls_mean": 106,
+          "objects_mean": 1079,
+          "primitives_mean": 3227,
+          "inclusive_costs": [
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 50,
+              "total_ms": 271.672,
+              "ms_per_frame": 5.433440000000001,
+              "ms_per_call": 5.433440000000001,
+              "max_ms": 10.22
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 182.16,
+              "ms_per_frame": 3.6431999999999998,
+              "ms_per_call": 0.45539999999999997,
+              "max_ms": 8.245
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 167.957,
+              "ms_per_frame": 3.35914,
+              "ms_per_call": 0.4198925,
+              "max_ms": 8.49
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 50,
+              "total_ms": 147.923,
+              "ms_per_frame": 2.95846,
+              "ms_per_call": 2.95846,
+              "max_ms": 6.894
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 50,
+              "total_ms": 86.216,
+              "ms_per_frame": 1.7243199999999999,
+              "ms_per_call": 1.7243199999999999,
+              "max_ms": 5.535
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_home_world.gd:update_focus",
+              "calls": 400,
+              "total_ms": 59.591,
+              "ms_per_frame": 1.19182,
+              "ms_per_call": 0.1489775,
+              "max_ms": 8.331
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 50,
+              "total_ms": 31.829,
+              "ms_per_frame": 0.63658,
+              "ms_per_call": 0.63658,
+              "max_ms": 4.429
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 50,
+              "total_ms": 23.434,
+              "ms_per_frame": 0.46868000000000004,
+              "ms_per_call": 0.46868000000000004,
+              "max_ms": 4.26
+            },
+            {
+              "method": "scripts/demo/home_scene.gd:_process",
+              "calls": 50,
+              "total_ms": 19.52,
+              "ms_per_frame": 0.39039999999999997,
+              "ms_per_call": 0.39039999999999997,
+              "max_ms": 8.314
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 50,
+              "total_ms": 6.392,
+              "ms_per_frame": 0.12784,
+              "ms_per_call": 0.12784,
+              "max_ms": 1.371
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 50,
+              "total_ms": 5.697,
+              "ms_per_frame": 0.11394,
+              "ms_per_call": 0.11394,
+              "max_ms": 2.019
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 400,
+              "total_ms": 2.871,
+              "ms_per_frame": 0.05742,
+              "ms_per_call": 0.0071775,
+              "max_ms": 0.204
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.981297660807019,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 0,
+          "frames": 89,
+          "elapsed_ms": 10039.84,
+          "fps": 8.864683102519562,
+          "frame_p50_ms": 110.53,
+          "frame_p95_ms": 140.794,
+          "process_p50_ms": 67.901,
+          "process_p95_ms": 105.42,
+          "physics_p50_ms": 28.3,
+          "physics_p95_ms": 38.015,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8985,
+              "total_ms": 1103.139,
+              "ms_per_frame": 12.3948202247191,
+              "ms_per_call": 0.12277562604340567,
+              "max_ms": 24.245
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 599,
+              "total_ms": 847.075,
+              "ms_per_frame": 9.517696629213484,
+              "ms_per_call": 1.4141485809682806,
+              "max_ms": 24.036
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 599,
+              "total_ms": 785.795,
+              "ms_per_frame": 8.829157303370787,
+              "ms_per_call": 1.3118447412353922,
+              "max_ms": 23.96
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 89,
+              "total_ms": 621.204,
+              "ms_per_frame": 6.9798202247191,
+              "ms_per_call": 6.9798202247191,
+              "max_ms": 33.164
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 599,
+              "total_ms": 544.851,
+              "ms_per_frame": 6.121921348314607,
+              "ms_per_call": 0.9096010016694491,
+              "max_ms": 20.494
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 599,
+              "total_ms": 525.254,
+              "ms_per_frame": 5.901730337078652,
+              "ms_per_call": 0.8768848080133557,
+              "max_ms": 20.215
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 89,
+              "total_ms": 502.316,
+              "ms_per_frame": 5.644,
+              "ms_per_call": 5.644,
+              "max_ms": 32.134
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 89,
+              "total_ms": 339.1,
+              "ms_per_frame": 3.810112359550562,
+              "ms_per_call": 3.810112359550562,
+              "max_ms": 18.35
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 89,
+              "total_ms": 95.373,
+              "ms_per_frame": 1.0716067415730337,
+              "ms_per_call": 1.0716067415730337,
+              "max_ms": 4.484
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 89,
+              "total_ms": 95.371,
+              "ms_per_frame": 1.0715842696629212,
+              "ms_per_call": 1.0715842696629212,
+              "max_ms": 6.22
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 89,
+              "total_ms": 44.78,
+              "ms_per_frame": 0.5031460674157303,
+              "ms_per_call": 0.5031460674157303,
+              "max_ms": 4.426
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 599,
+              "total_ms": 33.774,
+              "ms_per_frame": 0.37948314606741573,
+              "ms_per_call": 0.05638397328881469,
+              "max_ms": 4.79
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 89,
+              "total_ms": 14.704,
+              "ms_per_frame": 0.16521348314606743,
+              "ms_per_call": 0.16521348314606743,
+              "max_ms": 0.936
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 89,
+              "total_ms": 6.751,
+              "ms_per_frame": 0.07585393258426967,
+              "ms_per_call": 0.07585393258426967,
+              "max_ms": 0.209
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.9895749364193097,
+          "browser_interval_comparison_eligible": true
+        },
+        {
+          "scene": "plains",
+          "repeat": 1,
+          "frames": 86,
+          "elapsed_ms": 10088.905,
+          "fps": 8.524215462431254,
+          "frame_p50_ms": 114.064,
+          "frame_p95_ms": 151.665,
+          "process_p50_ms": 66.11,
+          "process_p95_ms": 155.856,
+          "physics_p50_ms": 32.96,
+          "physics_p95_ms": 131.07,
+          "draw_calls_mean": 92,
+          "objects_mean": 381,
+          "primitives_mean": 1937,
+          "inclusive_costs": [
+            {
+              "method": "scripts/enemies/enemy_actor.gd:_physics_process",
+              "calls": 8865,
+              "total_ms": 1088.294,
+              "ms_per_frame": 12.654581395348838,
+              "ms_per_call": 0.1227630005640158,
+              "max_ms": 96.239
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 902.404,
+              "ms_per_frame": 10.49306976744186,
+              "ms_per_call": 1.5269103214890016,
+              "max_ms": 39.97
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:capture_state",
+              "calls": 591,
+              "total_ms": 781.107,
+              "ms_per_frame": 9.08263953488372,
+              "ms_per_call": 1.3216700507614212,
+              "max_ms": 20.889
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 605.96,
+              "ms_per_frame": 7.046046511627908,
+              "ms_per_call": 1.0253130287648056,
+              "max_ms": 24.8
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_refresh",
+              "calls": 86,
+              "total_ms": 586.894,
+              "ms_per_frame": 6.824348837209302,
+              "ms_per_call": 6.824348837209302,
+              "max_ms": 29.11
+            },
+            {
+              "method": "scripts/player/player_controller.gd:_physics_process",
+              "calls": 591,
+              "total_ms": 502.159,
+              "ms_per_frame": 5.839058139534884,
+              "ms_per_call": 0.8496768189509306,
+              "max_ms": 22.725
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_protection",
+              "calls": 86,
+              "total_ms": 434.516,
+              "ms_per_frame": 5.052511627906977,
+              "ms_per_call": 5.052511627906977,
+              "max_ms": 24.055
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_process",
+              "calls": 86,
+              "total_ms": 390.993,
+              "ms_per_frame": 4.54643023255814,
+              "ms_per_call": 4.54643023255814,
+              "max_ms": 23.135
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_sync_residents",
+              "calls": 86,
+              "total_ms": 128.462,
+              "ms_per_frame": 1.4937441860465115,
+              "ms_per_call": 1.4937441860465115,
+              "max_ms": 19.531
+            },
+            {
+              "method": "scripts/demo/demo_app.gd:_layout_region_hud",
+              "calls": 86,
+              "total_ms": 127.291,
+              "ms_per_frame": 1.4801279069767441,
+              "ms_per_call": 1.4801279069767441,
+              "max_ms": 15.764
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_parallax.gd:_update",
+              "calls": 86,
+              "total_ms": 63.614,
+              "ms_per_frame": 0.7396976744186046,
+              "ms_per_call": 0.7396976744186046,
+              "max_ms": 20.439
+            },
+            {
+              "method": "scripts/demo/plains_region_stage.gd:_update_context_signs",
+              "calls": 591,
+              "total_ms": 40.706,
+              "ms_per_frame": 0.47332558139534886,
+              "ms_per_call": 0.06887648054145516,
+              "max_ms": 4.194
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_foreground.gd:_render_receipt",
+              "calls": 86,
+              "total_ms": 15.588,
+              "ms_per_frame": 0.18125581395348836,
+              "ms_per_call": 0.18125581395348836,
+              "max_ms": 1.715
+            },
+            {
+              "method": "scripts/underworld_plains/underworld_presentation.gd:refresh",
+              "calls": 86,
+              "total_ms": 7.275,
+              "ms_per_frame": 0.08459302325581396,
+              "ms_per_call": 0.08459302325581396,
+              "max_ms": 0.415
+            }
+          ],
+          "scope": "Godot monitors and instrumented inclusive wrappers; nested costs must not be added. Native capture is a separately timestamped subset of the encompassing browser window.",
+          "browser_coverage": 0.990640479888554,
+          "browser_interval_comparison_eligible": true
+        }
+      ]
+    }
+  ],
+  "scope": "Cloud software WebGL. Matched snapshots do not establish equal world simulation time throughout windows. Inclusive method costs overlap. No phone/GPU FPS claim; sequential runs are noisy. Old vanilla boundary failures remain separate."
+}

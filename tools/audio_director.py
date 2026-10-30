@@ -181,6 +181,35 @@ def brief(request,output):
                 result['home_selection']=selection
                 result['inputs'].append({'path':home_selection_path,'sha256':sha(ROOT/home_selection_path)})
                 result['runtime_scope']='User selected the exact Home '+selection['mix_revision']+' '+selection['mode']+' mix; preserve low gains, sparse schedule, original BGM and prior regional A/A. Formal rollout and device validation are separate.'
+    feedback_paths=['docs/audio_director/feedback_05.md','config/audio_director/feedback_05/recipes.json','config/audio_director/feedback_05/sources.json','assets/audio/feedback_05/manifest.json','scripts/audio/selected_sfx_runtime.gd','scripts/dev/player_presentation_01/weapon_audio_v2.gd']
+    if all((ROOT/path).is_file() for path in feedback_paths):
+        result['current_feedback_revision']={'task':'AUDIO-FEEDBACK-05','version':'audio-feedback-v1','status':'implemented candidate; awaiting user hearing','rejected_in_real_play':['hero hurt C','Freedoom solid-wall timbre'],'runtime':'Selected default hurt uses separately named hurt_feedback_05; explicit old C remains an audition. Solid contact is a separate family with three takes, not enemy_hit B.','scope':'Title/Home BGM startup, committed chest/item rewards and mechanism audibility are also revised. Five BGM files, prior choices and regional/home selections remain unchanged.','manifest':'assets/audio/feedback_05/manifest.json'}
+        result['inputs'] += [{'path':path,'sha256':sha(ROOT/path)} for path in feedback_paths]
+        hero_hurt=any(word in request.lower() for word in ['受伤','hurt']) and not any(word in request.lower() for word in ['敌人','怪物','enemy','creature'])
+        solid_contact=any(word in request.lower() for word in ['碰墙','墙壁命中','地面命中','solid contact'])
+        if hero_hurt or solid_contact:
+            result.update(task='AUDIO-FEEDBACK-05',candidate_version='audio-feedback-v1',next_command='python3 tools/audio_feedback_design.py build')
+            result['selected_events']=list(dict.fromkeys([*result['selected_events'],*(['hurt'] if hero_hurt else []),*(['wall'] if solid_contact else [])]))
+    hurt_revision_paths=['docs/audio_director/feedback_06.md','config/audio_director/feedback_06/recipes.json','config/audio_director/feedback_06/sources.json','assets/audio/feedback_06/manifest.json']
+    if all((ROOT/path).is_file() for path in hurt_revision_paths):
+        result['inputs'] += [{'path':path,'sha256':sha(ROOT/path)} for path in hurt_revision_paths]
+        result['current_feedback_revision']={'task':'AUDIO-FEEDBACK-06','version':'audio-feedback-06-v1','status':'three new hurt directions awaiting user hearing; wall1 trial selected','rejected_in_real_play':['hero hurt C','feedback05 hurt1/2','Freedoom solid-wall timbre'],'runtime':'Title requests original BGM immediately, subject to browser autoplay policy. Wall uses feedback05/wall_1 only. Hero hurt has separate fracture/body/air candidates A/B/C; explicit old-C audition and old05 files remain unchanged.','manifest':'assets/audio/feedback_06/manifest.json'}
+        if any(word in request.lower() for word in ['主角受伤','人物受伤','hero hurt','player hurt','碰墙','solid contact']) or ('受伤' in request and not any(word in request for word in ['敌人','怪物'])):
+            result.update(task='AUDIO-FEEDBACK-06',candidate_version='audio-feedback-06-v1',next_command='python3 tools/audio_hurt_design.py build')
+    hurt_choice_path='config/audio_director/selected/hurt-20261030.json'
+    if (ROOT/hurt_choice_path).is_file():
+        choice=read(ROOT/hurt_choice_path)
+        bank_path=ROOT/'assets/audio/feedback_06/manifest.json'
+        bank=read(bank_path)
+        candidate=next((c for e in bank['events'] if e['id']=='hurt' for c in e['candidates'] if c['id']==choice.get('candidate_id')),None)
+        if choice.get('event_id')!='hurt' or choice.get('manifest_path')!=bank_path.relative_to(ROOT).as_posix() or choice.get('manifest_sha256')!=sha(bank_path) or candidate is None:
+            raise ValueError('Accepted hurt choice does not match its original manifest')
+        if choice.get('profile')!=candidate['profile'] or choice.get('candidate_version')!=candidate['version'] or choice.get('runtime_path')!=candidate['path'] or choice.get('candidate_sha256')!=sha(ROOT/candidate['path'].removeprefix('res://')):
+            raise ValueError('Accepted hurt choice candidate/version/WAV fingerprint drift')
+        result['hurt_user_selection']=choice
+        result['inputs'].append({'path':hurt_choice_path,'sha256':sha(ROOT/hurt_choice_path)})
+        result['current_feedback_revision']['status']='User selected exact hurt A; wall1 remains the requested trial'
+        result['current_feedback_revision']['runtime']='Normal game consumes the accepted hurt choice A through the existing SelectedSfxRuntime/GameAudio; B/C require explicit audition links. Original choice history and rejected recordings remain unchanged.'
     write(output,result);print(json.dumps(result,ensure_ascii=False,indent=2))
 
 def main():

@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "case": "pass",
+      "accepted": true,
+      "calls": 2,
+      "budgets": [
+        120,
+        119.99639762399602
+      ]
+    },
+    {
+      "case": "old_missing",
+      "accepted": false,
+      "calls": 1,
+      "budgets": [
+        120
+      ]
+    },
+    {
+      "case": "new_missing",
+      "accepted": false,
+      "calls": 2,
+      "budgets": [
+        120,
+        119.99999411000317
+      ]
+    },
+    {
+      "case": "nonzero",
+      "accepted": false,
+      "calls": 1,
+      "budgets": [
+        120
+      ]
+    },
+    {
+      "case": "timeout",
+      "accepted": false,
+      "calls": 1,
+      "budgets": [
+        120
+      ]
+    }
+  ],
+  "scope": "Mocked subprocess results and shared original budget; not native gameplay"
+}

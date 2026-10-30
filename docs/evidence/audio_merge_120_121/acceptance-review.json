@@ -1,0 +1,141 @@
+{
+  "task": "AUDIO-MERGE-120-121",
+  "reviewer": "/root/ambience_review",
+  "decision": "ACCEPT",
+  "scope": "Limited engineering review: exact acceptedA mapping, merged documentation preservation and one-line missing-query fallback fix. No finalCI/device approval.",
+  "source_commit": "7993b3bd5bd4cb0771953d614238862886c64076",
+  "reviewed_source_kind": "7993 merge plus explicit one-line working-tree diff; not a fabricated future commit",
+  "source_binding": {
+    "base": "7993b3bd5bd4cb0771953d614238862886c64076",
+    "working_tree_only_change": "scripts/audio/selected_sfx_runtime.gd",
+    "change": "audio_hurt query missing fallback 'A' to ''",
+    "base_runtime_sha256": "0325652fa3ade20cb235d0d6d44f911f8ed5cbbe237b2ad6226c75180631f8ad",
+    "reviewed_runtime_sha256": "ba3679bbfbce7afe738f1b0abd2041499876fab70399f43e5d8e2d38f37b6f77",
+    "snapshot": {
+      "config/audio_director/selected/hurt-20261030.json": "ba02fb2fe2c3667870386ab17cd2336751d201a19306b8dfa04240ead2985d43",
+      "scripts/audio/selected_sfx_runtime.gd": "ba3679bbfbce7afe738f1b0abd2041499876fab70399f43e5d8e2d38f37b6f77",
+      "tools/audio_director.py": "1e97331c0dd21d01b08cad762970079e1285553295dcd65b6e88c2b6cbd14ac5",
+      "tests/selected_sfx_runtime.gd": "5939717a748df6ebb7bef81c49389ef4bcc6e7d32511c5f4a5471b8039039e93",
+      "scripts/underworld_plains/underworld_foreground.gd": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4"
+    },
+    "final_commit_must_be_bound_separately": true
+  },
+  "exact_user_choice": {
+    "schema_version": 1,
+    "selection_id": "hurt-20261030",
+    "event_id": "hurt",
+    "profile": "A",
+    "candidate_id": "hurt_feedback_06_a",
+    "candidate_version": "audio-feedback-06-v1",
+    "runtime_path": "res://assets/audio/feedback_06/hurt_a.wav",
+    "candidate_sha256": "53445f070f73fd213860fd3c8f290403fc5718ba3d0e3d0ed8f36f1628aa1c84",
+    "manifest_path": "assets/audio/feedback_06/manifest.json",
+    "manifest_sha256": "02a353ffef06851c42052e018038a61c83668ff3e9b7eca7dfa0e795ef6c53f9",
+    "selection_date": "2026-10-30",
+    "producer": "user",
+    "source": "Current conversation user message, 2026-10-30",
+    "quote": "受伤选用A，连同pr120一起合并到main",
+    "scope": "Approve this exact hero hurt A and authorize normal integration of PR120 and PR121; other candidate sounds and physical-device quality are not implied."
+  },
+  "manifest_A_WAV_version_paths_SHA_verified": true,
+  "new_ledger_pinned_before_live_service_changes": true,
+  "original_test_retention": "Independently compared to2f: exactly3 new check calls+one local variable inserted; removing4 inserted lines restores all original test bytes.",
+  "independent_brief": {
+    "path": "build/audio_merge_120_121/brief-confirmation.json",
+    "sha256": "84a4f25027cb40cd68451fcd5313d2d6c9a6ba39fc2bcb18da281404ab502977",
+    "exact_accepted_A": true,
+    "memory_counterexamples_rejected": [
+      "wrong manifest SHA",
+      "profileB with A id",
+      "wrong WAV SHA",
+      "B candidate id with A profile"
+    ]
+  },
+  "actual_independent_Node_matrix": "15 combinations of ledgerABC x query absent/A/B/C/invalid executed successfully; missing/invalid preserve ledger, validABC override only for audition.",
+  "documentation_paragraph_preservation": [
+    {
+      "file": "docs/current_state.md",
+      "parent": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": []
+    },
+    {
+      "file": "docs/current_state.md",
+      "parent": "11f910f0acd83e353262bdb350d4ece83312985a",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": []
+    },
+    {
+      "file": "docs/tasks.md",
+      "parent": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": []
+    },
+    {
+      "file": "docs/tasks.md",
+      "parent": "11f910f0acd83e353262bdb350d4ece83312985a",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": []
+    },
+    {
+      "file": "docs/handoff.md",
+      "parent": "2f3a5d9ef096abbaeffb8a97a539abe094f71ca9",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": []
+    },
+    {
+      "file": "docs/handoff.md",
+      "parent": "11f910f0acd83e353262bdb350d4ece83312985a",
+      "all_substantive_paragraphs_preserved": true,
+      "omitted_duplicate_H1": [
+        "# 最新交接 · 2026-10-28"
+      ]
+    }
+  ],
+  "combined_native_receipts_inspected": {
+    "formal_checks": 96,
+    "cache_checks": 444,
+    "audio_cases": [
+      {
+        "case": "feedback",
+        "checks": 55,
+        "status": "passed",
+        "report_sha256": "fd2ae245ae2c65a48d7cdc9a08006c440d2e6d81310de52d52e766b86a820940"
+      },
+      {
+        "case": "rewards",
+        "checks": 70,
+        "status": "passed",
+        "report_sha256": "42ec6900685a88b5c73c4669918872832999ea6a50e1666ff0d1a4bf39044568"
+      },
+      {
+        "case": "selected",
+        "checks": 66,
+        "status": "passed",
+        "report_sha256": "3d40e9b9ee275e8c2c8fb457c8c6313a1e22a217fb0242104e0ab439f37d0281"
+      },
+      {
+        "case": "previous-fix",
+        "checks": 31,
+        "status": "passed",
+        "report_sha256": "5557330cf4527fe05fe188cf882fa498cf0b6748ff8fefabdc7c738ee54501f1"
+      }
+    ],
+    "audio_total": 222,
+    "engine_executed_by_reviewer": false,
+    "note": "Actual root-supplied combined receipts inspected; later JS string only is independently tested with Node and does not alter native non-Web behavior."
+  },
+  "findings": [
+    "No blocking issue. Exact new userA choice and all source fingerprints match; old ledger/accepted WAV/GameAudio pool remain unchanged.",
+    "Existing runtime source guard SHA-pins the new ledger before bank/profile changes. Brief independently rejects candidate/profile/version/path/manifest/WAV drift.",
+    "Current defaultA remains unchanged; fixed absent query now respects any ledger profile. B/C links remain explicit auditions.",
+    "All substantive paragraphs from both parents preserved; only PR120 duplicate old dated H1 omitted with body intact. Latest merge/A authority supersedes historical restrictions without deleting failures."
+  ],
+  "frozen_old_reviews": "Reviewer did not modify any frozen review. Current code diff contains only runtime line; some old review files absent in sparse local workspace and were not materialized.",
+  "limitations": [
+    "Final followup commit and exact-head full166CI are unverified here; normal merge remains gated.",
+    "Actual combined Web/PCK inclusion/consumption of newJSON still requires final export evidence; old packages not relabelled.",
+    "No new Godot/browser/phone run or human listening by reviewer. UserA authorization implies no B/C, other audio, overall FPS or device-quality acceptance."
+  ],
+  "final_frozen": true
+}

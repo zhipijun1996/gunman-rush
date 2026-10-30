@@ -1,0 +1,1068 @@
+{
+	"benchmarks": [
+		{
+			"context": "home",
+			"fixed_world_count": 32,
+			"rows": [
+				{
+					"iterations": 32,
+					"mean_usec": 4.40625,
+					"mode": "warm",
+					"round": 0,
+					"total_usec": 141
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 45.03125,
+					"mode": "forced_miss",
+					"round": 0,
+					"total_usec": 1441
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 36.90625,
+					"mode": "original",
+					"round": 0,
+					"total_usec": 1181
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 37.25,
+					"mode": "moving_candidate",
+					"round": 0,
+					"total_usec": 1192
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 28.375,
+					"mode": "moving_original",
+					"round": 0,
+					"total_usec": 908
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 25.8125,
+					"mode": "moving_original",
+					"round": 1,
+					"total_usec": 826
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 36.1875,
+					"mode": "moving_candidate",
+					"round": 1,
+					"total_usec": 1158
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 33.09375,
+					"mode": "original",
+					"round": 1,
+					"total_usec": 1059
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 31.0625,
+					"mode": "forced_miss",
+					"round": 1,
+					"total_usec": 994
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 1.90625,
+					"mode": "warm",
+					"round": 1,
+					"total_usec": 61
+				}
+			],
+			"scope": "Synchronous fixed-prefix CPU including shared reset; no FPS/GPU/device claim. Moving cases translate canvas by 1 px each call. Two reversed-order rounds, 64 calls per mode."
+		},
+		{
+			"context": "plains",
+			"fixed_world_count": 481,
+			"rows": [
+				{
+					"iterations": 32,
+					"mean_usec": 4.125,
+					"mode": "warm",
+					"round": 0,
+					"total_usec": 132
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 172.78125,
+					"mode": "forced_miss",
+					"round": 0,
+					"total_usec": 5529
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 136.9375,
+					"mode": "original",
+					"round": 0,
+					"total_usec": 4382
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 201.9375,
+					"mode": "moving_candidate",
+					"round": 0,
+					"total_usec": 6462
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 133.34375,
+					"mode": "moving_original",
+					"round": 0,
+					"total_usec": 4267
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 180.75,
+					"mode": "moving_original",
+					"round": 1,
+					"total_usec": 5784
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 202.6875,
+					"mode": "moving_candidate",
+					"round": 1,
+					"total_usec": 6486
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 132.15625,
+					"mode": "original",
+					"round": 1,
+					"total_usec": 4229
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 144.75,
+					"mode": "forced_miss",
+					"round": 1,
+					"total_usec": 4632
+				},
+				{
+					"iterations": 32,
+					"mean_usec": 4.0,
+					"mode": "warm",
+					"round": 1,
+					"total_usec": 128
+				}
+			],
+			"scope": "Synchronous fixed-prefix CPU including shared reset; no FPS/GPU/device claim. Moving cases translate canvas by 1 px each call. Two reversed-order rounds, 64 calls per mode."
+		}
+	],
+	"cases": [
+		{
+			"case": "synthetic/70-disjoint/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 70,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 70
+			},
+			"static_count": 70
+		},
+		{
+			"case": "synthetic/70-disjoint/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 70,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 70
+			},
+			"static_count": 70
+		},
+		{
+			"case": "synthetic/enclosure-last-sticky-overflow/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-last-sticky-overflow/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": true,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-first-no-overflow/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/enclosure-first-no-overflow/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 71
+			},
+			"static_count": 71
+		},
+		{
+			"case": "synthetic/strict-union-threshold-equal/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 2,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-equal/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 2,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-below/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/strict-union-threshold-below/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_static_geometry_and_functions": 2
+			},
+			"static_count": 2
+		},
+		{
+			"case": "synthetic/zero-outside-touching-edge/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/zero-outside-touching-edge/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/empty-after-nonempty/candidate",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "synthetic/empty-after-nonempty/warm",
+			"dynamic_count": 0,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 0,
+			"source_counts": {},
+			"static_count": 0
+		},
+		{
+			"case": "home/stationary-0",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/stationary-1",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/stationary-2",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/geometry-add",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-edit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-reorder",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/geometry-remove-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/alias-after-miss",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/alias-after-hit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/camera-offset",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 12,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 47
+		},
+		{
+			"case": "home/camera-zoom",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 12,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 47
+		},
+		{
+			"case": "home/camera-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/viewport-resize",
+			"dynamic_count": 1,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 10,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 11,
+				"actual_visible_ui": 16
+			},
+			"static_count": 38
+		},
+		{
+			"case": "home/viewport-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/dynamic-actor",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/dynamic-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/ui-visible",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 24,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/ui-hidden",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/ui-moved",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 24,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "home/ui-removed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/paused",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/resumed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "home/after-benchmark",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 13,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 23,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 48
+		},
+		{
+			"case": "plains/stationary-0",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/stationary-1",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/stationary-2",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/geometry-add",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-edit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-reorder",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 14,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/geometry-remove-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/alias-after-miss",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/alias-after-hit",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/camera-offset",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/camera-zoom",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 8,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 7,
+				"actual_static_geometry_and_functions": 12,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 44
+		},
+		{
+			"case": "plains/camera-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/viewport-resize",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 4,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 7,
+				"actual_static_geometry_and_functions": 11,
+				"actual_visible_ui": 14,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 32
+		},
+		{
+			"case": "plains/viewport-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/dynamic-actor",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 16,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/dynamic-restore",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/ui-visible",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 15,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 26,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/ui-hidden",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/ui-moved",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 12,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 26,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 50
+		},
+		{
+			"case": "plains/ui-removed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 14,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 25,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 49
+		},
+		{
+			"case": "plains/paused",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		},
+		{
+			"case": "plains/resumed",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		},
+		{
+			"case": "plains/after-benchmark",
+			"dynamic_count": 3,
+			"equal": true,
+			"overflow": false,
+			"protect_count": 1,
+			"source_counts": {
+				"actual_actor_or_danger": 1,
+				"actual_platform_edge": 11,
+				"actual_static_geometry_and_functions": 13,
+				"actual_visible_ui": 55,
+				"muzzle": 1,
+				"player": 1
+			},
+			"static_count": 79
+		}
+	],
+	"checks": 383,
+	"elapsed_msec": 2745.976,
+	"failures": [],
+	"scene": "res://scenes/demo/demo.tscn",
+	"scenes": [
+		{
+			"canvas": "[X: (1.0, 0.0), Y: (0.0, 1.0), O: (0.0, 50.0)]",
+			"context": "home",
+			"fixed_world_count": 32,
+			"player": "(110.0, 414.0)",
+			"scene_path": "",
+			"tracked_count": 183,
+			"viewport": "[P: (0.0, 0.0), S: (1280.0, 720.0)]"
+		},
+		{
+			"canvas": "[X: (1.6, 0.0), Y: (0.0, 1.6), O: (3504.0, 487.5576)]",
+			"context": "plains",
+			"fixed_world_count": 481,
+			"player": "(-1850.0, 0.0)",
+			"scene_path": "",
+			"tracked_count": 646,
+			"viewport": "[P: (0.0, 0.0), S: (1280.0, 720.0)]"
+		}
+	],
+	"schema": 1,
+	"scope": "Functional exact-output synchronous fixtures and direct CPU prefix microbenchmark; no visual, gameplay-route, Web FPS or phone acceptance claim.",
+	"seed": "mobile-fps-04",
+	"source_sha256": "61acf1704ac0c622f2741d36828175bd3c8b6364ab581140deab78d34ce44a09"
+}

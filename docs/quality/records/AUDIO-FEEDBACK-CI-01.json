@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "task_id": "AUDIO-FEEDBACK-CI-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "20aab6b11a28df109d75431bb8b772cf27916a46",
+  "reviewed_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+  "content_version": "selector-166-v1",
+  "owner": "root",
+  "purpose": "Synchronize exact selector inventory with the new appended serial audio check",
+  "player_experience": "CI must protect all original checks and the new audio check without changing the game",
+  "constraints": [
+    "No production/audio/physics/data changes",
+    "Keep original144 two hashes,21 prior additions, assertions and budgets",
+    "Preserve actual failed CI and its no-engine-executed boundary"
+  ],
+  "affected_paths": [
+    "tests/test_production_plan.py"
+  ],
+  "deliverables": [
+    "Exact selector21 pass and independent no-weaken review",
+    "Preserved CI failure and corrected PR checks"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "CI-only允许写集和原守门完整保留",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "原21CLI和独审完成；不代签full166",
+      "evidence": [
+        "selector21",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "精确CI清单小修范围，原守门不变；不含游戏/听感验收",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "精确CI清单小修范围，原守门不变；不含游戏/听感验收",
+      "evidence": [
+        "selector21"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "精确CI清单小修范围，原守门不变；不含游戏/听感验收",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "scenario": "New regression must be added without losing165 original checks",
+      "method": "Declare exact166 and91/75 lane inventory, preserve original prefixes",
+      "expected": "Only the appended serial check changes the inventory",
+      "failure": "Missing old checks or bypassed selector",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded CI-only spec",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "selector",
+      "scenario": "Old selector rejects the real new serial check",
+      "method": "Run original21 test CLI after exact fix",
+      "expected": "21 pass with92 assertions intact and no engine dependency",
+      "failure": "Reduced suite, dynamic acceptance of arbitrary checks or wrong lane",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual original CLI21/0",
+      "evidence": [
+        "selector21"
+      ]
+    },
+    {
+      "id": "independent",
+      "scenario": "Exact-count change must not weaken prior coverage",
+      "method": "Different reviewer compares entire module and rejects four negative cases",
+      "expected": "Two literal lines only, old guards remain",
+      "failure": "Self review or removed constraints",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Independent actual review",
+      "evidence": [
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/audio_feedback_ci_01/scope.md",
+      "sha256": "6fc1236b7ce103055034fea73b10dd498a06d3e6e97f7d476c6a3f7f9b9953cc",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+      "content_version": "selector-166-v1",
+      "method": "Narrow process scope and exact original inventory constraints",
+      "observed": "No runtime/audio change"
+    },
+    {
+      "id": "selector21",
+      "path": "docs/evidence/audio_feedback_05/ci-selector/selector-21.log",
+      "sha256": "a4c2068657f44c77f0418812f7a2222a632f0bed1e89812422db6d294c09cda7",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+      "content_version": "selector-166-v1",
+      "method": "Original CLI run after actual b6 commit",
+      "observed": "21/0",
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "environment": "Linux Python3.12, no engine required"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/audio_feedback_05/ci-selector/review.json",
+      "sha256": "2d0bf3463a76e054850d9d6129b6d188f0c0b2d04e903c71adb67f5fd0a8309d",
+      "kind": "review",
+      "producer": "root/ambience_review",
+      "source_commit": "b6f9f4ee6bffc8d456308be68b14a3d14875a07b",
+      "content_version": "selector-166-v1",
+      "method": "Independent exact whole-file/AST diff and original21 CLI plus4 rejection examples",
+      "observed": "Limited engineering ACCEPT for b6, no full166 inference",
+      "reviewer": "root/ambience_review",
+      "implementers": [
+        "root"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only different agent, no source writes",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Remote actual head full166 CI; not substituted by pure selector21",
+    "No new game/phone/hearing result claimed by this CI-only task"
+  ],
+  "test_change_justification": "Add the real audio-feedback serial entry to the exact expected tail and change exact counts to166/91/75; preserve both original144 hashes, all21 prior additions/order, all21 methods/92assert calls and all set/lane/serial/negative tests. Independent actual review and original CLI21 pass.",
+  "production_snapshot": "661270f2dd307041c122f9772a8f7361563c16707e23ac38e61b1a23aed08ca4"
+}

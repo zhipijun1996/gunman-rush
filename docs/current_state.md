@@ -1,4 +1,34 @@
+## 2026-10-30 用户已选受伤A，PR120＋121联合合入中
+
+受伤正式采用hurt_feedback_06_a，原WAV保持试听字节；[选择](../config/audio_director/selected/hurt-20261030.json)。两线在音频分支保历史组合，原完整166/双通道/affected全绿后正常合main，当前不将排队当合并完成。[本轮范围](worklines/audio_merge_120_121/scope.md)。
+
+## 2026-10-30 音频反馈06 · 开发试听
+
+PR121续迭代：标题即请求原BGM、墙地试用新版1，受伤重做CC0三方向。运行源d8a894c2／Web80377273a40d；219+89原生、16真实Web和14手机尺寸工坊GUI通过，新音色用户/真机未验，未合main。[当前声音与实际交付证据](evidence/audio_feedback_06/README.md)。
+
 # 当前状态
+
+## 2026-10-30 AUDIO-FEEDBACK-05 · 修复候选可试听
+
+[独立试玩／真实录屏／音效比较](https://clock-audio-feedback-05.zhipijun1996.chatgpt.site)已发布（同一ChatGPT账号），build1b5989/实际游戏源d466；main5f557/ad78未替换。修标题首轨启动、受伤/墙地新材质、机制铃可听性及正式宝箱/道具/商店COMMITTED反馈，原五BGM/选择原件保留。工程源f6d8d76e当前上下文194原生、89BGM、11本地浏览器及1994帧原音轨通过；style20/creative23仅3/81技术重绑、原46纯测试/两CLI/独审通过。新音色听感/设备/长自然路线与完整166仍未验；全历史docs缺件超磁盘未签PASS。[当前证据与失败](evidence/audio_feedback_05/README.md)／[后续声音上下文](audio_director/feedback_05.md)。独立PR待评，不自动合main。
+
+## 2026-10-30 MOBILE-WEB-FPS-04 · 大地图攻击／跳跃续查
+
+用户反馈上轮候选没有明显差异、偶发卡顿，授权无损优化直接采用。本轮运行源 `eec08e9b3b6d12493233f5f0d489be6651121fa3`；仅新增前景弹体属性发现优化，动态provider／validator／其他原生类型回退原算法，无schema缓存。六类原生两次正反复测局部约减少76%／73%；冻结源fresh为191.4→51.0μs，原96＋等价444通过。
+
+完整平原真实菜单／同seed／同DPR下三组30秒A/B/A，各4跳4枪4实际空中发射、无掉血、节点1441→1441。云端SwiftShader FPS7.66／7.78／7.47，P95 171／185／190ms；不能证明整体稳定提速或手机FPS。移动输入超时／落地射击覆盖不足／首轮源漂移Harness失败全部保留。下一热点须分段测selected音频load/play与leaf入树，不据猜测改音频。
+
+正常Web `f94fd4124f5f` 已发布 [新候选](https://zhipijun1996.github.io/gunman-rush/perf-actions/?v=f94fd4124f5f)，保留原主页、audio-before及perf-04。prepared源153e8a31，deploy41003568533成功；四入口公开metadata与新候选7个完整公网文件通过。公开真实Home／Plains各8秒混合PCM全部非零且无clipping；所选pulse相关0.432／0.856并与native start对齐，家园相关较弱不单独签强音色识别，长时／手机仍未验。3260项正常包payload相同，仅foreground编译结果和两份索引变更；无画质／音频／物理调整。
+
+[动作证据](evidence/mobile_web_fps_04/actions/README.md)；PR120仍draft，未合main。最终docs33 fresh通过。旧头6858的serial forest-depth-region600秒超时；eec parallel任务状态索引不一致已在收尾记录统一，本地quality通过，完整新head CI未代签；手机长期体验和整体帧率待验证。恢复先核Git／公开版本与单浏览器租约，不重做已验证包或回写历史失败。
+
+
+## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查
+
+用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。
+
+新分支 `perf/mobile-web-quality-20261030`，独立worktree；真实demo／同seed／同1280×720与DPR，官方线程Debug/Release同PCK与诊断计时分开。仅新增固定几何前缀精确缓存；正式两图96项与缓存等价383项fresh通过，独审未见阻断。原版反序对照未证明整体FPS稳定提升，移动cache miss有小额外成本；不把软件GPU帧率当荣耀60Pro数据。候选 `1394d114df73` 已在 `/perf-04/` 发布，原主页ad78不变；15个公网完整文件与真实Home/Plains短窗音频通过。首个冷加载180s超时保留，后续原限时通过。草稿PR120未合main，等待实际收益判断；见[证据](evidence/mobile_web_fps_04/README.md)。
+
 
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 
