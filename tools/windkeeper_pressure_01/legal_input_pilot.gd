@@ -103,6 +103,7 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 	var wave_jump := false
 	var seed_pending := false
 	var seed_imminent := false
+	var supported_seed_run := false
 	var landing_wave_axis := 0.0
 	var landing_wave_gap := INF
 	for shot: Variant in encounter.get("_projectiles"):
@@ -369,6 +370,15 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		if mode in ["platform2","active_assault"] and grounded:
 			jump=true
 			intent="platform2: normal jump against actual approaching seed trajectories"
+		if mode=="active_assault" and phase==3 and grounded and not incoming_wave:
+			var seed_run:=_assault_supported_seed_run(app,at,current_slab,-signf(dx))
+			if not seed_run.is_empty():
+				supported_seed_run=true
+				axis=-signf(dx)
+				escape_destination=seed_run.goal
+				jump=false
+				intent="active_assault: run away from approaching seeds along ray-verified current support"
+				input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_seed_run","group":group,"phase":phase,"player":_v(at),"boss":_v(boss.global_position),"axis":axis,"goal":_v(escape_destination),"actual_support_rays":seed_run.rays,"incoming_wave":incoming_wave})
 	if phase>=2 and not encounter.health.terminal and not seed_imminent and not support_escape_active and cross_axis==0 and state in ["observe","approach","link","recover"]:
 		# After real countershot recoil, plant on the inner safe edge of the
 		# current unoccupied support. Remaining at its far edge made the next
@@ -444,6 +454,16 @@ func step(app: Node, encounter: Node, metrics: Dictionary, units: Array[Dictiona
 		if at.x > arena.end.x - 12 and axis > 0: axis = 0
 		if grounded and phase == 3 and _gap_ahead(player,axis) and absf(axis)>.1:
 			jump = true
+	# A landing must release/rearm a new normal jump before walking over the
+	# next broken-bridge gap. Retain the actual support for those two ticks.
+	if mode=="active_assault" and phase==3 and grounded and _gap_ahead(player,axis) and frame<jump_rearm_until:
+		axis=0
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"edge_rearm_wait","group":group,"player":_v(at),"rearm_frame":jump_rearm_until,"actual_grounded":grounded})
+	if supported_seed_run:
+		# All later generic gap/wave/held-input helpers must preserve the
+		# already verified grounded run, rather than jump into the upper fan.
+		jump=false
+		jump_until=frame-1
 	if jump and frame >= jump_until and frame >= jump_rearm_until:
 		jump_until = frame + jump_hold_ticks
 		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"jump_hold","group":group,"intent":intent})
@@ -561,9 +581,17 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 	var boss: Vector2=encounter.motor.global_position
 	var gap:=absf(boss.x-at.x)
 	var warning_key:="%s:%s:%s" % [group,encounter.combat_metrics().get("attack_index",0),state]
-	var eligible:=frame==state_start and grounded and slab.size.x>0 and ((state=="lunge_warning" and gap<=260) or (state=="sweep_warning" and bool(encounter.sweep_high) and at.y<boss.y-35 and gap<=200))
+	var eligible:=frame==state_start and grounded and ((state=="lunge_warning" and gap<=300) or (state=="sweep_warning" and slab.size.x>0 and at.y<boss.y-35 and gap<=200))
 	if supported_escape_start<0:
 		if not eligible or warning_key==supported_escape_key:return false
+		var support_kind:="raised_platform" if slab.size.x>0 else "arena_floor"
+		var ground_support:Dictionary={}
+		if slab.size.x<=0:
+			var foot:=at+Vector2(0,17)
+			var ray:=PhysicsRayQueryParameters2D.create(foot,foot+Vector2(0,35),1,[app.player.get_rid()])
+			var hit:Dictionary=app.player.get_world_2d().direct_space_state.intersect_ray(ray)
+			if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7:return false
+			ground_support={"point":_v(hit.position),"normal":_v(hit.normal),"collider":str(hit.collider.get_path())}
 		supported_escape_start=frame
 		supported_escape_axis=signf(boss.x-at.x)
 		if is_zero_approx(supported_escape_axis):supported_escape_axis=float(encounter.locked_direction)
@@ -578,7 +606,7 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 		leaf_escape_air=-1
 		leaf_escape_boosted=false
 		jump_until=frame-1
-		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_escape_begin","actual_state":state,"state_age":encounter.combat_metrics().get("state_age",0),"remaining_warning":encounter.clock,"group":group,"phase":phase,"gap":gap,"axis":supported_escape_axis,"delay_frames":supported_escape_delay,"player":_v(at),"boss":_v(boss),"actual_slab":[slab.position.x,slab.position.y,slab.size.x,slab.size.y],"scope":"controlled-probe input recipe; mirrored/full-fight outcome requires actual receipt"})
+		input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"supported_escape_begin","actual_state":state,"state_age":encounter.combat_metrics().get("state_age",0),"remaining_warning":encounter.clock,"group":group,"phase":phase,"gap":gap,"axis":supported_escape_axis,"delay_frames":supported_escape_delay,"player":_v(at),"boss":_v(boss),"actual_slab":[slab.position.x,slab.position.y,slab.size.x,slab.size.y],"support_kind":support_kind,"actual_ground_support":ground_support,"sweep_high":bool(encounter.sweep_high),"scope":"controlled-probe input recipe; mirrored/full-fight outcome requires actual receipt"})
 	var elapsed:=frame-supported_escape_start
 	if elapsed>=108:
 		preferred_side=supported_escape_axis
@@ -603,6 +631,23 @@ func _assault_supported_escape(app: Node, encounter: Node, state: String, at: Ve
 		if submitted:last_shot_frame=frame
 	input_rows.append({"frame":frame,"movie_frame":Engine.get_process_frames(),"action":"continuous_move","axis":axis,"jump_held":jump_held,"group":group,"intent":intent,"supported_escape_elapsed":elapsed})
 	return true
+
+
+func _assault_supported_seed_run(app: Node, at: Vector2, slab: Rect2, away: float) -> Dictionary:
+	if slab.size.x<=0 or is_zero_approx(away):return {}
+	var goal:=Vector2(slab.end.x-13 if away>0 else slab.position.x+13,slab.position.y-18)
+	# Require enough real floor to run through the existing .45s threat
+	# horizon. A valid standing overhang uses the actual leading foot ray.
+	if (goal.x-at.x)*away<app.player.tuning.ground_speed*.45:return {}
+	var rays:Array[Dictionary]=[]
+	for fraction: float in [0.0,.33,.66,1.0]:
+		var centre:=Vector2(lerpf(at.x,goal.x,fraction),slab.position.y-18)
+		var foot:=centre+Vector2(away*10,17)
+		var ray:=PhysicsRayQueryParameters2D.create(foot,foot+Vector2(0,35),1,[app.player.get_rid()])
+		var hit:Dictionary=app.player.get_world_2d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP)<.7:return {}
+		rays.append({"from":_v(foot),"point":_v(hit.position),"normal":_v(hit.normal),"collider":str(hit.collider.get_path())})
+	return {"goal":goal,"rays":rays}
 
 
 func _assault_jump_corridor_clear(encounter: Node, at: Vector2) -> bool:

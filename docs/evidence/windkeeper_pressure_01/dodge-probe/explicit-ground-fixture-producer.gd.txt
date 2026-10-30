@@ -1,0 +1,93 @@
+extends "res://tests/windkeeper_pressure_01/formal_app.gd"
+## Bounded diagnostic only. Every trial creates a fresh actual formal App.
+## GROUND VARIANT: original twelve inputs retained; player starts on the actual ground.
+## Phase/group/Boss and player initial placement are explicit PRETRIAL fixtures.
+## Once the warning starts, ONLY ordinary Router intents are submitted.
+## This is not a natural whole-battle, visual, audio or device acceptance test.
+var probe_rows: Array[Dictionary] = []
+
+func probe_case(spec: Dictionary) -> void:
+	if not await setup(): return
+	var module: PlatformingModule
+	for item: PlatformingModule in app.stage.assembler.modules:
+		if item.definition.module_id == &"plains_boss_arena": module = item; break
+	if module == null:
+		check(false,"actual Boss module found")
+		return
+	var local_slab: Rect2 = module.definition.platforms[3]
+	var slab := Rect2(module.to_global(local_slab.position),local_slab.size)
+	var floor_rect: Rect2 = module.definition.platforms[0]
+	var floor_y: float = module.to_global(floor_rect.position).y
+	var player_initial := Vector2(slab.end.x+8,floor_y-18)
+	# Ground variant keeps the same horizontal positions and uses the actual floor below.
+	relocate(player_initial,"pretrial actual ground below the right-platform edge")
+	await ticks(3)
+	var supported: bool = app.player.is_on_floor()
+	var hp: float = app.controller.actor_resources.health.current
+	check(supported,"fresh trial has actual original ground support")
+	check(is_equal_approx(hp,5),"fresh trial retains original5HP without refill")
+	var boss: BossMotor = app.stage.boss
+	boss.global_position = Vector2(player_initial.x-float(spec.gap),floor_y-65)
+	boss.stop()
+	encounter.stage_phase=2
+	encounter._pending_phase=2
+	encounter.direction=1
+	encounter.locked_direction=1
+	encounter._base_y=boss.global_position.y
+	encounter._floor_y=floor_y
+	encounter._hop_active=false
+	encounter._hop_prepared=false
+	encounter._group_plan={"attacks":[StringName(spec.attack)],"phase":2,"double_stomp":false,"sweep_high":false}
+	encounter._attack_index=0
+	encounter.sweep_high=false
+	encounter._pose_from.clear()
+	encounter._begin_attack()
+	encounter._update_combat_shapes()
+	var initial_mode: String = encounter.mode
+	check(initial_mode==str(spec.attack)+"_warning","pretrial group starts its actual full warning")
+	var initial_contact: bool=encounter.body_contact_sweep(boss.global_position,app.player.global_position-boss.global_position,app.player.global_position,Vector2(12,18))
+	var start_tick := Engine.get_physics_frames()
+	var frame_rows: Array[Dictionary] = []
+	var requests: Array[Dictionary] = []
+	encounter.set_physics_process(true)
+	for frame: int in 108:
+		if not is_instance_valid(app.player) or not is_instance_valid(app.controller) or not is_instance_valid(encounter): break
+		var axis: float = float(spec.axis) if frame >= int(spec.jump_at) else 0.0
+		app.controller.router.set_source_axis(&"keyboard_mouse",axis)
+		var jumping: bool=int(spec.jump_at)>=0 and frame>=int(spec.jump_at) and frame<int(spec.jump_at)+int(spec.hold)
+		app.controller.router.set_jump_held(&"keyboard_mouse",jumping)
+		if int(spec.get("shot_at",-1)) == frame:
+			var aim := Vector2(float(spec.get("aim_x",0)),1).normalized()
+			var accepted: bool=app.controller.router.request_action(&"shoot_release",aim)
+			requests.append({"frame":frame,"input":"shoot_release","aim":aim,"accepted_router":accepted})
+		frame_rows.append({"frame":frame,"physics_tick":Engine.get_physics_frames(),"mode":String(encounter.mode),"clock":encounter.clock,"player":app.player.global_position,"boss":boss.global_position,"grounded":app.player.is_on_floor(),"normal_velocity":app.player.normal_velocity,"recoil_remaining":app.player.recoil_burst_remaining,"HP":app.controller.actor_resources.health.current,"axis":axis,"jump_held":jumping,"body_contact":encounter.body_contact_sweep(boss.global_position,app.player.global_position-boss.global_position,app.player.global_position,Vector2(12,18)),"actual_threats":encounter._projectiles.size()})
+		await ticks(1)
+	var hp_after: float=app.controller.actor_resources.health.current if is_instance_valid(app.controller) else 0
+	var row: Dictionary={"id":spec.id,"spec":spec,"scope":"controlled initial phase/group/placements; actual original App, warning/execution/contact/strike, subsequent Router inputs only","initial_player":player_initial,"actual_slab":slab,"initial_boss":Vector2(player_initial.x-float(spec.gap),floor_y-65),"initial_mode":initial_mode,"initial_supported":supported,"initial_contact":initial_contact,"initial_HP":hp,"final_HP":hp_after,"safe_for_observed_interval":supported and not initial_contact and is_equal_approx(hp,hp_after),"actual_damage":player_damage.duplicate(true),"actual_shots":shots.duplicate(true),"requests":requests,"start_tick":start_tick,"end_tick":Engine.get_physics_frames(),"frames":frame_rows}
+	probe_rows.append(row)
+	print("DODGE PROBE CASE ",spec.id," safe=",row.safe_for_observed_interval," HP=",hp_after," initial_contact=",initial_contact)
+	app.controller.router.set_source_axis(&"keyboard_mouse",0)
+	app.controller.router.set_jump_held(&"keyboard_mouse",false)
+
+func run() -> void:
+	var specs: Array[Dictionary]=[
+		{"id":"sweep-still","attack":"sweep","gap":128,"jump_at":-1,"hold":0,"axis":0},
+		{"id":"sweep-jump0","attack":"sweep","gap":128,"jump_at":0,"hold":29,"axis":0},
+		{"id":"sweep-jump12","attack":"sweep","gap":128,"jump_at":12,"hold":29,"axis":0},
+		{"id":"sweep-jump24","attack":"sweep","gap":128,"jump_at":24,"hold":29,"axis":0},
+		{"id":"sweep-cross0-recoil18","attack":"sweep","gap":128,"jump_at":0,"hold":29,"axis":-1,"shot_at":18,"aim_x":.65},
+		{"id":"sweep-cross12-recoil30","attack":"sweep","gap":128,"jump_at":12,"hold":29,"axis":-1,"shot_at":30,"aim_x":.65},
+		{"id":"lunge-still","attack":"lunge","gap":240,"jump_at":-1,"hold":0,"axis":0},
+		{"id":"lunge-cross0","attack":"lunge","gap":240,"jump_at":0,"hold":29,"axis":-1},
+		{"id":"lunge-cross6","attack":"lunge","gap":240,"jump_at":6,"hold":29,"axis":-1},
+		{"id":"lunge-cross12-recoil30","attack":"lunge","gap":240,"jump_at":12,"hold":29,"axis":-1,"shot_at":30,"aim_x":.65},
+		{"id":"lunge-cross0-recoil18","attack":"lunge","gap":240,"jump_at":0,"hold":29,"axis":-1,"shot_at":18,"aim_x":.65},
+		{"id":"lunge-close180-cross0","attack":"lunge","gap":180,"jump_at":0,"hold":29,"axis":-1,"shot_at":18,"aim_x":.65}
+	]
+	for spec: Dictionary in specs: await probe_case(spec)
+	await cleanup()
+	var output := "res://build/windkeeper_pressure_01/dodge-probe-ground-01.json"
+	var f := FileAccess.open(output,FileAccess.WRITE)
+	f.store_string(JSON.stringify({"scope":"GROUND: same12 bounded controlled actual App input recipes on real floor, low sweep; no production modification or natural fight acceptance","fixture_boundaries":"Each trial freshApp/fulloriginal5HP, pretrial initial placements + phase2/single group; no mutation after warning starts except ordinary Router inputs","assertions":assertions,"setup_failures":failures,"cases":probe_rows},"\t"));f.close()
+	print("WINDKEEPER GROUND DODGE PROBE: ",probe_rows.size()," trials; setup_failures=",failures.size())
+	quit(0 if failures.is_empty() else 1)
