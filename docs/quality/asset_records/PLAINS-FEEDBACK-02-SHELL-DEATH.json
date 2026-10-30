@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAINS-FEEDBACK-02-SHELL-DEATH",
+  "task_id": "PLAINS-MOTION-LOOT-02",
+  "content_version": "plains-material-feedback-02-v1",
+  "source_path": "assets/audio/plains_feedback_02/shell_death.wav",
+  "source_sha256": "005e428351714151dac55c18de71971d4879df73f836f406ac27240ac512fcb5",
+  "runtime_paths": [
+    "assets/audio/plains_feedback_02/shell_death.wav"
+  ],
+  "tool": "tools/build_plains_feedback_02_audio.py + ffmpeg; recorded-source edit/mix",
+  "model": "not_applicable",
+  "prompt_or_reference": "assets/audio/plains_feedback_02/recipes.json; exact original author/source/license/recipe facts in provenance.json",
+  "processing": "Preserved CC0 recordings; exact source onsets, speed/filter/crop/layer offset/gain, 48kHz mono16bit WAV with short fades; generator/source/outputs have retained SHA. No oscillator/noise substitute or BGM change.",
+  "usage_scope": "Seven revised plains species; shell material accepted death cue, existing shared12voice pool; no nonaccepted or restored replay. Listening/AVsync/user/device remain unverified.",
+  "license_status": "verified",
+  "license_source": "rubberduck OpenGameArt75 CC0 breaking/falling/hit recordings; original9 source bytes, source-page/archive/license URLs and full CC0 text path/SHA retained in assets/audio/plains_feedback_02/provenance.json.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/audio/plains_enemy_audio.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/audio/plains_feedback_02/README.md",
+      "sha256": "7344ae9954c809898832be28e830d861432b7a01b9316c1b21dcf6c78110b426",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/audio/plains_feedback_02/manifest.json",
+      "sha256": "7e2b77f05f986f86b95d8e645182f0adf898cd4a55fb9d59ca5d0c2d5a5dfe66",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/plains_feedback_02/provenance.json",
+      "sha256": "75deafe4c906b3373d87786c6f31c1e254028cf1a1b01bae61f0fc7b0d5fc415",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/audio/plains_feedback_02/recipes.json",
+      "sha256": "feff60daca3272177e58a0685887806d07e27a62552b816a62ddc4106602b786",
+      "role": "processing_record"
+    }
+  ]
+}

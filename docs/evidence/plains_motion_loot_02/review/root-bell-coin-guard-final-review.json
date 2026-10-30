@@ -1,0 +1,92 @@
+{
+  "verdict": "ACCEPT",
+  "scope": "Exact frozen guard source and matching development execution records only",
+  "reviewed_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
+  "baseline_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "reviewer": "/root/guard_review_recovery",
+  "author": "/root",
+  "independent": true,
+  "independence_statement": "Reviewer did not author production or the two guard/adapter files; reviewer identified first-candidate false accepts and reviewed root-authored corrections. Reviewer performed read-only source/record checks and pure receipt validation; no Godot execution or repository edits.",
+  "files": {
+    "tests/root_bell_spaces_runner.gd": "ed2f87c87268c549be92d6598b7c9a0db8dc0472b4e190f9996da025bb8007c3",
+    "tools/run_root_bell_spaces.py": "67695da0014a9d7851be2b4a55483705bf1cb8fdf0479c940a40a7987beeb5dc"
+  },
+  "production_diff": "Zero from a5ff to 2c329; only two non-documentation changed paths are the two guard files. All 2967 other captured development inputs match a5ff and frozen 2c329.",
+  "evidence_origin": "Root development execution before commit, a5ff + two dirty guard files; not a Git-clean execution and not independently rerun by reviewer",
+  "evidence": {
+    "native_directory": "build/production_repair/ecology/plains_loot_02_spaces_03",
+    "archived_directory": "docs/evidence/plains_motion_loot_02/development/root-bell-coin-guard-03",
+    "native_report_sha256": "efa3fedf860b3ee74b28646ae01bd58001d48bf68efcb1da0df08d8e72e22a3b",
+    "native_audit_sha256": "9f7b4bed114462fc232e4979a9a2ea992fd5c01d6c6628a9c0c90e137a4149cb",
+    "inventory_items": 2969,
+    "inventory_before_equals_after": true,
+    "all_inventory_matches_frozen_git": true,
+    "native_exit_code": 0,
+    "native_seconds": 51.63590216600278,
+    "maps": 40,
+    "physical_negatives": 10,
+    "species_negatives": 12,
+    "historical_save_versions": 2,
+    "run_manifest_versions": 3,
+    "fixed_hz": 60,
+    "runtime_clean": true,
+    "independent_engine_rerun": false
+  },
+  "independent_pure_verification": {
+    "command": "python3 /tmp/review_root_bell_coin_final.py",
+    "checks": 3021,
+    "failures": 0,
+    "note": "Includes 2969 per-input hash/Git blob comparisons; not 3021 engine tests. Adapter validate and all eight receipt mutation cases were rerun as pure Python.",
+    "proof_path": "/tmp/plains_root_bell_coin_guard_final_proof.json",
+    "proof_sha256": "1b71e61fd38b140e1f946213f0d036ddfab71f78feaa1e5ba318c5583f3e77c3",
+    "script_sha256": "ef94d2b66f075ed8f4e46a28fe77aa71f7d75cdfc7e53663a5f30be5e5d7c318",
+    "actual_command": "python3 /tmp/review_root_bell_coin_final.py > /tmp/plains_root_bell_coin_guard_final_pure.log",
+    "executed_script_path": "/tmp/review_root_bell_coin_final.py",
+    "stdout_log": "/tmp/plains_root_bell_coin_guard_final_pure.log",
+    "stdout_log_sha256": "e25b1f634474e5309b714b1bb05bf8c430412b78eb1fd8fcefc6fd7eef7fb96a"
+  },
+  "preserved_guards": [
+    "Original nodes/connections/chest rewards equality and non_ecology_content_drift label",
+    "All original non-run GDScript functions byte-identical",
+    "40 original map pairs, 10 original physical negatives, 2 saved historical versions, 3 replay versions",
+    "Native240 / Harness360 seconds and 60Hz unchanged",
+    "Original six Python receipt mutations plus missing/false new-refusal cases",
+    "All unrelated drop rows full-equality, admitted drop full expected dictionary equality preserves RNG, bonuses, keysets and reward order"
+  ],
+  "narrow_permission": [
+    "Only one real actual.root_bell_admission.id with replaced=1 and actual charger→root_bell species transition",
+    "Old and new coin totals checked against config; current immutable config charger2/root_bell7",
+    "Deep-copy before changes behavior and amount/coin_total/configured_coin_total plus exactly one coin reward amount",
+    "Both budgets require TYPE_INT and exact configured coin delta",
+    "Same-species rows require full drop equality; species transition cannot take equality fast path"
+  ],
+  "addressed_findings": [
+    "F1 old-drop plus old-budget rollback now rejected and native negative retained",
+    "F2 fractional before/after budget now rejected through TYPE_INT and two native negatives",
+    "F3 transition narrowed to charger→root_bell"
+  ],
+  "retained_failures": {
+    "ci_run": 40993924803,
+    "status": "failed",
+    "parallel_passed": 48,
+    "parallel_failed": 1,
+    "parallel_unexecuted": 43,
+    "original_failure": "root-bell-spaces/non_ecology_content_drift/plains-redesign-8/plains/map_2",
+    "first_candidate": "Nine native negatives and marker were insufficient; both original source files reconstruct exactly to first run source_before SHA and earlier independent counterexample proof remains archived.",
+    "ci_artifacts": "All five archived ZIP byte lengths/SHA256 match archived GitHub API digest metadata. This review is not a live GitHub API re-fetch."
+  },
+  "limits": [
+    "No full167 PASS or affected closure claim",
+    "No forest performance/root cause acceptance",
+    "No production behavior/art/audio/GUI/device/user/G1–G5 main-task acceptance",
+    "No retagging old source996a recording",
+    "Development03 was precommit with two dirty guard files, not a Git-clean execution",
+    "Process card currently remains unverified at a5ff; owner must bind any accepted process evidence to reviewed_commit2c329 before marking its bounded technical/independent review complete"
+  ],
+  "working_tree_at_review": " M docs/evidence/plains_motion_loot_02/integration/ci-40993924803/parallel-job-original.log\n M docs/evidence/plains_motion_loot_02/integration/ci-40993924803/serial-job-original.log\n",
+  "repository_changes_by_reviewer": [],
+  "source_commit": "2c32948271b2f002f76aea846a83aa1cba4f0a13",
+  "implementers": [
+    "/root"
+  ]
+}

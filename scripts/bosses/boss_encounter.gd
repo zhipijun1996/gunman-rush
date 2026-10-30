@@ -4,6 +4,7 @@ extends Node
 signal defeated(encounter: BossEncounter)
 signal projectile_created(projectile: BossProjectile)
 signal phase_changed(phase: int)
+signal presentation_event(event: Dictionary)
 @export var definition: BossDefinition
 @export var motor: BossMotor
 @export var damageable: Damageable
@@ -105,3 +106,39 @@ func _on_defeat() -> void:
 
 func _exit_tree() -> void:
 	cancel()
+
+func _presentation_values() -> Dictionary:
+	# Fresh values only: presenters receive no live combat objects.
+	return {"active":active,"terminal":health.terminal,"health_epoch":health.epoch,"position":motor.global_position if is_instance_valid(motor) else Vector2.ZERO,"direction":float(direction),"phase":phases.phase,"phase_axes":{"combat":phases.phase},"damage_model":&"body","body_contact_enabled":body_contact_enabled()}
+
+func _presentation_countdown(values: Dictionary, state: StringName, remaining: float, warning_duration: float, is_warning: bool, releases: bool, sustains: bool, recovers: bool, domain: StringName = &"encounter") -> BossPresentationState:
+	# Raw time is unchanged, including negative boundary samples. Only progress
+	# is normalized. The owning family supplies state and semantic flags.
+	values.merge({"state_id":state,"raw_mode":state,"state_source":domain,"raw_clock":remaining,"clock_kind":&"countdown","clock_domain":domain,"telegraph_duration":warning_duration,"telegraphing":is_warning,"warning_progress":clampf(1.0-remaining/maxf(.01,warning_duration),0.0,1.0) if is_warning else 0.0,"release_action":releases,"sustained_action":sustains,"recovery_active":recovers},true)
+	return BossPresentationState.new(values)
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	var attack := pattern.presentation_clock()
+	# Clockwork has no raw mode: the ID names its actual pattern branch and
+	# state_source explicitly identifies that distinction for every consumer.
+	values.merge({"state_id":&"projectile_warning" if attack.telegraphing else &"patrol","raw_mode":&"","state_source":&"attack_pattern","raw_clock":attack.elapsed,"clock_kind":&"elapsed","clock_domain":&"attack_pattern","telegraph_duration":attack.warning_duration,"telegraphing":attack.telegraphing,"warning_progress":attack.warning_progress},true)
+	return BossPresentationState.new(values)
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["attack_pattern"])
+
+func presentation_bell() -> Dictionary:
+	return {}
+
+func presentation_bell_warning() -> Dictionary:
+	return {}
+
+func presentation_pursuit_warning() -> Dictionary:
+	return {}
+
+func presentation_motion_preview() -> Dictionary:
+	return {}
+
+func presentation_knots() -> Array[Dictionary]:
+	return []

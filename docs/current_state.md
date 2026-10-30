@@ -1,5 +1,9 @@
 ## 2026-10-30 用户已选受伤A，PR120＋121联合合入中
 
+## 2026-10-30 七怪工作线获准快速合main（当前）
+
+用户明确“快速合入main”。正在PR119整合main feb01068的已选hurt A/COMMITTED音频与前景性能修复；原ab96 CI并行92通过、串行森林600秒53/80超时，原红灯保留。目标为两父完整历史、七怪固定金币/概率补给与主线更新共同接入；原167前缀追加主线audio为168（92＋76），600预算不改。本地正常merge冻结C为0d7ea6bf，冲突独审726/0、pure22/40/17及三个原Harness专项全过；PR119已改指main，完整168待新头实跑。本轮scope/测试/精确源CI及合并状态见[合入记录](worklines/plains_motion_loot_02/main_merge.md)。旧“不自动合main”为此前阶段，不重复询问授权；整怪艺术/设备/用户G5仍分开。
+
 受伤正式采用hurt_feedback_06_a，原WAV保持试听字节；[选择](../config/audio_director/selected/hurt-20261030.json)。两线在音频分支保历史组合，原完整166/双通道/affected全绿后正常合main，当前不将排队当合并完成。[本轮范围](worklines/audio_merge_120_121/scope.md)。
 
 ## 2026-10-30 音频反馈06 · 开发试听
@@ -7,6 +11,94 @@
 PR121续迭代：标题即请求原BGM、墙地试用新版1，受伤重做CC0三方向。运行源d8a894c2／Web80377273a40d；219+89原生、16真实Web和14手机尺寸工坊GUI通过，新音色用户/真机未验，未合main。[当前声音与实际交付证据](evidence/audio_feedback_06/README.md)。
 
 # 当前状态
+
+## 2026-10-30 七怪审核片已发布，死亡掉落回归已修订（当前）
+
+[怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)私密更新源97a25c0：25怪/95版本/15媒体，保原88版本/意见归属与其他18怪。用户已选择每怪固定金币必掉、音符/回血按原概率额外；候选1/2/2/2/3/5/7，7=5+1+1。整身动作、材质伤亡/落地声、方向碎屑、局部33ms停顿、物理喷散/轻弹/吸收与实际回血微光已接入，1wu/原身体PNG/AI/HP/伤害/玩家物理保留。
+
+影片固定996a5946源、8ccd927c媒体：50.7833秒/3047帧/七章，公网原MP4完整SHA已核。明示0.8秒idle观察hold、安全岸站位和真实概率选样，非自然整关；Python wrapper完整31194项源清单与Git metadata前后稳定并包含Skin，不以driver叶子子集冒充全清单。工坊API13/模型8/独审434通过；浏览器本轮未跑、听感/设备/用户与经济平衡未签。
+
+原CI40988919015、40993924803及最新41001060607失败均保原件：最新100过/2未通过/65未执行，正式66/4的旧整drop静态断言与森林80/600超时。正式仅迁移实际七物理字段、保原66/等待/重载/预算，新增84完整单位/账本/运动反例；dirty原wrapper150/0，独审172/0限定接受。Ground零权重与Skin静止缓存保原625顶点/公式/绘制，六skin和失效481/0、独审52/0限定接受；未采用136行重复charger公式方案。
+
+后继本地原Harness三项全fresh通过：formal150/0、motion/loot481/0、原森林80/80在541.165/600秒内完成；总selected597.639秒含三检查及守门。原Harness内部完整source digest稳定通过，报告披露dirty运行，不能称Git clean、完整167或CI主机性能已修。先前其余死亡/save/audio/player五项及data/tools两项已过；data首次因稀疏xlsx缺件失败，物化原件后两项重跑通过，原失败保留。完整167的新冻结源CI仍须独立核实，不以本机通过冲销旧CI红灯。
+
+分支feature/plains-motion-loot-02，草稿[PR119](https://github.com/zhipijun1996/gunman-rush/pull/119)不合main；[本轮证据](evidence/plains_motion_loot_02/README.md)。恢复先核精确Git/SHA/CI与唯一Godot租约；不重画重录，不替换影片来源。运行/测试冻结源de22a39b，5353显式输入逐件相同、最终独审518/0限定接受；后继仅文档/质量收据。下一步推送同PR并核新源完整CI；按用户具体怪物/时间点意见继续返工，不把技术专项当整怪成品验收。
+
+## 2026-10-29 平原七怪候选已交工坊，完整166技术CI通过（最新）
+
+[打开怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)。平原7个新版实际动作与6组玩家＋原俯冲＋修改怪物的原平原同屏对照已私密发布；沿现有1wu／nearest，独审限定接受静态同屏像素粒度进入复审。原75版本和意见归属保留；森林／Boss／候选条目仍用上轮实录，未冒称本轮重录。站点源ec916080，媒体仍按原7edda9源保留，不追签后继代码。
+
+冻结验证提交`9034827f63cfc03c74df70ba7bb0d48639583057`的完整CI[40964265759](https://github.com/zhipijun1996/gunman-rush/actions/runs/40964265759)实际166／166全部fresh通过（91parallel＋75serial，0复用／0失败／0未执行），官方affected汇总success。两通道前后30,300源项一致，既有56项Foundry JSON预处理明确非Git clean；本轮全部生产改动和3,788个非Foundry运行源独立逐件核SHA一致。原ZIP与GitHub API摘要一致，原报告／日志／独审见[完整证据](evidence/plains_monster_revision_01/integration/ci-40964265759/README.md)。
+
+已修复森林复用charger旧半高，以及真实保存恢复朝向缓存错误；原留尸支撑145／2→145／0，测试断言与预算不改。原冻结v11 280／2按AGENTS既有兼容延期保留manual，不记通过；同预算当前真实registry/App检查默认一换一，完整166及两lane数量保持。所有失败、中断和缺输入原件保留；本地第8轮97通过后因同源完整CI已核验而停止，无aggregate，不称本地全量通过。
+
+PLAINS-MONSTER-REVISION-01保持review。整怪正常速度视觉／声音听审、实体设备、动态全相位碰撞与用户G5仍未签。[制作卡](worklines/plains_monster_revision_01/consumer_coverage.md)记录逐怪边界。草稿[PR118](https://github.com/zhipijun1996/gunman-rush/pull/118)不自动合main；后续按具体怪物／动作／版本意见返工，不自动扩产。
+
+
+## 2026-10-29 平原七怪返工候选（最新）
+
+用户逐怪规格与“像素粒度要对齐整体美术”已落实为同体关节候选；沿现有1wu/nearest，不改全局画风。冻结源 `7edda9f5f2a20c5406391ff3f7edebbeb2322047`：七怪实际AI连续片76.17秒／basic0gaps，原平原玩家＋原俯冲＋六新怪同屏片30.266667秒／六页。后者明确固定展位、停用AI，不称自然遭遇。新版工坊已原生私密发布，站点源ec916080（已明确本轮只更新平原七怪）；25条目/88版本，新增7战斗与6同屏片，原75版本与D1意见归属保留。详见[候选与失败链](evidence/plains_monster_revision_01/README.md)。
+
+普通HP与纯辅助预告/路径已从实际渲染分支移除；实际危险弹体/根脉冲/Boss弱点保留。六个新中性体按个体关节完成受伤和失力落位；冲锋/俯冲持久留尸，其余短留淡出。根铃40×48、扇射22×18、冲锋28×28与草籽真实喷口扫掠是明确的碰撞/起点调整；冲锋脚底支持探针跟随实际矩形，原10wu射线长度保持。HP/伤害/阶段时长/奖励权威未重设计，不能称几何/派生行为字节不变。
+
+实际专项340／0（含左右核心/外侧扫掠、真实支撑冲出与无支撑拒绝），原muzzle167／20、旧反馈484／0与formal66／0 clean分别保源。历史323／4、formal退出泄漏、R1/R2/R3视觉拒绝及339／2均保留；原163回归attempt01在第8项旧registry登记/任务索引失败，7项通过、155未执行；修复登记且技术独审接受后，同一适用163项第二轮在第35项生成消费者发现森林复用charger的旧半高常数（34通过、128未执行），现改为真实Definition半高；原完整generated-consumers wrapper随后26套通过。第三轮日志实际57项通过后，冻结v11历史回放280断言/2失败，环境重启使总报告未生成，不称完整回归通过。依AGENTS既有历史兼容延期范围，原检查/断言/预算不改并保留在legacy-compat；新增同预算当前registry/App保存拒绝检查，一换一保留默认163项和两lane数量。第四轮0a51实际29通过/1失败/133未执行，唯一planner旧摘要未适配该分流，保原四摘要并限定单名逆映射，21项后继通过；独审接受。第五轮bc9024实际72通过/1失败/90未执行，支撑145/2发现两链保存朝向缓存缺陷；仅保存恢复读取最终brain朝向，正常致死保最后可见朝向。原145/0后继与clean ad89三专项fresh通过，独审接受；完整163最终复验另列。只读独审与用户/真机/听感分开，任务保持review；不自动合main。
+
+## 2026-10-29 怪物工坊已私密发布（最新）
+
+[打开怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)。用户授权参考音效工坊，现已交付25审核条目、当前／历史动作片段、动作定位／慢放／循环／步进／放大、具体版本与时间点意见、新怪物创意及云端“我的意见”／导出。主游戏机制与美术未批量改动，旧质量拒绝保留；未录到招式明确标待补录，认可只对应具体动作版本，不自动签整怪。
+
+站点源7843ec0已通过Sites原生私密发布，生产DB的两表实际建成；本机32API／UI测试、15实际浏览器检查与独立代码审查通过。Game录制代码52d0a0ad，5原MP4固定805d849d，原38当前链与37历史分列。Storm Lab缺口保留、正式补片及留尸尾段另证。技术／发布不代签怪物艺术、实体设备或用户认可。
+
+ENEMY-WORKSHOP-01进入review。游戏分支feature/enemy-workshop-01依赖PR114，不合main；站点独立源仓库的main是网站源码，不是主游戏main。[维护与读反馈](worklines/enemy_workshop_01/README.md)，[证据](evidence/enemy_workshop_01/README.md)。用户后续要求处理意见时，读取同项目Sites DB有界记录，保动作／revision／片段归属，不自动扩产或公开私密正文。
+
+
+## 2026-10-29 全怪物程序重构已实现，完整166 CI通过（最新）
+
+ENEMY-STRUCTURE-01程序实现已进入review：普通14物种、2开发候选、8Boss场景／9配置统一创建登记／工厂、攻击策略、只读表现状态、最终身体绑定、生命周期、完整恢复同步及尸体能力。逐怪当前入口见[程序索引](worklines/enemy_structure_01/runtime-map.md)，职责见[架构](worklines/enemy_structure_01/architecture.md)。
+
+验证代码源`596a2eee230eb1b9d23dc2ff878c1ff3259cf293`：本地clean原生733／40case、docs33全部fresh通过；完整CI40860669611实际166／166通过（parallel91＋serial75，0复用／0未执行），affected合流success。森林原80唯一路线404.511／原600秒，原断言／预算／60Hz保留。CI实际含相同56项Foundry准备改动，30,040源项前后稳定，不称Git clean；[完整收据](evidence/enemy_structure_01/ci-40860669611/RESULT.md)。后继只补文档证据，运行代码与测试不再改动。
+
+[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)仍draft／未合main。旧CI失败及用户旧美术拒绝保留；无新图／素材替换／验收skills采用。当前完成程序工程验证，整怪动作／声音／审美、实体设备及用户验收仍未重新签。下一步按用户要求逐怪发现问题，与用户共同修改验收机制，再决定黄金样板和生产流程；不批量美术扩产。
+
+
+## 2026-10-29 怪物重构：原80本地通过，冻结后继CI候选（最新）
+
+全怪物创建／状态／绑定／生命周期重构已实现；3bc冻结源原80路线505.552／600秒全部通过，native733／40case与原GL44＋12通过。后继仅CPU自动并发与三段wall遥测，保原80／前16顺序、90／240／600、60Hz与全部验证；原14调度测试完整保留，新增13项，27／27实跑通过。下一完整166 CI待实际执行；上一40844941490串行超时原件保留，不能把本地通过升签远端。见[性能收口](worklines/enemy_structure_01/performance.md)。PR114保持draft，不合main；不重画美术、不撤用户拒绝、不采用skills讨论稿。
+
+
+## 2026-10-29 怪物重构CI性能返工（最新）
+
+结构已实现，5b本地730／39case，后继候选733／40case、原14专项及实际GL通过，来源分别保留；完整CI40844941490并行通过，串行原80/600超时（17通过＋1超时，后57未执行）。当前仅ForestMotion静态权重／纯body早裁剪和Actor只读快照减少复制候选，不改原80／断言／预算／AI／素材。候选单route快约16.8%，不能称全量已修复。[性能事实与边界](worklines/enemy_structure_01/performance.md)。待下一冻结源原80与完整CI，旧用户美术拒绝不撤回，不合main。
+
+## 2026-10-29 全怪物程序整体重构（最新，验证中）
+
+用户在盘点后明确要求“整体重构”，已授权从方案进入代码实施。ENEMY-STRUCTURE-01现统一普通／候选创建登记、Boss工厂、普通攻击策略、只读表现状态与特殊查询、显式最终profile、普通表现生命周期及完整恢复同步；[实现边界](worklines/enemy_structure_01/architecture.md)。当前进行同源原生回归与独立代码审查，未签整体完成。原素材／AI数值／伤害权威及终态政策保留；cold terminal首次显示直接settled属于明确生命周期修正，需实测。
+
+本授权覆盖此前“不批量重构”的程序限制；“先不要批量做”对美术扩产继续有效。旧ENEMY-ALL-02用户品质拒绝不撤回，验收机制／skills讨论稿未采用，无新图或素材替换。旧视频与技术结果不代签新源或品质。style19／creative22仅技术重绑原81引用中3入口，原v18／v21及78其他引用保留。
+
+
+## 2026-10-29 用户拒绝怪物制作质量，暂停扩产并重新盘点（最新）
+
+用户新增“所有的怪物需要整理并统一程序结构”。[结构盘点与统一方案](worklines/enemy_asset_audit_01/program-structure.md)已覆盖全25条目及实际渲染链：已有共同Actor／Health／Damageable，重点问题在装配、显式profile、状态／时钟协议、私有字段耦合、重复生命周期、候选factory差异与恢复顺序风险。当前仅静态查证，未运行复现风险、未改程序或skills；先发现问题，不批量重构。
+
+用户明确反馈“完全不行，制作质量参差不齐”，要求先整理各怪资料／素材，再共同修改验收机制与生产流程。上一轮交付不能作为成品接受；原技术结果和R1–R4原报告不抹除，局部ACCEPT不能继续推成整怪品质。ENEMY-ALL-02保持review，player_acceptance／G5记录failed，整批独审充分性重新unverified。当前只做[资料素材审计](worklines/enemy_asset_audit_01/README.md)，不改生产代码、不生成新图、不擅自让流程草案生效。 盘点现已交付25条目：逐怪设计／原图／当前分支／未用动作格／历史版本／共享音效特效，附联网原PNG浏览册。已发现fan实际aerial分支与旧卡矛盾、root三链不同身体、多个动作格未消费；仅静态反查，未新运行或评定成品质量。后续先与用户选正反例和品质下限，再决定修订skills，当前讨论稿未生效。 用户续指“最接近目标是平原的第5个。先不要批量做，先发现问题”；已列首批已证错配／待视觉验证问题，视频第五段（Underworld俯冲）与物种第五种（炮哨）的编号正在澄清，不擅自把参考升为黄金通过。
+
+
+## 2026-10-29 全现存怪物动作候选与实机审核（当前）
+
+审核包已冻结于`c59661b7c4182e4efdfce5206dd7477ac5dceb4a`并推送PR114；原docs33／33 fresh、0复用／0失败。11段公开MP4实际HTTP200整文件178,500,792字节，SHA全匹配，[下载收据](evidence/enemy_all_02/public-download.json)。后续仅收据／交接账本追加和相关静态守门，不重签媒体source、完整33或全165。PR说明已更新审核入口，仍OPEN/draft/未合并。
+
+ENEMY-ALL-02位于`feature/enemy-completion-02`／草稿[PR114](https://github.com/zhipijun1996/gunman-rush/pull/114)，不自动合main。14普通物种／22宿主链、2开发候选、8Boss场景／9实际Definition组合已补同体关节动作、accepted受伤恢复及原死亡终态。冲锋／俯冲live统一H3母版；旧三Boss用原fine32同族身体，原AI／HP／碰撞／奖励／保存不改。原ENEMY-CONTINUITY卡与失败hash保留，新卡与实录另立。
+
+[审核目录](evidence/enemy_all_02/README.md)含56.68秒正式App总览、平原15链159.55秒、森林7种83.85秒、两候选24.42秒、Boss9组合257.97秒，以及四链settled后210帧留尸补录。真正Godot4.7.2／60fps／原PCM，实验台、debug入口、初始审核站位逐段披露，不称自然全campaign。当前实现源d91，森林按其重录；其他片保原94／b71源，以R4限定复用，未追签源相同。
+
+原67远端CI森林80图600秒超时真实保留。保守屏外绘制裁剪后，d91完整原80图540.378秒通过（1个专项check，非full165），GPU44／0，当前native90／708／209／426全0失败；b71原11job通过另保来源。[验证摘要](evidence/enemy_all_02/validation/summary.json)。R1/R2失败及R3/R4限定复审保留；任务保持review，成品用户／实体设备／听感／全部变体与G5未签。最新远端CI以PR实际head为准。
+
+
+怪物开发方法：[enemy-creator开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)已补齐从机制灰盒、同一身体母版、动作／退出、命中／死亡／声音到正式遭遇的操作、实物交接和按层返工；由技能自动补卡并调用实际工具。任务ENEMY-WORKFLOW-01只建设开发流程，不改变当前冲锋怪E03／E05 failed或替代真实生产验证。
+
+怪物工作入口：[统一完成标准](quality/enemy_completion_standard.md)与原Enemy Sheet现共用E01–E12／G0–G5／十一维。已有冲锋怪[制作卡](design/enemies/plains_charger.md)为review：本轮四项局部技术检查通过，但当前实录两次受伤退出的身体结构不连续（CHR-VIS-01，E03／E05 failed），完整攻击、正式自然场景、独审、用户与设备未验。流程标准建立不等于怪物完成；[来源与证据](evidence/enemy_completion_01/README.md)。
+
 
 ## 2026-10-30 AUDIO-FEEDBACK-05 · 修复候选可试听
 

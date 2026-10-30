@@ -110,3 +110,11 @@ func restore_combat_state(data: Dictionary) -> void:
 	pattern_index=int(data.get("pattern_index",0));volley=int(data.get("volley",0))
 	_roll_age=float(data.get("roll_age",0))
 	var p: Array=data.get("locked_point",[0,0]);locked_point=Vector2(p[0],p[1])
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase},"damage_model":&"continuous_body" if continuous_combat() else &"aperture","core_hint_visible":core_open},true)
+	return _presentation_countdown(values,mode,clock,(definition as WindkeeperDefinition).warning_seconds,mode in [&"roll_warning",&"ring_warning",&"lob_warning"],mode in [&"rings",&"lob"],mode == &"roll",mode == &"neck")
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["core_anchor","roll_warning","locked_lob","combat_state"])

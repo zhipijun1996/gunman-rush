@@ -1,0 +1,72 @@
+{
+  "reviewer": "/root/guard_review_recovery",
+  "author": "/root",
+  "independent": true,
+  "base_commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "scope": "Read-only test-guard migration review; no engine, no production/test edits, no main gate or subjective acceptance",
+  "decision": "ACCEPT narrow migration design; exact frozen-source/native receipt review pending",
+  "candidate_sha256": {
+    "tests/root_bell_spaces_runner.gd": "ed2f87c87268c549be92d6598b7c9a0db8dc0472b4e190f9996da025bb8007c3",
+    "tools/run_root_bell_spaces.py": "67695da0014a9d7851be2b4a55483705bf1cb8fdf0479c940a40a7987beeb5dc"
+  },
+  "diagnostic_sha256": "56601360d288eacd5cb85c8da59238dbb845692e15f80eec56446fd8835c2a43",
+  "failed_run": {
+    "id": 40993924803,
+    "parallel_zip_sha256": "4fe458a85efef4ff886bfe0aff9e5019ed513c3c24e2cc3fad3352a99af5f951",
+    "commit": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+    "actual_checks": 49,
+    "passed": 48,
+    "failed": 1,
+    "unexecuted_lane_checks": 43,
+    "failure_id": "root-bell-spaces",
+    "native_audit_sha256": "f8fe4ffc93f128296a5319b0dfc36cc45a404650a19ae83e93b0add88abffd5c",
+    "native_audit_failures": [
+      "non_ecology_content_drift/plains-redesign-8/plains/map_2"
+    ],
+    "maps": 40,
+    "physical_negatives": 10,
+    "saved_version_passes": 2,
+    "replay_version_passes": 3,
+    "status": "failed; cannot serve full167 pass"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "blocking in first candidate",
+      "issue": "Equality fast path accepted rollback of both admitted drop and coin budget, retaining charger2 payout on root_bell",
+      "proof": "/tmp/plains_root_bell_guard_migration_plan_proof.json",
+      "latest_source_status": "Addressed: compares actual old/new enemy species before full-drop equality; changed-species path validates actual drop species and expected new amount."
+    },
+    {
+      "id": "F2",
+      "severity": "blocking in first candidate strict-budget claim",
+      "issue": "int budget casts accepted 7.5 vs7",
+      "proof": "/tmp/plains_root_bell_guard_migration_plan_proof.json",
+      "latest_source_status": "Addressed: both actual and previous coin budgets must be TYPE_INT."
+    },
+    {
+      "id": "F3",
+      "severity": "scope constraint",
+      "issue": "First candidate permitted any old species to root_bell, beyond observed charger2 transition",
+      "latest_source_status": "Addressed: exact charger→root_bell transition only."
+    }
+  ],
+  "preserved": [
+    "Original non_ecology_content_drift label and exact nodes/connections/chest rewards comparisons",
+    "40 original maps, 10 physical negatives, 2 historical saves, 3 versioned RunManifest replays",
+    "Original native240 and harness360 second budgets",
+    "Original Python six mutation-rejection cases",
+    "All non-admitted drop rows fully equal; admitted drop deep-clone changes only behavior, amount/coin_total/configured_coin_total, one coin reward amount",
+    "Coin RNG roll/namespace/stream_position and bonus/other fields, row keysets and reward order remain under full dictionary equality"
+  ],
+  "required_before_commit_acceptance": [
+    "Freeze exact source commit and hash both changed guard paths",
+    "Observe real unchanged-budget native wrapper execution, all original counts and new refusal cases",
+    "Keep original failed CI ZIP/logs/status; rerun full167 and affected closure on frozen new commit separately"
+  ],
+  "non_acceptance": [
+    "No Godot executed by reviewer",
+    "No G1–G5, formal, visual/art/audio, device or user approval",
+    "No retagging of source996a recording or existing video"
+  ]
+}

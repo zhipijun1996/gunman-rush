@@ -1,0 +1,16 @@
+extends SceneTree
+func _initialize() -> void:
+	var old := PlainsRegionGenerator.new()
+	old.root_bell_mode = "v2"
+	var previous: Dictionary = old.generate("plains-redesign-8/plains/map_2", PlayerTuning.load_default(), false, "", "advanced").manifest
+	var current := PlainsRegionGenerator.new()
+	current.root_bell_mode = "v3"
+	var actual: Dictionary = current.generate("plains-redesign-8/plains/map_2", PlayerTuning.load_default(), false, "", "advanced").manifest
+	print("DIAG_ADMISSION ",JSON.stringify(actual.root_bell_admission))
+	for id: String in previous.enemy_drops:
+		if previous.enemy_drops[id] != actual.enemy_drops[id]:
+			print("DIAG_DROP ",JSON.stringify({"id":id,"before":previous.enemy_drops[id],"after":actual.enemy_drops[id]}))
+	for e: Dictionary in previous.enemies:
+		var after: Array = actual.enemies.filter(func(a: Dictionary) -> bool: return a.id == e.id)
+		if after.is_empty() or e != after[0]: print("DIAG_ENEMY ",JSON.stringify({"before":e,"after":after}))
+	quit()

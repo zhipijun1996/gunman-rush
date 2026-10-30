@@ -1,0 +1,101 @@
+{
+  "verdict": "ACCEPT_SOURCE_INTEGRATION_ONLY",
+  "source_commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+  "parents": [
+    "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9",
+    "feb0106849e12c18c0337c8cdb23d01333580e42"
+  ],
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root",
+    "/root/corpse_contact_audit"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "passed": 726,
+  "failed": 0,
+  "method_stats": {
+    "tests/test_production_plan.py": {
+      "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9": 22,
+      "feb0106849e12c18c0337c8cdb23d01333580e42": 21,
+      "0d7ea6bf7df2eec5266b64012f677f288c2f6239": 22
+    },
+    "tests/test_region_bible.py": {
+      "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9": 35,
+      "feb0106849e12c18c0337c8cdb23d01333580e42": 35,
+      "0d7ea6bf7df2eec5266b64012f677f288c2f6239": 40
+    },
+    "tests/test_region_creative_direction.py": {
+      "ab96fb27f22ab0db12e3558d3bec5ba7c79675d9": 13,
+      "feb0106849e12c18c0337c8cdb23d01333580e42": 13,
+      "0d7ea6bf7df2eec5266b64012f677f288c2f6239": 17
+    }
+  },
+  "archive_stats": {
+    "program": 11,
+    "audio": 11
+  },
+  "bible_inputs": {
+    "before": 381,
+    "after": 422,
+    "appended": [
+      "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
+      "docs/creative_direction/archive/creative-v22/manifest.json",
+      "docs/creative_direction/archive/creative-v22/registry.json",
+      "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_app.gd.txt",
+      "docs/creative_direction/archive/creative-v22/runtime_inputs/demo_menu.gd.txt",
+      "docs/creative_direction/archive/creative-v22/runtime_inputs/item_v5_shop_presenter.gd.txt",
+      "docs/creative_direction/archive/creative-v22/thorn_forest.json",
+      "docs/creative_direction/archive/creative-v22/windchime_plains.json",
+      "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
+      "docs/creative_direction/archive/creative-v23/manifest.json",
+      "docs/creative_direction/archive/creative-v23/registry.json",
+      "docs/creative_direction/archive/creative-v23/runtime_inputs/demo_menu.gd.txt",
+      "docs/creative_direction/archive/creative-v23/thorn_forest.json",
+      "docs/creative_direction/archive/creative-v23/windchime_plains.json",
+      "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+      "docs/creative_direction/revision_creative_v25.md",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/manifest.json",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/registry.json",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/revision_creative_v23.md",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/sources/demo_app.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/sources/item_v5_shop_presenter.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/sources/plains_region_stage.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/sources/thorn_forest_region_stage.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/style21.json",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_bible.py.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/test_region_creative_direction.py.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/thorn_forest.json",
+      "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+      "docs/creative_direction/archive/merge-20261030-style21/program/manifest.json",
+      "docs/creative_direction/archive/merge-20261030-style21/program/registry.json",
+      "docs/creative_direction/archive/merge-20261030-style21/program/revision_creative_v23.md",
+      "docs/creative_direction/archive/merge-20261030-style21/program/sources/demo_app.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/sources/item_v5_shop_presenter.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/sources/plains_region_stage.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/sources/thorn_forest_region_stage.gd.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/style21.json",
+      "docs/creative_direction/archive/merge-20261030-style21/program/test_region_bible.py.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/test_region_creative_direction.py.txt",
+      "docs/creative_direction/archive/merge-20261030-style21/program/thorn_forest.json",
+      "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+      "docs/creative_direction/archive/merge-20261030-style21/test-retention.json"
+    ]
+  },
+  "file_shas": {
+    "scripts/audio/game_audio.gd": "74df9a1b7152d98eda3421eea9fb04c9dcb261a3f96f9f8b74f1c3d4ec175c5c",
+    "scripts/demo/demo_app.gd": "f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a",
+    "scripts/underworld_plains/underworld_foreground.gd": "c000b199ab72e8498979343f64e1cb80af3697e0ae2e908aeef7e5f209644fd4",
+    "tools/harness/profiles.json": "9b9da868609696d4c3c31962d54f59088fd2145120b450f5e729d70e830c0f09",
+    "tests/test_production_plan.py": "bf67a59e53dfb155300d18e0138d0fea7912d0338120f47d5beafc6b29558fd0",
+    "tests/test_region_bible.py": "66970688147f27afb158ad85287b78e51f51e75b748f9bde9c5c7fda32fbe9c0",
+    "tests/test_region_creative_direction.py": "1c486c1b455a4eed9f3f32a49ae7f2be0a8f6ae4140c76c91f96fb4bb7daafd9"
+  },
+  "command": "python3 /tmp/review_plains_main_C.py > /tmp/plains_main_C_review_pure.log",
+  "limits": [
+    "Source conflict/test migration only. No native/audio listening/device/art/G1-G5 acceptance.",
+    "Prior B CI is failed; this source review is not full168/affected proof.",
+    "Git C immutable comparison; cloud input hydration may transiently create untracked files."
+  ]
+}
+FAILURES []

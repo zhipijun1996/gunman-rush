@@ -1,0 +1,76 @@
+from pathlib import Path
+import subprocess,json,hashlib,re,ast,tempfile,collections,copy,sys
+R=Path('/workspace/gunman-rush');C='0d7ea6bf7df2eec5266b64012f677f288c2f6239';B='ab96fb27f22ab0db12e3558d3bec5ba7c79675d9';M='feb0106849e12c18c0337c8cdb23d01333580e42';checks=[]
+def raw(ref,path):return subprocess.check_output(['git','show',ref+':'+path],cwd=R)
+def sha(b):return hashlib.sha256(b).hexdigest()
+def ck(n,v,d=None):checks.append({'id':n,'passed':bool(v),'detail':d})
+def gdmethods(b):
+ s=b.decode();matches=list(re.finditer(r'^(?:static )?func (\w+)\(',s,re.M));return {m[1]:s[m.start():matches[i+1].start() if i+1<len(matches) else len(s)].strip() for i,m in enumerate(matches)}
+ck('actual_C_parents',subprocess.check_output(['git','show','-s','--format=%P',C],cwd=R,text=True).strip().split()==[B,M])
+paths=['scripts/audio/game_audio.gd','scripts/demo/demo_app.gd','scripts/underworld_plains/underworld_foreground.gd','tools/harness/profiles.json','tests/test_production_plan.py','tests/test_region_bible.py','tests/test_region_creative_direction.py']
+for p in paths:ck('current_frozen_C/'+p,(R/p).read_bytes()==raw(C,p))
+audio={x:gdmethods(raw(x,paths[0])) for x in [B,M,C]}
+for name,body in audio[M].items():
+ if name=='_clear_director_metadata':continue
+ ck('main_audio_method_exact/'+name,audio[C].get(name)==body)
+ck('B_material_method_exact',audio[C]['play_enemy_material']==audio[B]['play_enemy_material'])
+ck('audio_method_union',set(audio[C])==set(audio[B])|set(audio[M]))
+metadata=audio[C]['_clear_director_metadata'];keys=re.findall(r'&"([^"\n]+)"',metadata);ck('voice_meta_exact_union',keys==['director_event','director_origin','director_sustained','director_family','material_started','committed_reward'])
+ck('original_4args_exactmain',audio[C]['_play_original']==audio[M]['_play_original'])
+base=subprocess.check_output(['git','merge-base',B,M],cwd=R,text=True).strip()
+with tempfile.TemporaryDirectory() as t:
+ p=Path(t);src='scripts/demo/demo_app.gd'
+ for name,ref in [('ours',B),('base',base),('theirs',M)]:p.joinpath(name).write_bytes(raw(ref,src))
+ q=subprocess.run(['git','merge-file','-p',str(p/'ours'),str(p/'base'),str(p/'theirs')],capture_output=True)
+ ck('DemoApp_exact_original_3way_automerge',q.returncode==0 and q.stdout==raw(C,src))
+ck('foreground_exactmain',raw(C,'scripts/underworld_plains/underworld_foreground.gd')==raw(M,'scripts/underworld_plains/underworld_foreground.gd'))
+for p in ['scripts/audio/selected_sfx_runtime.gd','config/audio_director/selected/hurt-20261030.json']:ck('approved_main_audio_preserved/'+p,raw(C,p)==raw(M,p))
+man={r:json.loads(raw(r,'tools/harness/profiles.json')) for r in [B,M,C]};b,m,c=[man[r] for r in [B,M,C]]
+ck('full_prefix167',c['profiles']['full'][:167]==b['profiles']['full']);ck('audio_only_append',c['profiles']['full'][167:]==['audio-feedback']);ck('check_union',set(c['checks'])==set(b['checks'])|set(m['checks']))
+for ref,parent in [(B,b),(M,m)]:
+ for k,v in parent['checks'].items():
+  if k=='region-bible-tests':
+   ck('noninput_bible_exact/'+ref,{x:y for x,y in c['checks'][k].items() if x!='inputs'}=={x:y for x,y in v.items() if x!='inputs'})
+   ck('bible_input_parent_subset/'+ref,set(v['inputs'])<=set(c['checks'][k]['inputs']))
+  else:ck('original_check_dict/'+ref+'/'+k,c['checks'].get(k)==v)
+inputs=c['checks']['region-bible-tests']['inputs'];before=b['checks']['region-bible-tests']['inputs'];ck('bible_original_order_prefix',inputs[:len(before)]==before);ck('bible_no_new_duplicates', {k:v for k,v in collections.Counter(inputs).items() if v>1}=={k:v for k,v in collections.Counter(before).items() if v>1})
+ck('full_counts',len(c['profiles']['full'])==168 and sum(bool(c['checks'][k].get('serial')) for k in c['profiles']['full'])==76)
+# Validate exact parent archive bytes against actual Git parent, not self-declared manifests alone.
+arch='docs/creative_direction/archive/merge-20261030-style21/'
+archive_stats={}
+for key,ref in [('program',B),('audio',M)]:
+ manifest=json.loads(raw(C,arch+key+'/manifest.json'));ck('archive_parent_commit/'+key,manifest['source_commit']==ref);archive_stats[key]=len(manifest['files'])
+ for row in manifest['files']:
+  data=raw(C,arch+key+'/'+row['path']);ck('archive_actual_Git/'+key+'/'+row['path'],data==raw(ref,row['source_path']) and len(data)==row['bytes'] and sha(data)==row['sha256'])
+stylepath=json.loads(raw(C,'docs/creative_direction/bibles/registry.json'))['shared_style_authority']['path'];style=json.loads(raw(C,stylepath));refs=style['runtime_reference']['references'];ck('style22_83',style['version']=='22' and len(refs)==83)
+for row in refs:ck('actual_runtime_reference/'+row['role'],sha(raw(C,row['path']))==row['sha256'])
+parentstyle=json.loads(raw(C,arch+'program/style21.json'));changed=[(x['path'],y['path']) for x,y in zip(parentstyle['runtime_reference']['references'],refs) if x!=y];ck('only2_SHA_changed',set(changed)=={('scripts/demo/demo_app.gd',)*2,('scripts/items/v5/item_v5_shop_presenter.gd',)*2})
+method_stats={}
+for path in ['tests/test_production_plan.py','tests/test_region_bible.py','tests/test_region_creative_direction.py']:
+ trees={r:ast.parse(raw(r,path)) for r in [B,M,C]};methods={r:{n.name:n for n in ast.walk(tree) if isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.name.startswith('test_')} for r,tree in trees.items()};method_stats[path]={r:len(v) for r,v in methods.items()}
+ for ref in [B,M]:
+  ck('all_original_test_methods/'+path+'/'+ref,set(methods[ref])<=set(methods[C]))
+  for name,node in methods[ref].items():
+   def neg(n):return collections.Counter(ast.dump(x,include_attributes=False) for x in ast.walk(n) if isinstance(x,ast.Call) and isinstance(x.func,ast.Attribute) and x.func.attr.startswith('assertRaises'))
+   old,new=neg(node),neg(methods[C][name]);ck('old_negative_assertions/'+path+'/'+ref+'/'+name,not(old-new),dict(old-new))
+# Exercise the actual preserved lane-guard test with independent in-memory mutations.
+import importlib.util
+spec=importlib.util.spec_from_file_location('independent_C_planner',R/'tests/test_production_plan.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);cls=mod.ProductionPlanTests;cls.setUpClass();case=cls('test_physical_lanes_require_the_exact_original_full_set');case.test_physical_lanes_require_the_exact_original_full_set();ck('actual_lane_guard_positive',True)
+def mutate(name,fn):
+ case.manifest=copy.deepcopy(c);fn(case.manifest)
+ try:case.test_physical_lanes_require_the_exact_original_full_set()
+ except (AssertionError,ValueError,KeyError) as e:ck('actual_lane_guard_reject/'+name,True,type(e).__name__)
+ else:ck('actual_lane_guard_reject/'+name,False)
+mutate('remove_audio',lambda d:d['profiles']['full'].remove('audio-feedback'))
+mutate('remove_motion',lambda d:d['profiles']['full'].remove('plains-motion-loot-02'))
+mutate('swap_prefix',lambda d:d['profiles']['full'].__setitem__(slice(0,2),d['profiles']['full'][:2][::-1]))
+mutate('swap_audio_motion',lambda d:d['profiles']['full'].__setitem__(slice(166,168),d['profiles']['full'][166:168][::-1]))
+mutate('audio_wrong_argv',lambda d:d['checks']['audio-feedback'].__setitem__('argv',['python3','tests/test_production_plan.py']))
+mutate('audio_relax_timeout',lambda d:d['checks']['audio-feedback'].__setitem__('timeout_seconds',241))
+mutate('audio_wrong_lane',lambda d:d['checks']['audio-feedback'].__setitem__('serial',False))
+mutate('duplicate_audio',lambda d:d['profiles']['full'].append('audio-feedback'))
+for path in ['tests/test_production_plan.py','tests/test_region_bible.py','tests/test_region_creative_direction.py']:
+ literals=lambda ref:set(re.findall(rb'(?<![0-9a-f])[0-9a-f]{64}(?![0-9a-f])',raw(ref,path)))
+ for ref in [B,M]:ck('original_SHA_literals/'+path+'/'+ref,literals(ref)<=literals(C))
+result={'verdict':'ACCEPT_SOURCE_INTEGRATION_ONLY' if all(x['passed'] for x in checks) else 'NEEDS_REVIEW','source_commit':C,'parents':[B,M],'reviewer':'/root/guard_review_recovery','implementers':['/root','/root/corpse_contact_audit'],'independent':True,'engine_executed_by_reviewer':False,'checks':checks,'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'method_stats':method_stats,'archive_stats':archive_stats,'bible_inputs':{'before':len(before),'after':len(inputs),'appended':inputs[len(before):]},'file_shas':{p:sha(raw(C,p)) for p in paths},'command':'python3 /tmp/review_plains_main_C.py > /tmp/plains_main_C_review_pure.log','limits':['Source conflict/test migration only. No native/audio listening/device/art/G1-G5 acceptance.','Prior B CI is failed; this source review is not full168/affected proof.','Git C immutable comparison; cloud input hydration may transiently create untracked files.']}
+Path('/tmp/plains_main_C_review_proof.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='checks'},ensure_ascii=False,indent=2));print('FAILURES',json.dumps([x for x in checks if not x['passed']],ensure_ascii=False,indent=2))

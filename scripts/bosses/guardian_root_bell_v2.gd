@@ -244,8 +244,6 @@ func _draw() -> void:
 		draw_arc(Vector2.ZERO,config.bell_radius-4,0,TAU,24,Color("f4dfa0"),3)
 		draw_line(Vector2(-config.bell_radius*.6,7),Vector2(config.bell_radius*.6,7),Color("332f28"),4)
 		draw_circle(Vector2(0,-config.bell_radius+3),5,Color("f4dfa0"))
-	if state != &"held": draw_line(Vector2.ZERO,-velocity.normalized()*40,Color("db9f60"),3)
-	if _escape_active: draw_line(Vector2.ZERO,to_local(_escape_goal),Color("ffc276"),2)
 
 func _exit_tree() -> void:
 	if is_instance_valid(controller) and is_instance_valid(controller.traversal) and controller.traversal.action_changed.is_connected(_traversal_action):

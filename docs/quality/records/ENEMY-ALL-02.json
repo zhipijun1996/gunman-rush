@@ -1,0 +1,732 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-ALL-02",
+  "task_type": "animation",
+  "workflow": "review",
+  "baseline_commit": "20e67867b272a7e461eddce169a0cdb83353f4b6",
+  "reviewed_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+  "content_version": "enemy-all-02-candidate-v1",
+  "owner": "/root",
+  "purpose": "按既有流程完善全部现存怪物同体动作并交付逐怪真实Godot视频审核",
+  "player_experience": "移动／蓄势／攻击／受伤／恢复／原死亡终态连贯，身份、脚点、警告与弱点稳定",
+  "constraints": [
+    "只读玩法权威，不改AI/HP/碰撞/奖励/存档",
+    "保留旧证据、原G0–G5及十一维、原预算",
+    "fixture与正式campaign、候选与正式怪物分别标明；不自签用户或设备通过"
+  ],
+  "affected_paths": [
+    "assets/enemy_all_02/prototype.provenance.json",
+    "assets/enemy_all_02/prototype_manifest.json",
+    "assets/enemy_all_02/prototype_sheet.png",
+    "assets/enemy_all_02/prototype_sheet.png.import",
+    "docs/current_state.md",
+    "docs/evidence/enemy_all_02/README.md",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-all/assembly.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-all/assembly.log",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-all/ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-all/mux.log",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-all/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-formal-storm/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/boss-lab-eight/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-charger/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/corpse-diver/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/forest/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-forest/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/formal-plains/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/in-game-overview/assembly.json",
+    "docs/evidence/enemy_all_02/candidate_v5/in-game-overview/assembly.log",
+    "docs/evidence/enemy_all_02/candidate_v5/in-game-overview/ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/in-game-overview/mux.log",
+    "docs/evidence/enemy_all_02/candidate_v5/in-game-overview/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/manifest.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/plains/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/archive-index.json",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/capture.log",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/chapters.json",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/chapters.md",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/original_avi_ffprobe.json",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/original_engine_pcm_statistics.json",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/report.json",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/review.mp4",
+    "docs/evidence/enemy_all_02/candidate_v5/prototypes/trace-and-original-pcm.zip",
+    "docs/evidence/enemy_all_02/generation/prototype-prompt-round2.txt",
+    "docs/evidence/enemy_all_02/generation/prototype-prompt.txt",
+    "docs/evidence/enemy_all_02/generation/prototype-round2-rejected.png",
+    "docs/evidence/enemy_all_02/public-download.json",
+    "docs/evidence/enemy_all_02/review/r1-binding.json",
+    "docs/evidence/enemy_all_02/review/r1.md",
+    "docs/evidence/enemy_all_02/review/r2.md",
+    "docs/evidence/enemy_all_02/review/r3-binding.json",
+    "docs/evidence/enemy_all_02/review/r3-remains.json",
+    "docs/evidence/enemy_all_02/review/r3.md",
+    "docs/evidence/enemy_all_02/review/r4-binding.json",
+    "docs/evidence/enemy_all_02/review/r4.md",
+    "docs/evidence/enemy_all_02/roster.json",
+    "docs/evidence/enemy_all_02/validation/ci-serial-failure-excerpt.txt",
+    "docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+    "docs/evidence/enemy_all_02/validation/docs-profile-logs.zip",
+    "docs/evidence/enemy_all_02/validation/docs-profile-report.json",
+    "docs/evidence/enemy_all_02/validation/draw-culling.json",
+    "docs/evidence/enemy_all_02/validation/forest80-report.json",
+    "docs/evidence/enemy_all_02/validation/forest80.log",
+    "docs/evidence/enemy_all_02/validation/old-ci-run-final.json",
+    "docs/evidence/enemy_all_02/validation/original-index.json",
+    "docs/evidence/enemy_all_02/validation/original-validation-artifacts.zip",
+    "docs/evidence/enemy_all_02/validation/prior-11-jobs.json",
+    "docs/evidence/enemy_all_02/validation/summary.json",
+    "docs/handoff.md",
+    "docs/quality/asset_records/enemy-all-02-prototype-contract-v1.json",
+    "docs/quality/asset_records/enemy-all-02-prototype-master-v1.json",
+    "docs/quality/records/ENEMY-ALL-02.json",
+    "docs/tasks.md",
+    "docs/worklines/enemy_all_02/bindings-plan.md",
+    "docs/worklines/enemy_all_02/boss-production-cards.md",
+    "docs/worklines/enemy_all_02/completion_matrix.md",
+    "docs/worklines/enemy_all_02/coverage_capture.md",
+    "docs/worklines/enemy_all_02/forest-mesh-diagnostics.json",
+    "docs/worklines/enemy_all_02/forest-production-cards.md",
+    "docs/worklines/enemy_all_02/forest-source.json",
+    "docs/worklines/enemy_all_02/plains-production-cards.md",
+    "docs/worklines/enemy_all_02/source-contract-v1.json",
+    "docs/worklines/enemy_all_02/source-contract-v2.json",
+    "docs/worklines/enemy_all_02/source-contract-v3.json",
+    "docs/worklines/enemy_all_02/source-contract.json",
+    "docs/worklines/enemy_all_02/spec.md",
+    "docs/worklines/enemy_asset_audit_01/README.md",
+    "docs/worklines/enemy_asset_audit_01/boss-details.md",
+    "docs/worklines/enemy_asset_audit_01/boss-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/boss-summary.md",
+    "docs/worklines/enemy_asset_audit_01/discussion.md",
+    "docs/worklines/enemy_asset_audit_01/first-findings.md",
+    "docs/worklines/enemy_asset_audit_01/forest-details.md",
+    "docs/worklines/enemy_asset_audit_01/forest-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/forest-summary.md",
+    "docs/worklines/enemy_asset_audit_01/inventory-index.json",
+    "docs/worklines/enemy_asset_audit_01/materials.html",
+    "docs/worklines/enemy_asset_audit_01/plains-details.md",
+    "docs/worklines/enemy_asset_audit_01/plains-inventory.json",
+    "docs/worklines/enemy_asset_audit_01/plains-summary.md",
+    "docs/worklines/enemy_asset_audit_01/preview-provenance.json",
+    "docs/worklines/enemy_asset_audit_01/program-structure.md",
+    "docs/worklines/enemy_asset_audit_01/review-postmortem.md",
+    "docs/worklines/enemy_asset_audit_01/shared-feedback-audio.md",
+    "docs/worklines/enemy_asset_audit_01/structure-boss.json",
+    "docs/worklines/enemy_asset_audit_01/structure-boss.md",
+    "docs/worklines/enemy_asset_audit_01/structure-forest.json",
+    "docs/worklines/enemy_asset_audit_01/structure-forest.md",
+    "docs/worklines/enemy_asset_audit_01/structure-plains.json",
+    "docs/worklines/enemy_asset_audit_01/structure-plains.md",
+    "docs/worklines/enemy_asset_audit_01/structure-review.md",
+    "docs/worklines/enemy_asset_audit_01/structure-source-equivalence.json",
+    "docs/worklines/enemy_asset_audit_01/user-feedback.md",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_motion_presentation.gd",
+    "scripts/bosses/boss_motion_presentation.gd.uid",
+    "scripts/bosses/boss_presentation.gd",
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+    "scripts/bosses/thorn_forest_presentation.gd",
+    "scripts/bosses/thorn_queen_canopy_presentation.gd",
+    "scripts/bosses/thorn_queen_weave_presentation.gd",
+    "scripts/bosses/windkeeper_presentation.gd",
+    "scripts/enemies/enemy_feedback_01_body.gd",
+    "scripts/enemies/enemy_feedback_01_frames.gd",
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/enemies/forest_crossbranch_presentation.gd",
+    "scripts/enemies/forest_depth_enemy_presentation.gd",
+    "scripts/enemies/forest_enemy_presentation.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd",
+    "scripts/enemies/forest_motion_02.gd",
+    "scripts/enemies/forest_motion_02.gd.uid",
+    "scripts/enemies/plains_motion_02.gd",
+    "scripts/enemies/plains_motion_02.gd.uid",
+    "scripts/enemies/prototype_enemy_presentation.gd",
+    "scripts/enemies/root_bell_presentation.gd",
+    "scripts/presentation/forest_bible_actor_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "tests/enemy_all_02_boss_motion_lifecycle.gd",
+    "tests/enemy_all_02_boss_motion_lifecycle.gd.uid",
+    "tests/enemy_all_02_draw_culling.gd",
+    "tests/enemy_all_02_draw_culling.gd.uid",
+    "tests/enemy_all_02_motion_lifecycle.gd",
+    "tests/enemy_all_02_motion_lifecycle.gd.uid",
+    "tests/enemy_all_02_plains_lifecycle.gd",
+    "tests/enemy_all_02_plains_lifecycle.gd.uid",
+    "tools/enemy_all_review_02.py",
+    "tools/enemy_all_review_02_boss_capture.gd",
+    "tools/enemy_all_review_02_boss_capture.gd.uid",
+    "tools/enemy_all_review_02_capture.gd",
+    "tools/enemy_all_review_02_capture.gd.uid",
+    "tools/enemy_all_review_02_formal_boss_capture.gd",
+    "tools/enemy_all_review_02_formal_boss_capture.gd.uid",
+    "tools/enemy_all_review_02_formal_capture.gd",
+    "tools/enemy_all_review_02_formal_capture.gd.uid",
+    "tools/enemy_all_review_02_inventory.py",
+    "tools/enemy_all_review_02_route_capture.gd",
+    "tools/enemy_all_review_02_route_capture.gd.uid"
+  ],
+  "deliverables": [
+    "docs/evidence/enemy_all_02/README.md",
+    "docs/evidence/enemy_all_02/candidate_v5/manifest.json",
+    "docs/evidence/enemy_all_02/public-download.json",
+    "docs/evidence/enemy_all_02/roster.json",
+    "docs/evidence/enemy_all_02/validation/summary.json",
+    "docs/worklines/enemy_all_02/completion_matrix.md",
+    "docs/worklines/enemy_all_02/spec.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "制作规格、14物种/22链/2候选/9Boss组合及不变玩法权威已明确；只通过设计范围，不签成品审美。",
+      "evidence": [
+        "scope_spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "当前专项真实通过，保守等待完整适用Release/最新CI；事实和原证据不变。",
+      "evidence": [
+        "draw_cull44_d91",
+        "validation_summary_d91",
+        "forest80_d91",
+        "current_plains_lifecycle",
+        "current_forest_lifecycle",
+        "current_boss_lifecycle",
+        "current_hit_template"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "R3/R4限定接受基本连续链候选；全部变体/正常全速审看及原声听审/成品采用未验，不签整个G2。",
+      "evidence": [
+        "forest_current_video",
+        "forest_current_report",
+        "r3_b71_limited",
+        "delivery_manifest_v5"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "真实正式App与fixture分列；当前源runtime consumers逐项覆盖库存与正式全范围/目标设备性能预算尚未满足原门槛。",
+      "evidence": [
+        "delivery_manifest_v5",
+        "draw_cull44_d91"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "当前d91 R4独审限定ACCEPT，并允许以代码恒等与保守包络复用R3可见旧片；原失败保留。G2/G3尚未完整通过，不能代签G4或full165。",
+      "evidence": [
+        "validation_summary_d91",
+        "r3_b71_limited",
+        "old_ci67_timeout",
+        "r4_d91_limited"
+      ]
+    },
+    "G5": {
+      "status": "failed",
+      "reason": "本轮成品被用户明确拒绝；先停产盘点，再共同讨论品质门槛和生产流程。",
+      "evidence": [
+        "user_rejected_candidate_20261029"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "原完成标准与制作规格已明确；当前实现仍为审核候选。",
+      "evidence": [
+        "scope_spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "当前80、四native和44全部真实通过；在全当前适用Release前不签维度。",
+      "evidence": [
+        "forest80_d91",
+        "current_plains_lifecycle",
+        "current_forest_lifecycle",
+        "current_boss_lifecycle",
+        "current_hit_template"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "已有真实正式App与披露initial fixture的媒体；当前缺同d91逐consumer运行库存及完整输出归因，不能仅用静态roster或helper签正式全覆盖。",
+      "evidence": [
+        "delivery_manifest_v5",
+        "r3_b71_limited",
+        "forest_current_report"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "R3原源与R4当前d91新森林像素、荚帽接合及旧片限定复用接受候选；全部变体与用户审美采用未验。",
+      "evidence": [
+        "forest_current_video",
+        "r3_b71_limited",
+        "r4_d91_limited"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "已录逐链基本动作、accepted受伤恢复及原终态；R3/R4限定接受，但全部招式/阶段打断及用户动作认可未验。",
+      "evidence": [
+        "delivery_manifest_v5",
+        "r3_b71_limited",
+        "forest_current_report",
+        "r4_d91_limited"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "影片保留原生音轨及非零PCM计数；原声存在、视觉事件和非零RMS不等于声音听审通过。",
+      "evidence": [
+        "delivery_manifest_v5",
+        "r3_b71_limited",
+        "forest_current_report"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "真实Router/弹体/伤害和存活记录不代签人类乐趣、平衡、自由玩法或自然全campaign。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "GPU44是culling正确性，80的540.378/600是验证命令墙钟；paired路线计时也明确headless，均不代签游戏帧率/真机预算。",
+      "evidence": [
+        "validation_summary_d91",
+        "draw_cull44_d91"
+      ]
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "原R3/R4有限技术/像素观察保留，但不能支持整批成品质量；用户拒绝后，验收方法与逐怪实际消费重新审计。",
+      "evidence": [
+        "r4_d91_limited",
+        "user_rejected_candidate_20261029",
+        "review_postmortem_20261029"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "没有实体设备、触屏/手柄或低端机原始测量及相应预算回执。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "failed",
+      "reason": "用户明确拒绝本轮成品整体制作质量；具体逐怪问题尚待本次盘点和共同对照，不推断所有怪物同一种失败。",
+      "evidence": [
+        "user_rejected_candidate_20261029"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "SCOPE-FROZEN",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "现有14普通/22宿主链/2开发候选/8Boss场景9组合盘点并绑定制作规格",
+      "method": "只读当前规格、制作卡和原权威约束",
+      "expected": "范围与依赖可核对，fixture/正式及候选准入分开",
+      "failure": "用少量样板或共享helper冒充整怪/正式准入",
+      "status": "passed",
+      "reason": "设计范围已明确；不代表当前成品采用。",
+      "evidence": [
+        "scope_spec"
+      ]
+    },
+    {
+      "id": "D91-ORIGINAL-FOREST80",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "当前d91执行原80-case完整forest-depth-region corpus",
+      "method": "原runner、原600秒check与strict harness，实际退出码及source snapshot",
+      "expected": "80/80，zero internal errors/exit leaks，600秒内完整收集证据",
+      "failure": "任一case/退出/源漂移/收集失败或放宽预算",
+      "status": "passed",
+      "reason": "单项原80/80 passed；540.378s/600；不升级为全165或整体technical gate。",
+      "evidence": [
+        "forest80_d91"
+      ]
+    },
+    {
+      "id": "D91-NATIVE-LIFECYCLE",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "d91三个真实动作家族epoch/暂停/卸载及共享命中消费者",
+      "method": "当前源原strict四个native命令与源稳定receipt",
+      "expected": "90/708/209/426 assertions zero failures、exit0、source_stable",
+      "failure": "任一状态残留/重复反馈/退出泄漏/旧源重绑",
+      "status": "passed",
+      "reason": "四专项当前真实通过；不扩写成完整165/远端CI。",
+      "evidence": [
+        "current_plains_lifecycle",
+        "current_forest_lifecycle",
+        "current_boss_lifecycle",
+        "current_hit_template"
+      ]
+    },
+    {
+      "id": "D91-CANDIDATE-REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "d91三helper离屏绘制/荚帽接合/森林新片及旧片有限复用的独立审查",
+      "method": "非作者只读源差异、44 GPU正确性/15PNG、森林7×6原视频帧及pod6帧；绑定新片与原生80报告SHA",
+      "expected": "ACCEPT仅当前候选与明示范围，旧片保原source；不代签声音/设备/用户/全CI",
+      "failure": "新身体裂缝/过渡退步、绳帽分离、屏内裁剪、伪造旧片来源或自审",
+      "status": "passed",
+      "reason": "R4有限ACCEPT；原G2/G3及G5仍未完整通过。",
+      "evidence": [
+        "r4_d91_limited"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope_spec",
+      "path": "docs/worklines/enemy_all_02/spec.md",
+      "sha256": "5de37958357ba665c0abe1516ae2f9c6b7b29225a585913ed5b773f2bffc3af2",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Read the frozen existing-species production contract at current d91.",
+      "observed": "14 ordinary species/22 renderer chains, 2 development candidates and 8 Boss scenes/9 scene-Definition combinations; no change to gameplay authority or admission policy."
+    },
+    {
+      "id": "forest80_d91",
+      "path": "docs/evidence/enemy_all_02/validation/forest80-report.json",
+      "sha256": "32178f6b80c4cafcf8985631c2cfbc5bb83cdd68110a146e1a9f8e50236f74be",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Original full 80-case corpus, original 600-second strict check, release mode and jobs=1.",
+      "observed": "One targeted check passed: 80/80, exit0, source clean d91, 540.378/600 seconds; not the full165 profile.",
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 tools/run_forest_depth_region.py --corpus --output build/forest_depth/region/harness-matrix/harness-8591b219997a49a48efa570403df2fb4",
+      "exit_code": 0,
+      "environment": "Managed cloud original forest runner; Godot 4.7.2 headless / fixed60 / Dummy; original600 bound, jobs1."
+    },
+    {
+      "id": "current_plains_lifecycle",
+      "path": "docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+      "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual current-source serial native job; source_stable=true; exact command is this receipt checks[id].argv.",
+      "observed": "plains-lifecycle: 90 assertions, zero failures, exit_code=0; source d91 clean. Assertion counts cross-bound by validation/summary.json.",
+      "command": "bash tools/godot.sh --headless --fixed-fps 60 --audio-driver Dummy --path . --script tests/enemy_all_02_plains_lifecycle.gd",
+      "exit_code": 0,
+      "environment": "Managed cloud Godot4.7.2 original strict native budget; headless fixed60 Dummy audio; d91 clean source."
+    },
+    {
+      "id": "current_forest_lifecycle",
+      "path": "docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+      "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual current-source serial native job; source_stable=true; exact command is this receipt checks[id].argv.",
+      "observed": "forest-lifecycle: 708 assertions, zero failures, exit_code=0; source d91 clean. Assertion counts cross-bound by validation/summary.json.",
+      "command": "bash tools/godot.sh --headless --fixed-fps 60 --audio-driver Dummy --path . --script tests/enemy_all_02_motion_lifecycle.gd",
+      "exit_code": 0,
+      "environment": "Managed cloud Godot4.7.2 original strict native budget; headless fixed60 Dummy audio; d91 clean source."
+    },
+    {
+      "id": "current_boss_lifecycle",
+      "path": "docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+      "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual current-source serial native job; source_stable=true; exact command is this receipt checks[id].argv.",
+      "observed": "boss-lifecycle: 209 assertions, zero failures, exit_code=0; source d91 clean. Assertion counts cross-bound by validation/summary.json.",
+      "command": "bash tools/godot.sh --headless --fixed-fps 60 --audio-driver Dummy --path . --script tests/enemy_all_02_boss_motion_lifecycle.gd",
+      "exit_code": 0,
+      "environment": "Managed cloud Godot4.7.2 original strict native budget; headless fixed60 Dummy audio; d91 clean source."
+    },
+    {
+      "id": "current_hit_template",
+      "path": "docs/evidence/enemy_all_02/validation/current-4-native-jobs.json",
+      "sha256": "4230083232c619171c1b29113e1288df1544407f616a6fcc1da285837f5e98c6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual current-source serial native job; source_stable=true; exact command is this receipt checks[id].argv.",
+      "observed": "hit-template: 426 assertions, zero failures, exit_code=0; source d91 clean. Assertion counts cross-bound by validation/summary.json.",
+      "command": "bash tools/godot.sh --headless --fixed-fps 60 --audio-driver Dummy --path . --script tests/enemy_hit_template_tests.gd",
+      "exit_code": 0,
+      "environment": "Managed cloud Godot4.7.2 original strict native budget; headless fixed60 Dummy audio; d91 clean source."
+    },
+    {
+      "id": "draw_cull44_d91",
+      "path": "docs/evidence/enemy_all_02/validation/draw-culling.json",
+      "sha256": "4e408cc1e741ae351cc3dd21442353b8f7f996b4e1d47d7fb124c25ba1e8475e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual GPU body-culling consumers; source attribution cross-bound by current validation summary.",
+      "observed": "44 checks / zero failures, three families center/edge/mirror/outside. Correctness only; not game FPS or physical-device performance."
+    },
+    {
+      "id": "validation_summary_d91",
+      "path": "docs/evidence/enemy_all_02/validation/summary.json",
+      "sha256": "526ff32bac5ef024d287055a159f92f416492747f214ea7ab4dfa528714ffcc5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Root archived original reports/logs/member-index and full65MB validation ZIP; no original timeout was deleted.",
+      "observed": "d91 original80/600 and current90/708/209/426 passed; historical b71 11jobs distinct; GPU44/0. OldCI67 serial timeout and full165 latest-head pending are explicit."
+    },
+    {
+      "id": "specials_b71_historical",
+      "path": "docs/evidence/enemy_all_02/validation/prior-11-jobs.json",
+      "sha256": "092b81ada57e1024146d57f247b4a5d7891dc313ec81d7d9b35e2601b82ba8bb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Read original source-stable b71 11-job serial receipt; keep its original source rather than rebind it to d91.",
+      "observed": "11 prior jobs exit0; historical support, not independent proof of current whole-profile/remoteCI success.",
+      "command": "See retained prior-11-jobs.json checks[].argv (11 actual recorded commands).",
+      "exit_code": 0,
+      "environment": "Managed cloud original strict wrappers and original budgets; source b71 clean."
+    },
+    {
+      "id": "old_ci67_timeout",
+      "path": "docs/evidence/enemy_all_02/validation/ci-serial-failure-excerpt.txt",
+      "sha256": "0a3f588a204a48f7344fc737dc88d56b442575a637ace8c4211295512bea0dc7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "67d28da6cbc082bb57ba3477aa2d950760975040",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Retained actual GitHub Actions original serial failure excerpt.",
+      "observed": "Remote run40815230347/job123258522316 at67 failed because forest-depth-region exceeded original600; not overwritten by locald91 pass."
+    },
+    {
+      "id": "r3_b71_limited",
+      "path": "docs/evidence/enemy_all_02/review/r3.md",
+      "sha256": "a786e8d9136755ac3cba784bf7a078bfbbe99f2f2731ca6afba2fa7ec8db3306",
+      "kind": "review",
+      "producer": "/root/enemy_review",
+      "source_commit": "b71a87864d3843f8d4e898046224778890349dac",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Independent decoded-MP4 frame review in its original67/b71 source/media scope; retain all original limitations.",
+      "observed": "Limited ACCEPT for a user-review implementation candidate; not d91 fresh-forestR4, G5, full moveset, listening or device acceptance.",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/roster_capture",
+        "/root/boss_motion",
+        "/root/forest_motion",
+        "/root/binding_plan"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer wrote no production/assets/tools/shared docs, ran no Godot, independently decoded and inspected original media.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "delivery_manifest_v5",
+      "path": "docs/evidence/enemy_all_02/candidate_v5/manifest.json",
+      "sha256": "60015b9d674b39103f4f55de6e3feeb6fb944c9e74243732f8e69c792d9bde46",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Archived actual candidate_v5 aggregate; preserve per-video original source_commit and byte SHA, chapter scopes and archive member bindings.",
+      "observed": "All staged groups successful in their stated sources; fresh forest is currentd91; other clips retain94/b71 original sources, no blind source reassignment."
+    },
+    {
+      "id": "forest_current_video",
+      "path": "docs/evidence/enemy_all_02/candidate_v5/forest/review.mp4",
+      "sha256": "85fb57d47d04eea0d06a9a50b71fa458b1f3cbda30e352f30f990877243d2e20",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Fresh actual MovieMaker forest7 source-frozen d91; original video bytes and original stereo PCM retained.",
+      "observed": "83.85-second actual7-species fixture film, zero basic coverage gaps; current R4/human visual and listening acceptance still pending."
+    },
+    {
+      "id": "forest_current_report",
+      "path": "docs/evidence/enemy_all_02/candidate_v5/forest/report.json",
+      "sha256": "681efe3c5a752562bdcd8000c62c55a35b5d3102c072b7bb87e7135397cef725",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Actual fresh current-source capture wrapper/media/source_guard receipt.",
+      "observed": "recorded_complete_coverage/source_stable=true; normal60fps, original nonzero audio; no natural campaign or physical-device/listening claim."
+    },
+    {
+      "id": "r4_d91_limited",
+      "path": "docs/evidence/enemy_all_02/review/r4.md",
+      "sha256": "e9df95ac990c8f6c072d869514c5a12b4150bb1a0a62ec07ec0a306fa1ace42c",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Independent read-only exact-source review; original MP4 decoded frames, actual GPU receipts and bounded old-video reuse proof.",
+      "observed": "ACCEPT limited to review candidate; 15GPU PNG,42forestbody frames,6podcontact frames; current source and MP4 hashes bound separately. No full165/audio/device/user/G5 acceptance.",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/forest_motion",
+        "/root/boss_motion",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production/tool/shared-document writes and ran no Godot; all extraction/reports only in /tmp.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "docs33_freeze",
+      "path": "docs/evidence/enemy_all_02/validation/docs-profile-report.json",
+      "sha256": "3f907f00cc633fefc91bf653068d2b2b9945744f952d90c3720b258ba5539433",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "d91b27377c88e039560140deb87e0a67052a716b",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Original full docs profile, release, fresh single-job run after R4 and media/card freeze; actual source diff retained in report.",
+      "observed": "33/33 checks passed, zero reuse/failures. This is the docs profile, not full165 or target-device acceptance.",
+      "command": "python3 tools/harness.py --profile docs --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Managed cloud; Python3.12.14; locked original manifest and budgets; actual worktree metadata in receipt."
+    },
+    {
+      "id": "public_mp4_downloads",
+      "path": "docs/evidence/enemy_all_02/public-download.json",
+      "sha256": "4d0983f326ea5968561adbbda9cb808b525d01223db65093db998ca226ad3243",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "c59661b7c4182e4efdfce5206dd7477ac5dceb4a",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "HTTP GET complete MP4 bodies; SHA256 compared with committed local media, no Range/HEAD-only check",
+      "observed": "All11 public MP4 HTTP200 complete body downloads,178500792 bytes; actual SHA matches committed media. Availability/integrity only, not audio/user/device acceptance."
+    },
+    {
+      "id": "user_rejected_candidate_20261029",
+      "path": "docs/worklines/enemy_asset_audit_01/user-feedback.md",
+      "sha256": "3f944183977b35e315b8dfec40fe6ba2e37a0664ba8398e8b49eaac6eeb58261",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Direct user reply to the delivered candidate; verbatim feedback preserved.",
+      "observed": "User rejects overall production quality and requests asset/design inventory before jointly revising acceptance and workflow. No per-monster defect attribution inferred.",
+      "source": "This conversation, user message on2026-10-29 following ENEMY-ALL-02 video delivery.",
+      "quote": "完全不行，制作质量参差不齐。先整理现在，各个怪物有什么资料，有什么素材。然后和我一起看看怎么去修改验收机制以及生产流程。",
+      "covers": [
+        "player_acceptance"
+      ],
+      "accepted": false
+    },
+    {
+      "id": "review_postmortem_20261029",
+      "path": "docs/worklines/enemy_asset_audit_01/review-postmortem.md",
+      "sha256": "0200ab0da5df7e2ad813f809cdc46978b9e22e9756efb0991e763b6e516d94aa",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+      "content_version": "enemy-all-02-candidate-v1",
+      "method": "Read-only supplementary review of old R1–R4, existing skills/standards and concrete current-render branch counterexample. No engine run or art production.",
+      "observed": "Prior candidate ACCEPT missed uneven final production quality; existing full-speed, final-leaf and golden-before-expansion requirements were not fully executed. New workflow suggestions remain discussion only.",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/forest_motion",
+        "/root/boss_motion",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer made no production/shared-document writes; supplement only in/tmp; no new art or Godot runs.",
+      "verdict": "UNVERIFIED"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "用户追加全怪程序结构整理统一：当前完成只读结构盘点/统一方案，尚未实施重构或运行验证；先发现问题、不批量做仍有效。",
+    "用户指定“平原第5个”接近目标并要求先发现问题、禁止批量做；视频第五段与物种第五种待澄清，不将参考升级为整怪接受。",
+    "用户已拒绝本轮制作质量：当前先盘点各怪资料、素材及真实消费；不继续扩产，不将旧有限ACCEPT提升为成品质检。",
+    "当前保持review：用户对本轮视觉/动作/听感/玩法的最终成品接受未签。",
+    "实体安卓/手柄/触屏/低端帧时，以及完整设备预算未验。",
+    "最新精确PR头全165远端CI以实际Actions为准，未签通过；旧67森林80/600超时保留，d91本地原80/80已通过。",
+    "未穷尽所有招式/阶段打断/边缘分支；Rootbell返铃反击本片0次、织网保结/切结等按R3保留未验。",
+    "完整当前源正式runtime consumer inventory及逐consumer输出尚未按schema归档；静态roster与实验台/正式片分列，不代签正式整包覆盖。",
+    "R3/R4仅限定接受审核候选，不绕过G2/G3或签完整G4/G5。"
+  ]
+}

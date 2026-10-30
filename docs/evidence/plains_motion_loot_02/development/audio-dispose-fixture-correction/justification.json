@@ -1,0 +1,8 @@
+{
+  "reason": "The pre-existing EnemyFeedback01Remains.dispose() ends in queue_free(); after two process frames the stage sibling must be released, not remain valid. Native04 actual339/1 failed the test-only survival assumption; immediate owned-tail-stop assertion and all voice/receipt/critical/cap guards passed. Production source is unchanged.",
+  "original_test_sha256": "1331b9ff1aa9e0e806d96e2110d3405da60ee62fff47b610970ceed5abc5e1ba",
+  "production_evidence": "scripts/enemies/enemy_feedback_01_remains.gd::dispose clears owner state and queue_free(); EnemyPresentation._exit_tree and PlainsRevisionVisual._exit_tree already call this disposal.",
+  "retained_guards": "Immediate still-in-tree tail stop/no replay; actual host release; no orphaned playing voice. Add explicit corpse WeakRef release and per-conjunct runtime observations, rather than removing cleanup checks.",
+  "engine_executed_by_agent": false,
+  "corrected_test_sha256": "80e9b52dccd624dbe3f4def9f856eb3f01d8522ccb0d5a8191e46613a4da113f"
+}

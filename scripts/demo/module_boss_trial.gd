@@ -25,7 +25,7 @@ var _hud: Label
 func setup(owner_lab: ModuleLab) -> void:
 	process_physics_priority = 850
 	lab = owner_lab
-	boss = boss_scene.instantiate() as BossMotor
+	boss = BossFactory.create_recorded(boss_scene.resource_path, "")
 	if boss_definition!=null: (boss.get_node("Encounter") as BossEncounter).definition=boss_definition
 	boss.position = spawn_position
 	add_child(boss)

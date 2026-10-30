@@ -1,5 +1,7 @@
 # 敌人、Actor与Boss契约
 
+每物种制作与完成度核对使用[怪物完成标准](quality/enemy_completion_standard.md)和扩展[Enemy Sheet](templates/enemy_design.md)，逐项区分实现事实、当前证据与缺口；局部受击／死亡样板不代表完整怪物完成。
+
 当前敌人/Boss 制作使用 [质量门槛](development_quality.md)、[Enemy Sheet](templates/enemy_design.md) 和 [Boss Sheet](templates/boss_design.md)。本文保留已有运行契约；最新正式入口/两图 Boss 以 [当前状态](current_state.md) 为准，早期八关/末关说明只供历史回归。新规范不改变牧风者或鸣铃巡游机设计。
 
 D082 正式 Boss 完整入场警示震动后实体封门，环境回退/暂停重载留在场内，击败开门。封门后高台合法跳跃/反冲越旧触发框顶端不清射击资格，真实侧墙外/未封场/死亡仍拒绝。敌人掉落飞落/吸收、mini爆炸、Boss可见保证奖励，原支付幂等不重复。 详见 [D082实现](plains_cohesion.md) 与 [交接](handoff.md)。

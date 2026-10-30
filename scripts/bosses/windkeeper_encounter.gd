@@ -401,3 +401,32 @@ func register_rune_shot(session:int,shot_id:int)->void:
 
 func body_contact_enabled() -> bool:
 	return super.body_contact_enabled() and mode not in [&"intro", &"phase_transition"]
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase},"damage_model":&"continuous_body" if continuous_combat() else &"aperture","core_hint_visible":core_open},true)
+	var config := definition as WindkeeperDefinition
+	var duration := config.pier_warning_seconds if mode == &"pier_warning" else config.phase_warning_seconds if mode == &"phase_transition" else config.warning_seconds
+	return _presentation_countdown(values,mode,clock,duration,mode in [&"stomp_warning",&"charge_warning",&"blade_warning",&"pier_warning",&"phase_transition"],mode in [&"stomp",&"pier_impact"],mode in [&"charge",&"chase",&"blades"],mode in [&"neck",&"back",&"pier_open",&"final_hold"])
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["core_anchor","wind_arena","combat_state"])
+
+func presentation_intro() -> Dictionary:
+	var duration := maxf(intro_duration if intro_duration > 0 else (definition as WindkeeperDefinition).intro_seconds,.01)
+	return {"active":active and mode == &"intro","duration":duration,"raw_clock":clock,"progress":clampf(1.0-clock/duration,0.0,1.0),"direction":direction}
+
+func presentation_core() -> Dictionary:
+	# Exposure is a UI hint, not permission to damage the body or core.
+	return {"visible":core_open,"offset":core_offset(),"raw_clock":clock,"remaining_fraction":clampf(clock/(definition as WindkeeperDefinition).exposed_seconds,0.0,1.0),"continuous_combat":continuous_combat()}
+
+func presentation_rune_cue() -> Dictionary:
+	if continuous_combat() or not (definition as WindkeeperDefinition).platform_trials or stage_phase != 3 or not active or _platform_piers.size() != 3: return {}
+	return {"position":Vector2(_platform_piers[clampi(chase_segment,0,2)],_floor_y-155),"charged":rune_platform == chase_segment}
+
+func presentation_locked_aim() -> Dictionary:
+	if not (definition as WindkeeperDefinition).storm_profile or mode not in [&"blade_warning",&"pier_warning"]: return {}
+	return {"position":_locked_aim}
+
+func presentation_blades() -> Dictionary:
+	return {"angle":blade_angle,"active":stage_phase == 2 and mode == &"blades"}

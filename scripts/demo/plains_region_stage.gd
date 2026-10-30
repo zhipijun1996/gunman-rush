@@ -50,9 +50,7 @@ func _ready() -> void:
 			if saved.has("position"): enemies[index].position=Vector2(saved.position[0],saved.position[1])
 			# Terminal actors keep their drop receipt and stay terminal on reload.
 			if float(saved.health) <= 0: enemies[index].hide()
-	boss = preload("res://scenes/bosses/bellstrider.tscn").instantiate() if map_index==1 else preload("res://scenes/bosses/windkeeper.tscn").instantiate()
-	if map_index==2:
-		(boss.get_node("Encounter") as WindkeeperEncounter).definition=preload("res://resources/bosses/windkeeper_storm.tres")
+	boss = BossFactory.create(&"bellstrider" if map_index == 1 else &"windkeeper_storm")
 	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-65)
 	add_child(boss)
 	if not region_state.boss_state.is_empty():
@@ -74,8 +72,7 @@ func _ready() -> void:
 		pickups.append({"id": p.id, "kind": p.kind, "amount": int(p.amount), "position": Vector2(p.position[0],p.position[1]), "claimed": region_state.claimed.has(p.id)})
 	for id: String in region_state.drops:
 		var p: Dictionary=region_state.drops[id]
-		if p.kind=="none": continue
-		pickups.append({"id":"drop_"+id,"kind":p.kind,"amount":int(p.amount),"position":Vector2(p.position[0],p.position[1]),"claimed":region_state.claimed.has("drop_"+id),"source":id})
+		restore_drop_pickups(p,id,region_state.claimed)
 	for c: Dictionary in generated.manifest.rewards:
 		var chest := c.duplicate(true)
 		chest.id=PlainsRegionCampaign.prefix(map_index)+c.id
@@ -156,9 +153,7 @@ func _ready() -> void:
 
 func _enemy_remains(motor: EnemyMotor) -> EnemyFeedback01Remains:
 	var presentation := motor.get_node_or_null("Presentation")
-	if presentation is UnderworldEnemy: return presentation.feedback_remains
-	if presentation is EnemyPresentation: return presentation.feedback_remains
-	return null
+	return EnemyPresentationBinding.remains(presentation)
 
 func _remains_support_identity(support: Node2D) -> Dictionary:
 	if not is_instance_valid(support) or support.is_queued_for_deletion(): return {}
@@ -225,6 +220,9 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	capture_state()
 	_update_context_signs()
+
+func _persist_pickup_motion() -> void:
+	if region_state != null: _save_pickup_units(region_state.drops)
 
 func _context_sign(at: Vector2, text: String, radius: float) -> void:
 	var label := _sign(at, text, Color("e7d9ac"))

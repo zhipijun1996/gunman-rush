@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-MOTION-LOOT-02",
+  "asset_id": "PLAINS-LOOT-02-LIFE-ORB",
+  "generation_call": 1,
+  "generation_budget": 2,
+  "created_utc": "2026-10-30",
+  "prompt": "Create exactly ONE isolated healing life-orb pickup icon for a side-view 2D fantasy action platformer. Transparent background, only the single complete object, no floor, no shadow card, no text or numbers. The game already has dark-outlined old-brass coins and a warm copper/steel courier; this healing object must be clearly different from a coin and from a red heart. Make a nearly circular, small mint-green glass orb with pale ivory living liquid inside and a tiny restrained old-copper crescent foot or clasp occupying no more than the lowest tenth of its silhouette. The liquid has one clean curved meniscus and a soft ivory seed-like central highlight. Strong immediately legible round silhouette, warm upper-left illumination, dark desaturated green-brown contour, simple lower-right glass shadow, only a few large readable material clusters. Fine detailed PIXEL ART appropriate to a world grid of one world unit per pixel, designed to read at about 18 by 18 world units. Render as a professionally authored enlarged pixel-art source icon, with clean intentional clusters and hard pixel edges; avoid blur, anti-aliased painterly gradients, visual noise, excessive facets, sparkle crosses, particle trails or a broad glowing halo. NOT a potion bottle, NOT a shield, NOT a medallion or golden coin, NOT a heart shape, NOT a UI button. The glass globe itself remains the visual center; keep the top completely round and smooth, without a stopper or large neck. Center it with comfortable transparent padding on all sides. Output one neutral static master with transparent alpha, suitable for pulse/bounce animation driven by game code.",
+  "transparent_background": true,
+  "reference_images_mechanism": "None; brand-new generated object, references inspected and described textually",
+  "inputs": [
+    {
+      "path": "assets/underworld_plains/actors/coin.png",
+      "sha256": "5a416e0bae59d758dba29d8f59b60b709d877dd26713de53676d9e0d9467f81f",
+      "use": "visually inspected existing icon; no pixel edits"
+    },
+    {
+      "path": "assets/underworld_plains/actors/heart.png",
+      "sha256": "8c18153e1e249de6d0b580e7a547a373b146a2b919d5e5a43048df0064e6ee5d",
+      "use": "visually inspected existing icon; no pixel edits"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+      "use": "active technical style/direction input, not user acceptance of new icon"
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "8829d6f6fcce91c772edb15190b649e05c7a4f66c52481703b82ba5649041b0c",
+      "use": "active technical style/direction input, not user acceptance of new icon"
+    }
+  ],
+  "source_commit": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+  "planned_runtime_visible_size_wu": [
+    18,
+    18
+  ],
+  "runtime_sampling": "1wu nearest, final crop from measured alpha; do not scale by source canvas dimensions"
+}

@@ -61,7 +61,7 @@ func _ready() -> void:
 	encounter_plan = expected_encounters
 	_spawn_enemies_from_plan()
 	if stage_type == &"boss":
-		boss = preload("res://scenes/bosses/windkeeper.tscn").instantiate() as Node2D
+		boss = BossFactory.create(&"windkeeper")
 		boss.position = Vector2(boss_arena.get_center().x, boss_arena.end.y - 65)
 		add_child(boss)
 		reward_position = boss.position
@@ -100,7 +100,35 @@ func reached_finish(location: Vector2) -> bool:
 
 func _physics_process(delta: float) -> void:
 	clock += delta
+	_advance_pickup_motion(delta)
 	queue_redraw()
+
+func _advance_pickup_motion(delta: float) -> void:
+	for pickup: Dictionary in pickups:
+		PlainsLootMotion.advance(pickup,delta,self)
+	_persist_pickup_motion()
+
+func _persist_pickup_motion() -> void:
+	pass
+
+func _save_pickup_units(drops: Dictionary) -> void:
+	# Record live positions so a reload resumes existing entitlements at rest,
+	# without replaying the death spray or creating a second unit/receipt.
+	for pickup: Dictionary in pickups:
+		var source := str(pickup.get("source",""))
+		if source.is_empty() or not drops.has(source): continue
+		var records: Array = drops[source].get("units",[])
+		for record: Dictionary in records:
+			if str(record.id)==str(pickup.id): record.merge(PlainsLootMotion.snapshot(pickup),true)
+
+func restore_drop_pickups(drop: Dictionary, identity: String, claims: Dictionary) -> void:
+	if drop.has("units"):
+		for record: Dictionary in drop.units:
+			var pickup := PlainsLootMotion.restore(record,clock)
+			pickup.claimed=claims.has(pickup.id) or bool(record.get("claimed",false))
+			pickups.append(pickup)
+	elif drop.get("kind","none")!="none":
+		pickups.append({"id":"drop_"+identity,"kind":drop.kind,"amount":int(drop.amount),"position":Vector2(drop.position[0],drop.position[1]),"claimed":claims.has("drop_"+identity),"source":identity})
 
 func _draw() -> void:
 	if not assembly_ok:
@@ -167,14 +195,15 @@ func show_boss_reward_portal() -> void:
 
 func _spawn_enemies_from_plan() -> void:
 	for data: Dictionary in encounter_plan.enemies:
-		var aerial: bool = data.aerial
-		var drone := PATROL.instantiate() as EnemyMotor
-		drone.position = Vector2(data.position[0], data.position[1])
+		var overrides := {&"patrol_half_width":data.patrol_radius,&"aerial":data.aerial}
+		if data.has("dive_depth"): overrides[&"dive_depth"] = float(data.dive_depth)
+		var drone := EnemyFactory.create_for_behavior(StringName(data.behavior_id),overrides)
+		if drone == null:
+			assembly_ok = false
+			push_error("Recorded enemy behavior/instance overrides rejected: " + String(data.behavior_id))
+			return
+		drone.position = Vector2(data.position[0],data.position[1])
 		var actor := drone.get_node("Actor") as EnemyActor
-		actor.definition = PlainsEncounterPlanner.definition_for_behavior(str(data.behavior_id)).duplicate(true) as EnemyDefinition
-		actor.definition.patrol_half_width = data.patrol_radius
-		actor.definition.aerial = aerial
-		if data.has("dive_depth"): actor.definition.dive_depth=float(data.dive_depth)
 		if actor.definition.behavior_id == &"root_bell":
 			var old := drone.get_node("Presentation")
 			drone.remove_child(old)

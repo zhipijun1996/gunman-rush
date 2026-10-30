@@ -1,0 +1,142 @@
+{
+  "scope": "Original development runs; no fresh final-head Harness claim",
+  "reviewed_code_commit": "d431e3a8196d4bddefd5e6ae415052b712cf5b8b",
+  "dev03": {
+    "assertions": 88,
+    "failures": 0,
+    "source_stable": true,
+    "wrapper_sha256": "e77d2d636ba2f235183b45f711028d9a71eb8c9cc4c20945381adc8b0e785959",
+    "provenance": "Dirty development source; no clean-head claim"
+  },
+  "dev04": {
+    "base_commit": "b479775383c46527096ebc6e4e284924f66ccf48",
+    "assertions": 88,
+    "failures": 0,
+    "source_stable": true,
+    "wrapper_sha256": "fa9004d80c982b6564554e52fa42d3ca769659fbd4a43753fd5ab2495b93d919",
+    "provenance": "Dirty development source; final reader received three further type checks"
+  },
+  "dev01_dev02": "Actual parse failures preserved, not passed",
+  "final_reader": {
+    "checks": 48,
+    "failures": 0,
+    "corruptions_rejected": 47,
+    "source_commit": "d431e3a8196d4bddefd5e6ae415052b712cf5b8b",
+    "method": "Independent final-reader validation of actual dev04 capture and mutated deep copies; no new native execution"
+  },
+  "archive": {
+    "path": "docs/evidence/plains_monster_revision_01/current-registry/development-originals.tar.gz",
+    "sha256": "131ad0bdada56c05399d51c33e187f38d43e4e806a6b66114930265ad27e1031",
+    "bytes": 573289,
+    "originals": [
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-01/import.log",
+        "archive_path": "build/forest_current_registry/native/dev-01/import.log",
+        "bytes": 1065,
+        "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-01/native.log",
+        "archive_path": "build/forest_current_registry/native/dev-01/native.log",
+        "bytes": 301,
+        "sha256": "8c50081a55ec377b2894e3985a7ab03df09c6a91f7eb3f03216768231a5b5199"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-01/receipt.json",
+        "archive_path": "build/forest_current_registry/native/dev-01/receipt.json",
+        "bytes": 1285,
+        "sha256": "67a264f07a3ed2052a6811c34baa3b39a06f0f99980cc02843fe3b1bd2b2c519"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-02/import.log",
+        "archive_path": "build/forest_current_registry/native/dev-02/import.log",
+        "bytes": 1065,
+        "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-02/native.log",
+        "archive_path": "build/forest_current_registry/native/dev-02/native.log",
+        "bytes": 301,
+        "sha256": "8c50081a55ec377b2894e3985a7ab03df09c6a91f7eb3f03216768231a5b5199"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-02/receipt.json",
+        "archive_path": "build/forest_current_registry/native/dev-02/receipt.json",
+        "bytes": 1285,
+        "sha256": "53651d7c87d1fbdb56b59da650ecfc1c73f14f91bfae95d6cbc435e1e4a56e0c"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-03/capture.json",
+        "archive_path": "build/forest_current_registry/native/dev-03/capture.json",
+        "bytes": 1879743,
+        "sha256": "196aef50361dda1bccfd8d355df8c878e82ed07cf994379af62a755081035381"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-03/import.log",
+        "archive_path": "build/forest_current_registry/native/dev-03/import.log",
+        "bytes": 1065,
+        "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-03/native.log",
+        "archive_path": "build/forest_current_registry/native/dev-03/native.log",
+        "bytes": 3021,
+        "sha256": "c069e8e3007d2e871f5ddafc59d1adb3a0a7f9c6fc7d75e7af2a0fe8ccd10391"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-03/receipt.json",
+        "archive_path": "build/forest_current_registry/native/dev-03/receipt.json",
+        "bytes": 1234,
+        "sha256": "8992f6048dbf5b299cee5947fbf744553c828e0d97efa210a9b2ac263d5e1b9e"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-04/capture.json",
+        "archive_path": "build/forest_current_registry/native/dev-04/capture.json",
+        "bytes": 1879743,
+        "sha256": "196aef50361dda1bccfd8d355df8c878e82ed07cf994379af62a755081035381"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-04/import.log",
+        "archive_path": "build/forest_current_registry/native/dev-04/import.log",
+        "bytes": 1065,
+        "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-04/native.log",
+        "archive_path": "build/forest_current_registry/native/dev-04/native.log",
+        "bytes": 3020,
+        "sha256": "d49df84b59b522b3a538ae6b282148bfaa47d7c4809ea563d801670dc39351c2"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/forest_current_registry/native/dev-04/receipt.json",
+        "archive_path": "build/forest_current_registry/native/dev-04/receipt.json",
+        "bytes": 412330,
+        "sha256": "3b5d1cabd58154614018e7e183e019dd61616ce8b665910d37d177ff55827527"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/plains-current-registry-dev-01.log",
+        "archive_path": "build/plains-current-registry-dev-01.log",
+        "bytes": 387,
+        "sha256": "c6dfa6dc695662fb9d87600f4b83e750e523bdd3b2b49bfa13f0228d7abcf0dc"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/plains-current-registry-dev-02.log",
+        "archive_path": "build/plains-current-registry-dev-02.log",
+        "bytes": 387,
+        "sha256": "c6dfa6dc695662fb9d87600f4b83e750e523bdd3b2b49bfa13f0228d7abcf0dc"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/plains-current-registry-dev-03.log",
+        "archive_path": "build/plains-current-registry-dev-03.log",
+        "bytes": 72,
+        "sha256": "b7a53addcb575568ef502f44ddee74d7e78afaf7ca2534b261afc0b67d198a67"
+      },
+      {
+        "original_path": "/workspace/gunman-rush/build/plains-current-registry-dev-04.log",
+        "archive_path": "build/plains-current-registry-dev-04.log",
+        "bytes": 72,
+        "sha256": "b7a53addcb575568ef502f44ddee74d7e78afaf7ca2534b261afc0b67d198a67"
+      }
+    ]
+  }
+}

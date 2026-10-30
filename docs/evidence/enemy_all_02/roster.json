@@ -1,0 +1,1038 @@
+{
+  "task": "ENEMY-ALL-02",
+  "ordinary_species_count": 14,
+  "ordinary_renderer_chain_count": 22,
+  "boss_scene_count": 8,
+  "runtime_boss_definition_combinations": 9,
+  "ordinary": [
+    {
+      "id": "patrol_drone",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/patrol_drone.tres",
+        "sha256": "833c276b6307cd098dcd41f229327189bf7b68f9d7bc895d562d392a6120398e",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"graybox_patrol_drone\"",
+          "definition_version": "1",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_speed": "90.0",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Contact-only patrol: actual Motor movement and contact emitter; no authored telegraph/ranged attack.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_charger",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_charger.tres",
+        "sha256": "1afd5e34d497e3850d794b028fd5fe5407d3722fcd451d862f4c14a67ca98fc0",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_charger\"",
+          "definition_version": "2",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_speed": "90.0",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)",
+          "behavior_id": "&\"charger\"",
+          "telegraph_duration": "0.45",
+          "attack_duration": "0.38",
+          "recovery_duration": "0.7",
+          "attack_speed": "360.0"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "EnemyAttackBehavior._can_engage: active target/lifetime, activation range, protected points, unobstructed ray; idle cooldown then telegraph -> attack -> recovery.",
+      "terminal_policy": "persistent-corpse-with-save",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_diver",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_diver.tres",
+        "sha256": "35421393d53fcfba09e6702ef17180e5761065fa43f95e797b1a547038fddf54",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_diver\"",
+          "definition_version": "2",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_speed": "90.0",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)",
+          "behavior_id": "&\"diver\"",
+          "telegraph_duration": "0.6",
+          "attack_duration": "0.35",
+          "recovery_duration": "0.9",
+          "attack_speed": "200.0",
+          "aerial": "true"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Same _can_engage; diver orbit, committed dive goal and physically bounded return; observe attack, not only telegraph-cancel recovery.",
+      "terminal_policy": "persistent-corpse-with-save",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_hopper",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_hopper.tres",
+        "sha256": "b8a6aac30ee9c102941fea50b1c975e3925b18e3d669bb13ed0e0de0c3591a11",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_hopper\"",
+          "definition_version": "2",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_speed": "90.0",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)",
+          "behavior_id": "&\"hopper\"",
+          "telegraph_duration": "0.45",
+          "attack_duration": "0.7",
+          "recovery_duration": "0.7",
+          "attack_speed": "360.0"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Same _can_engage; committed parabolic physical Motor motion toward recorded goal.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_sentry",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_sentry.tres",
+        "sha256": "97a8f3e5a6bddadfe5c52fc21851eea72decd96ec4053b3e4f2f918fea1e6226",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_sentry\"",
+          "definition_version": "2",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)",
+          "behavior_id": "&\"sentry\"",
+          "telegraph_duration": "0.65",
+          "attack_duration": "0.1",
+          "recovery_duration": "1.0",
+          "patrol_speed": "0.0"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Same _can_engage; actual EnemyAttackProjectile created at telegraph completion.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_fan_sentry",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_fan_sentry.tres",
+        "sha256": "8bb303dd2d5969ffb43d2fef4ff5d33f6f309610d7458cb2f8a9801bfecc3231",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_fan_sentry\"",
+          "definition_version": "2",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_half_width": "100.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(28, 32)",
+          "behavior_id": "&\"fan_sentry\"",
+          "telegraph_duration": "0.65",
+          "attack_duration": "0.1",
+          "recovery_duration": "1.0",
+          "patrol_speed": "0.0",
+          "aerial": "true",
+          "projectile_speed": "210.0",
+          "projectile_lifetime": "1.4",
+          "activation_range": "330.0"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Same _can_engage; actual three-angle EnemyAttackProjectile volley.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "plains_root_bell",
+      "group": "plains",
+      "definition": {
+        "path": "resources/enemies/plains_root_bell.tres",
+        "sha256": "875abb305c8be6a2089367d3eb83a3cf93817003beeb32b899e860c45a685950",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_root_bell\"",
+          "definition_version": "1",
+          "health_definition": "ExtResource(\"2\")",
+          "faction": "&\"enemy\"",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "0.0",
+          "initial_direction": "1",
+          "collision_size": "Vector2(36, 40)",
+          "behavior_id": "&\"root_bell\"",
+          "telegraph_duration": "0.85",
+          "attack_duration": "0.16",
+          "recovery_duration": "1.2",
+          "activation_range": "240.0",
+          "protected_radius": "70.0",
+          "pulse_size": "Vector2(52, 36)"
+        }
+      },
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "components": {
+        "PatrolDrone": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/enemy_presentation.gd"
+      },
+      "attack_predicate": "Same _can_engage plus grounded Player and continuous real static support for _ground_target; pulse_committed/actual pulse requests. Accepted warning hit can cancel before attack.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_bark_beetle",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_bark_beetle.tres",
+        "sha256": "8154ef5c1e857f52e17343024626205e9115fb26fc77ea942effae61b48e803d",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_bark_beetle_health\"",
+          "max_health": "3.0",
+          "initial_current": "3.0",
+          "stable_id": "&\"forest_bark_beetle\"",
+          "definition_version": "1",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_bark_beetle\"",
+          "collision_size": "Vector2(36, 24)",
+          "patrol_speed": "32.0",
+          "patrol_half_width": "100.0",
+          "protected_radius": "45.0",
+          "attack_duration": "0.45",
+          "attack_speed": "180.0",
+          "telegraph_duration": "0.9",
+          "recovery_duration": "1.2",
+          "activation_range": "220.0",
+          "bark_rest_seconds": "1.8",
+          "bark_shield_half_angle_degrees": "55.0"
+        }
+      },
+      "scene": "scenes/enemies/forest_bark_beetle.tscn",
+      "components": {
+        "forest_bark_beetle": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/enemies/forest_bark_damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_feedback_enemy_presentation.gd"
+      },
+      "attack_predicate": "Target ahead of committed facing, abs vertical offset <60 and _can_engage. ForestBarkDamageable rejects shield-front shots; real rear/steep-angle shots required.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_swing_pod",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_swing_pod.tres",
+        "sha256": "55803c44fd97c04c681a2462d57ced90bdfc6d0c575365787eea6833372f3a67",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_swing_pod_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"forest_swing_pod\"",
+          "definition_version": "1",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_swing_pod\"",
+          "collision_size": "Vector2(26, 30)",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "100.0",
+          "protected_radius": "45.0",
+          "aerial": "true",
+          "swing_period_seconds": "4.8",
+          "swing_rise": "70.0"
+        }
+      },
+      "scene": "scenes/enemies/forest_swing_pod.tscn",
+      "components": {
+        "forest_swing_pod": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_feedback_enemy_presentation.gd"
+      },
+      "attack_predicate": "Contact-only continuous authored pendulum; swing/turn phases; real obstruction blocks. No invented ranged attack/telegraph requirement.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_lantern",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_lantern.tres",
+        "sha256": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_lantern_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"forest_lantern\"",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_lantern\"",
+          "patrol_speed": "46.0",
+          "patrol_half_width": "60.0",
+          "collision_size": "Vector2(24, 24)",
+          "aerial": "true",
+          "telegraph_duration": "0.5"
+        }
+      },
+      "scene": "scenes/enemies/forest_lantern.tscn",
+      "components": {
+        "forest_lantern": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_enemy_presentation.gd"
+      },
+      "attack_predicate": "Contact-only moving anchor: dwell -> telegraph -> travel -> dwell. Original fixed destination and real obstruction.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_seed_sentry",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_seed_sentry.tres",
+        "sha256": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_seed_sentry_health\"",
+          "max_health": "3.0",
+          "initial_current": "3.0",
+          "stable_id": "&\"forest_seed_sentry\"",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_seed_sentry\"",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "0.0",
+          "collision_size": "Vector2(30, 36)",
+          "telegraph_duration": "0.8",
+          "attack_duration": "0.45",
+          "recovery_duration": "1.3",
+          "activation_range": "320.0",
+          "projectile_speed": "220.0",
+          "projectile_lifetime": "2.5",
+          "pulse_size": "Vector2(64, 30)"
+        }
+      },
+      "scene": "scenes/enemies/forest_seed_sentry.tscn",
+      "components": {
+        "forest_seed_sentry": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_enemy_presentation.gd"
+      },
+      "attack_predicate": "_can_engage and grounded Player with real support ray; committed seed arc -> actual temporary zone.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_thread_spider",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_thread_spider.tres",
+        "sha256": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_thread_spider_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"forest_thread_spider\"",
+          "definition_version": "2",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_thread_spider\"",
+          "collision_size": "Vector2(26, 28)",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "0.0",
+          "telegraph_duration": "0.9",
+          "attack_speed": "240.0",
+          "return_speed": "100.0",
+          "recovery_duration": "1.6",
+          "activation_range": "300.0",
+          "protected_radius": "45.0"
+        }
+      },
+      "scene": "scenes/enemies/forest_thread_spider.tscn",
+      "components": {
+        "forest_thread_spider": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_depth_enemy_presentation.gd"
+      },
+      "attack_predicate": "configure_line(start,end) required; _can_engage, clear physical finite segment, safe protected points; telegraph/extend/hold/retract/recovery.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_crossbranch",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_crossbranch.tres",
+        "sha256": "01a836c7bacbd1900391f9fdafb167d008e40dbd158aa1af3369b4eab03a3d56",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_crossbranch_health\"",
+          "max_health": "3.0",
+          "initial_current": "3.0",
+          "stable_id": "&\"forest_crossbranch\"",
+          "definition_version": "2",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_crossbranch\"",
+          "collision_size": "Vector2(28, 32)",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "0.0",
+          "telegraph_duration": "1.0",
+          "attack_speed": "240.0",
+          "return_speed": "100.0",
+          "recovery_duration": "1.6",
+          "activation_range": "300.0",
+          "protected_radius": "45.0",
+          "crossbranch_rest_seconds": "1.8",
+          "crossbranch_settle_seconds": "0.35",
+          "crossbranch_gravity": "620.0",
+          "crossbranch_rise_velocity": "-540.0",
+          "crossbranch_fall_velocity": "-220.0",
+          "crossbranch_max_flight_seconds": "2.5"
+        }
+      },
+      "scene": "scenes/enemies/forest_crossbranch.tscn",
+      "components": {
+        "forest_crossbranch": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_crossbranch_presentation.gd"
+      },
+      "attack_predicate": "configure_shores(exact two supported Rect2 endpoints) required. rest -> telegraph -> flight -> actual supported landing -> settle; contact hazard, not projectile shooter.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    },
+    {
+      "id": "forest_bible_weaver",
+      "group": "forest",
+      "definition": {
+        "path": "resources/enemies/forest_bible_weaver.tres",
+        "sha256": "24e30294f4ab322116119d8165d0056c1d6eb02d16e11fd284904fc0ff415f6d",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"forest_bible_weaver_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"forest_bible_weaver\"",
+          "definition_version": "1",
+          "health_definition": "SubResource(\"health\")",
+          "behavior_id": "&\"forest_bible_weaver\"",
+          "collision_size": "Vector2(26, 28)",
+          "patrol_speed": "0.0",
+          "patrol_half_width": "0.0",
+          "telegraph_duration": "0.9",
+          "attack_speed": "240.0",
+          "return_speed": "100.0",
+          "recovery_duration": "1.6",
+          "activation_range": "300.0",
+          "protected_radius": "45.0"
+        }
+      },
+      "scene": "scenes/enemies/forest_bible_weaver.tscn",
+      "components": {
+        "forest_bible_weaver": "scripts/enemies/enemy_motor.gd",
+        "PatrolAI": "scripts/enemies/enemy_patrol_ai.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Actor": "scripts/enemies/enemy_actor.gd",
+        "Presentation": "scripts/enemies/forest_depth_enemy_presentation.gd"
+      },
+      "attack_predicate": "configure_strands(two distinct-height upper/lower rows) required; _can_engage, clear/safe line, unchanged rooted home; telegraph/extend/hold/retract/recovery with alternating entrance.",
+      "terminal_policy": "existing species death policy; report actual retained/dismissed body separately",
+      "status": "inventory-only; no actual recording or human approval implied"
+    }
+  ],
+  "renderer_chains": [
+    {
+      "id": "patrol_drone",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "patrol_drone",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_charger",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_charger",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_diver",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_diver",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_hopper",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_hopper",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_sentry",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_fan_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_fan_sentry",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "scene",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": null
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "underworld",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/underworld_plains/underworld_enemy.gd",
+      "installer": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "formal_art_metadata": "underworld_formal_style=true"
+    },
+    {
+      "id": "plains_root_bell",
+      "chain": "root_bell",
+      "scene": "scenes/enemies/patrol_drone.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/root_bell_presentation.gd",
+      "installer": "scripts/demo/generated_demo_stage.gd:_spawn_enemies_from_plan",
+      "formal_art_metadata": null
+    },
+    {
+      "id": "forest_bark_beetle",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_bark_beetle.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_swing_pod",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_swing_pod.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_lantern",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_lantern.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_seed_sentry",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_seed_sentry.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_thread_spider",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_thread_spider.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_crossbranch",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_crossbranch.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    },
+    {
+      "id": "forest_bible_weaver",
+      "chain": "scene",
+      "scene": "scenes/enemies/forest_bible_weaver.tscn",
+      "host": "Presentation",
+      "renderer": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "installer": null,
+      "formal_art_metadata": "forest_bible_actor_art=true"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "clockwork_guardian",
+      "scene": "scenes/bosses/clockwork_guardian.tscn",
+      "components": {
+        "ClockworkGuardian": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/combat/damageable.gd",
+        "Encounter": "scripts/bosses/boss_encounter.gd",
+        "Presentation": "scripts/bosses/boss_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/clockwork_guardian.tres",
+        "sha256": "edc40af019144109e581c4cec5008a384b9b7cb514acb6943999fe29315ede72",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"demo_clockwork_guardian\"",
+          "health_definition": "ExtResource(\"2\")"
+        }
+      },
+      "formal_art_metadata": null,
+      "activation": "configure_arena(real PlayerMotor), activate; Windkeeper bind_stage_geometry for actual bridge lifecycle",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "bellstrider",
+      "scene": "scenes/bosses/bellstrider.tscn",
+      "components": {
+        "Bellstrider": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/windkeeper_damageable.gd",
+        "Encounter": "scripts/bosses/bellstrider_encounter.gd",
+        "Presentation": "scripts/bosses/bellstrider_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/bellstrider.tres",
+        "sha256": "882af5e59b5999d1bb71213d1332ecc3bcd8f6019fa49cb7373312015f8f4c05",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_bellstrider\"",
+          "definition_version": "2",
+          "continuous_combat": "true",
+          "display_name": "\"鸣铃巡游机 / BELLSTRIDER\"",
+          "health_definition": "ExtResource(\"2\")",
+          "collision_size": "Vector2(140, 144)",
+          "collision_offset": "Vector2(0, -6)",
+          "contact_size": "Vector2(128, 110)",
+          "contact_offset": "Vector2(0, 10)",
+          "patrol_speed": "225.0",
+          "projectile_speed": "180.0",
+          "projectile_radius": "10.0",
+          "projectile_lifetime": "6.0",
+          "phase_two_health": "0.5",
+          "phase_three_health": "0.01",
+          "warning_seconds": "0.85",
+          "exposed_seconds": "2.0",
+          "charge_speed": "240.0"
+        }
+      },
+      "formal_art_metadata": "underworld_formal_style=true",
+      "activation": "configure_arena(real PlayerMotor), activate; Windkeeper bind_stage_geometry for actual bridge lifecycle",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "windkeeper",
+      "scene": "scenes/bosses/windkeeper.tscn",
+      "components": {
+        "Windkeeper": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/windkeeper_damageable.gd",
+        "Encounter": "scripts/bosses/windkeeper_encounter.gd",
+        "Presentation": "scripts/bosses/windkeeper_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/windkeeper.tres",
+        "sha256": "0811c4fbda93a13b413dead97bb601631f5b97b8e5d06e3caf2578402d0b11bc",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "stable_id": "&\"plains_windkeeper\"",
+          "definition_version": "1",
+          "health_definition": "ExtResource(\"2\")",
+          "collision_size": "Vector2(150, 130)",
+          "patrol_speed": "225.0",
+          "projectile_speed": "180.0",
+          "projectile_radius": "10.0",
+          "projectile_lifetime": "6.0"
+        }
+      },
+      "formal_art_metadata": "underworld_formal_style=true",
+      "activation": "configure_arena(real PlayerMotor), activate; Windkeeper bind_stage_geometry for actual bridge lifecycle",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "thorn_guardian",
+      "scene": "scenes/bosses/thorn_guardian.tscn",
+      "components": {
+        "thorn_guardian": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Encounter": "scripts/bosses/thorn_forest_encounter.gd",
+        "Presentation": "scripts/bosses/thorn_forest_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/thorn_guardian.tres",
+        "sha256": "1d1f8693bbcb9c2d8e073c3cea4a3a026da5e39dc23c2defe4108c1a6937ccd2",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"thorn_guardian_health\"",
+          "max_health": "10.0",
+          "initial_current": "10.0",
+          "stable_id": "&\"thorn_guardian\"",
+          "health_definition": "SubResource(\"health\")",
+          "collision_size": "Vector2(72, 96)",
+          "queen": "false",
+          "display_name": "\"根铃守卫 / ROOTBELL GUARDIAN\"",
+          "telegraph_duration": "1.0",
+          "phase_two_threshold": "0.6",
+          "exposed_seconds": "3.6",
+          "seed_zone_size": "Vector2(90, 34)"
+        }
+      },
+      "formal_art_metadata": null,
+      "activation": "configure_arena(real PlayerMotor), activate; Windkeeper bind_stage_geometry for actual bridge lifecycle",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "thorn_queen",
+      "scene": "scenes/bosses/thorn_queen.tscn",
+      "components": {
+        "thorn_queen": "scripts/bosses/boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Encounter": "scripts/bosses/thorn_forest_encounter.gd",
+        "Presentation": "scripts/bosses/thorn_forest_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/thorn_queen.tres",
+        "sha256": "c07006c759e38a7846e52e5d0e02d154a56b67703999f8c6cab57cf6c4d9509a",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"thorn_queen_health\"",
+          "max_health": "18.0",
+          "initial_current": "18.0",
+          "stable_id": "&\"thorn_queen\"",
+          "health_definition": "SubResource(\"health\")",
+          "collision_size": "Vector2(72, 96)",
+          "queen": "true",
+          "display_name": "\"棘冠女王 / THORN QUEEN\"",
+          "telegraph_duration": "1.0",
+          "phase_two_threshold": "0.6",
+          "exposed_seconds": "3.2",
+          "seed_zone_size": "Vector2(90, 34)"
+        }
+      },
+      "formal_art_metadata": null,
+      "activation": "configure_arena(real PlayerMotor), activate; Windkeeper bind_stage_geometry for actual bridge lifecycle",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "rootbell_guardian_v2",
+      "scene": "scenes/bosses/rootbell_guardian_v2.tscn",
+      "components": {
+        "RootbellGuardianV2": "scripts/bosses/forest_boss_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Encounter": "scripts/bosses/rootbell_guardian_v2.gd",
+        "Presentation": "scripts/bosses/forest_boss_duel_presentation_v2.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/rootbell_guardian_v2.tres",
+        "sha256": "5023398fdeded85e7be849e0aaa0a7c99cb12778c4d3a51003004ef74647ffd4",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"rootbell_guardian_v2_health\"",
+          "max_health": "32.0",
+          "initial_current": "32.0",
+          "stable_id": "&\"rootbell_guardian_v2\"",
+          "definition_version": "2",
+          "health_definition": "SubResource(\"health\")",
+          "collision_size": "Vector2(72, 96)",
+          "display_name": "\"根铃守卫 / ROOTBELL GUARDIAN\"",
+          "telegraph_duration": "0.65",
+          "observation_seconds": "0.45",
+          "exposed_seconds": "3.6",
+          "projectile_speed": "330.0",
+          "projectile_radius": "10.0",
+          "projectile_damage": "1.0"
+        }
+      },
+      "formal_art_metadata": "forest_bible_actor_art=true",
+      "activation": "bind_duel(real factory geometry, PlayerController, FrameDamagePolicy, DemoLifetime), configure_arena, activate",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "thorn_queen_v2",
+      "scene": "scenes/bosses/thorn_queen_v2.tscn",
+      "components": {
+        "thorn_queen_v2": "scripts/bosses/thorn_queen_weave_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Encounter": "scripts/bosses/thorn_queen_v2.gd",
+        "Presentation": "scripts/bosses/thorn_queen_weave_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/thorn_queen_v2.tres",
+        "sha256": "b618a46c4ad151067e428b3a81b13b8f572a1159245d0f7e0f075d8070c9152d",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"thorn_queen_weave_knot_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"thorn_queen_weave_v2\"",
+          "definition_version": "6",
+          "health_definition": "SubResource(\"queen_health\")",
+          "display_name": "\"棘冠女王 / WEAVER QUEEN\"",
+          "queen": "true",
+          "collision_size": "Vector2(48, 54)",
+          "knot_health_definition": "SubResource(\"knot_health\")"
+        }
+      },
+      "formal_art_metadata": null,
+      "activation": "bind_duel(real factory geometry, PlayerController, FrameDamagePolicy, DemoLifetime), configure_arena, activate",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    },
+    {
+      "id": "thorn_queen_canopy",
+      "scene": "scenes/bosses/thorn_queen_canopy.tscn",
+      "components": {
+        "thorn_queen_canopy": "scripts/bosses/thorn_queen_weave_motor.gd",
+        "Damageable": "scripts/bosses/thorn_damageable.gd",
+        "Encounter": "scripts/bosses/thorn_queen_canopy_encounter.gd",
+        "Presentation": "scripts/bosses/thorn_queen_canopy_presentation.gd"
+      },
+      "definition": {
+        "path": "resources/bosses/thorn_queen_canopy.tres",
+        "sha256": "bbf920724f95209f89fdd5b117c2f6a8344941336cb2e0287258edf77c00aca6",
+        "fields": {
+          "script": "ExtResource(\"1\")",
+          "resource_id": "&\"thorn_queen_canopy_knot_health\"",
+          "max_health": "2.0",
+          "initial_current": "2.0",
+          "stable_id": "&\"thorn_queen_canopy_v3\"",
+          "definition_version": "1",
+          "health_definition": "SubResource(\"queen_health\")",
+          "knot_health_definition": "SubResource(\"knot_health\")",
+          "display_name": "\"棘冠女王 / CANOPY QUEEN\"",
+          "queen": "true",
+          "collision_size": "Vector2(48, 54)",
+          "phase_two_threshold": "0.6666666666666666",
+          "phase_three_health": "0.5"
+        }
+      },
+      "formal_art_metadata": "forest_bible_actor_art=true",
+      "activation": "bind_duel(real factory geometry, PlayerController, FrameDamagePolicy, DemoLifetime), configure_arena, activate",
+      "attack_predicate": "Original mode/clock/ground support/receiver eligibility; no core_open, HP or mode override allowed",
+      "status": "inventory-only; full fight unverified"
+    }
+  ],
+  "boss_formal_definition_override": {
+    "scene": "scenes/bosses/windkeeper.tscn",
+    "definition": {
+      "path": "resources/bosses/windkeeper_storm.tres",
+      "sha256": "723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5",
+      "fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_windkeeper\"",
+        "definition_version": "5",
+        "continuous_combat": "true",
+        "health_definition": "ExtResource(\"2\")",
+        "collision_size": "Vector2(150, 190)",
+        "collision_offset": "Vector2(0, -30)",
+        "patrol_speed": "225.0",
+        "projectile_speed": "180.0",
+        "projectile_radius": "10.0",
+        "projectile_lifetime": "6.0",
+        "storm_profile": "true",
+        "warning_seconds": "0.9",
+        "exposed_seconds": "2.2",
+        "charge_speed": "300.0",
+        "blade_period": "3.0",
+        "pier_warning_seconds": "0.75",
+        "pier_recovery_seconds": "0.7",
+        "platform_trials": "true",
+        "phase_warning_seconds": "1.4"
+      }
+    },
+    "consumer": "scripts/demo/plains_region_stage.gd:55",
+    "difference": "36 HP, continuous combat; default scene is legacy 12 HP gated core"
+  },
+  "orphan_boss_resource": {
+    "path": "resources/bosses/plains_bell_warden.tres",
+    "scripts_consumer_found": false,
+    "scope": "Not counted as an additional admitted species"
+  },
+  "development_prototypes": [
+    {
+      "id": "candidate_lure_guard",
+      "recipe": "scripts/demo/module_enemy_prototypes.gd:setup",
+      "base_definition": "resources/enemies/plains_charger.tres",
+      "renderer": "scripts/enemies/prototype_enemy_presentation.gd",
+      "receiver": "scripts/enemies/prototype_enemy_damageable.gd",
+      "behavior": "scripts/enemies/enemy_attack_behavior.gd",
+      "attack_predicate": "Original charger predicate; guard rejects front shots outside actual recovery",
+      "admission": "development candidate, excluded from formal pool and save schema"
+    },
+    {
+      "id": "candidate_crosswind_moth",
+      "recipe": "scripts/demo/module_enemy_prototypes.gd:setup",
+      "base_definition": "resources/enemies/plains_sentry.tres",
+      "renderer": "scripts/enemies/prototype_enemy_presentation.gd",
+      "receiver": "scripts/enemies/prototype_enemy_damageable.gd",
+      "behavior": "scripts/enemies/prototype_moth_behavior.gd",
+      "attack_predicate": "Original sentry engage + two time-separated locked volley lanes and physical orbit",
+      "admission": "development candidate, excluded from formal pool and save schema"
+    }
+  ],
+  "scope": "Static actual scene/definition/installer inventory. 22 counts host chains, not 22 independent species. Metadata-gated formal body selection is listed explicitly. No visual or battle completion claim."
+}

@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-DROP-RECEIPT-GUARD-02",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "reviewed_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+  "content_version": "physical-drop-receipt-guard-v1",
+  "owner": "/root",
+  "purpose": "允许实际掉落物理状态连续保存，同时保全部结算/单位/账本/重载守门",
+  "player_experience": "死亡只结算一次、面额金额正确，保存中的金币运动不再误触旧静态收据检查",
+  "constraints": [
+    "只迁移tests/enemy_feedback_01_formal.gd；本process无生产变更",
+    "原66检查/39表达式/等待帧/重载字节全等/240与360秒/60Hz保留",
+    "只允许实际诊断七物理字段变化；经济和未知元数据/claimed/钱包全等",
+    "初版拒绝/真实失败保留；技术专项不签整怪或full167"
+  ],
+  "affected_paths": [
+    "tests/enemy_feedback_01_formal.gd",
+    "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md",
+    "docs/quality/records/PLAINS-DROP-RECEIPT-GUARD-02.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "实际六份诊断及限定迁移/原守门/反例范围已明确",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "原formal150/0、继承156/0与同次selected检查通过；独审172/0和最终518/0核5353执行输入等于冻结A；只签测试迁移",
+      "evidence": [
+        "native",
+        "audit",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，不制作游戏内容，主任务自行验收",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "实际七物理字段白名单；整份非物理经济/单位/账本仍全等，原重载不改",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "精确133c测试保原66/等待/字节重载/预算，新增84反例；独立核实际执行及冻结A输入，不签整怪或full167",
+      "evidence": [
+        "native",
+        "audit"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "精确133c测试保原66/等待/字节重载/预算，新增84反例；独立核实际执行及冻结A输入，不签整怪或full167",
+      "evidence": [
+        "audit",
+        "review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯正式测试合同迁移，本卡不签游戏内容与设备",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "DROPS-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "金币物理状态持续保存但死亡奖励不得重结算",
+      "method": "实际六观察诊断与七字段限定迁移",
+      "expected": "原66/等待/字节重载/预算保留；经济与未知元数据仍全等",
+      "failure": "允许账本/单位/金额漂移或删减原检查",
+      "status": "passed",
+      "reason": "具体可证伪合同与原失败已归档",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "DROPS-TECHNICAL",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "实际正式App死亡后45/175帧物理保存而经济结算不变，并执行篡改拒绝",
+      "method": "原strict150/0及继承156/0、172独审与最终518只读核对/5353输入绑定",
+      "expected": "原检查与预算保留，完整单位/金额/账本/有限运动与负例全部实际验证",
+      "failure": "只改标签、漏放篡改或把dirty执行冒称clean/fullCI",
+      "status": "passed",
+      "reason": "真实selected三项fresh通过与精确A运行输入逐件匹配；process限定接受",
+      "evidence": [
+        "native",
+        "audit",
+        "review"
+      ]
+    },
+    {
+      "id": "DROPS-INDEPENDENT_REVIEW",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "实际正式App死亡后45/175帧物理保存而经济结算不变，并执行篡改拒绝",
+      "method": "原strict150/0及继承156/0、172独审与最终518只读核对/5353输入绑定",
+      "expected": "原检查与预算保留，完整单位/金额/账本/有限运动与负例全部实际验证",
+      "failure": "只改标签、漏放篡改或把dirty执行冒称clean/fullCI",
+      "status": "passed",
+      "reason": "真实selected三项fresh通过与精确A运行输入逐件匹配；process限定接受",
+      "evidence": [
+        "native",
+        "audit",
+        "review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md",
+      "sha256": "677e1c5c66bc3a2b0c1bd5963211bd3bbea0a9e59007f85589d2fe5e9e229df7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+      "content_version": "physical-drop-receipt-guard-v1",
+      "method": "范围文档实际包含于冻结A；原执行仍是96bf加明确dirty输入",
+      "observed": "保原等待/检查/重载，允许且仅允许真实七物理字段"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/plains_motion_loot_02/development/final-selected-01/enemy-feedback-formal.log",
+      "sha256": "fc2d0ed6e581aad5a25bca2395701e0aa160abf0ba4fe4966c638dd88231d9cb",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+      "content_version": "physical-drop-receipt-guard-v1",
+      "method": "原Harness实际执行HEAD96bf+dirty；5353显式运行输入经独审全部等于冻结A；不称clean",
+      "observed": "正式150/0、exit0，原预算/60Hz和严格退出保留",
+      "command": "python3 tools/harness.py --check enemy-feedback-formal --check plains-motion-loot-02 --check forest-depth-region --jobs 1",
+      "exit_code": 0,
+      "environment": "managed cloud Linux/Godot4.7.2/fixed60Hz; originalHarness internal source digest stability passed"
+    },
+    {
+      "id": "audit",
+      "path": "docs/evidence/plains_motion_loot_02/review/final-selected-proof.json",
+      "sha256": "6af229d02d22a427f2adc004de7824f620fb28fbb9d9e008e9477e5a3b667f6f",
+      "kind": "command",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+      "content_version": "physical-drop-receipt-guard-v1",
+      "method": "原报告/三input_digest/80capture与日志SHA及pure validator复核；5353执行输入与GitA逐件匹配",
+      "observed": "518只读独审检查0失败；非518引擎测试，不签全167",
+      "command": "python3 /tmp/review_plains_final_selected.py; python3 /tmp/bind_plains_selected_to_frozen_a.py",
+      "exit_code": 0,
+      "environment": "managed cloud Python3; read-only source/evidence, noGodot"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/plains_motion_loot_02/review/final-selected-review.md",
+      "sha256": "458ab6e94568c1ca28633f96c808d93818d14df28339630f7c27d477901a7123",
+      "kind": "review",
+      "producer": "/root/guard_review_recovery",
+      "source_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+      "content_version": "physical-drop-receipt-guard-v1",
+      "method": "独立读取原执行/源码/冻结输入及明确未验范围；未写被审生产或测试",
+      "observed": "限定ACCEPT原测试迁移/本地selected；不签整怪/full167/设备/用户",
+      "reviewer": "/root/guard_review_recovery",
+      "implementers": [
+        "/root",
+        "/root/corpse_contact_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer authored no production/test/adapter changes; executed read-only Python evidence validation and inspected exact frozen Git blobs, no engine.",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整167/远端CI与森林CI主机吞吐尚未通过；主任务艺术、听感、经济、设备与用户验收不在本卡范围",
+    "原执行HEAD96bf+dirty，5353显式runtime输入匹配冻结A；全forest旧31291输入表为派生重建并由原digest匹配，不冒充producer完整双表"
+  ],
+  "test_change_justification": "原整drop字节静态合同与现有每帧物理保存冲突；限定七字段，新增完整单位/有限相对运动/账本与反例；不删除原断言和预算。 独立172/0实核150新增84执行；最终518只读检查/0失败、5353runtime输入逐件等于冻结A；后继仅本process接受，不签主内容或full167。"
+}

@@ -1,0 +1,1227 @@
+{
+  "head": "9b76f0044f0fe4d729f2bc894abf153a4f238564",
+  "generated_utc": "2026-10-29T07:12:55.725334+00:00",
+  "scope": "Fresh read-only forest7 + development candidates2 program structure audit; H/D means Hurt/Death ownership",
+  "repository_write": false,
+  "engine_executed": false,
+  "method": "Source inspection and HEAD full tree/git-show fallback; existing class inheritance reported literally; no runtime reproduction or implementation performed",
+  "common_live_chain": [
+    "factory/scene + Definition",
+    "EnemyActor owns HealthState and shared Damageable callbacks",
+    "EnemyAttackBehavior subclass advance driven from Actor.physics_tick",
+    "EnemyMotor receives movement commands",
+    "species Presentation + accepted EnemyHitTemplate/EnemyFeedback01/Particles",
+    "species terminal draw plus Stage save/reload visibility"
+  ],
+  "species": [
+    {
+      "id": "forest_lantern",
+      "definition": {
+        "actual_type": "EnemyDefinition",
+        "resource": "resources/enemies/forest_lantern.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "configure initializes home-derived destination and dwell; no extra Stage geometry binding",
+        "scene": "scenes/enemies/forest_lantern.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestLanternBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_lantern_behavior.gd",
+        "raw_states": [
+          "dwell",
+          "telegraph",
+          "travel",
+          "recovery"
+        ],
+        "cancel_semantics": "inherited base cancel clears projectiles and enters recovery; advance treats recovery like dwell"
+      },
+      "presentation": {
+        "class": "ForestEnemyPresentation",
+        "path": "scripts/enemies/forest_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "retained same-body dark terminal in local presenter",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_lantern_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 20,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 17,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_seed_sentry",
+      "definition": {
+        "actual_type": "EnemyDefinition",
+        "resource": "resources/enemies/forest_seed_sentry.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "configure base context; behavior owns locked support goal, ballistic projectile and zone",
+        "scene": "scenes/enemies/forest_seed_sentry.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestSeedSentryBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "attack",
+          "recovery"
+        ],
+        "cancel_semantics": "inherited base cancel disposes its tracked projectiles and enters recovery"
+      },
+      "presentation": {
+        "class": "ForestEnemyPresentation",
+        "path": "scripts/enemies/forest_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "retained same-body dark terminal in local presenter",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_seed_sentry_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 20,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 17,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_bark_beetle",
+      "definition": {
+        "actual_type": "ForestEnemyDefinition",
+        "resource": "resources/enemies/forest_bark_beetle.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "base context; per-placement direction/patrol override before ready; guarded committed front lane",
+        "scene": "scenes/enemies/forest_bark_beetle.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestBarkBeetleBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_bark_beetle_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "attack",
+          "recovery"
+        ],
+        "cancel_semantics": "base cancel; own actual-foot support probe before Motor.move_attack(false)"
+      },
+      "presentation": {
+        "class": "unnamed Node2D script",
+        "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "0.38s procedural settle then presenter stops drawing",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_bark_beetle_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 1,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 14,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 22,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 19,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_swing_pod",
+      "definition": {
+        "actual_type": "ForestEnemyDefinition",
+        "resource": "resources/enemies/forest_swing_pod.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "base context home; swing_clock owns continuous orbit; separate art tether attachment metadata",
+        "scene": "scenes/enemies/forest_swing_pod.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestSwingPodBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_swing_pod_behavior.gd",
+        "raw_states": [
+          "idle",
+          "swing",
+          "turn",
+          "blocked"
+        ],
+        "cancel_semantics": "cancel intentionally retains swing_clock/phase; only terminal stops motor"
+      },
+      "presentation": {
+        "class": "unnamed Node2D script",
+        "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "0.38s procedural settle then presenter stops drawing",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_swing_pod_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 1,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 14,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 22,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 19,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_crossbranch",
+      "definition": {
+        "actual_type": "ForestEnemyDefinition",
+        "resource": "resources/enemies/forest_crossbranch.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "DemoApp validates and configures two shore rows before restore_depth_state",
+        "scene": "scenes/enemies/forest_crossbranch.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestCrossbranchBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_crossbranch_behavior.gd",
+        "raw_states": [
+          "rest",
+          "telegraph",
+          "flight",
+          "settle",
+          "cancelled_fall",
+          "recovery_fall",
+          "grounded_recovery",
+          "blocked"
+        ],
+        "cancel_semantics": "phase-specific cancel: telegraph->rest, flight->cancelled_fall, terminal->blocked; actual recovery gravity/support retained"
+      },
+      "presentation": {
+        "class": "unnamed Node2D script",
+        "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "0.38s procedural settle then presenter stops drawing",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+          "line": 1,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+          "line": 11,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+          "line": 18,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+          "line": 15,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_thread_spider",
+      "definition": {
+        "actual_type": "ForestEnemyDefinition",
+        "resource": "resources/enemies/forest_thread_spider.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "DemoApp configure_line from placement endpoints; finite swept line owned by behavior",
+        "scene": "scenes/enemies/forest_thread_spider.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestThreadSpiderBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/forest_thread_spider_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "extend",
+          "hold",
+          "retract",
+          "recovery"
+        ],
+        "cancel_semantics": "cancel clears line_active and token, then base recovery"
+      },
+      "presentation": {
+        "class": "ForestDepthEnemyPresentation",
+        "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "retained same-body dark terminal in local presenter",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_thread_spider_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 20,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 17,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "forest_bible_weaver",
+      "definition": {
+        "actual_type": "ForestBibleWeaverDefinition",
+        "resource": "resources/enemies/forest_bible_weaver.tres",
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/thorn_forest_region_stage.gd",
+          "scripts/demo/demo_app.gd"
+        ],
+        "mechanism": "DemoApp configure_strands; two ordered entrance rows and host-at-home invariant; subclass of finite-line spider",
+        "scene": "scenes/enemies/forest_bible_weaver.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "ForestBibleWeaverBehavior",
+        "direct_parent": "ForestThreadSpiderBehavior",
+        "path": "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "extend",
+          "hold",
+          "retract",
+          "recovery"
+        ],
+        "cancel_semantics": "cancel clears cycle-completed then spider line/token then base recovery"
+      },
+      "presentation": {
+        "class": "ForestDepthEnemyPresentation",
+        "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+        "direct_parent": "Node2D",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> motion.sync_epoch (+age/shield reset where present)",
+        "advance": "_process checks pause; ForestMotion02.advance plus local age/shield clock",
+        "phase_sampling": "poll actor.attack_behavior.state and actual displacement/facing; no normalized state_time progress",
+        "unbind": "_exit_tree disconnects own initialize callback; EnemyHitTemplate child disposes accepted sample/particles binding",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "retained same-body dark terminal in local presenter",
+        "persistent_owner": "ThornForestRegionStage saves HP/position and outer behavior fields plus optional depth_snapshot; restored terminal Motor is hidden"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_bible_weaver_behavior.gd",
+          "line": 2,
+          "excerpt": "extends ForestThreadSpiderBehavior"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends Node2D"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 20,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 17,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "candidate_lure_guard",
+      "definition": {
+        "actual_type": "runtime duplicate of EnemyDefinition/plains_charger",
+        "resource": null,
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/module_enemy_prototypes.gd",
+          "scripts/demo/action_studio.gd"
+        ],
+        "mechanism": "ModuleLab/Studio manually choose base charger, override IDs/params, replace Damageable and Presentation, create behavior directly",
+        "scene": "scenes/enemies/patrol_drone.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "EnemyAttackBehavior",
+        "direct_parent": "Node",
+        "path": "scripts/enemies/enemy_attack_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "attack",
+          "recovery"
+        ],
+        "cancel_semantics": "inherits base cancel; PrototypeEnemyDamageable has guard gate tied to raw recovery state"
+      },
+      "presentation": {
+        "class": "PrototypeEnemyPresentation",
+        "path": "scripts/enemies/prototype_enemy_presentation.gd",
+        "direct_parent": "EnemyPresentation",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> _sync_prototype_epoch",
+        "advance": "_process checks pause; super._process advances unused parent PlainsMotion02 and clocks, then custom prototype phase sampler",
+        "phase_sampling": "poll raw state for loading/releasing/recovering and actual displacement; parent also polls state separately",
+        "unbind": "_exit_tree disconnects own initialize callback; prototype additionally calls inherited EnemyPresentation._exit_tree",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "same canonical crop joint death then .6s fade; no dedicated remains component for this ID",
+        "persistent_owner": "development factory only; no formal region-state save admission"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 2,
+          "excerpt": "extends Node"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends EnemyPresentation"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 67,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 96,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 72,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    },
+    {
+      "id": "candidate_crosswind_moth",
+      "definition": {
+        "actual_type": "runtime duplicate of EnemyDefinition/plains_sentry",
+        "resource": null,
+        "validation_registry": "EnemyDefinition.is_valid / ForestEnemyDefinition.is_valid / ForestBibleWeaverDefinition.is_valid as actually inherited"
+      },
+      "factory": {
+        "path": [
+          "scripts/demo/module_enemy_prototypes.gd",
+          "scripts/demo/action_studio.gd"
+        ],
+        "mechanism": "ModuleLab/Studio manually choose sentry base; moth behavior adds idle orbit and second volley",
+        "scene": "scenes/enemies/patrol_drone.tscn"
+      },
+      "actor": "EnemyActor (same class for all 9)",
+      "motor": "EnemyMotor (same class for all 9; species movement policy remains behavior-owned)",
+      "behavior": {
+        "class": "PrototypeMothBehavior",
+        "direct_parent": "EnemyAttackBehavior",
+        "path": "scripts/enemies/prototype_moth_behavior.gd",
+        "raw_states": [
+          "idle",
+          "telegraph",
+          "attack",
+          "recovery"
+        ],
+        "cancel_semantics": "base cancel, idle branch clears second_volley; orbit clock remains species-owned"
+      },
+      "presentation": {
+        "class": "PrototypeEnemyPresentation",
+        "path": "scripts/enemies/prototype_enemy_presentation.gd",
+        "direct_parent": "EnemyPresentation",
+        "bind": "actor assigned before tree entry; _ready installs inherited/template resources and own initialization listener",
+        "initialize": "_motion_initialized -> _sync_prototype_epoch",
+        "advance": "_process checks pause; super._process advances unused parent PlainsMotion02 and clocks, then custom prototype phase sampler",
+        "phase_sampling": "poll raw state for loading/releasing/recovering and actual displacement; parent also polls state separately",
+        "unbind": "_exit_tree disconnects own initialize callback; prototype additionally calls inherited EnemyPresentation._exit_tree",
+        "H_owner": "accepted EnemyHitTemplate/EnemyFeedback01 and EnemyFeedback01Particles + same-body species mesh response; EnemyActor separately owns accepted physical hit/audio",
+        "D_owner": "same canonical crop joint death then .6s fade; no dedicated remains component for this ID",
+        "persistent_owner": "development factory only; no formal region-state save admission"
+      },
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "excerpt": "func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/enemies/prototype_moth_behavior.gd",
+          "line": 2,
+          "excerpt": "extends EnemyAttackBehavior"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 2,
+          "excerpt": "extends EnemyPresentation"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 67,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 96,
+          "excerpt": "func _process(delta: float) -> void:"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 72,
+          "excerpt": "func _exit_tree() -> void:"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "classification": "confirmed duplicate/config divergence",
+      "title": "同一候选的两个factory已漂移",
+      "detail": "ModuleLab把moth patrol_speed设45、patrol_half_width设120、activation_range设360；Studio复制plains_sentry并只设半宽100等字段，未覆写patrol_speed，源Resource速度0。因此同stable_id并非同一运动配置。",
+      "evidence": [
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 14,
+          "excerpt": "if index:actor.definition.patrol_speed=45"
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 13,
+          "excerpt": "actor.definition.patrol_half_width=120"
+        },
+        {
+          "path": "scripts/demo/action_studio.gd",
+          "line": 277,
+          "excerpt": "actor.definition.patrol_half_width = 100"
+        },
+        {
+          "path": "resources/enemies/plains_sentry.tres",
+          "line": 18,
+          "excerpt": "patrol_speed = 0.0"
+        },
+        {
+          "path": "scripts/enemies/prototype_moth_behavior.gd",
+          "line": 13,
+          "excerpt": "actor.motor.move_attack((goal-actor.motor.global_position).limit_length(actor.definition.patrol_speed*delta),false,delta)"
+        }
+      ],
+      "unification_risk": "先明确哪套配置是预期；不能用统一factory静默改变既有Studio或Lab行为。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F02",
+      "classification": "confirmed lifecycle duplication",
+      "title": "四个森林Presentation复制初始化/暂停/退出骨架",
+      "detail": "四个direct-Node2D脚本重复install template、install motion、sync_epoch、health.initialize listener、paused guard、queue_redraw、disconnect；只有年龄/盾闪及专有绘制不同。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+          "line": 12,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 14,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+          "line": 11,
+          "excerpt": "func _motion_initialized(result: ActorResourceResult) -> void:"
+        }
+      ],
+      "unification_risk": "可统一生命周期约定，不代表应把危险线、盾门、枝岸物理或所有绘制塞到一个基类。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F03",
+      "classification": "confirmed overlapping work",
+      "title": "Prototype父子两套motion及初始化同时运行",
+      "detail": "Prototype继承EnemyPresentation并super._process；父类每帧advance PlainsMotion02和计算_weight/_lean/_frame_weights，子类另做自己的UV mesh/_loading等；子类_draw不消费父类body_motion或_weight/_lean/_frame_weights。父子也各自订阅initialize并设置_death_time。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 99,
+          "excerpt": "super._process(delta)"
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 69,
+          "excerpt": "body_motion.advance(actor, delta)"
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 88,
+          "excerpt": "_weight = _weight.lerp(desired,1-exp(-delta/.075))"
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 90,
+          "excerpt": "_update_frame_weights(state,delta)"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 141,
+          "excerpt": "func _deform_master(point: Vector2) -> Vector2:"
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 96,
+          "excerpt": "_death_time = 1.0 if actor.health.terminal else 0.0"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 83,
+          "excerpt": "_death_time = 0.6 if restored_terminal else 0.0"
+        }
+      ],
+      "unification_risk": "拆分前须保留父类当前负责的HitTemplate/health/audio side effects；不能直接删除super而遗漏accepted绑定。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F04",
+      "classification": "confirmed implicit configuration",
+      "title": "同一scene的艺术分支由祖先meta和布局版本隐式决定",
+      "detail": "ForestBibleActors.active沿祖先查forest_bible_actor_art；另有stable_id/behavior/collision/direction白名单。条件不符返回false并画几何fallback；fine PNG没有直接挂在scene的Sprite节点。",
+      "evidence": [
+        {
+          "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+          "line": 88,
+          "excerpt": "static func active(canvas: Node) -> bool:"
+        },
+        {
+          "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+          "line": 102,
+          "excerpt": "if actor.definition.stable_id != behavior_id or actor.definition.collision_size != body.collision: return false"
+        },
+        {
+          "path": "scripts/presentation/forest_bible_presentation.gd",
+          "line": 25,
+          "excerpt": "return m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\",\"forest-exploration-places-v18\"]"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 2743,
+          "excerpt": "ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_presentation.gd",
+          "line": 31,
+          "excerpt": "if not bible_body:"
+        }
+      ],
+      "unification_risk": "把meta改显式skin/profile时须保留旧区域灰盒分支；collision变化不应被误当成美术自动降级许可。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F05",
+      "classification": "static restore-order risk",
+      "title": "恢复事务跨Stage/App/Presentation，缓存采样点早于完整恢复",
+      "detail": "Stage先restore_instance_health触发initialize，再写saved position；App后续bind行为、写saved raw state/home/brain.direction。Presentation即时sync_epoch会在完整恢复前读取Motor位置/brain.direction。暂停/首帧实际是否显出旧方向未在本次运行复现。",
+      "evidence": [
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 105,
+          "excerpt": "if not actor.restore_instance_health(float(saved.health)): assembly_ok = false"
+        },
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 106,
+          "excerpt": "creature.position = Vector2(saved.position[0],saved.position[1])"
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "line": 727,
+          "excerpt": "actor.brain.direction=int(saved.get(\"direction\",1))"
+        },
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 41,
+          "excerpt": "_last_position = actor.motor.global_position"
+        },
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 48,
+          "excerpt": "_facing = float(actor.brain.direction)"
+        }
+      ],
+      "unification_risk": "需要定义restore完成边界或最终快照发布点；不能仅把initialize延到_process，否则会回归暂停恢复缺陷。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F06",
+      "classification": "confirmed multi-owner terminal policy",
+      "title": "死亡逻辑、身体落幕和保存可见性是三个所有者",
+      "detail": "HealthState判终态；Damageable发died；Actor取消行为/停Motor/关碰撞并发defeated；Presentation自行.38s或.6s及暗色保留；Stage恢复terminal又hide Motor。局部保留暗体不等于重入仍有尸体。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 74,
+          "excerpt": "func _on_death() -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+          "line": 29,
+          "excerpt": "if actor.health.terminal and motion.death_elapsed >= ForestMotion02.DEATH_SECONDS:return"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 118,
+          "excerpt": "if actor.health.terminal: tint.a = maxf(0.0,1.0-_death_time/0.6)"
+        },
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 107,
+          "excerpt": "if actor.health.terminal: creature.hide()"
+        },
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 225,
+          "excerpt": "if attack != null and attack.has_method(\"depth_snapshot\"):"
+        }
+      ],
+      "unification_risk": "统一接口必须显式描述各终态策略及保存所有者；不能为整齐强行给全部怪留尸或全部隐藏。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F07",
+      "classification": "confirmed semantic mismatch",
+      "title": "相位名共用StringName但不共用攻击含义",
+      "detail": "ForestMotion把telegraph/hold/turn视作tension、attack/extend/travel/swing视作release；turn/swing是活锚空间运动而非发射攻击。线蛛伤害期是hold，跨枝含cancelled/recovery fall；Prototype还另轮询同样state做姿态。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 83,
+          "excerpt": "tension = lerpf(tension, 1.0 if phase in [&\"telegraph\", &\"hold\", &\"turn\"] else 0.0, blend)"
+        },
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 84,
+          "excerpt": "release = lerpf(release, 1.0 if phase in [&\"attack\", &\"extend\", &\"travel\", &\"swing\"] else 0.0, blend)"
+        },
+        {
+          "path": "scripts/enemies/forest_thread_spider_behavior.gd",
+          "line": 47,
+          "excerpt": "line_active=true"
+        },
+        {
+          "path": "scripts/enemies/forest_swing_pod_behavior.gd",
+          "line": 28,
+          "excerpt": "var next: StringName=&\"turn\" if absf(amount)>.88 else &\"swing\""
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 103,
+          "excerpt": "_loading = lerpf(_loading,1.0 if alive and phase==&\"telegraph\" else 0.0,blend)"
+        }
+      ],
+      "unification_risk": "不要把所有raw phase强制映射成统一四态或统一归一时长；只标准化只读采样字段，保留raw phase/capabilities。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F08",
+      "classification": "confirmed registry duplication",
+      "title": "物种注册分散且Definition继承并不一致",
+      "detail": "基础Definition有自身behavior白名单；ForestEnemyDefinition扩出另外4种且重新验证；WeaverDefinition再单独白名单。Actor有行为match、Stage有scene映射、helper有身体映射，增加物种需保持多处一致。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_definition.gd",
+          "line": 33,
+          "excerpt": "return behavior_id in [&\"patrol\", &\"charger\", &\"diver\", &\"sentry\", &\"fan_sentry\", &\"hopper\", &\"root_bell\", &\"forest_lantern\", &\"forest_seed_sentry\"] and forest_dwell_seconds > 0 and forest_arc_height > 0 and forest_zone_seconds > 0 and telegraph_duration >= 0.3 and attack_duration > 0 and recovery_duration >= 0.3 and attack_speed > 0 and activation_range > 0 and dive_depth >= 0 and protected_radius >= 0 and projectile_speed > 0 and projectile_lifetime > 0 and not stable_id.is_empty() and definition_version > 0 and not faction.is_empty() and health_definition != null and health_definition.is_valid() and is_finite(patrol_speed) and patrol_speed >= 0.0 and is_finite(patrol_half_width) and patrol_half_width >= 0.0 and initial_direction in [-1, 1] and collision_size.is_finite() and collision_size.x > 0.0 and collision_size.y > 0.0"
+        },
+        {
+          "path": "scripts/enemies/forest_enemy_definition.gd",
+          "line": 27,
+          "excerpt": "if behavior_id not in [&\"forest_thread_spider\",&\"forest_crossbranch\",&\"forest_bark_beetle\",&\"forest_swing_pod\"]: return false"
+        },
+        {
+          "path": "scripts/enemies/forest_bible_weaver_definition.gd",
+          "line": 5,
+          "excerpt": "if behavior_id != &\"forest_bible_weaver\" or stable_id.is_empty() or definition_version < 1 or faction.is_empty() or health_definition == null or not health_definition.is_valid(): return false"
+        },
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 85,
+          "excerpt": "match definition.behavior_id:"
+        },
+        {
+          "path": "scripts/demo/thorn_forest_region_stage.gd",
+          "line": 71,
+          "excerpt": "var sources := {\"forest_bark_beetle\":\"res://scenes/enemies/forest_bark_beetle.tscn\",\"forest_swing_pod\":\"res://scenes/enemies/forest_swing_pod.tscn\",\"forest_crossbranch\":\"res://scenes/enemies/forest_crossbranch.tscn\",\"forest_lantern\":\"res://scenes/enemies/forest_lantern.tscn\",\"forest_seed_sentry\":\"res://scenes/enemies/forest_seed_sentry.tscn\",\"forest_thread_spider\":\"res://scenes/enemies/forest_thread_spider.tscn\",\"forest_bible_weaver\":\"res://scenes/enemies/forest_bible_weaver.tscn\",\"charger\":\"res://scenes/enemies/patrol_drone.tscn\"}"
+        },
+        {
+          "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+          "line": 21,
+          "excerpt": "const ECOLOGY_BODIES := {"
+        }
+      ],
+      "unification_risk": "先建立唯一可审计描述/检查关系；重构成全能registry可能引入场景/表现循环依赖，不能预设一次迁完。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F09",
+      "classification": "confirmed intentional policy variation",
+      "title": "取消和地面支撑并非可直接去重的算法",
+      "detail": "Swing.cancel保留摆相；Cross.cancel保留真实跌落恢复；Spider.cancel关闭线/token；基类cancel统一进recovery。Motor旧require_floor脚点15/18，Bark以真实collision half重新探地；跨枝还有三脚支撑查询。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/forest_swing_pod_behavior.gd",
+          "line": 34,
+          "excerpt": "func cancel() -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_crossbranch_behavior.gd",
+          "line": 177,
+          "excerpt": "func cancel() -> void:"
+        },
+        {
+          "path": "scripts/enemies/forest_thread_spider_behavior.gd",
+          "line": 100,
+          "excerpt": "func cancel() -> void:"
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 136,
+          "excerpt": "func cancel() -> void:"
+        },
+        {
+          "path": "scripts/enemies/enemy_motor.gd",
+          "line": 57,
+          "excerpt": "var feet := global_position + Vector2(signf(motion.x) * 15, 18)"
+        },
+        {
+          "path": "scripts/enemies/forest_bark_beetle_behavior.gd",
+          "line": 46,
+          "excerpt": "var half:=actor.definition.collision_size*.5"
+        }
+      ],
+      "unification_risk": "接口可一致，取消结果和支撑语义必须按物种保留；不能把所有cancel改成base recovery或直接套同一个floor probe。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F10",
+      "classification": "confirmed gate-order variation",
+      "title": "候选盾和森林盾的回执/反馈前置顺序不同",
+      "detail": "PrototypeEnemyDamageable先看raw incoming/recovery并播放armour后返回false，未先走基础event/epoch validation；ForestBarkDamageable有_guarded_events及epoch/身份检查后才shield_contact。不是同一个拒绝反馈协议。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/prototype_enemy_damageable.gd",
+          "line": 9,
+          "excerpt": "if incoming.x*actor.brain.direction<-.2:"
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_damageable.gd",
+          "line": 10,
+          "excerpt": "GameAudio.cue(self,&\"armour\")"
+        },
+        {
+          "path": "scripts/enemies/forest_bark_damageable.gd",
+          "line": 27,
+          "excerpt": "if _guarded_events.has(event_id):return false"
+        },
+        {
+          "path": "scripts/combat/damageable.gd",
+          "line": 43,
+          "excerpt": "if context.get(\"target_actor_id\", -1) != actor_id or context.get(\"target_epoch\", -1) != damage_epoch:"
+        }
+      ],
+      "unification_risk": "应先定义accepted、valid blocked、invalid/stale的事件类别；统一声音/闪光不得让拒绝或旧epoch产生accepted hurt。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F11",
+      "classification": "confirmed rendering/gameplay data coupling",
+      "title": "材质锚与身份/碰撞/附件读取散落在代码中",
+      "detail": "helper用碰撞尺寸核准身体；ForestMotion使用actor.definition/aerial/brain、speciesID和硬编码关节区；吊荚tether另由不可变meta字典绑定host/actor实例；Prototype.moth布尔由factory索引设置而非Definition派生。",
+      "evidence": [
+        {
+          "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+          "line": 102,
+          "excerpt": "if actor.definition.stable_id != behavior_id or actor.definition.collision_size != body.collision: return false"
+        },
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 113,
+          "excerpt": "match kind:"
+        },
+        {
+          "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+          "line": 8,
+          "excerpt": "const TETHER_ATTACHMENT_METADATA := &\"forest_bible_tether_attachment\""
+        },
+        {
+          "path": "scripts/enemies/prototype_enemy_presentation.gd",
+          "line": 8,
+          "excerpt": "var moth := false"
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 23,
+          "excerpt": "var art:=PrototypeEnemyPresentation.new();art.actor=actor;art.moth=index==1;motor.add_child(art)"
+        }
+      ],
+      "unification_risk": "把材质profile与只读gameplay snapshot分开时必须维持足/绳/攻击锚对应，且避免用素材尺寸反推碰撞或改变伤害。",
+      "runtime_reproduced_in_this_audit": false
+    },
+    {
+      "id": "F12",
+      "classification": "confirmed missing explicit public lifecycle interface",
+      "title": "现在依赖_ready/_exit_tree与外部组装顺序，无统一bind/unbind协议",
+      "detail": "Actor.bind_encounter已有behavior就return；behavior.configure是另一个入口；候选绕过Actor factory手建behavior；表现器均没有显式bind(context)/unbind，HitTemplate.install有meta单例而ForestMotion.install每次new。当前普通场景每次新建通常回避重复绑定，但接口不声明可否复用。",
+      "evidence": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 84,
+          "excerpt": "if definition.behavior_id == &\"patrol\" or attack_behavior != null: return"
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "excerpt": "func configure(owner_actor: EnemyActor, target: PlayerController, damage_policy: FrameDamagePolicy, scope: DemoLifetime, id: StringName, safe_points: Array[Vector2]) -> void:"
+        },
+        {
+          "path": "scripts/demo/module_enemy_prototypes.gd",
+          "line": 28,
+          "excerpt": "actor.attack_behavior=PrototypeMothBehavior.new() if index else EnemyAttackBehavior.new()"
+        },
+        {
+          "path": "scripts/enemies/enemy_hit_template.gd",
+          "line": 27,
+          "excerpt": "if is_instance_valid(existing): return existing"
+        },
+        {
+          "path": "scripts/enemies/forest_motion_02.gd",
+          "line": 31,
+          "excerpt": "var motion := ForestMotion02.new()"
+        }
+      ],
+      "unification_risk": "提出新接口前先明确重复bind与换目标/换epoch的语义，避免把当前单次构建假设扩大成无证的复用支持。",
+      "runtime_reproduced_in_this_audit": false
+    }
+  ],
+  "minimal_contract_proposals": [
+    {
+      "area": "ownership",
+      "minimum": "继续由HealthState/Damageable/FrameDamagePolicy拥有HP与接受事件；Actor/Motor/专有Behavior拥有移动/攻击/取消；表现只读。",
+      "preserve": "不能把表现回调当伤害或位移驱动。"
+    },
+    {
+      "area": "construction",
+      "minimum": "统一factory输入中的stable identity、Definition、目标/Policy/Lifetime、placement几何与明确presentation profile；先用同一候选参数来源消除两个factory漂移。",
+      "preserve": "保持既有真实类和Definition继承；不要求九怪继承同一Presentation或同一Behavior实现。"
+    },
+    {
+      "area": "presentation bind",
+      "minimum": "建议一个可适配的bind(context)/on_initialize(resource_snapshot,restore_kind)/advance(delta,read_only_snapshot)/unbind契约；重复同context是否幂等、换context如何解除旧监听必须明确。",
+      "preserve": "不是已实现接口；可由现有类适配。"
+    },
+    {
+      "area": "snapshot",
+      "minimum": "raw_phase、phase_elapsed、可选duration/progress、真实velocity/displacement、facing/committed_direction、epoch/terminal、accepted反馈、typed attachment/aim/line/shore锚；一帧一个只读快照。",
+      "preserve": "duration可缺省、contact-only与有限线不能伪装发射攻击；species raw state与取消结果保留。"
+    },
+    {
+      "area": "initialize/restore",
+      "minimum": "初始化通知在暂停时也立即清旧epoch；另定义完整restore数据已落位后的同步边界，不能只靠下一_process修方向/位置。",
+      "preserve": "恢复终态直接settled，禁止重播死亡/掉落/音效。"
+    },
+    {
+      "area": "advance/draw",
+      "minimum": "每个有效表现时间源每帧advance一次；暂停不进时，离屏可跳网格但不跳epoch/accepted/phase推进；draw只消费快照并允许渲染cache写。",
+      "preserve": "不能误把draw_enemy_body返回true当作可见像素，它现在表示已处理该body分支。"
+    },
+    {
+      "area": "terminal",
+      "minimum": "显式列retain-body/remove-after/spawn-remains策略、时长、support/保存/清理拥有者与reload visibility；先记录9种原策略再决定是否更改。",
+      "preserve": "不为结构统一默认新增全怪尸体系统。"
+    },
+    {
+      "area": "specialized components",
+      "minimum": "盾有效拒绝、蛛线/双入口、弹体/落区、摆相/挂点、两岸飞行/支撑、蛾双轮发射均保留专有实现，仅对外提供所需只读锚/相位。",
+      "preserve": "不把物种特有状态/几何塞进通用脚本字段表后宣布统一完成。"
+    }
+  ],
+  "shared_lifecycle_evidence": [
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 70,
+      "excerpt": "health.configure(definition.health_definition)"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 71,
+      "excerpt": "damageable.bind_health(health)"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 100,
+      "excerpt": "func restore_instance_health(value: float) -> bool:"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "line": 115,
+      "excerpt": "func _accepted_hit(context: Dictionary) -> void:"
+    },
+    {
+      "path": "scripts/enemies/enemy_hit_template.gd",
+      "line": 68,
+      "excerpt": "sample.advance(delta)"
+    },
+    {
+      "path": "scripts/enemies/enemy_hit_template.gd",
+      "line": 96,
+      "excerpt": "func _exit_tree() -> void:"
+    },
+    {
+      "path": "scripts/resources/state/actor_resource_state.gd",
+      "line": 35,
+      "excerpt": "changed.emit(result)"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "line": 729,
+      "excerpt": "if not actor.attack_behavior.call(\"restore_depth_state\",saved.depth_state):"
+    },
+    {
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "line": 224,
+      "excerpt": "region_state.actors[enemy_manifest[i].id] = {\"health\":actor.health.current,\"position\":[at.x,at.y],\"state\":String(attack.state) if attack else \"idle\",\"state_time\":attack.state_time if attack else 0.0,\"cooldown\":attack.cooldown if attack else 0.0,\"serial\":attack._serial if attack else 0,\"home\":[attack.home.x,attack.home.y] if attack else [at.x,at.y],\"direction\":actor.brain.direction}"
+    }
+  ],
+  "not_decided": [
+    "No global refactor, new base class, registry, asset convention or skill change selected.",
+    "No claim that every difference is a defect; intentional species policies and confirmed duplication are marked separately.",
+    "No art approval or player-quality verdict from structural consistency."
+  ]
+}

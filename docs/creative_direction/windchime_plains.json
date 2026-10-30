@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v24",
+  "version": "creative-v25",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
-    "supplemental_authority_sha256": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+    "supplemental_authority_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "20985784ab3ba6fcf8b29817f7ee7beb3d38979ff66100370bcff213274a7d35",
+    "registry_sha256": "7956815f0ae63e4bcdda7cf20e7554272b43bd7e96c9d8e75bbdb4804dfec1be",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -169,8 +169,20 @@
       "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
     },
     {
+      "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+      "sha256": "f08a99521953dc275f4e119ce447dd8dc97ccc77b65897de0b296590f5e655e0"
+    },
+    {
       "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json",
       "sha256": "7e1a7710028253ce9d6bde253227eb745aef32cd133c9aa3959f5a081219537e"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-merged-program-mobile.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v21-plains-motion-loot.json",
+      "sha256": "58bc77e49cb9f5b283a5d0c5ba506162a0e1ffe4a501f88874e2ba55a1ea6d26"
     },
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json",
@@ -179,6 +191,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
       "sha256": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+      "sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188"
     }
   ],
   "historical_direction": {
@@ -187,15 +203,26 @@
     "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   },
   "revision_impact": {
-    "task_id": "AUDIO-FEEDBACK-06",
-    "scope": "Only DemoMenu restores the exact original title subtitle; technical style21 binding, other80 references and regional visual direction unchanged. No new art or inherited acceptance.",
-    "previous_direction": "docs/creative_direction/archive/creative-v23/windchime_plains.json",
-    "previous_sha256": "eb285418637b24afdd9e0c621d61245642547335d77ddbe9874aa8574b8f07e8",
-    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v21-audio-feedback-06.json",
-    "shared_style_sha256": "2f6e92fac7c82122ac3e9e7e0593f19750424e0a4c0a0636631a5fb2af2e73de",
-    "affected_consumers": [
-      "scripts/ui/demo_menu.gd"
+    "task_id": "PLAINS-MOTION-LOOT-02",
+    "scope": "Technical binding merge only. Both parent creative24 direction/content/user-acceptance fields are unchanged; preserve authority union and append current merged style22.",
+    "previous_direction": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+    "previous_sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a",
+    "parent_directions": [
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style21/program/windchime_plains.json",
+        "sha256": "007e6fb83c7a5696e3cb294123868530d1f0dcca218dde4302ea9e579056412a"
+      },
+      {
+        "path": "docs/creative_direction/archive/merge-20261030-style21/audio/windchime_plains.json",
+        "sha256": "fa660deffa2b0e8b894e337a9f5c2e76e4133e6ec1191d1e6effb680df172a61"
+      }
     ],
-    "validation": "Original Python suites and checker CLIs retain all checks/budgets, plus finite style21/creative24 and stale20/23 rejection. Actual root results and independent review remain separately recorded; audio taste/device/fullG5 not signed."
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261030-v22-merged-motion-audio.json",
+    "shared_style_sha256": "4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188",
+    "affected_consumers": [
+      "scripts/demo/demo_app.gd",
+      "scripts/items/v5/item_v5_shop_presenter.gd"
+    ],
+    "validation": "Both parent24 and older pointers reject current binding; all historical tests and literal SHA remain archived/active. No old PASS or human/device/art/audio acceptance inherited."
   }
 }

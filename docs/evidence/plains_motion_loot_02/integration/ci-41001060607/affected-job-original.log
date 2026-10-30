@@ -1,0 +1,70 @@
+﻿2026-10-30T04:59:13.6410505Z Current runner version: '2.338.0'
+2026-10-30T04:59:13.6436323Z ##[group]Runner Image Provisioner
+2026-10-30T04:59:13.6437180Z Hosted Compute Agent
+2026-10-30T04:59:13.6437882Z Version: 20261021.618
+2026-10-30T04:59:13.6438546Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-30T04:59:13.6439365Z Build Date: 2026-10-21T00:45:21Z
+2026-10-30T04:59:13.6440105Z Worker ID: {ec5b9db7-012b-4db1-bd36-86acf7e4a790}
+2026-10-30T04:59:13.6440809Z Region: canadaeast
+2026-10-30T04:59:13.6441415Z Cloud: Azure
+2026-10-30T04:59:13.6442259Z ##[endgroup]
+2026-10-30T04:59:13.6443843Z ##[group]Operating System
+2026-10-30T04:59:13.6444488Z Ubuntu
+2026-10-30T04:59:13.6445002Z 26.04.1
+2026-10-30T04:59:13.6445568Z LTS
+2026-10-30T04:59:13.6446114Z ##[endgroup]
+2026-10-30T04:59:13.6446660Z ##[group]Runner Image
+2026-10-30T04:59:13.6447356Z Image: ubuntu-26.04
+2026-10-30T04:59:13.6447911Z Version: 20261025.179.1
+2026-10-30T04:59:13.6449233Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+2026-10-30T04:59:13.6450803Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+2026-10-30T04:59:13.6452029Z ##[endgroup]
+2026-10-30T04:59:13.6453100Z ##[group]GITHUB_TOKEN Permissions
+2026-10-30T04:59:13.6455106Z Contents: read
+2026-10-30T04:59:13.6455696Z Metadata: read
+2026-10-30T04:59:13.6456346Z ##[endgroup]
+2026-10-30T04:59:13.6458409Z Secret source: Actions
+2026-10-30T04:59:13.6459461Z Cache mode: write
+2026-10-30T04:59:13.6460220Z Prepare workflow directory
+2026-10-30T04:59:13.6870118Z Prepare all required actions
+2026-10-30T04:59:13.6918613Z Getting action download info
+2026-10-30T04:59:13.9550903Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-30T04:59:14.0546683Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-30T04:59:14.1123575Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-30T04:59:14.4932642Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-30T04:59:14.6833925Z Complete job name: affected
+2026-10-30T04:59:14.7662076Z ##[group]Run test "$PREPARE_RESULT" = success
+2026-10-30T04:59:14.7662820Z [36;1mtest "$PREPARE_RESULT" = success[0m
+2026-10-30T04:59:14.7663441Z [36;1mif [ "$CI_ROUTE" = full_lanes ]; then[0m
+2026-10-30T04:59:14.7664058Z [36;1m  test "$LANES_RESULT" = success[0m
+2026-10-30T04:59:14.7664595Z [36;1melse[0m
+2026-10-30T04:59:14.7665055Z [36;1m  test "$CI_ROUTE" = selected_commands[0m
+2026-10-30T04:59:14.7665675Z [36;1m  test "$LANES_RESULT" = skipped[0m
+2026-10-30T04:59:14.7666205Z [36;1mfi[0m
+2026-10-30T04:59:14.7701320Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-30T04:59:14.7702875Z env:
+2026-10-30T04:59:14.7703316Z   PREPARE_RESULT: success
+2026-10-30T04:59:14.7703802Z   LANES_RESULT: failure
+2026-10-30T04:59:14.7704265Z   CI_ROUTE: full_lanes
+2026-10-30T04:59:14.7704739Z ##[endgroup]
+2026-10-30T04:59:14.7923028Z ##[error]Process completed with exit code 1.
+2026-10-30T04:59:14.8193202Z ##[group]Run actions/upload-artifact@v4
+2026-10-30T04:59:14.8193810Z with:
+2026-10-30T04:59:14.8194276Z   name: production-merged-proof-41001060607-1
+2026-10-30T04:59:14.8195049Z   path: build/verification/harness/
+build/verification/production-ci/
+
+2026-10-30T04:59:14.8195778Z   if-no-files-found: warn
+2026-10-30T04:59:14.8196247Z   retention-days: 14
+2026-10-30T04:59:14.8196687Z   compression-level: 6
+2026-10-30T04:59:14.8197135Z   overwrite: false
+2026-10-30T04:59:14.8197582Z   include-hidden-files: false
+2026-10-30T04:59:14.8198065Z ##[endgroup]
+2026-10-30T04:59:15.1919373Z (node:2267) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-30T04:59:15.1924407Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-30T04:59:15.1965154Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-30T04:59:15.1970541Z The least common ancestor is /home/runner/work/gunman-rush/gunman-rush/build/verification. This will be the root directory of the artifact
+2026-10-30T04:59:15.1988634Z ##[warning]No files were found with the provided path: build/verification/harness/
+build/verification/production-ci/. No artifacts will be uploaded.
+2026-10-30T04:59:15.2197756Z Cleaning up orphan processes
+2026-10-30T04:59:15.2698186Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

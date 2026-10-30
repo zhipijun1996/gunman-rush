@@ -1,0 +1,357 @@
+[
+  {
+    "case": 0,
+    "id": "clockwork_guardian",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/boss_presentation.gd",
+    "start_frame": 1,
+    "end_frame": 738,
+    "start_seconds": 0.0166666666666667,
+    "end_seconds": 12.3,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 1,
+    "id": "bellstrider",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/bellstrider_presentation.gd",
+    "start_frame": 739,
+    "end_frame": 1740,
+    "start_seconds": 12.35,
+    "end_seconds": 29.05,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 0.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 2,
+    "id": "windkeeper",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+    "start_frame": 1741,
+    "end_frame": 3760,
+    "start_seconds": 29.1,
+    "end_seconds": 62.7666666666667,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 3,
+    "id": "windkeeper_storm",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+    "start_frame": 3761,
+    "end_frame": 5166,
+    "start_seconds": 62.8166666666667,
+    "end_seconds": 86.25,
+    "post_death_observation_frames": 0,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": false,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": false,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": false,
+      "warning": "observed"
+    },
+    "coverage_gaps": [
+      "lethal_HP_commit",
+      "terminal_observed_210_frames",
+      "player_survived"
+    ],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 0,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": false
+    }
+  },
+  {
+    "case": 4,
+    "id": "thorn_guardian",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+    "start_frame": 5167,
+    "end_frame": 6276,
+    "start_seconds": 86.3,
+    "end_seconds": 104.8,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "no_body_translation_observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 5,
+    "id": "thorn_queen",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+    "start_frame": 6277,
+    "end_frame": 9876,
+    "start_seconds": 104.85,
+    "end_seconds": 164.85,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "no_body_translation_observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 6,
+    "id": "rootbell_guardian_v2",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/forest_boss_duel_presentation_v2.gd",
+    "start_frame": 9877,
+    "end_frame": 11988,
+    "start_seconds": 164.9,
+    "end_seconds": 200.1,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 7,
+    "id": "thorn_queen_v2",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/thorn_queen_weave_presentation.gd",
+    "start_frame": 11989,
+    "end_frame": 13703,
+    "start_seconds": 200.15,
+    "end_seconds": 228.733333333333,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  },
+  {
+    "case": 8,
+    "id": "thorn_queen_canopy",
+    "chain": "actual_boss_scene",
+    "renderer": "res://scripts/bosses/thorn_queen_canopy_presentation.gd",
+    "start_frame": 13704,
+    "end_frame": 15837,
+    "start_seconds": 228.783333333333,
+    "end_seconds": 264.35,
+    "post_death_observation_frames": 210,
+    "coverage": {
+      "actual_AI_commitment": true,
+      "lethal_HP_commit": true,
+      "locomotion": "observed",
+      "nonlethal_HP_commit": true,
+      "persistent_remains": "not_required_original_boss_policy",
+      "player_damage_authority_registered": true,
+      "player_survived": true,
+      "recovered_after_nonlethal": true,
+      "terminal_observed_210_frames": true,
+      "warning": "observed"
+    },
+    "coverage_gaps": [],
+    "terminal_policy_observation": {
+      "final_visual": {
+        "death_frame_index": null,
+        "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+        "host_alpha": 1.0,
+        "host_visible": true,
+        "hurt_frame_index": null,
+        "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+        "hurt_remaining": 0.0,
+        "remains": {}
+      },
+      "observation_frames": 210,
+      "policy": "original Boss body/exit; no added ordinary corpse",
+      "terminal": true
+    }
+  }
+]

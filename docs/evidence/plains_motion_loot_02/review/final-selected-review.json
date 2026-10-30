@@ -1,0 +1,158 @@
+{
+  "verdict": "ACCEPT_BOUNDED_LOCAL_SELECTED_THREE_EVIDENCE",
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root",
+    "/root/corpse_contact_audit"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "reported_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "execution_git_clean": false,
+  "working_files": {
+    "docs/quality/records/PLAINS-DROP-RECEIPT-GUARD-02.json": "6cdfea4dec91215224fd7c147cca75cb9b952045c36de6d909bd769e23692797",
+    "docs/quality/records/PLAINS-MOTION-LOOT-02.json": "8535c137ac79b5722d433559e2f2b873961f67157a94c032524c03466ac02ad7",
+    "docs/tasks.md": "a0738e5239e8bb925d246aa25aef3df9c3910defc010d81e1c7c3d1e8d4b5d7d",
+    "docs/worklines/plains_motion_loot_02/drop_receipt_guard.md": "40584c091fd15ebe25166a0bed7fe9550cf18053b5fae150cf6302a24135875f",
+    "docs/worklines/plains_motion_loot_02/mesh_performance.md": "982261fed4c30703050a6647857075ebb98f2d3767d94ce00494feab6b873f09",
+    "scripts/enemies/plains_revision_ground.gd": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+    "scripts/enemies/plains_revision_skin.gd": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+    "tests/enemy_feedback_01_formal.gd": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+    "tests/plains_motion_loot_02_motion.gd": "86b8e1e3cbe8ccb4687a569b9c459d88fd684ab93495db5da8416630d08692ed"
+  },
+  "runtime_leaf_sha256": {
+    "scripts/enemies/plains_revision_ground.gd": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+    "scripts/enemies/plains_revision_skin.gd": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+    "tests/enemy_feedback_01_formal.gd": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+    "tests/plains_motion_loot_02_motion.gd": "86b8e1e3cbe8ccb4687a569b9c459d88fd684ab93495db5da8416630d08692ed"
+  },
+  "passed": 518,
+  "failed": 0,
+  "actual_three": [
+    {
+      "id": "enemy-feedback-formal",
+      "status": "passed",
+      "seconds": 17.665,
+      "budget_seconds": 360,
+      "input_digest": "3baa2e3cc17446d604833e56db45094ae91aad62958387a79080659313a8d3f0"
+    },
+    {
+      "id": "plains-motion-loot-02",
+      "status": "passed",
+      "seconds": 16.247,
+      "budget_seconds": 360,
+      "input_digest": "c750d6cef1246985670eeee66af3f118e84019322fa0a3908442a901d23bebe1"
+    },
+    {
+      "id": "forest-depth-region",
+      "status": "passed",
+      "seconds": 541.165,
+      "budget_seconds": 600,
+      "input_digest": "228a0202e2fb2cedcadfa17fe0ef64ce1c42138b820b41d45e07f959f7773b4e"
+    }
+  ],
+  "forest_cpu_capacity": {
+    "os_cpu_count": 5,
+    "affinity_cpu_ids": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "cgroup_memberships": "0::/",
+    "cgroup_quota_sources": [
+      {
+        "version": 2,
+        "mount_root": "/..",
+        "mount_point": "/sys/fs/cgroup",
+        "membership": "/",
+        "paths": [
+          "/sys/fs/cgroup/cpu.max"
+        ],
+        "raw": [
+          "400000 100000"
+        ],
+        "quota_cpus": 4.0,
+        "status": "limited"
+      }
+    ],
+    "read_errors": [],
+    "effective_cpu_capacity": 4.0,
+    "capacity_rule": "minimum positive os count, affinity count and readable visible cgroup ancestor quotas; hidden ancestors are not observable"
+  },
+  "forest_workers": 4,
+  "forest_source_inventory5352_sha256": "06d2d5de817060c5efd2979f962ac78ddcf1596e436eb6fa5764b69651ba0883",
+  "reconstructed_full_input_inventory": "/tmp/plains_final_selected_reconstructed_inventory.json",
+  "reconstructed_full_input_inventory_sha256": "b5cf161d6b43af385785bc11e0e7a4e56ddba73051e416ae9fe4d121e975811f",
+  "reconstruction_limit": "Full31291 table is an explicitly derived reconstruction of original commit tracked names+original untracked, reported working hashes, original stable matrix runtime hashes and original Git bytes/missing sentinels. Its exact forest recorded input digest was matched before subsequent sparse hydration; not represented as an original saved Harness full table. Formal/plains each bind5353 runtime inputs. Godot version was not executed by reviewer; identity inferred from original logs/lock, recorded Python and read-only Node version, then all3 exact input digests independently matched.",
+  "input_sha256": {
+    "/workspace/gunman-rush/build/verification/harness/20261030T063149.622284Z/report.json": "3dee78aea38c67d7c5b7dd9a38acb0c3aeca6311ad62c16937f14b017c363740",
+    "/workspace/gunman-rush/build/verification/harness/20261030T063149.622284Z/enemy-feedback-formal.log": "fc2d0ed6e581aad5a25bca2395701e0aa160abf0ba4fe4966c638dd88231d9cb",
+    "/workspace/gunman-rush/build/verification/harness/20261030T063149.622284Z/plains-motion-loot-02.log": "45ab3a94a0a6d5a6d07100d48894bf74ee19428ae7ce980dafc5dd2485dd7dc9",
+    "/workspace/gunman-rush/build/verification/harness/20261030T063149.622284Z/forest-depth-region.log": "aba8e8b645dbda61b48946df32ce26aba7a772048e8e2f6258098b6000b508f5",
+    "/workspace/gunman-rush/build/forest_depth/region/harness-matrix/harness-e2b322d3cf16468faad3b47d6fef5d51/receipt.json": "611a45768caa930ec60f9876019d2ce7f9d817f873d447e416706f7a9b300ac4"
+  },
+  "source_scope": "All4 leafs plus all5353 formal/plains explicit runtime input bytes match frozenGitA. Native run remains dirty96bf evidence; no wholepostrun docs identity claim.",
+  "limits": [
+    "Local selected3, not full167 or officialCI affected closure",
+    "OldCI409939/410010 remain failed; no CI-host performance fix claim",
+    "Observed original80 now passes under600 locally; not a guarantee of cloud host timing",
+    "No GPU/art/audio/device/user/economics/main G1-G5/video retagging"
+  ],
+  "reviewed_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+  "commands": [
+    "python3 /tmp/review_plains_final_selected.py > /tmp/plains_final_selected_review.log",
+    "python3 /tmp/bind_plains_selected_to_frozen_a.py > /tmp/plains_final_selected_binding.log"
+  ],
+  "frozen_runtime_binding": {
+    "reviewed_commit": "de22a39b06aa5172571ee7c3ff377cdffce913b6",
+    "input_count": 5353,
+    "all_explicit_formal_plains_inputs_match_gitA": true,
+    "all4_leafs": {
+      "scripts/enemies/plains_revision_ground.gd": {
+        "recorded": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+        "gitA": "f7af6a538d7eecd9a1deaa0bf657e164a729e559e8c2cf872eb848d1d4604b74",
+        "matched": true
+      },
+      "scripts/enemies/plains_revision_skin.gd": {
+        "recorded": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+        "gitA": "6258e37dad84eddeaab2604bebb32b993ab1af19b9ce1f90893cf1fdf4ea67f0",
+        "matched": true
+      },
+      "tests/enemy_feedback_01_formal.gd": {
+        "recorded": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+        "gitA": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+        "matched": true
+      },
+      "tests/plains_motion_loot_02_motion.gd": {
+        "recorded": "86b8e1e3cbe8ccb4687a569b9c459d88fd684ab93495db5da8416630d08692ed",
+        "gitA": "86b8e1e3cbe8ccb4687a569b9c459d88fd684ab93495db5da8416630d08692ed",
+        "matched": true
+      }
+    },
+    "limit": "Binds5353 explicit runtime inputs used by formal/plains and5352 forest runtime inputs toGitA; not a claim that every doc in the older dirty run matched laterGitA. Full forest original input digest separately matched an explicitly reconstructed old snapshot. Native execution itself reported96bf plus original dirty changes."
+  },
+  "proof_path": "/tmp/plains_final_selected_proof.json",
+  "proof_sha256": "6af229d02d22a427f2adc004de7824f620fb28fbb9d9e008e9477e5a3b667f6f",
+  "scripts": [
+    {
+      "path": "/tmp/review_plains_final_selected.py",
+      "sha256": "c7795511c1234097dc1529805ad83fc3c0a5aa779c08d0e70b2378f63bf63fb7"
+    },
+    {
+      "path": "/tmp/bind_plains_selected_to_frozen_a.py",
+      "sha256": "64236d007aa8570f5577df4eb999b2eda7f187715d6537c91adfc714338e1386"
+    }
+  ],
+  "stdout_logs": [
+    {
+      "path": "/tmp/plains_final_selected_review.log",
+      "sha256": "c2c3bff3026df2f9b3c38810e9e9e18a20b0dc9fd995cc1b6118ea6613023a5a"
+    },
+    {
+      "path": "/tmp/plains_final_selected_binding.log",
+      "sha256": "9ed4fbbfcb383e032b0b3ed9157beba62196e479d3005eef7b69dd9a327e44fb"
+    }
+  ]
+}

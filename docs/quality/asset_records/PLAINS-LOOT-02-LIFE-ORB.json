@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAINS-LOOT-02-LIFE-ORB",
+  "task_id": "PLAINS-MOTION-LOOT-02",
+  "content_version": "plains-motion-loot-v1",
+  "source_path": "assets/plains_loot_02/source/generated-original.png",
+  "source_sha256": "a24be1307b7cf41d6f8af7e3473fca5b6e74015395e11ed2e848d4b2885e5cb7",
+  "runtime_paths": [
+    "assets/plains_loot_02/life_orb.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "unknown_not_exposed",
+  "prompt_or_reference": "assets/plains_loot_02/source/prompt.txt and request.json; exact input style20/direction copies and response metadata preserved.",
+  "processing": "Runtime PNG is an exact byte copy of original generated PNG; no pixel edit, resize or repaint. Consumer uses measured integer alpha>=128 region285,236,701,740, nearest and 1wu sampler. Neutral master only; code owns flight/bounce/pulse/collection, actual normal-size/animation review pending.",
+  "usage_scope": "Distinct mint glass healing orb for enemy death loot in actual PlainsStageVisual; actual gameplay effects and probability remain authoritative elsewhere.",
+  "license_status": "unknown",
+  "license_source": "Generation service did not expose output license or model terms. Original request/prompt/response/source preserved; commercial use is not certified; no CC0 claim for generated orb.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "consumer_scripts": [
+    "scripts/art/plains_stage_visual.gd"
+  ],
+  "associated_files": [
+    {
+      "path": "assets/plains_loot_02/manifest.json",
+      "sha256": "953e9575c275646969ba18e1a1ff792ae2ae06b8903c153ce263177221cc42ee",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/plains_loot_02/provenance.json",
+      "sha256": "3f09c279e9da9d0f9ed85cd42d60a85fc96cddaf4e87aad765e3cd1d8d53cd8e",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_loot_02/source/prompt.txt",
+      "sha256": "81e7b575231f8b015f2c7422865200408692a3f4d2015df933b518c6b6424418",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_loot_02/source/request.json",
+      "sha256": "e16b2297fea14d46586c508172db5a5815b8c3ecaced7e311a5c7d4024280f1d",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_loot_02/source/response-metadata.json",
+      "sha256": "cb28eb3ba870aee07345b8a6d0c6fe664d12c7aa9fdbc1c1a4fbbc99b30f7417",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/plains_loot_02/source/style20-input.json",
+      "sha256": "4b5e3d134f4e5970b479e25010a4d2e7a8c3e482d0bca5349640bf0d7b1c4ada",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/plains_loot_02/source/windchime-direction-input.json",
+      "sha256": "8829d6f6fcce91c772edb15190b649e05c7a4f66c52481703b82ba5649041b0c",
+      "role": "source_contract"
+    }
+  ]
+}

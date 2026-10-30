@@ -1,0 +1,1793 @@
+{
+  "reviewer": "/root/corpse_contact_audit",
+  "scope": "Read-only source and original CI phase performance diagnosis, no Godot/profile run, no production/test changes",
+  "current_head": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+  "old_ci_run": 40964265759,
+  "new_ci_run": 40993924803,
+  "source_sha256": {
+    "scripts/demo/demo_app.gd": "f5f9683e5fedecb249700efad3f3c0126a09233466fe9bda1fbd923f2d8db689",
+    "scripts/demo/generated_demo_stage.gd": "5935f1627ae9ff6222d073a8d1a6379a780c2f72bc12ad6d764c518100544b23",
+    "scripts/demo/plains_region_stage.gd": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61",
+    "scripts/demo/thorn_forest_region_stage.gd": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+    "scripts/art/plains_stage_visual.gd": "9547f09d904a64ae437a4cf61c08b55ed126307e896966d93633053862ab127f",
+    "scripts/rewards/plains_loot_motion.gd": "f8524270478cff2d8026dc8d74f7a23ec960e3fa70160f9ed39cdeebd9e736cb",
+    "scripts/enemies/plains_motion_02.gd": "82394b547e5e769a4a8b981a2028834d7f21a6ff0f9d863554a259084aad3f60",
+    "tools/run_forest_depth_region.py": "781469d74f1b51520da10d94aed822e6b2e78cc1dc645b69bd49abeda0581667"
+  },
+  "evidence": {
+    "old_phase_zip": "build/plains-ci-40964265759/phase-serial.zip",
+    "old_phase_zip_sha256": "d48eec6818d5f101597708eeccd21eef0b62571981d9b9b9caca3e8db5ec5784",
+    "new_report": "build/plains-ci-40993924803/serial-phase-failed/report.json",
+    "new_report_sha256": "307132935eb672cdff9da867e697494726634e4f6103aef56165b604bb0ae2e6",
+    "new_forest_log_sha256": "e9dea4bfbd02517bded32939925a9f00f7195e8eddf3b5680a0cabe7e1f06ae9"
+  },
+  "summary": {
+    "old_completed_routes": 80,
+    "new_completed_routes": 53,
+    "paired_routes": 53,
+    "new_completed_statuses": [
+      "passed"
+    ],
+    "paired_total_median_ratio": 2.062459388573068,
+    "paired_segment_median_ratio": {
+      "native_seconds": 2.076268713708533,
+      "json_read_parse_seconds": 1.5852341295660095,
+      "validate_seconds": 2.037239143569186
+    },
+    "common_passed_serial_checks": 17,
+    "serial_check_median_ratio": 1.5550802139037432
+  },
+  "paired_serial_checks": [
+    {
+      "id": "environment",
+      "old_seconds": 0.141,
+      "new_seconds": 0.163,
+      "ratio": 1.1560283687943265
+    },
+    {
+      "id": "web-build",
+      "old_seconds": 63.603,
+      "new_seconds": 103.641,
+      "ratio": 1.6294986085562002
+    },
+    {
+      "id": "web-bundle",
+      "old_seconds": 1.336,
+      "new_seconds": 2.006,
+      "ratio": 1.5014970059880237
+    },
+    {
+      "id": "level-design-runtime",
+      "old_seconds": 20.169,
+      "new_seconds": 31.483,
+      "ratio": 1.56095988893847
+    },
+    {
+      "id": "level-design-golden",
+      "old_seconds": 12.702,
+      "new_seconds": 25.566,
+      "ratio": 2.0127538970240906
+    },
+    {
+      "id": "level-formal-runtime",
+      "old_seconds": 16.509,
+      "new_seconds": 31.631,
+      "ratio": 1.9159852201829306
+    },
+    {
+      "id": "plains-redesign-spatial",
+      "old_seconds": 87.079,
+      "new_seconds": 136.909,
+      "ratio": 1.5722390013665752
+    },
+    {
+      "id": "plains-experience-golden",
+      "old_seconds": 51.032,
+      "new_seconds": 72.5,
+      "ratio": 1.420677222135131
+    },
+    {
+      "id": "plains-encounter-policy",
+      "old_seconds": 259.142,
+      "new_seconds": 517.173,
+      "ratio": 1.9957127752351993
+    },
+    {
+      "id": "plains-redesign-scene",
+      "old_seconds": 166.638,
+      "new_seconds": 291.363,
+      "ratio": 1.748478738342995
+    },
+    {
+      "id": "terrain-family-tests",
+      "old_seconds": 30.788,
+      "new_seconds": 45.821,
+      "ratio": 1.488274652461998
+    },
+    {
+      "id": "forest-h-slice",
+      "old_seconds": 9.098,
+      "new_seconds": 13.08,
+      "ratio": 1.4376786106836665
+    },
+    {
+      "id": "forest-ecology",
+      "old_seconds": 2.438,
+      "new_seconds": 4.159,
+      "ratio": 1.705906480721903
+    },
+    {
+      "id": "forest-progression",
+      "old_seconds": 0.935,
+      "new_seconds": 1.454,
+      "ratio": 1.5550802139037432
+    },
+    {
+      "id": "forest-campaign",
+      "old_seconds": 7.796,
+      "new_seconds": 11.881,
+      "ratio": 1.5239866598255516
+    },
+    {
+      "id": "forest-debug",
+      "old_seconds": 6.745,
+      "new_seconds": 9.976,
+      "ratio": 1.4790214974054856
+    },
+    {
+      "id": "forest-traversal",
+      "old_seconds": 6.244,
+      "new_seconds": 9.022,
+      "ratio": 1.4449071108263933
+    }
+  ],
+  "paired_routes": [
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 19.43857848300013,
+      "new_seconds": 40.88786078300018,
+      "total_ratio": 2.1034388300954396,
+      "timing": {
+        "native_seconds": {
+          "old": 19.01163876800001,
+          "new": 40.02625991099967,
+          "ratio": 2.105355587671433
+        },
+        "json_read_parse_seconds": {
+          "old": 0.20676286200000504,
+          "new": 0.3514027960000021,
+          "ratio": 1.6995450372513878
+        },
+        "validate_seconds": {
+          "old": 0.21021432699990328,
+          "new": 0.49521459300012793,
+          "ratio": 2.3557604282621316
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.783434857999964,
+      "new_seconds": 43.47886890400014,
+      "total_ratio": 2.091996303838306,
+      "timing": {
+        "native_seconds": {
+          "old": 20.28031764299999,
+          "new": 42.5821782830003,
+          "ratio": 2.0996800460715708
+        },
+        "json_read_parse_seconds": {
+          "old": 0.19957092499998907,
+          "new": 0.4173176819999753,
+          "ratio": 2.0910745490606817
+        },
+        "validate_seconds": {
+          "old": 0.29600544300001275,
+          "new": 0.4697614930000782,
+          "ratio": 1.587002888322084
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.917443278000064,
+      "new_seconds": 44.70035397100037,
+      "total_ratio": 2.1369893718327417,
+      "timing": {
+        "native_seconds": {
+          "old": 20.528779290999864,
+          "new": 43.68732984799999,
+          "ratio": 2.1281016873299032
+        },
+        "json_read_parse_seconds": {
+          "old": 0.15152347699995516,
+          "new": 0.6008308779996696,
+          "ratio": 3.9652659105746855
+        },
+        "validate_seconds": {
+          "old": 0.23057123199987473,
+          "new": 0.4030339899995852,
+          "ratio": 1.7479803811769725
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 22.646532309000122,
+      "new_seconds": 49.146542941999996,
+      "total_ratio": 2.1701575442730503,
+      "timing": {
+        "native_seconds": {
+          "old": 22.266079493000007,
+          "new": 48.46553718699988,
+          "ratio": 2.176653379964643
+        },
+        "json_read_parse_seconds": {
+          "old": 0.25087060900000324,
+          "new": 0.41361229399990407,
+          "ratio": 1.6487076571010306
+        },
+        "validate_seconds": {
+          "old": 0.122594817999925,
+          "new": 0.2574725509998643,
+          "ratio": 2.100191143479016
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.338577364000002,
+      "new_seconds": 35.31345262200011,
+      "total_ratio": 1.9256375192616118,
+      "timing": {
+        "native_seconds": {
+          "old": 18.00455446900014,
+          "new": 34.30501643499974,
+          "ratio": 1.9053521426517601
+        },
+        "json_read_parse_seconds": {
+          "old": 0.13482404100000167,
+          "new": 0.32896580799979347,
+          "ratio": 2.439964012054715
+        },
+        "validate_seconds": {
+          "old": 0.15650228399999833,
+          "new": 0.65631927000004,
+          "ratio": 4.193672151136446
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 19.782730009000034,
+      "new_seconds": 39.338033579999774,
+      "total_ratio": 1.9885037890171464,
+      "timing": {
+        "native_seconds": {
+          "old": 19.239992884999992,
+          "new": 37.780777383999975,
+          "ratio": 1.9636585943571148
+        },
+        "json_read_parse_seconds": {
+          "old": 0.19757546000005277,
+          "new": 0.3509518209998532,
+          "ratio": 1.7762925668995506
+        },
+        "validate_seconds": {
+          "old": 0.3360311690000799,
+          "new": 1.1961351859999922,
+          "ratio": 3.559595943314734
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 19.43568167999979,
+      "new_seconds": 36.793549325000185,
+      "total_ratio": 1.893092814072091,
+      "timing": {
+        "native_seconds": {
+          "old": 19.011837929000194,
+          "new": 36.03895772199985,
+          "ratio": 1.8956061931827697
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2461610649997965,
+          "new": 0.40671223899971665,
+          "ratio": 1.6522200170041224
+        },
+        "validate_seconds": {
+          "old": 0.17044614299993555,
+          "new": 0.3382200080000075,
+          "ratio": 1.9843218628897659
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 22.662044497999887,
+      "new_seconds": 43.87830110699997,
+      "total_ratio": 1.9362022306007118,
+      "timing": {
+        "native_seconds": {
+          "old": 22.145450923,
+          "new": 43.00130899199985,
+          "ratio": 1.941767144029531
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3341424029999871,
+          "new": 0.5254759690001265,
+          "ratio": 1.5726108517874842
+        },
+        "validate_seconds": {
+          "old": 0.17367307999984405,
+          "new": 0.3399670320000041,
+          "ratio": 1.9575113886407116
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.272659201999886,
+      "new_seconds": 38.26449562500011,
+      "total_ratio": 1.8874926690044362,
+      "timing": {
+        "native_seconds": {
+          "old": 19.774935798000115,
+          "new": 37.428868911000336,
+          "ratio": 1.8927428788307674
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3019487779999963,
+          "new": 0.4614276540000901,
+          "ratio": 1.528165330081567
+        },
+        "validate_seconds": {
+          "old": 0.18749853600002098,
+          "new": 0.3622658879999108,
+          "ratio": 1.932099821834717
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 19.171417619000067,
+      "new_seconds": 36.61383002399998,
+      "total_ratio": 1.9098133873894332,
+      "timing": {
+        "native_seconds": {
+          "old": 18.739255236999952,
+          "new": 35.88748890600027,
+          "ratio": 1.9150968622884104
+        },
+        "json_read_parse_seconds": {
+          "old": 0.26877548700008447,
+          "new": 0.4138868189997993,
+          "ratio": 1.5398979409147875
+        },
+        "validate_seconds": {
+          "old": 0.15624394099995698,
+          "new": 0.30279836899990187,
+          "ratio": 1.9379847119958735
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 24.055589986000086,
+      "new_seconds": 45.038493947999996,
+      "total_ratio": 1.872267276512926,
+      "timing": {
+        "native_seconds": {
+          "old": 23.506176258000096,
+          "new": 44.068606048999754,
+          "ratio": 1.8747671065387097
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3845667369998864,
+          "new": 0.6394226070001423,
+          "ratio": 1.6627090839640952
+        },
+        "validate_seconds": {
+          "old": 0.15471136900009697,
+          "new": 0.3165447060000588,
+          "ratio": 2.0460339020066485
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-00",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 30.971207050999965,
+      "new_seconds": 59.877639940000336,
+      "total_ratio": 1.933332460740082,
+      "timing": {
+        "native_seconds": {
+          "old": 30.108023629000172,
+          "new": 58.40547280200008,
+          "ratio": 1.9398640549007569
+        },
+        "json_read_parse_seconds": {
+          "old": 0.5524191309998514,
+          "new": 0.8589768379997622,
+          "ratio": 1.554936803953651
+        },
+        "validate_seconds": {
+          "old": 0.29677060799986066,
+          "new": 0.5946408100003282,
+          "ratio": 2.00370519846294
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 17.254035611000063,
+      "new_seconds": 32.67426567699977,
+      "total_ratio": 1.89371729684902,
+      "timing": {
+        "native_seconds": {
+          "old": 16.849268582999912,
+          "new": 32.07119135399989,
+          "ratio": 1.9034174211192856
+        },
+        "json_read_parse_seconds": {
+          "old": 0.20051324800010661,
+          "new": 0.30375679999997374,
+          "ratio": 1.5148964122301396
+        },
+        "validate_seconds": {
+          "old": 0.19866252600013468,
+          "new": 0.2915401379996183,
+          "ratio": 1.4675145024553884
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.336300363999953,
+      "new_seconds": 34.625549928000055,
+      "total_ratio": 1.8883607511131923,
+      "timing": {
+        "native_seconds": {
+          "old": 17.987797627999953,
+          "new": 34.00342533100002,
+          "ratio": 1.8903606786230465
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2200933089998216,
+          "new": 0.3594131469999411,
+          "ratio": 1.633003513978848
+        },
+        "validate_seconds": {
+          "old": 0.12197676499999943,
+          "new": 0.25386442899980466,
+          "ratio": 2.0812523516245562
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 23.20385278499998,
+      "new_seconds": 45.46102170600034,
+      "total_ratio": 1.959201436383375,
+      "timing": {
+        "native_seconds": {
+          "old": 22.664408044000083,
+          "new": 44.44586435800011,
+          "ratio": 1.9610423652677837
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3024514249998447,
+          "new": 0.5061211869997351,
+          "ratio": 1.6733966024461449
+        },
+        "validate_seconds": {
+          "old": 0.2281645779999053,
+          "new": 0.4970257730001322,
+          "ratio": 2.178365184276494
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-02",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 16.089688375999913,
+      "new_seconds": 32.26610990800009,
+      "total_ratio": 2.0053906050865247,
+      "timing": {
+        "native_seconds": {
+          "old": 15.8081498869999,
+          "new": 31.665850501000023,
+          "ratio": 2.0031345051352893
+        },
+        "json_read_parse_seconds": {
+          "old": 0.15636506199984979,
+          "new": 0.26728768500015576,
+          "ratio": 1.7093824002731028
+        },
+        "validate_seconds": {
+          "old": 0.11998574900007952,
+          "new": 0.32594040200001473,
+          "ratio": 2.7164926228013853
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.98542801099984,
+      "new_seconds": 46.843702872999984,
+      "total_ratio": 2.232201451809614,
+      "timing": {
+        "native_seconds": {
+          "old": 20.553566832000115,
+          "new": 46.036855036999896,
+          "ratio": 2.2398474879466916
+        },
+        "json_read_parse_seconds": {
+          "old": 0.24533589900011066,
+          "new": 0.40572716799988484,
+          "ratio": 1.6537619225456355
+        },
+        "validate_seconds": {
+          "old": 0.1796375490000628,
+          "new": 0.38995492200001536,
+          "ratio": 2.1707873669545505
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.941964532000156,
+      "new_seconds": 45.462913998000204,
+      "total_ratio": 2.1709001525874547,
+      "timing": {
+        "native_seconds": {
+          "old": 20.53741691999994,
+          "new": 44.76270720399998,
+          "ratio": 2.1795685104103204
+        },
+        "json_read_parse_seconds": {
+          "old": 0.22440967399984402,
+          "new": 0.3495068759998503,
+          "ratio": 1.5574501302474744
+        },
+        "validate_seconds": {
+          "old": 0.17355857699999433,
+          "new": 0.34179597000002104,
+          "ratio": 1.969340702764763
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.838973332000023,
+      "new_seconds": 45.840958891000355,
+      "total_ratio": 2.099043677288204,
+      "timing": {
+        "native_seconds": {
+          "old": 21.452266433999966,
+          "new": 45.185848678000184,
+          "ratio": 2.106343812996121
+        },
+        "json_read_parse_seconds": {
+          "old": 0.23650642100005825,
+          "new": 0.37290800899972965,
+          "ratio": 1.5767352422099263
+        },
+        "validate_seconds": {
+          "old": 0.14328829399983078,
+          "new": 0.2727333610000642,
+          "ratio": 1.9033889886384316
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.807328984999913,
+      "new_seconds": 44.17722556100034,
+      "total_ratio": 2.123156969971873,
+      "timing": {
+        "native_seconds": {
+          "old": 20.425850416000003,
+          "new": 43.44895684899984,
+          "ratio": 2.127155343062992
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2441362240001581,
+          "new": 0.360050321000017,
+          "ratio": 1.4747927001598247
+        },
+        "validate_seconds": {
+          "old": 0.13101475199982815,
+          "new": 0.35869035099995017,
+          "ratio": 2.7377859784860004
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.656512953000174,
+      "new_seconds": 42.7281681960003,
+      "total_ratio": 2.0685082856540125,
+      "timing": {
+        "native_seconds": {
+          "old": 20.187114760999975,
+          "new": 41.92626680000012,
+          "ratio": 2.0768825707078555
+        },
+        "json_read_parse_seconds": {
+          "old": 0.26325541799997154,
+          "new": 0.40016009500004657,
+          "ratio": 1.5200450499373572
+        },
+        "validate_seconds": {
+          "old": 0.198874227000033,
+          "new": 0.39196011600006386,
+          "ratio": 1.9708944789512561
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.07516577299998,
+      "new_seconds": 41.302571011000055,
+      "total_ratio": 2.0573962615317374,
+      "timing": {
+        "native_seconds": {
+          "old": 19.665123572000084,
+          "new": 40.506873598999846,
+          "ratio": 2.0598331584691896
+        },
+        "json_read_parse_seconds": {
+          "old": 0.23004464399991775,
+          "new": 0.35876826300000175,
+          "ratio": 1.5595592958040354
+        },
+        "validate_seconds": {
+          "old": 0.1734195690000888,
+          "new": 0.4279519349997827,
+          "ratio": 2.4677257443741167
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 24.836756238999897,
+      "new_seconds": 52.11776077700006,
+      "total_ratio": 2.0984125412948322,
+      "timing": {
+        "native_seconds": {
+          "old": 23.81216110000014,
+          "new": 50.851578559000245,
+          "ratio": 2.1355297549620538
+        },
+        "json_read_parse_seconds": {
+          "old": 0.27164381199986565,
+          "new": 0.4768280670000422,
+          "ratio": 1.7553430114589839
+        },
+        "validate_seconds": {
+          "old": 0.7420785459999024,
+          "new": 0.776208774999759,
+          "ratio": 1.04599274454683
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-01",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 26.70319960400002,
+      "new_seconds": 56.76128177999999,
+      "total_ratio": 2.1256359770271653,
+      "timing": {
+        "native_seconds": {
+          "old": 25.799582530999942,
+          "new": 55.75975722500016,
+          "ratio": 2.1612658715698614
+        },
+        "json_read_parse_seconds": {
+          "old": 0.26320713099994464,
+          "new": 0.4620543850001013,
+          "ratio": 1.7554782168884266
+        },
+        "validate_seconds": {
+          "old": 0.632806569999957,
+          "new": 0.5291672319999634,
+          "ratio": 0.8362227212653613
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 16.90851384000007,
+      "new_seconds": 32.767790631000025,
+      "total_ratio": 1.9379462288094205,
+      "timing": {
+        "native_seconds": {
+          "old": 16.56416220799997,
+          "new": 32.1678894810002,
+          "ratio": 1.9420172947512022
+        },
+        "json_read_parse_seconds": {
+          "old": 0.20675043500000356,
+          "new": 0.30913144400028614,
+          "ratio": 1.4951912628395718
+        },
+        "validate_seconds": {
+          "old": 0.13173493900012545,
+          "new": 0.2827103459999307,
+          "ratio": 2.1460544039851226
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.079259569999977,
+      "new_seconds": 40.71473841499983,
+      "total_ratio": 1.9315070474745273,
+      "timing": {
+        "native_seconds": {
+          "old": 20.394537580000133,
+          "new": 39.79181713300022,
+          "ratio": 1.9511017093136742
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3126478379999753,
+          "new": 0.4592498870001691,
+          "ratio": 1.4689047266023487
+        },
+        "validate_seconds": {
+          "old": 0.35506835000001047,
+          "new": 0.4530412009999054,
+          "ratio": 1.2759267363590476
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 16.800454583999908,
+      "new_seconds": 33.56411723600013,
+      "total_ratio": 1.9978100633041962,
+      "timing": {
+        "native_seconds": {
+          "old": 16.442820854000047,
+          "new": 32.99811635600008,
+          "ratio": 2.0068403499009495
+        },
+        "json_read_parse_seconds": {
+          "old": 0.1384689190001609,
+          "new": 0.3003964439999436,
+          "ratio": 2.1694142351150623
+        },
+        "validate_seconds": {
+          "old": 0.1998988999998801,
+          "new": 0.25787902599995505,
+          "ratio": 1.29004724888486
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.779098599000008,
+      "new_seconds": 35.49213766699995,
+      "total_ratio": 1.8899808997695937,
+      "timing": {
+        "native_seconds": {
+          "old": 18.38802423800007,
+          "new": 34.63577735300032,
+          "ratio": 1.8836051608754785
+        },
+        "json_read_parse_seconds": {
+          "old": 0.24308092000001125,
+          "new": 0.4905866049998622,
+          "ratio": 2.01820284784112
+        },
+        "validate_seconds": {
+          "old": 0.14099392900016028,
+          "new": 0.35623451999981626,
+          "ratio": 2.5265947443695347
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.085040789000004,
+      "new_seconds": 37.29966216799994,
+      "total_ratio": 2.062459388573068,
+      "timing": {
+        "native_seconds": {
+          "old": 17.69498130199986,
+          "new": 36.73953606699979,
+          "ratio": 2.076268713708533
+        },
+        "json_read_parse_seconds": {
+          "old": 0.18537619499988978,
+          "new": 0.28206285300029776,
+          "ratio": 1.5215699782837029
+        },
+        "validate_seconds": {
+          "old": 0.1992610039999363,
+          "new": 0.27063939300023776,
+          "ratio": 1.3582155442734007
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.282832223000014,
+      "new_seconds": 37.418701155000235,
+      "total_ratio": 2.0466577988899926,
+      "timing": {
+        "native_seconds": {
+          "old": 17.950371765,
+          "new": 36.88691390599979,
+          "ratio": 2.054938715972593
+        },
+        "json_read_parse_seconds": {
+          "old": 0.16184126899997864,
+          "new": 0.2666819060000307,
+          "ratio": 1.6477991531323566
+        },
+        "validate_seconds": {
+          "old": 0.1655405060000703,
+          "new": 0.2582250310001655,
+          "ratio": 1.5598903086598985
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.42082094400007,
+      "new_seconds": 42.6870727710002,
+      "total_ratio": 1.9927841646497104,
+      "timing": {
+        "native_seconds": {
+          "old": 20.567851562999977,
+          "new": 41.885626956000124,
+          "ratio": 2.0364609705444017
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2279332160001104,
+          "new": 0.3708919219998279,
+          "ratio": 1.6271955817077939
+        },
+        "validate_seconds": {
+          "old": 0.6180096519999552,
+          "new": 0.42128241599994,
+          "ratio": 0.6816761107801769
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-03",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.102993073000107,
+      "new_seconds": 43.42283248300009,
+      "total_ratio": 2.057662263015987,
+      "timing": {
+        "native_seconds": {
+          "old": 20.69323417999999,
+          "new": 42.83203989100002,
+          "ratio": 2.06985720639054
+        },
+        "json_read_parse_seconds": {
+          "old": 0.20939653300001737,
+          "new": 0.31481034599983104,
+          "ratio": 1.5034171840839643
+        },
+        "validate_seconds": {
+          "old": 0.18360926099990138,
+          "new": 0.26742634600032034,
+          "ratio": 1.4564970445606444
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.563078569000027,
+      "new_seconds": 43.34827288999986,
+      "total_ratio": 2.1080633789606664,
+      "timing": {
+        "native_seconds": {
+          "old": 20.15766508500019,
+          "new": 42.50352077100024,
+          "ratio": 2.1085537730571855
+        },
+        "json_read_parse_seconds": {
+          "old": 0.229699594000067,
+          "new": 0.3793847850001839,
+          "ratio": 1.6516563150741714
+        },
+        "validate_seconds": {
+          "old": 0.16897766500005673,
+          "new": 0.45587187899991477,
+          "ratio": 2.6978232833301474
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.2354923339999,
+      "new_seconds": 44.33394990500028,
+      "total_ratio": 2.087728846013978,
+      "timing": {
+        "native_seconds": {
+          "old": 20.85580168699994,
+          "new": 43.62400459299988,
+          "ratio": 2.0916963657259964
+        },
+        "json_read_parse_seconds": {
+          "old": 0.21102870699996856,
+          "new": 0.35285388500005865,
+          "ratio": 1.6720658057205042
+        },
+        "validate_seconds": {
+          "old": 0.16220268100005342,
+          "new": 0.3481622129997959,
+          "ratio": 2.146463984770272
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.780040826000004,
+      "new_seconds": 45.14062728299996,
+      "total_ratio": 2.0725685338988513,
+      "timing": {
+        "native_seconds": {
+          "old": 21.139136389999976,
+          "new": 44.48369989499997,
+          "ratio": 2.1043291019231662
+        },
+        "json_read_parse_seconds": {
+          "old": 0.40380701499998395,
+          "new": 0.37304319699978805,
+          "ratio": 0.9238155434219063
+        },
+        "validate_seconds": {
+          "old": 0.21868053100001816,
+          "new": 0.27450948800014885,
+          "ratio": 1.2552991651557954
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.72269101699999,
+      "new_seconds": 42.566962998000236,
+      "total_ratio": 2.0541233261201532,
+      "timing": {
+        "native_seconds": {
+          "old": 20.318707086999893,
+          "new": 41.84432453299996,
+          "ratio": 2.059398974247351
+        },
+        "json_read_parse_seconds": {
+          "old": 0.22855570000001535,
+          "new": 0.36080495099986365,
+          "ratio": 1.5786302901211364
+        },
+        "validate_seconds": {
+          "old": 0.16879615099992407,
+          "new": 0.3527313760000652,
+          "ratio": 2.0896885024364322
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 17.90112136799985,
+      "new_seconds": 36.06088788099987,
+      "total_ratio": 2.014448544294132,
+      "timing": {
+        "native_seconds": {
+          "old": 17.39005294100002,
+          "new": 35.45285076999971,
+          "ratio": 2.038685614717915
+        },
+        "json_read_parse_seconds": {
+          "old": 0.16958315600004426,
+          "new": 0.2899282920002406,
+          "ratio": 1.7096526497016304
+        },
+        "validate_seconds": {
+          "old": 0.3359027420001439,
+          "new": 0.31051961699995445,
+          "ratio": 0.9244331116529599
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 17.624514941000143,
+      "new_seconds": 38.176389234,
+      "total_ratio": 2.1660958818894787,
+      "timing": {
+        "native_seconds": {
+          "old": 17.31094975499991,
+          "new": 37.65942535499971,
+          "ratio": 2.175468468685409
+        },
+        "json_read_parse_seconds": {
+          "old": 0.17615544599993882,
+          "new": 0.2522604920000049,
+          "ratio": 1.4320334552704803
+        },
+        "validate_seconds": {
+          "old": 0.13236373700010517,
+          "new": 0.25778382999988025,
+          "ratio": 1.9475411909809968
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.6705459650002,
+      "new_seconds": 46.072269316000074,
+      "total_ratio": 2.126031775591199,
+      "timing": {
+        "native_seconds": {
+          "old": 21.310355916999924,
+          "new": 45.34989941899994,
+          "ratio": 2.128068606438569
+        },
+        "json_read_parse_seconds": {
+          "old": 0.22054943200009802,
+          "new": 0.3495143529999041,
+          "ratio": 1.584743836473579
+        },
+        "validate_seconds": {
+          "old": 0.13326912900015486,
+          "new": 0.3642065249996449,
+          "ratio": 2.7328649007619887
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.815750089000176,
+      "new_seconds": 45.15648054899975,
+      "total_ratio": 2.069902724626843,
+      "timing": {
+        "native_seconds": {
+          "old": 21.12397990799991,
+          "new": 44.395097751999856,
+          "ratio": 2.1016445738611447
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3974150379999628,
+          "new": 0.3892457850001847,
+          "ratio": 0.9794440264744615
+        },
+        "validate_seconds": {
+          "old": 0.28531907599995066,
+          "new": 0.3622231180002018,
+          "ratio": 1.2695369797155254
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-04",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 27.090899547999925,
+      "new_seconds": 59.63912908300017,
+      "total_ratio": 2.2014451375943045,
+      "timing": {
+        "native_seconds": {
+          "old": 26.509957586999917,
+          "new": 58.607598813000095,
+          "ratio": 2.210776785314073
+        },
+        "json_read_parse_seconds": {
+          "old": 0.3020438609999019,
+          "new": 0.4963113200001317,
+          "ratio": 1.6431763200123206
+        },
+        "validate_seconds": {
+          "old": 0.27015715800007456,
+          "new": 0.523420121000072,
+          "ratio": 1.9374653067675798
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 17.43876750200002,
+      "new_seconds": 34.157983582999805,
+      "total_ratio": 1.9587384016148097,
+      "timing": {
+        "native_seconds": {
+          "old": 17.016924720999896,
+          "new": 33.25552824799979,
+          "ratio": 1.9542619358808406
+        },
+        "json_read_parse_seconds": {
+          "old": 0.23167059100001097,
+          "new": 0.3344147310003791,
+          "ratio": 1.4434923723243027
+        },
+        "validate_seconds": {
+          "old": 0.1840058319999116,
+          "new": 0.5543237189999672,
+          "ratio": 3.0125334233984145
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.465385708999975,
+      "new_seconds": 43.4324183220001,
+      "total_ratio": 2.1222379553247324,
+      "timing": {
+        "native_seconds": {
+          "old": 20.06917086800013,
+          "new": 41.99450333100003,
+          "ratio": 2.092488205278046
+        },
+        "json_read_parse_seconds": {
+          "old": 0.223855310999852,
+          "new": 0.7163481860002321,
+          "ratio": 3.200049991222704
+        },
+        "validate_seconds": {
+          "old": 0.1653218190001553,
+          "new": 0.7121450640001967,
+          "ratio": 4.307629012958826
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 22.86376508000012,
+      "new_seconds": 47.98599713900012,
+      "total_ratio": 2.0987793117667857,
+      "timing": {
+        "native_seconds": {
+          "old": 22.509705868999845,
+          "new": 47.301796540000396,
+          "ratio": 2.1013955853214408
+        },
+        "json_read_parse_seconds": {
+          "old": 0.22328807799999595,
+          "new": 0.41550655499986533,
+          "ratio": 1.8608541876556117
+        },
+        "validate_seconds": {
+          "old": 0.12396181799999795,
+          "new": 0.2595832050001263,
+          "ratio": 2.0940577444591093
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 31.87307842900009,
+      "new_seconds": 70.44011187100023,
+      "total_ratio": 2.2100190926932703,
+      "timing": {
+        "native_seconds": {
+          "old": 31.377557798999987,
+          "new": 69.55639884199991,
+          "ratio": 2.2167562972098707
+        },
+        "json_read_parse_seconds": {
+          "old": 0.303825106999966,
+          "new": 0.49378257299986217,
+          "ratio": 1.6252197781663824
+        },
+        "validate_seconds": {
+          "old": 0.18300292399999307,
+          "new": 0.3781546850000268,
+          "ratio": 2.066386026706552
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        2,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 16.31924355299998,
+      "new_seconds": 32.2378686029997,
+      "total_ratio": 1.9754511597489692,
+      "timing": {
+        "native_seconds": {
+          "old": 15.979291209000166,
+          "new": 31.66445774900012,
+          "ratio": 1.981593384515419
+        },
+        "json_read_parse_seconds": {
+          "old": 0.20155844800001432,
+          "new": 0.2962287790001028,
+          "ratio": 1.4696917045128357
+        },
+        "validate_seconds": {
+          "old": 0.13116494900009457,
+          "new": 0.269638286999907,
+          "ratio": 2.055719070189343
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        2,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.10859542000003,
+      "new_seconds": 38.28126661200031,
+      "total_ratio": 1.9037265314874117,
+      "timing": {
+        "native_seconds": {
+          "old": 19.714108239000097,
+          "new": 37.573235345000285,
+          "ratio": 1.9059059070533948
+        },
+        "json_read_parse_seconds": {
+          "old": 0.25939007500005573,
+          "new": 0.42497466099985104,
+          "ratio": 1.63836130198798
+        },
+        "validate_seconds": {
+          "old": 0.1277479579998726,
+          "new": 0.2726740479997716,
+          "ratio": 2.1344689360908884
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-05",
+        2,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 25.240778240999816,
+      "new_seconds": 50.22266782299994,
+      "total_ratio": 1.9897432378460038,
+      "timing": {
+        "native_seconds": {
+          "old": 24.579139337000015,
+          "new": 49.07340052999962,
+          "ratio": 1.9965467405983315
+        },
+        "json_read_parse_seconds": {
+          "old": 0.38944383700004437,
+          "new": 0.5961061900002278,
+          "ratio": 1.530660222003102
+        },
+        "validate_seconds": {
+          "old": 0.26214319299992894,
+          "new": 0.5340483739996671,
+          "ratio": 2.037239143569186
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-06",
+        1,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 19.27951186900009,
+      "new_seconds": 41.07724747700013,
+      "total_ratio": 2.130616571421035,
+      "timing": {
+        "native_seconds": {
+          "old": 18.93733837600007,
+          "new": 40.40305816199998,
+          "ratio": 2.133513029117341
+        },
+        "json_read_parse_seconds": {
+          "old": 0.19932214700020268,
+          "new": 0.31570728999986386,
+          "ratio": 1.5839047228381642
+        },
+        "validate_seconds": {
+          "old": 0.13705007699991256,
+          "new": 0.35048172599999816,
+          "ratio": 2.557326005736004
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-06",
+        1,
+        "growth"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 21.20998228999997,
+      "new_seconds": 45.601031797999894,
+      "total_ratio": 2.1499797206101277,
+      "timing": {
+        "native_seconds": {
+          "old": 20.748327532999838,
+          "new": 44.81147960299995,
+          "ratio": 2.159763457161938
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2528698959999929,
+          "new": 0.3783038830001715,
+          "ratio": 1.4960415968225105
+        },
+        "validate_seconds": {
+          "old": 0.20183513299980405,
+          "new": 0.40164230299978954,
+          "ratio": 1.9899523786088296
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-06",
+        1,
+        "high_return"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 22.904440258000022,
+      "new_seconds": 49.150607774000036,
+      "total_ratio": 2.1458986650779557,
+      "timing": {
+        "native_seconds": {
+          "old": 22.512108537999893,
+          "new": 48.49110414300003,
+          "ratio": 2.154000992894478
+        },
+        "json_read_parse_seconds": {
+          "old": 0.2551603009999326,
+          "new": 0.3863959599998452,
+          "ratio": 1.5143263214756408
+        },
+        "validate_seconds": {
+          "old": 0.13032399300004727,
+          "new": 0.263118224000209,
+          "ratio": 2.0189545911174895
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-06",
+        1,
+        "change_mind"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 18.983064542999955,
+      "new_seconds": 39.663462999999865,
+      "total_ratio": 2.0894130613186928,
+      "timing": {
+        "native_seconds": {
+          "old": 18.65456843400011,
+          "new": 39.081248119000065,
+          "ratio": 2.0949961001386646
+        },
+        "json_read_parse_seconds": {
+          "old": 0.193340132000003,
+          "new": 0.3033205840001756,
+          "ratio": 1.5688444031897675
+        },
+        "validate_seconds": {
+          "old": 0.12962063200006924,
+          "new": 0.27139976499984186,
+          "ratio": 2.0938006612997913
+        }
+      }
+    },
+    {
+      "case": [
+        "forest-depth-hollow-06",
+        2,
+        "fast"
+      ],
+      "old_status": "passed",
+      "new_status": "passed",
+      "old_seconds": 20.794695651999973,
+      "new_seconds": 43.11417172799975,
+      "total_ratio": 2.073325450370472,
+      "timing": {
+        "native_seconds": {
+          "old": 20.34412941200003,
+          "new": 42.307608213000094,
+          "ratio": 2.0795978710224317
+        },
+        "json_read_parse_seconds": {
+          "old": 0.24683967100008886,
+          "new": 0.391298671000186,
+          "ratio": 1.5852341295660095
+        },
+        "validate_seconds": {
+          "old": 0.19650045599996702,
+          "new": 0.4055038460001015,
+          "ratio": 2.0636280151948836
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "status": "observed",
+      "finding": "All53 emitted current route results pass; the outer original600s check times out before all80, rather than a specificroute failing/hanging."
+    },
+    {
+      "status": "observed",
+      "finding": "17 unrelated serialchecks broadly slower, median1.555x. The same53 routes are2.062x wall, including PythonJSON parse/validation slowdown, while root independentlyobserved currentparallel phase faster. This fitsrunner-specificthroughput differences better than an isolatednewmonster/loot regression; not a CPUbenchmarkproof."
+    },
+    {
+      "status": "unmeasured_hotspot_candidate",
+      "path": "scripts/demo/generated_demo_stage.gd",
+      "finding": "Everyforestphysics tick now scans allauthoredpickups throughadvance then scans themagain in_save_pickup_units evenwhen no physicalunits/drops exist. Eachdynamicunit also resnapshotsmerge everytick, includingclaimed/unchangedatrest units.",
+      "safe_production_direction_if_profile_confirms": "Fastreturn for emptydrop ledger and explicit dynamicunclaimedunit registration/dirtyledger persistence, retaining settledsupportloss detection and exactsave/claim semantics. No implementation recommended yet withoutprofile."
+    },
+    {
+      "status": "unmeasured_hotspot_candidate",
+      "path": "scripts/demo/demo_app.gd",
+      "finding": "_pickup_within_reach nowto_global eachpickup and makesa shallow dictionarycopy for every farunclaimedpickup whenever_item_runtime exists, evenif B01effectabsent. Originalmagnetdispatchalreadyoccurred; onlynewconversion/copy isdelta.",
+      "safe_production_direction_if_profile_confirms": "PreserveworldLOS but adapt onlywhenmagnetcouldapply; do not change46radius/readyclock/RNG/receipts. Profilebeforeaddinginterfaces/caches."
+    },
+    {
+      "status": "unmeasured_hotspot_candidate",
+      "path": "scripts/art/plains_stage_visual.gd",
+      "finding": "Everyauthoredcoin nowrunsclusterloop and manypropertywrites, evenclaimedhiddenones, versusoldmostlyscale.x. Biblev15 usesitsownsharedobjectrenderer in somepaths, so actualconsumerinventoryneeded beforeattribution.",
+      "safe_production_direction_if_profile_confirms": "Keepauthoritativegame state same; skip unchangedfullyhiddenvisualwork/onlyupdateactualconsumer withoutdisablingrenderchecks."
+    }
+  ],
+  "not_proven": [
+    "CPUcapacitycount4 andworker4 do notmeasure actualCPUfrequency/hostcontention; oldcountcomparison isroot-supplied, not benchmarkproof",
+    "Same-machine same-source baselineA/B timing",
+    "Hotspot CPUprofile underactualforest route",
+    "That productionchanges explainallorany600s failure"
+  ],
+  "constraints": [
+    "Preserveall80cases/originalfirst16order",
+    "Keep60Hz/90import/240native/600overall caps andallassertions",
+    "Do notlowercoverage/sampling/validation tosolve timeout",
+    "Do noteditproduction justtofit unrelatedslowrunner"
+  ],
+  "recommended_next_evidence": "Currentoriginalmatrixreceipt confirms os4/affinity4/unlimitedvisiblequota/effective4/workers4. Preservefailure, complete intendedguardrevision andrunfreshsame-sourceoriginalfull underunchangedgates. Ifserialthroughputfailure repeats, profile actualroute on comparablehost; donotmarkfixedfromthisreceipt.",
+  "matrix_original_receipt": {
+    "path": "build/plains-ci-40993924803/serial-selected-original/matrix-receipt.json",
+    "sha256": "c95f064bce0fb262be5995969331325710d8534992fb46b95f9dcd25d40584f3",
+    "status": "running",
+    "source_head": "a5ff2ccb9bd59efc79eb5fb1bc2b6e59de0f4249",
+    "completed_runs": 53,
+    "requested_cases": 80,
+    "case_workers": 4,
+    "cpu_capacity": {
+      "os_cpu_count": 4,
+      "affinity_cpu_ids": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cgroup_memberships": "0::/system.slice/hosted-compute-agent.service",
+      "cgroup_quota_sources": [
+        {
+          "version": 2,
+          "mount_root": "/",
+          "mount_point": "/sys/fs/cgroup",
+          "membership": "/system.slice/hosted-compute-agent.service",
+          "paths": [
+            "/sys/fs/cgroup/system.slice/hosted-compute-agent.service/cpu.max"
+          ],
+          "raw": [
+            "max 100000"
+          ],
+          "quota_cpus": null,
+          "status": "unlimited"
+        },
+        {
+          "version": 2,
+          "mount_root": "/",
+          "mount_point": "/sys/fs/cgroup",
+          "membership": "/system.slice/hosted-compute-agent.service",
+          "paths": [
+            "/sys/fs/cgroup/system.slice/cpu.max"
+          ],
+          "raw": [
+            "max 100000"
+          ],
+          "quota_cpus": null,
+          "status": "unlimited"
+        },
+        {
+          "version": 2,
+          "mount_root": "/",
+          "mount_point": "/sys/fs/cgroup",
+          "membership": "/system.slice/hosted-compute-agent.service",
+          "paths": [
+            "/sys/fs/cgroup/cpu.max"
+          ],
+          "raw": [
+            null
+          ],
+          "quota_cpus": null,
+          "status": "unreadable"
+        }
+      ],
+      "read_errors": [
+        "/sys/fs/cgroup/cpu.max/FileNotFoundError"
+      ],
+      "effective_cpu_capacity": 4,
+      "capacity_rule": "minimum positive os count, affinity count and readable visible cgroup ancestor quotas; hidden ancestors are not observable"
+    },
+    "meaning": "Original componentreceipt remainedrunning becauseouter600check killedits processgroup; not a falsecomplete result."
+  }
+}

@@ -218,7 +218,7 @@ static func _compile(catalog: Dictionary, seed_value: String, order: Array, reci
 		for stand: Dictionary in place.safe_stands: placement_points.append(Vector2(stand.position[0],stand.position[1]))
 	var drops := EnemyDropService.new()
 	if not drops.configure(seed_value,"plains_region"): return {"ok":false,"error":"Original drop service rejected seed"}
-	for enemy: Dictionary in plan.enemies: m.enemy_drops[enemy.id] = drops.settle(StringName(enemy.id))
+	for enemy: Dictionary in plan.enemies: m.enemy_drops[enemy.id] = drops.settle(StringName(enemy.id),StringName(enemy.behavior_id))
 	return {"ok":true,"manifest":m,"environment_plan":plan,"placement_points":placement_points,"boss_arena":Rect2(-2000,-2000,1,1),"stage_generator_version":VERSION,"encounter_plan":{"version":VERSION,"enemies":plan.enemies},"shot_latch_plan":m.shot_latch_plan}
 
 # Joint input owns source shapes and semantic relationships. Legacy world-space

@@ -49,6 +49,26 @@ var _saved_collision_foot := Vector2.ZERO
 var _feet: Dictionary = {}
 var _saved_presentation: Dictionary = {}
 var _saved_support: WeakRef
+var _kill_hold_remaining := 0.0
+var _landing_sound_played := false
+
+func _feedback_actor() -> EnemyActor:
+	return _motor.get_node_or_null("Actor") as EnemyActor if is_instance_valid(_motor) else null
+
+func _reset_death_feedback() -> void:
+	_kill_hold_remaining = 0.0
+	_landing_sound_played = false
+
+func _advance_after_kill_hold(delta: float) -> float:
+	if restored or _kill_hold_remaining <= 0.0: return delta
+	var held := minf(delta, _kill_hold_remaining)
+	_kill_hold_remaining -= held
+	return delta - held
+
+func _play_landing_feedback(stream_override: AudioStream = null) -> void:
+	if restored or _landing_sound_played: return
+	_landing_sound_played = true
+	PlainsEnemyAudio.landed(self, _feedback_actor(), stream_override)
 
 func support_node() -> Node2D:
 	return _support.get_ref() as Node2D if _support != null else null
@@ -122,6 +142,7 @@ func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, mot
 		_restore_pending = true
 
 func _capture() -> void:
+	_reset_death_feedback()
 	var data: Dictionary = _view.call()
 	_frames = data.frames as EnemyFeedback01Frames
 	# Host supplies its actual world bottom-center and facing. The helper bounds
@@ -224,6 +245,9 @@ func _committed(context: Dictionary) -> void:
 	_last_serial = _sample.impact_serial
 	_begun = true
 	_capture()
+	if PlainsEnemyAudio.supports(_feedback_actor()):
+		var hold := _sample.tuning.plains_kill_hold_seconds
+		_kill_hold_remaining = clampf(hold, 0.0, 0.06) if is_finite(hold) else 0.0
 	_set_frame(4)
 	# The legacy flyer art extends below its collision feet. When its drawn
 	# lower edge already crosses a real floor, confirm that surface from the
@@ -272,6 +296,7 @@ func _initialized(result: ActorResourceResult) -> void:
 	_landed = false
 	_finished_death = false
 	_restore_pending = false
+	_reset_death_feedback()
 	flash_material.set_shader_parameter("hit_flash", 0.0)
 	flash_material.set_shader_parameter("authored_palette", 0.0)
 	flash_material.set_shader_parameter("frame_uv_rect", Vector4(0, 0, 1, 1))
@@ -350,6 +375,11 @@ func _physics_process(delta: float) -> void:
 		_restore_pending = false
 		_restore_static()
 		return
+	if not restored and _kill_hold_remaining > 0.0:
+		delta = _advance_after_kill_hold(delta)
+		if delta <= 0.0:
+			queue_redraw()
+			return
 	_follow_support()
 	if settled: return
 	if not restored: age = minf(DEATH_SECONDS, age + delta)
@@ -376,6 +406,8 @@ func _physics_process(delta: float) -> void:
 				return
 	else:
 		_contact_age += delta
+	if _landed and _contact_age >= FRAME_SECONDS * .6:
+		_play_landing_feedback()
 	# D3 holds during a long airborne fall. Only genuine support contact enables
 	# D4; authored frame pixels supply the collapse, with no sprite rotation.
 	if _landed and age >= FRAME_SECONDS * 3.0:
@@ -397,13 +429,19 @@ func _physics_process(delta: float) -> void:
 
 func _draw() -> void:
 	if not active or source == null: return
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(_face, 1))
+	# A real contact impulse: body rebounds once and comes fully to rest.
+	# The authored final wing-tip pose follows the earlier body contact.
+	var rebound := -.8*sin(PI*clampf(_contact_age/.18,0,1)) if _aerial and _landed and not settled and not restored and _contact_age<.18 else 0.0
+	draw_set_transform(Vector2(0,rebound), 0.0, Vector2(_face, 1))
 	draw_texture_rect(source, bounds, false)
 	draw_set_transform_matrix(Transform2D.IDENTITY)
 
 func dispose() -> void:
 	if _disposed: return
 	_disposed = true
+	# Stage-owned remains may outlive a removed host until stage teardown.
+	# Stop only this body's contact tail even before the sibling leaves tree.
+	GameAudio.stop_origin(self, false)
 	if is_instance_valid(_receiver) and _receiver.damaged.is_connected(_committed): _receiver.damaged.disconnect(_committed)
 	if _health != null and _health.changed.is_connected(_initialized): _health.changed.disconnect(_initialized)
 	if is_instance_valid(_host) and _host.tree_exiting.is_connected(dispose): _host.tree_exiting.disconnect(dispose)

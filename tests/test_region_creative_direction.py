@@ -352,7 +352,210 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
             self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v21/registry.json').read_bytes())['shared_style_authority'])
 
+        # Published21 remains exact and stale;22 appends only the technical
+        # style19 authority, retaining all direction/content/acceptance fields.
+        published_chest = {
+            'registry':'de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d',
+            'windchime_plains':'316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8',
+            'thorn_forest':'1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729',
+        }
+        for name,digest in published_chest.items():
+            path = 'docs/creative_direction/archive/creative-v21/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v21')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style19/program/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v22')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style19/program/registry.json').read_bytes())['shared_style_authority'])
+
+        # Bind01/source19 receipts are immutable after the two actual Boss
+        # restore notifications. Same22 content/authority prefix is retained.
+        bind01 = {
+            'registry':'7624d24f07686121f7f7063785fbfdabba882d7b98b50063073b28e7608d9b02',
+            'windchime_plains':'f4ccf685f0580bb6f6b44b76a1d5b813ec3dc2db7e75f3380bc1037b2de69298',
+            'thorn_forest':'aa13e9a4322cc8b331b7b90cbc03ffd57298f2c22843aa8d541c2680b0f1c737',
+        }
+        for name,digest in bind01.items():
+            path = 'docs/creative_direction/archive/creative-v22/before-boss-restore-notification/'+name+'.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                current = creative.load_bible_registry()
+                self.assertEqual({k:v for k,v in current.items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v22')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(path,name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style19/program/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v22')
+            for key in old.keys()-{'region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'][:-1])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style19/program/registry.json').read_bytes())['shared_style_authority'])
+
+    def test_missing_theme_or_whole_screen_coverage_is_refused(self):
+        for key in creative.COVERAGE:
+            bad = copy.deepcopy(self.data); del bad[key]
+            self.assertTrue(creative.validate_direction(bad), key)
+
+    def test_candidate_comparison_cannot_be_empty_or_single_color_variant(self):
+        self.data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
+        for mutate in ('single', 'duplicate', 'missing_comparison', 'unselected'):
+            bad = copy.deepcopy(self.data)
+            if mutate == 'single': bad['candidates'] = bad['candidates'][:1]
+            if mutate == 'duplicate': bad['candidates'][1]['id'] = bad['candidates'][0]['id']
+            if mutate == 'missing_comparison': del bad['candidates'][1]['ecology_boss']
+            if mutate == 'unselected': bad['direction_id'] = 'uncompared'
+            self.assertTrue(creative.validate_direction(bad), mutate)
+        # Structural completeness does not prove real creative differences: independent review still required.
+
+    def test_authority_changes_and_region_mismatch_fail_closed(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); (root/'authority.txt').write_text('old')
+            data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
+            data['authority_sources'] = [{'path':'authority.txt','sha256':hashlib.sha256(b'old').hexdigest()}]
+            (root/'direction.json').write_text(json.dumps(data))
+            creative.load_direction('direction.json', 'thorn_forest', root)
+            with self.assertRaisesRegex(ValueError, 'another region'):
+                creative.load_direction('direction.json', 'windchime_plains', root)
+            (root/'authority.txt').write_text('new')
+            with self.assertRaisesRegex(ValueError, 'Authority changed'):
+                creative.load_direction('direction.json', 'thorn_forest', root)
+
+    def test_short_prompt_starts_creative_work_before_assets_or_terrain(self):
+        mission = level_design.route_request('制作荆棘森林')
+        production_loop.validate(mission)
+        self.assertEqual(mission['phase'], 'production')
+        self.assertEqual(len(mission['tasks']), 9)
+        self.assertEqual(mission['region_bible']['bible_id'], 'thorn_forest_v2')
+        self.assertNotIn('continuation', mission)
+        self.assertEqual(mission['human_acceptance'], 'unverified')
+        proposed = level_design.route_request('制作萤雾沼泽')
+        self.assertEqual(proposed['phase'], 'preproduction')
+        self.assertEqual(proposed['tasks'][0]['skills'], ['region-creative-director'])
+        self.assertNotIn('scripts/', proposed['tasks'][0]['allowed_paths'])
+        self.assertEqual(len(proposed['production_plan']), 9)
+
+    def test_selected_direction_binds_every_specialist_and_retains_stage_gates(self):
+        mission = level_design.route_request('制作荆棘森林', direction=self.path)
+        production_loop.validate(mission)
+        self.assertEqual(mission['phase'], 'production')
+        for task in mission['tasks']:
+            self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v25')
+            self.assertEqual(task['feedback_context'], 'compact')
+        self.assertEqual(mission['tasks'][-1]['completion'], 'content')
+        self.assertIn('G2', mission['tasks'][-2]['required_gates'])
+        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
+
+    def test_engineering_prototype_stays_explicit_and_does_not_claim_region(self):
+        mission = level_design.route_request('制作荆棘森林', phase='prototype', direction=self.path)
+        self.assertEqual(mission['phase'], 'prototype')
+        self.assertIn('forest-current-slice', mission['tasks'][0]['checks'])
+        self.assertNotIn('forest-h-slice', mission['tasks'][0]['checks'])
+        self.assertEqual(mission['tasks'][0]['region_proof']['kind'], 'technical_sample')
+        self.assertEqual(mission['tasks'][0]['region_proof']['allowed_capabilities'], ['H'])
+        self.assertEqual(mission['tasks'][0]['required_gates'], ['G0','G1'])
+        self.assertEqual(mission['tasks'][0]['region_proof']['scope'], 'prototype')
+
+    def test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes(self):
+        import level_formal
+        extras = ['tools/run_plains_experience_golden_tests.py',
+                  'tools/run_plains_redesign_spatial_tests.py', 'tools/harness/profiles.json']
+        before = level_formal.source_files()
+        expected = dict(before)
+        expected.update({name: hashlib.sha256((creative.ROOT/name).read_bytes()).hexdigest() for name in extras})
+        self.assertEqual(level_formal.source_files(extra_paths=extras), expected)
+        for name in extras:
+            self.assertIn(name, level_formal.source_files(extra_paths=extras))
+        with self.assertRaises(ValueError):
+            level_formal.source_files(extra_paths=['../outside'])
+        with self.assertRaises(FileNotFoundError):
+            level_formal.source_files(extra_paths=['missing_producer.py'])
+
+    def test_direction_cannot_bind_another_region_or_unregistered_request(self):
+        for request in ('优化风铃平原', '制作未知地下河'):
+            with self.assertRaises(ValueError):
+                level_design.route_request(request, direction=self.path)
+
+
+
     def test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer(self):
+        archive = creative.ROOT/'docs/creative_direction/archive/creative-v21'
+        digests = {'registry': 'de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d', 'windchime_plains': '316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8', 'thorn_forest': '1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729'}
+        for name,digest in digests.items():
+            raw = (archive/(name+'.json')).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            old = json.loads(raw)
+            if name == 'registry':
+                self.assertEqual({k:v for k,v in creative.load_bible_registry().items() if k!='shared_style_authority'},
+                                 {k:v for k,v in old.items() if k!='shared_style_authority'})
+                continue
+            self.assertEqual(old['version'],'creative-v21')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction('docs/creative_direction/archive/creative-v21/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style19/mobile/'+name+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v22')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style19/mobile/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual(current['revision_impact']['task_id'],'MOBILE-UI-CLARITY-01')
+
+
+    def test_merged23_preserves_both_parent22_content_and_rejects_both_bindings(self):
+        root = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style19'
+        for region in ('windchime_plains','thorn_forest'):
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'+region+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v23')
+            for parent in ('program','mobile'):
+                path = root/parent/(region+'.json')
+                old = json.loads(path.read_bytes())
+                self.assertEqual(old['version'],'creative-v22')
+                for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                    self.assertEqual(current[key],old[key])
+                with self.assertRaisesRegex(ValueError,'binding changed'):
+                    creative.load_direction(str(path.relative_to(creative.ROOT)),region)
+                self.assertIn(old['authority_sources'][-1],current['authority_sources'])
+            program = json.loads((root/'program'/(region+'.json')).read_bytes())
+            self.assertEqual(current['authority_sources'][:-2],program['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+
+
+    def test_plains_motion_loot24_preserves23_and_refuses_old_binding(self):
+        root = creative.ROOT/'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'
+        for region in ('windchime_plains','thorn_forest'):
+            path = root/(region+'.json')
+            prior = json.loads(path.read_bytes())
+            self.assertEqual(prior['version'],'creative-v23')
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style21/program/'+region+'.json')).read_bytes())
+            self.assertEqual(current['version'],'creative-v24')
+            for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],prior[key])
+            self.assertEqual(current['authority_sources'][:-1],prior['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21/program/registry.json').read_bytes())['shared_style_authority'])
+            self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(str(path.relative_to(creative.ROOT)),region)
+
+
+
+
+    def test_mobile_ui_creative22_preserves21_and_refuses_previous_pointer_audio_history(self):
         archive = creative.ROOT/'docs/creative_direction/archive/creative-v21'
         digests = {'registry': 'de601eecbbae88f1b426fa76f7c596723db676c6dd5e2585fbc1df2fb62ef44d', 'windchime_plains': '316eda741874623405348efbdee263c2d300c9e155185b63b330dd3cf2815ab8', 'thorn_forest': '1915808746fa49e6d302040578406e4650e78c41b64541d6b1c37973713de729'}
         for name,digest in digests.items():
@@ -425,12 +628,12 @@ class CreativeTests(unittest.TestCase):
             old_path = 'docs/creative_direction/archive/creative-v23/'+name+'.json'
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(old_path,name)
-            current,_ = creative.load_direction('docs/creative_direction/'+name+'.json',name)
+            current = json.loads((creative.ROOT/('docs/creative_direction/archive/merge-20261030-style21/audio/'+name+'.json')).read_bytes())
             self.assertEqual(current['version'],'creative-v24')
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key])
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
-            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'][-1],json.loads((creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21/audio/registry.json').read_bytes())['shared_style_authority'])
             self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
                              {k:v for k,v in old['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
             self.assertEqual(current['revision_impact']['task_id'],'AUDIO-FEEDBACK-06')
@@ -438,91 +641,31 @@ class CreativeTests(unittest.TestCase):
             self.assertEqual(current['revision_impact']['previous_sha256'],digest)
             self.assertEqual(current['revision_impact']['affected_consumers'],['scripts/ui/demo_menu.gd'])
 
-    def test_missing_theme_or_whole_screen_coverage_is_refused(self):
-        for key in creative.COVERAGE:
-            bad = copy.deepcopy(self.data); del bad[key]
-            self.assertTrue(creative.validate_direction(bad), key)
-
-    def test_candidate_comparison_cannot_be_empty_or_single_color_variant(self):
-        self.data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
-        for mutate in ('single', 'duplicate', 'missing_comparison', 'unselected'):
-            bad = copy.deepcopy(self.data)
-            if mutate == 'single': bad['candidates'] = bad['candidates'][:1]
-            if mutate == 'duplicate': bad['candidates'][1]['id'] = bad['candidates'][0]['id']
-            if mutate == 'missing_comparison': del bad['candidates'][1]['ecology_boss']
-            if mutate == 'unselected': bad['direction_id'] = 'uncompared'
-            self.assertTrue(creative.validate_direction(bad), mutate)
-        # Structural completeness does not prove real creative differences: independent review still required.
-
-    def test_authority_changes_and_region_mismatch_fail_closed(self):
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder); (root/'authority.txt').write_text('old')
-            data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
-            data['authority_sources'] = [{'path':'authority.txt','sha256':hashlib.sha256(b'old').hexdigest()}]
-            (root/'direction.json').write_text(json.dumps(data))
-            creative.load_direction('direction.json', 'thorn_forest', root)
-            with self.assertRaisesRegex(ValueError, 'another region'):
-                creative.load_direction('direction.json', 'windchime_plains', root)
-            (root/'authority.txt').write_text('new')
-            with self.assertRaisesRegex(ValueError, 'Authority changed'):
-                creative.load_direction('direction.json', 'thorn_forest', root)
-
-    def test_short_prompt_starts_creative_work_before_assets_or_terrain(self):
-        mission = level_design.route_request('制作荆棘森林')
-        production_loop.validate(mission)
-        self.assertEqual(mission['phase'], 'production')
-        self.assertEqual(len(mission['tasks']), 9)
-        self.assertEqual(mission['region_bible']['bible_id'], 'thorn_forest_v2')
-        self.assertNotIn('continuation', mission)
-        self.assertEqual(mission['human_acceptance'], 'unverified')
-        proposed = level_design.route_request('制作萤雾沼泽')
-        self.assertEqual(proposed['phase'], 'preproduction')
-        self.assertEqual(proposed['tasks'][0]['skills'], ['region-creative-director'])
-        self.assertNotIn('scripts/', proposed['tasks'][0]['allowed_paths'])
-        self.assertEqual(len(proposed['production_plan']), 9)
-
-    def test_selected_direction_binds_every_specialist_and_retains_stage_gates(self):
-        mission = level_design.route_request('制作荆棘森林', direction=self.path)
-        production_loop.validate(mission)
-        self.assertEqual(mission['phase'], 'production')
-        for task in mission['tasks']:
-            self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v24')
-            self.assertEqual(task['feedback_context'], 'compact')
-        self.assertEqual(mission['tasks'][-1]['completion'], 'content')
-        self.assertIn('G2', mission['tasks'][-2]['required_gates'])
-        self.assertFalse(mission['preparation']['production_boundary']['formal_opening_authorized'])
-
-    def test_engineering_prototype_stays_explicit_and_does_not_claim_region(self):
-        mission = level_design.route_request('制作荆棘森林', phase='prototype', direction=self.path)
-        self.assertEqual(mission['phase'], 'prototype')
-        self.assertIn('forest-current-slice', mission['tasks'][0]['checks'])
-        self.assertNotIn('forest-h-slice', mission['tasks'][0]['checks'])
-        self.assertEqual(mission['tasks'][0]['region_proof']['kind'], 'technical_sample')
-        self.assertEqual(mission['tasks'][0]['region_proof']['allowed_capabilities'], ['H'])
-        self.assertEqual(mission['tasks'][0]['required_gates'], ['G0','G1'])
-        self.assertEqual(mission['tasks'][0]['region_proof']['scope'], 'prototype')
-
-    def test_shared_source_inventory_keeps_original_extra_dependencies_and_detects_changes(self):
-        import level_formal
-        extras = ['tools/run_plains_experience_golden_tests.py',
-                  'tools/run_plains_redesign_spatial_tests.py', 'tools/harness/profiles.json']
-        before = level_formal.source_files()
-        expected = dict(before)
-        expected.update({name: hashlib.sha256((creative.ROOT/name).read_bytes()).hexdigest() for name in extras})
-        self.assertEqual(level_formal.source_files(extra_paths=extras), expected)
-        for name in extras:
-            self.assertIn(name, level_formal.source_files(extra_paths=extras))
-        with self.assertRaises(ValueError):
-            level_formal.source_files(extra_paths=['../outside'])
-        with self.assertRaises(FileNotFoundError):
-            level_formal.source_files(extra_paths=['missing_producer.py'])
-
-    def test_direction_cannot_bind_another_region_or_unregistered_request(self):
-        for request in ('优化风铃平原', '制作未知地下河'):
-            with self.assertRaises(ValueError):
-                level_design.route_request(request, direction=self.path)
-
+    def test_merged25_preserves_both_parent24_directions_and_authority_union(self):
+        base = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21'
+        for region in ('windchime_plains','thorn_forest'):
+            current, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            self.assertEqual(current['version'],'creative-v25')
+            parents = []
+            for parent in ('program','audio'):
+                path = base/parent/(region+'.json')
+                prior = json.loads(path.read_bytes())
+                parents.append(prior)
+                self.assertEqual(prior['version'],'creative-v24')
+                for key in prior.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                    self.assertEqual(current[key],prior[key])
+                self.assertEqual({k:v for k,v in current['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}},
+                                 {k:v for k,v in prior['region_bible'].items() if k not in {'registry_sha256','supplemental_authority_path','supplemental_authority_sha256'}})
+                with self.assertRaisesRegex(ValueError,'binding changed'):
+                    creative.load_direction(str(path.relative_to(creative.ROOT)),region)
+                self.assertIn({'path':str(path.relative_to(creative.ROOT)),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()},current['revision_impact']['parent_directions'])
+            authority = list(parents[0]['authority_sources'])
+            for row in parents[1]['authority_sources']:
+                if row not in authority: authority.append(row)
+            authority.append(creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['authority_sources'],authority)
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
 
 if __name__ == '__main__':
     unittest.main()

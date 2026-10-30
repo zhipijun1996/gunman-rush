@@ -20,6 +20,13 @@ import production_loop as loop
 import visual_director
 
 
+MERGE21_MANIFESTS = {'program': '74dce20a314ba573c15f24bbe17b6faee7cdf0a65728f403663057a7b49e9742', 'audio': 'f31f059792aea55b3a973cd9803e7c5b9d91497da593466b12a84bcc536fbe49'}
+MERGE21_ARCHIVE = 'docs/creative_direction/archive/merge-20261030-style21/'
+
+def merge21_parent_source(parent, path):
+    snapshot = ROOT/(MERGE21_ARCHIVE+parent+'/sources/'+Path(path).name+'.txt')
+    return snapshot.read_bytes() if snapshot.is_file() else (ROOT/path).read_bytes()
+
 STYLE19_PATH = 'docs/creative_direction/bibles/style-continuity-20261029-v19-mobile-ui-clarity.json'
 STYLE20_PATH = 'docs/creative_direction/bibles/style-continuity-20261030-v20-audio-feedback.json'
 STYLE22_ARCHIVE = 'docs/creative_direction/archive/creative-v22/'
@@ -35,13 +42,13 @@ def style19_source(path):
     # Only the three genuinely changed leaves need frozen historical bytes.
     if path in STYLE19_FROZEN_PATHS:
         return (ROOT/(STYLE22_ARCHIVE+'runtime_inputs/'+Path(path).name+'.txt')).read_bytes()
-    return (ROOT/path).read_bytes()
+    return merge21_parent_source('audio',path)
 
 
 def style20_source(path):
     if path == 'scripts/ui/demo_menu.gd':
         return (ROOT/(STYLE23_ARCHIVE+'runtime_inputs/demo_menu.gd.txt')).read_bytes()
-    return (ROOT/path).read_bytes()
+    return merge21_parent_source('audio',path)
 
 
 # Actual visual consumer additions; original36 stay in their original order.
@@ -106,6 +113,29 @@ CHEST_ART_REFERENCES = [
     ('chest_art_config', 'config/chest_art.json'),
     ('chest_source04_atlas', 'assets/objects/chests/chest-tiers-v1.source.png'),
 ]
+
+
+
+MERGE_PARENT_ARCHIVE = 'docs/creative_direction/archive/merge-20261030-style19/'
+PARENT_MANIFESTS = {'program': '8a7599713c3335b8db484608d6aef75efb44c5685e59f8f57e9fa7f30e1db4fc', 'mobile': '9b655c34c32ec6921932f2e5312a06560aa82d44da42fa13dd03c564fe19eff5'}
+MERGE_UI_LEAVES = {'scripts/demo/home_scene.gd','scripts/ui/demo_menu.gd',
+                   'scripts/ui/stage_reward_modal.gd','scripts/ui/home_item_codex.gd'}
+
+def merge_parent_source(parent, path):
+    # Exact seven source snapshots keep both historical contracts meaningful
+    # after the other branch changes their live filesystem consumers.
+    snapshot = ROOT/(MERGE_PARENT_ARCHIVE+parent+'/sources/'+Path(path).name+'.txt')
+    return snapshot.read_bytes() if snapshot.is_file() else merge21_parent_source('program',path)
+
+
+
+MOTION_LOOT_ARCHIVE = 'docs/creative_direction/archive/creative-v23-before-plains-motion-loot/'
+MOTION_LOOT_ARCHIVE_SHA = '9f93b5c60a5c56845484314df8800b06a8a4faadc8092c1ab94b0acb3bc33ab5'
+
+def initial20_source(path):
+    if path in {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'}:
+        return (ROOT/(MOTION_LOOT_ARCHIVE+'sources/'+Path(path).name+'.txt')).read_bytes()
+    return merge21_parent_source('program',path)
 
 
 class BibleTests(unittest.TestCase):
@@ -326,6 +356,931 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
+        self.assertEqual(style['content']['version'],'22')
+        style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'program/style21.json')).read_bytes())}
+        self.assertEqual(style['content']['version'],'21')
+        # Preserve the entire original19/18 history against immutable parent19.
+        style = {**style,'content':json.loads((ROOT/(MERGE_PARENT_ARCHIVE+'program/style19.json')).read_bytes())}
+        self.assertEqual(style['content']['version'],'19')
+        new_refs = style['content']['runtime_reference']['references']
+        self.assertEqual(len(new_refs),81)
+        old_style_path = 'docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json'
+        old_style_raw = (ROOT/old_style_path).read_bytes()
+        self.assertEqual(hashlib.sha256(old_style_raw).hexdigest(),'22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510')
+        old_style = json.loads(old_style_raw)
+        self.assertEqual(old_style['version'],'18')
+        actual_refs = old_style['runtime_reference']['references']
+        self.assertEqual(len(actual_refs),81)
+        history_root = 'docs/creative_direction/archive/creative-v21/'
+        history_manifest_raw = (ROOT/(history_root+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(history_manifest_raw).hexdigest(),'1748d7171770ba8bfdaaa415a5a1fd11e6b04d5353fa4bd0076b18debae49a62')
+        for row in json.loads(history_manifest_raw)['files']:
+            raw = (ROOT/(history_root+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        changed = {'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd',
+                   'scripts/demo/thorn_forest_region_stage.gd'}
+        def chest18_source(path):
+            if path in MERGE_UI_LEAVES:
+                return (ROOT/('docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/'+Path(path).name+'.txt')).read_bytes()
+            if path in changed:
+                return (ROOT/(history_root+'sources/'+Path(path).name+'.txt')).read_bytes()
+            return merge21_parent_source('program',path)
+        changed_actual = set()
+        for before,after in zip(actual_refs,new_refs):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(before['sha256'],hashlib.sha256(chest18_source(before['path'])).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(merge_parent_source('program',after['path'])).hexdigest())
+            if before != after:
+                changed_actual.add(before['path'])
+            else:
+                self.assertNotIn(before['path'],changed)
+        self.assertEqual(changed_actual,changed)
+        self.assertEqual(style['content']['supersedes']['path'],old_style_path)
+        self.assertEqual(style['content']['supersedes']['sha256'],hashlib.sha256(old_style_raw).hexdigest())
+        for key in old_style.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(style['content'][key],old_style[key])
+        self.assertEqual({k:v for k,v in style['content']['runtime_reference'].items() if k!='references'},
+                         {k:v for k,v in old_style['runtime_reference'].items() if k!='references'})
+        stale18 = copy.deepcopy(self.ref)
+        stale18['supplemental_authority_path'] = old_style_path
+        stale18['supplemental_authority_sha256'] = hashlib.sha256(old_style_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale18,root=self.root)
+        # Bind01 remains exact. The same unpublished candidate now changes
+        # only App's explicit post-restore notification; other80 rows remain.
+        bind01_root = 'docs/creative_direction/archive/creative-v22/before-boss-restore-notification/'
+        bind01_manifest_raw = (ROOT/(bind01_root+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(bind01_manifest_raw).hexdigest(),'15338e2ffc77252855f40e6ba83b8a44fa96035a4f7942539000dc859e5d7262')
+        for row in json.loads(bind01_manifest_raw)['files']:
+            raw = (ROOT/(bind01_root+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        bind01_raw = (ROOT/(bind01_root+'style19.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(bind01_raw).hexdigest(),'411db2a5b5d59f447f20465559cb7869cc96c0bcf49a0ef3244abd7ec47906aa')
+        bind01 = json.loads(bind01_raw)
+        self.assertEqual(bind01['version'],'19')
+        self.assertEqual(len(bind01['runtime_reference']['references']),81)
+        bind01_changed = set()
+        for before,after in zip(bind01['runtime_reference']['references'],new_refs):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            if before != after:
+                bind01_changed.add(before['path'])
+                prior = (ROOT/(bind01_root+'demo_app.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(prior).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual(bind01_changed,{'scripts/demo/demo_app.gd'})
+        stale19 = copy.deepcopy(self.ref)
+        stale19['supplemental_authority_path'] = bind01_root+'style19.json'
+        stale19['supplemental_authority_sha256'] = hashlib.sha256(bind01_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale19,root=self.root)
+        home_path = 'docs/creative_direction/bibles/style-continuity-20261028-v17-home-codex.json'
+        home_raw = (ROOT/home_path).read_bytes()
+        self.assertEqual(hashlib.sha256(home_raw).hexdigest(),'ab5f9289fccc909596abf05e9dbb9a4b6c297824d2efc9d69440dfe88c7c16fa')
+        home_style = json.loads(home_raw)
+        self.assertEqual(home_style['version'],'17')
+        live_refs = home_style['runtime_reference']['references']
+        self.assertEqual(len(live_refs),73)
+        input_archive = 'docs/evidence/chest_art_01/source-bindings/before-reward-input-rebind/'
+        pre_input_raw = (ROOT/(input_archive+'style-continuity-20261028-v18-chest-art.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(pre_input_raw).hexdigest(),'44206cc99ddddf587b4052a98503ee6c9b2017ef6a6d6f1dd15dd57fe0504624')
+        pre_input = json.loads(pre_input_raw)
+        self.assertEqual(pre_input['version'],'18')
+        chest_refs = pre_input['runtime_reference']['references']
+        self.assertEqual(len(chest_refs),81)
+        input_manifest_raw = (ROOT/(input_archive+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(input_manifest_raw).hexdigest(),'d2ca9013df23b0d6488dc9c8638a5b09f6b27dcd64c0e4cbe78d5b4e8ae57efb')
+        for row in json.loads(input_manifest_raw)['files']:
+            raw = (ROOT/(input_archive+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        for before,after in zip(chest_refs,actual_refs):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(after['sha256'],hashlib.sha256(chest18_source(after['path'])).hexdigest())
+            if before['path']=='scripts/demo/demo_app.gd':
+                old_app = (ROOT/(input_archive+'demo_app.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_app).hexdigest())
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        stale_pre_input = copy.deepcopy(self.ref)
+        stale_pre_input['supplemental_authority_path'] = input_archive+'style-continuity-20261028-v18-chest-art.json'
+        stale_pre_input['supplemental_authority_sha256'] = hashlib.sha256(pre_input_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_pre_input,root=self.root)
+        chest_archive = 'docs/evidence/chest_art_01/source-bindings/before-style18/'
+        chest_manifest_raw = (ROOT/(chest_archive+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(chest_manifest_raw).hexdigest(),'7693e9159827ca55aeb61bf068b58675e31926abfdf85bd25300a085db7c6615')
+        for row in json.loads(chest_manifest_raw)['files']:
+            raw = (ROOT/(chest_archive+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        def first_chest_source(path):
+            if path == 'scripts/demo/demo_app.gd':
+                return (ROOT/(input_archive+'demo_app.gd.txt')).read_bytes()
+            return chest18_source(path)
+        def pre_chest_source(path):
+            if path == 'scripts/demo/plains_region_stage.gd':
+                return (ROOT/(chest_archive+'plains_region_stage.gd.txt')).read_bytes()
+            return first_chest_source(path)
+        for before,after in zip(live_refs,chest_refs[:73]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(before['sha256'],hashlib.sha256(pre_chest_source(before['path'])).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(first_chest_source(after['path'])).hexdigest())
+            if before['path']=='scripts/demo/plains_region_stage.gd':
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual([(row['role'],row['path']) for row in actual_refs[73:]],CHEST_ART_REFERENCES)
+        for row in actual_refs[73:]:
+            self.assertEqual(row['sha256'],hashlib.sha256(chest18_source(row['path'])).hexdigest())
+        self.assertEqual(old_style['supersedes']['path'],home_path)
+        self.assertEqual(old_style['supersedes']['sha256'],hashlib.sha256(home_raw).hexdigest())
+        for key in home_style.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_style[key],home_style[key])
+        published_path = 'docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json'
+        published_raw = (ROOT/published_path).read_bytes()
+        self.assertEqual(hashlib.sha256(published_raw).hexdigest(),'62befdd0e89ea7b17b649b93dce977b1a35eb2164bad1b9500c108b33309b6da')
+        published_style = json.loads(published_raw)
+        self.assertEqual(published_style['version'],'16')
+        current_refs = published_style['runtime_reference']['references']
+        self.assertEqual(len(current_refs),68)
+        archive_root = 'docs/evidence/home_codex_01/source-bindings/before-style17/'
+        manifest_raw = (ROOT/(archive_root+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(manifest_raw).hexdigest(),'9b0f3e344a95cab2320894659b6a76828fdbbf2b2a947df0d71f05b67d1e54dc')
+        manifest = json.loads(manifest_raw)
+        for row in manifest['files']:
+            raw = (ROOT/(archive_root+row['path'])).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        changed_home = {'scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'}
+        def historical_source(path):
+            if path in changed_home:
+                return (ROOT/(archive_root+Path(path).name+'.txt')).read_bytes()
+            return pre_chest_source(path)
+        for before,after in zip(current_refs,live_refs[:68]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(before['sha256'],hashlib.sha256(historical_source(before['path'])).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(pre_chest_source(after['path'])).hexdigest())
+            if before['path'] in changed_home:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual([(row['role'],row['path']) for row in live_refs[68:]],HOME_CODEX_REFERENCES)
+        for row in live_refs[68:]:
+            self.assertEqual(row['sha256'],hashlib.sha256(merge_parent_source('program',row['path'])).hexdigest())
+        self.assertEqual(home_style['supersedes']['path'],published_path)
+        self.assertEqual(home_style['supersedes']['sha256'],hashlib.sha256(published_raw).hexdigest())
+        for key in published_style.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(home_style[key],published_style[key])
+        r12_root = 'docs/evidence/item_art_01/source-bindings/pre-main-audio-r13/'
+        r12_path = r12_root+'style-continuity-20261028-v16-item-authoring.json'
+        r12_raw = (ROOT/r12_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r12_raw).hexdigest(),'079de07b65d33c4e12364a22fa2f8408b0cd63b6044570bb6c7b5800799cf403')
+        r12 = json.loads(r12_raw)
+        self.assertEqual(r12['version'],'16')
+        self.assertEqual(len(r12['runtime_reference']['references']),68)
+        pre_audio_refs = r12['runtime_reference']['references']
+        for before,after in zip(pre_audio_refs,current_refs):
+            if before['path']=='scripts/dev/player_presentation_01/weapon_feel.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                old_leaf = (ROOT/(r12_root+'weapon_feel.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
+                new_leaf = (ROOT/after['path']).read_text()
+                sound_call = 'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained,controller.shoot_ability.weapon.id)'
+                self.assertEqual(new_leaf.count(sound_call),1)
+                self.assertEqual(new_leaf.replace(sound_call,'audio.weapon_cue(cue,_owner,key,profile.shot_attenuation if attenuation<0 else attenuation,sustained)'),old_leaf.decode())
+            else:
+                self.assertEqual(before,after)
+        stale_r12 = copy.deepcopy(self.ref)
+        stale_r12['supplemental_authority_path'] = r12_path
+        stale_r12['supplemental_authority_sha256'] = hashlib.sha256(r12_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r12,root=self.root)
+        # Frozen Markdown keeps exact bytes as .md.txt: its original relative
+        # links cannot be resolved from a different archive directory. Live .md
+        # files are explicit navigation wrappers, not rewritten originals.
+        markdown_archives = {
+            'docs/evidence/item_authoring_01/source-bindings/before-v16':
+                '2e0bd3e6c34bfe331ea71e368f0f59486595aa0fa5107d5e6a75fe7390138858',
+            'docs/evidence/item_art_01/source-bindings/pre-golden-r08':
+                'cee721987fdd001db0815bf55fa0cad97e9441c4bd0fab815c559a5664fc0592',
+            'docs/evidence/item_art_01/source-bindings/pre-expansion-r09':
+                '9eaa2d11a9569c25a8bf858b5104e649a6595fa51e8c563bd56a4a0d85d65725',
+        }
+        relocated_markdown = 0
+        for archive_path,original_digest in markdown_archives.items():
+            folder = ROOT/archive_path
+            original_raw = (folder/'manifest.before-markdown-relocation.json.txt').read_bytes()
+            self.assertEqual(hashlib.sha256(original_raw).hexdigest(),original_digest)
+            original_manifest = json.loads(original_raw)
+            manifest = json.loads((folder/'manifest.json').read_bytes())
+            self.assertEqual({k:v for k,v in manifest.items() if k not in {'files','original_manifest_before_markdown_relocation'}},
+                             {k:v for k,v in original_manifest.items() if k!='files'})
+            self.assertEqual(len(manifest['files']),len(original_manifest['files']))
+            for before,after in zip(original_manifest['files'],manifest['files']):
+                self.assertEqual({k:v for k,v in after.items() if k!='relocation'},before)
+                if before['path'].endswith('.md'):
+                    relocated_markdown += 1
+                    self.assertEqual(after['relocation']['path'],before['path']+'.txt')
+                    self.assertEqual(after['relocation']['wrapper_path'],before['path'])
+                    original_bytes = (folder/after['relocation']['path']).read_bytes()
+                    self.assertEqual(hashlib.sha256(original_bytes).hexdigest(),before['sha256'])
+                    self.assertEqual(len(original_bytes),before['bytes'])
+                else:
+                    self.assertNotIn('relocation',after)
+        self.assertEqual(relocated_markdown,4)
+        r11_root = 'docs/evidence/item_art_01/source-bindings/pre-spend-proof-r12/'
+        r11_path = r11_root+'style-continuity-20261028-v16-item-authoring.json'
+        r11_raw = (ROOT/r11_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r11_raw).hexdigest(),'9dcfa6c4aa17c84f7d54492df8aefa78718adf17c2346c91823d14bea4b25e42')
+        r11 = json.loads(r11_raw)
+        self.assertEqual(r11['version'],'16')
+        self.assertEqual(len(r11['runtime_reference']['references']),68)
+        for before,after in zip(r11['runtime_reference']['references'],pre_audio_refs):
+            if before['path']=='scripts/items/v5/item_defense_effects.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                old_leaf = (ROOT/(r11_root+'item_defense_effects.gd.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(old_leaf).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_r11 = copy.deepcopy(self.ref)
+        stale_r11['supplemental_authority_path'] = r11_path
+        stale_r11['supplemental_authority_sha256'] = hashlib.sha256(r11_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r11,root=self.root)
+        r10_root = 'docs/evidence/item_art_01/source-bindings/pre-legacy-cues-r11/'
+        r10_path = r10_root+'style-continuity-20261028-v16-item-authoring.json'
+        r10_raw = (ROOT/r10_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r10_raw).hexdigest(),'aa06d0dc339247cbc5ba1068887c19d39b2b8cbfccc94c8647c6e99ae1fe0867')
+        r10 = json.loads(r10_raw)
+        self.assertEqual(r10['version'],'16')
+        self.assertEqual(len(r10['runtime_reference']['references']),68)
+        changed_r11 = {'scripts/items/v5/item_effect_view.gd',
+                       'scripts/items/v5/item_defense_effects.gd'}
+        # R11's two-leaf correction stays an exact frozen-stage proof, while
+        # the final dedicated-spend fix above changes only Defense once more.
+        for before,after in zip(r10['runtime_reference']['references'],r11['runtime_reference']['references']):
+            if before['path'] in changed_r11:
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                original_leaf = (ROOT/(r10_root+Path(before['path']).name+'.txt')).read_bytes()
+                self.assertEqual(before['sha256'],hashlib.sha256(original_leaf).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_r10 = copy.deepcopy(self.ref)
+        stale_r10['supplemental_authority_path'] = r10_path
+        stale_r10['supplemental_authority_sha256'] = hashlib.sha256(r10_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r10,root=self.root)
+        r09_path = 'docs/evidence/item_art_01/source-bindings/pre-envelope-r10/style-continuity-20261028-v16-item-authoring.json'
+        r09_raw = (ROOT/r09_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r09_raw).hexdigest(),'bc3c97d31789281fdfa0679cb821243d5f4a1c796398530e0f83a9a59fdfd96a')
+        r09 = json.loads(r09_raw)
+        self.assertEqual(r09['version'],'16')
+        self.assertEqual(len(r09['runtime_reference']['references']),68)
+        # Preserve R10's one-config-change proof against its exact frozen source.
+        for before,after in zip(r09['runtime_reference']['references'],r10['runtime_reference']['references']):
+            if before['path']=='config/item_v5_art.json':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','f9fefe6e14e9a3bf7858d4f57f5fc5ea2293d5cb:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        old_art_raw = (ROOT/'docs/evidence/item_art_01/source-bindings/pre-envelope-r10/item_v5_art.json').read_bytes()
+        self.assertEqual(hashlib.sha256(old_art_raw).hexdigest(),'3d54e59b0e176eefb623a57347265c80215c6b2368ba92d7c44fa69343e4b96a')
+        old_art = json.loads(old_art_raw)
+        current_art = json.loads((ROOT/'config/item_v5_art.json').read_bytes())
+        self.assertEqual({k:v for k,v in old_art.items() if k!='clips'},
+                         {k:v for k,v in current_art.items() if k!='clips'})
+        self.assertEqual(set(old_art['clips']),set(current_art['clips']))
+        refined = {'g05.large_guard','p25.needle_trap','p20.crystal'}
+        self.assertEqual({key for key in old_art['clips'] if old_art['clips'][key]!=current_art['clips'][key]},refined)
+        for key in refined:
+            self.assertEqual({k:v for k,v in old_art['clips'][key].items() if k not in {'regions','world_size','pivot'}},
+                             {k:v for k,v in current_art['clips'][key].items() if k not in {'regions','world_size','pivot'}})
+        stale_r09 = copy.deepcopy(self.ref)
+        stale_r09['supplemental_authority_path'] = r09_path
+        stale_r09['supplemental_authority_sha256'] = hashlib.sha256(r09_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r09,root=self.root)
+        changed_golden = {'scripts/ui/item_presentation.gd',
+                          'scripts/items/v5/item_effect_view.gd',
+                          'scripts/items/v5/item_v5_entity.gd'}
+        changed_current54 = changed_golden | {'scripts/items/v5/item_defense_effects.gd'}
+        r08_path = 'docs/evidence/item_art_01/source-bindings/pre-expansion-r09/docs/creative_direction/bibles/style-continuity-20261028-v16-item-authoring.json'
+        r08_raw = (ROOT/r08_path).read_bytes()
+        self.assertEqual(hashlib.sha256(r08_raw).hexdigest(),'473a8efc6ccba6a98696a0a29dfbf980f30c65b217685fc7b885f3a319e20149')
+        r08 = json.loads(r08_raw)
+        self.assertEqual(r08['version'],'16')
+        self.assertEqual(len(r08['runtime_reference']['references']),61)
+        changed_r09 = {'scripts/items/v5/item_effect_view.gd',
+                       'scripts/items/v5/item_v5_entity.gd',
+                       'scripts/items/v5/item_defense_effects.gd',
+                       'scripts/items/v5/item_art_library.gd',
+                       'config/item_v5_art.json','config/item_v5_authoring.json'}
+        for before,after in zip(r08['runtime_reference']['references'],pre_audio_refs[:61]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            if before['path'] in changed_r09:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','cd163e2ddbb9e1041067279eb2f554d09af0582a:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_r08 = copy.deepcopy(self.ref)
+        stale_r08['supplemental_authority_path'] = r08_path
+        stale_r08['supplemental_authority_sha256'] = hashlib.sha256(r08_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_r08,root=self.root)
+        pre_art_path = 'docs/evidence/item_art_01/source-bindings/pre-golden-r08/style-continuity-20261028-v16-item-authoring.json'
+        pre_art_raw = (ROOT/pre_art_path).read_bytes()
+        self.assertEqual(hashlib.sha256(pre_art_raw).hexdigest(),'fe89f171ad210b0ddc16c355c94c48b34d1a66891fd6ca25c0810c6f32aa336f')
+        pre_art = json.loads(pre_art_raw)
+        self.assertEqual(pre_art['version'],'16')
+        self.assertEqual(len(pre_art['runtime_reference']['references']),54)
+        for before,after in zip(pre_art['runtime_reference']['references'],pre_audio_refs[:54]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            if before['path'] in changed_current54:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','df5b075799e36624597b780a17d88850f0b4ff21:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        stale_pre_art = copy.deepcopy(self.ref)
+        stale_pre_art['supplemental_authority_path'] = pre_art_path
+        stale_pre_art['supplemental_authority_sha256'] = hashlib.sha256(pre_art_raw).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale_pre_art,root=self.root)
+        # Keep the original R08 exact three-leaf guard as a frozen-history check.
+        for before,after in zip(pre_art['runtime_reference']['references'],r08['runtime_reference']['references'][:54]):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            if before['path'] in changed_golden:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        old_v15_path = 'docs/creative_direction/bibles/style-continuity-20261027-v15-item-v5.json'
+        old_v15_raw = (ROOT/old_v15_path).read_bytes()
+        self.assertEqual(hashlib.sha256(old_v15_raw).hexdigest(), '6d0303e867592d72723973f29060902226b1f25e31aff24fcd065fff427cbfd0')
+        old_v15 = json.loads(old_v15_raw)
+        self.assertEqual(old_v15['version'],'15')
+        self.assertEqual(len(old_v15['runtime_reference']['references']),54)
+        self.assertEqual(published_style['supersedes']['path'],old_v15_path)
+        self.assertEqual(published_style['supersedes']['sha256'],hashlib.sha256(old_v15_raw).hexdigest())
+        for key in old_v15.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(published_style[key],old_v15[key])
+        for before,after in zip(old_v15['runtime_reference']['references'],pre_audio_refs):
+            if before['path'] in changed_current54:
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','d9445c0e5d6516d4eb93ebbfbc5639efddf7fc04:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+                self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        old_v14_path = 'docs/creative_direction/bibles/style-continuity-20261026-v14-run-gear.json'
+        old_v14_raw = (ROOT/old_v14_path).read_bytes()
+        self.assertEqual(hashlib.sha256(old_v14_raw).hexdigest(), 'a9fba5dd2cadbc1d36abda4928f4d473bd8849d882346abd70870a68900dc366')
+        old_v14 = json.loads(old_v14_raw)
+        self.assertEqual(len(old_v14['runtime_reference']['references']),36)
+        self.assertEqual(old_v15['supersedes']['path'],old_v14_path)
+        self.assertEqual(old_v15['supersedes']['sha256'],hashlib.sha256(old_v14_raw).hexdigest())
+        for key in old_v14.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(published_style[key],old_v14[key])
+        for before,after in zip(old_v14['runtime_reference']['references'],current_refs[:36]):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                historical = subprocess.check_output(['git','show','879b39eaa869be70cb799dedd1bb6ffc35e0b92f:'+before['path']],cwd=ROOT)
+                self.assertEqual(before['sha256'],hashlib.sha256(historical).hexdigest())
+                self.assertEqual(after['sha256'],hashlib.sha256(historical_source(after['path'])).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        # Preserve the pre-art author's exact one-leaf change against V15 too.
+        for before,after in zip(old_v15['runtime_reference']['references'],pre_art['runtime_reference']['references']):
+            if before['path']=='scripts/ui/item_presentation.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+            else:
+                self.assertEqual(before,after)
+        self.assertEqual([(row['role'],row['path']) for row in current_refs[36:54]],ITEM_V5_STYLE_REFERENCES)
+        self.assertEqual([(row['role'],row['path']) for row in current_refs[54:61]],ITEM_ART_GOLDEN_REFERENCES)
+        self.assertEqual([(row['role'],row['path']) for row in current_refs[61:]],ITEM_ART_EXPANSION_REFERENCES)
+        for row in current_refs[36:]:
+            self.assertEqual(row['sha256'],hashlib.sha256(merge_parent_source('program',row['path'])).hexdigest())
+        old_v12 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v12-fixed-status.json').read_bytes())
+        for key in old_v12.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(published_style[key], old_v12[key])
+        for before, after in zip(old_v12['runtime_reference']['references'], current_refs):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                actual = subprocess.check_output(['git','show','4fc1e7a55c191dbe56cd7bc385539fc42b8f7898:'+before['path']], cwd=ROOT)
+                self.assertEqual(before['sha256'], hashlib.sha256(actual).hexdigest())
+                self.assertEqual(after['sha256'], hashlib.sha256(historical_source(after['path'])).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        old_v11 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261024-v11-playtest-feedback.json').read_bytes())
+        for key in old_v11.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(published_style[key], old_v11[key])
+        for before, after in zip(old_v11['runtime_reference']['references'], current_refs):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                self.assertEqual(after['sha256'], hashlib.sha256(historical_source(after['path'])).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        old_v10 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json').read_bytes())
+        for key in old_v10.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_v11[key], old_v10[key])
+        for before, after in zip(old_v10['runtime_reference']['references'], old_v11['runtime_reference']['references']):
+            if before['path'] in ('scripts/demo/demo_app.gd','scripts/demo/home_scene.gd'):
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                actual = subprocess.check_output(['git','show','e5254559b38f9593f03fa2fd7847b107d5d04402:'+after['path']], cwd=ROOT)
+                self.assertEqual(after['sha256'], hashlib.sha256(actual).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        old_v9 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json').read_bytes())
+        for before, after in zip(old_v9['runtime_reference']['references'], old_v10['runtime_reference']['references']):
+            if before['path']=='scripts/underworld_plains/underworld_presentation.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'], after['sha256'])
+                self.assertEqual(after['sha256'], hashlib.sha256(historical_source(after['path'])).hexdigest())
+            else:
+                self.assertEqual(before, after)
+        for key in old_v9.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_v10[key], old_v9[key])
+        self.assertEqual({k:v for k,v in published_style['runtime_reference'].items() if k!='references'}, {k:v for k,v in old_v9['runtime_reference'].items() if k!='references'})
+        refs = old_v9['runtime_reference']['references']
+        old_v7 = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v7.json').read_bytes())
+        old_refs = old_v7['runtime_reference']['references']
+        self.assertEqual(len(old_refs),36)
+        for before, after in zip(old_refs,refs):
+            if before['path']=='scripts/demo/demo_app.gd':
+                self.assertEqual({k:v for k,v in before.items() if k!='sha256'}, {k:v for k,v in after.items() if k!='sha256'})
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                # The v9 source is frozen in the actual pre-feedback main,
+                # while the active DemoApp is independently verified above.
+                actual = subprocess.check_output(['git','show','cd4989a68613e0b457cdfd5e252634dd57008505:'+after['path']], cwd=ROOT)
+                self.assertEqual(after['sha256'],hashlib.sha256(actual).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        for key in old_v7.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(old_v9[key],old_v7[key])
+        self.assertEqual({k:v for k,v in published_style['runtime_reference'].items() if k!='references'}, {k:v for k,v in old_v7['runtime_reference'].items() if k!='references'})
+        # The selected fine style superseded V4; V7 adds the real default body.
+        # All20 V6 references remain exact, and old bindings remain refused.
+        previous_path = 'docs/creative_direction/bibles/style-continuity-20261021-v2.json'
+        previous_bytes = (ROOT/previous_path).read_bytes()
+        previous = json.loads((ROOT/'docs/creative_direction/bibles/style-continuity-20261023-v6.json').read_bytes())
+        for row in previous['runtime_reference']['references']:
+            self.assertIn(row, refs)
+        superseded = copy.deepcopy(self.ref)
+        superseded['supplemental_authority_path'] = previous_path
+        superseded['supplemental_authority_sha256'] = hashlib.sha256(previous_bytes).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(superseded,root=self.root)
+        v3_path = 'docs/creative_direction/bibles/style-continuity-20261021-v3.json'
+        stale_v3 = copy.deepcopy(self.ref)
+        stale_v3['supplemental_authority_path'] = v3_path
+        stale_v3['supplemental_authority_sha256'] = hashlib.sha256((ROOT/v3_path).read_bytes()).hexdigest()
+        with self.assertRaisesRegex(ValueError, 'binding changed'):
+            creative.validate_bible_binding(stale_v3,root=self.root)
+        for old_style in ['style-continuity-20261022-v4.json','style-continuity-20261022-v5.json','style-continuity-20261023-v6.json','style-continuity-20261023-v7.json','style-continuity-20261023-v9-hud-layout.json','style-continuity-20261023-v10-foreground-cpu.json','style-continuity-20261024-v11-playtest-feedback.json','style-continuity-20261024-v12-fixed-status.json','style-continuity-20261024-v13-responsive-navigation.json','style-continuity-20261026-v14-run-gear.json','style-continuity-20261027-v15-item-v5.json','style-continuity-20261028-v16-item-authoring.json','style-continuity-20261028-v17-home-codex.json']:
+            old_path = 'docs/creative_direction/bibles/'+old_style
+            stale = copy.deepcopy(self.ref)
+            stale['supplemental_authority_path'] = old_path
+            stale['supplemental_authority_sha256'] = hashlib.sha256((ROOT/old_path).read_bytes()).hexdigest()
+            with self.subTest(superseded=old_style),self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.validate_bible_binding(stale,root=self.root)
+        refs = actual_refs
+        for role,path in creative.PLAYER_STYLE_DEPENDENCIES.items():
+            self.assertIn({'role':role,'path':path,'sha256':hashlib.sha256((self.root/path).read_bytes()).hexdigest()},refs)
+        old = json.loads((ROOT/'docs/creative_direction/archive/creative-v5/thorn_forest.json').read_bytes())['region_bible']
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(old,root=self.root)
+        supplement_path = self.root/style['path']
+        original = supplement_path.read_bytes()
+        registry_path = self.root/creative.BIBLE_REGISTRY
+        registry_raw = registry_path.read_bytes()
+        for role in creative.PLAYER_STYLE_DEPENDENCIES:
+            data = json.loads(original)
+            data['runtime_reference']['references'] = [row for row in refs if row['role'] != role]
+            supplement_path.write_text(json.dumps(data))
+            registry = json.loads(registry_raw)
+            registry['shared_style_authority']['sha256'] = hashlib.sha256(supplement_path.read_bytes()).hexdigest()
+            registry_path.write_text(json.dumps(registry))
+            with self.subTest(missing_role=role),self.assertRaisesRegex(ValueError,'Complete actual formal'):
+                creative.bind_region_bible('thorn_forest',self.root)
+        supplement_path.write_bytes(original);registry_path.write_bytes(registry_raw)
+
+    def test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume(self):
+        # Regresses style-body-closure-probe/report-first: changing real body
+        # payloads alone leaves the UnderworldPlayer script byte-identical.
+        script = self.root/'scripts/underworld_plains/underworld_player.gd'
+        script_raw = script.read_bytes()
+        for skill_name in ('gameplay-reviewer','region-creative-director'):
+            skill = self.root/('.agents/skills/'+skill_name+'/SKILL.md')
+            skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic isolated fixture')
+        proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
+
+        def mutation(path):
+            raw = path.read_bytes()
+            if path.suffix == '.json':
+                data = json.loads(raw);data['anchor'][0] += 1
+                return json.dumps(data).encode()
+            # The actual atlas is non-interlaced RGBA and starts with a zero
+            # filter row. Change its first visible RGBA pixel data, recompress
+            # IDAT and repair CRCs: a valid changed PNG, not trailing garbage.
+            self.assertEqual(raw[:8],b'\x89PNG\r\n\x1a\n')
+            chunks=[];offset=8
+            while offset < len(raw):
+                size=struct.unpack('>I',raw[offset:offset+4])[0]
+                chunks.append((raw[offset+4:offset+8],raw[offset+8:offset+8+size]))
+                offset += size+12
+            pixels=bytearray(zlib.decompress(b''.join(body for kind,body in chunks if kind==b'IDAT')))
+            self.assertEqual(pixels[0],0)
+            pixels[1:5]=bytes([255,0,255,255])
+            result=bytearray(raw[:8]);written=False
+            for kind,body in chunks:
+                if kind==b'IDAT':
+                    if written: continue
+                    body=zlib.compress(pixels);written=True
+                result.extend(struct.pack('>I',len(body))+kind+body+struct.pack('>I',zlib.crc32(kind+body)))
+            return bytes(result)
+
+        for path_name in creative.PLAYER_STYLE_DEPENDENCIES.values():
+            path=self.root/path_name;original=path.read_bytes();changed=mutation(path)
+            self.assertNotEqual(changed,original)
+            for kind,task in [('production',self.task()),('proposed',proposed)]:
+                mission={'schema_version':1,'objective':'Inspect regional shared style','tasks':[copy.deepcopy(task)],
+                         'max_calls':4,'max_rounds':1,'call_timeout_seconds':10}
+                task=mission['tasks'][0]
+                name=kind+'-'+path.stem
+                with self.subTest(path=path_name,kind=kind),patch.object(loop,'ROOT',self.root):
+                    expected={'path':path_name,'sha256':hashlib.sha256(original).hexdigest()}
+                    self.assertIn(expected,loop.bound_source_inputs(task))
+                    folder=self.root/(name+'-prompt');folder.mkdir()
+                    prompt,*_=loop.prepare_call(task,mission,'implement',folder,'{}',check_contracts={'checks':[]})
+                    self.assertIn(path_name,prompt)
+                    self.assertIn(expected['sha256'],prompt)
+                    path.write_bytes(changed)
+                    with patch.object(loop,'snapshot',side_effect=AssertionError('must reject before snapshot')),patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
+                        blocked=loop.run({**mission,'native_import_preflight':True},self.root/(name+'-before'),lambda *a:self.fail('must not invoke'))
+                    self.assertEqual(blocked['calls'],0);self.assertEqual(blocked['status'],'blocked')
+                    path.write_bytes(original)
+
+                    def drifting_worker(*args):
+                        path.write_bytes(changed)
+                        return {'status':'ready_for_review','summary':'SIMULATED body-only mutation','findings':[]}
+                    with patch.object(loop,'snapshot',return_value={}),patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
+                        after_dir=self.root/(name+'-after')
+                        with self.assertRaisesRegex(ValueError,'SHA changed'):
+                            loop.run(mission,after_dir,drifting_worker)
+                    after=json.loads((after_dir/'state.json').read_bytes())
+                    self.assertEqual(after['calls'],1);self.assertEqual(after['status'],'blocked')
+                    self.assertFalse(after['content_complete'])
+                    path.write_bytes(original)
+
+                    calls=[]
+                    def worker(*args):
+                        calls.append('implement')
+                        return {'status':'ready_for_review','summary':'SIMULATED saved phase','findings':[]}
+                    resume_dir=self.root/(name+'-resume')
+                    with patch.object(loop,'snapshot',return_value={}),patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
+                        paused=loop.run(mission,resume_dir,worker,stop_after_phase='implement')
+                    self.assertEqual(paused['status'],'paused');self.assertEqual(paused['calls'],1)
+                    checkpoint=(resume_dir/'state.json').read_bytes()
+                    path.write_bytes(changed)
+                    with patch.object(loop,'snapshot',side_effect=AssertionError('must reject resume before snapshot')),self.assertRaisesRegex(ValueError,'Restored Bible source/binding changed'):
+                        loop.run(mission,resume_dir,worker)
+                    self.assertEqual((resume_dir/'state.json').read_bytes(),checkpoint)
+                    self.assertEqual(calls,['implement'])
+                    path.write_bytes(original)
+                    self.assertEqual(script.read_bytes(),script_raw)
+
+    def test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes(self):
+        # Exercise the real cache selector on synthetic hashes, without asking
+        # either inventory or the full production snapshot to scan the tree.
+        import harness
+        checks=harness.load_manifest()['checks']
+        body='assets/underworld_plains/player_animation/run_sheet.png'
+        helper='tools/forest_bible_world_sources.py'
+        added='assets/forest_bible_v2/new-runtime-body.png'
+        original={body:'body-v1',helper:'inventory-v1'}
+        for check_id in ('forest-bible-app-discoveries','forest-bible-integration-tests',
+                         'forest-bible-world-contract','forest-bible-world-connection',
+                         'forest-bible-world-backbranch','forest-practice-bell-restore'):
+            check=checks[check_id]
+            baseline=harness.input_digest(check,list(original),{},snapshot=original)
+            variants=[{**original,body:'body-v2'}, {**original,helper:'inventory-v2'},
+                      {**original,added:'added-asset'}, {helper:original[helper]}]
+            for changed in variants:
+                with self.subTest(check=check_id,changed=changed):
+                    self.assertNotEqual(baseline,harness.input_digest(check,list(changed),{},snapshot=changed))
+
+    def test_default_current_bibles_skip_election(self):
+        for request, region in [('制作荆棘森林','thorn_forest'), ('优化风铃平原美术','windchime_plains')]:
+            mission = level_design.route_request(request)
+            self.assertEqual(mission['phase'], 'production')
+            self.assertNotIn('visual_recipe', mission['preparation'])
+            self.assertNotIn('continuation', mission)
+            for task in mission['tasks']:
+                self.assertEqual(task['region_bible'], mission['region_bible'])
+                self.assertEqual(task['region_id'], region)
+            data, _ = creative.load_direction('docs/creative_direction/'+region+'.json', region)
+            self.assertEqual(data['selection_basis'], 'user_supplied_bible')
+            self.assertEqual(data['candidates'], [])
+            self.assertEqual(data['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
+
+    def test_no_bible_proposal_only_and_explicit_production_rejected(self):
+        mission = level_design.route_request('制作萤雾沼泽')
+        task = mission['tasks'][0]
+        self.assertEqual(mission['creative_phase'], 'proposed_bible_only')
+        self.assertEqual(task['required_gates'], ['G0'])
+        self.assertTrue(all(name.startswith('docs/') for name in task['allowed_paths']))
+        self.assertIsNone(loop.region_bible_input(task))
+        task['allowed_paths'].append('scripts/generation/')
+        with self.assertRaisesRegex(ValueError, 'document-only'):
+            loop.region_bible_input(task)
+        for phase in ('production','prototype'):
+            with self.assertRaisesRegex(ValueError, 'requires a registered current Bible'):
+                level_design.route_request('制作萤雾沼泽', phase=phase)
+
+    def test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls(self):
+        m = {'schema_version':1,'objective':'制作荆棘森林','max_calls':2,'max_rounds':1,'call_timeout_seconds':10,
+             'native_import_preflight':True,'tasks':[{'id':'READ','goal':'inspect','skills':['gameplay-reviewer'],
+                 'checks':['docs'],'read_only':True}]}
+        with (patch.object(loop,'snapshot', side_effect=AssertionError('must not snapshot')),
+              patch.object(loop,'native_import_preflight', side_effect=AssertionError('must not import'))):
+            state = loop.run(m, self.root/'run', lambda *args: self.fail('must not invoke'))
+        self.assertEqual(state['calls'],0)
+        self.assertEqual(state['status'],'blocked')
+        self.assertEqual(state['tasks']['READ']['input_preflight']['uncertain_inputs'][0]['reason'],'region_bible_invalid')
+
+    def test_anonymous_production_write_paths_block_all_original_adversarial_probes(self):
+        for path in ('scripts/generation/thorn_forest_region_v2_v15.gd',
+                     'scripts/generation/plains_region_generator.gd',
+                     'scripts/generation/nonexistent_future_region.gd',
+                     'scripts/generation/', 'scripts/', 'assets/',
+                     'scripts/underworld_plains/underworld_terrain.gd',
+                     'scripts/presentation/forest_bible_presentation.gd',
+                     'resources/items/forest_old_badge.tres'):
+            task = {'id':'ANONYMOUS','goal':'Implement the updated regional layout',
+                    'skills':['region-generator'],'checks':['docs'],'read_only':False,
+                    'allowed_paths':[path],'quality_record':'docs/quality/records/ANONYMOUS.json'}
+            mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
+                       'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True,'tasks':[task]}
+            with self.subTest(path=path), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')), patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
+                with self.assertRaises(ValueError): loop.region_bible_input(task)
+                self.assertIn('ANONYMOUS',loop.mission_bible_preflight(mission))
+                state = loop.run(mission,self.root/('anonymous-'+hashlib.sha256(path.encode()).hexdigest()[:12]),lambda *args:self.fail('must not invoke'))
+                self.assertEqual(state['calls'],0)
+                self.assertEqual(state['status'],'blocked')
+
+    def test_exact_known_catalog_paths_require_matching_single_region_binding(self):
+        task = {**self.task(), 'goal':'Implement the updated regional layout',
+                'allowed_paths':['scripts/generation/thorn_forest_region_v2_v15.gd']}
+        self.assertEqual(loop.region_bible_input(task)['binding']['region_id'],'thorn_forest')
+        for paths in (['scripts/generation/plains_region_generator.gd'],
+                      ['scripts/generation/thorn_forest_region_v2_v15.gd','scripts/generation/plains_region_generator.gd'],
+                      ['scripts/generation/firefly_marsh_generator.gd']):
+            with self.subTest(paths=paths), self.assertRaisesRegex(ValueError,'cross-region'):
+                loop.region_bible_input({**task,'allowed_paths':paths})
+        for key in ('creative_direction','region_proof'):
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError,'cross-region'):
+                loop.region_bible_input({**task,key:{'region_id':'windchime_plains'}})
+
+    def test_all_runtime_domains_detect_registered_region_families_before_prefix_filter(self):
+        domains = ('scripts/unregistered_consumer_family', 'resources/items', 'scenes/new_family',
+                   'assets/new_family', 'shaders/new_family', 'config/new_family')
+        for domain in domains:
+            path = domain + '/forest_new_consumer.gd'
+            with self.subTest(path=path), self.assertRaises(ValueError):
+                loop.region_bible_input({'goal':'Update consumer','allowed_paths':[path]})
+            with self.subTest(cross_region=path), self.assertRaisesRegex(ValueError,'cross-region'):
+                loop.region_bible_input({**self.task(),'allowed_paths':[path,'scripts/underworld_plains/']})
+        # Neither shared physical code nor process-only regional test/docs names
+        # become creative-region work just because their path contains a word.
+        for path in ('scripts/player/player_motor.gd','scripts/run/demo_lifetime.gd',
+                     'config/player_tuning.json','tools/run_forest_bible_weaver.py',
+                     'tests/forest_bible_weaver_runner.gd','docs/design/forest_notes.md'):
+            with self.subTest(shared=path):
+                self.assertIsNone(loop.region_bible_input({'goal':'Fix global physics or process validation','allowed_paths':[path]}))
+
+    def test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked(self):
+        task = {'id':'MIXED','goal':'Update the consumer','allowed_paths':[
+            'scripts/generation/thorn_forest_region_v2_v15.gd','scripts/generation/plains_region_generator.gd']}
+        mission = {'objective':'Update the generator','tasks':[task]}
+        self.assertIn('MIXED',loop.mission_bible_preflight(mission))
+        mission['objective'] = 'Update thorn_forest and windchime_plains'
+        self.assertIn('MIXED',loop.mission_bible_preflight(mission))
+
+    def test_broad_bound_scope_cannot_write_another_actual_region_consumer(self):
+        task = {**self.task(), 'goal':'Implement the updated regional layout','read_only':False,
+                'allowed_paths':['scripts/generation/'],'quality_record':'docs/quality/records/BIBLE.json'}
+        # Simulate source snapshots of one real temporary file only; this never
+        # calls the full repository snapshot or any engine/worker process.
+        target = self.root/'scripts/generation/plains_region_generator.gd'
+        skill = self.root/'.agents/skills/gameplay-reviewer/SKILL.md'
+        skill.parent.mkdir(parents=True); skill.write_text('Synthetic read-only reviewer')
+        def snapshot():
+            return {target.relative_to(self.root).as_posix():hashlib.sha256(target.read_bytes()).hexdigest()} if target.exists() else {}
+        def worker(*args):
+            target.parent.mkdir(parents=True,exist_ok=True); target.write_text('cross-region temporary probe')
+            return {'status':'ready_for_review','summary':'synthetic','findings':[]}
+        mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
+                   'max_rounds':1,'call_timeout_seconds':10,'tasks':[task]}
+        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=snapshot), patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
+            self.assertEqual(loop.region_bible_input(task)['binding']['region_id'],'thorn_forest')
+            with self.assertRaisesRegex(ValueError,'cross-region'):
+                loop.run(mission,self.root/'cross-region-worker',worker)
+        state = json.loads((self.root/'cross-region-worker/state.json').read_bytes())
+        self.assertEqual(state['status'],'blocked')
+        self.assertEqual(state['calls'],1)
+        self.assertTrue(target.exists())  # Original failed edit is preserved.
+
+    def test_handwritten_partial_binding_and_source_inputs(self):
+        with patch.object(loop, 'ROOT', self.root):
+            task = self.task()
+            sources = loop.bound_source_inputs(task)
+            self.assertEqual({r['path'] for r in sources},
+                             {self.ref['registry_path'],self.ref['path'],self.ref['selection_evidence_path'],self.ref['supplemental_authority_path'], *[row['path'] for row in creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']['runtime_reference']['references']]})
+            task['region_bible'] = {'path':self.ref['path']}
+            with self.assertRaisesRegex(ValueError,'Complete region_bible'):
+                loop.region_bible_input(task)
+
+    def test_worker_prompt_contains_full_original_and_audio_scope(self):
+        mission = level_design.route_request('制作荆棘森林')
+        task = mission['tasks'][0]
+        folder = self.root/'prompt'; folder.mkdir()
+        prompt, *_ = loop.prepare_call(task, mission, 'implement', folder, '{}', check_contracts={'checks':[]})
+        self.assertIn((ROOT/task['region_bible']['path']).read_text(), prompt)
+        self.assertIn('BGM deferred_user_supplied', prompt)
+        self.assertIn('actual consumer/source/version', prompt)
+
+    def test_source_drift_during_worker_blocks_after_call(self):
+        task = self.task()
+        attempt = self.root/'run/BIBLE/1'; attempt.mkdir(parents=True)
+        state = {'calls':0}
+        mission = {'max_calls':2}
+        path = self.root/self.ref['path']
+        def worker(*args):
+            path.write_bytes(path.read_bytes()+b'changed')
+            return {'status':'ready_for_review','summary':'fixture','findings':[]}
+        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',return_value={}):
+            with self.assertRaisesRegex(ValueError,'impact analysis'):
+                loop._call_with_retries(task,mission,'implement',attempt,'{}',state,self.root/'run/state.json',worker)
+        self.assertEqual(state['calls'],1)
+
+    def test_source_drift_before_worker_and_restored_completion_block(self):
+        task = self.task()
+        path = self.root/self.ref['path']; path.write_bytes(path.read_bytes()+b'changed')
+        attempt = self.root/'run/BIBLE/1'; attempt.mkdir(parents=True)
+        state = {'calls':0}
+        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')):
+            with self.assertRaisesRegex(ValueError,'impact analysis'):
+                loop._call_with_retries(task,{'max_calls':2},'implement',attempt,'{}',state,self.root/'run/state.json',lambda *a:self.fail('must not invoke'))
+            with self.assertRaisesRegex(ValueError,'impact analysis'):
+                loop.validate_restored_completion({'tasks':[task]}, {'tasks':{'BIBLE':{'status':'complete'}}},self.root/'run')
+        self.assertEqual(state['calls'],0)
+
+    def test_visual_director_uses_current_bible_and_exact_caller_scope(self):
+        m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
+        self.assertNotIn('visual_recipe',m['preparation'])
+        self.assertEqual(m['tasks'][0]['allowed_paths'],['scripts/art/'])
+        self.assertEqual(m['tasks'][0]['required_gates'],['G0','G1','G2'])
+        self.assertEqual(m['tasks'][0]['region_bible']['bible_id'],'windchime_plains_v2')
+
+
+
+    def test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18(self):
+        archive = 'docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/'
+        manifest_raw = (ROOT/(archive+'manifest.json')).read_bytes()
+        self.assertEqual(hashlib.sha256(manifest_raw).hexdigest(),'f440dee12a1bbcc1eb77ab897a079f52b8465ee00018068f0d4e1b73e8e8272a')
+        for row in json.loads(manifest_raw)['files']:
+            raw = (ROOT/row['path']).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),row['sha256'])
+            self.assertEqual(len(raw),row['bytes'])
+        old_path = archive+'style-continuity-20261028-v18-chest-art.json'
+        old_raw = (ROOT/old_path).read_bytes()
+        old = json.loads(old_raw)
+        current = json.loads((ROOT/(MERGE_PARENT_ARCHIVE+'mobile/style19.json')).read_bytes())
+        self.assertEqual(current['version'],'19')
+        self.assertEqual(len(current['runtime_reference']['references']),81)
+        changed = {'default_player_5','item_pause_menu','item_reward_modal','home_codex_ui'}
+        for before,after in zip(old['runtime_reference']['references'],current['runtime_reference']['references']):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
+                             {k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(after['sha256'],hashlib.sha256(merge_parent_source('mobile',after['path'])).hexdigest())
+            if after['role'] in changed:
+                self.assertNotEqual(before['sha256'],after['sha256'])
+                self.assertEqual(before['sha256'],hashlib.sha256((ROOT/(archive+Path(before['path']).name+'.txt')).read_bytes()).hexdigest())
+            else:
+                self.assertEqual(before,after)
+        for key in old.keys()-{'version','runtime_reference','supersedes','revision_impact'}:
+            self.assertEqual(current[key],old[key])
+        self.assertEqual(current['supersedes'],{'path':'docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json','sha256':hashlib.sha256(old_raw).hexdigest()})
+        self.assertEqual(current['revision_impact']['task_id'],'MOBILE-UI-CLARITY-01')
+        self.assertEqual(len(current['revision_impact']['changed_references']),4)
+        self.assertEqual(current['revision_impact']['added_references'],[])
+        stale = copy.deepcopy(self.ref)
+        stale.update(supplemental_authority_path=old_path,supplemental_authority_sha256=hashlib.sha256(old_raw).hexdigest())
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale,root=self.root)
+
+
+    def test_merged20_preserves_both_parent19_contracts_and_refuses_both_pointers(self):
+        current = json.loads((ROOT/(MOTION_LOOT_ARCHIVE+'style20.json')).read_bytes())
+        self.assertEqual(current['version'],'20')
+        actual = current['runtime_reference']['references']
+        self.assertEqual(len(actual),81)
+        parents = {}
+        for parent in ('program','mobile'):
+            base = ROOT/(MERGE_PARENT_ARCHIVE+parent)
+            manifest_raw = (base/'manifest.json').read_bytes()
+            self.assertEqual(hashlib.sha256(manifest_raw).hexdigest(),PARENT_MANIFESTS[parent])
+            for row in json.loads(manifest_raw)['files']:
+                raw = (base/row['path']).read_bytes()
+                self.assertEqual((len(raw),hashlib.sha256(raw).hexdigest()),(row['bytes'],row['sha256']))
+            raw = (base/'style19.json').read_bytes()
+            parents[parent] = json.loads(raw)['runtime_reference']['references']
+            stale = copy.deepcopy(self.ref)
+            stale.update(supplemental_authority_path=MERGE_PARENT_ARCHIVE+parent+'/style19.json',supplemental_authority_sha256=hashlib.sha256(raw).hexdigest())
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.validate_bible_binding(stale,root=self.root)
+        changed = set()
+        preserved = 0
+        for before,other,after in zip(parents['program'],parents['mobile'],actual):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in other.items() if k!='sha256'})
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(after['sha256'],hashlib.sha256(initial20_source(after['path'])).hexdigest())
+            if before==other:
+                self.assertEqual(after,before)
+                preserved += 1
+            else:
+                changed.add(after['path'])
+                self.assertIn(after['sha256'],(before['sha256'],other['sha256']))
+        self.assertEqual(changed,MERGE_UI_LEAVES|{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'})
+        self.assertEqual(preserved,74)
+        self.assertEqual(current['shared_dimensions'],json.loads((ROOT/(MERGE_PARENT_ARCHIVE+'mobile/style19.json')).read_bytes())['shared_dimensions'])
+
+
+    def test_plains_motion_loot21_keeps81_prefix_rebinds_three_and_adds_two_real_references(self):
+        root = ROOT/MOTION_LOOT_ARCHIVE
+        raw = (root/'manifest.json').read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(),MOTION_LOOT_ARCHIVE_SHA)
+        for row in json.loads(raw)['files']:
+            content = (root/row['path']).read_bytes()
+            self.assertEqual((len(content),hashlib.sha256(content).hexdigest()),(row['bytes'],row['sha256']))
+        prior_raw = (root/'style20.json').read_bytes()
+        prior = json.loads(prior_raw)
+        self.assertEqual(prior['version'],'20')
+        current = json.loads((ROOT/(MERGE21_ARCHIVE+'program/style21.json')).read_bytes())
+        self.assertEqual(current['version'],'21')
+        before = prior['runtime_reference']['references']
+        actual = current['runtime_reference']['references']
+        self.assertEqual((len(before),len(actual)),(81,83))
+        changed = set()
+        for old,new in zip(before,actual[:81]):
+            self.assertEqual({k:v for k,v in old.items() if k!='sha256'},{k:v for k,v in new.items() if k!='sha256'})
+            self.assertEqual(old['sha256'],hashlib.sha256(initial20_source(old['path'])).hexdigest())
+            self.assertEqual(new['sha256'],hashlib.sha256(merge21_parent_source('program',new['path'])).hexdigest())
+            if old!=new:changed.add(new['path'])
+        self.assertEqual(changed,{'scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd','scripts/demo/thorn_forest_region_stage.gd'})
+        self.assertEqual(sum(a==b for a,b in zip(before,actual[:81])),78)
+        self.assertEqual([(x['role'],x['path']) for x in actual[81:]],[('plains_loot_life_orb','assets/plains_loot_02/life_orb.png'),('plains_loot_world_sampler','shaders/plains_loot_02.gdshader')])
+        consumer = (ROOT/'scripts/art/plains_stage_visual.gd').read_text()
+        for row in actual[81:]:
+            self.assertIn('res://'+row['path'],consumer)
+            self.assertEqual(row['sha256'],hashlib.sha256((ROOT/row['path']).read_bytes()).hexdigest())
+        self.assertEqual(current['shared_dimensions'],prior['shared_dimensions'])
+        original_inputs = json.loads((root/'region-bible-inputs.json').read_bytes())
+        self.assertEqual(len(original_inputs),368)
+        live_inputs = json.loads((ROOT/'tools/harness/profiles.json').read_bytes())['checks']['region-bible-tests']['inputs']
+        self.assertEqual(live_inputs[:368],original_inputs)
+        stale = copy.deepcopy(self.ref)
+        stale.update(supplemental_authority_path=MOTION_LOOT_ARCHIVE+'style20.json',supplemental_authority_sha256=hashlib.sha256(prior_raw).hexdigest())
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(stale,root=self.root)
+
+
+
+
+    def test_actual_player_body_closure_is_required_and_superseded_binding_refused_audio_history(self):
+        style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
+        self.assertEqual(style['content']['version'],'22')
+        style = {**style,'content':json.loads((ROOT/(MERGE21_ARCHIVE+'audio/style21.json')).read_bytes())}
         self.assertEqual(style['content']['version'],'21')
         # Preserve the full old18 historical chain against exact frozen leaves.
         current_style = style
@@ -786,7 +1741,7 @@ class BibleTests(unittest.TestCase):
                 creative.bind_region_bible('thorn_forest',self.root)
         supplement_path.write_bytes(original);registry_path.write_bytes(registry_raw)
 
-    def test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18(self):
+    def test_mobile_ui_v19_is_finite_preserves_originals_and_rejects_stale_v18_audio_history(self):
         archive = 'docs/evidence/mobile_ui_clarity_01/source-bindings/before-style19/'
         manifest_raw = (ROOT/(archive+'manifest.json')).read_bytes()
         self.assertEqual(hashlib.sha256(manifest_raw).hexdigest(),'f440dee12a1bbcc1eb77ab897a079f52b8465ee00018068f0d4e1b73e8e8272a')
@@ -873,7 +1828,7 @@ class BibleTests(unittest.TestCase):
         old_raw = (ROOT/STYLE20_PATH).read_bytes()
         self.assertEqual(hashlib.sha256(old_raw).hexdigest(),'66d75a2ea49cf0126cfbe5585daf2099ec3b1e883e8b5cd01e5ff78b77ac92f8')
         old = json.loads(old_raw)
-        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        current = json.loads((ROOT/(MERGE21_ARCHIVE+'audio/style21.json')).read_bytes())
         self.assertEqual((old['version'],current['version']),('20','21'))
         self.assertEqual(len(current['runtime_reference']['references']),81)
         self.assertEqual({k:v for k,v in current.items() if k not in {'version','runtime_reference','supersedes','revision_impact'}},
@@ -885,12 +1840,12 @@ class BibleTests(unittest.TestCase):
             self.assertEqual({k:v for k,v in before.items() if k!='sha256'},
                              {k:v for k,v in after.items() if k!='sha256'})
             self.assertEqual(before['sha256'],hashlib.sha256(style20_source(before['path'])).hexdigest())
-            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            self.assertEqual(after['sha256'],hashlib.sha256(merge21_parent_source('audio',after['path'])).hexdigest())
             if after['path']=='scripts/ui/demo_menu.gd':
                 self.assertEqual(after['role'],'item_pause_menu')
                 self.assertEqual((before['sha256'],after['sha256']),('af2f5a92ca800bcbe4340c23d3007e9d37b93dff96e9720df102cb17040c930d','1552093205becf49569ae581747e4f8d71fc6f5b1552d021bb0aa7490f95471f'))
                 deltas.append({'role':after['role'],'path':after['path'],'old_sha256':before['sha256'],'new_sha256':after['sha256']})
-                self.assertEqual((ROOT/after['path']).read_bytes(),(ROOT/(STYLE22_ARCHIVE+'runtime_inputs/demo_menu.gd.txt')).read_bytes())
+                self.assertEqual(merge21_parent_source('audio',after['path']),(ROOT/(STYLE22_ARCHIVE+'runtime_inputs/demo_menu.gd.txt')).read_bytes())
             else:
                 self.assertEqual(before,after)
         self.assertEqual(len(deltas),1)
@@ -920,284 +1875,51 @@ class BibleTests(unittest.TestCase):
         menu.write_bytes(original)
         self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
 
-    def test_body_payload_drift_blocks_production_and_proposed_before_after_and_resume(self):
-        # Regresses style-body-closure-probe/report-first: changing real body
-        # payloads alone leaves the UnderworldPlayer script byte-identical.
-        script = self.root/'scripts/underworld_plains/underworld_player.gd'
-        script_raw = script.read_bytes()
-        for skill_name in ('gameplay-reviewer','region-creative-director'):
-            skill = self.root/('.agents/skills/'+skill_name+'/SKILL.md')
-            skill.parent.mkdir(parents=True,exist_ok=True);skill.write_text('Synthetic isolated fixture')
-        proposed = level_design.route_request('create firefly_marsh')['tasks'][0]
-
-        def mutation(path):
-            raw = path.read_bytes()
-            if path.suffix == '.json':
-                data = json.loads(raw);data['anchor'][0] += 1
-                return json.dumps(data).encode()
-            # The actual atlas is non-interlaced RGBA and starts with a zero
-            # filter row. Change its first visible RGBA pixel data, recompress
-            # IDAT and repair CRCs: a valid changed PNG, not trailing garbage.
-            self.assertEqual(raw[:8],b'\x89PNG\r\n\x1a\n')
-            chunks=[];offset=8
-            while offset < len(raw):
-                size=struct.unpack('>I',raw[offset:offset+4])[0]
-                chunks.append((raw[offset+4:offset+8],raw[offset+8:offset+8+size]))
-                offset += size+12
-            pixels=bytearray(zlib.decompress(b''.join(body for kind,body in chunks if kind==b'IDAT')))
-            self.assertEqual(pixels[0],0)
-            pixels[1:5]=bytes([255,0,255,255])
-            result=bytearray(raw[:8]);written=False
-            for kind,body in chunks:
-                if kind==b'IDAT':
-                    if written: continue
-                    body=zlib.compress(pixels);written=True
-                result.extend(struct.pack('>I',len(body))+kind+body+struct.pack('>I',zlib.crc32(kind+body)))
-            return bytes(result)
-
-        for path_name in creative.PLAYER_STYLE_DEPENDENCIES.values():
-            path=self.root/path_name;original=path.read_bytes();changed=mutation(path)
-            self.assertNotEqual(changed,original)
-            for kind,task in [('production',self.task()),('proposed',proposed)]:
-                mission={'schema_version':1,'objective':'Inspect regional shared style','tasks':[copy.deepcopy(task)],
-                         'max_calls':4,'max_rounds':1,'call_timeout_seconds':10}
-                task=mission['tasks'][0]
-                name=kind+'-'+path.stem
-                with self.subTest(path=path_name,kind=kind),patch.object(loop,'ROOT',self.root):
-                    expected={'path':path_name,'sha256':hashlib.sha256(original).hexdigest()}
-                    self.assertIn(expected,loop.bound_source_inputs(task))
-                    folder=self.root/(name+'-prompt');folder.mkdir()
-                    prompt,*_=loop.prepare_call(task,mission,'implement',folder,'{}',check_contracts={'checks':[]})
-                    self.assertIn(path_name,prompt)
-                    self.assertIn(expected['sha256'],prompt)
-                    path.write_bytes(changed)
-                    with patch.object(loop,'snapshot',side_effect=AssertionError('must reject before snapshot')),patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
-                        blocked=loop.run({**mission,'native_import_preflight':True},self.root/(name+'-before'),lambda *a:self.fail('must not invoke'))
-                    self.assertEqual(blocked['calls'],0);self.assertEqual(blocked['status'],'blocked')
-                    path.write_bytes(original)
-
-                    def drifting_worker(*args):
-                        path.write_bytes(changed)
-                        return {'status':'ready_for_review','summary':'SIMULATED body-only mutation','findings':[]}
-                    with patch.object(loop,'snapshot',return_value={}),patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
-                        after_dir=self.root/(name+'-after')
-                        with self.assertRaisesRegex(ValueError,'SHA changed'):
-                            loop.run(mission,after_dir,drifting_worker)
-                    after=json.loads((after_dir/'state.json').read_bytes())
-                    self.assertEqual(after['calls'],1);self.assertEqual(after['status'],'blocked')
-                    self.assertFalse(after['content_complete'])
-                    path.write_bytes(original)
-
-                    calls=[]
-                    def worker(*args):
-                        calls.append('implement')
-                        return {'status':'ready_for_review','summary':'SIMULATED saved phase','findings':[]}
-                    resume_dir=self.root/(name+'-resume')
-                    with patch.object(loop,'snapshot',return_value={}),patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
-                        paused=loop.run(mission,resume_dir,worker,stop_after_phase='implement')
-                    self.assertEqual(paused['status'],'paused');self.assertEqual(paused['calls'],1)
-                    checkpoint=(resume_dir/'state.json').read_bytes()
-                    path.write_bytes(changed)
-                    with patch.object(loop,'snapshot',side_effect=AssertionError('must reject resume before snapshot')),self.assertRaisesRegex(ValueError,'Restored Bible source/binding changed'):
-                        loop.run(mission,resume_dir,worker)
-                    self.assertEqual((resume_dir/'state.json').read_bytes(),checkpoint)
-                    self.assertEqual(calls,['implement'])
-                    path.write_bytes(original)
-                    self.assertEqual(script.read_bytes(),script_raw)
-
-    def test_new_actual_consumer_cache_inputs_include_body_and_inventory_changes(self):
-        # Exercise the real cache selector on synthetic hashes, without asking
-        # either inventory or the full production snapshot to scan the tree.
-        import harness
-        checks=harness.load_manifest()['checks']
-        body='assets/underworld_plains/player_animation/run_sheet.png'
-        helper='tools/forest_bible_world_sources.py'
-        added='assets/forest_bible_v2/new-runtime-body.png'
-        original={body:'body-v1',helper:'inventory-v1'}
-        for check_id in ('forest-bible-app-discoveries','forest-bible-integration-tests',
-                         'forest-bible-world-contract','forest-bible-world-connection',
-                         'forest-bible-world-backbranch','forest-practice-bell-restore'):
-            check=checks[check_id]
-            baseline=harness.input_digest(check,list(original),{},snapshot=original)
-            variants=[{**original,body:'body-v2'}, {**original,helper:'inventory-v2'},
-                      {**original,added:'added-asset'}, {helper:original[helper]}]
-            for changed in variants:
-                with self.subTest(check=check_id,changed=changed):
-                    self.assertNotEqual(baseline,harness.input_digest(check,list(changed),{},snapshot=changed))
-
-    def test_default_current_bibles_skip_election(self):
-        for request, region in [('制作荆棘森林','thorn_forest'), ('优化风铃平原美术','windchime_plains')]:
-            mission = level_design.route_request(request)
-            self.assertEqual(mission['phase'], 'production')
-            self.assertNotIn('visual_recipe', mission['preparation'])
-            self.assertNotIn('continuation', mission)
-            for task in mission['tasks']:
-                self.assertEqual(task['region_bible'], mission['region_bible'])
-                self.assertEqual(task['region_id'], region)
-            data, _ = creative.load_direction('docs/creative_direction/'+region+'.json', region)
-            self.assertEqual(data['selection_basis'], 'user_supplied_bible')
-            self.assertEqual(data['candidates'], [])
-            self.assertEqual(data['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
-
-    def test_no_bible_proposal_only_and_explicit_production_rejected(self):
-        mission = level_design.route_request('制作萤雾沼泽')
-        task = mission['tasks'][0]
-        self.assertEqual(mission['creative_phase'], 'proposed_bible_only')
-        self.assertEqual(task['required_gates'], ['G0'])
-        self.assertTrue(all(name.startswith('docs/') for name in task['allowed_paths']))
-        self.assertIsNone(loop.region_bible_input(task))
-        task['allowed_paths'].append('scripts/generation/')
-        with self.assertRaisesRegex(ValueError, 'document-only'):
-            loop.region_bible_input(task)
-        for phase in ('production','prototype'):
-            with self.assertRaisesRegex(ValueError, 'requires a registered current Bible'):
-                level_design.route_request('制作萤雾沼泽', phase=phase)
-
-    def test_handwritten_mission_omitting_task_region_blocks_before_import_and_calls(self):
-        m = {'schema_version':1,'objective':'制作荆棘森林','max_calls':2,'max_rounds':1,'call_timeout_seconds':10,
-             'native_import_preflight':True,'tasks':[{'id':'READ','goal':'inspect','skills':['gameplay-reviewer'],
-                 'checks':['docs'],'read_only':True}]}
-        with (patch.object(loop,'snapshot', side_effect=AssertionError('must not snapshot')),
-              patch.object(loop,'native_import_preflight', side_effect=AssertionError('must not import'))):
-            state = loop.run(m, self.root/'run', lambda *args: self.fail('must not invoke'))
-        self.assertEqual(state['calls'],0)
-        self.assertEqual(state['status'],'blocked')
-        self.assertEqual(state['tasks']['READ']['input_preflight']['uncertain_inputs'][0]['reason'],'region_bible_invalid')
-
-    def test_anonymous_production_write_paths_block_all_original_adversarial_probes(self):
-        for path in ('scripts/generation/thorn_forest_region_v2_v15.gd',
-                     'scripts/generation/plains_region_generator.gd',
-                     'scripts/generation/nonexistent_future_region.gd',
-                     'scripts/generation/', 'scripts/', 'assets/',
-                     'scripts/underworld_plains/underworld_terrain.gd',
-                     'scripts/presentation/forest_bible_presentation.gd',
-                     'resources/items/forest_old_badge.tres'):
-            task = {'id':'ANONYMOUS','goal':'Implement the updated regional layout',
-                    'skills':['region-generator'],'checks':['docs'],'read_only':False,
-                    'allowed_paths':[path],'quality_record':'docs/quality/records/ANONYMOUS.json'}
-            mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
-                       'max_rounds':1,'call_timeout_seconds':10,'native_import_preflight':True,'tasks':[task]}
-            with self.subTest(path=path), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')), patch.object(loop,'native_import_preflight',side_effect=AssertionError('must not import')):
-                with self.assertRaises(ValueError): loop.region_bible_input(task)
-                self.assertIn('ANONYMOUS',loop.mission_bible_preflight(mission))
-                state = loop.run(mission,self.root/('anonymous-'+hashlib.sha256(path.encode()).hexdigest()[:12]),lambda *args:self.fail('must not invoke'))
-                self.assertEqual(state['calls'],0)
-                self.assertEqual(state['status'],'blocked')
-
-    def test_exact_known_catalog_paths_require_matching_single_region_binding(self):
-        task = {**self.task(), 'goal':'Implement the updated regional layout',
-                'allowed_paths':['scripts/generation/thorn_forest_region_v2_v15.gd']}
-        self.assertEqual(loop.region_bible_input(task)['binding']['region_id'],'thorn_forest')
-        for paths in (['scripts/generation/plains_region_generator.gd'],
-                      ['scripts/generation/thorn_forest_region_v2_v15.gd','scripts/generation/plains_region_generator.gd'],
-                      ['scripts/generation/firefly_marsh_generator.gd']):
-            with self.subTest(paths=paths), self.assertRaisesRegex(ValueError,'cross-region'):
-                loop.region_bible_input({**task,'allowed_paths':paths})
-        for key in ('creative_direction','region_proof'):
-            with self.subTest(key=key), self.assertRaisesRegex(ValueError,'cross-region'):
-                loop.region_bible_input({**task,key:{'region_id':'windchime_plains'}})
-
-    def test_all_runtime_domains_detect_registered_region_families_before_prefix_filter(self):
-        domains = ('scripts/unregistered_consumer_family', 'resources/items', 'scenes/new_family',
-                   'assets/new_family', 'shaders/new_family', 'config/new_family')
-        for domain in domains:
-            path = domain + '/forest_new_consumer.gd'
-            with self.subTest(path=path), self.assertRaises(ValueError):
-                loop.region_bible_input({'goal':'Update consumer','allowed_paths':[path]})
-            with self.subTest(cross_region=path), self.assertRaisesRegex(ValueError,'cross-region'):
-                loop.region_bible_input({**self.task(),'allowed_paths':[path,'scripts/underworld_plains/']})
-        # Neither shared physical code nor process-only regional test/docs names
-        # become creative-region work just because their path contains a word.
-        for path in ('scripts/player/player_motor.gd','scripts/run/demo_lifetime.gd',
-                     'config/player_tuning.json','tools/run_forest_bible_weaver.py',
-                     'tests/forest_bible_weaver_runner.gd','docs/design/forest_notes.md'):
-            with self.subTest(shared=path):
-                self.assertIsNone(loop.region_bible_input({'goal':'Fix global physics or process validation','allowed_paths':[path]}))
-
-    def test_anonymous_multi_region_task_and_ambiguous_mission_return_blocked(self):
-        task = {'id':'MIXED','goal':'Update the consumer','allowed_paths':[
-            'scripts/generation/thorn_forest_region_v2_v15.gd','scripts/generation/plains_region_generator.gd']}
-        mission = {'objective':'Update the generator','tasks':[task]}
-        self.assertIn('MIXED',loop.mission_bible_preflight(mission))
-        mission['objective'] = 'Update thorn_forest and windchime_plains'
-        self.assertIn('MIXED',loop.mission_bible_preflight(mission))
-
-    def test_broad_bound_scope_cannot_write_another_actual_region_consumer(self):
-        task = {**self.task(), 'goal':'Implement the updated regional layout','read_only':False,
-                'allowed_paths':['scripts/generation/'],'quality_record':'docs/quality/records/BIBLE.json'}
-        # Simulate source snapshots of one real temporary file only; this never
-        # calls the full repository snapshot or any engine/worker process.
-        target = self.root/'scripts/generation/plains_region_generator.gd'
-        skill = self.root/'.agents/skills/gameplay-reviewer/SKILL.md'
-        skill.parent.mkdir(parents=True); skill.write_text('Synthetic read-only reviewer')
-        def snapshot():
-            return {target.relative_to(self.root).as_posix():hashlib.sha256(target.read_bytes()).hexdigest()} if target.exists() else {}
-        def worker(*args):
-            target.parent.mkdir(parents=True,exist_ok=True); target.write_text('cross-region temporary probe')
-            return {'status':'ready_for_review','summary':'synthetic','findings':[]}
-        mission = {'schema_version':1,'objective':'Update the regional generator','max_calls':2,
-                   'max_rounds':1,'call_timeout_seconds':10,'tasks':[task]}
-        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=snapshot), patch.object(loop,'required_input_preflight',return_value={'status':'passed'}):
-            self.assertEqual(loop.region_bible_input(task)['binding']['region_id'],'thorn_forest')
-            with self.assertRaisesRegex(ValueError,'cross-region'):
-                loop.run(mission,self.root/'cross-region-worker',worker)
-        state = json.loads((self.root/'cross-region-worker/state.json').read_bytes())
-        self.assertEqual(state['status'],'blocked')
-        self.assertEqual(state['calls'],1)
-        self.assertTrue(target.exists())  # Original failed edit is preserved.
-
-    def test_handwritten_partial_binding_and_source_inputs(self):
-        with patch.object(loop, 'ROOT', self.root):
-            task = self.task()
-            sources = loop.bound_source_inputs(task)
-            self.assertEqual({r['path'] for r in sources},
-                             {self.ref['registry_path'],self.ref['path'],self.ref['selection_evidence_path'],self.ref['supplemental_authority_path'], *[row['path'] for row in creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']['runtime_reference']['references']]})
-            task['region_bible'] = {'path':self.ref['path']}
-            with self.assertRaisesRegex(ValueError,'Complete region_bible'):
-                loop.region_bible_input(task)
-
-    def test_worker_prompt_contains_full_original_and_audio_scope(self):
-        mission = level_design.route_request('制作荆棘森林')
-        task = mission['tasks'][0]
-        folder = self.root/'prompt'; folder.mkdir()
-        prompt, *_ = loop.prepare_call(task, mission, 'implement', folder, '{}', check_contracts={'checks':[]})
-        self.assertIn((ROOT/task['region_bible']['path']).read_text(), prompt)
-        self.assertIn('BGM deferred_user_supplied', prompt)
-        self.assertIn('actual consumer/source/version', prompt)
-
-    def test_source_drift_during_worker_blocks_after_call(self):
-        task = self.task()
-        attempt = self.root/'run/BIBLE/1'; attempt.mkdir(parents=True)
-        state = {'calls':0}
-        mission = {'max_calls':2}
-        path = self.root/self.ref['path']
-        def worker(*args):
-            path.write_bytes(path.read_bytes()+b'changed')
-            return {'status':'ready_for_review','summary':'fixture','findings':[]}
-        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',return_value={}):
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
-                loop._call_with_retries(task,mission,'implement',attempt,'{}',state,self.root/'run/state.json',worker)
-        self.assertEqual(state['calls'],1)
-
-    def test_source_drift_before_worker_and_restored_completion_block(self):
-        task = self.task()
-        path = self.root/self.ref['path']; path.write_bytes(path.read_bytes()+b'changed')
-        attempt = self.root/'run/BIBLE/1'; attempt.mkdir(parents=True)
-        state = {'calls':0}
-        with patch.object(loop,'ROOT',self.root), patch.object(loop,'snapshot',side_effect=AssertionError('must not snapshot')):
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
-                loop._call_with_retries(task,{'max_calls':2},'implement',attempt,'{}',state,self.root/'run/state.json',lambda *a:self.fail('must not invoke'))
-            with self.assertRaisesRegex(ValueError,'impact analysis'):
-                loop.validate_restored_completion({'tasks':[task]}, {'tasks':{'BIBLE':{'status':'complete'}}},self.root/'run')
-        self.assertEqual(state['calls'],0)
-
-    def test_visual_director_uses_current_bible_and_exact_caller_scope(self):
-        m = visual_director.route('优化风铃平原美术','current-art','docs/quality/records/current-art.json',['scripts/art/'],phase='golden')
-        self.assertNotIn('visual_recipe',m['preparation'])
-        self.assertEqual(m['tasks'][0]['allowed_paths'],['scripts/art/'])
-        self.assertEqual(m['tasks'][0]['required_gates'],['G0','G1','G2'])
-        self.assertEqual(m['tasks'][0]['region_bible']['bible_id'],'windchime_plains_v2')
-
+    def test_merged22_keeps83_roles_and_both_parent21_histories_and_rejects_stale(self):
+        current = creative.supplemental_authority(self.bible,'thorn_forest',self.root)['content']
+        self.assertEqual(current['version'],'22')
+        actual = current['runtime_reference']['references']
+        self.assertEqual(len(actual),83)
+        parents = {}
+        for parent, digest in MERGE21_MANIFESTS.items():
+            base = ROOT/(MERGE21_ARCHIVE+parent)
+            raw = (base/'manifest.json').read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(),digest)
+            for row in json.loads(raw)['files']:
+                content = (base/row['path']).read_bytes()
+                self.assertEqual((len(content),hashlib.sha256(content).hexdigest()),(row['bytes'],row['sha256']))
+            parents[parent] = json.loads((base/'style21.json').read_bytes())
+            prior = parents[parent]
+            self.assertEqual(prior['version'],'21')
+            self.assertEqual({k:v for k,v in current.items() if k not in {'version','runtime_reference','supersedes','revision_impact'}},
+                             {k:v for k,v in prior.items() if k not in {'version','runtime_reference','supersedes','revision_impact'}})
+            oldrefs = prior['runtime_reference']['references']
+            self.assertEqual([(x['role'],x['path']) for x in actual[:len(oldrefs)]],[(x['role'],x['path']) for x in oldrefs])
+            for row in oldrefs:
+                self.assertEqual(row['sha256'],hashlib.sha256(merge21_parent_source(parent,row['path'])).hexdigest())
+            stale = copy.deepcopy(self.ref)
+            registry = json.loads((base/'registry.json').read_bytes())
+            stale.update(supplemental_authority_path=registry['shared_style_authority']['path'],supplemental_authority_sha256=registry['shared_style_authority']['sha256'])
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.validate_bible_binding(stale,root=self.root)
+        self.assertEqual(len(parents['program']['runtime_reference']['references']),83)
+        self.assertEqual(len(parents['audio']['runtime_reference']['references']),81)
+        changed = []
+        for before,after in zip(parents['program']['runtime_reference']['references'],actual):
+            self.assertEqual({k:v for k,v in before.items() if k!='sha256'},{k:v for k,v in after.items() if k!='sha256'})
+            self.assertEqual(after['sha256'],hashlib.sha256((ROOT/after['path']).read_bytes()).hexdigest())
+            if before != after: changed.append({'role':after['role'],'path':after['path'],'old_sha256':before['sha256'],'new_sha256':after['sha256']})
+        self.assertEqual({row['path'] for row in changed},{'scripts/demo/demo_app.gd','scripts/items/v5/item_v5_shop_presenter.gd'})
+        self.assertEqual(current['revision_impact']['changed_references'],changed)
+        self.assertEqual(current['revision_impact']['added_references'],[])
+        self.assertEqual(current['supersedes'],json.loads((ROOT/(MERGE21_ARCHIVE+'program/registry.json')).read_bytes())['shared_style_authority'])
+        source = self.root/'scripts/demo/demo_app.gd'
+        original = source.read_bytes()
+        source.write_bytes(original+b'\n# merged source drift counterexample\n')
+        with self.assertRaisesRegex(ValueError,'Shared Plains style reference SHA changed'):
+            creative.bind_region_bible('thorn_forest',self.root)
+        source.write_bytes(original)
+        self.assertEqual(creative.bind_region_bible('thorn_forest',self.root)[1],self.ref)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,14 @@
+from pathlib import Path
+import hashlib,json,subprocess
+R=Path('/workspace/gunman-rush');A='de22a39b06aa5172571ee7c3ff377cdffce913b6';P=Path('/tmp/plains_final_selected_proof.json');proof=json.loads(P.read_text());matrix=json.loads((R/'build/forest_depth/region/harness-matrix/harness-e2b322d3cf16468faad3b47d6fef5d51/receipt.json').read_text());recon=json.loads(Path('/tmp/plains_final_selected_reconstructed_inventory.json').read_text());snapshot=dict(matrix['source_before']);snapshot['export_presets.cfg']=recon['inventory']['export_presets.cfg'];entries=[]
+for raw in subprocess.check_output(['git','ls-tree','-rz',A,'--','scripts','scenes','resources','assets','config','tools','tests','shaders','project.godot','export_presets.cfg'],cwd=R).split(b'\0'):
+ if not raw:continue
+ meta,n=raw.split(b'\t',1);mode,kind,oid=meta.split();name=n.decode()
+ if kind!=b'blob':continue
+ file=R/name;b=file.read_bytes() if file.is_file() else b'';blob=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+ if blob!=oid.decode():b=subprocess.check_output(['git','show',A+':'+name],cwd=R)
+ digest=hashlib.sha256(b).hexdigest();entries.append({'path':name,'git_blob':oid.decode(),'git_sha256':digest,'recorded_runtime_sha256':snapshot.get(name),'matched':snapshot.get(name)==digest})
+ok=len(entries)==5353 and {x['path'] for x in entries}==set(snapshot) and all(x['matched'] for x in entries)
+leafs={p:{'recorded':v,'gitA':next(x['git_sha256'] for x in entries if x['path']==p),'matched':next(x['git_sha256'] for x in entries if x['path']==p)==v} for p,v in proof['runtime_leaf_sha256'].items()}
+proof['frozen_runtime_binding']={'reviewed_commit':A,'input_count':len(entries),'all_explicit_formal_plains_inputs_match_gitA':ok,'all4_leafs':leafs,'items':entries,'limit':'Binds5353 explicit runtime inputs used by formal/plains and5352 forest runtime inputs toGitA; not a claim that every doc in the older dirty run matched laterGitA. Full forest original input digest separately matched an explicitly reconstructed old snapshot. Native execution itself reported96bf plus original dirty changes.'}
+proof['reviewed_commit']=A;proof['checks'].append({'id':'frozen_gitA_explicit5353_runtime_binding','passed':ok,'detail':{'count':len(entries),'mismatch':[x for x in entries if not x['matched']]}});proof['passed']=sum(x['passed'] for x in proof['checks']);proof['failed']=sum(not x['passed'] for x in proof['checks']);proof['commands']=[proof.pop('command'),'python3 /tmp/bind_plains_selected_to_frozen_a.py > /tmp/plains_final_selected_binding.log'];proof['source_scope']='All4 leafs plus all5353 formal/plains explicit runtime input bytes match frozenGitA. Native run remains dirty96bf evidence; no wholepostrun docs identity claim.';P.write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n');print('FROZEN_A_BINDING',A,len(entries),ok,'total_checks',proof['passed'],proof['failed']);print('mismatches',[x for x in entries if not x['matched']])

@@ -1,0 +1,481 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (12 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | PlainsStageVisual[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | PlayerFeedback[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | DemoApp[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | PlainsRevisionGround[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | PlainsLootMotion[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Running tests/plains_feedback_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@2/@Node@3","played":{"armour":1,"click":1,"denied":1,"land":1,"shot":1},"service":"GameAudio"}],"released":true,"seconds":0.059}
+PLAINS FEEDBACK: 69 assertions, 0 failures
+Running tests/plains_core_access_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CORE FIXTURE phase=1 spawn=(350.0, 582.0) player=(350.0, 582.0) core=(495.0, 527.0)
+CORE FIXTURE phase=1 spawn=(790.0, 582.0) player=(790.0, 582.0) core=(625.0, 527.0)
+CORE FIXTURE phase=2 spawn=(350.0, 452.0) player=(350.0, 452.0) core=(560.0, 455.0)
+CORE FIXTURE phase=2 spawn=(870.0, 452.0) player=(870.0, 452.0) core=(560.0, 455.0)
+PLAINS CORE ACCESS: 17 assertions, 0 failures
+Running tests/plains_final_pier_repro.gd; timeout 120s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FINAL PIER REPRO: rewinds=0 final_pier=2 x=833.998 assertions=3 failures=0
+Running tests/plains_polish_boss_runner.gd; timeout 150s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS POLISH BOSS: 2642 assertions, 0 failures
+Running tests/plains_camera_trace_runner.gd; timeout 180s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS CAMERA TRACE: 2 assertions, 0 failures
+Running tests/windkeeper_runner.gd; timeout 180s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FIGHT PHASE 2 at (592.2496, 581.9252) playerHP 3.0
+FIGHT PHASE 3 at (682.9783, 450.4263) playerHP 2.0
+WINDKEEPER FIGHT TRACE: shots=12 playerHP=2.0 bossHP=0.0
+WINDKEEPER: 170 assertions, 0 failures
+Running tests/plains_terrain_cohesion_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS TERRAIN COHESION: 712 assertions, 0 failures
+Running tests/generated_latch_trajectory_runner.gd; timeout 100s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=false combo=false angle=-0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=false combo=false angle=0.0 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=false combo=false angle=0.05 ticks=162 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=true combo=false angle=-0.05 ticks=162 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=true combo=false angle=0.0 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_lesson mirrored=true combo=false angle=0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=false angle=-0.05 ticks=204 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=false angle=0.0 ticks=203 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=false angle=0.05 ticks=203 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=true angle=-0.05 ticks=165 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=true angle=0.0 ticks=163 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=false combo=true angle=0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=false angle=-0.05 ticks=203 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=false angle=0.0 ticks=203 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=false angle=0.05 ticks=204 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=true angle=-0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=true angle=0.0 ticks=163 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_well mirrored=true combo=true angle=0.05 ticks=165 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=false combo=false angle=-0.05 ticks=208 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=false combo=false angle=0.0 ticks=210 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=false combo=false angle=0.05 ticks=211 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=true combo=false angle=-0.05 ticks=211 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=true combo=false angle=0.0 ticks=210 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_sequence mirrored=true combo=false angle=0.05 ticks=208 shots=2
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=false combo=false angle=-0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=false combo=false angle=0.0 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=false combo=false angle=0.05 ticks=162 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=true combo=false angle=-0.05 ticks=162 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=true combo=false angle=0.0 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_timed mirrored=true combo=false angle=0.05 ticks=161 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=false combo=false angle=-0.05 ticks=346 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=false combo=false angle=0.0 ticks=346 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=false combo=false angle=0.05 ticks=346 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=true combo=false angle=-0.05 ticks=346 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=true combo=false angle=0.0 ticks=346 shots=1
+BRANCH LIBRARY TRACE: plains_windchime_ferry mirrored=true combo=false angle=0.05 ticks=346 shots=1
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node2D@445/@Node2D@450/@Node2D@451/@AudioStreamPlayer2D@452","playback_id":-9223371613699832068,"stream":"res://assets/audio/ambience_v1/plains_chime_a.wav"}],"released":true,"seconds":0.001}
+GENERATED LATCH TRAJECTORIES: 577 assertions, 0 failures
+Running tests/plains_ground_support_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GROUND SUPPORT COVERAGE: 33 solid columns / 12 shared generic samples
+PLAINS GROUND SUPPORT: 168 assertions, 0 failures
+Running tests/plains_recoil_margin_runner.gd; timeout 420s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=12 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=12 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=12 aim=10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=13 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=13 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=13 aim=10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=14 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=14 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=14 aim=10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=15 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=15 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=15 aim=10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=16 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=16 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=16 aim=10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=17 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=17 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=17 aim=10.0 ticks=139 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=18 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=18 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=18 aim=10.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=19 aim=-10.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=19 aim=0.0 ticks=141 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=19 aim=10.0 ticks=141 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=20 aim=-10.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=20 aim=0.0 ticks=142 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=20 aim=10.0 ticks=142 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=21 aim=-10.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=21 aim=0.0 ticks=143 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=21 aim=10.0 ticks=143 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=22 aim=-10.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=22 aim=0.0 ticks=144 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=22 aim=10.0 ticks=144 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=23 aim=-10.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=23 aim=0.0 ticks=145 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=23 aim=10.0 ticks=145 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=24 aim=-10.0 ticks=152 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=24 aim=0.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=24 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=25 aim=-10.0 ticks=153 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=25 aim=0.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=25 aim=10.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=26 aim=-10.0 ticks=154 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=26 aim=0.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=26 aim=10.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=27 aim=-10.0 ticks=155 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=27 aim=0.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=27 aim=10.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=28 aim=-10.0 ticks=156 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=28 aim=0.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=28 aim=10.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=29 aim=-10.0 ticks=157 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=29 aim=0.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=29 aim=10.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=30 aim=-10.0 ticks=158 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=30 aim=0.0 ticks=152 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=false release=30 aim=10.0 ticks=152 shots=1
+LIBRARY STATIC CONTACT id=plains_recoil_step tick=86 body=[P: (369.592, 1133.913), S: (24.0, 36.0)] danger=[P: (117.0, 1159.0), S: (432.0, 20.0)]
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=12 aim=-10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=12 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=12 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=13 aim=-10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=13 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=13 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=14 aim=-10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=14 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=14 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=15 aim=-10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=15 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=15 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=16 aim=-10.0 ticks=134 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=16 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=16 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=17 aim=-10.0 ticks=139 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=17 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=17 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=18 aim=-10.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=18 aim=0.0 ticks=140 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=18 aim=10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=19 aim=-10.0 ticks=141 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=19 aim=0.0 ticks=141 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=19 aim=10.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=20 aim=-10.0 ticks=142 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=20 aim=0.0 ticks=142 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=20 aim=10.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=21 aim=-10.0 ticks=143 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=21 aim=0.0 ticks=143 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=21 aim=10.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=22 aim=-10.0 ticks=144 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=22 aim=0.0 ticks=144 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=22 aim=10.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=23 aim=-10.0 ticks=145 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=23 aim=0.0 ticks=145 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=23 aim=10.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=24 aim=-10.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=24 aim=0.0 ticks=146 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=24 aim=10.0 ticks=152 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=25 aim=-10.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=25 aim=0.0 ticks=147 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=25 aim=10.0 ticks=153 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=26 aim=-10.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=26 aim=0.0 ticks=148 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=26 aim=10.0 ticks=154 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=27 aim=-10.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=27 aim=0.0 ticks=149 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=27 aim=10.0 ticks=155 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=28 aim=-10.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=28 aim=0.0 ticks=150 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=28 aim=10.0 ticks=156 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=29 aim=-10.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=29 aim=0.0 ticks=151 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=29 aim=10.0 ticks=157 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=30 aim=-10.0 ticks=152 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=30 aim=0.0 ticks=152 shots=1
+BRANCH LIBRARY TRACE: 190px rise mirror=true release=30 aim=10.0 ticks=158 shots=1
+LIBRARY STATIC CONTACT id=plains_recoil_step tick=86 body=[P: (272.408, 1133.913), S: (24.0, 36.0)] danger=[P: (117.0, 1159.0), S: (432.0, 20.0)]
+PLAINS RECOIL MARGIN: 1490 assertions, 0 failures
+Running tests/camera_comfort_runner.gd; timeout 45s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CAMERA ascent peak world units/s: old=808.85 new=315.48
+CAMERA COMFORT: 831 assertions, 0 failures
+Running tests/recoil_recovery_runner.gd; timeout 100s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=false, ticks=182, shots=0, ascent=150.4
+CHALLENGE CONTACT: caps=1/2 tick=94 player=[P: (394.4274, 668.246), S: (24.0, 36.0)] danger=[P: (300.0, 700.0), S: (150.0, 40.0)]
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=false, ticks=161, shots=1, ascent=145.6
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=false, ticks=161, shots=1, ascent=150.4
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=false, ticks=161, shots=1, ascent=150.4
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=true, ticks=182, shots=0, ascent=150.4
+CHALLENGE CONTACT: caps=1/2 tick=94 player=[P: (381.5731, 668.246), S: (24.0, 36.0)] danger=[P: (350.0, 700.0), S: (150.0, 40.0)]
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=true, ticks=161, shots=1, ascent=145.6
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=true, ticks=161, shots=1, ascent=150.4
+CHALLENGE TRACE: id=plains_recovery_bridge, mirrored=true, ticks=161, shots=1, ascent=150.4
+RECOIL RECOVERY: 93 assertions, 0 failures
+Running tests/jump_chain_measurement_runner.gd; timeout 30s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+JUMP CHAIN SAMPLES: [{"height_px":150.365669250488,"jump_count":1,"landed":true,"shots":0},{"height_px":276.910133361816,"jump_count":2,"landed":true,"shots":0}]
+JUMP CHAIN: 7 assertions, 0 failures
+Running tests/floating_touch_runner.gd; timeout 60s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FLOATING TOUCH: 203 assertions, 0 failures
+Running tests/branch_library_runner.gd; timeout 540s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BRANCH CURRENT ADMISSION: map=1 seed=branch-library-current-one-shot hash=b9262c0bd7eaafcccf3deeff230459b4355bdb60e8a074f2456eed91c5f2dda5 forbidden=0 max_air_shots=1
+BRANCH CURRENT ADMISSION: map=2 seed=branch-library-current-one-shot/plains/map_2 hash=f6875a7afcee4b92297c16e7db160fd0cee5954ed34a78faedbe263faca63056 forbidden=0 max_air_shots=1
+BRANCH LIBRARY TRACE: plains_recoil_span mirrored=false phase=0.00 ticks=174 shots=1
+BRANCH LIBRARY TRACE: plains_recoil_span mirrored=true phase=0.00 ticks=174 shots=1
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=false phase=0.00 ticks=994 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=false phase=0.25 ticks=1399 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=false phase=0.50 ticks=1264 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=false phase=0.75 ticks=1129 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=true phase=0.00 ticks=994 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=true phase=0.25 ticks=1399 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=true phase=0.50 ticks=1264 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_gears mirrored=true phase=0.75 ticks=1129 shots=0
+BRANCH LIBRARY TRACE: plains_recovery_bridge mirrored=false phase=0.00 ticks=188 shots=0
+BRANCH LIBRARY TRACE: plains_recovery_bridge mirrored=true phase=0.00 ticks=188 shots=0
+BRANCH LIBRARY TRACE: plains_bramble_causeway mirrored=false phase=0.00 ticks=228 shots=0
+BRANCH LIBRARY TRACE: plains_bramble_causeway mirrored=true phase=0.00 ticks=228 shots=0
+BRANCH LIBRARY TRACE: plains_high_perches mirrored=false phase=0.00 ticks=194 shots=0
+BRANCH LIBRARY TRACE: plains_high_perches mirrored=true phase=0.00 ticks=194 shots=0
+BRANCH LIBRARY TRACE: plains_bramble_ridge mirrored=false phase=0.00 ticks=285 shots=0
+BRANCH LIBRARY TRACE: plains_bramble_ridge mirrored=true phase=0.00 ticks=285 shots=0
+BRANCH LIBRARY TRACE: plains_recoil_step mirrored=false phase=0.00 ticks=140 shots=1
+BRANCH LIBRARY TRACE: plains_recoil_step mirrored=true phase=0.00 ticks=140 shots=1
+BRANCH LIBRARY TRACE: plains_recoil_double mirrored=false phase=0.00 ticks=222 shots=2
+BRANCH LIBRARY TRACE: plains_recoil_double mirrored=true phase=0.00 ticks=222 shots=2
+BRANCH LIBRARY TRACE: plains_recoil_chasm mirrored=false phase=0.00 ticks=261 shots=2
+BRANCH LIBRARY TRACE: plains_recoil_chasm mirrored=true phase=0.00 ticks=261 shots=2
+BRANCH LIBRARY TRACE: plains_recoil_chasm_wide mirrored=false phase=0.00 ticks=275 shots=2
+BRANCH LIBRARY TRACE: plains_recoil_chasm_wide mirrored=true phase=0.00 ticks=275 shots=2
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=false phase=0.00 ticks=327 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=false phase=0.25 ticks=732 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=false phase=0.50 ticks=597 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=false phase=0.75 ticks=462 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=true phase=0.00 ticks=327 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=true phase=0.25 ticks=732 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=true phase=0.50 ticks=597 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_one mirrored=true phase=0.75 ticks=462 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=false phase=0.00 ticks=994 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=false phase=0.25 ticks=1399 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=false phase=0.50 ticks=1264 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=false phase=0.75 ticks=1129 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=true phase=0.00 ticks=994 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=true phase=0.25 ticks=1399 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=true phase=0.50 ticks=1264 shots=0
+BRANCH LIBRARY TRACE: plains_ferry_two mirrored=true phase=0.75 ticks=1129 shots=0
+BRANCH LIBRARY TRACE: plains_perch_rise mirrored=false phase=0.00 ticks=68 shots=0
+BRANCH LIBRARY TRACE: plains_perch_rise mirrored=true phase=0.00 ticks=68 shots=0
+BRANCH LIBRARY TRACE: plains_perch_double mirrored=false phase=0.00 ticks=121 shots=0
+BRANCH LIBRARY TRACE: plains_perch_double mirrored=true phase=0.00 ticks=121 shots=0
+BRANCH LIBRARY TRACE: plains_skip_stones mirrored=false phase=0.00 ticks=176 shots=0
+BRANCH LIBRARY TRACE: plains_skip_stones mirrored=true phase=0.00 ticks=176 shots=0
+BRANCH LIBRARY TRACE: plains_thorn_bridge mirrored=false phase=0.00 ticks=93 shots=0
+BRANCH LIBRARY TRACE: plains_thorn_bridge mirrored=true phase=0.00 ticks=93 shots=0
+BRANCH LIBRARY TRACE: plains_thorn_steps mirrored=false phase=0.00 ticks=136 shots=0
+BRANCH LIBRARY TRACE: plains_thorn_steps mirrored=true phase=0.00 ticks=136 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=false phase=0.00 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=false phase=0.25 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=false phase=0.50 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=false phase=0.75 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=true phase=0.00 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=true phase=0.25 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=true phase=0.50 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_brook mirrored=true phase=0.75 ticks=71 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=false phase=0.00 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=false phase=0.25 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=false phase=0.50 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=false phase=0.75 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=true phase=0.00 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=true phase=0.25 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=true phase=0.50 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_gear_glade mirrored=true phase=0.75 ticks=91 shots=0
+BRANCH LIBRARY TRACE: plains_fork_paths mirrored=false phase=0.00 ticks=190 shots=0
+BRANCH LIBRARY TRACE: plains_fork_paths mirrored=true phase=0.00 ticks=190 shots=0
+BRANCH LIBRARY TRACE: plains_fork_rest mirrored=false phase=0.00 ticks=190 shots=0
+BRANCH LIBRARY TRACE: plains_fork_rest mirrored=true phase=0.00 ticks=190 shots=0
+BRANCH LIBRARY TRACE: plains_door_landing mirrored=false phase=0.00 ticks=58 shots=0
+BRANCH LIBRARY TRACE: plains_door_landing mirrored=true phase=0.00 ticks=58 shots=0
+RECOIL SPAN FAIL launch={ "position": (347.835, 540.9252), "grounded": true, "used_jumps": 0, "energy": -1 } shots=0 current=(564.5023, 645.2462) cooldown=0.0
+RECOIL SPAN FAIL launch={ "position": (598.165, 540.9252), "grounded": true, "used_jumps": 0, "energy": -1 } shots=0 current=(381.498, 645.2462) cooldown=0.0
+BRANCH LIBRARY TRACE: plains_fork_paths upper mirrored=false ticks=297 shots=0
+BRANCH LIBRARY TRACE: plains_fork_paths upper mirrored=true ticks=297 shots=0
+BRANCH LIBRARY TRACE: plains_fork_rest upper mirrored=false ticks=172 shots=0
+BRANCH LIBRARY TRACE: plains_fork_rest upper mirrored=true ticks=172 shots=0
+LIBRARY STATIC CONTACT id=plains_recoil_chasm tick=144 body=[P: (677.85, 603.6139), S: (24.0, 36.0)] danger=[P: (373.0, 639.0), S: (560.0, 40.0)]
+CHASM NO RECOIL: id=plains_recoil_chasm pos=(689.85, 621.6139) receiver=933.0 missed=true
+LIBRARY STATIC CONTACT id=plains_recoil_chasm tick=144 body=[P: (754.1499, 603.6139), S: (24.0, 36.0)] danger=[P: (523.0, 639.0), S: (560.0, 40.0)]
+CHASM NO RECOIL: id=plains_recoil_chasm pos=(766.1499, 621.6139) receiver=523.0 missed=true
+LIBRARY STATIC CONTACT id=plains_recoil_chasm_wide tick=144 body=[P: (677.85, 603.6139), S: (24.0, 36.0)] danger=[P: (373.0, 639.0), S: (570.0, 40.0)]
+CHASM NO RECOIL: id=plains_recoil_chasm_wide pos=(689.85, 621.6139) receiver=993.0 missed=true
+LIBRARY STATIC CONTACT id=plains_recoil_chasm_wide tick=144 body=[P: (814.149, 603.6139), S: (24.0, 36.0)] danger=[P: (573.0, 639.0), S: (570.0, 40.0)]
+CHASM NO RECOIL: id=plains_recoil_chasm_wide pos=(826.149, 621.6139) receiver=523.0 missed=true
+BRANCH LIBRARY: 1329 assertions, 0 failures
+Running tests/plains_refresh_art_runner.gd; timeout 60s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REFRESH ART: 27 assertions, 0 failures; actual GPU/device visual review pending
+Running tests/plains_spatial_runner.gd; timeout 240s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SPATIAL FAMILY: id=plains_braided_meadow bounds=[0.0, -450.0, 5650.0, 910.0] nodes=9 main_edges=23 optional_edges=6
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.033 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.883 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_braided_meadow clock=1.733 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=micro_board clock=7.250 entry=(1779.749, 281.924)
+RANDOM TRACE MODULE: index=4 id=plains_long_meadow clock=8.100 entry=(1979.764, 281.924)
+RANDOM TRACE MODULE: index=5 id=plains_terraces clock=12.183 entry=(3019.796, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=15.583 entry=(3829.535, 131.924)
+RANDOM TRACE MODULE: index=7 id=plains_split_terrace clock=16.433 entry=(4029.754, 131.924)
+RANDOM TRACE MODULE: index=8 id=route_junction clock=20.133 entry=(4969.811, 131.924)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_braided_meadow", "micro_board", "plains_long_meadow", "plains_terraces", "micro_board", "plains_split_terrace", "route_junction"], ticks=1366, shots=0
+SPATIAL FAMILY: id=plains_switchback bounds=[0.0, -1200.0, 2280.0, 1622.0] nodes=8 main_edges=29 optional_edges=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_switchback clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_thorn_hop clock=12.333 entry=(1179.498, -618.076)
+RANDOM TRACE MODULE: index=4 id=plains_micro_landing clock=13.317 entry=(1319.434, -618.076)
+RANDOM TRACE MODULE: index=5 id=plains_micro_stool clock=13.633 entry=(1379.81, -618.076)
+RANDOM TRACE MODULE: index=6 id=plains_gear_hop clock=14.017 entry=(1459.535, -618.076)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=15.000 entry=(1599.434, -618.076)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_switchback", "plains_thorn_hop", "plains_micro_landing", "plains_micro_stool", "plains_gear_hop", "route_junction"], ticks=1057, shots=0
+SPATIAL FAMILY: id=plains_wind_spire bounds=[0.0, -2100.0, 2280.0, 2522.0] nodes=8 main_edges=37 optional_edges=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_wind_spire clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_thorn_hop clock=18.767 entry=(1179.472, -1518.076)
+RANDOM TRACE MODULE: index=4 id=plains_micro_landing clock=19.750 entry=(1319.434, -1518.076)
+RANDOM TRACE MODULE: index=5 id=plains_micro_stool clock=20.067 entry=(1379.81, -1518.076)
+RANDOM TRACE MODULE: index=6 id=plains_gear_hop clock=20.450 entry=(1459.535, -1518.076)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=21.433 entry=(1599.434, -1518.076)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_wind_spire", "plains_thorn_hop", "plains_micro_landing", "plains_micro_stool", "plains_gear_hop", "route_junction"], ticks=1443, shots=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_gear_hop clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_micro_landing clock=2.733 entry=(559.4343, 281.924)
+RANDOM TRACE MODULE: index=4 id=plains_thorn_hop clock=3.050 entry=(619.8095, 281.924)
+RANDOM TRACE MODULE: index=5 id=micro_board clock=4.033 entry=(759.4343, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=4.883 entry=(959.7388, 281.924)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=5.733 entry=(1159.763, 281.924)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_gear_hop", "plains_micro_landing", "plains_thorn_hop", "micro_board", "micro_board", "route_junction"], ticks=501, shots=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_gear_hop clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_micro_landing clock=2.733 entry=(559.4343, 281.924)
+RANDOM TRACE MODULE: index=4 id=plains_thorn_hop clock=3.050 entry=(619.8095, 281.924)
+RANDOM TRACE MODULE: index=5 id=micro_board clock=4.033 entry=(759.4343, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=4.883 entry=(959.7388, 281.924)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=5.733 entry=(1159.763, 281.924)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_gear_hop", "plains_micro_landing", "plains_thorn_hop", "micro_board", "micro_board", "route_junction"], ticks=501, shots=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_gear_hop clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_micro_landing clock=2.733 entry=(559.4343, 281.924)
+RANDOM TRACE MODULE: index=4 id=plains_thorn_hop clock=3.050 entry=(619.8095, 281.924)
+RANDOM TRACE MODULE: index=5 id=micro_board clock=4.033 entry=(759.4343, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=4.883 entry=(959.7388, 281.924)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=5.733 entry=(1159.763, 281.924)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_gear_hop", "plains_micro_landing", "plains_thorn_hop", "micro_board", "micro_board", "route_junction"], ticks=501, shots=0
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.050 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.900 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_gear_hop clock=1.750 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_micro_landing clock=2.733 entry=(559.4343, 281.924)
+RANDOM TRACE MODULE: index=4 id=plains_thorn_hop clock=3.050 entry=(619.8095, 281.924)
+RANDOM TRACE MODULE: index=5 id=micro_board clock=4.033 entry=(759.4343, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=4.883 entry=(959.7388, 281.924)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=5.733 entry=(1159.763, 281.924)
+RANDOM ROUTE: seed=4, ids=["micro_board", "micro_board", "plains_gear_hop", "plains_micro_landing", "plains_thorn_hop", "micro_board", "micro_board", "route_junction"], ticks=501, shots=0
+PLAINS SPATIAL: 957 assertions, 0 failures
+Running tests/jump_height_measurement_runner.gd; timeout 100s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+JUMP MEASUREMENT JSON: [{"air_seconds":0.316666666666667,"apex_seconds":0.1,"body_size":[24,36],"height_world_px":62.3212280273438,"hold_seconds":0.15,"hz":60,"release_ticks":0},{"air_seconds":0.35,"apex_seconds":0.116666666666667,"body_size":[24,36],"height_world_px":72.6990051269531,"hold_seconds":0.15,"hz":60,"release_ticks":7},{"air_seconds":0.75,"apex_seconds":0.383333333333333,"body_size":[24,36],"height_world_px":162.910125732422,"hold_seconds":0.15,"hz":60,"release_ticks":30},{"air_seconds":0.316666666666667,"apex_seconds":0.1,"body_size":[24,36],"height_world_px":62.3212280273438,"hold_seconds":0.13,"hz":60,"release_ticks":0},{"air_seconds":0.35,"apex_seconds":0.116666666666667,"body_size":[24,36],"height_world_px":72.6990051269531,"hold_seconds":0.13,"hz":60,"release_ticks":7},{"air_seconds":0.716666666666667,"apex_seconds":0.366666666666667,"body_size":[24,36],"height_world_px":150.365669250488,"hold_seconds":0.13,"hz":60,"release_ticks":30}]
+JUMP MEASUREMENT: 3 assertions, 0 failures
+Running tests/plains_exit_routes_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RANDOM TRACE MODULE: index=0 id=micro_board clock=0.033 entry=(20.0, 282.0)
+RANDOM TRACE MODULE: index=1 id=micro_board clock=0.883 entry=(219.775, 281.924)
+RANDOM TRACE MODULE: index=2 id=plains_split_terrace clock=1.733 entry=(419.7649, 281.924)
+RANDOM TRACE MODULE: index=3 id=plains_long_meadow clock=5.433 entry=(1359.809, 281.924)
+RANDOM TRACE MODULE: index=4 id=micro_board clock=9.517 entry=(2399.797, 281.924)
+RANDOM TRACE MODULE: index=5 id=micro_board clock=10.367 entry=(2599.766, 281.924)
+RANDOM TRACE MODULE: index=6 id=micro_board clock=11.217 entry=(2799.765, 281.924)
+RANDOM TRACE MODULE: index=7 id=route_junction clock=12.067 entry=(2999.765, 281.924)
+RANDOM ROUTE: seed=2, ids=["micro_board", "micro_board", "plains_split_terrace", "plains_long_meadow", "micro_board", "micro_board", "micro_board", "route_junction"], ticks=882, shots=0
+EXIT RETURN: distance=2829.84 speed=260.00 budget=684 ticks
+PLAINS EXIT ROUTES: 123 assertions, 0 failures
+Running tests/home_app_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=80 pieces=303 setup_ms=42
+FOREST_UI_EVENT {"abilities":[],"boss_definition":"res://resources/bosses/bellstrider.tres","boss_scene":"res://scenes/bosses/bellstrider.tscn","content_version":"plains-region-v12-root-bell-spaces","debug_entry":false,"event":"region_assembled","layout_version":"","manifest_hash":"a58c84ab973ed9380d28f0b817b26a8476e6056f23b6b7757170494b56e7fb9b","map_index":1,"region":"plains","seed":"home-app-test"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"death":1,"director_confirm":1,"motion_jump":1,"motion_land":2,"step":52},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1,"plains":1},"track":"home"}],"released":true,"seconds":0.168}
+HOME APP: 19 assertions, 0 failures
+Running tests/home_ui_tests.gd; timeout 60s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"director_click":1,"director_denied":1,"director_shot_pulse":1,"motion_jump":2,"motion_land":2,"step":10},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1},"track":"home"}],"released":true,"seconds":0.186}
+HOME UI TESTS: 36 assertions, 0 failures
+Running tests/menu_settings_lifecycle_runner.gd; timeout 60s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"bell":1},"service":"GameAudio"},{"node":"/root/PlayableDemo/@Node@15","service":"GameMusic","starts":{"home":1},"track":"home"}],"released":true,"seconds":0.093}
+MENU SETTINGS LIFECYCLE: 14 assertions, 0 failures
+Running tests/avatar_presentation_ownership_runner.gd; timeout 90s
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"avatar-ownership"}
+PLAINS REGION: family=hollow_root_first areas=34 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/rootbell_guardian_v2.tres","boss_scene":"res://scenes/bosses/rootbell_guardian_v2.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-fruit-routes-v14","manifest_hash":"939b987d147d4bdb9abcd1dfe11c77b001471a6a4a49d5316dbde6221eecfd38","map_index":1,"region":"thorn_forest","seed":"avatar-ownership/thorn_forest/map_1"}
+FOREST_UI_EVENT {"event":"debug_entry","map_index":1,"natural_progression":false,"region":"thorn_forest","seed":"avatar-ownership-current"}
+SCRIPT ERROR: Cannot call method 'get_node' on a null value.
+          at: run (res://tests/avatar_presentation_ownership_runner.gd:62)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/avatar_presentation_ownership_runner.gd:62)
+              [1] frames (res://tests/avatar_presentation_ownership_runner.gd:16)
+Generated consumer verification failed: Godot emitted a script/shader error; aborted immediately

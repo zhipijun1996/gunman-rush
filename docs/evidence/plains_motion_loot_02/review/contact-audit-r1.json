@@ -1,0 +1,259 @@
+{
+  "reviewer": "/root/corpse_contact_audit",
+  "implementers": [
+    "/root",
+    "/root/plains_motion_round2",
+    "/root/plains_audio_feedback_round2"
+  ],
+  "independent": true,
+  "independence_basis": "This reviewer authored or edited none of the production, tests, recorder or asset files. Only actual video frames were extracted read-only into ignored build and pure measurement scripts/reports written under /tmp. No Godot execution.",
+  "reviewed_source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+  "verdict": "REVISE",
+  "scope": "Patrol main-mass/head resting contact is not yet convincing; other six terminal-frame contacts show no equivalent new blocker. Separate current healing-glow candidate is visible. No full visual/listening/device/user acceptance.",
+  "reviewed_source_sha256": {
+    "scripts/enemies/plains_revision_remains.gd": "64e559a37e9b1d1c2628237eb28db6fc04466284fe9b2b4c5a0be97473850b80",
+    "scripts/enemies/plains_revision_skin.gd": "10a76c7e0a0cc804c13eccf5faadbf2bfdc9e755202e7bbf59ffa454f0e8ae34",
+    "scripts/enemies/plains_revision_ground.gd": "1a72e4483bb92701fa89a31b66cb0d4ac889e251ff2e70265e3a402be0151077",
+    "scripts/enemies/plains_revision_flora.gd": "6e07954a52ccab1e268e6b53b3dc007017e94037c67c463a8592d38f7c748b3d",
+    "scripts/enemies/enemy_feedback_01_remains.gd": "135ecd0f523007c0668262db043a69ba4a5927db6e617e607a2728653b3ca71f",
+    "scripts/art/player_feedback.gd": "69eae2067608556e1aee4d5c62d43854efc7e761056d9651ce0de0ba870bf33e",
+    "tests/plains_motion_loot_02_motion.gd": "365da0a0c04c1dcfb431ddae619c51d9e3eb44e5303bdd9c3d5e526079c5511e"
+  },
+  "terminal_samples": [
+    {
+      "behavior": "patrol",
+      "movie_frame": 321,
+      "seconds": 5.35,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/patrol.png",
+      "sha256": "63b43058b76d2e8cf34fa424d4e5ffd1cd4a55579ee82c45fbe199c75ef964ef",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "REVISE_MAIN_MASS",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "charger",
+      "movie_frame": 756,
+      "seconds": 12.6,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/charger.png",
+      "sha256": "a42506224202cd1d00d3a788eac6a9c6f266eb96e101b19c8e13463d2ecdbc73",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "diver",
+      "movie_frame": 1192,
+      "seconds": 19.866666666666667,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/diver.png",
+      "sha256": "e347744923956168df6ffb13eb7258ac36b750b01462cc5a1c713b3e4548fbe3",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "hopper",
+      "movie_frame": 1627,
+      "seconds": 27.116666666666667,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/hopper.png",
+      "sha256": "eef1f22cce83513866917ea77e38f399d853d9a74f466333966ae0e4d5e4903a",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "sentry",
+      "movie_frame": 2062,
+      "seconds": 34.36666666666667,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/sentry.png",
+      "sha256": "42533417c828da2a5422a86146e1abe0390a191a72e86318b331e4dcf402506b",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "fan_sentry",
+      "movie_frame": 2498,
+      "seconds": 41.63333333333333,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/fan_sentry.png",
+      "sha256": "05aed1e46216bf3eb14888fe259d1f1d0e6c946e69f1e4779e71c4859a2727e4",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    },
+    {
+      "behavior": "root_bell",
+      "movie_frame": 2932,
+      "seconds": 48.86666666666667,
+      "path": "build/plains_motion_loot_02/review-all-02/contact-audit-frames/root_bell.png",
+      "sha256": "323631b83ca1c7cc4c2008e370b7adf81207d93ff6bfa158b2cf658d86b3a9a5",
+      "actual_support_y": 18.0,
+      "contact_visual_verdict": "NO_NEW_CONTACT_BLOCKER_IN_THIS_SAMPLE",
+      "scope": "One actual terminal frame, not full normal-speed animation/visual acceptance"
+    }
+  ],
+  "measurements": {
+    "rows": [
+      {
+        "kind": "patrol",
+        "alpha_threshold": 128,
+        "opaque_pixels": 68369,
+        "source_size": [
+          354,
+          342
+        ],
+        "source_sha256": "12269d5e2abeb78245d4d5a201f4cff7007fae7b23768da83816d25828315f45",
+        "terminal_grid24_opaque_max_y_wu": -0.9725769685419774,
+        "required_downward_offset_wu": 0.9725769685419774,
+        "expected_gap_at_zoom1_6_screen_px": 1.556123149667164,
+        "lowest_opaque_uv": [
+          0.3997175141242938,
+          0.9956140350877193
+        ],
+        "method": "Independent pure Python port of terminal deformation on 25x25 vertices; barycentric mesh interpolation at every qualifying original source pixel center. No Godot execution; world1wu shader sampling may vary up to one pixel."
+      },
+      {
+        "kind": "patrol",
+        "alpha_threshold": 179,
+        "opaque_pixels": 67870,
+        "source_size": [
+          354,
+          342
+        ],
+        "source_sha256": "12269d5e2abeb78245d4d5a201f4cff7007fae7b23768da83816d25828315f45",
+        "terminal_grid24_opaque_max_y_wu": -0.9725769685419774,
+        "required_downward_offset_wu": 0.9725769685419774,
+        "expected_gap_at_zoom1_6_screen_px": 1.556123149667164,
+        "lowest_opaque_uv": [
+          0.3997175141242938,
+          0.9956140350877193
+        ],
+        "method": "Independent pure Python port of terminal deformation on 25x25 vertices; barycentric mesh interpolation at every qualifying original source pixel center. No Godot execution; world1wu shader sampling may vary up to one pixel."
+      },
+      {
+        "kind": "charger",
+        "alpha_threshold": 128,
+        "opaque_pixels": 84776,
+        "source_size": [
+          474,
+          297
+        ],
+        "source_sha256": "1e74096275fb4c492f9ec68983438eba39a9e90261dbcffa115c70912eaa662b",
+        "terminal_grid24_opaque_max_y_wu": -0.4720806579100185,
+        "required_downward_offset_wu": 0.4720806579100185,
+        "expected_gap_at_zoom1_6_screen_px": 0.7553290526560297,
+        "lowest_opaque_uv": [
+          0.9145569620253164,
+          0.8333333333333334
+        ],
+        "method": "Independent pure Python port of terminal deformation on 25x25 vertices; barycentric mesh interpolation at every qualifying original source pixel center. No Godot execution; world1wu shader sampling may vary up to one pixel."
+      },
+      {
+        "kind": "charger",
+        "alpha_threshold": 179,
+        "opaque_pixels": 84291,
+        "source_size": [
+          474,
+          297
+        ],
+        "source_sha256": "1e74096275fb4c492f9ec68983438eba39a9e90261dbcffa115c70912eaa662b",
+        "terminal_grid24_opaque_max_y_wu": -0.4882173356453526,
+        "required_downward_offset_wu": 0.4882173356453526,
+        "expected_gap_at_zoom1_6_screen_px": 0.7811477370325641,
+        "lowest_opaque_uv": [
+          0.9124472573839663,
+          0.8333333333333334
+        ],
+        "method": "Independent pure Python port of terminal deformation on 25x25 vertices; barycentric mesh interpolation at every qualifying original source pixel center. No Godot execution; world1wu shader sampling may vary up to one pixel."
+      }
+    ]
+  },
+  "raster_observations": {
+    "method": "Independent CPU triangulated25x25 mesh raster at actual1wu sampling centers; diagnostic port, not GPU proof",
+    "patrol": {
+      "lowest_occupied_center_y_wu": -1.5,
+      "lowest_row_pixels": 1,
+      "next_row_y_wu": -2.5,
+      "next_row_pixels": 4,
+      "bulk_row_y_wu": -6.5,
+      "bulk_row_pixels": 32
+    },
+    "charger": {
+      "lowest_occupied_center_y_wu": -0.5,
+      "lowest_row_pixels": 1,
+      "next_row_y_wu": -1.5,
+      "next_row_pixels": 15
+    }
+  },
+  "actual_png_diagnostic": {
+    "method": "Read-only dark-pigment pixel count in terminal PNG, NOT alpha segmentation; actualvideohasopaquebackground, coin/corpse visualdistinction retained byviewing",
+    "patrol_frame321": {
+      "row458_darkpixels": 15,
+      "row459_darkpixels": 6,
+      "row460_darkpixels": 4,
+      "row461_darkpixels": 2,
+      "floor_screen_y_from_fixed_camera": 464,
+      "grass_first_visible_band_screen_y": "approximately466+",
+      "interpretation": "Only a couple of thin toe pixels approach real support; bulk silhouette ends several pixels above and head remains high. Gross whole-corpseoffset from8pxguess would burytoe."
+    }
+  },
+  "findings": [
+    {
+      "id": "PML-CONTACT-PATROL",
+      "status": "REVISE",
+      "cause": "Remains owner follows actual floor with_frame_foot0, while final ground deformation folds legs and compresses/tranforms upperbody without a transported mass-to-contact closure. The existing maxY<=0 native criterion only prevents penetration; it admits unlimited floating.",
+      "minimal_fix_direction": "Correct patrol anatomical target only: after first/second knees release, lower chest/head mass toward real supporting toes, transport the neck pivot with that lowering, retain additional late head-drop. Blend correction from zero with existingtopple/head_drop so death0 and33ms hold stay unchanged. Keep corpseowner floor/support ledger, collider, AI, timing, restclock independence and1wu sampling unchanged. Do not shift wholecorpse by5wu based on perceived8pxgap; sourceopaquefoot is already nearplane.",
+      "bounded_candidate_not_approval": "A torso lowering on upper anatomy around0.10–0.13*bodyheight with a matching moved neck pivot and a modest additional late head descent is a candidate to inspect inactualGPU; exact amplitudes require rootrender.",
+      "test_direction": "Keep maxY<=0, then add actual1wu transparentGPU/bodymask support-contact or supporting horizontal-span criterion and head/belly contact masks. A single bottommost toe sample orrigbounds alone is inadequate."
+    },
+    {
+      "id": "PML-CONTACT-CHARGER-CORRECTION",
+      "status": "WITHDRAW_INITIAL_CONCERN",
+      "reason": "Initial grass-gap impression is not sufficient: charger terminal PNG already has9darkbodypixels at463 and35at460 against physicalsupport464. Its independentopaquefootmax is−0.47wu; no genericchargerloweringrecommended."
+    }
+  ],
+  "healing_glow": {
+    "verdict": "ACCEPT_FOR_USER_REVIEW",
+    "source_scope": "CurrentcommonPlayerMotor.modulate binding represented by actualhealfix02; old533 fullfilm no-glowfailure remains valid",
+    "actual_heal_movie_frame": 374,
+    "actual_HP_before": 4,
+    "actual_HP_after": 5,
+    "actual_wallet_at_heal": 6,
+    "images": [
+      {
+        "path": "build/plains_motion_loot_02/review-heal-02/frames/heal--3.png",
+        "sha256": "aa116249cace3c3e16c8d44c900518ffae91b827b142cf3d11b2e940496283b3",
+        "offset_from_actual_heal_frame": -3
+      },
+      {
+        "path": "build/plains_motion_loot_02/review-heal-02/frames/heal-2.png",
+        "sha256": "66c3803079ee53f0f43d8a07b0cbb410715b104f5f6fb04f6b54eb6f5766cb42",
+        "offset_from_actual_heal_frame": 2
+      },
+      {
+        "path": "build/plains_motion_loot_02/review-heal-02/frames/heal-8.png",
+        "sha256": "f425fd5d909514475b86a11ff50b8fd559795e09618bdd529ce7d6c78fa4aa76",
+        "offset_from_actual_heal_frame": 8
+      },
+      {
+        "path": "build/plains_motion_loot_02/review-heal-02/frames/heal-25.png",
+        "sha256": "583a149a5a4583a68f92931ca9665e69e743c1a3ce869cedbf477e5416ffdb17",
+        "offset_from_actual_heal_frame": 25
+      }
+    ],
+    "observed": "A restrained pale mint lift is visible on actualbody/arm at+2/+8; +25 returns to warmer normalbrown. ActualHUD/currentHP changes andrestore+1 are readable. This is a small body cue, no largeaura.",
+    "not_verified": [
+      "humanlistening",
+      "physicaldevice",
+      "userapproval",
+      "allothergamebodyrendererpaths"
+    ]
+  },
+  "not_verified": [
+    "All seven complete normal-speed animations as artisticquality",
+    "Hurt/recovery/deathtransitions beyond examinedframe",
+    "Every geometry/supportedge ormovingplatform",
+    "Audio/listening",
+    "Physicaldeviceperformance",
+    "UserG5"
+  ]
+}

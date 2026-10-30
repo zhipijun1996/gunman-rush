@@ -1,0 +1,3026 @@
+{
+  "audit": "plains7 design/material/current-consumer facts, not quality approval",
+  "head": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+  "timestamp_utc": "2026-10-29T06:38:57.687060+00:00",
+  "method": {
+    "read_only": true,
+    "writes": "only /tmp/enemy_asset_audit_plains.json and .md (temporary helper also /tmp)",
+    "engine_run": false,
+    "image_generation_or_modification": false,
+    "full_tree_inventory": "git ls-tree -r --name-only HEAD; reads use checked-out bytes or git show HEAD:path fallback; no missing-file claims based only on rg --files",
+    "selected_inventory_files": 78,
+    "selected_not_checked_out": [],
+    "design_enemy_card_directory_HEAD": [
+      "docs/design/enemies/plains_charger.md"
+    ],
+    "artistic_acceptance": "No artwork, animation, gameplay fun, user or device PASS inferred. Latest user explicitly rejected the previous production quality."
+  },
+  "formal_install_path": [
+    {
+      "path": "scripts/demo/plains_region_stage.gd",
+      "line": 145,
+      "token": "UnderworldActors.install(self)",
+      "present_in_HEAD": true,
+      "checked_out": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actors.gd",
+      "line": 39,
+      "token": "underworld_actor_installer.gd",
+      "present_in_HEAD": true,
+      "checked_out": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_actor_installer.gd",
+      "line": 15,
+      "token": "var art := UnderworldEnemy.new()",
+      "present_in_HEAD": true,
+      "checked_out": true
+    }
+  ],
+  "shared_authority": [
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "line": 125,
+      "token": "## 5. 怪物生态",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+    },
+    {
+      "path": "docs/creative_direction/README.md",
+      "line": 17,
+      "token": "## 预制作与生产",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "地区共同制作入口"
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "line": 4,
+      "token": "\"version\"",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "creative-v21区域总谱"
+    },
+    {
+      "path": "docs/enemies_and_bosses.md",
+      "line": 20,
+      "token": "Actor组合",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "共用Actor/伤害/表现所有权"
+    },
+    {
+      "path": "docs/plains_enemy_behaviors.md",
+      "line": 5,
+      "token": "| 类别",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "D070三类行为历史设计"
+    },
+    {
+      "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+      "line": 5,
+      "token": "## 消费者",
+      "present_in_HEAD": true,
+      "checked_out": true,
+      "fact": "本轮共用表，非每物种完整单卡"
+    }
+  ],
+  "actors": [
+    {
+      "id": "patrol_drone",
+      "stable_id": "graybox_patrol_drone",
+      "definition": {
+        "path": "resources/enemies/patrol_drone.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"graybox_patrol_drone\"",
+        "definition_version": "1",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [],
+        "status": "未发现按该stable_id建立独立Enemy Sheet；设计散落共用/地区/行为章节",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 36,
+            "token": "## ENEMY-01首个实际消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "初代灰盒巡逻契约"
+          },
+          {
+            "path": "docs/enemy_art.md",
+            "line": 7,
+            "token": "## 状态和集成",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "旧SVG素材说明，并非当前scene实际源"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": false,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+            "manifest": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+            "manifest_species": "beetle",
+            "source_frame": "idle_a",
+            "unique_live_master_count": 1,
+            "method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同idle_a母版，accepted tint/程序局部recoil"
+          },
+          "death": {
+            "source": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+            "source_frame": "death",
+            "unique_pose_count": 1,
+            "method": "单独death格+原整体压扁/alpha下限0.18，无独立多帧D序列"
+          },
+          "manifest_available_frame_count": 6,
+          "manifest_available_frames": [
+            "idle_a",
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery",
+            "death"
+          ],
+          "currently_selected_frames": [
+            "idle_a",
+            "death"
+          ],
+          "unused_action_cells": [
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery"
+          ],
+          "selection_evidence": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 171,
+            "token": "_draw_named_frame(data,species,\"death\"",
+            "present_in_HEAD": true,
+            "checked_out": true
+          }
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/underworld_plains/actors/patrol.png",
+            "source_recipe": {
+              "id": "patrol",
+              "source": "source_enemies.png",
+              "source_region": [
+                50,
+                382,
+                245,
+                234
+              ],
+              "operation": "RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint",
+              "output_size": [
+                40,
+                38
+              ],
+              "sha256": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e"
+            },
+            "unique_pose_count": 1,
+            "method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同单张PNG+接受事件tint及局部recoil"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同PNG下沉+父PixelPlainsEnemy .65s淡出；无独立D图/持久尸体"
+          },
+          "raw_source": "assets/underworld_plains/actors/source_enemies.png",
+          "master_shared_with": null
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_charger",
+      "stable_id": "plains_charger",
+      "definition": {
+        "path": "resources/enemies/plains_charger.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_charger\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"charger\"",
+        "telegraph_duration": "0.45",
+        "attack_duration": "0.38",
+        "recovery_duration": "0.7",
+        "attack_speed": "360.0"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [
+          {
+            "path": "docs/design/enemies/plains_charger.md",
+            "line": 9,
+            "token": "## 身份",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "历史ENEMY-CONTINUITY-01专卡，版本charger-audit-v1；不是现源运行规格"
+          }
+        ],
+        "status": "有专卡但历史版本须分读",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": false,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+            "manifest": "assets/enemy_feedback_01/frames_v8/manifest.json",
+            "manifest_key": "legacy_charger",
+            "source_cell": 3,
+            "region": [
+              1345,
+              0,
+              429,
+              487
+            ],
+            "anchor": [
+              207.25,
+              439
+            ],
+            "unique_live_master_count": 1,
+            "method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列",
+            "source_api": {
+              "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+              "line": 71,
+              "token": "func canonical_live_texture()",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+            "source_cells": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "unique_pose_count": 4,
+            "method": "0.32s绘制四个源姿态+同一网格关节/闪色；不是四张独立文件"
+          },
+          "death": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+            "source_cells": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "unique_pose_count": 4,
+            "method": "原4死亡姿态，Stage兄弟Remains支撑/落地后D7持久尸体；非live网格死亡",
+            "owner": {
+              "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+              "line": 1,
+              "token": "class_name",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "source_reference_but_not_current_live_pixels": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+          "measurement_only_inputs": [
+            "assets/plains_v3/enemies/meadow_actions/beetle.png idle_a"
+          ],
+          "total_sheet_distinct_pose_cells": 8,
+          "movement_frame_sequence_count": 0
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+            "manifest": "assets/enemy_feedback_01/frames_v8/manifest.json",
+            "manifest_key": "underworld_charger",
+            "source_cell": 3,
+            "region": [
+              1343,
+              0,
+              431,
+              507
+            ],
+            "anchor": [
+              209.25,
+              434
+            ],
+            "unique_live_master_count": 1,
+            "method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列",
+            "source_api": {
+              "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+              "line": 71,
+              "token": "func canonical_live_texture()",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+            "source_cells": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "unique_pose_count": 4,
+            "method": "0.32s绘制四个源姿态+同一网格关节/闪色；不是四张独立文件"
+          },
+          "death": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+            "source_cells": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "unique_pose_count": 4,
+            "method": "原4死亡姿态，Stage兄弟Remains支撑/落地后D7持久尸体；非live网格死亡",
+            "owner": {
+              "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+              "line": 1,
+              "token": "class_name",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "source_reference_but_not_current_live_pixels": "assets/underworld_plains/actors/charger.png",
+          "measurement_only_inputs": [
+            "assets/underworld_plains/actors/charger.png"
+          ],
+          "total_sheet_distinct_pose_cells": 8,
+          "movement_frame_sequence_count": 0
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "有4H+4D，不等于待机/走动/转向/预警/攻击/恢复各有独立帧序列；live实际借用受伤末姿态H3。",
+        "专卡charger-audit-v1仍描述旧charger.png live及H→旧PNG回接；当前代码已改H3 live。应作为历史审计原件保留，不能直接视为现源制作规格。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_diver",
+      "stable_id": "plains_diver",
+      "definition": {
+        "path": "resources/enemies/plains_diver.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_diver\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"diver\"",
+        "telegraph_duration": "0.6",
+        "attack_duration": "0.35",
+        "recovery_duration": "0.9",
+        "attack_speed": "200.0",
+        "aerial": "true"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [],
+        "status": "未发现按该stable_id建立独立Enemy Sheet；设计散落共用/地区/行为章节",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": true,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+            "manifest": "assets/enemy_feedback_01/frames_v8/manifest.json",
+            "manifest_key": "legacy_diver",
+            "source_cell": 3,
+            "region": [
+              1308,
+              0,
+              466,
+              491
+            ],
+            "anchor": [
+              244.25,
+              466
+            ],
+            "unique_live_master_count": 1,
+            "method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列",
+            "source_api": {
+              "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+              "line": 71,
+              "token": "func canonical_live_texture()",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+            "source_cells": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "unique_pose_count": 4,
+            "method": "0.32s绘制四个源姿态+同一网格关节/闪色；不是四张独立文件"
+          },
+          "death": {
+            "source": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+            "source_cells": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "unique_pose_count": 4,
+            "method": "原4死亡姿态，Stage兄弟Remains支撑/落地后D7持久尸体；非live网格死亡",
+            "owner": {
+              "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+              "line": 1,
+              "token": "class_name",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "source_reference_but_not_current_live_pixels": "assets/plains_v4/spatial/actors.png",
+          "measurement_only_inputs": [
+            "assets/plains_v4/spatial/actors.png region935,570,580,445"
+          ],
+          "total_sheet_distinct_pose_cells": 8,
+          "movement_frame_sequence_count": 0
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+            "manifest": "assets/enemy_feedback_01/frames_v8/manifest.json",
+            "manifest_key": "underworld_diver",
+            "source_cell": 3,
+            "region": [
+              1337,
+              0,
+              437,
+              491
+            ],
+            "anchor": [
+              215.25,
+              431
+            ],
+            "unique_live_master_count": 1,
+            "method": "H3同一中性姿态作为live母版，PlainsMotion02连续UV网格关节变形；没有独立行走/攻击/转向绘制序列",
+            "source_api": {
+              "path": "scripts/enemies/enemy_feedback_01_frames.gd",
+              "line": 71,
+              "token": "func canonical_live_texture()",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+            "source_cells": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "unique_pose_count": 4,
+            "method": "0.32s绘制四个源姿态+同一网格关节/闪色；不是四张独立文件"
+          },
+          "death": {
+            "source": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+            "source_cells": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "unique_pose_count": 4,
+            "method": "原4死亡姿态，Stage兄弟Remains支撑/落地后D7持久尸体；非live网格死亡",
+            "owner": {
+              "path": "scripts/enemies/enemy_feedback_01_remains.gd",
+              "line": 1,
+              "token": "class_name",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "source_reference_but_not_current_live_pixels": "assets/underworld_plains/actors/aerial.png",
+          "measurement_only_inputs": [
+            "assets/underworld_plains/actors/aerial.png"
+          ],
+          "total_sheet_distinct_pose_cells": 8,
+          "movement_frame_sequence_count": 0
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "有4H+4D，不等于待机/走动/转向/预警/攻击/恢复各有独立帧序列；live实际借用受伤末姿态H3。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_hopper",
+      "stable_id": "plains_hopper",
+      "definition": {
+        "path": "resources/enemies/plains_hopper.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_hopper\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "90.0",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"hopper\"",
+        "telegraph_duration": "0.45",
+        "attack_duration": "0.7",
+        "recovery_duration": "0.7",
+        "attack_speed": "360.0"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [],
+        "status": "未发现按该stable_id建立独立Enemy Sheet；设计散落共用/地区/行为章节",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          },
+          {
+            "path": "docs/plains_interactive_platforms.md",
+            "line": 14,
+            "token": "| 安全落点跃扑守卫",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "玩法按人类标签描述；没有stable_id专卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": false,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+            "manifest": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+            "manifest_species": "beetle",
+            "source_frame": "idle_a",
+            "unique_live_master_count": 1,
+            "method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同idle_a母版，accepted tint/程序局部recoil"
+          },
+          "death": {
+            "source": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+            "source_frame": "death",
+            "unique_pose_count": 1,
+            "method": "单独death格+原整体压扁/alpha下限0.18，无独立多帧D序列"
+          },
+          "manifest_available_frame_count": 6,
+          "manifest_available_frames": [
+            "idle_a",
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery",
+            "death"
+          ],
+          "currently_selected_frames": [
+            "idle_a",
+            "death"
+          ],
+          "unused_action_cells": [
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery"
+          ],
+          "selection_evidence": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 171,
+            "token": "_draw_named_frame(data,species,\"death\"",
+            "present_in_HEAD": true,
+            "checked_out": true
+          }
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/underworld_plains/actors/hopper.png",
+            "source_recipe": {
+              "id": "hopper",
+              "source": "source_enemies.png",
+              "source_region": [
+                406,
+                396,
+                273,
+                220
+              ],
+              "operation": "RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint",
+              "output_size": [
+                40,
+                32
+              ],
+              "sha256": "f665bf113e0bcd4dede94a93aba429106d04091922383e397a7ab1d491b3ca07"
+            },
+            "unique_pose_count": 1,
+            "method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同单张PNG+接受事件tint及局部recoil"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同PNG下沉+父PixelPlainsEnemy .65s淡出；无独立D图/持久尸体"
+          },
+          "raw_source": "assets/underworld_plains/actors/source_enemies.png",
+          "master_shared_with": null
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_sentry",
+      "stable_id": "plains_sentry",
+      "definition": {
+        "path": "resources/enemies/plains_sentry.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_sentry\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"sentry\"",
+        "telegraph_duration": "0.65",
+        "attack_duration": "0.1",
+        "recovery_duration": "1.0",
+        "patrol_speed": "0.0"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [],
+        "status": "未发现按该stable_id建立独立Enemy Sheet；设计散落共用/地区/行为章节",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": false,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+            "manifest": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+            "manifest_species": "sentry",
+            "source_frame": "idle_a",
+            "unique_live_master_count": 1,
+            "method": "静态idle_a母版+PlainsMotion02连续UV关节；不播放原manifest的idle_b/telegraph/attack/recovery格"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同idle_a母版，accepted tint/程序局部recoil"
+          },
+          "death": {
+            "source": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+            "source_frame": "death",
+            "unique_pose_count": 1,
+            "method": "单独death格+原整体压扁/alpha下限0.18，无独立多帧D序列"
+          },
+          "manifest_available_frame_count": 6,
+          "manifest_available_frames": [
+            "idle_a",
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery",
+            "death"
+          ],
+          "currently_selected_frames": [
+            "idle_a",
+            "death"
+          ],
+          "unused_action_cells": [
+            "idle_b",
+            "telegraph",
+            "attack",
+            "recovery"
+          ],
+          "selection_evidence": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 171,
+            "token": "_draw_named_frame(data,species,\"death\"",
+            "present_in_HEAD": true,
+            "checked_out": true
+          }
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/underworld_plains/actors/sentry.png",
+            "source_recipe": {
+              "id": "sentry",
+              "source": "source_enemies.png",
+              "source_region": [
+                1467,
+                312,
+                293,
+                301
+              ],
+              "operation": "RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint",
+              "output_size": [
+                39,
+                40
+              ],
+              "sha256": "0568ca5a7b79181f7b3dde5cca0e1604aa1897a53fa69f262ba2073daf383cfd"
+            },
+            "unique_pose_count": 1,
+            "method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同单张PNG+接受事件tint及局部recoil"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同PNG下沉+父PixelPlainsEnemy .65s淡出；无独立D图/持久尸体"
+          },
+          "raw_source": "assets/underworld_plains/actors/source_enemies.png",
+          "master_shared_with": null
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_fan_sentry",
+      "stable_id": "plains_fan_sentry",
+      "definition": {
+        "path": "resources/enemies/plains_fan_sentry.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_fan_sentry\"",
+        "definition_version": "2",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_half_width": "100.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(28, 32)",
+        "behavior_id": "&\"fan_sentry\"",
+        "telegraph_duration": "0.65",
+        "attack_duration": "0.1",
+        "recovery_duration": "1.0",
+        "patrol_speed": "0.0",
+        "aerial": "true",
+        "projectile_speed": "210.0",
+        "projectile_lifetime": "1.4",
+        "activation_range": "330.0"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [],
+        "status": "未发现按该stable_id建立独立Enemy Sheet；设计散落共用/地区/行为章节",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          },
+          {
+            "path": "docs/plains_interactive_platforms.md",
+            "line": 15,
+            "token": "| 船上俯冲与扇射",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "玩法按人类标签描述；没有stable_id专卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "按behavior_id分派；patrol不装主动attack_behavior"
+        }
+      ],
+      "aerial_default": true,
+      "render_chains": [
+        {
+          "chain": "scene",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/plains_v4/spatial/actors.png",
+            "region": [
+              935,
+              570,
+              580,
+              445
+            ],
+            "unique_pose_count": 1,
+            "method": "先命中actor.definition.aerial分支：完整单图整体bob/倾斜/_weight缩放；绕开_draw_action_frame及PlainsMotion02.draw_body",
+            "evidence": {
+              "path": "scripts/enemies/enemy_presentation.gd",
+              "line": 142,
+              "token": "elif actor.definition.aerial:",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "原图+EnemyHitTemplate染色/反馈姿态；没有独立H图"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同一aerial区域，整体压扁/变色，alpha下限0.18；无独立D图或Remains。aerial tilt仍有sin(_clock*2)项"
+          }
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/underworld_plains/actors/aerial.png",
+            "source_recipe": {
+              "id": "aerial",
+              "source": "source_enemies.png",
+              "source_region": [
+                1142,
+                221,
+                301,
+                338
+              ],
+              "operation": "RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint",
+              "output_size": [
+                36,
+                40
+              ],
+              "sha256": "71809fe3b47597fe001ab9c5c572e3a5ca6d52ca99510a4d65fa9c350272f59f"
+            },
+            "unique_pose_count": 1,
+            "method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同单张PNG+接受事件tint及局部recoil"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同PNG下沉+父PixelPlainsEnemy .65s淡出；无独立D图/持久尸体"
+          },
+          "raw_source": "assets/underworld_plains/actors/source_enemies.png",
+          "master_shared_with": "plains_diver历史原图/当前尺寸测量源"
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "fan_sentry默认及正式生成aerial=true，原scene实际飞行机静图分支，不消费meadow_actions/sentry姿态；PlainsMotion02虽advance、虽有fan分支，该scene绘制绕开它。本轮共用卡“与sentry同炮哨母版”描述不符实际。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 302,
+          "token": "\"ferry_fan_crossfire\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    },
+    {
+      "id": "plains_root_bell",
+      "stable_id": "plains_root_bell",
+      "definition": {
+        "path": "resources/enemies/plains_root_bell.tres",
+        "line": 4,
+        "token": "[resource]",
+        "present_in_HEAD": true,
+        "checked_out": true
+      },
+      "definition_fields": {
+        "script": "ExtResource(\"1\")",
+        "stable_id": "&\"plains_root_bell\"",
+        "definition_version": "1",
+        "health_definition": "ExtResource(\"2\")",
+        "faction": "&\"enemy\"",
+        "patrol_speed": "0.0",
+        "patrol_half_width": "0.0",
+        "initial_direction": "1",
+        "collision_size": "Vector2(36, 40)",
+        "behavior_id": "&\"root_bell\"",
+        "telegraph_duration": "0.85",
+        "attack_duration": "0.16",
+        "recovery_duration": "1.2",
+        "activation_range": "240.0",
+        "protected_radius": "70.0",
+        "pulse_size": "Vector2(52, 36)"
+      },
+      "definition_defaults": {
+        "path": "scripts/enemies/enemy_definition.gd",
+        "line": 13,
+        "token": "@export var behavior_id",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "未在tres覆盖的aerial/behavior等由此取默认值"
+      },
+      "design": {
+        "dedicated_cards": [
+          {
+            "path": "docs/quality/region_production_v3/root_bell_design.md",
+            "line": 36,
+            "token": "## 唯一候选 Enemy Sheet",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "独立敌人设计、外观、状态、玩家策略、资产请求"
+          },
+          {
+            "path": "docs/quality/region_production_v3/root_bell_encounter_v2_card.md",
+            "line": 1,
+            "token": null,
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "遭遇制作/修复合同"
+          }
+        ],
+        "status": "有专卡但历史版本须分读",
+        "shared_or_scattered_docs": [
+          {
+            "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "line": 125,
+            "token": "## 5. 怪物生态",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "原Bible为四类生态外观/行为，未在原文映射这7个stable_id"
+          },
+          {
+            "path": "docs/creative_direction/README.md",
+            "line": 17,
+            "token": "## 预制作与生产",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "地区共同制作入口"
+          },
+          {
+            "path": "docs/creative_direction/windchime_plains.json",
+            "line": 4,
+            "token": "\"version\"",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "creative-v21区域总谱"
+          },
+          {
+            "path": "docs/enemies_and_bosses.md",
+            "line": 20,
+            "token": "Actor组合",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "共用Actor/伤害/表现所有权"
+          },
+          {
+            "path": "docs/plains_enemy_behaviors.md",
+            "line": 5,
+            "token": "| 类别",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "D070三类行为历史设计"
+          },
+          {
+            "path": "docs/worklines/enemy_all_02/plains-production-cards.md",
+            "line": 5,
+            "token": "## 消费者",
+            "present_in_HEAD": true,
+            "checked_out": true,
+            "fact": "本轮共用表，非每物种完整单卡"
+          }
+        ],
+        "checked_scope": "HEAD全树docs/design/enemies、docs/design、docs/quality/region_production_v3及平原顶层文档；不是仅rg本地文件"
+      },
+      "scene_factory": {
+        "path": "scenes/enemies/patrol_drone.tscn",
+        "line": 23,
+        "token": "[node name=\"Presentation\"",
+        "present_in_HEAD": true,
+        "checked_out": true,
+        "fact": "所有平原Definition复用同一场景，再覆盖Definition；不能把场景默认patrol误认每物种有独立tscn"
+      },
+      "gameplay_sources": [
+        {
+          "path": "scripts/enemies/enemy_actor.gd",
+          "line": 83,
+          "token": "func bind_encounter",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_patrol_ai.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_attack_behavior.gd",
+          "line": 23,
+          "token": "func",
+          "present_in_HEAD": true,
+          "checked_out": true,
+          "fact": "root_bell另用RootBellBehavior"
+        },
+        {
+          "path": "scripts/enemies/root_bell_behavior.gd",
+          "line": 1,
+          "token": "class_name",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ],
+      "aerial_default": false,
+      "render_chains": [
+        {
+          "chain": "scene_raw_fallback",
+          "presenter": {
+            "path": "scripts/enemies/enemy_presentation.gd",
+            "line": 102,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/plains_refresh/objects.png",
+            "regions": {
+              "left": [
+                546,
+                766,
+                310,
+                373
+              ],
+              "right": [
+                861,
+                766,
+                392,
+                373
+              ]
+            },
+            "unique_source_regions": 2,
+            "method": "行为不在_draw_action_frame白名单，落通用enemy_left/enemy_right；整体bob/_weight缩放，不调用PlainsMotion02.draw_body",
+            "evidence": {
+              "path": "scripts/art/plains_refresh_assets.gd",
+              "line": 13,
+              "token": "&\"enemy_left\"",
+              "present_in_HEAD": true,
+              "checked_out": true
+            }
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "通用图染色/变形"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同通用活图压扁/变色，alpha下限0.18，无独立D格"
+          }
+        },
+        {
+          "chain": "underworld",
+          "presenter": {
+            "path": "scripts/underworld_plains/underworld_enemy.gd",
+            "line": 137,
+            "token": "func _draw()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/underworld_plains/actors/root_bell.png",
+            "source_recipe": {
+              "id": "root_bell",
+              "source": "source_enemies.png",
+              "source_region": [
+                1793,
+                209,
+                341,
+                412
+              ],
+              "operation": "RGBA crop at alpha>8 bounds then nearest resize; retained RGBA unchanged before resizing, no recolor or repaint",
+              "output_size": [
+                33,
+                40
+              ],
+              "sha256": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e"
+            },
+            "unique_pose_count": 1,
+            "method": "source_enemies原板裁切并nearest缩至33–40px上下的单张PNG；PlainsMotion02静图连续UV网格关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count": 0,
+            "method": "同单张PNG+接受事件tint及局部recoil"
+          },
+          "death": {
+            "unique_authored_pose_count": 0,
+            "method": "同PNG下沉+父PixelPlainsEnemy .65s淡出；无独立D图/持久尸体"
+          },
+          "raw_source": "assets/underworld_plains/actors/source_enemies.png",
+          "master_shared_with": null
+        },
+        {
+          "chain": "root_bell_independent",
+          "presenter": {
+            "path": "scripts/enemies/root_bell_presentation.gd",
+            "line": 90,
+            "token": "func _draw_pose",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "entry": {
+            "path": "scripts/demo/generated_demo_stage.gd",
+            "line": 182,
+            "token": "var presentation := RootBellPresentation.new()",
+            "present_in_HEAD": true,
+            "checked_out": true
+          },
+          "live": {
+            "source": "assets/region_production_v3/enemies/root_bell/source/master.png",
+            "manifest": "assets/region_production_v3/enemies/root_bell/manifest.json",
+            "source_frame": "idle",
+            "unique_live_master_count": 1,
+            "method": "固定idle母版+根枝程序关节"
+          },
+          "hurt": {
+            "unique_authored_pose_count_drawn": 0,
+            "method": "同idle格+tint/局部recoil；manifest的hurt格未选择"
+          },
+          "death": {
+            "source": "assets/region_production_v3/enemies/root_bell/source/master.png",
+            "source_frame": "death",
+            "unique_pose_count": 1,
+            "method": "death格+0.8s淡出，无持久尸体"
+          },
+          "manifest_available_frames": [
+            "idle",
+            "telegraph",
+            "attack",
+            "recovery",
+            "hurt",
+            "death"
+          ],
+          "currently_selected_body_frames": [
+            "idle",
+            "death"
+          ],
+          "unused_body_action_cells": [
+            "telegraph",
+            "attack",
+            "recovery",
+            "hurt"
+          ],
+          "pulse": {
+            "source": "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+            "manifest": "assets/region_production_v3/enemies/root_bell_burst/manifest.json",
+            "available_frames": [
+              "emerge",
+              "rise",
+              "strike",
+              "bend",
+              "fold",
+              "settled"
+            ],
+            "selected_frames": [
+              "emerge",
+              "strike",
+              "bend",
+              "fold",
+              "settled"
+            ],
+            "unused_frames": [
+              "rise"
+            ],
+            "active_bounds_from": "actor.definition.pulse_size; not source alpha"
+          }
+        }
+      ],
+      "inconsistencies_or_gaps": [
+        "原始scene raw链显示通用旧甲虫图，不是独立芦铃设计，也不调用root关节mesh。正常GeneratedDemoStage会先换独立RootBellPresentation，正式Underworld又会替换为UnderworldEnemy，三条不可混称同素材。"
+      ],
+      "references_for_branch_resolution": [
+        {
+          "path": "scripts/enemies/enemy_feedback_01.gd",
+          "line": 28,
+          "token": "static func supports",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/enemies/enemy_presentation.gd",
+          "line": 139,
+          "token": "if feedback_body != null:",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/underworld_plains/underworld_enemy.gd",
+          "line": 143,
+          "token": "var key := \"aerial\"",
+          "present_in_HEAD": true,
+          "checked_out": true
+        },
+        {
+          "path": "scripts/generation/plains_region_generator.gd",
+          "line": 341,
+          "token": "m.enemies.append",
+          "present_in_HEAD": true,
+          "checked_out": true
+        }
+      ]
+    }
+  ],
+  "asset_catalog": [
+    {
+      "path": "assets/underworld_plains/actors/source_enemies.png",
+      "sha256": "befa13fcfcaa0d8192997385f7119459206485ca694f0b60c2e8fcbd9ef935f2",
+      "bytes": 670901,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "raw_source"
+      ],
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/patrol.png",
+      "sha256": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e",
+      "bytes": 2702,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        40,
+        38
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/hopper.png",
+      "sha256": "f665bf113e0bcd4dede94a93aba429106d04091922383e397a7ab1d491b3ca07",
+      "bytes": 3299,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        40,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/charger.png",
+      "sha256": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+      "bytes": 2375,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        40,
+        30
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        253
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/aerial.png",
+      "sha256": "71809fe3b47597fe001ab9c5c572e3a5ca6d52ca99510a4d65fa9c350272f59f",
+      "bytes": 2672,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        36,
+        40
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/sentry.png",
+      "sha256": "0568ca5a7b79181f7b3dde5cca0e1604aa1897a53fa69f262ba2073daf383cfd",
+      "bytes": 3203,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        39,
+        40
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/underworld_plains/actors/root_bell.png",
+      "sha256": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e",
+      "bytes": 2607,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_or_measurement_sprite"
+      ],
+      "dimensions": [
+        33,
+        40
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/underworld-production-actors.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/underworld_plains/actors/source_windkeeper_edit.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/underworld_plains/actors/generation_calls.json",
+        "assets/underworld_plains/actors/actors_build.json",
+        "docs/quality/asset_records/underworld-production-actors.json"
+      ]
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/manifest.json",
+      "sha256": "3259288c624b08a05ad687ecafb1e6bf943c8f120c291cbfc32abc47abc4a6cd",
+      "bytes": 6575,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/plains_v3/enemies/meadow_actions/manifest.json",
+        "assets/plains_v3/enemies/meadow_actions/README.md",
+        "assets/plains_v3/style_approval.json"
+      ],
+      "provenance_limitations": "Family records identify imagegen, unchanged PNGs, style reference and SHA/crops, but do not retain per-call exact prompt, exposed model or explicit output-license grant in this family. Old style approval is a generation reference, not acceptance of current monster art."
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/manifest.json",
+      "sha256": "ade5988d8743f618699f6d520dfdbfef281bd1ce84ca7ee49a40cfc2ad671e85",
+      "bytes": 4976,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/integration-enemy-feedback-01-frame-contracts.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/enemy_feedback_01/frames_v8/manifest.json"
+        }
+      ]
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+      "sha256": "9d776395ca9c12bba978eea3517ce41008183aca1e3bca02505e7558c93ce09d",
+      "bytes": 2028072,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/plains_v3/enemies/meadow_actions/manifest.json",
+        "assets/plains_v3/enemies/meadow_actions/README.md",
+        "assets/plains_v3/style_approval.json"
+      ],
+      "provenance_limitations": "Family records identify imagegen, unchanged PNGs, style reference and SHA/crops, but do not retain per-call exact prompt, exposed model or explicit output-license grant in this family. Old style approval is a generation reference, not acceptance of current monster art."
+    },
+    {
+      "path": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+      "sha256": "741473bc4a93319ea3ea481943d48b8e0cf4a49a26966f0097b3e885e72b2d38",
+      "bytes": 2096333,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/plains_v3/enemies/meadow_actions/manifest.json",
+        "assets/plains_v3/enemies/meadow_actions/README.md",
+        "assets/plains_v3/style_approval.json"
+      ],
+      "provenance_limitations": "Family records identify imagegen, unchanged PNGs, style reference and SHA/crops, but do not retain per-call exact prompt, exposed model or explicit output-license grant in this family. Old style approval is a generation reference, not acceptance of current monster art."
+    },
+    {
+      "path": "assets/plains_v4/spatial/actors.png",
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+      "bytes": 2693554,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/plains_v4/spatial/manifest.json",
+        "assets/plains_v4/spatial/README.md"
+      ],
+      "provenance_summary": {
+        "original_output": "exec-9238efd4-3f16-4c48-b6e1-bc0d32043e66.png",
+        "reference": "assets/plains_v4/windkeeper/body_actions.png",
+        "generator": "image_gen.imagegen",
+        "model": "not exposed in family records",
+        "license_grant": "not found in inspected family records",
+        "crop_key": "regions.drone=[935,570,580,445]"
+      }
+    },
+    {
+      "path": "assets/plains_refresh/objects.png",
+      "sha256": "8781ba85b4e7634b60cc7abd8c6c509f9a1ead478faca449e35ad0d6de36842b",
+      "bytes": 1651001,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_branch_input"
+      ],
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [],
+      "provenance_files": [
+        "assets/plains_refresh/manifest.json"
+      ],
+      "provenance_summary": "Family manifest retains imagegen origin and prompt_summary only; two old moss/acorn beetle regions used as generic enemy_left/right. Not a RootBell-specific master or independent hurt/death sequence."
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+      "sha256": "4d025f1f0612e2ef9464df8a552e36c28e6ca93044189befc87af3141e2f1bf3",
+      "bytes": 1507146,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_live_H_D_sheet"
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_charger.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/enemy_feedback_01/frames_v8/legacy_charger.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/enemy_feedback_01/frames_v8/legacy_charger.provenance.json"
+      ],
+      "generation_provenance_summary": {
+        "reference": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+        "reference_sha256": "9d776395ca9c12bba978eea3517ce41008183aca1e3bca02505e7558c93ce09d",
+        "tool": "image_gen.imagegen",
+        "model": "unknown: not exposed",
+        "license": "unknown: not exposed",
+        "prompt_record": "legacy_charger.generation-result.json",
+        "source_region": null,
+        "status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified"
+      }
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+      "sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6",
+      "bytes": 1094111,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_live_H_D_sheet"
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-underworld_charger.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/enemy_feedback_01/frames_v8/underworld_charger.provenance.json"
+      ],
+      "generation_provenance_summary": {
+        "reference": "assets/underworld_plains/actors/charger.png",
+        "reference_sha256": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+        "tool": "image_gen.imagegen",
+        "model": "unknown: not exposed",
+        "license": "unknown: not exposed",
+        "prompt_record": "root_underworld_prompt_verbatim unavailable; process provenance gap",
+        "source_region": null,
+        "status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified"
+      }
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+      "sha256": "ed78d58c362d258ba0e3388922da118b70ae71ceba2816d52d16ae5a130cf562",
+      "bytes": 1686053,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_live_H_D_sheet"
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-legacy_diver.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/enemy_feedback_01/frames_v8/legacy_diver.provenance.json"
+      ],
+      "generation_provenance_summary": {
+        "reference": "assets/plains_v4/spatial/actors.png",
+        "reference_sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56",
+        "tool": "image_gen.imagegen",
+        "model": "unknown: not exposed",
+        "license": "unknown: not exposed",
+        "prompt_record": "legacy_diver.generation-result.json",
+        "source_region": [
+          935,
+          570,
+          580,
+          445
+        ],
+        "status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified"
+      }
+    },
+    {
+      "path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+      "sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6",
+      "bytes": 1104396,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "current_live_H_D_sheet"
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/integration-enemy-feedback-01-frames-v8-underworld_diver.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/enemy_feedback_01/frames_v8/underworld_diver.provenance.json"
+      ],
+      "generation_provenance_summary": {
+        "reference": "assets/underworld_plains/actors/aerial.png",
+        "reference_sha256": "71809fe3b47597fe001ab9c5c572e3a5ca6d52ca99510a4d65fa9c350272f59f",
+        "tool": "image_gen.imagegen",
+        "model": "unknown: not exposed",
+        "license": "unknown: not exposed",
+        "prompt_record": "root_underworld_prompt_verbatim unavailable; process provenance gap",
+        "source_region": null,
+        "status": "runtime candidate; source anatomical alpha>16 not clipped; faint alpha tails reach some source edges; GPU halo, continuity, device and user approval unverified"
+      }
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+      "sha256": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca",
+      "bytes": 2358027,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "independent_root_bell_body"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/v3-root-bell.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/region_production_v3/enemies/root_bell/source/master.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/region_production_v3/enemies/root_bell/source/provenance.json",
+        "assets/region_production_v3/enemies/root_bell/source/request.json"
+      ]
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell_burst/source/master.png",
+      "sha256": "81faabec82277e630cdabefd3f34188d8be4177318e31dca87be832679482d74",
+      "bytes": 2114644,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "independent_root_bell_pulse"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/v3-root-bell-burst.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/region_production_v3/enemies/root_bell_burst/source/master.png"
+        }
+      ],
+      "provenance_files": [
+        "assets/region_production_v3/enemies/root_bell_burst/source/provenance.json",
+        "assets/region_production_v3/enemies/root_bell_burst/source/request.json"
+      ]
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell/manifest.json",
+      "sha256": "5e5e2542482754dfdc0544491c549c6b76d98e82014cd05fcc3dd2ccd782bcee",
+      "bytes": 1779,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "runtime_root_bell_body_manifest"
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/v3-root-bell.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/region_production_v3/enemies/root_bell/source/master.png"
+        }
+      ]
+    },
+    {
+      "path": "assets/region_production_v3/enemies/root_bell_burst/manifest.json",
+      "sha256": "7d1acceab483048f06f1690e67e4cbf6c38b32a32de5f7e47307199611833d19",
+      "bytes": 2212,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "runtime_root_bell_burst_manifest"
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/v3-root-bell-burst.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "limited_preview",
+          "source_path": "assets/region_production_v3/enemies/root_bell_burst/source/master.png"
+        }
+      ]
+    },
+    {
+      "path": "assets/enemies/plains/manifest_fragment.json",
+      "sha256": "19f1eee67835419426689a7f7592e8af97da48364edeccf21d2a988411675a63",
+      "bytes": 8614,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_or_other_candidate"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/plains_v3/enemies/clockwork_atlas.png",
+      "sha256": "0f1fd8840f5bfffc8e7eab18a0419d888851a40fef1529ef62ef972ec03a2510",
+      "bytes": 1663515,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_or_other_candidate"
+      ],
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/plains_v3/enemies/manifest.json",
+      "sha256": "e62cf1d6b1bbac5ec82596aa89b55962b58156929ff3dd4a4b307cb93a5e3769",
+      "bytes": 3345,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_or_other_candidate"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/visual_development/p1_native/enemy_actions.png",
+      "sha256": "fda75f611584417fad03ed9983fb7273388c8d9199d90095cdada2638df1b60f",
+      "bytes": 2330840,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_or_other_candidate"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/parallel-integration-carrier-fd44e10c90b10d59.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "runtime_candidate",
+          "source_path": "assets/visual_development/p1_native/enemy_actions.png"
+        }
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/failed/enemy_actions.png",
+      "sha256": "6499b2e50ca871f43b74c0dba352652fff30d5540fd3f0f184bfe6d6b4d7aa3b",
+      "bytes": 2113682,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_or_other_candidate"
+      ],
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "asset_records": [
+        {
+          "path": "docs/quality/asset_records/parallel-integration-carrier-69e2e68c73418ccf.json",
+          "license_status": "unknown",
+          "visual_status": "unverified",
+          "disposition": "production_record_only",
+          "source_path": "assets/visual_development/p1_native/failed/enemy_actions.png"
+        }
+      ]
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_body.svg",
+      "sha256": "c07f473c486e105565bf9eb5e0eaea51fb5e363341989b4ef5077ca4f6dfcf62",
+      "bytes": 1048,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_dead.svg",
+      "sha256": "e67ec0fff2f10697036311f70bad0f95a9698caff512fbce038fb90eab399508",
+      "bytes": 1611,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_eye.svg",
+      "sha256": "396b82e9ef4c1fa61682916271ac7c573c7b0bd1acccac40f238e40136ffd42d",
+      "bytes": 734,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_hit.svg",
+      "sha256": "d6a5ccde32364c8d24f86c1b3a638122290ce8cb7563950550cc8dee1a9d7960",
+      "bytes": 1675,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_idle.svg",
+      "sha256": "04a2ee9756b9b731c9c92fa15a8e811f5473c1f8564e2665cecf220f3ecdddfa",
+      "bytes": 1589,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_patrol.svg",
+      "sha256": "4083f0286d53550334199107fa307cd8077b099aca7118509678faae95a768be",
+      "bytes": 1589,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_patrol_alt.svg",
+      "sha256": "b51c29345a3414325dc936721f65d004816a71bb4ed15cdb503176b56d2d6da0",
+      "bytes": 1590,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_rotor.svg",
+      "sha256": "c1c7a75dcec7991de93f08465ee9793a05ab21e2c933b582d7a0491043c57850",
+      "bytes": 781,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    },
+    {
+      "path": "assets/enemies/plains/patrol_drone_telegraph_reserved.svg",
+      "sha256": "6b50f62429b6578801a4da1df67f66574cb627aa44db60c84b08ca343e38cccf",
+      "bytes": 1686,
+      "in_HEAD": true,
+      "checked_out": true,
+      "roles": [
+        "historical_procedural_svg"
+      ],
+      "asset_records": []
+    }
+  ],
+  "available_but_unselected_action_cells": {
+    "meadow_actions": {
+      "beetle": {
+        "source": "beetle.png",
+        "available": [
+          "idle_a",
+          "idle_b",
+          "telegraph",
+          "attack",
+          "recovery",
+          "death"
+        ],
+        "currently_drawn_for_ground_legacy": [
+          "idle_a",
+          "death"
+        ],
+        "unused": [
+          "idle_b",
+          "telegraph",
+          "attack",
+          "recovery"
+        ]
+      },
+      "sentry": {
+        "source": "sentry.png",
+        "available": [
+          "idle_a",
+          "idle_b",
+          "telegraph",
+          "attack",
+          "recovery",
+          "death"
+        ],
+        "currently_drawn_for_ground_legacy": [
+          "idle_a",
+          "death"
+        ],
+        "unused": [
+          "idle_b",
+          "telegraph",
+          "attack",
+          "recovery"
+        ]
+      }
+    },
+    "root_bell_body": {
+      "available": [
+        "idle",
+        "telegraph",
+        "attack",
+        "recovery",
+        "hurt",
+        "death"
+      ],
+      "currently_drawn": [
+        "idle",
+        "death"
+      ],
+      "unused": [
+        "telegraph",
+        "attack",
+        "recovery",
+        "hurt"
+      ]
+    },
+    "root_bell_burst": {
+      "available": [
+        "emerge",
+        "rise",
+        "strike",
+        "bend",
+        "fold",
+        "settled"
+      ],
+      "currently_drawn": [
+        "emerge",
+        "strike",
+        "bend",
+        "fold",
+        "settled"
+      ],
+      "unused": [
+        "rise"
+      ]
+    }
+  },
+  "historical_or_other_sources": [
+    {
+      "path": "assets/enemies/plains/manifest_fragment.json",
+      "status": "旧程序SVG套件；当前两presenter不读这些SVG，工具build_art_preview/snapshot仍可能消费"
+    },
+    {
+      "path": "assets/plains_v3/enemies/clockwork_atlas.png",
+      "status": "历史无人机body/rotor/dead等静态键；当前两presenter不再读取该atlas；未发现生产scripts直接读取这些无人机键"
+    },
+    {
+      "path": "assets/plains_v3/enemies/manifest.json",
+      "status": "历史8键manifest；不是当前meadow_actions manifest"
+    },
+    {
+      "path": "assets/visual_development/p1_native/enemy_actions.png",
+      "status": "另一个开发候选资源，resources/visual_development/p1_candidate.json及p1_actor_calibration.json引用；不能凭名字算入当前7种正式两链"
+    },
+    {
+      "path": "assets/visual_development/p1_native/failed/enemy_actions.png",
+      "status": "failed目录历史；不因路径名之外推拒绝理由，需对应record审查"
+    }
+  ],
+  "provenance_findings": [
+    "Underworld six small sprites are deterministic cropped/nearest-resized derivatives of one source_enemies.png, not six independently generated animation sets; actors_build.json and generation_calls.json retain exact source/prompt/regions.",
+    "Four v8 sheets retain original imagegen PNGs and per-sheet provenance; Underworld charger/diver verbatim original prompts explicitly unavailable (only reconstructed brief), model and license unknown; legacy two have generation-result exact prompt records.",
+    "meadow_actions README/manifest establish imagegen original unchanged sheets and style reference; inspected family has no per-call prompt/model/license grant recorded in the family manifest. Any aggregate asset_records found in asset_catalog are inventory, not a new license instrument.",
+    "RootBell source provenance labels project-original AI generated but v3-root-bell and burst quality asset_records correctly retain license_status unknown; provenance phrase is not verified commercial license.",
+    "Old source folders/docs say six action poses exist; current selection code must decide frame usage. No state enum, distinct pixel hash, source registration or test count is treated as visual production quality."
+  ],
+  "cross_document_inconsistencies": [
+    "Region Bible lists4named ecological types, runtime has7IDs plus legacy/same-body variants; no explicit one-to-one stable_id/design/archetype/art approval mapping found in original Bible.",
+    "Historical D070 describes three types and six-pose playback; current live fixed-master procedures and fan aerial selection differ.",
+    "plains-production-cards.md fan_sentry row claims sentry shared cannon master and cannon-neck joints, but aerial=true sends rawscene through old drone atlas branch; Underworld through aerial.png.",
+    "Charger old dedicated audit card is frozen historical evidence; live source/path and H-exit prose do not describe current canonicalH3 implementation.",
+    "Asset/runtime multiplicity is uneven: dedicated4H+4D only charger/diver, the others mostly static procedural bodies, some have authored action cells but do not consume them. This is a production-method inventory, not an art quality ranking."
+  ]
+}

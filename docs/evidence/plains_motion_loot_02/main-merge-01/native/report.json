@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "started_at": "20261030T081759.348120Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "plains-motion-loot-02",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "dc2e51ab20d156e901783f9530e2e1501dcb1e6c2841f4f7396ad9fd7b0b4a0a",
+      "log": "plains-motion-loot-02.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793348281.7016866,
+      "ended_at_unix": 1793348314.5399199,
+      "duration_seconds": 32.838,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "plains-motion-loot-02"
+      ],
+      "check_token": "5142624dbcfb47dca0ec3cbe26df2ae3",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T081759.348120Z/artifacts/plains-motion-loot-02",
+      "reused": false
+    },
+    {
+      "id": "audio-feedback",
+      "argv": [
+        "python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "53f2cda60b9c51bee5e0bf15be00a6a9186da0c039bc1d303ddd693ff91e6e1e",
+      "log": "audio-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793348338.3596516,
+      "ended_at_unix": 1793348363.003566,
+      "duration_seconds": 24.644,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_feedback_tests.py"
+      ],
+      "check_token": "b28f292451f541abbe9c9136969afb35",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T081759.348120Z/artifacts/audio-feedback",
+      "reused": false
+    },
+    {
+      "id": "enemy-feedback-formal",
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "5e2419da81a96961ba90f3dec8971572de44b5913e18b367166fd9b227c57d3b",
+      "log": "enemy-feedback-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793348316.836669,
+      "ended_at_unix": 1793348336.393025,
+      "duration_seconds": 19.556,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "check_token": "456b4d5ee2074031a19462ea2089ad50",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261030T081759.348120Z/artifacts/enemy-feedback-formal",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "9b9da868609696d4c3c31962d54f59088fd2145120b450f5e729d70e830c0f09",
+  "working_files": {},
+  "commit": "0d7ea6bf7df2eec5266b64012f677f288c2f6239",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 85.44,
+  "jobs": 1,
+  "release": false
+}

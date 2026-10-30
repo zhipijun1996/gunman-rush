@@ -42,6 +42,10 @@ var _director_profiles: Array[String] = ["A", "B"]
 var _director_suppressed: Array[StringName] = []
 var _selected_profiles: Dictionary = {}
 var _selected_configured := false
+## Scoped plains material cues share this same12voice pool and ownership.
+var material_events: Array[Dictionary] = []
+var material_dropped := 0
+var material_preemptions := 0
 var _candidate_revisions: Dictionary = {}
 
 static func cue_committed_reward(origin: Node, event_id: StringName, legacy_cue: StringName) -> void:
@@ -221,6 +225,67 @@ func play(id: StringName, stream_override: AudioStream = null) -> bool:
 	if director_profile_for_event(event_id) != "original":
 		return play_director_event(event_id)
 	return _play_original(id, stream_override)
+
+func play_enemy_material(kind: StringName, stream: AudioStream, origin: Node, species: StringName) -> bool:
+	if _shutting_down or stream == null or volume <= 0 or not is_instance_valid(origin) or not origin.is_inside_tree() or get_tree().paused: return false
+	if kind not in [&"hurt", &"death", &"land"]: return false
+	var semantic := &"enemy_death" if kind == &"death" else &"enemy_hurt" if kind == &"hurt" else &"land"
+	if is_director_event_suppressed(semantic): return false
+	var event := StringName("plains_enemy_" + String(kind))
+	var priority := 80 if kind == &"death" else 45 if kind == &"hurt" else 35
+	var cap := 3 if kind in [&"death", &"hurt"] else 2
+	var active: Array[AudioStreamPlayer] = []
+	var selected: AudioStreamPlayer
+	for voice: AudioStreamPlayer in _voices:
+		if not voice.playing:
+			if selected == null: selected = voice
+		elif voice.get_meta("director_event", &"") == event:
+			active.append(voice)
+	if active.size() >= cap:
+		if kind != &"death":
+			material_dropped += 1
+			return false
+		# Rapid kills replace the oldest material-death tail, never grow a pool.
+		selected = active[0]
+		for voice: AudioStreamPlayer in active:
+			if float(voice.get_meta("material_started", 0.0)) < float(selected.get_meta("material_started", 0.0)): selected = voice
+	elif selected == null and kind == &"death":
+		# Existing critical player death/hurt/warning cues carry priority90;
+		# material kills can preempt ordinary shots/steps and light reactions only.
+		var lowest := priority
+		for voice: AudioStreamPlayer in _voices:
+			var candidate := int(voice.get_meta("audio_priority", 100))
+			if candidate < lowest:
+				lowest = candidate
+				selected = voice
+	if selected == null:
+		material_dropped += 1
+		return false
+	if selected.playing:
+		selected.stop()
+		selected.stream = null
+		material_preemptions += 1
+	_clear_director_metadata(selected)
+	selected.process_mode = Node.PROCESS_MODE_PAUSABLE
+	selected.set_meta("director_event", event)
+	selected.set_meta("director_family", &"enemy_material")
+	selected.set_meta("director_origin", weakref(origin))
+	selected.set_meta("director_sustained", false)
+	selected.set_meta("material_started", _clock)
+	selected.set_meta("audio_priority", priority)
+	var legacy := &"enemy_defeat" if kind == &"death" else &"hurt" if kind == &"hurt" else &"land"
+	selected.set_meta("cue_id", legacy)
+	selected.bus = &"SFX"
+	selected.stream = stream
+	var attenuation := 8.0 if kind == &"death" else 11.0
+	selected.set_meta("attenuation", attenuation)
+	selected.volume_db = linear_to_db(volume) - attenuation
+	selected.play()
+	if selected.has_stream_playback(): _playbacks.append(weakref(selected.get_stream_playback()))
+	played[legacy] = int(played.get(legacy, 0)) + 1
+	material_events.append({"event": String(event), "species": String(species), "origin_id": origin.get_instance_id(), "clock": _clock, "stream": stream.resource_path})
+	if material_events.size() > 128: material_events.pop_front()
+	return true
 
 func _play_original(id: StringName, stream_override: AudioStream = null, committed_reward: bool = false, origin: Node = null) -> bool:
 	if _shutting_down or not _streams.has(id) or volume <= 0: return false
@@ -464,7 +529,7 @@ func stop_director_cues(origin: Node = null, sustained_only: bool = false, prese
 		_clear_director_metadata(voice)
 
 func _clear_director_metadata(voice: AudioStreamPlayer) -> void:
-	for key: StringName in [&"director_event", &"director_origin", &"director_sustained", &"director_family", &"committed_reward"]:
+	for key: StringName in [&"director_event", &"director_origin", &"director_sustained", &"director_family", &"material_started", &"committed_reward"]:
 		if voice.has_meta(key): voice.remove_meta(key)
 
 func stop_director_family(owner_id: int, family: StringName, sustained_only: bool = false) -> void:

@@ -1,0 +1,89 @@
+{
+  "task_id": "ENEMY-STRUCTURE-01",
+  "scope": "Technical style19/creative22 migration only; no runtime engine, visual, user, listening, device, G5 or full CI pass inferred. Other program work concurrently in progress.",
+  "style_before": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261028-v18-chest-art.json",
+    "sha256": "22c2afbb1a298bfbb5f72315b4f60aefc9ae377a6c93bc47780ef6ae4f0a7510"
+  },
+  "style_after": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json",
+    "sha256": "411db2a5b5d59f447f20465559cb7869cc96c0bcf49a0ef3244abd7ec47906aa"
+  },
+  "references": 81,
+  "changed_paths": [
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/thorn_forest_region_stage.gd"
+  ],
+  "unchanged_reference_rows": 78,
+  "global_references_added": 0,
+  "original_test_method_counts": [
+    32,
+    10
+  ],
+  "historical_inputs_manifest": {
+    "path": "docs/creative_direction/archive/creative-v21/manifest.json",
+    "sha256": "1748d7171770ba8bfdaaa415a5a1fd11e6b04d5353fa4bd0076b18debae49a62"
+  },
+  "region_bible_input_prefix_count": 294,
+  "region_bible_input_count": 302,
+  "checks": [
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "duration_seconds": 12.959971911001048,
+      "scope": "Fresh pure binding check only; concurrent unrelated program changes excluded from any full-tree stability claim."
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "duration_seconds": 2.5749543709971476,
+      "scope": "Fresh pure binding check only; concurrent unrelated program changes excluded from any full-tree stability claim."
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "duration_seconds": 0.09332332700068946,
+      "scope": "Fresh pure binding check only; concurrent unrelated program changes excluded from any full-tree stability claim."
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "duration_seconds": 0.12071545699654962,
+      "scope": "Fresh pure binding check only; concurrent unrelated program changes excluded from any full-tree stability claim."
+    }
+  ],
+  "independent_review": "pending",
+  "files": {
+    "docs/creative_direction/bibles/style-continuity-20261029-v19-program-refactor.json": "411db2a5b5d59f447f20465559cb7869cc96c0bcf49a0ef3244abd7ec47906aa",
+    "docs/creative_direction/bibles/registry.json": "7624d24f07686121f7f7063785fbfdabba882d7b98b50063073b28e7608d9b02",
+    "docs/creative_direction/windchime_plains.json": "f4ccf685f0580bb6f6b44b76a1d5b813ec3dc2db7e75f3380bc1037b2de69298",
+    "docs/creative_direction/thorn_forest.json": "aa13e9a4322cc8b331b7b90cbc03ffd57298f2c22843aa8d541c2680b0f1c737",
+    "tests/test_region_bible.py": "ea253fa0e573bcc25e0393d713de057a4ab61621506b666850a4681fd6ad7de4",
+    "tests/test_region_creative_direction.py": "498d11942a713072d701191fd6eb6bac908893f9acbffea0edc9c5ab2c077850",
+    "tools/harness/profiles.json": "9d3c326dcafe87a5cd3cc507bce516469fe1c02be348c29afc482bd324562eeb"
+  }
+}

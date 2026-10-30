@@ -31,3 +31,7 @@ func advance(delta: float) -> bool:
 		return false
 	cancel()
 	return true
+
+func presentation_clock() -> Dictionary:
+	# Raw pattern time counts up, unlike the derived Encounter mode clocks.
+	return {"elapsed":_clock,"telegraphing":telegraphing,"warning_progress":warning_progress,"warning_duration":_warning,"interval":_interval}

@@ -1,0 +1,2448 @@
+{
+  "task": "ENEMY-ALL-02",
+  "group": "boss",
+  "chains": "primary",
+  "species": null,
+  "seed_label": "enemy-all-review-02",
+  "status": "recorded_with_coverage_gaps",
+  "source": {
+    "working_files": {},
+    "commit": "52d0a0ada2103b64b53ecc09d342dc85387111c3",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "017d1d34fb0f6418924039b23e4d4e1d8aa8f9c07a0134662cda385b9c60be9f",
+  "scope": "Genuine Godot MovieMaker; explicit initial fixtures, real AI, InputRouter, projectiles, enemy and player FrameDamagePolicy. No natural-campaign claim.",
+  "user_acceptance": "pending",
+  "device_acceptance": "unverified",
+  "listening_acceptance": false,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_workshop_01/current-boss-01/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_all_review_02_boss_capture.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-boss-01/trace.json",
+    "--group=boss",
+    "--chains=primary",
+    "--seed=enemy-all-review-02"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793278784.651915,
+    "ended_at_unix": 1793279145.6591427,
+    "duration_seconds": 361.007,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_workshop_01/current-boss-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_all_review_02_boss_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/enemy_workshop_01/current-boss-01/trace.json",
+      "--group=boss",
+      "--chains=primary",
+      "--seed=enemy-all-review-02"
+    ],
+    "check_token": "077a692810c04fc28eb91bfe5b3e1dc2"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 12692800,
+    "duration_seconds": 264.43333333333334,
+    "samples": 25385600,
+    "peak_s16": 18270,
+    "peak_normalized": 0.55755615234375,
+    "rms_normalized": 0.03733987234499092,
+    "nonzero_samples": 18633496,
+    "nonzero_sample_ratio": 0.7340183411067692,
+    "seconds_containing_nonzero_pcm": 229,
+    "pcm_sha256": "f1503583e3ac92f915ef46f9232009b68da2c22a97ae41f608104979c00f81d4",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006780547429259218,
+        "nonzero_samples": 84928
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 2671,
+        "rms_normalized": 0.003319987486845396,
+        "nonzero_samples": 12322
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 10657,
+        "rms_normalized": 0.04989612467749511,
+        "nonzero_samples": 95855
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 2411,
+        "rms_normalized": 0.0056009907941286805,
+        "nonzero_samples": 64554
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 9015,
+        "rms_normalized": 0.05563207557144738,
+        "nonzero_samples": 69266
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 9224,
+        "rms_normalized": 0.04824695928968807,
+        "nonzero_samples": 95830
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 9499,
+        "rms_normalized": 0.060059212277459285,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 15127,
+        "rms_normalized": 0.05549405800784236,
+        "nonzero_samples": 95874
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 6713,
+        "rms_normalized": 0.034221183254908825,
+        "nonzero_samples": 82758
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.0072578791193694285,
+        "nonzero_samples": 61752
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.006252218198348323,
+        "nonzero_samples": 94358
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 9195,
+        "rms_normalized": 0.01823343015540953,
+        "nonzero_samples": 30090
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 17,
+        "samples": 96000,
+        "peak_s16": 10362,
+        "rms_normalized": 0.0440856628656843,
+        "nonzero_samples": 85295
+      },
+      {
+        "second": 18,
+        "samples": 96000,
+        "peak_s16": 9827,
+        "rms_normalized": 0.020679221875057316,
+        "nonzero_samples": 95715
+      },
+      {
+        "second": 19,
+        "samples": 96000,
+        "peak_s16": 12269,
+        "rms_normalized": 0.06990757161521431,
+        "nonzero_samples": 95958
+      },
+      {
+        "second": 20,
+        "samples": 96000,
+        "peak_s16": 9451,
+        "rms_normalized": 0.06813002669746787,
+        "nonzero_samples": 95976
+      },
+      {
+        "second": 21,
+        "samples": 96000,
+        "peak_s16": 13616,
+        "rms_normalized": 0.06804470785423286,
+        "nonzero_samples": 95976
+      },
+      {
+        "second": 22,
+        "samples": 96000,
+        "peak_s16": 13307,
+        "rms_normalized": 0.061039149594880424,
+        "nonzero_samples": 95936
+      },
+      {
+        "second": 23,
+        "samples": 96000,
+        "peak_s16": 12014,
+        "rms_normalized": 0.051816879546144036,
+        "nonzero_samples": 95907
+      },
+      {
+        "second": 24,
+        "samples": 96000,
+        "peak_s16": 11954,
+        "rms_normalized": 0.052379195585101485,
+        "nonzero_samples": 95872
+      },
+      {
+        "second": 25,
+        "samples": 96000,
+        "peak_s16": 12459,
+        "rms_normalized": 0.05211433245997154,
+        "nonzero_samples": 95898
+      },
+      {
+        "second": 26,
+        "samples": 96000,
+        "peak_s16": 140,
+        "rms_normalized": 0.00052094144245535,
+        "nonzero_samples": 28746
+      },
+      {
+        "second": 27,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 28,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 29,
+        "samples": 96000,
+        "peak_s16": 9220,
+        "rms_normalized": 0.03287033805464412,
+        "nonzero_samples": 87248
+      },
+      {
+        "second": 30,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006256571021096196,
+        "nonzero_samples": 76362
+      },
+      {
+        "second": 31,
+        "samples": 96000,
+        "peak_s16": 9195,
+        "rms_normalized": 0.018233691266186774,
+        "nonzero_samples": 37002
+      },
+      {
+        "second": 32,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 33,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 34,
+        "samples": 96000,
+        "peak_s16": 9301,
+        "rms_normalized": 0.022271349709558793,
+        "nonzero_samples": 78796
+      },
+      {
+        "second": 35,
+        "samples": 96000,
+        "peak_s16": 9029,
+        "rms_normalized": 0.029824387031093743,
+        "nonzero_samples": 95928
+      },
+      {
+        "second": 36,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004014051587208802,
+        "nonzero_samples": 42244
+      },
+      {
+        "second": 37,
+        "samples": 96000,
+        "peak_s16": 2510,
+        "rms_normalized": 0.003692590818412255,
+        "nonzero_samples": 44204
+      },
+      {
+        "second": 38,
+        "samples": 96000,
+        "peak_s16": 8600,
+        "rms_normalized": 0.03877546245287075,
+        "nonzero_samples": 95856
+      },
+      {
+        "second": 39,
+        "samples": 96000,
+        "peak_s16": 8551,
+        "rms_normalized": 0.01795883622265257,
+        "nonzero_samples": 95804
+      },
+      {
+        "second": 40,
+        "samples": 96000,
+        "peak_s16": 11647,
+        "rms_normalized": 0.07345146843393893,
+        "nonzero_samples": 95972
+      },
+      {
+        "second": 41,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.016007547020456144,
+        "nonzero_samples": 95731
+      },
+      {
+        "second": 42,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.01279929249261285,
+        "nonzero_samples": 95645
+      },
+      {
+        "second": 43,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.006794563263063455,
+        "nonzero_samples": 95606
+      },
+      {
+        "second": 44,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0029861516193855605,
+        "nonzero_samples": 23057
+      },
+      {
+        "second": 45,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 46,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 47,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 48,
+        "samples": 96000,
+        "peak_s16": 10660,
+        "rms_normalized": 0.05467631014606424,
+        "nonzero_samples": 57086
+      },
+      {
+        "second": 49,
+        "samples": 96000,
+        "peak_s16": 13198,
+        "rms_normalized": 0.06520805673060655,
+        "nonzero_samples": 95958
+      },
+      {
+        "second": 50,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.01351507137556692,
+        "nonzero_samples": 90597
+      },
+      {
+        "second": 51,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.015954018973357825,
+        "nonzero_samples": 95726
+      },
+      {
+        "second": 52,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.012809126001154187,
+        "nonzero_samples": 95669
+      },
+      {
+        "second": 53,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.014630734715909675,
+        "nonzero_samples": 95695
+      },
+      {
+        "second": 54,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.015393075601402077,
+        "nonzero_samples": 95742
+      },
+      {
+        "second": 55,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.014562669539967061,
+        "nonzero_samples": 95670
+      },
+      {
+        "second": 56,
+        "samples": 96000,
+        "peak_s16": 9089,
+        "rms_normalized": 0.04369070568459717,
+        "nonzero_samples": 95898
+      },
+      {
+        "second": 57,
+        "samples": 96000,
+        "peak_s16": 7596,
+        "rms_normalized": 0.04065344932493693,
+        "nonzero_samples": 95905
+      },
+      {
+        "second": 58,
+        "samples": 96000,
+        "peak_s16": 10244,
+        "rms_normalized": 0.04120556997217688,
+        "nonzero_samples": 95920
+      },
+      {
+        "second": 59,
+        "samples": 96000,
+        "peak_s16": 10348,
+        "rms_normalized": 0.04064124818744623,
+        "nonzero_samples": 95816
+      },
+      {
+        "second": 60,
+        "samples": 96000,
+        "peak_s16": 53,
+        "rms_normalized": 0.00028369261790075367,
+        "nonzero_samples": 57332
+      },
+      {
+        "second": 61,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 62,
+        "samples": 96000,
+        "peak_s16": 9220,
+        "rms_normalized": 0.030932803054954678,
+        "nonzero_samples": 18552
+      },
+      {
+        "second": 63,
+        "samples": 96000,
+        "peak_s16": 2504,
+        "rms_normalized": 0.0049854035449517055,
+        "nonzero_samples": 95754
+      },
+      {
+        "second": 64,
+        "samples": 96000,
+        "peak_s16": 9389,
+        "rms_normalized": 0.018928243074500816,
+        "nonzero_samples": 95782
+      },
+      {
+        "second": 65,
+        "samples": 96000,
+        "peak_s16": 2504,
+        "rms_normalized": 0.0046566832255905835,
+        "nonzero_samples": 95714
+      },
+      {
+        "second": 66,
+        "samples": 96000,
+        "peak_s16": 2504,
+        "rms_normalized": 0.004519844265788748,
+        "nonzero_samples": 95730
+      },
+      {
+        "second": 67,
+        "samples": 96000,
+        "peak_s16": 9398,
+        "rms_normalized": 0.02146494852348309,
+        "nonzero_samples": 95538
+      },
+      {
+        "second": 68,
+        "samples": 96000,
+        "peak_s16": 9637,
+        "rms_normalized": 0.03927689350491904,
+        "nonzero_samples": 95813
+      },
+      {
+        "second": 69,
+        "samples": 96000,
+        "peak_s16": 8637,
+        "rms_normalized": 0.03944976964190776,
+        "nonzero_samples": 95647
+      },
+      {
+        "second": 70,
+        "samples": 96000,
+        "peak_s16": 12088,
+        "rms_normalized": 0.05662329733720133,
+        "nonzero_samples": 95941
+      },
+      {
+        "second": 71,
+        "samples": 96000,
+        "peak_s16": 12106,
+        "rms_normalized": 0.058881442599851556,
+        "nonzero_samples": 95938
+      },
+      {
+        "second": 72,
+        "samples": 96000,
+        "peak_s16": 11759,
+        "rms_normalized": 0.06267495791723528,
+        "nonzero_samples": 95952
+      },
+      {
+        "second": 73,
+        "samples": 96000,
+        "peak_s16": 15172,
+        "rms_normalized": 0.06250906655228419,
+        "nonzero_samples": 95952
+      },
+      {
+        "second": 74,
+        "samples": 96000,
+        "peak_s16": 11835,
+        "rms_normalized": 0.06744883282132735,
+        "nonzero_samples": 95979
+      },
+      {
+        "second": 75,
+        "samples": 96000,
+        "peak_s16": 11338,
+        "rms_normalized": 0.053451185666224824,
+        "nonzero_samples": 95835
+      },
+      {
+        "second": 76,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.012908220948475007,
+        "nonzero_samples": 90799
+      },
+      {
+        "second": 77,
+        "samples": 96000,
+        "peak_s16": 9025,
+        "rms_normalized": 0.0324304526943694,
+        "nonzero_samples": 90642
+      },
+      {
+        "second": 78,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.014745995030299004,
+        "nonzero_samples": 91659
+      },
+      {
+        "second": 79,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.013839468009808191,
+        "nonzero_samples": 95636
+      },
+      {
+        "second": 80,
+        "samples": 96000,
+        "peak_s16": 10767,
+        "rms_normalized": 0.033833773971311126,
+        "nonzero_samples": 95754
+      },
+      {
+        "second": 81,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.01569438276407684,
+        "nonzero_samples": 94575
+      },
+      {
+        "second": 82,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.013525319657271538,
+        "nonzero_samples": 95730
+      },
+      {
+        "second": 83,
+        "samples": 96000,
+        "peak_s16": 6540,
+        "rms_normalized": 0.013885307293933578,
+        "nonzero_samples": 95634
+      },
+      {
+        "second": 84,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.016431602517473977,
+        "nonzero_samples": 95756
+      },
+      {
+        "second": 85,
+        "samples": 96000,
+        "peak_s16": 9036,
+        "rms_normalized": 0.031121462949173243,
+        "nonzero_samples": 95478
+      },
+      {
+        "second": 86,
+        "samples": 96000,
+        "peak_s16": 9038,
+        "rms_normalized": 0.0322941477338607,
+        "nonzero_samples": 95774
+      },
+      {
+        "second": 87,
+        "samples": 96000,
+        "peak_s16": 18,
+        "rms_normalized": 0.00016594257570799628,
+        "nonzero_samples": 20510
+      },
+      {
+        "second": 88,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.0026778084894879812,
+        "nonzero_samples": 18619
+      },
+      {
+        "second": 89,
+        "samples": 96000,
+        "peak_s16": 5800,
+        "rms_normalized": 0.008397684470713492,
+        "nonzero_samples": 39129
+      },
+      {
+        "second": 90,
+        "samples": 96000,
+        "peak_s16": 9683,
+        "rms_normalized": 0.03797050794824746,
+        "nonzero_samples": 95689
+      },
+      {
+        "second": 91,
+        "samples": 96000,
+        "peak_s16": 6749,
+        "rms_normalized": 0.03695812577926692,
+        "nonzero_samples": 95824
+      },
+      {
+        "second": 92,
+        "samples": 96000,
+        "peak_s16": 5409,
+        "rms_normalized": 0.013459711932012446,
+        "nonzero_samples": 37918
+      },
+      {
+        "second": 93,
+        "samples": 96000,
+        "peak_s16": 6836,
+        "rms_normalized": 0.06214808300492225,
+        "nonzero_samples": 95957
+      },
+      {
+        "second": 94,
+        "samples": 96000,
+        "peak_s16": 5794,
+        "rms_normalized": 0.010114887761043077,
+        "nonzero_samples": 95716
+      },
+      {
+        "second": 95,
+        "samples": 96000,
+        "peak_s16": 262,
+        "rms_normalized": 0.0002600765552912165,
+        "nonzero_samples": 41866
+      },
+      {
+        "second": 96,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.004006906929378148,
+        "nonzero_samples": 39546
+      },
+      {
+        "second": 97,
+        "samples": 96000,
+        "peak_s16": 9683,
+        "rms_normalized": 0.03841645737240838,
+        "nonzero_samples": 94899
+      },
+      {
+        "second": 98,
+        "samples": 96000,
+        "peak_s16": 6345,
+        "rms_normalized": 0.012597874151222505,
+        "nonzero_samples": 95764
+      },
+      {
+        "second": 99,
+        "samples": 96000,
+        "peak_s16": 11724,
+        "rms_normalized": 0.06296827391606812,
+        "nonzero_samples": 95918
+      },
+      {
+        "second": 100,
+        "samples": 96000,
+        "peak_s16": 6547,
+        "rms_normalized": 0.054713999567906575,
+        "nonzero_samples": 95932
+      },
+      {
+        "second": 101,
+        "samples": 96000,
+        "peak_s16": 6547,
+        "rms_normalized": 0.04796964583682603,
+        "nonzero_samples": 95890
+      },
+      {
+        "second": 102,
+        "samples": 96000,
+        "peak_s16": 137,
+        "rms_normalized": 0.0004438695800760633,
+        "nonzero_samples": 25406
+      },
+      {
+        "second": 103,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 104,
+        "samples": 96000,
+        "peak_s16": 6416,
+        "rms_normalized": 0.006250004009342398,
+        "nonzero_samples": 13846
+      },
+      {
+        "second": 105,
+        "samples": 96000,
+        "peak_s16": 2499,
+        "rms_normalized": 0.002628892945465669,
+        "nonzero_samples": 73134
+      },
+      {
+        "second": 106,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 107,
+        "samples": 96000,
+        "peak_s16": 4614,
+        "rms_normalized": 0.0040108969765129225,
+        "nonzero_samples": 40040
+      },
+      {
+        "second": 108,
+        "samples": 96000,
+        "peak_s16": 8797,
+        "rms_normalized": 0.020508968407264218,
+        "nonzero_samples": 60840
+      },
+      {
+        "second": 109,
+        "samples": 96000,
+        "peak_s16": 9683,
+        "rms_normalized": 0.04674046041853108,
+        "nonzero_samples": 95772
+      },
+      {
+        "second": 110,
+        "samples": 96000,
+        "peak_s16": 4175,
+        "rms_normalized": 0.016247179657839905,
+        "nonzero_samples": 76466
+      },
+      {
+        "second": 111,
+        "samples": 96000,
+        "peak_s16": 6792,
+        "rms_normalized": 0.04852066133531545,
+        "nonzero_samples": 56504
+      },
+      {
+        "second": 112,
+        "samples": 96000,
+        "peak_s16": 6835,
+        "rms_normalized": 0.05499644022655271,
+        "nonzero_samples": 95954
+      },
+      {
+        "second": 113,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.010711519042833559,
+        "nonzero_samples": 95397
+      },
+      {
+        "second": 114,
+        "samples": 96000,
+        "peak_s16": 5800,
+        "rms_normalized": 0.00953861009202354,
+        "nonzero_samples": 40218
+      },
+      {
+        "second": 115,
+        "samples": 96000,
+        "peak_s16": 9683,
+        "rms_normalized": 0.03770001096049013,
+        "nonzero_samples": 95700
+      },
+      {
+        "second": 116,
+        "samples": 96000,
+        "peak_s16": 6588,
+        "rms_normalized": 0.05216437839132838,
+        "nonzero_samples": 95914
+      },
+      {
+        "second": 117,
+        "samples": 96000,
+        "peak_s16": 6945,
+        "rms_normalized": 0.052321882130155095,
+        "nonzero_samples": 95942
+      },
+      {
+        "second": 118,
+        "samples": 96000,
+        "peak_s16": 2538,
+        "rms_normalized": 0.005592560693322959,
+        "nonzero_samples": 95725
+      },
+      {
+        "second": 119,
+        "samples": 96000,
+        "peak_s16": 4564,
+        "rms_normalized": 0.0026794878366525475,
+        "nonzero_samples": 42298
+      },
+      {
+        "second": 120,
+        "samples": 96000,
+        "peak_s16": 5800,
+        "rms_normalized": 0.00914154883305637,
+        "nonzero_samples": 39286
+      },
+      {
+        "second": 121,
+        "samples": 96000,
+        "peak_s16": 9683,
+        "rms_normalized": 0.03781159406735711,
+        "nonzero_samples": 95641
+      },
+      {
+        "second": 122,
+        "samples": 96000,
+        "peak_s16": 9038,
+        "rms_normalized": 0.030489440847639725,
+        "nonzero_samples": 95819
+      },
+      {
+        "second": 123,
+        "samples": 96000,
+        "peak_s16": 12926,
+        "rms_normalized": 0.06633011135986717,
+        "nonzero_samples": 95967
+      },
+      {
+        "second": 124,
+        "samples": 96000,
+        "peak_s16": 6547,
+        "rms_normalized": 0.0520468029291837,
+        "nonzero_samples": 95938
+      },
+      {
+        "second": 125,
+        "samples": 96000,
+        "peak_s16": 6449,
+        "rms_normalized": 0.016660837663312937,
+        "nonzero_samples": 95838
+      },
+      {
+        "second": 126,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.013305135492593542,
+        "nonzero_samples": 95593
+      },
+      {
+        "second": 127,
+        "samples": 96000,
+        "peak_s16": 6519,
+        "rms_normalized": 0.01671810670379872,
+        "nonzero_samples": 95728
+      },
+      {
+        "second": 128,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.013346959312485088,
+        "nonzero_samples": 95723
+      },
+      {
+        "second": 129,
+        "samples": 96000,
+        "peak_s16": 9305,
+        "rms_normalized": 0.047801681790336746,
+        "nonzero_samples": 95818
+      },
+      {
+        "second": 130,
+        "samples": 96000,
+        "peak_s16": 8849,
+        "rms_normalized": 0.05205808858727767,
+        "nonzero_samples": 95917
+      },
+      {
+        "second": 131,
+        "samples": 96000,
+        "peak_s16": 9356,
+        "rms_normalized": 0.043156299233435474,
+        "nonzero_samples": 95900
+      },
+      {
+        "second": 132,
+        "samples": 96000,
+        "peak_s16": 6990,
+        "rms_normalized": 0.039955073200632955,
+        "nonzero_samples": 95882
+      },
+      {
+        "second": 133,
+        "samples": 96000,
+        "peak_s16": 6463,
+        "rms_normalized": 0.013317732803335945,
+        "nonzero_samples": 95576
+      },
+      {
+        "second": 134,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.016812541471955444,
+        "nonzero_samples": 95735
+      },
+      {
+        "second": 135,
+        "samples": 96000,
+        "peak_s16": 9305,
+        "rms_normalized": 0.040715989204402725,
+        "nonzero_samples": 95766
+      },
+      {
+        "second": 136,
+        "samples": 96000,
+        "peak_s16": 9356,
+        "rms_normalized": 0.04333602764323398,
+        "nonzero_samples": 95901
+      },
+      {
+        "second": 137,
+        "samples": 96000,
+        "peak_s16": 8789,
+        "rms_normalized": 0.05523412991088625,
+        "nonzero_samples": 95953
+      },
+      {
+        "second": 138,
+        "samples": 96000,
+        "peak_s16": 9416,
+        "rms_normalized": 0.041658928809088704,
+        "nonzero_samples": 95906
+      },
+      {
+        "second": 139,
+        "samples": 96000,
+        "peak_s16": 7025,
+        "rms_normalized": 0.01648571712843924,
+        "nonzero_samples": 95623
+      },
+      {
+        "second": 140,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.012809095905038304,
+        "nonzero_samples": 95672
+      },
+      {
+        "second": 141,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.014630341216287389,
+        "nonzero_samples": 95695
+      },
+      {
+        "second": 142,
+        "samples": 96000,
+        "peak_s16": 9241,
+        "rms_normalized": 0.05684701409016991,
+        "nonzero_samples": 95970
+      },
+      {
+        "second": 143,
+        "samples": 96000,
+        "peak_s16": 9317,
+        "rms_normalized": 0.04156241265160743,
+        "nonzero_samples": 95905
+      },
+      {
+        "second": 144,
+        "samples": 96000,
+        "peak_s16": 8789,
+        "rms_normalized": 0.053866423523682226,
+        "nonzero_samples": 95938
+      },
+      {
+        "second": 145,
+        "samples": 96000,
+        "peak_s16": 6355,
+        "rms_normalized": 0.02183670828352387,
+        "nonzero_samples": 95773
+      },
+      {
+        "second": 146,
+        "samples": 96000,
+        "peak_s16": 6410,
+        "rms_normalized": 0.016287853547930425,
+        "nonzero_samples": 94293
+      },
+      {
+        "second": 147,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.014408749457942413,
+        "nonzero_samples": 95739
+      },
+      {
+        "second": 148,
+        "samples": 96000,
+        "peak_s16": 10249,
+        "rms_normalized": 0.04331400467534853,
+        "nonzero_samples": 95796
+      },
+      {
+        "second": 149,
+        "samples": 96000,
+        "peak_s16": 9344,
+        "rms_normalized": 0.04723256548661241,
+        "nonzero_samples": 95904
+      },
+      {
+        "second": 150,
+        "samples": 96000,
+        "peak_s16": 9356,
+        "rms_normalized": 0.052236826326805104,
+        "nonzero_samples": 95928
+      },
+      {
+        "second": 151,
+        "samples": 96000,
+        "peak_s16": 9317,
+        "rms_normalized": 0.041711528049810084,
+        "nonzero_samples": 95901
+      },
+      {
+        "second": 152,
+        "samples": 96000,
+        "peak_s16": 6859,
+        "rms_normalized": 0.015905872059998286,
+        "nonzero_samples": 95602
+      },
+      {
+        "second": 153,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.014038740210904418,
+        "nonzero_samples": 95663
+      },
+      {
+        "second": 154,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.021836721210287575,
+        "nonzero_samples": 95738
+      },
+      {
+        "second": 155,
+        "samples": 96000,
+        "peak_s16": 9193,
+        "rms_normalized": 0.054666285761128655,
+        "nonzero_samples": 95960
+      },
+      {
+        "second": 156,
+        "samples": 96000,
+        "peak_s16": 9356,
+        "rms_normalized": 0.04351998383110819,
+        "nonzero_samples": 95911
+      },
+      {
+        "second": 157,
+        "samples": 96000,
+        "peak_s16": 9317,
+        "rms_normalized": 0.0550020366064918,
+        "nonzero_samples": 95926
+      },
+      {
+        "second": 158,
+        "samples": 96000,
+        "peak_s16": 6405,
+        "rms_normalized": 0.015121734634930337,
+        "nonzero_samples": 95647
+      },
+      {
+        "second": 159,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.01623133658238112,
+        "nonzero_samples": 95730
+      },
+      {
+        "second": 160,
+        "samples": 96000,
+        "peak_s16": 6404,
+        "rms_normalized": 0.012801623086445672,
+        "nonzero_samples": 95655
+      },
+      {
+        "second": 161,
+        "samples": 96000,
+        "peak_s16": 7131,
+        "rms_normalized": 0.03853274535747911,
+        "nonzero_samples": 95839
+      },
+      {
+        "second": 162,
+        "samples": 96000,
+        "peak_s16": 6401,
+        "rms_normalized": 0.006294514459796744,
+        "nonzero_samples": 75150
+      },
+      {
+        "second": 163,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 164,
+        "samples": 96000,
+        "peak_s16": 6387,
+        "rms_normalized": 0.006763825938182583,
+        "nonzero_samples": 10813
+      },
+      {
+        "second": 165,
+        "samples": 96000,
+        "peak_s16": 9172,
+        "rms_normalized": 0.01910644839798834,
+        "nonzero_samples": 95578
+      },
+      {
+        "second": 166,
+        "samples": 96000,
+        "peak_s16": 9035,
+        "rms_normalized": 0.02995401556667949,
+        "nonzero_samples": 95605
+      },
+      {
+        "second": 167,
+        "samples": 96000,
+        "peak_s16": 4577,
+        "rms_normalized": 0.006612939641712152,
+        "nonzero_samples": 95604
+      },
+      {
+        "second": 168,
+        "samples": 96000,
+        "peak_s16": 6554,
+        "rms_normalized": 0.036756784148933005,
+        "nonzero_samples": 95756
+      },
+      {
+        "second": 169,
+        "samples": 96000,
+        "peak_s16": 4847,
+        "rms_normalized": 0.008441375465160775,
+        "nonzero_samples": 95588
+      },
+      {
+        "second": 170,
+        "samples": 96000,
+        "peak_s16": 9453,
+        "rms_normalized": 0.040595252469061996,
+        "nonzero_samples": 95859
+      },
+      {
+        "second": 171,
+        "samples": 96000,
+        "peak_s16": 6554,
+        "rms_normalized": 0.039018225338237296,
+        "nonzero_samples": 95758
+      },
+      {
+        "second": 172,
+        "samples": 96000,
+        "peak_s16": 6705,
+        "rms_normalized": 0.034783738888433786,
+        "nonzero_samples": 81299
+      },
+      {
+        "second": 173,
+        "samples": 96000,
+        "peak_s16": 9117,
+        "rms_normalized": 0.03587631892638847,
+        "nonzero_samples": 23187
+      },
+      {
+        "second": 174,
+        "samples": 96000,
+        "peak_s16": 7105,
+        "rms_normalized": 0.05654633965814709,
+        "nonzero_samples": 95931
+      },
+      {
+        "second": 175,
+        "samples": 96000,
+        "peak_s16": 8359,
+        "rms_normalized": 0.053897361413978336,
+        "nonzero_samples": 95951
+      },
+      {
+        "second": 176,
+        "samples": 96000,
+        "peak_s16": 8912,
+        "rms_normalized": 0.033556506918537045,
+        "nonzero_samples": 95762
+      },
+      {
+        "second": 177,
+        "samples": 96000,
+        "peak_s16": 10332,
+        "rms_normalized": 0.06971246617560127,
+        "nonzero_samples": 95982
+      },
+      {
+        "second": 178,
+        "samples": 96000,
+        "peak_s16": 6818,
+        "rms_normalized": 0.0631951649950207,
+        "nonzero_samples": 95954
+      },
+      {
+        "second": 179,
+        "samples": 96000,
+        "peak_s16": 12295,
+        "rms_normalized": 0.06119909365014447,
+        "nonzero_samples": 95952
+      },
+      {
+        "second": 180,
+        "samples": 96000,
+        "peak_s16": 6691,
+        "rms_normalized": 0.0517761925720431,
+        "nonzero_samples": 95856
+      },
+      {
+        "second": 181,
+        "samples": 96000,
+        "peak_s16": 8958,
+        "rms_normalized": 0.0537128482379395,
+        "nonzero_samples": 95950
+      },
+      {
+        "second": 182,
+        "samples": 96000,
+        "peak_s16": 8919,
+        "rms_normalized": 0.03941307514154108,
+        "nonzero_samples": 95851
+      },
+      {
+        "second": 183,
+        "samples": 96000,
+        "peak_s16": 11219,
+        "rms_normalized": 0.06671507778079178,
+        "nonzero_samples": 95937
+      },
+      {
+        "second": 184,
+        "samples": 96000,
+        "peak_s16": 7501,
+        "rms_normalized": 0.0723626922390211,
+        "nonzero_samples": 95983
+      },
+      {
+        "second": 185,
+        "samples": 96000,
+        "peak_s16": 9915,
+        "rms_normalized": 0.04341975769827275,
+        "nonzero_samples": 95949
+      },
+      {
+        "second": 186,
+        "samples": 96000,
+        "peak_s16": 8997,
+        "rms_normalized": 0.018652065833211568,
+        "nonzero_samples": 95674
+      },
+      {
+        "second": 187,
+        "samples": 96000,
+        "peak_s16": 7967,
+        "rms_normalized": 0.07311977719538097,
+        "nonzero_samples": 95985
+      },
+      {
+        "second": 188,
+        "samples": 96000,
+        "peak_s16": 11529,
+        "rms_normalized": 0.04118622575273835,
+        "nonzero_samples": 95889
+      },
+      {
+        "second": 189,
+        "samples": 96000,
+        "peak_s16": 8962,
+        "rms_normalized": 0.040604989372657566,
+        "nonzero_samples": 95711
+      },
+      {
+        "second": 190,
+        "samples": 96000,
+        "peak_s16": 7094,
+        "rms_normalized": 0.05446022689374607,
+        "nonzero_samples": 95959
+      },
+      {
+        "second": 191,
+        "samples": 96000,
+        "peak_s16": 16346,
+        "rms_normalized": 0.06139103727436408,
+        "nonzero_samples": 95941
+      },
+      {
+        "second": 192,
+        "samples": 96000,
+        "peak_s16": 13052,
+        "rms_normalized": 0.036586581925000736,
+        "nonzero_samples": 95709
+      },
+      {
+        "second": 193,
+        "samples": 96000,
+        "peak_s16": 11077,
+        "rms_normalized": 0.060442070176255,
+        "nonzero_samples": 95886
+      },
+      {
+        "second": 194,
+        "samples": 96000,
+        "peak_s16": 11167,
+        "rms_normalized": 0.061267270893867645,
+        "nonzero_samples": 95964
+      },
+      {
+        "second": 195,
+        "samples": 96000,
+        "peak_s16": 11172,
+        "rms_normalized": 0.056586342655514155,
+        "nonzero_samples": 95956
+      },
+      {
+        "second": 196,
+        "samples": 96000,
+        "peak_s16": 14229,
+        "rms_normalized": 0.0492074078478584,
+        "nonzero_samples": 95836
+      },
+      {
+        "second": 197,
+        "samples": 96000,
+        "peak_s16": 879,
+        "rms_normalized": 0.0046475481845882115,
+        "nonzero_samples": 53746
+      },
+      {
+        "second": 198,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 199,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 200,
+        "samples": 96000,
+        "peak_s16": 9183,
+        "rms_normalized": 0.0196636506688697,
+        "nonzero_samples": 82251
+      },
+      {
+        "second": 201,
+        "samples": 96000,
+        "peak_s16": 92,
+        "rms_normalized": 0.0007528183034599522,
+        "nonzero_samples": 10032
+      },
+      {
+        "second": 202,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 203,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 204,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03658905070075642,
+        "nonzero_samples": 85962
+      },
+      {
+        "second": 205,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03287263230973752,
+        "nonzero_samples": 33576
+      },
+      {
+        "second": 206,
+        "samples": 96000,
+        "peak_s16": 7070,
+        "rms_normalized": 0.017403296276173184,
+        "nonzero_samples": 95868
+      },
+      {
+        "second": 207,
+        "samples": 96000,
+        "peak_s16": 6691,
+        "rms_normalized": 0.06329865465370234,
+        "nonzero_samples": 88828
+      },
+      {
+        "second": 208,
+        "samples": 96000,
+        "peak_s16": 6654,
+        "rms_normalized": 0.07201696756283577,
+        "nonzero_samples": 96000
+      },
+      {
+        "second": 209,
+        "samples": 96000,
+        "peak_s16": 2743,
+        "rms_normalized": 0.01302984123028502,
+        "nonzero_samples": 68098
+      },
+      {
+        "second": 210,
+        "samples": 96000,
+        "peak_s16": 9820,
+        "rms_normalized": 0.05585006069133401,
+        "nonzero_samples": 58476
+      },
+      {
+        "second": 211,
+        "samples": 96000,
+        "peak_s16": 5489,
+        "rms_normalized": 0.023721727983255884,
+        "nonzero_samples": 72706
+      },
+      {
+        "second": 212,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 213,
+        "samples": 96000,
+        "peak_s16": 3,
+        "rms_normalized": 7.26463666640508e-06,
+        "nonzero_samples": 3184
+      },
+      {
+        "second": 214,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03658905391877901,
+        "nonzero_samples": 90462
+      },
+      {
+        "second": 215,
+        "samples": 96000,
+        "peak_s16": 2,
+        "rms_normalized": 3.0004641120915987e-06,
+        "nonzero_samples": 802
+      },
+      {
+        "second": 216,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 217,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03620578227087502,
+        "nonzero_samples": 34304
+      },
+      {
+        "second": 218,
+        "samples": 96000,
+        "peak_s16": 972,
+        "rms_normalized": 0.005282069537883814,
+        "nonzero_samples": 60144
+      },
+      {
+        "second": 219,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03654247119389368,
+        "nonzero_samples": 55276
+      },
+      {
+        "second": 220,
+        "samples": 96000,
+        "peak_s16": 505,
+        "rms_normalized": 0.0018457322374870236,
+        "nonzero_samples": 39172
+      },
+      {
+        "second": 221,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03049178100071685,
+        "nonzero_samples": 23042
+      },
+      {
+        "second": 222,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.042128052450360484,
+        "nonzero_samples": 93238
+      },
+      {
+        "second": 223,
+        "samples": 96000,
+        "peak_s16": 12495,
+        "rms_normalized": 0.0817002139568359,
+        "nonzero_samples": 95988
+      },
+      {
+        "second": 224,
+        "samples": 96000,
+        "peak_s16": 10904,
+        "rms_normalized": 0.0715019605423189,
+        "nonzero_samples": 95966
+      },
+      {
+        "second": 225,
+        "samples": 96000,
+        "peak_s16": 7459,
+        "rms_normalized": 0.05217199674567859,
+        "nonzero_samples": 95930
+      },
+      {
+        "second": 226,
+        "samples": 96000,
+        "peak_s16": 137,
+        "rms_normalized": 0.000443045844537811,
+        "nonzero_samples": 25408
+      },
+      {
+        "second": 227,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 228,
+        "samples": 96000,
+        "peak_s16": 6387,
+        "rms_normalized": 0.00678589150067361,
+        "nonzero_samples": 21999
+      },
+      {
+        "second": 229,
+        "samples": 96000,
+        "peak_s16": 9178,
+        "rms_normalized": 0.019672417920344208,
+        "nonzero_samples": 95860
+      },
+      {
+        "second": 230,
+        "samples": 96000,
+        "peak_s16": 12,
+        "rms_normalized": 0.00019435678542753694,
+        "nonzero_samples": 27136
+      },
+      {
+        "second": 231,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 232,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 233,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 234,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 235,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 236,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 237,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.03620578227087502,
+        "nonzero_samples": 34304
+      },
+      {
+        "second": 238,
+        "samples": 96000,
+        "peak_s16": 8967,
+        "rms_normalized": 0.013608962998047478,
+        "nonzero_samples": 60150
+      },
+      {
+        "second": 239,
+        "samples": 96000,
+        "peak_s16": 6537,
+        "rms_normalized": 0.036585588917606444,
+        "nonzero_samples": 66504
+      },
+      {
+        "second": 240,
+        "samples": 96000,
+        "peak_s16": 9020,
+        "rms_normalized": 0.0298468998702696,
+        "nonzero_samples": 94922
+      },
+      {
+        "second": 241,
+        "samples": 96000,
+        "peak_s16": 6691,
+        "rms_normalized": 0.06936809454070103,
+        "nonzero_samples": 95988
+      },
+      {
+        "second": 242,
+        "samples": 96000,
+        "peak_s16": 10602,
+        "rms_normalized": 0.07047625258869132,
+        "nonzero_samples": 95992
+      },
+      {
+        "second": 243,
+        "samples": 96000,
+        "peak_s16": 9089,
+        "rms_normalized": 0.04017724896071667,
+        "nonzero_samples": 86018
+      },
+      {
+        "second": 244,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 245,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 246,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 247,
+        "samples": 96000,
+        "peak_s16": 5527,
+        "rms_normalized": 0.00585519790936259,
+        "nonzero_samples": 7172
+      },
+      {
+        "second": 248,
+        "samples": 96000,
+        "peak_s16": 11004,
+        "rms_normalized": 0.0755247476171141,
+        "nonzero_samples": 95992
+      },
+      {
+        "second": 249,
+        "samples": 96000,
+        "peak_s16": 9100,
+        "rms_normalized": 0.07010323727556214,
+        "nonzero_samples": 96000
+      },
+      {
+        "second": 250,
+        "samples": 96000,
+        "peak_s16": 9818,
+        "rms_normalized": 0.07527508389691207,
+        "nonzero_samples": 95998
+      },
+      {
+        "second": 251,
+        "samples": 96000,
+        "peak_s16": 10418,
+        "rms_normalized": 0.07374110601519653,
+        "nonzero_samples": 95980
+      },
+      {
+        "second": 252,
+        "samples": 96000,
+        "peak_s16": 18270,
+        "rms_normalized": 0.07956696486423497,
+        "nonzero_samples": 95994
+      },
+      {
+        "second": 253,
+        "samples": 96000,
+        "peak_s16": 9688,
+        "rms_normalized": 0.05616374897089144,
+        "nonzero_samples": 95952
+      },
+      {
+        "second": 254,
+        "samples": 96000,
+        "peak_s16": 164,
+        "rms_normalized": 0.0005590873201611487,
+        "nonzero_samples": 29480
+      },
+      {
+        "second": 255,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 256,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 257,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 258,
+        "samples": 96000,
+        "peak_s16": 10488,
+        "rms_normalized": 0.052667794043947475,
+        "nonzero_samples": 56578
+      },
+      {
+        "second": 259,
+        "samples": 96000,
+        "peak_s16": 10640,
+        "rms_normalized": 0.07475468971222751,
+        "nonzero_samples": 95996
+      },
+      {
+        "second": 260,
+        "samples": 96000,
+        "peak_s16": 6654,
+        "rms_normalized": 0.06846461313855856,
+        "nonzero_samples": 96000
+      },
+      {
+        "second": 261,
+        "samples": 96000,
+        "peak_s16": 6654,
+        "rms_normalized": 0.03132990044416606,
+        "nonzero_samples": 76290
+      },
+      {
+        "second": 262,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 263,
+        "samples": 96000,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      },
+      {
+        "second": 264,
+        "samples": 41600,
+        "peak_s16": 0,
+        "rms_normalized": 0.0,
+        "nonzero_samples": 0
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 4061696,
+        "duration": "264.433333",
+        "bit_rate": "725998",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "15866",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 12692784,
+        "duration": "264.433000",
+        "bit_rate": "96483",
+        "nb_frames": "12397",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_workshop_01/current-boss-01/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "264.433333",
+      "size": "27606706",
+      "bit_rate": "835195",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "trace_frame_count": 15837,
+  "chapters": [
+    {
+      "case": 0,
+      "id": "clockwork_guardian",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/boss_presentation.gd",
+      "start_frame": 1,
+      "end_frame": 738,
+      "start_seconds": 0.0166666666666667,
+      "end_seconds": 12.3,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 1,
+      "id": "bellstrider",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/bellstrider_presentation.gd",
+      "start_frame": 739,
+      "end_frame": 1740,
+      "start_seconds": 12.35,
+      "end_seconds": 29.05,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 0.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 2,
+      "id": "windkeeper",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+      "start_frame": 1741,
+      "end_frame": 3760,
+      "start_seconds": 29.1,
+      "end_seconds": 62.7666666666667,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 3,
+      "id": "windkeeper_storm",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/windkeeper_presentation.gd",
+      "start_frame": 3761,
+      "end_frame": 5166,
+      "start_seconds": 62.8166666666667,
+      "end_seconds": 86.25,
+      "post_death_observation_frames": 0,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": false,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": false,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": false,
+        "warning": "observed"
+      },
+      "coverage_gaps": [
+        "lethal_HP_commit",
+        "terminal_observed_210_frames",
+        "player_survived"
+      ],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 0,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": false
+      }
+    },
+    {
+      "case": 4,
+      "id": "thorn_guardian",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+      "start_frame": 5167,
+      "end_frame": 6276,
+      "start_seconds": 86.3,
+      "end_seconds": 104.8,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "no_body_translation_observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 5,
+      "id": "thorn_queen",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/thorn_forest_presentation.gd",
+      "start_frame": 6277,
+      "end_frame": 9876,
+      "start_seconds": 104.85,
+      "end_seconds": 164.85,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "no_body_translation_observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 6,
+      "id": "rootbell_guardian_v2",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "start_frame": 9877,
+      "end_frame": 11988,
+      "start_seconds": 164.9,
+      "end_seconds": 200.1,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 7,
+      "id": "thorn_queen_v2",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/thorn_queen_weave_presentation.gd",
+      "start_frame": 11989,
+      "end_frame": 13703,
+      "start_seconds": 200.15,
+      "end_seconds": 228.733333333333,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    },
+    {
+      "case": 8,
+      "id": "thorn_queen_canopy",
+      "chain": "actual_boss_scene",
+      "renderer": "res://scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "start_frame": 13704,
+      "end_frame": 15837,
+      "start_seconds": 228.783333333333,
+      "end_seconds": 264.35,
+      "post_death_observation_frames": 210,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": "not_required_original_boss_policy",
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "final_visual": {
+          "death_frame_index": null,
+          "death_frame_index_reason": "original Boss terminal renderer exposes no authored corpse frame index",
+          "host_alpha": 1.0,
+          "host_visible": true,
+          "hurt_frame_index": null,
+          "hurt_frame_index_reason": "actual Boss renderer consumes shared accepted-hit pose/tint; no exposed authored hurt cells",
+          "hurt_remaining": 0.0,
+          "remains": {}
+        },
+        "observation_frames": 210,
+        "policy": "original Boss body/exit; no added ordinary corpse",
+        "terminal": true
+      }
+    }
+  ],
+  "coverage_gap_count": 3,
+  "mp4_sha256": "2c566ed343da88e4eddb73c5f32a2db43bf5e4a2f87db7afab687ec776318348",
+  "avi_sha256": "3cb8ef572a015043af1e018a5815716ebf55f058469827ceba2c0dac2d78917a",
+  "trace_sha256": "c3445a26152541b71cdc55b1f8f2f90c269b9cc7feef5ee643aeef74fcd8f352",
+  "raw_avi_retained": false,
+  "source_stable": true,
+  "seconds": 417.7685380760013
+}

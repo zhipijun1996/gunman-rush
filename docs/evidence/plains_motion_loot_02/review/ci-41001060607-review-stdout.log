@@ -1,0 +1,228 @@
+{
+  "verdict": "REJECT_FULL167_TECHNICAL_ACCEPTANCE",
+  "scope": "Exact-source original failed CI receipt integrity review; no game/art/audio/device/user/G1-G5 approval",
+  "source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "run_id": 41001060607,
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "artifacts": [
+    {
+      "id": 12954235043,
+      "name": "production-impact-41001060607-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-impact-41001060607-1.zip",
+      "bytes": 1361819,
+      "api_digest": "sha256:74035d546292a9c979872b0ca34adb64a0602beda5f59cadc9f2553d7db37e3b",
+      "sha256": "74035d546292a9c979872b0ca34adb64a0602beda5f59cadc9f2553d7db37e3b",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12953452933,
+      "name": "production-validated-foundry",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-validated-foundry.zip",
+      "bytes": 488154,
+      "api_digest": "sha256:c4f727a0b5942c71dd84094cc035027feae7290c4017b3b307476a73b5243492",
+      "sha256": "c4f727a0b5942c71dd84094cc035027feae7290c4017b3b307476a73b5243492",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12953118670,
+      "name": "production-context-41001060607",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-context-41001060607.zip",
+      "bytes": 26662,
+      "api_digest": "sha256:3c2c1962128847a39dfaa505f588ef4538649391e4a57dc8d5b14d826c6b8387",
+      "sha256": "3c2c1962128847a39dfaa505f588ef4538649391e4a57dc8d5b14d826c6b8387",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12955570656,
+      "name": "production-lane-parallel-41001060607-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-lane-parallel-41001060607-1.zip",
+      "bytes": 21975062,
+      "api_digest": "sha256:4bd19c49227e607e16124ff7d9ddfdee42a36fd1ce0c5683391d827bc3e89b08",
+      "sha256": "4bd19c49227e607e16124ff7d9ddfdee42a36fd1ce0c5683391d827bc3e89b08",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12955396888,
+      "name": "production-phase-proof-parallel",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-phase-proof-parallel.zip",
+      "bytes": 2341253,
+      "api_digest": "sha256:dd2a2fddc83d9be3a7a31b8bb3e647cc86323f98d13315ceafa2d0e8c8073a90",
+      "sha256": "dd2a2fddc83d9be3a7a31b8bb3e647cc86323f98d13315ceafa2d0e8c8073a90",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12955680597,
+      "name": "production-lane-serial-41001060607-1",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-lane-serial-41001060607-1.zip",
+      "bytes": 73718890,
+      "api_digest": "sha256:7fdf1a8b4c697faf72c0ef28b7db2dd5ad809835e9fd0c9d89534fe26918f52a",
+      "sha256": "7fdf1a8b4c697faf72c0ef28b7db2dd5ad809835e9fd0c9d89534fe26918f52a",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    },
+    {
+      "id": 12955232510,
+      "name": "production-phase-proof-serial",
+      "path": "/workspace/gunman-rush/build/plains-ci-41001060607/production-phase-proof-serial.zip",
+      "bytes": 2381934,
+      "api_digest": "sha256:21c3c64b51420f3f683f253c454c71d9328f88286155d186dc1871f7b8e049d4",
+      "sha256": "21c3c64b51420f3f683f253c454c71d9328f88286155d186dc1871f7b8e049d4",
+      "run_id": 41001060607,
+      "head_sha": "96bf4410f3118936ba78faddacc717974ffd39b9"
+    }
+  ],
+  "integrity_checks_passed": 983,
+  "integrity_checks_failed": 0,
+  "actual_lane_counts": {
+    "parallel": {
+      "passed": 83,
+      "failed": 1
+    },
+    "serial": {
+      "passed": 17,
+      "timeout": 1
+    }
+  },
+  "actual_check_count": 102,
+  "actual_statuses": {
+    "passed": 100,
+    "failed": 1,
+    "timeout": 1
+  },
+  "unexecuted": {
+    "parallel": [
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration",
+      "item-v5-data",
+      "item-authoring-tools",
+      "plains-motion-loot-02"
+    ],
+    "serial": [
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal",
+      "style-exploration",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "cloud-preview-runtime",
+      "gear-inventory",
+      "gear-ui",
+      "item-v5-catalog",
+      "item-v5-pool",
+      "item-v5-inventory",
+      "item-v5-combat",
+      "item-v5-actives",
+      "item-v5-economy",
+      "item-v5-defense",
+      "item-v5-ui",
+      "item-v5-formal",
+      "item-v5-review",
+      "item-v5-boss-time",
+      "item-v5-core-effects",
+      "item-v5-synergy-economy",
+      "item-v5-pause-escape",
+      "item-v5-random-context",
+      "item-v5-manifest",
+      "item-v5-authoring",
+      "item-v5-art",
+      "home-codex",
+      "enemy-structure-native"
+    ]
+  },
+  "strict_frozen_verifier_rejection": "Phase scope, freshness or manifest mismatch",
+  "source_inventory_items": 31288,
+  "prepared_git_clean": false,
+  "toolchain": {
+    "python": "3.12.15 (main, Oct  1 2026, 02:36:28) [GCC 15.2.0]",
+    "platform": "linux",
+    "godot": {
+      "exit_code": 0,
+      "version": "4.7.2.stable.official.ed1daf0bf"
+    },
+    "node": {
+      "exit_code": 0,
+      "version": "v22.23.4"
+    }
+  },
+  "strict_log_errors": [],
+  "forest_comparison": [
+    {
+      "run_id": 40993924803,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 43.11417172799975,
+      "median_native_seconds": 41.99450333100003,
+      "sum_case_seconds": 2272.819810472003
+    },
+    {
+      "run_id": 41001060607,
+      "status": "running",
+      "completed": 53,
+      "requested": 80,
+      "all_completed_passed": true,
+      "effective_cpu_capacity": 4,
+      "workers": 4,
+      "median_case_seconds": 42.41380652299995,
+      "median_native_seconds": 41.57762351600013,
+      "sum_case_seconds": 2225.0495962800014
+    }
+  ],
+  "median_other_check_ratio": 0.9887558364831814,
+  "official_merge": "No merged artifact; affected failed prerequisite gate",
+  "commands": [
+    "python3 /tmp/audit_plains_ci_41001060607_failed.py > /tmp/plains_ci_41001060607_failed_audit.log"
+  ],
+  "limits": [
+    "Prepared Foundry56 working modifications are disclosed; CI execution was not Git clean.",
+    "Runtime source comparison covers explicitly enumerated task production paths against frozen Git; historical excluded evidence is not claimed materialized.",
+    "Full167 and official affected closure are not passed.",
+    "No retry or budget/test/production mutation by reviewer.",
+    "Movie remains source996a, not re-signed to96bf."
+  ]
+}
+INTEGRITY_FAILURES []

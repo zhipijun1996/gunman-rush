@@ -153,6 +153,10 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| ENEMY-ALL-02 | 全现存怪物同体动作与实机审核 | ENEMY-WORKFLOW-01 | review | 用户已拒绝本轮制作质量；先作[逐怪资料素材盘点](worklines/enemy_asset_audit_01/README.md)，验收与流程待共同讨论 |
+| ENEMY-WORKFLOW-01 | 怪物开发skills与实际制作交接 | ENEMY-COMPLETION-01 | done | [手册](../.agents/skills/enemy-creator/references/development_workflow.md)、[记录](quality/records/ENEMY-WORKFLOW-01.json)；原33项docs fresh通过，仅签制作方法／交接／工具入口，不签新怪物或生成能力 |
+| ENEMY-COMPLETION-01 | 每物种完成标准与制作卡统一 | — | done | [标准](quality/enemy_completion_standard.md)、[记录](quality/records/ENEMY-COMPLETION-01.json)；原33项docs fresh通过，只签process标准／模板／skills接入，不给任何怪物继承PASS |
+| ENEMY-CONTINUITY-01 | 冲锋怪完整链核对 | ENEMY-COMPLETION-01 | review | [制作卡](design/enemies/plains_charger.md)、[记录](quality/records/ENEMY-CONTINUITY-01.json)；当前四专项通过，实录受伤退出CHR-VIS-01失败，完整攻击／正式体验及设备未验，不能签整怪完成 |
 | AUDIO-DIRECTOR-03 | 功能音色与真实有声对比录屏 | AUDIO-DIRECTOR-02 | review | Mario币/液体回血/宝箱/道具乐句/打击/逐武器/UI，用户听选 |
 | AUDIO-DIRECTOR-04 | 用户逐事件选声与组合实景试听 | AUDIO-DIRECTOR-03 | review | 13明选、复合原版派生、共享混合profile及真实原声对照 |
 | AUDIO-DIRECTOR-02 | 现成CC0三套与真实情境工坊 | AUDIO-DIRECTOR-01 | review | 保原跳落；UI/拾取/战斗可重复比较，用户听感与设备待验 |
@@ -676,3 +680,16 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |
 
 | HOME-CODEX-01 | 家园道具图鉴、音符永久解锁与出发携带一件 | CHEST-ART-01 | review | [范围](worklines/home_codex_01/scope.md) · [质量](quality/records/HOME-CODEX-01.json) |
+
+| PLAINS-MONSTER-REVISION-01 | 用户规格返工平原7怪、去普通HP与辅助线、真实比例与工坊复审 | ENEMY-WORKSHOP-01 | review | 7新版动作＋6平原同屏已私密发布；完整903源CI166／166 fresh与affected success，原失败全保留；静态粒度限定独审接受，整怪／听感／用户／真机G5未签 |
+| PLAINS-MAIN-MERGE-01 | 用户授权七怪工作线快速合main，保主线音频/性能并验证冲突 | PLAINS-MOTION-LOOT-02 | review | [范围](worklines/plains_motion_loot_02/main_merge.md)；完整168待核，不跳原红灯 |
+| PLAINS-MOTION-LOOT-02 | 七怪全身动作、伤亡音画、固定金币与概率补给完整动画 | PLAINS-MONSTER-REVISION-01 | review | [工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)/50.78秒已交；后继本地formal150/0、身体掉落481/0、原80/80在541.165/600秒通过；旧完整CI失败保留，新冻结源CI/用户/设备待验 |
+| PLAINS-MOTION-LOOT-GUARD-02 | 真实面额消费者、绑定与167检查清单的限定迁移独审 | PLAINS-MOTION-LOOT-02 | review | 独立纯Python22/35/13与审计333／0；原失败/预算/166前缀保留，旧drop＋实际自动counterpart联合门禁；[记录](quality/records/PLAINS-MOTION-LOOT-GUARD-02.json)、[边界](worklines/plains_motion_loot_02/guard_migration.md) |
+| PLAINS-ROOT-BELL-COIN-GUARD-02 | 根铃实际替换的物种固定金币合同验收迁移 | PLAINS-MOTION-LOOT-02 | review | 生产0diff；原40/10/2/3+新12反例/八变异实际过，2969输入与2c329逐件相同，独审3021/0限定ACCEPT；完整167/森林性能另待核 |
+| PLAINS-DROP-RECEIPT-GUARD-02 | 连续掉落物理保存与不可变结算合同的正式测试迁移 | PLAINS-MOTION-LOOT-02 | review | 原66/等待/字节重载/预算保留；原formal150/0及继承156/0、独审172/0限定接受；5353输入等于de22a39b、最终518/0限定接受；[记录](quality/records/PLAINS-DROP-RECEIPT-GUARD-02.json) |
+| ENEMY-WORKSHOP-01 | 怪物工坊与逐动作网页审核 | ENEMY-STRUCTURE-01 | review | 25条目私密站已发布、云端表建成；32测试／15浏览器检查及独审通过，缺片明示，待用户使用 |
+| ENEMY-STRUCTURE-01 | 全现有怪物程序整体重构 | ENEMY-ALL-02 | review | 596a原生733／40case、docs33及完整CI166／166通过；统一创建/状态/绑定/生命周期，保原机制／素材；待程序审核，不代签美术／设备 |
+| PLAINS-REVISION-GUARD-01 | 旧frame到同体rig测试消费者守门迁移独审 | PLAINS-MONSTER-REVISION-01 | review | 限定7edda9三测试code接受，保原预算/退出与真实源；不签怪物视觉 |
+
+| MONSTER-LEGACY-SCOPE-01 | 冻结历史森林回放保留manual，同时真实当前registry/App守门默认一换一 | PLAINS-MONSTER-REVISION-01 | review | 精确d431独审＋reader48／0；当前registry88／0已实际通过，完整903 CI166 fresh；旧280／2manual延期不记通过，原检查/预算保留 |
+| MONSTER-PLANNER-SCOPE-01 | planner清单守门适配：保原四摘要与两lane | PLAINS-MONSTER-REVISION-01 | review | 精确a72a独审，原21suite＋18反例通过；四旧SHA与literal74/85保留，完整903 CI166 fresh与汇总通过 |

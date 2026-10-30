@@ -179,10 +179,25 @@ class ProductionPlanTests(unittest.TestCase):
         parallel, serial = [full["ci_lane_checks"][lane] for lane in ("parallel", "serial")]
         self.assertFalse(set(parallel) & set(serial))
         self.assertEqual(set(parallel) | set(serial), set(full["checks"]))
-        # Preserve the exact pre-V5 inventory/order from main879b39e; new
-        # families append to that baseline rather than replacing old coverage.
+        # AGENTS' current-Demo scope defers frozen history to legacy-compat.
+        # Require precisely the independently reviewed one-for-one replacement;
+        # normalize that name alone when checking the unchanged historic hashes.
+        current_registry = "forest-current-registry"
+        frozen_registry = "forest-depth-versions"
+        for names, slot in ((self.manifest["profiles"]["full"], 74), (full["checks"], 85)):
+            self.assertEqual(names.count(current_registry), 1)
+            self.assertEqual(names[slot], current_registry)
+            self.assertNotIn(frozen_registry, names)
+        self.assertIn(frozen_registry, self.manifest["profiles"]["legacy-compat"])
+        self.assertNotIn(current_registry, self.manifest["profiles"]["legacy-compat"])
+        self.assertEqual(self.manifest["checks"][current_registry]["timeout_seconds"],
+                         self.manifest["checks"][frozen_registry]["timeout_seconds"])
+        # Preserve the exact pre-V5 inventory/order from main879b39e except for
+        # that explicit scope split; new families still append to the baseline.
         original = self.manifest["profiles"]["full"][:144]
-        digest = lambda names: hashlib.sha256(json.dumps(names,separators=(",",":")).encode()).hexdigest()
+        digest = lambda names: hashlib.sha256(json.dumps(
+            [frozen_registry if name == current_registry else name for name in names],
+            separators=(",",":")).encode()).hexdigest()
         self.assertEqual(digest(original), "dd7ca8a04ea756fc112183fa3603a1cdcd75c4ff7677987702d659292d194bc2")
         self.assertEqual(digest(full["checks"][:144]), "392a72c601c87c22daa53f7e2786c3481026048ee93fddd1753564e40ece621e")
         additions = [
@@ -193,14 +208,37 @@ class ProductionPlanTests(unittest.TestCase):
             "item-v5-core-effects", "item-v5-synergy-economy",
             "item-v5-pause-escape", "item-v5-random-context", "item-v5-manifest",
             "item-v5-authoring", "item-authoring-tools", "item-v5-art",
-            "home-codex", "audio-feedback",
+            "home-codex",
         ]
-        self.assertEqual(self.manifest["profiles"]["full"][144:], additions)
-        self.assertEqual(full["checks"][144:], additions)
-        added_parallel = ["item-v5-data", "item-authoring-tools"]
+        # Retain the complete original165 inventory/order as a frozen prefix;
+        # the new native contract appends without replacing either lane's set.
+        self.assertEqual(self.manifest["profiles"]["full"][:165], original + additions)
+        self.assertEqual(full["checks"][144:165], additions)
+        self.assertEqual(digest(self.manifest["profiles"]["full"][:165]), "ac963a4c96ca823555c367dcb10f039ccf0b24c762bb7e7e4fe16df01f63a463")
+        self.assertEqual(digest(full["checks"][:165]), "e88cea4aab3d566a2eaf8a4689f4a0f7011b69df67ac5f02ff028852994d9750")
+        structure_additions = ["enemy-structure-native"]
+        # Preserve all 166 reviewed checks, then append this real native case.
+        self.assertEqual(self.manifest["profiles"]["full"][144:166], additions + structure_additions)
+        self.assertEqual(full["checks"][144:166], additions + structure_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][165:166], structure_additions)
+        self.assertEqual(full["checks"][165:166], structure_additions)
+        motion_loot_additions = ["plains-motion-loot-02"]
+        audio_additions = ["audio-feedback"]
+        expected_additions = additions + structure_additions + motion_loot_additions + audio_additions
+        self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
+        self.assertEqual(full["checks"][144:], expected_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][166:167], motion_loot_additions)
+        self.assertEqual(full["checks"][166:167], motion_loot_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][167:], audio_additions)
+        self.assertEqual(full["checks"][167:], audio_additions)
+        audio = self.manifest["checks"]["audio-feedback"]
+        self.assertEqual(audio["argv"], ["python3", "tools/run_audio_feedback_tests.py"])
+        self.assertEqual(audio["timeout_seconds"], 240)
+        self.assertTrue(audio["serial"])
+        added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions
         self.assertEqual([name for name in parallel if name not in original], added_parallel)
-        self.assertEqual([name for name in serial if name not in original], [name for name in additions if name not in added_parallel])
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (166,91,75))
+        self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (168,92,76))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:
@@ -212,6 +250,36 @@ class ProductionPlanTests(unittest.TestCase):
         manifest["checks"]["not-in-full"] = {"argv":["python3","tests/extra.py"]}
         with_extra = make_plan(["scripts/demo/demo_app.gd"],"integration",self.policy,manifest)
         self.assertEqual(with_extra["ci_route"],"selected_commands")
+
+    def test_plains_motion_loot_is_a_real_registered_native_case_with_group_closure(self):
+        # Importing the adapter reads its registry; it does not start Godot.
+        from run_integration_four_tests import CASES
+        name = "plains-motion-loot-02"
+        check = self.manifest["checks"][name]
+        self.assertEqual(check["argv"], ["python3", "tools/run_integration_four_tests.py", "--case", name])
+        self.assertEqual(CASES[name], (
+            "tests/plains_motion_loot_02_runner.gd",
+            r"PLAINS MOTION LOOT02: [1-9]\d* assertions, 0 failures", 240))
+        self.assertEqual(check["timeout_seconds"], 360)
+        self.assertEqual(check["success_pattern"], "^" + CASES[name][1] + "$")
+        self.assertEqual(check["artifact_paths"], ["build/plains_motion_loot_02/native.json"])
+        self.assertEqual({profile for profile, names in self.manifest["profiles"].items() if name in names},
+                         {"gameplay", "art", "full"})
+        for profile in ("gameplay", "art", "full"):
+            self.assertEqual(self.manifest["profiles"][profile].count(name), 1)
+        runner = ROOT / CASES[name][0]
+        self.assertTrue(runner.is_file())
+        source = runner.read_text()
+        for fixture in ("motion", "loot", "audio", "app"):
+            path = "tests/plains_motion_loot_02_" + fixture + ".gd"
+            self.assertIn('load("res://' + path + '").run(', source)
+            self.assertTrue((ROOT / path).is_file())
+            self.assertTrue(any(path == item or path.startswith(item.rstrip("/") + "/")
+                                for item in check["inputs"]))
+        integration = self.plan(["scripts/demo/demo_app.gd"], "integration")
+        self.assertIn(name, integration["checks"])
+        self.assertIn(name, integration["ci_lane_checks"]["parallel"])
+        self.assertNotIn(name, integration["ci_lane_checks"]["serial"])
 
     def exercise_main(self, script, action="--precheck-only", verbose=False):
         directory = tempfile.TemporaryDirectory(); self.addCleanup(directory.cleanup)

@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-WORKSHOP-01",
+  "task_type": "ui_feedback",
+  "workflow": "review",
+  "baseline_commit": "9c0aef3236e9c022b5a34b5e80080b5036daef3b",
+  "reviewed_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+  "content_version": "enemy-workshop-v1",
+  "owner": "/root",
+  "purpose": "建立逐怪动作审核、动作定位建议与新怪创意网页工坊",
+  "player_experience": "用户逐只观看真实动作并保存具体版本意见，避免技术检查代替品质判断",
+  "constraints": [
+    "不改主游戏机制／素材／准入",
+    "不把旧片重标为新源",
+    "只认可具体动作版本，不自动签整怪完成"
+  ],
+  "affected_paths": [
+    "docs/current_state.md",
+    "docs/evidence/enemy_workshop_01/README.md",
+    "docs/evidence/enemy_workshop_01/capture-originals.zip",
+    "docs/evidence/enemy_workshop_01/capture/all-chapters.json",
+    "docs/evidence/enemy_workshop_01/capture/all-report.json",
+    "docs/evidence/enemy_workshop_01/capture/boss-chapters.json",
+    "docs/evidence/enemy_workshop_01/capture/boss-report.json",
+    "docs/evidence/enemy_workshop_01/capture/corpse-charger-chapters.json",
+    "docs/evidence/enemy_workshop_01/capture/corpse-charger-report.json",
+    "docs/evidence/enemy_workshop_01/capture/corpse-diver-chapters.json",
+    "docs/evidence/enemy_workshop_01/capture/corpse-diver-report.json",
+    "docs/evidence/enemy_workshop_01/capture/enemy_workshop_parse-02.log",
+    "docs/evidence/enemy_workshop_01/capture/formal-storm-chapters.json",
+    "docs/evidence/enemy_workshop_01/capture/formal-storm-report.json",
+    "docs/evidence/enemy_workshop_01/failures/enemy_workshop_parse.log",
+    "docs/evidence/enemy_workshop_01/media-manifest.json",
+    "docs/evidence/enemy_workshop_01/media-public-check.json",
+    "docs/evidence/enemy_workshop_01/media/all.mp4",
+    "docs/evidence/enemy_workshop_01/media/boss.mp4",
+    "docs/evidence/enemy_workshop_01/media/corpse-charger.mp4",
+    "docs/evidence/enemy_workshop_01/media/corpse-diver.mp4",
+    "docs/evidence/enemy_workshop_01/media/formal-storm.mp4",
+    "docs/evidence/enemy_workshop_01/review/enemy_workshop_review.md",
+    "docs/evidence/enemy_workshop_01/review/enemy_workshop_review_final.md",
+    "docs/evidence/enemy_workshop_01/review/enemy_workshop_review_r2.md",
+    "docs/evidence/enemy_workshop_01/review/enemy_workshop_review_r3.md",
+    "docs/evidence/enemy_workshop_01/site/browser/desktop.png",
+    "docs/evidence/enemy_workshop_01/site/browser/mobile-records.png",
+    "docs/evidence/enemy_workshop_01/site/browser/mobile.png",
+    "docs/evidence/enemy_workshop_01/site/browser/report.json",
+    "docs/evidence/enemy_workshop_01/site/deployment.json",
+    "docs/evidence/enemy_workshop_01/site/failures/browser-selector-before-fix.json",
+    "docs/evidence/enemy_workshop_01/site/failures/publish-preflight-01.json",
+    "docs/evidence/enemy_workshop_01/site/failures/publish-preflight-02.json",
+    "docs/evidence/enemy_workshop_01/site/media-local-map.json",
+    "docs/evidence/enemy_workshop_01/site/monster-workshop-artifact-validation-d1fix.log",
+    "docs/evidence/enemy_workshop_01/site/monster-workshop-final32-clean.log",
+    "docs/evidence/enemy_workshop_01/site/package-receipt.json",
+    "docs/evidence/enemy_workshop_01/site/site-delivery-bound.json",
+    "docs/evidence/enemy_workshop_01/site/site-final-audit.json",
+    "docs/evidence/enemy_workshop_01/site/source-7843ec09.tar.gz",
+    "docs/evidence/enemy_workshop_01/site/validation.json",
+    "docs/handoff.md",
+    "docs/quality/records/ENEMY-WORKSHOP-01.json",
+    "docs/tasks.md",
+    "docs/worklines/enemy_workshop_01/README.md",
+    "docs/worklines/enemy_workshop_01/scope.md",
+    "tools/enemy_all_review_02_capture.gd"
+  ],
+  "deliverables": [
+    "25条目真实动作目录与缺口",
+    "网页版逐动作审核与新怪创意",
+    "实际发布与GUI／持久化验证"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "用户明确授权独立怪物审核网站、反馈和创意入口，范围与数据归属已冻结。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "本机真实D1+实际浏览器15项已验；生产用户登录与回写尚待正常使用，不用伪造身份代签。",
+      "evidence": [
+        "browser15"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "精确站点源码32测试与独审通过、原生发布／建表成功；整体内容G1–G3／用户与设备证据未齐，不宣称内容done。",
+      "evidence": [
+        "tests32",
+        "browser15",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "用户要求的逐怪／逐动作审核、版本归属、建议与新怪提案均落地，未改游戏准入或验收标准。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "clean站点784源码32测试、15实际浏览器检查通过，原生发布成功且生产DB两表实际建成；无生产假测试数据。",
+      "evidence": [
+        "tests32",
+        "browser15"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "独立审核网站，不修改主游戏实际准入；网站本机真实接口整合已验，正式用户会话回写待正常使用。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "实际桌面／手机版面截图已观察，网页与怪物审美仍待用户认可；旧怪物品质拒绝不撤回。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "网站提供真实当前／历史动作录像与缺口；不以工坊上线签怪物全招式或动作品质完成。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "原引擎音轨随录像保留；本轮未制作或重新认可声音／特效。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "非实现作者最终限定代码ACCEPT，R1/R2失败和修复链均保留，不转签用户或怪物品质。",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "仅390宽Chromium手机视口代理，实体设备未测试。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "WORKSHOP-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "25条目、逐动作／版本／时间点建议与新怪提案",
+      "method": "按用户要求与当前实际登记装配网站",
+      "expected": "可逐只审核、可保存建议和提案，缺动作明确",
+      "failure": "旧片假新、虚假完成／认可或自动改主游戏",
+      "status": "passed",
+      "reason": "用户范围已落地，主游戏与审核记录职责隔离。",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "WORKSHOP-TECHNICAL",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "真实SQLite／D1、浏览器输入与跨异步草稿保护",
+      "method": "32代码测试＋15实际浏览器检查",
+      "expected": "无未确认即成功、无越权、无草稿覆盖、无不合法动作认可",
+      "failure": "失败丢稿／重复覆盖、missing被认可、时间／来源不对应",
+      "status": "passed",
+      "reason": "原反例修复且当前源码实际检查通过；生产用户会话与实体设备仍分账。",
+      "evidence": [
+        "tests32",
+        "browser15"
+      ]
+    },
+    {
+      "id": "WORKSHOP-INDEPENDENT",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "原R1／R2问题及最终精确站点源码",
+      "method": "非实现作者复核与独立32测试",
+      "expected": "明确关闭阻塞，源可追溯，限制不隐去",
+      "failure": "自评当独审或旧失败被覆盖",
+      "status": "passed",
+      "reason": "最终限定代码接受，未伪造R3逐字等价或生产用户验证。",
+      "evidence": [
+        "independent"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/worklines/enemy_workshop_01/scope.md",
+      "sha256": "f849dcd494cd94de585c0c1d00b228f1fb01dbb7bd45ffacb94bab7cb71aa741",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+      "content_version": "enemy-workshop-v1",
+      "method": "用户要求参考音效工坊，冻结网站审核／反馈／新创意范围",
+      "observed": "不批量改怪物美术，不自动执行提案或通过整怪。"
+    },
+    {
+      "id": "tests32",
+      "path": "docs/evidence/enemy_workshop_01/site/monster-workshop-final32-clean.log",
+      "sha256": "f988ad72457fa4cead8253dda932550bd75030e8ef080451c3c3e4245428e782",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+      "content_version": "enemy-workshop-v1",
+      "method": "实际SQLite迁移／API13＋UI19，实际函数异步竞态与原反例",
+      "observed": "32／32，0失败；源干净，未降低guard或修改主游戏机制。",
+      "command": "node --test tests/*.test.mjs ui/tests/*.test.mjs",
+      "exit_code": 0,
+      "environment": "/workspace/sites/monster-workshop; Node24.19.0; actual node:sqlite; clean Site source7843ec0."
+    },
+    {
+      "id": "browser15",
+      "path": "docs/evidence/enemy_workshop_01/site/browser/report.json",
+      "sha256": "eb48827febea168bbacfe86a5af1c93c395c9c44821ec7cffeb482e474c03810",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+      "content_version": "enemy-workshop-v1",
+      "method": "桌面与390宽手机视口的实际Chromium输入，本机真实Wrangler D1；仅原MP4的Range媒体传输转送",
+      "observed": "15项通过，无JS runtime错误；保存回读／时间点／迟到响应切换保稿／明确fork／提案／导出均实际执行。生产用户会话与物理机未代签。",
+      "command": "python3 /tmp/monster_workshop_browser_qa.py",
+      "exit_code": 0,
+      "environment": "Linux; system Chromium via Playwright; local Wrangler4.92 D1; original media bytes; Worker SHA b0c1f517a93123256be0571e2cb1d0b77369d24efe73fb70f0537e6d0f0c00e5 identical to deployed784 source."
+    },
+    {
+      "id": "independent",
+      "path": "docs/evidence/enemy_workshop_01/review/enemy_workshop_review_final.md",
+      "sha256": "2a5221b6faf68d0dda1a95e5a2b1ed403bee1ab99abb15b8a1e249e4252b6ee5",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "7843ec091cecdb15390949f00fa69ce7cab848d0",
+      "content_version": "enemy-workshop-v1",
+      "method": "非实现作者核精确784源码、实际32测试、原草稿竞态修复、catalog和artifact闭包",
+      "observed": "限定代码ACCEPT；不签生产用户身份回写、怪物艺术或G5。",
+      "reviewer": "/root/enemy_review",
+      "implementers": [
+        "/root",
+        "/root/binding_plan",
+        "/root/roster_capture"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer authored no Site production files; R1/R2 failures retained and exact final code rechecked.",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "生产用户真实登录后的保存／回读未冒充已执行；当前仅生产实际建表＋本机真实D1／浏览器整合验证。",
+    "未以网站发布、32测试或588区间签所有怪物完整动作与品质；原30missing／12NA按版本保留。",
+    "实体设备、用户审美、正常速度完整听审与G5尚未重新认可。",
+    "工坊建议仅保存；后续制作与验收仍需用户授权，不自动扩产或采用未确认的skills政策。",
+    "原R1/R2、错误selector和两次归档前检失败均保原件，正式发布成功另证。"
+  ]
+}

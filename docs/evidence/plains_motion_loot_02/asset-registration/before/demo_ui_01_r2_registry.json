@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset_id": "DEMO-UI-01-R2-registry",
+  "content_version": "clockwork-ui-r2+four-line-rebind-v1-20261023+registry-correction-v2+item-art-append-v1-20261028+chest-source04-append-v1+plains-monster-revision-append-v1",
+  "source_path": "assets/manifest.json",
+  "source_sha256": "47a0efadbb9d62a2539142a3d0d45f1417ac0a516f50a8d1c21cc44ab1ba1c86",
+  "runtime_paths": [],
+  "disposition": "production_record_only",
+  "non_runtime_reason": "Build-time centralregistry. Original two task UI entries and all original281records retained; current inventory additionally appends ten itemsource records. Renderers use concrete assets rather than this registry.",
+  "tool": "Native JSON registry append",
+  "model": "not_applicable",
+  "prompt_or_reference": "docs/worklines/demo_ui_01/asset_sources.json; original image assets have their own records",
+  "processing": "Append original PNG identifiers, dimensions, sourceSHA and actual title consumer. No image transformation.",
+  "usage_scope": "Task asset provenance registry, not artwork or gameplay.",
+  "license_status": "unknown",
+  "license_source": "Registry is project-authored metadata; licenses belong to each actual asset record.",
+  "visual_status": "not_applicable",
+  "user_acceptance_evidence": [],
+  "revision_impact": {
+    "revision": "plains-monster-revision-append-v1",
+    "previous_record_path": "docs/evidence/plains_monster_revision_01/asset-registration/before/demo_ui_01_r2_registry.json",
+    "previous_record_sha256": "dfc24d60d5dbe54ee0893931be33017861e344f434d1dd632e169176fc9cd79f",
+    "actual_change": "Append six current authored body textures and one derived low-bell audio entry; original asset list prefix and all other manifest fields exactly retained. No source pixels, license or visual approval changed.",
+    "proof": "docs/evidence/plains_monster_revision_01/asset-registration/append-proof.json",
+    "review_status": "Technical append proof; user/device/full visual acceptance remains unverified"
+  }
+}

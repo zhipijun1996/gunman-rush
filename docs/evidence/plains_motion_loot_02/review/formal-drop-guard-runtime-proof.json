@@ -1,0 +1,911 @@
+{
+  "verdict": "ACCEPT_BOUNDED_FORMAL_GUARD_RUNTIME_AND_SOURCE",
+  "reviewer": "/root/guard_review_recovery",
+  "implementers": [
+    "/root/corpse_contact_audit",
+    "/root"
+  ],
+  "independent": true,
+  "base_source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "exact_test_sha256": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+  "execution_origin": "Root dirty development execution. Wrapper01 does not embed a test/source inventory; owner confirms exact133c run and reviewer independently verifies current applied133c, preserved wrapper and raw output. No full Git-clean/source-inventory binding is claimed.",
+  "engine_executed_by_reviewer": false,
+  "command": "python3 /tmp/review_formal_guard_runtime.py > /tmp/plains_formal_guard_runtime_review.log",
+  "inputs": {
+    "/workspace/gunman-rush/tests/enemy_feedback_01_formal.gd": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+    "/workspace/gunman-rush/build/plains-ci-41001060607/formal-migrated-01/wrapper.log": "bbfeb0524961cf210b6225ad2bbac597b1e6c590572b0bbea01fcb6f5a512265",
+    "/workspace/gunman-rush/build/plains-ci-41001060607/formal-migrated-01/formal_runtime.json": "b67ab67008744681f99de772fdc55453bad2f3d170acfa297bb5e3b5ef758c3a",
+    "/workspace/gunman-rush/build/verification/harness/20261030T062552.698196Z/report.json": "6549e0449e7b65c75ddd1880d2353f38600301b30222b99ff8394e9328c3cbe3",
+    "/workspace/gunman-rush/build/verification/harness/20261030T062552.698196Z/enemy-corpse-save.log": "3cbaefece46b4b3db74b24cb0df0a9b35fefc394d7044ccd62b39beae577a61b"
+  },
+  "native_counts": {
+    "formal_original": 66,
+    "formal_new": 84,
+    "formal_total": 150,
+    "formal_failures": 0,
+    "inherited_corpse_save_total": 156,
+    "inherited_failures": 0
+  },
+  "native_check_expansion": "Each target executes4 new target invariants+37 derived positive/negative checks;2 targets=82, plus2 new reload checks=84. The positive bounce-availability check is true and actual observations have bounces, so its conditional rejection branch executes.",
+  "per_label_logging_limit": "The original check helper records only total/failures, not every successful label. Execution accounting is inferred from exact preserved source/control flow, complete two-target observations/reload and actual150/0; no nonexistent per-label trace is claimed.",
+  "checks": [
+    {
+      "id": "exact_applied133c",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "native_original150_0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "strict_runtime_clean",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_wrapper_source_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "original_waits_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "byte_reload_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "ready_initial_and_reload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "two_real_targets_full_shooting",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "two_observations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/native_transition_errors_empty",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/bounce_negative_branch_executed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/native_transition_errors_empty",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/before/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/before/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/before/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after45/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after45/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after45/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/actual_frame_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/actual_clock_delta",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/same_scope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/no_claim_money_changes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/all_pickup_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/tutorial/unit_1/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/tutorial/after175/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/complete_immutable_payout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/units_exact_entitlement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/id_kind_amount_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/immutable_unit_unknown_fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/finite_types",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/complete_live_snapshot_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "drop_plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/unit_1/after175/real_relative_physics_envelope",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/coin_total_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/after175/all_live_saved_bijection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "plains/enemy/window/plains/passage/area_1_2/area_2_2_0/ferry_air_intercept/bounce_negative_branch_executed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "derived37_each_target",
+      "passed": true,
+      "detail": {
+        "direct_checks": 4,
+        "reject_calls": 27,
+        "extra_loop_expansion": 6
+      }
+    },
+    {
+      "id": "all_new84_executions_accounted",
+      "passed": true,
+      "detail": {
+        "original_runtime": 66,
+        "new_target_invariants": 8,
+        "derived_clone_checks": 74,
+        "new_reload_checks": 2
+      }
+    },
+    {
+      "id": "inherited_consumer_extends_formal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "inherited_native156_0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "inherited_source133_working_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "selected_failure_preserved",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": 172,
+  "failed": 0,
+  "source_binding_pending": "Root plans a formal-specific final Harness with complete frozen input binding after production cache source freezes. Existing selected Harness has original internal source-digest stability checks and test working SHA, but no archived per-file source_before/after tables.",
+  "limits": [
+    "No full167 or affected closure",
+    "No acceptance of concurrent Ground/Skin production edits or performance",
+    "OriginalCI410010 and item-data missing sparse source failure preserved; later hydration rerun separate",
+    "No main gates/art/audio/device/user/economics/video retagging"
+  ]
+}

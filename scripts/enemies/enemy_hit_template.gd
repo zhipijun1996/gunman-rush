@@ -11,6 +11,7 @@ var health: HealthState
 var receiver: Damageable
 var host: Node2D
 var _last_serial := 0
+var _disposed := false
 
 static func install(owner_actor: EnemyActor, presentation: Node2D) -> EnemyHitTemplate:
 	var template := _install(owner_actor.health, owner_actor.damageable, presentation, owner_actor.definition)
@@ -53,6 +54,7 @@ func _ready() -> void:
 	health.changed.connect(_health_changed)
 
 func _health_changed(result: ActorResourceResult) -> void:
+	if _disposed: return
 	if result == null or result.snapshot == null or result.snapshot.epoch != health.epoch: return
 	if result.operation == &"initialize":
 		_finish()
@@ -64,7 +66,7 @@ func _health_changed(result: ActorResourceResult) -> void:
 	set_process(sample.hurt_remaining > 0 or sample.impact_remaining > 0)
 
 func _process(delta: float) -> void:
-	if get_tree().paused: return
+	if _disposed or get_tree().paused: return
 	sample.advance(delta)
 	_sync()
 	if sample.hurt_remaining <= 0 and sample.impact_remaining <= 0: _finish()
@@ -93,8 +95,15 @@ func begin_body(canvas: Node2D) -> void:
 	var foot := Vector2.ZERO if actor.definition.aerial else Vector2(0, actor.definition.collision_size.y*.5)
 	canvas.draw_set_transform(foot*(Vector2.ONE-deformation), 0, deformation)
 
-func _exit_tree() -> void:
+func dispose() -> void:
+	if _disposed: return
+	_disposed = true
+	set_process(false)
 	if health != null and health.changed.is_connected(_health_changed): health.changed.disconnect(_health_changed)
-	if is_instance_valid(host):
-		if host.has_meta(METADATA): host.remove_meta(METADATA)
+	if is_instance_valid(host) and host.has_meta(METADATA) and host.get_meta(METADATA)==self:
+		host.remove_meta(METADATA)
+	if is_instance_valid(particles): particles.dispose()
 	if sample != null: sample.dispose()
+
+func _exit_tree() -> void:
+	dispose()

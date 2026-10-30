@@ -1,0 +1,53 @@
+{
+  "verdict": "REJECT_CURRENT_CANDIDATE_PENDING_REMEDIATION",
+  "candidate_path": "/tmp/enemy_feedback_01_formal.candidate.gd",
+  "candidate_sha256": "30d1ce0d4c4b3107ba1c24710dd22175006a17ba7c976ddfdcb599821ca664d7",
+  "base_source_commit": "96bf4410f3118936ba78faddacc717974ffd39b9",
+  "reviewer": "/root/guard_review_recovery",
+  "implementer": "/root/corpse_contact_audit",
+  "independent": true,
+  "engine_executed_by_reviewer": false,
+  "candidate_modified_by_reviewer": false,
+  "review_method": "Read-only branch analysis; counterexamples below are source-provable omissions, not claims of executing GDScript.",
+  "preservation_checks": {
+    "original35literal_labels_ordered": true,
+    "original_await_ticks_exact": true,
+    "original_byte_reload_guard_exact": true,
+    "observed_exact_seven_motion_fields": true,
+    "claimed_retained_immutable": true
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "blocking",
+      "issue": "Finite motion is unbounded. After removing seven physical fields, validator only requires age/bounces not to rewind; observation lacks elapsed clock/tick.",
+      "counterexample": "Use the candidate formal_set_motion on cloned after state to set age1e9, finite position/velocity/rotation1e20, or bounces1e9, synchronizing saved unit and raw pickup. Identity/amounts/keysets remain unchanged, motion fields are stripped, finite predicates pass, monotonic checks pass, ledgers unchanged. No condition rejects the impossible motion.",
+      "fix": "Record real stage.clock/physics tick and bound age/bounce increments and displacement/velocity/rotation using elapsed time and explicitly explained loose physical limits; reject synchronized finite explosion counterexamples."
+    },
+    {
+      "id": "F2",
+      "severity": "blocking",
+      "issue": "A new region.claimed key with no actual pickup/unit ownership is accepted.",
+      "counterexample": "after.claimed[ghost_id]=true, no matching pickup, no grant, balance0. Unit-specific claim comparisons still pass; transition only retains preexisting claimed keys and never checks new orphan keys.",
+      "fix": "For this no-claims fixture retain complete claimed equality, or validate every new true claim against an actual current pickup/chest ownership record and exact receipt as appropriate. Add phantom-claim negative."
+    },
+    {
+      "id": "F3",
+      "severity": "coverage gap",
+      "issue": "Preserving a nonempty old wallet ledger is implemented but not exercised by any real positive or derived positive/negative: six actual observations all have empty grants.",
+      "fix": "Add explicitly labeled clone controls with one preexisting grant preserved, then removed/changed; require expected old_grant_changed error, without claiming runtime exercised that preexisting grant."
+    }
+  ],
+  "retained_source_good": [
+    "Seven-field allowlist preserves complete non-unit payout/unknown metadata and unit identity/value/safe/claimed",
+    "No nominal bounce3 uppercap or returning/settled mutual exclusion",
+    "Complete expected denomination IDs and actualpool/persisted map checks",
+    "No production snapshot helper self-validation",
+    "Original Router/HP/one death/primaryinstance/awaitticks/byte reload checks retained"
+  ],
+  "not_approved": [
+    "No parser/native execution yet",
+    "No candidate source acceptance until fixes and root native receipt",
+    "No full CI, production/performance/art/audio/device/user/G1-G5 approval"
+  ]
+}

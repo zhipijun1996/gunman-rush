@@ -1,0 +1,20 @@
+{
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "reference": "assets/plains_v7/enemies/guard_moth.png",
+  "rounds": [
+    {
+      "round": 1,
+      "prompt": "Edit the supplied sprite sheet into a production transparent-background game sprite sheet. Preserve the TWO existing creature identities: top row a moss and brass beetle guard with a single large ivory leaf shield and amber abdomen, bottom row a teal brass moth with ivory leaf-vein wings, antennae, long beak and amber abdomen. Remove ALL brown/black scenery, gradients, floor, dividers and shadows outside creature silhouettes; output true alpha transparency. EXACT layout 6 columns by 2 rows, each cell identical dimensions, generous empty transparent margin. Top row six distinct coherent poses: neutral guard standing, shield lifted anticipatory, shield thrust forward attacking, recoiling hurt, recovered same neutral guard, folded dead guard on side. Bottom row six coherent poses: wings raised hover, wings down hover, tucked anticipation, swept-back attacking, recoiling hurt, folded dead moth. All six poses per species MUST be exactly the SAME body proportions, SAME organs, palette, texture and scale, facing RIGHT. Feet/center base aligned on same baseline within each row, neither body nor shield ever cropped. Crisp nearest-pixel game sprite painting, muted moss/brass/teal/ivory, consistent upper-left light, silhouette readable at small game size. No labels, no lines, no effects, no text. This is an exact sprite-sheet correction, not a concept art illustration.",
+      "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-420cb8d1-823a-4706-b75e-759b3b7677b6.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    },
+    {
+      "round": 2,
+      "prompt": "Fix this exact sprite sheet. Keep all 12 creature poses and identities, but rearrange into a STRICT 6-column 2-row grid with each pose centered inside its own isolated cell. Make canvas 2048x1024. Each cell must have a large 15 percent fully transparent empty gutter on ALL four sides. Entire beetle including raised shield and antenna and entire moth wing must fit INSIDE cell, never touch cell boundary or adjacent sprite. Same creature scale for all poses in each row. Top six beetle poses aligned feet on same baseline; bottom six moth poses aligned abdomen center consistently. Remove ALL red and yellow matte fringe completely: natural ivory wing edges, moss/brass and teal creature edges only; alpha=0 clean outside silhouette. True transparent background, no backdrop or gradient, no floor, no cell lines, no text, no outside shadows or glow. Preserve muted crisp pixel-art textured detail. No duplicate body ghosting.",
+      "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-d053f5c7-fcc8-4be1-9c39-caed4284cc0d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "disposition": "rejected; did not improve gutters or coherent pose scale"
+    }
+  ],
+  "license": "unknown",
+  "processing": "PNG bytes copied unchanged; integer AtlasTexture region reads only; no raster edits. Only two neutral master crops consumed."
+}

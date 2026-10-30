@@ -1,0 +1,483 @@
+{
+  "task": "ENEMY-ALL-02",
+  "group": "route_forest",
+  "chains": "primary",
+  "species": null,
+  "seed_label": "enemy-all-review-02",
+  "status": "recorded_complete_coverage",
+  "source": {
+    "working_files": {},
+    "commit": "b71a87864d3843f8d4e898046224778890349dac",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "driver_sha256": "1b63b0ebfa6c0014c7e7f8cc0c27047001596f25e7c4e9cd32534b28f6c32c47",
+  "scope": "Genuine Godot MovieMaker; explicit initial fixtures, real AI, InputRouter, projectiles, enemy and player FrameDamagePolicy. No natural-campaign claim.",
+  "user_acceptance": "pending",
+  "device_acceptance": "unverified",
+  "listening_acceptance": false,
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--write-movie",
+    "/workspace/gunman-rush/build/enemy_all_02/final-v4/formal_forest/capture.avi",
+    "--fixed-fps",
+    "60",
+    "--script",
+    "tools/enemy_all_review_02_route_capture.gd",
+    "--",
+    "--trace=/workspace/gunman-rush/build/enemy_all_02/final-v4/formal_forest/trace.json",
+    "--group=route_forest",
+    "--chains=primary",
+    "--seed=enemy-all-review-02",
+    "--seconds=30"
+  ],
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793248670.7652864,
+    "ended_at_unix": 1793248771.3110697,
+    "duration_seconds": 100.546,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/enemy_all_02/final-v4/formal_forest/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/enemy_all_review_02_route_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/enemy_all_02/final-v4/formal_forest/trace.json",
+      "--group=route_forest",
+      "--chains=primary",
+      "--seed=enemy-all-review-02",
+      "--seconds=30"
+    ],
+    "check_token": "83be7e122b5648adbc3f6f276a0f28c5"
+  },
+  "original_engine_audio": {
+    "source": "original Godot MovieMaker AVI audio, losslessly extracted before AAC encoding",
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "frames": 1445600,
+    "duration_seconds": 30.116666666666667,
+    "samples": 2891200,
+    "peak_s16": 16223,
+    "peak_normalized": 0.495086669921875,
+    "rms_normalized": 0.0442347050473332,
+    "nonzero_samples": 2880739,
+    "nonzero_sample_ratio": 0.996381779192031,
+    "seconds_containing_nonzero_pcm": 31,
+    "pcm_sha256": "a5096a8f93c0ac3bfd783630ec1f312c1208e56b0e5010033bffc65058008ffa",
+    "per_second": [
+      {
+        "second": 0,
+        "samples": 96000,
+        "peak_s16": 6622,
+        "rms_normalized": 0.015738696691090275,
+        "nonzero_samples": 93626
+      },
+      {
+        "second": 1,
+        "samples": 96000,
+        "peak_s16": 9848,
+        "rms_normalized": 0.042972030206599565,
+        "nonzero_samples": 95953
+      },
+      {
+        "second": 2,
+        "samples": 96000,
+        "peak_s16": 9939,
+        "rms_normalized": 0.04529970061624096,
+        "nonzero_samples": 95955
+      },
+      {
+        "second": 3,
+        "samples": 96000,
+        "peak_s16": 9366,
+        "rms_normalized": 0.04128134777839836,
+        "nonzero_samples": 95951
+      },
+      {
+        "second": 4,
+        "samples": 96000,
+        "peak_s16": 9668,
+        "rms_normalized": 0.043705674794459096,
+        "nonzero_samples": 95948
+      },
+      {
+        "second": 5,
+        "samples": 96000,
+        "peak_s16": 8705,
+        "rms_normalized": 0.045153985421913116,
+        "nonzero_samples": 95964
+      },
+      {
+        "second": 6,
+        "samples": 96000,
+        "peak_s16": 10839,
+        "rms_normalized": 0.052686041378738634,
+        "nonzero_samples": 95945
+      },
+      {
+        "second": 7,
+        "samples": 96000,
+        "peak_s16": 10974,
+        "rms_normalized": 0.06195372707520408,
+        "nonzero_samples": 95959
+      },
+      {
+        "second": 8,
+        "samples": 96000,
+        "peak_s16": 16223,
+        "rms_normalized": 0.04535740367129261,
+        "nonzero_samples": 95948
+      },
+      {
+        "second": 9,
+        "samples": 96000,
+        "peak_s16": 9847,
+        "rms_normalized": 0.04094822202996543,
+        "nonzero_samples": 95957
+      },
+      {
+        "second": 10,
+        "samples": 96000,
+        "peak_s16": 11755,
+        "rms_normalized": 0.03746265234765235,
+        "nonzero_samples": 95943
+      },
+      {
+        "second": 11,
+        "samples": 96000,
+        "peak_s16": 9752,
+        "rms_normalized": 0.04380852064008993,
+        "nonzero_samples": 95953
+      },
+      {
+        "second": 12,
+        "samples": 96000,
+        "peak_s16": 13931,
+        "rms_normalized": 0.04269717447791762,
+        "nonzero_samples": 95943
+      },
+      {
+        "second": 13,
+        "samples": 96000,
+        "peak_s16": 9160,
+        "rms_normalized": 0.04185337165183434,
+        "nonzero_samples": 95942
+      },
+      {
+        "second": 14,
+        "samples": 96000,
+        "peak_s16": 8225,
+        "rms_normalized": 0.04593831114719924,
+        "nonzero_samples": 95972
+      },
+      {
+        "second": 15,
+        "samples": 96000,
+        "peak_s16": 9485,
+        "rms_normalized": 0.047116953816547874,
+        "nonzero_samples": 95966
+      },
+      {
+        "second": 16,
+        "samples": 96000,
+        "peak_s16": 8821,
+        "rms_normalized": 0.043387404193982786,
+        "nonzero_samples": 95948
+      },
+      {
+        "second": 17,
+        "samples": 96000,
+        "peak_s16": 8435,
+        "rms_normalized": 0.04163380229126085,
+        "nonzero_samples": 95944
+      },
+      {
+        "second": 18,
+        "samples": 96000,
+        "peak_s16": 9175,
+        "rms_normalized": 0.042011950737832364,
+        "nonzero_samples": 95938
+      },
+      {
+        "second": 19,
+        "samples": 96000,
+        "peak_s16": 9023,
+        "rms_normalized": 0.042361799311201785,
+        "nonzero_samples": 95939
+      },
+      {
+        "second": 20,
+        "samples": 96000,
+        "peak_s16": 10574,
+        "rms_normalized": 0.05257807307392968,
+        "nonzero_samples": 95953
+      },
+      {
+        "second": 21,
+        "samples": 96000,
+        "peak_s16": 8987,
+        "rms_normalized": 0.04485414078706807,
+        "nonzero_samples": 95950
+      },
+      {
+        "second": 22,
+        "samples": 96000,
+        "peak_s16": 13431,
+        "rms_normalized": 0.044803580630629274,
+        "nonzero_samples": 95961
+      },
+      {
+        "second": 23,
+        "samples": 96000,
+        "peak_s16": 8338,
+        "rms_normalized": 0.04174612776268296,
+        "nonzero_samples": 95949
+      },
+      {
+        "second": 24,
+        "samples": 96000,
+        "peak_s16": 10086,
+        "rms_normalized": 0.044172140600683175,
+        "nonzero_samples": 95964
+      },
+      {
+        "second": 25,
+        "samples": 96000,
+        "peak_s16": 8606,
+        "rms_normalized": 0.04376029258007141,
+        "nonzero_samples": 95945
+      },
+      {
+        "second": 26,
+        "samples": 96000,
+        "peak_s16": 9961,
+        "rms_normalized": 0.043623608401580506,
+        "nonzero_samples": 95937
+      },
+      {
+        "second": 27,
+        "samples": 96000,
+        "peak_s16": 9319,
+        "rms_normalized": 0.045455504387123945,
+        "nonzero_samples": 95972
+      },
+      {
+        "second": 28,
+        "samples": 96000,
+        "peak_s16": 10123,
+        "rms_normalized": 0.043388465856415676,
+        "nonzero_samples": 95946
+      },
+      {
+        "second": 29,
+        "samples": 96000,
+        "peak_s16": 9470,
+        "rms_normalized": 0.04618828776780799,
+        "nonzero_samples": 95961
+      },
+      {
+        "second": 30,
+        "samples": 11200,
+        "peak_s16": 904,
+        "rms_normalized": 0.0029556988447893466,
+        "nonzero_samples": 4507
+      }
+    ],
+    "listening_acceptance": false,
+    "interpretation": "Nonzero signal proves captured engine sound exists; timbre, loudness and mix approval require listening."
+  },
+  "media": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "width": 1280,
+        "height": 720,
+        "coded_width": 1280,
+        "coded_height": 720,
+        "closed_captions": 0,
+        "film_grain": 0,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuvj420p",
+        "level": 32,
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "chroma_location": "center",
+        "field_order": "progressive",
+        "refs": 1,
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "time_base": "1/15360",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 462592,
+        "duration": "30.116667",
+        "bit_rate": "6416605",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "1807",
+        "extradata_size": 51,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.101 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 2,
+        "channel_layout": "stereo",
+        "bits_per_sample": 0,
+        "initial_padding": 0,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1445568,
+        "duration": "30.116000",
+        "bit_rate": "134050",
+        "nb_frames": "1413",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler",
+          "vendor_id": "[0][0][0][0]"
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/gunman-rush/build/enemy_all_02/final-v4/formal_forest/review.mp4",
+      "nb_streams": 2,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "format_long_name": "QuickTime / MOV",
+      "start_time": "0.000000",
+      "duration": "30.116667",
+      "size": "24709657",
+      "bit_rate": "6563716",
+      "probe_score": 100,
+      "tags": {
+        "major_brand": "isom",
+        "minor_version": "512",
+        "compatible_brands": "isomiso2avc1mp41",
+        "encoder": "Lavf61.7.103"
+      }
+    }
+  },
+  "trace_frame_count": 1801,
+  "chapters": [
+    {
+      "case": 0,
+      "id": "formal_forest_map1_debug_entry",
+      "chain": "actual_DemoApp_generated_stage",
+      "renderer": "actual installed stage/player/enemy renderers and original StageCameraRig",
+      "start_frame": 1,
+      "end_frame": 1801,
+      "start_seconds": 0.0,
+      "end_seconds": 30.0,
+      "post_death_observation_frames": 0,
+      "coverage": {
+        "actual_enemy_HP_commits": 3,
+        "actual_enemy_deaths": 1,
+        "formal_stage_ready": true,
+        "gameplay_seconds": 30.0,
+        "human_visual_review": "pending",
+        "natural_player_spawn": true,
+        "original_manifest_unchanged": true
+      },
+      "coverage_gaps": [],
+      "terminal_policy_observation": {
+        "player_terminal_frame": -1,
+        "policy": "actual generated stage and original run result",
+        "scope": "continuous actual traversal; no all-roster or completed-campaign claim"
+      }
+    }
+  ],
+  "coverage_gap_count": 0,
+  "mp4_sha256": "eebf2a7a39ccff703f351271091a5f5aba4573a47d3dbd0fafea2985b6074320",
+  "avi_sha256": "0fd9879b0ec540f57f7b7487db2fe9d46db35f6582925f86faff260bde091b4e",
+  "trace_sha256": "6d464ae82b02583b878976a3eb66c5c8949a5e65a81ff08e536515eb23a11374",
+  "raw_avi_retained": false,
+  "source_stable": true,
+  "seconds": 121.70493134400022
+}

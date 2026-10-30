@@ -1,0 +1,31 @@
+{
+  "before_sha256": "b17695690b87539bbec6ff32c05cc7636910ea804cb873b8df4ba390c010c84a",
+  "candidate_sha256": "133c374ef037db27227dfe94df6d852416b67568786e6f8774239771697f8067",
+  "original_check_statements": 39,
+  "previous_proof_literal_labels": 35,
+  "original_labels_preserved_ordered": true,
+  "all_wait_calls_preserved": [
+    "await ticks(1, \"natural_recoil_recovery\")",
+    "await ticks(32, \"actual_router_shot_%s\" % attempt)",
+    "await ticks(4, \"initial_position_fixture\")",
+    "await ticks(3, \"formal_drop_settlement\")",
+    "await ticks(45, \"formal_duplicate_ticks\")",
+    "await ticks(130, \"formal_persistent_corpse_over_two_seconds\")",
+    "await ticks(3, \"rebuilt_stage_ready\")"
+  ],
+  "repo_edited": false,
+  "Godot_executed": false,
+  "claimed_retained_in_immutable_signature": true,
+  "stripped_only_unit_fields": [
+    "position",
+    "velocity",
+    "age",
+    "bounces",
+    "rotation",
+    "settled",
+    "returning"
+  ],
+  "input_actual_observations": "build/plains-ci-41001060607/instrumented-formal/observations.json",
+  "v2": "Exact complete claims/grants/balance preservation, observed physics clock/frame envelope, synchronized explosive-motion counterexamples, explicit nonempty historical-grants clone model",
+  "execution_limit": "Old diagnostic lacks real stage_clock/frame fields; static 45/175 frame-envelope check only. Root must execute candidate and real clocks."
+}

@@ -1,0 +1,558 @@
+{
+  "scope": "Catalog/poster data only; no browser/API/DB/deployment/user acceptance claim",
+  "source_catalog": "/workspace/sites/monster-workshop/data/catalog.json",
+  "source_catalog_sha256": "eb6a78b4a99ef014789ede3d26fb88cf4005ce3531cee9e82b58ad0f8944c04a",
+  "game_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+  "media_commit": "ecb83cfa6bd4b5f4aab565dc0dd5b31443833771",
+  "combat_trace": "/workspace/gunman-rush/build/plains_revision_01/review-05/trace.json",
+  "combat_trace_sha256": "fedfd3ab9086991d2db7b8cea9e81659f6e74daf8e133123342162e17bf88da8",
+  "wrapper": {
+    "path": "/workspace/gunman-rush/build/plains_revision_01/review-05/report.json",
+    "sha256": "1c54871be7e349bf535ac2d378128692270c8307300db01b58c6a04eaee1c269",
+    "status": "recorded_complete_coverage",
+    "source_stable": true,
+    "clean_source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047"
+  },
+  "comparison_trace_sha256": "7f9adf56177cc6319a63795830da0431e415080c2aa93c939b5f44cea2de6732",
+  "counts": {
+    "monsters": 25,
+    "variants": 88,
+    "media": 14
+  },
+  "new_combat_variants": 7,
+  "new_comparison_variants": 6,
+  "existing_clip_ids_revisions_and_actions_preserved": 75,
+  "combat_cases": [
+    {
+      "species": "patrol_drone",
+      "case": 0,
+      "chain": "underworld",
+      "movie_start_process_frame": 1,
+      "movie_end_process_frame": 634,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "not_applicable_contact_only"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "124721825684:1:1",
+        "frame": 212,
+        "local_frame": 212,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "124721825684:1:3",
+        "frame": 424,
+        "local_frame": 424,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 491,
+      "first_hidden_after_settled_movie_process_frame": 569,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_charger",
+      "case": 1,
+      "chain": "underworld",
+      "movie_start_process_frame": 637,
+      "movie_end_process_frame": 1340,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "219563427731:1:1",
+        "frame": 845,
+        "local_frame": 211,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "219563427731:1:3",
+        "frame": 1060,
+        "local_frame": 426,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 1130,
+      "first_hidden_after_settled_movie_process_frame": null,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_diver",
+      "case": 2,
+      "chain": "underworld",
+      "movie_start_process_frame": 1343,
+      "movie_end_process_frame": 2009,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": true,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "settled_remains_observed_210_frames": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "314237257618:1:1",
+        "frame": 1551,
+        "local_frame": 214,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "314237257618:1:3",
+        "frame": 1760,
+        "local_frame": 423,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 1799,
+      "first_hidden_after_settled_movie_process_frame": null,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_hopper",
+      "case": 3,
+      "chain": "underworld",
+      "movie_start_process_frame": 2012,
+      "movie_end_process_frame": 2643,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "observed",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "389197858705:1:1",
+        "frame": 2219,
+        "local_frame": 216,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "389197858705:1:3",
+        "frame": 2424,
+        "local_frame": 421,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 2500,
+      "first_hidden_after_settled_movie_process_frame": 2578,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_sentry",
+      "case": 4,
+      "chain": "underworld",
+      "movie_start_process_frame": 2646,
+      "movie_end_process_frame": 3284,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "474895878032:1:1",
+        "frame": 2852,
+        "local_frame": 218,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "474895878032:1:3",
+        "frame": 3062,
+        "local_frame": 428,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 3141,
+      "first_hidden_after_settled_movie_process_frame": 3219,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_fan_sentry",
+      "case": 5,
+      "chain": "underworld",
+      "movie_start_process_frame": 3287,
+      "movie_end_process_frame": 3926,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "559352383374:1:1",
+        "frame": 3491,
+        "local_frame": 219,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "559352383374:1:3",
+        "frame": 3701,
+        "local_frame": 429,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 3813,
+      "first_hidden_after_settled_movie_process_frame": 3891,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    },
+    {
+      "species": "plains_root_bell",
+      "case": 6,
+      "chain": "underworld",
+      "movie_start_process_frame": 3929,
+      "movie_end_process_frame": 4565,
+      "coverage": {
+        "actual_AI_commitment": true,
+        "lethal_HP_commit": true,
+        "locomotion": "not_applicable_rooted_definition",
+        "nonlethal_HP_commit": true,
+        "persistent_remains": false,
+        "player_damage_authority_registered": true,
+        "player_survived": true,
+        "recovered_after_nonlethal": true,
+        "terminal_observed_210_frames": true,
+        "warning": "observed"
+      },
+      "coverage_gaps": [],
+      "accepted_nonlethal_event": {
+        "HP": 2.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "657465542540:1:1",
+        "frame": 4129,
+        "local_frame": 218,
+        "terminal": false
+      },
+      "accepted_lethal_event": {
+        "HP": 0.0,
+        "amount": -1.0,
+        "epoch": 1,
+        "event_id": "657465542540:1:3",
+        "frame": 4337,
+        "local_frame": 426,
+        "terminal": true
+      },
+      "first_settled_movie_process_frame": 4422,
+      "first_hidden_after_settled_movie_process_frame": 4500,
+      "action_basis": "Actual accepted HP/AI/postdraw receipts; no inferred authored H/D cells"
+    }
+  ],
+  "comparison_pages": [
+    {
+      "species": "patrol_drone",
+      "page": 0,
+      "movie_start_process_frame": 10,
+      "movie_end_process_frame": 308,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 9,
+      "excluded_before_declared_playback": [
+        9
+      ],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    },
+    {
+      "species": "plains_charger",
+      "page": 1,
+      "movie_start_process_frame": 309,
+      "movie_end_process_frame": 608,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 309,
+      "excluded_before_declared_playback": [],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    },
+    {
+      "species": "plains_hopper",
+      "page": 2,
+      "movie_start_process_frame": 609,
+      "movie_end_process_frame": 908,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 609,
+      "excluded_before_declared_playback": [],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    },
+    {
+      "species": "plains_sentry",
+      "page": 3,
+      "movie_start_process_frame": 909,
+      "movie_end_process_frame": 1208,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 909,
+      "excluded_before_declared_playback": [],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    },
+    {
+      "species": "plains_fan_sentry",
+      "page": 4,
+      "movie_start_process_frame": 1209,
+      "movie_end_process_frame": 1508,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 1209,
+      "excluded_before_declared_playback": [],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    },
+    {
+      "species": "plains_root_bell",
+      "page": 5,
+      "movie_start_process_frame": 1509,
+      "movie_end_process_frame": 1808,
+      "observed_frames": 300,
+      "combat_evidence": false,
+      "actual_first_observation_frame": 1509,
+      "excluded_before_declared_playback": [],
+      "playback_policy": "Declared interval retained; initial deferred one-frame sample disclosed and excluded"
+    }
+  ],
+  "posters": [
+    {
+      "variant": "patrol_drone-plains-revision-7edda9f5f2a2-5596f4d05029-0",
+      "frame": 1,
+      "species": "patrol_drone",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/patrol_drone-plains-revision-7edda9f5f2a2-5596f4d05029-0.jpg",
+      "sha256": "5bfdda7c59a05d06d61d088cbb334bf3934e4ae1a7f01575c236f78e7bfcb0aa",
+      "timestamp_seconds": 0.016666666666666666,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_charger-plains-revision-7edda9f5f2a2-5596f4d05029-1",
+      "frame": 638,
+      "species": "plains_charger",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_charger-plains-revision-7edda9f5f2a2-5596f4d05029-1.jpg",
+      "sha256": "b5b830b09030dc3327c645d50cc6b79b17870f6caad4a5caa8c09fe51f615e84",
+      "timestamp_seconds": 10.633333333333333,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_diver-plains-revision-7edda9f5f2a2-5596f4d05029-2",
+      "frame": 1344,
+      "species": "plains_diver",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_diver-plains-revision-7edda9f5f2a2-5596f4d05029-2.jpg",
+      "sha256": "ea7b774c47fe227f0a4a62627e346347c46488a2e47c51acf2b3e1aedce1d028",
+      "timestamp_seconds": 22.4,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_hopper-plains-revision-7edda9f5f2a2-5596f4d05029-3",
+      "frame": 2013,
+      "species": "plains_hopper",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_hopper-plains-revision-7edda9f5f2a2-5596f4d05029-3.jpg",
+      "sha256": "5c69c464f2ac15d1a8da551439169035743c24bc9a3cdbf69cac7351a6e9b16c",
+      "timestamp_seconds": 33.55,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-4",
+      "frame": 2647,
+      "species": "plains_sentry",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-4.jpg",
+      "sha256": "11e721a37cff5f0d843d6e295f4cffaa4dd27dda31c4d4e90ca490302fc071a7",
+      "timestamp_seconds": 44.11666666666667,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_fan_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-5",
+      "frame": 3288,
+      "species": "plains_fan_sentry",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_fan_sentry-plains-revision-7edda9f5f2a2-5596f4d05029-5.jpg",
+      "sha256": "1e6192554d49cba0b45153cd7545375ce5b634105a1191c5ee4ca2a1046d4d8b",
+      "timestamp_seconds": 54.8,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_root_bell-plains-revision-7edda9f5f2a2-5596f4d05029-6",
+      "frame": 3930,
+      "species": "plains_root_bell",
+      "basis": "First real alive, host-visible alpha-positive postdraw frame",
+      "path": "data/posters/plains_root_bell-plains-revision-7edda9f5f2a2-5596f4d05029-6.jpg",
+      "sha256": "63f4ed156b8dde204e2636bf995dad5e222eda98658bbd857203fe149ba6c048",
+      "timestamp_seconds": 65.5,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "patrol_drone-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 10,
+      "species": "patrol_drone",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/patrol_drone-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "c067c7545253507b9ac4651f2d78bda4fbb60bd539b3c31588916cf36cf7c3ff",
+      "timestamp_seconds": 0.16666666666666666,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_charger-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 309,
+      "species": "plains_charger",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/plains_charger-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "d5f816c61c73f6e815b385ffa9c76a26af7b265fae8abdb85aff033feab76756",
+      "timestamp_seconds": 5.15,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_hopper-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 609,
+      "species": "plains_hopper",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/plains_hopper-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "db745f127100bea0fc5f5e4493a6c8af0b454328c0592b098b6607b9aa4c1963",
+      "timestamp_seconds": 10.15,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 909,
+      "species": "plains_sentry",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/plains_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "1653560b6ab0f00c7d4d071b3a160e8ac1f929048455522959604737a8d306ed",
+      "timestamp_seconds": 15.15,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_fan_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 1209,
+      "species": "plains_fan_sentry",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/plains_fan_sentry-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "6f2db25c266de3610e7387c57d2ed2ef5e8a1250b94d49fe71a8b8cbaccd56aa",
+      "timestamp_seconds": 20.15,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    },
+    {
+      "variant": "plains_root_bell-scale-comparison-7edda9f5f2a2-4956488e5a56",
+      "frame": 1509,
+      "species": "plains_root_bell",
+      "basis": "First actual comparison-page movie process frame",
+      "path": "data/posters/plains_root_bell-scale-comparison-7edda9f5f2a2-4956488e5a56.jpg",
+      "sha256": "ece12f3ce54ec27665531c9b6efbec154e49ebcff1dec28206b25128c21fd145",
+      "timestamp_seconds": 25.15,
+      "processing": "Single original decoded movie frame; JPEG only; no crop, resize, repaint or composite"
+    }
+  ],
+  "media": [
+    {
+      "duration": 76.166667,
+      "frames": 4570,
+      "fps": 60,
+      "width": 1280,
+      "height": 720,
+      "media_id": "plains-revision-5596f4d05029",
+      "media_sha256": "5596f4d050299e6a0dc10b8d4f56cc0b46ede1b2b31c87f466ead856e95711c4",
+      "source_video_url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ecb83cfa6bd4b5f4aab565dc0dd5b31443833771/docs/evidence/plains_monster_revision_01/media/plains.mp4",
+      "video_url": "/media/plains-revision-5596f4d05029",
+      "game_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "media_commit": "ecb83cfa6bd4b5f4aab565dc0dd5b31443833771",
+      "local_movie": "/workspace/gunman-rush/build/plains_revision_01/review-05/review.mp4",
+      "repository_path": "docs/evidence/plains_monster_revision_01/media/plains.mp4"
+    },
+    {
+      "duration": 30.266667,
+      "frames": 1816,
+      "fps": 60,
+      "width": 1280,
+      "height": 720,
+      "media_id": "plains-revision-comparison-4956488e5a56",
+      "media_sha256": "4956488e5a56b58c456fa919291c8b6f57950fc1f3c9c10c1480f3d2e5347ea4",
+      "source_video_url": "https://raw.githubusercontent.com/zhipijun1996/gunman-rush/ecb83cfa6bd4b5f4aab565dc0dd5b31443833771/docs/evidence/plains_monster_revision_01/media/comparison.mp4",
+      "video_url": "/media/plains-revision-comparison-4956488e5a56",
+      "game_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "media_commit": "ecb83cfa6bd4b5f4aab565dc0dd5b31443833771",
+      "local_movie": "/workspace/gunman-rush/build/plains_revision_01/comparison-03/review.mp4",
+      "repository_path": "docs/evidence/plains_monster_revision_01/media/comparison.mp4"
+    }
+  ],
+  "limitations": [
+    "Basic coverage0 is not complete moveset approval",
+    "No H/D authored-cell inference for continuous rig",
+    "Explicit arena fixtures and automated real Router input; not a natural campaign route",
+    "Comparison is staged with sample AI/player held, not combat evidence"
+  ],
+  "output_catalog": "data/catalog.json",
+  "output_catalog_sha256": "56a8b329a8f5a427d4c832874ebe3fd6a8bf18460f23a6fd1cdd4053ba64e912"
+}

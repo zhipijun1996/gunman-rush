@@ -1,0 +1,26 @@
+test_bad_reports_refused (__main__.Tests.test_bad_reports_refused) ... ok
+test_current_site_apply_gate_fails_before_writes (__main__.Tests.test_current_site_apply_gate_fails_before_writes) ... ok
+test_exact_retained_catalog_and_other18_unchanged (__main__.Tests.test_exact_retained_catalog_and_other18_unchanged) ... FAIL
+test_false_coverage_and_payout_and_root_values_refused (__main__.Tests.test_false_coverage_and_payout_and_root_values_refused) ... ok
+test_missing_postdraw_or_bad_coin_progress_refused (__main__.Tests.test_missing_postdraw_or_bad_coin_progress_refused) ... ok
+test_only_exact_recorded_patrol_identity_maps_to_retained_catalog_id (__main__.Tests.test_only_exact_recorded_patrol_identity_maps_to_retained_catalog_id) ... ok
+test_source_model_and_bounded_new_versions (__main__.Tests.test_source_model_and_bounded_new_versions) ... ok
+
+======================================================================
+FAIL: test_exact_retained_catalog_and_other18_unchanged (__main__.Tests.test_exact_retained_catalog_and_other18_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/test_plains_motion_loot_02_catalog.py", line 99, in test_exact_retained_catalog_and_other18_unchanged
+    self.assertEqual(u.catalog_counts(before), {'monsters': 25, 'variants': 88, 'media': 14})
+AssertionError: {'monsters': 25, 'variants': 95, 'media': 15} != {'monsters': 25, 'variants': 88, 'media': 14}
+- {'media': 15, 'monsters': 25, 'variants': 95}
+?            ^                              ^^
+
++ {'media': 14, 'monsters': 25, 'variants': 88}
+?            ^                              ^^
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.018s
+
+FAILED (failures=1)

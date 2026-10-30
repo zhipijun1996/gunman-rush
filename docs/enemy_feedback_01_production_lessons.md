@@ -1,5 +1,7 @@
 # ENEMY-FEEDBACK-01 · Skills改进提案与怪物制作卡
 
+2026-10-29方法回流：本页关键生产建议已纳入[怪物开发手册](../.agents/skills/enemy-creator/references/development_workflow.md)及enemy／art／animation技能和原模板。下文「没有修改共享skills」属于2026-10-23原提案状态；方法回流不代表旧动作缺陷已修复，也不证明新流程实际出图能力已通过。
+
 状态：任务专属建议，2026-10-23；没有修改共享skills，也未验证为批量生产能力。依据[本会话累计结果](enemy_feedback_01_session_summary.md)、[v8独审](evidence/enemy_feedback_01/v8/review.md)、[帧／尸体合同](enemy_feedback_01_frames.md)。继续使用原G0–G5、十一维和已有模板，不增加另一套质量体系。
 
 目标是让后续输出更可预期：在扩产前发现身体身份、动作过渡、材质、生命周期和正式接入问题。技能不能保证一次生成就通过审美，真正的稳定性来自有界样板、可复现失败和明确的退出条件。

@@ -1,0 +1,789 @@
+{
+  "schema_version": 1,
+  "started_at": "20261029T022829.064878Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a55ddd053528aeca1ca5b0c2e25b25fdc8a16e2cae08e17febf5664628ab110a",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240914.374897,
+      "ended_at_unix": 1793240914.592278,
+      "duration_seconds": 0.217,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "66fc7116993f4bd3bab61c5158076854",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f0b0f7edae90bb854e04e85f32d915966ecd37c28d5c4e873eb048d039a1ecc0",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240915.4222891,
+      "ended_at_unix": 1793240915.4894555,
+      "duration_seconds": 0.067,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "5009dbbb7ea847d493faadf623396835",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "177e0d2936ef76d4e0bd665a2662a7c45f5c2efa58cf56258b7f5e9299a24b16",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240916.189718,
+      "ended_at_unix": 1793240916.3057218,
+      "duration_seconds": 0.116,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "7dbe11926304489dbeba776bd9db6061",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d63c03458d8fd4697bca6368632b25b70db2b416836cc3dafa1d5d87c034df11",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240917.0858362,
+      "ended_at_unix": 1793240917.2048793,
+      "duration_seconds": 0.119,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "94d4eba6827e4774825ef6a12c08d126",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f80de761a7831bd0e9ccbe16e1b48a94c32b4c58bac4ab737c10028a0c27d91e",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240917.9584978,
+      "ended_at_unix": 1793240924.7060852,
+      "duration_seconds": 6.748,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "092b4b78525940b198ed4b21c0d31b8b",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a93937a9e98ffd6df175562e262c959647aa64ef9c083a16098d2531bbe44896",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240925.4154108,
+      "ended_at_unix": 1793240925.4523556,
+      "duration_seconds": 0.037,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "1079d94072be408180051d5d410e4f67",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "66d7b68a7e6890615a1292bf2d389e01cbbfc6cafae42bb4311952f2cea02f83",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240926.1377172,
+      "ended_at_unix": 1793240926.7596965,
+      "duration_seconds": 0.622,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "caca752f94b141f8ae6fcacad99952ee",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1e1a5ae7cb3d62a5fd4c178f07dfedb7ca3cc18b3a8e387dac4c2daa94a71f2a",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240927.5717824,
+      "ended_at_unix": 1793240929.8473823,
+      "duration_seconds": 2.276,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "b877e1f0eaa34d2bb2180eba27c07bbd",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "8c0d4cc146f8faf7f88e5e23dfc83899da3fed4f575e4386e7292bb688fdb937",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240930.5432909,
+      "ended_at_unix": 1793240978.5231166,
+      "duration_seconds": 47.98,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "check_token": "76cad9413bca40848efe6b6e881b7244",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "ceda55e96711dabd35fca12c08adfdbffaba744d50ecca3b0403082bd246e67f",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240979.257758,
+      "ended_at_unix": 1793240979.3778582,
+      "duration_seconds": 0.12,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "check_token": "879a11c65c5b4608a747c99110d469d3",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0f4649c4826751471fc6ae94245495005303844dc4ba2f0a5b01ffc9aa88a6a2",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240980.108568,
+      "ended_at_unix": 1793240980.2297313,
+      "duration_seconds": 0.121,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "check_token": "7269eccbca044ffaba2636bc05c29ddf",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a1b94a9c35ad151d4bb1c63602112cf2a26195584362049ea4bdba0e7c190a02",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240980.9331539,
+      "ended_at_unix": 1793240981.0528185,
+      "duration_seconds": 0.12,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_capture_actions.py"
+      ],
+      "check_token": "b5374253c8d34ce5a95be2c81ebb8a6a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6f4633fd14776ad921ade2850917a6c150ccce5e41bd169eacb42d5ec0aabbe1",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240981.81385,
+      "ended_at_unix": 1793240988.359738,
+      "duration_seconds": 6.546,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "check_token": "d082d4738d924d0a832fb1cfd069431e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "mechanism-comparisons",
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "573ecc8223e6b5ae0217bf541bca53f1040a21cb261eb2978da16a7b24f2cc90",
+      "log": "mechanism-comparisons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240989.114484,
+      "ended_at_unix": 1793240989.2386944,
+      "duration_seconds": 0.124,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "check_token": "eef211ca7ccf4831824ea82e66e7c426",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/mechanism-comparisons",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "34eb45be579571419e64d210542cde51755c136f9ceb1f4a369a63e9367bdf15",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240990.0233693,
+      "ended_at_unix": 1793240990.447195,
+      "duration_seconds": 0.424,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "check_token": "b50c288508d34a6aa8d9314598c92b62",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "93b922f8ad4caf1843c4b36c47533b8e90fd009995bd5362dd746a5ba2b7fc3c",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240991.2015147,
+      "ended_at_unix": 1793240997.0410497,
+      "duration_seconds": 5.84,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "check_token": "9452270ef8cf4c4d8ef2287c37f3948a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f1d8e2847ded36f6496e58ee82a6933acfc27e286b3fe2116065e6a436989d2f",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240997.830708,
+      "ended_at_unix": 1793240998.402008,
+      "duration_seconds": 0.571,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "f77348c6f31d48d2bb8061c5d6bf04ae",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "43e3f5298ae2cc542f6cf50a9bc5bbfb55f5f99ea93a8b8f3a312e735669797b",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793240999.2410195,
+      "ended_at_unix": 1793240999.9622655,
+      "duration_seconds": 0.721,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "37b965afdb5b4b1e917a1de37b5eb7f4",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "bca7da4edc83040e7ee059c4fd71d0e3681097b10517cd3415b84c23b3ee78b5",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241000.714392,
+      "ended_at_unix": 1793241004.595814,
+      "duration_seconds": 3.881,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "check_token": "1b9142fb94824108a9e0e0da6c9d0fec",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9b0e54003919d76032250b8d903dae32ff7ee5b35bfe3940e38cbe3f5cf71c1f",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241005.387687,
+      "ended_at_unix": 1793241007.7134428,
+      "duration_seconds": 2.326,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "check_token": "805402d01937410d958967f278b14017",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "21fc07e9ecf0e0377d216f251e8ea58e657e0a2d80ffe5b70ee0e70597ee289c",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241008.4208524,
+      "ended_at_unix": 1793241021.728611,
+      "duration_seconds": 13.308,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_visual_director.py"
+      ],
+      "check_token": "78095064de674de685c2303d0d23f668",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241022.436453,
+      "ended_at_unix": 1793241022.555975,
+      "duration_seconds": 0.12,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_asset_family.py"
+      ],
+      "check_token": "4f2ada53a9934b9c8f22e0328b4979d2",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "afc561858d46822dc6b7e53fa58a6658ef18b187d80b9cc76ec8fe9d17c6877c",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241023.2917416,
+      "ended_at_unix": 1793241023.411367,
+      "duration_seconds": 0.12,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "4f1359a06673419f8ec692baf1d1ba88",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3c9c34658077462718b6cf72c00d2d5a8f453ca063d0224901442703c8eeddbc",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241024.1504257,
+      "ended_at_unix": 1793241026.5262775,
+      "duration_seconds": 2.376,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "19af45b59fd24737942bed4aec415b75",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "6db8734b452a19c304d676b45bc63696630ab5018bc0ff6550dd3fa231a43247",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241027.3680658,
+      "ended_at_unix": 1793241120.4984565,
+      "duration_seconds": 93.13,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "check_token": "adbbd6a923fa41d5bb18f43341e2a6ff",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "6a3991ea2329c45f9d38214c9ff699ce971f698d6288c80317401b457c8a66e8",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241121.2147574,
+      "ended_at_unix": 1793241121.3348324,
+      "duration_seconds": 0.12,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "check_token": "77c2d4126b984ced9bd520c662bd281c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "eda652abd546d0ac1571719401f50cb6b5dc7435fbfb4d597a5d1e52698822a7",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241122.1351414,
+      "ended_at_unix": 1793241122.2546325,
+      "duration_seconds": 0.119,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "31dc381b9d374af19df35c85e73eb2d9",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "bc7e49460e7aaccf5ad88c203271f35855639260f8c7556baa74923c4ab1a682",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241124.0800662,
+      "ended_at_unix": 1793241136.2305815,
+      "duration_seconds": 12.151,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "49b00276334b45538464ee66cd60b628",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "1c9afad50ac71af3edce8282423da63dfdf3e70e07c0b20481c02484b7cf56d5",
+      "log": "harness-artifact-archive-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241136.9440942,
+      "ended_at_unix": 1793241139.1217442,
+      "duration_seconds": 2.178,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "check_token": "dc8bf430afc94166935bdf53dbf6f36c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/harness-artifact-archive-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b9350437002f09892bb27e0c5f717ab90c5e618258e45b988d953aca6f4f2fea",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241139.86721,
+      "ended_at_unix": 1793241140.0879934,
+      "duration_seconds": 0.221,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "e345ea1bbfcb49d4ac1f390cf26adb6f",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "cf60443319bb32c8c75d8ed25dbc8209685c2b016f1ec19fb8713be1f53f8ef2",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241140.8262796,
+      "ended_at_unix": 1793241143.309058,
+      "duration_seconds": 2.483,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "26cc8ffb7eb642e0869eb48106492053",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-inputs-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c685d71450607ac6ea66ec0acd0ab9e8dee0959ff41d73847ae687f58e3a07ce",
+      "log": "cloud-inputs-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241144.0330634,
+      "ended_at_unix": 1793241145.8676212,
+      "duration_seconds": 1.835,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "check_token": "7679548c08fb49939baab7f7a49eb96f",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/cloud-inputs-tests",
+      "reused": false
+    },
+    {
+      "id": "portable-frozen-assets",
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7fd214bf2941e673f0371675c9a5d92e3a68813e90028c51124bd13a955b15b2",
+      "log": "portable-frozen-assets.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1793241146.5356927,
+      "ended_at_unix": 1793241147.215714,
+      "duration_seconds": 0.68,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "check_token": "80c64ebb69ee43128485fab22c682634",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261029T022829.064878Z/artifacts/portable-frozen-assets",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "8635c6fa81c99f2c0e21d2c0f01667edc65ddb86fcf33ae4a7535ea14de685f9",
+  "working_files": {},
+  "commit": "99e5afa8d58374cf2a55a36bf2faefb7b6fef4d5",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 241.443,
+  "jobs": 1,
+  "release": true
+}

@@ -31,8 +31,10 @@ var _rotor_angle:=0.0
 var _armour_flash := 0.0
 var _armour_point := Vector2.ZERO
 var hit_template: EnemyHitTemplate
+var motion := BossMotionPresentation.new()
 func _ready() -> void:
 	hit_template = EnemyHitTemplate.install_boss(encounter, self)
+	motion.bind(encounter)
 	var arrival := BossArrivalPresentation.new()
 	arrival.configure(encounter,self,false)
 	get_parent().add_child.call_deferred(arrival)
@@ -47,11 +49,14 @@ func _ready() -> void:
 				GameAudio.cue(self, &"core"))
 func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
+	var observed := encounter.presentation_state()
+	var blades := encounter.presentation_blades()
+	motion.sample(encounter,delta)
 	visual_clock += delta
-	if encounter.health.terminal:_death_age+=delta
+	if observed.terminal:_death_age+=delta
 	if pixel_style: modulate.a=maxf(0,1-_death_age/.65)
-	if _form_phase!=encounter.stage_phase:
-		_old_form=_form_phase;_form_phase=encounter.stage_phase;_form_blend=0
+	if _form_phase!=observed.phase:
+		_old_form=_form_phase;_form_phase=observed.phase;_form_blend=0
 	_form_blend=minf(1,_form_blend+delta/.9)
 	for leaf:Dictionary in _leaves:
 		leaf.age+=delta;leaf.point+=leaf.velocity*delta;leaf.velocity.y+=60*delta
@@ -59,12 +64,12 @@ func _process(delta: float) -> void:
 	if is_instance_valid(_plain_camera):
 		_roar_shake=maxf(0,_roar_shake-delta)
 		_plain_camera.offset=Vector2(sin(visual_clock*57),cos(visual_clock*71))*4*minf(1,_roar_shake/.3) if _roar_shake>0 else Vector2.ZERO
-	_rotor_angle=lerp_angle(_rotor_angle,encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle+delta*.7,1-exp(-delta*10))
+	_rotor_angle=lerp_angle(_rotor_angle,float(blades.angle) if observed.phase==2 and observed.raw_mode==&"blades" else _rotor_angle+delta*.7,1-exp(-delta*10))
 	_actual_speed = (encounter.motor.global_position.x - _last_position.x) / maxf(delta, .001)
 	_last_position = encounter.motor.global_position
 	_stride += absf(_actual_speed) * delta / 24.0
-	if _mode != encounter.mode:
-		_mode = encounter.mode
+	if _mode != observed.raw_mode:
+		_mode = observed.raw_mode
 		if _mode in [&"intro", &"phase_transition"]:
 			GameAudio.cue(self, &"roar")
 			if (encounter.definition as WindkeeperDefinition).platform_trials:_roar_burst()
@@ -78,14 +83,14 @@ func _process(delta: float) -> void:
 	if _mode in [&"stomp_warning", &"charge_warning", &"pier_warning", &"phase_transition"]:
 		var anticipation := minf(1, _mode_age / .8)
 		desired = Vector2(1 + anticipation * .045, 1 - anticipation * .065)
-		lean = anticipation * .07 * encounter.direction
+		lean = anticipation * .07 * observed.direction
 	elif _mode in [&"stomp", &"pier_impact"]:
 		desired = Vector2(1.07, .91)
-		lean = -.09 * encounter.direction
+		lean = -.09 * observed.direction
 	elif _mode in [&"charge", &"chase"]:
 		desired = Vector2(1 + sin(_stride * 2) * .012, 1 - absf(sin(_stride)) * .024)
-		lean = .035 * encounter.direction
-	elif encounter.core_open:
+		lean = .035 * observed.direction
+	elif observed.core_hint_visible:
 		desired.y = 1 + sin(_mode_age * 4) * .007
 	elif _mode == &"intro":
 		desired.y = 1 + sin(minf(1, _mode_age / 1.5) * PI) * .04
@@ -102,30 +107,41 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter == null: return
+	var observed := encounter.presentation_state()
+	var blades := encounter.presentation_blades()
 	if UnderworldActors.enabled(self):
-		UnderworldActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
-		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
-			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle
+		var raised := (encounter.definition as WindkeeperDefinition).platform_trials
+		var old_height := 236.0 if raised and _old_form==3 else 198.0
+		var height := lerpf(old_height,236.0 if raised and observed.phase==3 else 198.0,smoothstep(0,1,_form_blend))
+		var body_tint := hit_template.tint()
+		if observed.terminal: body_tint = body_tint.lerp(Color("818b76"),motion.death)
+		motion.draw_body(self,UnderworldActors.WINDKEEPER,Rect2(-92,65-height,184,height),&"windkeeper",body_tint,float(observed.direction))
+		if not observed.core_hint_visible and not observed.terminal:
+			var bell := UnderworldActors.icon_texture(&"bell")
+			var bell_size := bell.get_size()*(32.0/bell.get_height())
+			draw_texture_rect(bell,Rect2(encounter.core_offset()-bell_size*.5,bell_size),false,Color.WHITE)
+		if not observed.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or observed.phase==2):
+			var angle := float(blades.angle) if observed.phase==2 and observed.raw_mode==&"blades" else _rotor_angle
 			PixelFormalActors.draw_rotor(self,Vector2(0,-75),angle)
 	elif pixel_style:
 		PixelFormalActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
-		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
-			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle
+		if not observed.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or observed.phase==2):
+			var angle := float(blades.angle) if observed.phase==2 and observed.raw_mode==&"blades" else _rotor_angle
 			PixelFormalActors.draw_rotor(self,Vector2(0,-75),angle)
 	else:
 		var frame := 0
-		if encounter.health.terminal: frame = 5
-		elif encounter.mode in [&"stomp_warning", &"stomp", &"intro", &"phase_transition"]: frame = 1
-		elif encounter.mode in [&"charge",&"charge_warning",&"chase", &"pier_warning", &"pier_impact"]: frame = 2
-		elif encounter.core_open: frame = 3
-		elif encounter.stage_phase == 2: frame = 4
-		var facing := 1.0 if encounter.direction > 0 else -1.0
+		if observed.terminal: frame = 5
+		elif observed.raw_mode in [&"stomp_warning", &"stomp", &"intro", &"phase_transition"]: frame = 1
+		elif observed.raw_mode in [&"charge",&"charge_warning",&"chase", &"pier_warning", &"pier_impact"]: frame = 2
+		elif observed.core_hint_visible: frame = 3
+		elif observed.phase == 2: frame = 4
+		var facing := 1.0 if observed.direction > 0 else -1.0
 		if frame != _frame:
 			_previous_frame = _frame
 			_frame = frame
 			_blend = 0
 		var tint := hit_template.tint()
-		if encounter.health.terminal:tint.a=maxf(0,1-_death_age/.65)
+		if observed.terminal:tint.a=maxf(0,1-_death_age/.65)
 		# Piecewise shear around the common foot origin; feet never bob off floor.
 		var form_scale:float=lerpf(.54 if _old_form==3 else .35,.54 if _form_phase==3 else .35,smoothstep(0,1,_form_blend)) if (encounter.definition as WindkeeperDefinition).platform_trials else .35
 		var transform := Transform2D(Vector2(facing * form_scale * _weight.x,0), Vector2(_lean * form_scale, form_scale * _weight.y), Vector2(0,65))
@@ -141,40 +157,23 @@ func _draw() -> void:
 		else:
 			draw_texture_rect_region(BODY,Rect2(-FOOT_ANCHORS[frame],BODY_REGIONS[frame].size),BODY_REGIONS[frame],Color(tint,_blend))
 		draw_set_transform(Vector2.ZERO)
-		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
+		if not observed.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or observed.phase==2):
 			# Independent genuine painted rotor rotates around measured hub.
-			var angle := (encounter.blade_angle if encounter.mode==&"blades" else _rotor_angle) if (encounter.definition as WindkeeperDefinition).storm_profile else encounter.blade_angle if encounter.stage_phase==2 else visual_clock*.4
+			var angle := (float(blades.angle) if observed.raw_mode==&"blades" else _rotor_angle) if (encounter.definition as WindkeeperDefinition).storm_profile else float(blades.angle) if observed.phase==2 else visual_clock*.4
 			draw_set_transform(Vector2(_secondary * -75,-75),angle,Vector2.ONE*.34)
 			draw_texture_rect_region(PARTS,Rect2(-Vector2(323,286),Vector2(640,605)),Rect2(5,5,640,605))
 			draw_set_transform(Vector2.ZERO)
-	if not encounter.continuous_combat() and (encounter.definition as WindkeeperDefinition).platform_trials and encounter.stage_phase==3 and encounter.active and encounter._platform_piers.size()==3:
-		var at:=Vector2(encounter._platform_piers[clampi(encounter.chase_segment,0,2)]-encounter.motor.global_position.x,encounter._floor_y-155-encounter.motor.global_position.y)
-		var charged:bool=encounter.rune_platform==encounter.chase_segment
+	var rune := encounter.presentation_rune_cue()
+	if not rune.is_empty():
+		var at: Vector2 = rune.position-encounter.motor.global_position
+		var charged: bool = rune.charged
 		if pixel_style: PixelFormalActors.bell(self,at,charged)
 		else: PlainsInteractiveArt.draw_sigil(self,at,1,42)
-		draw_arc(at,26,0,TAU,36,Color("aee8bc") if charged else Color("f4d887"),2)
-		var caption:String="RUNE READY / JUMP" if charged else "LAND ON LIT SHELF"
-		var size:Vector2=CORE_FONT.get_string_size(caption,HORIZONTAL_ALIGNMENT_LEFT,-1,12)
-		draw_rect(Rect2(at+Vector2(-size.x/2,-57),size+Vector2(4,8)),Color(.06,.12,.1,.94))
-		draw_string(CORE_FONT,at+Vector2(-size.x/2,-38),caption,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("ffe9a8"))
-	if encounter.mode in [&"charge_warning",&"stomp_warning",&"blade_warning",&"pier_warning",&"phase_transition"]:
-		draw_arc(Vector2(0,65),88,PI,TAU,24,Color(1,.65,.23,.7),4)
-	if encounter.core_open:
-		var core := encounter.core_offset()
-		if not encounter.continuous_combat() and (encounter.definition as WindkeeperDefinition).storm_profile and encounter.stage_phase>=2:
-			if pixel_style:
-				PixelFormalActors.pixel_line(self,core+Vector2(-12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
-				PixelFormalActors.pixel_line(self,core+Vector2(12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
-			else: PlainsInteractiveArt.draw_aim(self,core+Vector2(0,-66),44)
-			draw_line(core+Vector2(0,-50),core+Vector2(0,-25),Color("ffe9a8"),3)
-			draw_string(CORE_FONT,core+Vector2(-30,-55),"空中下射" if encounter.stage_phase==3 else "上侧射击",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
+	var core_view := encounter.presentation_core()
+	if core_view.visible:
+		var core: Vector2 = core_view.offset
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
 		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
-		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)
-		draw_arc(core,30,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
-		draw_string(CORE_FONT,core+Vector2(30,-20),"收招" if encounter.continuous_combat() else "OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
-		for side: int in [-1, 1]:
-			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
 		if UnderworldActors.enabled(self):
 			var bell := UnderworldActors.icon_texture(&"bell")
@@ -183,22 +182,15 @@ func _draw() -> void:
 		elif pixel_style: PixelFormalActors.bell(self,core,true,hurt_flash>0)
 		else: draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
-	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"blades"]:
+	if (encounter.definition as WindkeeperDefinition).storm_profile and observed.raw_mode == &"blades":
 		for i: int in 8:
 			var p:=Vector2(-180+fmod(visual_clock*-100+i*67+10000,360),-170+float(i%3)*45)
 			draw_line(p,p+Vector2(-28,0),Color(.85,.91,.69,.5),2)
-	if encounter.stage_phase == 2 and encounter.mode in [&"blade_warning", &"blades"]:
+	# These are the current damaging rotor arms, never a future attack path.
+	if bool(blades.active):
 		for arm: int in 4:
-			var axis := Vector2.from_angle(encounter.blade_angle + arm * PI / 2)
-			draw_line(Vector2(0,-75) + axis * 15, Vector2(0,-75) + axis * 115, Color(1,.65,.3,.65 if encounter.mode == &"blades" else .25), 3)
-	if encounter.mode == &"phase_transition" and encounter.stage_phase == 3:
-		for x: float in [245,510,745]:
-			var point := Vector2(encounter.arena.left_x+x-encounter.motor.global_position.x,65)
-			draw_line(point-Vector2(25,0),point+Vector2(25,0),Color(1,.75,.35,.75),3)
-
-	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"pier_warning"]:
-		var point:=encounter._locked_aim-encounter.motor.global_position
-		draw_arc(point,24,0,TAU,32,Color(1,.69,.25,.7),2)
+			var axis := Vector2.from_angle(float(blades.angle) + arm * PI / 2)
+			draw_line(Vector2(0,-75) + axis * 15, Vector2(0,-75) + axis * 115, Color(1,.65,.3,.65), 3)
 	for leaf:Dictionary in _leaves:
 		var point:Vector2=leaf.point-encounter.motor.global_position
 		if pixel_style: draw_rect(Rect2(point.snapped(Vector2(2,2)),Vector2(4,2)),Color(PixelFormalActors.MOSS,1-leaf.age/.9))
@@ -254,4 +246,8 @@ func _roar_burst()->void:
 		var axis:Vector2=Vector2.from_angle(float(i)*2.399963)
 		_leaves.append({"point":encounter.motor.global_position+Vector2(0,-50),"velocity":axis*(65+float(i%5)*18)+Vector2(0,-45),"age":0.0})
 func _exit_tree()->void:
+	motion.dispose(encounter)
 	if is_instance_valid(_plain_camera):_plain_camera.offset=Vector2.ZERO
+
+func synchronize_presentation() -> void:
+	motion.synchronize(encounter)

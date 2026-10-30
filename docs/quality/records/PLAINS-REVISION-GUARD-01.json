@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-REVISION-GUARD-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "0d33ab56cb06d5bb37b30bd82387415ae5c7725e",
+  "reviewed_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+  "content_version": "plains-revision-guard-migration-v1",
+  "owner": "/root",
+  "purpose": "独立核对旧Frames消费者测试迁移至当前同体rig后的守门等价与退出清理；仅测试过程，不签怪物视觉成品",
+  "player_experience": "测试继续发现受伤恢复、源锚连续、致死落位、暂停/保存/epoch/掉落和释放回归，避免过时frame假设制造Nil或漏验真实rig",
+  "constraints": [
+    "只覆盖三份测试消费者及其记录/证据，不隐藏任何生产改动",
+    "不放宽原预算、退出泄漏检查、伤害/epoch/暂停/慢时/支撑/保存/掉落/卸载断言",
+    "新rig的4..7为进度报告，必须同时核_finished_death/真实rig/source/bounds，不能以index7代签器官落地",
+    "旧legacy/underworld charger/diver四组Frames八个distinct payload与H3固定锚继续独立验证；仍在使用Frames的diver分支保原四帧顺序",
+    "限定code/guard接受与主enemy的R1/R2视觉REVISE分开；用户/真机/整体动作认可不在本卡"
+  ],
+  "affected_paths": [
+    "tests/enemy_feedback_01_tests.gd",
+    "tests/enemy_all_02_plains_lifecycle.gd",
+    "tests/enemy_feedback_01_formal.gd",
+    "docs/quality/records/PLAINS-REVISION-GUARD-01.json"
+  ],
+  "deliverables": [
+    "docs/quality/records/PLAINS-REVISION-GUARD-01.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "待最终冻结源、原检查执行及限定独立审查收据",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "待最终冻结源、原检查执行及限定独立审查收据",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "草案仅描述实际迁移；最终源的执行与限定独审尚待补证",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "草案仅描述实际迁移；最终源的执行与限定独审尚待补证",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "仅三测试消费者迁移的独立code/guard接受，主enemy视觉不在本卡。",
+      "evidence": [
+        "guard-code"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "纯测试消费者迁移过程，不签生产内容或主观认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "GUARD-INDEPENDENT",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "真实rig替换旧frame消费者及恢复phase断言",
+      "method": "独立逐源码/日志审查，不代执行",
+      "expected": "保accepted/epoch/暂停/慢时/支撑/保存/掉落/资源退出，检查实际current geometry",
+      "failure": "计数为零或源/姿态断言变成空检查，放宽预算/退出",
+      "status": "passed",
+      "reason": "限定code已读审接受，精确7edda9字节一致。",
+      "evidence": [
+        "guard-code"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "guard-code",
+      "path": "docs/evidence/plains_monster_revision_01/review/plains_revision_code_review_r3.md",
+      "sha256": "c327e06da2581196ca728cec616477133454ce82bfc1c00c8955985a28cfd15b",
+      "kind": "review",
+      "producer": "/root/revision_r3_review",
+      "source_commit": "7edda9f5f2a20c5406391ff3f7edebbeb2322047",
+      "content_version": "plains-revision-guard-migration-v1",
+      "method": "独立只读审查真实旧/新三测试与7edda9实际SHA相同；运行日志按原来源分账",
+      "observed": "限定守门代码ACCEPT，无原预算/严格退出下降；不签怪物视觉或新head完整运行",
+      "reviewer": "/root/revision_r3_review",
+      "implementers": [
+        "/root",
+        "/root/revision_validation"
+      ],
+      "independent": true,
+      "independence_basis": "审查者未写这些测试或生产文件，实际读取其字节和原失败日志。",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "旧native484/0和formal02 clean66/0保留原来源，不是最终head新执行；三测试最终代码独审仅限定守门迁移。",
+    "主enemy视觉、声音、实体设备和用户认可不在本过程验收范围"
+  ],
+  "test_change_justification": "用户授权改为同体连续rig后，旧charger feedback_body/Frames假设已实际产生Nil；三份测试按真实当前消费者改查species/sample、母版实际像素摘要、固定bounds、局部material、captured/live/dead rig同一身份及完成状态。保留仍使用Frames分支原H0..3/D4..7序列，另对legacy/underworld charger/diver四原库独立核8distinctpayload与H3source/anchor。连续rig受伤期观察实际geometry差异；最新追加恢复期hurt=0、六项current_motion字段相等、相同母版像素/bounds及7×7实际geometry与明确hurt0/currentphase对照三项检查。死亡4..7仅进度报告，末态还核_finished_death/source/bounds/rig；区间观察移动到既有130frame后，不延长总预算。formal nested typed依赖实测load-only复现52ObjectDB/32resource泄漏，改Object.get/RefCounted/call并保exactscriptidentity/真实finished/source/bounds；不关闭原严格退出。原accepted/epoch、暂停/慢时、真实支撑/保存、drop账本、释放及原计时预算保留。最新旧原native实际484/0与formal02 clean66/0分别保原来源；独审仅签精确7edda9三测试字节的守门代码，完整最新回归另列。"
+}

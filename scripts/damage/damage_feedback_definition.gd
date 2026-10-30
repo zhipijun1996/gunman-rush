@@ -9,3 +9,5 @@ extends Resource
 @export var return_transition_seconds := 0.24
 @export var flash_seconds := 0.65
 @export var flash_frequency := 14.0
+## Local accepted-kill body/chip hold only; never changes global time or Actor.
+@export var plains_kill_hold_seconds := 0.0

@@ -5,6 +5,8 @@ var source: Texture2D
 var destination := Rect2()
 var body_tint := Color.WHITE
 var flash_material := ShaderMaterial.new()
+var body_motion: PlainsMotion02
+var body_actor: EnemyActor
 
 func _init() -> void:
 	flash_material.shader = preload("res://scripts/enemies/enemy_feedback_01_flash.gdshader")
@@ -14,6 +16,10 @@ func _init() -> void:
 func configure_underworld_palette(aerial: bool) -> void:
 	flash_material.set_shader_parameter("readable_material", 1.0)
 	flash_material.set_shader_parameter("copper_wings", 1.0 if aerial else 0.0)
+
+func configure_motion(motion: PlainsMotion02, owner_actor: EnemyActor) -> void:
+	body_motion = motion
+	body_actor = owner_actor
 
 func present(texture: Texture2D, bounds: Rect2, offset: Vector2, angle: float, pose: Vector2, tint: Color, flash: float) -> void:
 	source = texture
@@ -34,4 +40,8 @@ func present(texture: Texture2D, bounds: Rect2, offset: Vector2, angle: float, p
 	queue_redraw()
 
 func _draw() -> void:
-	if source != null: draw_texture_rect(source, destination, false, body_tint)
+	if source == null: return
+	if body_motion != null and is_instance_valid(body_actor):
+		body_motion.draw_body(self, body_actor, source, destination, body_tint)
+	else:
+		draw_texture_rect(source, destination, false, body_tint)

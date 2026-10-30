@@ -1,0 +1,27 @@
+{
+  "from_commit": "5b083938ea9f2722fe6c44896914f9d2d198e87b",
+  "to_commit": "596a2eee230eb1b9d23dc2ff878c1ff3259cf293",
+  "profiles_byte_equivalent_as_json": true,
+  "original_first165_check_contracts_entire_dict_unchanged": true,
+  "sole_changed_check": [
+    "enemy-structure-native"
+  ],
+  "native_original_contract_preserved_except_input_append": true,
+  "native_appended_inputs": [
+    "tests/enemy_forest_cache_contract.gd"
+  ],
+  "full_selected": 166,
+  "parallel": 91,
+  "serial": 75,
+  "forest_original_budget_seconds": 600,
+  "forest_original_argv": [
+    "python3",
+    "tools/run_forest_depth_region.py",
+    "--corpus",
+    "--output",
+    "build/forest_depth/region/harness-matrix/harness-{check_token}"
+  ],
+  "old_selector_source_sha256": "8f538b2595c4befe01c0efd7d28c9955cf57e01d1b67a2a5977d56befa3a2d83",
+  "new_selector_source_sha256": "8f538b2595c4befe01c0efd7d28c9955cf57e01d1b67a2a5977d56befa3a2d83",
+  "scope": "Read-only frozen Git objects. No tests or Godot execution. Confirms technical contract/budget retention, not actual CI success."
+}

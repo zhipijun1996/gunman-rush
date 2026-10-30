@@ -1,0 +1,342 @@
+{
+  "verdict": "ACCEPT_LIMITED",
+  "scope": "Root-authored loot/reward/App/stage/visual/heal code, original consumer migration together with actually executed automatic-counterpart, and10assetmetadata registrations. Excludes reviewer-authored body motion/helper, audio implementation/listening, normal-speed art/user/device and final all-source regression.",
+  "reviewer": "/root/plains_motion_round2",
+  "independence": "Reviewer authored motion files and motion helper only; none of reviewed loot/App/stage/visual/heal, new loot/App helpers, migrated old drop runner or assetmetadata. Own motion is explicitly excluded. No repository edits and no engine execution in this review.",
+  "source_commit_base": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+  "source_scope": "Dirty development implementation; hashes below identify reviewed bytes, not a clean commit/finalhead claim.",
+  "files": {
+    "scripts/rewards/enemy_drop_service.gd": "dae7959b721c64da6bf50a41198a4d193ef76b1e5b338e0642072e0030e463a5",
+    "scripts/rewards/plains_loot_motion.gd": "f8524270478cff2d8026dc8d74f7a23ec960e3fa70160f9ed39cdeebd9e736cb",
+    "scripts/demo/demo_app.gd": "f5f9683e5fedecb249700efad3f3c0126a09233466fe9bda1fbd923f2d8db689",
+    "scripts/demo/generated_demo_stage.gd": "5935f1627ae9ff6222d073a8d1a6379a780c2f72bc12ad6d764c518100544b23",
+    "scripts/demo/plains_region_stage.gd": "c4d37d6211854ee021181f57e2081f4981b6cc176ae0e3a5c7efdb580e604e61",
+    "scripts/demo/thorn_forest_region_stage.gd": "d68831666828c4591e107321e717614736bbf4549fe6f98925713311dc5ac1a8",
+    "scripts/art/plains_stage_visual.gd": "ce8860029be52b7877cd9ce9a6d8dd8346dc76f4b85746c59a75823a34f4c9b5",
+    "scripts/art/player_feedback.gd": "5b6e6c1511350649109c65732c96d1c51ca27df356c85fd162e4046d51b41d89",
+    "scripts/generation/plains_region_generator.gd": "6e16c288e5e9c48631f69bfa0ceb302a3b72fc14fff15c01c1fe4b778c36c68c",
+    "scripts/generation/plains_place_plan.gd": "7322d278fc87cec73c088bcf118e26fb2876c581f6bd5b989b098248f709e107",
+    "scripts/generation/plains_environment_plan.gd": "6b6e7d0d05f9572bee9789ac18b117e2d416e471dc1ec22900a3a77e049a3147",
+    "config/enemy_drops.json": "ea9a21aeefe6a2e70d7f3ab7b85002c3459373c7bbfda49755a35c94db8c4a35",
+    "tests/plains_cohesion_drops_runner.gd": "7ff80c6b8575bda5b2b09cb7d93bdd3faa0ef8e35540119bc3cbe9dcb2867ea9",
+    "tests/plains_motion_loot_02_app.gd": "7809658e38eb904445130647ca7ba9ffa814912c5ccf33da74bb9efc9c5630be",
+    "tests/plains_motion_loot_02_loot.gd": "3a691a78f41eab0b101f7249877d98a0fead72b79bc13cee890ff838d6a99ab8"
+  },
+  "actual_runtime_read_not_executed": {
+    "native05": {
+      "path": "build/plains-motion-loot-02-native-05.json",
+      "sha256": "b9cffb12b0b89de9d0dcf5cca45516b227fa1172d28e298001f524e3705cec7e",
+      "total_assertions": 342,
+      "total_failures": 0,
+      "independently_reviewed_loot_assertions": 123,
+      "independently_reviewed_app_assertions": 44,
+      "strict_exit_error_lines": 0,
+      "own_motion_and_audio_scopes": "Observed aggregate only; not independently signed here"
+    },
+    "old_migration02": {
+      "path": "build/plains-motion-loot-02-old-drop-02.log",
+      "sha256": "f9b4295def7e52d2b9067c119982cabbee285acd795037f2235d67bde773880d",
+      "assertions": 30,
+      "failures": 0,
+      "strict_exit_error_lines": 0
+    }
+  },
+  "asset_checks": {
+    "scope": "Read-only independent asset byte/schema/provenance audit plus migration label/budget preservation only. Does not accept auto-pickup semantic removal; production review separate. Not art/audio/user/device approval.",
+    "base": "2ac54f9f15fd6c174e7e91ed4ffafa3cf50ab3c8",
+    "checks": [
+      {
+        "label": "299 ->310 exact entries",
+        "passed": true
+      },
+      {
+        "label": "original299 prefix values unchanged",
+        "passed": true
+      },
+      {
+        "label": "all original top-level metadata preserved",
+        "passed": true
+      },
+      {
+        "label": "original197774-byte raw prefix retained",
+        "passed": true
+      },
+      {
+        "label": "archived old manifest exact2ac bytes",
+        "passed": true
+      },
+      {
+        "label": "exact10 new assetrecords",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-PLANT-DEATH.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-PLANT-HURT.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-PLANT-LAND.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-SHELL-DEATH.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-SHELL-HURT.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-SHELL-LAND.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-WING-DEATH.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-WING-HURT.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-FEEDBACK-02-WING-LAND.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "PLAINS-LOOT-02-LIFE-ORB.json full existing asset schema/hash/runtime binding validation",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/shell_hurt.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/shell_death.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/shell_land.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/wing_hurt.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/wing_death.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/wing_land.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/plant_hurt.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/plant_death.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/audio/plains_feedback_02/plant_land.wav",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/plains_loot_02/life_orb.png",
+        "passed": true
+      },
+      {
+        "label": "new manifest payload assets/plains_loot_02/source/generated-original.png",
+        "passed": true
+      },
+      {
+        "label": "orb exactoriginal/runtime bytes and retained SHA",
+        "passed": true
+      },
+      {
+        "label": "generated orb retains unknown license/model and no commercial certification",
+        "passed": true
+      },
+      {
+        "label": "audio generator exactrecorded source",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio break1",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license break1",
+        "passed": true
+      },
+      {
+        "label": "retained original source page break1",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio break2",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license break2",
+        "passed": true
+      },
+      {
+        "label": "retained original source page break2",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio break3",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license break3",
+        "passed": true
+      },
+      {
+        "label": "retained original source page break3",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio hit3",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license hit3",
+        "passed": true
+      },
+      {
+        "label": "retained original source page hit3",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio metal1",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license metal1",
+        "passed": true
+      },
+      {
+        "label": "retained original source page metal1",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio metal2",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license metal2",
+        "passed": true
+      },
+      {
+        "label": "retained original source page metal2",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio wood1",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license wood1",
+        "passed": true
+      },
+      {
+        "label": "retained original source page wood1",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio wood3",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license wood3",
+        "passed": true
+      },
+      {
+        "label": "retained original source page wood3",
+        "passed": true
+      },
+      {
+        "label": "recorded original audio wood4",
+        "passed": true
+      },
+      {
+        "label": "retained original CC0 license wood4",
+        "passed": true
+      },
+      {
+        "label": "retained original source page wood4",
+        "passed": true
+      },
+      {
+        "label": "all17 original assertionlabels retained",
+        "passed": true
+      },
+      {
+        "label": "same ordered bounded frame waits retained",
+        "passed": true
+      },
+      {
+        "label": "guard archive exact original2ac bytes",
+        "passed": true
+      }
+    ],
+    "assertions": 60,
+    "failures": [],
+    "asset_verdict": "ACCEPT",
+    "guard_semantic_verdict": "REVISE pending original automatic-scan-chain counterpart",
+    "sources": {
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-PLANT-DEATH.json": "5761392cf69c612182520366d0e45534afe238d539f602040b883c74dbc63cd1",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-PLANT-HURT.json": "e4e88d1391439b5e834fb19735354262152eb1eaa4c6ed3382a81551cae24dc6",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-PLANT-LAND.json": "c662a4ae0ab21008801ed7aa6607ddbf9b0e37005a756c08293a8661c622726f",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-SHELL-DEATH.json": "289a8ff68ce144edff7525b8f6dec7bcf8f26a2a426f1ebb3a430c0725c4d7ce",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-SHELL-HURT.json": "1e154a5543529d5198ad6857e8ac1052359be26b92dd1713840c8c095ab69275",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-SHELL-LAND.json": "65dbc06a27b91c7844cd7ebcc0f5428b294b796d054369174bccffbb1cb5e844",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-WING-DEATH.json": "fdabcd915b4ecf79ff5d3067616e6528517bfaeec5c0f3f5f2c92b535651ba4e",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-WING-HURT.json": "630e46282678ce7991fc6e0cb6ec368d5df9b62d735979284b4aa9dd2728da57",
+      "docs/quality/asset_records/PLAINS-FEEDBACK-02-WING-LAND.json": "987715ce8a57dab4169140581138be8558e76b8aba7aebb73e2fec4e0bf2f08e",
+      "docs/quality/asset_records/PLAINS-LOOT-02-LIFE-ORB.json": "097e64d21a031f81c6bdd7664357e046ceaa97bdc20325064907f2e0e37295b6",
+      "assets/manifest.json": "476f568a18fca4f20e2e9f8b61bb2b2cb45811bcdf7bb37d4419174a8f2f71ed",
+      "tests/plains_cohesion_drops_runner.gd": "7ff80c6b8575bda5b2b09cb7d93bdd3faa0ef8e35540119bc3cbe9dcb2867ea9"
+    }
+  },
+  "resolved_findings": [
+    {
+      "id": "LOOT-SPACE-01",
+      "finding": "Stage-local live pickups were compared directly with global player coordinates in two App entry paths.",
+      "resolution": "_pickup_within_reach converts pickup to world; normal proximity and shallow-copy magnet query preserve actual global LOS. Actual translated App native counterexample refuses old false local match and accepts actual world match."
+    },
+    {
+      "id": "LOOT-GEOMETRY-02",
+      "finding": "Old new ballistic helper only swept downward; real roof and side walls were ignored. Settled support was never rechecked.",
+      "resolution": "Added actual leading-edge roof/side sweeps and resting floor contact revalidation. Native123 includes real translated roof/wall and floor-loss fixtures; receipt/amount remains unchanged."
+    },
+    {
+      "id": "LOOT-STYLE-03",
+      "finding": "Pixel style reinstall replaced a dynamic life-orb texture with old heart icon.",
+      "resolution": "set_pixel_style now retains dynamic life orb and refreshes all coin siblings; read code acceptance only, actual style-switch movie not signed."
+    },
+    {
+      "id": "GUARD-AUTO-04",
+      "finding": "Old17consumer automatic tick coverage moved to manual per-unit commits when preserving42frame observation. Labels alone were insufficient.",
+      "resolution": "The separately mandatory new App helper actually executes real early automatic ticks, then actual eligible proximity/queue/commit and replay refusal. Native05App44/0 plus old30/0 preserve composed coverage. Migrated old runner alone is not described as an automatic-scan proof."
+    }
+  ],
+  "required_final_checks": [
+    "Keep both the original registered drop consumer and the new actual App automatic counterpart mandatory for this workline; do not use original17 labels alone as whole automatic coverage.",
+    "Root final current-source regression and normal-speed movie/visual/listening reviews remain separate.",
+    "Leading-edge ray approximation is bounded current geometry evidence, not exhaustive arbitrary rotating/concave support or moving-platform carrying certification."
+  ],
+  "positive_code_findings": [
+    "Per-enemy settled ledger and connected-region drops prevent second reward creation; unit IDs uniquely own independent wallet/heal/note receipts.",
+    "Original per-enemy RNG_VERSION and one draw retain original note/heart intervals; map bonus caps remain, only configured guaranteed coin policy changes.",
+    "Bonus coin modifiers update physical reward coin amount before denomination splitting; configured base vs actual effective amount remain separate fields.",
+    "Saved units retain current positions, velocity, age, bounce, returning/claimed state; restore does not draw another random reward or restart a paid absorption.",
+    "Player healing glow consumes accepted HEAL_CURRENT amount and clears on damage/session/death; no resource decision is delegated to VFX."
+  ]
+}

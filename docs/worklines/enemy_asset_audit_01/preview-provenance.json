@@ -1,0 +1,647 @@
+{
+  "snapshot": "310c0421e18829088a4d2208c5f1b6cba3db35dc",
+  "rendering": "HTML/CSS window into immutable raw GitHub PNGs; requires network; no pixel edits or new raster asset",
+  "runtime_capture": false,
+  "not_game_scale": true,
+  "entries": [
+    {
+      "id": "patrol_drone",
+      "name": "巡逻怪",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。",
+      "images": [
+        {
+          "path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+          "label": "scene / idle_a",
+          "region": [
+            56,
+            111,
+            413,
+            323
+          ]
+        },
+        {
+          "path": "assets/underworld_plains/actors/patrol.png",
+          "label": "underworld / 单体",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "plains_charger",
+      "name": "冲锋怪",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "有4H+4D，不等于待机/走动/转向/预警/攻击/恢复各有独立帧序列；live实际借用受伤末姿态H3。；专卡charger-audit-v1仍描述旧charger.png live及H→旧PNG回接；当前代码已改H3 live。应作为历史审计原件保留，不能直接视为现源制作规格。",
+      "images": [
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/legacy_charger.png",
+          "label": "scene / H3",
+          "region": [
+            1345,
+            0,
+            429,
+            487
+          ]
+        },
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/underworld_charger.png",
+          "label": "underworld / H3",
+          "region": [
+            1343,
+            0,
+            431,
+            507
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plains_diver",
+      "name": "俯冲怪",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "有4H+4D，不等于待机/走动/转向/预警/攻击/恢复各有独立帧序列；live实际借用受伤末姿态H3。",
+      "images": [
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/legacy_diver.png",
+          "label": "scene / H3",
+          "region": [
+            1308,
+            0,
+            466,
+            491
+          ]
+        },
+        {
+          "path": "assets/enemy_feedback_01/frames_v8/underworld_diver.png",
+          "label": "underworld / H3",
+          "region": [
+            1337,
+            0,
+            437,
+            491
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plains_hopper",
+      "name": "跃击怪",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。",
+      "images": [
+        {
+          "path": "assets/plains_v3/enemies/meadow_actions/beetle.png",
+          "label": "scene / idle_a",
+          "region": [
+            56,
+            111,
+            413,
+            323
+          ]
+        },
+        {
+          "path": "assets/underworld_plains/actors/hopper.png",
+          "label": "underworld / 单体",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "plains_sentry",
+      "name": "炮哨",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "源图确有6格，但当前只选择idle_a/death两格；idle_b、telegraph、attack、recovery未消费。历史D070/README“六姿态播放”不能代表现源。",
+      "images": [
+        {
+          "path": "assets/plains_v3/enemies/meadow_actions/sentry.png",
+          "label": "scene / idle_a",
+          "region": [
+            99,
+            63,
+            315,
+            399
+          ]
+        },
+        {
+          "path": "assets/underworld_plains/actors/sentry.png",
+          "label": "underworld / 单体",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "plains_fan_sentry",
+      "name": "扇形炮哨",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "fan_sentry默认及正式生成aerial=true，原scene实际飞行机静图分支，不消费meadow_actions/sentry姿态；PlainsMotion02虽advance、虽有fan分支，该scene绘制绕开它。本轮共用卡“与sentry同炮哨母版”描述不符实际。",
+      "images": [
+        {
+          "path": "assets/plains_v4/spatial/actors.png",
+          "label": "scene / 单体",
+          "region": [
+            935,
+            570,
+            580,
+            445
+          ]
+        },
+        {
+          "path": "assets/underworld_plains/actors/aerial.png",
+          "label": "underworld / 单体",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "plains_root_bell",
+      "name": "根铃怪",
+      "group": "平原",
+      "scope": "原scene与Underworld分列；根铃另列独立链",
+      "note": "原始scene raw链显示通用旧甲虫图，不是独立芦铃设计，也不调用root关节mesh。正常GeneratedDemoStage会先换独立RootBellPresentation，正式Underworld又会替换为UnderworldEnemy，三条不可混称同素材。",
+      "images": [
+        {
+          "path": "assets/plains_refresh/objects.png",
+          "label": "scene_raw_fallback / 单体",
+          "region": [
+            861,
+            766,
+            392,
+            373
+          ]
+        },
+        {
+          "path": "assets/underworld_plains/actors/root_bell.png",
+          "label": "underworld / 单体",
+          "region": null
+        },
+        {
+          "path": "assets/region_production_v3/enemies/root_bell/source/master.png",
+          "label": "root_bell_independent / idle",
+          "region": [
+            0,
+            0,
+            512,
+            512
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forest_lantern",
+      "name": "铃囊萤",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作，未检索到专用逐状态动作序列。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/lantern.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_seed_sentry",
+      "name": "棘籽哨",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作，未检索到专用逐状态动作序列。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/seed_sentry.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_bark_beetle",
+      "name": "盾甲虫",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作，未检索到专用逐状态动作序列。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/beetle.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_swing_pod",
+      "name": "摆荡荚",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作，未检索到专用逐状态动作序列。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/swing_pod.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_crossbranch",
+      "name": "跃枝怪",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作，未检索到专用逐状态动作序列。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/crossbranch.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_thread_spider",
+      "name": "织线蛛",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作；两个蛛共用同一PNG。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "forest_bible_weaver",
+      "name": "双入口织网怪",
+      "group": "森林",
+      "scope": "正式艺术分支需Bible metadata；另有备用几何",
+      "note": "单张身体图＋程序动作；两个蛛共用同一PNG。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+          "label": "当前代码使用的母版",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "candidate_lure_guard",
+      "name": "诱导盾卫候选",
+      "group": "开发候选",
+      "scope": "开发入口，未正式准入",
+      "note": "仅两neutral裁区在用；旧guard_moth和其它姿态见完整原图。",
+      "images": [
+        {
+          "path": "assets/enemy_all_02/prototype_sheet.png",
+          "label": "当前代码使用的母版",
+          "region": [
+            0,
+            0,
+            362,
+            373
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candidate_crosswind_moth",
+      "name": "侧风蛾候选",
+      "group": "开发候选",
+      "scope": "开发入口，未正式准入",
+      "note": "仅两neutral裁区在用；旧guard_moth和其它姿态见完整原图。",
+      "images": [
+        {
+          "path": "assets/enemy_all_02/prototype_sheet.png",
+          "label": "当前代码使用的母版",
+          "region": [
+            0,
+            373,
+            362,
+            351
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clockwork_guardian",
+      "name": "旧发条守卫",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "独立atlas中的3个Boss静态键；与普通巡逻机同张总图集，但不是guardian.png的缩放版。",
+      "images": [
+        {
+          "path": "assets/plains_v3/enemies/clockwork_atlas.png",
+          "label": "当前主身体素材",
+          "region": [
+            444,
+            444,
+            443,
+            443
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bellstrider",
+      "name": "鸣铃巡游机",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "Bellstrider独立裁图；与Windkeeper同次双Boss原图生成，不是同图缩放。",
+      "images": [
+        {
+          "path": "assets/underworld_plains/actors/bellstrider.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "windkeeper",
+      "name": "牧风者（默认）",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "默认与storm均精确复用同一windkeeper.png；storm没有独立原画母版，只在代码中的阶段尺寸/行为和资源不同。",
+      "images": [
+        {
+          "path": "assets/underworld_plains/actors/windkeeper.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "windkeeper_storm",
+      "name": "牧风者（Storm）",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "默认与storm均精确复用同一windkeeper.png；storm没有独立原画母版，只在代码中的阶段尺寸/行为和资源不同。",
+      "images": [
+        {
+          "path": "assets/underworld_plains/actors/windkeeper.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "thorn_guardian",
+      "name": "旧森林守卫",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "与rootbell_guardian_v2精确同guardian.png，1×同基准。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "thorn_queen",
+      "name": "旧森林女王",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "与Weave/Canopy精确同queen.png；旧Queen仅2×整数显示与接地基准不同，没有独立旧Queen专画。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "rootbell_guardian_v2",
+      "name": "根铃守卫V2",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "与旧thorn_guardian同一guardian.png、相同72×96绘制bounds；独有机制在独立Bell Node，未找到单独V2身体动作页。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/guardian.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "thorn_queen_v2",
+      "name": "织网女王V2",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "与Canopy使用完全同一queen.png与相同(-36,-39,72,68)bounds；无Weave独有当前身体母版。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    },
+    {
+      "id": "thorn_queen_canopy",
+      "name": "棘冠女王V3",
+      "group": "Boss",
+      "scope": "场景/Definition与准入见专表",
+      "note": "与旧Queen、Weave共享queen.png；与Weave同尺寸基准，旧Queen仅2×/接地基准不同。",
+      "images": [
+        {
+          "path": "assets/forest_bible_v2/native/fine_32/queen.png",
+          "label": "当前主身体素材",
+          "region": null
+        }
+      ]
+    }
+  ],
+  "original_images": {
+    "assets/plains_v3/enemies/meadow_actions/beetle.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "9d776395ca9c12bba978eea3517ce41008183aca1e3bca02505e7558c93ce09d"
+    },
+    "assets/underworld_plains/actors/patrol.png": {
+      "size": [
+        40,
+        38
+      ],
+      "sha256": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e"
+    },
+    "assets/enemy_feedback_01/frames_v8/legacy_charger.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "4d025f1f0612e2ef9464df8a552e36c28e6ca93044189befc87af3141e2f1bf3"
+    },
+    "assets/enemy_feedback_01/frames_v8/underworld_charger.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "2111a4197c17094f6e1fdb46d96bb4171868be9c639d27be5de75c29b72fedf6"
+    },
+    "assets/enemy_feedback_01/frames_v8/legacy_diver.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "ed78d58c362d258ba0e3388922da118b70ae71ceba2816d52d16ae5a130cf562"
+    },
+    "assets/enemy_feedback_01/frames_v8/underworld_diver.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "5b823e2381d60095378e1a6f8f10e809235a008747fd82eefa648aeb23827ae6"
+    },
+    "assets/underworld_plains/actors/hopper.png": {
+      "size": [
+        40,
+        32
+      ],
+      "sha256": "f665bf113e0bcd4dede94a93aba429106d04091922383e397a7ab1d491b3ca07"
+    },
+    "assets/plains_v3/enemies/meadow_actions/sentry.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "741473bc4a93319ea3ea481943d48b8e0cf4a49a26966f0097b3e885e72b2d38"
+    },
+    "assets/underworld_plains/actors/sentry.png": {
+      "size": [
+        39,
+        40
+      ],
+      "sha256": "0568ca5a7b79181f7b3dde5cca0e1604aa1897a53fa69f262ba2073daf383cfd"
+    },
+    "assets/plains_v4/spatial/actors.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "ad0bcc59f9b8655886b5e1d1330d7072fdc7babb14a1cf0742edc93a45c1fa56"
+    },
+    "assets/underworld_plains/actors/aerial.png": {
+      "size": [
+        36,
+        40
+      ],
+      "sha256": "71809fe3b47597fe001ab9c5c572e3a5ca6d52ca99510a4d65fa9c350272f59f"
+    },
+    "assets/plains_refresh/objects.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "8781ba85b4e7634b60cc7abd8c6c509f9a1ead478faca449e35ad0d6de36842b"
+    },
+    "assets/underworld_plains/actors/root_bell.png": {
+      "size": [
+        33,
+        40
+      ],
+      "sha256": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e"
+    },
+    "assets/region_production_v3/enemies/root_bell/source/master.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "ec10c84a570f50e6532369d102b0b70e06954e3300dd20389c4283e9551bbbca"
+    },
+    "assets/forest_bible_v2/native/fine_32/lantern.png": {
+      "size": [
+        48,
+        40
+      ],
+      "sha256": "9e07b6364e693bfb60a48e4bf994b9bd041aa7c5efa75648df586c8621d42e33"
+    },
+    "assets/forest_bible_v2/native/fine_32/seed_sentry.png": {
+      "size": [
+        44,
+        52
+      ],
+      "sha256": "af931307394854be2d51da5efa05d574b4dacd6bf0c5a58d710ad1abf989534a"
+    },
+    "assets/forest_bible_v2/native/fine_32/beetle.png": {
+      "size": [
+        48,
+        32
+      ],
+      "sha256": "5b4916917b3519b4e935939001e5ee252e3046b5aea97b05130a02682fa00e5a"
+    },
+    "assets/forest_bible_v2/native/fine_32/swing_pod.png": {
+      "size": [
+        36,
+        44
+      ],
+      "sha256": "203e9899c30ce2020831a8b1bce70e59860757f54ad74ff75b21197168d1c5d8"
+    },
+    "assets/forest_bible_v2/native/fine_32/crossbranch.png": {
+      "size": [
+        48,
+        48
+      ],
+      "sha256": "61572653091d2452c61c4d343b22f41c69fa31ab3bd362cdbb3a616efe733b0c"
+    },
+    "assets/forest_bible_v2/native/weaver_silk_bell_v5.png": {
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec"
+    },
+    "assets/enemy_all_02/prototype_sheet.png": {
+      "size": [
+        2172,
+        724
+      ],
+      "sha256": "67659cd608b91f4dbfe5cce56d39db5191045923122e7a6de54e0a81e4845dd4"
+    },
+    "assets/plains_v3/enemies/clockwork_atlas.png": {
+      "size": [
+        1774,
+        887
+      ],
+      "sha256": "0f1fd8840f5bfffc8e7eab18a0419d888851a40fef1529ef62ef972ec03a2510"
+    },
+    "assets/underworld_plains/actors/bellstrider.png": {
+      "size": [
+        128,
+        114
+      ],
+      "sha256": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5"
+    },
+    "assets/underworld_plains/actors/windkeeper.png": {
+      "size": [
+        128,
+        119
+      ],
+      "sha256": "9566e7cca7b763af2d3f2d93f9eea6cdba0383fe726c541371cc3b6c50049446"
+    },
+    "assets/forest_bible_v2/native/fine_32/guardian.png": {
+      "size": [
+        72,
+        96
+      ],
+      "sha256": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8"
+    },
+    "assets/forest_bible_v2/native/fine_32/queen.png": {
+      "size": [
+        72,
+        68
+      ],
+      "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12"
+    }
+  }
+}

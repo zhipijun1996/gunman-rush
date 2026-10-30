@@ -1,0 +1,100 @@
+{
+  "verdict": "ACCEPT",
+  "qualification": "ACCEPT_LIMITED_GUARD_MIGRATION",
+  "reviewer": "/root/guard_review_recovery",
+  "independent": true,
+  "implementers": [
+    "/root",
+    "/root/merge_style_bindings_round2",
+    "/root/loot_boundary_tests_round2"
+  ],
+  "independence_basis": "New read-only reviewer; authored none of these production files, migrated tests, profiles, adapters or provenance. Only /tmp review scripts/logs/reports were written. No engine/Godot execution.",
+  "source_commit": "9e9ae8a2ff958eb84e9aabf2ae1316826f96b132",
+  "source_scope": "Exact six reviewed guard/adapter paths match9e9ae8a2 HEAD bytes; no approval of other later source changes.",
+  "files": {
+    "tests/test_production_plan.py": "0055cc9a0894441220ff62ec1e58c132e1b722e246c5bee510cc8f921a8bcada",
+    "tests/test_region_bible.py": "d2cea1a05bd5d4ff35582577b57ac5a9de654898391229c419e823aba1c40d38",
+    "tests/test_region_creative_direction.py": "a698cb3ef286117457692a2c16a48a48e15f866c47a9b5b45c273712305f6df4",
+    "tests/plains_cohesion_drops_runner.gd": "7ff80c6b8575bda5b2b09cb7d93bdd3faa0ef8e35540119bc3cbe9dcb2867ea9",
+    "tools/harness/profiles.json": "19b782445d7b6d1299f5b36d69dd0c3e88c65923dca012c79a997bef688a1b95",
+    "tools/run_integration_four_tests.py": "721b8e14ad9dcdaa8cb57f2f1b1c0d378626681de0595ac8bcbc1d2ee9312991"
+  },
+  "independent_checks": {
+    "assertions": 333,
+    "failures": 0,
+    "proof_path": "/tmp/plains_motion_loot_02_guard_proof.json",
+    "proof_sha256": "db9467e738aa8b92bc89a6835c88ac04d13fa5ef4a0c7e30f9c0dedb31e9c4e1"
+  },
+  "actual_commands": {
+    "planner": {
+      "path": "/tmp/guard-review-planner.log",
+      "sha256": "64584a63a0c5f27c6b65d348282d17415fa72bc572e1c5485f22f6e7f87224a0",
+      "exit_code": 0,
+      "tests": 22
+    },
+    "bible": {
+      "path": "/tmp/guard-review-bible.log",
+      "sha256": "6e3ad06d7872543c9e537934e9d47635e94445f53992c7b7a9874990375e2c9d",
+      "exit_code": 0,
+      "tests": 35
+    },
+    "creative": {
+      "path": "/tmp/guard-review-creative.log",
+      "sha256": "f8ebb387fa223240dc3a6287e992a3432027bb0deb3e0e18bf0e61679e978233",
+      "exit_code": 0,
+      "tests": 13
+    }
+  },
+  "observed_not_executed_by_reviewer": {
+    "native07": {
+      "assertions": 343,
+      "failures": 0,
+      "samples": [
+        {
+          "assertions": 83,
+          "failures": [],
+          "scope": "Six real opaque skins plus both real diver skins; scripted locomotion-observer inputs, no combat/pixel/listening acceptance"
+        },
+        {
+          "assertions": 123,
+          "failures": [],
+          "scope": "Configured reward receipts and actual ray/terrain ballistics in an explicit translated floor fixture; no natural route, App transaction or art/audio approval"
+        },
+        {
+          "assertions": 91,
+          "failures": [],
+          "scope": "Actual12voice pool/caps/preemption, accepted Actor hurt/death and restored/unloaded owner lifecycle; explicit isolated fixtures, not normal-speed listening or natural combat"
+        },
+        {
+          "assertions": 45,
+          "failures": [],
+          "scope": "Actual DemoApp ordinary death/pickup/save consumers with explicit native damage and player positions; no Router combat or natural traversal claim"
+        }
+      ],
+      "path": "build/plains-motion-loot-02-native-07.json"
+    },
+    "old_drop02": {
+      "assertions": 30,
+      "failures": 0,
+      "path": "build/plains-motion-loot-02-old-drop-02.log"
+    }
+  },
+  "findings": [
+    "Planner preserves original21 method names and negative scenarios;20 methods remain byte-identical. Only exact-full suffix expectation migrates. Original144/165 digest literals stay exact; original166 prefix/order and92/75 disjoint closure enforced with one actual additional native check.",
+    "Bible and creative original34/12 methods and all historical64hex literals retained. Initial20/23 contracts moved to exact2ac original frozen snapshots under a fixed manifest SHA; added live21/24 checks separately validate83 references,81 prefix,78 unchanged,3 actualSHA rebinds,2 actually consumed assets, unchanged shared dimensions and stale-pointer refusals.",
+    "All original check dictionaries remain equal except finite region-bible inputs368->381 with exact368 prefix. Each old profile sequence remains exact; only gameplay/art/full append the one new native check.",
+    "Adapter original execution/strict-exit functions are AST-identical to2ac, with only one real CASE entry added. That runner loads and executes motion,loot,audio,app helpers and aggregates failures; it is not an empty success adapter.",
+    "Old drop migration preserves original17 labels and all ordered frame waits, exact denomination sum/IDs/replay/save/environment/Boss-seal checks. Its manual per-unit claims replace former automatic proximity coverage. This standalone runner is not accepted as automatic collection proof.",
+    "Mandatory new actual App counterpart covers real early proximity ticks refusing the spray lock, then real ready approach->App tick->queue->commit, full coin total and replay refusal. Native07 actual artifacts show App45/0 and loot123/0; these results were read, not newly executed here."
+  ],
+  "conditions": [
+    "For this workline, run BOTH the original registered region/drop consumer and the new registered plains-motion-loot-02 case before claiming drop regression coverage. Label preservation alone is insufficient.",
+    "Keep original17/4, planner21/1 and all prior failed artifacts and original budgets; never retag dirty native artifacts as frozen subsequent runs."
+  ],
+  "not_verified": [
+    "Full167 CI was not run by reviewer; original5332137 prepare failed before it ran and remains failed.",
+    "No Godot, GUI, normal-speed visual, audio listening, player, device or economic balance acceptance.",
+    "No review of body-motion implementation, corpse visible-ground contact, or player-healing pixel result."
+  ],
+  "repository_mutations": false
+}

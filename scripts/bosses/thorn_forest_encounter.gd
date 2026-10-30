@@ -161,3 +161,19 @@ func restore_combat_state(data: Dictionary) -> void:
 	_cancel_projectiles()
 	has_ground_mark = false
 	_enter(&"observe",(definition as ThornForestDefinition).observation_seconds)
+
+func presentation_state() -> BossPresentationState:
+	var values := _presentation_values()
+	values.merge({"phase":stage_phase,"phase_axes":{"combat":stage_phase},"damage_model":&"directional_heart","core_hint_visible":core_open},true)
+	var duration := (definition as ThornForestDefinition).phase_warning_seconds if mode == &"phase_transition" else definition.telegraph_duration
+	return _presentation_countdown(values,mode,clock,duration,mode in [&"branch_warning",&"phase_transition"],mode == &"seed_flight",false,mode == &"heart_open")
+
+func presentation_capabilities() -> PackedStringArray:
+	return PackedStringArray(["heart_window","ground_mark","combat_state"])
+
+func presentation_heart() -> Dictionary:
+	return {"offset":Vector2(weak_side*18 if stage_phase > 1 else 0,-9),"visible":core_open}
+
+func presentation_ground_mark() -> Dictionary:
+	if not has_ground_mark or mode not in [&"branch_warning",&"seed_flight"]: return {}
+	return {"position":attack_goal,"width":(definition as ThornForestDefinition).seed_zone_size.x}

@@ -1537,6 +1537,88 @@ def validate(data):
         if len(modal)<5 or any(f.get('paused') is not True or not f.get('supports') or f['position']!=modal[0]['position'] or f['motion_steps']!=modal[0]['motion_steps'] for f in modal):fail('modal_not_actual_frozen_world')
     return errors
 
+def cpu_capacity():
+    """Read host limits once; visible quota is a ceiling, not a CPU benchmark."""
+    report={'os_cpu_count':None,'affinity_cpu_ids':None,'cgroup_memberships':None,'cgroup_quota_sources':[],'read_errors':[]}
+    limits=[]
+    try:
+        count=os.cpu_count()
+        if type(count) is int and count>0:report['os_cpu_count']=count;limits.append(count)
+    except (OSError,ValueError) as error:report['read_errors'].append('os.cpu_count/'+type(error).__name__)
+    try:
+        affinity=sorted(os.sched_getaffinity(0))
+        if affinity:report['affinity_cpu_ids']=affinity;limits.append(len(affinity))
+    except (AttributeError,OSError,ValueError) as error:report['read_errors'].append('os.sched_getaffinity/'+type(error).__name__)
+    def read(path):
+        try:return Path(path).read_text().strip()
+        except (OSError,UnicodeError) as error:
+            report['read_errors'].append(str(path)+'/'+type(error).__name__)
+            return None
+    membership=read('/proc/self/cgroup');mountinfo=read('/proc/self/mountinfo')
+    report['cgroup_memberships']=membership
+    members=[]
+    for line in (membership or '').splitlines():
+        parts=line.split(':',2)
+        if len(parts)==3 and parts[2].startswith('/'):
+            members.append((parts[1].split(',') if parts[1] else [],parts[2]))
+    def unescape(value):return re.sub(r'\\([0-7]{3})',lambda m:chr(int(m[1],8)),value)
+    checked=set()
+    for line in (mountinfo or '').splitlines():
+        fields=line.split()
+        try:separator=fields.index('-');kind=fields[separator+1];options=fields[separator+3].split(',')
+        except (ValueError,IndexError):continue
+        if len(fields)<6 or kind not in ('cgroup','cgroup2'):continue
+        mount_root=Path(unescape(fields[3]));mount=Path(unescape(fields[4]))
+        if not mount.is_absolute() or not mount_root.is_absolute():continue
+        for controllers,member in members:
+            if kind=='cgroup2' and controllers:continue
+            if kind=='cgroup' and not ('cpu' in controllers and 'cpu' in options):continue
+            # A namespace-root membership '/' denotes the exposed mount root,
+            # including container mountinfo roots such as '/..'. Otherwise
+            # map the hierarchy path under the actual mount root.
+            try:relative=Path() if member=='/' else Path(member).relative_to(mount_root)
+            except ValueError:continue
+            if '..' in relative.parts:continue
+            folder=mount/relative
+            while True:
+                if (kind,str(folder)) not in checked:
+                    checked.add((kind,str(folder)))
+                    paths=[folder/'cpu.max'] if kind=='cgroup2' else [folder/'cpu.cfs_quota_us',folder/'cpu.cfs_period_us']
+                    raw=[read(p) for p in paths]
+                    row={'version':2 if kind=='cgroup2' else 1,'mount_root':str(mount_root),'mount_point':str(mount),'membership':member,'paths':[str(p) for p in paths],'raw':raw,'quota_cpus':None,'status':'unreadable'}
+                    if all(value is not None for value in raw):
+                        try:
+                            values=raw[0].split() if kind=='cgroup2' else raw
+                            if len(values)!=2:raise ValueError('quota arity')
+                            period=int(values[1]);unlimited=values[0]=='max' if kind=='cgroup2' else int(values[0])==-1
+                            if period<=0:raise ValueError('nonpositive period')
+                            if unlimited:row['status']='unlimited'
+                            else:
+                                quota=int(values[0])
+                                if quota<=0:raise ValueError('nonpositive quota')
+                                capacity=quota/period
+                                if not math.isfinite(capacity) or capacity<=0:raise ValueError('invalid capacity')
+                                row.update(status='limited',quota_cpus=capacity);limits.append(capacity)
+                        except (ValueError,OverflowError):row['status']='malformed'
+                    report['cgroup_quota_sources'].append(row)
+                if folder==mount:break
+                folder=folder.parent
+    report['effective_cpu_capacity']=min(limits) if limits else None
+    report['capacity_rule']='minimum positive os count, affinity count and readable visible cgroup ancestor quotas; hidden ancestors are not observable'
+    return report
+
+
+def select_case_workers(requested, capacity):
+    """Preserve explicit1/2/4; auto chooses the largest fitting bounded value."""
+    if requested is not None:
+        if type(requested) is not int or requested not in (1,2,4):raise ValueError('case workers must be1,2or4')
+        return requested
+    effective=capacity.get('effective_cpu_capacity')
+    if type(effective) not in (int,float) or not math.isfinite(effective) or effective<=0:return 4
+    # A fractional quota below1 still requires the minimum one native process.
+    return max((n for n in (1,2,4) if n<=effective),default=1)
+
+
 def run_region_case(i, case, output, layout="", movie=False):
     """One original native process with its own capture, log and user/cache roots."""
     seed,index,route=case
@@ -1545,15 +1627,24 @@ def run_region_case(i, case, output, layout="", movie=False):
     if layout:argv.append('--layout='+layout)
     if movie:
         argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(path/'gameplay.avi')]+argv[3:]+['--capture-movie']
-    start=time.monotonic();row={'seed':seed,'map':index,'route':route,'argv':argv}
+    start=time.monotonic();timing={'native_seconds':None,'json_read_parse_seconds':None,'validate_seconds':None};row={'seed':seed,'map':index,'route':route,'argv':argv,'timing_wall_seconds':timing}
     if movie:
         row['mode']='actual_GL_60fps_original_route_movie'
         row['software_render_threads']=min(4,os.cpu_count() or 1)
     try:
         env={**os.environ,'GUNMAN_DATA_HOME':str(path/'user-data'),'XDG_CONFIG_HOME':str(path/'config'),'XDG_CACHE_HOME':str(path/'cache'),'LP_NUM_THREADS':str(row['software_render_threads']) if movie else '1'}
         with movie_display(env,path,movie) as native_env:
-            with log.open('w') as stream:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
-        text=log.read_text();data=json.loads(capture.read_text()) if capture.exists() else {};errors=validate(data) if capture.exists() else ['capture_absent']
+            with log.open('w') as stream:
+                segment_start=time.monotonic()
+                try:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
+                finally:timing['native_seconds']=time.monotonic()-segment_start
+        text=log.read_text()
+        segment_start=time.monotonic()
+        try:data=json.loads(capture.read_text()) if capture.exists() else {}
+        finally:timing['json_read_parse_seconds']=time.monotonic()-segment_start
+        segment_start=time.monotonic()
+        try:errors=validate(data) if capture.exists() else ['capture_absent']
+        finally:timing['validate_seconds']=time.monotonic()-segment_start
         if layout and data.get('manifest',{}).get('layout_version')!=layout:errors.append('actual_layout_does_not_match_explicit_request')
         if movie:
             row['movie']=inspect_movie(path/'gameplay.avi',data);errors.extend(row['movie']['errors'])
@@ -1609,7 +1700,7 @@ def schedule_cases(cases, run_case, on_result, workers=1):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--case-workers',type=int,choices=(1,2,4),default=4,help='Corpus only: bounded native workers; use2 on lower-core hosts. Non-corpus modes remain serial');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--case-workers',type=int,choices=(1,2,4),default=None,help='Corpus only: explicit1/2/4 native workers; default auto selects by visible effective CPU limits, falling back to4 if unreadable. Non-corpus modes remain serial');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')
@@ -1619,6 +1710,7 @@ def main():
     if not output.is_relative_to(ROOT/'build') or output.exists():parser.error('fresh output below repository build required')
     output.mkdir(parents=True)
     report={'scope':'actual_v2_routes_not_boss_or_fullrelease','source_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_before':inventory(),'runs':[],'status':'running'}
+    report['cpu_capacity']=cpu_capacity();report['case_workers_requested']=args.case_workers;report['case_workers_selection']='auto' if args.corpus and args.case_workers is None else 'explicit' if args.corpus else 'non_corpus_serial'
     def save():(output/'receipt.json').write_text(json.dumps(report,indent=2)+'\n')
     save();cases=[(args.seed,args.map,r) for r in (args.routes if args.routes else ROUTES[:3] if args.route=='all' else [args.route])]
     if args.matrix:cases=[(seed,index,r) for seed,index in [('forest-depth-hollow-00',1),('forest-depth-hollow-02',1),('forest-depth-hollow-00',2),('forest-depth-hollow-02',2)] for r in ROUTES[:4]]
@@ -1643,7 +1735,7 @@ def main():
         report['source_after_import']=inventory();report['import_source_guard']=import_inventory_guard(report['source_before'],report['source_after_import']);report['import']=import_row;save()
         if import_row['errors'] or not report['import_source_guard']['passed']:
             report['source_after']=report['source_after_import'];report['source_stable']=report['import_source_guard']['passed'];report['status']='failed';save();print('FOREST DEPTH REGION: failed import',output);return 1
-        workers=args.case_workers if args.corpus else 1
+        workers=select_case_workers(args.case_workers,report['cpu_capacity']) if args.corpus else 1
         report['case_workers']=workers
         report['completed_case_indices']=[]
         def record_case(i,row,ordered):

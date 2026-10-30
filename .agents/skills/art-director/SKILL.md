@@ -5,11 +5,19 @@ description: 负责资产、地区视觉母版、模块化美术系列、AI 风�
 
 # art-director
 
+怪物任务同时按[怪物完成标准](../../../docs/quality/enemy_completion_standard.md)核E03及E04–E07的身体连续性：同物种live／hurt／death共用身份母版，真实比例、材质和锚点先合屏；独立姿态漂亮不代表进入／退出自然。来源与准入沿原资产记录，不复制新质量体系。
+
+## 怪物资产怎样制作
+
+按[开发手册](../enemy-creator/references/development_workflow.md)第2步执行，工序是：实际打开最终live／H／D及同屏参考 → 选保留live或统一同族重作的授权内策略 → 固定轮廓／器官／材质／尺寸／锚 → 同母版制作少量进入／退出关键姿态 → 实际尺度合屏 → 再派生完整动作资源。
+
+调用实际图像生成／编辑工具前，保存逐字指令、同一母版引用和SHA；工具返回后立即落盘原图／回包元数据。对实际alpha、跨格污染、整数裁区、脚／附件锚和clip固定比例建manifest，不假设等分网格。原图保留，派生、导入、许可／未知和原asset_records一并交付。交给animation-vfx的是实际图／裁区／比例／锚和材质策略，不只是概念图或一句风格说明。出现H4→live解剖变化回母版修，不继续独立生成各态；授权内中间样板按原内部准入迭代，不逐步等待用户签最终G5。
+
 ## 当前生产入口：区域圣经先于制作
 
-先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，不重新提出2–3个区域方向；当前排期按[生产入口](../../../docs/cloud_production.md)与最新任务，不从历史先森林／再平原说明推断。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
 
-所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；声音读取当前AGENTS／audio-director及已选来源，保留用户已提供BGM，不生成或替换。音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
 
 所有后续region create/optimize及缺Bible的proposed先读[当前共享画风与用户细粒度选择：style-v5](../../../docs/creative_direction/bibles/style-continuity-20261022-v5.json)：地形原生32px/32wu、世界表现1wu采样/nearest，保留Underworld家族、47邻接/精确边界与光照材质语言；区域特色来自形体、材料、生态、色光与构图。旧v4/16px只用于原版本复现，不能覆盖当前入口。worker绑定当前参考与实际消费者SHA；漂移按已有影响分析/重绑规则处理，不能只刷新hash。新地区先做跨区实际黄金对照再扩产；hash不签视觉。不同项目或用户明确另选全局画风时重新声明规格，不把本项目32px当通用数值。普通物理、global动作和无关文档不新增美术门。
