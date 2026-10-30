@@ -1,5 +1,11 @@
 # 开发任务
 
+## 2026-10-30 BELLSTRIDER-REWORK-01 · 鸣铃巡游机完整迭代
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| BELLSTRIDER-REWORK-01 | 40HP上端唯一弱点、三招与回冲、机械失效/实体奖励、正式原声实战与工坊审核 | — | review | [制作卡](worklines/bellstrider_rework_01/spec.md) · [证据](evidence/bellstrider_rework_01/README.md) · [质量记录](quality/records/BELLSTRIDER-REWORK-01.json) |
+
 ## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入
 
 | 任务 | 目标 | 依赖 | 状态 | 证据 |

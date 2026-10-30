@@ -1,5 +1,13 @@
 # 最新交接 · 2026-10-29
 
+## 2026-10-30 鸣铃巡游机审核候选（当前）
+
+BELLSTRIDER-REWORK-01运行源c10dab0f，媒体8f35f146，feature/bellstrider-rework-01／草稿[PR122](https://github.com/zhipijun1996/gunman-rush/pull/122)，不自动合main。40HP／上端唯一持续弱点／自主加权三招与预选回冲／共姿态装甲／1.8秒失效与12元实体奖励已接正式App。最终原生689/0、原四绑定fresh43/18，先前R3两完整App战斗通过，原断言/预算/失败保留。
+
+[原怪物工坊](https://gunman-monster-workshop.zhipijun1996.chatgpt.site)版本5已私密发布，同源两片：稳健40命中20组81.02秒／满血；对照40命中15组67.63秒／两次各1损血。稳健死亡左缘出画，完整失效和喷币采用对照片67.9秒起；第三枪后的故意晚反应不是第三枪单独致伤证明。其他24怪与旧意见身份保留，实际视频Range206/原媒体完整下载SHA通过。
+
+[证据及完整章节](evidence/bellstrider_rework_01/README.md)；质量保持review，人工听感/玩法/艺术、设备与完整CI未签。docs有3条基线已有archive链接失败；不外推旧PR119快速合入豁免。恢复先核git状态/PR122实际head和checks；不要重生成资产或把旧片当新片。下一步由用户在工坊按动作和时点反馈，再据实际反馈调第三枪余量/重量/声音。
+
 ## 2026-10-30 七怪工作线获准快速合main（当前）
 
 用户明确“快速合入main”。正在PR119整合main feb01068的已选hurt A/COMMITTED音频与前景性能修复；原ab96 CI并行92通过、串行森林600秒53/80超时，原红灯保留。目标为两父完整历史、七怪固定金币/概率补给与主线更新共同接入；原167前缀追加主线audio为168（92＋76），600预算不改。本地正常merge冻结C为0d7ea6bf，冲突独审726/0、pure22/40/17及三个原Harness专项全过；PR119已改指main，完整168待新头实跑。本轮scope/测试/精确源CI及合并状态见[合入记录](worklines/plains_motion_loot_02/main_merge.md)。旧“不自动合main”为此前阶段，不重复询问授权；整怪艺术/设备/用户G5仍分开。
