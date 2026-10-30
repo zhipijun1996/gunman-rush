@@ -1,5 +1,12 @@
 # 当前状态
 
+## 2026-10-30 MOBILE-WEB-FPS-04 · 保持质量的帧率调查
+
+用户同意先测Release引擎对照和前景各阶段耗时，再按证据优化。基线main `5f55716a`；PR117此前已在精确源完整165通过后合入，普通试玩 `ad78f8ae3998` 已发布；旧文“等待合main”为历史阶段。原音频残余云端短缺口不改签。
+
+新分支 `perf/mobile-web-quality-20261030`，独立worktree；真实demo／同seed／同1280×720与DPR，官方线程Debug/Release同PCK与诊断计时分开。仅新增固定几何前缀精确缓存；正式两图96项与缓存等价383项fresh通过，独审未见阻断。原版反序对照未证明整体FPS稳定提升，移动cache miss有小额外成本；不把软件GPU帧率当荣耀60Pro数据。候选试玩与交付正在收口；见[范围](worklines/mobile_web_fps_04/scope.md)。
+
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-FIX-03 · 修复候选已公开，合main等待完整CI
 
 普通主页已是683cf2cce4d6（运行源fb5dc84b、官方threaded engine9c119194046e），Actions40931142506成功；公网10完整文件SHA及真实Home/Plains音频输出均通过，原UI/画质/工坊枪声保留，瞄准慢时额外cue关闭、机关使用清脆风铃原件。用户已授权合main。

@@ -39,6 +39,11 @@ jobs:
           if [ -f prepared-web/audio-before/build-info.json ]; then
             python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/audio-before
           fi
+      - name: Reconstruct the optional FPS investigation candidate
+        run: |
+          if [ -f prepared-web/perf-04/build-info.json ]; then
+            python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web/perf-04
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: prepared-web

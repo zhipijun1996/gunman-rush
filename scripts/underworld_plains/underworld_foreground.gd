@@ -48,6 +48,7 @@ var _receipt_layer := 0
 var _build: Dictionary = {}
 var _spec_cache_key: Array = []
 var _spec_cache_found: Array[Dictionary] = []
+var _fixed_protection_cache: Dictionary = {}
 
 static func attach(owner: Node,world: Node,actor: PlayerMotor) -> UnderworldForeground:
 	var item:=UnderworldForeground.new()
@@ -201,12 +202,25 @@ func _touch_protection(overlay: TouchOverlay) -> void:
 	_add((transform*(overlay.get("_pause_rect") as Rect2)).grow(8),"actual_touch_hud")
 	if not overlay.hide_reset_button:_add((transform*(overlay.get("_reset_rect") as Rect2)).grow(8),"actual_touch_hud")
 
+func _fixed_protection() -> void:
+	# Only reuse the fixed-geometry prefix. Exact inputs include camera/zoom,
+	# viewport and geometry; every dynamic/UI mask still runs this frame, in
+	# its original order. Copy arrays because the following union pass mutates.
+	if not _fixed_protection_cache.is_empty() and _fixed_protection_cache.world==_fixed_world and _fixed_protection_cache.canvas==_protection_canvas and _fixed_protection_cache.viewport==_protection_viewport:
+		_protect.assign(_fixed_protection_cache.protect)
+		_static_protect.assign(_fixed_protection_cache.static_protect)
+		_source_counts=_fixed_protection_cache.source_counts.duplicate()
+		_overflow=bool(_fixed_protection_cache.overflow)
+		return
+	for rect: Rect2 in _fixed_world:_world_rect(rect,"actual_static_geometry_and_functions")
+	_fixed_protection_cache={"world":_fixed_world.duplicate(),"canvas":_protection_canvas,"viewport":_protection_viewport,"protect":_protect.duplicate(),"static_protect":_static_protect.duplicate(),"source_counts":_source_counts.duplicate(),"overflow":_overflow}
+
 func _protection() -> void:
 	var viewport:=get_viewport()
 	_protection_viewport=viewport.get_visible_rect()
 	_protection_canvas=viewport.get_canvas_transform()
 	_protect.clear();_dynamic_protect.clear();_static_protect.clear();_source_counts.clear();_overflow=false
-	for rect: Rect2 in _fixed_world:_world_rect(rect,"actual_static_geometry_and_functions")
+	_fixed_protection()
 	_world_rect(Rect2(_actor.global_position-Vector2(50,60),Vector2(100,120)),"player")
 	var controller:=_actor.get_node_or_null("Controller") as PlayerController
 	var courier:=_actor.get_node_or_null("CourierVisual") as CourierVisual

@@ -1,5 +1,12 @@
 # 开发任务
 
+## 2026-10-30 MOBILE-WEB-FPS-04
+
+| ID | 任务 | 依赖 | 状态 | 质量 |
+| --- | --- | --- | --- | --- |
+| MOBILE-WEB-FPS-04 | 正式Web帧时间基线、Release对照及保持质量的热点优化 | MOBILE-WEB-AUDIO-FIX-03 | in_progress | [记录](quality/records/MOBILE-WEB-FPS-04.json) |
+
+
 ## 2026-10-29 MOBILE-WEB-AUDIO-02 · 真机复测未通过，恢复已选音色并继续定位
 
 | ID | 任务 | 依赖 | 状态 | 质量 |

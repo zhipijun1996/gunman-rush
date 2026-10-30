@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_id": "MOBILE-WEB-FPS-04",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "reviewed_commit": "5f55716a838a754a938997920ff18cb3b17452b5",
+  "content_version": "candidate-v1",
+  "owner": "root",
+  "purpose": "Measure current threaded Web frame time and apply only demonstrated quality-preserving performance improvements",
+  "player_experience": "Preserve accepted 1280x720 UI/art/light/audio while reducing unnecessary per-frame work",
+  "constraints": [
+    "Godot4.7.2 official threaded engines and original demo.tscn",
+    "Keep UI proportions, rendering resolution, assets, shadows, gameplay and selected audio",
+    "Same seed and real GUI navigation; cloud SwiftShader is not Honor60Pro FPS",
+    "No final merge authorization inferred from prior completed PR117"
+  ],
+  "affected_paths": [
+    "tools/mobile_web_perf/build_frame_profile.py",
+    "tools/mobile_web_perf/frame_profile.gd",
+    "tools/mobile_web_perf/run_frame_profile.py",
+    "tools/mobile_web_perf/prepare_frame_pair.py",
+    "scripts/underworld_plains/underworld_foreground.gd",
+    "tests/underworld_plains/test_foreground_fixed_cache.gd",
+    "tools/run_underworld_formal_tests.py",
+    ".github/workflows/deploy-prepared-playtest.yml"
+  ],
+  "deliverables": [],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "静止固定前缀CPU有收益，移动miss有额外成本；原版反序控制显示整体FPS差异不足以成立，手机未知。详见本轮证据。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Current physical Honor60Pro FPS/P95 unknown",
+    "Engine-only release comparison is not complete release-export validation",
+    "No production optimization adopted before measurements",
+    "Final formal visual/audio regression and independent review pending"
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "scope": "Empty browser page injected400ms end-of-window stall; observer regression only, not gameplay performance",
+  "rows": [
+    {
+      "label": "old",
+      "capture": {
+        "begin_ms": 54.5,
+        "end_ms": 864.3999999985099,
+        "elapsed_ms": 809.8999999985099,
+        "frames": [
+          [
+            52.4,
+            69.1,
+            16.699999999999996
+          ],
+          [
+            69.1,
+            85.8,
+            16.700000000000003
+          ],
+          [
+            85.8,
+            102.4,
+            16.60000000000001
+          ],
+          [
+            102.4,
+            119.1,
+            16.69999999999999
+          ],
+          [
+            119.1,
+            135.7,
+            16.599999999999994
+          ],
+          [
+            135.7,
+            152.4,
+            16.700000000000017
+          ],
+          [
+            152.4,
+            169,
+            16.599999999999994
+          ],
+          [
+            169,
+            185.7,
+            16.69999999999999
+          ],
+          [
+            185.7,
+            202.3,
+            16.600000000000023
+          ],
+          [
+            202.3,
+            219,
+            16.69999999999999
+          ],
+          [
+            219,
+            235.7,
+            16.69999999999999
+          ],
+          [
+            235.7,
+            252.4,
+            16.700000000000017
+          ],
+          [
+            252.4,
+            269,
+            16.599999999999994
+          ],
+          [
+            269,
+            285.8,
+            16.80000000000001
+          ],
+          [
+            285.8,
+            302.4,
+            16.599999999999966
+          ],
+          [
+            302.4,
+            319,
+            16.600000000000023
+          ],
+          [
+            319,
+            335.7,
+            16.69999999999999
+          ],
+          [
+            335.7,
+            352.4,
+            16.69999999999999
+          ],
+          [
+            352.4,
+            369,
+            16.600000000000023
+          ],
+          [
+            369,
+            402.4,
+            33.39999999999998
+          ],
+          [
+            402.4,
+            419,
+            16.600000000000023
+          ],
+          [
+            419,
+            435.7,
+            16.69999999999999
+          ],
+          [
+            435.7,
+            452.3,
+            16.600000000000023
+          ]
+        ],
+        "long_tasks": [],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "Consecutive RAF intervals wholly inside this capture; initial and final partial intervals excluded. LongTasks are browser main-thread tasks, not a GPU timer."
+      },
+      "summary": {
+        "intervals": 23,
+        "sampled_interval_ms": 399.90000000000003,
+        "wall_capture_ms": 809.8999999985099,
+        "raf_callbacks": 24,
+        "raf_callback_count_source": "legacy_n_plus_one_inferred_from_nonempty_interval_list",
+        "observed_window_fps": 29.633288060308875,
+        "completed_interval_fps": 57.514378594648655,
+        "interval_span_within_window_ms": 397.8,
+        "interval_coverage_fraction": 0.4911717495996196,
+        "first_raf_minus_begin_ms": -2.1000000000000014,
+        "prewindow_raf_timestamp_overlap_ms": 2.1000000000000014,
+        "initial_uncovered_ms": 0.0,
+        "final_uncovered_ms": 412.0999999985099,
+        "total_uncovered_ms": 412.0999999985099,
+        "closed_on_raf": false,
+        "close_raf_minus_request_ms": null,
+        "closure_after_request_ms": null,
+        "p50_ms": 16.69999999999999,
+        "p95_ms": 16.80000000000001,
+        "max_ms": 33.39999999999998,
+        "long_task_count": 0,
+        "long_task_total_ms": 0,
+        "long_task_max_ms": 0,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      }
+    },
+    {
+      "label": "corrected",
+      "capture": {
+        "observer_schema": 3,
+        "begin_ms": 36.600000001490116,
+        "end_requested_ms": 846.7000000029802,
+        "end_ms": 850.2000000029802,
+        "elapsed_ms": 813.6000000014901,
+        "first_raf_ms": 49.8,
+        "last_raf_ms": 849.8,
+        "raf_callback_count": 27,
+        "closed_on_raf": true,
+        "close_timeout_ms": 30000,
+        "frames": [
+          [
+            49.8,
+            66.5,
+            16.700000000000003
+          ],
+          [
+            66.5,
+            83.1,
+            16.599999999999994
+          ],
+          [
+            83.1,
+            99.8,
+            16.700000000000003
+          ],
+          [
+            99.8,
+            116.5,
+            16.700000000000003
+          ],
+          [
+            116.5,
+            133.1,
+            16.599999999999994
+          ],
+          [
+            133.1,
+            149.7,
+            16.599999999999994
+          ],
+          [
+            149.7,
+            166.5,
+            16.80000000000001
+          ],
+          [
+            166.5,
+            183.1,
+            16.599999999999994
+          ],
+          [
+            183.1,
+            199.8,
+            16.700000000000017
+          ],
+          [
+            199.8,
+            216.5,
+            16.69999999999999
+          ],
+          [
+            216.5,
+            233.1,
+            16.599999999999994
+          ],
+          [
+            233.1,
+            249.7,
+            16.599999999999994
+          ],
+          [
+            249.7,
+            266.5,
+            16.80000000000001
+          ],
+          [
+            266.5,
+            283.2,
+            16.69999999999999
+          ],
+          [
+            283.2,
+            299.8,
+            16.600000000000023
+          ],
+          [
+            299.8,
+            316.4,
+            16.599999999999966
+          ],
+          [
+            316.4,
+            333.1,
+            16.700000000000045
+          ],
+          [
+            333.1,
+            349.7,
+            16.599999999999966
+          ],
+          [
+            349.7,
+            366.4,
+            16.69999999999999
+          ],
+          [
+            366.4,
+            383.1,
+            16.700000000000045
+          ],
+          [
+            383.1,
+            399.8,
+            16.69999999999999
+          ],
+          [
+            399.8,
+            416.5,
+            16.69999999999999
+          ],
+          [
+            416.5,
+            433.1,
+            16.600000000000023
+          ],
+          [
+            433.1,
+            449.8,
+            16.69999999999999
+          ],
+          [
+            449.8,
+            833.1,
+            383.3
+          ],
+          [
+            833.1,
+            849.8,
+            16.699999999999932
+          ]
+        ],
+        "long_tasks": [],
+        "overflow": false,
+        "long_task_observer_error": null,
+        "scope": "RAF closure requested after the observation window and resolved by this observer only after recording a RAF timestamp at or after that request. Already-queued stale RAF timestamps do not close the window. Wall time, RAF-covered span and boundary gaps are separate. LongTasks are browser main-thread tasks, not GPU time."
+      },
+      "summary": {
+        "intervals": 26,
+        "sampled_interval_ms": 800.0,
+        "wall_capture_ms": 813.6000000014901,
+        "raf_callbacks": 27,
+        "raf_callback_count_source": "recorded",
+        "observed_window_fps": 33.18584070790382,
+        "completed_interval_fps": 32.5,
+        "interval_span_within_window_ms": 800.0,
+        "interval_coverage_fraction": 0.9832841691230761,
+        "first_raf_minus_begin_ms": 13.199999998509881,
+        "prewindow_raf_timestamp_overlap_ms": 0.0,
+        "initial_uncovered_ms": 13.199999998509881,
+        "final_uncovered_ms": 0.4000000029802777,
+        "total_uncovered_ms": 13.600000001490116,
+        "closed_on_raf": true,
+        "close_raf_minus_request_ms": 3.0999999970197223,
+        "closure_after_request_ms": 3.5,
+        "p50_ms": 16.69999999999999,
+        "p95_ms": 16.80000000000001,
+        "max_ms": 383.3,
+        "long_task_count": 0,
+        "long_task_total_ms": 0,
+        "long_task_max_ms": 0,
+        "rate_formulas": {
+          "observed_window_fps": "RAF callbacks observed / full actual wall capture duration; callback throughput, not proof of GPU presentation",
+          "completed_interval_fps": "complete consecutive RAF intervals / their covered RAF timestamp span; must be read with coverage and uncovered boundary gaps"
+        }
+      }
+    }
+  ]
+}
