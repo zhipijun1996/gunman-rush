@@ -1,0 +1,603 @@
+﻿2026-10-30T03:51:53.0110616Z Current runner version: '2.338.0'
+2026-10-30T03:51:53.0129671Z ##[group]Runner Image Provisioner
+2026-10-30T03:51:53.0130222Z Hosted Compute Agent
+2026-10-30T03:51:53.0130603Z Version: 20261021.618
+2026-10-30T03:51:53.0131204Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-30T03:51:53.0131650Z Build Date: 2026-10-21T00:45:21Z
+2026-10-30T03:51:53.0132066Z Worker ID: {ec6bfddc-a821-43e6-9ccb-a33149503b47}
+2026-10-30T03:51:53.0132482Z Region: centralus
+2026-10-30T03:51:53.0132837Z Cloud: Azure
+2026-10-30T03:51:53.0133189Z ##[endgroup]
+2026-10-30T03:51:53.0133988Z ##[group]Operating System
+2026-10-30T03:51:53.0134339Z Ubuntu
+2026-10-30T03:51:53.0134697Z 26.04.1
+2026-10-30T03:51:53.0135029Z LTS
+2026-10-30T03:51:53.0135353Z ##[endgroup]
+2026-10-30T03:51:53.0135724Z ##[group]Runner Image
+2026-10-30T03:51:53.0136082Z Image: ubuntu-26.04
+2026-10-30T03:51:53.0136451Z Version: 20261025.179.1
+2026-10-30T03:51:53.0137217Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+2026-10-30T03:51:53.0138092Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+2026-10-30T03:51:53.0138616Z ##[endgroup]
+2026-10-30T03:51:53.0139281Z ##[group]GITHUB_TOKEN Permissions
+2026-10-30T03:51:53.0140737Z Contents: read
+2026-10-30T03:51:53.0141334Z Metadata: read
+2026-10-30T03:51:53.0141667Z ##[endgroup]
+2026-10-30T03:51:53.0143116Z Secret source: Actions
+2026-10-30T03:51:53.0143723Z Cache mode: write
+2026-10-30T03:51:53.0144328Z Prepare workflow directory
+2026-10-30T03:51:53.0506442Z Prepare all required actions
+2026-10-30T03:51:53.0541214Z Getting action download info
+2026-10-30T03:51:53.3089060Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-30T03:51:53.4005023Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-30T03:51:53.4863690Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-30T03:51:53.5733154Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-30T03:51:53.6661419Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-30T03:51:53.8458881Z Complete job name: prepare
+2026-10-30T03:51:53.9071136Z ##[group]Run actions/checkout@v4
+2026-10-30T03:51:53.9071565Z with:
+2026-10-30T03:51:53.9071825Z   ref: 20aab6b11a28df109d75431bb8b772cf27916a46
+2026-10-30T03:51:53.9072128Z   fetch-depth: 0
+2026-10-30T03:51:53.9072382Z   sparse-checkout: /*
+!/docs/evidence/
+
+2026-10-30T03:51:53.9072689Z   sparse-checkout-cone-mode: false
+2026-10-30T03:51:53.9072975Z   persist-credentials: false
+2026-10-30T03:51:53.9073249Z   repository: zhipijun1996/gunman-rush
+2026-10-30T03:51:53.9075245Z   token: ***
+2026-10-30T03:51:53.9075465Z   ssh-strict: true
+2026-10-30T03:51:53.9075700Z   ssh-user: git
+2026-10-30T03:51:53.9075920Z   clean: true
+2026-10-30T03:51:53.9076139Z   fetch-tags: false
+2026-10-30T03:51:53.9076393Z   show-progress: true
+2026-10-30T03:51:53.9076625Z   lfs: false
+2026-10-30T03:51:53.9076840Z   submodules: false
+2026-10-30T03:51:53.9077077Z   set-safe-directory: true
+2026-10-30T03:51:53.9077337Z   allow-unsafe-pr-checkout: false
+2026-10-30T03:51:53.9077686Z env:
+2026-10-30T03:51:53.9077941Z   PRODUCTION_STAGE: integration
+2026-10-30T03:51:53.9078259Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:51:53.9078593Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:51:53.9078837Z ##[endgroup]
+2026-10-30T03:51:54.1485189Z Syncing repository: zhipijun1996/gunman-rush
+2026-10-30T03:51:54.1486693Z ##[group]Getting Git version info
+2026-10-30T03:51:54.1487082Z Working directory is '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-30T03:51:54.1487635Z [command]/usr/bin/git version
+2026-10-30T03:51:54.1510673Z git version 2.56.0
+2026-10-30T03:51:54.1525806Z ##[endgroup]
+2026-10-30T03:51:54.1542294Z Temporarily overriding HOME='/home/runner/work/_temp/7354c2d5-41ef-44e5-8fef-04000a579024' before making global git config changes
+2026-10-30T03:51:54.1543854Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-30T03:51:54.1544794Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-30T03:51:54.1612453Z Deleting the contents of '/home/runner/work/gunman-rush/gunman-rush'
+2026-10-30T03:51:54.1615562Z ##[group]Initializing the repository
+2026-10-30T03:51:54.1619442Z [command]/usr/bin/git init /home/runner/work/gunman-rush/gunman-rush
+2026-10-30T03:51:54.1729231Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-30T03:51:54.1730105Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-30T03:51:54.1730687Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-30T03:51:54.1731615Z hint: call:
+2026-10-30T03:51:54.1732045Z hint:
+2026-10-30T03:51:54.1732528Z hint: 	git config --global init.defaultBranch <name>
+2026-10-30T03:51:54.1733148Z hint:
+2026-10-30T03:51:54.1733656Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-30T03:51:54.1734495Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-30T03:51:54.1735156Z hint:
+2026-10-30T03:51:54.1735534Z hint: 	git branch -m <name>
+2026-10-30T03:51:54.1735953Z hint:
+2026-10-30T03:51:54.1736507Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-30T03:51:54.1742077Z Initialized empty Git repository in /home/runner/work/gunman-rush/gunman-rush/.git/
+2026-10-30T03:51:54.1753117Z [command]/usr/bin/git remote add origin https://github.com/zhipijun1996/gunman-rush
+2026-10-30T03:51:54.1804458Z ##[endgroup]
+2026-10-30T03:51:54.1805121Z ##[group]Disabling automatic garbage collection
+2026-10-30T03:51:54.1808242Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-30T03:51:54.1845109Z ##[endgroup]
+2026-10-30T03:51:54.1845742Z ##[group]Setting up auth
+2026-10-30T03:51:54.1855847Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-30T03:51:54.1903638Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-30T03:51:54.2285870Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-30T03:51:54.2318317Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-30T03:51:54.2545267Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-30T03:51:54.2575748Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-30T03:51:54.2798017Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-30T03:51:54.2833784Z ##[endgroup]
+2026-10-30T03:51:54.2834274Z ##[group]Fetching the repository
+2026-10-30T03:51:54.2840416Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules --filter=blob:none origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+2026-10-30T03:51:54.9766828Z From https://github.com/zhipijun1996/gunman-rush
+2026-10-30T03:51:54.9767991Z  * [new branch]      art/formal-fine-depth   -> origin/art/formal-fine-depth
+2026-10-30T03:51:54.9768762Z  * [new branch]      chore/cloud-production-system -> origin/chore/cloud-production-system
+2026-10-30T03:51:54.9769372Z  * [new branch]      chore/game-quality-system -> origin/chore/game-quality-system
+2026-10-30T03:51:54.9769981Z  * [new branch]      chore/project-harness-skills -> origin/chore/project-harness-skills
+2026-10-30T03:51:54.9770550Z  * [new branch]      chore/wave-01-dispatch  -> origin/chore/wave-01-dispatch
+2026-10-30T03:51:54.9771877Z  * [new branch]      delivery/style-lab-source-d2d469f81582 -> origin/delivery/style-lab-source-d2d469f81582
+2026-10-30T03:51:54.9772994Z  * [new branch]      delivery/underworld-plains-source-4b01de439c24 -> origin/delivery/underworld-plains-source-4b01de439c24
+2026-10-30T03:51:54.9773864Z  * [new branch]      delivery/underworld-plains-source-6b3093b929c0 -> origin/delivery/underworld-plains-source-6b3093b929c0
+2026-10-30T03:51:54.9774736Z  * [new branch]      delivery/underworld-plains-source-7915c17348c0 -> origin/delivery/underworld-plains-source-7915c17348c0
+2026-10-30T03:51:54.9775510Z  * [new branch]      deploy/mobile-ui-clarity-20261029 -> origin/deploy/mobile-ui-clarity-20261029
+2026-10-30T03:51:54.9776213Z  * [new branch]      deploy/mobile-web-audio-20261029 -> origin/deploy/mobile-web-audio-20261029
+2026-10-30T03:51:54.9776876Z  * [new branch]      deploy/mobile-web-fps-20261030 -> origin/deploy/mobile-web-fps-20261030
+2026-10-30T03:51:54.9777474Z  * [new branch]      deploy/pr-67-web-20261015 -> origin/deploy/pr-67-web-20261015
+2026-10-30T03:51:54.9778246Z  * [new branch]      docs/audio-rollout-01-published-receipt -> origin/docs/audio-rollout-01-published-receipt
+2026-10-30T03:51:54.9779060Z  * [new branch]      docs/biome-challenge-design -> origin/docs/biome-challenge-design
+2026-10-30T03:51:54.9779774Z  * [new branch]      docs/disordered-clock-story -> origin/docs/disordered-clock-story
+2026-10-30T03:51:54.9780345Z  * [new branch]      docs/enemy-continuity-01 -> origin/docs/enemy-continuity-01
+2026-10-30T03:51:54.9781142Z  * [new branch]      docs/forest-v13-playtest-delivery -> origin/docs/forest-v13-playtest-delivery
+2026-10-30T03:51:54.9781778Z  * [new branch]      docs/modular-world-abilities -> origin/docs/modular-world-abilities
+2026-10-30T03:51:54.9782400Z  * [new branch]      docs/player-action-harness-plan -> origin/docs/player-action-harness-plan
+2026-10-30T03:51:54.9783463Z  * [new branch]      docs/procedural-layout-design -> origin/docs/procedural-layout-design
+2026-10-30T03:51:54.9784488Z  * [new branch]      docs/roguelike-run-contracts -> origin/docs/roguelike-run-contracts
+2026-10-30T03:51:54.9785460Z  * [new branch]      docs/thorn-forest-region-design -> origin/docs/thorn-forest-region-design
+2026-10-30T03:51:54.9786784Z  * [new branch]      docs/windkeeper-main-evidence -> origin/docs/windkeeper-main-evidence
+2026-10-30T03:51:54.9787776Z  * [new branch]      docs/world-story-anchor -> origin/docs/world-story-anchor
+2026-10-30T03:51:54.9788800Z  * [new branch]      evidence/main-playtest-45e98dbb -> origin/evidence/main-playtest-45e98dbb
+2026-10-30T03:51:54.9789739Z  * [new branch]      feature/actor-resources-framework -> origin/feature/actor-resources-framework
+2026-10-30T03:51:54.9790471Z  * [new branch]      feature/ai-level-design-v1 -> origin/feature/ai-level-design-v1
+2026-10-30T03:51:54.9791807Z  * [new branch]      feature/ai-platforming-foundry -> origin/feature/ai-platforming-foundry
+2026-10-30T03:51:54.9792954Z  * [new branch]      feature/art-direction-reexploration -> origin/feature/art-direction-reexploration
+2026-10-30T03:51:54.9802014Z  * [new branch]      feature/audio-ambience-01 -> origin/feature/audio-ambience-01
+2026-10-30T03:51:54.9802827Z  * [new branch]      feature/audio-director-01 -> origin/feature/audio-director-01
+2026-10-30T03:51:54.9803646Z  * [new branch]      feature/biome-style-review -> origin/feature/biome-style-review
+2026-10-30T03:51:54.9804510Z  * [new branch]      feature/blob47-art-foundation -> origin/feature/blob47-art-foundation
+2026-10-30T03:51:54.9805493Z  * [new branch]      feature/cloud-env-platform-foundation -> origin/feature/cloud-env-platform-foundation
+2026-10-30T03:51:54.9806488Z  * [new branch]      feature/complete-actor-actions -> origin/feature/complete-actor-actions
+2026-10-30T03:51:54.9807540Z  * [new branch]      feature/core02-combat-controls -> origin/feature/core02-combat-controls
+2026-10-30T03:51:54.9808370Z  * [new branch]      feature/demo-plains-art -> origin/feature/demo-plains-art
+2026-10-30T03:51:54.9811262Z  * [new branch]      feature/demo-ui-01      -> origin/feature/demo-ui-01
+2026-10-30T03:51:54.9812246Z  * [new branch]      feature/dynamic-platforming-modules -> origin/feature/dynamic-platforming-modules
+2026-10-30T03:51:54.9813258Z  * [new branch]      feature/enemy-completion-02 -> origin/feature/enemy-completion-02
+2026-10-30T03:51:54.9814139Z  * [new branch]      feature/enemy-feedback-01 -> origin/feature/enemy-feedback-01
+2026-10-30T03:51:54.9815183Z  * [new branch]      feature/enemy-feedback-01-accepted-sample -> origin/feature/enemy-feedback-01-accepted-sample
+2026-10-30T03:51:54.9816335Z  * [new branch]      feature/enemy-workshop-01 -> origin/feature/enemy-workshop-01
+2026-10-30T03:51:54.9817382Z  * [new branch]      feature/enemy01-patrol  -> origin/feature/enemy01-patrol
+2026-10-30T03:51:54.9818379Z  * [new branch]      feature/item-v5-catalog -> origin/feature/item-v5-catalog
+2026-10-30T03:51:54.9819421Z  * [new branch]      feature/lab-main-feedback -> origin/feature/lab-main-feedback
+2026-10-30T03:51:54.9820608Z  * [new branch]      feature/level-design-harness-v2 -> origin/feature/level-design-harness-v2
+2026-10-30T03:51:54.9821867Z  * [new branch]      feature/loop-boss-modules -> origin/feature/loop-boss-modules
+2026-10-30T03:51:54.9822895Z  * [new branch]      feature/p1-native-pilot -> origin/feature/p1-native-pilot
+2026-10-30T03:51:54.9823706Z  * [new branch]      feature/p1-random-plains-avatars -> origin/feature/p1-random-plains-avatars
+2026-10-30T03:51:54.9824552Z  * [new branch]      feature/painted-terrain-grammar -> origin/feature/painted-terrain-grammar
+2026-10-30T03:51:54.9825458Z  * [new branch]      feature/painted-terrain-production -> origin/feature/painted-terrain-production
+2026-10-30T03:51:54.9826257Z  * [new branch]      feature/painterly-plains-v2 -> origin/feature/painterly-plains-v2
+2026-10-30T03:51:54.9827005Z  * [new branch]      feature/plains-art-integration -> origin/feature/plains-art-integration
+2026-10-30T03:51:54.9827753Z  * [new branch]      feature/plains-art-language -> origin/feature/plains-art-language
+2026-10-30T03:51:54.9828668Z  * [new branch]      feature/plains-art-v3   -> origin/feature/plains-art-v3
+2026-10-30T03:51:54.9829692Z  * [new branch]      feature/plains-branch-challenges -> origin/feature/plains-branch-challenges
+2026-10-30T03:51:54.9830698Z  * [new branch]      feature/plains-capability-generation -> origin/feature/plains-capability-generation
+2026-10-30T03:51:54.9831725Z  * [new branch]      feature/plains-cohesion-and-pressure -> origin/feature/plains-cohesion-and-pressure
+2026-10-30T03:51:54.9832513Z  * [new branch]      feature/plains-connected-region -> origin/feature/plains-connected-region
+2026-10-30T03:51:54.9833289Z  * [new branch]      feature/plains-designed-exploration -> origin/feature/plains-designed-exploration
+2026-10-30T03:51:54.9834135Z  * [new branch]      feature/plains-eight-room-graph -> origin/feature/plains-eight-room-graph
+2026-10-30T03:51:54.9834897Z  * [new branch]      feature/plains-environment-grammar -> origin/feature/plains-environment-grammar
+2026-10-30T03:51:54.9836172Z  * [new branch]      feature/plains-experience-energy -> origin/feature/plains-experience-energy
+2026-10-30T03:51:54.9837371Z  * [new branch]      feature/plains-exploration-expansion -> origin/feature/plains-exploration-expansion
+2026-10-30T03:51:54.9838377Z  * [new branch]      feature/plains-golden-01 -> origin/feature/plains-golden-01
+2026-10-30T03:51:54.9839423Z  * [new branch]      feature/plains-interactive-platforms -> origin/feature/plains-interactive-platforms
+2026-10-30T03:51:54.9840597Z  * [new branch]      feature/plains-joint-challenge -> origin/feature/plains-joint-challenge
+2026-10-30T03:51:54.9842131Z  * [new branch]      feature/plains-joint-place-synthesis -> origin/feature/plains-joint-place-synthesis
+2026-10-30T03:51:54.9843277Z  * [new branch]      feature/plains-landform-first -> origin/feature/plains-landform-first
+2026-10-30T03:51:54.9844542Z  * [new branch]      feature/plains-monster-revision-01 -> origin/feature/plains-monster-revision-01
+2026-10-30T03:51:54.9846020Z  * [new branch]      feature/plains-motion-loot-02 -> origin/feature/plains-motion-loot-02
+2026-10-30T03:51:54.9847048Z  * [new branch]      feature/plains-place-grammar -> origin/feature/plains-place-grammar
+2026-10-30T03:51:54.9848046Z  * [new branch]      feature/plains-polish-home -> origin/feature/plains-polish-home
+2026-10-30T03:51:54.9849198Z  * [new branch]      feature/plains-pressure-boss-redesign -> origin/feature/plains-pressure-boss-redesign
+2026-10-30T03:51:54.9850349Z  * [new branch]      feature/plains-production-v3 -> origin/feature/plains-production-v3
+2026-10-30T03:51:54.9851555Z  * [new branch]      feature/plains-regional-synthesis -> origin/feature/plains-regional-synthesis
+2026-10-30T03:51:54.9852606Z  * [new branch]      feature/plains-room-grammar -> origin/feature/plains-room-grammar
+2026-10-30T03:51:54.9853544Z  * [new branch]      feature/plains-spatial-combat-art -> origin/feature/plains-spatial-combat-art
+2026-10-30T03:51:54.9854366Z  * [new branch]      feature/plains-ten-generated -> origin/feature/plains-ten-generated
+2026-10-30T03:51:54.9855340Z  * [new branch]      feature/plains-two-maps-fog -> origin/feature/plains-two-maps-fog
+2026-10-30T03:51:54.9856323Z  * [new branch]      feature/plains-world-rebuild -> origin/feature/plains-world-rebuild
+2026-10-30T03:51:54.9857210Z  * [new branch]      feature/platforming-module-lab -> origin/feature/platforming-module-lab
+2026-10-30T03:51:54.9857866Z  * [new branch]      feature/playable-demo-loop -> origin/feature/playable-demo-loop
+2026-10-30T03:51:54.9858502Z  * [new branch]      feature/playable-thorn-forest -> origin/feature/playable-thorn-forest
+2026-10-30T03:51:54.9859440Z  * [new branch]      feature/player-presentation-01 -> origin/feature/player-presentation-01
+2026-10-30T03:51:54.9860280Z  * [new branch]      feature/player-presentation-01-motion-candidate -> origin/feature/player-presentation-01-motion-candidate
+2026-10-30T03:51:54.9861426Z  * [new branch]      feature/production-capability-repair -> origin/feature/production-capability-repair
+2026-10-30T03:51:54.9862384Z  * [new branch]      feature/quality-review-and-production-loop -> origin/feature/quality-review-and-production-loop
+2026-10-30T03:51:54.9863472Z  * [new branch]      feature/random-stage-preview -> origin/feature/random-stage-preview
+2026-10-30T03:51:54.9864144Z  * [new branch]      feature/region-bible-v2-forest -> origin/feature/region-bible-v2-forest
+2026-10-30T03:51:54.9864782Z  * [new branch]      feature/run-gear-inventory -> origin/feature/run-gear-inventory
+2026-10-30T03:51:54.9865424Z  * [new branch]      feature/seamless-mixed-modules -> origin/feature/seamless-mixed-modules
+2026-10-30T03:51:54.9866063Z  * [new branch]      feature/snappy-shot-burst -> origin/feature/snappy-shot-burst
+2026-10-30T03:51:54.9866732Z  * [new branch]      feature/spatial-golden-production -> origin/feature/spatial-golden-production
+2026-10-30T03:51:54.9867381Z  * [new branch]      feature/ten-stage-menus -> origin/feature/ten-stage-menus
+2026-10-30T03:51:54.9868008Z  * [new branch]      feature/theme-driven-production -> origin/feature/theme-driven-production
+2026-10-30T03:51:54.9868662Z  * [new branch]      feature/thorn-forest-depth -> origin/feature/thorn-forest-depth
+2026-10-30T03:51:54.9869240Z  * [new branch]      feature/title-home-ui   -> origin/feature/title-home-ui
+2026-10-30T03:51:54.9869956Z  * [new branch]      feature/underworld-combat-world-feedback -> origin/feature/underworld-combat-world-feedback
+2026-10-30T03:51:54.9871473Z  * [new branch]      feature/underworld-plains-production -> origin/feature/underworld-plains-production
+2026-10-30T03:51:54.9872563Z  * [new branch]      feature/visual-director-golden -> origin/feature/visual-director-golden
+2026-10-30T03:51:54.9873668Z  * [new branch]      feature/visual-language-production -> origin/feature/visual-language-production
+2026-10-30T03:51:54.9874867Z  * [new branch]      feature/windchime-five-style-lab -> origin/feature/windchime-five-style-lab
+2026-10-30T03:51:54.9876509Z  * [new branch]      feature/windkeeper-plains-release -> origin/feature/windkeeper-plains-release
+2026-10-30T03:51:54.9877675Z  * [new branch]      fix/action-menu-label-width -> origin/fix/action-menu-label-width
+2026-10-30T03:51:54.9879002Z  * [new branch]      fix/audio-playtest-feedback-20261030 -> origin/fix/audio-playtest-feedback-20261030
+2026-10-30T03:51:54.9880218Z  * [new branch]      fix/ci-verification-efficiency -> origin/fix/ci-verification-efficiency
+2026-10-30T03:51:54.9881623Z  * [new branch]      fix/forest-focus-and-interwoven-routes -> origin/fix/forest-focus-and-interwoven-routes
+2026-10-30T03:51:54.9882760Z  * [new branch]      fix/foundry-mobile-menu -> origin/fix/foundry-mobile-menu
+2026-10-30T03:51:54.9883856Z  * [new branch]      fix/grapple-range-and-moving-target -> origin/fix/grapple-range-and-moving-target
+2026-10-30T03:51:54.9885111Z  * [new branch]      fix/main-playtest-feedback-20261024 -> origin/fix/main-playtest-feedback-20261024
+2026-10-30T03:51:54.9886376Z  * [new branch]      fix/mobile-ui-clarity-20261029 -> origin/fix/mobile-ui-clarity-20261029
+2026-10-30T03:51:54.9887640Z  * [new branch]      fix/mobile-web-performance-20261029 -> origin/fix/mobile-web-performance-20261029
+2026-10-30T03:51:54.9888959Z  * [new branch]      fix/one-way-platform-boundaries -> origin/fix/one-way-platform-boundaries
+2026-10-30T03:51:54.9890260Z  * [new branch]      fix/plains-combat-variety-audio -> origin/fix/plains-combat-variety-audio
+2026-10-30T03:51:54.9891714Z  * [new branch]      fix/plains-experience-polish -> origin/fix/plains-experience-polish
+2026-10-30T03:51:54.9892826Z  * [new branch]      fix/web-loading-resilience -> origin/fix/web-loading-resilience
+2026-10-30T03:51:54.9894227Z  * [new branch]      integration/forest-plains-20261019 -> origin/integration/forest-plains-20261019
+2026-10-30T03:51:54.9895594Z  * [new branch]      integration/four-lines-20261023 -> origin/integration/four-lines-20261023
+2026-10-30T03:51:54.9896845Z  * [new branch]      integration/latest-to-main -> origin/integration/latest-to-main
+2026-10-30T03:51:54.9898139Z  * [new branch]      integration/main-closeout-20261022 -> origin/integration/main-closeout-20261022
+2026-10-30T03:51:54.9899915Z  * [new branch]      integration/main-foundry-refresh-20261019 -> origin/integration/main-foundry-refresh-20261019
+2026-10-30T03:51:54.9901508Z  * [new branch]      main                    -> origin/main
+2026-10-30T03:51:54.9902419Z  * [new branch]      media/plains-motion-loot-02 -> origin/media/plains-motion-loot-02
+2026-10-30T03:51:54.9903623Z  * [new branch]      perf/mobile-web-quality-20261030 -> origin/perf/mobile-web-quality-20261030
+2026-10-30T03:51:54.9904836Z  * [new branch]      playtest/blob47-45c1a10f8767 -> origin/playtest/blob47-45c1a10f8767
+2026-10-30T03:51:54.9906284Z  * [new branch]      playtest/forest-bbf5b24-12ac19e2ec02 -> origin/playtest/forest-bbf5b24-12ac19e2ec02
+2026-10-30T03:51:54.9907315Z  * [new branch]      playtest/forest-places-e361af714d54-20261022 -> origin/playtest/forest-places-e361af714d54-20261022
+2026-10-30T03:51:54.9908297Z  * [new branch]      playtest/forest-v13-91280a1ade48 -> origin/playtest/forest-v13-91280a1ade48
+2026-10-30T03:51:54.9909242Z  * [new branch]      playtest/forest-v16-11eb4046-a443c2ec6642 -> origin/playtest/forest-v16-11eb4046-a443c2ec6642
+2026-10-30T03:51:54.9910150Z  * [new branch]      playtest/grapple-c1562ae6a885 -> origin/playtest/grapple-c1562ae6a885
+2026-10-30T03:51:54.9911415Z  * [new branch]      playtest/main-integration-2985982ee612 -> origin/playtest/main-integration-2985982ee612
+2026-10-30T03:51:54.9912824Z  * [new branch]      playtest/pixel-plains-d2c684ef8fc0 -> origin/playtest/pixel-plains-d2c684ef8fc0
+2026-10-30T03:51:54.9914077Z  * [new branch]      playtest/prepared-feedback-20261024 -> origin/playtest/prepared-feedback-20261024
+2026-10-30T03:51:54.9915587Z  * [new branch]      playtest/prepared-feedback-hud-20261024 -> origin/playtest/prepared-feedback-hud-20261024
+2026-10-30T03:51:54.9917404Z  * [new branch]      playtest/publish-main-cd4989-20261024 -> origin/playtest/publish-main-cd4989-20261024
+2026-10-30T03:51:54.9918541Z  * [new branch]      playtest/source-feedback-hud-20261024 -> origin/playtest/source-feedback-hud-20261024
+2026-10-30T03:51:54.9919621Z  * [new branch]      playtest/underworld-plains-4b01de439c24 -> origin/playtest/underworld-plains-4b01de439c24
+2026-10-30T03:51:54.9920722Z  * [new branch]      playtest/underworld-plains-6b3093b929c0 -> origin/playtest/underworld-plains-6b3093b929c0
+2026-10-30T03:51:54.9922004Z  * [new branch]      playtest/underworld-plains-7915c17348c0 -> origin/playtest/underworld-plains-7915c17348c0
+2026-10-30T03:51:54.9923013Z  * [new branch]      playtest/underworld-r3-74431d31fbfd -> origin/playtest/underworld-r3-74431d31fbfd
+2026-10-30T03:51:54.9923971Z  * [new branch]      playtest/underworld-r3-9529cabc239a -> origin/playtest/underworld-r3-9529cabc239a
+2026-10-30T03:51:54.9924944Z  * [new branch]      playtest/underworld-r3-e0d5ca2bd5b9 -> origin/playtest/underworld-r3-e0d5ca2bd5b9
+2026-10-30T03:51:54.9925990Z  * [new branch]      playtest/windchime-styles-d2d469f81582 -> origin/playtest/windchime-styles-d2d469f81582
+2026-10-30T03:51:54.9927032Z  * [new branch]      prepared/audio-rollout-1b29932c5333 -> origin/prepared/audio-rollout-1b29932c5333
+2026-10-30T03:51:54.9927983Z  * [new branch]      prepared/playtest-main-45e98dbb -> origin/prepared/playtest-main-45e98dbb
+2026-10-30T03:51:54.9928788Z  * [new branch]      prepared/pr111-09a900b2 -> origin/prepared/pr111-09a900b2
+2026-10-30T03:51:54.9929776Z  * [new branch]      review/player-presentation-01-baseline-methods -> origin/review/player-presentation-01-baseline-methods
+2026-10-30T03:51:54.9931920Z [command]/usr/bin/git rev-parse --verify --quiet 20aab6b11a28df109d75431bb8b772cf27916a46^{object}
+2026-10-30T03:51:54.9932623Z 20aab6b11a28df109d75431bb8b772cf27916a46
+2026-10-30T03:51:54.9933508Z ##[endgroup]
+2026-10-30T03:51:54.9933940Z ##[group]Determining the checkout info
+2026-10-30T03:51:54.9934451Z ##[endgroup]
+2026-10-30T03:51:54.9935041Z ##[group]Setting up sparse checkout
+2026-10-30T03:51:54.9935554Z [command]/usr/bin/git config core.sparseCheckout true
+2026-10-30T03:51:54.9936756Z [command]/usr/bin/git rev-parse --git-path info/sparse-checkout
+2026-10-30T03:51:54.9937369Z .git/info/sparse-checkout
+2026-10-30T03:51:54.9938473Z ##[endgroup]
+2026-10-30T03:51:54.9938954Z ##[group]Checking out the ref
+2026-10-30T03:51:54.9939655Z [command]/usr/bin/git checkout --progress --force 20aab6b11a28df109d75431bb8b772cf27916a46
+2026-10-30T03:52:03.3302965Z Updating files:   0% (1/6837)
+2026-10-30T03:52:03.4050211Z Updating files:   1% (69/6837)
+2026-10-30T03:52:03.4147024Z Updating files:   2% (137/6837)
+2026-10-30T03:52:03.4204023Z Updating files:   3% (206/6837)
+2026-10-30T03:52:03.4265315Z Updating files:   4% (274/6837)
+2026-10-30T03:52:03.4324856Z Updating files:   5% (342/6837)
+2026-10-30T03:52:03.4465244Z Updating files:   6% (411/6837)
+2026-10-30T03:52:03.4528585Z Updating files:   7% (479/6837)
+2026-10-30T03:52:03.4573075Z Updating files:   8% (547/6837)
+2026-10-30T03:52:03.4597139Z Updating files:   9% (616/6837)
+2026-10-30T03:52:03.5030880Z Updating files:  10% (684/6837)
+2026-10-30T03:52:03.5364595Z Updating files:  11% (753/6837)
+2026-10-30T03:52:03.5502491Z Updating files:  12% (821/6837)
+2026-10-30T03:52:03.5683759Z Updating files:  13% (889/6837)
+2026-10-30T03:52:03.5701992Z Updating files:  14% (958/6837)
+2026-10-30T03:52:03.6181406Z Updating files:  15% (1026/6837)
+2026-10-30T03:52:03.6915702Z Updating files:  16% (1094/6837)
+2026-10-30T03:52:03.7708520Z Updating files:  17% (1163/6837)
+2026-10-30T03:52:03.8621292Z Updating files:  18% (1231/6837)
+2026-10-30T03:52:03.8784422Z Updating files:  19% (1300/6837)
+2026-10-30T03:52:03.8838988Z Updating files:  20% (1368/6837)
+2026-10-30T03:52:03.8955521Z Updating files:  21% (1436/6837)
+2026-10-30T03:52:03.9136103Z Updating files:  22% (1505/6837)
+2026-10-30T03:52:03.9508691Z Updating files:  23% (1573/6837)
+2026-10-30T03:52:04.0344460Z Updating files:  24% (1641/6837)
+2026-10-30T03:52:04.0438734Z Updating files:  24% (1691/6837)
+2026-10-30T03:52:04.0925801Z Updating files:  25% (1710/6837)
+2026-10-30T03:52:04.1371544Z Updating files:  26% (1778/6837)
+2026-10-30T03:52:04.1932131Z Updating files:  27% (1846/6837)
+2026-10-30T03:52:04.2339885Z Updating files:  28% (1915/6837)
+2026-10-30T03:52:04.2718873Z Updating files:  29% (1983/6837)
+2026-10-30T03:52:04.2904577Z Updating files:  30% (2052/6837)
+2026-10-30T03:52:04.3820565Z Updating files:  31% (2120/6837)
+2026-10-30T03:52:04.4917053Z Updating files:  32% (2188/6837)
+2026-10-30T03:52:04.5521766Z Updating files:  33% (2257/6837)
+2026-10-30T03:52:04.6287214Z Updating files:  34% (2325/6837)
+2026-10-30T03:52:04.6450597Z Updating files:  35% (2393/6837)
+2026-10-30T03:52:04.6491709Z Updating files:  36% (2462/6837)
+2026-10-30T03:52:04.6528764Z Updating files:  37% (2530/6837)
+2026-10-30T03:52:04.6573817Z Updating files:  38% (2599/6837)
+2026-10-30T03:52:04.6646071Z Updating files:  39% (2667/6837)
+2026-10-30T03:52:04.6692532Z Updating files:  40% (2735/6837)
+2026-10-30T03:52:04.6734474Z Updating files:  41% (2804/6837)
+2026-10-30T03:52:04.6753886Z Updating files:  42% (2872/6837)
+2026-10-30T03:52:04.6770507Z Updating files:  43% (2940/6837)
+2026-10-30T03:52:04.6786815Z Updating files:  44% (3009/6837)
+2026-10-30T03:52:04.6802652Z Updating files:  45% (3077/6837)
+2026-10-30T03:52:04.6823900Z Updating files:  46% (3146/6837)
+2026-10-30T03:52:04.6845139Z Updating files:  47% (3214/6837)
+2026-10-30T03:52:04.6865088Z Updating files:  48% (3282/6837)
+2026-10-30T03:52:04.6884083Z Updating files:  49% (3351/6837)
+2026-10-30T03:52:04.6904817Z Updating files:  50% (3419/6837)
+2026-10-30T03:52:04.6939982Z Updating files:  51% (3487/6837)
+2026-10-30T03:52:04.7004306Z Updating files:  52% (3556/6837)
+2026-10-30T03:52:04.7061889Z Updating files:  53% (3624/6837)
+2026-10-30T03:52:04.7106356Z Updating files:  54% (3692/6837)
+2026-10-30T03:52:04.7185005Z Updating files:  55% (3761/6837)
+2026-10-30T03:52:04.7226047Z Updating files:  56% (3829/6837)
+2026-10-30T03:52:04.8970474Z Updating files:  57% (3898/6837)
+2026-10-30T03:52:04.9007594Z Updating files:  58% (3966/6837)
+2026-10-30T03:52:04.9153253Z Updating files:  59% (4034/6837)
+2026-10-30T03:52:04.9222172Z Updating files:  60% (4103/6837)
+2026-10-30T03:52:04.9238781Z Updating files:  61% (4171/6837)
+2026-10-30T03:52:04.9256581Z Updating files:  62% (4239/6837)
+2026-10-30T03:52:04.9271714Z Updating files:  63% (4308/6837)
+2026-10-30T03:52:04.9287554Z Updating files:  64% (4376/6837)
+2026-10-30T03:52:04.9310531Z Updating files:  65% (4445/6837)
+2026-10-30T03:52:04.9332232Z Updating files:  66% (4513/6837)
+2026-10-30T03:52:04.9351329Z Updating files:  67% (4581/6837)
+2026-10-30T03:52:04.9371311Z Updating files:  68% (4650/6837)
+2026-10-30T03:52:04.9394646Z Updating files:  69% (4718/6837)
+2026-10-30T03:52:04.9417733Z Updating files:  70% (4786/6837)
+2026-10-30T03:52:04.9435493Z Updating files:  71% (4855/6837)
+2026-10-30T03:52:04.9463187Z Updating files:  72% (4923/6837)
+2026-10-30T03:52:04.9490357Z Updating files:  73% (4992/6837)
+2026-10-30T03:52:04.9516354Z Updating files:  74% (5060/6837)
+2026-10-30T03:52:04.9536757Z Updating files:  75% (5128/6837)
+2026-10-30T03:52:04.9553873Z Updating files:  76% (5197/6837)
+2026-10-30T03:52:04.9574881Z Updating files:  77% (5265/6837)
+2026-10-30T03:52:04.9595307Z Updating files:  78% (5333/6837)
+2026-10-30T03:52:04.9611723Z Updating files:  79% (5402/6837)
+2026-10-30T03:52:04.9634933Z Updating files:  80% (5470/6837)
+2026-10-30T03:52:04.9661639Z Updating files:  81% (5538/6837)
+2026-10-30T03:52:04.9711069Z Updating files:  82% (5607/6837)
+2026-10-30T03:52:04.9742670Z Updating files:  83% (5675/6837)
+2026-10-30T03:52:04.9768025Z Updating files:  84% (5744/6837)
+2026-10-30T03:52:04.9791068Z Updating files:  85% (5812/6837)
+2026-10-30T03:52:04.9822899Z Updating files:  86% (5880/6837)
+2026-10-30T03:52:04.9847379Z Updating files:  87% (5949/6837)
+2026-10-30T03:52:04.9873106Z Updating files:  88% (6017/6837)
+2026-10-30T03:52:04.9898464Z Updating files:  89% (6085/6837)
+2026-10-30T03:52:04.9923587Z Updating files:  90% (6154/6837)
+2026-10-30T03:52:04.9959832Z Updating files:  91% (6222/6837)
+2026-10-30T03:52:04.9995177Z Updating files:  92% (6291/6837)
+2026-10-30T03:52:05.0026161Z Updating files:  93% (6359/6837)
+2026-10-30T03:52:05.0055310Z Updating files:  94% (6427/6837)
+2026-10-30T03:52:05.0089830Z Updating files:  95% (6496/6837)
+2026-10-30T03:52:05.0121488Z Updating files:  96% (6564/6837)
+2026-10-30T03:52:05.0163586Z Updating files:  97% (6632/6837)
+2026-10-30T03:52:05.0199113Z Updating files:  98% (6701/6837)
+2026-10-30T03:52:05.0237991Z Updating files:  99% (6769/6837)
+2026-10-30T03:52:05.0238267Z Updating files: 100% (6837/6837)
+2026-10-30T03:52:05.0238482Z Updating files: 100% (6837/6837), done.
+2026-10-30T03:52:05.0426707Z Note: switching to '20aab6b11a28df109d75431bb8b772cf27916a46'.
+2026-10-30T03:52:05.0427295Z 
+2026-10-30T03:52:05.0427411Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-30T03:52:05.0448882Z changes and commit them, and you can discard any commits you make in this
+2026-10-30T03:52:05.0449300Z state without impacting any branches by switching back to a branch.
+2026-10-30T03:52:05.0449524Z 
+2026-10-30T03:52:05.0449669Z If you want to create a new branch to retain commits you create, you may
+2026-10-30T03:52:05.0450029Z do so (now or later) by using -c with the switch command. Example:
+2026-10-30T03:52:05.0450237Z 
+2026-10-30T03:52:05.0450324Z   git switch -c <new-branch-name>
+2026-10-30T03:52:05.0450472Z 
+2026-10-30T03:52:05.0450559Z Or undo this operation with:
+2026-10-30T03:52:05.0450683Z 
+2026-10-30T03:52:05.0450758Z   git switch -
+2026-10-30T03:52:05.0450852Z 
+2026-10-30T03:52:05.0451156Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-30T03:52:05.0451396Z 
+2026-10-30T03:52:05.0451609Z HEAD is now at 20aab6b1 docs(audio): bind current acceptance to the exact reviewed implementation
+2026-10-30T03:52:05.0524474Z ##[endgroup]
+2026-10-30T03:52:05.0567980Z [command]/usr/bin/git log -1 --format=%H
+2026-10-30T03:52:05.0588252Z 20aab6b11a28df109d75431bb8b772cf27916a46
+2026-10-30T03:52:05.0595502Z ##[group]Removing auth
+2026-10-30T03:52:05.0598013Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-30T03:52:05.0621309Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-30T03:52:05.0867247Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-30T03:52:05.0885918Z http.https://github.com/.extraheader
+2026-10-30T03:52:05.0892453Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-30T03:52:05.0918561Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-30T03:52:05.1153695Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-30T03:52:05.1177966Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-30T03:52:05.1418853Z ##[endgroup]
+2026-10-30T03:52:05.1595457Z ##[group]Run actions/setup-python@v5
+2026-10-30T03:52:05.1595618Z with:
+2026-10-30T03:52:05.1595736Z   python-version: 3.12
+2026-10-30T03:52:05.1595856Z   cache: pip
+2026-10-30T03:52:05.1595998Z   cache-dependency-path: tools/requirements_art.txt
+2026-10-30T03:52:05.1596173Z   check-latest: false
+2026-10-30T03:52:05.1597478Z   token: ***
+2026-10-30T03:52:05.1597598Z   update-environment: true
+2026-10-30T03:52:05.1597735Z   allow-prereleases: false
+2026-10-30T03:52:05.1597860Z   freethreaded: false
+2026-10-30T03:52:05.1597978Z env:
+2026-10-30T03:52:05.1598091Z   PRODUCTION_STAGE: integration
+2026-10-30T03:52:05.1598264Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:52:05.1598583Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:52:05.1598705Z ##[endgroup]
+2026-10-30T03:52:05.2465893Z ##[group]Installed versions
+2026-10-30T03:52:05.2543784Z (node:2259) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-30T03:52:05.2544233Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-30T03:52:05.2558970Z Successfully set up CPython (3.12.15)
+2026-10-30T03:52:05.2559256Z ##[endgroup]
+2026-10-30T03:52:05.2832895Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+2026-10-30T03:52:05.5300100Z /home/runner/.cache/pip
+2026-10-30T03:52:05.6970682Z pip cache is not found
+2026-10-30T03:52:05.7125433Z ##[group]Run actions/setup-node@v4
+2026-10-30T03:52:05.7125601Z with:
+2026-10-30T03:52:05.7125722Z   node-version: 22
+2026-10-30T03:52:05.7125846Z   always-auth: false
+2026-10-30T03:52:05.7125984Z   check-latest: false
+2026-10-30T03:52:05.7127355Z   token: ***
+2026-10-30T03:52:05.7127486Z env:
+2026-10-30T03:52:05.7127609Z   PRODUCTION_STAGE: integration
+2026-10-30T03:52:05.7127793Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:52:05.7127987Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:52:05.7128161Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:05.7128416Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-30T03:52:05.7128660Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:05.7128877Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:05.7129097Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:05.7129343Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-30T03:52:05.7129556Z ##[endgroup]
+2026-10-30T03:52:05.8111829Z (node:2289) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-30T03:52:05.8112236Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-30T03:52:05.8113128Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+2026-10-30T03:52:05.8113607Z ##[group]Environment details
+2026-10-30T03:52:06.1639608Z node: v22.23.4
+2026-10-30T03:52:06.1639883Z npm: 10.9.9
+2026-10-30T03:52:06.1640073Z yarn: 1.22.22
+2026-10-30T03:52:06.1640660Z ##[endgroup]
+2026-10-30T03:52:06.1758990Z ##[group]Run echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+2026-10-30T03:52:06.1759352Z [36;1mecho "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"[0m
+2026-10-30T03:52:06.1793768Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-30T03:52:06.1793963Z env:
+2026-10-30T03:52:06.1794087Z   PRODUCTION_STAGE: integration
+2026-10-30T03:52:06.1794258Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:52:06.1794433Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:52:06.1794600Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1794841Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-30T03:52:06.1795064Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1795269Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1795472Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1795710Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-30T03:52:06.1795890Z ##[endgroup]
+2026-10-30T03:52:06.1884273Z ##[group]Run mkdir -p build/verification/production-ci
+2026-10-30T03:52:06.1884523Z [36;1mmkdir -p build/verification/production-ci[0m
+2026-10-30T03:52:06.1884809Z [36;1mpython3 tests/test_production_plan.py 2>&1 | tee build/verification/production-ci/selector-tests.log[0m
+2026-10-30T03:52:06.1909546Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-30T03:52:06.1909733Z env:
+2026-10-30T03:52:06.1909856Z   PRODUCTION_STAGE: integration
+2026-10-30T03:52:06.1910158Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:52:06.1910335Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:52:06.1910496Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1910721Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-30T03:52:06.1911113Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1911318Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1911563Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.1911770Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-30T03:52:06.1911990Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-30T03:52:06.1912176Z ##[endgroup]
+2026-10-30T03:52:06.3963477Z test_actual_nonzero_process_stops_later_commands (__main__.ProductionPlanTests.test_actual_nonzero_process_stops_later_commands) ... ok
+2026-10-30T03:52:06.4157025Z test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full (__main__.ProductionPlanTests.test_actual_precheck_is_portable_and_does_not_execute_engine_or_claim_full) ... ok
+2026-10-30T03:52:06.4158302Z test_deleted_or_renamed_old_path_remains_a_real_impact (__main__.ProductionPlanTests.test_deleted_or_renamed_old_path_remains_a_real_impact) ... ok
+2026-10-30T03:52:06.4161704Z test_dependency_cycle_and_missing_consumer_fail_before_execution (__main__.ProductionPlanTests.test_dependency_cycle_and_missing_consumer_fail_before_execution) ... ok
+2026-10-30T03:52:06.4163695Z test_docs_do_not_export_or_claim_test_execution (__main__.ProductionPlanTests.test_docs_do_not_export_or_claim_test_execution) ... ok
+2026-10-30T03:52:06.4167394Z test_early_boundary_is_only_selected_with_its_real_parent (__main__.ProductionPlanTests.test_early_boundary_is_only_selected_with_its_real_parent) ... ok
+2026-10-30T03:52:06.4171234Z test_formal_enemy_mapping_does_not_admit_unreviewed_components (__main__.ProductionPlanTests.test_formal_enemy_mapping_does_not_admit_unreviewed_components) ... ok
+2026-10-30T03:52:06.4175225Z test_formal_player_body_retains_style_binding_and_full_integration (__main__.ProductionPlanTests.test_formal_player_body_retains_style_binding_and_full_integration) ... ok
+2026-10-30T03:52:06.4176761Z test_new_harness_check_or_policy_typo_is_not_silently_skipped (__main__.ProductionPlanTests.test_new_harness_check_or_policy_typo_is_not_silently_skipped) ... ok
+2026-10-30T03:52:06.4178720Z test_overlapping_changes_run_each_check_once (__main__.ProductionPlanTests.test_overlapping_changes_run_each_check_once) ... ok
+2026-10-30T03:52:06.4182829Z test_paths_cannot_escape_worktree (__main__.ProductionPlanTests.test_paths_cannot_escape_worktree) ... ok
+2026-10-30T03:52:06.4190473Z test_physical_lanes_require_the_exact_original_full_set (__main__.ProductionPlanTests.test_physical_lanes_require_the_exact_original_full_set) ... FAIL
+2026-10-30T03:52:06.4201222Z test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes (__main__.ProductionPlanTests.test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes) ... ok
+2026-10-30T03:52:06.4203024Z test_planner_policy_requires_own_regression_without_weakening_config_fallback (__main__.ProductionPlanTests.test_planner_policy_requires_own_regression_without_weakening_config_fallback) ... ok
+2026-10-30T03:52:06.4291374Z test_precheck_failure_stops_actual_planned_harness_execution (__main__.ProductionPlanTests.test_precheck_failure_stops_actual_planned_harness_execution) ... ok
+2026-10-30T03:52:06.4467313Z test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt (__main__.ProductionPlanTests.test_precheck_source_mutation_fails_guard_and_preserves_failure_receipt) ... ok
+2026-10-30T03:52:06.4468679Z test_release_names_original_delivery_and_does_not_certify_full_profile (__main__.ProductionPlanTests.test_release_names_original_delivery_and_does_not_certify_full_profile) ... ok
+2026-10-30T03:52:06.4478544Z test_same_extension_does_not_grant_unknown_source_narrow_scope (__main__.ProductionPlanTests.test_same_extension_does_not_grant_unknown_source_narrow_scope) ... ok
+2026-10-30T03:52:06.4479639Z test_shared_player_has_short_feedback_then_full_integration (__main__.ProductionPlanTests.test_shared_player_has_short_feedback_then_full_integration) ... ok
+2026-10-30T03:52:06.4634395Z test_source_guard_rejects_actual_source_mutation (__main__.ProductionPlanTests.test_source_guard_rejects_actual_source_mutation) ... ok
+2026-10-30T03:52:06.4637163Z test_web_dependency_closure_exports_only_at_integration (__main__.ProductionPlanTests.test_web_dependency_closure_exports_only_at_integration) ... ok
+2026-10-30T03:52:06.4637658Z 
+2026-10-30T03:52:06.4637855Z ======================================================================
+2026-10-30T03:52:06.4638550Z FAIL: test_physical_lanes_require_the_exact_original_full_set (__main__.ProductionPlanTests.test_physical_lanes_require_the_exact_original_full_set)
+2026-10-30T03:52:06.4639304Z ----------------------------------------------------------------------
+2026-10-30T03:52:06.4639700Z Traceback (most recent call last):
+2026-10-30T03:52:06.4640327Z   File "/home/runner/work/gunman-rush/gunman-rush/tests/test_production_plan.py", line 198, in test_physical_lanes_require_the_exact_original_full_set
+2026-10-30T03:52:06.4641252Z     self.assertEqual(self.manifest["profiles"]["full"][144:], additions)
+2026-10-30T03:52:06.4642076Z AssertionError: Lists differ: ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex', 'audio-feedback'] != ['ite[363 chars]uthoring-tools', 'item-v5-art', 'home-codex']
+2026-10-30T03:52:06.4642570Z 
+2026-10-30T03:52:06.4642728Z First list contains 1 additional elements.
+2026-10-30T03:52:06.4642982Z First extra element 21:
+2026-10-30T03:52:06.4643169Z 'audio-feedback'
+2026-10-30T03:52:06.4643280Z 
+2026-10-30T03:52:06.4643352Z   ['item-v5-data',
+2026-10-30T03:52:06.4643537Z    'item-v5-catalog',
+2026-10-30T03:52:06.4643719Z    'item-v5-pool',
+2026-10-30T03:52:06.4643898Z    'item-v5-inventory',
+2026-10-30T03:52:06.4644089Z    'item-v5-combat',
+2026-10-30T03:52:06.4644278Z    'item-v5-actives',
+2026-10-30T03:52:06.4644458Z    'item-v5-economy',
+2026-10-30T03:52:06.4644646Z    'item-v5-defense',
+2026-10-30T03:52:06.4644828Z    'item-v5-ui',
+2026-10-30T03:52:06.4644999Z    'item-v5-formal',
+2026-10-30T03:52:06.4645169Z    'item-v5-review',
+2026-10-30T03:52:06.4645347Z    'item-v5-boss-time',
+2026-10-30T03:52:06.4645552Z    'item-v5-core-effects',
+2026-10-30T03:52:06.4645771Z    'item-v5-synergy-economy',
+2026-10-30T03:52:06.4645993Z    'item-v5-pause-escape',
+2026-10-30T03:52:06.4646201Z    'item-v5-random-context',
+2026-10-30T03:52:06.4646406Z    'item-v5-manifest',
+2026-10-30T03:52:06.4646588Z    'item-v5-authoring',
+2026-10-30T03:52:06.4646784Z    'item-authoring-tools',
+2026-10-30T03:52:06.4646984Z    'item-v5-art',
+2026-10-30T03:52:06.4647150Z -  'home-codex',
+2026-10-30T03:52:06.4647315Z ?              ^
+2026-10-30T03:52:06.4647406Z 
+2026-10-30T03:52:06.4647482Z +  'home-codex']
+2026-10-30T03:52:06.4647641Z ?              ^
+2026-10-30T03:52:06.4647742Z 
+2026-10-30T03:52:06.4647825Z -  'audio-feedback']
+2026-10-30T03:52:06.4647933Z 
+2026-10-30T03:52:06.4648131Z ----------------------------------------------------------------------
+2026-10-30T03:52:06.4648419Z Ran 21 tests in 0.078s
+2026-10-30T03:52:06.4648528Z 
+2026-10-30T03:52:06.4648618Z FAILED (failures=1)
+2026-10-30T03:52:06.4802281Z ##[error]Process completed with exit code 1.
+2026-10-30T03:52:06.4906967Z ##[group]Run actions/upload-artifact@v4
+2026-10-30T03:52:06.4907132Z with:
+2026-10-30T03:52:06.4907253Z   name: production-impact-40999709664-1
+2026-10-30T03:52:06.4907706Z   path: build/verification/production-ci/
+build/verification/harness/
+build/verification/environment/
+build/verification/release-evidence/
+/home/runner/work/_temp/gunman-toolchains/downloads/*.attempts.jsonl
+
+2026-10-30T03:52:06.4908146Z   if-no-files-found: error
+2026-10-30T03:52:06.4908277Z   retention-days: 14
+2026-10-30T03:52:06.4908397Z   compression-level: 6
+2026-10-30T03:52:06.4908514Z   overwrite: false
+2026-10-30T03:52:06.4908763Z   include-hidden-files: false
+2026-10-30T03:52:06.4908892Z env:
+2026-10-30T03:52:06.4909004Z   PRODUCTION_STAGE: integration
+2026-10-30T03:52:06.4909168Z   PRODUCTION_BASE: 5f55716a838a754a938997920ff18cb3b17452b5
+2026-10-30T03:52:06.4909346Z   LIBGL_ALWAYS_SOFTWARE: 1
+2026-10-30T03:52:06.4909503Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.4909759Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-30T03:52:06.4909983Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.4910182Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.4910381Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-30T03:52:06.4910582Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-30T03:52:06.4910807Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+2026-10-30T03:52:06.4911201Z ##[endgroup]
+2026-10-30T03:52:06.5999954Z (node:2333) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-30T03:52:06.6000429Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-30T03:52:06.6047727Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-30T03:52:06.6054119Z The least common ancestor is /home/runner/work. This will be the root directory of the artifact
+2026-10-30T03:52:06.6054737Z With the provided path, there will be 1 file uploaded
+2026-10-30T03:52:06.6055245Z Artifact name is valid!
+2026-10-30T03:52:06.6055507Z Root directory input is valid!
+2026-10-30T03:52:06.9047041Z Beginning upload of artifact content to blob storage
+2026-10-30T03:52:06.9159329Z (node:2333) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-30T03:52:07.0576821Z Uploaded bytes 1457
+2026-10-30T03:52:07.1277085Z Finished uploading artifact content to blob storage!
+2026-10-30T03:52:07.1277937Z SHA256 digest of uploaded artifact zip is a887acd7fa89c5a684ccfde750e8912607802714c7104497973a26c860f3b014
+2026-10-30T03:52:07.1278510Z Finalizing artifact upload
+2026-10-30T03:52:07.5618270Z Artifact production-impact-40999709664-1.zip successfully finalized. Artifact ID 12952931869
+2026-10-30T03:52:07.5619228Z Artifact production-impact-40999709664-1 has been successfully uploaded! Final size is 1457 bytes. Artifact ID is 12952931869
+2026-10-30T03:52:07.5623540Z Artifact download URL: https://github.com/zhipijun1996/gunman-rush/actions/runs/40999709664/artifacts/12952931869
+2026-10-30T03:52:07.5782637Z Post job cleanup.
+2026-10-30T03:52:07.6350157Z [command]/usr/bin/git version
+2026-10-30T03:52:07.6386592Z git version 2.56.0
+2026-10-30T03:52:07.6411506Z Temporarily overriding HOME='/home/runner/work/_temp/c224ff57-15f2-4551-beff-2fe646e3f9cf' before making global git config changes
+2026-10-30T03:52:07.6412343Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-30T03:52:07.6414954Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/gunman-rush/gunman-rush
+2026-10-30T03:52:07.6453617Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-30T03:52:07.6486756Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-30T03:52:07.6780257Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-30T03:52:07.6816165Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-30T03:52:07.7099636Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-30T03:52:07.7132413Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-30T03:52:07.7558168Z Evaluate and set job outputs
+2026-10-30T03:52:07.7565181Z Cleaning up orphan processes
+2026-10-30T03:52:07.7885830Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
