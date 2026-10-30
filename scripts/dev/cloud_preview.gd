@@ -59,7 +59,9 @@ func open_test_scene() -> void:
 	remove_child(app)
 	app.queue_free()
 	app = null
-	custom_audio = GameAudio.new()
+	# Same single twelve-voice service as the formal game. Standalone scenes
+	# using PlayerPresentationRuntime also need its motion/weapon audio API.
+	custom_audio = PlayerWeaponFeelAudioV2.new()
 	add_child(custom_audio)
 	custom_scene = packed.instantiate()
 	if custom_scene is DemoApp:

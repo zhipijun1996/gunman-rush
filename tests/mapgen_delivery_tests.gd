@@ -49,6 +49,7 @@ func _run() -> void:
 	player.jump_ability.jumped.connect(func() -> void: _jumps += 1)
 	await _frames(4)
 	if suite in ["all", "inventory"]: _inventory()
+	if suite in ["all", "presentation"]: await _presentation()
 	if suite in ["all", "controls"]: await _controls()
 	if suite in ["all", "spawn"]: await _spawn()
 	if suite in ["all", "seams"]: await _seams()
@@ -56,6 +57,7 @@ func _run() -> void:
 	if suite in ["all", "mechanisms"]: await _mechanisms()
 	if suite in ["all", "rewards"]: await _rewards()
 	if suite in ["all", "boss"]: await _boss()
+	if suite in ["all", "preview"]: await _preview()
 	await _finish()
 
 func _record(id: String, passed: bool, kind: String, evidence: Dictionary = {}) -> void:
@@ -118,6 +120,76 @@ func _inventory() -> void:
 		_record("inventory/unique_terrain/" + spec.id, unique, "static_runtime_inventory", {"instance":spec.id,"module":spec.module_id,"platforms":content.platforms.size()})
 	_record("inventory/preserved_contents", enemy_count == 18 and reward_count == 11 and seal_count == 40, "static_runtime_inventory", {"enemy_records":enemy_count,"reward_sites":reward_count,"seals":seal_count})
 	_record("inventory/shared_player_identity", shared and identities.size() == 46, "static_runtime_inventory", {"stable_instance_keys":identities.keys(),"player_id":motor.get_instance_id()})
+
+func _presentation() -> void:
+	var presentation: Node2D = world.plains_presentation
+	var body := PlayerPresentationRuntime.current_body(motor)
+	var collision := motor.get_node("CollisionShape2D") as CollisionShape2D
+	_record("presentation/player", body is PlayerMotionCandidateVisual and not motor.get_node("CourierVisual").visible and not motor.get_node("PlayerFeedback").visible and motor.get_node("PlayerVisualAdapter").process_mode == Node.PROCESS_MODE_DISABLED and collision.shape.size == Vector2(24, 36), "runtime_presentation_binding", {"body":str(body.get_script().resource_path),"native_collision_size":str(collision.shape.size),"player_tuning_sha256":FileAccess.get_sha256("res://config/player_tuning.json"),"player_id":motor.get_instance_id()})
+	_record("presentation/terrain", presentation.art is UnderworldTerrain and presentation.authored_solids == presentation.collect_solids() and presentation.art.get_child_count() > 0 and presentation.art.find_children("*", "CollisionObject2D", true, false).is_empty(), "runtime_presentation_binding", {"source":UnderworldTerrain.BUILD_PATH,"solids":presentation.authored_solids.size(),"visual_pieces":presentation.art.get_child_count(),"collision_bodies_added":presentation.art.find_children("*", "CollisionObject2D", true, false).size()})
+	_record("presentation/background", presentation.parallax is UnderworldParallax and presentation.parallax.layer_textures.size() == 3, "runtime_presentation_binding", {"planes":presentation.parallax.measured_nodes()})
+	var fine: UnderworldPresentation = presentation.fine
+	_record("presentation/light_and_scenery", fine != null and presentation.scenery is UnderworldScenery and fine.foreground is UnderworldForeground and motor.get_node_or_null("MotionFeel") != null and motor.get_node_or_null("WeaponFeel") != null, "runtime_presentation_binding", {"style":fine.receipt().style,"scenery_props":presentation.scenery.placements.size(),"game_audio_services":get_nodes_in_group(&"game_audio").size()})
+	var species: Dictionary = {}
+	var revised := 0
+	for spec: Dictionary in map_data.instances:
+		var instance := _instance(spec.id)
+		_record("presentation/module/"+spec.id, instance.module.terrain_candidate_preview and UnderworldActors.enabled(instance), "runtime_presentation_binding", {"instance":spec.id,"legacy_ground_suppressed":instance.module.terrain_candidate_preview})
+		var actual: Array[String] = []
+		var expected: Array[String] = []
+		for raw: Dictionary in instance.content.enemies: expected.append(str(raw.definition))
+		for child: Node in instance.get_children():
+			if not child is EnemyMotor: continue
+			var actor := child.get_node("Actor") as EnemyActor
+			var renderer := child.get_node("Presentation") as UnderworldEnemy
+			var id := str(actor.definition.stable_id)
+			actual.append(id)
+			species[id] = species.get(id, 0) + 1
+			var binding := EnemyPresentationBinding.view(renderer)
+			var current: bool = renderer != null and binding.get("profile") == &"underworld" and binding.get("actor_id") == actor.get_instance_id() and binding.get("species") == actor.definition.stable_id
+			if PlainsRevisionSkin.supports(actor.definition):
+				current = current and renderer.revision_visual is PlainsRevisionVisual and renderer.revision_visual.rig.texture == PlainsRevisionSkin.TEXTURES[actor.definition.behavior_id]
+				revised += 1
+			else: current = current and renderer.feedback_body is EnemyFeedback01Body
+			_record("presentation/enemy/"+spec.id+"/"+str(actual.size()-1), current, "runtime_presentation_binding", {"instance":spec.id,"species":id,"actor_id":actor.get_instance_id(),"profile":binding.get("profile"),"renderer":binding.get("renderer"),"body_texture":renderer.revision_visual.rig.texture.resource_path if renderer.revision_visual != null else "accepted EnemyFeedback01 aerial body","collision_size":str(actor.definition.collision_size)})
+		actual.sort(); expected.sort()
+		_record("presentation/species/"+spec.id, actual == expected, "static_runtime_inventory", {"actual":actual,"delivered":expected})
+	_record("presentation/enemy_totals", species == {"plains_diver":13,"plains_sentry":4,"plains_charger":1} and revised == 5, "runtime_presentation_binding", {"species":species,"latest_revision_bodies":revised,"rerolled":false})
+	var before := fine._clock
+	world._toggle_pause()
+	await _frames(4)
+	_record("presentation/pause", is_equal_approx(before, fine._clock), "runtime_presentation_lifecycle", {"clock_before":before,"clock_paused":fine._clock})
+	world._toggle_pause()
+
+func _preview() -> void:
+	# Exercise the real isolated-preview host, whose former base GameAudio
+	# could not satisfy the formal player's weapon/motion presentation API.
+	await TEARDOWN.drain_world(world)
+	world.queue_free(); await process_frame; await process_frame
+	var preview := CloudPreviewBootstrap.new()
+	preview.entry = "scene"
+	preview.entry_scene = SCENE
+	preview.review_seed = "930001"
+	root.add_child(preview)
+	for frame: int in 120:
+		await _frames(1)
+		if is_instance_valid(preview.custom_scene) and preview.custom_scene.get("loaded") == true: break
+	world = preview.custom_scene
+	player = world.player
+	motor = world.motor
+	var services := get_nodes_in_group(&"game_audio")
+	_record("presentation/preview_single_audio", services.size() == 1 and services[0] == preview.custom_audio and services[0] is PlayerWeaponFeelAudioV2 and motor.get_node_or_null("MotionFeel") != null and motor.get_node_or_null("WeaponFeel") != null and motor.get_node("MotionFeel").audio == preview.custom_audio and motor.get_node("WeaponFeel").audio == preview.custom_audio, "actual_preview_host_runtime", {"audio_services":services.size(),"voice_cap":GameAudio.MAX_VOICES,"actual_service":preview.custom_audio.get_script().resource_path,"same_actor":PlayerPresentationRuntime.current_body(motor).motor == motor,"session_only":preview.app == null})
+	_record("presentation/preview_native_chest_protected", world.plains_presentation.scenery.protected_regions.has(Rect2(_instance("M29").to_global(Vector2(208,46)) - Vector2(120,85), Vector2(240,120))), "runtime_presentation_binding", {"instance":"M29","source":"original_region_chests/source_cache","decor_collision":false})
+	var chest_sprite := world.plains_presentation.get_node("NativeChest_M29_0") as Sprite2D
+	_record("presentation/preview_native_chest_art", chest_sprite.get_meta("chest_art_managed", false) and chest_sprite.get_meta("chest_art_tier") == &"medium" and not chest_sprite.get_meta("underworld_chest_open") and not _instance("M29").original_region_chests.stage.visible, "runtime_presentation_binding", {"instance":"M29","tier":chest_sprite.get_meta("chest_art_tier"),"placeholder_hidden":not _instance("M29").original_region_chests.stage.visible,"native_claim_position":str(_instance("M29").original_region_chests.stage.chests[0].position)})
+	var old_audio: WeakRef = weakref(preview.custom_audio)
+	preview.return_to_menu()
+	await _frames(4)
+	_record("presentation/preview_return_menu", old_audio.get_ref() == null and is_instance_valid(preview.app) and not preview.app.meta_persistence_enabled and get_nodes_in_group(&"game_audio").size() == 1 and not paused, "actual_preview_host_runtime", {"old_service_released":old_audio.get_ref() == null,"audio_services":get_nodes_in_group(&"game_audio").size(),"session_only":not preview.app.meta_persistence_enabled})
+	var clean := await TEARDOWN.drain_world(preview)
+	_record("presentation/preview_audio_teardown", clean, "lifecycle")
+	_record("host/audio_teardown", clean, "lifecycle", {"owner":"actual CloudPreviewBootstrap including shared audio"})
+	preview.queue_free(); await process_frame; await process_frame
 
 func _spawn() -> void:
 	# A prior real-input control probe may have fired. Wait out the native
@@ -617,6 +689,8 @@ func _native_region_chest(kind: String) -> void:
 	var state: Dictionary = consumer.call("snapshot")
 	var claimed: bool = state.chests[0].claimed
 	_record("reward/M29/native_OR_claim/"+kind, modal_open and claimed and int(world.wallet.balance)==before_coins+expected_coin and int(world.meta.snapshot().notes)==before_notes+expected_note and not consumer.app.reward_modal.opened and not paused, "native_region_transaction", {"instance":"M29","module":_spec("M29").module_id,"selected":kind,"coin_delta":int(world.wallet.balance)-before_coins,"note_delta":int(world.meta.snapshot().notes)-before_notes,"claimed":claimed,"modal_open":consumer.app.reward_modal.opened,"tree_paused":paused,"consumer":"DemoApp._claim_region_chest","choice_api":"request_native_region_choice; capture","mouse_choice_test":false,"snapshot":state})
+	var chest_sprite := world.plains_presentation.get_node("NativeChest_M29_0") as Sprite2D
+	_record("presentation/native_chest_open/"+kind, claimed and chest_sprite.get_meta("chest_art_managed", false) and chest_sprite.get_meta("underworld_chest_open", false) and chest_sprite.get_meta("chest_art_tier") == &"medium", "native_region_transaction_presentation", {"claimed":claimed,"actual_open_pose":chest_sprite.get_meta("underworld_chest_open", false),"tier":chest_sprite.get_meta("chest_art_tier"),"choice":kind})
 	var after_coins := int(world.wallet.balance)
 	var after_notes := int(world.meta.snapshot().notes)
 	instance.call("request_native_region_choice",kind)
@@ -670,6 +744,15 @@ func _boss() -> void:
 	player.router.clear("mapgen_boss_pilot_end")
 	_record("boss/native_projectile_damage", encounter.health.current<health_before and _shots>shots_before, "scoped_native_player_combat", {"boss_health_before":health_before,"boss_health_after":encounter.health.current,"accepted_shots":_shots-shots_before,"player_health_before":player_health_before,"player_health_after":player.actor_resources.health.current,"phases_observed":observed_phases.keys(),"fixture_placement":"arrival only; no position assignments or grants during combat"})
 	_record("boss/native_battle_victory", bool(binding.get("completed")) and encounter.health.terminal and not player.actor_resources.health.terminal and world.outcome=="victory" and not world.lifetime.active, "scoped_native_player_combat", {"completed":binding.get("completed"),"boss_terminal":encounter.health.terminal,"player_terminal":player.actor_resources.health.terminal,"phases_observed":observed_phases.keys(),"snapshot":binding.call("snapshot"),"outcome":world.outcome,"lifetime_active":world.lifetime.active,"natural_whole_map_arrival":false,"pilot":"hold floor x1000 with Router; after frame240 fire once per60 ticks; zero grants, no reposition during battle"})
+	var paint: Node2D = world.plains_presentation
+	var gap := arena.to_global(Vector2(500, 520))
+	var covered := false
+	for piece: Rect2 in paint.art.union_pieces:
+		if piece.has_point(gap): covered = true
+	var ghost_shadow := false
+	for child: Node in paint.fine.get_children():
+		if child is LightOccluder2D and Geometry2D.is_point_in_polygon(child.to_local(gap), child.occluder.polygon): ghost_shadow = true
+	_record("presentation/boss_broken_bridge", binding.broken and paint.geometry_revision >= 2 and paint.authored_solids == paint.collect_solids() and not covered and not ghost_shadow, "scoped_native_combat_presentation", {"geometry_revision":paint.geometry_revision,"gap":str(gap),"old_floor_art_at_gap":covered,"old_floor_shadow_at_gap":ghost_shadow,"native_bridge_broken":binding.broken,"arrival_fixture_only":true})
 	var exit_seal := _spec("M40").seals[0] as Dictionary
 	var exit_rect := _rect(exit_seal.rect_pixels)
 	var exit_center := arena.to_global(exit_rect.get_center())

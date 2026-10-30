@@ -20,7 +20,7 @@ import time
 from run_tests import run_engine
 
 ROOT = Path(__file__).resolve().parents[1]
-SUITES = ("all", "inventory", "controls", "spawn", "seams", "seals", "mechanisms", "rewards", "boss")
+SUITES = ("all", "inventory", "presentation", "preview", "controls", "spawn", "seams", "seals", "mechanisms", "rewards", "boss")
 MARKER = re.compile(r"^MAPGEN DELIVERY: ([1-9]\d*) checks, (\d+) failures$", re.M)
 ERROR = re.compile(r"(?m)^(?:SCRIPT |SHADER )?ERROR:|Parse Error:|ObjectDB.*leaked|resources? still in use at exit")
 
@@ -67,6 +67,8 @@ def check_coverage(data, suite):
     if data.get("whole_map_continuous_traversal") != "NOT_RUN":
         raise RuntimeError("Diagnostic suite cannot certify whole-map traversal")
     required = {"host/audio_teardown"}
+    if suite in ("all", "preview"):
+        required |= {"presentation/preview_single_audio", "presentation/preview_native_chest_protected", "presentation/preview_native_chest_art", "presentation/preview_return_menu", "presentation/preview_audio_teardown"}
     if suite in ("all", "inventory"):
         required |= {"inventory/counts", "inventory/preserved_contents", "inventory/shared_player_identity"}
         required |= {f"inventory/origin/M{i:02}" for i in range(1, 47)}
@@ -77,6 +79,13 @@ def check_coverage(data, suite):
     if suite in ("all", "spawn"):
         required |= {"spawn/settled", "spawn/native_bell_projectile", "spawn/M01.exit-to-M02.R"}
     fixed = json.loads((ROOT / "third_party/mapgen/0.1.0/maps/seed-930001.json").read_text())
+    if suite in ("all", "presentation"):
+        required |= {"presentation/player", "presentation/terrain", "presentation/background",
+                     "presentation/light_and_scenery", "presentation/enemy_totals", "presentation/pause"}
+        for instance in fixed["instances"]:
+            required |= {f"presentation/module/{instance['id']}", f"presentation/species/{instance['id']}"}
+            content = json.loads((ROOT / "third_party/mapgen/0.1.0" / instance["content_ref"]).read_text())
+            required |= {f"presentation/enemy/{instance['id']}/{index}" for index in range(len(content["enemies"]))}
     if suite in ("all", "seams"):
         required |= {f"seam/direction/{c['id']}" for c in fixed["connections"]}
         # Fixed-map receiver landings independently enumerated from the first
@@ -95,6 +104,7 @@ def check_coverage(data, suite):
     if suite in ("all", "seals"):
         required |= {f"seal/{i['id']}/{s['port_id']}" for i in fixed["instances"] for s in i["seals"]}
     if suite in ("all", "rewards"):
+        required |= {"presentation/native_chest_open/coin", "presentation/native_chest_open/note"}
         for instance in fixed["instances"]:
             content = json.loads((ROOT / "third_party/mapgen/0.1.0" / instance["content_ref"]).read_text())
             for reward in content["reward_sites"]:
@@ -113,6 +123,7 @@ def check_coverage(data, suite):
             required |= {f"mechanism/motion/{instance['id']}/{raw['platform_id']}/{sample}" for raw in content["moving_platforms"] for sample in range(3)}
         required.add("mechanism/mirrored_projectile/M20/return-catch")
     if suite in ("all", "boss"):
+        required.add("presentation/boss_broken_bridge")
         required |= {"boss/bound_native_system", "boss/arrival_trigger", "boss/native_projectile_damage",
                      "boss/native_battle_victory", "boss/exit_stays_sealed_after_victory", "boss/same_frame_death_priority", "boss/exit_stays_sealed_after_cancel"}
     if required - set(ids):

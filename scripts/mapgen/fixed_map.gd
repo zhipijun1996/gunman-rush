@@ -2,6 +2,7 @@ extends Node2D
 ## Fixed seed development host. All movement/combat/transactions use main-game actors.
 const REGISTRY = preload("res://scripts/mapgen/materialized_registry.gd")
 const BOSS = preload("res://scripts/mapgen/boss_binding.gd")
+const PRESENTATION = preload("res://scripts/mapgen/plains_presentation.gd")
 const PLAYER = preload("res://scenes/player/player.tscn")
 const CAPABILITIES = preload("res://third_party/mapgen/0.1.0/module_pack/integration/player_capabilities.gd")
 var registry = REGISTRY.new()
@@ -14,6 +15,7 @@ var segment := SegmentRespawn.new()
 var meta := MetaProgression.new()
 var region_state := PlainsRegionState.new()
 var boss_binding: Node2D
+var plains_presentation: Node2D
 var run_id := ""
 var loaded := false
 var load_error := ""
@@ -27,6 +29,10 @@ var _bounds: Rect2
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Native hazards, one-way platforms and mechanisms inherit the formal style
+	# during construction; actors are bound to the same production renderers below.
+	set_meta("pixel_formal_style", true)
+	set_meta("underworld_formal_style", true)
 	# The map root itself stays at the world identity, including negative Blocks.
 	if run_id.is_empty(): run_id = "mapgen-930001-" + str(Time.get_unix_time_from_system()) + "-" + str(Time.get_ticks_usec())
 	var opened: Dictionary = registry.open_delivery()
@@ -74,6 +80,11 @@ func _ready() -> void:
 	_camera.position = motor.position
 	add_child(_camera)
 	_camera.make_current()
+	plains_presentation = PRESENTATION.new()
+	plains_presentation.name = "FormalPlainsPresentation"
+	plains_presentation.world = self
+	add_child(plains_presentation)
+	if not load_error.is_empty(): return
 	var hud := CanvasLayer.new()
 	hud.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(hud)
