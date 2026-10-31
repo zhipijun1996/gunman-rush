@@ -1,0 +1,38 @@
+{
+  "scope": "Limited read-only review of Forest world detail ownership migration; no engine execution",
+  "source_head": "8271d131331f961784bcd0b4dfe7ad28e8cf0f6f",
+  "verdict": "LIMITED_STATIC_ACCEPT",
+  "reviewed_files": [
+    {
+      "path": "game/application/demo_app.gd",
+      "sha256": "9b2c23b0bdc0f33c3323f086335c9d688a75e42900766743f9906aaa45ad29a7"
+    },
+    {
+      "path": "game/world/levels/providers/thorn_forest_region_stage.gd",
+      "sha256": "76a77ab1ba8ca6e319f69acf4249f20af5508cb569e8ceb72965766edce9bbff"
+    }
+  ],
+  "diff_sha256": "d344b1cc557c3e5d11536df5396aef1b6c6beb062ff1105bd1c76ab257d70098",
+  "findings": [
+    "Original actor installation, texture selection, ambience creation/configuration, near-scenery parenting/order/configuration, discoveries creation/configuration and assignment retain their order and failure returns.",
+    "Stage region_state is assigned the same App state at App lines 429/440/452/475; reader uses the same shared state.",
+    "App retains UI pause/resume/queue and Manifest->shortcut->audio->action reset->redraw ordering.",
+    "Stage resolve_reward_shortcuts has two real consumers: cache claim hook and reader acquired callback; assembler remains the sole shortcut implementation.",
+    "configure_world_details remains a one-time assembly operation; no idempotency claim."
+  ],
+  "validation_required": [
+    "tests/forest_bible_app_discoveries_runner.gd actual App reader/cache/claim/reload consumer",
+    "tests/forest_bible_discoveries_tests.gd component rejection/idempotency",
+    "tests/forest_bible_ambience_runner.gd pause/unload/weak-reference checks"
+  ],
+  "not_signed": [
+    "native compilation or execution",
+    "all architecture complete",
+    "other concurrent tools/tests changes"
+  ],
+  "damage_context_followup": {
+    "decision": "defer from this small batch",
+    "reason": "App584-607 interleaves module damage and latch failure with attack signal binding, Manifest output, then static emitter creation. One plain bind_damage_context call returning before App manifest recording would reorder the emitters relative to recording, or require callbacks/extra phases. The current _contact builder is shared by other actual actors; copying it into Stage would introduce duplication. Forest setup_damage intentionally differs (no-op, authored surface hazard records); retain this policy and connected-only metadata branch.",
+    "possible_later_boundary": "One Stage-owned damage assembly transaction with an explicit original-order recording hook and shared existing contact creation implementation, reviewed separately against generated/plain/forest consumers. No need to expand current Forest detail patch."
+  }
+}

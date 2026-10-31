@@ -11,7 +11,34 @@ var near_scenery: ForestBibleNearScenery
 var _web_phase_seen: Dictionary = {}
 
 func _after_cache_claim() -> void:
+	resolve_reward_shortcuts()
+
+func resolve_reward_shortcuts() -> void:
 	(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
+
+func configure_world_details(player: PlayerMotor, lifetime: DemoLifetime, health: HealthState,
+		wallet: RunWallet, rewards: RewardService, reduced_effects: bool) -> bool:
+	if ForestBiblePresentation.enabled(generated.manifest):
+		ForestBibleActors.install(self, generated.manifest, enemies, enemy_manifest)
+		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		assembler.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		ambience = ForestBibleAmbience.new()
+		add_child(ambience)
+		ambience.configure(generated.manifest, player, reduced_effects)
+		near_scenery = ForestBibleNearScenery.new()
+		add_child(near_scenery)
+		move_child(near_scenery, assembler.get_index()+1)
+		if not near_scenery.configure(generated.manifest, player, reduced_effects):
+			return false
+	var rows: Array = generated.manifest.get("forest_discoveries", [])
+	if rows.is_empty(): return true
+	var reader := ForestBibleDiscoveries.new()
+	add_child(reader)
+	if not reader.configure(rows, region_state, lifetime, health, wallet, rewards):
+		push_error("Recorded forest discoveries rejected")
+		return false
+	discoveries = reader
+	return true
 
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")

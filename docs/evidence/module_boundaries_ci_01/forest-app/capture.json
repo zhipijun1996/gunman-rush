@@ -1,0 +1,569 @@
+{
+  "assertions": 95,
+  "cases": [
+    {
+      "accepted_both": true,
+      "id": "read_then_cache"
+    },
+    {
+      "accepted_both": true,
+      "id": "cache_then_read"
+    },
+    {
+      "acquired": [],
+      "damage_scope": "synthetic request via original FrameDamagePolicy, not real-enemy battle evidence",
+      "denied": true,
+      "enqueue": [
+        {
+          "damage_accepted": true,
+          "process_frame": 484,
+          "queued_claims": 1
+        }
+      ],
+      "id": "fatal_confirm",
+      "outcomes": [
+        {
+          "event_id": "forest_app_fixture_fatal",
+          "health": 0.0,
+          "lethal": true,
+          "tick": 273
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "label": "bounded preflight finds the actual colocation geometry before UI cases",
+      "passed": true
+    },
+    {
+      "label": "actual App pins v15 map2 / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual App stage ready / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual Stage owns reader, ambience and near scenery after App composition / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual generated west-reward badge precondition / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual existing cache and new discovery are colocated / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "UI staging occurs before first PlayerMotor step / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "both actual interaction predicates hold after normal Motor resumes / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual root shows separate cache and discovery buttons / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / read_then_cache/read",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / read_then_cache/read",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / read_then_cache/read",
+      "passed": true
+    },
+    {
+      "label": "discovery button opens actual paused reader / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / read_then_cache/confirm",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / read_then_cache/confirm",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / read_then_cache/confirm",
+      "passed": true
+    },
+    {
+      "label": "actual queued reader commits one backpack badge without auto-applying / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "paused equipment command applies the claimed real badge effect / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual cache remains reachable / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / read_then_cache/cache",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / read_then_cache/cache",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / read_then_cache/cache",
+      "passed": true
+    },
+    {
+      "label": "cache button opens actual reward page instead of reader / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual cache exposes a coin resource choice / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / read_then_cache/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / read_then_cache/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / read_then_cache/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "actual cache selection commits its unique wallet grant / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / read_then_cache/repeat",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / read_then_cache/repeat",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / read_then_cache/repeat",
+      "passed": true
+    },
+    {
+      "label": "claimed discovery remains separately readable / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "Escape closes reader without opening pause menu / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "first W after reader close reaches actual discovery interaction / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "first W after a covered W release also works / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "repeat reading and Escape never duplicate actual rewards / read_then_cache",
+      "passed": true
+    },
+    {
+      "label": "actual App returns HOME during teardown",
+      "passed": true
+    },
+    {
+      "label": "actual App audio drained",
+      "passed": true
+    },
+    {
+      "label": "actual App pins v15 map2 / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual App stage ready / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual Stage owns reader, ambience and near scenery after App composition / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual generated west-reward badge precondition / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual existing cache and new discovery are colocated / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "UI staging occurs before first PlayerMotor step / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "both actual interaction predicates hold after normal Motor resumes / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual root shows separate cache and discovery buttons / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual cache remains reachable / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / cache_then_read/cache",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / cache_then_read/cache",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / cache_then_read/cache",
+      "passed": true
+    },
+    {
+      "label": "cache button opens actual reward page instead of reader / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual cache exposes a coin resource choice / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / cache_then_read/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / cache_then_read/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / cache_then_read/pick_coin",
+      "passed": true
+    },
+    {
+      "label": "actual cache selection commits its unique wallet grant / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / cache_then_read/read",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / cache_then_read/read",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / cache_then_read/read",
+      "passed": true
+    },
+    {
+      "label": "discovery button opens actual paused reader / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / cache_then_read/confirm",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / cache_then_read/confirm",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / cache_then_read/confirm",
+      "passed": true
+    },
+    {
+      "label": "actual queued reader commits one backpack badge without auto-applying / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "paused equipment command applies the claimed real badge effect / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / cache_then_read/repeat",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / cache_then_read/repeat",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / cache_then_read/repeat",
+      "passed": true
+    },
+    {
+      "label": "claimed discovery remains separately readable / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "Escape closes reader without opening pause menu / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "first W after reader close reaches actual discovery interaction / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "first W after a covered W release also works / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "repeat reading and Escape never duplicate actual rewards / cache_then_read",
+      "passed": true
+    },
+    {
+      "label": "actual App returns HOME during teardown",
+      "passed": true
+    },
+    {
+      "label": "actual App audio drained",
+      "passed": true
+    },
+    {
+      "label": "actual App pins v15 map2 / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "actual App stage ready / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "actual Stage owns reader, ambience and near scenery after App composition / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "actual generated west-reward badge precondition / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "actual existing cache and new discovery are colocated / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "UI staging occurs before first PlayerMotor step / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "both actual interaction predicates hold after normal Motor resumes / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "actual root shows separate cache and discovery buttons / fatal_confirm",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / fatal_confirm/read",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / fatal_confirm/read",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / fatal_confirm/read",
+      "passed": true
+    },
+    {
+      "label": "fatal control begins from a real reader page",
+      "passed": true
+    },
+    {
+      "label": "visible enabled native button / fatal_confirm/confirm",
+      "passed": true
+    },
+    {
+      "label": "button center lies in actual viewport / fatal_confirm/confirm",
+      "passed": true
+    },
+    {
+      "label": "real viewport press/release reaches exactly one intended button / fatal_confirm/confirm",
+      "passed": true
+    },
+    {
+      "label": "same-confirmation damage batch ends run before actual queued discovery acquisition",
+      "passed": true
+    },
+    {
+      "label": "fatal confirmation cleans up to HOME",
+      "passed": true
+    },
+    {
+      "label": "actual App returns HOME during teardown",
+      "passed": true
+    },
+    {
+      "label": "actual App audio drained",
+      "passed": true
+    },
+    {
+      "label": "reader and reward UI mouse/key events do not emit gameplay shots",
+      "passed": true
+    }
+  ],
+  "clicks": [
+    {
+      "label": "read_then_cache/read",
+      "point": [
+        751.0,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "read_then_cache/confirm",
+      "point": [
+        640.0,
+        483.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "read_then_cache/cache",
+      "point": [
+        502.5,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "read_then_cache/pick_coin",
+      "point": [
+        814.5,
+        530.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "read_then_cache/repeat",
+      "point": [
+        450.0,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "cache_then_read/cache",
+      "point": [
+        502.5,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "cache_then_read/pick_coin",
+      "point": [
+        814.5,
+        530.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "cache_then_read/read",
+      "point": [
+        450.0,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "cache_then_read/confirm",
+      "point": [
+        640.0,
+        483.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "cache_then_read/repeat",
+      "point": [
+        450.0,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "fatal_confirm/read",
+      "point": [
+        751.0,
+        204.0
+      ],
+      "pressed_count": 1
+    },
+    {
+      "label": "fatal_confirm/confirm",
+      "point": [
+        640.0,
+        483.0
+      ],
+      "pressed_count": 1
+    }
+  ],
+  "failures": 0,
+  "position_staging": true,
+  "resource_injection": false,
+  "scope": "actual v15 DemoApp UI staging only, no Motor route/art/device admission",
+  "seed_candidates": [
+    {
+      "manifest_hash": "296d162b2b2ae66625dcd498bb5bb216a6cf5ac17f0d20c72eb95afeaae126d3",
+      "seed": "forest-depth-hollow-00",
+      "west_reward": true
+    }
+  ],
+  "shots": [],
+  "staged": [
+    {
+      "case": "read_then_cache",
+      "manifest_hash": "296d162b2b2ae66625dcd498bb5bb216a6cf5ac17f0d20c72eb95afeaae126d3",
+      "map": 2,
+      "position": [
+        -525.0,
+        250.0
+      ],
+      "prior_motor_steps": 0,
+      "purpose": "UI staging only; no approach or route evidence",
+      "seed": "forest-depth-hollow-00"
+    },
+    {
+      "case": "cache_then_read",
+      "manifest_hash": "296d162b2b2ae66625dcd498bb5bb216a6cf5ac17f0d20c72eb95afeaae126d3",
+      "map": 2,
+      "position": [
+        -525.0,
+        250.0
+      ],
+      "prior_motor_steps": 0,
+      "purpose": "UI staging only; no approach or route evidence",
+      "seed": "forest-depth-hollow-00"
+    },
+    {
+      "case": "fatal_confirm",
+      "manifest_hash": "296d162b2b2ae66625dcd498bb5bb216a6cf5ac17f0d20c72eb95afeaae126d3",
+      "map": 2,
+      "position": [
+        -525.0,
+        250.0
+      ],
+      "prior_motor_steps": 0,
+      "purpose": "UI staging only; no approach or route evidence",
+      "seed": "forest-depth-hollow-00"
+    }
+  ],
+  "synthetic_damage_order_control": true,
+  "viewport": [
+    1280,
+    720
+  ]
+}

@@ -91,6 +91,53 @@ func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: 
 	add_child(attack_behavior)
 	attack_behavior.configure(self, target, policy, scope, id, safe_points)
 
+# Bind recorded geometry before restoring the behavior that owns it. The caller
+# retains run abort/reporting and supplies its attack-count policy lazily, after
+# successful restoration. Presence checks deliberately distinguish absent state
+# from a present empty or malformed record; do not normalize these records.
+func configure_region_placement(placement: Dictionary, id: StringName, connected_region: bool,
+		actor_records: Dictionary, attack_limit: Callable) -> String:
+	if attack_behavior is ForestCrossbranchBehavior:
+		var migration := attack_behavior as ForestCrossbranchBehavior
+		var shore_rows: Variant=placement.get("shore_rows")
+		var valid_shores: bool=shore_rows is Array and shore_rows.size()==2
+		var configured_shores: Array[Dictionary]=[]
+		if valid_shores:
+			for raw: Variant in shore_rows:
+				if not raw is Dictionary or not raw.get("id") is String or not raw.get("rect") is Array or not raw.get("position") is Array:
+					valid_shores=false;break
+				if raw.rect.size()!=4 or raw.position.size()!=2:
+					valid_shores=false;break
+				for value: Variant in raw.rect+raw.position:
+					if not (value is int or value is float) or not is_finite(float(value)):valid_shores=false
+				if not valid_shores:break
+				configured_shores.append({"id":raw.id,"rect":Rect2(raw.rect[0],raw.rect[1],raw.rect[2],raw.rect[3]),"position":Vector2(raw.position[0],raw.position[1])})
+		var restoring: bool=connected_region and actor_records.has(String(id))
+		if not valid_shores or not migration.configure_shores(configured_shores,not restoring):
+			return "Recorded forest migration shores rejected"
+		if restoring and not actor_records[String(id)].has("depth_state"):
+			return "Recorded forest migration state missing"
+	if attack_behavior != null and attack_behavior.has_method("configure_transfer_points"):
+		var transfers: Array[Vector2] = []
+		for point: Array in placement.get("transfer_points",[]): transfers.append(Vector2(point[0],point[1]))
+		attack_behavior.call("configure_transfer_points",transfers)
+	if attack_behavior is ForestBibleWeaverBehavior:
+		if not (attack_behavior as ForestBibleWeaverBehavior).configure_strands(placement.get("web_strands", [])):
+			return "Recorded forest alternating web geometry rejected"
+		if connected_region and actor_records.has(String(id)) and not actor_records[String(id)].get("depth_state") is Dictionary:
+			return "Recorded forest alternating web state missing"
+	elif attack_behavior != null and attack_behavior.has_method("configure_line"):
+		var first: Array = placement.get("line_start",[])
+		var last: Array = placement.get("line_end",[])
+		if first.size()!=2 or last.size()!=2 or not attack_behavior.call("configure_line",Vector2(first[0],first[1]),Vector2(last[0],last[1])):
+			return "Recorded forest thread geometry rejected"
+	if connected_region and actor_records.has(String(id)) and attack_behavior!=null:
+		var saved: Dictionary=actor_records[String(id)]
+		if not attack_behavior.restore_region_state(saved):
+			return "Recorded forest actor state rejected"
+	if attack_behavior: attack_behavior.max_concurrent_attacks = attack_limit.call()
+	return ""
+
 # Read-only presentation input. Does not advance any clock or cache a phase.
 # Health epoch and encounter target actor_epoch intentionally remain separate.
 func presentation_state() -> Dictionary:

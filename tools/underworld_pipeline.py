@@ -744,7 +744,8 @@ CHEST_OWNER_FUNCTIONS = {
         '_after_cache_claim': 'func _after_cache_claim() -> void:\n\tpass',
     },
     'forest': {
-        '_after_cache_claim': 'func _after_cache_claim() -> void:\n\t(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()',
+        '_after_cache_claim': 'func _after_cache_claim() -> void:\n\tresolve_reward_shortcuts()',
+        'resolve_reward_shortcuts': 'func resolve_reward_shortcuts() -> void:\n\t(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()',
     },
 }
 

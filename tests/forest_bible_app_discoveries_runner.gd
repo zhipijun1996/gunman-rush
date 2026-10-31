@@ -93,6 +93,7 @@ func setup_app(label: String) -> DemoApp:
 	check(app.stage is ThornForestRegionStage and app.stage.assembly_ok and not app._stage_pending,"actual App stage ready / "+label)
 	if not app.stage is ThornForestRegionStage: return app
 	var stage: ThornForestRegionStage = app.stage as ThornForestRegionStage
+	check(is_instance_valid(stage.discoveries) and stage.discoveries.get_parent()==stage and is_instance_valid(stage.ambience) and stage.ambience.get_parent()==stage and is_instance_valid(stage.near_scenery) and stage.near_scenery.get_parent()==stage,"actual Stage owns reader, ambience and near scenery after App composition / "+label)
 	var rows: Array = stage.generated.manifest.forest_discoveries.filter(func(row: Dictionary) -> bool: return row.id == BADGE)
 	check(stage.generated.manifest.choices.get("west_reward",false) and rows.size() == 1,"actual generated west-reward badge precondition / "+label)
 	if rows.size() != 1: return app

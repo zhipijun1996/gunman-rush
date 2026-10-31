@@ -644,57 +644,13 @@ func _load_stage() -> void:
 			protected_points.append_array(encounter_stage.exit_positions)
 			actor.bind_encounter(controller, policy, lifetime, id, protected_points)
 			var placement: Dictionary = encounter_stage.enemy_manifest[index]
-			if actor.attack_behavior is ForestCrossbranchBehavior:
-				var migration := actor.attack_behavior as ForestCrossbranchBehavior
-				var shore_rows: Variant=placement.get("shore_rows")
-				var valid_shores: bool=shore_rows is Array and shore_rows.size()==2
-				var configured_shores: Array[Dictionary]=[]
-				if valid_shores:
-					for raw: Variant in shore_rows:
-						if not raw is Dictionary or not raw.get("id") is String or not raw.get("rect") is Array or not raw.get("position") is Array:
-							valid_shores=false;break
-						if raw.rect.size()!=4 or raw.position.size()!=2:
-							valid_shores=false;break
-						for value: Variant in raw.rect+raw.position:
-							if not (value is int or value is float) or not is_finite(float(value)):valid_shores=false
-						if not valid_shores:break
-						configured_shores.append({"id":raw.id,"rect":Rect2(raw.rect[0],raw.rect[1],raw.rect[2],raw.rect[3]),"position":Vector2(raw.position[0],raw.position[1])})
-				var restoring: bool=connected_region and region_state.actors.has(String(id))
-				if not valid_shores or not migration.configure_shores(configured_shores,not restoring):
-					push_error("Recorded forest migration shores rejected")
-					abandon_run()
-					return
-				if restoring and not region_state.actors[String(id)].has("depth_state"):
-					push_error("Recorded forest migration state missing")
-					abandon_run()
-					return
-			if actor.attack_behavior != null and actor.attack_behavior.has_method("configure_transfer_points"):
-				var transfers: Array[Vector2] = []
-				for point: Array in placement.get("transfer_points",[]): transfers.append(Vector2(point[0],point[1]))
-				actor.attack_behavior.call("configure_transfer_points",transfers)
-			if actor.attack_behavior is ForestBibleWeaverBehavior:
-				if not (actor.attack_behavior as ForestBibleWeaverBehavior).configure_strands(placement.get("web_strands", [])):
-					push_error("Recorded forest alternating web geometry rejected")
-					abandon_run()
-					return
-				if connected_region and region_state.actors.has(String(id)) and not region_state.actors[String(id)].get("depth_state") is Dictionary:
-					push_error("Recorded forest alternating web state missing")
-					abandon_run()
-					return
-			elif actor.attack_behavior != null and actor.attack_behavior.has_method("configure_line"):
-				var first: Array = placement.get("line_start",[])
-				var last: Array = placement.get("line_end",[])
-				if first.size()!=2 or last.size()!=2 or not actor.attack_behavior.call("configure_line",Vector2(first[0],first[1]),Vector2(last[0],last[1])):
-					push_error("Recorded forest thread geometry rejected")
-					abandon_run()
-					return
-			if connected_region and region_state.actors.has(String(id)) and actor.attack_behavior!=null:
-				var saved: Dictionary=region_state.actors[String(id)]
-				if not actor.attack_behavior.restore_region_state(saved):
-					push_error("Recorded forest actor state rejected")
-					abandon_run()
-					return
-			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
+			var placement_error := actor.configure_region_placement(placement, id, connected_region,
+				region_state.actors if connected_region else {},
+				func() -> int: return (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2))
+			if not placement_error.is_empty():
+				push_error(placement_error)
+				abandon_run()
+				return
 			EnemyPresentationBinding.synchronize(actor)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
@@ -2797,26 +2753,10 @@ func _forest_reader_open() -> bool:
 func _bind_forest_discoveries() -> bool:
 	if not stage is ThornForestRegionStage: return true
 	var forest := stage as ThornForestRegionStage
-	if ForestBiblePresentation.enabled(forest.generated.manifest):
-		ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)
-		forest.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		forest.assembler.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		forest.ambience = ForestBibleAmbience.new()
-		forest.add_child(forest.ambience)
-		forest.ambience.configure(forest.generated.manifest, player, _reduced_effects)
-		forest.near_scenery = ForestBibleNearScenery.new()
-		forest.add_child(forest.near_scenery)
-		forest.move_child(forest.near_scenery, forest.assembler.get_index()+1)
-		if not forest.near_scenery.configure(forest.generated.manifest, player, _reduced_effects):
-			return false
-	var rows: Array = forest.generated.manifest.get("forest_discoveries", [])
-	if rows.is_empty(): return true
-	var reader := ForestBibleDiscoveries.new()
-	forest.add_child(reader)
-	if not reader.configure(rows, region_state, lifetime, controller.actor_resources.health, wallet, rewards):
-		push_error("Recorded forest discoveries rejected")
+	if not forest.configure_world_details(player, lifetime, controller.actor_resources.health, wallet, rewards, _reduced_effects):
 		return false
-	forest.discoveries = reader
+	var reader := forest.discoveries
+	if not is_instance_valid(reader): return true
 	reader.opened.connect(func() -> void:
 		if is_instance_valid(stage) and stage == forest and lifetime.active: _pause_for_menu())
 	reader.closed.connect(func() -> void:
@@ -2832,7 +2772,7 @@ func _bind_forest_discoveries() -> bool:
 	reader.acquired.connect(func(receipt: Dictionary) -> void:
 		if not is_instance_valid(stage) or stage != forest or not lifetime.active: return
 		director.manifest.record_output(director.stage_index, StringName("forest_discovery/" + str(receipt.id)), receipt)
-		(forest.assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
+		forest.resolve_reward_shortcuts()
 		if str(receipt.kind) != "item":
 			GameAudio.cue(self, &"coin" if str(receipt.kind) == "coin" else &"heal" if str(receipt.kind) == "heart" else &"confirm")
 		_shown_actions = ""

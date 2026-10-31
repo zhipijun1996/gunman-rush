@@ -545,6 +545,7 @@ class UnderworldPipelineTest(unittest.TestCase):
             ('stage', 'var region_state: PlainsRegionState', 'var region_state: Dictionary'),
             ('forest', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()\n\tregion_state.claimed.clear()'),
             ('forest', '(assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()', 'pass'),
+            ('forest', 'func _after_cache_claim() -> void:\n\tresolve_reward_shortcuts()', 'func _after_cache_claim() -> void:\n\tpass'),
             ('forest', 'extends PlainsRegionStage', 'extends GeneratedDemoStage'),
         ]
         for key, old, new in mutations:
