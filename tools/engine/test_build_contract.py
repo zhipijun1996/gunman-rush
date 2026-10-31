@@ -7,11 +7,15 @@ from pathlib import Path
 import re
 import tempfile
 import unittest
+import zipfile
+import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 spec=importlib.util.spec_from_file_location('engine_package',ROOT/'tools/engine/package.py')
 pack=importlib.util.module_from_spec(spec);spec.loader.exec_module(pack)
 R=pack.RECIPE
+sys.path.insert(0,str(ROOT/'tools/engine'))
+import build
 
 
 class EngineBuildContract(unittest.TestCase):
@@ -28,6 +32,20 @@ class EngineBuildContract(unittest.TestCase):
             self.assertRegex(job['image'],r'@sha256:[a-f0-9]{64}$')
         self.assertNotIn('optimize=none',R['common_options'])
         self.assertEqual(R['edition'],'Standard')
+
+    def test_sdk_zip_keeps_internal_symlinks_and_rejects_escape(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);file=root/'sdk.zip'
+            with zipfile.ZipFile(file,'w') as archive:
+                archive.writestr('sdk/bin/real','compiler')
+                link=zipfile.ZipInfo('sdk/bin/alias');link.create_system=3;link.external_attr=0o120777<<16
+                archive.writestr(link,'real')
+            build.extract(file,root/'valid')
+            self.assertTrue((root/'valid/sdk/bin/alias').is_symlink())
+            self.assertEqual((root/'valid/sdk/bin/alias').read_text(),'compiler')
+            with zipfile.ZipFile(file,'w') as archive:archive.writestr(link,'../../../../outside')
+            with self.assertRaisesRegex(RuntimeError,'Unsafe ZIP symlink'):
+                build.extract(file,root/'invalid')
 
     def fixture(self,root):
         for lane,job in R['jobs'].items():

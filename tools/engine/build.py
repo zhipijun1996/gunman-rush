@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import stat
 import subprocess
 import sys
 import tarfile
@@ -18,7 +19,7 @@ import zipfile
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / 'tools'))
-from setup_environment import download, unpack_zip, sha256
+from setup_environment import download, sha256
 
 RECIPE_PATH = REPO / 'config/godot_build.json'
 RECIPE = json.loads(RECIPE_PATH.read_text())
@@ -32,7 +33,29 @@ def write(path, value):
 def extract(archive, destination):
     destination.mkdir(parents=True, exist_ok=True)
     if zipfile.is_zipfile(archive):
-        unpack_zip(archive, destination)
+        # Linux SDK ZIPs contain real symlinks (NDK r29 has 37). The normal
+        # distribution installer only needs regular files, so keep this SDK
+        # rule local rather than turning links into executable text files.
+        with zipfile.ZipFile(archive) as source:
+            links=[]
+            for member in source.infolist():
+                target=destination/member.filename
+                if not target.resolve().is_relative_to(destination.resolve()):
+                    raise RuntimeError('Unsafe ZIP member: '+member.filename)
+                mode=member.external_attr>>16
+                if stat.S_ISLNK(mode):
+                    link=source.read(member).decode('utf-8')
+                    if Path(link).is_absolute() or not (target.parent/link).resolve().is_relative_to(destination.resolve()):
+                        raise RuntimeError('Unsafe ZIP symlink: '+member.filename)
+                    links.append((target,link));continue
+                if member.is_dir():target.mkdir(parents=True,exist_ok=True);continue
+                target.parent.mkdir(parents=True,exist_ok=True)
+                with source.open(member) as data,target.open('wb') as output:
+                    shutil.copyfileobj(data,output)
+                if mode:target.chmod(mode&0o777)
+            for target,link in links:
+                target.parent.mkdir(parents=True,exist_ok=True)
+                target.symlink_to(link)
     else:
         with tarfile.open(archive) as source:
             # Verified downloads still may not write outside the build directory.
