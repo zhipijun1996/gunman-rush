@@ -133,14 +133,33 @@ func clear() -> void:
 func _emit_changed() -> void:
 	changed.emit()
 
-# BuildState uses this private savepoint around an owned upgrade plus its current
-# equipped effects. No callbacks are emitted synchronously while it is held.
-func _transaction_snapshot() -> Dictionary:
+# Only inventory operations may create provisional ownership changes. The
+# synchronous acceptance callback applies dependent actor effects or a coin
+# grant; callers never receive or restore the inventory's internal rows.
+func add_item_checked(source: StringName, item: ItemDefinition, origin: StringName, accept: Callable) -> bool:
+	if not accept.is_valid(): return false
+	var saved := _capture_owned_state()
+	if not add_item(source, item, origin): return false
+	return _accept_or_restore(saved, accept)
+
+func patch_effect_state_checked(instance_id: StringName, patch: Dictionary, receipt: StringName, accept: Callable, after_restore: Callable = Callable()) -> bool:
+	if not accept.is_valid(): return false
+	var saved := _capture_owned_state()
+	if not patch_effect_state(instance_id, patch, receipt): return false
+	return _accept_or_restore(saved, accept, after_restore)
+
+func _accept_or_restore(saved: Dictionary, accept: Callable, after_restore: Callable = Callable()) -> bool:
+	if bool(accept.call()): return true
+	_restore_owned_state(saved)
+	if after_restore.is_valid(): after_restore.call()
+	return false
+
+func _capture_owned_state() -> Dictionary:
 	var owned: Dictionary = {}
 	for id: StringName in _instances: owned[id] = (_instances[id] as RunItemInstance).copy()
 	return {"instances":owned,"sources":_sources.duplicate(),"source_receipts":_source_receipts.duplicate(true),"state_receipts":_state_receipts.duplicate(true),"revision":revision}
 
-func _restore_transaction(snapshot: Dictionary) -> void:
+func _restore_owned_state(snapshot: Dictionary) -> void:
 	_instances = snapshot.instances
 	_sources = snapshot.sources
 	_source_receipts = snapshot.source_receipts

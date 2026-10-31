@@ -110,6 +110,15 @@ func state(id: StringName) -> Dictionary:
 	if not _instance_lookup.has(id) and instance(id) == null: return {}
 	return build().inventory.effect_state(_instance_lookup[id])
 
+# Economy effects propose their persistent map allowance and award together.
+# The original wallet remains the sole coin owner; inventory owns rollback.
+func award_item_coins(id: StringName, patch: Dictionary, amount: int, receipt: StringName) -> bool:
+	var owner := build()
+	var coins := wallet()
+	var owned := instance(id)
+	if owner == null or owner.inventory == null or coins == null or owned == null or amount <= 0: return false
+	return owner.inventory.patch_effect_state_checked(owned.instance_id, patch, StringName("%s/state" % receipt), coins.grant.bind(amount, receipt))
+
 func patch_state(id: StringName, patch: Dictionary, receipt: StringName = &"") -> bool:
 	var owner := build()
 	var owned := instance(id)

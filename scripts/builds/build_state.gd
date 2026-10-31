@@ -65,11 +65,12 @@ func can_add(item: ItemDefinition) -> bool:
 
 func add_item(source_id: StringName, item: ItemDefinition, origin: StringName = &"pickup") -> bool:
 	if _applying or not is_instance_valid(controller) or not controller.active or controller.actor_resources.health.terminal: return false
-	var savepoint := inventory._transaction_snapshot()
-	if not inventory.add_item(source_id,item,origin): return false
-	if refresh_equipped(): return true
-	inventory._restore_transaction(savepoint)
-	return false
+	return inventory.add_item_checked(source_id, item, origin, refresh_equipped)
+
+# Shop owns the quote, payment and purchase receipt. The loadout owns restoring
+# both the repaired instance and its actor effects when acceptance fails.
+func repair_item(instance_id: StringName, receipt: StringName) -> bool:
+	return inventory.patch_effect_state_checked(instance_id, {"broken": false, "damage_hits": 0}, receipt, refresh_equipped, refresh_equipped)
 
 # Explicit transaction boundary for a successful owned upgrade or a changed
 # broken flag. Inventory.changed remains presentation-only and deferred.
@@ -82,7 +83,7 @@ func refresh_equipped() -> bool:
 		sources[id] = owned.item
 	if _effect_signature(sources) == _applied_effect_signature: return true
 	if not validate_sources(sources).is_empty() or not _commit(sources): return false
-	equipment._owned_effects_changed()
+	equipment.invalidate_owned_effects()
 	return true
 
 # An old source ID can still identify a loadout member, but removal requires the
@@ -104,7 +105,7 @@ func validate_sources(proposed: Dictionary) -> StringName:
 			if not _base.has(modifier.stat_id): return &"unsupported_effect"
 	return &"" if _valid_values(_resolve(proposed)) else &"invalid_stats"
 
-func _replace_equipped_sources(proposed: Dictionary) -> bool:
+func commit_equipment_sources(proposed: Dictionary) -> bool:
 	return validate_sources(proposed).is_empty() and _commit(proposed)
 
 func effect_sources() -> Array[Dictionary]:

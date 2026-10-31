@@ -42,20 +42,9 @@ func _instance(id: StringName) -> RunItemInstance:
 	var host := _host()
 	return host.call("instance", id) as RunItemInstance if host != null else null
 
-func _wallet() -> RunWallet:
-	var host := _host()
-	return host.call("wallet") as RunWallet if host != null else null
-
 func _coin_patch(id: StringName, patch: Dictionary, amount: int, receipt: StringName) -> bool:
 	var host := _host()
-	var coins := _wallet()
-	var state := host.call("build") as BuildState if host != null else null
-	if coins == null or state == null or state.inventory == null or amount <= 0: return false
-	var savepoint := state.inventory._transaction_snapshot()
-	if not _patch(id, patch, StringName("%s/state" % receipt)): return false
-	if coins.grant(amount, receipt): return true
-	state.inventory._restore_transaction(savepoint)
-	return false
+	return host != null and bool(host.call("award_item_coins", id, patch, amount, receipt))
 
 func sync() -> void:
 	# Equipping never resets a map's earning budget or the last combat time.
@@ -140,8 +129,7 @@ func _valid_event(event: Dictionary) -> bool:
 func _kill_bonus(id: StringName, event: Dictionary) -> int:
 	var parameters := _effect(id)
 	var instance := _instance(id)
-	var coins := _wallet()
-	if parameters.is_empty() or instance == null or coins == null: return 0
+	if parameters.is_empty() or instance == null: return 0
 	var limit := int(parameters.get("max_bonus_kills_per_map", 0))
 	var amount := int(parameters.get("bonus_coin_per_kill", 0))
 	if limit <= 0 or amount <= 0: return 0
@@ -168,8 +156,7 @@ func on_hook(event: Dictionary) -> Dictionary:
 	mark_combat_activity()
 	var parameters := _effect(&"B20")
 	var instance := _instance(&"B20")
-	var coins := _wallet()
-	if parameters.is_empty() or instance == null or coins == null: return {"accepted": false, "coins": 0}
+	if parameters.is_empty() or instance == null: return {"accepted": false, "coins": 0}
 	var map := String(_map_key())
 	var enemy := String(event.enemy_id)
 	var maps: Dictionary = _state(&"B20").get("hook_maps", {}).duplicate(true)

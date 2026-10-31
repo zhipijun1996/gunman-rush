@@ -17,7 +17,9 @@ class RejectingBuild extends BuildState:
 	func refresh_equipped() -> bool:
 		return false if reject_refresh else super.refresh_equipped()
 
-class EconomyHost extends RefCounted:
+# Inherit the real owned-progress/coin command; the fixture only supplies its
+# actor, clock and view data instead of reimplementing production transactions.
+class EconomyHost extends ItemRuntime:
 	var player: PlayerController
 	var construction: BuildState
 	var coins: RunWallet

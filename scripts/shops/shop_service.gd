@@ -56,10 +56,12 @@ func purchase(request: ShopPurchaseRequest) -> EconomyReceipt:
 	if wallet.balance < offer.price:
 		return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
 	_committing = true
-	wallet.balance -= offer.price
+	if not wallet.spend(offer.price):
+		_committing = false
+		return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
 	offer.stock -= 1
 	if not build.add_item(StringName("shop:%s" % request.transaction_id), offer.item, &"shop"):
-		wallet.balance += offer.price
+		wallet.refund(offer.price)
 		offer.stock += 1
 		_committing = false
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
@@ -93,9 +95,11 @@ func purchase_gear_upgrade(request: ShopPurchaseRequest) -> EconomyReceipt:
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	if wallet.balance < int(quote.price): return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
 	_committing = true
-	wallet.balance -= int(quote.price)
-	if not build.equipment._commit_capacity_upgrade(int(quote.level)):
-		wallet.balance += int(quote.price)
+	if not wallet.spend(int(quote.price)):
+		_committing = false
+		return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
+	if not build.equipment.commit_capacity_upgrade(int(quote.level)):
+		wallet.refund(int(quote.price))
 		_committing = false
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	var receipt := EconomyReceipt.new()
@@ -130,19 +134,14 @@ func purchase_repair(request: ShopPurchaseRequest) -> EconomyReceipt:
 	var offer := repair_quote(request.offer_id)
 	if request.shop_id != &"demo_shop" or request.quantity != 1 or not offer.available or request.quote_version != offer.quote_version: return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	if wallet == null or wallet.balance < int(offer.price): return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
-	var savepoint := build.inventory._transaction_snapshot()
 	_committing = true
-	wallet.balance -= int(offer.price)
-	var patch_id := StringName("repair/%s/%s" % [request.transaction_id, request.quote_version])
-	if not build.inventory.patch_effect_state(request.offer_id, {"broken": false, "damage_hits": 0}, patch_id):
-		wallet.balance += int(offer.price)
+	if not wallet.spend(int(offer.price)):
 		_committing = false
-		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
-	if not build.refresh_equipped():
-		# An unsupported effect/context must not charge for a partial repair.
-		build.inventory._restore_transaction(savepoint)
-		build.refresh_equipped()
-		wallet.balance += int(offer.price)
+		return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
+	var patch_id := StringName("repair/%s/%s" % [request.transaction_id, request.quote_version])
+	if not build.repair_item(request.offer_id, patch_id):
+		# Loadout restores ownership/effects before the payment is refunded.
+		wallet.refund(int(offer.price))
 		_committing = false
 		return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	var receipt := EconomyReceipt.new()
@@ -240,7 +239,9 @@ func reroll_catalog_shop(request: ShopPurchaseRequest, map_key: StringName, pool
 	var plan := _plan_catalog_roll(request.shop_id, map_key, row.seed, int(row.roll) + 1, pool, weights, int(row.slots), row.rng_context)
 	if plan.is_empty(): return EconomyReceipt.rejected(EconomyReceipt.Status.UNAVAILABLE)
 	_committing = true
-	wallet.balance -= int(quote.price)
+	if not wallet.spend(int(quote.price)):
+		_committing = false
+		return EconomyReceipt.rejected(EconomyReceipt.Status.INSUFFICIENT)
 	# Superseded offers stay as history, but cannot be bought by an old callback.
 	for id: StringName in row.offer_ids:
 		var previous: ShopOffer = _offers[id]

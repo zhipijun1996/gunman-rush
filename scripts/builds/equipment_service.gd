@@ -146,7 +146,7 @@ func submit(ids: Array[StringName], token: DemoToken, session: int, expected_rev
 	var proposal := preview(requested_ids)
 	if not proposal.accepted: return _result(false,proposal.reason)
 	_applying = true
-	if not bool(_build().call("_replace_equipped_sources",proposal.sources)):
+	if not bool(_build().call("commit_equipment_sources",proposal.sources)):
 		_applying = false
 		return _result(false,&"effect_rejected")
 	_equipped_ids = requested_ids
@@ -157,14 +157,14 @@ func submit(ids: Array[StringName], token: DemoToken, session: int, expected_rev
 
 # Called only by ShopService after its validated quote/debit. No yield or signal
 # can interleave debit, capacity mutation and ledger commit.
-func _commit_capacity_upgrade(expected_level: int) -> bool:
+func commit_capacity_upgrade(expected_level: int) -> bool:
 	if _applying or expected_level != _level or not upgrade_quote().available: return false
 	_level += 1
 	_revision += 1
 	call_deferred("_emit_changed")
 	return true
 
-func _owned_effects_changed() -> void:
+func invalidate_owned_effects() -> void:
 	_revision += 1
 	call_deferred("_emit_changed")
 
