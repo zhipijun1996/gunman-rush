@@ -48,7 +48,7 @@ func _ready() -> void:
 		return_to_menu())
 	row.add_child(menu_button)
 	if task_id == "DEMO-UI-01":
-		var ui_affordance := preload("res://game/presentation/ui/demo_ui_01/preview_affordance.gd").new()
+		var ui_affordance := preload("res://experiments/platform/preview_affordance.gd").new()
 		ui_affordance.host = self
 		add_child(ui_affordance)
 	if entry == "actions": app.call_deferred("_open_action_studio")
