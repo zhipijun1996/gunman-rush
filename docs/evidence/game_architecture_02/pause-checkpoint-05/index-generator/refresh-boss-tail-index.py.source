@@ -1,0 +1,39 @@
+from pathlib import Path
+import json,subprocess,csv,sys,re,collections,datetime
+root=Path('/workspace/gunman-rush-refactor');base=root/'docs/worklines/game_architecture_01';source='063d6ccbd7a6ab659fd27abcb20a5c59c7308c53';git=lambda *a:subprocess.check_output(['git',*a],cwd=root).decode();changed=git('show','--format=','--name-only',source).splitlines();inventory=json.loads((base/'runtime_inventory.json').read_text());rows=list(csv.DictReader((base/'file_inventory.csv').open()));fields=list(rows[0]);by_path={r['path']:r for r in rows};parent=git('rev-parse',source+'^').strip();now=datetime.datetime.now(datetime.timezone.utc).isoformat()
+manual={
+'game/application/demo_app.gd':'正式游戏跨模块流程协调入口 DemoApp：连接家园出发、RunSession/RunComposition、两区地图、伤害/复位与奖励/配装UI；通过具体Encounter公开协议恢复Boss状态并保留原装配时序。',
+'game/world/levels/providers/plains_region_stage.gd':'平原运行场景 PlainsRegionStage：消费LevelPlan建立地图、怪物、Boss与奖励表现，维护本图记录、掉落运动和射击锁；委托Boss公开region_snapshot/restore_region_entry保存恢复遭遇状态。',
+'game/world/levels/providers/thorn_forest_region_stage.gd':'森林运行场景 ThornForestRegionStage：复用区域奖励/地图/复位契约，装配森林生态与冠层Boss，维护森林记录/提示；Boss快照与入口恢复交由实际Encounter执行。',
+'game/bosses/encounter/boss_encounter.gd':'Boss共同遭遇基类 BossEncounter：提供共同生命周期、原实例HealthState恢复与伤害组件重绑、区域位置恢复；具体Boss负责自身入口校验、相位与招式状态。',
+'game/bosses/windkeeper/windkeeper_encounter.gd':'牧风者遭遇 WindkeeperEncounter：管理原追击、相位与攻击状态，公开region_snapshot及装配前restore_region_entry；完整战斗恢复仍在原几何/激活之后执行。',
+'game/bosses/thorn_forest/thorn_forest_encounter.gd':'森林Boss共同遭遇 ThornForestEncounter：管理原战斗/奖励落点，并公开区域快照、旧入口恢复与绑定后实体决斗恢复；校验旧health/position/body_position协议后调用原战斗恢复。',
+'game/bosses/bellstrider/bellstrider_encounter.gd':'鸣铃巡游机遭遇 BellstriderEncounter：执行原PR122招式/阶段/支撑与终态逻辑，复用共同区域快照，通过自身pattern_index及restore_region_entry保留原站立位置、方向和入口相位。'
+}
+for r in inventory['files']:
+ p=r['path']
+ if 'code_summary' in r:r['code_summary']['source_commit']=source
+ if p in changed:
+  raw=subprocess.check_output(['git','show',source+':'+p],cwd=root);text=raw.decode();r['bytes']=len(raw);r['git_blob']=git('rev-parse',source+':'+p).strip();r.setdefault('change_batches',[]).append('P6B-BOSS-STATE');by_path[p]['bytes']=str(len(raw));by_path[p]['change_batches']=';'.join(r['change_batches'])
+  if p.endswith('.gd'):
+   cl=re.search(r'^class_name\s+(\w+)',text,re.M);ex=re.search(r'^extends\s+([^\n]+)',text,re.M);r['code_summary']={'source_commit':source,'class_name':cl[1] if cl else None,'extends':ex[1] if ex else None,'public_operations':re.findall(r'^(?:static\s+)?func\s+([A-Za-z]\w*)',text,re.M),'declared_fields':re.findall(r'^(?:@export[^\n]*?\s+)?var\s+(\w+)',text,re.M)}
+ if p in manual:r['purpose']=manual[p];by_path[p]['purpose']=manual[p]
+for p in changed:
+ if p in by_path and p not in manual:by_path[p]['change_batches']+=';P6B-BOSS-STATE'
+inventory['source_commit']=source;inventory['generated_utc']=now;inventory['freeze_status']='candidate_063d6ccb_boss_tail_static_review_native_and_final_binding_pending';inventory['source_status_at_start']='Production source fixed to063d6ccb; report/tool/binding edits are separate uncommitted candidate work.';inventory['purpose_review']['source_commit']=source;inventory['purpose_review']['scope']='Complete executable text including over100KB; actual semantic descriptions and Boss state ownership updated to063d6ccb. Native validation pending.';inventory['batches']=[b for b in inventory['batches'] if b['batch']!='P6B-BOSS-STATE']+[{'batch':'P6B-BOSS-STATE','commits':[{'commit':source,'parents':[parent]}],'current_changed_files':changed,'scope':'Boss-owned region snapshots and health/position restoration;7 production consumers plus1 native test migration.','validation':'Static review only; native pending.'}]
+sys.path.insert(0,str(root/'tools'));from project_dependencies import inspect
+actual=inspect(root);adj=collections.defaultdict(set);incoming=collections.defaultdict(set);features=collections.Counter()
+feature=lambda p:'/'.join(Path(p).parts[:2]) if p.startswith(('game/','experiments/')) else Path(p).parts[0]
+for e in actual['edges']:adj[e['source']].add(e['target']);incoming[e['target']].add(e['source']);features[(feature(e['source']),feature(e['target']),e['kind'])]+=1
+reach=collections.defaultdict(list)
+for entry in inventory['entries']:
+ seen=set();todo=[entry['path']]
+ while todo:
+  p=todo.pop()
+  if p in seen:continue
+  seen.add(p);todo.extend(adj[p]-seen)
+ for p in seen:reach[p].append(entry['path'])
+for r in inventory['files']:r['static_dependencies']=sorted(adj[r['path']]);r['static_consumers']=sorted(incoming[r['path']]);r['possible_static_entrypoints']=sorted(reach[r['path']])
+(base/'runtime_inventory.json').write_text(json.dumps(inventory,ensure_ascii=False,indent=2)+'\n');graph=json.loads((base/'dependency_graph.json').read_text());graph.update(source_commit=source,generated_utc=now,freeze_status=inventory['freeze_status'],source_status_at_start=inventory['source_status_at_start'],source_count=actual['files'],classes=actual['classes'],edges=actual['edges'],dynamic_loads=actual['dynamic_loads'],errors=actual['errors'],feature_edges=[{'source':a,'target':b,'kind':kind,'count':count} for (a,b,kind),count in sorted(features.items())]);(base/'dependency_graph.json').write_text(json.dumps(graph,ensure_ascii=False,indent=2)+'\n')
+with (base/'file_inventory.csv').open('w',newline='') as f:w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
+print({'source':source,'runtime':len(inventory['files']),'sources':actual['files'],'classes':len(actual['classes']),'edges':len(actual['edges']),'dynamic':len(actual['dynamic_loads']),'errors':actual['errors']})

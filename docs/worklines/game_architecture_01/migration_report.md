@@ -1,5 +1,11 @@
 # GAME-ARCH-01：功能目录与依赖交付报告
 
+## 最新保存与暂停
+
+用户已要求再次暂停。消费者/CI技术收口已提交dce431120e1ad7c0cb69ff1d189490bf9fa47b8e；RootBell原暂停视觉缺陷以独立提交61c4fac9e3f5674787cecc963a8ac1d9b675480d修复，回退基点dce43112。消费者批次回退基点11254a66。没有合main或发布游戏，R3阻断不改签；下方“未提交”段是保存提交前的原始阶段快照。
+
+完整恢复步骤和待验候选见[暂停节点](../../evidence/game_architecture_02/pause-checkpoint-05/README.md)。实际全文件/依赖索引仍为下文明确标注的acb快照，暂停时未重新生成；05生成器与原数据已归档，可在后续技术收口的干净HEAD更新，不把当前保存提交误称旧索引的来源。
+
 ## 后继有限验收与独立缺陷（未提交）
 
 11254基点后的18个既有消费者和资产manifest3SHA已精确应用独审候选；原157诊断151通过/6失败保留。后继spatial、production-loop115、scheduler27、forest-bible-reader58、Harness91及audio四case通过，motion708/0；原R3完整wrapper仍278/1，不能拼成full185通过。精确2ce原/回调修正targeted均8/1，两组296行与当前仅全局tick差6759；单event起跳probe8/2未采用。正式App现有cautious2经安全观察者记录1608帧/3失败，Boss26/player0及fatal/run_ended，原180/7200与胜利判据保留；这只证明当前策略失败。

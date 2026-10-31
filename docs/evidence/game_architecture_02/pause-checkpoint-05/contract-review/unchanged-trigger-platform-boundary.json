@@ -1,0 +1,272 @@
+{
+  "scope": "Source/recorded-trajectory estimate only, not native candidate execution or universal collision proof",
+  "source_assumptions": [
+    "Original first-roll path unchanged after autonomous selection; real Definition single phase1 plan",
+    "No impacts alter rig before original first recovery shots",
+    "Actual low support reached and grounded before new dodge; NOT yet proven for this strategy",
+    "Original undamaged vertical jump template translated130wu; input phase uncertainty bracketed1..2 ticks",
+    "Existing RigPose transforms replayed externally only; never imported into game/tests as collision authority"
+  ],
+  "unchanged_warning_trigger": {
+    "verdict": "REJECT_AS_SUPPORTED_PLAN_FOR_ORIGINAL_X_OR_SUPPORT_CENTER",
+    "overlap_witnesses": [
+      {
+        "hold_x": 6358.665,
+        "tick": 314,
+        "counterfactual_actor_rect": [
+          6346.665,
+          1251.92529296875,
+          6370.665,
+          1287.92529296875
+        ],
+        "bell_polygon": [
+          [
+            6376.856956616727,
+            1243.8802657113833
+          ],
+          [
+            6347.650955469329,
+            1250.736612915124
+          ],
+          [
+            6355.878572113818,
+            1285.7838142920004
+          ],
+          [
+            6385.084573261215,
+            1278.9274670882598
+          ]
+        ],
+        "bell_corner_inside_actor_rect": [
+          [
+            6355.878572113818,
+            1285.7838142920004
+          ]
+        ]
+      },
+      {
+        "hold_x": 6390,
+        "tick": 309,
+        "counterfactual_actor_rect": [
+          6378,
+          1249.57958984375,
+          6402,
+          1285.57958984375
+        ],
+        "bell_polygon": [
+          [
+            6408.4976958185525,
+            1246.9154606634909
+          ],
+          [
+            6379.2199849392655,
+            1253.4588272028866
+          ],
+          [
+            6387.072024786541,
+            1288.592080258031
+          ],
+          [
+            6416.349735665827,
+            1282.048713718635
+          ]
+        ],
+        "bell_corner_inside_actor_rect": [
+          [
+            6379.2199849392655,
+            1253.4588272028866
+          ]
+        ]
+      }
+    ]
+  },
+  "alternative_single_observed_event": {
+    "event": "first incoming current-rig horizontal leading edge reaches actual low platform right edge6450",
+    "first_trace_tick": 289,
+    "observed_boss": [
+      6518.3369140625,
+      1353.0
+    ],
+    "predicted_bell_horizontal_overlap_window": [
+      {
+        "tick": 306,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1149.17944335938,
+            "bell_top": 1245.7189661651691,
+            "vertical_clearance": 96.53952280578915
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1153.63500976562,
+            "bell_top": 1245.7189661651691,
+            "vertical_clearance": 92.08395639954915
+          }
+        ]
+      },
+      {
+        "tick": 307,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1145.44616699219,
+            "bell_top": 1246.3883629107656,
+            "vertical_clearance": 100.94219591857564
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1149.17944335938,
+            "bell_top": 1246.3883629107656,
+            "vertical_clearance": 97.20891955138563
+          }
+        ]
+      },
+      {
+        "tick": 308,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1142.43505859375,
+            "bell_top": 1246.8329569208524,
+            "vertical_clearance": 104.39789832710244
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1145.44616699219,
+            "bell_top": 1246.8329569208524,
+            "vertical_clearance": 101.38678992866244
+          }
+        ]
+      },
+      {
+        "tick": 309,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1140.14611816406,
+            "bell_top": 1246.9154606634909,
+            "vertical_clearance": 106.76934249943088
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1142.43505859375,
+            "bell_top": 1246.9154606634909,
+            "vertical_clearance": 104.48040206974088
+          }
+        ]
+      },
+      {
+        "tick": 310,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1138.57946777344,
+            "bell_top": 1246.5985420260681,
+            "vertical_clearance": 108.01907425262812
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1140.14611816406,
+            "bell_top": 1246.5985420260681,
+            "vertical_clearance": 106.45242386200812
+          }
+        ]
+      },
+      {
+        "tick": 311,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1137.73498535156,
+            "bell_top": 1245.955284719636,
+            "vertical_clearance": 108.22029936807598
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1138.57946777344,
+            "bell_top": 1245.955284719636,
+            "vertical_clearance": 107.37581694619598
+          }
+        ]
+      },
+      {
+        "tick": 312,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1137.61279296875,
+            "bell_top": 1245.1495229883403,
+            "vertical_clearance": 107.53673001959032
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1137.73498535156,
+            "bell_top": 1245.1495229883403,
+            "vertical_clearance": 107.41453763678032
+          }
+        ]
+      },
+      {
+        "tick": 313,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1138.21276855469,
+            "bell_top": 1244.391402743036,
+            "vertical_clearance": 106.178634188346
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1137.61279296875,
+            "bell_top": 1244.391402743036,
+            "vertical_clearance": 106.778609774286
+          }
+        ]
+      },
+      {
+        "tick": 314,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1139.53503417969,
+            "bell_top": 1243.8802657113833,
+            "vertical_clearance": 104.34523153169334
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1138.21276855469,
+            "bell_top": 1243.8802657113833,
+            "vertical_clearance": 105.66749715669334
+          }
+        ]
+      },
+      {
+        "tick": 315,
+        "values": [
+          {
+            "latency_ticks": 1,
+            "projected_feet": 1141.57946777344,
+            "bell_top": 1243.7504052542179,
+            "vertical_clearance": 102.17093748077787
+          },
+          {
+            "latency_ticks": 2,
+            "projected_feet": 1139.53503417969,
+            "bell_top": 1243.7504052542179,
+            "vertical_clearance": 104.21537107452787
+          }
+        ]
+      }
+    ],
+    "minimum_vertical_clearance": 92.08395639954915,
+    "verdict": "BOUNDED_HYPOTHESIS_ONLY; real登台/输入/landing/native damage still required"
+  },
+  "not_proven": [
+    "actual platform landing during warning",
+    "actual Godot sweep/contact result",
+    "group recovery two shots",
+    "later groups/phase2/full fight",
+    "all unchanged-trigger positions impossible"
+  ]
+}
