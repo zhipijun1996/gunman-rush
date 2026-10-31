@@ -55,10 +55,12 @@ func schema_and_isolation() -> void:
 	var actor_epoch := lifetime.actor_epoch
 	var snapshot := actor.region_snapshot()
 	check(snapshot.keys()==PLAINS_KEYS,"plains record retains every original field in original order")
+	check(snapshot.keys().all(func(key: Variant) -> bool: return typeof(key)==TYPE_STRING),"all original plains literal keys remain String, not StringName")
 	check(JSON.stringify(snapshot)==JSON.stringify(expected),"plains values match the explicit original wire record")
 	check(actor.motor.global_position!=actor.motor.position and snapshot.position==[13.0,-7.0],"translated parent cannot replace saved local Motor coordinates with world coordinates")
 	var forest := actor.region_snapshot(false,true)
 	check(forest.keys()==FOREST_KEYS and not forest.has("depth_state"),"forest ordinary schema omits attack vectors and absent depth methods")
+	check(forest.keys().all(func(key: Variant) -> bool: return typeof(key)==TYPE_STRING),"all original forest outer literal keys remain String")
 	check(actor.health.epoch==health_epoch and lifetime.actor_epoch==actor_epoch and attack.state_time==.25 and attack._serial==9,"snapshot does not advance phase, attack serial, health or target epoch")
 	var peer_before := peer.region_snapshot()
 	snapshot.position[0]=999
@@ -110,7 +112,8 @@ func crossbranch_depth_authority() -> void:
 	migration.home=Vector2(2,3)
 	actor.brain.direction=-1
 	var saved := actor.region_snapshot(false,true)
-	check(saved.keys()==FOREST_KEYS+["depth_state"],"forest appends species depth after its unchanged outer schema")
+	check(saved.keys()==FOREST_KEYS+[&"depth_state"],"forest appends species depth after its unchanged outer schema")
+	check(saved.keys().slice(0,8).all(func(key: Variant) -> bool: return typeof(key)==TYPE_STRING) and typeof(saved.keys()[-1])==TYPE_STRING_NAME,"forest preserves eight original String keys followed by its original dot-appended StringName extension")
 	var depth_before := migration.depth_snapshot()
 	saved.state="attack"
 	saved.state_time=99.0
