@@ -1,0 +1,975 @@
+{
+  "build_logs_sha256": "5192c63646454d905d00e1dcd775ea4507021bb32e9add69ac5678fea2d92679",
+  "identity": {
+    "edition": "Standard",
+    "id": "godot-4.7.2-gunman-sd1",
+    "patches": [
+      {
+        "file": "tools/engine/patches/117991-clear-base.patch",
+        "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+        "upstream": "https://github.com/godotengine/godot/pull/117991"
+      },
+      {
+        "file": "tools/engine/patches/120976-language-shutdown.patch",
+        "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+        "upstream": "https://github.com/godotengine/godot/pull/120976"
+      }
+    ],
+    "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "source": {
+      "archive_bytes": 47744300,
+      "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "unpacked_bytes": 345891735,
+      "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+    },
+    "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf"
+  },
+  "lanes": {
+    "android-arm64": {
+      "acceptance": "compiler output only",
+      "build_image": "ghcr.io/cirruslabs/android-sdk@sha256:d9c965f2373f9c8cc023b207cdcc7d21508f98e6a45ab66462fe41aa9f866dea",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=android",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=arm64",
+            "swappy=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_debug.log",
+          "log_sha256": "50c4f268465522d18891e0e40359f325b9017b27cc8d8e51567d58ef1e270d3a",
+          "seconds": 1120.471347127
+        },
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=android",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=arm64",
+            "swappy=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_release.log",
+          "log_sha256": "21b19917eed3d79849452d5b56b8f36e6e467171b541a68b176c4fef561b919e",
+          "seconds": 1073.8880955280001
+        },
+        {
+          "argv": [
+            "/tmp/gunman-engine/dependencies/gradle/gradle-8.11.1/bin/gradle",
+            "--no-daemon",
+            "--max-workers=2",
+            "generateGodotTemplates"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable/platform/android/java",
+          "exit_code": 0,
+          "log": "gradle.log",
+          "log_sha256": "6e11e9ad97801f343eb97bb8cf3a64c65dfa6a8fdda00475b6f042bd93fb5262",
+          "seconds": 152.3020291009998
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "android-arm64",
+      "outputs": {
+        "android_debug.apk": {
+          "bytes": 32084982,
+          "sha256": "7bd81bf064faedd8f6e5968ce3f54382f6c5b137986a270840bc56105fe31b8c"
+        },
+        "android_release.apk": {
+          "bytes": 26414542,
+          "sha256": "ee5d7d04de550add802499ad29f0dc8b3decd75879f1d7301c415589f18f6420"
+        },
+        "android_source.zip": {
+          "bytes": 52040193,
+          "sha256": "709b6fd3569a6e50f3e5fe6d0bb6049aebb104ad3c21af21f202d1bf46ab0ed7"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "arch=arm64",
+        "swappy=yes"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "linux-debug": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_debug.log",
+          "log_sha256": "2802380e1895e14f6acec2d267dae2d0a4a23f95e4c7832ec16002227317a33d",
+          "seconds": 2377.730351333
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "linux-debug",
+      "outputs": {
+        "linux_debug.x86_64": {
+          "bytes": 96132544,
+          "sha256": "e5e39ec272b6d95c845c482ddb885184fa965622b1ecfb62627f0209d6df3848"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "wayland=yes",
+        "x11=yes"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "linux-editor": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=editor",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "editor.log",
+          "log_sha256": "4712161729833eba21bddf9ed46706d9dcd73f9be1e9986abe98c9107e0ec32d",
+          "seconds": 2138.259802834
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "linux-editor",
+      "outputs": {
+        "COPYRIGHT.txt": {
+          "bytes": 100108,
+          "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d"
+        },
+        "LICENSE.txt": {
+          "bytes": 1149,
+          "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+        },
+        "godot-linux-x86_64": {
+          "bytes": 171575448,
+          "sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638"
+        },
+        "icudt_godot.dat": {
+          "bytes": 4797472,
+          "sha256": "64e407b570a21a4b740531a14cd95f0cefc46cef3d8224fd09a0dd386fb7016a"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "wayland=yes",
+        "x11=yes"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+      "workflow_run": "41180438395"
+    },
+    "linux-release": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_release.log",
+          "log_sha256": "eef5415c2568796504ab9ce3dc6bc2a17d8ce1d8b367efd8f1d7e9dc9a0eff12",
+          "seconds": 1415.062414571
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "linux-release",
+      "outputs": {
+        "linux_release.x86_64": {
+          "bytes": 89583008,
+          "sha256": "6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "wayland=yes",
+        "x11=yes"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "web-single-debug": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=no",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_debug.log",
+          "log_sha256": "d76fc7b1c036c1a339e96f43637627971a09e299a50826bd384973e36aa51ee0",
+          "seconds": 1234.52802231
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "web-single-debug",
+      "outputs": {
+        "web_nothreads_debug.zip": {
+          "bytes": 11606595,
+          "sha256": "f5cfcc6c0055d8108a7fc0667359933ea7377e73f42e80ca4343328293f3d2e0"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "arch=wasm32",
+        "threads=no",
+        "dlink_enabled=no"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "web-single-release": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=no",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_release.log",
+          "log_sha256": "ac9e9708864b3ac92ac2953bc2a203b4514ca868f597ba600c82d6205c8c44b6",
+          "seconds": 1444.034200738
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "web-single-release",
+      "outputs": {
+        "web_nothreads_release.zip": {
+          "bytes": 11313061,
+          "sha256": "d86058a9483d7c6ebe3c20448614c1f1cb98ba7157ca48b527fcb8f7e82cd4a4"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "arch=wasm32",
+        "threads=no",
+        "dlink_enabled=no"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "web-threaded-debug": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=yes",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_debug.log",
+          "log_sha256": "40d7150df6e27f23bd4f6fe19841d6a3b5f268667ffd7dd4fa28da8c5387d395",
+          "seconds": 1627.89715674
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "web-threaded-debug",
+      "outputs": {
+        "web_debug.zip": {
+          "bytes": 11658777,
+          "sha256": "863aad1746107bafee9d8e3f0983c77cdcb9aa9e14579251a2d9cfc48be4b645"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "arch=wasm32",
+        "threads=yes",
+        "dlink_enabled=no"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "web-threaded-release": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/emscripten/emsdk@sha256:33e992367f721747d8008c9141c04fa017139e3557a60e0c80be93a0870fe462",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=yes",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_release.log",
+          "log_sha256": "bc1a23e9b5302d605f38a28fdd9231c64bf771602db7ca67ba32da5496b78920",
+          "seconds": 1577.1690974449998
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "web-threaded-release",
+      "outputs": {
+        "web_release.zip": {
+          "bytes": 11334872,
+          "sha256": "a834a36841e93591a8c834caf2bb1f827c253b4025d52911dc9064aba3cffb01"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "arch=wasm32",
+        "threads=yes",
+        "dlink_enabled=no"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "windows-debug": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=windows",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "use_mingw=yes",
+            "use_llvm=yes",
+            "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+            "angle=yes",
+            "angle_libs=/tmp/gunman-engine/dependencies/angle",
+            "d3d12=yes",
+            "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+            "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+            "winrt=yes",
+            "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_debug.log",
+          "log_sha256": "ccf0ac1fe00a8b912c97152e7672f6ff4240ed09abc6d3b0caeb13cf9a80c058",
+          "seconds": 1217.3787123500001
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "windows-debug",
+      "outputs": {
+        "windows_debug_x86_64.exe": {
+          "bytes": 101518848,
+          "sha256": "6c48a8c46e4956934d11fea8e058c2cdcfd7529b04c4adc08c16edd557e5c392"
+        },
+        "windows_debug_x86_64_console.exe": {
+          "bytes": 159744,
+          "sha256": "b27e070c68d3f836e7db36858eb8a16b679c23ccceaf8d2a8342de5d6c7c6633"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "use_mingw=yes",
+        "use_llvm=yes",
+        "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+        "angle=yes",
+        "angle_libs=/tmp/gunman-engine/dependencies/angle",
+        "d3d12=yes",
+        "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+        "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+        "winrt=yes",
+        "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    },
+    "windows-release": {
+      "acceptance": "compiler output only",
+      "build_image": "docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69",
+      "build_name": "custom_build.gunman_sd1",
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=windows",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "use_mingw=yes",
+            "use_llvm=yes",
+            "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+            "angle=yes",
+            "angle_libs=/tmp/gunman-engine/dependencies/angle",
+            "d3d12=yes",
+            "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+            "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+            "winrt=yes",
+            "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable",
+          "exit_code": 0,
+          "log": "template_release.log",
+          "log_sha256": "32d28db0bcc99a1e7f7be3a997a5fa518eba9382575c6df45cb8878d7ce4670f",
+          "seconds": 798.387642032
+        }
+      ],
+      "common_options": [
+        "production=yes",
+        "module_mono_enabled=no",
+        "debug_symbols=no",
+        "lto=none",
+        "optimize=speed",
+        "debug_paths_relative=yes"
+      ],
+      "lane": "windows-release",
+      "outputs": {
+        "D3D12Core.x86_64.dll": {
+          "bytes": 4821064,
+          "sha256": "560f9574372a52ab66ad95ee1222f1eb4c9f6161d8f6b7b025d89f684b07246c"
+        },
+        "d3d12SDKLayers.x86_64.dll": {
+          "bytes": 4932640,
+          "sha256": "bcec9e1315fb4dbc767371926fb5eb8281de1b3ab1fb530a636b3c193a9a2bbd"
+        },
+        "windows_release_x86_64.exe": {
+          "bytes": 91011072,
+          "sha256": "1118f7998b99e6e2c5fd83667ce77e29ce35bd4acd849ed9a8dbaf78489d697e"
+        },
+        "windows_release_x86_64_console.exe": {
+          "bytes": 159744,
+          "sha256": "31a74ac713ed28ea666f99911f829a8322cc8138bd9765378f108b6a08297682"
+        }
+      },
+      "patched_source_sha256": {
+        "modules/gdscript/gdscript.cpp": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b",
+        "modules/gdscript/gdscript.h": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518",
+        "modules/gdscript/gdscript_function.cpp": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d",
+        "modules/gdscript/gdscript_function.h": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+      },
+      "patches": [
+        {
+          "file": "tools/engine/patches/117991-clear-base.patch",
+          "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+          "upstream": "https://github.com/godotengine/godot/pull/117991"
+        },
+        {
+          "file": "tools/engine/patches/120976-language-shutdown.patch",
+          "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+          "upstream": "https://github.com/godotengine/godot/pull/120976"
+        }
+      ],
+      "platform_options": [
+        "accesskit=yes",
+        "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+        "arch=x86_64",
+        "use_mingw=yes",
+        "use_llvm=yes",
+        "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+        "angle=yes",
+        "angle_libs=/tmp/gunman-engine/dependencies/angle",
+        "d3d12=yes",
+        "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+        "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+        "winrt=yes",
+        "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+      ],
+      "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "recipe_id": "godot-4.7.2-gunman-sd1",
+      "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "source": {
+        "archive_bytes": 47744300,
+        "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+        "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+        "unpacked_bytes": 345891735,
+        "url": "https://github.com/godotengine/godot/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz"
+      },
+      "source_date_epoch": 1787011200,
+      "status": "built",
+      "workflow_run": "41180438395"
+    }
+  },
+  "recipe_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "workflow_run": "41180438395"
+}

@@ -1,0 +1,418 @@
+{
+  "reviewer": "ci_audit independent non-author of integration",
+  "reviewed_at_utc": "2026-10-31T09:55:45.998475+00:00",
+  "decision": "LIMITED_ACCEPT",
+  "scope": "Active locked toolchain integration only, read-only byte comparison, actual installed bytes and public evidence binding; no native execution or main writes",
+  "source_identity": {
+    "head": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+    "merge_head": "63afcb1ba43c7d16c85745478cd3617037f20848",
+    "state": "merge --no-commit pending; verdict bound to listed file SHA256, not a final integration commit",
+    "files": [
+      {
+        "path": ".github/workflows/environment.yml",
+        "sha256": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": ".github/workflows/production.yml",
+        "sha256": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tests/test_godot_identity.py",
+        "sha256": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tests/test_harness.py",
+        "sha256": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tests/test_level_design_routing.py",
+        "sha256": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/build.py",
+        "sha256": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_audio_ambience.py",
+        "sha256": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_audio_feedback.py",
+        "sha256": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_audio_home.py",
+        "sha256": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_audio_hurt.py",
+        "sha256": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_audio_reels.py",
+        "sha256": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_forest_bible_route.py",
+        "sha256": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/capture_selected_audio.py",
+        "sha256": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/check_environment.py",
+        "sha256": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/engine/build.py",
+        "sha256": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/engine/test_build_contract.py",
+        "sha256": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/godot.sh",
+        "sha256": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/godot_identity.py",
+        "sha256": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/harness.py",
+        "sha256": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/level_content_pilot.py",
+        "sha256": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/level_design.py",
+        "sha256": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/mobile_web_perf/prepare_frame_pair.py",
+        "sha256": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/production_loop.py",
+        "sha256": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/run_plains_action_golden_tests.py",
+        "sha256": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/setup_environment.py",
+        "sha256": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "tools/test_toolchain_download.py",
+        "sha256": "e72b07c6776b5ddfaf58997fdc5013d839315a5cfc8399b0b79bcd86cbea78f9",
+        "equal_commit": "63afcb1ba43c7d16c85745478cd3617037f20848"
+      },
+      {
+        "path": "config/godot_build.json",
+        "sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": "tools/engine/build.py",
+        "sha256": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": "tools/engine/package.py",
+        "sha256": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": "tools/engine/test_build_contract.py",
+        "sha256": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": "tools/engine/patches/117991-clear-base.patch",
+        "sha256": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": "tools/engine/patches/120976-language-shutdown.patch",
+        "sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+        "equal_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+      },
+      {
+        "path": ".github/workflows/engine-backport-build.yml",
+        "sha256": "9af95abd60471f6fdbf66938261ae7656d8b0930905812981b914a7fea8f48d3",
+        "equal_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a"
+      },
+      {
+        "path": "tools/engine/promote.py",
+        "sha256": "23038992ca967ebd471d32247b67551ff5aba1693b87247343feef0ccb0e2f68",
+        "equal_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a"
+      },
+      {
+        "path": "tools/engine/test_promotion.py",
+        "sha256": "7cf334180212902ea25ed2a086e6c36f7285caed7b9435be9c0b59aa97acf145",
+        "equal_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a"
+      }
+    ],
+    "config": {
+      "path": "/workspace/gunman-rush-refactor/config/toolchain.json",
+      "sha256": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e",
+      "bytes": 5039
+    },
+    "readme": {
+      "path": "/workspace/gunman-rush-refactor/tools/engine/README.md",
+      "sha256": "705f1bfc9b228ef7413a2baedb9795f45639c301003dbd7c3800e35a9ee9f905",
+      "bytes": 7990
+    },
+    "profiles": {
+      "path": "/workspace/gunman-rush-refactor/tools/harness/profiles.json",
+      "sha256": "678411030b392075ad8fd95a6f7cc5b29692f092c1b836318f614e926c7159e6",
+      "bytes": 309201
+    }
+  },
+  "lock": {
+    "published_candidate": {
+      "path": "/workspace/refactor-evidence/engine-184-download/remote-distribution/godot-lock-candidate.json",
+      "sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+      "bytes": 3871
+    },
+    "godot_semantically_exact": true,
+    "non_godot_fields_exact_head": true,
+    "recipe_sha256": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "version_exact": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+    "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+    "actual_binary_bytes_verified": true,
+    "actual_provenance_verified": true,
+    "actual_template_members_verified": 18,
+    "installed_binary": "/workspace/toolchains/godot/godot-4.7.2-gunman-sd1/godot-linux-x86_64",
+    "template_directory": "/workspace/toolchains/user-data/godot-4.7.2-gunman-sd1/godot/export_templates/4.7.2.stable",
+    "ten_lane_source": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "ten_lane_run": "41180438395",
+    "read_only_negative_lock_probes": [
+      {
+        "mutation": "distribution",
+        "result": "rejected",
+        "reason": "Fixed upstream distribution lock has not been activated; use the reviewed release lock"
+      },
+      {
+        "mutation": "build_id",
+        "result": "rejected",
+        "reason": "Toolchain build/source lock mismatch: build_id"
+      },
+      {
+        "mutation": "version_exact",
+        "result": "rejected",
+        "reason": "Toolchain build/source lock mismatch: version_exact"
+      },
+      {
+        "mutation": "recipe_sha256",
+        "result": "rejected",
+        "reason": "Toolchain build/source lock mismatch: recipe_sha256"
+      },
+      {
+        "mutation": "data_subdirectory",
+        "result": "rejected",
+        "reason": "Toolchain build/source lock mismatch: data_subdirectory"
+      },
+      {
+        "mutation": "source",
+        "result": "rejected",
+        "reason": "Toolchain build/source lock mismatch: source"
+      }
+    ]
+  },
+  "gates": {
+    "original_profile_definitions_exact": true,
+    "full_check_count": 182,
+    "all_registered_check_count": 215,
+    "all_non_input_check_fields_exact_head": true,
+    "commands_markers_budgets_unchanged": true,
+    "only_input_deltas": [
+      {
+        "check": "region-bible-contract",
+        "old_count": 314,
+        "new_count": 316,
+        "ordered_duplicate_prefix_preserved": true,
+        "appended": [
+          "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+          "docs/creative_direction/archive/ownership-closeout-before-style27"
+        ]
+      },
+      {
+        "check": "region-bible-tests",
+        "old_count": 653,
+        "new_count": 656,
+        "ordered_duplicate_prefix_preserved": true,
+        "appended": [
+          "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+          "docs/creative_direction/archive/ownership-closeout-before-style27",
+          "tests/test_region_creative_direction.py"
+        ]
+      }
+    ],
+    "original_installer_environment_workflow_budgets_preserved_by_exact_accepted_candidate_comparison": true,
+    "single_identity_authority_exact_reviewed_source": true,
+    "unknown_custom_and_official_fallback_rejected": true,
+    "template_guard_requires_exact_member_set_and_hashes": true,
+    "official_control_destination_and_foreign_directory_write_guards_present": true,
+    "f91_artifact_json_release_asset_octet_headers_exact": true
+  },
+  "published_evidence": {
+    "api": {
+      "path": "/workspace/refactor-evidence/active-toolchain-integration-independent-api.json",
+      "sha256": "ff67dc7eee80bf426d84c849a6522100fb5586e18f59a6ee34197418dfb37f52",
+      "bytes": 1832
+    },
+    "promotion_run": {
+      "id": 41188433036,
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/41188433036"
+    },
+    "release": {
+      "id": 429822541,
+      "draft": false,
+      "prerelease": true,
+      "immutable": false,
+      "tag_name": "toolchain-godot-4.7.2-gunman-sd1",
+      "assets": [
+        {
+          "name": "build-logs.zip",
+          "size": 219436,
+          "digest": "sha256:5192c63646454d905d00e1dcd775ea4507021bb32e9add69ac5678fea2d92679"
+        },
+        {
+          "name": "build-provenance.json",
+          "size": 39123,
+          "digest": "sha256:3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225"
+        },
+        {
+          "name": "engine-identity.json",
+          "size": 1031,
+          "digest": "sha256:0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e"
+        },
+        {
+          "name": "godot-4.7.2-gunman-sd1-export-templates.tpz",
+          "size": 295644858,
+          "digest": "sha256:5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670"
+        },
+        {
+          "name": "godot-4.7.2-gunman-sd1-linux-x86_64.zip",
+          "size": 86018425,
+          "digest": "sha256:39f662a932eaacd949111659be3f2cc465edd4cd5822e8f632a724b605a8da2b"
+        },
+        {
+          "name": "godot-lock-candidate.json",
+          "size": 3871,
+          "digest": "sha256:84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604"
+        },
+        {
+          "name": "SHA256SUMS.json",
+          "size": 694,
+          "digest": "sha256:8e8c1ba5d44add94e80ca79c3123eccf51111350db64d4611b177a638aaf3839"
+        },
+        {
+          "name": "version.txt",
+          "size": 13,
+          "digest": "sha256:38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e"
+        }
+      ]
+    },
+    "all_eight_api_digest_public_http200_receipt_and_local_distribution_bytes_equal": true,
+    "public_download_receipt": {
+      "path": "/workspace/refactor-evidence/engine-184-public-download-verification.json",
+      "sha256": "8f1f12c38829a7b47c79dfff10262b5d7d244ded736448081566514439e4a152",
+      "bytes": 3017
+    },
+    "immutable_note": "GitHub immutable=false; exact content lock and no-clobber promoter policy are verified, not GitHub immutable-release enforcement"
+  },
+  "validation": {
+    "setup": {
+      "path": "/workspace/gunman-rush-refactor/build/verification/environment/setup-report.json",
+      "sha256": "f463f38cb2cac332a3c6438101ecdd4533a5a5efc3f7021344833a8733415a2c",
+      "bytes": 1548
+    },
+    "setup_report_status": "passed",
+    "reported_tests": [
+      {
+        "path": "/workspace/refactor-evidence/active-toolchain-download-tests-01.log",
+        "sha256": "1ad9c0682e1ac54f28980ecf283cbc88966c7bb0d5c940045b9272bd038cb14a",
+        "bytes": 699,
+        "reported_tests": 26,
+        "result": "passed",
+        "execution_owner": "root; independently read log, not rerun here"
+      },
+      {
+        "path": "/workspace/refactor-evidence/active-main-harness-tests-01.log",
+        "sha256": "16e35af41b5e1fb8410019103adbf2de584be11886bd75e2f95024e7363add73",
+        "bytes": 13333,
+        "reported_tests": 91,
+        "result": "passed",
+        "execution_owner": "root; independently read log, not rerun here"
+      }
+    ],
+    "this_review_executed_no_engine": true
+  },
+  "sparse_restoration": {
+    "receipt": {
+      "path": "/workspace/refactor-evidence/gdignore-restored-after-toolchain-merge.json",
+      "sha256": "3a2f4d6d353812d6c77f3ea656952edac60b67c77eec9dcf684e56cfab79b12e",
+      "bytes": 638
+    },
+    "seven_files_exact_head": true,
+    "paths": [
+      "build/.gdignore",
+      "docs/evidence/ai_level_design_v1/.gdignore",
+      "docs/evidence/forest_variety_04/.gdignore",
+      "docs/evidence/foundry_mobile/.gdignore",
+      "docs/evidence/main_pr96_repair01/mobile-popup-followup/sampling-counterproof-r1-executed-source/.gdignore",
+      "docs/evidence/plains_redesign/reward_entry_review/controller_fresh_native/frozen_v9/.gdignore",
+      "preview/.gdignore"
+    ],
+    "assessment": "Restores tracked exclusion bytes omitted by sparse materialization; no test or duplicate-class guard weakened; initial failure not erased"
+  },
+  "readme_corrections": {
+    "canonical_work_directory_restored": true,
+    "build_and_promotion_modes_distinguished": true,
+    "inactive_stage_explicitly_historical": true
+  },
+  "limitations": [
+    "No Godot executable invoked by this review, including --version.",
+    "No full182 native/gameplay/visual run, Windows or Android export, device execution, Web/PCK or public game deployment acceptance signed here.",
+    "Root setup and26/91 logs checked, not independently rerun in this review; pure byte/lock validation was independently executed.",
+    "Other dirty style27, game-test-consumer, quality and documentation work is outside this toolchain integration review.",
+    "Any change to reviewed source bytes requires matching incremental review; final integration Git commit still pending."
+  ]
+}

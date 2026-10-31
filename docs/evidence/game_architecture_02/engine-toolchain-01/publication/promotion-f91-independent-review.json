@@ -1,0 +1,51 @@
+{
+  "verdict": "LIMITED_ACCEPT_RETRY_SCOPED_PROMOTION_WITH_CORRECT_ACTIONS_MEDIA_TYPE",
+  "reviewed_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+  "baseline_accepted_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+  "reviewer": "ci_audit independent; no release writes",
+  "changed_production_contract": "GitHub.download defaults to application/vnd.github+json for Actions artifact endpoint; only release asset read explicitly requests application/octet-stream. No checksum/identity/authorization/publication rule changed.",
+  "exact_unchanged_ast": [
+    "distribution_names",
+    "extract_exact",
+    "verify_metadata",
+    "verify_distribution",
+    "SafeRedirect",
+    "release_state",
+    "promote",
+    "main"
+  ],
+  "workflow_package_recipe_exact_bytes_preserved": true,
+  "independent_tests": [
+    {
+      "entry": [
+        "python3",
+        "tools/engine/test_promotion.py"
+      ],
+      "exit": 0,
+      "log": "promotion-f91-independent-promotion11.log"
+    },
+    {
+      "entry": [
+        "python3",
+        "tools/engine/test_build_contract.py"
+      ],
+      "exit": 0,
+      "log": "promotion-f91-independent-build8.log"
+    }
+  ],
+  "retained_real_failure": {
+    "run": 41187929215,
+    "job": 124498536432,
+    "stage": "artifact_download",
+    "HTTP": 415,
+    "no_release_asset_upload_reached": true
+  },
+  "new_request_test": "Actual urllib.Request GET headers and returned bytes verified for both endpoint classes; fake release transport requires octet-stream. Existing redirect strips Authorization across hosts.",
+  "real_api_boundary": "Author small-API readonly probe accepts JSON and reaches signed redirect, but local blob Forbidden is retained; no assertion that revised Actions workflow has succeeded yet.",
+  "large_actual_distribution_receipt_inherited": "Exact verifier/package unchanged from ce26/7c; prior physical381MB/8file checks remain valid; no new large repackage",
+  "not_signed": [
+    "Retried workflow actual success",
+    "Remote release upload/publication or publicURLs",
+    "Main activation/native/full182/export/device"
+  ]
+}

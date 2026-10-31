@@ -1,0 +1,61 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_FOR_ISOLATED_DIAGNOSTIC_BACKPORT_ONLY",
+  "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "upstream_pr": "https://github.com/godotengine/godot/pull/120976",
+  "claimed_upstream_merge": "bbad33562d2edbef59ee23f2ad83d0b12725454f",
+  "incremental_patch_sha256": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+  "combined_patch_sha256": "b7b3402abce12d02cbcb517f7e852695c951e98e5d9aee1891bf5f24e4b64edb",
+  "source_hashes": {
+    "modules/gdscript/gdscript.cpp": {
+      "official_sha256": "ca67cbe6715b371c276837948edb317c7f2987d2f43ae68a0fb547f823115d6f",
+      "B_sha256": "182986dee94a31e751e1f08d8cb7dfc875a1417dd526393504ec6ecdfe2401e3",
+      "C_sha256": "43e7403fde360ebee2ab13319f8c169f5cc2cc655e2b8100d9ab26638e423d2b"
+    },
+    "modules/gdscript/gdscript.h": {
+      "official_sha256": "ed654f6d30f7aa4e26f3b30f5421fb2fbe6254ebfe25c33786133efb0e386afb",
+      "B_sha256": "ed654f6d30f7aa4e26f3b30f5421fb2fbe6254ebfe25c33786133efb0e386afb",
+      "C_sha256": "dbe34d7f0b2d789e356ff39a711dd5e60f79f831e166b0c2fc8dd910a4591518"
+    },
+    "modules/gdscript/gdscript_function.cpp": {
+      "official_sha256": "87ddbbc86d8305607ad28d17db27406f093134dde3f83720520e29c03d8f98db",
+      "B_sha256": "87ddbbc86d8305607ad28d17db27406f093134dde3f83720520e29c03d8f98db",
+      "C_sha256": "6ae315132216b469d9f75ef42f0eb6a5b877106cee73762db10accf2f68e3c9d"
+    },
+    "modules/gdscript/gdscript_function.h": {
+      "official_sha256": "15fc4f20e61a8b94e48d74316cf0afdf26c8df627c3b8d68d736b88323e01e16",
+      "B_sha256": "15fc4f20e61a8b94e48d74316cf0afdf26c8df627c3b8d68d736b88323e01e16",
+      "C_sha256": "1b864d95e0a547438cc090e155c2d9bd1f1b8bbec5c45506823c127aa785bac3"
+    }
+  },
+  "independent_proof": "engine-diagnostic-C-independent-patch-proof.json",
+  "findings": [
+    "Official archive four original file hashes match receipt; exact B then C patch replay with fuzz=0 reproduces all four current C source hashes.",
+    "Published upstream gdscript.cpp/h hunks applied to B with fuzz=0 reproduce C exactly. FunctionState two context adaptations retain existing is_valid/resume declarations and install the upstream idempotent clear/destructor sequence.",
+    "Script clear now owns pending cancellation and script-list removal; ordinary instance and function-state destruction use strong-Ref-protected cleanup. Compiler::_prepare_compilation still calls cancel_pending_functions(true), so this is not shutdown-only.",
+    "Language finish deliberately changes static-data PREDELETE timing, detaches dangling instances, then clears script dependencies; guard failures remain visible.",
+    "Existing resume/is_valid implementations are retained. clear is not newly GDScript-bound. This review does not establish general API safety after language teardown."
+  ],
+  "limitations": [
+    "No engine/build/export executed by reviewer. No official project toolchain or template replacement is accepted.",
+    "B cleans only the minimal reproducer. Both A and B actual game formal tests retain 191 functional checks followed by 57 objects/25 resources and RID leak failures; not a production fix.",
+    "C build receipt reports success, but C runtime/native/Web behavior is not accepted here.",
+    "Upstream patch provenance is the recorded artifact and merge identifier; this is not a cryptographic endorsement of upstream or proof of correctness.",
+    "Upstream TODOs for static deinitialization, PREDELETE script loading after cache clear, and lambda callables remain outside the fix."
+  ],
+  "build_receipt_only": {
+    "binary_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+    "exit_code": 0
+  },
+  "game_files_modified_by_reviewer": false,
+  "subsequent_runtime_evidence_reviewed": {
+    "executed_by": "runtime_audit, not independent reviewer",
+    "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+    "runtime_files": 4186,
+    "runtime_aggregate_sha256": "5bbd938957c0bdb37f1362a1bab46b0fad3c70191272bffe0892613303f9eba1",
+    "observed_formal_C": "log shows 191 assertions, 0 failures; strict clean marker; custom diagnostic only",
+    "A_B": "same source still 57 objects/25 resources/12 RID failure",
+    "log_sha256": "99b40e3bfda4c8e3b8f89d364fcc47329eb9d3b2774c40d1b775e602d0023ec6",
+    "excluded": "No official toolchain/full suite/reload/await/Web/export acceptance"
+  }
+}

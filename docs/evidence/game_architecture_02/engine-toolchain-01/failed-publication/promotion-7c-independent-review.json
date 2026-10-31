@@ -1,0 +1,47 @@
+{
+  "verdict": "REJECT_PENDING_ACTUAL_PRERELEASE_STATE_FIX",
+  "candidate_commit": "7c18115d0fe19cfb2cc7d4ffe38039e86e434c83",
+  "actual_release": {
+    "id": 429822541,
+    "tag_name": "toolchain-godot-4.7.2-gunman-sd1",
+    "draft": true,
+    "prerelease": true,
+    "target_commitish": "184970c7fff5baa6842efb8f34339ce87fff5bfd"
+  },
+  "observed_actual_metadata_in_existing_release_state": "REJECTED: Existing release metadata differs from the reviewed target",
+  "existing_compile_package_exact_preserved": true,
+  "plan_only_new_mode_condition": true,
+  "publish_branch_does_not_enable_plan_on_push": true,
+  "original_permissions_concurrency_budgets_preserved": true,
+  "independent_tests": [
+    {
+      "entry": [
+        "python3",
+        "tools/engine/test_promotion.py"
+      ],
+      "exit": 0,
+      "log": "promotion-7c-independent-promotion10.log"
+    },
+    {
+      "entry": [
+        "python3",
+        "tools/engine/test_build_contract.py"
+      ],
+      "exit": 0,
+      "log": "promotion-7c-independent-build8.log"
+    }
+  ],
+  "static_checked": [
+    "Fixed workflow repository/source/run/artifact/size/digest/lock/tag/release",
+    "Only publish job contentswrite; GITHUB_TOKEN explicitly set only actual publish step; checkout persistcredentials false",
+    "Exact8 outputs reconstructed into original10lane package contract, repack all8SHA before release writes",
+    "Different/unknown/duplicate existing asset rejection before writes; missing-only upload; all8readback+tag recheck beforepublish",
+    "Cross-host redirect drops Authorization; initial credential requests restricted to api.github.com/uploads.github.com",
+    "Published exactmatching case read-only idempotent; failed stage report retained"
+  ],
+  "not_signed": [
+    "Actual release upload/publish",
+    "Final publicURL downloads",
+    "Main installation/activation/gameCI/device"
+  ]
+}

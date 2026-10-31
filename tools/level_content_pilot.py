@@ -22,7 +22,6 @@ from run_tests import run_engine
 
 ROOT = Path(__file__).resolve().parents[1]
 ERROR = re.compile(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR:|ObjectDB.*leaked|resources? still in use at exit')
-_ENGINE_CACHE = {}
 _FILE_CACHE = {}
 
 
@@ -34,22 +33,8 @@ def source_sha(path):
 
 
 def engine_identity(root):
-    toolchain = Path(os.environ.get('GUNMAN_TOOLCHAIN_ROOT', root.parent / 'toolchains'))
-    path = Path(os.environ.get('GODOT_BIN', toolchain / 'godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64'))
-    if not path.is_file() or not os.access(path, os.X_OK):
-        fallback = shutil.which('godot') or shutil.which('godot4')
-        if not fallback: raise ValueError('Actual Godot binary unavailable')
-        path = Path(fallback)
-    path = path.resolve()
-    stat = path.stat()
-    key = (str(path), stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
-    if key not in _ENGINE_CACHE:
-        version = subprocess.check_output([str(path), '--version'], text=True, timeout=10).strip()
-        if not version.startswith('4.7.2.stable.official.') or 'mono' in version:
-            raise ValueError('Wrong real engine: ' + version)
-        _ENGINE_CACHE[key] = {'version': version, 'binary_sha256': sha(path), 'bytes': stat.st_size,
-                              'binary': str(path)}
-    return _ENGINE_CACHE[key]
+    from godot_identity import verified_engine
+    return verified_engine(repo=root)
 
 
 def snapshot(root, catalog=None):

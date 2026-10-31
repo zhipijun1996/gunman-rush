@@ -360,7 +360,7 @@ class SparseIsolationTests(unittest.TestCase):
         self.git("commit", "-qm", "Real source and unrelated cold evidence")
         self.cold_blob = self.git("rev-parse", "HEAD:docs/evidence/cold.bin").strip()
         self.toolchain = self.base / "toolchain"
-        (self.toolchain / "user-data/godot/export_templates").mkdir(parents=True)
+        (self.toolchain / "selected-patched-data/godot/export_templates").mkdir(parents=True)
 
     def git(self, *args, root=None, data=None):
         return subprocess.check_output(["git", "-C", str(root or self.root), *args], input=data, text=True)
@@ -400,7 +400,7 @@ class SparseIsolationTests(unittest.TestCase):
         self.dirty_source()
         original_index = self.git("ls-files", "--stage", "-z")
         original_flags = self.git("ls-files", "-v", "-z")
-        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain), GUNMAN_DATA_HOME=str(self.toolchain / "selected-patched-data")):
             files = h.source_files()
             before = h.input_digest({"argv": []}, files, {})
             one, two = self.base / "one", self.base / "two"
@@ -427,6 +427,8 @@ class SparseIsolationTests(unittest.TestCase):
             self.assertNotEqual(env1["XDG_CONFIG_HOME"], env2["XDG_CONFIG_HOME"])
             self.assertNotEqual(env1["XDG_CACHE_HOME"], env2["XDG_CACHE_HOME"])
             self.assertTrue((Path(env1["GUNMAN_DATA_HOME"]) / "godot/export_templates").is_symlink())
+            self.assertEqual((Path(env1["GUNMAN_DATA_HOME"]) / "godot/export_templates").resolve(),
+                             self.toolchain / "selected-patched-data/godot/export_templates")
             (one / ".godot/imported/cache.txt").write_text("lane one import")
             (Path(env1["GUNMAN_DATA_HOME"]) / "session.txt").write_text("lane one save")
             self.assertEqual((two / ".godot/imported/cache.txt").read_text(), "independent import seed")
@@ -483,7 +485,7 @@ class SparseIsolationTests(unittest.TestCase):
         self.assertTrue(object_path.is_file())
         object_path.unlink()
         before_flags = self.git("ls-files", "--sparse", "-v", "-z")
-        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain), GUNMAN_DATA_HOME=str(self.toolchain / "selected-patched-data")):
             files = h.source_files()
             before = h.input_digest({"argv": []}, files, {})
             lane = self.base / "missing-cold-object"
@@ -505,7 +507,7 @@ class SparseIsolationTests(unittest.TestCase):
         # materialized out-of-pattern file. Inspect the retained index flag
         # without that automatic sparse adjustment; do not change its rules.
         self.assertTrue(self.git("-c", "core.sparseCheckout=false", "ls-files", "-v", "docs/evidence/cold.bin").startswith("S "))
-        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain), GUNMAN_DATA_HOME=str(self.toolchain / "selected-patched-data")):
             files = h.source_files()
             before = h.input_digest({"argv": []}, files, {})
             lane = self.base / "hydrated-lane"
@@ -521,7 +523,7 @@ class SparseIsolationTests(unittest.TestCase):
         self.git("add", "src/input.txt", root=worktree)
         (worktree / "src/input.txt").write_text("linked working")
         self.git("update-index", "--split-index", root=worktree)
-        with patch.object(h, "ROOT", worktree), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+        with patch.object(h, "ROOT", worktree), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain), GUNMAN_DATA_HOME=str(self.toolchain / "selected-patched-data")):
             lane = self.base / "linked-lane"
             h.isolated_workspace(lane, h.source_files())
         self.assertEqual(self.git("show", ":src/input.txt", root=lane), "linked staged")
@@ -880,7 +882,8 @@ class HarnessLaneTests(unittest.TestCase):
         # and in the verifier, rather than being ignored as generated content.
         (self.root / "assets/foundry/prepared.json").write_text('{"basis":"prepared"}\n')
         self.identity = {"python": sys.version, "platform": sys.platform,
-                         "godot": {"exit_code": 0, "version": "SIMULATED 4.7.2 identity; no engine"},
+                         "godot": {"exit_code": 0, "version": "SIMULATED 4.7.2 identity; no engine",
+                                   "binary_sha256": "a" * 64, "template_archive_sha256": "b" * 64},
                          "node": {"exit_code": 0, "version": "SIMULATED node identity"}}
         self.addCleanup(patch.stopall)
         patch.object(h, "ROOT", self.root).start()
@@ -1105,6 +1108,12 @@ class HarnessLaneTests(unittest.TestCase):
         paths = self.phases(); original = json.loads(paths[0].read_text())
         for key in ("toolchain", "toolchain_after"):
             changed=self.copy(original);changed[key]["godot"]["version"]="other";paths[0].write_text(json.dumps(changed))
+            with self.assertRaises(ValueError): self.verify(paths)
+        for field in ("binary_sha256", "template_archive_sha256"):
+            changed=self.copy(original)
+            for key in ("toolchain", "toolchain_after"):
+                changed[key]["godot"][field]="c" * 64
+            paths[0].write_text(json.dumps(changed))
             with self.assertRaises(ValueError): self.verify(paths)
         changed=self.copy(original)
         for key in ("toolchain", "toolchain_after"):changed[key]["godot"]["exit_code"]=1

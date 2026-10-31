@@ -1,0 +1,56 @@
+{
+  "verdict": "LIMITED_ACCEPT_PUSH_SCOPED_PROMOTION_WORKFLOW_FOR_PRECISE_REVIEWED_DISTRIBUTION",
+  "reviewer": "ci_audit independent, not implementation author",
+  "reviewed_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+  "builder_baseline": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "files_sha256": {
+    ".github/workflows/engine-backport-build.yml": "9af95abd60471f6fdbf66938261ae7656d8b0930905812981b914a7fea8f48d3",
+    "tools/engine/README.md": "17b9aaefcb9f8c1234f53e5989c619c70fd319233908a14481d844e5afea7126",
+    "tools/engine/promote.py": "148ec3d32fb8a2ea068f2f9b87486391579413a436c7a48c5a1ee48aba39e207",
+    "tools/engine/test_promotion.py": "7b9ee4902b4d9339637d83b7e9604926446af4a9ec63ee0c025ce3f8fa42237b"
+  },
+  "previous_rejected_candidate": "7c18115d0fe19cfb2cc7d4ffe38039e86e434c83; proof retained in promotion-7c-independent-review.json",
+  "actual_release_read_only": {
+    "id": 429822541,
+    "tag_name": "toolchain-godot-4.7.2-gunman-sd1",
+    "target_commitish": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "prerelease": true,
+    "draft": true
+  },
+  "actual_tag_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "actual_release_state_function_accepts": true,
+  "opposite_prerelease_false_mutation_refused": true,
+  "only_production_code_delta_since7c": "Exact prerelease predicate False to True; publish PATCH remains draftfalse only. No package/verifier/API/asset/network/commands behavior changed.",
+  "tests": [
+    {
+      "name": "promotion10",
+      "exit": 0,
+      "log": "promotion-ce26-independent-promotion10.log"
+    },
+    {
+      "name": "build8",
+      "exit": 0,
+      "log": "promotion-ce26-independent-build8.log"
+    }
+  ],
+  "static_original_full_review": [
+    "Fixed repo/commit/run/artifact ID/size/SHA/lockSHA/tag/release in exactworkflow command",
+    "Build branch unchanged ten-lane compile/package bytes/old budgets; promotionbranch push plan false and compile/package skipped via existing needs",
+    "Only publish job contentswrite/actionsread; standard Actions token explicitly passed only publish step; no checkout credentials persisted",
+    "Artifact metadata and exact SHA before safe regular-member extraction;8payload reconstruct10lanes; existingpackage validates original source/patch/argv/cwd/exit/logSHA/payload; all8repack bytes mustmatch",
+    "Existingrelease/tag/target/prerelease/uploadhost exact; annotatedtag bounded resolution",
+    "Existingassets downloaded/hashed before mutations; different/unexpected/duplicate refuses, matching reused; onlymissing uploaded",
+    "All8assets downloaded andhashmatched plus tag reread before draftfalsePATCH; publishedmatching path no writes; no delete/clobber",
+    "Cross-host redirects removeAuthorization; credentialinitialhost limited toGitHub API/uploads",
+    "Actual381MB7c verifier receipt sourceSHA matches frozen candidate; only unrelated prerelease predicate changed; prior independent8file physical hashes equal receipt",
+    "Stageerror report preserved in always-artifact step"
+  ],
+  "actual_distribution_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+  "actual_artifact_sha256": "61ef9df05bdaaa9a2edaa4997a8e49352f09c8cd1d8f42b878323d1945b11564",
+  "no_repack_or_engine_or_remote_mutation_by_reviewer": true,
+  "not_signed": [
+    "Workflow actually ran/published",
+    "Final publicURLs/download availability",
+    "Main toolchain activation/full182/native/export/device"
+  ]
+}

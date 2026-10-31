@@ -16,6 +16,7 @@ import zipfile
 from pathlib import Path
 
 from check_environment import CONFIG, DATA, JAVA, REPO, ROOT, SDK, environment
+import godot_identity
 
 SETUP_EVENTS = []
 
@@ -198,32 +199,41 @@ def main():
     for command in ("git", "python3", "curl"):
         if not shutil.which(command):
             raise RuntimeError(f"Missing prerequisite {command}; install using the environment's supported package manager")
-    engine_dir = ROOT / "godot" / CONFIG["godot"]["version"]
-    engine = engine_dir / ("Godot_v" + CONFIG["godot"]["version"] + "-stable_linux.x86_64")
-    existing = os.environ.get("GODOT_BIN") or shutil.which("godot") or shutil.which("godot4")
-    if existing and not engine.is_file():
-        candidate = subprocess.run([existing, "--version"], capture_output=True, text=True, timeout=30)
-        if candidate.returncode == 0 and candidate.stdout.strip().startswith(CONFIG["godot"]["version_prefix"]) and "mono" not in candidate.stdout:
-            engine = Path(existing)
-        elif os.environ.get("GODOT_BIN"):
-            raise RuntimeError("GODOT_BIN does not match the locked Godot Standard version")
-    if not engine.is_file():
-        unpack_zip(download(CONFIG["godot"]["linux_x86_64"], "godot-linux-x86_64.zip"), engine_dir)
-        engine.chmod(0o755)
-    result = subprocess.run([str(engine), "--version"], capture_output=True, text=True, timeout=30)
-    if result.returncode or not result.stdout.strip().startswith(CONFIG["godot"]["version_prefix"]) or "mono" in result.stdout:
-        raise RuntimeError("Installed binary does not match the locked Godot Standard version")
-    print(result.stdout.strip())
-    template_dir = DATA / "godot/export_templates" / (CONFIG["godot"]["version"] + ".stable")
-    required = CONFIG["windows"]["templates"] + ["android_debug.apk", "android_release.apk", "android_source.zip", "linux_debug.x86_64", "linux_release.x86_64"]
-    template_version = template_dir / "version.txt"
-    valid_version = template_version.is_file() and template_version.read_text().strip() == CONFIG["godot"]["version"] + ".stable"
-    if not valid_version or not all((template_dir / name).is_file() and (template_dir / name).stat().st_size > 0 for name in required):
-        archive = download(CONFIG["godot"]["templates"], "godot-export-templates.tpz")
+    lock = godot_identity.validate_lock(CONFIG, REPO)
+    template_dir = godot_identity.verify_template_install_destination(CONFIG, REPO)
+    engine_dir = godot_identity.engine_directory(CONFIG, REPO)
+    engine = godot_identity.engine_path(CONFIG, REPO)
+    provenance = download(lock["provenance"], lock["build_id"] + "-provenance.json")
+    godot_identity.verify_provenance(provenance, CONFIG, REPO)
+    # Only our owned install directory is replaced. An explicit override must
+    # already contain the exact frozen bytes; no arbitrary custom fallback.
+    if os.environ.get("GODOT_BIN"):
+        godot_identity.verify_file(engine, lock["linux_x86_64"]["binary_sha256"], "GODOT_BIN")
+    elif not engine.is_file() or sha256(engine) != lock["linux_x86_64"]["binary_sha256"]:
+        archive = download(lock["linux_x86_64"], lock["build_id"] + "-linux-x86_64.zip")
         with tempfile.TemporaryDirectory(dir=ROOT) as temp:
             unpack_zip(archive, Path(temp))
-            template_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copytree(Path(temp) / "templates", template_dir, dirs_exist_ok=True)
+            candidate = Path(temp) / lock["linux_x86_64"]["binary"]
+            godot_identity.verify_file(candidate, lock["linux_x86_64"]["binary_sha256"], "Downloaded engine")
+            engine_dir.parent.mkdir(parents=True, exist_ok=True)
+            if engine_dir.exists(): engine_dir.rename(engine_dir.with_name(engine_dir.name + ".rejected-" + str(time.time_ns())))
+            engine_dir.mkdir()
+            for item in Path(temp).iterdir(): shutil.move(str(item), engine_dir / item.name)
+            engine.chmod(0o755)
+    engine_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(provenance, engine_dir / "build-provenance.json")
+    print(godot_identity.verified_engine(CONFIG, REPO)["version"])
+    try:
+        godot_identity.verify_templates(CONFIG, REPO)
+    except (OSError, RuntimeError, KeyError, ValueError):
+        archive = download(lock["templates"], lock["build_id"] + "-export-templates.tpz")
+        with tempfile.TemporaryDirectory(dir=ROOT) as temp:
+            unpack_zip(archive, Path(temp))
+            candidate = Path(temp) / "templates"
+            godot_identity.verify_templates(CONFIG, REPO, directory=candidate)
+            template_dir.parent.mkdir(parents=True, exist_ok=True)
+            if template_dir.exists(): template_dir.rename(template_dir.with_name(template_dir.name + ".rejected-" + str(time.time_ns())))
+            shutil.move(str(candidate), template_dir)
     if not args.godot_only:
         if not (JAVA / "bin/java").is_file():
             archive = download(CONFIG["android"]["jdk_linux_x86_64"], "jdk17-linux-x86_64.tar.gz")

@@ -1,0 +1,93 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_ACCEPT_IMPLEMENTED_28_FIXTURE_RUNTIME_PENDING",
+  "proposal_review": "engine-lifecycle-reference-contract-independent-review.json",
+  "files": [
+    {
+      "path": "/workspace/refactor-evidence/engine-lifecycle-candidate/main.gd",
+      "sha256": "f8d6fc443aa52d0f558360812626dc35ee3e57a3cffcab67c5d1d41f72f08db9"
+    },
+    {
+      "path": "/workspace/refactor-evidence/engine-lifecycle-candidate/run_candidate.py",
+      "sha256": "152ad3d25a826760b597720a993a0cb54af3b3e70e0ddf0f5afdbd232bd27607"
+    },
+    {
+      "path": "/workspace/refactor-evidence/engine-lifecycle-candidate/reference_counter_negative.gd",
+      "sha256": "12d157da9062dfa71928423be5c849495973c8fbc18e26a9738e37e11a3d0a27"
+    }
+  ],
+  "unchanged23_body_exact": true,
+  "strict_runner_only26to28_marker": true,
+  "conditions_verified": [
+    "All make_worker/instance_cleanup/reload_pending bodies exactly original.",
+    "Independent controls run before cases; failed compile emits failedcheck and -1 baseline makes all3 fail.",
+    "3comparisons require nonnull WeakRef and baseline>=0; observer subtracts one localRef and returns integer before comparing.",
+    "Uncompiled disappearance check retained as positive control; no waits/cache clearing/unreference added.",
+    "Strict runner BAD/warning/exit/timeout/upstream/shutdown unchanged; expected marker only26→28.",
+    "Extra-owned RefCounted negative invokes same static counter, requires1→2→1→0 and rejects equality while extra owner exists."
+  ],
+  "limits": [
+    "Static only; actual28 official/C/fixed and negative4 runs pending.",
+    "New3 comparative conditions deliberately replace unsupported immediate-script-destruction expectation; original26 failures retained.",
+    "Control-relative acceptance cannot prove no compilation-retention issue shared by all cases or allScript immediate release."
+  ],
+  "subsequent_root_executed_results_read": {
+    "same_reviewed_fixture_sha": true,
+    "results": [
+      {
+        "report": "/workspace/refactor-evidence/engine-lifecycle-candidate/results/diagnostic-C-1793430124605099380/report.json",
+        "sha256": "5c3514b4fbc4132c0352eb3e5adad2770ead245626e374c51d67972fe10053c9",
+        "label": "diagnostic-C",
+        "binary_sha256": "c54ecbeb70aa099d3e985b6e3098b84540491c567578b0dce838ca0922f33311",
+        "passed": true,
+        "cases": [
+          {
+            "case": "upstream",
+            "exit_code": 0,
+            "errors": []
+          },
+          {
+            "case": "runtime",
+            "exit_code": 0,
+            "errors": []
+          },
+          {
+            "case": "shutdown",
+            "exit_code": 0,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "report": "/workspace/refactor-evidence/engine-lifecycle-candidate/results/official-1793430155898645777/report.json",
+        "sha256": "341eb706fe48c9a11c6bfe333387a052d3843b07c2587065d1919953eefc1a4c",
+        "label": "official",
+        "binary_sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+        "passed": false,
+        "cases": [
+          {
+            "case": "upstream",
+            "exit_code": 0,
+            "errors": []
+          },
+          {
+            "case": "runtime",
+            "exit_code": 0,
+            "errors": []
+          },
+          {
+            "case": "shutdown",
+            "exit_code": -6,
+            "errors": [
+              "exit=-6",
+              "PREDELETE not exactly once"
+            ]
+          }
+        ]
+      }
+    ],
+    "negative4_log": "/workspace/refactor-evidence/engine-lifecycle-candidate/reference-counter-negative-C-01.log",
+    "negative4_log_sha256": "8a46305623c2a8100460dd96e0bd00be29c801b0e275b9eb43699c8cc2bf25bd",
+    "interpretation": "Both official/C runtime28 share baseline1 and pass; C original-upstream/shutdown strict pass, official shutdown still -6 PREDELETE failure. Negative comparator4 passes. DiagnosticC only, not optimized fixed acceptance."
+  }
+}

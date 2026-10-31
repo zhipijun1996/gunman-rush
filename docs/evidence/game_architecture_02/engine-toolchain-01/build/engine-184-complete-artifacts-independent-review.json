@@ -1,0 +1,632 @@
+{
+  "verdict": "LIMITED_ACCEPT_ACTUAL_COMPLETE_DISTRIBUTION_BYTES_AND_BUILD_PROVENANCE",
+  "reviewer": "ci_audit independent, not implementation author",
+  "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "workflow_run": 41180438395,
+  "run_attempt": 1,
+  "remote_jobs_all12_success": true,
+  "lane_count": 10,
+  "lanes": [
+    {
+      "id": 13035588449,
+      "name": "engine-built-linux-editor",
+      "bytes": 90082019,
+      "archive_sha256": "a99ac61b5d217ae456152919407f4dc81075444e0626ff78b576b4409f39007f",
+      "lane": "linux-editor",
+      "provenance_sha256": "c4705025ca9d8bc62eadcab2a6c54293d36438db4264e0a7f5a416246180fa2f",
+      "outputs": {
+        "godot-linux-x86_64": {
+          "sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+          "bytes": 171575448
+        },
+        "icudt_godot.dat": {
+          "sha256": "64e407b570a21a4b740531a14cd95f0cefc46cef3d8224fd09a0dd386fb7016a",
+          "bytes": 4797472
+        },
+        "LICENSE.txt": {
+          "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+          "bytes": 1149
+        },
+        "COPYRIGHT.txt": {
+          "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+          "bytes": 100108
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=editor",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13035363065,
+      "name": "engine-built-web-threaded-debug",
+      "bytes": 11628268,
+      "archive_sha256": "74a4a73695b1597ac594893c76894ff83f2fcd8b1b7517bf5c6fb8fba43f60c5",
+      "lane": "web-threaded-debug",
+      "provenance_sha256": "b2773e4c1f44640b4468fb93e2763b4fec8e8a8b9fd85f282ed4e9d5f7ad8b9c",
+      "outputs": {
+        "web_debug.zip": {
+          "sha256": "863aad1746107bafee9d8e3f0983c77cdcb9aa9e14579251a2d9cfc48be4b645",
+          "bytes": 11658777
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=yes",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13035307387,
+      "name": "engine-built-windows-debug",
+      "bytes": 34160880,
+      "archive_sha256": "67e876dcacb9ec7f1605a2f98d42df6d25a803096d836450adda44dfd06a58ac",
+      "lane": "windows-debug",
+      "provenance_sha256": "0f706fcde68c025b930ab67d50a2835d2e9b0a5df38f1a03d7ea9966bc2c2cf4",
+      "outputs": {
+        "windows_debug_x86_64.exe": {
+          "sha256": "6c48a8c46e4956934d11fea8e058c2cdcfd7529b04c4adc08c16edd557e5c392",
+          "bytes": 101518848
+        },
+        "windows_debug_x86_64_console.exe": {
+          "sha256": "b27e070c68d3f836e7db36858eb8a16b679c23ccceaf8d2a8342de5d6c7c6633",
+          "bytes": 159744
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=windows",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "use_mingw=yes",
+            "use_llvm=yes",
+            "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+            "angle=yes",
+            "angle_libs=/tmp/gunman-engine/dependencies/angle",
+            "d3d12=yes",
+            "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+            "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+            "winrt=yes",
+            "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13035509080,
+      "name": "engine-built-android-arm64",
+      "bytes": 110108230,
+      "archive_sha256": "c0abcefe4053a7bbb5d066897f706ce8c90d38e892bd1fd9b50132adb14e5ea0",
+      "lane": "android-arm64",
+      "provenance_sha256": "9c9016d46ed8fb9f9c78c86622652c7a1d5302559d026265510f2390df8f1714",
+      "outputs": {
+        "android_debug.apk": {
+          "sha256": "7bd81bf064faedd8f6e5968ce3f54382f6c5b137986a270840bc56105fe31b8c",
+          "bytes": 32084982
+        },
+        "android_release.apk": {
+          "sha256": "ee5d7d04de550add802499ad29f0dc8b3decd75879f1d7301c415589f18f6420",
+          "bytes": 26414542
+        },
+        "android_source.zip": {
+          "sha256": "709b6fd3569a6e50f3e5fe6d0bb6049aebb104ad3c21af21f202d1bf46ab0ed7",
+          "bytes": 52040193
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=android",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=arm64",
+            "swappy=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        },
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=android",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=arm64",
+            "swappy=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        },
+        {
+          "argv": [
+            "/tmp/gunman-engine/dependencies/gradle/gradle-8.11.1/bin/gradle",
+            "--no-daemon",
+            "--max-workers=2",
+            "generateGodotTemplates"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable/platform/android/java"
+        }
+      ]
+    },
+    {
+      "id": 13036806629,
+      "name": "engine-built-linux-debug",
+      "bytes": 36991435,
+      "archive_sha256": "de2d2bcbb2916641eff18e8ee7e36bf621efcdb1fbf3108e7313ed9eb750497f",
+      "lane": "linux-debug",
+      "provenance_sha256": "713f2359e3bc0ddefc39145621eecd680b62a06562a243ed6f0c2bcd85155040",
+      "outputs": {
+        "linux_debug.x86_64": {
+          "sha256": "e5e39ec272b6d95c845c482ddb885184fa965622b1ecfb62627f0209d6df3848",
+          "bytes": 96132544
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13036376270,
+      "name": "engine-built-linux-release",
+      "bytes": 34911262,
+      "archive_sha256": "f38528c9c39c2e32287b1445e5f8c27a7971194f84d90c171997bd4bd489b9bd",
+      "lane": "linux-release",
+      "provenance_sha256": "25da60b5d227cef998a2b93acd18ca6f20317df25e014457d73af8de1cf7d19b",
+      "outputs": {
+        "linux_release.x86_64": {
+          "sha256": "6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493",
+          "bytes": 89583008
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=linuxbsd",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "wayland=yes",
+            "x11=yes"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13035479934,
+      "name": "engine-built-web-threaded-release",
+      "bytes": 11308279,
+      "archive_sha256": "52345644ca29e87587a1604d44493dde6c9c9239431ddb9e2e437ea86f6ecc7b",
+      "lane": "web-threaded-release",
+      "provenance_sha256": "0b3ca27bbff0eb33fbf5c9253a058d863528efc46f943f053d968d79381b28fc",
+      "outputs": {
+        "web_release.zip": {
+          "sha256": "a834a36841e93591a8c834caf2bb1f827c253b4025d52911dc9064aba3cffb01",
+          "bytes": 11334872
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=yes",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13035942168,
+      "name": "engine-built-web-single-debug",
+      "bytes": 11575228,
+      "archive_sha256": "3bef677b66530926473e9f8bf5b24e8146c277468a9c8a8cdf176a4b909ce907",
+      "lane": "web-single-debug",
+      "provenance_sha256": "85016a023df5fb77ce280fdefe765831326ae73ad078e28dc651b837e32af038",
+      "outputs": {
+        "web_nothreads_debug.zip": {
+          "sha256": "f5cfcc6c0055d8108a7fc0667359933ea7377e73f42e80ca4343328293f3d2e0",
+          "bytes": 11606595
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_debug",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=no",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13036674078,
+      "name": "engine-built-web-single-release",
+      "bytes": 11290040,
+      "archive_sha256": "615d95a050f3384d6b1b11ddb34c19161fc0247373f6b8544ad012c6208ebfe2",
+      "lane": "web-single-release",
+      "provenance_sha256": "ad2f94dfff6b39d7602f07a0ba1ae0b47985a5cfd4c2b18e63d995919cead784",
+      "outputs": {
+        "web_nothreads_release.zip": {
+          "sha256": "d86058a9483d7c6ebe3c20448614c1f1cb98ba7157ca48b527fcb8f7e82cd4a4",
+          "bytes": 11313061
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/bin/python3",
+            "-m",
+            "SCons",
+            "platform=web",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "arch=wasm32",
+            "threads=no",
+            "dlink_enabled=no"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    },
+    {
+      "id": 13036867859,
+      "name": "engine-built-windows-release",
+      "bytes": 34190918,
+      "archive_sha256": "f1b101022ec77633e34c8b0d90d1fdfefa4a10721f45bb73de10c29aabb8bf26",
+      "lane": "windows-release",
+      "provenance_sha256": "f5f3e265d3c66a8a223438b96fb8070690952d1a2b52449a10b2f788c7785393",
+      "outputs": {
+        "windows_release_x86_64.exe": {
+          "sha256": "1118f7998b99e6e2c5fd83667ce77e29ce35bd4acd849ed9a8dbaf78489d697e",
+          "bytes": 91011072
+        },
+        "windows_release_x86_64_console.exe": {
+          "sha256": "31a74ac713ed28ea666f99911f829a8322cc8138bd9765378f108b6a08297682",
+          "bytes": 159744
+        },
+        "D3D12Core.x86_64.dll": {
+          "sha256": "560f9574372a52ab66ad95ee1222f1eb4c9f6161d8f6b7b025d89f684b07246c",
+          "bytes": 4821064
+        },
+        "d3d12SDKLayers.x86_64.dll": {
+          "sha256": "bcec9e1315fb4dbc767371926fb5eb8281de1b3ab1fb530a636b3c193a9a2bbd",
+          "bytes": 4932640
+        }
+      },
+      "commands": [
+        {
+          "argv": [
+            "/usr/local/bin/python3",
+            "-m",
+            "SCons",
+            "platform=windows",
+            "target=template_release",
+            "-j2",
+            "production=yes",
+            "module_mono_enabled=no",
+            "debug_symbols=no",
+            "lto=none",
+            "optimize=speed",
+            "debug_paths_relative=yes",
+            "accesskit=yes",
+            "accesskit_sdk_path=/tmp/gunman-engine/dependencies/accesskit-c-0.22.3",
+            "arch=x86_64",
+            "use_mingw=yes",
+            "use_llvm=yes",
+            "mingw_prefix=/tmp/gunman-engine/dependencies/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64",
+            "angle=yes",
+            "angle_libs=/tmp/gunman-engine/dependencies/angle",
+            "d3d12=yes",
+            "mesa_libs=/tmp/gunman-engine/dependencies/mesa",
+            "agility_sdk_path=/tmp/gunman-engine/dependencies/agility",
+            "winrt=yes",
+            "winrt_path=/tmp/gunman-engine/dependencies/winrt"
+          ],
+          "cwd": "/tmp/gunman-engine/godot-4.7.2-stable"
+        }
+      ]
+    }
+  ],
+  "distribution_artifact": {
+    "id": 13036738861,
+    "name": "engine-distribution-candidate",
+    "bytes": 381497857,
+    "archive_sha256": "61ef9df05bdaaa9a2edaa4997a8e49352f09c8cd1d8f42b878323d1945b11564"
+  },
+  "distribution_files": {
+    "engine-identity.json": {
+      "sha256": "0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e",
+      "bytes": 1031
+    },
+    "godot-4.7.2-gunman-sd1-export-templates.tpz": {
+      "sha256": "5acfd7377c2cd5967a3fa8267c8eb4d6a02a1cfd0ad88a56dd8ce165ad142670",
+      "bytes": 295644858
+    },
+    "build-logs.zip": {
+      "sha256": "5192c63646454d905d00e1dcd775ea4507021bb32e9add69ac5678fea2d92679",
+      "bytes": 219436
+    },
+    "godot-4.7.2-gunman-sd1-linux-x86_64.zip": {
+      "sha256": "39f662a932eaacd949111659be3f2cc465edd4cd5822e8f632a724b605a8da2b",
+      "bytes": 86018425
+    },
+    "build-provenance.json": {
+      "sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225",
+      "bytes": 39123
+    },
+    "godot-lock-candidate.json": {
+      "sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+      "bytes": 3871
+    },
+    "SHA256SUMS.json": {
+      "sha256": "8e8c1ba5d44add94e80ca79c3123eccf51111350db64d4611b177a638aaf3839",
+      "bytes": 694
+    },
+    "version.txt": {
+      "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e",
+      "bytes": 13
+    }
+  },
+  "all8_remote_and_existing_repack_sha_identical": true,
+  "all19_outputs_source_run_recipe_command_and_payload_verified": true,
+  "packaged_compile_logs_exact": 12,
+  "complete18_templates_and4_editor_members": {
+    "linux_x86_64": [
+      {
+        "member": "godot-linux-x86_64",
+        "sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+        "bytes": 171575448
+      },
+      {
+        "member": "LICENSE.txt",
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+        "bytes": 1149
+      },
+      {
+        "member": "COPYRIGHT.txt",
+        "sha256": "cb1980c88089573bcacd7221d777c689bb8bbd778799f24c27fca0fe5f774d6d",
+        "bytes": 100108
+      },
+      {
+        "member": "engine-identity.json",
+        "sha256": "0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e",
+        "bytes": 1031
+      }
+    ],
+    "templates": [
+      {
+        "member": "templates/D3D12Core.x86_64.dll",
+        "sha256": "560f9574372a52ab66ad95ee1222f1eb4c9f6161d8f6b7b025d89f684b07246c",
+        "bytes": 4821064
+      },
+      {
+        "member": "templates/android_debug.apk",
+        "sha256": "7bd81bf064faedd8f6e5968ce3f54382f6c5b137986a270840bc56105fe31b8c",
+        "bytes": 32084982
+      },
+      {
+        "member": "templates/android_release.apk",
+        "sha256": "ee5d7d04de550add802499ad29f0dc8b3decd75879f1d7301c415589f18f6420",
+        "bytes": 26414542
+      },
+      {
+        "member": "templates/android_source.zip",
+        "sha256": "709b6fd3569a6e50f3e5fe6d0bb6049aebb104ad3c21af21f202d1bf46ab0ed7",
+        "bytes": 52040193
+      },
+      {
+        "member": "templates/d3d12SDKLayers.x86_64.dll",
+        "sha256": "bcec9e1315fb4dbc767371926fb5eb8281de1b3ab1fb530a636b3c193a9a2bbd",
+        "bytes": 4932640
+      },
+      {
+        "member": "templates/engine-identity.json",
+        "sha256": "0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e",
+        "bytes": 1031
+      },
+      {
+        "member": "templates/icudt_godot.dat",
+        "sha256": "64e407b570a21a4b740531a14cd95f0cefc46cef3d8224fd09a0dd386fb7016a",
+        "bytes": 4797472
+      },
+      {
+        "member": "templates/linux_debug.x86_64",
+        "sha256": "e5e39ec272b6d95c845c482ddb885184fa965622b1ecfb62627f0209d6df3848",
+        "bytes": 96132544
+      },
+      {
+        "member": "templates/linux_release.x86_64",
+        "sha256": "6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493",
+        "bytes": 89583008
+      },
+      {
+        "member": "templates/version.txt",
+        "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e",
+        "bytes": 13
+      },
+      {
+        "member": "templates/web_debug.zip",
+        "sha256": "863aad1746107bafee9d8e3f0983c77cdcb9aa9e14579251a2d9cfc48be4b645",
+        "bytes": 11658777
+      },
+      {
+        "member": "templates/web_nothreads_debug.zip",
+        "sha256": "f5cfcc6c0055d8108a7fc0667359933ea7377e73f42e80ca4343328293f3d2e0",
+        "bytes": 11606595
+      },
+      {
+        "member": "templates/web_nothreads_release.zip",
+        "sha256": "d86058a9483d7c6ebe3c20448614c1f1cb98ba7157ca48b527fcb8f7e82cd4a4",
+        "bytes": 11313061
+      },
+      {
+        "member": "templates/web_release.zip",
+        "sha256": "a834a36841e93591a8c834caf2bb1f827c253b4025d52911dc9064aba3cffb01",
+        "bytes": 11334872
+      },
+      {
+        "member": "templates/windows_debug_x86_64.exe",
+        "sha256": "6c48a8c46e4956934d11fea8e058c2cdcfd7529b04c4adc08c16edd557e5c392",
+        "bytes": 101518848
+      },
+      {
+        "member": "templates/windows_debug_x86_64_console.exe",
+        "sha256": "b27e070c68d3f836e7db36858eb8a16b679c23ccceaf8d2a8342de5d6c7c6633",
+        "bytes": 159744
+      },
+      {
+        "member": "templates/windows_release_x86_64.exe",
+        "sha256": "1118f7998b99e6e2c5fd83667ce77e29ce35bd4acd849ed9a8dbaf78489d697e",
+        "bytes": 91011072
+      },
+      {
+        "member": "templates/windows_release_x86_64_console.exe",
+        "sha256": "31a74ac713ed28ea666f99911f829a8322cc8138bd9765378f108b6a08297682",
+        "bytes": 159744
+      }
+    ]
+  },
+  "candidate_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+  "exact_existing_identity_validate_lock_and_verify_provenance_passed": true,
+  "existing_recipe_package_build_source_exact184": true,
+  "all_read_file_stat_stable": true,
+  "scope": "Only read/hash/ZIP checks on existing physical files. No duplicate large extraction/repack, no Godot or subprocess engine, no release or main mutation.",
+  "not_signed": [
+    "Release final public URL downloads",
+    "Installed main toolchain activation",
+    "Native lifecycle/game behavior/full182/Windows/Android/Web exports and browser",
+    "Device or user acceptance"
+  ],
+  "identity_helper_exact_reviewed_commit": "62eceec404255b12d4233907a60588d96ed96c1f",
+  "identity_helper_sha256": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e"
+}

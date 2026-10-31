@@ -1,0 +1,168 @@
+name: Fixed Godot shutdown backport build
+on:
+  push:
+    branches: [fix/godot-shutdown-toolchain-01, fix/godot-shutdown-promotion-01]
+    paths:
+      - config/godot_build.json
+      - tools/engine/**
+      - .github/workflows/engine-backport-build.yml
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Build candidates or promote the one reviewed distribution
+        type: choice
+        options: [build, promote]
+        default: build
+permissions:
+  contents: read
+concurrency:
+  group: engine-backport-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  plan:
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/fix/godot-shutdown-toolchain-01') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'build')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
+      - run: python3 tools/engine/test_build_contract.py
+      - id: matrix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os
+          recipe=json.load(open('config/godot_build.json'))
+          matrix={'include':[{'lane':name,'image':job['image']} for name,job in recipe['jobs'].items()]}
+          with open(os.environ['GITHUB_OUTPUT'],'a') as output:
+              output.write('value='+json.dumps(matrix,separators=(',',':'))+'\n')
+          PY
+  compile:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    container: ${{ matrix.image }}
+    env:
+      GUNMAN_BUILD_IMAGE: ${{ matrix.image }}
+      GUNMAN_TOOLCHAIN_ROOT: /tmp/gunman-engine-downloads
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
+      - name: Build exact source and reviewed backports with locked dependencies
+        run: python3 tools/engine/build.py --lane '${{ matrix.lane }}' --work /tmp/gunman-engine --jobs 2
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: success()
+        with:
+          name: engine-built-${{ matrix.lane }}
+          path: /tmp/gunman-engine/artifacts/
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: engine-logs-${{ matrix.lane }}
+          path: |
+            /tmp/gunman-engine/*.log
+            /tmp/gunman-engine/artifacts/provenance.json
+            /tmp/gunman-engine-downloads/downloads/*.attempts.jsonl
+          if-no-files-found: warn
+          retention-days: 30
+  package:
+    needs: compile
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: engine-built-*
+          path: /tmp/engine-lanes
+      - name: Verify all lane identities and assemble immutable distribution candidates
+        run: >-
+          python3 tools/engine/package.py --inputs /tmp/engine-lanes --output /tmp/engine-distribution
+          --release-base-url https://github.com/zhipijun1996/gunman-rush/releases/download/toolchain-godot-4.7.2-gunman-sd1/
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: engine-distribution-candidate
+          path: /tmp/engine-distribution/
+          if-no-files-found: error
+          retention-days: 30
+  publish:
+    if: github.ref == 'refs/heads/fix/godot-shutdown-promotion-01' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'promote'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      actions: read
+    container: docker.io/library/python@sha256:6760942332f453ec141ea470fa3bfb790e84e11edcf0b6331b98bee6091a7b69
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /config/godot_build.json
+            /config/toolchain.json
+            /tools/engine/
+            /tools/setup_environment.py
+            /tools/check_environment.py
+            /tools/godot_identity.py
+      - name: Exercise original build and promotion rejection contracts
+        run: |
+          python3 tools/engine/test_build_contract.py
+          python3 tools/engine/test_promotion.py
+      - name: Verify and publish only the reviewed distribution to the existing draft
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python3 tools/engine/promote.py --repository zhipijun1996/gunman-rush
+          --source 184970c7fff5baa6842efb8f34339ce87fff5bfd --run 41180438395
+          --artifact 13036738861 --size 381497857
+          --digest 61ef9df05bdaaa9a2edaa4997a8e49352f09c8cd1d8f42b878323d1945b11564
+          --lock-digest 84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604
+          --release 429822541 --tag toolchain-godot-4.7.2-gunman-sd1
+          --work /tmp/engine-promotion --publish
+      - name: Preserve promotion evidence including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: engine-promotion-${{ github.run_id }}
+          path: /tmp/engine-promotion/promotion-report.json
+          if-no-files-found: warn
+          retention-days: 30

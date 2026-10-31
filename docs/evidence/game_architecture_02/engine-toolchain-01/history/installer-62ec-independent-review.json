@@ -1,0 +1,101 @@
+{
+  "reviewed_commit": "62eceec404255b12d4233907a60588d96ed96c1f",
+  "baseline_commit": "3909a146f0f43f4bc8574dfa1a219ce8ed96d5b2",
+  "supersedes_for_new_source": "installer-3a-independent-review.json; original failures retained",
+  "reviewer": "ci_audit independent; not implementation author",
+  "verdict": "LIMITED_ACCEPT_SOURCE_CANDIDATE_FOR_ATOMIC_REAL_LOCK_INTEGRATION",
+  "files_sha256": {
+    ".github/workflows/environment.yml": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+    ".github/workflows/production.yml": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931",
+    "tests/test_godot_identity.py": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+    "tests/test_harness.py": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+    "tests/test_level_design_routing.py": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+    "tools/build.py": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+    "tools/capture_audio_ambience.py": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+    "tools/capture_audio_feedback.py": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+    "tools/capture_audio_home.py": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+    "tools/capture_audio_hurt.py": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+    "tools/capture_audio_reels.py": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+    "tools/capture_forest_bible_route.py": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+    "tools/capture_selected_audio.py": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+    "tools/check_environment.py": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+    "tools/engine/README.md": "922f3a7e48bb44c5ca385c04183ef42762d2daef66a900a16016fc4c5c9abe24",
+    "tools/godot.sh": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246",
+    "tools/godot_identity.py": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e",
+    "tools/harness.py": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+    "tools/level_content_pilot.py": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+    "tools/level_design.py": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+    "tools/mobile_web_perf/prepare_frame_pair.py": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+    "tools/production_loop.py": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+    "tools/run_plains_action_golden_tests.py": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+    "tools/setup_environment.py": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+    "tools/test_toolchain_download.py": "e72b07c6776b5ddfaf58997fdc5013d839315a5cfc8399b0b79bcd86cbea78f9"
+  },
+  "full182_registry_checks_profiles_commands_markers_budgets_exact_unchanged": true,
+  "build_recipe_and_source_patches_unchanged": true,
+  "active_toolchain_config_unchanged_official_and_deliberately_rejected": true,
+  "independent_python_results": {
+    "existing_download_entry": {
+      "tests": 25,
+      "exit": 0,
+      "log": "installer-62ec-independent-download25.log"
+    },
+    "original_direct_harness_sparse_isolation_without_pythonpath": {
+      "tests": 6,
+      "exit": 0,
+      "log": "installer-62ec-independent-direct-isolation6.log"
+    },
+    "existing_lane_identity_rejection": {
+      "tests": 1,
+      "exit": 0,
+      "log": "installer-62ec-independent-lane-identity1.log"
+    },
+    "receipt_existing_two_plus_new_one": {
+      "tests": 3,
+      "exit": 0,
+      "log": "installer-62ec-independent-receipt3.log"
+    }
+  },
+  "closed_blockers": [
+    {
+      "issue": "Original direct Harness import fails",
+      "resolution": "Actual tools/harness.py initializes its own module path, original direct command passes without external PYTHONPATH; tests not weakened."
+    },
+    {
+      "issue": "Missing/official data_subdirectory and escaped executable path accepted",
+      "resolution": "Shared identity lock now binds exact existing package-generated layout; original three independent mutations rejected."
+    },
+    {
+      "issue": "GUNMAN_DATA_HOME replaces official control templates",
+      "resolution": "Before download/write, installer checks resolved destination against official tree and verifies ownership of existing nonempty destination. Original independent actual-installer probe now refuses, leaves original bytes in place, zero quarantine/download/run. Foreign and symlinked official negatives plus empty isolated/same-build symlink positives pass."
+    },
+    {
+      "issue": "Caches omit new selected template directory",
+      "resolution": "Existing helper supplies actual selected directory; 6 environment and 3 production cache consumers updated. Workflow action/job/if/step counts and budgets independently retained."
+    }
+  ],
+  "receipt_parser_review": "Only current selected complete build name and source hash get new exact path. Original historical single-component format checks remain; unknown/mixed banners now reject rather than being silently ignored. No arbitrary custom version acceptance introduced for current execution.",
+  "unchanged_safeguards": [
+    "Binary SHA before execution and exact full version",
+    "Complete template filename set/member SHA before export",
+    "Single helper used by actual wrapper/setup/environment/Harness/6 audio capture producers",
+    "All original downloader5 and builder7 and identity11 tests preserved; two new installer tests cover real env and symlink/isolated paths",
+    "Full182 check registry/commands/markers/budgets unchanged"
+  ],
+  "additional_evidence": [
+    "installer-62ec-independent-original-probes.json",
+    "installer-62ec-independent-workflow-proof.json"
+  ],
+  "conditions_before_activation": [
+    "Integrate with reviewed actual immutable release artifact lock atomically; no placeholders, official/template mixing, broad custom fallback.",
+    "On complete current source rerun original full Harness91, current routing/formal suites, full182 and actual native/export gates; sparse branch missing inputs do not justify changing assertions.",
+    "Production/editor/Web/Windows/Linux/Android payload SHA and full provenance must be derived from completed matching build outputs; this source review is not that artifact acceptance."
+  ],
+  "not_executed_or_signed": [
+    "Godot engine execution",
+    "Actual installer against real released editor/templates",
+    "Full Harness91 on main with candidate integrated",
+    "Full182 CI and original budgets execution",
+    "Native regression, Web/Windows/Android exports or public deployment"
+  ]
+}

@@ -1,4 +1,5 @@
 """Test a candidate in an isolated project before changing the formal recipe."""
+from godot_identity import banner_pattern
 import argparse
 import hashlib
 import json
@@ -125,7 +126,7 @@ def main():
         elif not frozen and source.count(NEW) != 1:
             raise RuntimeError("Formal recipe must contain the exact golden candidate")
         command = ["bash", str(REPO / "tools/godot.sh"), "--headless", "--path", str(project), "--editor", "--quit"]
-        imported = harness.run_check({"argv": command, "timeout_seconds": 120, "success_pattern": r"^Godot Engine v4\.7\.2\.stable\.official"}, folder / "import.log", REPO)
+        imported = harness.run_check({"argv": command, "timeout_seconds": 120, "success_pattern": banner_pattern()}, folder / "import.log", REPO)
         if imported["status"] != "passed":
             raise RuntimeError("Candidate import failed")
         project_sources = {}

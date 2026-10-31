@@ -20,6 +20,8 @@ import zlib
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = Path(__file__).resolve().parents[1]
+# This module is also loaded directly by file path by the original test entry.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 MANIFEST = ROOT / "tools/harness/profiles.json"
 
 
@@ -243,10 +245,15 @@ def input_digest(check, files, toolchain, snapshot=None, root=None, hash_cache=N
 
 
 def toolchain_identity():
+    from godot_identity import verified_engine
     versions = {"python": sys.version, "platform": sys.platform}
-    for name, command in (("godot", ["bash", "tools/godot.sh", "--version"]), ("node", ["node", "--version"])):
-        result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=30)
-        versions[name] = {"exit_code": result.returncode, "version": (result.stdout + result.stderr).strip()}
+    try:
+        engine = verified_engine(repo=ROOT)
+        versions["godot"] = {"exit_code": 0, **{key:value for key,value in engine.items() if key != "binary"}}
+    except (OSError, RuntimeError, KeyError, ValueError, subprocess.SubprocessError) as error:
+        versions["godot"] = {"exit_code": 1, "version": str(error)}
+    result = subprocess.run(["node", "--version"], cwd=ROOT, capture_output=True, text=True, timeout=30)
+    versions["node"] = {"exit_code": result.returncode, "version": (result.stdout + result.stderr).strip()}
     return versions
 
 
@@ -617,7 +624,8 @@ def isolated_workspace(destination, files, setup_log=None):
     shared_toolchain = Path(os.environ.get("GUNMAN_TOOLCHAIN_ROOT", str(ROOT.parent / "toolchains"))).resolve()
     data = destination / "build/isolated-data"
     data.mkdir(parents=True, exist_ok=True)
-    templates = shared_toolchain / "user-data/godot/export_templates"
+    from godot_identity import data_root
+    templates = data_root() / "godot/export_templates"
     if templates.is_dir():
         (data / "godot").mkdir()
         (data / "godot/export_templates").symlink_to(templates, target_is_directory=True)

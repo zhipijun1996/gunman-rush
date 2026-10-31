@@ -1,0 +1,130 @@
+{
+  "reviewed_build_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+  "workflow_run": 41180438395,
+  "installer_candidate": "62eceec404255b12d4233907a60588d96ed96c1f",
+  "game_source_preflight": "05c3e3dba43f3fc9283aa74198a9bf0d04d99bfb",
+  "status": "READ_ONLY_PREACTIVATION_REVIEW_NO_ARTIFACT_ACCEPTANCE",
+  "builder_snapshot": "/workspace/refactor-evidence/engine-63af-on390-b63fzj6k",
+  "builder_snapshot_exact_git_files_sha256": {
+    "tools/setup_environment.py": "f8c16f467d86b3cf465c43e1bafed976608e83f4a71f81959f70e78e6781812c",
+    "tools/check_environment.py": "d5f18c453cd87da8b53f0523dff661bc8890a0cfe3e09c7fd07ff3bdb6e760e2",
+    "config/toolchain.json": "79c7172b7707ab98a0e35cd9196ac98d1e69d1772b6f3cf5858c027d66c6940f",
+    "config/godot_build.json": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+    "tools/engine/build.py": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+    "tools/engine/test_build_contract.py": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+    "tools/engine/package.py": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+    "tools/engine/README.md": "6e996234f0ae93e9fffbdb3e1c7ba8ea95de409a3b88bea4d671137b8c19eadd",
+    "tools/engine/patches/120976-language-shutdown.patch": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+    "tools/engine/patches/117991-clear-base.patch": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573"
+  },
+  "platform_lane_outputs": {
+    "linux-editor": [
+      "godot-linux-x86_64",
+      "icudt_godot.dat",
+      "LICENSE.txt",
+      "COPYRIGHT.txt"
+    ],
+    "web-threaded-debug": [
+      "web_debug.zip"
+    ],
+    "windows-debug": [
+      "windows_debug_x86_64.exe",
+      "windows_debug_x86_64_console.exe"
+    ],
+    "android-arm64": [
+      "android_debug.apk",
+      "android_release.apk",
+      "android_source.zip"
+    ],
+    "linux-debug": [
+      "linux_debug.x86_64"
+    ],
+    "linux-release": [
+      "linux_release.x86_64"
+    ],
+    "web-threaded-release": [
+      "web_release.zip"
+    ],
+    "web-single-debug": [
+      "web_nothreads_debug.zip"
+    ],
+    "web-single-release": [
+      "web_nothreads_release.zip"
+    ],
+    "windows-release": [
+      "windows_release_x86_64.exe",
+      "windows_release_x86_64_console.exe",
+      "D3D12Core.x86_64.dll",
+      "d3d12SDKLayers.x86_64.dll"
+    ]
+  },
+  "expected_template_members": [
+    "D3D12Core.x86_64.dll",
+    "android_debug.apk",
+    "android_release.apk",
+    "android_source.zip",
+    "d3d12SDKLayers.x86_64.dll",
+    "engine-identity.json",
+    "icudt_godot.dat",
+    "linux_debug.x86_64",
+    "linux_release.x86_64",
+    "version.txt",
+    "web_debug.zip",
+    "web_nothreads_debug.zip",
+    "web_nothreads_release.zip",
+    "web_release.zip",
+    "windows_debug_x86_64.exe",
+    "windows_debug_x86_64_console.exe",
+    "windows_release_x86_64.exe",
+    "windows_release_x86_64_console.exe"
+  ],
+  "expected_template_member_count": 18,
+  "editor_archive_members": [
+    "COPYRIGHT.txt",
+    "LICENSE.txt",
+    "engine-identity.json",
+    "godot-linux-x86_64"
+  ],
+  "candidate_output_files": [
+    "SHA256SUMS.json",
+    "build-logs.zip",
+    "build-provenance.json",
+    "engine-identity.json",
+    "godot-lock-candidate.json",
+    "godot-4.7.2-gunman-sd1-export-templates.tpz",
+    "godot-4.7.2-gunman-sd1-linux-x86_64.zip",
+    "version.txt"
+  ],
+  "current_consumers": {
+    "linux_editor": "native import/tests/capture and all exports via tools/godot.sh",
+    "web_debug.zip": "current Web Playtest preset threads=true, extensions=false, tools/build.py web --export-debug",
+    "web_release.zip": "explicit matching threaded frame-pair diagnostic/release capability retained",
+    "web_nothreads_debug.zip and web_nothreads_release.zip": "selected nonthreaded capabilities; explicit historical mobile tools remain fixed to original evidence",
+    "windows_debug_x86_64.exe + console": "mandatory Windows export job outside full182",
+    "windows_release_x86_64.exe + console + D3D12 DLLs": "original selected Windows release capability; actual exporter expected names confirmed in upstream source",
+    "linux_debug.x86_64 and linux_release.x86_64": "existing environment complete-template contract; no current Linux export preset",
+    "android_debug.apk/android_release.apk/android_source.zip": "Android manual CI/current signed nonGradle arm64 app; preserve both templates and source. Engine API36/NDK29 does not authorize changing app API35/NDK28."
+  },
+  "remaining_gates": [
+    "All ten compile lanes AND package success for exact run41180438395/head184. No prior run artifacts.",
+    "Download candidate and raw lane artifacts; verify workflow binding/expiry/digest; reproduce existing package.py with explicit exact commit/run in a new directory.",
+    "Compare every reproduced candidate file SHA to workflow distribution, each archive member to generated lock; confirm exact 18 template files and4 editor files, provenance/source/two patches/logs.",
+    "Create new append-only release tag target184 only after immutable-byte review; upload reviewed bytes and download each asset from its final public URL; verify actual SHA. Do not overwrite existing tag/assets.",
+    "Replace only config godot object with exact candidate, preserving Android/Windows/git/python settings; integrate reviewed installer+recipe+patches+cache/receipt consumers atomically.",
+    "Retain official control installation; do not run setup against official GUNMAN_DATA_HOME. Use owned new build data and verify native identity / actual full template members.",
+    "On complete final source run original Harness91/current Python subsets/full182 and required Windows/Android/Web+PCK/browser acceptance within unchanged budgets."
+  ],
+  "extra_current_schema_consumer_preflight": "Exact tracked tools/tests/config search found no additional official version/schema gate beyond installer candidate-covered modules. tools/check_contracts.py and tools/check_data.py do not exist in current tree; actual structure/world/data checks do not consume toolchain schema. Old official receipt fixtures remain historical positive/negative cases.",
+  "historical_mobile_tools": [
+    "tools/mobile_web_perf/make_variants.py",
+    "tools/mobile_web_perf/prepare_threaded_diagnostic.py",
+    "tools/mobile_web_perf/build_formal_audio_ab.py"
+  ],
+  "limits": [
+    "No real artifact yet downloaded/accepted",
+    "No release publication",
+    "No main edit/activation",
+    "No Godot/native/Gradle/export run",
+    "No repeat of already reviewed installer/wrapper tests"
+  ]
+}

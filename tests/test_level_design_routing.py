@@ -438,6 +438,20 @@ class RoutingTests(unittest.TestCase):
             self.assertFalse(level_design.engine_log_matches(engine, banner))
         self.assertFalse(level_design.engine_log_matches("4.7.2-stable (official)", banner + banner.replace("4.7.2", "4.6.3")))
 
+    def test_fixed_patched_engine_format_rejects_other_build_hash_and_mixed_banners(self):
+        from godot_identity import expected_version
+        selected = expected_version()
+        core, _commit = selected.rsplit('.', 1)
+        major, minor, patch, status, build = core.split('.', 4)
+        engine = f"{major}.{minor}.{patch}-{status} ({build})"
+        banner = 'Godot Engine v' + selected + ' - https://godotengine.org\n'
+        historical = 'Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n'
+        self.assertTrue(level_design.engine_log_matches(engine, banner))
+        for wrong in (selected.replace(build, 'custom_build.unrelated'), core + '.000000000'):
+            self.assertFalse(level_design.engine_log_matches(engine, 'Godot Engine v' + wrong + '\n'))
+        self.assertFalse(level_design.engine_log_matches(engine, banner + historical))
+        self.assertFalse(level_design.engine_log_matches('4.7.2-stable (official)', historical + banner))
+
 
 if __name__ == "__main__":
     unittest.main()

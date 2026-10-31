@@ -1,0 +1,169 @@
+{
+  "system": "Linux",
+  "architecture": "x86_64",
+  "scope": "godot-all-templates",
+  "checks": [
+    {
+      "name": "git",
+      "command": "git --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "git version 2.52.0"
+    },
+    {
+      "name": "python",
+      "command": "python3 --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "Python 3.12.14"
+    },
+    {
+      "name": "godot_standard",
+      "command": "bash $REPO/tools/godot.sh --version",
+      "exit_code": 0,
+      "passed": true,
+      "output": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf"
+    },
+    {
+      "name": "templates_source_and_member_sha256",
+      "command": "verify complete fixed template distribution",
+      "exit_code": 0,
+      "passed": true,
+      "output": "godot-4.7.2-gunman-sd1"
+    },
+    {
+      "name": "template:D3D12Core.x86_64.dll",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "560f9574372a52ab66ad95ee1222f1eb4c9f6161d8f6b7b025d89f684b07246c"
+    },
+    {
+      "name": "template:android_debug.apk",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "7bd81bf064faedd8f6e5968ce3f54382f6c5b137986a270840bc56105fe31b8c"
+    },
+    {
+      "name": "template:android_release.apk",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "ee5d7d04de550add802499ad29f0dc8b3decd75879f1d7301c415589f18f6420"
+    },
+    {
+      "name": "template:android_source.zip",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "709b6fd3569a6e50f3e5fe6d0bb6049aebb104ad3c21af21f202d1bf46ab0ed7"
+    },
+    {
+      "name": "template:d3d12SDKLayers.x86_64.dll",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "bcec9e1315fb4dbc767371926fb5eb8281de1b3ab1fb530a636b3c193a9a2bbd"
+    },
+    {
+      "name": "template:engine-identity.json",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e"
+    },
+    {
+      "name": "template:icudt_godot.dat",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "64e407b570a21a4b740531a14cd95f0cefc46cef3d8224fd09a0dd386fb7016a"
+    },
+    {
+      "name": "template:linux_debug.x86_64",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "e5e39ec272b6d95c845c482ddb885184fa965622b1ecfb62627f0209d6df3848"
+    },
+    {
+      "name": "template:linux_release.x86_64",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "6a280c82dfaf94efc1a7e268c69cb536ecb841d303478068333df14ffb192493"
+    },
+    {
+      "name": "template:version.txt",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e"
+    },
+    {
+      "name": "template:web_debug.zip",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "863aad1746107bafee9d8e3f0983c77cdcb9aa9e14579251a2d9cfc48be4b645"
+    },
+    {
+      "name": "template:web_nothreads_debug.zip",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "f5cfcc6c0055d8108a7fc0667359933ea7377e73f42e80ca4343328293f3d2e0"
+    },
+    {
+      "name": "template:web_nothreads_release.zip",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "d86058a9483d7c6ebe3c20448614c1f1cb98ba7157ca48b527fcb8f7e82cd4a4"
+    },
+    {
+      "name": "template:web_release.zip",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "a834a36841e93591a8c834caf2bb1f827c253b4025d52911dc9064aba3cffb01"
+    },
+    {
+      "name": "template:windows_debug_x86_64.exe",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "6c48a8c46e4956934d11fea8e058c2cdcfd7529b04c4adc08c16edd557e5c392"
+    },
+    {
+      "name": "template:windows_debug_x86_64_console.exe",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "b27e070c68d3f836e7db36858eb8a16b679c23ccceaf8d2a8342de5d6c7c6633"
+    },
+    {
+      "name": "template:windows_release_x86_64.exe",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "1118f7998b99e6e2c5fd83667ce77e29ce35bd4acd849ed9a8dbaf78489d697e"
+    },
+    {
+      "name": "template:windows_release_x86_64_console.exe",
+      "command": "verify locked SHA256",
+      "exit_code": 0,
+      "passed": true,
+      "sha256": "31a74ac713ed28ea666f99911f829a8322cc8138bd9765378f108b6a08297682"
+    }
+  ],
+  "missing_or_failed": [],
+  "limitations": [
+    "Windows execution requires separate Windows validation",
+    "Android device input, performance and feel require physical-device validation",
+    "SDK availability does not demonstrate APK export"
+  ]
+}
+4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf
+Toolchain setup report: /workspace/gunman-rush-refactor/build/verification/environment/setup-report.json

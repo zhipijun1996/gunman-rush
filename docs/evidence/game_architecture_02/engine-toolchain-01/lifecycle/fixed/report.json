@@ -1,0 +1,84 @@
+{
+  "label": "fixed",
+  "acceptance_scope": "optimized_fixed_external_lifecycle_only_pending_binary_provenance",
+  "binary": "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+  "binary_sha256": "eeaec2b65dc3234168be1e1cbcc89731514bbb78dfb2c1b502920c50830a0638",
+  "version": "4.7.2.stable.custom_build.gunman_sd1.ed1daf0bf",
+  "scope": "external lifecycle only; not full game/GUI/Web acceptance",
+  "source_sha256": {
+    "shutdown_late.gd": "ec0d15989ad4c9b0ba854bdcf8df8bf15408b6278bf4b358eb3ef0e1ba88da47",
+    "shutdown_static.gd": "307f2f9b4a6a2557ae9cb7a7a8c46211a97bf974b6dbf1b3b79fcdd01147bc31",
+    "run_candidate.py": "152ad3d25a826760b597720a993a0cb54af3b3e70e0ddf0f5afdbd232bd27607",
+    "main.gd": "f8d6fc443aa52d0f558360812626dc35ee3e57a3cffcab67c5d1d41f72f08db9",
+    "project.godot": "e7c06361ea935c91e7aa29a8b3a4dd8b7abbec473cf9753c90c3c1e9eaaf467e",
+    "reference_counter_negative.gd": "12d157da9062dfa71928423be5c849495973c8fbc18e26a9738e37e11a3d0a27",
+    "upstream/coroutine_clearing.out": "b98e9a36f9e55eb5073e2a96752b8bddeb11567fb7c476ee17ead421af95f6bb",
+    "upstream/coroutine_clearing.gd": "04fb2009b21c395c4c7b27dce9a044e16c3cd2b71907ea91f4cf8b3d9a83edfb"
+  },
+  "results": [
+    {
+      "case": "upstream",
+      "command": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/workspace/refactor-evidence/engine-lifecycle-candidate",
+        "--script",
+        "res://main.gd",
+        "--",
+        "--case=upstream"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 0.15840239599856432,
+      "errors": []
+    },
+    {
+      "case": "runtime",
+      "command": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/workspace/refactor-evidence/engine-lifecycle-candidate",
+        "--script",
+        "res://main.gd",
+        "--",
+        "--case=runtime"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 0.1553583710010571,
+      "errors": []
+    },
+    {
+      "case": "shutdown",
+      "command": [
+        "/workspace/refactor-evidence/engine-184-download/lanes/engine-built-linux-editor/godot-linux-x86_64",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        "/workspace/refactor-evidence/engine-lifecycle-candidate",
+        "--script",
+        "res://main.gd",
+        "--",
+        "--case=shutdown"
+      ],
+      "timeout_seconds": 30,
+      "exit_code": 0,
+      "seconds": 0.1556677690023207,
+      "errors": []
+    }
+  ],
+  "passed": true
+}

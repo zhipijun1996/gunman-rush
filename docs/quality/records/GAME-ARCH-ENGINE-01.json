@@ -1,0 +1,897 @@
+{
+  "schema_version": 1,
+  "task_id": "GAME-ARCH-ENGINE-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+  "reviewed_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+  "content_version": "candidate-v2-public-lock-installed",
+  "owner": "/root",
+  "purpose": "独立固定上游Godot回补构建、完整分发推广及严格installer整合；不以游戏代码绕过原退出泄漏。",
+  "player_experience": "提供可追溯一致的editor/templates工具链基础；本卡不宣称完整游戏或平台体验已验收。",
+  "constraints": [
+    "Standard custom distribution，明确不是官方原版Godot",
+    "原游戏/物理/伤害/随机/存档/素材规则不改；不降低原检查/预算以掩盖泄漏",
+    "只由原recipe/package/installer authority消费固定源与完整artifact，不混官方和自编译templates",
+    "保官方对照安装、拒绝身份混用及外来安装目录，不静默覆盖控制组",
+    "八公共文件经真实SHA校验；不把构建成功代称Web/Windows/Android运行或设备通过"
+  ],
+  "affected_paths": [
+    ".github/workflows/engine-backport-build.yml",
+    ".github/workflows/environment.yml",
+    ".github/workflows/production.yml",
+    "config/godot_build.json",
+    "config/toolchain.json",
+    "tests/test_godot_identity.py",
+    "tests/test_harness.py",
+    "tests/test_level_design_routing.py",
+    "tools/build.py",
+    "tools/capture_audio_ambience.py",
+    "tools/capture_audio_feedback.py",
+    "tools/capture_audio_home.py",
+    "tools/capture_audio_hurt.py",
+    "tools/capture_audio_reels.py",
+    "tools/capture_forest_bible_route.py",
+    "tools/capture_selected_audio.py",
+    "tools/check_environment.py",
+    "tools/engine/README.md",
+    "tools/engine/build.py",
+    "tools/engine/package.py",
+    "tools/engine/patches/117991-clear-base.patch",
+    "tools/engine/patches/120976-language-shutdown.patch",
+    "tools/engine/promote.py",
+    "tools/engine/test_build_contract.py",
+    "tools/engine/test_promotion.py",
+    "tools/godot.sh",
+    "tools/godot_identity.py",
+    "tools/harness.py",
+    "tools/level_content_pilot.py",
+    "tools/level_design.py",
+    "tools/mobile_web_perf/prepare_frame_pair.py",
+    "tools/production_loop.py",
+    "tools/run_plains_action_golden_tests.py",
+    "tools/setup_environment.py",
+    "tools/test_toolchain_download.py"
+  ],
+  "deliverables": [
+    "官方4.7.2源加明确117991/120976回补、固定十lane构建与原完整package验证",
+    "精确八文件公共prerelease与来源/包成员SHA",
+    "真实公共锁与严格installer/identity/wrapper/cache/receipt消费者原子整合",
+    "原失败和来源分别保留，后续正式游戏/平台验收独立完成"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定当前工具链：公共完整锁与当前配置一致、实际下载安装通过、原26 downloader/build/identity与原91 Harness单元通过；既有build184十lane/八公共文件与历史lifecycle证据各保其来源。不是full182/实际平台或游戏全量通过。",
+      "evidence": [
+        "current-integration-identity",
+        "active-setup-report",
+        "active-install-log",
+        "active-downloader26",
+        "active-harness91"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "只签当前精确工具链WIP、公共锁及安装证据的有限独立接受；不签完整游戏或最终平台验收。",
+      "evidence": [
+        "current-toolchain-independent-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "仅工具链来源/构建/推广/安装及有限单位检查有证据；本门或维度尚未完成整体验收。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "固定上游回补独立工具链范围",
+      "method": "核明确源/两回补/十lane与原消费者边界",
+      "expected": "不混官方与custom，不用游戏规则修改绕过泄漏",
+      "failure": "未经授权改变范围或冒称官方原包",
+      "status": "unverified",
+      "evidence": [],
+      "reason": "待实际范围完整验收。"
+    },
+    {
+      "id": "installed-lock",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "当前public锁与真实installer整合",
+      "method": "原实际setup报告、完整members检查与当前字段等式",
+      "expected": "公共锁一致，安装成功，身份保持严格",
+      "failure": "混版本/缺members/公共SHA不符",
+      "status": "passed",
+      "evidence": [
+        "current-integration-identity",
+        "active-setup-report",
+        "active-install-log"
+      ],
+      "reason": "只签已有实际锁/安装范围，当前WIP身份明确。"
+    },
+    {
+      "id": "original-tool-units",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "原26 downloader/build/identity与原91 Harness单元",
+      "method": "原入口真实root日志，保原反例/预算",
+      "expected": "两套完成OK",
+      "failure": "删反例/缺测试或退出失败",
+      "status": "passed",
+      "evidence": [
+        "active-downloader26",
+        "active-harness91"
+      ],
+      "reason": "26与91实际通过，不继承到游戏检查集合。"
+    },
+    {
+      "id": "formal-platforms",
+      "gate": "G4",
+      "dimension": "formal_integration",
+      "scenario": "完整正式游戏与实际平台产物",
+      "method": "原full182及Windows/Android/Web/PCK/GUI按实际source运行",
+      "expected": "实际消费者与产物均通过原约束",
+      "failure": "只编译/下载/单位测试便签平台或游戏通过",
+      "status": "unverified",
+      "evidence": [],
+      "reason": "待实际范围完整验收。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "history-abc-conclusion",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/abc-conclusion.json",
+      "sha256": "731f8272b72ced0e754b4f3af6e3db92899f31b117079c3e7867b324c3d224d8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "ABC diagnostic conclusion; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-formal-ab-results",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/formal-ab-results.json",
+      "sha256": "3c1a33709dbbed4d0cf028c50222cf7b0f72cde96cd426237f01ebdfef0b2389",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "original A/B failed strict formal receipts; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-shutdown-c-results",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/shutdown-c-results.json",
+      "sha256": "a1ebe63c682a44ec72e540040c0514464fc5a6b950341d8e09a82f0487101c0c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "C diagnostic receipts only; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-control-game-formal",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/control-game-formal.log",
+      "sha256": "425edb122ac295254c67919e13d374686e1d671f4c9a480dbd601807b9b3eaee",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "original A57/25 failure log; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-patched-game-formal",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/patched-game-formal.log",
+      "sha256": "b818f1cfef3f9f7f6d5eb5b49d9cd37d13c973852ea819e6954d0e57bd496485",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "B57/25 failure log; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-shutdown-c-game-formal",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/shutdown-c-game-formal.log",
+      "sha256": "99b40e3bfda4c8e3b8f89d364fcc47329eb9d3b2774c40d1b775e602d0023ec6",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+      "content_version": "historical-exact-source-063d6ccb",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "C diagnostic formal strict result; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-engine-diagnostic-C-independent-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/engine-diagnostic-C-independent-review.json",
+      "sha256": "a62f8b85986ddd6d7e6d1f9f9c9ebdebc5b05b7cec2690c301cb61b84e81f408",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+      "content_version": "historical-exact-source-ed1daf0b",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "isolated C patch independent review; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-engine-build-candidate-independent-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/engine-build-candidate-independent-review.json",
+      "sha256": "e8b969ffc7b8ccdc5cebb68c6289b2cd50b88807ddcb1ae0537643c2fb1ab48e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "915c20b73ba94498e38cd680940d405bc88db7b1",
+      "content_version": "historical-exact-source-915c20b7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "limited build-source independent review; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-installer-62ec-independent-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/installer-62ec-independent-review.json",
+      "sha256": "c5acb4f8fcb0a6fd48ea54bbb6d16e8fc37a739946d797d0ce76b828ab69ad32",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "62eceec404255b12d4233907a60588d96ed96c1f",
+      "content_version": "historical-exact-source-62eceec4",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "strict installer62ec limited independent review; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-engine-63af-on390-independent-proof",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/engine-63af-on390-independent-proof.json",
+      "sha256": "db8f97039db6ecb13d13673ad711993c474892425a531cbbe53dc592050e727f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "63afcb1ba43c7d16c85745478cd3617037f20848",
+      "content_version": "historical-exact-source-63afcb1b",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "AndroidCLI independent8test proof; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-engine-184-activation-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/engine-184-activation-review.json",
+      "sha256": "c3bc9af4aedc099ff07b0f2c5a5d8ec5e88c55263a41127fb87d754fa57b5608",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "184 recipe preactivation review, not artifact acceptance; keep original historical limitations and failures."
+    },
+    {
+      "id": "history-engine-184-activation-remote-snapshot",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/history/engine-184-activation-remote-snapshot.json",
+      "sha256": "78120afdab6bb7ad89ff03ac387121000587eed563507a3a695a88733b4c3581",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "remote41180438395 observation only; keep original historical limitations and failures."
+    },
+    {
+      "id": "engine-184-complete-artifacts-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/build/engine-184-complete-artifacts-independent-review.json",
+      "sha256": "f9d4231f83d2bf4a1fbe75c4ce0d98e02de62a6c0ec219b612d1111d5e2b6d36",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-184-editor-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/build/engine-184-editor-independent-review.json",
+      "sha256": "7f15311dd1f3333f7e80f91b1c3ddc243a08f651941f8fef9028d1aaae1f392b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-184-release-published-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-184-release-published.json",
+      "sha256": "a65560563fe261329596ab782d8fcc7e66befc443e7be48c134660496d0de106",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-184-public-download-verification-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-184-public-download-verification.json",
+      "sha256": "8f1f12c38829a7b47c79dfff10262b5d7d244ded736448081566514439e4a152",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-184-public-download-verification-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-184-public-download-verification.log",
+      "sha256": "5bac7901b4747e1fa2f5f08a68603e45b41d9e15c84eb4081d24a4fecf408d71",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "promotion-f91-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/promotion-f91-independent-review.json",
+      "sha256": "aeae2be0229da640fa107bd9db4e248980f4c75360c6fa2bf1290e844cbd5b09",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "promotion-f91-independent-promotion11-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/promotion-f91-independent-promotion11.log",
+      "sha256": "0ab9bdea23a887856aa29db6580363817662dd71546372011a083ce2e7dfaf53",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "promotion-f91-independent-build8-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/promotion-f91-independent-build8.log",
+      "sha256": "68e7f37396a593bcbf52f67fb716726966b77d6d9b1b2b623c91cbffd88610ea",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-promotion-41187929215-report-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-41187929215-report.json",
+      "sha256": "023396aa052d60e67cefc8d8b968b9f0a512cf26c27c64acef334af617932bac",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+      "content_version": "historical-exact-source-ce26dc72",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-promotion-41187929215-job-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-41187929215-job.log",
+      "sha256": "c2f7195fc94fb9ff671226f54751c5a994347bda5b33e488c92c1febe5def479",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+      "content_version": "historical-exact-source-ce26dc72",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "promotion-ce26-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/promotion-ce26-independent-review.json",
+      "sha256": "dc1d8cc9c0c298407733166147c697cd2db163115feadfd3d177cfeb485176d0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+      "content_version": "historical-exact-source-ce26dc72",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "promotion-7c-independent-review-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/promotion-7c-independent-review.json",
+      "sha256": "3d032265ece7194d3c8d117beeefe40ed438c20ff634f77144764e2b762d562c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "7c18115d0fe19cfb2cc7d4ffe38039e86e434c83",
+      "content_version": "historical-exact-source-7c18115d",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-promotion-prerelease-actual-proof-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-promotion-prerelease-actual-proof.json",
+      "sha256": "12e3236a3299a244ae94d0998e6b220de6c0789ddd28a940a048db95980e00bc",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "ce26dc72df5a509a060433b767b1155c4fd85df5",
+      "content_version": "historical-exact-source-ce26dc72",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "engine-promotion-41188433036-run-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-promotion-41188433036-run.json",
+      "sha256": "434716424e6079ac57139f00829a0e1259ff5ee3fa38040a1746fc22e7a99ca1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "Actual Actions promotion run41188433036 completed successfully on f91; not a fresh local execution."
+    },
+    {
+      "id": "engine-promotion-41188433036-job-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/publication/engine-promotion-41188433036-job.log",
+      "sha256": "86e29c165076ae8e2b81b9df846b7d16d62cb0c781dd27d06bb33ae1748528f8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+      "content_version": "historical-exact-source-f91a69d0",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "Actual Actions promotion run41188433036 completed successfully on f91; not a fresh local execution."
+    },
+    {
+      "id": "engine-release-upload-401-tool-transcript-txt",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-release-upload-401.tool-transcript.txt",
+      "sha256": "980cb7a1b50c64fb1e4bb64a70086bd1215ff21046041d978fd3ffbb404bf0f3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "After-observation transcription of original exec401 failure, not a replay or original command logfile. Build source identifies intended artifact bytes, not a claimed checkout for the gh client."
+    },
+    {
+      "id": "engine-release-upload-401-observation-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/failed-publication/engine-release-upload-401-observation.json",
+      "sha256": "5e34ad9b550c1e7fd419eb5b1e5fbf5f109737a07489fcc141f2814915e3aa7f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "After-observation transcription of original exec401 failure, not a replay or original command logfile. Build source identifies intended artifact bytes, not a claimed checkout for the gh client."
+    },
+    {
+      "id": "published-build-provenance-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/published-metadata/build-provenance.json",
+      "sha256": "3671f8cb38e0ed66fa25a06ecbf4b0ea8672a45fd4ba8af99cd55d79044bd225",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "published-engine-identity-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/published-metadata/engine-identity.json",
+      "sha256": "0c94c4f492795430aa4087c18e9fddffa16e48629752a1ed49284485440bd19e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "published-godot-lock-candidate-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/published-metadata/godot-lock-candidate.json",
+      "sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "published-SHA256SUMS-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/published-metadata/SHA256SUMS.json",
+      "sha256": "8e8c1ba5d44add94e80ca79c3123eccf51111350db64d4611b177a638aaf3839",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "published-version-txt",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/published-metadata/version.txt",
+      "sha256": "38885c88f75abbc797a1db7559719800279a00cfb9fa8b2e2868a7f6f84bad2e",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "active-downloader26",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/active-toolchain-download-tests-01.log",
+      "sha256": "1ad9c0682e1ac54f28980ecf283cbc88966c7bb0d5c940045b9272bd038cb14a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "26 tests passed in4.832s; existing load_tests includes build/identity cases, not native game coverage.",
+      "command": "python3 tools/test_toolchain_download.py",
+      "exit_code": 0,
+      "environment": "Main4e91 plus merged strict-installer WIP, Python3.12; actual root-run log, candidate source hashes observed at registration."
+    },
+    {
+      "id": "active-harness91",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/active-main-harness-tests-01.log",
+      "sha256": "16e35af41b5e1fb8410019103adbf2de584be11886bd75e2f95024e7363add73",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "91 tests passed in19.725s; intentionally failing synthetic fixtures remain in raw log, final unittest OK.",
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "environment": "Main4e91 plus merged strict-installer WIP, Python3.12; actual root-run log, candidate source hashes observed at registration."
+    },
+    {
+      "id": "active-install-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/engine-184-active-install-01.log",
+      "sha256": "0bf11e0b7a92d87340944abdd31a61ec24b0b4c2d07967de0e85a22ec82aaeaa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "Actual selected editor banner and complete18 template SHA checks passed; no Windows/Android/Web execution inferred."
+    },
+    {
+      "id": "active-setup-report",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/setup-report.json",
+      "sha256": "f463f38cb2cac332a3c6438101ecdd4533a5a5efc3f7021344833a8733415a2c",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "Actual public-provenance/editor/templates download+extraction+environment validation passed in11.200802s; exact argv confirmed by root actual execution receipt; original report bytes unchanged.",
+      "command": "python3 tools/setup_environment.py --godot-only",
+      "exit_code": 0,
+      "environment": "Actual main4e91 plus strict installer WIP; root confirmed exact argv; original setup report and log preserved."
+    },
+    {
+      "id": "engine-lifecycle-reviewed-contract-28-independent",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/engine-lifecycle-reviewed-contract-28-independent.json",
+      "sha256": "34d9f3af4ca9a8805d12cdf98a865dff80c5008116ae8d44719a0e9473f2aebb",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "New28 contract is an explicit reviewed change from original26 fixture expectations, not asserted identical. Original pending limitations retained."
+    },
+    {
+      "id": "engine-lifecycle-reference-contract-independent-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/engine-lifecycle-reference-contract-independent-review.json",
+      "sha256": "eb5ec8b58154bd42d99bcf7f5e016915a466314df87c36503b8b924cde8d95dc",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "New28 contract is an explicit reviewed change from original26 fixture expectations, not asserted identical. Original pending limitations retained."
+    },
+    {
+      "id": "lifecycle-fixed-report-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/report.json",
+      "sha256": "df6246fd7d941ba090c2631ac62505219bab7b29b5241ef4a595f701e6a534e7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-fixed-runtime-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/runtime.log",
+      "sha256": "bc51c3ac1d04f880c76de1d48a8d4db907f0cad9953dd14ec8be763298233653",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-fixed-upstream-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/upstream.log",
+      "sha256": "afecebefb861c6decac1980aa3840832d874ec2e61f9f3aad0b6a4aa547085c1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-fixed-shutdown-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/shutdown.log",
+      "sha256": "d86b74b8202411300c675f7ed500bda86abab1a91c893269186cdccdb2ac2341",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-fixed-predelete-txt",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/predelete.txt",
+      "sha256": "45dc110734222579e31b209ab4f27fe1920fc20a40d1ef82d663da39f7b80cf0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-fixed-version-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/fixed/version.log",
+      "sha256": "ab116346cc6537e607179b9ccfb0f8baf1d632956ea46f362ec482278be0bf80",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "optimized-184-reference-negative-01-json",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/optimized-184-reference-negative-01.json",
+      "sha256": "eec2b11a180d9f14aa9dc09e5c0449c76c37f0b0e1616f70d254c4621474a32b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "optimized-184-reference-negative-01-log",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/lifecycle/optimized-184-reference-negative-01.log",
+      "sha256": "97bcd8b179cfe7196d1bf159845558522cd0c84a7e2144bfbea2b669cc8eb746",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+      "content_version": "historical-exact-source-184970c7",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "限定构建/工具链证据，不代表完整游戏、导出、GUI或设备验收。"
+    },
+    {
+      "id": "lifecycle-existing-independent-binding",
+      "path": "docs/evidence/game_architecture_02/audio-lab-material-01/review/audio-lab-material-native-independent-binding.json",
+      "sha256": "89137d8a8589e55b127e663af42353854f2db93df66cb0a858e03b7108f92fe4",
+      "kind": "runtime_trace",
+      "producer": "structure_audit",
+      "source_commit": "59a6e46e88750d2afc719a3c35b8346a69a04431",
+      "content_version": "historical-audio-lifecycle-binding",
+      "method": "复用已实际归档的独立摘要；其optimized lifecycle28+upstream/PREDELETE+4负例仅该二进制。",
+      "observed": "No additional run or acceptance inferred; existing audio result also does not sign this main toolchain integration."
+    },
+    {
+      "id": "current-integration-identity",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/integration-source-receipt.json",
+      "sha256": "45d27b798e10f37102ee8591561198d4f982cdffe5e1713fa27cd45f2faba591",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "真实原件逐字归档；原报告的来源与范围限制保留，不追改旧接受或失败。",
+      "observed": "Current35-file toolchain observation plus exact public lock object equality; original non-Godot settings preserved."
+    },
+    {
+      "id": "current-scope",
+      "path": "docs/worklines/game_architecture_01/engine_toolchain_01.md",
+      "sha256": "4c11438c6542ac50bd4083523b194c3aae2b97375c849f2847c1ded8c0115677",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "当前来源和有限状态说明；不制造用户/艺术接受。",
+      "observed": "独立工具链整合仍in_progress，完整正式/平台验收待验。"
+    },
+    {
+      "id": "current-toolchain-independent-review",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/active-toolchain-main-integration-independent-review.json",
+      "sha256": "377572eaa0a05fa2afec406ce8c933528956c5b00e1b00042d6c8dca73fbcf5f",
+      "kind": "review",
+      "producer": "ci_audit",
+      "source_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "只读核精确合并WIP源码/实际安装字节/公共锁与原26+91日志；未运行引擎，未重跑原单元。",
+      "observed": "LIMITED_ACCEPT：仅当前锁定工具链整合，最终Git提交/full182/平台/GUI/设备未签。",
+      "reviewer": "ci_audit",
+      "implementers": [
+        "runtime_audit",
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "ci_audit是本次整合的独立非作者，只读核源码、安装字节与实际证据；原报告明确其他dirty工作不在范围。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "最终整合提交未建立；reviewed_commit4e91仅基点，当前工具WIP真实SHA见candidate_source",
+    "full182与完整正式native/PCK/实际Web、Windows、Android导出及运行/GUI/设备未验，不能继承诊断191或部分工具单元通过",
+    "当前工具链精确源码已限定独审接受；最终整合commit绑定及全正式consumer验收仍待，历史独审继续保各自范围",
+    "生命周期28是独立修正过的fixture契约，保原26失败与理由，不宣称原断言全部不变",
+    "各机位编译输出锁定实际产物，不宣称跨机器第二次构建字节可复现",
+    "原本地uploads401是事后转录的实际exec观察，不伪装为原始文件或复跑；成功Actions API/job日志另逐字归档",
+    "旧A/B正式191/0后57/25退出失败原文保留；后续C/optimized结果不能追改原版本状态"
+  ],
+  "candidate_source": {
+    "base_commit": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+    "source_state": "Uncommitted integrated toolchain WIP; HEAD alone does not include these files. Hashes observed at quality registration, not a fabricated before/after vector for prior commands.",
+    "files_sha256": {
+      ".github/workflows/engine-backport-build.yml": "9af95abd60471f6fdbf66938261ae7656d8b0930905812981b914a7fea8f48d3",
+      ".github/workflows/environment.yml": "e4b91a19faeb1f4c4006f717192743dada067c21a42935b7a5aa24d5bb224e1a",
+      ".github/workflows/production.yml": "72fb4fd4fd8fc04b079515f25cc67ae85bf86600e0b86128189cce5b5308b931",
+      "config/godot_build.json": "3d335346c8d7ac5eeb4b4ba0042e7b55d66b0ca704c213e029f2be3a34ea7161",
+      "config/toolchain.json": "9a5e8ae804bea1c742b03bb6cc5b01e006bab768d5146b6748ba104e1049278e",
+      "tests/test_godot_identity.py": "4eac94a4623091c048c333d24b76c3999079ce4ee7412c38fc49089c75439a17",
+      "tests/test_harness.py": "8693229d8f622eafa1a49d1c97da7d482b83f2b5998d9d289baa2ae9bfdaf540",
+      "tests/test_level_design_routing.py": "a7b656bb3046d102760d9e95810409a8f07ad9e68b46706cc691b43f73c0afcb",
+      "tools/build.py": "1f1ac36c8caedfb62878a92e5cb6ff0994230fa8fbfa30d40baf3e014f968241",
+      "tools/capture_audio_ambience.py": "e1c17ee07a6aa4eadabced3f0e2a8f6b1f14f49e1c58f7a908d7537340667bd4",
+      "tools/capture_audio_feedback.py": "f69b824b004f8e2d36ce3fa8466268b42f3a7e6bff4cc23880d94f2a2678625c",
+      "tools/capture_audio_home.py": "de88eefb125819416e0ce2a8745cc232dc8592453f9cad1a7e8805f6b6f7eed0",
+      "tools/capture_audio_hurt.py": "e493fc50ec092d749522f6eb9ff83b8e5b4799e6ed1edd9a68bbdc53b9281195",
+      "tools/capture_audio_reels.py": "3e8224a83e6736e3e9bddd8cce4e43baf0feb821c825cc56200a8381b8922293",
+      "tools/capture_forest_bible_route.py": "9400c901d1d12d22b21957d7a4a40f3c8c53169bfbb0ecf4890e82168da01eaf",
+      "tools/capture_selected_audio.py": "96a4a1c77ccf81f0a9f727b7b51c89078ccf7f9e74b291ce05eb1fcd8554473c",
+      "tools/check_environment.py": "64a13aaf2ed3065c512bfa2e75e49bb10e8fe290e9d79236fedd5f0b1002ee13",
+      "tools/engine/README.md": "705f1bfc9b228ef7413a2baedb9795f45639c301003dbd7c3800e35a9ee9f905",
+      "tools/engine/build.py": "0b0fac35cb4c05c026563a79c8cf050efa170af7ed84bdf787a17d376b9fc391",
+      "tools/engine/package.py": "7a6e8c08a0622e64ab8a7b5bbebb1db90bcf84aff24d37dda98822b72792e827",
+      "tools/engine/patches/117991-clear-base.patch": "e590780136e86fce5f3dbdf8ffaa484fa2d9fb7e52c2c2a4a36345805ffe8573",
+      "tools/engine/patches/120976-language-shutdown.patch": "aad81aca9c55e7d79117b94647a0b9363bae918ceacc3581e8e3cedc07772f85",
+      "tools/engine/promote.py": "23038992ca967ebd471d32247b67551ff5aba1693b87247343feef0ccb0e2f68",
+      "tools/engine/test_build_contract.py": "ff5507c9cd5cb1ede8ded17a5c34c9b92249df80417add6d851cff204689124a",
+      "tools/engine/test_promotion.py": "7cf334180212902ea25ed2a086e6c36f7285caed7b9435be9c0b59aa97acf145",
+      "tools/godot.sh": "eb526a93e85d880573fa29d55eb7caa6fc4b566b93767849f5c3e3c9e0719246",
+      "tools/godot_identity.py": "2fbd7cafa04de54fd95bc4d83fcadc2345f0f3165c3d351f2d083c4cd36fa07e",
+      "tools/harness.py": "55c7723fc2e8c742d6dc158eae0678362411ef5a206252e82ad94c0152aaffe2",
+      "tools/level_content_pilot.py": "826ca08ed2c110354333c9af9a9a2567e0fc885a574941e501335e53c6bdf8a1",
+      "tools/level_design.py": "529107c00485d770526d1fdf898cb7e25f7a1ecdaa88cd584f78b129db824ff8",
+      "tools/mobile_web_perf/prepare_frame_pair.py": "2c6b247845c34033c39cac8c1713c5399463b572a1391c4d8252c367a94aa579",
+      "tools/production_loop.py": "874a3545d3bdcb2c666389fef118c7c0e8b6046dfd0069d472e6dd1705472f77",
+      "tools/run_plains_action_golden_tests.py": "296a45bab64deac0524828cdd5ff2c54f07bc314696c6cf025b82202834e6f7c",
+      "tools/setup_environment.py": "1f67e3395ac8513153203136046ceec0b5753ff9e60ddcde7816c48322c611c0",
+      "tools/test_toolchain_download.py": "e72b07c6776b5ddfaf58997fdc5013d839315a5cfc8399b0b79bcd86cbea78f9"
+    },
+    "public_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+    "current_config_godot_equals_public_lock": true,
+    "non_godot_toolchain_config_unchanged_from_base": true,
+    "build_source": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "promoter_source": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+    "installer_review_source": "62eceec404255b12d4233907a60588d96ed96c1f",
+    "android_builder_cli_source": "63afcb1ba43c7d16c85745478cd3617037f20848",
+    "actual_distribution": {
+      "source_run": 41180438395,
+      "lanes": 10,
+      "release_id": 429822541,
+      "tag": "toolchain-godot-4.7.2-gunman-sd1",
+      "prerelease": true,
+      "draft": false,
+      "eight_public_files_verified": true
+    },
+    "limitations": "Observed source identity and actual original receipts only; not full182/native-all/export/GUI/device acceptance.",
+    "documentation_only_followup": {
+      "path": "tools/engine/README.md",
+      "previous_sha256": "352467cbec56020e313ada5ebc7c964ff89297b9c738fee8c4a5e9ea520dce73",
+      "sha256": "705f1bfc9b228ef7413a2baedb9795f45639c301003dbd7c3800e35a9ee9f905",
+      "scope": "Restore recipe-required /tmp/gunman-engine example; clarify separate build/promote branches and historical official/current reviewed lock. No executable/config/test bytes changed; original run evidence unchanged."
+    }
+  },
+  "provenance_sources": {
+    "baseline_game": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+    "diagnostic_game": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+    "godot_official_source": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "build_recipe": "184970c7fff5baa6842efb8f34339ce87fff5bfd",
+    "build_run": 41180438395,
+    "promoter": "f91a69d038bf0c7772e42fcd1534ca641d905e3a",
+    "promotion_run": 41188433036,
+    "installer_candidate": "62eceec404255b12d4233907a60588d96ed96c1f",
+    "android_cli_candidate": "63afcb1ba43c7d16c85745478cd3617037f20848",
+    "main_integration_base": "4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a",
+    "public_lock_sha256": "84522f721203e0f58d9be63ceecf2bd51e844e3a57676d0456fbf6bdf9b34604",
+    "local_installer_merge_parent": "63afcb1ba43c7d16c85745478cd3617037f20848"
+  }
+}
