@@ -4,7 +4,7 @@
   "task_type": "process",
   "workflow": "in_progress",
   "baseline_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
-  "reviewed_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "reviewed_commit": "6f743953d6c70c63d4d366a3e84cbe2a571b29d7",
   "content_version": "candidate-v1",
   "owner": "/root",
   "purpose": "按真实当前消费者迁移测试路径与技术绑定，固定历史消费者继续读取其原版本",
@@ -158,7 +158,7 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。最终commit需同字节绑定；不覆盖整个P8、118动态加载、35GUI或完整CI。",
+      "reason": "所引62文件审查中本记录覆盖60个测试/工具/文档技术文件，限定静态迁移接受；两份assets manifest由原资产记录另管。精确6f743953已逐Git blob绑定62文件；原不可变报告保留候选状态，新增commit-binding收据证明一致；不覆盖整个P8、118动态加载、35GUI或完整CI。",
       "evidence": [
         "test-migration-independent"
       ]
@@ -202,7 +202,6 @@
   "unverified_items": [
     "完整182、最终引擎与Web/PCK未完成",
     "历史真实移动端PCK缺件，独立10项只是纯Pythonfixture",
-    "文件级提交绑定待紧接提交后核对",
     "用户/设备/艺术及全部运行迁移均不在本次静态ACCEPT范围"
   ],
   "test_change_justification": "归档p8-test-change-justification.json及最终62文件独审逐项覆盖12个敏感guard：当前路径迁移、历史固定路径恢复、有限AST守门和单次style26技术绑定。原full172为当前182的精确顺序前缀，10项均真实注册；原断言、方法、预算与负例保留。未把全量CI或动态加载签为通过。"

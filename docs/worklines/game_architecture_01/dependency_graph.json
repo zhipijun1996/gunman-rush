@@ -1,18 +1,32 @@
 {
   "schema_version": 1,
   "kind": "audit_snapshot_not_runtime_registry",
-  "source_commit": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
-  "source_status_at_start": "Production source fixed to063d6ccb; report/tool/binding edits are separate uncommitted candidate work.",
-  "generated_utc": "2026-10-31T05:52:45.136035+00:00",
-  "freeze_status": "candidate_063d6ccb_boss_tail_static_review_native_and_final_binding_pending",
-  "method": "Git tracked metadata plus existing project_dependencies.inspect; no media bytes downloaded/read; missing sparse file sizes left null.",
+  "source_commit": "6f743953d6c70c63d4d366a3e84cbe2a571b29d7",
+  "production_baseline": "063d6ccbd7a6ab659fd27abcb20a5c59c7308c53",
+  "technical_closeout_commit": "6f743953d6c70c63d4d366a3e84cbe2a571b29d7",
+  "generated_utc": "2026-10-31T06:42:48.964450+00:00",
+  "freeze_status": "committed_technical_source_snapshot_not_full_ci_or_release_acceptance",
+  "source_status_at_start": "All tracked source and narrative committed; only index outputs may differ.",
+  "technical_binding": {
+    "registry": "docs/creative_direction/bibles/registry.json",
+    "style": {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v26-feature-layout.json",
+      "sha256": "f2ef7c7f3cf3ae3f81e129db1f1d6669fb9ad7b654f010cdceeeacbf62619bad"
+    },
+    "creative_versions": {
+      "windchime_plains": "creative-v29",
+      "thorn_forest": "creative-v29"
+    },
+    "scope": "Technical source binding only; no inherited artwork/gameplay/audio/device acceptance."
+  },
+  "method": "Git tracked metadata and existing project_dependencies.inspect. Complete executable source parsing; no media bodies read. Sparse historical metadata remains explicit.",
   "limitations": [
-    "Static entry reachability is possible transitive reachability including explicit App experiment navigation, not proof of startup loading.",
-    "Computed paths remain explicitly unresolved; require original native/PCK tests.",
-    "Candidate style26/creative29 binds063d6ccb; final independent review, original native/CI and actual PCK remain pending.",
-    "Dependency extractor covers GDScript, scene and resource edges; shader bodies/includes and metadata-derived resource selections require their existing validators and runtime/PCK checks.",
-    "Some old schema/Manifest paths remain sole implementations for protocol/raw-source identity; they are not copied compatibility layers.",
-    "No inherited user, art, audio, gameplay or device acceptance."
+    "Static entry reachability includes explicit App experiment navigation; it does not prove startup loading.",
+    "Computed paths remain unresolved and require original native/PCK checks.",
+    "See root-owned migration_report.md and original receipts for validation failures/results; this generator does not infer test acceptance.",
+    "Shader and metadata selections require existing validators and native/PCK checks.",
+    "Protocol/Manifest identity holds remain sole implementations, not copied compatibility layers.",
+    "The three generated index files deliberately omit their own size/blob hashes to avoid circular self-binding."
   ],
   "extractor": "tools/project_dependencies.py:inspect",
   "source_count": 842,
