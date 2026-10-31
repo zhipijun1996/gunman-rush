@@ -1,12 +1,12 @@
-## 2026-10-31 工具链、八测试迁移与当前15套验证已收口
+## 2026-10-31 Foundry消费者收口完成，下一步完整185与导出
 
-当前代码提交 `49a298b40890ccf4d9d2326d051f12a0ffe63c27`：工具链整合 `59537400`、独立生命周期缺陷修复 `a6714757`、当前 Boss 八测试/两份测试依赖迁移 `49a298b4`。main内容底座仍 `2ce4ffa6`，包含PR122/124/125/107，PR123排除；本重构尚未推送/合main/发布游戏网页。
+当前实现提交 `becd0099b161f57cd919e7492f9f99752d377935`，继承工具链595、独立生命周期a671、Boss八测试49a和技术绑定ad3/b893。内容基线main仍为2ce4ffa6（PR122/124/125/107，排除123）。本重构未合main；游戏公开网页尚未更新。
 
-固定优化引擎10lane+package成功，受限推广run [41188433036](https://github.com/zhipijun1996/gunman-rush/actions/runs/41188433036) 已发布[固定工具链](https://github.com/zhipijun1996/gunman-rush/releases/tag/toolchain-godot-4.7.2-gunman-sd1)，tag仍指build184970c7；八个最终公开URL完整下载/SHA核实。真实84522锁、安装器及消费者已一同接入，实际setup、原26下载/身份与91 Harness单位检查通过。见[工具链说明](worklines/game_architecture_01/engine_toolchain_01.md)。
+原current15地域检查224.151秒全部通过，五共享消费者分次通过。Foundry原流程真实验证36条开发挑战和18连续路线，再生成当前导出basis；独审确认56份JSON仅来源/引擎/派生hash变化，54份回放56113帧完全不变。三个原工坊入口修旧默认弹药预期及复用全world音频清理后35/439/12均0失败，原Harness三个新check全部fresh通过；原Harness91与生产计划37也通过。见[Foundry收口](worklines/game_architecture_01/ci_foundry_consumers_01.md)、[Boss测试迁移](worklines/game_architecture_01/ci_boss_consumers_01.md)。
 
-原region wrapper实际current15全部通过，224.151秒；其中Energy原540断言保留，Pressure默认保App/Camera/Underworld/Home等444检查，仅旧D077组合明确手动延期，未冒称旧合同通过。共享切图夹具五个其他消费者分别通过；quality1046/0与原underworld正式104/0+cache444/0严格clean。原main2ce同一真实App/TerrainStudy probe复现319条释放后延迟调用ERROR，独立修复后同probe为0；旧quality317错误、1044/1、各版Boss失败和首次稀疏导入失败都保留。见[测试迁移与分类](worklines/game_architecture_01/ci_boss_consumers_01.md)、[独立生命周期修复](worklines/game_architecture_01/underworld_deferred_lifetime_01.md)。
+CI现为185=95parallel+90serial：保留原full182/gameplay167有序前缀，将三个既有Foundry回归归入统一Harness并从environment/deliver移除重复执行。Android同样消费该次prepare的validated-foundry，原stamp拒绝、180秒原预算及双lane合流不变。首环境run41192769750因实测旧池/缺Android产物交接而在工具链前取消：实际取消点已过checkout进入质量证据步骤，core聚合因缺lane证明失败，不是full185已执行；原API/失败均保留。skip-drain本次未复现泄漏，保持原passed/noERROR并明确不作为反向通过。
 
-当前正完成style27/creative30最终技术绑定及索引更新：206角色/51媒体原字节保留，第七处仅重绑上述生命周期代码。原full输入已精确物化4,366,635,422字节并ready，静态quality通过；这些不是完整182验收。随后冻结源，只执行一次environment的同源Foundry准备、95/87两lane及Windows/Web/可选Android导出，避免另开重复完整workflow。完整182、最终Foundry、真实导出/PCK/GUI/公开试玩仍未完成；新地图模块库与新生成算法仍属后续，不因接口完成而称已经替换。下方为阶段历史。
+固定引擎10lane+package、八个公开分发文件/真实84522锁与安装已完成；原26下载身份测试、91Harness及优化引擎有限生命周期/正式测试证据保留，详见[工具链](worklines/game_architecture_01/engine_toolchain_01.md)。当前正最终更新索引后重新冻结源，完整185、最终Windows/Web/Android游戏导出、PCK/实际GUI与公开试玩仍未通过本轮验收；不得将selected或注册项数冒称全量成功。新地图模块库与新算法仍属后续，现接口调用旧Provider。下方阶段记录保留当时状态。
 
 ## 2026-10-31 状态恢复所有权补批已实现，CI旧Boss夹具单列迁移
 
