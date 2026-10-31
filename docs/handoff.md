@@ -1,3 +1,13 @@
+## 2026-10-31 工具链、八测试迁移与当前15套验证已收口
+
+当前代码提交 `49a298b40890ccf4d9d2326d051f12a0ffe63c27`：工具链整合 `59537400`、独立生命周期缺陷修复 `a6714757`、当前 Boss 八测试/两份测试依赖迁移 `49a298b4`。main内容底座仍 `2ce4ffa6`，包含PR122/124/125/107，PR123排除；本重构尚未推送/合main/发布游戏网页。
+
+固定优化引擎10lane+package成功，受限推广run [41188433036](https://github.com/zhipijun1996/gunman-rush/actions/runs/41188433036) 已发布[固定工具链](https://github.com/zhipijun1996/gunman-rush/releases/tag/toolchain-godot-4.7.2-gunman-sd1)，tag仍指build184970c7；八个最终公开URL完整下载/SHA核实。真实84522锁、安装器及消费者已一同接入，实际setup、原26下载/身份与91 Harness单位检查通过。见[工具链说明](worklines/game_architecture_01/engine_toolchain_01.md)。
+
+原region wrapper实际current15全部通过，224.151秒；其中Energy原540断言保留，Pressure默认保App/Camera/Underworld/Home等444检查，仅旧D077组合明确手动延期，未冒称旧合同通过。共享切图夹具五个其他消费者分别通过；quality1046/0与原underworld正式104/0+cache444/0严格clean。原main2ce同一真实App/TerrainStudy probe复现319条释放后延迟调用ERROR，独立修复后同probe为0；旧quality317错误、1044/1、各版Boss失败和首次稀疏导入失败都保留。见[测试迁移与分类](worklines/game_architecture_01/ci_boss_consumers_01.md)、[独立生命周期修复](worklines/game_architecture_01/underworld_deferred_lifetime_01.md)。
+
+当前正完成style27/creative30最终技术绑定及索引更新：206角色/51媒体原字节保留，第七处仅重绑上述生命周期代码。原full输入已精确物化4,366,635,422字节并ready，静态quality通过；这些不是完整182验收。随后冻结源，只执行一次environment的同源Foundry准备、95/87两lane及Windows/Web/可选Android导出，避免另开重复完整workflow。完整182、最终Foundry、真实导出/PCK/GUI/公开试玩仍未完成；新地图模块库与新生成算法仍属后续，不因接口完成而称已经替换。下方为阶段历史。
+
 ## 2026-10-31 状态恢复所有权补批已实现，CI旧Boss夹具单列迁移
 
 在ed95音频修复之后，按已提交范围2e1c完成7生产/4测试有限迁移：Stage通过ShotLatch保存/恢复原7字段并复用平台restore_motion；App通过Director复位terminal重入完成标记；普通Windkeeper与Pressure分别通过Encounter/Arena恢复断桥，两个Pressure调用者都迁移。原政策、字段、顺序和旧测试均保留，见[范围与结果](worklines/game_architecture_01/ownership_closeout_02.md)。

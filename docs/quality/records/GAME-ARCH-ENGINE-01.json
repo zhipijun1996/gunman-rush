@@ -804,6 +804,17 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "ci_audit是本次整合的独立非作者，只读核源码、安装字节与实际证据；原报告明确其他dirty工作不在范围。"
+    },
+    {
+      "id": "committed-toolchain-source-binding",
+      "path": "docs/evidence/game_architecture_02/engine-toolchain-01/active-main/active-toolchain-59537400-commit-binding.json",
+      "sha256": "b010a1b12ce27a64a40b149d4dea9f675c28144e4c46d5fa6c24f28d061a8878",
+      "kind": "runtime_trace",
+      "producer": "ci_audit",
+      "source_commit": "59537400af06a26046037840e28989f75933a265",
+      "content_version": "candidate-v2-public-lock-installed",
+      "method": "逐一核35已审源与595374 merge Git blobs同字节；只追加提交归属。",
+      "observed": "LIMITED_ACCEPT_COMMIT_BOUND；不更改原WIP来源、35源向量、原运行或质量维度，不签全量/平台通过。"
     }
   ],
   "consumer_coverage": null,

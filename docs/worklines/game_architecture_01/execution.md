@@ -2,6 +2,12 @@
 
 内容底座：`2ce4ffa64ef65dd5fba892776eea019c9e2841d4`（PR122/124/125/107，排除PR123）。主工作树 `/workspace/gunman-rush-refactor`，分支 `refactor/game-architecture-02`。用户要求持续完成且再次明确可用subagent并行；采用6个隔离实现/审查代理，root统一引擎验证。
 
+## 当前执行点（生产 a6714757，测试迁移49a298b4）
+
+1,124 文件功能迁移与真实共享调用已完成。P9恢复所有权为 `4e91a0dd`，固定工具链真实发布安装为 `59537400`，独立Underworld生命周期缺陷修复为 `a6714757`。三份生成索引仍声明源 `6f743953`，等待root按最终源重生；不手改旧计数/来源以冒充当前图。后文阶段记录保留当时的“待验/失败”，由本节及末尾新增结果更新现状，不回写历史原件。
+
+八个Boss/共享消费者测试及两份测试依赖已提交49a298b4，region actual03已完成current15（224.151秒）；完整182、Foundry最终、实际Web/Windows/Android游戏导出与GUI未验。统一新地图库及新算法尚未实现，现有Provider仍调用旧算法。工具链发布不等于游戏发布。
+
 ## 已整合的实际调用关系
 
 - `DemoApp → RunSession / RunComposition`：真实创建/清理迁移，一个Flow/Lifetime/Wallet/Build；Session不暴露给地图、敌人、道具。
@@ -10,6 +16,8 @@
 - Shop修复 → Build → Inventory受限提交/回滚；Shop扣款/退款/Session清空 → Wallet；收益效果 → Runtime收益命令；两个主动族 → 同一ItemActiveCast。Time仅接窄能力上下文。
 - 四Study + tests shim → 唯一生产WorldAudioLifecycle。音频nearest owner/Cloud重复服务/按钮重复响是独立旧缺陷修复，不混称等价。
 - 绘制 → 一次姿态预处理 + UV权重 → 唯一顶点计算；旧deform入口仅委托同核。
+- P9：Stage capture/setup → ShotLatch自身快照/恢复/永久打开账本 → 原平台restore_motion；App terminal重入 → Director.prepare_terminal_stage_reentry；App普通/Pressure两处场地恢复 → 对应Encounter → Arena。七字段、调用顺序及两类断桥规则分开保持。
+- a671独立缺陷：Underworld node_added → 节点/world WeakRef延迟入口 → 存活/原world身份/当前归属校验 → 原typed install_item。同步安装和活节点延迟表现不变，已失效任务被安全丢弃。
 
 ## 实际验证与失败保留
 
@@ -25,7 +33,7 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 
 历史v11定义漂移另已由原内容基线重现280/2，独立修复afca59ec把原定义版本从生成器传至实际实体，不修改当前/v15资源。源端静态独审限定接受；原生和实际PCK验证仍待执行。Shop两个购买命令也已迁移到现有receipt重放函数（7be23e5a），原验证/扣款/信号顺序不变。
 
-## 尚未完成
+## 当时尚未完成（后续P8/P9与工具链进度见新增记录）
 
 - 整合后的原core/生成消费者/森林保存与实体/道具/Boss/音频回归正在排队，完整181/GUI/实际导出待最终源冻结。
 - P8.1已冻结旧style25/creative28有限原源（精确4bb7aa96）；当前live绑定仍失配，必须在全部调用者迁移后一次升技术style26/creative29，不重签旧SHA、不换图声。
@@ -78,3 +86,20 @@ P2原core/generated-consumers/forest-campaign通过；P4九项原道具family通
 ## 2026-10-31 OWNERSHIP-02 有限实现收口
 
 7生产/4测试冻结，原schema与调用顺序独审通过。actual optimized editor预检11调用及Bell8套全过；core5686、Session54、Latch26、Windkeeper175、Pressure六组0失败。扩大region第3套旧cohesion19/5失败，精确ed95同引擎也19/5，原测试与源未改；因此独立CI-BOSS-CONSUMERS-01测试迁移，P9卡expanded criterion明确failed而非完整通过。原scope/spec/候选SHA及所有成功/失败证据在ownership-closeout-02，整个full182未验。
+
+
+## 2026-10-31 已提交工具链、P9及独立生命周期修复
+
+P9七生产/四测试已提交 `4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a`。Scope此前为2e1c，不能再将其叫作仅候选；11原生预检与Bell8真实结果见上文，扩大cohesion19/5及同源ed95对照仍是失败。P9整体回退点为 `ed95d67d8c19988ab6af3b720aa07a17fd1f59cf`，包含随后范围文档应按批处理。
+
+工具链提交 `59537400af06a26046037840e28989f75933a265`：4.7.2官方源加精确117991+120976的Standard custom，10lane同source184/run41180438395构建；editor4成员、模板18成员、8个分发文件实际字节与重包一致，独审通过。f91 promoter的run41188433036已将固定tag184的Release429822541公开为prerelease；八URL实际HTTP200/SHA通过。当前lock精确84522f…，主树原安装实际通过，原26 downloader/build/identity及91 Harness单元通过。身份、模板与缓存消费者已迁，原预算保留。回退基点 `4e91a0dd1d6c02e6a7466368e91665d2a6a7a71a`；回退仓库配置不等同删除已公开工具链Release，也不覆盖保留的官方控制安装。原A/B/401/415/元数据拒绝失败全部保留，源及证据见[已归档工具链结果](../../evidence/game_architecture_02/engine-toolchain-01/active-main/active-toolchain-main-integration-independent-review.json)。
+
+独立生命周期修复提交 `a6714757ed59aa698027669ed2f11d8f346d4a93` 仅UnderworldPresentation及原formal测试扩8项，回退点 `59537400af06a26046037840e28989f75933a265`。精确2ce诊断319条deferred参数错误说明原缺陷；首轮导入失败不当复现。修复后原formal96+8=104/0、cache444/0，11.549秒，原wrapper120秒及Harness150秒不变且严格退出通过。[报告](../../evidence/game_architecture_02/underworld-deferred-lifetime-01/native-01/report.json)运行时还有精确测试WIP向量，本提交只绑定生命周期两文件及其结果；不把共享quality测试迁移混称等价生产修复。
+
+## CI-BOSS-CONSUMERS-01 当前八测试迁移已提交
+
+原五文件迁移复用现有campaign helper，让当前Bell/Pressure走真实死亡、实体币和切图；Energy第六文件锁明确历史16HP测试资源与来源，原540断言/循环/预算保留，不修改当前40HP定义。Pressure第七文件分类保留完整D077旧合同为 `--legacy-d077-boss` 显式诊断，默认检查原共享背景/App/Camera/Run→Home；这是覆盖分类调整，不能把当前Bell8/Pressure6套称为旧D077算法等价。quality第八文件把正式map1身份显式核为Bell，六模式继续检查，phase_transition遵现有solid copper规则，intro/inactive负例保留并加dead负例。
+
+八个最终测试及两份测试依赖已提交49a298b4。先前quality1044/1及317条deferred错误保留：前者属于当前Boss身份失配，后者已独立由a671处理。region actual03全部current15已通过（224.151秒），原五个共享wrapper另有分次有限通过；full182仍未执行。技术binding仍待最终收口，不将历史D077延期、未跑legacy27或旧失败改签为通过。
+
+剩余执行仍是当前源完整182、最终入口有限交互（Foundry不能只等ready、Graybox RESET与旧Boss8/AudioLabs/named roots不能拿启动代替交互）、Foundry原重建/录制/导出basis、实际Web/PCK和Windows/Android游戏导出运行、GUI/设备与公开网页提交核对。新统一地图库、新算法和旧算法整体替换未实施。所有回退按后续依赖逆序操作；上述基点是版本边界，不授权覆盖当前未提交工作。

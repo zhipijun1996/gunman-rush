@@ -29,3 +29,5 @@
 八脚本与两test-only fixture仍是595374基点上的WIP；当前HEAD a6714757只独立提交Underworld生命周期修复。实际当前十文件SHA与各阶段原生前已有冻结收据相同；[源码比较收据](../../evidence/game_architecture_02/ci-boss-consumers-01/wrappers/actual-03/post-run-source-comparison.json)明确为运行后核对，不是伪造新的run前snapshot。第8quality1046/0及其独审沿各自真实来源；旧actual01/02、19/5、2919/2、29/2、Energy540/1与shared1044/1、317错误全部保留。
 
 当前15有限技术通过，任务仍in_progress。全局formal、G4、full182、实际导出、GUI和设备未验；最终测试提交身份由root提交后绑定。
+
+提交归属补记：八测试与两test-only fixtures现已独立提交`49a298b40890ccf4d9d2326d051f12a0ffe63c27`，[十个Git blob逐字核对](../../evidence/game_architecture_02/ci-boss-consumers-01/commit-binding/ci-boss-consumers-01-commit-binding.json)均与原WIP冻结SHA一致。前文WIP是运行时事实，未追改原run字段。[最终八源核对](../../evidence/game_architecture_02/ci-boss-consumers-01/commit-binding/current-boss-eight-native-final-binding.json)由部分候选作者完成，仅核应用/运行证据；独立实施批准仍来自structure、ci和items原收据。current15有限通过，不签full182、旧D077、27legacy、全局formal或导出/设备。

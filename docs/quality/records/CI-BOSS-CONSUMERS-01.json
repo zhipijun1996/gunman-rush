@@ -1279,7 +1279,7 @@
     {
       "id": "current-scope",
       "path": "docs/worklines/game_architecture_01/ci_boss_consumers_01.md",
-      "sha256": "7ae8e8ee337495857f319884ee379661bc16a29e7e37a13199d2a74a2c58b095",
+      "sha256": "3201cd14d28c350205efb07427426bbccc35cd1c8c7e8a9d4e5d4cc72107726a",
       "kind": "spec",
       "producer": "/root",
       "source_commit": "59537400af06a26046037840e28989f75933a265",
@@ -2155,6 +2155,28 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Independent non-author read-only source/test exact-transform and root-run native review; CI card applies only its separate quality test patch."
+    },
+    {
+      "id": "final-commit-source-binding",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/commit-binding/ci-boss-consumers-01-commit-binding.json",
+      "sha256": "d80c2d47ec07c8c5bca6d397b591f7fd830307370753ae301f06c8894f3dce84",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "Exact original bytes archived; appended source binding does not rewrite original WIP run identities.",
+      "observed": "Limited post-commit identity evidence; original source/run records preserved."
+    },
+    {
+      "id": "eight-native-author-posthoc-binding",
+      "path": "docs/evidence/game_architecture_02/ci-boss-consumers-01/commit-binding/current-boss-eight-native-final-binding.json",
+      "sha256": "0ad12fc08210a40d3fe29afe035f3b64927119b92f30215a7474c52107d80b14",
+      "kind": "runtime_trace",
+      "producer": "preview_audit",
+      "source_commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "content_version": "eight-consumers-current15-native-passed",
+      "method": "Exact original bytes archived; appended source binding does not rewrite original WIP run identities.",
+      "observed": "Partial author application/native post-hoc binding, NOT independent implementation approval. Independent approvals remain attributed to structure/ci/items; original wrapper has no invented source snapshot."
     }
   ],
   "consumer_coverage": null,
@@ -2163,7 +2185,7 @@
     "current15是分类后15槽位；Pressure仅current App/Home/Camera/Underworld及renderer两函数444，旧D077需--legacy-d077-boss且不属于legacy27。",
     "27条旧standalone itineraries本次未运行，ledger逐项保留。",
     "五共享消费者均有原预算实际pass，前四在独立Underworld修复前运行，不能称同一最终源整套覆盖。",
-    "595374为WIP候选基点，a671只提交独立生命周期修复；八测试最终提交尚待。",
+    "595374为WIP候选基点，a671只提交独立生命周期修复；八测试现已49a298独立提交，逐Gitblob同字节；原WIP字段保留。",
     "本次只有post-run实际源对既有冻结收据的比较，不编造actual03 run前snapshot；原ledger/rawlog身份保持。"
   ],
   "candidate_source": {
@@ -2223,5 +2245,11 @@
       }
     ],
     "limitation": "Earlier4 runs preceded independent Underworld production fix; only final quality run binds that fix. Original1044/1 and317 errors remain archived."
+  },
+  "committed_source": {
+    "commit": "49a298b40890ccf4d9d2326d051f12a0ffe63c27",
+    "evidence": "final-commit-source-binding",
+    "same_bytes_as_candidate": true,
+    "historical_source_fields_preserved": true
   }
 }

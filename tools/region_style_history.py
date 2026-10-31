@@ -39,3 +39,13 @@ def style25_source(root, path):
     if raw is None:
         raw = archived_source(root, STYLE25_SCENE_ARCHIVE, path, STYLE25_SCENE_MANIFEST_SHA)
     return repository_file(path, root).read_bytes() if raw is None else raw
+
+
+STYLE26_ARCHIVE = 'docs/creative_direction/archive/ownership-closeout-before-style27'
+STYLE26_MANIFEST_SHA = '28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229'
+
+
+def style26_source(root, path):
+    """Seven prior26 leaves only; never used by current binding validators."""
+    raw = archived_source(root, STYLE26_ARCHIVE, path, STYLE26_MANIFEST_SHA)
+    return repository_file(path, root).read_bytes() if raw is None else raw

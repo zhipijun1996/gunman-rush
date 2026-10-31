@@ -11,3 +11,5 @@
 归档author candidate.json包含另一个Bell phase_transition测试候选的元数据，原件不篡改；该测试及其独立patch明确属于CI-BOSS-CONSUMERS-01，不在本任务源码向量或通过范围。最终源码提交归属与独立诊断probe重跑未在此声明；原formal/cache有限通过不等于全量验收；full182、实际导出、GUI/设备及用户验收未签。
 
 实现依赖为GAME-ARCH-CI-01；CI-BOSS-CONSUMERS-01只是发现该原缺陷的检查路径，并非代码依赖。[最终独审原件](../../evidence/game_architecture_02/underworld-deferred-lifetime-01/review/underworld-deferred-lifecycle-independent-review.json)分别接受两个patch，本卡只采用生命周期两文件及104/cache444部分。全局formal、G4、full182、实际导出和GUI/设备仍未验。
+
+提交及同probe补记：两文件已独立提交`a6714757ed59aa698027669ed2f11d8f346d4a93`，[Git blob核对](../../evidence/game_architecture_02/underworld-deferred-lifetime-01/commit-binding/underworld-deferred-lifetime-01-commit-binding.json)与原候选SHA相同。原`71a613…`探针在该生产源加测试WIP下再次执行，5.615秒、exit0、ERROR0，见[修复后原件](../../evidence/game_architecture_02/underworld-deferred-lifetime-01/after-probe/report.json)；精确2ce同probe原319 ERROR保留。此为同字节诊断前后支持，不是原fullsuite，也不追改旧运行的WIP来源或签全量。

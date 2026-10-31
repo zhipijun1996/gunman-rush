@@ -1,0 +1,827 @@
+{
+  "task_id": "CI-BOSS-CONSUMERS-01",
+  "status": "LIMITED_ACCEPT_EIGHT_SOURCE_AND_ACTUAL_NATIVE_BINDING",
+  "created_at_utc": "2026-10-31T10:14:39.485729+00:00",
+  "reviewer_role": "preview_audit is author of part of these test changes; this is source/application/native evidence binding, NOT independent implementation approval. Independent approval is attributed below to structure_audit, ci_audit and items_refactor.",
+  "actions": {
+    "main_writes": false,
+    "godot_executed": false,
+    "existing_results_read_only": true
+  },
+  "source": {
+    "observed_head": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+    "base_commit": "59537400af06a26046037840e28989f75933a265",
+    "state": "HEAD includes separate Underworld two-file lifecycle fix; eight test scripts and two test-only fixture files remain WIP at observation",
+    "current_sha256": {
+      "tests/plains_cohesion_lifecycle_runner.gd": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+      "tests/plains_campaign_fixture.gd": "29851d5d095684967950c8d1a644d02b5ee474337af5b6b7392cf0f510934068",
+      "tests/plains_campaign_map_runner.gd": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+      "tests/plains_exploration_expansion_runner.gd": "c5d02e618d4b157869b177d44eec5257c483db27546896a9d4281b82b75bbcb9",
+      "tests/plains_region_boss_runner.gd": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+      "tests/plains_experience_energy_runner.gd": "3ab37180eda7904ee70263daf84e64918edb28c30a014aa3a58d429fde4cb64b",
+      "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.tres": "1b39183b5c189975e515f90a24bbbf82b8065827a31bcfce193d7fbf4ddf5ed2",
+      "tests/fixtures/demo_ui_01_r3/bellstrider_health_d079.provenance.json": "457d0d4bde437926683c30df270047668be398706939d01c49eddf76235a75e7",
+      "tests/plains_pressure_boss_runner.gd": "8c0c40c2471824e82a67a792dd0bd6040bd061d5b2712ac543beb91197f7f8c8",
+      "tests/quality_review_runner.gd": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f"
+    },
+    "independent_candidate_vector_matches": true,
+    "prior_native_freeze_vector_matches": true,
+    "committed_non_docs_delta_since_base": [
+      "game/presentation/world/underworld_plains/underworld_presentation.gd",
+      "tests/underworld_plains/test_underworld_formal.gd"
+    ],
+    "committed_lifecycle_matches_pre_region_native_freeze": true
+  },
+  "binding_method": {
+    "region_wrapper_contains_native_source_freeze": false,
+    "kind": "POST_HOC_COMPOSITE_BINDING_NOT_INVENTED_WRAPPER_FREEZE",
+    "prior_reports": [
+      {
+        "path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/report.json",
+        "sha256": "8e15a529d9035c2f0bc8059c794474703ccf9fed00065c7fad98de1347c98239"
+      },
+      {
+        "path": "/workspace/refactor-evidence/current-boss-energy-native-01/report.json",
+        "sha256": "100de97aabef99ae1608b3736fd5d8a9930281f705dcd8affb3ad87b2bb917ec"
+      },
+      {
+        "path": "/workspace/refactor-evidence/pressure-ci-classification-native-01/report.json",
+        "sha256": "6b362aee4392f6063871015a81b8e4ddd9565b3ca10429771229d5d4a25e4fe0"
+      }
+    ],
+    "prior_reports_record_source_unchanged": true,
+    "chronology_basis": "Root execution history states these exact native freezes preceded region actual03 and no GD edits occurred during region; only commit/docs actions. Current vector independently matches all three pre-existing receipts and reviewed candidates. Git shows only the already-frozen Underworld two-file code delta since595.",
+    "epistemic_limit": "The original region ledger does not itself hash sources or continuously observe file writes; this receipt does not retroactively add such a field. Earlier shared runs are distinct production epochs, not a same-final-tree rerun."
+  },
+  "independent_reviews": [
+    {
+      "path": "/workspace/refactor-evidence/current-boss-consumers-independent-review.json",
+      "sha256": "84e2cf4b0dc5e23acaa0d4cb30328a3e353790bf0ac5b7fd662f9f81613cd659"
+    },
+    {
+      "path": "/workspace/refactor-evidence/current-boss-expansion-v3-independent-review.json",
+      "sha256": "9763a2d5723d07af2e1be2e6c4e9d424f93787b747cbb5b59a595ea1a5768e7b"
+    },
+    {
+      "path": "/workspace/refactor-evidence/current-boss-region-v4-independent-review.json",
+      "sha256": "1ffe91f6f6ad1224baee8a5831a77a5b9f5356906a56a30502d8dc45fce63e10"
+    },
+    {
+      "path": "/workspace/refactor-evidence/current-boss-energy-fixture-independent-review.json",
+      "sha256": "3d853ac87a2f2ec8aabc20411a26b5db445b335e3171d53c96872eb54dbb0286"
+    },
+    {
+      "path": "/workspace/refactor-evidence/current-boss-energy-fixture-ci-independent-review.json",
+      "sha256": "298c026427a8846609fea7dbd4be89344e1b29d1fa14b4a2ce9a3194317a5e50"
+    },
+    {
+      "path": "/workspace/refactor-evidence/pressure-ci-classification-structure-independent-review.json",
+      "sha256": "112978128b690273cca7ed8ce16e02a21fc9f247e508baf5253e06e06f38f6e0"
+    },
+    {
+      "path": "/workspace/refactor-evidence/underworld-deferred-lifecycle-independent-review.json",
+      "sha256": "9aa1f783dba234dd06ca62d6a758628a1520c2f2d10e5d49295671e3b41fcbd5"
+    }
+  ],
+  "region_current15": {
+    "ledger": {
+      "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/ledger.json",
+      "sha256": "a76f1efdf28bbbeeb2af2bac2797f294b1733efa9f70c4cb55afa74aeda71072"
+    },
+    "full_log": {
+      "path": "/workspace/refactor-evidence/current-boss-region-actual-03.log",
+      "sha256": "b02a0fdfc3e917b3d4c644ff3f5fff7f56b9d55bdf14885704fec2fe91639c51"
+    },
+    "status": "passed",
+    "elapsed_seconds": 224.151,
+    "total_timeout_seconds": 1500,
+    "registered_slots": 15,
+    "runs_including_import": [
+      {
+        "id": "import",
+        "command": [
+          "--headless",
+          "--path",
+          ".",
+          "--editor",
+          "--quit"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 6.767,
+        "log": "import.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/import.log",
+          "sha256": "95cf262c872ff0f27020da281a1c840ce5b2d72fa8b243c1dc96cfad20f55c6b"
+        },
+        "strict_error_lines": [],
+        "completion_lines": []
+      },
+      {
+        "id": "plains_cohesion_drops_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_cohesion_drops_runner.gd"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 6.951,
+        "log": "plains_cohesion_drops_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_cohesion_drops_runner.log",
+          "sha256": "510b715820a8ea0fe9697df472fe1f1a3ad3fb70bbaff17436ee8a06abd671df"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS COHESION DROPS: 30 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_cohesion_lifecycle_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_cohesion_lifecycle_runner.gd"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 9.103,
+        "log": "plains_cohesion_lifecycle_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_cohesion_lifecycle_runner.log",
+          "sha256": "ea717d3185376ac2d904687853805d822e61d73268d2032772f252fc544c5aa6"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS COHESION LIFECYCLE: 28 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_cohesion_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_cohesion_runner.gd"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 3.011,
+        "log": "plains_cohesion_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_cohesion_runner.log",
+          "sha256": "585dc58cd61c75c51d5ee0e903a9685de2550972dcfd061a225cc8167edfc34f"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS COHESION: 63 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_interactive_platforms_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_interactive_platforms_runner.gd"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 5.069,
+        "log": "plains_interactive_platforms_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_interactive_platforms_runner.log",
+          "sha256": "d7af02b5f52d6fd6b523078bd455550a72b5819377ed7c253f6b0fa2431ebc9d"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS INTERACTIVE PLATFORMS: 109 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_interactive_lifecycle_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_interactive_lifecycle_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 6.578,
+        "log": "plains_interactive_lifecycle_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_interactive_lifecycle_runner.log",
+          "sha256": "ddfd4247dcaa7f2b23549345c7d5c3dfc0896597122a20d2b69ee065c5e1ffc2"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS INTERACTIVE LIFECYCLE: 26 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_platform_boss_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_platform_boss_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 1.995,
+        "log": "plains_platform_boss_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_platform_boss_runner.log",
+          "sha256": "ccaeb3cda52d4841f8485cae3b9fcd436e6b8cf2ef5e296f5fdc15000089bbeb"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS PLATFORM BOSS: 18 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_exploration_pressure_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_exploration_pressure_runner.gd"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 4.68,
+        "log": "plains_exploration_pressure_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_exploration_pressure_runner.log",
+          "sha256": "23f2fd0f256a9fc6b7ae91a28815faac49babbdb7185cdc1f9719af48457e154"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS EXPLORATION PRESSURE: 6 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_exploration_module_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_exploration_module_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 8.134,
+        "log": "plains_exploration_module_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_exploration_module_runner.log",
+          "sha256": "cd248b39b02072d6a701e3f73be06f5fafd6194a29e9e602b2d133f3749cbf44"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS EXPLORATION MODULES: 195 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_exploration_expansion_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_exploration_expansion_runner.gd"
+        ],
+        "timeout_seconds": 150,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 37.961,
+        "log": "plains_exploration_expansion_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_exploration_expansion_runner.log",
+          "sha256": "c10b6a5e6136b3ed044c3debc1df7babd96daf896137172847e037ea736dbcba"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS EXPLORATION EXPANSION: 2959 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_experience_energy_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_experience_energy_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 9.941,
+        "log": "plains_experience_energy_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_experience_energy_runner.log",
+          "sha256": "1086541cee7df3ecf130368a63b42ff6e1c2fe04d0ad8bff7d5f36bd6eaf1b2e"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS EXPERIENCE ENERGY: 540 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_pressure_boss_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_pressure_boss_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 6.194,
+        "log": "plains_pressure_boss_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_pressure_boss_runner.log",
+          "sha256": "5405224a745ded75029d78fe5f865e3a04484faf9a6cb56cec4ee0511d6a1cc8"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS PRESSURE SCOPE: current_app_background_lifecycle=default; legacy_d077=deferred",
+          "PLAINS PRESSURE BOSS: 444 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_campaign_map_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_campaign_map_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 22.357,
+        "log": "plains_campaign_map_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_campaign_map_runner.log",
+          "sha256": "e29f200a67b35331529e9a808244c6f5083cfde626be25186796f4cf6e269996"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "PLAINS CAMPAIGN MAP: 3721 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "fixture/baseline",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_region_runner.gd",
+          "--",
+          "--fixture=baseline"
+        ],
+        "timeout_seconds": 120,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 75.042,
+        "log": "fixture__baseline.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/fixture__baseline.log",
+          "sha256": "7600e71fd16ca2e94be8fe6adde2ef00602fdd88097bb3d11da2ff4ff34f1b47"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "REGION ASSERTIONS: 1274 FAILED: 0",
+          "REGION FIXTURE: baseline ASSERTIONS: 1274 FAILED: 0"
+        ]
+      },
+      {
+        "id": "plains_region_lifecycle_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_region_lifecycle_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 7.33,
+        "log": "plains_region_lifecycle_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_region_lifecycle_runner.log",
+          "sha256": "19ea1d18b8f8fd27786f60b2e0e9e2cd2cda45febc237d68cc122cbd0af50bbf"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "REGION LIFECYCLE: 39 assertions, 0 failures"
+        ]
+      },
+      {
+        "id": "plains_region_boss_runner",
+        "command": [
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_region_boss_runner.gd"
+        ],
+        "timeout_seconds": 90,
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 13.026,
+        "log": "plains_region_boss_runner.log",
+        "log_evidence": {
+          "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-03/plains_region_boss_runner.log",
+          "sha256": "f3a978656263c24e6a4e483f8453461f90723a2f3f539240fda5b04ffb944a94"
+        },
+        "strict_error_lines": [],
+        "completion_lines": [
+          "REGION BOSS: 31 assertions, 0 failures"
+        ]
+      }
+    ],
+    "requested_fixture_ids": [
+      "baseline"
+    ],
+    "not_run_legacy_routes": [
+      "sample/tour",
+      "sample/tutorial_return",
+      "intro-fallback/tour",
+      "intro-fallback/adventure",
+      "advanced-fallback/tour",
+      "advanced-fallback/adventure",
+      "intro/woven_layers/fast",
+      "intro/woven_layers/tour",
+      "intro/woven_layers/adventure",
+      "advanced/woven_layers/fast",
+      "advanced/woven_layers/growth",
+      "advanced/woven_layers/tour",
+      "advanced/woven_layers/adventure",
+      "intro/linked_rings/fast",
+      "intro/linked_rings/tour",
+      "intro/linked_rings/adventure",
+      "advanced/linked_rings/fast",
+      "advanced/linked_rings/growth",
+      "advanced/linked_rings/tour",
+      "advanced/linked_rings/adventure",
+      "intro/crossroads/fast",
+      "intro/crossroads/tour",
+      "intro/crossroads/adventure",
+      "advanced/crossroads/fast",
+      "advanced/crossroads/growth",
+      "advanced/crossroads/tour",
+      "advanced/crossroads/adventure"
+    ],
+    "interpretation": "All current default15 slots completed; Pressure slot has explicitly narrower classified scope, not original mixed-suite equivalence."
+  },
+  "shared_helper_consumers": {
+    "status": "FIVE_WRAPPERS_HAVE_ACTUAL_PASS_ACROSS_RUNS",
+    "runs": [
+      {
+        "id": "root-bell-current",
+        "command": [
+          "python3",
+          "tools/run_root_bell_formal.py",
+          "--current-g1"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^ROOT BELL CURRENT G1 VERIFIED: maps=40 eligible=1 failures=0 admission_refusals=11$",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 42.937,
+        "log_sha256": "ebf9e1a6205ae6f6d1eba0b9e74d3faa732c4fc7c36ff8c45e5370d4c8fb5929",
+        "completion_found": true,
+        "strict_errors": false,
+        "report": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/report.json",
+          "sha256": "00a9b6b648a5250b52c8b8eee2f118dab4769c38a16097067541b436a85d2e52"
+        },
+        "log": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/root-bell-current.log",
+          "sha256": "ebf9e1a6205ae6f6d1eba0b9e74d3faa732c4fc7c36ff8c45e5370d4c8fb5929"
+        },
+        "production_epoch": "before separate Underworld lifecycle fix",
+        "post_run_frozen_vector_check_recorded": false,
+        "receipt_limit": "actual01 aborted on later quality failure before final vector check; its first two per-case successes remain recorded"
+      },
+      {
+        "id": "wood-platforms",
+        "command": [
+          "python3",
+          "tools/run_wood_platform_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^PASS: wood platform consumers",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 15.82,
+        "log_sha256": "2bd3f9ee657fc3287dda70eb308d79af6c3e772cb7353a6428bbb9558cb62da3",
+        "completion_found": true,
+        "strict_errors": false,
+        "report": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/report.json",
+          "sha256": "00a9b6b648a5250b52c8b8eee2f118dab4769c38a16097067541b436a85d2e52"
+        },
+        "log": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/wood-platforms.log",
+          "sha256": "2bd3f9ee657fc3287dda70eb308d79af6c3e772cb7353a6428bbb9558cb62da3"
+        },
+        "production_epoch": "before separate Underworld lifecycle fix",
+        "post_run_frozen_vector_check_recorded": false,
+        "receipt_limit": "actual01 aborted on later quality failure before final vector check; its first two per-case successes remain recorded"
+      },
+      {
+        "id": "root-bell-spaces",
+        "command": [
+          "python3",
+          "tools/run_root_bell_spaces.py"
+        ],
+        "timeout_seconds": 360,
+        "success_pattern": "^ROOT BELL SPACES VERIFIED:",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 50.208,
+        "log_sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1",
+        "completion_found": true,
+        "strict_errors": false,
+        "report": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-02/report.json",
+          "sha256": "7c2731619cb34112d8ceb5ac91ad6075b9bc87b78de64205875d42829f940ff0"
+        },
+        "log": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-02/root-bell-spaces.log",
+          "sha256": "0b139da82250c9dfb5c20353f5d782d97d88e2e9e8585241d8ce45d0bd5403d1"
+        },
+        "production_epoch": "before separate Underworld lifecycle fix",
+        "post_run_frozen_vector_check_recorded": true,
+        "receipt_limit": null
+      },
+      {
+        "id": "terrain-production",
+        "command": [
+          "python3",
+          "tools/run_terrain_production_tests.py"
+        ],
+        "timeout_seconds": 300,
+        "success_pattern": "^PASS: terrain production regression",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 15.306,
+        "log_sha256": "6adb45bdce7a9252feafc00f2bc52b6a9979e233f42d3bedeefa3905560d7de0",
+        "completion_found": true,
+        "strict_errors": false,
+        "report": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-02/report.json",
+          "sha256": "7c2731619cb34112d8ceb5ac91ad6075b9bc87b78de64205875d42829f940ff0"
+        },
+        "log": {
+          "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-02/terrain-production.log",
+          "sha256": "6adb45bdce7a9252feafc00f2bc52b6a9979e233f42d3bedeefa3905560d7de0"
+        },
+        "production_epoch": "before separate Underworld lifecycle fix",
+        "post_run_frozen_vector_check_recorded": true,
+        "receipt_limit": null
+      },
+      {
+        "id": "quality-review-engine",
+        "command": [
+          "python3",
+          "tools/run_quality_review_tests.py"
+        ],
+        "timeout_seconds": 240,
+        "success_pattern": "^PASS: quality review engine regression",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 14.714,
+        "log_sha256": "0808b0f7a02f97e731efa4cfb934c66378c42fbef01f0584786196fe9e662209",
+        "completion_found": true,
+        "strict_errors": false,
+        "report": {
+          "path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/report.json",
+          "sha256": "8e15a529d9035c2f0bc8059c794474703ccf9fed00065c7fad98de1347c98239"
+        },
+        "log": {
+          "path": "/workspace/refactor-evidence/underworld-lifecycle-quality-native-01/quality-review-engine.log",
+          "sha256": "0808b0f7a02f97e731efa4cfb934c66378c42fbef01f0584786196fe9e662209"
+        },
+        "production_epoch": "after Underworld WIP lifecycle fix",
+        "post_run_frozen_vector_check_recorded": true,
+        "receipt_limit": null
+      }
+    ],
+    "seven_original_second_map_consumers_retained": true,
+    "total_unique_helper_consumers": 8,
+    "earlier_four_not_rerun_after_underworld_fix": true,
+    "root_bell_current_outer_timeout_seconds": 360,
+    "root_bell_current_original_native_timeout_seconds": 120,
+    "actual_current_call_sites": [
+      {
+        "path": "tests/plains_campaign_map_runner.gd",
+        "sha256": "df2dc2326c4cb49488b65cf91eb110bdd7ee4aa235890f67088edc32bd869fe8",
+        "calls": [
+          {
+            "line": 149,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app,self),\"mini victory confirmation enters second random whole map\")"
+          }
+        ]
+      },
+      {
+        "path": "tests/plains_cohesion_lifecycle_runner.gd",
+        "sha256": "57abf9f95db726ca5d7ffef4a34ec46b6173b855e5bd3895415e704a63f30923",
+        "calls": [
+          {
+            "line": 52,
+            "text": "var ready:bool=await load(\"res://tests/plains_campaign_fixture.gd\").wait_bell_reward(app,self,false)"
+          },
+          {
+            "line": 74,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").wait_bell_reward(app,self),\"current mini death reaches its bounded Definition duration through actual physics\")"
+          },
+          {
+            "line": 79,
+            "text": "check(load(\"res://tests/plains_campaign_fixture.gd\").collect_boss_coins(app,BellstriderRewards.source_id(stage),definition.reward_coin_total),\"original App admits every physical coin once and rejects each repeated receipt\")"
+          }
+        ]
+      },
+      {
+        "path": "tests/plains_region_boss_runner.gd",
+        "sha256": "2f30bd2b4d185feab122f75e8b6780cb721fc656dd014422620dc04611e37da6",
+        "calls": [
+          {
+            "line": 26,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app,self),\"actual mini Boss gate advances to second map\")"
+          },
+          {
+            "line": 62,
+            "text": "var physical_reward_ready: bool = await load(\"res://tests/plains_campaign_fixture.gd\").wait_pressure_reward(app,self)"
+          },
+          {
+            "line": 65,
+            "text": "check(physical_reward_ready and load(\"res://tests/plains_campaign_fixture.gd\").collect_boss_coins(app,WindkeeperPressureRewards.SOURCE,coin_total),\"actual App claims every physical major-Boss coin with duplicate-receipt rejection\")"
+          }
+        ]
+      },
+      {
+        "path": "tests/quality_review_runner.gd",
+        "sha256": "58b9a88db62ccbe92cc3aeedcc1d92fcb553f31d76c55f82e4697edd9a8dc77f",
+        "calls": [
+          {
+            "line": 259,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app,self),\"existing outcome fixture advances study to actual second region\")"
+          }
+        ]
+      },
+      {
+        "path": "tests/root_bell_formal_tests.gd",
+        "sha256": "93be3e297f6365060fe0ccc4a9fa71d0663c4298557fb1ee3dbc963ce446bad6",
+        "calls": [
+          {
+            "line": 204,
+            "text": "var transitioned: bool = item_added and await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app, tree)"
+          }
+        ]
+      },
+      {
+        "path": "tests/root_bell_spaces_runner.gd",
+        "sha256": "ed2f87c87268c549be92d6598b7c9a0db8dc0472b4e190f9996da025bb8007c3",
+        "calls": [
+          {
+            "line": 206,
+            "text": "var transitioned: bool=await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app,self)"
+          }
+        ]
+      },
+      {
+        "path": "tests/terrain_production_runner.gd",
+        "sha256": "8cc76416610e8849bbe07703188b4302f8018e154404213337f958846c7896da",
+        "calls": [
+          {
+            "line": 46,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app, self), \"formal second map lifecycle fixture\")"
+          }
+        ]
+      },
+      {
+        "path": "tests/wood_platform_runner.gd",
+        "sha256": "7bf35b9f4b3c2fcb3dfbf7d55b0863151bf07097d00754cdc765612d83440dc5",
+        "calls": [
+          {
+            "line": 197,
+            "text": "check(await load(\"res://tests/plains_campaign_fixture.gd\").second_map(app, self), \"second formal map lifecycle fixture\")"
+          }
+        ]
+      }
+    ]
+  },
+  "classification": {
+    "pressure": "default444/0 covers retained real App/Camera/two-and-three-plane fixture/Underworld return/Home release. Legacy D077 combat and its single-panorama assertion remain explicit --legacy-d077-boss deferred, not passed.",
+    "legacy_profile": "region-with-legacy-fixtures covers 27 old routes plus baseline, does not pass --legacy-d077-boss and does not include that deferred combat combination.",
+    "energy": "540/0 preserves original assertions and loop/frame budgets using existing generic Windkeeper armour host plus frozen exact D07916HP test Health, not current Bell combat equivalence.",
+    "five_migrations": "Current Bell finite articulated defeat and physical coins replace obsolete MiniFX/singleloot assumptions; two fixed bottom origins strongly assert actual armour rejection/zero HP loss, six upper origins retain exact one damage; Pressure natural intro prerequisite preserves original damage transaction, phase3 check and3frames.",
+    "quality_eighth": "1046/0, original six modes retained; concrete current Bell solid-copper transition expectation, extra dead negative, original neck inactive check. Underworld production lifetime fix is separately reviewed/committed, not hidden as test-only migration."
+  },
+  "original_wrapper_sha256": {
+    "tools/run_plains_region_tests.py": "75affbbf3ef4a6314ee86e146eef5640f359ae51f0eac3b02676b329dd8e88d5",
+    "tools/run_root_bell_formal.py": "082aae36bd73af429bc186732f094c8c5263db381bb741835de7e39488c8c82d",
+    "tools/run_wood_platform_tests.py": "9762fbae7a98feb093de0e3943019fb3fcaa0c6f145d4d1d176d506f96d4d3a0",
+    "tools/run_root_bell_spaces.py": "67695da0014a9d7851be2b4a55483705bf1cb8fdf0479c940a40a7987beeb5dc",
+    "tools/run_terrain_production_tests.py": "bec2e1c92ad7f9eb7efc09ad387a3bae4f8ac0b74576445f7b30c6337838624e",
+    "tools/run_quality_review_tests.py": "79c045f0357c2db78222f553420716d488b5f3b8a56e915d5b725973908ab7ce"
+  },
+  "preserved_failed_evidence": [
+    {
+      "path": "/workspace/refactor-evidence/ownership-02-cohesion-baseline-02/report.json",
+      "sha256": "897086a057e73e31c3b14d2d75099a0ed426b4ee726a19e906501ea3512364f3"
+    },
+    {
+      "path": "/workspace/refactor-evidence/ci-boss-consumers-native-01/expansion.log",
+      "sha256": "dd4e36d9af60303dfa850f0f8c4dc76651186dcedc60271b2e97242d5b846ee8"
+    },
+    {
+      "path": "/workspace/refactor-evidence/ci-boss-consumers-native-02/region-boss.log",
+      "sha256": "2de51d4ef99820c6b18a4af1c030aeb71dfcf59eb11d840b548e94e915f3834a"
+    },
+    {
+      "path": "/workspace/refactor-evidence/legacy-boss-fixture-baseline-01/report.json",
+      "sha256": "e7427c7f2988c79b894e9b2a751e07427e1a35dac42b44c92e2c185d1a1b1177"
+    },
+    {
+      "path": "/workspace/refactor-evidence/current-boss-shared-consumers-actual-01/quality-review-engine.log",
+      "sha256": "1c30c741cad9a139d8fd0d33927b8dfdcdf471885fc590fd19812fdfcf5c1aff"
+    },
+    {
+      "path": "/workspace/gunman-rush-refactor/build/verification/current-boss-region-actual-02/ledger.json",
+      "sha256": "548a782d3748f649efe484b1f7ffb014a4a7870f87cadd4c901933afad63967d"
+    }
+  ],
+  "limits": [
+    "No full182 execution or pass claimed.",
+    "No legacy27 traversal or explicit D077 execution accepted in current15 result.",
+    "No export/PCK/GUI/device/player acceptance claimed.",
+    "No old assertions-equivalence claim for the five current-content migrations or Pressure classification.",
+    "All raw old failures and independent receipts retain their original status; this new binding does not rewrite them."
+  ],
+  "evidence_binding_checks_passed": true,
+  "binding_script": {
+    "path": "/workspace/refactor-evidence/bind-current-boss-eight.py",
+    "sha256": "856aa8cceeefe9eb390c58ddfff51c9749d5b6df8f1d4f07d2c35459064fd9f9"
+  }
+}

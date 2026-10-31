@@ -557,7 +557,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v29')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v30')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -869,21 +869,45 @@ class CreativeTests(unittest.TestCase):
 
 class FeatureLayoutDirectionTests(unittest.TestCase):
     def test_current29_preserves_selected_content_and_refuses_frozen28_as_current(self):
+        from test_region_bible import frozen26_root
+        frozen_root = frozen26_root(self)
         for region in ('windchime_plains','thorn_forest'):
             old,old_binding=frozen28_direction(region)
-            current,binding=creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            current,binding=creative.load_direction('docs/creative_direction/'+region+'.json',region,root=frozen_root)
             self.assertEqual((current['version'],binding['version']),('creative-v29','creative-v29'))
             for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
                 self.assertEqual(current[key],old[key],key)
             self.assertEqual(current['authority_sources'][:-1],old['authority_sources'])
-            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry()['shared_style_authority'])
-            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['authority_sources'][-1],creative.load_bible_registry(frozen_root)['shared_style_authority'])
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region,frozen_root)[1])
             self.assertEqual(current['user_acceptance'],'direction_only_not_art_gameplay_or_device')
             self.assertIn('FAILED',current['revision_impact']['known_failure'])
             with self.assertRaisesRegex(ValueError,'binding changed'):
-                creative.validate_bible_binding(old['region_bible'])
+                creative.validate_bible_binding(old['region_bible'],root=frozen_root)
             with self.assertRaisesRegex(ValueError,'binding changed'):
                 creative.load_direction(history.STYLE25_ARCHIVE+'/docs/creative_direction/'+region+'.json',region)
+
+
+class OwnershipDirectionTests(unittest.TestCase):
+    def test_current30_keeps_selected_content_and_refuses_frozen29_as_current(self):
+        from test_region_bible import frozen26_root
+        frozen_root = frozen26_root(self)
+        for region in ('windchime_plains', 'thorn_forest'):
+            path = 'docs/creative_direction/'+region+'.json'
+            old, _ = creative.load_direction(path, region, root=frozen_root)
+            current, binding = creative.load_direction(path, region)
+            self.assertEqual((old['version'], current['version'], binding['version']),
+                             ('creative-v29', 'creative-v30', 'creative-v30'))
+            for key in old.keys()-{'version', 'region_bible', 'authority_sources', 'revision_impact'}:
+                self.assertEqual(current[key], old[key], key)
+            self.assertEqual(current['authority_sources'][:-1], old['authority_sources'])
+            self.assertEqual(current['authority_sources'][-1], creative.load_bible_registry()['shared_style_authority'])
+            self.assertEqual(current['region_bible'], creative.bind_region_bible(region)[1])
+            self.assertEqual(current['user_acceptance'], 'direction_only_not_art_gameplay_or_device')
+            with self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.validate_bible_binding(old['region_bible'])
+            with self.assertRaisesRegex(ValueError, 'binding changed'):
+                creative.load_direction(history.STYLE26_ARCHIVE+'/'+path, region)
 
 if __name__ == '__main__':
     unittest.main()

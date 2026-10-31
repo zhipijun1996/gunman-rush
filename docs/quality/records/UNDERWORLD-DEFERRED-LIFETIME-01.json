@@ -490,6 +490,39 @@
       "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "items_refactor非候选作者，只读源码、精确变换及root原生日志；未运行engine或改作者文件。"
+    },
+    {
+      "id": "final-commit-source-binding",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/commit-binding/underworld-deferred-lifetime-01-commit-binding.json",
+      "sha256": "e07e096ab3c1616a2475a238a6286a26a3123ab7e75ba3601f848b88e283f24f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "Exact original bytes archived; appended source binding does not rewrite original WIP run identities.",
+      "observed": "Limited post-commit identity evidence; original source/run records preserved."
+    },
+    {
+      "id": "same-probe-after-report-json",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/after-probe/report.json",
+      "sha256": "eb4571bce3bc6a4206e3e98f5cf219364f44566b175da5765d4236146698fc8b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "Exact original bytes archived; appended source binding does not rewrite original WIP run identities.",
+      "observed": "Same exact71a613 probe as original2ce; a671 production plus test WIP,5.615s/error0. Diagnostic before/after only, not original full suite."
+    },
+    {
+      "id": "same-probe-after-run-log",
+      "path": "docs/evidence/game_architecture_02/underworld-deferred-lifetime-01/after-probe/run.log",
+      "sha256": "66821b3918e38b8d8944715ddce1177d5b3a0851a6140790884a436290cd70ba",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "content_version": "candidate-v1-native104-cache444",
+      "method": "Exact original bytes archived; appended source binding does not rewrite original WIP run identities.",
+      "observed": "Same exact71a613 probe as original2ce; a671 production plus test WIP,5.615s/error0. Diagnostic before/after only, not original full suite."
     }
   ],
   "consumer_coverage": null,
@@ -497,7 +530,7 @@
     "实现依赖GAME-ARCH-CI-01；CI-BOSS仅为发现路径，两patch分开提交与记录。",
     "两文件原formal104/cache444及独审有限通过；全局formal/G4/full182/实际导出/GUI/设备未验。",
     "原main2ce319错误与旧shared317错误/1044失败保留原件；候选通过不追改其来源。",
-    "最终commit归属后补同字节绑定，不伪称当前HEAD已包含WIP。"
+    "两文件a671提交同字节已单独绑定；历史run的595374 WIP来源保持。"
   ],
   "candidate_source": {
     "base_commit": "59537400af06a26046037840e28989f75933a265",
@@ -523,5 +556,27 @@
     ]
   },
   "implementation_dependency": "GAME-ARCH-CI-01",
-  "discovered_by": "CI-BOSS-CONSUMERS-01 shared quality wrapper failure; discovery relationship only, no dependency on its test migration code"
+  "discovered_by": "CI-BOSS-CONSUMERS-01 shared quality wrapper failure; discovery relationship only, no dependency on its test migration code",
+  "committed_source": {
+    "commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+    "evidence": "final-commit-source-binding",
+    "same_bytes_as_candidate": true,
+    "historical_source_fields_preserved": true
+  },
+  "diagnostic_before_after": {
+    "probe_sha256": "71a613adedaf1247d993e4094decae91c3a9a15600b05d608cbb72e93cda27de",
+    "before": {
+      "source_commit": "2ce4ffa64ef65dd5fba892776eea019c9e2841d4",
+      "runtime_errors": 319,
+      "evidence": "baseline-02-report-json"
+    },
+    "after": {
+      "source_commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+      "test_dependencies_wip": true,
+      "runtime_errors": 0,
+      "seconds": 5.6149557329990785,
+      "evidence": "same-probe-after-report-json"
+    },
+    "scope": "Same-byte new diagnostic App/TerrainStudy probe; independent support for fixed lifecycle, not an original full-suite pass."
+  }
 }

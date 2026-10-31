@@ -753,6 +753,6 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | GAME-ARCH-ENGINE-01 | 固定上游Godot回补构建、八文件推广与严格工具链安装整合 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/GAME-ARCH-ENGINE-01.json)；build184/public84522与安装、原26+91限定通过；完整游戏/平台/设备未验 |
 
-| CI-BOSS-CONSUMERS-01 | 当前Boss测试消费者与历史fixture边界迁移 | GAME-ARCH-OWNERSHIP-02 | in_progress | [质量记录](quality/records/CI-BOSS-CONSUMERS-01.json)；八测试+两fixture WIP，current15原wrapper224.151秒通过；共享五消费者分次通过，旧失败/27legacy未验保留，全量未验 |
+| CI-BOSS-CONSUMERS-01 | 当前Boss测试消费者与历史fixture边界迁移 | GAME-ARCH-OWNERSHIP-02 | in_progress | [质量记录](quality/records/CI-BOSS-CONSUMERS-01.json)；八测试+两fixture已49a298提交，current15原wrapper224.151秒通过；共享五消费者分次通过，旧失败/27legacy未验保留，全量未验 |
 
-| UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件原formal104/0与cache444/0有限通过，独审限定接受；全量未验 |
+| UNDERWORLD-DEFERRED-LIFETIME-01 | Underworld延迟节点释放与world归属缺陷修复 | GAME-ARCH-CI-01 | in_progress | [质量记录](quality/records/UNDERWORLD-DEFERRED-LIFETIME-01.json)；原main2ce319 ERROR保留；两文件a671已提交，formal104/cache444及同probe错误0有限通过；全量未验 |

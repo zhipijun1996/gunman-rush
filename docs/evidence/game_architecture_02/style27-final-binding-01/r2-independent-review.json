@@ -1,0 +1,141 @@
+{
+  "reviewer": "structure_audit",
+  "verdict": "LIMITED_STATIC_AND_TARGETED_PYTHON_ACCEPT_R2_FULL_FOUR_CHECKS_PENDING",
+  "scope": "Final10-file R2 delta relative to preserved R1 plus commit-source/live-input closure correction; no production semantic/native/art/device/full182 acceptance.",
+  "candidate_patch_sha256": "dfef6bf5765baf6cc1e28ccdf4b72705433de52c070104542a100254560a9076",
+  "candidate_freeze_sha256": "c343ccbce3e5bdcd0243d0088f46107cfd47cadf3a6ac4ed8e1af8cc321c902a",
+  "write_set_sha256": "08fac688e682a0c892f2438dced293648ff56de4e0396095e0d91147b2eec82a",
+  "files": [
+    {
+      "path": "docs/creative_direction/archive/ownership-closeout-before-style27/manifest.json",
+      "r1_sha256": "3fb419cb79a4e01992af4b2ea8e939589c7f26cf0030190768eb7f6b485aab72",
+      "r2_sha256": "28d6de8b60ae9ab0a254a46cf9c30effa68775b1d481921402271135a8007229",
+      "bytes": 5652
+    },
+    {
+      "path": "docs/creative_direction/archive/ownership-closeout-before-style27/sources/game/presentation/world/underworld_plains/underworld_presentation.gd.txt",
+      "r1_sha256": null,
+      "r2_sha256": "6fa84ff020975b70fbfca423dba783cca9517b786a6e789810296b8845256a77",
+      "bytes": 8649
+    },
+    {
+      "path": "docs/creative_direction/bibles/registry.json",
+      "r1_sha256": "1bcc8d395b8f5052a6c70932a5c4dadc29b977217b23c080678651ba700b5ef5",
+      "r2_sha256": "b752da79e0cd969b31a67674b1dd39e356871eee1bf4f3a6f827475c2d9a0ab2",
+      "bytes": 2958
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261031-v27-ownership-closeout.json",
+      "r1_sha256": "2da2b2a8d7fd132294fc752aa192fb6bc5fe17066e7e04a959227446940f8742",
+      "r2_sha256": "eb288efca0543a2708c756b055f35177fbed8ce538d97cb88779919692328d64",
+      "bytes": 56628
+    },
+    {
+      "path": "docs/creative_direction/thorn_forest.json",
+      "r1_sha256": "79bb3f9df5b4b434b9894102f086e6890cf8154f25d988143b2e0c9e387d3e76",
+      "r2_sha256": "738350970fafcf5fc04dcd4150967627385966171376b54dc81d55d823e1371f",
+      "bytes": 18703
+    },
+    {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "r1_sha256": "73178df27f88ee1de1030122b35faffd74f6b5dff34f6509337c8b8eb1be1de7",
+      "r2_sha256": "6eb10a96738b4a211604a127690f968215df6aabc1658b2546017fa4e4d01492",
+      "bytes": 18399
+    },
+    {
+      "path": "docs/worklines/game_architecture_01/style27_binding.md",
+      "r1_sha256": "aea1764398b48d71d935eeb4159395fc1994e6238948449a9ab591589e35e762",
+      "r2_sha256": "c1c6f5259ee66bab82240eedfac51f09955828a985eb6ea52df73f42e869ed15",
+      "bytes": 5267
+    },
+    {
+      "path": "tests/test_region_bible.py",
+      "r1_sha256": "f235a3f3b1682ec8b85786879bd5f84eb95c09e07ecc209eda9399e2797908d3",
+      "r2_sha256": "e250441176985cf4a5d04f0f24a68b30f8e9c7fd5c3cc641419cf4825f5ad722",
+      "bytes": 209663
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "r1_sha256": "678411030b392075ad8fd95a6f7cc5b29692f092c1b836318f614e926c7159e6",
+      "r2_sha256": "07792c86ac9610b9fef13dcb9ae9f8c9dde3dd3638c9f0eccdd9d501d3e681f5",
+      "bytes": 309304
+    },
+    {
+      "path": "tools/region_style_history.py",
+      "r1_sha256": "d856ab69f7ae054e71e14edc30255994dffa6f08284bbe4cfab71e01dfe27167",
+      "r2_sha256": "e8de43543961eb78afb35b4a8892ac4aeec5afd32af687ae725586cf0216c2fa",
+      "bytes": 2473
+    }
+  ],
+  "reused_independent_evidence": [
+    "style27-lifecycle-r2-independent-precheck.json",
+    "style27-lifecycle-r2-independent-binder.json",
+    "style27-lifecycle-49a298b4-independent-source-proof.json"
+  ],
+  "final_verified": {
+    "old_null_candidate_exact_patch_and_freeze_retained": true,
+    "three_actual_source_leaves_match49aGitblobs_and_frozen_SHA": true,
+    "P9_original4e91_and11vector_unchanged": true,
+    "206roles_order_and51media_and_original6changes_unchanged": true,
+    "original12archive_leaves_unchanged_plus_exact6fUnderworld_7sources13files": true,
+    "original_method_guards_and_approved_migration_tables_unchanged": true,
+    "only_new_followup_method_changed_since_previous_R2": true,
+    "new_followup_method_actual_real_files_positive": true,
+    "new_followup_method_six_actual_file_negative_cases": [
+      {
+        "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+        "mode": "missing",
+        "rejected": true
+      },
+      {
+        "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+        "mode": "tamper",
+        "rejected": true
+      },
+      {
+        "path": "tests/underworld_plains/test_underworld_formal.gd",
+        "mode": "missing",
+        "rejected": true
+      },
+      {
+        "path": "tests/underworld_plains/test_underworld_formal.gd",
+        "mode": "tamper",
+        "rejected": true
+      },
+      {
+        "path": "tests/quality_review_runner.gd",
+        "mode": "missing",
+        "rejected": true
+      },
+      {
+        "path": "tests/quality_review_runner.gd",
+        "mode": "tamper",
+        "rejected": true
+      }
+    ],
+    "region_bible_tests_original656_prefix_order_duplicates_exact": true,
+    "only_two_needed_input_leaves_appended_to658": [
+      "tests/underworld_plains/test_underworld_formal.gd",
+      "tests/quality_review_runner.gd"
+    ],
+    "both_new_leaf_digest_mutations_change_digest": true,
+    "all_other_profiles_check_parameters_182_and95_87_unchanged": true,
+    "both_final_direction_bindings_recomputed_by_real_validator": true
+  },
+  "author_targeted_evidence": {
+    "actual_methods": 8,
+    "failures": 0,
+    "errors": 0,
+    "log_sha256": "a2e994499c7716947fa73692c79697013eb35427901d8bf8b01bffa8c2bfb7aa",
+    "attribution": "Author full8 method execution; reviewer independently executed exact new followup method positive and six negatives plus real two-region binder, not the other original methods or full suites."
+  },
+  "test_change_justification": "Existing R1 tests retain all original bodies except declared counts6→7 and12→13/docstring. Added followup test explicitly distinguishes committed49a lifecycle bytes from original4e91 P9, hashes all three live files, and retains exact expected vector/role. Necessary two new file reads are append-only inputs with independently demonstrated digest invalidation. No original assertion/whole-method guard, failure evidence, marker, timeout or full check removed.",
+  "limits": [
+    "Original R1 four-check results do not certify R2; root must run original four checks after applying these exact bytes under original budgets.",
+    "The independent native104/cache444/quality1046 evidence belongs to separate lifecycle quality card, not metadata acceptance; this reviewer did not rerun engine.",
+    "Final metadata commit needs samebytes binding of these10 candidate files; source49a proof already verifies the three lifecycle files.",
+    "No new art/audio/media, visual/user/device acceptance, GUI, export/PCK, full182 or deployment claim."
+  ],
+  "main_modified_by_reviewer": false,
+  "engine_invoked_by_reviewer": false
+}

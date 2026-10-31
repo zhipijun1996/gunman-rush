@@ -1,0 +1,25 @@
+{
+  "type": "POST_COMMIT_EXACT_GIT_BLOB_OWNERSHIP_BINDING",
+  "task_id": "UNDERWORLD-DEFERRED-LIFETIME-01",
+  "commit": "a6714757ed59aa698027669ed2f11d8f346d4a93",
+  "parents": [
+    "59537400af06a26046037840e28989f75933a265"
+  ],
+  "historical_reviewed_base": "59537400af06a26046037840e28989f75933a265",
+  "binding_count": 2,
+  "bindings": [
+    {
+      "path": "game/presentation/world/underworld_plains/underworld_presentation.gd",
+      "earlier_candidate_sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+      "commit_git_blob_sha256": "1bffefa46079b50dc5bbbab82616dea41efd233110237f305a8b7096954e5c18",
+      "current_file_same_bytes": true
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_formal.gd",
+      "earlier_candidate_sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+      "commit_git_blob_sha256": "8f2d501c60e3c6f41ed844a6f13e05f4d3bf3302a9bca03fa639e77f6dd6a57a",
+      "current_file_same_bytes": true
+    }
+  ],
+  "limit": "New ownership proof only. Original run/WIP/review fields remain unchanged; no new native run, pre-run snapshot or full-suite acceptance inferred."
+}
