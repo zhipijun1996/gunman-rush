@@ -1,3 +1,11 @@
+# WINDKEEPER-PRESSURE-01 · 牧风者主动追压
+
+用户2026-10-30授权60HP/六招/三阶段冻结招组、两枪反击与原声完整片。状态review，分支feature/windkeeper-pressure-01，基于main840108da；[制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [质量记录](quality/records/WINDKEEPER-PRESSURE-01.json) · [PR124](https://github.com/zhipijun1996/gunman-rush/pull/124)。原生1637/0，完整主片88.867秒已通过技术覆盖，原R3两图完整消费者通过；另有第三枪玩家死亡对照片。工坊私密第8版已发布，媒体完整HTTP200/SHA与Range206已核；等待用户实片意见和设备/完整CI，不自动合main。
+
+| 任务 | 目标 | 依赖 | 状态 | 证据 |
+| --- | --- | --- | --- | --- |
+| WINDKEEPER-PRESSURE-01 | 60HP牧风者六招三阶段主动追压与连续原声审核 | — | review | [制作卡](worklines/windkeeper_pressure_01/spec.md) · [实际证据](evidence/windkeeper_pressure_01/README.md) · [记录](quality/records/WINDKEEPER-PRESSURE-01.json) |
+
 # 开发任务
 
 ## 2026-10-30 AUDIO-MERGE-120-121 · 受伤A与联合合入

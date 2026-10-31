@@ -224,13 +224,20 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(full["checks"][165:166], structure_additions)
         motion_loot_additions = ["plains-motion-loot-02"]
         audio_additions = ["audio-feedback"]
-        expected_additions = additions + structure_additions + motion_loot_additions + audio_additions
+        pressure_additions = ["windkeeper-pressure-01"]
+        expected_additions = additions + structure_additions + motion_loot_additions + audio_additions + pressure_additions
         self.assertEqual(self.manifest["profiles"]["full"][144:], expected_additions)
         self.assertEqual(full["checks"][144:], expected_additions)
         self.assertEqual(self.manifest["profiles"]["full"][166:167], motion_loot_additions)
         self.assertEqual(full["checks"][166:167], motion_loot_additions)
-        self.assertEqual(self.manifest["profiles"]["full"][167:], audio_additions)
-        self.assertEqual(full["checks"][167:], audio_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][167:168], audio_additions)
+        self.assertEqual(full["checks"][167:168], audio_additions)
+        self.assertEqual(self.manifest["profiles"]["full"][168:], pressure_additions)
+        self.assertEqual(full["checks"][168:], pressure_additions)
+        pressure = self.manifest["checks"]["windkeeper-pressure-01"]
+        self.assertEqual(pressure["argv"], ["python3", "tools/run_windkeeper_pressure_01_tests.py"])
+        self.assertEqual(pressure["timeout_seconds"], 300)
+        self.assertTrue(pressure["serial"])
         audio = self.manifest["checks"]["audio-feedback"]
         self.assertEqual(audio["argv"], ["python3", "tools/run_audio_feedback_tests.py"])
         self.assertEqual(audio["timeout_seconds"], 240)
@@ -238,7 +245,7 @@ class ProductionPlanTests(unittest.TestCase):
         added_parallel = ["item-v5-data", "item-authoring-tools"] + motion_loot_additions
         self.assertEqual([name for name in parallel if name not in original], added_parallel)
         self.assertEqual([name for name in serial if name not in original], [name for name in expected_additions if name not in added_parallel])
-        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (168,92,76))
+        self.assertEqual((len(full["checks"]),len(parallel),len(serial)), (169,92,77))
         for name in full["checks"]:
             self.assertEqual(name in serial, bool(self.manifest["checks"][name].get("serial",False)))
         for paths, stage in [(["docs/handoff.md"], "integration"), (["tools/web/boot.js"], "integration"), (["scripts/demo/demo_app.gd"], "development")]:

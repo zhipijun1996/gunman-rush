@@ -6,7 +6,7 @@ const RECORDS := {
 	&"clockwork_guardian":["res://scenes/bosses/clockwork_guardian.tscn","res://resources/bosses/clockwork_guardian.tres"],
 	&"bellstrider":["res://scenes/bosses/bellstrider.tscn","res://resources/bosses/bellstrider.tres"],
 	&"windkeeper":["res://scenes/bosses/windkeeper.tscn","res://resources/bosses/windkeeper.tres"],
-	&"windkeeper_storm":["res://scenes/bosses/windkeeper.tscn","res://resources/bosses/windkeeper_storm.tres"],
+	&"windkeeper_storm":["res://scenes/bosses/windkeeper_pressure.tscn","res://resources/bosses/windkeeper_storm.tres"],
 	&"thorn_guardian":["res://scenes/bosses/thorn_guardian.tscn","res://resources/bosses/thorn_guardian.tres"],
 	&"thorn_queen":["res://scenes/bosses/thorn_queen.tscn","res://resources/bosses/thorn_queen.tres"],
 	&"rootbell_guardian_v2":["res://scenes/bosses/rootbell_guardian_v2.tscn","res://resources/bosses/rootbell_guardian_v2.tres"],
@@ -29,11 +29,14 @@ static func create(identity: StringName) -> BossMotor:
 static func create_recorded(scene_path: String, definition_path: String) -> BossMotor:
 	# Empty definition means the exact scene default. A custom lab Definition
 	# can still be assigned by its existing owner after factory creation.
+	# Existing recorded Lab pairs retain their identity while loading current formal behavior.
+	if scene_path == "res://scenes/bosses/windkeeper.tscn" and definition_path == "res://resources/bosses/windkeeper_storm.tres":
+		return create(&"windkeeper_storm")
 	for identity: StringName in RECORDS:
 		var record: Array = RECORDS[identity]
 		if record[0] != scene_path: continue
 		if definition_path.is_empty():
-			if identity == &"windkeeper_storm": continue
+			if identity == &"windkeeper_storm" and scene_path == "res://scenes/bosses/windkeeper.tscn": continue
 			return create(identity)
 		if record[1] == definition_path: return create(identity)
 	return null

@@ -1,0 +1,105 @@
+{
+  "task": "WINDKEEPER-PRESSURE-01",
+  "status": "recorded_complete_coverage",
+  "source": {
+    "working_files": {},
+    "commit": "b684b76e71143df6fdbcdf70307cc2b4e8f124d7",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "scope": "One uncut exact formal map2 encounter through existing public DemoApp.start_debug_region plains2. Debug entry is disclosed, not natural campaign progression. One initial precombat player position; thereafter only normal Router/mouse inputs. No encounter, HP, resource, RNG, clock or camera injection.",
+  "pilot": "active_assault",
+  "input_profile": "active_assault: guarded repeated legal attack-preparation shots at actual cooldown, real platform run-jump and at-most-two recovery shots; separate from cautious2 safety proof",
+  "execution": {
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1793387902.2370775,
+    "ended_at_unix": 1793388203.4910524,
+    "duration_seconds": 301.254,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--write-movie",
+      "/workspace/gunman-rush/build/windkeeper_pressure_01/movie-assault-01/capture.avi",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "tools/windkeeper_pressure_01_capture.gd",
+      "--",
+      "--trace=/workspace/gunman-rush/build/windkeeper_pressure_01/movie-assault-01/trace.json",
+      "--seed=windkeeper-pressure-01",
+      "--pilot=active_assault",
+      "--max-battle-seconds=240.0"
+    ],
+    "check_token": "8c89ba358c6a453b82f50556bf6738eb"
+  },
+  "source_stable": true,
+  "mp4_sha256": "e8b89682f632e7ddad4ab47ca9394bae3494830baa3f14f280642caeadde96dc",
+  "avi_sha256": "16babc4a8115ad92072138044024af8489293fac1af7a94a399a34c5de60f86b",
+  "trace_frame_count": 5318,
+  "errors": [],
+  "seconds": 361.7995038900117,
+  "media": {
+    "path": "media/windkeeper-60hp-complete.mp4",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "seconds": 88.86666666666666,
+    "original_engine_pcm_sha256": "a51489f7afd33ad844abc4ba9ab350557f321bfde756adb7588c93bf36f3fcaf",
+    "original_engine_audio_peak": 0.394134521484375,
+    "listening_acceptance": false
+  },
+  "actual_combat": {
+    "all_six_attacks_observed": true,
+    "all_three_phases_observed": true,
+    "final_metrics": {
+      "accepted_damage": 60.0,
+      "accepted_hits": 60,
+      "airborne": false,
+      "attack_index": 1,
+      "camp_age": 0.116666666666667,
+      "death_age": 1.9,
+      "effective_hits": 60,
+      "fight_seconds": 84.5833333333298,
+      "group_plan": {},
+      "groups_completed": 16,
+      "groups_started": 17,
+      "hop_target_rect": [
+        5990.0,
+        588.0,
+        180.0,
+        20.0
+      ],
+      "locked_direction": 1,
+      "locked_hop_target": [
+        6080.0,
+        523.0
+      ],
+      "locked_target": [
+        6299.97216796875,
+        569.925231933594
+      ],
+      "state_age": 1.9,
+      "state_duration": 1.9,
+      "support_rect": [
+        5990.0,
+        588.0,
+        180.0,
+        20.0
+      ],
+      "support_verified": true,
+      "supports_bound": true,
+      "sweep_high": true
+    },
+    "player_hp_final": 3.0,
+    "wallet_delta": 20
+  }
+}

@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import shutil
 from pathlib import Path
 import sys
 import tempfile
@@ -11,6 +12,49 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import region_creative_direction as creative
 import level_design
 import production_loop
+
+
+
+WINDKEEPER24_ARCHIVE = 'docs/creative_direction/archive/windkeeper-pressure-before-style24/'
+WINDKEEPER24_STYLE = 'docs/creative_direction/bibles/style-continuity-20261030-v24-windkeeper-pressure.json'
+WINDKEEPER22_APP_SHA = 'f8e974d9ee22e0c36e33a638d2943213711fa01fbc61c2cf84ba2a0487903c8a'
+WINDKEEPER22_STYLE_SHA = '4749a82126bbd84a1a826b2d1fb6406a1267050bd2624f5ed05911b238889188'
+
+
+def windkeeper22_source(path):
+    # Only the genuinely changed registered leaf is replaced by exact old
+    # bytes. No arbitrary file-based fallback may hide another changed input.
+    if path == 'scripts/demo/demo_app.gd':
+        content = (creative.ROOT/(WINDKEEPER24_ARCHIVE+'sources/'+path+'.txt')).read_bytes()
+        if hashlib.sha256(content).hexdigest() != WINDKEEPER22_APP_SHA:
+            raise AssertionError('Frozen pre-pressure App source changed')
+        return content
+    return (creative.ROOT/path).read_bytes()
+
+def frozen25_direction(region):
+    archived = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+region+'.json')).read_bytes())
+    registry = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())
+    style = json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'style22.json')).read_bytes())
+    with tempfile.TemporaryDirectory() as folder:
+        fixture = Path(folder)
+        selected = next(row['current_bible'] for row in registry['regions'] if row['region_id']==region)
+        originals = {'docs/world_regions.json',creative.BIBLE_REGISTRY,registry['shared_style_authority']['path'],
+                     selected['path'],selected['selection_evidence']['path'],
+                     *[row['path'] for row in style['runtime_reference']['references']],
+                     *[row['path'] for row in archived['authority_sources']]}
+        for path in originals:
+            if path==creative.BIBLE_REGISTRY:
+                content = (creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes()
+            elif path=='scripts/demo/demo_app.gd':
+                content = windkeeper22_source(path)
+            else:
+                content = (creative.ROOT/path).read_bytes()
+            target = fixture/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
+        direction = 'docs/creative_direction/'+region+'.json'
+        target = fixture/direction;target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes((creative.ROOT/(WINDKEEPER24_ARCHIVE+region+'.json')).read_bytes())
+        data, _ = creative.load_direction(direction,region,root=fixture)
+        return data,creative.bind_region_bible(region,fixture)[1]
 
 
 class CreativeTests(unittest.TestCase):
@@ -455,7 +499,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v25')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v27')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
@@ -644,7 +688,8 @@ class CreativeTests(unittest.TestCase):
     def test_merged25_preserves_both_parent24_directions_and_authority_union(self):
         base = creative.ROOT/'docs/creative_direction/archive/merge-20261030-style21'
         for region in ('windchime_plains','thorn_forest'):
-            current, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            # Preserve the old25 merge contract via its complete real frozen loader.
+            current, binding = frozen25_direction(region)
             self.assertEqual(current['version'],'creative-v25')
             parents = []
             for parent in ('program','audio'):
@@ -662,10 +707,45 @@ class CreativeTests(unittest.TestCase):
             authority = list(parents[0]['authority_sources'])
             for row in parents[1]['authority_sources']:
                 if row not in authority: authority.append(row)
-            authority.append(creative.load_bible_registry()['shared_style_authority'])
+            authority.append(json.loads((creative.ROOT/(WINDKEEPER24_ARCHIVE+'registry.json')).read_bytes())['shared_style_authority'])
             self.assertEqual(current['authority_sources'],authority)
-            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['region_bible'],binding)
             self.assertEqual(current['revision_impact']['task_id'],'PLAINS-MOTION-LOOT-02')
+
+    def test_windkeeper27_preserves_selected_content_and_complete_current_bindings(self):
+        current_style = creative.load_bible_registry()['shared_style_authority']
+        self.assertEqual(current_style['path'],WINDKEEPER24_STYLE)
+        for region in ('windchime_plains','thorn_forest'):
+            current, binding = creative.load_direction('docs/creative_direction/'+region+'.json',region)
+            old_path = WINDKEEPER24_ARCHIVE+region+'.json'
+            old_raw = (creative.ROOT/old_path).read_bytes()
+            old = json.loads(old_raw)
+            self.assertEqual(old['version'],'creative-v25')
+            self.assertEqual(current['version'],'creative-v27')
+            for key in old.keys()-{'version','region_bible','authority_sources','revision_impact'}:
+                self.assertEqual(current[key],old[key])
+            self.assertEqual(current['region_bible'],creative.bind_region_bible(region)[1])
+            self.assertEqual(current['region_bible']['supplemental_authority_path'],WINDKEEPER24_STYLE)
+            self.assertEqual(current['region_bible']['supplemental_authority_sha256'],current_style['sha256'])
+            self.assertEqual(current['authority_sources'][:len(old['authority_sources'])],old['authority_sources'])
+            expected = old['authority_sources']+[current_style]
+            if region=='windchime_plains':
+                request_path = 'docs/creative_direction/bibles/windkeeper-pressure-20261030.json'
+                request_raw = (creative.ROOT/request_path).read_bytes()
+                request = json.loads(request_raw)
+                self.assertEqual(request['task_id'],'WINDKEEPER-PRESSURE-01')
+                self.assertIn('not_art_gameplay_audio_or_device_acceptance',request['status'])
+                self.assertEqual(request['requirements']['health'],60)
+                self.assertEqual(request['requirements']['main_attacks_per_group_max'],3)
+                expected.append({'path':request_path,'sha256':hashlib.sha256(request_raw).hexdigest()})
+            self.assertEqual(current['authority_sources'],expected)
+            self.assertEqual(current['revision_impact']['task_id'],'WINDKEEPER-PRESSURE-01')
+            self.assertEqual(current['revision_impact']['previous_direction'],old_path)
+            self.assertEqual(current['revision_impact']['previous_sha256'],hashlib.sha256(old_raw).hexdigest())
+            self.assertEqual(current['revision_impact']['shared_style_sha256'],current_style['sha256'])
+            self.assertEqual(binding['version'],'creative-v27')
+            with self.assertRaisesRegex(ValueError,'binding changed'):
+                creative.load_direction(old_path,region)
 
 if __name__ == '__main__':
     unittest.main()

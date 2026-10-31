@@ -14,7 +14,10 @@ static func install(stage: Node2D) -> Dictionary:
 			child.set_pixel_style(true)
 			counts.pickup_layers += 1
 		for presentation: Node in child.get_children():
-			if presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
+			if presentation is WindkeeperPressurePresentation:
+				presentation.queue_redraw()
+				counts.bosses += 1
+			elif presentation is BellstriderPresentation or presentation is WindkeeperPresentation:
 				presentation.pixel_style = true
 				presentation.queue_redraw()
 				counts.bosses += 1

@@ -106,6 +106,8 @@ func _process(delta: float) -> void:
 		var state := "铃芯开放 %.1fs / SHOOT THE GLOWING BELL" % maxf(0, encounter.clock) if encounter.core_open else "护甲关闭 / 等待铃芯发光"
 		if continuous:
 			state = "登场预告 / PREPARE" if intro else "可持续攻击 / KEEP ATTACKING"
+			if encounter is WindkeeperPressureEncounter:
+				state = "整组收招 / COUNTER NOW" if encounter.mode == &"recover" else "连招未结束 / KEEP MOVING" if encounter.mode == &"link" else state
 		_objective.text = (_hit_hint if _hint_age > 0 else state) + "\n" + encounter.objective()
 		_objective.modulate = Color("ffe3a0") if continuous or encounter.core_open else Color("c1d4cb")
 	queue_redraw()

@@ -1,0 +1,43 @@
+{
+  "scope": "Actual owner-private live Site HTML, original movie Range206 payloads and extracted posters, no review/idea DB writes. Credentials passed by hidden stdin and never persisted. Browser/video GUI not exercised.",
+  "site_url": "https://gunman-monster-workshop.zhipijun1996.chatgpt.site",
+  "site_source_commit": "38b7437608c9020ff44ec3dc40b7f0749246b1d9",
+  "version": 8,
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 14690
+    },
+    {
+      "path": "/media/windkeeper-pressure-60hp-e8b89682f632",
+      "status": 206,
+      "content_type": "video/mp4",
+      "content_range": "bytes 65536-67583/84845572",
+      "bytes": 2048,
+      "sha256": "80746ae97517bb100583eb732d211606ccbe4e543a31a86a6aff75d70577b09b",
+      "matches_local_original": true
+    },
+    {
+      "path": "/posters/windkeeper-pressure-60hp.jpg",
+      "status": 200,
+      "bytes": 34231,
+      "sha256": "8c1f6ec4a2c3b59bdd1eb27435dafd49051445d8cfbc0a4f4be39dff16289997"
+    },
+    {
+      "path": "/media/windkeeper-pressure-third-8d947272e0e9",
+      "status": 206,
+      "content_type": "video/mp4",
+      "content_range": "bytes 65536-67583/66370811",
+      "bytes": 2048,
+      "sha256": "1dda1e88e0869418eeb334051eacf9fc3a061b16dc8580206756f8f4289ec613",
+      "matches_local_original": true
+    },
+    {
+      "path": "/posters/windkeeper-pressure-third.jpg",
+      "status": 200,
+      "bytes": 33641,
+      "sha256": "03a528915aa58515bb688a19df5a2ece23f3811070b65d44e6f093aeb9afe202"
+    }
+  ]
+}
