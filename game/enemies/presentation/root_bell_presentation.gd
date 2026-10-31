@@ -45,7 +45,9 @@ func _presentation_initialized() -> void:
 	_burst_tail = false
 	_previous_state = &"idle"
 	_transition_time = 1.0
-	if revision_visual != null: revision_visual.refresh(0.0)
+	if revision_visual != null:
+		revision_visual.particles.clear_for_epoch()
+		revision_visual.refresh(0.0)
 	queue_redraw()
 
 func synchronize_presentation() -> void:
