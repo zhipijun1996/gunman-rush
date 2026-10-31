@@ -629,6 +629,16 @@ CHEST_LIBRARY = 'game/presentation/effects/art/chest_art_library.gd'
 # Reviewed finite config/AtlasTexture/WHITE/source-foot implementation. New
 # loader forms require review, not a directory or substring-based admission.
 CHEST_LIBRARY_SHA256 = '6a2e52dd48d42f8ab6b398bb2198e09395a2fe03e09e3f05a0087f74d253436e'
+CHEST_RUNTIME = 'game/world/levels/level_runtime.gd'
+CHEST_RESTORE_CALL = '\tchests.append_array(LevelRuntime.restore_caches(level_plan.caches,region_state.claimed))\n'
+CHEST_RESTORE = """static func restore_caches(records: Array[Dictionary], claims: Dictionary) -> Array[Dictionary]:
+\tvar result: Array[Dictionary] = []
+\tfor row: Dictionary in records:
+\t\tvar chest := row.duplicate(true)
+\t\tchest.claimed=claims.has(chest.id)
+\t\tresult.append(chest)
+\treturn result
+"""
 CHEST_INITIALIZATION = '''\tfor c: Dictionary in generated.manifest.rewards:
 \t\tvar chest := c.duplicate(true)
 \t\tchest.id=PlainsRegionCampaign.prefix(map_index)+c.id
@@ -706,7 +716,7 @@ def chest_loop_matches(function, expected):
     return compact(''.join(block)) == compact(expected)
 
 
-def formal_chest_alpha_isolated(stage: str) -> bool:
+def formal_chest_alpha_isolated(stage: str, cache_source: str = "") -> bool:
     """Current finite two-call dispatcher: real tier/state/foot, no gray fade.
 
     The original opt-in alpha adapter is retained separately for immutable
@@ -717,9 +727,24 @@ def formal_chest_alpha_isolated(stage: str) -> bool:
         if len(re.findall(r'(?m)^func\s+' + function + r'\(', executable)) != 1:
             return False
     ready, capture = chest_function(stage, '_ready'), chest_function(stage, 'capture_state')
-    if not (chest_loop_matches(ready, CHEST_INITIALIZATION) and
-            chest_loop_matches(ready, CHEST_READY) and
-            chest_loop_matches(capture, CHEST_CAPTURE)):
+    initialization = CHEST_INITIALIZATION
+    if not chest_loop_matches(ready, CHEST_INITIALIZATION):
+        # The live Stage now consumes the shared plan restore. Match its actual
+        # executable call at the original ready-time location and the entire
+        # unique helper body, rather than accepting a name mentioned in text.
+        call = CHEST_RESTORE_CALL.rstrip()
+        ready_code = chest_executable(ready)
+        calls = list(re.finditer('(?m)^' + re.escape(call) + '$', ready_code))
+        if (len(calls) != 1 or len(re.findall(r'\brestore_caches\b', executable)) != 1
+                or re.search(r'["\']restore_caches["\']', gd_code(stage))
+                or re.search(r'\b(?:var|const|func|class)\s+LevelRuntime\b', executable)
+                or compact(chest_function(cache_source, 'restore_caches')) != compact(CHEST_RESTORE)):
+            return False
+        render = re.search('(?m)^' + re.escape(CHEST_READY.splitlines()[0]) + '$', ready_code)
+        if render is None or calls[0].end() >= render.start():
+            return False
+        initialization = CHEST_RESTORE_CALL
+    if not (chest_loop_matches(ready, CHEST_READY) and chest_loop_matches(capture, CHEST_CAPTURE)):
         return False
     # Reject extra calls, aliases, reflection literals and a valid block planted
     # in a nonexecuting string while a different actual call drives the chest.
@@ -731,14 +756,16 @@ def formal_chest_alpha_isolated(stage: str) -> bool:
         return False
     # The sole chest-state assignment mirrors the authoritative ledger at
     # construction. Presentation must not manufacture claim or position state.
-    remainder = gd_code(stage).replace(CHEST_INITIALIZATION.rstrip(), '', 1)
+    remainder = gd_code(stage).replace(initialization.rstrip(), '', 1)
     remainder = remainder.replace('if p.claimed: region_state.claimed[p.id] = true', '', 1)
     if re.search(r'\.\s*claimed\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=|\[\s*["\']claimed["\']\s*\]\s*=|region_state\s*\.\s*claimed\s*\[[^\n]*?\]\s*=', remainder):
+        return False
+    if re.search(r'\bchests\s*(?:\.\s*(?:append|append_array|assign|clear|erase|fill|insert|pop_at|pop_back|pop_front|push_back|push_front|remove_at|resize|reverse|shuffle|sort|sort_custom)\s*\(|=)', chest_executable(remainder)):
         return False
     return re.search(r'\b(?:c|chest)\s*\.\s*position\s*(?:[+\-*/])?=', remainder) is None
 
 
-def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str) -> bool:
+def current_chest_dispatch(objects: str, stage: str, library: str, opened_texture: str, cache_source: str = "") -> bool:
     """Actual formal four-argument path plus retained genuine three-arg recipe."""
     if hashlib.sha256(library.encode()).hexdigest() != CHEST_LIBRARY_SHA256:
         return False
@@ -754,7 +781,7 @@ def current_chest_dispatch(objects: str, stage: str, library: str, opened_textur
         declaration = re.search(r'(?m)^const\s+' + name + r'\s*:=\s*preload\("res://' + re.escape(path) + r'"\)\s*$', code)
         if declaration is None or not executable[declaration.start():declaration.end()].startswith('const ' + name):
             return False
-    return formal_chest_alpha_isolated(stage)
+    return formal_chest_alpha_isolated(stage, cache_source)
 
 
 def audit_objects(a: Audit, spec: dict):
@@ -780,8 +807,9 @@ def audit_objects(a: Audit, spec: dict):
     text=a.script('game/presentation/world/underworld_plains/underworld_objects.gd','objects.consumer')
     stage=a.script('game/world/levels/providers/plains_region_stage.gd','objects.stage')
     library=a.script(CHEST_LIBRARY,'objects.tier_library')
-    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture'))),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
-    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
+    cache_source=a.script(CHEST_RUNTIME,'objects.cache_restore')
+    a.check(current_chest_dispatch(text,stage,library,str(opened.get('texture')),cache_source),'objects.actual_dispatch','Actual tier and claimed state select config-backed AtlasTexture; original three-argument recipe remains intact, transaction stays gameplay-owned')
+    a.check(formal_chest_alpha_isolated(stage,cache_source),'objects.no_grey_claimed','Formal ready/capture both dispatch actual tier/state at the original foot; no alpha fade, manual claim or extra dispatcher')
 
 
 def audit_home(a: Audit, home: dict):
